@@ -1,7 +1,7 @@
-exports.ids = [202,40,123,139,140];
+exports.ids = [204,40,123,141,142];
 exports.modules = {
 
-/***/ 1433:
+/***/ 1452:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4632,7 +4632,7 @@ var VTextField = __webpack_require__(38);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(467);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PurchasingFormCRUD.vue?vue&type=template&id=06577fa2
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PurchasingFormCRUD.vue?vue&type=template&id=bd9e79d8
 
 
 
@@ -4652,7 +4652,7 @@ var VTextarea = __webpack_require__(467);
 
 
 
-var PurchasingFormCRUDvue_type_template_id_06577fa2_render = function render() {
+var PurchasingFormCRUDvue_type_template_id_bd9e79d8_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -4964,11 +4964,11 @@ var PurchasingFormCRUDvue_type_template_id_06577fa2_render = function render() {
       "label": "Notes"
     },
     model: {
-      value: _vm.transaction.remark,
+      value: _vm.transaction.notes,
       callback: function ($$v) {
-        _vm.$set(_vm.transaction, "remark", $$v);
+        _vm.$set(_vm.transaction, "notes", $$v);
       },
-      expression: "transaction.remark"
+      expression: "transaction.notes"
     }
   })], 1), _vm._v(" "), _vm.transaction.user ? _c(VCol["a" /* default */], {
     attrs: {
@@ -5175,7 +5175,7 @@ var PurchasingFormCRUDvue_type_template_id_06577fa2_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/PurchasingFormCRUD.vue?vue&type=template&id=06577fa2
+// CONCATENATED MODULE: ./components/PurchasingFormCRUD.vue?vue&type=template&id=bd9e79d8
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(463);
@@ -5686,6 +5686,7 @@ var CancelTicketForm = __webpack_require__(449);
       onlineCustomerId: null,
       isloading: false,
       transaction: {
+        notes: '',
         vendorId: null,
         status: 'PENDING',
         isActive: true,
@@ -5752,7 +5753,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_PurchasingFormCRUDvue_type_script_lang_js,
-  PurchasingFormCRUDvue_type_template_id_06577fa2_render,
+  PurchasingFormCRUDvue_type_template_id_bd9e79d8_render,
   staticRenderFns,
   false,
   injectStyles,

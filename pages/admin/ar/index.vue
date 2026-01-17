@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <div>
-            <v-dialog v-model="dialog" persistent width="1024">
+            <v-dialog v-model="dialog" persistent fullscreen>
                 <ar-receivable :is-edit="isEdit" :receive-header-id="selectedId" @close="triggerDialog" :key="arFormKey"
                     @close-dialog="dialog = false" @reload="loadTxn">
                 </ar-receivable>

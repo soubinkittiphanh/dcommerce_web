@@ -166,7 +166,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(683);
+var content = __webpack_require__(685);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -709,35 +709,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 672:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(673);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("ecf81fb6", content, true)
-
-/***/ }),
-
-/***/ 673:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-color-picker .v-color-picker__input input{border:thin solid rgba(0,0,0,.12);color:rgba(0,0,0,.87)}.theme--light.v-color-picker span{color:rgba(0,0,0,.6)}.theme--light.v-color-picker .v-color-picker__color,.theme--light.v-color-picker .v-color-picker__dot{background-color:hsla(0,0%,100%,0)}.theme--dark.v-color-picker .v-color-picker__input input{border:thin solid hsla(0,0%,100%,.12);color:#fff}.theme--dark.v-color-picker span{color:hsla(0,0%,100%,.7)}.theme--dark.v-color-picker .v-color-picker__color,.theme--dark.v-color-picker .v-color-picker__dot{background-color:hsla(0,0%,100%,.12)}.v-color-picker{align-self:flex-start;border-radius:4px;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);contain:content}.v-color-picker__controls{display:flex;flex-direction:column;padding:16px}.v-color-picker--flat,.v-color-picker--flat .v-color-picker__track:not(.v-input--is-disabled) .v-slider__thumb{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
 /***/ 674:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -748,7 +719,7 @@ var content = __webpack_require__(675);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("7f7b1d36", content, true)
+__webpack_require__(5).default("ecf81fb6", content, true)
 
 /***/ }),
 
@@ -759,7 +730,7 @@ __webpack_require__(5).default("7f7b1d36", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker__edit{display:flex;margin-top:24px}.v-color-picker__input{display:flex;flex-wrap:wrap;justify-content:center;text-align:center;width:100%}.v-application--is-ltr .v-color-picker__input:not(:last-child){margin-right:8px}.v-application--is-rtl .v-color-picker__input:not(:last-child){margin-left:8px}.v-color-picker__input input{border-radius:4px;height:28px;margin-bottom:8px;min-width:0;outline:none;text-align:center;width:100%}.v-color-picker__input span{font-size:.75rem}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-color-picker .v-color-picker__input input{border:thin solid rgba(0,0,0,.12);color:rgba(0,0,0,.87)}.theme--light.v-color-picker span{color:rgba(0,0,0,.6)}.theme--light.v-color-picker .v-color-picker__color,.theme--light.v-color-picker .v-color-picker__dot{background-color:hsla(0,0%,100%,0)}.theme--dark.v-color-picker .v-color-picker__input input{border:thin solid hsla(0,0%,100%,.12);color:#fff}.theme--dark.v-color-picker span{color:hsla(0,0%,100%,.7)}.theme--dark.v-color-picker .v-color-picker__color,.theme--dark.v-color-picker .v-color-picker__dot{background-color:hsla(0,0%,100%,.12)}.v-color-picker{align-self:flex-start;border-radius:4px;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);contain:content}.v-color-picker__controls{display:flex;flex-direction:column;padding:16px}.v-color-picker--flat,.v-color-picker--flat .v-color-picker__track:not(.v-input--is-disabled) .v-slider__thumb{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -777,7 +748,7 @@ var content = __webpack_require__(677);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("53c03565", content, true)
+__webpack_require__(5).default("7f7b1d36", content, true)
 
 /***/ }),
 
@@ -788,7 +759,7 @@ __webpack_require__(5).default("53c03565", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker__canvas{contain:strict;overflow:hidden;position:relative}.v-color-picker__canvas-dot{background:transparent;border-radius:50%;box-shadow:0 0 0 1.5px #fff,inset 0 0 1px 1.5px rgba(0,0,0,.3);height:15px;left:0;position:absolute;top:0;width:15px}.v-color-picker__canvas-dot--disabled{box-shadow:0 0 0 1.5px hsla(0,0%,100%,.7),inset 0 0 1px 1.5px rgba(0,0,0,.3)}.v-color-picker__canvas:hover .v-color-picker__canvas-dot{will-change:transform}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker__edit{display:flex;margin-top:24px}.v-color-picker__input{display:flex;flex-wrap:wrap;justify-content:center;text-align:center;width:100%}.v-application--is-ltr .v-color-picker__input:not(:last-child){margin-right:8px}.v-application--is-rtl .v-color-picker__input:not(:last-child){margin-left:8px}.v-color-picker__input input{border-radius:4px;height:28px;margin-bottom:8px;min-width:0;outline:none;text-align:center;width:100%}.v-color-picker__input span{font-size:.75rem}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -806,7 +777,7 @@ var content = __webpack_require__(679);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("032e6a4b", content, true)
+__webpack_require__(5).default("53c03565", content, true)
 
 /***/ }),
 
@@ -817,7 +788,7 @@ __webpack_require__(5).default("032e6a4b", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker .v-input__slider{border-radius:5px}.v-color-picker .v-input__slider .v-slider{margin:0}.v-color-picker__alpha:not(.v-input--is-disabled) .v-slider{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVQYlWNgYGCQwoKxgqGgcJA5h3yFAAs8BRWVSwooAAAAAElFTkSuQmCC) repeat;border-radius:5px}.v-color-picker__sliders{display:flex;flex:1 0 auto;flex-direction:column}.v-color-picker__dot{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVQYlWNgYGCQwoKxgqGgcJA5h3yFAAs8BRWVSwooAAAAAElFTkSuQmCC) repeat;border-radius:50%;height:30px;overflow:hidden;position:relative;width:30px}.v-application--is-ltr .v-color-picker__dot{margin-right:24px}.v-application--is-rtl .v-color-picker__dot{margin-left:24px}.v-color-picker__dot>div{height:100%;width:100%}.v-application--is-ltr .v-color-picker__hue:not(.v-input--is-disabled){background:linear-gradient(90deg,red 0,#ff0 16.66%,#0f0 33.33%,#0ff 50%,#00f 66.66%,#f0f 83.33%,red)}.v-application--is-rtl .v-color-picker__hue:not(.v-input--is-disabled){background:linear-gradient(270deg,red 0,#ff0 16.66%,#0f0 33.33%,#0ff 50%,#00f 66.66%,#f0f 83.33%,red)}.v-color-picker__track{position:relative;width:100%}.v-color-picker__preview{align-items:center;display:flex}.v-color-picker__preview .v-slider{min-height:10px}.v-color-picker__preview .v-slider:not(.v-slider--disabled) .v-slider__thumb{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12)}.v-color-picker__preview .v-slider:not(.v-slider--disabled) .v-slider__track-container{opacity:0}.v-color-picker__preview:not(.v-color-picker__preview--hide-alpha) .v-color-picker__hue{margin-bottom:24px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker__canvas{contain:strict;overflow:hidden;position:relative}.v-color-picker__canvas-dot{background:transparent;border-radius:50%;box-shadow:0 0 0 1.5px #fff,inset 0 0 1px 1.5px rgba(0,0,0,.3);height:15px;left:0;position:absolute;top:0;width:15px}.v-color-picker__canvas-dot--disabled{box-shadow:0 0 0 1.5px hsla(0,0%,100%,.7),inset 0 0 1px 1.5px rgba(0,0,0,.3)}.v-color-picker__canvas:hover .v-color-picker__canvas-dot{will-change:transform}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -835,11 +806,40 @@ var content = __webpack_require__(681);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("748db9e5", content, true)
+__webpack_require__(5).default("032e6a4b", content, true)
 
 /***/ }),
 
 /***/ 681:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-color-picker .v-input__slider{border-radius:5px}.v-color-picker .v-input__slider .v-slider{margin:0}.v-color-picker__alpha:not(.v-input--is-disabled) .v-slider{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVQYlWNgYGCQwoKxgqGgcJA5h3yFAAs8BRWVSwooAAAAAElFTkSuQmCC) repeat;border-radius:5px}.v-color-picker__sliders{display:flex;flex:1 0 auto;flex-direction:column}.v-color-picker__dot{background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAGElEQVQYlWNgYGCQwoKxgqGgcJA5h3yFAAs8BRWVSwooAAAAAElFTkSuQmCC) repeat;border-radius:50%;height:30px;overflow:hidden;position:relative;width:30px}.v-application--is-ltr .v-color-picker__dot{margin-right:24px}.v-application--is-rtl .v-color-picker__dot{margin-left:24px}.v-color-picker__dot>div{height:100%;width:100%}.v-application--is-ltr .v-color-picker__hue:not(.v-input--is-disabled){background:linear-gradient(90deg,red 0,#ff0 16.66%,#0f0 33.33%,#0ff 50%,#00f 66.66%,#f0f 83.33%,red)}.v-application--is-rtl .v-color-picker__hue:not(.v-input--is-disabled){background:linear-gradient(270deg,red 0,#ff0 16.66%,#0f0 33.33%,#0ff 50%,#00f 66.66%,#f0f 83.33%,red)}.v-color-picker__track{position:relative;width:100%}.v-color-picker__preview{align-items:center;display:flex}.v-color-picker__preview .v-slider{min-height:10px}.v-color-picker__preview .v-slider:not(.v-slider--disabled) .v-slider__thumb{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12)}.v-color-picker__preview .v-slider:not(.v-slider--disabled) .v-slider__track-container{opacity:0}.v-color-picker__preview:not(.v-color-picker__preview--hide-alpha) .v-color-picker__hue{margin-bottom:24px}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 682:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(683);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("748db9e5", content, true)
+
+/***/ }),
+
+/***/ 683:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -854,7 +854,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 682:
+/***/ 684:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -866,7 +866,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 683:
+/***/ 685:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -881,7 +881,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 739:
+/***/ 741:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -910,13 +910,13 @@ var VChip = __webpack_require__(128);
 var VCol = __webpack_require__(431);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VColorPicker/VColorPicker.sass
-var VColorPicker = __webpack_require__(672);
+var VColorPicker = __webpack_require__(674);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSheet/VSheet.js
 var VSheet = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VColorPicker/VColorPickerPreview.sass
-var VColorPickerPreview = __webpack_require__(678);
+var VColorPickerPreview = __webpack_require__(680);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlider/VSlider.js
 var VSlider = __webpack_require__(643);
@@ -1160,7 +1160,7 @@ function hasAlpha(color) {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VColorPicker/VColorPickerCanvas.sass
-var VColorPickerCanvas = __webpack_require__(676);
+var VColorPickerCanvas = __webpack_require__(678);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/helpers.js
 var helpers = __webpack_require__(0);
@@ -1323,7 +1323,7 @@ var helpers = __webpack_require__(0);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VColorPicker/VColorPickerEdit.sass
-var VColorPickerEdit = __webpack_require__(674);
+var VColorPickerEdit = __webpack_require__(676);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var components_VBtn = __webpack_require__(17);
@@ -1468,7 +1468,7 @@ const modes = {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VColorPicker/VColorPickerSwatches.sass
-var VColorPickerSwatches = __webpack_require__(680);
+var VColorPickerSwatches = __webpack_require__(682);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/util/colors.js
 const red = Object.freeze({
@@ -3056,7 +3056,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(682)
+  var style0 = __webpack_require__(684)
 if (style0.__inject__) style0.__inject__(context)
 
 }

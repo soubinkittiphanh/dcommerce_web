@@ -1,7 +1,7 @@
-exports.ids = [307,167,173];
+exports.ids = [309,169,175];
 exports.modules = {
 
-/***/ 1503:
+/***/ 1522:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,7 +219,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/VendorForm.vue + 4 modules
-var VendorForm = __webpack_require__(869);
+var VendorForm = __webpack_require__(875);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/vendor/index.vue?vue&type=script&lang=js
 
@@ -337,7 +337,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var vendor = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {VendorForm: __webpack_require__(869).default,YoutubePlayer: __webpack_require__(472).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {VendorForm: __webpack_require__(875).default,YoutubePlayer: __webpack_require__(472).default,LoadingIndicator: __webpack_require__(67).default})
 
 
 /***/ }),
@@ -579,7 +579,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 869:
+/***/ 875:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

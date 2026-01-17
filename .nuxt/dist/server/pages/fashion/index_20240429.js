@@ -1,7 +1,7 @@
-exports.ids = [321,31,59];
+exports.ids = [323,31,59];
 exports.modules = {
 
-/***/ 1056:
+/***/ 1066:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -21,10 +21,10 @@ var VImg = __webpack_require__(100);
 var VSheet = __webpack_require__(27);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideGroup.js
-var VSlideGroup = __webpack_require__(493);
+var VSlideGroup = __webpack_require__(495);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
-var VSlideItem = __webpack_require__(873);
+var VSlideItem = __webpack_require__(879);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=template&id=53ec9e7e
 
@@ -87,7 +87,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/brands.vue?vue&type=template&id=53ec9e7e
 
 // EXTERNAL MODULE: ./assets/img/brands/xiaomi.png
-var xiaomi = __webpack_require__(802);
+var xiaomi = __webpack_require__(808);
 var xiaomi_default = /*#__PURE__*/__webpack_require__.n(xiaomi);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/brands.vue?vue&type=script&lang=js
@@ -131,7 +131,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1510:
+/***/ 1529:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -334,11 +334,11 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/fashion/index_20240429.vue?vue&type=template&id=653d1813
 
 // EXTERNAL MODULE: ./assets/img/banners/banner_1.png
-var banner_1 = __webpack_require__(800);
+var banner_1 = __webpack_require__(806);
 var banner_1_default = /*#__PURE__*/__webpack_require__.n(banner_1);
 
 // EXTERNAL MODULE: ./assets/img/banners/banner_2.png
-var banner_2 = __webpack_require__(801);
+var banner_2 = __webpack_require__(807);
 var banner_2_default = /*#__PURE__*/__webpack_require__.n(banner_2);
 
 // EXTERNAL MODULE: ./common/index.js
@@ -448,19 +448,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var index_20240429 = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {Brands: __webpack_require__(1056).default,DiscountProductsCard: __webpack_require__(749).default})
+installComponents(component, {Brands: __webpack_require__(1066).default,DiscountProductsCard: __webpack_require__(751).default})
 
 
 /***/ }),
 
-/***/ 493:
+/***/ 495:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(494);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(496);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(32);
@@ -881,13 +881,13 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
 
 /***/ }),
 
-/***/ 494:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(495);
+var content = __webpack_require__(497);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -895,7 +895,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 495:
+/***/ 497:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -910,7 +910,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 503:
+/***/ 499:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -978,7 +978,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 749:
+/***/ 751:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -998,7 +998,7 @@ var components_VCard = __webpack_require__(3);
 var VChip = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(503);
+var VHover = __webpack_require__(499);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(62);
@@ -1166,28 +1166,28 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 800:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/banner_1.a8ec209.png";
 
 /***/ }),
 
-/***/ 801:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/banner_2.e1b3784.png";
 
 /***/ }),
 
-/***/ 802:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/xiaomi.db57d06.png";
 
 /***/ }),
 
-/***/ 873:
+/***/ 879:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

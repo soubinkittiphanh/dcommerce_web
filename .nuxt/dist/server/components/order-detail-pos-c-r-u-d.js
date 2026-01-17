@@ -368,13 +368,13 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 468:
+/***/ 469:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(469);
+var content = __webpack_require__(470);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -382,7 +382,7 @@ __webpack_require__(5).default("2f6b6adb", content, true)
 
 /***/ }),
 
-/***/ 469:
+/***/ 470:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -397,7 +397,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 470:
+/***/ 471:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -410,7 +410,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("c6752cf6", content, true, context)
+  add("2805b4ec", content, true, context)
 };
 
 /***/ }),
@@ -462,7 +462,7 @@ var VProgressCircular = __webpack_require__(106);
 var VRow = __webpack_require__(430);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
-var VSnackbar = __webpack_require__(490);
+var VSnackbar = __webpack_require__(491);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(433);
@@ -473,7 +473,7 @@ var VTextField = __webpack_require__(38);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(467);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=008dc00b&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=58e12e7e&scoped=true
 
 
 
@@ -494,7 +494,7 @@ var VTextarea = __webpack_require__(467);
 
 
 
-var OrderDetailPosCRUDvue_type_template_id_008dc00b_scoped_true_render = function render() {
+var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -683,10 +683,12 @@ var OrderDetailPosCRUDvue_type_template_id_008dc00b_scoped_true_render = functio
   }, [_vm._v("mdi-cancel")]), _vm._v("\n            Cancel\n          ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "white",
-      "outlined": ""
+      "outlined": "",
+      "disabled": !_vm.headerId,
+      "loading": _vm.isPrinting
     },
     on: {
-      "click": _vm.quotationPreview
+      "click": _vm.printInvoiceDirectly
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
@@ -1333,7 +1335,7 @@ var OrderDetailPosCRUDvue_type_template_id_008dc00b_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=008dc00b&scoped=true
+// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=58e12e7e&scoped=true
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(463);
@@ -1357,7 +1359,7 @@ var CancelTicketForm = __webpack_require__(449);
 
 
 /* harmony default export */ var OrderDetailPosCRUDvue_type_script_lang_js = ({
-  name: 'EnhancedSalesForm',
+  name: 'EnhancedSalesFormWithPrint',
   components: {
     PricingOption: PricingOption["default"],
     CancelTicketForm: CancelTicketForm["default"]
@@ -1528,6 +1530,8 @@ var CancelTicketForm = __webpack_require__(449);
       cancelConfirmDialog: false,
       pricingDialog: false,
       pricingDialogKey: 1,
+      isPrinting: false,
+      // For direct printing loading state
       search: '',
       // Error handling
       headerError: false,
@@ -1574,6 +1578,375 @@ var CancelTicketForm = __webpack_require__(449);
         discount: 0
       };
       this.newRow();
+    },
+    // === DIRECT PRINT FUNCTIONALITY ===
+    async printInvoiceDirectly() {
+      if (!this.headerId) {
+        this.showError('Please save the transaction first before printing');
+        return;
+      }
+      this.isPrinting = true;
+      try {
+        // Fetch invoice data
+        const response = await this.$axios.get(`api/sale/find/${this.headerId}`);
+        const invoiceData = response.data;
+
+        // Create print content
+        this.createAndPrintInvoice(invoiceData);
+      } catch (error) {
+        console.error('Error fetching invoice data:', error);
+        this.showError('Failed to load invoice data for printing');
+      } finally {
+        this.isPrinting = false;
+      }
+    },
+    createAndPrintInvoice(invoiceData) {
+      try {
+        // Generate the invoice HTML
+        const invoiceHTML = this.generateInvoiceHTML(invoiceData);
+
+        // Create a new window for printing
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        if (!printWindow) {
+          this.showError('Unable to open print window. Please check popup blocker settings.');
+          return;
+        }
+
+        // Write content to the new window
+        printWindow.document.open();
+        printWindow.document.write(invoiceHTML);
+        printWindow.document.close();
+
+        // Wait for content to load then print
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print();
+              // Close window after print dialog
+              setTimeout(() => {
+                printWindow.close();
+              }, 100);
+            } catch (e) {
+              console.error('Print error:', e);
+              printWindow.close();
+            }
+          }, 500); // Small delay to ensure content is fully rendered
+        };
+
+        // Fallback if onload doesn't fire
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try {
+              printWindow.print();
+            } catch (e) {
+              console.error('Fallback print error:', e);
+            }
+          }
+        }, 1000);
+      } catch (error) {
+        console.error('Error creating print invoice:', error);
+        this.showError('Failed to generate invoice for printing');
+      }
+    },
+    generateInvoiceHTML(header) {
+      var _header$lines, _header$client, _header$client2, _header$client3, _header$client4, _header$client5, _header$location, _header$user, _header$payment, _header$currency, _header$currency2;
+      const totalDiscount = this.calculateTotalDiscount(header);
+      const companyDataV1 = this.$store.getters.findAllCompany[0] || {};
+
+      // Helper functions for formatting (moved inside to avoid 'this' context issues)
+      const formatDate = dateString => {
+        if (!dateString) return 'N/A';
+        try {
+          const date = new Date(dateString);
+          return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          });
+        } catch (error) {
+          return dateString;
+        }
+      };
+      const formatNumber = val => {
+        return new Intl.NumberFormat().format(val || 0);
+      };
+
+      // Generate lines HTML
+      const linesHTML = ((_header$lines = header.lines) === null || _header$lines === void 0 ? void 0 : _header$lines.map((line, index) => {
+        var _line$product, _line$product2, _line$unit;
+        return `
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td>
+            <strong>${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product'}</strong><br>
+            <small>ID: ${((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_id) || line.productId}</small>
+            ${line.isGift ? '<br><small style="color: #ff6b35;">🎁 ຂອງຂວັນ / Gift</small>' : ''}
+          </td>
+          <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+          <td style="text-align: center;">${((_line$unit = line.unit) === null || _line$unit === void 0 ? void 0 : _line$unit.name) || 'ຊີ້ນ'}</td>
+          <td style="text-align: right;">${formatNumber(line.price)}</td>
+          <td style="text-align: right;">${formatNumber(line.discount)}</td>
+          <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
+        </tr>
+      `;
+      }).join('')) || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>';
+      return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice #${header.id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            padding: 20px;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #246ab2;
+        }
+        
+        .company-info h2 {
+            color: #246ab2;
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            font-weight: bold;
+        }
+        
+        .company-info p {
+            margin: 4px 0;
+            color: #555;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .invoice-title {
+            text-align: center;
+            margin: 20px 0 30px 0;
+        }
+        
+        .invoice-title h1 {
+            color: #246ab2;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .info-header {
+            color: #246ab2;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #246ab2;
+            padding-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-row {
+            margin-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-row strong {
+            display: inline-block;
+            min-width: 120px;
+            color: #495057;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table th {
+            background: #246ab2;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #246ab2;
+            font-size: 11px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            font-size: 12px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .summary-section {
+            float: right;
+            width: 300px;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            margin-top: 10px;
+            border-top: 2px solid #246ab2;
+            font-weight: bold;
+            font-size: 16px;
+            color: #246ab2;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .footer-section {
+            clear: both;
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        /* Force font on all text elements */
+        h1, h2, h3, h4, h5, h6, p, div, span, td, th, strong, small {
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            }
+            @page { margin: 1cm; size: A4; }
+            * {
+                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="company-header">
+        <div class="company-info">
+            <h2>${companyDataV1.name || ''}</h2>
+            <p>${companyDataV1.address || ''}</p>
+            <p>Tel: ${companyDataV1.tel || ''}</p>
+        </div>
+    </div>
+    
+    <div class="invoice-title">
+        <h1>ໃບແຈ້ງໜີ້ / INVOICE</h1>
+    </div>
+    
+    <div class="info-section">
+        <div class="info-card">
+            <div class="info-header">ຂໍ້ມູນລູກຄ້າ / Customer Information</div>
+            <div class="info-row"><strong>Customer ID:</strong> ${((_header$client = header.client) === null || _header$client === void 0 ? void 0 : _header$client.id) || ''}</div>
+            <div class="info-row"><strong>Name:</strong> ${((_header$client2 = header.client) === null || _header$client2 === void 0 ? void 0 : _header$client2.name) || ''}</div>
+            <div class="info-row"><strong>Company:</strong> ${((_header$client3 = header.client) === null || _header$client3 === void 0 ? void 0 : _header$client3.company) || ''}</div>
+            <div class="info-row"><strong>Phone:</strong> ${((_header$client4 = header.client) === null || _header$client4 === void 0 ? void 0 : _header$client4.telephone) || ''}</div>
+            <div class="info-row"><strong>Address:</strong> ${((_header$client5 = header.client) === null || _header$client5 === void 0 ? void 0 : _header$client5.address) || ''}</div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-header">ລາຍລະອຽດໃບເກັບເງິນ / Invoice Details</div>
+            <div class="info-row"><strong>Invoice No:</strong> ${header.id}</div>
+            <div class="info-row"><strong>Date:</strong> ${formatDate(header.bookingDate)}</div>
+            <div class="info-row"><strong>Location:</strong> ${((_header$location = header.location) === null || _header$location === void 0 ? void 0 : _header$location.name) || 'N/A'}</div>
+            <div class="info-row"><strong>Prepared By:</strong> ${((_header$user = header.user) === null || _header$user === void 0 ? void 0 : _header$user.cus_name) || 'N/A'}</div>
+            <div class="info-row"><strong>Payment Method:</strong> ${((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_name) || 'N/A'}</div>
+            <div class="info-row"><strong>Currency:</strong> ${((_header$currency = header.currency) === null || _header$currency === void 0 ? void 0 : _header$currency.code) || 'LAK'}</div>
+        </div>
+    </div>
+    
+    <table class="products-table">
+        <thead>
+            <tr>
+                <th>ລດ / No.</th>
+                <th>ລາຍລະອຽດ / Description</th>
+                <th>ຈຳນວນ / Qty</th>
+                <th>ຫົວໜ່ວຍ / Unit</th>
+                <th>ລາຄາ / Unit Price</th>
+                <th>ສ່ວນຫຼຸດ / Discount</th>
+                <th>ຈຳນວນເງິນ / Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${linesHTML}
+        </tbody>
+    </table>
+    
+    <div class="summary-section">
+        <div class="summary-row">
+            <span>ລວມຍ່ອຍ / Subtotal:</span>
+            <span>${formatNumber(header.total + totalDiscount)}</span>
+        </div>
+        <div class="summary-row">
+            <span>ສ່ວນຫຼຸດລວມ / Total Discount:</span>
+            <span>-${formatNumber(totalDiscount)}</span>
+        </div>
+        <div class="total-row">
+            <span>ລວມທັງໝົດ / TOTAL:</span>
+            <span>${formatNumber(header.total)} ${((_header$currency2 = header.currency) === null || _header$currency2 === void 0 ? void 0 : _header$currency2.code) || 'LAK'}</span>
+        </div>
+    </div>
+    
+    <div class="footer-section">
+        <p><strong>ຂອບໃຈທີ່ເລືອກໃຊ້ບໍລິການຂອງພວກເຮົາ / Thank you for your business</strong></p>
+    </div>
+</body>
+</html>
+      `;
+    },
+    calculateTotalDiscount(header) {
+      if (!header || !header.lines) return 0;
+      let totalDiscount = 0;
+      for (const line of header.lines) {
+        totalDiscount += line.discount || 0;
+      }
+      totalDiscount += header.discount || 0;
+      return totalDiscount;
     },
     // === CURRENCY & PRICING ===
     currencyChange() {
@@ -1854,10 +2227,6 @@ var CancelTicketForm = __webpack_require__(449);
       }
       this.calculateLineTotal(line);
     },
-    quotationPreview() {
-      const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice';
-      window.open(`/admin/${path}/${this.headerId}`, '_blank');
-    },
     toggleDialog() {
       this.$emit('close-dialog');
     },
@@ -1902,11 +2271,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_OrderDetailPosCRUDvue_type_script_lang_js,
-  OrderDetailPosCRUDvue_type_template_id_008dc00b_scoped_true_render,
+  OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "008dc00b",
+  "58e12e7e",
   "1657b766"
   
 )
@@ -1924,9 +2293,9 @@ installComponents(component, {CustomerList: __webpack_require__(107).default,Can
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_008dc00b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(470);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_008dc00b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_008dc00b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_008dc00b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_008dc00b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(471);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -1938,7 +2307,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-008dc00b]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-008dc00b]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-008dc00b]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-008dc00b]{border-radius:16px!important}.form-content[data-v-008dc00b]{padding:32px!important}.transaction-header[data-v-008dc00b]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-008dc00b]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-008dc00b]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-008dc00b]{padding:8px 0}.user-info[data-v-008dc00b]{margin-top:16px}.line-items-card[data-v-008dc00b]{border-radius:12px!important}.line-items-table[data-v-008dc00b]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-008dc00b]{transition:all .2s ease}.line-item-row[data-v-008dc00b]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-008dc00b]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-008dc00b]{min-width:250px}.product-selection[data-v-008dc00b]{max-width:200px;overflow:hidden}.discount-cell[data-v-008dc00b],.quantity-cell[data-v-008dc00b],.rate-cell[data-v-008dc00b],.unit-cell[data-v-008dc00b]{min-width:120px}.price-cell[data-v-008dc00b],.total-cell[data-v-008dc00b]{min-width:140px}.action-cell[data-v-008dc00b]{min-width:80px}.total-amount[data-v-008dc00b]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-008dc00b]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-008dc00b]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-008dc00b]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-008dc00b]:last-child{border-bottom:none}.total-row[data-v-008dc00b]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-008dc00b]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-008dc00b]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-008dc00b]{margin:32px 0}.gap-2>*+*[data-v-008dc00b]{margin-left:8px}.line-item-row[data-v-008dc00b]{animation:slideInFromLeft-008dc00b .3s ease-out}@keyframes slideInFromLeft-008dc00b{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-008dc00b]{animation:fadeInUp-008dc00b .5s ease-out}@keyframes fadeInUp-008dc00b{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-008dc00b]{padding:12px}.form-content[data-v-008dc00b],.header-section[data-v-008dc00b]{padding:16px!important}.header-section .d-flex[data-v-008dc00b]{flex-direction:column;gap:16px}.product-cell[data-v-008dc00b]{min-width:200px}.discount-cell[data-v-008dc00b],.quantity-cell[data-v-008dc00b],.rate-cell[data-v-008dc00b],.unit-cell[data-v-008dc00b]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-008dc00b]{font-size:.875rem}.total-amount[data-v-008dc00b]{font-size:.8rem;padding:6px 8px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-58e12e7e]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-58e12e7e]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-58e12e7e]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-58e12e7e]{border-radius:16px!important}.form-content[data-v-58e12e7e]{padding:32px!important}.transaction-header[data-v-58e12e7e]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-58e12e7e]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-58e12e7e]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-58e12e7e]{padding:8px 0}.user-info[data-v-58e12e7e]{margin-top:16px}.line-items-card[data-v-58e12e7e]{border-radius:12px!important}.line-items-table[data-v-58e12e7e]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-58e12e7e]{transition:all .2s ease}.line-item-row[data-v-58e12e7e]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-58e12e7e]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-58e12e7e]{min-width:250px}.product-selection[data-v-58e12e7e]{max-width:200px;overflow:hidden}.discount-cell[data-v-58e12e7e],.quantity-cell[data-v-58e12e7e],.rate-cell[data-v-58e12e7e],.unit-cell[data-v-58e12e7e]{min-width:120px}.price-cell[data-v-58e12e7e],.total-cell[data-v-58e12e7e]{min-width:140px}.action-cell[data-v-58e12e7e]{min-width:80px}.total-amount[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-58e12e7e]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-58e12e7e]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-58e12e7e]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-58e12e7e]:last-child{border-bottom:none}.total-row[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-58e12e7e]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-58e12e7e]{margin:32px 0}.gap-2>*+*[data-v-58e12e7e]{margin-left:8px}.line-item-row[data-v-58e12e7e]{animation:slideInFromLeft-58e12e7e .3s ease-out}@keyframes slideInFromLeft-58e12e7e{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-58e12e7e]{animation:fadeInUp-58e12e7e .5s ease-out}@keyframes fadeInUp-58e12e7e{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-58e12e7e]{padding:12px}.form-content[data-v-58e12e7e],.header-section[data-v-58e12e7e]{padding:16px!important}.header-section .d-flex[data-v-58e12e7e]{flex-direction:column;gap:16px}.product-cell[data-v-58e12e7e]{min-width:200px}.discount-cell[data-v-58e12e7e],.quantity-cell[data-v-58e12e7e],.rate-cell[data-v-58e12e7e],.unit-cell[data-v-58e12e7e]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-58e12e7e]{font-size:.875rem}.total-amount[data-v-58e12e7e]{font-size:.8rem;padding:6px 8px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1946,11 +2315,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 490:
+/***/ 491:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(468);
+/* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
 /* harmony import */ var _src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSnackbar_VSnackbar_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VSheet_VSheet__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(27);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);

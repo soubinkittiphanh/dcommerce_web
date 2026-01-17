@@ -1,7 +1,7 @@
-exports.ids = [205,51,173];
+exports.ids = [207,51,175];
 exports.modules = {
 
-/***/ 1436:
+/***/ 1455:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -297,7 +297,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/client/index.vue?vue&type=template&id=34836002
 
 // EXTERNAL MODULE: ./components/customer/CustomerForm.vue + 4 modules
-var CustomerForm = __webpack_require__(859);
+var CustomerForm = __webpack_require__(865);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/client/index.vue?vue&type=script&lang=js
 
@@ -420,7 +420,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var client = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerForm: __webpack_require__(859).default,LoadingIndicator: __webpack_require__(67).default,YoutubePlayer: __webpack_require__(472).default})
+installComponents(component, {CustomerForm: __webpack_require__(865).default,LoadingIndicator: __webpack_require__(67).default,YoutubePlayer: __webpack_require__(472).default})
 
 
 /***/ }),
@@ -841,7 +841,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 859:
+/***/ 865:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

@@ -1,7 +1,7 @@
-exports.ids = [200,39];
+exports.ids = [202,39];
 exports.modules = {
 
-/***/ 1431:
+/***/ 1450:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -271,7 +271,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/campaign/CampaignForm.vue + 4 modules
-var CampaignForm = __webpack_require__(857);
+var CampaignForm = __webpack_require__(863);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/campaign/index.vue?vue&type=script&lang=js
 
@@ -422,7 +422,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var campaign = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CampaignForm: __webpack_require__(857).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {CampaignForm: __webpack_require__(863).default,LoadingIndicator: __webpack_require__(67).default})
 
 
 /***/ }),
@@ -586,7 +586,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 857:
+/***/ 863:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

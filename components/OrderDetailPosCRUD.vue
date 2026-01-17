@@ -42,6 +42,9 @@
       />
     </v-dialog>
 
+    <!-- Print Invoice Dialog -->
+    <!-- Removed - direct printing instead -->
+
     <!-- Error Sheet -->
     <v-snackbar
       v-model="errorSnackbar"
@@ -104,7 +107,9 @@
             <v-btn
               color="white"
               outlined
-              @click="quotationPreview"
+              @click="printInvoiceDirectly"
+              :disabled="!headerId"
+              :loading="isPrinting"
             >
               <v-icon left>mdi-printer</v-icon>
               Print
@@ -572,8 +577,11 @@ import {
 import CancelTicketForm from './CancelTicketForm.vue'
 
 export default {
-  name: 'EnhancedSalesForm',
-  components: { PricingOption, CancelTicketForm },
+  name: 'EnhancedSalesFormWithPrint',
+  components: { 
+    PricingOption, 
+    CancelTicketForm
+  },
   
   props: {
     headerId: {
@@ -786,6 +794,7 @@ export default {
       cancelConfirmDialog: false,
       pricingDialog: false,
       pricingDialogKey: 1,
+      isPrinting: false, // For direct printing loading state
       search: '',
       
       // Error handling
@@ -837,6 +846,383 @@ export default {
         discount: 0,
       }
       this.newRow()
+    },
+
+    // === DIRECT PRINT FUNCTIONALITY ===
+    async printInvoiceDirectly() {
+      if (!this.headerId) {
+        this.showError('Please save the transaction first before printing')
+        return
+      }
+
+      this.isPrinting = true
+      
+      try {
+        // Fetch invoice data
+        const response = await this.$axios.get(`api/sale/find/${this.headerId}`)
+        const invoiceData = response.data
+        
+        // Create print content
+        this.createAndPrintInvoice(invoiceData)
+        
+      } catch (error) {
+        console.error('Error fetching invoice data:', error)
+        this.showError('Failed to load invoice data for printing')
+      } finally {
+        this.isPrinting = false
+      }
+    },
+
+    createAndPrintInvoice(invoiceData) {
+      try {
+        // Generate the invoice HTML
+        const invoiceHTML = this.generateInvoiceHTML(invoiceData)
+        
+        // Create a new window for printing
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+        
+        if (!printWindow) {
+          this.showError('Unable to open print window. Please check popup blocker settings.')
+          return
+        }
+        
+        // Write content to the new window
+        printWindow.document.open()
+        printWindow.document.write(invoiceHTML)
+        printWindow.document.close()
+        
+        // Wait for content to load then print
+        printWindow.onload = function() {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              // Close window after print dialog
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
+            }
+          }, 500) // Small delay to ensure content is fully rendered
+        }
+        
+        // Fallback if onload doesn't fire
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try {
+              printWindow.print()
+            } catch (e) {
+              console.error('Fallback print error:', e)
+            }
+          }
+        }, 1000)
+        
+      } catch (error) {
+        console.error('Error creating print invoice:', error)
+        this.showError('Failed to generate invoice for printing')
+      }
+    },
+
+    generateInvoiceHTML(header) {
+      const totalDiscount = this.calculateTotalDiscount(header)
+      const companyDataV1 = this.$store.getters.findAllCompany[0] || {}
+      
+      // Helper functions for formatting (moved inside to avoid 'this' context issues)
+      const formatDate = (dateString) => {
+        if (!dateString) return 'N/A'
+        try {
+          const date = new Date(dateString)
+          return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+          })
+        } catch (error) {
+          return dateString
+        }
+      }
+      
+      const formatNumber = (val) => {
+        return new Intl.NumberFormat().format(val || 0)
+      }
+      
+      // Generate lines HTML
+      const linesHTML = header.lines?.map((line, index) => `
+        <tr>
+          <td style="text-align: center;">${index + 1}</td>
+          <td>
+            <strong>${line.product?.pro_name || 'Unknown Product'}</strong><br>
+            <small>ID: ${line.product?.pro_id || line.productId}</small>
+            ${line.isGift ? '<br><small style="color: #ff6b35;">🎁 ຂອງຂວັນ / Gift</small>' : ''}
+          </td>
+          <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+          <td style="text-align: center;">${line.unit?.name || 'ຊີ້ນ'}</td>
+          <td style="text-align: right;">${formatNumber(line.price)}</td>
+          <td style="text-align: right;">${formatNumber(line.discount)}</td>
+          <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
+        </tr>
+      `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>'
+      
+      return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice #${header.id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            padding: 20px;
+            background: white;
+            color: #333;
+            line-height: 1.4;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .company-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #246ab2;
+        }
+        
+        .company-info h2 {
+            color: #246ab2;
+            font-size: 24px;
+            margin-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            font-weight: bold;
+        }
+        
+        .company-info p {
+            margin: 4px 0;
+            color: #555;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .invoice-title {
+            text-align: center;
+            margin: 20px 0 30px 0;
+        }
+        
+        .invoice-title h1 {
+            color: #246ab2;
+            font-size: 28px;
+            font-weight: bold;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-section {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .info-card {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .info-header {
+            color: #246ab2;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #246ab2;
+            padding-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-row {
+            margin-bottom: 8px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .info-row strong {
+            display: inline-block;
+            min-width: 120px;
+            color: #495057;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table th {
+            background: #246ab2;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid #246ab2;
+            font-size: 11px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table td {
+            padding: 10px 8px;
+            border: 1px solid #ddd;
+            vertical-align: top;
+            font-size: 12px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .products-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        .summary-section {
+            float: right;
+            width: 300px;
+            margin-bottom: 30px;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            margin-top: 10px;
+            border-top: 2px solid #246ab2;
+            font-weight: bold;
+            font-size: 16px;
+            color: #246ab2;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        .footer-section {
+            clear: both;
+            margin-top: 40px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        /* Force font on all text elements */
+        h1, h2, h3, h4, h5, h6, p, div, span, td, th, strong, small {
+            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+        }
+        
+        @media print {
+            body { 
+                margin: 0; 
+                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            }
+            @page { margin: 1cm; size: A4; }
+            * {
+                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="company-header">
+        <div class="company-info">
+            <h2>${companyDataV1.name || ''}</h2>
+            <p>${companyDataV1.address || ''}</p>
+            <p>Tel: ${companyDataV1.tel || ''}</p>
+        </div>
+    </div>
+    
+    <div class="invoice-title">
+        <h1>ໃບແຈ້ງໜີ້ / INVOICE</h1>
+    </div>
+    
+    <div class="info-section">
+        <div class="info-card">
+            <div class="info-header">ຂໍ້ມູນລູກຄ້າ / Customer Information</div>
+            <div class="info-row"><strong>Customer ID:</strong> ${header.client?.id || ''}</div>
+            <div class="info-row"><strong>Name:</strong> ${header.client?.name || ''}</div>
+            <div class="info-row"><strong>Company:</strong> ${header.client?.company || ''}</div>
+            <div class="info-row"><strong>Phone:</strong> ${header.client?.telephone || ''}</div>
+            <div class="info-row"><strong>Address:</strong> ${header.client?.address || ''}</div>
+        </div>
+        
+        <div class="info-card">
+            <div class="info-header">ລາຍລະອຽດໃບເກັບເງິນ / Invoice Details</div>
+            <div class="info-row"><strong>Invoice No:</strong> ${header.id}</div>
+            <div class="info-row"><strong>Date:</strong> ${formatDate(header.bookingDate)}</div>
+            <div class="info-row"><strong>Location:</strong> ${header.location?.name || 'N/A'}</div>
+            <div class="info-row"><strong>Prepared By:</strong> ${header.user?.cus_name || 'N/A'}</div>
+            <div class="info-row"><strong>Payment Method:</strong> ${header.payment?.payment_name || 'N/A'}</div>
+            <div class="info-row"><strong>Currency:</strong> ${header.currency?.code || 'LAK'}</div>
+        </div>
+    </div>
+    
+    <table class="products-table">
+        <thead>
+            <tr>
+                <th>ລດ / No.</th>
+                <th>ລາຍລະອຽດ / Description</th>
+                <th>ຈຳນວນ / Qty</th>
+                <th>ຫົວໜ່ວຍ / Unit</th>
+                <th>ລາຄາ / Unit Price</th>
+                <th>ສ່ວນຫຼຸດ / Discount</th>
+                <th>ຈຳນວນເງິນ / Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${linesHTML}
+        </tbody>
+    </table>
+    
+    <div class="summary-section">
+        <div class="summary-row">
+            <span>ລວມຍ່ອຍ / Subtotal:</span>
+            <span>${formatNumber(header.total + totalDiscount)}</span>
+        </div>
+        <div class="summary-row">
+            <span>ສ່ວນຫຼຸດລວມ / Total Discount:</span>
+            <span>-${formatNumber(totalDiscount)}</span>
+        </div>
+        <div class="total-row">
+            <span>ລວມທັງໝົດ / TOTAL:</span>
+            <span>${formatNumber(header.total)} ${header.currency?.code || 'LAK'}</span>
+        </div>
+    </div>
+    
+    <div class="footer-section">
+        <p><strong>ຂອບໃຈທີ່ເລືອກໃຊ້ບໍລິການຂອງພວກເຮົາ / Thank you for your business</strong></p>
+    </div>
+</body>
+</html>
+      `
+    },
+
+    calculateTotalDiscount(header) {
+      if (!header || !header.lines) return 0
+      
+      let totalDiscount = 0
+      for (const line of header.lines) {
+        totalDiscount += line.discount || 0
+      }
+      totalDiscount += header.discount || 0
+      return totalDiscount
     },
 
     // === CURRENCY & PRICING ===
@@ -1180,11 +1566,6 @@ export default {
       }
       
       this.calculateLineTotal(line)
-    },
-
-    quotationPreview() {
-      const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice'
-      window.open(`/admin/${path}/${this.headerId}`, '_blank')
     },
 
     toggleDialog() {

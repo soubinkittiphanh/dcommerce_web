@@ -108,7 +108,7 @@
                                     <v-row>
                                         <!-- {{ grandTotal }} -->
                                         <v-col cols="12"><v-textarea label="Notes"
-                                                v-model="transaction.remark"></v-textarea></v-col>
+                                                v-model="transaction.notes"></v-textarea></v-col>
                                         <v-col cols="12" v-if="transaction.user">ຜູ້ລົງ: {{ transaction.user.cus_id }}
                                         </v-col>
                                         <v-col cols="12" v-if="transaction.user">ຊື່: {{ transaction.user.cus_name
@@ -718,6 +718,7 @@ export default {
             onlineCustomerId: null,
             isloading: false,
             transaction: {
+                notes:'',
                 vendorId: null,
                 status: 'PENDING',
                 isActive: true,

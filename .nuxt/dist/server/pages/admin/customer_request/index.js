@@ -1,7 +1,7 @@
-exports.ids = [210,57];
+exports.ids = [212,57];
 exports.modules = {
 
-/***/ 1441:
+/***/ 1460:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -434,7 +434,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var customer_request = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(471).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(468).default,LoadingIndicator: __webpack_require__(67).default})
 
 
 /***/ }),
@@ -569,7 +569,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 471:
+/***/ 468:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

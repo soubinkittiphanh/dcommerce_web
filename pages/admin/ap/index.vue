@@ -1,7 +1,7 @@
 <template>
     <div>
         <div>
-            <v-dialog v-model="dialog" persistent width="1024">
+            <v-dialog v-model="dialog" persistent fullscreen>
                 <ap-payment :is-edit="isEdit" :payment-head-id="selectedId" @close="triggerDialog" :key="apFormKey"
                     @close-dialog="dialog = false" @reload="loadTxn">
                 </ap-payment>

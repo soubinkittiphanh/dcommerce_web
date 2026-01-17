@@ -12,6 +12,7 @@ const _a8b5a7d6 = () => interopDefault(import('../pages/index.bk.vue' /* webpack
 const _6b23df6a = () => interopDefault(import('../pages/lion72/index.vue' /* webpackChunkName: "pages/lion72/index" */))
 const _35489732 = () => interopDefault(import('../pages/product/index.vue' /* webpackChunkName: "pages/product/index" */))
 const _6bd6cbe4 = () => interopDefault(import('../pages/product-details.vue' /* webpackChunkName: "pages/product-details" */))
+const _7ffb8697 = () => interopDefault(import('../pages/products/index.vue' /* webpackChunkName: "pages/products/index" */))
 const _5a38e948 = () => interopDefault(import('../pages/public/index.vue' /* webpackChunkName: "pages/public/index" */))
 const _5a2985aa = () => interopDefault(import('../pages/admin/advertise/index.vue' /* webpackChunkName: "pages/admin/advertise/index" */))
 const _c081733c = () => interopDefault(import('../pages/admin/ap/index.vue' /* webpackChunkName: "pages/admin/ap/index" */))
@@ -141,6 +142,7 @@ const _38fd842d = () => interopDefault(import('../pages/admin/product/productlis
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
+const _01d70745 = () => interopDefault(import('../pages/reports/financial/pl/index.vue' /* webpackChunkName: "pages/reports/financial/pl/index" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
@@ -214,6 +216,10 @@ export const routerOptions = {
     path: "/product-details",
     component: _6bd6cbe4,
     name: "product-details"
+  }, {
+    path: "/products",
+    component: _7ffb8697,
+    name: "products"
   }, {
     path: "/public",
     component: _5a38e948,
@@ -730,6 +736,10 @@ export const routerOptions = {
     path: "/admin/web_category/test",
     component: _4183d918,
     name: "admin-web_category-test"
+  }, {
+    path: "/reports/financial/pl",
+    component: _01d70745,
+    name: "reports-financial-pl"
   }, {
     path: "/admin/accounting/ar/invoice",
     component: _55b98a0c,
