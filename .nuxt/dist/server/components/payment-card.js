@@ -1,7 +1,7 @@
 exports.ids = [120];
 exports.modules = {
 
-/***/ 1591:
+/***/ 1594:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -88,7 +88,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(860),
+      imageSvg: __webpack_require__(863),
       imageSrc: __webpack_require__(201)
     };
   },
@@ -206,7 +206,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 860:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";
