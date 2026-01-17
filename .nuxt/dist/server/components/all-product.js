@@ -69,7 +69,7 @@ exports.modules = {
 
 /***/ }),
 
-/***/ 551:
+/***/ 552:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/product.e130afd.jpg";
@@ -174,7 +174,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/all-product.vue?vue&type=template&id=10a052e7
 
 // EXTERNAL MODULE: ./assets/img/product/product.jpg
-var product = __webpack_require__(551);
+var product = __webpack_require__(552);
 
 // EXTERNAL MODULE: ./common/api.js
 var api = __webpack_require__(41);

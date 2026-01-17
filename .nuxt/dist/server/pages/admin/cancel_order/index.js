@@ -1,7 +1,7 @@
 exports.ids = [203,111,117];
 exports.modules = {
 
-/***/ 1122:
+/***/ 1123:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1123:
+/***/ 1124:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1454:
+/***/ 1457:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -391,7 +391,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/cancel_order/index.vue?vue&type=template&id=8f926f2e&scoped=true
 
 // EXTERNAL MODULE: ./components/OrderDetail.vue + 4 modules
-var OrderDetail = __webpack_require__(649);
+var OrderDetail = __webpack_require__(648);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -598,7 +598,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1122)
+  var style0 = __webpack_require__(1123)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -619,7 +619,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var cancel_order = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default,OrderDetail: __webpack_require__(649).default,OrderSumaryCard: __webpack_require__(650).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(67).default,OrderDetail: __webpack_require__(648).default,OrderSumaryCard: __webpack_require__(649).default})
 
 
 /***/ }),
@@ -2769,7 +2769,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 649:
+/***/ 648:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2960,7 +2960,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 650:
+/***/ 649:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3101,7 +3101,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1123);
+var content = __webpack_require__(1124);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

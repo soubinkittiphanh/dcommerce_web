@@ -1,7 +1,7 @@
 exports.ids = [103];
 exports.modules = {
 
-/***/ 630:
+/***/ 629:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -521,7 +521,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=template&id=e38c8604&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ministry/MinistryDialog.vue?vue&type=script&lang=js
-var MinistryDialogvue_type_script_lang_js = __webpack_require__(630);
+var MinistryDialogvue_type_script_lang_js = __webpack_require__(629);
 
 // CONCATENATED MODULE: ./components/ministry/MinistryDialog.vue?vue&type=script&lang=js
  /* harmony default export */ var ministry_MinistryDialogvue_type_script_lang_js = (MinistryDialogvue_type_script_lang_js["a" /* default */]); 

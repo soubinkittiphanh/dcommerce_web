@@ -1,12 +1,42 @@
-exports.ids = [260,40,123,141,142];
+exports.ids = [260,40,141,142,175];
 exports.modules = {
 
-/***/ 1498:
+/***/ 1193:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(932);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ 1194:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-eff765d8],.purchasing-dashboard[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.purchasing-dashboard[data-v-eff765d8]{border-radius:16px!important;overflow:hidden}.header-section[data-v-eff765d8]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.header-section[data-v-eff765d8],.header-section .text-caption[data-v-eff765d8],.header-section .text-h5[data-v-eff765d8],.header-section h2[data-v-eff765d8],.loading-card[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.loading-card[data-v-eff765d8]{border-radius:16px!important}.filter-card[data-v-eff765d8]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.filter-card[data-v-eff765d8],.filter-card .v-btn[data-v-eff765d8],.filter-card .v-card-title[data-v-eff765d8],.filter-card .v-select[data-v-eff765d8],.filter-card .v-text-field[data-v-eff765d8],.summary-card[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.summary-card[data-v-eff765d8]{border-radius:12px!important;transition:transform .2s ease,box-shadow .2s ease}.summary-card .text-caption[data-v-eff765d8],.summary-card .text-h4[data-v-eff765d8],.summary-card .text-h5[data-v-eff765d8],.summary-card .text-subtitle-1[data-v-eff765d8],.summary-card h3[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.summary-card[data-v-eff765d8]:hover{box-shadow:0 8px 20px rgba(0,0,0,.12);transform:translateY(-2px)}.currency-summary-card[data-v-eff765d8]{border:1px solid rgba(var(--v-secondary-base),.1);border-radius:12px!important}.currency-summary-card[data-v-eff765d8],.currency-summary-card .v-card-title[data-v-eff765d8],.currency-summary-card td[data-v-eff765d8],.currency-summary-card th[data-v-eff765d8],.status-summary-card[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.status-summary-card[data-v-eff765d8]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.status-summary-card .text--secondary[data-v-eff765d8],.status-summary-card .text-caption[data-v-eff765d8],.status-summary-card .v-chip[data-v-eff765d8],.status-summary-card h3[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.status-summary-card[data-v-eff765d8]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.status-summary-card.selected-status[data-v-eff765d8]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.action-buttons[data-v-eff765d8]{display:flex;gap:4px;justify-content:center}.total-display[data-v-eff765d8]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;display:inline-block;min-width:120px;padding:8px 12px}.total-display[data-v-eff765d8],.total-display .text-h6[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}.purchasing-dashboard[data-v-eff765d8]{animation:fadeInUp-eff765d8 .5s ease-out}@keyframes fadeInUp-eff765d8{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.action-buttons .v-btn[data-v-eff765d8]{transition:all .2s ease}.action-buttons .v-btn[data-v-eff765d8]:hover{transform:scale(1.1)}.status-summary-card .v-icon[data-v-eff765d8]{margin-bottom:8px}.status-summary-card h3[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important;font-weight:600;letter-spacing:-.5px}.status-summary-card .v-progress-linear[data-v-eff765d8]{border-radius:4px}.text-body-1[data-v-eff765d8],.text-body-2[data-v-eff765d8],.text-caption[data-v-eff765d8],.text-center .text-subtitle-2[data-v-eff765d8],.text-center h2[data-v-eff765d8],.text-h3[data-v-eff765d8],.text-h4[data-v-eff765d8],.text-h5[data-v-eff765d8],.text-h6[data-v-eff765d8],.text-subtitle-1[data-v-eff765d8],.text-subtitle-2[data-v-eff765d8],.v-alert[data-v-eff765d8],.v-autocomplete[data-v-eff765d8],.v-btn[data-v-eff765d8],.v-card-text[data-v-eff765d8],.v-card-title[data-v-eff765d8],.v-data-table .v-chip[data-v-eff765d8],.v-data-table td[data-v-eff765d8],.v-data-table th[data-v-eff765d8],.v-dialog .v-card[data-v-eff765d8],.v-progress-circular small[data-v-eff765d8],.v-select[data-v-eff765d8],.v-select .v-select__selection[data-v-eff765d8],.v-simple-table tbody tr[data-v-eff765d8],.v-simple-table td[data-v-eff765d8],.v-simple-table th[data-v-eff765d8],.v-simple-table thead tr[data-v-eff765d8],.v-text-field[data-v-eff765d8],.v-text-field input[data-v-eff765d8],.v-text-field label[data-v-eff765d8],.v-tooltip .v-tooltip__content[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}@media (max-width:768px){.header-section .v-layout[data-v-eff765d8]{flex-direction:column}.header-section .text-md-right[data-v-eff765d8]{margin-top:16px;text-align:center!important}.action-buttons[data-v-eff765d8]{flex-direction:column;gap:8px}.status-summary-card[data-v-eff765d8]{margin-bottom:16px}.status-summary-card h3[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important;font-size:1.2rem}}.purchasing-dashboard *[data-v-eff765d8]{font-family:\"Noto Sans Lao\",\"Phetsarath OT\",\"Lao UI\",\"Arial\",sans-serif!important}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 1501:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
+var VAlert = __webpack_require__(432);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(127);
@@ -16,6 +46,9 @@ var VCard = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
+var VChip = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(431);
@@ -29,16 +62,37 @@ var VDatePicker = __webpack_require__(478);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(407);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
+var VIcon = __webpack_require__(62);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
 var VLayout = __webpack_require__(424);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(129);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(106);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressLinear/VProgressLinear.js
+var VProgressLinear = __webpack_require__(125);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(430);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(20);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
+var VSimpleTable = __webpack_require__(192);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/po/index.vue?vue&type=template&id=3ba0eb27
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
+var VTooltip = __webpack_require__(570);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/po/index.vue?vue&type=template&id=eff765d8&scoped=true
 
 
 
@@ -51,12 +105,100 @@ var VTextField = __webpack_require__(38);
 
 
 
-var povue_type_template_id_3ba0eb27_render = function render() {
+
+
+
+
+
+
+
+
+
+var povue_type_template_id_eff765d8_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
+    staticClass: "text-left"
+  }, [_vm._ssrNode("<div data-v-eff765d8>", "</div>", [_c(VChip["a" /* default */], {
+    staticClass: "pa-5",
+    attrs: {
+      "color": "primary",
+      "label": "",
+      "text-color": "white"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "start": ""
+    }
+  }, [_vm._v("mdi-shopping")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການບິນສັ່ງຊື້")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+    staticClass: "pa-5",
+    attrs: {
+      "color": "primary",
+      "label": "",
+      "text-color": "white"
+    },
+    on: {
+      "click": function ($event) {
+        _vm.guidelineDialog = true;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "start": ""
+    }
+  }, [_vm._v("mdi-lifebuoy")]), _vm._v(" "), _c('h3', [_vm._v("ຄູ່ມືການນຳໃຊ້")])], 1)], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "persistent": "",
+      "width": "300"
+    },
+    model: {
+      value: _vm.isloading,
+      callback: function ($$v) {
+        _vm.isloading = $$v;
+      },
+      expression: "isloading"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "loading-card",
+    attrs: {
+      "color": "primary",
+      "dark": ""
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
     staticClass: "text-center"
-  }, [_vm._ssrNode("<div>", "</div>", [_c(VDialog["a" /* default */], {
+  }, [_c(VProgressCircular["a" /* default */], {
+    staticClass: "mb-4",
+    attrs: {
+      "size": 70,
+      "width": 7,
+      "color": "white",
+      "indeterminate": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "text-h6"
+  }, [_vm._v("Loading...")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "hide-overlay": "",
+      "max-width": "700"
+    },
+    model: {
+      value: _vm.guidelineDialog,
+      callback: function ($$v) {
+        _vm.guidelineDialog = $$v;
+      },
+      expression: "guidelineDialog"
+    }
+  }, [_c('youtube-player', {
+    attrs: {
+      "youtube-link": "W6KiQWtiqBM"
+    },
+    on: {
+      "close-dialog": function ($event) {
+        _vm.guidelineDialog = false;
+      }
+    }
+  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "fullscreen": ""
     },
@@ -74,11 +216,13 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       "headerId": _vm.selectedId
     },
     on: {
-      "close": _vm.triggerDialog,
-      "close-dialog": function ($event) {
+      "reload": function ($event) {
+        _vm.loadTxn();
         _vm.dialog = false;
       },
-      "reload": _vm.loadTxn
+      "close-dialog": function ($event) {
+        _vm.dialog = false;
+      }
     }
   })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
@@ -104,27 +248,69 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       },
       "reload": _vm.loadTxn
     }
-  })], 1)], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-eff765d8>", "</div>", [_c(VCard["a" /* default */], {
+    staticClass: "purchasing-dashboard"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "header-section primary white--text"
+  }, [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
     }
   }, [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c('div', {
+    staticClass: "d-flex align-center"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-3",
+    attrs: {
+      "large": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-clipboard-list")]), _vm._v(" "), _c('div', [_c('h2', {
+    staticClass: "text-h5 mb-0"
+  }, [_vm._v("Purchase Orders Dashboard")]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption opacity-80"
+  }, [_vm._v("Manage your purchase orders")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "text-md-right",
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "large": "",
+      "outlined": ""
+    },
+    on: {
+      "click": _vm.triggerDialog
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-plus")]), _vm._v("\n              New Purchase Order\n            ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-6"
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "filter-card mb-6",
+    attrs: {
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "text-h6 pb-2"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "primary"
+    }
+  }, [_vm._v("mdi-filter")]), _vm._v("\n            Filters & Search\n          ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VMenu["a" /* default */], {
     ref: "menu1",
@@ -143,10 +329,12 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "ຈາກວັນທີ:",
+            "label": "ຈາກວັນທີ: / From Date",
             "hint": "MM/DD/YYYY format",
             "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
+            "prepend-icon": "mdi-calendar",
+            "outlined": "",
+            "dense": ""
           },
           on: {
             "blur": function ($event) {
@@ -186,7 +374,12 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       },
       expression: "date"
     }
-  })], 1), _vm._v(" "), _c(VMenu["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VMenu["a" /* default */], {
     ref: "menu2",
     attrs: {
       "close-on-content-click": false,
@@ -203,10 +396,12 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "ຫາວັນທີ:",
+            "label": "ຫາວັນທີ: / To Date",
             "hint": "MM/DD/YYYY format",
             "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
+            "prepend-icon": "mdi-calendar",
+            "outlined": "",
+            "dense": ""
           },
           on: {
             "blur": function ($event) {
@@ -246,24 +441,19 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       },
       expression: "date2"
     }
-  })], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "primary",
+  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.triggerDialog
-    }
-  }, [_vm._v(" ສັ່ງເຄື່ອງ ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "append-icon": "mdi-magnify",
-      "label": "ຊອກຫາ",
+      "label": "Search / ຊອກຫາ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": "",
+      "outlined": "",
+      "dense": ""
     },
     model: {
       value: _vm.search,
@@ -272,115 +462,669 @@ var povue_type_template_id_3ba0eb27_render = function render() {
       },
       expression: "search"
     }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "append-icon": "mdi-magnify",
-      "label": "ລະຫັດຜູ້ຂາຍ",
-      "single-line": "",
-      "hide-detailsx": ""
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.statusFilterOptions,
+      "item-text": "label",
+      "item-value": "value",
+      "label": "ກັ່ນຕອງຕາມສະຖານະ",
+      "clearable": "",
+      "prepend-icon": "mdi-filter",
+      "outlined": "",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.applyStatusFilter
     },
     model: {
-      value: _vm.userId,
+      value: _vm.selectedStatusFilter,
       callback: function ($$v) {
-        _vm.userId = $$v;
+        _vm.selectedStatusFilter = $$v;
       },
-      expression: "userId"
+      expression: "selectedStatusFilter"
     }
-  }), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "primary",
+  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-3"
+  }, [_c(VCol["a" /* default */], {
+    staticClass: "text-center",
     attrs: {
-      "size": "large",
-      "variant": "outlined",
+      "cols": "12"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary",
+      "large": "",
       "rounded": ""
     },
     on: {
       "click": _vm.loadTxn
     }
-  }, [_vm._v(" ດຶງລາຍງານ\n                    ")])], 1)], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_vm.purchaseCurrencyGrouping.length > 0 ? _c('table', {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "border": "1"
+      "left": ""
     }
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("ສະກຸນເງິນ")]), _vm._v(" "), _c('th', [_vm._v("ລວມຍອດ")])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.purchaseCurrencyGrouping, function (txn) {
-    return _c('tr', {
-      key: txn['currency']
-    }, [_c('td', [_vm._v(_vm._s(txn.currency))]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "text-align": "right"
-      }
-    }, [_vm._v(_vm._s(_vm.numberWithCommas(txn.amount)))])]);
-  }), 0)]) : _vm._e()]), _vm._v(" "), _vm.txnList ? _c(VDataTable["a" /* default */], {
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n                  Refresh Data / ດຶງລາຍງານ\n                ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "ml-3",
     attrs: {
-      "headers": _vm.headers,
+      "color": "success",
+      "large": "",
+      "rounded": ""
+    },
+    on: {
+      "click": _vm.printPurchaseReport
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-printer")]), _vm._v("\n                  Print Report / ພິມລາຍງານ\n                ")], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n              ສະຫຼຸບສະຖິຕິການສັ່ງຊື້\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "lg": "3"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "summary-card pa-4 text-center",
+    attrs: {
+      "color": "primary",
+      "dark": "",
+      "elevation": "4"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "size": "48"
+    }
+  }, [_vm._v("mdi-file-document-multiple")]), _vm._v(" "), _c('h3', {
+    staticClass: "text-h4 font-weight-bold mb-2"
+  }, [_vm._v(_vm._s(_vm.totalOrders))]), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ໃບສັ່ງຊື້ທັງໝົດ")]), _vm._v(" "), _c('div', {
+    staticClass: "text-h5 font-weight-bold mt-2"
+  }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.totalOrderValue)))]), _vm._v(" "), _c('div', {
+    staticClass: "text-caption"
+  }, [_vm._v("ມູນຄ່າລວມ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "lg": "9"
+    }
+  }, [_c(VRow["a" /* default */], _vm._l(_vm.statusStatistics, function (statusStat) {
+    return _c(VCol["a" /* default */], {
+      key: statusStat.status,
+      attrs: {
+        "cols": "6",
+        "md": "4",
+        "lg": "3"
+      }
+    }, [_c(VCard["a" /* default */], {
+      staticClass: "status-summary-card pa-3 text-center elevation-2",
+      class: {
+        'selected-status': _vm.selectedStatusFilter === statusStat.status
+      },
+      staticStyle: {
+        "cursor": "pointer",
+        "transition": "all 0.2s ease"
+      },
+      attrs: {
+        "outlined": ""
+      },
+      on: {
+        "click": function ($event) {
+          return _vm.filterByStatus(statusStat.status);
+        }
+      }
+    }, [_c(VIcon["a" /* default */], {
+      staticClass: "mb-2",
+      attrs: {
+        "color": statusStat.color,
+        "size": "32"
+      }
+    }, [_vm._v("\n                    " + _vm._s(statusStat.icon) + "\n                  ")]), _vm._v(" "), _c('h3', {
+      class: `${statusStat.color}--text mb-1`
+    }, [_vm._v("\n                    " + _vm._s(_vm.formatNumber(statusStat.amount)) + " LAK\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "text--secondary mb-1"
+    }, [_vm._v("\n                    " + _vm._s(statusStat.label) + "\n                  ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+      staticClass: "font-weight-bold",
+      attrs: {
+        "color": statusStat.color,
+        "small": "",
+        "outlined": ""
+      }
+    }, [_vm._v("\n                    " + _vm._s(statusStat.count) + " ລາຍການ\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "mt-2"
+    }, [_c(VProgressLinear["a" /* default */], {
+      attrs: {
+        "value": statusStat.percentage,
+        "color": statusStat.color,
+        "height": "4",
+        "rounded": ""
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "text-caption mt-1"
+    }, [_vm._v("\n                      " + _vm._s(statusStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                    ")])], 1)], 1)], 1);
+  }), 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "currency-summary-card",
+    attrs: {
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "secondary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-currency-usd")]), _vm._v("\n                Currency Summary / ສະຫຼຸບຕາມສະກຸນເງິນ\n              ")], 1), _vm._v(" "), _vm.purchaseCurrencyGrouping.length > 0 ? _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_c(VSimpleTable["a" /* default */], [_c('thead', [_c('tr', [_c('th', {
+    staticClass: "text-left"
+  }, [_vm._v("Currency / ສະກຸນເງິນ")]), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v("Orders / ຈຳນວນໃບສັ່ງ")]), _vm._v(" "), _c('th', {
+    staticClass: "text-right"
+  }, [_vm._v("Total Amount / ລວມຍອດ")]), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v("Percentage / ເປີເຊັນ")])])]), _vm._v(" "), _c('tbody', _vm._l(_vm.purchaseCurrencyGrouping, function (currency) {
+    return _c('tr', {
+      key: currency.code
+    }, [_c('td', [_c(VChip["a" /* default */], {
+      staticClass: "font-weight-bold",
+      attrs: {
+        "color": "primary",
+        "outlined": "",
+        "small": ""
+      }
+    }, [_vm._v("\n                          " + _vm._s(currency.code) + "\n                        ")])], 1), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_c(VChip["a" /* default */], {
+      attrs: {
+        "color": "info",
+        "small": "",
+        "outlined": ""
+      }
+    }, [_vm._v("\n                          " + _vm._s(currency.count) + " ລາຍການ\n                        ")])], 1), _vm._v(" "), _c('td', {
+      staticClass: "text-right font-weight-bold text-h6"
+    }, [_vm._v("\n                        " + _vm._s(_vm.numberWithCommas(currency.amount)) + "\n                      ")]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_c(VProgressCircular["a" /* default */], {
+      attrs: {
+        "value": currency.percentage,
+        "color": _vm.getCurrencyColor(currency.code),
+        "size": "40",
+        "width": "4"
+      }
+    }, [_c('small', [_vm._v(_vm._s(currency.percentage.toFixed(0)) + "%")])])], 1)]);
+  }), 0)])], 1) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-4"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4",
+    attrs: {
+      "outlined": ""
+    }
+  }, [_c('h4', {
+    staticClass: "mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-chart-timeline")]), _vm._v("\n                ການວິເຄາະໄລຍະເວລາ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
+    staticClass: "success--text"
+  }, [_vm._v(_vm._s(_vm.pendingOrdersCount))]), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-2"
+  }, [_vm._v("ລໍຖ້າອະນຸມັດ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "value": _vm.pendingOrdersPercentage,
+      "color": "orange",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', [_vm._v(_vm._s(_vm.pendingOrdersPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
+    staticClass: "primary--text"
+  }, [_vm._v(_vm._s(_vm.approvedOrdersCount))]), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-2"
+  }, [_vm._v("ໄດ້ຮັບອະນຸມັດ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "value": _vm.approvedOrdersPercentage,
+      "color": "green",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', [_vm._v(_vm._s(_vm.approvedOrdersPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c('h2', {
+    staticClass: "info--text"
+  }, [_vm._v(_vm._s(_vm.receivedOrdersCount))]), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-2"
+  }, [_vm._v("ຮັບເຄື່ອງແລ້ວ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "value": _vm.receivedOrdersPercentage,
+      "color": "success",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', [_vm._v(_vm._s(_vm.receivedOrdersPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "3"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "outlined": "",
+      "color": "primary",
+      "block": "",
+      "small": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByStatus('Pending Approval');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-clock-alert")]), _vm._v("\n                      ສະແດງລໍຖ້າອະນຸມັດ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "mb-2",
+    attrs: {
+      "outlined": "",
+      "color": "success",
+      "block": "",
+      "small": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.filterByStatus('Approved');
+      }
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-check-circle")]), _vm._v("\n                      ສະແດງອະນຸມັດແລ້ວ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "outlined": "",
+      "color": "grey",
+      "block": "",
+      "small": ""
+    },
+    on: {
+      "click": _vm.clearStatusFilter
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-filter-off")]), _vm._v("\n                      ສະແດງທັງໝົດ\n                    ")], 1)], 1)])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.txnList ? _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1",
+    attrs: {
+      "headers": _vm.enhancedHeaders,
       "search": _vm.search,
-      "items": _vm.txnList
+      "items": _vm.filteredPurchaseOrders,
+      "loading": _vm.isloading,
+      "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ...",
+      "items-per-page": 10
     },
     scopedSlots: _vm._u([{
-      key: `item.function`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
+      key: "top",
+      fn: function () {
+        return [_vm.selectedStatusFilter ? _c('div', {
+          staticClass: "pa-3"
+        }, [_c(VAlert["a" /* default */], {
           attrs: {
-            "color": "primary",
-            "text": ""
+            "type": "info",
+            "dense": "",
+            "text": "",
+            "dismissible": ""
           },
           on: {
-            "click": function ($event) {
-              return _vm.editItem(item);
-            }
+            "input": _vm.clearStatusFilter
           }
-        }, [_c('i', {
-          staticClass: "fa-regular fa-pen-to-square"
-        })])];
-      }
-    }, {
-      key: `item.postReceiving`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
+        }, [_c(VIcon["a" /* default */], {
           attrs: {
-            "color": "primary",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.receive(item);
-            }
+            "left": ""
           }
-        }, [_c('i', {
-          staticClass: "fa-solid fa-check"
-        })])];
-      }
+        }, [_vm._v("mdi-filter")]), _vm._v("\n              ກຳລັງສະແດງ: " + _vm._s(_vm.getFilterDisplayName(_vm.selectedStatusFilter)) + "\n              (" + _vm._s(_vm.filteredPurchaseOrders.length) + " ລາຍການ)\n            ")], 1)], 1) : _vm._e()];
+      },
+      proxy: true
     }, {
-      key: `item.total`,
+      key: `item.status`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n                " + _vm._s(_vm.numberWithCommas(item.total)) + "\n\n            ")];
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": _vm.getStatusColor(item.status),
+            "outlined": item.status === 'Draft'
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v(_vm._s(_vm.getStatusIcon(item.status)))]), _vm._v("\n            " + _vm._s(item.status) + "\n          ")], 1)];
+      }
+    }, {
+      key: `item.bookingDate`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "info",
+            "small": "",
+            "dark": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v("mdi-calendar")]), _vm._v("\n            " + _vm._s(item.bookingDate) + "\n          ")], 1)];
+      }
+    }, {
+      key: `item.currency.code`,
+      fn: function ({
+        item
+      }) {
+        var _item$currency;
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "small": "",
+            "color": "secondary",
+            "outlined": ""
+          }
+        }, [_vm._v("\n            " + _vm._s(((_item$currency = item.currency) === null || _item$currency === void 0 ? void 0 : _item$currency.code) || 'N/A') + "\n          ")])];
       }
     }, {
       key: `item.exchangeRate`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n                " + _vm._s(_vm.numberWithCommas(item.exchangeRate)) + "\n            ")];
+        return [_c('span', {
+          staticClass: "font-weight-medium"
+        }, [_vm._v("\n            " + _vm._s(_vm.numberWithCommas(item.exchangeRate)) + "\n          ")])];
       }
+    }, {
+      key: `item.total`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "total-display"
+        }, [_c('span', {
+          staticClass: "text-h6 font-weight-bold success--text"
+        }, [_vm._v("\n              " + _vm._s(_vm.numberWithCommas(item.total)) + "\n            ")])])];
+      }
+    }, {
+      key: `item.function`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "action-buttons"
+        }, [_c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "color": "primary",
+                  "icon": "",
+                  "small": ""
+                },
+                on: {
+                  "click": function ($event) {
+                    return _vm.editItem(item);
+                  }
+                }
+              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
+                attrs: {
+                  "small": ""
+                }
+              }, [_vm._v("mdi-pencil")])], 1)];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("Edit Purchase Order")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "color": "info",
+                  "icon": "",
+                  "small": "",
+                  "loading": _vm.printingId === item.id
+                },
+                on: {
+                  "click": function ($event) {
+                    return _vm.printPurchaseOrder(item);
+                  }
+                }
+              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
+                attrs: {
+                  "small": ""
+                }
+              }, [_vm._v("mdi-printer")])], 1)];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("Print Purchase Order")])]), _vm._v(" "), _c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "color": "orange",
+                  "icon": "",
+                  "small": ""
+                },
+                on: {
+                  "click": function ($event) {
+                    return _vm.viewItem(item);
+                  }
+                }
+              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
+                attrs: {
+                  "small": ""
+                }
+              }, [_vm._v("mdi-eye")])], 1)];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v("View Details")])])], 1)];
+      }
+    }, {
+      key: `item.postReceiving`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VTooltip["a" /* default */], {
+          attrs: {
+            "bottom": ""
+          },
+          scopedSlots: _vm._u([{
+            key: "activator",
+            fn: function ({
+              on,
+              attrs
+            }) {
+              return [_c(VBtn["a" /* default */], _vm._g(_vm._b({
+                attrs: {
+                  "color": "success",
+                  "icon": "",
+                  "small": "",
+                  "disabled": !_vm.canReceiveGoods(item)
+                },
+                on: {
+                  "click": function ($event) {
+                    return _vm.receive(item);
+                  }
+                }
+              }, 'v-btn', attrs, false), on), [_c(VIcon["a" /* default */], {
+                attrs: {
+                  "small": ""
+                }
+              }, [_vm._v("mdi-check")])], 1)];
+            }
+          }], null, true)
+        }, [_vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.canReceiveGoods(item) ? 'Receive Goods' : 'Cannot Receive'))])])];
+      }
+    }, {
+      key: "no-data",
+      fn: function () {
+        return [_c('div', {
+          staticClass: "text-center pa-8"
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "size": "64",
+            "color": "grey lighten-2"
+          }
+        }, [_vm._v("mdi-file-document-outline")]), _vm._v(" "), _c('div', {
+          staticClass: "text-h6 mt-4 grey--text"
+        }, [_vm._v("No Purchase Orders Found")]), _vm._v(" "), _c('div', {
+          staticClass: "text-body-2 grey--text mb-4"
+        }, [_vm._v("Create your first purchase order to get started")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+          attrs: {
+            "color": "primary"
+          },
+          on: {
+            "click": _vm.triggerDialog
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": ""
+          }
+        }, [_vm._v("mdi-plus")]), _vm._v("\n              Create Purchase Order\n            ")], 1)], 1)];
+      },
+      proxy: true
     }], null, true)
-  }) : _vm._e()], 1)], 2);
+  }) : _vm._e()], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/po/index.vue?vue&type=template&id=3ba0eb27
+// CONCATENATED MODULE: ./pages/admin/po/index.vue?vue&type=template&id=eff765d8&scoped=true
 
-// EXTERNAL MODULE: ./components/po/PoForm.vue + 4 modules
-var PoForm = __webpack_require__(610);
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
+var esnext_set_add_all_js_ = __webpack_require__(144);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
+var esnext_set_delete_all_js_ = __webpack_require__(145);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
+var esnext_set_difference_js_ = __webpack_require__(146);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
+var esnext_set_every_js_ = __webpack_require__(147);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
+var esnext_set_filter_js_ = __webpack_require__(148);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
+var esnext_set_find_js_ = __webpack_require__(149);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
+var esnext_set_intersection_js_ = __webpack_require__(150);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(151);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
+var esnext_set_is_subset_of_js_ = __webpack_require__(152);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
+var esnext_set_is_superset_of_js_ = __webpack_require__(153);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
+var esnext_set_join_js_ = __webpack_require__(154);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
+var esnext_set_map_js_ = __webpack_require__(155);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
+var esnext_set_reduce_js_ = __webpack_require__(156);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
+var esnext_set_some_js_ = __webpack_require__(157);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
+var esnext_set_symmetric_difference_js_ = __webpack_require__(158);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
+var esnext_set_union_js_ = __webpack_require__(159);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
-var PurchasingFormCRUD = __webpack_require__(572);
+var PurchasingFormCRUD = __webpack_require__(573);
 
 // EXTERNAL MODULE: ./components/ReceivingFormCRUD.vue + 4 modules
-var ReceivingFormCRUD = __webpack_require__(567);
+var ReceivingFormCRUD = __webpack_require__(568);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -390,9 +1134,24 @@ var common = __webpack_require__(7);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* harmony default export */ var povue_type_script_lang_js = ({
+  name: 'EnhancedPurchasingDashboard',
   components: {
-    PoForm: PoForm["default"],
     PurchasingFormCRUD: PurchasingFormCRUD["default"],
     ReceivingFormCRUD: ReceivingFormCRUD["default"]
   },
@@ -406,56 +1165,74 @@ var common = __webpack_require__(7);
       isEdit: false,
       dialog: false,
       receivingDialog: false,
+      guidelineDialog: false,
       apFormKey: 1,
       isloading: false,
+      printingId: null,
       menu1: false,
       menu2: false,
       txnList: [],
       selectedId: '',
-      headers: [{
-        text: 'RECID',
+      selectedStatusFilter: null,
+      enhancedHeaders: [{
+        text: 'PO ID',
         align: 'center',
         value: 'id',
-        sortable: true
+        sortable: true,
+        width: 100
       }, {
-        text: 'ວັນທີ',
+        text: 'Date / ວັນທີ',
         align: 'center',
         value: 'bookingDate',
-        sortable: true
+        sortable: true,
+        width: 120
       }, {
-        text: 'ເນື້ອໃນ',
+        text: 'Notes / ເນື້ອໃນ',
+        align: 'left',
+        value: 'notes',
+        width: 200
+      }, {
+        text: 'Supplier / ຜູ້ຂາຍ',
+        align: 'left',
+        value: 'supplier.company',
+        width: 200
+      }, {
+        text: 'Currency / ສະກຸນ',
         align: 'center',
-        value: 'notes'
+        value: 'currency.code',
+        width: 100
       }, {
-        text: 'ສະກຸນ',
-        align: 'center',
-        value: 'currency.code'
-      }, {
-        text: 'ອັດຕາແລກປ່ຽນ',
+        text: 'Rate / ອັດຕາແລກປ່ຽນ',
         align: 'right',
-        value: 'exchangeRate'
+        value: 'exchangeRate',
+        width: 120
       }, {
-        text: 'ຍອດລວມ',
+        text: 'Total / ຍອດລວມ',
         align: 'right',
-        value: 'total'
+        value: 'total',
+        width: 150
       }, {
-        text: 'ສະຖານະ',
+        text: 'Status / ສະຖານະ',
         align: 'center',
-        value: 'status'
+        value: 'status',
+        width: 120
       }, {
-        text: 'ເວລາສ້າງ',
+        text: 'Created / ເວລາສ້າງ',
         align: 'center',
-        value: 'createdAt'
+        value: 'createdAt',
+        width: 150
       }, {
-        text: 'ແກ້ໄຂ',
-        align: 'end',
+        text: 'Actions / ຈັດການ',
+        align: 'center',
         value: 'function',
-        sortable: false
+        sortable: false,
+        width: 150
       }, {
-        text: 'ຮັບເຄື່ອງ',
-        align: 'end',
+        text: 'Receive / ຮັບເຄື່ອງ',
+        align: 'center',
         value: 'postReceiving',
-        sortable: false
+        sortable: false,
+        width: 100
       }],
       date: Object(common["d" /* getFirstDayOfMonth */])(),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
@@ -467,34 +1244,101 @@ var common = __webpack_require__(7);
     currentPO() {
       return this.txnList.find(el => el.id == this.selectedId);
     },
-    purchaseCurrencyGrouping() {
-      // Object to store the sum of transactions for each currency code
-      const sumByCurrency = {};
+    filteredPurchaseOrders() {
+      if (!this.selectedStatusFilter) {
+        return this.txnList;
+      }
+      return this.txnList.filter(item => item.status === this.selectedStatusFilter);
+    },
+    totalOrders() {
+      return this.txnList.length;
+    },
+    totalOrderValue() {
+      return this.txnList.reduce((sum, order) => sum + (order.total || 0), 0);
+    },
+    statusStatistics() {
+      const stats = {};
+      let totalAmount = 0;
+      this.txnList.forEach(item => {
+        const status = item.status || 'Draft';
+        const amount = item.total || 0;
+        if (!stats[status]) {
+          stats[status] = {
+            status: status,
+            label: this.getStatusLabel(status),
+            amount: 0,
+            count: 0,
+            color: this.getStatusColor(status),
+            icon: this.getStatusIcon(status)
+          };
+        }
+        stats[status].amount += amount;
+        stats[status].count += 1;
+        totalAmount += amount;
+      });
+      Object.values(stats).forEach(stat => {
+        stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
+      });
+      return Object.values(stats).sort((a, b) => b.amount - a.amount);
+    },
+    statusFilterOptions() {
+      const options = [{
+        label: 'ທັງໝົດ',
+        value: null
+      }];
 
-      // Loop through each transaction
+      // Add unique statuses from data
+      const statuses = [...new Set(this.txnList.map(item => item.status).filter(Boolean))];
+      statuses.forEach(status => {
+        options.push({
+          label: this.getStatusLabel(status),
+          value: status
+        });
+      });
+      return options;
+    },
+    purchaseCurrencyGrouping() {
+      const sumByCurrency = {};
+      let totalAmount = 0;
       this.txnList.forEach(transaction => {
         const {
           total,
           currency
         } = transaction;
-        // If the currency code doesn't exist in the sumByCurrency object, initialize it to 0
-        if (!sumByCurrency[currency['code']]) {
-          sumByCurrency[currency['code']] = 0;
+        const currencyCode = (currency === null || currency === void 0 ? void 0 : currency.code) || 'LAK';
+        if (!sumByCurrency[currencyCode]) {
+          sumByCurrency[currencyCode] = {
+            code: currencyCode,
+            amount: 0,
+            count: 0
+          };
         }
-        // Accumulate the total amount for the currency code
-        sumByCurrency[currency['code']] += total;
+        sumByCurrency[currencyCode].amount += total || 0;
+        sumByCurrency[currencyCode].count += 1;
+        totalAmount += total || 0;
       });
-
-      // Display the sum for each currency code
-      const listOfCurrency = [];
-      for (const currencyCode in sumByCurrency) {
-        console.log(`Total for ${currencyCode}: ${sumByCurrency[currencyCode]}`);
-        listOfCurrency.push({
-          'currency': currencyCode,
-          'amount': sumByCurrency[currencyCode]
-        });
-      }
-      return listOfCurrency;
+      Object.values(sumByCurrency).forEach(currency => {
+        currency.percentage = totalAmount > 0 ? currency.amount / totalAmount * 100 : 0;
+      });
+      return Object.values(sumByCurrency).sort((a, b) => b.amount - a.amount);
+    },
+    pendingOrdersCount() {
+      return this.txnList.filter(item => item.status === 'Pending Approval').length;
+    },
+    approvedOrdersCount() {
+      return this.txnList.filter(item => item.status === 'Approved').length;
+    },
+    receivedOrdersCount() {
+      return this.txnList.filter(item => item.status === 'Fully Received' || item.status === 'Partially Received').length;
+    },
+    pendingOrdersPercentage() {
+      return this.totalOrders > 0 ? this.pendingOrdersCount / this.totalOrders * 100 : 0;
+    },
+    approvedOrdersPercentage() {
+      return this.totalOrders > 0 ? this.approvedOrdersCount / this.totalOrders * 100 : 0;
+    },
+    receivedOrdersPercentage() {
+      return this.totalOrders > 0 ? this.receivedOrdersCount / this.totalOrders * 100 : 0;
     }
   },
   watch: {
@@ -511,6 +1355,16 @@ var common = __webpack_require__(7);
     numberWithCommas(value) {
       return Object(common["e" /* getFormatNum */])(value);
     },
+    formatNumber(val) {
+      return new Intl.NumberFormat().format(val || 0);
+    },
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'LAK',
+        minimumFractionDigits: 0
+      }).format(amount || 0);
+    },
     triggerDialog() {
       this.apFormKey += 1;
       this.selectedId = null;
@@ -524,6 +1378,13 @@ var common = __webpack_require__(7);
       this.apFormKey += 1;
       this.dialog = true;
     },
+    viewItem(item) {
+      console.log(`Viewing PO HEADER ID ${item.id}`);
+      this.selectedId = item.id;
+      this.isEdit = true;
+      this.apFormKey += 1;
+      this.dialog = true;
+    },
     receive(item) {
       console.log(`PO HEADER ID ${item.id}`);
       this.selectedId = item.id;
@@ -531,15 +1392,304 @@ var common = __webpack_require__(7);
       this.apFormKey += 1;
       this.receivingDialog = true;
     },
+    // Print functionality
+    async printPurchaseOrder(item) {
+      console.log(`Printing PO HEADER ID ${item.id}`);
+      this.printingId = item.id;
+      try {
+        const response = await this.$axios.get(`/api/purchasing/find/${item.id}`);
+        const poData = response.data;
+        this.createAndPrintPurchaseOrder(poData);
+      } catch (error) {
+        console.error('Error printing purchase order:', error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to print purchase order');
+      } finally {
+        this.printingId = null;
+      }
+    },
+    createAndPrintPurchaseOrder(poData) {
+      try {
+        const poHTML = this.generatePurchaseOrderHTML(poData);
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        if (!printWindow) {
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
+          return;
+        }
+        printWindow.document.open();
+        printWindow.document.write(poHTML);
+        printWindow.document.close();
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print();
+              setTimeout(() => printWindow.close(), 100);
+            } catch (e) {
+              console.error('Print error:', e);
+              printWindow.close();
+            }
+          }, 500);
+        };
+      } catch (error) {
+        console.error('Error creating print PO:', error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to generate purchase order for printing');
+      }
+    },
+    generatePurchaseOrderHTML(header) {
+      var _header$lines, _header$supplier, _header$currency;
+      const formatNumber = val => new Intl.NumberFormat().format(val || 0);
+      const linesHTML = ((_header$lines = header.lines) === null || _header$lines === void 0 ? void 0 : _header$lines.map((line, index) => {
+        var _line$product, _line$unit;
+        return `
+                <tr>
+                    <td>${index + 1}</td>
+                    <td>${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product'}</td>
+                    <td>${formatNumber(line.quantity)}</td>
+                    <td>${((_line$unit = line.unit) === null || _line$unit === void 0 ? void 0 : _line$unit.name) || 'Unit'}</td>
+                    <td>${formatNumber(line.unitPrice)}</td>
+                    <td>${formatNumber(line.total)}</td>
+                </tr>
+            `;
+      }).join('')) || '<tr><td colspan="6">No items</td></tr>';
+      return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Order #${header.id}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { text-align: right; font-weight: bold; }
+        @media print { body { margin: 0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>PURCHASE ORDER</h1>
+        <h2>PO #${header.id}</h2>
+    </div>
+    
+    <table>
+        <tr><td><strong>Supplier:</strong> ${((_header$supplier = header.supplier) === null || _header$supplier === void 0 ? void 0 : _header$supplier.company) || 'N/A'}</td></tr>
+        <tr><td><strong>Date:</strong> ${header.bookingDate}</td></tr>
+        <tr><td><strong>Status:</strong> ${header.status}</td></tr>
+    </table>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${linesHTML}
+        </tbody>
+    </table>
+    
+    <div class="total">
+        <h3>Total: ${formatNumber(header.total)} ${((_header$currency = header.currency) === null || _header$currency === void 0 ? void 0 : _header$currency.code) || 'LAK'}</h3>
+    </div>
+</body>
+</html>
+            `;
+    },
+    printPurchaseReport() {
+      try {
+        const reportHTML = this.generatePurchaseReportHTML();
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        if (!printWindow) {
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
+          return;
+        }
+        printWindow.document.open();
+        printWindow.document.write(reportHTML);
+        printWindow.document.close();
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print();
+              setTimeout(() => printWindow.close(), 100);
+            } catch (e) {
+              console.error('Print error:', e);
+              printWindow.close();
+            }
+          }, 500);
+        };
+      } catch (error) {
+        console.error('Error printing report:', error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to print report');
+      }
+    },
+    generatePurchaseReportHTML() {
+      const formatNumber = val => new Intl.NumberFormat().format(val || 0);
+      const statusSummaryHTML = this.statusStatistics.map(stat => `
+                <tr>
+                    <td>${stat.label}</td>
+                    <td style="text-align: center;">${stat.count}</td>
+                    <td style="text-align: right;">${formatNumber(stat.amount)}</td>
+                    <td style="text-align: center;">${stat.percentage.toFixed(1)}%</td>
+                </tr>
+            `).join('');
+      const currencySummaryHTML = this.purchaseCurrencyGrouping.map(currency => `
+                <tr>
+                    <td>${currency.code}</td>
+                    <td style="text-align: center;">${currency.count}</td>
+                    <td style="text-align: right;">${formatNumber(currency.amount)}</td>
+                    <td style="text-align: center;">${currency.percentage.toFixed(1)}%</td>
+                </tr>
+            `).join('');
+      return `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Purchase Orders Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .period { background: #f5f5f5; padding: 10px; margin-bottom: 20px; text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; font-weight: bold; }
+        .section-title { background: #2196F3; color: white; padding: 10px; margin: 20px 0 10px 0; }
+        .summary-box { background: #e3f2fd; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        @media print { body { margin: 0; } }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Purchase Orders Summary Report</h1>
+        <h2>ລາຍງານສະຫຼຸບການສັ່ງຊື້</h2>
+    </div>
+    
+    <div class="period">
+        <strong>Period:</strong> ${this.dateFormatted} - ${this.dateFormatted2}
+    </div>
+    
+    <div class="summary-box">
+        <h3>Overview / ພາບລວມ</h3>
+        <p><strong>Total Purchase Orders:</strong> ${this.totalOrders}</p>
+        <p><strong>Total Value:</strong> ${formatNumber(this.totalOrderValue)} LAK</p>
+        <p><strong>Generated:</strong> ${new Date().toLocaleDateString()}</p>
+    </div>
+    
+    <div class="section-title">Status Summary / ສະຫຼຸບຕາມສະຖານະ</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Status</th>
+                <th style="text-align: center;">Count</th>
+                <th style="text-align: right;">Amount (LAK)</th>
+                <th style="text-align: center;">Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${statusSummaryHTML}
+        </tbody>
+    </table>
+    
+    <div class="section-title">Currency Summary / ສະຫຼຸບຕາມສະກຸນເງິນ</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Currency</th>
+                <th style="text-align: center;">Orders</th>
+                <th style="text-align: right;">Amount</th>
+                <th style="text-align: center;">Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${currencySummaryHTML}
+        </tbody>
+    </table>
+    
+    <div style="margin-top: 50px; text-align: center; color: #666;">
+        <p>Generated on ${new Date().toLocaleString()}</p>
+    </div>
+</body>
+</html>
+            `;
+    },
+    // Filter methods
+    filterByStatus(status) {
+      if (this.selectedStatusFilter === status) {
+        this.clearStatusFilter();
+      } else {
+        this.selectedStatusFilter = status;
+        this.applyStatusFilter();
+      }
+    },
+    applyStatusFilter() {
+      console.log('Applied status filter:', this.selectedStatusFilter);
+    },
+    clearStatusFilter() {
+      this.selectedStatusFilter = null;
+    },
+    getFilterDisplayName(filterValue) {
+      return this.getStatusLabel(filterValue);
+    },
+    // Status and color methods
+    getStatusLabel(status) {
+      const statusLabels = {
+        'Draft': 'ຮ່າງ',
+        'Pending Approval': 'ລໍຖ້າອະນຸມັດ',
+        'Approved': 'ໄດ້ຮັບອະນຸມັດ',
+        'Sent to Supplier': 'ສົ່ງໃຫ້ຜູ້ຂາຍ',
+        'Partially Received': 'ຮັບບາງສ່ວນ',
+        'Fully Received': 'ຮັບຄົບ',
+        'Cancelled': 'ຍົກເລີກ'
+      };
+      return statusLabels[status] || status;
+    },
+    getStatusColor(status) {
+      const colorMap = {
+        'Draft': 'grey',
+        'Pending Approval': 'orange',
+        'Approved': 'green',
+        'Sent to Supplier': 'blue',
+        'Partially Received': 'purple',
+        'Fully Received': 'success',
+        'Cancelled': 'error'
+      };
+      return colorMap[status] || 'grey';
+    },
+    getStatusIcon(status) {
+      const iconMap = {
+        'Draft': 'mdi-file-document-edit',
+        'Pending Approval': 'mdi-clock-alert',
+        'Approved': 'mdi-check-circle',
+        'Sent to Supplier': 'mdi-truck-delivery',
+        'Partially Received': 'mdi-package-down',
+        'Fully Received': 'mdi-package-check',
+        'Cancelled': 'mdi-cancel'
+      };
+      return iconMap[status] || 'mdi-help-circle';
+    },
+    getCurrencyColor(currencyCode) {
+      const colors = ['primary', 'success', 'warning', 'error', 'info'];
+      const index = currencyCode.charCodeAt(0) % colors.length;
+      return colors[index];
+    },
+    canReceiveGoods(item) {
+      const receivableStatuses = ['Approved', 'Sent to Supplier', 'Partially Received'];
+      return receivableStatuses.includes(item.status);
+    },
+    // Date methods
     formatDate(date) {
       if (!date) return null;
-      console.log("DATE FORMAT METHOD1: " + date);
       const formattedDate = this.formatDateToISO(date);
       const [year, month, day] = formattedDate.split('-');
       return `${month}/${day}/${year}`;
     },
     parseDate(date) {
-      console.log("DATE PARSE METHOD1: " + date);
       if (!date) return null;
       const [month, day, year] = date.split('/');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
@@ -547,34 +1697,35 @@ var common = __webpack_require__(7);
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date);
       const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0');
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
     },
+    // Load data
     async loadTxn() {
       this.isloading = true;
-      // TODO: FIX LOAD TRANSACTION BASE ON DATE SELECTED
-      const date = {
-        startDate: this.date,
-        endDate: this.date2
-      };
-      await this.$axios.get("/api/purchasing/findByDate", {
-        params: {
-          date
-        }
-      }).then(response => {
+      try {
+        const date = {
+          startDate: this.date,
+          endDate: this.date2
+        };
+        const response = await this.$axios.get("/api/purchasing/findByDate", {
+          params: {
+            date
+          }
+        });
         this.txnList = [];
         for (const iterator of response.data) {
           iterator['bookingDate'] = iterator['bookingDate'].split('T')[0];
           this.txnList.push(iterator);
         }
-        // for (let element in response.data) {
-        //     element['bookingDate'] = element['bookingDate'].split('T')[0]
-        //     this.txnList.push(response.data[element])
-        // }
-        console.log("====> " + this.txnList[0]);
-      }).catch(error => {});
-      this.isloading = false;
+        console.log("====> " + this.txnList.length + " purchase orders loaded");
+      } catch (error) {
+        console.error('Error loading transactions:', error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load purchase orders');
+      } finally {
+        this.isloading = false;
+      }
     }
   }
 });
@@ -589,18 +1740,20 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  
+  var style0 = __webpack_require__(1193)
+if (style0.__inject__) style0.__inject__(context)
+
 }
 
 /* normalize component */
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_povue_type_script_lang_js,
-  povue_type_template_id_3ba0eb27_render,
+  povue_type_template_id_eff765d8_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  null,
+  "eff765d8",
   "1d337d43"
   
 )
@@ -608,7 +1761,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var po = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {PurchasingFormCRUD: __webpack_require__(572).default,ReceivingFormCRUD: __webpack_require__(567).default,LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(471).default,PurchasingFormCRUD: __webpack_require__(573).default,ReceivingFormCRUD: __webpack_require__(568).default})
 
 
 /***/ }),
@@ -1555,35 +2708,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 464:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(465);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("59f225a8", content, true)
-
-/***/ }),
-
-/***/ 465:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-input--switch .v-input--switch__thumb{color:#fff}.theme--light.v-input--switch .v-input--switch__track{color:rgba(0,0,0,.38)}.theme--light.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__thumb{color:#fafafa!important}.theme--light.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__track{color:rgba(0,0,0,.12)!important}.theme--dark.v-input--switch .v-input--switch__thumb{color:#bdbdbd}.theme--dark.v-input--switch .v-input--switch__track{color:hsla(0,0%,100%,.3)}.theme--dark.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__thumb{color:#424242!important}.theme--dark.v-input--switch.v-input--is-disabled:not(.v-input--is-dirty) .v-input--switch__track{color:hsla(0,0%,100%,.1)!important}.v-input--switch__thumb,.v-input--switch__track{background-color:currentColor;pointer-events:none;transition:inherit}.v-input--switch__track{border-radius:8px;height:14px;left:2px;opacity:.6;position:absolute;right:2px;top:calc(50% - 7px);width:36px}.v-input--switch__thumb{align-items:center;border-radius:50%;display:flex;height:20px;justify-content:center;position:relative;top:calc(50% - 10px);transition:.3s cubic-bezier(.25,.8,.5,1);width:20px}.v-input--switch .v-input--selection-controls__input{transition:opacity .3s cubic-bezier(.25,.8,.5,1);width:38px}.v-input--switch .v-input--selection-controls__ripple{top:calc(50% - 24px)}.v-input--switch.v-input--dense .v-input--switch__thumb{height:18px;width:18px}.v-input--switch.v-input--dense .v-input--switch__track{height:12px;width:32px}.v-input--switch.v-input--dense.v-input--switch--inset .v-input--switch__track{height:22px;left:-3px;top:calc(50% - 12px);width:44px}.v-input--switch.v-input--dense .v-input--selection-controls__ripple{top:calc(50% - 22px)}.v-input--switch.v-input--is-dirty.v-input--is-disabled .v-input--selection-controls__input{opacity:.6}.v-application--is-ltr .v-input--switch .v-input--selection-controls__ripple{left:-14px}.v-application--is-ltr .v-input--switch.v-input--dense .v-input--selection-controls__ripple{left:-12px}.v-application--is-ltr .v-input--switch.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch.v-input--is-dirty .v-input--switch__thumb{transform:translate(20px)}.v-application--is-rtl .v-input--switch .v-input--selection-controls__ripple{right:-14px}.v-application--is-rtl .v-input--switch.v-input--dense .v-input--selection-controls__ripple{right:-12px}.v-application--is-rtl .v-input--switch.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch.v-input--is-dirty .v-input--switch__thumb{transform:translate(-20px)}.v-input--switch:not(.v-input--switch--flat):not(.v-input--switch--inset) .v-input--switch__thumb{box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}.v-input--switch--inset .v-input--selection-controls__input,.v-input--switch--inset .v-input--switch__track{width:48px}.v-input--switch--inset .v-input--switch__track{border-radius:14px;height:28px;left:-4px;opacity:.32;top:calc(50% - 14px)}.v-application--is-ltr .v-input--switch--inset .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch--inset .v-input--switch__thumb{transform:translate(0)!important}.v-application--is-rtl .v-input--switch--inset .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch--inset .v-input--switch__thumb{transform:translate(-6px)!important}.v-application--is-ltr .v-input--switch--inset.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-ltr .v-input--switch--inset.v-input--is-dirty .v-input--switch__thumb{transform:translate(20px)!important}.v-application--is-rtl .v-input--switch--inset.v-input--is-dirty .v-input--selection-controls__ripple,.v-application--is-rtl .v-input--switch--inset.v-input--is-dirty .v-input--switch__thumb{transform:translate(-26px)!important}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
 /***/ 467:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1711,6 +2835,102 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
     }
   }
 }));
+
+/***/ }),
+
+/***/ 471:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(127);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(124);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(433);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+
+
+
+
+
+var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c('youtube', {
+    attrs: {
+      "video-id": _vm.youtubeLink
+    }
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(7);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
+
+/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
+  props: {
+    youtubeLink: {
+      type: String,
+      require: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_YoutubePlayervue_type_script_lang_js,
+  YoutubePlayervue_type_template_id_ba62a84e_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "9fefcabe"
+  
+)
+
+/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -3183,136 +4403,6 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 489:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(196);
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(464);
-/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(68);
-/* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(139);
-/* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(32);
-/* harmony import */ var _VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(106);
-/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(0);
-// Styles
-
- // Mixins
-
-
- // Directives
-
- // Components
-
-
- // Helpers
-
-
-/* @vue/component */
-
-/* harmony default export */ __webpack_exports__["a"] = (_mixins_selectable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"].extend({
-  name: 'v-switch',
-  directives: {
-    Touch: _directives_touch__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"]
-  },
-  props: {
-    inset: Boolean,
-    loading: {
-      type: [Boolean, String],
-      default: false
-    },
-    flat: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    classes() {
-      return {
-        ..._VInput__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.classes.call(this),
-        'v-input--selection-controls v-input--switch': true,
-        'v-input--switch--flat': this.flat,
-        'v-input--switch--inset': this.inset
-      };
-    },
-    attrs() {
-      return {
-        'aria-checked': String(this.isActive),
-        'aria-disabled': String(this.isDisabled),
-        role: 'switch'
-      };
-    },
-    // Do not return undefined if disabled,
-    // according to spec, should still show
-    // a color when disabled and active
-    validationState() {
-      if (this.hasError && this.shouldValidate) return 'error';
-      if (this.hasSuccess) return 'success';
-      if (this.hasColor !== null) return this.computedColor;
-      return undefined;
-    },
-    switchData() {
-      return this.setTextColor(this.loading ? undefined : this.validationState, {
-        class: this.themeClasses
-      });
-    }
-  },
-  methods: {
-    genDefaultSlot() {
-      return [this.genSwitch(), this.genLabel()];
-    },
-    genSwitch() {
-      const {
-        title,
-        ...switchAttrs
-      } = this.attrs$;
-      return this.$createElement('div', {
-        staticClass: 'v-input--selection-controls__input'
-      }, [this.genInput('checkbox', {
-        ...this.attrs,
-        ...switchAttrs
-      }), this.genRipple(this.setTextColor(this.validationState, {
-        directives: [{
-          name: 'touch',
-          value: {
-            left: this.onSwipeLeft,
-            right: this.onSwipeRight
-          }
-        }]
-      })), this.$createElement('div', {
-        staticClass: 'v-input--switch__track',
-        ...this.switchData
-      }), this.$createElement('div', {
-        staticClass: 'v-input--switch__thumb',
-        ...this.switchData
-      }, [this.genProgress()])]);
-    },
-    genProgress() {
-      return this.$createElement(_transitions__WEBPACK_IMPORTED_MODULE_5__[/* VFabTransition */ "c"], {}, [this.loading === false ? null : this.$slots.progress || this.$createElement(_VProgressCircular_VProgressCircular__WEBPACK_IMPORTED_MODULE_6__[/* default */ "a"], {
-        props: {
-          color: this.loading === true || this.loading === '' ? this.color || 'primary' : this.loading,
-          size: 16,
-          width: 2,
-          indeterminate: true
-        }
-      })]);
-    },
-    onSwipeLeft() {
-      if (this.isActive) this.onChange();
-    },
-    onSwipeRight() {
-      if (!this.isActive) this.onChange();
-    },
-    onKeydown(e) {
-      if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* keyCodes */ "y"].left && this.isActive || e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_7__[/* keyCodes */ "y"].right && !this.isActive) this.onChange();
-    }
-  }
-}));
-
-/***/ }),
-
 /***/ 490:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3500,13 +4590,42 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 519:
+/***/ 517:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(520);
+var content = __webpack_require__(518);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("53887fd2", content, true)
+
+/***/ }),
+
+/***/ 518:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".v-tooltip{display:none}.v-tooltip--attached{display:inline}.v-tooltip__content{background:rgba(97,97,97,.9);border-radius:4px;color:#fff;display:inline-block;font-size:14px;line-height:22px;opacity:0;padding:5px 16px;pointer-events:none;position:absolute;text-transform:none;width:auto}.v-tooltip__content.menuable__content__active{opacity:.9}.v-tooltip__content--fixed{position:fixed}.v-tooltip__content[class*=-active]{transition-timing-function:cubic-bezier(0,0,.2,1)}.v-tooltip__content[class*=enter-active]{transition-duration:.15s}.v-tooltip__content[class*=leave-active]{transition-duration:75ms}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 521:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(522);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -3514,7 +4633,7 @@ __webpack_require__(5).default("73bba828", content, true)
 
 /***/ }),
 
-/***/ 520:
+/***/ 522:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -3535,7 +4654,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(585);
+var content = __webpack_require__(586);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -3547,7 +4666,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 567:
+/***/ 568:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3558,7 +4677,7 @@ __webpack_require__.r(__webpack_exports__);
 var VAutocomplete = __webpack_require__(411);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBottomSheet/VBottomSheet.js
-var VBottomSheet = __webpack_require__(586);
+var VBottomSheet = __webpack_require__(587);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(127);
@@ -4797,7 +5916,212 @@ installComponents(component, {LoadingIndicator: __webpack_require__(67).default,
 
 /***/ }),
 
-/***/ 572:
+/***/ 570:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(517);
+/* harmony import */ var _src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTooltip_VTooltip_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(51);
+/* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
+/* harmony import */ var _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(90);
+/* harmony import */ var _mixins_dependent__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(43);
+/* harmony import */ var _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(110);
+/* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
+/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(6);
+/* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(2);
+ // Mixins
+
+
+
+
+
+ // Helpers
+
+
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(_util_mixins__WEBPACK_IMPORTED_MODULE_8__[/* default */ "a"])(_mixins_colorable__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], _mixins_delayable__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"], _mixins_dependent__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"], _mixins_menuable__WEBPACK_IMPORTED_MODULE_5__[/* default */ "a"]).extend({
+  name: 'v-tooltip',
+  props: {
+    closeDelay: {
+      type: [Number, String],
+      default: 0
+    },
+    disabled: Boolean,
+    openDelay: {
+      type: [Number, String],
+      default: 0
+    },
+    openOnHover: {
+      type: Boolean,
+      default: true
+    },
+    openOnFocus: {
+      type: Boolean,
+      default: true
+    },
+    tag: {
+      type: String,
+      default: 'span'
+    },
+    transition: String
+  },
+  data: () => ({
+    calculatedMinWidth: 0,
+    closeDependents: false
+  }),
+  computed: {
+    calculatedLeft() {
+      const {
+        activator,
+        content
+      } = this.dimensions;
+      const unknown = !this.bottom && !this.left && !this.top && !this.right;
+      const activatorLeft = this.attach !== false ? activator.offsetLeft : activator.left;
+      let left = 0;
+      if (this.top || this.bottom || unknown) {
+        left = activatorLeft + activator.width / 2 - content.width / 2;
+      } else if (this.left || this.right) {
+        left = activatorLeft + (this.right ? activator.width : -content.width) + (this.right ? 10 : -10);
+      }
+      if (this.nudgeLeft) left -= parseInt(this.nudgeLeft);
+      if (this.nudgeRight) left += parseInt(this.nudgeRight);
+      return `${this.calcXOverflow(left, this.dimensions.content.width)}px`;
+    },
+    calculatedTop() {
+      const {
+        activator,
+        content
+      } = this.dimensions;
+      const activatorTop = this.attach !== false ? activator.offsetTop : activator.top;
+      let top = 0;
+      if (this.top || this.bottom) {
+        top = activatorTop + (this.bottom ? activator.height : -content.height) + (this.bottom ? 10 : -10);
+      } else if (this.left || this.right) {
+        top = activatorTop + activator.height / 2 - content.height / 2;
+      }
+      if (this.nudgeTop) top -= parseInt(this.nudgeTop);
+      if (this.nudgeBottom) top += parseInt(this.nudgeBottom);
+      if (this.attach === false) top += this.pageYOffset;
+      return `${this.calcYOverflow(top)}px`;
+    },
+    classes() {
+      return {
+        'v-tooltip--top': this.top,
+        'v-tooltip--right': this.right,
+        'v-tooltip--bottom': this.bottom,
+        'v-tooltip--left': this.left,
+        'v-tooltip--attached': this.attach === '' || this.attach === true || this.attach === 'attach'
+      };
+    },
+    computedTransition() {
+      if (this.transition) return this.transition;
+      return this.isActive ? 'scale-transition' : 'fade-transition';
+    },
+    offsetY() {
+      return this.top || this.bottom;
+    },
+    offsetX() {
+      return this.left || this.right;
+    },
+    styles() {
+      return {
+        left: this.calculatedLeft,
+        maxWidth: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* convertToUnit */ "h"])(this.maxWidth),
+        minWidth: Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* convertToUnit */ "h"])(this.minWidth),
+        top: this.calculatedTop,
+        zIndex: this.zIndex || this.activeZIndex
+      };
+    }
+  },
+  beforeMount() {
+    this.$nextTick(() => {
+      this.value && this.callActivate();
+    });
+  },
+  mounted() {
+    if (Object(_util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* getSlotType */ "t"])(this, 'activator', true) === 'v-slot') {
+      Object(_util_console__WEBPACK_IMPORTED_MODULE_7__[/* consoleError */ "b"])(`v-tooltip's activator slot must be bound, try '<template #activator="data"><v-btn v-on="data.on>'`, this);
+    }
+  },
+  methods: {
+    activate() {
+      // Update coordinates and dimensions of menu
+      // and its activator
+      this.updateDimensions(); // Start the transition
+
+      requestAnimationFrame(this.startTransition);
+    },
+    deactivate() {
+      this.runDelay('close');
+    },
+    genActivatorListeners() {
+      const listeners = _mixins_activatable__WEBPACK_IMPORTED_MODULE_1__[/* default */ "a"].options.methods.genActivatorListeners.call(this);
+      if (this.openOnFocus) {
+        listeners.focus = e => {
+          this.getActivator(e);
+          this.runDelay('open');
+        };
+        listeners.blur = e => {
+          this.getActivator(e);
+          this.runDelay('close');
+        };
+      }
+      listeners.keydown = e => {
+        if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_6__[/* keyCodes */ "y"].esc) {
+          this.getActivator(e);
+          this.runDelay('close');
+        }
+      };
+      return listeners;
+    },
+    genActivatorAttributes() {
+      return {
+        'aria-haspopup': true,
+        'aria-expanded': String(this.isActive)
+      };
+    },
+    genTransition() {
+      const content = this.genContent();
+      if (!this.computedTransition) return content;
+      return this.$createElement('transition', {
+        props: {
+          name: this.computedTransition
+        }
+      }, [content]);
+    },
+    genContent() {
+      return this.$createElement('div', this.setBackgroundColor(this.color, {
+        staticClass: 'v-tooltip__content',
+        class: {
+          [this.contentClass]: true,
+          menuable__content__active: this.isActive,
+          'v-tooltip__content--fixed': this.activatorFixed
+        },
+        style: this.styles,
+        attrs: this.getScopeIdAttrs(),
+        directives: [{
+          name: 'show',
+          value: this.isContentActive
+        }],
+        ref: 'content'
+      }), this.getContentSlot());
+    }
+  },
+  render(h) {
+    return h(this.tag, {
+      staticClass: 'v-tooltip',
+      class: this.classes
+    }, [this.showLazyContent(() => [this.genTransition()]), this.genActivator()]);
+  }
+}));
+
+/***/ }),
+
+/***/ 573:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6456,7 +7780,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(584)
+  var style0 = __webpack_require__(585)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -6482,7 +7806,7 @@ installComponents(component, {PricingOption: __webpack_require__(105).default})
 
 /***/ }),
 
-/***/ 584:
+/***/ 585:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6494,7 +7818,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 585:
+/***/ 586:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -6509,11 +7833,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 586:
+/***/ 587:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(519);
+/* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(521);
 /* harmony import */ var _src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VBottomSheet_VBottomSheet_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VDialog_VDialog__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(407);
  // Extensions
@@ -6544,785 +7868,21 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 610:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 932:
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
+// style-loader: Adds some css to the DOM by adding a <style> tag
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(411);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(127);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(124);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(431);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
-var VContainer = __webpack_require__(429);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(407);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(123);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(428);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(430);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(433);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(489);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(38);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/po/PoForm.vue?vue&type=template&id=1a9381f0
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var PoFormvue_type_template_id_1a9381f0_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isLoading,
-      callback: function ($$v) {
-        _vm.isLoading = $$v;
-      },
-      expression: "isLoading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "max-width": "800"
-    },
-    model: {
-      value: _vm.showAddRowDialog,
-      callback: function ($$v) {
-        _vm.showAddRowDialog = $$v;
-      },
-      expression: "showAddRowDialog"
-    }
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_vm._v("ເພີ່ມລາຍການໃຫມ່")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
-    ref: "addRowForm"
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "pro_name",
-      "item-value": "id",
-      "items": _vm.productList,
-      "label": "ເລືອກສິນຄ້າ *",
-      "rules": _vm.productIdRules
-    },
-    model: {
-      value: _vm.newRow.productId,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "productId", $$v);
-      },
-      expression: "newRow.productId"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "number",
-      "step": "0.01",
-      "min": "0",
-      "label": "ລາຄາຕໍ່ຫນ່ວຍ",
-      "required": "",
-      "rules": _vm.priceRules
-    },
-    model: {
-      value: _vm.newRow.price,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "price", _vm._n($$v));
-      },
-      expression: "newRow.price"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "number",
-      "label": "ຈຳນວນ",
-      "required": "",
-      "rules": _vm.qtyRules
-    },
-    model: {
-      value: _vm.newRow.qty,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "qty", _vm._n($$v));
-      },
-      expression: "newRow.qty"
-    }
-  }), _vm._v(" "), _c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "code",
-      "item-value": "id",
-      "items": _vm.currencyList,
-      "label": "ສະກຸນ *",
-      "rules": _vm.currencyIdRules
-    },
-    model: {
-      value: _vm.newRow.currencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "currencyId", $$v);
-      },
-      expression: "newRow.currencyId"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "number",
-      "step": "0.01",
-      "min": "0",
-      "label": "ອັດຕາແລກປ່ຽນ",
-      "rules": _vm.rateRules,
-      "required": ""
-    },
-    model: {
-      value: _vm.newRow.rate,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "rate", _vm._n($$v));
-      },
-      expression: "newRow.rate"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "number",
-      "step": "0.01",
-      "min": "0",
-      "label": "ລວມ",
-      "rules": _vm.totalRules,
-      "required": ""
-    },
-    model: {
-      value: _vm.newRow.total,
-      callback: function ($$v) {
-        _vm.$set(_vm.newRow, "total", _vm._n($$v));
-      },
-      expression: "newRow.total"
-    }
-  })], 1)], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary"
-    },
-    on: {
-      "click": _vm.addRow
-    }
-  }, [_vm._v("ເພີ່ມ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "secondary"
-    },
-    on: {
-      "click": function ($event) {
-        _vm.showAddRowDialog = false;
-      }
-    }
-  }, [_vm._v("ປິດ")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c('span', {
-    staticClass: "headline"
-  }, [_vm._v(_vm._s(_vm.title))])]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VContainer["a" /* default */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "4",
-      "md": "4"
-    }
-  }, [_c(VForm["a" /* default */], {
-    on: {
-      "submit": function ($event) {
-        $event.preventDefault();
-        return _vm.submitForm.apply(null, arguments);
-      }
-    },
-    model: {
-      value: _vm.valid,
-      callback: function ($$v) {
-        _vm.valid = $$v;
-      },
-      expression: "valid"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "Vendor",
-      "rules": [_vm.rules.required],
-      "required": ""
-    },
-    model: {
-      value: _vm.form.header.vendor,
-      callback: function ($$v) {
-        _vm.$set(_vm.form.header, "vendor", $$v);
-      },
-      expression: "form.header.vendor"
-    }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "Remark",
-      "rules": [_vm.rules.required],
-      "required": ""
-    },
-    model: {
-      value: _vm.form.header.notes,
-      callback: function ($$v) {
-        _vm.$set(_vm.form.header, "notes", $$v);
-      },
-      expression: "form.header.notes"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "4",
-      "md": "4"
-    }
-  }, [_c(VForm["a" /* default */], {
-    on: {
-      "submit": function ($event) {
-        $event.preventDefault();
-        return _vm.submitForm.apply(null, arguments);
-      }
-    },
-    model: {
-      value: _vm.valid,
-      callback: function ($$v) {
-        _vm.valid = $$v;
-      },
-      expression: "valid"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "date",
-      "label": "ວັນທີສັ່ງ*",
-      "hint": "example of helper text only on focus"
-    },
-    model: {
-      value: _vm.form.header.bookingDate,
-      callback: function ($$v) {
-        _vm.$set(_vm.form.header, "bookingDate", $$v);
-      },
-      expression: "form.header.bookingDate"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "4",
-      "md": "4"
-    }
-  }, [_c(VForm["a" /* default */], {
-    on: {
-      "submit": function ($event) {
-        $event.preventDefault();
-        return _vm.submit.apply(null, arguments);
-      }
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "date",
-      "label": "ວັນທີຮັບເຄື່ອງ*",
-      "hint": "example of helper text only on focus"
-    },
-    model: {
-      value: _vm.form.header.deliveryDate,
-      callback: function ($$v) {
-        _vm.$set(_vm.form.header, "deliveryDate", $$v);
-      },
-      expression: "form.header.deliveryDate"
-    }
-  }), _vm._v(" "), _c(VSwitch["a" /* default */], {
-    attrs: {
-      "label": "Active",
-      "true-value": true,
-      "false-value": false
-    },
-    model: {
-      value: _vm.form.header.isActive,
-      callback: function ($$v) {
-        _vm.$set(_vm.form.header, "isActive", $$v);
-      },
-      expression: "form.header.isActive"
-    }
-  })], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary"
-    },
-    on: {
-      "click": function ($event) {
-        _vm.showAddRowDialog = true;
-      }
-    }
-  }, [_vm._v("ເພີ່ມລາຍການ")]), _vm._v(" "), _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "items": _vm.lines
-    },
-    scopedSlots: _vm._u([{
-      key: "item",
-      fn: function ({
-        item
-      }) {
-        return [_c('tr', [_c('td', [_c(VAutocomplete["a" /* default */], {
-          attrs: {
-            "item-text": "pro_name",
-            "item-value": "id",
-            "items": _vm.productList,
-            "rules": _vm.productIdRules,
-            "label": "ເລືອກສິນຄ້າ *"
-          },
-          model: {
-            value: item.productId,
-            callback: function ($$v) {
-              _vm.$set(item, "productId", $$v);
-            },
-            expression: "item.productId"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VTextField["a" /* default */], {
-          attrs: {
-            "type": "number",
-            "label": "ລາຄາ",
-            "rules": _vm.priceRules
-          },
-          model: {
-            value: item.price,
-            callback: function ($$v) {
-              _vm.$set(item, "price", _vm._n($$v));
-            },
-            expression: "item.price"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VTextField["a" /* default */], {
-          attrs: {
-            "type": "number",
-            "label": "ຈຳນວນ",
-            "rules": _vm.qtyRules
-          },
-          model: {
-            value: item.qty,
-            callback: function ($$v) {
-              _vm.$set(item, "qty", _vm._n($$v));
-            },
-            expression: "item.qty"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VAutocomplete["a" /* default */], {
-          attrs: {
-            "item-text": "code",
-            "item-value": "id",
-            "items": _vm.currencyList,
-            "label": "ສະກຸນ *",
-            "rules": _vm.currencyIdRules
-          },
-          model: {
-            value: item.currencyId,
-            callback: function ($$v) {
-              _vm.$set(item, "currencyId", $$v);
-            },
-            expression: "item.currencyId"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VTextField["a" /* default */], {
-          attrs: {
-            "type": "number",
-            "step": "0.01",
-            "min": "0",
-            "label": "ອັດຕາແລກປ່ຽນ",
-            "rules": _vm.rateRules
-          },
-          model: {
-            value: item.rate,
-            callback: function ($$v) {
-              _vm.$set(item, "rate", _vm._n($$v));
-            },
-            expression: "item.rate"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VTextField["a" /* default */], {
-          attrs: {
-            "type": "number",
-            "step": "0.01",
-            "min": "0",
-            "label": "ລວມ",
-            "rules": _vm.totalRules
-          },
-          model: {
-            value: item.total,
-            callback: function ($$v) {
-              _vm.$set(item, "total", _vm._n($$v));
-            },
-            expression: "item.total"
-          }
-        })], 1), _vm._v(" "), _c('td', [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "warning",
-            "variant": "text"
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.deleteItem(item);
-            }
-          }
-        }, [_vm._v("\n                                    ລົບ\n                                ")])], 1)])];
-      }
-    }])
-  })], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.submit
-    }
-  }, [_vm._v("\n                Save\n            ")])], 1)], 1)], 2);
+// load the styles
+var content = __webpack_require__(1194);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("994d1e62", content, true, context)
 };
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/po/PoForm.vue?vue&type=template&id=1a9381f0
-
-// EXTERNAL MODULE: ./util/myUtil.js
-var myUtil = __webpack_require__(144);
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/po/PoForm.vue?vue&type=script&lang=js
-
-
-/* harmony default export */ var PoFormvue_type_script_lang_js = ({
-  props: {
-    isEdit: {
-      type: Boolean,
-      default: false
-    },
-    headerId: {
-      type: Number,
-      default: null
-    }
-  },
-  data() {
-    return {
-      productList: [],
-      currencyList: [],
-      showAddRowDialog: false,
-      dialog: false,
-      title: 'ສ້າງ ໃບສັ່ງຊື້',
-      valid: false,
-      isLoading: false,
-      form: {
-        header: {
-          bookingDate: '',
-          deliveryDate: '',
-          vendor: 'Acme Inc.',
-          notes: 'Please deliver to loading dock B.',
-          isActive: true,
-          locking_session_id: ''
-        }
-      },
-      rules: {
-        required: v => !!v || "This field is required",
-        dateAfter: date => v => date ? new Date(v) >= new Date(date) || "Date must be after start date" : true,
-        dateAfterToday: v => new Date(v) >= new Date() || "Date must be after today",
-        number: v => !isNaN(parseFloat(v)) && isFinite(v) || "Value must be a number"
-      },
-      headers: [{
-        text: "ສິນຄ້າ",
-        value: "date"
-      }, {
-        text: "ລາຄາຕໍ່ຫນ່ວຍ",
-        value: "reach"
-      }, {
-        text: "ຈຳນວນ",
-        value: "results"
-      }, {
-        text: "ສະກຸນ",
-        value: "reach"
-      }, {
-        text: "ອັດຕາແລກປ່ຽນ",
-        value: "comments"
-      }, {
-        text: "ລວມ",
-        value: "purchaseQty"
-      }
-      // { text: "Cost Per Customer", value: "costPerCustomer" },
-      // { text: "Budget Spend", value: "budgetSpend" }
-      ],
-      lines: [],
-      lineError: [],
-      newRow: {
-        rate: 1,
-        qty: 1,
-        price: 25.0,
-        total: 250.0,
-        isActive: true,
-        currencyId: 1,
-        productId: 2,
-        locking_session_id: ''
-      }
-    };
-  },
-  mounted() {
-    // this.loadAccount()
-
-    const today = new Date().toISOString().substr(0, 10);
-    this.form.header.bookingDate = today;
-    this.form.header.deliveryDate = today;
-    this.loadPurchaseOrder();
-    this.loadProduct();
-    this.loadCurrency();
-  },
-  computed: {
-    dateRules() {
-      return [value => !!value || 'Field is required', value => /^(\d{4})-(\d{2})-(\d{2})$/.test(value) || 'Invalid date format (YYYY-MM-DD)'];
-    },
-    rateRules() {
-      return [value => !!value || 'Rate is required', value => /^[0-9]+(\.[0-9]{1,2})?$/.test(value) || 'Rate must be a number with up to 2 decimal places'];
-    },
-    qtyRules() {
-      return [value => !!value || 'Quantity is required', value => /^\d+$/.test(value) || 'Quantity must be a whole number'];
-    },
-    priceRules() {
-      return [value => !!value || 'Price is required', value => /^\d+(\.\d{1,2})?$/.test(value) || 'Price must be a number with up to 2 decimal places'];
-    },
-    totalRules() {
-      return [value => !!value || 'Total is required', value => /^\d+(\.\d{1,2})?$/.test(value) || 'Total must be a number with up to 2 decimal places'];
-    },
-    currencyIdRules() {
-      return [value => !!value || 'Currency ID is required', value => /^\d+$/.test(value) || 'Currency ID must be a whole number'];
-    },
-    productIdRules() {
-      return [value => !!value || 'Product ID is required', value => /^\d+$/.test(value) || 'Product ID must be a whole number'];
-    }
-  },
-  methods: {
-    deleteItem(item) {
-      const index = this.lines.indexOf(item);
-      if (index > -1) {
-        if (this.isEdit && item.id) {
-          Object(myUtil["a" /* confirmSwal */])(this.$swal, 'warning', async () => {
-            console.log("Delete record function");
-            this.isLoading = true;
-            await this.$axios.delete(`/api/purchasing/line/find/${item.id}`).then(response => {
-              console.log("response=>", response.data);
-              if (response.data.includes('successfully')) {
-                this.lines.splice(index, 1);
-              }
-            }).catch(error => {
-              Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", error.response.data);
-            });
-            this.isLoading = false;
-          });
-        } else {
-          this.lines.splice(index, 1);
-        }
-      }
-    },
-    open() {
-      this.dialog = true;
-    },
-    close() {
-      this.dialog = false;
-    },
-    validateLine() {
-      this.lines.forEach((item, index) => {
-        const {
-          rate,
-          qty,
-          price,
-          total,
-          isActive,
-          currencyId,
-          productId
-        } = item;
-        console.log("===>Rate ", rate);
-        if (!rate || !Number.isFinite(rate)) {
-          this.lineError.push(` Rate must be a number`);
-        }
-        if (!qty || !Number.isInteger(qty)) {
-          this.lineError.push(` Quantity must be an integer`);
-        }
-        if (!price || !Number.isFinite(price)) {
-          this.lineError.push(` Price must be a number`);
-        }
-        if (!total || !Number.isFinite(total)) {
-          this.lineError.push(` Total must be a number`);
-        }
-        if (typeof isActive !== 'boolean') {
-          this.lineError.push(` isActive must be a boolean`);
-        }
-        if (!currencyId || !Number.isInteger(currencyId)) {
-          this.lineError.push(` Currency ID must be an integer`);
-        }
-        if (!productId || !Number.isInteger(productId)) {
-          this.lineError.push(` Product ID must be an integer`);
-        }
-      });
-    },
-    async loadPurchaseOrder() {
-      this.isLoading = true;
-      if (this.isEdit) {
-        await this.$axios.get(`/api/purchasing/find/${this.campaignId}`).then(response => {
-          this.form.header = response.data;
-          this.form.header.start = response.data['start'].split('T')[0];
-          this.form.header.end = response.data['end'].split('T')[0];
-          this.campaignEntry.length = 0;
-          for (const iterator of response.data.entries) {
-            let entry = iterator;
-            entry['date'] = iterator['date'].split('T')[0];
-            this.campaignEntry.push(entry);
-          }
-        }).catch(error => {
-          console.log("Load cammpaign error", error);
-        });
-      }
-      this.isLoading = false;
-    },
-    async submit() {
-      // handle form submission here
-      if (!this.isLoading) {
-        this.isLoading = true;
-        if (this.lines.length == 0) {
-          this.isLoading = false;
-          return Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ບໍ່ມີລາຍການ ກະລຸນາເພີ່ມຢ່າງນ້ອຍ 1 ລາຍການ");
-        }
-        this.validateLine();
-        if (this.lineError.length > 0) {
-          Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", `ກະລຸນາ ກວດຂໍ້ມູນຄືນໃຫ້ຖືກຕ້ອງ ${this.lineError} `);
-          this.isLoading = false;
-          return this.lineError.length = 0;
-        }
-        this.form.header.lines = this.lines;
-        // ********* update entry *********
-        if (this.isEdit && this.headerId) {
-          console.log("====> update campaign");
-          await this.$axios.put(`/api/purchasing/update/${this.headerId}`, this.form.header).then(res => {
-            if (res.status == 200) {
-              Object(myUtil["c" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
-            } else {
-              Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", res.data);
-            }
-          }).catch(error => {
-            Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", error.response.data);
-          });
-          // ********* create entry *********
-        } else {
-          // this.isLoading = false;
-          // return console.log("Form ===> ", this.form.header);
-          await this.$axios.post("/api/purchasing/create", this.form.header).then(res => {
-            if (res.status == 200) {
-              Object(myUtil["c" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
-            } else {
-              Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", res.data);
-            }
-          }).catch(error => {
-            // swalError2(this.$swal, "ເກີດຂໍ້ຜິດພາດ", error.response.data.errors[0]['msg'])
-            Object(myUtil["b" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", error.response.data);
-          });
-        }
-        this.isLoading = false;
-      }
-      this.close();
-    },
-    addRow() {
-      if (this.$refs.addRowForm.validate()) {
-        this.lines.push(this.newRow);
-        this.newRow = {
-          rate: 2.5,
-          qty: 10,
-          price: 25.0,
-          total: 250.0,
-          isActive: true
-          //   locking_session_id: 'abc123'
-        };
-        this.showAddRowDialog = false;
-      }
-    },
-    async loadProduct() {
-      this.isLoading = true;
-      await this.$axios.get('product_mobile_f').then(res => {
-        this.productList = res.data.map(el => {
-          return el;
-        });
-        console.log("all data1: ", this.productList[0].img_path);
-      }).catch(er => {
-        console.log('Data: ' + er);
-      });
-      this.isLoading = false;
-    },
-    async loadCurrency() {
-      this.isLoading = true;
-      await this.$axios.get('api/currency/find').then(res => {
-        this.currencyList = res.data.map(el => {
-          return el;
-        });
-      }).catch(er => {
-        console.log('Data: ' + er);
-      });
-      this.isLoading = false;
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/po/PoForm.vue?vue&type=script&lang=js
- /* harmony default export */ var po_PoFormvue_type_script_lang_js = (PoFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/po/PoForm.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  po_PoFormvue_type_script_lang_js,
-  PoFormvue_type_template_id_1a9381f0_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "72cfd920"
-  
-)
-
-/* harmony default export */ var PoForm = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default})
-
 
 /***/ })
 

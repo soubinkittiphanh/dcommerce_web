@@ -1,7 +1,7 @@
 exports.ids = [191,26,175];
 exports.modules = {
 
-/***/ 1112:
+/***/ 1113:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1113:
+/***/ 1114:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1445:
+/***/ 1448:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -362,7 +362,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1112)
+  var style0 = __webpack_require__(1113)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -383,7 +383,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var authority = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(472).default,LoadingIndicator: __webpack_require__(67).default,AuthorityForm: __webpack_require__(865).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(471).default,LoadingIndicator: __webpack_require__(67).default,AuthorityForm: __webpack_require__(865).default})
 
 
 /***/ }),
@@ -417,7 +417,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 472:
+/***/ 471:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -891,7 +891,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(67).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1113);
+var content = __webpack_require__(1114);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
