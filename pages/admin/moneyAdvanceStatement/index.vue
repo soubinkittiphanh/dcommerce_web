@@ -55,6 +55,7 @@
                 v-model="form.creditAmount" 
                 placeholder="0.00"
                 step="0.01"
+                min="0"
                 @input="onCreditInput"
               />
             </div>
@@ -69,57 +70,30 @@
                 v-model="form.debitAmount" 
                 placeholder="0.00"
                 step="0.01"
+                min="0"
                 @input="onDebitInput"
               />
             </div>
           </div>
         </div>
 
-        <!-- Row 3: Description & Type -->
-        <div class="form-grid">
-          <div class="form-field col-span-2">
-            <label>ລາຍລະອຽດ <span class="required">*</span></label>
-            <input 
-              type="text" 
-              v-model="form.description" 
-              placeholder="ລາຍລະອຽດການເຮັດທຸລະກຳ..."
-              class="input-text"
-            />
-          </div>
-        </div>
-
-        <!-- Row 4: Reference & Type (Compact) -->
-        <div class="form-grid triple-grid">
+        <!-- Row 3: Exchange Rate -->
+        <div class="form-grid exchange-grid">
           <div class="form-field">
-            <label>ເລກອ້າງອີງ</label>
-            <input 
-              type="text" 
-              v-model="form.referenceNo" 
-              placeholder="Ref..."
-              class="input-text"
-            />
+            <label>ອັດຕາແລກປ່ຽນ (Exchange Rate)</label>
+            <div class="amount-wrapper exchange-input">
+              <span class="amount-icon">≈</span>
+              <input 
+                type="number" 
+                v-model="form.exchangeRate" 
+                placeholder="1.00"
+                step="0.01"
+                min="0.01"
+              />
+            </div>
           </div>
-
           <div class="form-field">
-            <label>ປະເພດ</label>
-            <select v-model="form.transactionType" class="input-select">
-              <option value="">-- ເລືອກ --</option>
-              <option value="deposit">ຝາກເງິນ</option>
-              <option value="withdrawal">ຖອນເງິນ</option>
-              <option value="transfer">ໂອນເງິນ</option>
-              <option value="fee">ຄ່າທຳນຽມ</option>
-              <option value="interest">ດອກເບ້ຍ</option>
-              <option value="other">ອື່ນໆ</option>
-            </select>
-          </div>
-
-          <div class="form-field">
-            <label>ສະຖານະ</label>
-            <select v-model="form.status" class="input-select">
-              <option value="pending">ລໍຖ້າ</option>
-              <option value="cleared">ຜ່ານແລ້ວ</option>
-              <option value="reconciled">ກວດສອບແລ້ວ</option>
-            </select>
+            <!-- Empty field to maintain grid layout -->
           </div>
         </div>
 
@@ -188,7 +162,7 @@
               :class="{ active: manualBalanceMode }"
             >
               <span v-if="!manualBalanceMode">✏️ ປ້ອນຍອດສຸດທ້າຍເອງ</span>
-              <span v-else>🔄 ໃຊ້ການຄິດໄລ່ອັດຕະໂນມັດ</span>
+              <span v-else">🔄 ໃຊ້ການຄິດໄລ່ອັດຕະໂນມັດ</span>
             </button>
             <small v-if="manualBalanceMode" class="toggle-hint">
               ໃຊ້ເມື່ອຍອດຄິດໄລ່ບໍ່ກົງກັບໃບແຈ້ງຍອດທະນາຄານ
@@ -236,28 +210,18 @@
           <thead>
             <tr>
               <th>ວັນທີ</th>
-              <th>ລາຍລະອຽດ</th>
-              <th>Ref</th>
               <th class="amount">ເງິນອອກ</th>
               <th class="amount">ເງິນເຂົ້າ</th>
               <th class="amount">ຍອດຄົງເຫຼືອ</th>
-              <th>ສະຖານະ</th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="stmt in statements" :key="stmt.id" :class="{'is-reconciled': stmt.status === 'reconciled'}">
               <td class="nowrap">{{ formatDateShort(stmt.bookingDate) }}</td>
-              <td class="desc">{{ stmt.description }}</td>
-              <td class="ref">{{ stmt.referenceNo || '-' }}</td>
               <td class="amount debit">{{ stmt.debitAmount > 0 ? formatAmount(stmt.debitAmount) : '-' }}</td>
               <td class="amount credit">{{ stmt.creditAmount > 0 ? formatAmount(stmt.creditAmount) : '-' }}</td>
               <td class="amount balance">{{ formatAmount(stmt.endingBalance) }}</td>
-              <td>
-                <span class="badge" :class="stmt.status">
-                  {{ getStatusLabel(stmt.status) }}
-                </span>
-              </td>
               <td class="actions">
                 <button @click="editStatement(stmt)" class="btn-mini" title="ແກ້ໄຂ">✏️</button>
                 <button @click="deleteStatement(stmt.id)" class="btn-mini" title="ລຶບ">🗑️</button>
@@ -350,11 +314,8 @@ export default {
         bookingDate: new Date().toISOString().split('T')[0],
         creditAmount: '',
         debitAmount: '',
-        description: '',
         endingBalance: '',
-        referenceNo: '',
-        transactionType: '',
-        status: 'cleared'
+        exchangeRate: 1.00
       },
       
       bankAccounts: [],
@@ -381,14 +342,14 @@ export default {
     },
 
     transactionSign() {
-      if (this.form.creditAmount) return '+'
-      if (this.form.debitAmount) return '-'
+      if (this.form.creditAmount && parseFloat(this.form.creditAmount) > 0) return '+'
+      if (this.form.debitAmount && parseFloat(this.form.debitAmount) > 0) return '-'
       return ''
     },
 
     transactionClass() {
-      if (this.form.creditAmount) return 'credit'
-      if (this.form.debitAmount) return 'debit'
+      if (this.form.creditAmount && parseFloat(this.form.creditAmount) > 0) return 'credit'
+      if (this.form.debitAmount && parseFloat(this.form.debitAmount) > 0) return 'debit'
       return ''
     },
 
@@ -414,11 +375,7 @@ export default {
     },
     
     isFormValid() {
-      const baseValid = this.form.bankAccountId && 
-                       this.form.bookingDate && 
-                       this.form.description &&
-                       (this.form.creditAmount || this.form.debitAmount) &&
-                       !(this.form.creditAmount && this.form.debitAmount)
+      const baseValid = this.form.bankAccountId && this.form.bookingDate
       
       if (this.manualBalanceMode) {
         return baseValid && this.form.endingBalance !== ''
@@ -480,7 +437,7 @@ export default {
     },
 
     onCreditInput() {
-      if (this.form.creditAmount) {
+      if (this.form.creditAmount && parseFloat(this.form.creditAmount) > 0) {
         this.form.debitAmount = ''
       }
       // Update manual balance with calculated if not in manual mode
@@ -490,7 +447,7 @@ export default {
     },
 
     onDebitInput() {
-      if (this.form.debitAmount) {
+      if (this.form.debitAmount && parseFloat(this.form.debitAmount) > 0) {
         this.form.creditAmount = ''
       }
       // Update manual balance with calculated if not in manual mode
@@ -521,11 +478,12 @@ export default {
           bookingDate: this.form.bookingDate,
           creditAmount: parseFloat(this.form.creditAmount) || 0,
           debitAmount: parseFloat(this.form.debitAmount) || 0,
-          description: this.form.description,
           endingBalance: this.finalEndingBalance,
-          referenceNo: this.form.referenceNo || null,
-          transactionType: this.form.transactionType || null,
-          status: this.form.status
+          exchangeRate: parseFloat(this.form.exchangeRate) || 1.00,
+          description: 'Bank statement entry', // Default description since field was removed
+          referenceNo: null,
+          transactionType: null,
+          status: 'cleared'
         }
 
         if (this.editMode) {
@@ -613,11 +571,8 @@ export default {
         bookingDate: statement.bookingDate,
         creditAmount: statement.creditAmount || '',
         debitAmount: statement.debitAmount || '',
-        description: statement.description,
         endingBalance: this.manualBalanceMode ? statement.endingBalance : '',
-        referenceNo: statement.referenceNo || '',
-        transactionType: statement.transactionType || '',
-        status: statement.status
+        exchangeRate: statement.exchangeRate || 1.00
       }
 
       this.previousBalance = prevBal
@@ -664,11 +619,8 @@ export default {
         bookingDate: new Date().toISOString().split('T')[0],
         creditAmount: '',
         debitAmount: '',
-        description: '',
         endingBalance: '',
-        referenceNo: '',
-        transactionType: '',
-        status: 'cleared'
+        exchangeRate: 1.00
       }
     },
 
@@ -699,159 +651,40 @@ export default {
 </script>
 
 <style scoped>
-/* ... (keep all previous styles) ... */
-
-/* Balance Section Updates */
-.balance-section {
-  margin: 20px 0;
-}
-
-.manual-balance-wrapper {
-  padding: 20px;
-  background: #fff8f0;
-  border: 2px dashed #f59e0b;
-  border-radius: 8px;
-}
-
-.input-manual-balance {
-  height: 40px;
-  padding: 0 12px;
-  border: 2px solid #f59e0b;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: 700;
-  font-family: 'Monaco', monospace;
-  background: white;
-}
-
-.input-manual-balance:focus {
-  outline: none;
-  border-color: #d97706;
-  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
-}
-
-.balance-difference {
-  margin-top: 12px;
-  padding: 12px;
-  background: white;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 13px;
-}
-
-.diff-label {
-  font-weight: 600;
-  color: #92400e;
-}
-
-.diff-value {
-  font-family: 'Monaco', monospace;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.diff-value.positive {
-  color: #10b981;
-}
-
-.diff-value.negative {
-  color: #ef4444;
-}
-
-.diff-note {
-  color: #6b7280;
-  font-size: 12px;
-  margin-left: auto;
-}
-
-.balance-mode-toggle {
-  margin-top: 16px;
-  text-align: center;
-}
-
-.btn-toggle {
-  padding: 10px 20px;
-  background: white;
-  border: 2px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  color: #6b7280;
-}
-
-.btn-toggle:hover {
-  border-color: #3b82f6;
-  color: #3b82f6;
-  background: #eff6ff;
-}
-
-.btn-toggle.active {
-  background: #f59e0b;
-  border-color: #f59e0b;
-  color: white;
-}
-
-.toggle-hint {
-  display: block;
-  margin-top: 8px;
-  font-size: 12px;
-  color: #92400e;
-  font-style: italic;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .balance-difference {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-  }
-
-  .diff-note {
-    margin-left: 0;
-  }
-}
-
-* {
-  box-sizing: border-box;
-}
-
 .ac-statement-compact {
-  max-width: 1400px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 16px;
+  padding: 20px;
   font-family: 'Noto Sans Lao', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Header - Minimal */
+/* Page Header */
 .page-header {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 .header-content h1 {
   margin: 0;
-  font-size: 24px;
-  font-weight: 600;
-  color: #1a1a1a;
+  font-size: 28px;
+  color: #2d3748;
+  font-weight: 700;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .header-content p {
-  margin: 2px 0 0 0;
-  font-size: 13px;
-  color: #6b7280;
+  margin: 5px 0 0;
+  color: #718096;
+  font-size: 14px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
-/* Form Card - Compact */
+/* Form Card */
 .form-card {
   background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 24px;
 }
 
 .form-grid {
@@ -861,16 +694,20 @@ export default {
   margin-bottom: 16px;
 }
 
-.form-grid:last-child {
-  margin-bottom: 0;
+.amount-grid {
+  grid-template-columns: 1fr 1fr;
+}
+
+.exchange-grid {
+  grid-template-columns: 1fr 1fr;
 }
 
 .triple-grid {
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
-.amount-grid {
-  margin: 20px 0;
+.col-span-2 {
+  grid-column: span 2;
 }
 
 .form-field {
@@ -878,247 +715,279 @@ export default {
   flex-direction: column;
 }
 
-.form-field.col-span-2 {
-  grid-column: span 2;
-}
-
 .form-field label {
-  font-size: 13px;
-  font-weight: 500;
-  color: #374151;
   margin-bottom: 6px;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .required {
-  color: #ef4444;
+  color: #e53e3e;
 }
 
-/* Inputs - Modern & Minimal */
-.input-text,
-.input-date,
-.input-select,
-.amount-wrapper input {
-  height: 40px;
-  padding: 0 12px;
-  border: 1px solid #d1d5db;
+/* Input Styles */
+.input-date, .input-text, .input-select {
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   font-size: 14px;
-  transition: all 0.2s;
-  background: white;
+  font-family: 'Noto Sans Lao', sans-serif;
+  transition: border-color 0.2s;
 }
 
-.input-text:focus,
-.input-date:focus,
-.input-select:focus,
-.amount-wrapper input:focus {
+.input-date:focus, .input-text:focus, .input-select:focus {
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
-/* Autocomplete Styling */
-.form-field >>> .v-input__control {
-  min-height: 40px !important;
-}
-
-.form-field >>> .v-input__slot {
-  min-height: 40px !important;
-  padding: 0 12px !important;
-  border: 1px solid #d1d5db !important;
-  border-radius: 6px !important;
-  box-shadow: none !important;
-}
-
-.form-field >>> .v-input--is-focused .v-input__slot {
-  border-color: #3b82f6 !important;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1) !important;
-}
-
-.select-text {
-  font-size: 14px;
-  color: #1f2937;
-}
-
-.select-item {
-  padding: 4px 0;
-}
-
-.item-name {
-  font-size: 14px;
-  font-weight: 500;
-  color: #1f2937;
-}
-
-.item-sub {
-  font-size: 12px;
-  color: #6b7280;
-  margin-top: 2px;
-}
-
-/* Amount Input - Clean Design */
 .amount-wrapper {
-  position: relative;
   display: flex;
   align-items: center;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: border-color 0.2s;
 }
 
-.amount-wrapper input {
-  width: 100%;
-  padding-left: 36px;
-  font-weight: 600;
-  font-family: 'Monaco', 'Courier New', monospace;
+.amount-wrapper:focus-within {
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.1);
 }
 
 .amount-icon {
-  position: absolute;
-  left: 12px;
-  font-size: 18px;
+  padding: 10px 12px;
   font-weight: bold;
-  pointer-events: none;
+  font-size: 16px;
+  min-width: 44px;
+  text-align: center;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .credit-input .amount-icon {
-  color: #10b981;
+  background: #f0fff4;
+  color: #38a169;
 }
 
 .debit-input .amount-icon {
-  color: #ef4444;
+  background: #fff5f5;
+  color: #e53e3e;
 }
 
-.credit-input input {
-  border-color: #10b981;
+.exchange-input .amount-icon {
+  background: #f0f4ff;
+  color: #5a67d8;
 }
 
-.debit-input input {
-  border-color: #ef4444;
+.manual-input .amount-icon {
+  background: #f7fafc;
+  color: #4a5568;
 }
 
-/* Balance Strip - Ultra Compact */
+.amount-wrapper input {
+  flex: 1;
+  padding: 10px 12px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'Noto Sans Lao', 'Courier New', monospace;
+}
+
+/* Balance Section */
+.balance-section {
+  margin: 20px 0;
+  padding: 16px;
+  background: #f7fafc;
+  border-radius: 8px;
+}
+
 .balance-strip {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  padding: 16px;
-  background: linear-gradient(to right, #f9fafb, #f3f4f6);
-  border-radius: 8px;
-  margin: 20px 0;
-  font-size: 13px;
+  flex-wrap: wrap;
 }
 
 .balance-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  min-width: 120px;
 }
 
 .balance-item .label {
-  font-size: 11px;
-  color: #6b7280;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 12px;
+  color: #718096;
+  margin-bottom: 4px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .balance-item .value {
   font-size: 16px;
-  font-weight: 700;
-  font-family: 'Monaco', monospace;
-  color: #1f2937;
+  font-weight: 600;
+  font-family: 'Noto Sans Lao', 'Courier New', monospace;
 }
 
 .balance-item.credit .value {
-  color: #10b981;
+  color: #38a169;
 }
 
 .balance-item.debit .value {
-  color: #ef4444;
+  color: #e53e3e;
 }
 
-.balance-item.highlight {
-  padding: 8px 16px;
-  background: #3b82f6;
-  border-radius: 6px;
-  color: white;
-}
-
-.balance-item.highlight .label,
 .balance-item.highlight .value {
-  color: white;
+  color: #3182ce;
+  font-size: 18px;
 }
 
 .balance-divider {
-  font-size: 20px;
-  color: #d1d5db;
+  font-size: 18px;
+  color: #a0aec0;
+  font-weight: bold;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
-/* Actions - Compact */
-.form-actions {
-  display: flex;
-  gap: 10px;
-  justify-content: flex-end;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
+.manual-balance-wrapper {
+  margin-bottom: 16px;
 }
 
-.btn-save,
-.btn-clear {
-  height: 40px;
-  padding: 0 24px;
-  border: none;
+.balance-difference {
+  padding: 12px;
+  background: #fff8dc;
+  border: 1px solid #f7d794;
   border-radius: 6px;
+  margin-top: 12px;
   font-size: 14px;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+.diff-label {
   font-weight: 600;
+}
+
+.diff-value {
+  font-weight: 700;
+  font-family: 'Noto Sans Lao', 'Courier New', monospace;
+}
+
+.diff-value.positive {
+  color: #38a169;
+}
+
+.diff-value.negative {
+  color: #e53e3e;
+}
+
+.diff-note {
+  color: #718096;
+  font-size: 12px;
+}
+
+.balance-mode-toggle {
+  text-align: center;
+  margin-top: 12px;
+}
+
+.btn-toggle {
+  padding: 8px 16px;
+  background: #edf2f7;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 14px;
+  font-family: 'Noto Sans Lao', sans-serif;
   transition: all 0.2s;
 }
 
-.btn-save {
-  background: #3b82f6;
+.btn-toggle:hover {
+  background: #e2e8f0;
+}
+
+.btn-toggle.active {
+  background: #3182ce;
   color: white;
+  border-color: #3182ce;
+}
+
+.toggle-hint {
+  display: block;
+  margin-top: 4px;
+  color: #718096;
+  font-size: 12px;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+/* Form Actions */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.btn-save {
+  padding: 10px 24px;
+  background: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-family: 'Noto Sans Lao', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .btn-save:hover:not(:disabled) {
-  background: #2563eb;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+  background: #2c5aa0;
 }
 
 .btn-save:disabled {
-  background: #9ca3af;
+  background: #a0aec0;
   cursor: not-allowed;
 }
 
 .btn-clear {
-  background: #f3f4f6;
-  color: #374151;
+  padding: 10px 24px;
+  background: #edf2f7;
+  color: #4a5568;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-weight: 600;
+  font-family: 'Noto Sans Lao', sans-serif;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .btn-clear:hover {
-  background: #e5e7eb;
+  background: #e2e8f0;
 }
 
 /* Table Card */
 .table-card {
   background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .table-toolbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .table-toolbar h2 {
   margin: 0;
   font-size: 18px;
-  font-weight: 600;
-  color: #1a1a1a;
+  color: #2d3748;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .toolbar-actions {
@@ -1127,250 +996,224 @@ export default {
 }
 
 .btn-icon {
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid #e5e7eb;
-  background: white;
+  padding: 8px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
-  font-size: 16px;
+  font-size: 14px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
-.btn-icon:hover:not(:disabled) {
-  background: #f9fafb;
-  border-color: #d1d5db;
+.btn-icon:hover {
+  background: #edf2f7;
 }
 
-.btn-icon:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Empty State */
-.empty-state {
-  text-align: center;
-  padding: 60px 20px;
-  color: #9ca3af;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  margin: 0 auto 16px;
-  border: 3px solid #e5e7eb;
-  border-top-color: #3b82f6;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Compact Table */
+/* Table */
 .table-wrapper {
   overflow-x: auto;
-  margin: 0 -20px;
-  padding: 0 20px;
 }
 
 .compact-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+.compact-table th,
+.compact-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .compact-table th {
-  background: #f9fafb;
-  padding: 10px 12px;
-  text-align: left;
+  background: #f7fafc;
   font-weight: 600;
-  color: #6b7280;
-  border-bottom: 2px solid #e5e7eb;
-  white-space: nowrap;
-}
-
-.compact-table td {
-  padding: 12px;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.compact-table tr:hover {
-  background: #fafafa;
-}
-
-.compact-table tr.is-reconciled {
-  background: #ecfdf5;
+  color: #4a5568;
+  font-size: 14px;
 }
 
 .compact-table .amount {
   text-align: right;
-  font-family: 'Monaco', monospace;
+  font-family: 'Noto Sans Lao', 'Courier New', monospace;
+}
+
+.compact-table .credit {
+  color: #38a169;
+}
+
+.compact-table .debit {
+  color: #e53e3e;
+}
+
+.compact-table .balance {
+  color: #3182ce;
   font-weight: 600;
-}
-
-.compact-table .amount.debit {
-  color: #ef4444;
-}
-
-.compact-table .amount.credit {
-  color: #10b981;
-}
-
-.compact-table .amount.balance {
-  color: #3b82f6;
 }
 
 .compact-table .nowrap {
   white-space: nowrap;
-  color: #6b7280;
-  font-size: 12px;
-}
-
-.compact-table .desc {
-  max-width: 300px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.compact-table .ref {
-  font-size: 12px;
-  color: #9ca3af;
+  font-size: 13px;
 }
 
 .compact-table .actions {
-  white-space: nowrap;
-  text-align: right;
+  text-align: center;
 }
 
 .btn-mini {
-  width: 28px;
-  height: 28px;
-  padding: 0;
-  border: 1px solid #e5e7eb;
-  background: white;
+  padding: 4px 6px;
+  margin: 0 2px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
   border-radius: 4px;
   cursor: pointer;
-  margin-left: 4px;
   font-size: 12px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .btn-mini:hover {
-  background: #f9fafb;
+  background: #edf2f7;
+}
+
+.is-reconciled {
+  background: #f0fff4;
 }
 
 .badge {
-  display: inline-block;
-  padding: 4px 8px;
-  border-radius: 4px;
+  padding: 2px 8px;
+  border-radius: 12px;
   font-size: 11px;
   font-weight: 600;
   text-transform: uppercase;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .badge.pending {
-  background: #fef3c7;
-  color: #92400e;
+  background: #fff8dc;
+  color: #d69e2e;
 }
 
 .badge.cleared {
-  background: #dbeafe;
-  color: #1e40af;
+  background: #e6fffa;
+  color: #38a169;
 }
 
 .badge.reconciled {
-  background: #d1fae5;
-  color: #065f46;
+  background: #ebf8ff;
+  color: #3182ce;
 }
 
-/* Pagination - Minimal */
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e2e8f0;
+  border-top: 2px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pagination */
 .pagination {
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   gap: 12px;
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #e5e7eb;
+  padding: 16px;
+  border-top: 1px solid #e2e8f0;
 }
 
 .btn-page {
-  width: 32px;
-  height: 32px;
-  padding: 0;
-  border: 1px solid #e5e7eb;
-  background: white;
-  border-radius: 4px;
+  padding: 6px 12px;
+  background: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .btn-page:hover:not(:disabled) {
-  background: #f9fafb;
+  background: #edf2f7;
 }
 
 .btn-page:disabled {
-  opacity: 0.3;
+  background: #f7fafc;
+  color: #a0aec0;
   cursor: not-allowed;
 }
 
 .page-info {
-  font-size: 13px;
-  color: #6b7280;
-  font-weight: 500;
+  font-weight: 600;
+  color: #4a5568;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 /* Modal */
 .modal-backdrop {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
-  padding: 20px;
 }
 
 .modal-dialog {
   background: white;
   border-radius: 12px;
-  max-width: 500px;
-  width: 100%;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  min-width: 400px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
 }
 
 .modal-header h3 {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  color: #2d3748;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .btn-close {
-  width: 32px;
-  height: 32px;
-  padding: 0;
+  padding: 4px 8px;
+  background: none;
   border: none;
-  background: transparent;
-  font-size: 28px;
+  font-size: 18px;
   cursor: pointer;
-  color: #9ca3af;
-  line-height: 1;
+  color: #718096;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .btn-close:hover {
-  color: #374151;
+  color: #4a5568;
 }
 
 .modal-body {
@@ -1386,84 +1229,77 @@ export default {
 .summary-row {
   display: flex;
   justify-content: space-between;
-  padding: 12px;
-  background: #f9fafb;
-  border-radius: 6px;
+  align-items: center;
+  padding: 8px 0;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
 .summary-row.credit strong {
-  color: #10b981;
+  color: #38a169;
 }
 
 .summary-row.debit strong {
-  color: #ef4444;
+  color: #e53e3e;
 }
 
 .summary-row.highlight {
-  background: #3b82f6;
-  color: white;
+  padding: 12px;
+  background: #f7fafc;
+  border-radius: 6px;
   font-weight: 600;
 }
 
-.summary-row strong {
-  font-family: 'Monaco', monospace;
-  font-size: 16px;
+.summary-row.highlight strong {
+  color: #3182ce;
 }
 
-/* Modal Transition */
-.modal-enter-active,
-.modal-leave-active {
-  transition: opacity 0.2s;
+/* Transitions */
+.modal-enter-active, .modal-leave-active {
+  transition: opacity 0.3s;
 }
 
-.modal-enter-active .modal-dialog,
-.modal-leave-active .modal-dialog {
-  transition: transform 0.2s;
-}
-
-.modal-enter,
-.modal-leave-to {
+.modal-enter, .modal-leave-to {
   opacity: 0;
-}
-
-.modal-enter .modal-dialog,
-.modal-leave-to .modal-dialog {
-  transform: scale(0.95);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .form-grid,
+  .ac-statement-compact {
+    padding: 16px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
   .triple-grid {
     grid-template-columns: 1fr;
   }
-
-  .form-field.col-span-2 {
-    grid-column: span 1;
-  }
-
+  
   .balance-strip {
     flex-direction: column;
     gap: 8px;
   }
-
+  
   .balance-divider {
     transform: rotate(90deg);
   }
-
-  .table-toolbar {
+  
+  .form-actions {
     flex-direction: column;
-    gap: 12px;
-    align-items: flex-start;
   }
-
+  
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  
   .compact-table {
-    font-size: 12px;
+    min-width: 600px;
   }
-
-  .compact-table th,
-  .compact-table td {
-    padding: 8px;
+  
+  .modal-dialog {
+    min-width: 300px;
+    margin: 16px;
   }
 }
 </style>

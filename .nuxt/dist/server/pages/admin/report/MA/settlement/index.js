@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67fe30b5_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(995);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67fe30b5_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67fe30b5_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67fe30b5_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_67fe30b5_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_19addebc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(995);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_19addebc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_19addebc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_19addebc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_19addebc_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".settlement-report[data-v-67fe30b5]{padding:0}.report-header[data-v-67fe30b5]{align-items:center;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-67fe30b5]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-67fe30b5]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-67fe30b5]{display:flex;gap:16px}.custom-btn[data-v-67fe30b5]{border:1px solid #fff!important;color:primary!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-67fe30b5]:hover{background-color:#fff!important;color:primary!important}.filter-card[data-v-67fe30b5]{background:#fff;border-radius:8px}.filter-title[data-v-67fe30b5]{color:#fff;font-weight:600}.custom-secondary-btn[data-v-67fe30b5]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-67fe30b5]:hover{background-color:#5a6268!important}.summary-card[data-v-67fe30b5]{border-radius:8px;height:140px;overflow:hidden;position:relative;transition:transform .3s ease}.summary-card[data-v-67fe30b5]:hover{transform:translateY(-2px)}.summary-icon[data-v-67fe30b5]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details .summary-title[data-v-67fe30b5]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details .summary-subtitle[data-v-67fe30b5]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details .summary-amount[data-v-67fe30b5]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-67fe30b5]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.table-card[data-v-67fe30b5]{border-radius:8px;margin-bottom:24px}.table-title[data-v-67fe30b5]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.search-field[data-v-67fe30b5]{max-width:300px}.search-field[data-v-67fe30b5] .v-icon,.search-field[data-v-67fe30b5] input{color:#fff!important}.report-table[data-v-67fe30b5]{background:#fff}.report-table[data-v-67fe30b5] thead,.report-table[data-v-67fe30b5] thead th{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.report-table[data-v-67fe30b5] thead th{border-bottom:none!important;color:#fff!important;font-size:.875rem!important;font-weight:600!important}.report-table[data-v-67fe30b5] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-67fe30b5]{color:primary;font-family:monospace;font-size:13px}.amount-cell[data-v-67fe30b5]{display:block;font-family:monospace;font-weight:600;text-align:right}.settlement-amount[data-v-67fe30b5]{color:#228b22}.amount-display[data-v-67fe30b5]{text-align:right}.currency-info[data-v-67fe30b5]{color:#666;font-size:11px;margin-top:2px}.proceeder-cell[data-v-67fe30b5]{display:flex;flex-direction:column}.proceeder-name[data-v-67fe30b5]{color:primary;font-size:13px;font-weight:600}.proceeder-email[data-v-67fe30b5]{color:#666;font-size:11px;margin-top:2px}.advance-cell[data-v-67fe30b5]{text-align:center}.notes-cell[data-v-67fe30b5]{color:#666;font-size:13px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dialog-header[data-v-67fe30b5]{font-weight:600!important}.close-btn[data-v-67fe30b5],.dialog-header[data-v-67fe30b5]{color:#fff!important}.detail-item[data-v-67fe30b5]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-67fe30b5]{color:primary}@media print{.action-buttons[data-v-67fe30b5],.filter-card[data-v-67fe30b5],.v-btn[data-v-67fe30b5]{display:none!important}.summary-cards[data-v-67fe30b5]{page-break-inside:avoid}.report-header[data-v-67fe30b5]{color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-67fe30b5]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-67fe30b5]{font-size:24px}.action-buttons[data-v-67fe30b5]{flex-wrap:wrap;justify-content:center}.summary-icon[data-v-67fe30b5]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details .summary-amount[data-v-67fe30b5]{font-size:20px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".settlement-report[data-v-19addebc]{padding:0}.report-header[data-v-19addebc]{align-items:center;border-radius:8px;color:#fff;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-19addebc]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-19addebc]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-19addebc]{display:flex;gap:16px}.custom-btn[data-v-19addebc]{border:1px solid #fff!important;color:primary!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-19addebc]:hover{background-color:#fff!important;color:primary!important}.filter-card[data-v-19addebc]{background:#fff;border-radius:8px}.filter-title[data-v-19addebc]{color:#fff;font-weight:600}.custom-secondary-btn[data-v-19addebc]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-19addebc]:hover{background-color:#5a6268!important}.summary-card[data-v-19addebc]{border-radius:8px;height:140px;overflow:hidden;position:relative;transition:transform .3s ease}.summary-card[data-v-19addebc]:hover{transform:translateY(-2px)}.summary-icon[data-v-19addebc]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details .summary-title[data-v-19addebc]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details .summary-subtitle[data-v-19addebc]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details .summary-amount[data-v-19addebc]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-19addebc]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.table-card[data-v-19addebc]{border-radius:8px;margin-bottom:24px}.table-title[data-v-19addebc]{background:linear-gradient(135deg,#01532b,#0d4f3c)!important;color:#fff!important;font-weight:600}.search-field[data-v-19addebc]{max-width:300px}.search-field[data-v-19addebc] .v-icon,.search-field[data-v-19addebc] input{color:#fff!important}.report-table[data-v-19addebc]{background:#fff}.report-table[data-v-19addebc] thead,.report-table[data-v-19addebc] thead th{background:linear-gradient(135deg,#01532b,#0d4f3c)!important}.report-table[data-v-19addebc] thead th{border-bottom:none!important;color:#fff!important;font-size:.875rem!important;font-weight:600!important}.report-table[data-v-19addebc] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-19addebc]{color:primary;font-family:monospace;font-size:13px}.amount-cell[data-v-19addebc]{display:block;font-family:monospace;font-weight:600;text-align:right}.settlement-amount[data-v-19addebc]{color:#228b22}.amount-display[data-v-19addebc]{text-align:right}.currency-info[data-v-19addebc]{color:#666;font-size:11px;margin-top:2px}.proceeder-cell[data-v-19addebc]{display:flex;flex-direction:column}.proceeder-name[data-v-19addebc]{color:primary;font-size:13px;font-weight:600}.proceeder-email[data-v-19addebc]{color:#666;font-size:11px;margin-top:2px}.advance-cell[data-v-19addebc]{text-align:center}.notes-cell[data-v-19addebc]{color:#666;font-size:13px;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.dialog-header[data-v-19addebc]{font-weight:600!important}.close-btn[data-v-19addebc],.dialog-header[data-v-19addebc]{color:#fff!important}.detail-item[data-v-19addebc]{font-size:14px;margin-bottom:12px}.detail-item strong[data-v-19addebc]{color:primary}@media print{.action-buttons[data-v-19addebc],.filter-card[data-v-19addebc],.v-btn[data-v-19addebc]{display:none!important}.summary-cards[data-v-19addebc]{page-break-inside:avoid}.report-header[data-v-19addebc]{color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-19addebc]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-19addebc]{font-size:24px}.action-buttons[data-v-19addebc]{flex-wrap:wrap;justify-content:center}.summary-icon[data-v-19addebc]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details .summary-amount[data-v-19addebc]{font-size:20px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -74,7 +74,7 @@ var VSpacer = __webpack_require__(433);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(38);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=67fe30b5&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=19addebc&scoped=true
 
 
 
@@ -90,12 +90,12 @@ var VTextField = __webpack_require__(38);
 
 
 
-var settlementvue_type_template_id_67fe30b5_scoped_true_render = function render() {
+var settlementvue_type_template_id_19addebc_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "settlement-report"
-  }, [_vm._ssrNode("<div class=\"report-header primary\" data-v-67fe30b5>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-67fe30b5><h1 class=\"page-title\" data-v-67fe30b5><i class=\"fas fa-chart-bar\" data-v-67fe30b5></i>\n        ລາຍງານ ການຊຳລະ\n      </h1> <p class=\"page-subtitle\" data-v-67fe30b5>Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-67fe30b5>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header primary\" data-v-19addebc>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-19addebc><h1 class=\"page-title\" data-v-19addebc><i class=\"fas fa-chart-bar\" data-v-19addebc></i>\n        ລາຍງານ ການຊຳລະ\n      </h1> <p class=\"page-subtitle\" data-v-19addebc>Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-19addebc>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -379,6 +379,20 @@ var settlementvue_type_template_id_67fe30b5_scoped_true_render = function render
         }, [_vm._v(_vm._s(_vm.formatDate(item.bookingDate)))])];
       }
     }, {
+      key: "item.ministry",
+      fn: function ({
+        item
+      }) {
+        var _item$ministry, _item$ministry2;
+        return [_c('div', {
+          staticClass: "ministry-cell"
+        }, [_c('span', {
+          staticClass: "ministry-name"
+        }, [_vm._v(_vm._s(((_item$ministry = item.ministry) === null || _item$ministry === void 0 ? void 0 : _item$ministry.ministryName) || 'N/A'))]), _vm._v(" "), _c('span', {
+          staticClass: "ministry-code"
+        }, [_vm._v(_vm._s(((_item$ministry2 = item.ministry) === null || _item$ministry2 === void 0 ? void 0 : _item$ministry2.ministryCode) || ''))])])];
+      }
+    }, {
       key: "item.amount",
       fn: function ({
         item
@@ -549,7 +563,7 @@ var settlementvue_type_template_id_67fe30b5_scoped_true_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=67fe30b5&scoped=true
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/index.vue?vue&type=template&id=19addebc&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/index.vue?vue&type=script&lang=js
 var settlementvue_type_script_lang_js = __webpack_require__(855);
@@ -574,11 +588,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   MA_settlementvue_type_script_lang_js,
-  settlementvue_type_template_id_67fe30b5_scoped_true_render,
+  settlementvue_type_template_id_19addebc_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "67fe30b5",
+  "19addebc",
   "f0f67526"
   
 )
@@ -627,8 +641,12 @@ var component = Object(componentNormalizer["a" /* default */])(
       },
       // Table headers
       tableHeaders: [{
-        text: 'ID',
+        text: 'ເລກທີ',
         value: 'id',
+        width: '100px'
+      }, {
+        text: 'ກົມ',
+        value: 'ministry',
         width: '100px'
       }, {
         text: 'ວັນທີ',
@@ -639,22 +657,22 @@ var component = Object(componentNormalizer["a" /* default */])(
         value: 'amount',
         width: '150px'
       }, {
-        text: 'ວິທີການ',
+        text: 'ເນື້ອໃນ',
+        value: 'notes',
+        width: '150px'
+      }, {
+        text: 'ວິທີການຊຳລະ',
         value: 'method',
         width: '140px'
-      }, {
-        text: 'ຜູ້ດຳເນີນການ',
-        value: 'proceeder',
-        width: '180px'
-      }, {
+      },
+      // { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '180px' },
+      {
         text: 'ລາຍຈ່າຍ',
         value: 'moneyAdvance',
         width: '140px'
-      }, {
-        text: 'ສະຖານະ',
-        value: 'status',
-        width: '120px'
-      }, {
+      },
+      // { text: 'ສະຖານະ', value: 'status', width: '120px' },
+      {
         text: 'ຈັດການ',
         value: 'actions',
         sortable: false,
@@ -980,7 +998,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("627f480e", content, true, context)
+  add("b32fb9de", content, true, context)
 };
 
 /***/ })

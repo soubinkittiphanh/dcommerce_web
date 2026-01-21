@@ -189,6 +189,13 @@
         <template v-slot:item.bookingDate="{ item }">
           <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
         </template>
+        
+       <template v-slot:item.ministry="{ item }">
+          <div class="ministry-cell">
+            <span class="ministry-name">{{ item.ministry?.ministryName || 'N/A' }}</span>
+            <span class="ministry-code">{{ item.ministry?.ministryCode || '' }}</span>
+          </div>
+        </template>
 
         <!-- Amount formatting -->
         <template v-slot:item.amount="{ item }">
@@ -343,13 +350,15 @@ export default {
 
       // Table headers
       tableHeaders: [
-        { text: 'ID', value: 'id', width: '100px' },
+        { text: 'ເລກທີ', value: 'id', width: '100px' },
+        { text: 'ກົມ', value: 'ministry', width: '100px' },
         { text: 'ວັນທີ', value: 'bookingDate', width: '100px' },
         { text: 'ຈຳນວນເງິນ', value: 'amount', width: '150px' },
-        { text: 'ວິທີການ', value: 'method', width: '140px' },
-        { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '180px' },
+        { text: 'ເນື້ອໃນ', value: 'notes', width: '150px' },
+        { text: 'ວິທີການຊຳລະ', value: 'method', width: '140px' },
+        // { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '180px' },
         { text: 'ລາຍຈ່າຍ', value: 'moneyAdvance', width: '140px' },
-        { text: 'ສະຖານະ', value: 'status', width: '120px' },
+        // { text: 'ສະຖານະ', value: 'status', width: '120px' },
         { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' }
       ],
 
