@@ -221,11 +221,11 @@
   "UnitForm": {
     "description": "Auto imported from components/unitForm.vue"
   },
-  "CAFEPOSDialog": {
-    "description": "Auto imported from components/CAFE/POSDialog.vue"
-  },
   "CafePOSScreen": {
     "description": "Auto imported from components/CafePOSScreen/index.vue"
+  },
+  "CAFEPOSDialog": {
+    "description": "Auto imported from components/CAFE/POSDialog.vue"
   },
   "AccountingApPayment": {
     "description": "Auto imported from components/accounting/ApPayment.vue"
@@ -383,14 +383,14 @@
   "CAFECustomerDialog": {
     "description": "Auto imported from components/CAFE/customerDialog/index.vue"
   },
-  "CAFEPaymentDialogFront": {
-    "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
-  },
   "CAFEPrintBarDialog": {
     "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
   },
   "CAFEPrintdialog": {
     "description": "Auto imported from components/CAFE/printdialog/index.vue"
+  },
+  "CAFEPaymentDialogFront": {
+    "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
   },
   "MAPaymentAuditDialog": {
     "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
@@ -400,6 +400,9 @@
   },
   "MAPaymentCompareDialog": {
     "description": "Auto imported from components/MA/paymentCompareDialog/index.vue"
+  },
+  "MAPaymentDetailDialog": {
+    "description": "Auto imported from components/MA/paymentDetailDialog/index.vue"
   },
   "MAPaymentComponentsBankAccountInfo": {
     "description": "Auto imported from components/MA/paymentComponents/BankAccountInfo.vue"
@@ -433,9 +436,6 @@
   },
   "MAPaymentComponentsValidationErrors": {
     "description": "Auto imported from components/MA/paymentComponents/ValidationErrors.vue"
-  },
-  "MAPaymentDetailDialog": {
-    "description": "Auto imported from components/MA/paymentDetailDialog/index.vue"
   },
   "MAPaymentDialog": {
     "description": "Auto imported from components/MA/paymentDialog/index.vue"
@@ -473,14 +473,14 @@
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
   },
-  "BenefitView": {
-    "description": "Auto imported from components/benefit/view/index.vue"
-  },
   "CompanyTheme": {
     "description": "Auto imported from components/company/theme/index.vue"
   },
   "JobAdvertiseMaintain": {
     "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
+  },
+  "BenefitView": {
+    "description": "Auto imported from components/benefit/view/index.vue"
   },
   "JobAdvertiseStatusUpdate": {
     "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"

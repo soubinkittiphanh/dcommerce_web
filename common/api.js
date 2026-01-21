@@ -18,10 +18,10 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
   // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
-  // const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
+  const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
   // const baseURL = 'http://150.95.31.23:8027' //  *** HAPPY BUN
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
-  const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
+  // const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
   // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
