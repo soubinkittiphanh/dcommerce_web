@@ -45,7 +45,7 @@
       @show-message="showMessage"
     />
 
-    <!-- ✅ NEW: Price Override Dialog -->
+    <!-- Price Override Dialog -->
     <v-dialog v-model="showPriceOverrideDialog" max-width="500" persistent>
       <v-card>
         <v-card-title class="primary white--text">
@@ -60,25 +60,27 @@
             <div class="caption">
               Base Price: {{ formatPrice(selectedProduct?.pro_price) }}
             </div>
-            <div v-if="selectedCustomer && selectedCustomer.grade" class="caption">
+            <div
+              v-if="selectedCustomer && selectedCustomer.grade"
+              class="caption"
+            >
               Customer Grade: {{ selectedCustomer.grade }}
             </div>
           </v-alert>
 
           <!-- Current Customer Grade Price (if available) -->
-          <v-alert 
+          <v-alert
             v-if="getCustomerGradePrice(selectedProduct)"
-            color="success" 
-            text 
-            dense 
+            color="success"
+            text
+            dense
             class="mb-3"
           >
             <div class="font-weight-bold">
-              Grade {{ selectedCustomer.grade }} Price: {{ formatPrice(getCustomerGradePrice(selectedProduct)) }}
+              Grade {{ selectedCustomer.grade }} Price:
+              {{ formatPrice(getCustomerGradePrice(selectedProduct)) }}
             </div>
-            <div class="caption">
-              This price will be used automatically
-            </div>
+            <div class="caption">This price will be used automatically</div>
           </v-alert>
 
           <!-- Price List Selection -->
@@ -133,7 +135,10 @@
               <v-icon x-small color="success">mdi-tag</v-icon>
               Price list applied
             </div>
-            <div v-else-if="getCustomerGradePrice(selectedProduct)" class="caption success--text">
+            <div
+              v-else-if="getCustomerGradePrice(selectedProduct)"
+              class="caption success--text"
+            >
               <v-icon x-small color="success">mdi-account</v-icon>
               Customer grade price applied
             </div>
@@ -142,7 +147,7 @@
           <v-divider class="my-3"></v-divider>
 
           <!-- Custom Price Override -->
-          <div class="text-subtitle-2 mb-2">
+          <div class=" mb-2">
             <v-icon small class="mr-1">mdi-pencil</v-icon>
             Or Enter Custom Price
           </div>
@@ -187,7 +192,11 @@
 
           <!-- Override Reason -->
           <v-textarea
-            v-if="customPriceInput || selectedPriceListId || !getCustomerGradePrice(selectedProduct)"
+            v-if="
+              customPriceInput ||
+              selectedPriceListId ||
+              !getCustomerGradePrice(selectedProduct)
+            "
             v-model="priceOverrideReason"
             label="Reason (optional)"
             outlined
@@ -229,7 +238,7 @@
           <v-icon size="64" color="success" class="mb-3"
             >mdi-credit-card-check</v-icon
           >
-          <div class="text-h6 mb-2">
+          <div class=" mb-2">
             Payment has been processed successfully
           </div>
           <div class="text-subtitle-1 mb-4">
@@ -275,15 +284,83 @@
       @show-message="showMessage"
     />
 
-    <!-- Main Content -->
+    <!-- Main POS Layout - Three Columns -->
     <v-row no-gutters class="fill-height pos-main-container">
-      <!-- Left Panel - Menu -->
-      <v-col cols="8" class="left-panel">
-        <!-- Header with Search and Filters (FIXED) -->
-        <v-card class="menu-header">
-          <v-card-title class="primary white--text">
-            <v-icon class="mr-2" color="white">mdi-storefront</v-icon>
-            Product Menu
+      <!-- 1. LEFT PANEL - Categories -->
+      <v-col cols="2" class="category-panel">
+        <v-card class="fill-height" flat>
+          <!-- Category Header -->
+          <v-card-title class="primary white--text pa-3">
+            <v-icon class="mr-2" color="white">mdi-shape</v-icon>
+            Categories
+          </v-card-title>
+
+          <!-- Categories List -->
+          <div class="category-content">
+            <!-- All Categories Option -->
+            <v-list dense class="pa-0">
+              <v-list-item
+                @click="categoryFilter = null"
+                :class="{
+                  'v-list-item--active primary--text': !categoryFilter,
+                }"
+                class="category-item"
+              >
+                <v-list-item-icon class="mr-3">
+                  <v-icon :color="!categoryFilter ? 'primary' : 'grey'"
+                    >mdi-view-grid</v-icon
+                  >
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>All Products</v-list-item-title>
+                  <v-list-item-subtitle
+                    >{{ products.length }} items</v-list-item-subtitle
+                  >
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-divider class="my-1"></v-divider>
+
+              <!-- Dynamic Categories -->
+              <v-list-item
+                v-for="category in categoryOptions"
+                :key="category.categ_id"
+                @click="categoryFilter = category.categ_id"
+                :class="{
+                  'v-list-item--active primary--text':
+                    categoryFilter === category.categ_id,
+                }"
+                class="category-item"
+              >
+                <v-list-item-icon class="mr-3">
+                  <v-icon :color="getCategoryColor(category.categ_name)">
+                    {{ getCategoryIcon(category.categ_name) }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>{{
+                    category.categ_name
+                  }}</v-list-item-title>
+                  <v-list-item-subtitle>
+                    {{ getProductCountByCategory(category.categ_id) }} items
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-action v-if="categoryFilter === category.categ_id">
+                  <v-icon color="primary" small>mdi-check</v-icon>
+                </v-list-item-action>
+              </v-list-item>
+            </v-list>
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- 2. MIDDLE PANEL - Products -->
+      <v-col cols="6" class="products-panel">
+        <v-card class="fill-height" flat>
+          <!-- Products Header with Search -->
+          <v-card-title class="secondary white--text pa-3">
+            <v-icon class="mr-2" color="white">mdi-package-variant</v-icon>
+            Products
             <v-spacer></v-spacer>
             <!-- Table Info Display -->
             <v-chip
@@ -299,28 +376,20 @@
               Walk-in
             </v-chip>
             <!-- Customer Grade Display -->
-            <v-chip 
-              v-if="selectedCustomer && selectedCustomer.grade" 
-              :color="getGradeColor(selectedCustomer.grade)" 
+            <v-chip
+              v-if="selectedCustomer && selectedCustomer.grade"
+              :color="getGradeColor(selectedCustomer.grade)"
               class="mr-2"
             >
               <v-icon class="mr-1" small>mdi-account-star</v-icon>
               Grade {{ selectedCustomer.grade }}
             </v-chip>
-            <v-chip color="white" class="mr-2">
-              <v-icon class="mr-1" small>mdi-package-variant</v-icon>
-              {{ filteredProducts.length }} items
-            </v-chip>
-            <v-btn color="white" text @click="fetchProducts" :loading="loading">
-              <v-icon class="mr-2">mdi-refresh</v-icon>
-              Refresh
-            </v-btn>
           </v-card-title>
 
-          <!-- Search and Filter Row -->
-          <v-card-text class="pa-3">
+          <!-- Search Bar -->
+          <v-card-text class="pa-3 pb-1">
             <v-row>
-              <v-col cols="6">
+              <v-col cols="8">
                 <v-text-field
                   v-model="searchQuery"
                   prepend-inner-icon="mdi-magnify"
@@ -331,220 +400,249 @@
                   hide-details
                 />
               </v-col>
-              <v-col cols="3">
-                <v-autocomplete
-                  v-model="categoryFilter"
-                  :items="categoryOptions"
-                  item-text="categ_name"
-                  item-value="categ_id"
-                  label="Filter by Category"
-                  outlined
-                  dense
-                  clearable
-                  hide-details
-                />
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-
-        <!-- Loading State -->
-        <div v-if="loading" class="menu-loading">
-          <div class="text-center">
-            <v-progress-circular
-              size="64"
-              color="primary"
-              indeterminate
-            ></v-progress-circular>
-            <p class="mt-4 text-h6">Loading products...</p>
-          </div>
-        </div>
-
-        <!-- Menu Items Grid (SCROLLABLE ONLY) -->
-        <div v-else class="menu-content">
-          <div class="pa-4">
-            <v-row v-if="filteredProducts.length > 0">
-              <v-col
-                v-for="product in filteredProducts"
-                :key="product.id"
-                cols="4"
-                class="pa-2"
-              >
-                <v-card
-                  elevation="2"
-                  hover
-                  class="text-center pa-4 cursor-pointer product-card"
-                  height="auto"
-                  min-height="180"
-                  :disabled="
-                    (!product.isActive || product.stock_count <= 0) &&
-                    product.validateStockOnSale
-                  "
-                  :class="{
-                    'product-disabled':
-                      (!product.isActive || product.stock_count <= 0) &&
-                      product.validateStockOnSale,
-                    'promotion-eligible': isProductInPromotion(product),
-                    'customer-grade-pricing': getCustomerGradePrice(product)
-                  }"
+              <v-col cols="4">
+                <v-btn
+                  @click="fetchProducts"
+                  :loading="loading"
+                  color="primary"
+                  block
                 >
-                  <!-- Promotion indicator -->
-                  <v-icon
-                    v-if="isProductInPromotion(product)"
-                    color="success"
-                    class="promotion-badge"
-                    small
-                  >
-                    mdi-tag
-                  </v-icon>
-
-                  <!-- ✅ Customer Grade Badge -->
-                  <v-chip
-                    v-if="getCustomerGradePrice(product)"
-                    x-small
-                    :color="getGradeColor(selectedCustomer.grade)"
-                    text-color="white"
-                    class="grade-price-badge"
-                  >
-                    <v-icon x-small left>mdi-account-star</v-icon>
-                    Grade {{ selectedCustomer.grade }}
-                  </v-chip>
-
-                  <!-- ✅ Price List Badge (if available) -->
-                  <v-chip
-                    v-else-if="hasAvailablePriceLists(product)"
-                    x-small
-                    color="purple"
-                    text-color="white"
-                    class="price-list-badge"
-                  >
-                    <v-icon x-small left>mdi-tag-multiple</v-icon>
-                    {{ getProductPriceLists(product).length }} prices
-                  </v-chip>
-
-                  <v-card-title
-                    class="justify-center text-subtitle-1 pa-1"
-                    style="line-height: 1.2"
-                  >
-                    {{ product.pro_name }}
-                  </v-card-title>
-
-                  <v-card-text class="pa-2">
-                    <!-- ✅ Enhanced Price Display with Customer Grade -->
-                    <div class="price-section mb-2">
-                      <!-- Show customer grade price if available -->
-                      <div v-if="getCustomerGradePrice(product)" class="text-center">
-                        <!-- Base price (struck through) -->
-                        <div class="text-body-2 grey--text text-decoration-line-through">
-                          {{ formatPrice(product.pro_price) }}
-                        </div>
-                        <!-- Customer grade price (highlighted) -->
-                        <div class="text-h5 primary--text font-weight-bold">
-                          {{ formatPrice(getCustomerGradePrice(product)) }}
-                        </div>
-                        <!-- Grade indicator -->
-                        <div class="caption success--text mt-1">
-                          <v-icon x-small color="success">mdi-account-check</v-icon>
-                          Grade {{ selectedCustomer.grade }} Price
-                        </div>
-                      </div>
-                      <!-- Default price display -->
-                      <div v-else>
-                        <div class="text-h5 primary--text font-weight-bold">
-                          {{ formatPrice(product.pro_price) }}
-                        </div>
-                        <!-- Show price range if price lists available -->
-                        <div
-                          v-if="hasAvailablePriceLists(product)"
-                          class="caption grey--text"
-                        >
-                          {{ getPriceRangeText(product) }}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="d-flex justify-space-between align-center mb-2">
-                      <v-chip
-                        :color="getCategoryColor(product.categ_name)"
-                        text-color="white"
-                        x-small
-                      >
-                        {{ product.categ_name }}
-                      </v-chip>
-                      <v-chip
-                        :color="getStockColor(product.stock_count)"
-                        text-color="white"
-                        x-small
-                      >
-                        {{ product.stock_count }} left
-                      </v-chip>
-                    </div>
-
-                    <!-- ✅ Action Buttons -->
-                    <div class="d-flex gap-1 mt-2">
-                      <!-- Quick Add Button -->
-                      <v-btn
-                        @click.stop="addToCart(product)"
-                        color="primary"
-                        small
-                        block
-                        :disabled="
-                          (!product.isActive || product.stock_count <= 0) &&
-                          product.validateStockOnSale
-                        "
-                      >
-                        <v-icon small left>mdi-cart-plus</v-icon>
-                        {{ getCustomerGradePrice(product) ? 'Add (Grade)' : 'Add' }}
-                      </v-btn>
-
-                      <!-- ✅ Price Selection Button (if price lists available OR no customer grade match) -->
-                      <v-btn
-                        v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)"
-                        @click.stop="openPriceSelector(product)"
-                        color="purple"
-                        small
-                        icon
-                        :disabled="
-                          (!product.isActive || product.stock_count <= 0) &&
-                          product.validateStockOnSale
-                        "
-                      >
-                        <v-icon small>mdi-tag-multiple</v-icon>
-                      </v-btn>
-                    </div>
-
-                    <div
-                      v-if="!product.isActive"
-                      class="caption mt-1 error--text font-weight-bold"
-                    >
-                      INACTIVE
-                    </div>
-                  </v-card-text>
-                </v-card>
+                  <v-icon class="mr-2">mdi-refresh</v-icon>
+                  Refresh
+                </v-btn>
               </v-col>
             </v-row>
 
-            <!-- No Products State -->
-            <div v-else class="text-center pa-8">
-              <v-icon size="64" color="grey">mdi-package-variant-closed</v-icon>
-              <p class="text-h6 mt-4 grey--text">No products found</p>
-              <p class="grey--text">Try adjusting your search or filters</p>
-              <v-btn color="primary" @click="fetchProducts" class="mt-2">
-                <v-icon left>mdi-refresh</v-icon>
-                Refresh Products
-              </v-btn>
+            <!-- Category Filter Info -->
+            <div v-if="categoryFilter" class="mt-2">
+              <v-chip
+                small
+                :color="getCategoryColor(getSelectedCategoryName())"
+                class="mr-2"
+              >
+                <v-icon small left>{{
+                  getCategoryIcon(getSelectedCategoryName())
+                }}</v-icon>
+                {{ getSelectedCategoryName() }}
+              </v-chip>
+              <span class="caption grey--text">
+                {{ filteredProducts.length }} products
+              </span>
+            </div>
+          </v-card-text>
+
+          <!-- Products Grid -->
+          <div class="products-content">
+            <!-- Loading State -->
+            <div v-if="loading" class="products-loading">
+              <div class="text-center pa-8">
+                <v-progress-circular
+                  size="64"
+                  color="primary"
+                  indeterminate
+                ></v-progress-circular>
+                <p class="mt-4 ">Loading products...</p>
+              </div>
+            </div>
+
+            <!-- Products Grid -->
+            <div v-else class="pa-3">
+              <v-row v-if="filteredProducts.length > 0">
+                <v-col
+                  v-for="product in filteredProducts"
+                  :key="product.id"
+                  cols="4"
+                  class="pa-1"
+                >
+                  <v-card
+                    elevation="2"
+                    hover
+                    class="text-center pa-3 cursor-pointer product-card"
+                    height="auto"
+                    min-height="160"
+                    :disabled="
+                      (!product.isActive || product.stock_count <= 0) &&
+                      product.validateStockOnSale
+                    "
+                    :class="{
+                      'product-disabled':
+                        (!product.isActive || product.stock_count <= 0) &&
+                        product.validateStockOnSale,
+                      'promotion-eligible': isProductInPromotion(product),
+                      'customer-grade-pricing': getCustomerGradePrice(product),
+                    }"
+                  >
+                    <!-- Promotion indicator -->
+                    <v-icon
+                      v-if="isProductInPromotion(product)"
+                      color="success"
+                      class="promotion-badge"
+                      small
+                    >
+                      mdi-tag
+                    </v-icon>
+
+                    <!-- Customer Grade Badge -->
+                    <v-chip
+                      v-if="getCustomerGradePrice(product)"
+                      x-small
+                      :color="getGradeColor(selectedCustomer.grade)"
+                      text-color="white"
+                      class="grade-price-badge"
+                    >
+                      <v-icon x-small left>mdi-account-star</v-icon>
+                      Grade {{ selectedCustomer.grade }}
+                    </v-chip>
+
+                    <!-- Price List Badge (if available) -->
+                    <v-chip
+                      v-else-if="hasAvailablePriceLists(product)"
+                      x-small
+                      color="purple"
+                      text-color="white"
+                      class="price-list-badge"
+                    >
+                      <v-icon x-small left>mdi-tag-multiple</v-icon>
+                      {{ getProductPriceLists(product).length }} prices
+                    </v-chip>
+
+                    <v-card-title
+                      class="justify-center  pa-1"
+                      style="line-height: 1.2; font-size: 0.875rem"
+                    >
+                      {{ product.pro_name }}
+                    </v-card-title>
+
+                    <v-card-text class="pa-1">
+                      <!-- Enhanced Price Display with Customer Grade -->
+                      <div class="price-section mb-2">
+                        <!-- Show customer grade price if available -->
+                        <div
+                          v-if="getCustomerGradePrice(product)"
+                          class="text-center"
+                        >
+                          <!-- Base price (struck through) -->
+                          <div
+                            class="caption grey--text text-decoration-line-through"
+                          >
+                            {{ formatPrice(product.pro_price) }}
+                          </div>
+                          <!-- Customer grade price (highlighted) -->
+                          <div class=" primary--text font-weight-bold">
+                            {{ formatPrice(getCustomerGradePrice(product)) }}
+                          </div>
+                          <!-- Grade indicator -->
+                          <div class="caption success--text">
+                            <v-icon x-small color="success"
+                              >mdi-account-check</v-icon
+                            >
+                            Grade Price
+                          </div>
+                        </div>
+                        <!-- Default price display -->
+                        <div v-else>
+                          <div class=" primary--text font-weight-bold">
+                            {{ formatPrice(product.pro_price) }}
+                          </div>
+                          <!-- Show price range if price lists available -->
+                          <div
+                            v-if="hasAvailablePriceLists(product)"
+                            class="caption grey--text"
+                          >
+                            {{ getPriceRangeText(product) }}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div
+                        class="d-flex justify-space-between align-center mb-2"
+                      >
+                        <v-chip
+                          :color="getStockColor(product.stock_count)"
+                          text-color="white"
+                          x-small
+                        >
+                          {{ product.stock_count }} left
+                        </v-chip>
+                      </div>
+
+                      <!-- Action Buttons -->
+                      <div class="d-flex gap-1">
+                        <!-- Quick Add Button -->
+                        <v-btn
+                          @click.stop="addToCart(product)"
+                          color="primary"
+                          x-small
+                          block
+                          :disabled="
+                            (!product.isActive || product.stock_count <= 0) &&
+                            product.validateStockOnSale
+                          "
+                        >
+                          <v-icon x-small left>mdi-cart-plus</v-icon>
+                          {{
+                            getCustomerGradePrice(product)
+                              ? 'Add (Grade)'
+                              : 'Add'
+                          }}
+                        </v-btn>
+
+                        <!-- Price Selection Button (if price lists available OR no customer grade match) -->
+                        <v-btn
+                          v-if="
+                            hasAvailablePriceLists(product) ||
+                            !getCustomerGradePrice(product)
+                          "
+                          @click.stop="openPriceSelector(product)"
+                          color="purple"
+                          x-small
+                          icon
+                          :disabled="
+                            (!product.isActive || product.stock_count <= 0) &&
+                            product.validateStockOnSale
+                          "
+                        >
+                          <v-icon x-small>mdi-tag-multiple</v-icon>
+                        </v-btn>
+                      </div>
+
+                      <div
+                        v-if="!product.isActive"
+                        class="caption mt-1 error--text font-weight-bold"
+                      >
+                        INACTIVE
+                      </div>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+
+              <!-- No Products State -->
+              <div v-else class="text-center pa-8">
+                <v-icon size="64" color="grey"
+                  >mdi-package-variant-closed</v-icon
+                >
+                <p class=" mt-4 grey--text">No products found</p>
+                <p class="grey--text">
+                  Try adjusting your search or category filter
+                </p>
+                <v-btn color="primary" @click="fetchProducts" class="mt-2">
+                  <v-icon left>mdi-refresh</v-icon>
+                  Refresh Products
+                </v-btn>
+              </div>
             </div>
           </div>
-        </div>
+        </v-card>
       </v-col>
 
-      <!-- Right Panel - Cart (FIXED POSITION) -->
-      <v-col cols="4" class="right-panel">
+      <!-- 3. RIGHT PANEL - Cart/Ticket Details -->
+      <v-col cols="4" class="cart-panel">
         <div class="cart-container">
           <!-- Cart Header (FIXED) -->
-          <v-card-title class="cart-header secondary white--text">
-            <v-icon class="mr-2" color="white">mdi-cart</v-icon>
-            Order Cart 
+          <v-card-title class="cart-header white--text primary">
+            <v-icon class="mr-2" color="white">mdi-receipt</v-icon>
+            Ticket Details
             <v-spacer></v-spacer>
             <v-chip color="white" class="accent--text">
               {{ cart.length }} items
@@ -558,11 +656,13 @@
                 <div class="d-flex align-center">
                   <v-icon class="mr-2" color="primary">mdi-account</v-icon>
                   <div class="flex-grow-1">
-                    <div class="text-subtitle-2 font-weight-medium">
+                    <div class=" font-weight-medium">
                       {{ selectedCustomer?.name || 'Walk-in Customer' }}
                     </div>
                     <div class="caption grey--text">
-                      <span v-if="selectedCustomer?.phone">{{ selectedCustomer.phone }}</span>
+                      <span v-if="selectedCustomer?.phone">{{
+                        selectedCustomer.phone
+                      }}</span>
                       <span v-if="selectedCustomer?.grade" class="ml-2">
                         • Grade {{ selectedCustomer.grade }}
                       </span>
@@ -601,7 +701,7 @@
                 <div class="d-flex justify-space-between align-center mb-1">
                   <div class="flex-grow-1 mr-2">
                     <div
-                      class="text-subtitle-2 font-weight-medium line-clamp-1"
+                      class=" font-weight-medium line-clamp-1"
                     >
                       {{ getProductName(item.pro_id) }}
                     </div>
@@ -609,11 +709,17 @@
                       {{ item.categ_name }} •
                       {{ formatPrice(item.pro_price) }}/each
                       <!-- Show if customer grade price was used -->
-                      <span v-if="item.isCustomerGradePrice" class="success--text">
+                      <span
+                        v-if="item.isCustomerGradePrice"
+                        class="success--text"
+                      >
                         • Grade {{ selectedCustomer?.grade }}
                       </span>
                       <!-- Show if price was overridden -->
-                      <span v-else-if="item.priceOverridden" class="warning--text">
+                      <span
+                        v-else-if="item.priceOverridden"
+                        class="warning--text"
+                      >
                         • Modified
                       </span>
                     </div>
@@ -772,7 +878,7 @@
                 <v-col cols="6" class="pl-1">
                   <v-btn
                     @click="saveTicket"
-                    color="info"
+                    color="primary"
                     block
                     small
                     :loading="savingTicket"
@@ -788,7 +894,7 @@
                     @click="processPayment"
                     color="primary"
                     block
-                    :disabled="!currentTicket"
+                    
                   >
                     <v-icon small class="mr-1">mdi-credit-card</v-icon>
                     Payment
@@ -797,7 +903,7 @@
                 <v-col cols="6" class="pl-1">
                   <v-btn
                     @click="printCustomerReceipt"
-                    color="green"
+                    color="primary"
                     block
                     :disabled="!currentTicket"
                   >
@@ -842,6 +948,7 @@ import PaymentDialog from '@/components/CAFE/paymentDialogFront'
 import CustomerDialog from '@/components/CAFE/customerDialog'
 import NotesDialog from '~/components/tickets/NotesDialog.vue'
 import { mapActions, mapGetters } from 'vuex'
+
 export default {
   components: {
     NotesDialog,
@@ -867,7 +974,7 @@ export default {
   },
   data() {
     return {
-      printDialogKey:1,
+      printDialogKey: 1,
       showPriceOverrideDialog: false,
       selectedProduct: null,
       selectedPriceListId: null,
@@ -915,7 +1022,7 @@ export default {
 
       // Search and filters
       searchQuery: '',
-      categoryFilter: '',
+      categoryFilter: null, // Changed from '' to null for better filtering
       categoryOptions: [],
 
       // Payment dialog
@@ -952,7 +1059,8 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
-      currentTerminal() {
+    
+    currentTerminal() {
       console.log(
         `ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`
       )
@@ -960,14 +1068,17 @@ export default {
         (el) => el['id'] == this.findSelectedTerminal
       )
     },
+    
     user() {
       return this.$auth.user || null
     },
+    
     getFinalTotal() {
       const baseAfterPromotions = this.getBaseAfterPromotions
       const tax = this.calculatedTax
       return baseAfterPromotions + tax
     },
+    
     // ✅ NEW: Effective price in dialog with customer grade consideration
     effectivePriceInDialog() {
       if (!this.selectedProduct) return 0
@@ -992,7 +1103,9 @@ export default {
       }
 
       // ✅ If customer has grade and product has matching price list, use it
-      const customerGradePrice = this.getCustomerGradePrice(this.selectedProduct)
+      const customerGradePrice = this.getCustomerGradePrice(
+        this.selectedProduct
+      )
       if (customerGradePrice) {
         return customerGradePrice
       }
@@ -1022,6 +1135,7 @@ export default {
 
       return false
     },
+    
     getBaseAmount() {
       if (!this.cart.length || !this.taxes.length) {
         return this.getTotalPrice()
@@ -1046,6 +1160,7 @@ export default {
 
       return totalBaseAmount
     },
+    
     getBaseAfterPromotions() {
       const baseAmount = this.getBaseAmount
       const promotionDiscount = this.getTotalPromotionDiscount()
@@ -1188,11 +1303,50 @@ export default {
           this.updateCartPricesForCustomerGrade()
         }
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
 
   methods: {
+    // ✅ NEW METHODS FOR ENHANCED LAYOUT
+    getProductCountByCategory(categoryId) {
+      return this.products.filter((p) => p.pro_category === categoryId).length
+    },
+
+    getCategoryIcon(categoryName) {
+      // Return appropriate icons based on category
+      const icons = {
+        'Food': 'mdi-food',
+        'Drinks': 'mdi-cup',
+        'Dessert': 'mdi-cake',
+        'Appetizer': 'mdi-food-fork-drink',
+        'Main Course': 'mdi-silverware-fork-knife',
+        'Beverage': 'mdi-glass-mug',
+        'Snacks': 'mdi-cookie',
+        'Salad': 'mdi-carrot',
+        'Pizza': 'mdi-pizza',
+        'Pasta': 'mdi-pasta',
+        'Soup': 'mdi-bowl',
+        'Seafood': 'mdi-fish',
+        'Meat': 'mdi-cow',
+        'Vegetarian': 'mdi-leaf',
+        'Coffee': 'mdi-coffee',
+        'Tea': 'mdi-tea',
+        'Alcohol': 'mdi-glass-wine',
+        'Juice': 'mdi-glass-cocktail',
+        // Add more mappings as needed
+      }
+      return icons[categoryName] || 'mdi-circle'
+    },
+
+    getSelectedCategoryName() {
+      if (!this.categoryFilter) return 'All Products'
+      const category = this.categoryOptions.find(
+        (c) => c.categ_id === this.categoryFilter
+      )
+      return category ? category.categ_name : 'Unknown Category'
+    },
+
     // ✅ NEW: Get customer grade specific price for a product
     getCustomerGradePrice(product) {
       if (!this.selectedCustomer?.grade || !product) {
@@ -1205,7 +1359,10 @@ export default {
       )
 
       if (matchingPriceList) {
-        return this.calculatePriceListAmount(matchingPriceList, product.pro_price)
+        return this.calculatePriceListAmount(
+          matchingPriceList,
+          product.pro_price
+        )
       }
 
       return null
@@ -1219,10 +1376,10 @@ export default {
 
     // ✅ NEW: Update cart prices when customer grade changes
     updateCartPricesForCustomerGrade() {
-      this.cart.forEach(item => {
+      this.cart.forEach((item) => {
         // Only update if item wasn't manually overridden
         if (!item.priceOverridden && !item.isFromTicketLine) {
-          const product = this.products.find(p => p.id === item.id)
+          const product = this.products.find((p) => p.id === item.id)
           if (product) {
             const customerGradePrice = this.getCustomerGradePrice(product)
             if (customerGradePrice) {
@@ -1364,20 +1521,18 @@ export default {
     },
 
     async loadCategory() {
-      this.isloading = true
+      this.loading = true
       this.categoryOptions = []
-      await this.$axios
-        .get('/api/category/find')
-        .then((res) => {
-          for (const iterator of res.data) {
-            this.categoryOptions.push(iterator)
-          }
-        })
-        .catch((er) => {
-          console.error('Error loading categories:', er)
-          this.showMessage('Failed to load categories', 'error', 'mdi-alert')
-        })
-      this.isloading = false
+      try {
+        const response = await this.$axios.get('/api/category/find')
+        this.categoryOptions = response.data || []
+        console.log(`Loaded ${this.categoryOptions.length} categories`)
+      } catch (error) {
+        console.error('Error loading categories:', error)
+        this.showMessage('Failed to load categories', 'error', 'mdi-alert')
+      } finally {
+        this.loading = false
+      }
     },
 
     isProductInPromotion(product) {
@@ -1987,16 +2142,19 @@ export default {
               promotion_note: promotionData?.promotion_note || null,
               // ✅ ADD: Price override fields
               priceListId: item.priceListId || null,
-              priceOverridden: item.priceOverridden || item.isCustomerGradePrice || false,
-              priceOverrideReason: item.priceOverrideReason || 
-                (item.isCustomerGradePrice ? `Customer Grade ${this.selectedCustomer?.grade} pricing` : null),
+              priceOverridden:
+                item.priceOverridden || item.isCustomerGradePrice || false,
+              priceOverrideReason:
+                item.priceOverrideReason ||
+                (item.isCustomerGradePrice
+                  ? `Customer Grade ${this.selectedCustomer?.grade} pricing`
+                  : null),
             }
           }),
         }
 
         let response
         if (this.currentTicket) {
-         
           ticketData.updateUserId = this.user.id
           response = await this.$axios.put(
             `api/ticket/${this.currentTicket.id}`,
@@ -2109,10 +2267,12 @@ export default {
       }
 
       // Show appropriate message
-      const priceMessage = customerGradePrice 
-        ? `with Grade ${this.selectedCustomer.grade} price (${this.formatPrice(priceToUse)})` 
+      const priceMessage = customerGradePrice
+        ? `with Grade ${this.selectedCustomer.grade} price (${this.formatPrice(
+            priceToUse
+          )})`
         : `(${this.formatPrice(priceToUse)})`
-      
+
       this.showMessage(
         `${product.pro_name} added ${priceMessage}`,
         'success',
@@ -2143,8 +2303,10 @@ export default {
         (item) => item.id === this.selectedProduct.id
       )
 
-      const isCustomerGrade = this.getCustomerGradePrice(this.selectedProduct) && 
-        !this.customPriceInput && !this.selectedPriceListId
+      const isCustomerGrade =
+        this.getCustomerGradePrice(this.selectedProduct) &&
+        !this.customPriceInput &&
+        !this.selectedPriceListId
 
       if (existingItem) {
         const canAddMore =
@@ -2155,7 +2317,9 @@ export default {
           existingItem.quantity += 1
           // Update price details
           existingItem.pro_price = effectivePrice
-          existingItem.priceOverridden = !!(this.customPriceInput || this.selectedPriceListId)
+          existingItem.priceOverridden = !!(
+            this.customPriceInput || this.selectedPriceListId
+          )
           existingItem.priceListId = this.selectedPriceListId
           existingItem.priceOverrideReason = this.priceOverrideReason || null
           existingItem.isCustomerGradePrice = isCustomerGrade
@@ -2175,7 +2339,9 @@ export default {
           validateStockOnSale: this.selectedProduct.validateStockOnSale,
           quantity: 1,
           isFromTicketLine: false,
-          priceOverridden: !!(this.customPriceInput || this.selectedPriceListId),
+          priceOverridden: !!(
+            this.customPriceInput || this.selectedPriceListId
+          ),
           priceListId: this.selectedPriceListId,
           originalPrice: this.selectedProduct.pro_price,
           priceOverrideReason: this.priceOverrideReason || null,
@@ -2183,7 +2349,9 @@ export default {
         })
       }
 
-      let message = `${this.selectedProduct.pro_name} added with ${this.formatPrice(effectivePrice)}`
+      let message = `${
+        this.selectedProduct.pro_name
+      } added with ${this.formatPrice(effectivePrice)}`
       if (isCustomerGrade) {
         message += ` (Grade ${this.selectedCustomer.grade})`
       } else if (this.selectedPriceListId) {
@@ -2361,6 +2529,9 @@ export default {
     },
 
     async processPayment() {
+      if(!this.currentTicket){
+        await this.saveTicket()
+      }
       const total = this.getFinalTotal || 0
       if (total <= 0) {
         this.showMessage('No amount to process', 'warning', 'mdi-alert')
@@ -2385,7 +2556,7 @@ export default {
         }
         this.closePaymentDialog()
         // this.showPrintConfirmDialog = true
-        this.handlePrintConfirmation(true);
+        this.handlePrintConfirmation(true)
         if (!this.isWalkIn) {
           await this.updateTableStatus('cleaning')
         }
@@ -2661,9 +2832,27 @@ export default {
     },
 
     getCategoryColor(categoryName) {
-      if (categoryName && categoryName.includes('Engine')) return 'primary'
-      if (categoryName && categoryName.includes('ຄາແຄຣ')) return 'purple'
-      return 'info'
+      const colors = {
+        'Food': 'success',
+        'Drinks': 'info',
+        'Dessert': 'pink',
+        'Appetizer': 'orange',
+        'Main Course': 'red',
+        'Beverage': 'blue',
+        'Snacks': 'yellow',
+        'Salad': 'green',
+        'Pizza': 'deep-orange',
+        'Pasta': 'amber',
+        'Soup': 'teal',
+        'Seafood': 'cyan',
+        'Meat': 'brown',
+        'Vegetarian': 'light-green',
+        'Coffee': 'deep-purple',
+        'Tea': 'green',
+        'Alcohol': 'purple',
+        'Juice': 'orange',
+      }
+      return colors[categoryName] || 'grey'
     },
 
     getStockColor(stockCount) {
@@ -2704,6 +2893,8 @@ export default {
   },
 }
 </script>
+
+
 <style scoped>
 /* ========================================
    🔧 MAIN LAYOUT FIXES

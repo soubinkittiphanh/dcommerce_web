@@ -288,14 +288,14 @@
     <v-row no-gutters class="fill-height pos-main-container">
       <!-- 1. LEFT PANEL - Categories -->
       <v-col cols="2" class="category-panel">
-        <v-card class="fill-height" flat>
-          <!-- Category Header -->
-          <v-card-title class="primary white--text pa-3">
+        <div class="category-container">
+          <!-- Category Header (FIXED) -->
+          <v-card-title class="category-header primary white--text pa-3">
             <v-icon class="mr-2" color="white">mdi-shape</v-icon>
             Categories
           </v-card-title>
 
-          <!-- Categories List -->
+          <!-- Categories List (SCROLLABLE) -->
           <div class="category-content">
             <!-- All Categories Option -->
             <v-list dense class="pa-0">
@@ -351,14 +351,14 @@
               </v-list-item>
             </v-list>
           </div>
-        </v-card>
+        </div>
       </v-col>
 
       <!-- 2. MIDDLE PANEL - Products -->
       <v-col cols="6" class="products-panel">
-        <v-card class="fill-height" flat>
-          <!-- Products Header with Search -->
-          <v-card-title class="secondary white--text pa-3">
+        <div class="products-container">
+          <!-- Products Header (FIXED) -->
+          <v-card-title class="products-header secondary white--text pa-3">
             <v-icon class="mr-2" color="white">mdi-package-variant</v-icon>
             Products
             <v-spacer></v-spacer>
@@ -386,52 +386,54 @@
             </v-chip>
           </v-card-title>
 
-          <!-- Search Bar -->
-          <v-card-text class="pa-3 pb-1">
-            <v-row>
-              <v-col cols="8">
-                <v-text-field
-                  v-model="searchQuery"
-                  prepend-inner-icon="mdi-magnify"
-                  label="Search products..."
-                  outlined
-                  dense
-                  clearable
-                  hide-details
-                />
-              </v-col>
-              <v-col cols="4">
-                <v-btn
-                  @click="fetchProducts"
-                  :loading="loading"
-                  color="primary"
-                  block
+          <!-- Search Bar (FIXED) -->
+          <div class="products-search-section">
+            <v-card-text class="pa-3 pb-1">
+              <v-row>
+                <v-col cols="8">
+                  <v-text-field
+                    v-model="searchQuery"
+                    prepend-inner-icon="mdi-magnify"
+                    label="Search products..."
+                    outlined
+                    dense
+                    clearable
+                    hide-details
+                  />
+                </v-col>
+                <v-col cols="4">
+                  <v-btn
+                    @click="fetchProducts"
+                    :loading="loading"
+                    color="primary"
+                    block
+                  >
+                    <v-icon class="mr-2">mdi-refresh</v-icon>
+                    Refresh
+                  </v-btn>
+                </v-col>
+              </v-row>
+
+              <!-- Category Filter Info -->
+              <div v-if="categoryFilter" class="mt-2">
+                <v-chip
+                  small
+                  :color="getCategoryColor(getSelectedCategoryName())"
+                  class="mr-2"
                 >
-                  <v-icon class="mr-2">mdi-refresh</v-icon>
-                  Refresh
-                </v-btn>
-              </v-col>
-            </v-row>
+                  <v-icon small left>{{
+                    getCategoryIcon(getSelectedCategoryName())
+                  }}</v-icon>
+                  {{ getSelectedCategoryName() }}
+                </v-chip>
+                <span class="caption grey--text">
+                  {{ filteredProducts.length }} products
+                </span>
+              </div>
+            </v-card-text>
+          </div>
 
-            <!-- Category Filter Info -->
-            <div v-if="categoryFilter" class="mt-2">
-              <v-chip
-                small
-                :color="getCategoryColor(getSelectedCategoryName())"
-                class="mr-2"
-              >
-                <v-icon small left>{{
-                  getCategoryIcon(getSelectedCategoryName())
-                }}</v-icon>
-                {{ getSelectedCategoryName() }}
-              </v-chip>
-              <span class="caption grey--text">
-                {{ filteredProducts.length }} products
-              </span>
-            </div>
-          </v-card-text>
-
-          <!-- Products Grid -->
+          <!-- Products Content (SCROLLABLE) -->
           <div class="products-content">
             <!-- Loading State -->
             <div v-if="loading" class="products-loading">
@@ -633,7 +635,7 @@
               </div>
             </div>
           </div>
-        </v-card>
+        </div>
       </v-col>
 
       <!-- 3. RIGHT PANEL - Cart/Ticket Details -->
@@ -2900,33 +2902,6 @@ export default {
    🔧 MAIN LAYOUT FIXES
    ======================================== */
 
-/* ✅ NEW: Price list badge */
-.price-list-badge {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  z-index: 1;
-}
-
-/* ✅ NEW: Adjust promotion badge position */
-.promotion-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  z-index: 1;
-}
-
-/* ✅ NEW: Price section styling */
-.price-section {
-  border-bottom: 1px solid #e0e0e0;
-  padding-bottom: 8px;
-}
-
-/* ✅ NEW: Button gap */
-.gap-1 {
-  gap: 4px;
-}
-
 /* Main container */
 .pos-main-container {
   height: 100vh;
@@ -2935,67 +2910,144 @@ export default {
 }
 
 /* ========================================
-   📱 LEFT PANEL (MENU SECTION)
+   📂 LEFT PANEL (CATEGORIES SECTION)
    ======================================== */
 
-.left-panel {
-  display: flex;
-  flex-direction: column;
+.category-panel {
   height: 100vh;
   overflow: hidden;
 }
 
-/* Fixed header */
-.menu-header {
+.category-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: white;
+}
+
+/* Fixed category header */
+.category-header {
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  min-height: 64px !important;
   border-radius: 0 !important;
 }
 
-/* Loading state */
-.menu-loading {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-}
-
-/* Scrollable menu content */
-.menu-content {
+/* Scrollable category content */
+.category-content {
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  background: white;
   scroll-behavior: smooth;
+  min-height: 0; /* Important for flex child to scroll */
 }
 
-/* Custom scrollbar for menu */
-.menu-content::-webkit-scrollbar {
+/* Category item styling */
+.category-item {
+  transition: all 0.2s ease;
+}
+
+.category-item:hover {
+  background-color: rgba(25, 118, 210, 0.08);
+}
+
+/* Custom scrollbar for categories */
+.category-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.category-content::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.category-content::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.category-content::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* ========================================
+   🛍️ MIDDLE PANEL (PRODUCTS SECTION)
+   ======================================== */
+
+.products-panel {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.products-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: white;
+  border-left: 1px solid #e0e0e0;
+  border-right: 1px solid #e0e0e0;
+}
+
+/* Fixed products header */
+.products-header {
+  flex-shrink: 0;
+  min-height: 64px !important;
+  border-radius: 0 !important;
+}
+
+/* Fixed search section */
+.products-search-section {
+  flex-shrink: 0;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+/* Scrollable products content */
+.products-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  min-height: 0; /* Important for flex child to scroll */
+}
+
+/* Products loading state */
+.products-loading {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Custom scrollbar for products */
+.products-content::-webkit-scrollbar {
   width: 8px;
 }
 
-.menu-content::-webkit-scrollbar-track {
+.products-content::-webkit-scrollbar-track {
   background: #f1f1f1;
   border-radius: 4px;
 }
 
-.menu-content::-webkit-scrollbar-thumb {
+.products-content::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 4px;
 }
 
-.menu-content::-webkit-scrollbar-thumb:hover {
+.products-content::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
+}
+
+/* GPU acceleration for smooth scrolling */
+.products-content {
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 
 /* ========================================
    🛒 RIGHT PANEL (CART SECTION)
    ======================================== */
 
-.right-panel {
+.cart-panel {
   height: 100vh;
   overflow: hidden;
 }
@@ -3005,7 +3057,6 @@ export default {
   flex-direction: column;
   height: 100vh;
   background: white;
-  border-left: 1px solid #e0e0e0;
 }
 
 /* Fixed cart header */
@@ -3029,8 +3080,7 @@ export default {
   overflow-y: auto;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  min-height: 0;
-  /* Important for flex child to scroll */
+  min-height: 0; /* Important for flex child to scroll */
 }
 
 /* Cart empty state */
@@ -3052,6 +3102,11 @@ export default {
 .cart-item {
   margin-bottom: 8px;
   padding: 8px;
+  transition: all 0.2s ease;
+}
+
+.cart-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 /* Custom scrollbar for cart */
@@ -3091,30 +3146,13 @@ export default {
    🎨 PRODUCT CARD STYLES
    ======================================== */
 
-.promotion-eligible {
-  border: 2px solid #4caf50 !important;
-}
-
-.promotion-badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: #4caf50;
-  border-radius: 50%;
-  padding: 4px;
-}
-
-.cursor-pointer {
-  cursor: pointer;
-}
-
-.w-100 {
-  width: 100%;
+.product-card {
+  position: relative;
+  transition: all 0.2s ease;
 }
 
 .product-card:hover:not(.product-disabled) {
   transform: translateY(-2px);
-  transition: transform 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
 }
 
@@ -3126,6 +3164,51 @@ export default {
 .product-disabled:hover {
   transform: none !important;
   box-shadow: none !important;
+}
+
+.promotion-eligible {
+  border: 2px solid #4caf50 !important;
+}
+
+.customer-grade-pricing {
+  border: 2px solid #9c27b0 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Badge positioning */
+.promotion-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 2;
+}
+
+.grade-price-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+}
+
+.price-list-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+}
+
+/* Price section styling */
+.price-section {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
+}
+
+/* Button gap utility */
+.gap-1 {
+  gap: 4px;
 }
 
 /* ========================================
@@ -3152,13 +3235,18 @@ export default {
    📱 RESPONSIVE DESIGN
    ======================================== */
 
-@media (max-width: 1024px) {
-  .left-panel {
-    flex: 0 0 60%;
+@media (max-width: 1200px) {
+  /* Adjust column proportions for smaller screens */
+  .category-panel {
+    flex: 0 0 20%;
   }
-
-  .right-panel {
-    flex: 0 0 40%;
+  
+  .products-panel {
+    flex: 0 0 50%;
+  }
+  
+  .cart-panel {
+    flex: 0 0 30%;
   }
 }
 
@@ -3167,9 +3255,11 @@ export default {
     flex-direction: column;
   }
 
-  .left-panel,
-  .right-panel {
-    height: 50vh;
+  .category-panel,
+  .products-panel,
+  .cart-panel {
+    height: 33.33vh;
+    flex: none;
   }
 }
 
@@ -3187,42 +3277,27 @@ export default {
 }
 
 /* ========================================
-   🎯 PERFORMANCE OPTIMIZATIONS
-   ======================================== */
-
-/* GPU acceleration for smooth scrolling */
-.menu-content,
-.cart-items-section {
-  transform: translateZ(0);
-  will-change: scroll-position;
-}
-
-/* Smooth transitions */
-.cart-item {
-  transition: all 0.2s ease;
-}
-
-.cart-item:hover {
-  background-color: rgba(0, 0, 0, 0.02);
-}
-
-/* ========================================
    🔍 ACCESSIBILITY
    ======================================== */
 
 /* Focus indicators */
-.product-card:focus {
+.product-card:focus,
+.category-item:focus,
+.cart-item:focus {
   outline: 2px solid #1976d2;
   outline-offset: 2px;
 }
 
 /* High contrast mode support */
 @media (prefers-contrast: high) {
-  .cart-container {
+  .products-container {
     border-left: 2px solid #000;
+    border-right: 2px solid #000;
   }
 
-  .customer-section {
+  .customer-section,
+  .products-search-section,
+  .cart-footer {
     border-bottom: 2px solid #000;
   }
 }
@@ -3233,9 +3308,27 @@ export default {
     transform: none;
   }
 
-  .menu-content,
-  .cart-items-section {
+  .products-content,
+  .cart-items-section,
+  .category-content {
     scroll-behavior: auto;
   }
+  
+  .cart-item,
+  .category-item {
+    transition: none;
+  }
+}
+
+/* ========================================
+   🎯 PERFORMANCE OPTIMIZATIONS
+   ======================================== */
+
+/* GPU acceleration for smooth scrolling */
+.products-content,
+.cart-items-section,
+.category-content {
+  transform: translateZ(0);
+  will-change: scroll-position;
 }
 </style>

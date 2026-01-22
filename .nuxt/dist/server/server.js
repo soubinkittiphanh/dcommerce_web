@@ -5776,11 +5776,11 @@ const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
   // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
   // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
-  // const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
+  const baseURL = 'http://150.95.31.23:8026'; //  *** DEV DEMO
   // const baseURL = 'http://150.95.31.23:8027' //  *** HAPPY BUN
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
   // const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
-  const baseURL = 'http://150.95.31.23:8014'; //  *** PWT YOTHA
+  // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
 
@@ -24675,10 +24675,10 @@ __webpack_require__.d(components_namespaceObject, "ProductFormCreate", function(
 __webpack_require__.d(components_namespaceObject, "PromotionsPromotionDialog", function() { return PromotionsPromotionDialog; });
 __webpack_require__.d(components_namespaceObject, "Quotation", function() { return Quotation; });
 __webpack_require__.d(components_namespaceObject, "ReportsProfitLossReport", function() { return ReportsProfitLossReport; });
+__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleCard", function() { return RolesRoleCard; });
 __webpack_require__.d(components_namespaceObject, "RolesRoleDialog", function() { return RolesRoleDialog; });
 __webpack_require__.d(components_namespaceObject, "RolesUsersListDialog", function() { return RolesUsersListDialog; });
-__webpack_require__.d(components_namespaceObject, "ScheduleMonthTable", function() { return ScheduleMonthTable; });
 __webpack_require__.d(components_namespaceObject, "SharedConfirmDialog", function() { return SharedConfirmDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsNotesDialog", function() { return TicketsNotesDialog; });
 __webpack_require__.d(components_namespaceObject, "TicketsPrintDialog", function() { return TicketsPrintDialog; });
@@ -24721,15 +24721,15 @@ __webpack_require__.d(components_namespaceObject, "CompanyTheme", function() { r
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseMaintain", function() { return JobAdvertiseMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseStatusUpdate", function() { return JobAdvertiseStatusUpdate; });
 __webpack_require__.d(components_namespaceObject, "JobAdvertiseView", function() { return JobAdvertiseView; });
+__webpack_require__.d(components_namespaceObject, "JobFairJobBatch", function() { return JobFairJobBatch; });
 __webpack_require__.d(components_namespaceObject, "PosDialogsQuantityUpdateDialog", function() { return PosDialogsQuantityUpdateDialog; });
 __webpack_require__.d(components_namespaceObject, "PosDialogsTicketDetailsDialog", function() { return PosDialogsTicketDetailsDialog; });
 __webpack_require__.d(components_namespaceObject, "PosRecipe", function() { return PosRecipe; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoice", function() { return AccountingApInvoice; });
-__webpack_require__.d(components_namespaceObject, "JobFairJobBatch", function() { return JobFairJobBatch; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlement", function() { return AccountingApSettlement; });
-__webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyMaintain", function() { return JobFairAgencyMaintain; });
 __webpack_require__.d(components_namespaceObject, "JobFairAgencyView", function() { return JobFairAgencyView; });
+__webpack_require__.d(components_namespaceObject, "JobFairMouMaintain", function() { return JobFairMouMaintain; });
 __webpack_require__.d(components_namespaceObject, "AccountingApInvoiceAudit", function() { return AccountingApInvoiceAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementAudit", function() { return AccountingApSettlementAudit; });
 __webpack_require__.d(components_namespaceObject, "AccountingApSettlementBrowsemou", function() { return AccountingApSettlementBrowsemou; });
@@ -31691,10 +31691,10 @@ const ProductFormCreate = () => __webpack_require__.e(/* import() | components/p
 const PromotionsPromotionDialog = () => __webpack_require__.e(/* import() | components/promotions-promotion-dialog */ 140).then(__webpack_require__.bind(null, 1076)).then(c => wrapFunctional(c.default || c));
 const Quotation = () => Promise.resolve(/* import() */).then(__webpack_require__.bind(null, 111)).then(c => wrapFunctional(c.default || c));
 const ReportsProfitLossReport = () => __webpack_require__.e(/* import() | components/reports-profit-loss-report */ 143).then(__webpack_require__.bind(null, 1072)).then(c => wrapFunctional(c.default || c));
+const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 150).then(__webpack_require__.bind(null, 1605)).then(c => wrapFunctional(c.default || c));
 const RolesRoleCard = () => __webpack_require__.e(/* import() | components/roles-role-card */ 147).then(__webpack_require__.bind(null, 1079)).then(c => wrapFunctional(c.default || c));
 const RolesRoleDialog = () => __webpack_require__.e(/* import() | components/roles-role-dialog */ 148).then(__webpack_require__.bind(null, 1080)).then(c => wrapFunctional(c.default || c));
 const RolesUsersListDialog = () => __webpack_require__.e(/* import() | components/roles-users-list-dialog */ 149).then(__webpack_require__.bind(null, 1082)).then(c => wrapFunctional(c.default || c));
-const ScheduleMonthTable = () => __webpack_require__.e(/* import() | components/schedule-month-table */ 150).then(__webpack_require__.bind(null, 1605)).then(c => wrapFunctional(c.default || c));
 const SharedConfirmDialog = () => __webpack_require__.e(/* import() | components/shared-confirm-dialog */ 152).then(__webpack_require__.bind(null, 1081)).then(c => wrapFunctional(c.default || c));
 const TicketsNotesDialog = () => __webpack_require__.e(/* import() | components/tickets-notes-dialog */ 158).then(__webpack_require__.bind(null, 593)).then(c => wrapFunctional(c.default || c));
 const TicketsPrintDialog = () => __webpack_require__.e(/* import() | components/tickets-print-dialog */ 159).then(__webpack_require__.bind(null, 1606)).then(c => wrapFunctional(c.default || c));
@@ -31737,15 +31737,15 @@ const CompanyTheme = () => __webpack_require__.e(/* import() | components/compan
 const JobAdvertiseMaintain = () => __webpack_require__.e(/* import() | components/job-advertise-maintain */ 66).then(__webpack_require__.bind(null, 1056)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseStatusUpdate = () => __webpack_require__.e(/* import() | components/job-advertise-status-update */ 67).then(__webpack_require__.bind(null, 1058)).then(c => wrapFunctional(c.default || c));
 const JobAdvertiseView = () => __webpack_require__.e(/* import() | components/job-advertise-view */ 68).then(__webpack_require__.bind(null, 1057)).then(c => wrapFunctional(c.default || c));
+const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 71).then(__webpack_require__.bind(null, 1051)).then(c => wrapFunctional(c.default || c));
 const PosDialogsQuantityUpdateDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-quantity-update-dialog */ 128).then(__webpack_require__.bind(null, 1623)).then(c => wrapFunctional(c.default || c));
 const PosDialogsTicketDetailsDialog = () => __webpack_require__.e(/* import() | components/pos-dialogs-ticket-details-dialog */ 129).then(__webpack_require__.bind(null, 612)).then(c => wrapFunctional(c.default || c));
 const PosRecipe = () => __webpack_require__.e(/* import() | components/pos-recipe */ 131).then(__webpack_require__.bind(null, 1078)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoice = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice */ 3).then(__webpack_require__.bind(null, 1073)).then(c => wrapFunctional(c.default || c));
-const JobFairJobBatch = () => __webpack_require__.e(/* import() | components/job-fair-job-batch */ 71).then(__webpack_require__.bind(null, 1051)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlement = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement */ 7).then(__webpack_require__.bind(null, 1074)).then(c => wrapFunctional(c.default || c));
-const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 72).then(__webpack_require__.bind(null, 1087)).then(c => wrapFunctional(c.default || c));
 const JobFairAgencyMaintain = () => __webpack_require__.e(/* import() | components/job-fair-agency-maintain */ 69).then(__webpack_require__.bind(null, 655)).then(c => wrapFunctional(c.default || c));
 const JobFairAgencyView = () => __webpack_require__.e(/* import() | components/job-fair-agency-view */ 70).then(__webpack_require__.bind(null, 656)).then(c => wrapFunctional(c.default || c));
+const JobFairMouMaintain = () => __webpack_require__.e(/* import() | components/job-fair-mou-maintain */ 72).then(__webpack_require__.bind(null, 1087)).then(c => wrapFunctional(c.default || c));
 const AccountingApInvoiceAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-invoice-audit */ 4).then(__webpack_require__.bind(null, 757)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementAudit = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-audit */ 8).then(__webpack_require__.bind(null, 758)).then(c => wrapFunctional(c.default || c));
 const AccountingApSettlementBrowsemou = () => __webpack_require__.e(/* import() | components/accounting-ap-settlement-browsemou */ 10).then(__webpack_require__.bind(null, 755)).then(c => wrapFunctional(c.default || c));
@@ -31972,7 +31972,7 @@ const setupProgress = axios => {
   // runtimeConfig
   const runtimeConfig = ctx.$config && ctx.$config.axios || {};
   // baseURL
-  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8014';
+  const baseURL =  false ? undefined : runtimeConfig.baseURL || runtimeConfig.baseUrl || process.env._AXIOS_BASE_URL_ || 'http://150.95.31.23:8026';
 
   // Create fresh objects for all default header scopes
   // Axios creates only one which is shared across SSR requests!

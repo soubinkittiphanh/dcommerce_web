@@ -350,6 +350,9 @@
   "ReportsProfitLossReport": {
     "description": "Auto imported from components/reports/ProfitLossReport.vue"
   },
+  "ScheduleMonthTable": {
+    "description": "Auto imported from components/schedule/MonthTable.vue"
+  },
   "RolesRoleCard": {
     "description": "Auto imported from components/roles/RoleCard.vue"
   },
@@ -358,9 +361,6 @@
   },
   "RolesUsersListDialog": {
     "description": "Auto imported from components/roles/UsersListDialog.vue"
-  },
-  "ScheduleMonthTable": {
-    "description": "Auto imported from components/schedule/MonthTable.vue"
   },
   "SharedConfirmDialog": {
     "description": "Auto imported from components/shared/ConfirmDialog.vue"
@@ -488,6 +488,9 @@
   "JobAdvertiseView": {
     "description": "Auto imported from components/jobAdvertise/view/index.vue"
   },
+  "JobFairJobBatch": {
+    "description": "Auto imported from components/job_fair/job_batch/index.vue"
+  },
   "PosDialogsQuantityUpdateDialog": {
     "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
   },
@@ -500,20 +503,17 @@
   "AccountingApInvoice": {
     "description": "Auto imported from components/accounting/ap/invoice/index.vue"
   },
-  "JobFairJobBatch": {
-    "description": "Auto imported from components/job_fair/job_batch/index.vue"
-  },
   "AccountingApSettlement": {
     "description": "Auto imported from components/accounting/ap/settlement/index.vue"
-  },
-  "JobFairMouMaintain": {
-    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
   },
   "JobFairAgencyMaintain": {
     "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
   },
   "JobFairAgencyView": {
     "description": "Auto imported from components/job_fair/agency/view/index.vue"
+  },
+  "JobFairMouMaintain": {
+    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
   },
   "AccountingApInvoiceAudit": {
     "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
