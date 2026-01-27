@@ -881,7 +881,7 @@ export default {
       }
 
       try {
-        const response = await this.$axios.get('/api/currency/find')
+        const response = await this.$axios.get('/api/currency/findAll')
         const currencies = response.data.data || response.data
         // Ensure currencyList has the right structure for the template
         this.currencyList = currencies.map((currency) => ({

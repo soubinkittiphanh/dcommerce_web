@@ -21,6 +21,7 @@ const _6ceea838 = () => interopDefault(import('../pages/admin/ar/index.vue' /* w
 const _437d31c6 = () => interopDefault(import('../pages/admin/authority/index.vue' /* webpackChunkName: "pages/admin/authority/index" */))
 const _4dc0be2f = () => interopDefault(import('../pages/admin/bank/index.vue' /* webpackChunkName: "pages/admin/bank/index" */))
 const _6ec13158 = () => interopDefault(import('../pages/admin/bankAccount/index.vue' /* webpackChunkName: "pages/admin/bankAccount/index" */))
+const _29394f21 = () => interopDefault(import('../pages/admin/banking_qr_generator/index.vue' /* webpackChunkName: "pages/admin/banking_qr_generator/index" */))
 const _25b7b8c0 = () => interopDefault(import('../pages/admin/barcodePrint/index.vue' /* webpackChunkName: "pages/admin/barcodePrint/index" */))
 const _7cf1717b = () => interopDefault(import('../pages/admin/batch_job/index.vue' /* webpackChunkName: "pages/admin/batch_job/index" */))
 const _3c041fcc = () => interopDefault(import('../pages/admin/benefit/index.vue' /* webpackChunkName: "pages/admin/benefit/index" */))
@@ -252,6 +253,10 @@ export const routerOptions = {
     path: "/admin/bankAccount",
     component: _6ec13158,
     name: "admin-bankAccount"
+  }, {
+    path: "/admin/banking_qr_generator",
+    component: _29394f21,
+    name: "admin-banking_qr_generator"
   }, {
     path: "/admin/barcodePrint",
     component: _25b7b8c0,

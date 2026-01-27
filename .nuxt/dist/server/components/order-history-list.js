@@ -1,7 +1,7 @@
 exports.ids = [115];
 exports.modules = {
 
-/***/ 1580:
+/***/ 1586:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,28 +9,28 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(127);
+var VBtn = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(124);
+var VCard = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(128);
+var VChip = __webpack_require__(129);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(441);
+var VDataTable = __webpack_require__(447);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(407);
+var VDialog = __webpack_require__(411);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(433);
+var VSpacer = __webpack_require__(438);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderHistoryList.vue?vue&type=template&id=472a444b
 
@@ -254,7 +254,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderHistoryList = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ })

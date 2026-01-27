@@ -1,4 +1,3 @@
-
 <template>
     <div class="text-center">
         <v-dialog v-model="isloading" hide-overlay persistent width="300">
@@ -26,9 +25,7 @@
                     </template>
                 </v-data-table>
             </v-card-text>
-
         </v-card>
-
     </div>
 </template>
 
@@ -95,50 +92,63 @@ export default {
     async created() {
         this.loadEntry();
     },
+    computed: {
+        ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency']),
+    },
     methods: {
-        ...mapActions(['updateProduct'],),
+        ...mapActions(['updateProduct']),
+        
         formatNumber(value) {
             return getFormatNum(value)
         },
+        
         findCurrency(currencyId) {
             return this.findAllCurrency.find(el => el.id == currencyId);
         },
+        
         async select(item) {
             console.log(`${JSON.stringify(item)} isbackend = ${this.isBackend}`);
-            // ************** isBackend indecate that operation is not from POS [so, we dont need to update state]**************
-            const currency = this.findCurrency(item['currencyId'])
-            if (item['type'] == 'Price') item.amount = currency['rate'] * item.amount
+            
+            const currency = this.findCurrency(item.currencyId);
+            
+            // ✅ FIXED: Don't convert anything - just pass the original price info
+            const priceInfo = {
+                id: item.id,
+                productId: this.recordId,
+                amount: item.amount,  // Keep original amount as-is
+                type: item.type,
+                currencyId: item.currencyId,
+                currency: currency
+            };
+            
+            console.log(`Sending priceInfo: ${JSON.stringify(priceInfo)}`);
+            
             if (this.isBackend) {
-                const priceInfo = {
-                    amount: item.amount,
-                    type: item['type'],
-                }
-                this.$emit('new-price-update',priceInfo)
+                this.$emit('new-price-update', priceInfo);
             } else {
-                this.updateProduct(item)
-                console.info(`UPDATE CUS SCRREEN PAYMENT AMOUNT UPDATED`)
-                this.$emit('new-price-update')
+                // Update the store with the original price info
+                this.updateProduct(priceInfo);
+                console.info(`UPDATE CUSTOMER SCREEN PAYMENT AMOUNT UPDATED`);
+                this.$emit('new-price-update');
             }
 
-            this.$emit('close-dialog')
+            this.$emit('close-dialog');
         },
+        
         async loadEntry() {
             console.log(`Loading data ....`);
             try {
-                const response = await this.$axios.get(`api/priceList/findByProductId/${this.recordId}`)
-                this.entries = response.data
+                const response = await this.$axios.get(`api/priceList/findByProductId/${this.recordId}`);
+                this.entries = response.data;
             } catch (error) {
                 console.log("Cannot fetch data " + error);
                 return swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-
             }
         },
+        
         refreshData() {
-            this.$emit('reload-data')
+            this.$emit('reload-data');
         }
-    },
-    computed: {
-        ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency']),
     }
 };
 </script>

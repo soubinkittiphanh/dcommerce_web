@@ -131,6 +131,7 @@
                     <option value="USD">USD - ໂດລາ</option>
                     <option value="THB">THB - ບາດ</option>
                     <option value="CNY">CNY - ຢວນ</option>
+                    <option value="CNY">EUR - ຢູໂລ</option>
                   </select>
                 </div>
                 <div v-if="errors.currency" class="invalid-feedback">
@@ -187,6 +188,8 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'BankAccountDialog',
 
@@ -238,6 +241,8 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['findAllCurrency']),
+
     isEdit() {
       return !!this.account && !!this.account.id
     },

@@ -12,7 +12,7 @@ export const state = () => ({
     listOfConfirmPaymentOrder: [],
     selectedCategoryId: 9999,
     selectedCustomer: null,
-    selectedPayment: 1,
+    selectedPayment: null,
     selectedLocation: null,
     currencyList: [],
     productList: [],
@@ -99,7 +99,7 @@ export const mutations = {
     SetProductList(state, products) {
         const startTime = performance.now()
         console.log(`📦 Setting ${products?.length || 0} products`)
-        
+
         if (!Array.isArray(products)) {
             state.productList = []
             state.productBarcodeMap.clear()
@@ -113,7 +113,7 @@ export const mutations = {
             const processedProducts = products.map((product, index) => {
                 const productName = product.pro_name || ''
                 const barCode = product.barCode || ''
-                
+
                 return {
                     ...product,
                     // Ensure required fields
@@ -121,19 +121,19 @@ export const mutations = {
                     pro_price: Number(product.pro_price) || 0,
                     card_count: Number(product.card_count) || 0,
                     pro_category: Number(product.pro_category) || 0,
-                    
+
                     // Pre-computed search fields
                     pro_name_lower: productName.toLowerCase(),
                     barCode_lower: barCode.toLowerCase(),
                     searchString: `${productName} ${barCode}`.toLowerCase(),
-                    
+
                     // Price-related
                     priceLists: Array.isArray(product.priceLists) ? product.priceLists : [],
                     hasSpecialPrice: Array.isArray(product.priceLists) && product.priceLists.length > 0,
-                    
+
                     // Stock status
                     isInStock: (Number(product.card_count) || 0) > 0,
-                    
+
                     // Processing metadata
                     _processed: true,
                     _processedAt: Date.now(),
@@ -143,13 +143,13 @@ export const mutations = {
             // Build lookup maps for O(1) access
             const barcodeMap = new Map()
             const categoryMap = new Map()
-            
+
             processedProducts.forEach(product => {
                 // Barcode map for instant lookup
                 if (product.barCode) {
                     barcodeMap.set(product.barCode, product)
                 }
-                
+
                 // Category map for fast filtering
                 const categoryId = product.pro_category
                 if (!categoryMap.has(categoryId)) {
@@ -169,14 +169,14 @@ export const mutations = {
             state.productCategoryMap = categoryMap
             state.productProcessed = true
             state.lastCacheUpdate = Date.now()
-            
+
             // Clear search cache when products are updated
             state.productSearchCache.clear()
-            
+
             const processingTime = performance.now() - startTime
             state.performanceMetrics.lastProductLoadTime = Date.now()
             state.performanceMetrics.productProcessingTime = processingTime
-            
+
             console.log(`✅ Products processed in ${processingTime.toFixed(2)}ms`)
             console.log(`🗺️ Created ${barcodeMap.size} barcode mappings`)
             console.log(`📁 Created ${categoryMap.size} category groups`)
@@ -191,13 +191,13 @@ export const mutations = {
     // Cache management mutations
     SET_PRODUCT_SEARCH_CACHE(state, { key, result, searchTime }) {
         if (!state.featureFlags.enableProductCaching) return
-        
+
         // Implement LRU cache behavior
         if (state.productSearchCache.size >= state.cacheConfig.maxSearchCacheSize) {
             const firstKey = state.productSearchCache.keys().next().value
             state.productSearchCache.delete(firstKey)
         }
-        
+
         state.productSearchCache.set(key, {
             result: Object.freeze(result),
             timestamp: Date.now(),
@@ -335,7 +335,7 @@ export const mutations = {
     },
 
     SetSearchKeyword(state, value) {
-          console.log(`🔍 Setting search keyword: "${value}"`) // Debug log
+        console.log(`🔍 Setting search keyword: "${value}"`) // Debug log
         state.productSearchKeyboard = value || ''
     },
 
@@ -412,17 +412,21 @@ export const mutations = {
         if (index === -1) return
 
         const cartItem = state.cartOfproductSelected[index]
-
+        console.info(`item ${JSON.stringify(item)}`)
+        console.info(`giftConfig ${JSON.stringify(giftConfig)}`)
+        console.info(`cart existed item ${JSON.stringify(cartItem)}`)
         if (isFullGift) {
             cartItem.isGift = true
             cartItem.qty = originalQuantity
             cartItem.localPrice = giftAmount
             cartItem.giftNote = giftNote
+            cartItem.priceListId = null //SET TO NULL
+
             return
         }
 
         state.cartOfproductSelected.splice(index, 1)
-
+        // TODO: UPDATE PRICILST NULL HERE
         if (regularQuantity > 0) {
             state.cartOfproductSelected.push({
                 ...cartItem,
@@ -435,6 +439,7 @@ export const mutations = {
         }
 
         if (giftQuantity > 0) {
+            cartItem.priceListId = null //SET TO NULL
             state.cartOfproductSelected.push({
                 ...cartItem,
                 qty: giftQuantity,
@@ -446,41 +451,175 @@ export const mutations = {
         }
     },
 
+    // updateProductCartV1(state, productInfo) {
+    //     try {
+    //         if (!productInfo || !productInfo.productId) return
+
+    //         const productId = productInfo.productId
+    //         const price = productInfo.amount
+    //         const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
+
+    //         if (productIdxFound < 0) return
+
+    //         let newPrice = 0
+    //         const product = state.cartOfproductSelected[productIdxFound]
+
+    //         if (productInfo.type !== 'Price') {
+    //             newPrice = (product.localPrice * price / 100) * product.qty
+    //             newPrice += product.localPrice
+    //         } else {
+    //             newPrice = price * product.qty
+    //         }
+
+    //         state.cartOfproductSelected[productIdxFound].localPrice = newPrice
+    //         state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id
+    //     } catch (error) {
+    //         console.error('Error updating product cart:', error)
+    //     }
+    // },
+    // ✅ FIXED: Vuex store mutation for updating product cart
+    // ✅ FIXED: Vuex store mutation for updating product cart
+    // updateProductCartV2(state, productInfo) {
+    //     try {
+    //         console.info(`Product info ${JSON.stringify(productInfo)}`);
+
+    //         // ✅ FIXED: Check for productId properly
+    //         if (!productInfo) {
+    //             console.error('No productInfo provided');
+    //             return;
+    //         }
+
+    //         const productId = productInfo.productId;
+    //         if (!productId) {
+    //             console.error('No productId provided in productInfo');
+    //             return;
+    //         }
+
+    //         const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId);
+
+    //         if (productIdxFound < 0) {
+    //             console.error(`Product with id ${productId} not found in cart`);
+    //             return;
+    //         }
+
+    //         const product = state.cartOfproductSelected[productIdxFound];
+    //         let newLocalPrice = 0;
+
+    //         console.log(`Processing product: ${product.pro_name}, current localPrice: ${product.localPrice}, qty: ${product.qty}`);
+
+    //         if (productInfo.type !== 'Price') {
+    //             // ✅ PERCENTAGE/DISCOUNT: Apply percentage to current localPrice
+    //             const currentUnitPrice = product.localPrice / product.qty;
+    //             const discountAmount = (currentUnitPrice * productInfo.amount / 100);
+
+    //             if (productInfo.type === 'Discount') {
+    //                 newLocalPrice = currentUnitPrice - discountAmount;
+    //             } else {
+    //                 newLocalPrice = currentUnitPrice + discountAmount;
+    //             }
+
+    //             newLocalPrice = Math.max(0, newLocalPrice);
+
+    //         } else {
+    //             // ✅ FIXED PRICE: Use the converted local amount from component
+    //             if (productInfo.localAmount !== undefined) {
+    //                 newLocalPrice = productInfo.localAmount; // This should already be the unit price
+    //                 console.log(`Using localAmount: ${productInfo.localAmount}`);
+    //             } else {
+    //                 // Fallback: use original amount (assume it's already in local currency)
+    //                 newLocalPrice = productInfo.amount;
+    //                 console.log(`Using original amount as fallback: ${productInfo.amount}`);
+    //             }
+    //         }
+
+    //         // Update the product in cart
+    //         state.cartOfproductSelected[productIdxFound].localPrice = newLocalPrice;
+    //         state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id;
+
+    //         // ✅ NEW: Store original currency info for reference
+    //         if (productInfo.currencyId) {
+    //             state.cartOfproductSelected[productIdxFound].saleCurrencyId = productInfo.currencyId;
+    //             state.cartOfproductSelected[productIdxFound].originalPrice = productInfo.amount;
+    //         }
+
+    //         console.log(`Updated product ${productId}: localPrice=${newLocalPrice}, total=${newLocalPrice * product.qty}`);
+
+    //     } catch (error) {
+    //         console.error('Error updating product cart:', error);
+    //     }
+    // },
+    // ✅ FIXED: Vuex store mutation - handle original price info without conversion
     updateProductCart(state, productInfo) {
         try {
-            if (!productInfo || !productInfo.productId) return
-            
-            const productId = productInfo.productId
-            const price = productInfo.amount
-            const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId)
+            console.info(`Product info ${JSON.stringify(productInfo)}`);
 
-            if (productIdxFound < 0) return
-
-            let newPrice = 0
-            const product = state.cartOfproductSelected[productIdxFound]
-
-            if (productInfo.type !== 'Price') {
-                newPrice = (product.localPrice * price / 100) * product.qty
-                newPrice += product.localPrice
-            } else {
-                newPrice = price * product.qty
+            if (!productInfo) {
+                console.error('No productInfo provided');
+                return;
             }
 
-            state.cartOfproductSelected[productIdxFound].localPrice = newPrice
-            state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id
+            const productId = productInfo.productId;
+            if (!productId) {
+                console.error('No productId provided in productInfo');
+                return;
+            }
+
+            const productIdxFound = state.cartOfproductSelected.findIndex(el => el.id == productId);
+
+            if (productIdxFound < 0) {
+                console.error(`Product with id ${productId} not found in cart`);
+                return;
+            }
+
+            const product = state.cartOfproductSelected[productIdxFound];
+            let newLocalPrice = 0;
+
+            console.log(`Processing product: ${product.pro_name}, current localPrice: ${product.localPrice}, qty: ${product.qty}`);
+
+            if (productInfo.type !== 'Price') {
+                // ✅ PERCENTAGE/DISCOUNT: Apply percentage to current localPrice
+                const currentUnitPrice = product.localPrice / product.qty;
+                const discountAmount = (currentUnitPrice * productInfo.amount / 100);
+
+                if (productInfo.type === 'Discount') {
+                    newLocalPrice = currentUnitPrice - discountAmount;
+                } else {
+                    newLocalPrice = currentUnitPrice + discountAmount;
+                }
+
+                newLocalPrice = Math.max(0, newLocalPrice);
+
+            } else {
+                // ✅ FIXED PRICE: Use original amount directly (no conversion here)
+                // The conversion will be handled by the cart footer component
+                newLocalPrice = productInfo.amount;
+                console.log(`Using original amount directly: ${productInfo.amount}`);
+            }
+
+            // Update the product in cart
+            state.cartOfproductSelected[productIdxFound].localPrice = newLocalPrice;
+            state.cartOfproductSelected[productIdxFound].priceListId = productInfo.id;
+
+            // ✅ Store original currency info for reference
+            if (productInfo.currencyId) {
+                state.cartOfproductSelected[productIdxFound].saleCurrencyId = productInfo.currencyId;
+                state.cartOfproductSelected[productIdxFound].originalPrice = productInfo.amount;
+            }
+
+            console.log(`Updated product ${productId}: localPrice=${newLocalPrice}, total=${newLocalPrice * product.qty}`);
+
         } catch (error) {
-            console.error('Error updating product cart:', error)
+            console.error('Error updating product cart:', error);
         }
     },
-
     removeProductFromCart(state, product) {
         try {
             if (!product || !product.id) return
 
-            const existingProduct = state.cartOfproductSelected.find(item => 
+            const existingProduct = state.cartOfproductSelected.find(item =>
                 item.id === product.id && item.lineUUID === product.lineUUID
             )
-            
+
             if (existingProduct) {
                 if (existingProduct.qty > 1) {
                     existingProduct.qty--
@@ -553,6 +692,9 @@ export const getters = {
     findAllPayment: (state) => state.paymentList || [],
     findAllClient: (state) => state.clientList || [],
     findAllCurrency: (state) => state.currencyList || [],
+    findLocalCurrency: (state) => {
+        return (state.currencyList || []).find(currency => currency.isLocalCCY);
+    },
     findAllUnit: (state) => state.unitList || [],
     findSPF: (state) => state.SPF || [],
     isAuth: (state) => state.isAuth,
@@ -562,7 +704,7 @@ export const getters = {
     cartOfProduct: (state) => state.cartOfproductSelected || [],
     currenctSelectedCategoryId: (state) => state.selectedCategoryId || 9999,
     currentSelectedCustomer: (state) => state.selectedCustomer,
-    currentSelectedPayment: (state) => state.selectedPayment || 1,
+    currentSelectedPayment: (state) => state.selectedPayment || state.paymentList[0].id,
     currentSelectedLocation: (state) => state.selectedLocation,
     isLoading: (state) => state.isLoading,
     isDataInitialized: (state) => state.dataInitialized,
@@ -580,7 +722,7 @@ export const getters = {
 
     searchProducts: (state) => (keyword, categoryId) => {
         const cacheKey = `${keyword || ''}_${categoryId || 9999}`
-        
+
         // Check cache first
         if (state.productSearchCache.has(cacheKey)) {
             return state.productSearchCache.get(cacheKey).result
@@ -605,14 +747,14 @@ export const getters = {
         }
 
         const searchTime = performance.now() - startTime
-        
+
         // Cache the result
         if (state.featureFlags.enableProductCaching) {
             if (state.productSearchCache.size >= state.cacheConfig.maxSearchCacheSize) {
                 const firstKey = state.productSearchCache.keys().next().value
                 state.productSearchCache.delete(firstKey)
             }
-            
+
             state.productSearchCache.set(cacheKey, {
                 result: Object.freeze(results),
                 timestamp: Date.now(),
@@ -653,18 +795,18 @@ export const actions = {
     async initializeProductsByLocation({ commit, dispatch }, locationId) {
         commit('SET_LOADING', true)
         commit('CLEAR_ERRORS')
-        
+
         try {
             console.info(`🚀 Loading ALL products for location ${locationId}`)
             const startTime = performance.now()
 
             const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
-            
+
             const loadTime = performance.now() - startTime
             console.info(`📡 API call completed in ${loadTime.toFixed(2)}ms`)
 
             await dispatch('initProduct', response.data.data)
-            
+
             const totalTime = performance.now() - startTime
             console.info(`✅ ALL products initialized in ${totalTime.toFixed(2)}ms`)
 
@@ -1099,7 +1241,7 @@ const initProductPrices = async (dispatch, axios) => {
 }
 
 const initCurrency = (dispatch, axios) =>
-    fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
+    fetchData('api/currency/findAll', 'initCurrency', dispatch, axios, 'Currency initialization failed')
 
 const initLocation = (dispatch, axios) =>
     fetchData('api/location/find', 'initLocation', dispatch, axios, 'Location initialization failed')

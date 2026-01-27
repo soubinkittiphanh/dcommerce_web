@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "344.js": "344.js",
+    "345.js": "345.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -195,6 +195,7 @@
     "pages/admin/authority/index.js": "pages/admin/authority/index.js",
     "pages/admin/bank/index.js": "pages/admin/bank/index.js",
     "pages/admin/bankAccount/index.js": "pages/admin/bankAccount/index.js",
+    "pages/admin/banking_qr_generator/index.js": "pages/admin/banking_qr_generator/index.js",
     "pages/admin/barcodePrint/gianttTime.js": "pages/admin/barcodePrint/gianttTime.js",
     "pages/admin/barcodePrint/index.js": "pages/admin/barcodePrint/index.js",
     "pages/admin/batch_job/index.js": "pages/admin/batch_job/index.js",
@@ -348,7 +349,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "344.js": "344.js.map",
+    "345.js": "345.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -542,6 +543,7 @@
     "pages/admin/authority/index.js": "pages/admin/authority/index.js.map",
     "pages/admin/bank/index.js": "pages/admin/bank/index.js.map",
     "pages/admin/bankAccount/index.js": "pages/admin/bankAccount/index.js.map",
+    "pages/admin/banking_qr_generator/index.js": "pages/admin/banking_qr_generator/index.js.map",
     "pages/admin/barcodePrint/gianttTime.js": "pages/admin/barcodePrint/gianttTime.js.map",
     "pages/admin/barcodePrint/index.js": "pages/admin/barcodePrint/index.js.map",
     "pages/admin/batch_job/index.js": "pages/admin/batch_job/index.js.map",

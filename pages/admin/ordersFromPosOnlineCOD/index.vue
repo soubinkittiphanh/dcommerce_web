@@ -1062,7 +1062,7 @@ export default {
       this.currencyList = []
       console.log("Loading currency ===>");
       await this.$axios
-        .get('/api/currency/find')
+        .get('/api/currency/findAll')
         .then((res) => {
           for (const iterator of res.data) {
             this.currencyList.push(iterator);

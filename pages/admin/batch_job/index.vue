@@ -722,7 +722,7 @@ export default {
       if (this.currencies.length > 0) return // Already loaded
 
       try {
-        const { data } = await this.$axios.get('/api/currency/find')
+        const { data } = await this.$axios.get('/api/currency/findAll')
         if (data) {
           this.currencies = data || []
         }

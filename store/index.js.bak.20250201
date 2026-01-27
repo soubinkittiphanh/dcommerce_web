@@ -499,7 +499,7 @@ const initProductPrices = async (state, axios) => {
 }
 const initCurrency = async (state, axios) => {
     await axios
-        .get('api/currency/find')
+        .get('api/currency/findAll')
         .then((res) => {
             actions.initCurrency(state, res.data)
         })

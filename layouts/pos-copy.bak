@@ -2298,7 +2298,7 @@ export default {
       this.isloading = true
       this.currencyList = []
       await this.$axios
-        .get('/api/currency/find')
+        .get('/api/currency/findAll')
         .then((res) => {
           for (const iterator of res.data) {
             this.currencyList.push(iterator)

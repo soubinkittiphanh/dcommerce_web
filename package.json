@@ -53,7 +53,8 @@
     "vuelidate": "^0.7.7",
     "vuetify": "^2.6.1",
     "xlsx": "^0.18.5",
-    "yarn": "^1.22.17"
+    "yarn": "^1.22.17",
+    "qrcode": "^1.5.3"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",

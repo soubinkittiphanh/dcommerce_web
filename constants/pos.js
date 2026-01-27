@@ -44,7 +44,7 @@ export const VALIDATION_RULES = {
 export const API_ENDPOINTS = {
   CATEGORIES: 'category_f',
   PAYMENT_METHODS: '/api/paymentMethod/find',
-  CURRENCIES: '/api/currency/find',
+  CURRENCIES: '/api/currency/findAll',
   CUSTOMERS: 'api/client/find',
   SALE_CREATE: '/api/sale/create',
   QUOTATION_CREATE: '/api/quotation/create',

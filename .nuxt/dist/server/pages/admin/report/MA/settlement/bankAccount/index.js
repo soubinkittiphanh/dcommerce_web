@@ -1,26 +1,44 @@
-exports.ids = [277];
+exports.ids = [278];
 exports.modules = {
 
-/***/ 1330:
+/***/ 1000:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1336);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add CSS to SSR context
+var add = __webpack_require__(5).default
+module.exports.__inject__ = function (context) {
+  add("786e9c5f", content, true, context)
+};
+
+/***/ }),
+
+/***/ 1335:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eed988ec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(997);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eed988ec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eed988ec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eed988ec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eed988ec_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c9c27cd_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1000);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c9c27cd_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c9c27cd_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c9c27cd_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c9c27cd_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1331:
+/***/ 1336:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-settlement-report[data-v-eed988ec]{padding:0}.report-header[data-v-eed988ec]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-eed988ec]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-eed988ec]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-eed988ec]{display:flex;gap:16px}.custom-btn[data-v-eed988ec]{border:1px solid #fff!important;color:primary!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-eed988ec]:hover{background-color:#fff!important;color:primary!important}.filter-card[data-v-eed988ec]{background:#fff;border-radius:8px}.filter-title[data-v-eed988ec]{background:primary;color:#fff;font-weight:600}.custom-primary-bg[data-v-eed988ec]{background-color:primary!important}.custom-secondary-btn[data-v-eed988ec]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-eed988ec]:hover{background-color:#5a6268!important}.summary-cards[data-v-eed988ec]{margin-bottom:24px}.summary-card[data-v-eed988ec]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-eed988ec]:hover{transform:translateY(-2px)}.summary-content[data-v-eed988ec]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-eed988ec]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-eed988ec]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-eed988ec]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-eed988ec]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-eed988ec]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.amount-card[data-v-eed988ec],.lak-card[data-v-eed988ec],.settlement-card[data-v-eed988ec],.total-accounts-card[data-v-eed988ec]{background:primary;color:#fff}.currency-breakdown[data-v-eed988ec]{margin-bottom:24px}.currency-title[data-v-eed988ec]{background:primary;color:#fff;font-weight:600}.currency-card[data-v-eed988ec]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;height:100%;padding:16px;text-align:center;transition:all .3s ease}.currency-card[data-v-eed988ec]:hover{border-color:primary;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-header[data-v-eed988ec]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.currency-flag[data-v-eed988ec]{font-size:24px}.currency-stats[data-v-eed988ec]{text-align:center}.original-amount[data-v-eed988ec]{color:primary;font-family:monospace;font-size:18px;font-weight:700;margin-bottom:4px}.lak-equivalent[data-v-eed988ec]{color:#228b22;font-family:monospace;font-size:14px;font-weight:600;margin-bottom:8px}.settlement-count[data-v-eed988ec]{color:#666;font-size:12px;margin-bottom:4px}.percentage[data-v-eed988ec]{color:#999;font-size:11px}.banking-table[data-v-eed988ec]{background:#fff}.banking-table-header[data-v-eed988ec],.banking-table-header th[data-v-eed988ec]{background-color:primary!important}.banking-table-header th[data-v-eed988ec]{border-bottom:none!important;color:#fff!important;padding:12px 8px!important}.banking-row-even[data-v-eed988ec]{background-color:#f8f9fa}.banking-row-special[data-v-eed988ec]{background-color:#fff3cd;font-style:italic}.banking-table-footer[data-v-eed988ec]{background-color:#e9ecef!important;font-weight:700}.banking-table-footer td[data-v-eed988ec]{background-color:#e9ecef!important;border-top:2px solid primary!important;padding:12px 8px!important}.banking-divider[data-v-eed988ec]{border-color:primary!important;opacity:.3!important}.banking-primary--text[data-v-eed988ec]{color:primary!important}.banking-success--text[data-v-eed988ec]{color:#28a745!important}.report-card[data-v-eed988ec]{border-radius:12px}.report-header[data-v-eed988ec]{background:primary;color:#fff;font-weight:600}.search-field[data-v-eed988ec] .v-label{color:hsla(0,0%,100%,.7)!important}.search-field[data-v-eed988ec] .v-input__control{border-color:hsla(0,0%,100%,.3)!important}.table-card[data-v-eed988ec]{border-radius:8px;margin-bottom:24px}.table-title[data-v-eed988ec]{background:primary;color:#fff;font-weight:600}.search-field[data-v-eed988ec]{max-width:300px}.search-field[data-v-eed988ec] .v-icon,.search-field[data-v-eed988ec] input{color:#fff!important}.bank-account-card[data-v-eed988ec]{border-radius:8px;cursor:pointer;height:100%;transition:all .3s ease}.bank-account-card[data-v-eed988ec]:hover{box-shadow:0 8px 25px rgba(1,83,43,.2)!important;transform:translateY(-4px)}.bank-account-card.selected[data-v-eed988ec]{border:2px solid primary}.bank-account-header[data-v-eed988ec]{align-items:flex-start;display:flex;justify-content:space-between}.bank-info h3[data-v-eed988ec]{color:#333;font-size:16px;font-weight:600;margin:0}.bank-account-number[data-v-eed988ec]{color:primary;font-family:monospace;font-size:12px;font-weight:600;margin:4px 0}.bank-name[data-v-eed988ec]{color:#666;font-size:11px;font-style:italic;margin:0}.bank-icon[data-v-eed988ec]{color:primary;font-size:24px;opacity:.7}.bank-stats[data-v-eed988ec]{margin-top:12px}.stat-item[data-v-eed988ec]{align-items:center;display:flex;justify-content:space-between;margin-bottom:8px}.stat-label[data-v-eed988ec]{color:#666;font-size:12px}.stat-value[data-v-eed988ec]{font-size:13px;font-weight:600}.amount-value[data-v-eed988ec]{color:primary}.count-value[data-v-eed988ec]{color:#228b22}.average-value[data-v-eed988ec]{color:#32cd32}.progress-section[data-v-eed988ec]{margin-top:12px}.progress-label[data-v-eed988ec]{color:#666;font-size:11px;margin-bottom:4px}.no-data-state[data-v-eed988ec]{padding:48px 24px;text-align:center}.no-data-icon[data-v-eed988ec]{color:#ccc;font-size:64px;margin-bottom:16px}.no-data-title[data-v-eed988ec]{color:#666;font-size:18px;margin:0 0 8px}.no-data-subtitle[data-v-eed988ec]{color:#999;font-size:14px;margin:0}.dialog-header[data-v-eed988ec]{background:primary!important;font-weight:600!important}.close-btn[data-v-eed988ec],.dialog-header[data-v-eed988ec]{color:#fff!important}.section-title[data-v-eed988ec]{color:primary;font-size:18px;font-weight:600;margin:0}.custom-divider[data-v-eed988ec]{border-color:primary!important;opacity:.3!important}.detail-stat[data-v-eed988ec]{align-items:center;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid primary;border-radius:12px;display:flex;height:100%;padding:16px;transition:all .3s ease}.detail-stat[data-v-eed988ec]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.stat-icon[data-v-eed988ec]{color:primary;font-size:24px;margin-right:12px}.stat-info strong[data-v-eed988ec]{color:primary;display:block;font-size:12px;font-weight:700;margin-bottom:4px}.stat-number[data-v-eed988ec]{color:#333;font-family:monospace;font-size:16px;font-weight:600;margin:0}.method-card[data-v-eed988ec]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid primary;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.method-card[data-v-eed988ec]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.method-header[data-v-eed988ec]{margin-bottom:12px}.method-count[data-v-eed988ec]{color:#666;font-size:14px;margin-bottom:4px}.method-amount[data-v-eed988ec]{color:primary;font-family:monospace;font-size:18px;font-weight:600}.settlement-table[data-v-eed988ec]{background:#fff}.settlement-table[data-v-eed988ec] thead th{background-color:primary!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.settlement-table[data-v-eed988ec] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-eed988ec]{color:primary;font-family:monospace;font-size:13px}.amount-breakdown[data-v-eed988ec]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-eed988ec]{font-family:monospace;font-size:13px;font-weight:600}.exchange-rate-cell[data-v-eed988ec]{text-align:center}.exchange-rate-cell .default-rate[data-v-eed988ec]{color:#999;font-style:italic}.lak-amount-cell[data-v-eed988ec]{text-align:center}.lak-amount[data-v-eed988ec]{color:#228b22;font-family:monospace;font-size:13px;font-weight:600}.user-info .user-name[data-v-eed988ec]{font-weight:500}.advance-info .advance-status[data-v-eed988ec]{color:#666;font-size:10px;margin-top:2px}.no-advance[data-v-eed988ec]{color:#999;font-style:italic}.text-center[data-v-eed988ec]{text-align:center}.py-8[data-v-eed988ec]{padding:64px 0}.mt-4[data-v-eed988ec]{margin-top:16px}.mt-3[data-v-eed988ec]{margin-top:12px}.mt-2[data-v-eed988ec]{margin-top:8px}.mb-4[data-v-eed988ec]{margin-bottom:24px}.mb-3[data-v-eed988ec]{margin-bottom:12px}.my-3[data-v-eed988ec]{margin:12px 0}.pa-4[data-v-eed988ec]{padding:24px}@media print{.action-buttons[data-v-eed988ec],.filter-card[data-v-eed988ec],.v-btn[data-v-eed988ec]{display:none!important}.summary-cards[data-v-eed988ec]{page-break-inside:avoid}.report-header[data-v-eed988ec]{background:primary!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-eed988ec]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-eed988ec]{font-size:24px}.action-buttons[data-v-eed988ec]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-eed988ec]{flex-direction:column;padding:12px;text-align:center}.summary-icon[data-v-eed988ec]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details h2[data-v-eed988ec]{font-size:20px}.bank-account-header[data-v-eed988ec]{flex-direction:column;text-align:center}.bank-icon[data-v-eed988ec]{margin-top:8px}.detail-stat[data-v-eed988ec]{flex-direction:column;text-align:center}.stat-icon[data-v-eed988ec]{margin-bottom:8px;margin-right:0}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-settlement-report[data-v-7c9c27cd]{padding:0}.report-header[data-v-7c9c27cd]{align-items:center;border-radius:8px;display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.title-section h1[data-v-7c9c27cd]{font-size:28px;font-weight:600;margin:0}.title-section p[data-v-7c9c27cd]{font-size:14px;margin:8px 0 0;opacity:.9}.action-buttons[data-v-7c9c27cd]{display:flex;gap:16px}.custom-btn[data-v-7c9c27cd]{border:1px solid #fff!important;color:primary!important;font-weight:500!important;text-transform:none!important}.custom-btn[data-v-7c9c27cd]:hover{background-color:#fff!important;color:primary!important}.filter-card[data-v-7c9c27cd]{background:#fff;border-radius:8px}.filter-title[data-v-7c9c27cd]{background:primary;color:#fff;font-weight:600}.custom-primary-bg[data-v-7c9c27cd]{background-color:primary!important}.custom-secondary-btn[data-v-7c9c27cd]{background-color:#6c757d!important;color:#fff!important;font-weight:500!important;text-transform:none!important}.custom-secondary-btn[data-v-7c9c27cd]:hover{background-color:#5a6268!important}.summary-cards[data-v-7c9c27cd]{margin-bottom:24px}.summary-card[data-v-7c9c27cd]{border-radius:8px;height:140px;overflow:hidden;position:relative}.summary-card[data-v-7c9c27cd]:hover{transform:translateY(-2px)}.summary-content[data-v-7c9c27cd]{align-items:center;display:flex;height:100%;position:relative;z-index:2}.summary-icon[data-v-7c9c27cd]{color:#fff;font-size:48px;margin-right:16px;opacity:.9}.summary-details h3[data-v-7c9c27cd]{color:#fff;font-size:16px;font-weight:600;margin:0}.summary-details p[data-v-7c9c27cd]{color:hsla(0,0%,100%,.9);font-size:12px;margin:4px 0}.summary-details h2[data-v-7c9c27cd]{color:#fff;font-size:24px;font-weight:700;margin:8px 0 0}.summary-lcy[data-v-7c9c27cd]{color:hsla(0,0%,100%,.9);font-size:11px;margin-top:4px!important;opacity:.9}.amount-card[data-v-7c9c27cd],.lak-card[data-v-7c9c27cd],.settlement-card[data-v-7c9c27cd],.total-accounts-card[data-v-7c9c27cd]{background:primary;color:#fff}.currency-breakdown[data-v-7c9c27cd]{margin-bottom:24px}.currency-title[data-v-7c9c27cd]{background:primary;color:#fff;font-weight:600}.currency-card[data-v-7c9c27cd]{background:#f8f9fa;border:1px solid #e9ecef;border-radius:8px;height:100%;padding:16px;text-align:center;transition:all .3s ease}.currency-card[data-v-7c9c27cd]:hover{border-color:primary;box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.currency-header[data-v-7c9c27cd]{align-items:center;display:flex;justify-content:space-between;margin-bottom:12px}.currency-flag[data-v-7c9c27cd]{font-size:24px}.currency-stats[data-v-7c9c27cd]{text-align:center}.original-amount[data-v-7c9c27cd]{color:primary;font-family:monospace;font-size:18px;font-weight:700;margin-bottom:4px}.lak-equivalent[data-v-7c9c27cd]{color:#228b22;font-family:monospace;font-size:14px;font-weight:600;margin-bottom:8px}.settlement-count[data-v-7c9c27cd]{color:#666;font-size:12px;margin-bottom:4px}.percentage[data-v-7c9c27cd]{color:#999;font-size:11px}.banking-table[data-v-7c9c27cd]{background:#fff}.banking-table-header[data-v-7c9c27cd],.banking-table-header th[data-v-7c9c27cd]{background-color:primary!important}.banking-table-header th[data-v-7c9c27cd]{border-bottom:none!important;color:#fff!important;padding:12px 8px!important}.banking-row-even[data-v-7c9c27cd]{background-color:#f8f9fa}.banking-row-special[data-v-7c9c27cd]{background-color:#fff3cd;font-style:italic}.banking-table-footer[data-v-7c9c27cd]{background-color:#e9ecef!important;font-weight:700}.banking-table-footer td[data-v-7c9c27cd]{background-color:#e9ecef!important;border-top:2px solid primary!important;padding:12px 8px!important}.banking-divider[data-v-7c9c27cd]{border-color:primary!important;opacity:.3!important}.banking-primary--text[data-v-7c9c27cd]{color:primary!important}.banking-success--text[data-v-7c9c27cd]{color:#28a745!important}.report-card[data-v-7c9c27cd]{border-radius:12px}.report-header[data-v-7c9c27cd]{background:primary;color:#fff;font-weight:600}.search-field[data-v-7c9c27cd] .v-label{color:hsla(0,0%,100%,.7)!important}.search-field[data-v-7c9c27cd] .v-input__control{border-color:hsla(0,0%,100%,.3)!important}.table-card[data-v-7c9c27cd]{border-radius:8px;margin-bottom:24px}.table-title[data-v-7c9c27cd]{background:primary;color:#fff;font-weight:600}.search-field[data-v-7c9c27cd]{max-width:300px}.search-field[data-v-7c9c27cd] .v-icon,.search-field[data-v-7c9c27cd] input{color:#fff!important}.bank-account-card[data-v-7c9c27cd]{border-radius:8px;cursor:pointer;height:100%;transition:all .3s ease}.bank-account-card[data-v-7c9c27cd]:hover{box-shadow:0 8px 25px rgba(1,83,43,.2)!important;transform:translateY(-4px)}.bank-account-card.selected[data-v-7c9c27cd]{border:2px solid primary}.bank-account-header[data-v-7c9c27cd]{align-items:flex-start;display:flex;justify-content:space-between}.bank-info h3[data-v-7c9c27cd]{color:#333;font-size:16px;font-weight:600;margin:0}.bank-account-number[data-v-7c9c27cd]{color:primary;font-family:monospace;font-size:12px;font-weight:600;margin:4px 0}.bank-name[data-v-7c9c27cd]{color:#666;font-size:11px;font-style:italic;margin:0}.bank-icon[data-v-7c9c27cd]{color:primary;font-size:24px;opacity:.7}.bank-stats[data-v-7c9c27cd]{margin-top:12px}.stat-item[data-v-7c9c27cd]{align-items:center;display:flex;justify-content:space-between;margin-bottom:8px}.stat-label[data-v-7c9c27cd]{color:#666;font-size:12px}.stat-value[data-v-7c9c27cd]{font-size:13px;font-weight:600}.amount-value[data-v-7c9c27cd]{color:primary}.count-value[data-v-7c9c27cd]{color:#228b22}.average-value[data-v-7c9c27cd]{color:#32cd32}.progress-section[data-v-7c9c27cd]{margin-top:12px}.progress-label[data-v-7c9c27cd]{color:#666;font-size:11px;margin-bottom:4px}.no-data-state[data-v-7c9c27cd]{padding:48px 24px;text-align:center}.no-data-icon[data-v-7c9c27cd]{color:#ccc;font-size:64px;margin-bottom:16px}.no-data-title[data-v-7c9c27cd]{color:#666;font-size:18px;margin:0 0 8px}.no-data-subtitle[data-v-7c9c27cd]{color:#999;font-size:14px;margin:0}.dialog-header[data-v-7c9c27cd]{background:primary!important;font-weight:600!important}.close-btn[data-v-7c9c27cd],.dialog-header[data-v-7c9c27cd]{color:#fff!important}.section-title[data-v-7c9c27cd]{color:primary;font-size:18px;font-weight:600;margin:0}.custom-divider[data-v-7c9c27cd]{border-color:primary!important;opacity:.3!important}.detail-stat[data-v-7c9c27cd]{align-items:center;background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid primary;border-radius:12px;display:flex;height:100%;padding:16px;transition:all .3s ease}.detail-stat[data-v-7c9c27cd]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.stat-icon[data-v-7c9c27cd]{color:primary;font-size:24px;margin-right:12px}.stat-info strong[data-v-7c9c27cd]{color:primary;display:block;font-size:12px;font-weight:700;margin-bottom:4px}.stat-number[data-v-7c9c27cd]{color:#333;font-family:monospace;font-size:16px;font-weight:600;margin:0}.method-card[data-v-7c9c27cd]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-left:4px solid primary;border-radius:12px;padding:16px;text-align:center;transition:all .3s ease}.method-card[data-v-7c9c27cd]:hover{box-shadow:0 8px 24px rgba(1,83,43,.2);transform:translateY(-4px)}.method-header[data-v-7c9c27cd]{margin-bottom:12px}.method-count[data-v-7c9c27cd]{color:#666;font-size:14px;margin-bottom:4px}.method-amount[data-v-7c9c27cd]{color:primary;font-family:monospace;font-size:18px;font-weight:600}.settlement-table[data-v-7c9c27cd]{background:#fff}.settlement-table[data-v-7c9c27cd] thead th{background-color:primary!important;border-bottom:none!important;color:#fff!important;font-weight:600!important}.settlement-table[data-v-7c9c27cd] tbody tr:hover{background-color:rgba(1,83,43,.1)!important}.date-cell[data-v-7c9c27cd]{color:primary;font-family:monospace;font-size:13px}.amount-breakdown[data-v-7c9c27cd]{align-items:center;display:flex;flex-direction:column}.amount-cell[data-v-7c9c27cd]{font-family:monospace;font-size:13px;font-weight:600}.exchange-rate-cell[data-v-7c9c27cd]{text-align:center}.exchange-rate-cell .default-rate[data-v-7c9c27cd]{color:#999;font-style:italic}.lak-amount-cell[data-v-7c9c27cd]{text-align:center}.lak-amount[data-v-7c9c27cd]{color:#228b22;font-family:monospace;font-size:13px;font-weight:600}.user-info .user-name[data-v-7c9c27cd]{font-weight:500}.advance-info .advance-status[data-v-7c9c27cd]{color:#666;font-size:10px;margin-top:2px}.no-advance[data-v-7c9c27cd]{color:#999;font-style:italic}.text-center[data-v-7c9c27cd]{text-align:center}.py-8[data-v-7c9c27cd]{padding:64px 0}.mt-4[data-v-7c9c27cd]{margin-top:16px}.mt-3[data-v-7c9c27cd]{margin-top:12px}.mt-2[data-v-7c9c27cd]{margin-top:8px}.mb-4[data-v-7c9c27cd]{margin-bottom:24px}.mb-3[data-v-7c9c27cd]{margin-bottom:12px}.my-3[data-v-7c9c27cd]{margin:12px 0}.pa-4[data-v-7c9c27cd]{padding:24px}@media print{.action-buttons[data-v-7c9c27cd],.filter-card[data-v-7c9c27cd],.v-btn[data-v-7c9c27cd]{display:none!important}.summary-cards[data-v-7c9c27cd]{page-break-inside:avoid}.report-header[data-v-7c9c27cd]{background:primary!important;color:#fff!important;-webkit-print-color-adjust:exact}}@media (max-width:768px){.report-header[data-v-7c9c27cd]{flex-direction:column;gap:16px;padding:16px;text-align:center}.title-section h1[data-v-7c9c27cd]{font-size:24px}.action-buttons[data-v-7c9c27cd]{flex-wrap:wrap;justify-content:center}.summary-content[data-v-7c9c27cd]{flex-direction:column;padding:12px;text-align:center}.summary-icon[data-v-7c9c27cd]{font-size:40px;margin-bottom:8px;margin-right:0}.summary-details h2[data-v-7c9c27cd]{font-size:20px}.bank-account-header[data-v-7c9c27cd]{flex-direction:column;text-align:center}.bank-icon[data-v-7c9c27cd]{margin-top:8px}.detail-stat[data-v-7c9c27cd]{flex-direction:column;text-align:center}.stat-icon[data-v-7c9c27cd]{margin-bottom:8px;margin-right:0}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +46,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1636:
+/***/ 1642:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -36,53 +54,51 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(127);
+var VBtn = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(124);
+var VCard = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(128);
+var VChip = __webpack_require__(129);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(431);
+var VCol = __webpack_require__(436);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(441);
+var VDataTable = __webpack_require__(447);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(407);
+var VDialog = __webpack_require__(411);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(123);
+var VDivider = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
-var VProgressCircular = __webpack_require__(106);
+var VProgressCircular = __webpack_require__(109);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(430);
+var VRow = __webpack_require__(435);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__(192);
+var VSimpleTable = __webpack_require__(193);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(433);
+var VSpacer = __webpack_require__(438);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(38);
+var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=template&id=eed988ec&scoped=true
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=template&id=7c9c27cd&scoped=true
 
 
 
@@ -98,12 +114,14 @@ var VTextField = __webpack_require__(38);
 
 
 
-var bankAccountvue_type_template_id_eed988ec_scoped_true_render = function render() {
+
+
+var bankAccountvue_type_template_id_7c9c27cd_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "bank-account-settlement-report"
-  }, [_vm._ssrNode("<div class=\"report-header\" data-v-eed988ec>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-eed988ec><h1 class=\"page-title\" data-v-eed988ec><i class=\"fas fa-university\" data-v-eed988ec></i>\n        ລາຍງານຊຳລະຕາມບັນຊີທະນາຄານ\n      </h1> <p class=\"page-subtitle\" data-v-eed988ec>Bank Account Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-eed988ec>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"report-header\" data-v-7c9c27cd>", "</div>", [_vm._ssrNode("<div class=\"title-section\" data-v-7c9c27cd><h1 class=\"page-title\" data-v-7c9c27cd><i class=\"fas fa-university\" data-v-7c9c27cd></i>\n        ລາຍງານຊຳລະຕາມບັນຊີທະນາຄານ\n      </h1> <p class=\"page-subtitle\" data-v-7c9c27cd>Bank Account Settlement Report</p></div> "), _vm._ssrNode("<div class=\"action-buttons\" data-v-7c9c27cd>", "</div>", [_c(VBtn["a" /* default */], {
     staticClass: "custom-btn export-btn",
     attrs: {
       "loading": _vm.exporting
@@ -417,13 +435,13 @@ var bankAccountvue_type_template_id_eed988ec_scoped_true_render = function rende
     }, [_vm._v("\n                    " + _vm._s(currency.count) + " ການຊຳລະ\n                  ")]), _vm._v(" "), _c('div', {
       staticClass: "percentage"
     }, [_vm._v("\n                    " + _vm._s(Math.round(currency.lakEquivalent / _vm.totalLakAmount * 100)) + "% ຂອງທັງໝົດ\n                  ")])])])]);
-  }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"text-center py-8\" data-v-eed988ec>", "</div>", [_c(VProgressCircular["a" /* default */], {
+  }), 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"text-center py-8\" data-v-7c9c27cd>", "</div>", [_c(VProgressCircular["a" /* default */], {
     attrs: {
       "indeterminate": "",
       "color": "primary",
       "size": "64"
     }
-  }), _vm._ssrNode(" <p class=\"mt-4 text-gray-600\" data-v-eed988ec>\n      ກຳລັງໂຫລດຂໍ້ມູນ... Loading bank account reports...\n    </p>")], 2) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+  }), _vm._ssrNode(" <p class=\"mt-4 text-gray-600\" data-v-7c9c27cd>\n      ກຳລັງໂຫລດຂໍ້ມູນ... Loading bank account reports...\n    </p>")], 2) : _vm._e(), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -920,10 +938,10 @@ var bankAccountvue_type_template_id_eed988ec_scoped_true_render = function rende
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=template&id=eed988ec&scoped=true
+// CONCATENATED MODULE: ./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=template&id=7c9c27cd&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=script&lang=js
-var bankAccountvue_type_script_lang_js = __webpack_require__(857);
+var bankAccountvue_type_script_lang_js = __webpack_require__(859);
 
 // CONCATENATED MODULE: ./pages/admin/report/MA/settlement/bankAccount/index.vue?vue&type=script&lang=js
  /* harmony default export */ var settlement_bankAccountvue_type_script_lang_js = (bankAccountvue_type_script_lang_js["a" /* default */]); 
@@ -936,7 +954,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1330)
+  var style0 = __webpack_require__(1335)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -945,11 +963,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   settlement_bankAccountvue_type_script_lang_js,
-  bankAccountvue_type_template_id_eed988ec_scoped_true_render,
+  bankAccountvue_type_template_id_7c9c27cd_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "eed988ec",
+  "7c9c27cd",
   "0ba38caf"
   
 )
@@ -958,43 +976,43 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 857:
+/***/ 859:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(URLSearchParams) {/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(144);
+/* WEBPACK VAR INJECTION */(function(URLSearchParams) {/* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(145);
 /* harmony import */ var core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_add_all_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(145);
+/* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(146);
 /* harmony import */ var core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_delete_all_js__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(146);
+/* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(147);
 /* harmony import */ var core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_difference_js__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(147);
+/* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(148);
 /* harmony import */ var core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_every_js__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(148);
+/* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(149);
 /* harmony import */ var core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_filter_js__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(149);
+/* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(150);
 /* harmony import */ var core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_find_js__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(150);
+/* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(151);
 /* harmony import */ var core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_intersection_js__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(151);
+/* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(152);
 /* harmony import */ var core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_disjoint_from_js__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(152);
+/* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(153);
 /* harmony import */ var core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_subset_of_js__WEBPACK_IMPORTED_MODULE_8__);
-/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(153);
+/* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(154);
 /* harmony import */ var core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_is_superset_of_js__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(154);
+/* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(155);
 /* harmony import */ var core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_join_js__WEBPACK_IMPORTED_MODULE_10__);
-/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(155);
+/* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(156);
 /* harmony import */ var core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_map_js__WEBPACK_IMPORTED_MODULE_11__);
-/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(156);
+/* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(157);
 /* harmony import */ var core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_reduce_js__WEBPACK_IMPORTED_MODULE_12__);
-/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(157);
+/* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(158);
 /* harmony import */ var core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_some_js__WEBPACK_IMPORTED_MODULE_13__);
-/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(158);
+/* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(159);
 /* harmony import */ var core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_symmetric_difference_js__WEBPACK_IMPORTED_MODULE_14__);
-/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(159);
+/* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(160);
 /* harmony import */ var core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_set_union_js__WEBPACK_IMPORTED_MODULE_15__);
-/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(409);
+/* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(413);
 /* harmony import */ var xlsx__WEBPACK_IMPORTED_MODULE_16___default = /*#__PURE__*/__webpack_require__.n(xlsx__WEBPACK_IMPORTED_MODULE_16__);
 
 
@@ -1166,7 +1184,7 @@ var component = Object(componentNormalizer["a" /* default */])(
         this.$toast.error('Error loading initial data');
       }
       try {
-        const response = await this.$axios.get('/api/currency/find');
+        const response = await this.$axios.get('/api/currency/findAll');
         const currencies = response.data.data || response.data;
         // Ensure currencyList has the right structure for the template
         this.currencyList = currencies.map(currency => ({
@@ -1559,25 +1577,7 @@ var component = Object(componentNormalizer["a" /* default */])(
     }
   }
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(405)["URLSearchParams"]))
-
-/***/ }),
-
-/***/ 997:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1331);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("58a81628", content, true, context)
-};
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(408)["URLSearchParams"]))
 
 /***/ })
 

@@ -100,6 +100,7 @@
             <!-- Product Name with enhanced visibility -->
             <div class="product-name-enhanced">
               <div class="product-name-text enhanced-text">
+                <!-- {{ productName }} -->
                 {{ productName }}
               </div>
             </div>
@@ -115,7 +116,7 @@
                     class="caption text-decoration-line-through price-text enhanced-text"
                     style="opacity: 0.85"
                   >
-                    {{ formatNumber(product.localPrice || product.pro_price) }}
+                    {{ formatNumber(product.localPrice || product.pro_price) }}  {{ findCurrency(product.saleCurrencyId).code }}
                   </div>
                   <!-- Customer grade price (highlighted) -->
                   <div
@@ -129,7 +130,7 @@
                   <div
                     class="subtitle-2 font-weight-bold price-text enhanced-text price-highlight"
                   >
-                    {{ formatNumber(product.localPrice || product.pro_price) }}
+                    {{ formatNumber(product.localPrice || product.pro_price) }} {{ findCurrency(product.saleCurrencyId).code }}
                   </div>
                   <!-- Show price range if price lists available -->
                   <div
@@ -223,7 +224,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct']),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
 
     host() {
       return hostName()
@@ -240,7 +241,9 @@ export default {
 
   methods: {
     ...mapActions(['addProduct']),
-
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find((el) => el.id == currencyId)
+    },
     handleCardClick() {
       // Default card click behavior - could be quick add or open product details
       this.handleQuickAdd()
@@ -249,7 +252,9 @@ export default {
     // Final improved methods to replace in your component
 
     handleQuickAdd(isGift = false) {
-      console.info(`DATA ADD FROM PRODUCT CART .....`)
+      console.info(
+        `DATA ADD FROM PRODUCT CART ..... ${JSON.stringify(this.product)}`
+      )
       if (!this.validateProductAvailability()) {
         return
       }
@@ -260,14 +265,17 @@ export default {
       }
 
       // Use customer grade price if available, otherwise use default price
-  const productToAdd = {
-    ...this.product,
-    localPrice: this.getCustomerGradePrice(this.product) || this.product.localPrice || this.product.pro_price,
-    isGift: isGift,
-    lineUUIDCheck: false,
-    priceListId: this.getCustomerGradePriceListId(this.product),
-    lineUUID: Date.now() + Math.random().toString(16),
-}
+      const productToAdd = {
+        ...this.product,
+        localPrice:
+          this.getCustomerGradePrice(this.product) ||
+          this.product.localPrice ||
+          this.product.pro_price,
+        isGift: isGift,
+        lineUUIDCheck: false,
+        priceListId: this.getCustomerGradePriceListId(this.product),
+        lineUUID: Date.now() + Math.random().toString(16),
+      }
 
       console.info(`CART PRODUCT ${JSON.stringify(this.cartOfProduct)}`)
       this.addProduct(productToAdd)

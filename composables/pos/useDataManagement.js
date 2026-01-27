@@ -86,7 +86,7 @@ export function useDataManagement() {
     currencyList.value = []
     
     try {
-      const response = await axios.get('/api/currency/find')
+      const response = await axios.get('/api/currency/findAll')
       
       for (const iterator of response.data) {
         currencyList.value.push(iterator)

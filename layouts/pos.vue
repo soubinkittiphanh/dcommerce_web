@@ -138,6 +138,7 @@
     </v-dialog>
 
     <!-- Pricing Options Dialog -->
+    <!-- TODO: New price update selected always call update opencustomer screen, need to resolve this. -->
     <v-dialog v-model="pricingDialog" max-width="1200">
       <pricing-option
         :key="pricingDialogKey"
@@ -724,26 +725,27 @@ export default {
       'findAllLocation',
       'findAllPayment',
       'findAllCurrency',
+      'findLocalCurrency',
       'findAllClient',
     ]),
     serachModel: {
-    get() {
-      return this.stateValue
-    },
-    set(value) {
-      this.stateValue = value
-      console.log(`🔍 Layout: Setting search to "${value}"`)
-      if (value) {
-        const lowerCaseSearchValue = value.toLowerCase()
-        this.SetSearchKeyword(lowerCaseSearchValue)
-      } else {
-        this.SetSearchKeyword('')
-      }
+      get() {
+        return this.stateValue
+      },
+      set(value) {
+        this.stateValue = value
+        console.log(`🔍 Layout: Setting search to "${value}"`)
+        if (value) {
+          const lowerCaseSearchValue = value.toLowerCase()
+          this.SetSearchKeyword(lowerCaseSearchValue)
+        } else {
+          this.SetSearchKeyword('')
+        }
 
-      // REMOVED: Don't force update the child component
-      // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+        // REMOVED: Don't force update the child component
+        // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+      },
     },
-  },
 
     currenctCustomer() {
       return this.currentSelectedCustomer
@@ -758,10 +760,15 @@ export default {
     },
     generateSaleLine() {
       let lines = []
+
       for (const iterator of this.productCart) {
+        const currency = this.findCurrency(iterator.saleCurrencyId)
+        console.info(`currency model ${JSON.stringify(currency)}`)
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
+          currencyId: iterator.saleCurrencyId,
+          exchangeRate: currency.rate || 1,
           price: iterator.localPrice,
           discount: 0,
           validateStockOnSale: iterator.validateStockOnSale,
@@ -921,25 +928,28 @@ export default {
   },
 
   methods: {
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find((el) => el.id == currencyId)
+    },
     testSeartestSearch() {
-    console.log('🧪 Layout: Testing search functionality')
-    console.log(`Current serachModel: "${this.serachModel}"`)
-    console.log(`Store keyword: "${this.$store.getters.searchKeyword}"`)
-    console.log(`Current stateValue: "${this.stateValue}"`)
-    console.log(`Selected category: ${this.currenctSelectedCategoryId}`)
+      console.log('🧪 Layout: Testing search functionality')
+      console.log(`Current serachModel: "${this.serachModel}"`)
+      console.log(`Store keyword: "${this.$store.getters.searchKeyword}"`)
+      console.log(`Current stateValue: "${this.stateValue}"`)
+      console.log(`Selected category: ${this.currenctSelectedCategoryId}`)
 
-    // Force set a search term
-    this.serachModel = 'test'
+      // Force set a search term
+      this.serachModel = 'test'
 
-    setTimeout(() => {
-      console.log(
-        `After setting "test": "${this.$store.getters.searchKeyword}"`
-      )
-    }, 100)
-    
-    // REMOVED: Don't force component reload
-    // this.productComponentKey += 1  // <-- REMOVE THIS LINE
-  },
+      setTimeout(() => {
+        console.log(
+          `After setting "test": "${this.$store.getters.searchKeyword}"`
+        )
+      }, 100)
+
+      // REMOVED: Don't force component reload
+      // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+    },
 
     // Add method to reset everything
     resetSearchAndCategory() {
@@ -1478,7 +1488,8 @@ export default {
           total: this.grandTotal - this.discount,
           clientId: this.currenctCustomer.id,
           paymentId: null,
-          currencyId: 1,
+          currencyId: this.findLocalCurrency.id, //TODO: update currency DYNAMICALLY
+          exchangeRate: this.findLocalCurrency.rate, //TODO: update currency DYNAMICALLY
           lines: this.generateSaleLine,
           userId: this.user.id,
           bookingDate: jsDateToMysqlDate(today),
@@ -1646,22 +1657,22 @@ export default {
     },
 
     switchTerminalAction() {
-    this.setSelectedTerminal(this.terminalSelected)
-    const location = this.findAllLocation.find(
-      (el) =>
-        el.id ==
-        this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
-          'locationId'
-        ]
-    )
-    this.setSelectedLocation(location)
-    
-    // ONLY reload when terminal actually changes (this makes sense)
-    this.productComponentKey += 1
-    this.terminalDialog = false
+      this.setSelectedTerminal(this.terminalSelected)
+      const location = this.findAllLocation.find(
+        (el) =>
+          el.id ==
+          this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
+            'locationId'
+          ]
+      )
+      this.setSelectedLocation(location)
 
-    this.buildProductLookupCache()
-  },
+      // ONLY reload when terminal actually changes (this makes sense)
+      this.productComponentKey += 1
+      this.terminalDialog = false
+
+      this.buildProductLookupCache()
+    },
 
     openQtyDialog(item) {
       this.selectedProductId = item.id
@@ -1772,6 +1783,7 @@ export default {
 
     printDefaultTicket() {
       const theChanges = this.changes
+      console.info(`poduct cart DET ${JSON.stringify(this.productCart)}`)
       defaultTicket({
         productCart: this.productCart,
         findAllProduct: this.findAllProduct,
@@ -1801,7 +1813,8 @@ export default {
       this.saleHeader.total = this.grandTotal - this.discount
       this.saleHeader.clientId = this.currenctCustomer.id
       this.saleHeader.paymentId = this.currentPayment
-      this.saleHeader.currencyId = 1
+      this.saleHeader.currencyId = this.findLocalCurrency.id
+      this.saleHeader.exchangeRate = this.findLocalCurrency.rate
       this.saleHeader.lines = this.generateSaleLine
       this.saleHeader.userId = this.user.id
       this.saleHeader.bookingDate = jsDateToMysqlDate(today)
@@ -2136,7 +2149,7 @@ export default {
     //   this.isloading = true
     //   this.currencyList = []
     //   await this.$axios
-    //     .get('/api/currency/find')
+    //     .get('/api/currency/findAll')
     //     .then((res) => {
     //       for (const iterator of res.data) {
     //         this.currencyList.push(iterator)

@@ -1,7 +1,6 @@
 <template>
   <div class="cart-footer">
     <!-- Payment Input Section -->
-    <!-- <div class="payment-inputs pa-4" v-if="showCheckOut"> -->
     <div class="payment-inputs pa-4">
       <v-row no-gutters class="ga-3">
         <v-col cols="12" md="6">
@@ -14,7 +13,7 @@
             outlined
             dense
             prepend-inner-icon="mdi-percent"
-            :suffix="currencySymbol"
+            :suffix="localCurrency?.code || 'LAK'"
             class="discount-input"
           />
         </v-col>
@@ -24,11 +23,11 @@
             @input="handleCashReceivedInput($event)"
             @blur="handleCashReceivedBlur()"
             @focus="handleCashReceivedFocus()"
-            label="ເງິນທີ່ໄດ້ຮັບ (ສຳລັບເງິນສົດ)"
+            :label="`ເງິນທີ່ໄດ້ຮັບ (${localCurrency?.code || 'LAK'})`"
             outlined
             dense
             prepend-inner-icon="mdi-cash"
-            :suffix="currencySymbol"
+            :suffix="localCurrency?.code || 'LAK'"
             class="cash-input"
             :disabled="!isTraditionalCashPayment"
             :hint="
@@ -44,7 +43,10 @@
       <v-row no-gutters align="center" class="total-row">
         <v-col cols="2">
           <div class="total-label">ຍອດລວມ</div>
-          <div class="total-amount">{{ formatNumber(subtotal) }}</div>
+          <div class="total-amount">
+            {{ formatNumber(subtotalInLocalCurrency) }}
+            {{ localCurrency?.code }}
+          </div>
         </v-col>
         <v-col cols="2" class="text-center">
           <div class="stat-label">ລາຍການ</div>
@@ -57,18 +59,80 @@
         <!-- ✅ REAL-TIME: Show discount if typing or has value -->
         <v-col cols="3" class="text-right" v-if="realTimeDiscountNumber > 0">
           <div class="discount-label">ສ່ວນຫລຸດ</div>
-          <div class="discount-amount">-{{ formatNumber(realTimeDiscountNumber) }}</div>
+          <div class="discount-amount">
+            -{{ formatNumber(realTimeDiscountNumber) }}
+            {{ localCurrency?.code }}
+          </div>
         </v-col>
         <!-- ✅ REAL-TIME: Show change calculation -->
         <v-col cols="3" class="text-right">
           <div class="change-label">ເງິນທອນ</div>
           <div class="change-amount" :class="getChangeClass()">
-            {{ formatNumber(realTimeChange) }}
+            {{ formatNumber(realTimeChange) }} {{ localCurrency?.code }}
           </div>
         </v-col>
       </v-row>
 
       <v-divider class="my-2"></v-divider>
+
+      <!-- ✅ ENHANCED: Show currency breakdown with proper conversions -->
+      <div v-if="currencyBreakdown.length > 1" class="currency-breakdown mb-3">
+        <v-row no-gutters>
+          <v-col cols="12">
+            <div class="breakdown-header mb-2">
+              <small class="text--secondary font-weight-bold">
+                <v-icon small left>mdi-calculator</v-icon>
+                ການແຍກຕາມສະກຸນເງິນ
+              </small>
+            </div>
+            <v-row
+              no-gutters
+              v-for="item in currencyBreakdown"
+              :key="item.currency.id"
+              class="currency-line"
+            >
+              <v-col cols="8">
+                <span
+                  class="currency-name"
+                  :class="{
+                    'primary--text font-weight-bold': item.currency.isLocalCCY,
+                  }"
+                >
+                  {{ item.currency.name }} ({{ item.currency.code }})
+                  <v-chip
+                    v-if="item.currency.isLocalCCY"
+                    x-small
+                    color="success"
+                    class="ml-1"
+                    >Local</v-chip
+                  >
+                </span>
+              </v-col>
+              <v-col cols="4" class="text-right">
+                <span
+                  class="currency-amount"
+                  :class="{
+                    'primary--text font-weight-bold': item.currency.isLocalCCY,
+                  }"
+                >
+                  {{ formatNumber(item.originalAmount) }}
+                  {{ item.currency.code }}
+                </span>
+                <div v-if="!item.currency.isLocalCCY" class="conversion-note">
+                  <small class="text--secondary">
+                    ≈ {{ formatNumber(item.localAmount) }}
+                    {{ localCurrency?.code }}
+                    <v-tooltip activator="parent" location="top">
+                      Rate: {{ getRateDisplayText(item.currency) }}
+                    </v-tooltip>
+                  </small>
+                </div>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <v-divider class="mt-2"></v-divider>
+      </div>
 
       <!-- ✅ REAL-TIME: Final total with live updates -->
       <v-row no-gutters align="center" class="grand-total-row">
@@ -76,29 +140,86 @@
           <div class="grand-total-label">ຍອດເງິນລວມ</div>
         </v-col>
         <v-col cols="4" class="text-right">
-          <div class="grand-total-amount" :class="{ 'total-highlight': realTimeDiscountNumber > 0 }">
+          <div
+            class="grand-total-amount"
+            :class="{ 'total-highlight': realTimeDiscountNumber > 0 }"
+          >
             {{ formatNumber(realTimeFinalTotal) }}
+            <span class="currency-code">{{
+              localCurrency?.code || 'LAK'
+            }}</span>
           </div>
         </v-col>
       </v-row>
 
+      <!-- Optional: Show other currency equivalents -->
+      <v-row no-gutters v-if="availableCurrencies.length > 1" class="mt-1">
+        <v-col cols="12">
+          <v-expansion-panels flat tile>
+            <v-expansion-panel>
+              <v-expansion-panel-header class="pa-2 min-height-auto">
+                <small class="text--secondary">
+                  <v-icon small left>mdi-currency-usd</v-icon>
+                  ເບິ່ງຍອດລວມ ສະກຸນອື່ນໆ
+                </small>
+              </v-expansion-panel-header>
+              <v-expansion-panel-content class="pt-2">
+                <div
+                  v-for="currency in currencyConversions"
+                  :key="currency.id"
+                  class="d-flex justify-space-between py-1"
+                  :class="{
+                    'primary--text font-weight-bold': currency.isLocal,
+                  }"
+                >
+                  <span class="currency-info">
+                    {{ currency.name }} ({{ currency.code }})
+                    <v-chip
+                      v-if="currency.isLocal"
+                      x-small
+                      color="success"
+                      class="ml-1"
+                      >Local</v-chip
+                    >
+                  </span>
+                  <span class="currency-amount">
+                    {{ formatNumber(currency.convertedAmount) }}
+                    {{ currency.code }}
+                    <v-tooltip activator="parent" location="top">
+                      {{ getRateDisplayText(currency) }}
+                    </v-tooltip>
+                  </span>
+                </div>
+              </v-expansion-panel-content>
+            </v-expansion-panel>
+          </v-expansion-panels>
+        </v-col>
+      </v-row>
+
       <!-- ✅ REAL-TIME: Payment validation status -->
-      <div v-if="isTraditionalCashPayment && realTimeCashReceived > 0" class="payment-validation mt-2">
+      <div
+        v-if="isTraditionalCashPayment && realTimeCashReceived > 0"
+        class="payment-validation mt-2"
+      >
         <v-row no-gutters align="center">
           <v-col cols="6">
             <div class="validation-label">ຈ່າຍແລ້ວ:</div>
           </v-col>
           <v-col cols="6" class="text-right">
-            <div class="validation-amount">{{ formatNumber(realTimeCashReceived) }}</div>
+            <div class="validation-amount">
+              {{ formatNumber(realTimeCashReceived) }} {{ localCurrency?.code }}
+            </div>
           </v-col>
         </v-row>
-        
+
         <v-row no-gutters align="center" v-if="paymentShortfall > 0">
           <v-col cols="6">
             <div class="shortfall-label">ຍັງຂາດ:</div>
           </v-col>
           <v-col cols="6" class="text-right">
-            <div class="shortfall-amount">{{ formatNumber(paymentShortfall) }}</div>
+            <div class="shortfall-amount">
+              {{ formatNumber(paymentShortfall) }} {{ localCurrency?.code }}
+            </div>
           </v-col>
         </v-row>
       </div>
@@ -149,7 +270,13 @@
               >
                 {{ getPaymentIcon(payment.payment_code) }}
               </v-icon>
-              <div class="payment-name">
+              <div
+                :class="{
+                  'text-white': selectedPayment === payment.id,
+                  'text-primary': selectedPayment !== payment.id,
+                }"
+                class="payment-name"
+              >
                 {{ payment.payment_name }}
               </div>
             </v-card-text>
@@ -233,6 +360,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import CurrencyHelper from '@/utils/currency-helper'
 export default {
   name: 'CartFooterComponent',
   props: {
@@ -244,17 +373,25 @@ export default {
       type: [Number, String],
       default: 0,
       validator(value) {
-        // Accept empty string, null, undefined, or valid numbers
-        return value === '' || value === null || value === undefined || !isNaN(Number(value))
-      }
+        return (
+          value === '' ||
+          value === null ||
+          value === undefined ||
+          !isNaN(Number(value))
+        )
+      },
     },
     cashReceived: {
-      type: [Number, String], 
+      type: [Number, String],
       default: 0,
       validator(value) {
-        // Accept empty string, null, undefined, or valid numbers
-        return value === '' || value === null || value === undefined || !isNaN(Number(value))
-      }
+        return (
+          value === '' ||
+          value === null ||
+          value === undefined ||
+          !isNaN(Number(value))
+        )
+      },
     },
     changes: {
       type: String,
@@ -263,10 +400,6 @@ export default {
     grandTotal: {
       type: Number,
       required: true,
-    },
-    currencyList: {
-      type: Array,
-      default: () => [],
     },
     paymentList: {
       type: Array,
@@ -292,19 +425,23 @@ export default {
 
   data() {
     return {
-      currencySymbol: 'LAK',
       processingPayment: false,
-      // Raw input values for number formatting
       discountRawInput: '',
       cashReceivedRawInput: '',
-      
-      // ✅ NEW: Real-time calculation flags
       isTypingDiscount: false,
       isTypingCash: false,
     }
   },
 
+  mounted() {
+    if (!this.selectedPayment && this.paymentList.length > 0) {
+      this.$emit('select-payment', this.paymentList[0].id)
+    }
+  },
+
   computed: {
+    ...mapGetters(['findAllCurrency']),
+
     // Convert props to numbers safely
     discountNumber() {
       const num = Number(this.discount)
@@ -316,17 +453,94 @@ export default {
       return isNaN(num) ? 0 : num
     },
 
-    subtotal() {
-      return this.productCart.reduce((sum, item) => {
-        return sum + item.qty * item.localPrice
-      }, 0)
+    // Get the local currency
+    localCurrency() {
+      return this.findAllCurrency.find((currency) => currency.isLocalCCY)
+    },
+
+    // ✅ FIXED: Calculate subtotal with proper currency conversions
+    subtotalInLocalCurrency() {
+      let totalInLocal = 0
+      
+      this.productCart.forEach(item => {
+        const currencyId = item.saleCurrencyId
+        const currency = this.findAllCurrency.find(c => c.id === currencyId)
+        
+        if (currency) {
+          // Use the current localPrice (updated by price selection)
+          const itemTotalInItemCurrency = item.qty * (item.localPrice || 0)
+          
+          // Convert to local currency only if needed
+          if (currency.isLocalCCY) {
+            // Already in local currency
+            totalInLocal += itemTotalInItemCurrency
+          } else {
+            // Convert from item's currency to local currency
+            const convertedAmount = this.convertToLocalCurrency(itemTotalInItemCurrency, currency)
+            totalInLocal += convertedAmount
+          }
+        } else {
+          console.warn(`Currency not found for item ${item.pro_name}, currency ID: ${currencyId}`)
+          // Fallback - assume it's already in local currency
+          totalInLocal += item.qty * (item.localPrice || 0)
+        }
+      })
+      
+      return totalInLocal
     },
 
     totalItems() {
       return this.productCart.reduce((sum, item) => sum + item.qty, 0)
     },
 
-    // ✅ NEW: Real-time calculations while typing
+    // ✅ ENHANCED: Calculate subtotals by original currency with proper conversion logic
+    subtotalsByCurrency() {
+      const subtotals = {}
+      
+      this.productCart.forEach(item => {
+        const currencyId = item.saleCurrencyId
+        const currency = this.findAllCurrency.find(c => c.id === currencyId)
+        
+        if (currency) {
+          // The amount in the item's original currency
+          const amountInItemCurrency = item.qty * (item.localPrice || 0)
+          
+          // Convert to local currency for total calculation
+          let amountInLocal
+          if (currency.isLocalCCY) {
+            amountInLocal = amountInItemCurrency
+          } else {
+            amountInLocal = this.convertToLocalCurrency(amountInItemCurrency, currency)
+          }
+          
+          if (!subtotals[currencyId]) {
+            subtotals[currencyId] = {
+              currency: currency,
+              originalAmount: 0,
+              localAmount: 0
+            }
+          }
+          
+          subtotals[currencyId].originalAmount += amountInItemCurrency
+          subtotals[currencyId].localAmount += amountInLocal
+        }
+      })
+      
+      return subtotals
+    },
+
+
+    // ✅ ENHANCED: Get currency breakdown for display
+    currencyBreakdown() {
+      const breakdown = Object.values(this.subtotalsByCurrency)
+      return breakdown.sort((a, b) => {
+        if (a.currency.isLocalCCY) return -1
+        if (b.currency.isLocalCCY) return 1
+        return a.currency.name.localeCompare(b.currency.name)
+      })
+    },
+
+    // Real-time calculations while typing
     realTimeDiscountNumber() {
       if (this.isTypingDiscount) {
         const parsed = this.parseInputNumber(this.discountRawInput)
@@ -344,7 +558,7 @@ export default {
     },
 
     realTimeFinalTotal() {
-      return Math.max(0, this.grandTotal - this.realTimeDiscountNumber)
+      return Math.max(0, this.subtotalInLocalCurrency - this.realTimeDiscountNumber)
     },
 
     realTimeChange() {
@@ -353,7 +567,8 @@ export default {
     },
 
     paymentShortfall() {
-      if (!this.isTraditionalCashPayment || this.realTimeCashReceived === 0) return 0
+      if (!this.isTraditionalCashPayment || this.realTimeCashReceived === 0)
+        return 0
       return Math.max(0, this.realTimeFinalTotal - this.realTimeCashReceived)
     },
 
@@ -368,41 +583,13 @@ export default {
       )
     },
 
-    canPaySingle() {
-      if (this.productCart.length === 0 || !this.selectedPayment) {
-        return false
-      }
-      return true
-    },
-
-    // ✅ NEW: Real-time payment validation
     canPaySingleRealTime() {
       if (this.productCart.length === 0 || !this.selectedPayment) {
         return false
       }
-
-      // For cash payments, ensure sufficient cash received in real-time
-      // if (this.isTraditionalCashPayment) {
-      //   return this.realTimeCashReceived >= this.realTimeFinalTotal
-      // }
-
-      // For non-cash payments, just need selection
       return true
     },
 
-    getPaymentButtonText() {
-      if (!this.selectedPaymentMethod) {
-        return 'ເລືອກການຊຳລະ'
-      }
-
-      if (this.isTraditionalCashPayment) {
-        return 'ຊຳລະເງິນສົດ'
-      }
-
-      return `ຊຳລະດ້ວຍ ${this.selectedPaymentMethod.payment_name}`
-    },
-
-    // ✅ NEW: Real-time payment button text
     getPaymentButtonTextRealTime() {
       if (!this.selectedPaymentMethod) {
         return 'ເລືອກການຊຳລະ'
@@ -417,10 +604,36 @@ export default {
 
       return `ຊຳລະດ້ວຍ ${this.selectedPaymentMethod.payment_name}`
     },
+
+    availableCurrencies() {
+      return this.findAllCurrency.filter((currency) => currency.isActive)
+    },
+
+    // ✅ ENHANCED: Show currency conversions for reference with proper conversion logic
+    currencyConversions() {
+      if (!this.localCurrency) return []
+
+      return this.availableCurrencies.map((currency) => {
+        let convertedAmount
+
+        if (currency.isLocalCCY) {
+          // This IS the local currency, use the total as-is
+          convertedAmount = this.realTimeFinalTotal
+        } else {
+          // Convert FROM local currency TO this currency
+          convertedAmount = this.convertFromLocalCurrency(this.realTimeFinalTotal, currency)
+        }
+
+        return {
+          ...currency,
+          convertedAmount,
+          isLocal: currency.isLocalCCY,
+        }
+      })
+    },
   },
 
   watch: {
-    // Initialize raw inputs when props change
     discount: {
       immediate: true,
       handler(newVal) {
@@ -431,37 +644,58 @@ export default {
             this.discountRawInput = ''
           }
         }
-      }
+      },
     },
-    
+
     cashReceived: {
       immediate: true,
       handler(newVal) {
         if (!this.isTypingCash) {
           if (newVal && newVal > 0) {
-            this.cashReceivedRawInput = this.formatNumber(this.cashReceivedNumber)
+            this.cashReceivedRawInput = this.formatNumber(
+              this.cashReceivedNumber
+            )
           } else {
             this.cashReceivedRawInput = ''
           }
         }
-      }
-    }
+      },
+    },
   },
 
   methods: {
-    // Number formatting methods (same as multi-payment component)
+    // ✅ NEW: Currency conversion helper methods
+    // Replace your existing conversion methods with these:
+    convertToLocalCurrency(amount, fromCurrency) {
+      return CurrencyHelper.convertToLocal(
+        amount,
+        fromCurrency,
+        this.localCurrency
+      )
+    },
+
+    convertFromLocalCurrency(amount, toCurrency) {
+      return CurrencyHelper.convertFromLocal(
+        amount,
+        toCurrency,
+        this.localCurrency
+      )
+    },
+
+    getRateDisplayText(currency) {
+      return CurrencyHelper.getRateDisplayText(currency, this.localCurrency)
+    },
+
+    // Number formatting methods
     parseInputNumber(value) {
       if (!value) return null
-      // Remove all non-digit characters except decimal point
       const cleaned = value.toString().replace(/[^\d.]/g, '')
       const parsed = parseFloat(cleaned)
       return isNaN(parsed) ? null : parsed
     },
 
-    // ✅ ENHANCED: Real-time discount field handlers
     handleDiscountInput(value) {
       this.isTypingDiscount = true
-      // Parse and emit immediately for real-time updates
       const parsed = this.parseInputNumber(value)
       const cleanValue = parsed || 0
       this.$emit('update:discount', cleanValue)
@@ -469,7 +703,6 @@ export default {
 
     handleDiscountFocus() {
       this.isTypingDiscount = true
-      // When focusing, show raw number without formatting
       if (this.discountNumber > 0) {
         this.discountRawInput = this.discountNumber.toString()
       } else {
@@ -479,14 +712,10 @@ export default {
 
     handleDiscountBlur() {
       this.isTypingDiscount = false
-      // Parse the input value
       const parsed = this.parseInputNumber(this.discountRawInput)
       const cleanValue = parsed || 0
-      
-      // Emit the clean value to parent
       this.$emit('update:discount', cleanValue)
-      
-      // Format the display
+
       if (cleanValue > 0) {
         this.discountRawInput = this.formatNumber(cleanValue)
       } else {
@@ -494,10 +723,8 @@ export default {
       }
     },
 
-    // ✅ ENHANCED: Real-time cash received field handlers
     handleCashReceivedInput(value) {
       this.isTypingCash = true
-      // Parse and emit immediately for real-time updates
       const parsed = this.parseInputNumber(value)
       const cleanValue = parsed || 0
       this.$emit('update:cash-received', cleanValue)
@@ -505,7 +732,6 @@ export default {
 
     handleCashReceivedFocus() {
       this.isTypingCash = true
-      // When focusing, show raw number without formatting
       if (this.cashReceivedNumber > 0) {
         this.cashReceivedRawInput = this.cashReceivedNumber.toString()
       } else {
@@ -515,14 +741,10 @@ export default {
 
     handleCashReceivedBlur() {
       this.isTypingCash = false
-      // Parse the input value
       const parsed = this.parseInputNumber(this.cashReceivedRawInput)
       const cleanValue = parsed || 0
-      
-      // Emit the clean value to parent
       this.$emit('update:cash-received', cleanValue)
-      
-      // Format the display
+
       if (cleanValue > 0) {
         this.cashReceivedRawInput = this.formatNumber(cleanValue)
       } else {
@@ -530,7 +752,6 @@ export default {
       }
     },
 
-    // ✅ NEW: Get change amount styling
     getChangeClass() {
       if (this.realTimeChange > 0) {
         return 'change-positive'
@@ -556,9 +777,6 @@ export default {
       return iconMap[paymentCode?.toUpperCase()] || 'mdi-credit-card'
     },
 
-    /**
-     * ENHANCED: Handle single payment processing with real-time validation
-     */
     handleSinglePayment() {
       if (!this.canPaySingleRealTime) {
         this.showValidationError()
@@ -566,11 +784,8 @@ export default {
       }
 
       this.processingPayment = true
-
-      // Emit event for single payment processing
       this.$emit('process-single-payment')
 
-      // Reset processing state after a delay
       setTimeout(() => {
         this.processingPayment = false
       }, 2000)
@@ -602,8 +817,6 @@ export default {
         this.$emit('show-error', 'ກະລຸນາເລືອກສິນຄ້າ')
         return
       }
-
-      // Emit event to parent to open multi-payment dialog
       this.$emit('open-multi-payment')
     },
   },
@@ -611,206 +824,53 @@ export default {
 </script>
 
 <style scoped>
-.cart-footer {
-  background: white;
-  border-top: 1px solid #e0e0e0;
-}
-
-.payment-inputs {
+.currency-breakdown {
   background: #f8f9fa;
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.breakdown-header {
   border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 8px;
 }
 
-.total-display {
-  background: white;
+.currency-line {
+  padding: 4px 0;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.total-row {
-  margin-bottom: 8px;
+.currency-line:last-child {
+  border-bottom: none;
 }
 
-.total-label,
-.discount-label,
-.change-label {
+.currency-name {
   font-size: 14px;
-  color: #666;
+}
+
+.currency-amount {
+  font-size: 14px;
   font-weight: 500;
 }
 
-.total-amount,
-.discount-amount,
-.change-amount {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
-
-.discount-amount {
-  color: #ff9800;
-}
-
-.change-amount {
-  transition: color 0.3s ease;
-}
-
-/* ✅ NEW: Real-time change styling */
-.change-positive {
-  color: #4caf50 !important;
-  font-weight: 700;
-}
-
-.change-negative {
-  color: #f44336 !important;
-  font-weight: 700;
-}
-
-.grand-total-label {
-  font-size: 18px;
-  font-weight: 700;
-  color: #333;
+.conversion-note {
+  font-size: 11px;
+  line-height: 1.2;
+  margin-top: 2px;
 }
 
 .grand-total-amount {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1976d2;
-  transition: all 0.3s ease;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-/* ✅ NEW: Total highlight animation */
+.currency-code {
+  font-size: 14px;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
 .total-highlight {
   color: #4caf50 !important;
-  transform: scale(1.02);
-  text-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
-}
-
-/* ✅ NEW: Payment validation styling */
-.payment-validation {
-  background: rgba(76, 175, 80, 0.05);
-  border-radius: 8px;
-  padding: 8px 12px;
-  border-left: 4px solid #4caf50;
-}
-
-.validation-label,
-.shortfall-label {
-  font-size: 12px;
-  font-weight: 500;
-  color: #666;
-}
-
-.validation-amount {
-  font-size: 14px;
-  font-weight: 600;
-  color: #4caf50;
-}
-
-.shortfall-amount {
-  font-size: 14px;
-  font-weight: 600;
-  color: #f44336;
-}
-
-.payment-title {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-.payment-methods-grid {
-  margin-top: 12px;
-}
-
-.payment-card-item {
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border: 2px solid #e0e0e0;
-  border-radius: 8px;
-}
-
-.payment-card-item:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.payment-card-item--selected {
-  color: white;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
-}
-
-.payment-name {
-  font-weight: 600;
-  font-size: 11px;
-  line-height: 1.2;
-}
-
-.pay-button {
-  font-weight: 600;
-  text-transform: none;
-  transition: all 0.3s ease;
-}
-
-.pay-button:disabled {
-  opacity: 0.6;
-}
-
-/* ✅ NEW: Payment ready animation */
-.payment-ready {
-  transform: scale(1.02);
-  box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
-}
-
-.multi-pay-button {
-  font-weight: 600;
-  text-transform: none;
-}
-
-.toggle-btn {
-  text-transform: none;
-}
-
-.quick-stats {
-  background: #f5f5f5;
-  border-top: 1px solid #e0e0e0;
-}
-
-.stat-value {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.stat-label {
-  font-size: 12px;
-  color: #666;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* ✅ NEW: Input field enhancements */
-.discount-input input {
-  font-weight: 600;
-}
-
-.cash-input input {
-  font-weight: 600;
-}
-
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .payment-methods-grid .v-col {
-    flex: 0 0 50% !important;
-    max-width: 50% !important;
-  }
-
-  .grand-total-amount {
-    font-size: 20px;
-  }
-  
-  .total-row .v-col {
-    margin-bottom: 8px;
-  }
 }
 </style>

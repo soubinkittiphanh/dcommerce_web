@@ -1221,7 +1221,7 @@ export default {
      */
     async fetchCurrencies() {
       try {
-        const { data } = await this.$axios.get('/api/currency/find')
+        const { data } = await this.$axios.get('/api/currency/findAll')
         this.currencies = data || []
       } catch (error) {
         console.error('Error fetching currencies:', error)

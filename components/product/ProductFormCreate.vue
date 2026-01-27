@@ -825,7 +825,7 @@ export default {
 
     async fetchCurrency() {
       try {
-        const response = await this.$axios.get('/api/currency/find')
+        const response = await this.$axios.get('/api/currency/findAll')
         this.findAllCurrency = response.data.map((el) => ({
           id: el.id,
           code: el.code,

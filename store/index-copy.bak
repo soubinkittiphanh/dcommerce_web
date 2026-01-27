@@ -914,7 +914,7 @@ const initProductPrices = async (dispatch, axios) => {
     }
 }
 const initCurrency = (dispatch, axios) =>
-    fetchData('api/currency/find', 'initCurrency', dispatch, axios, 'Currency initialization failed')
+    fetchData('api/currency/findAll', 'initCurrency', dispatch, axios, 'Currency initialization failed')
 
 const initLocation = (dispatch, axios) =>
     fetchData('api/location/find', 'initLocation', dispatch, axios, 'Location initialization failed')

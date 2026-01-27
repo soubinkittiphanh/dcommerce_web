@@ -776,7 +776,7 @@ export default {
 
     async fetchCurrencies() {
       try {
-        const { data } = await this.$axios.get('/api/currency/find')
+        const { data } = await this.$axios.get('/api/currency/findAll')
         if (data && data.data) {
           this.currencies = Array.isArray(data.data) ? data.data : []
         } else if (Array.isArray(data)) {

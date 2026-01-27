@@ -800,7 +800,7 @@ export default {
 
     async fetchCurrencies() {
       try {
-        const response = await this.$axios.get('/api/currency/find')
+        const response = await this.$axios.get('/api/currency/findAll')
         const { data } = response
         this.currencies = data || [] 
       } catch (error) {

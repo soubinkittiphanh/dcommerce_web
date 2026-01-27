@@ -557,7 +557,7 @@ export default {
         this.loading = true
         const [ministriesRes, currenciesRes] = await Promise.all([
           this.$axios.get('/api/ministries'),
-          this.$axios.get('/api/currency/find')
+          this.$axios.get('/api/currency/findAll')
         ])
         
         this.ministries = ministriesRes.data.data || ministriesRes.data

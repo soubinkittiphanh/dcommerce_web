@@ -1,7 +1,7 @@
 exports.ids = [116];
 exports.modules = {
 
-/***/ 550:
+/***/ 554:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9,43 +9,43 @@ exports.modules = {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(411);
+var VAutocomplete = __webpack_require__(415);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(127);
+var VBtn = __webpack_require__(128);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(124);
+var VCard = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(128);
+var VChip = __webpack_require__(129);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(431);
+var VCol = __webpack_require__(436);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(407);
+var VDialog = __webpack_require__(411);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(123);
+var VDivider = __webpack_require__(124);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(428);
+var VForm = __webpack_require__(433);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(62);
+var VIcon = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(430);
+var VRow = __webpack_require__(435);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(433);
+var VSpacer = __webpack_require__(438);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(38);
+var VTextField = __webpack_require__(39);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderStatusForm.vue?vue&type=template&id=06313687
 
@@ -359,10 +359,10 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(42);
+var external_lodash_ = __webpack_require__(44);
 
 // EXTERNAL MODULE: ./common/api.js
-var common_api = __webpack_require__(41);
+var common_api = __webpack_require__(43);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -786,7 +786,7 @@ var external_vuex_ = __webpack_require__(14);
       // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
-          const staticLogo = __webpack_require__(143)(`./${company.ticketLogo}`);
+          const staticLogo = __webpack_require__(144)(`./${company.ticketLogo}`);
           console.log('Using static logo for shipping:', company.ticketLogo);
           return staticLogo;
         } catch (error) {
@@ -797,7 +797,7 @@ var external_vuex_ = __webpack_require__(14);
       // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
-          const fallbackLogo = __webpack_require__(143)(`./${company.dcLogo}`);
+          const fallbackLogo = __webpack_require__(144)(`./${company.dcLogo}`);
           console.log('Using dcLogo fallback for shipping:', company.dcLogo);
           return fallbackLogo;
         } catch (error) {
@@ -863,7 +863,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderStatusForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(67).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ })

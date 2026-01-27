@@ -17,7 +17,7 @@
       <!-- Product Name -->
       <v-col cols="4" class="pr-2">
         <div class="font-weight-medium text-wrap">
-          {{ item.pro_name }} 
+          {{ item.pro_name }}
           <!-- {{ item.lineUUID}}  -->
           <!-- Gift indicator -->
           <v-chip
@@ -80,12 +80,15 @@
         <v-btn
           icon
           small
-          :color="(item.isGift || item.giftQuantity > 0) ? 'pink' : 'grey'"
+          :color="item.isGift || item.giftQuantity > 0 ? 'pink' : 'grey'"
           @click="handleGiftClick"
           :title="getGiftButtonTitle()"
           class="gift-btn"
         >
-          <v-icon small :class="{ 'gift-active': item.isGift || item.giftQuantity > 0 }">
+          <v-icon
+            small
+            :class="{ 'gift-active': item.isGift || item.giftQuantity > 0 }"
+          >
             {{ getGiftIcon() }}
           </v-icon>
         </v-btn>
@@ -104,19 +107,23 @@
             :class="{ 'gift-price': item.isGift }"
           >
             <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
-            {{ getPriceDisplay() }} 
+            {{ getPriceDisplay() }}
+            <!-- TODO: SHOW CURRENCY HERE-->
           </v-chip>
-          
+
           <!-- Gift breakdown for partial gifts -->
-          <div v-if="item.giftQuantity > 0 && !item.isGift" class="gift-breakdown">
-            
+          <div
+            v-if="item.giftQuantity > 0 && !item.isGift"
+            class="gift-breakdown"
+          >
             <div class="text-caption pink--text">
               <v-icon x-small class="mr-1">mdi-gift</v-icon>
               {{ item.giftQuantity }} × {{ getGiftPriceDisplay() }}
             </div>
             <div class="text-caption grey--text">
               <v-icon x-small class="mr-1">mdi-currency-usd</v-icon>
-              {{ item.qty - item.giftQuantity }} × {{ formatNumber(item.localPrice) }}
+              {{ item.qty - item.giftQuantity }} ×
+              {{ formatNumber(item.localPrice) }}
             </div>
           </div>
         </div>
@@ -135,34 +142,36 @@
 
 <script>
 // We assume getFormatNum is available via a utility file
-import { getFormatNum } from '~/common' 
+import { getFormatNum } from '~/common'
 import GiftDialog from '~/components/card/GiftDialog.vue'
-
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CartItem',
-  
+
   components: {
-    GiftDialog
+    GiftDialog,
   },
 
   props: {
     item: {
       type: Object,
-      required: true
+      required: true,
     },
     // The main layout passes its formatNumber method to keep consistency
     formatNumber: {
       type: Function,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      giftDialogOpen: false
+      giftDialogOpen: false,
     }
   },
-
+  computed: {
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
+  },
   methods: {
     handleGiftClick() {
       if (this.item.isGift || this.item.giftQuantity > 0) {
@@ -179,7 +188,7 @@ export default {
       console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
       console.info(`GIFT DATA ITEM CART logs ${giftData}`)
       this.$emit('configure-gift', giftData)
-      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly 
+      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
       this.giftDialogOpen = false
     },
 
@@ -202,20 +211,33 @@ export default {
         return 'mdi-gift-outline'
       }
     },
-
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find((el) => el.id == currencyId)
+    },
     getPriceDisplay() {
+      const currency= this.findCurrency(this.item.saleCurrencyId)
+      const currencyCode = currency.code;
+      console.info(`IT IS ITEM GIFT ${JSON.stringify(this.item)}`)
       if (this.item.isGift) {
-        console.info(`IT IS ITEM GIFT ${JSON.stringify(this.item)}`)
-        console.info(`IT IS GIFT ${this.item.giftAmount === 0 ? 'FREE' : this.formatNumber(this.item.giftAmount * this.item.qty)}`)
-        
-        return this.item.localPrice === 0 ? 'FREE' : this.formatNumber(this.item.localPrice * this.item.qty)
+        console.info(
+          `IT IS GIFT ${
+            this.item.giftAmount === 0
+              ? 'FREE'
+              : this.formatNumber(this.item.giftAmount * this.item.qty)
+          }`
+        )
+
+        return this.item.localPrice === 0
+          ? 'FREE'
+          : `${this.formatNumber(this.item.localPrice * this.item.qty)}${currencyCode}`
       } else if (this.item.giftQuantity > 0) {
         // Mixed pricing: regular + gift
-        const regularPrice = (this.item.qty - this.item.giftQuantity) * this.item.localPrice
+        const regularPrice =
+          (this.item.qty - this.item.giftQuantity) * this.item.localPrice
         const giftPrice = this.item.giftQuantity * (this.item.giftAmount || 0)
-        return this.formatNumber(regularPrice + giftPrice)
+        return `${this.formatNumber(regularPrice + giftPrice)}${currencyCode}`
       } else {
-        return this.formatNumber(this.item.localPrice * this.item.qty)
+        return `${this.formatNumber(this.item.localPrice * this.item.qty)}${currencyCode}`
       }
     },
 
@@ -224,8 +246,8 @@ export default {
         return 'FREE'
       }
       return this.formatNumber(this.item.giftAmount)
-    }
-  }
+    },
+  },
 
   // Emit events: delete, decrease, increase, update-qty, price-click, configure-gift
 }
@@ -234,12 +256,12 @@ export default {
 <style scoped>
 /* Scoped styles for the cart item container */
 .cart-item {
-  border-bottom: 1px solid rgba(0,0,0,0.06);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
   transition: background-color 0.2s ease;
 }
 
 .cart-item:hover {
-  background-color: rgba(0,0,0,0.02);
+  background-color: rgba(0, 0, 0, 0.02);
 }
 
 .qty-btn {
@@ -285,14 +307,24 @@ export default {
 }
 
 @keyframes gift-pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes gift-glow {
-  0% { box-shadow: 0 0 5px rgba(233, 30, 99, 0.5); }
-  100% { box-shadow: 0 0 20px rgba(233, 30, 99, 0.8); }
+  0% {
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.8);
+  }
 }
 
 /* Enhanced hover effects */

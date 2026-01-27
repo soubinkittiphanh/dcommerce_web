@@ -403,7 +403,7 @@ export default {
         async loadCurrency() {
             this.isLoading = true
             await this.$axios
-                .get('api/currency/find')
+                .get('api/currency/findAll')
                 .then((res) => {
                     this.currencyList = res.data.map((el) => {
                         return el

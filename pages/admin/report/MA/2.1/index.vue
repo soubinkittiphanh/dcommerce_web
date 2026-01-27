@@ -645,7 +645,7 @@ export default {
         this.loading = true
         const [bankAccountsRes, currenciesRes] = await Promise.all([
           this.$axios.get('/api/bank_account/find'),
-          this.$axios.get('/api/currency/find')
+          this.$axios.get('/api/currency/findAll')
         ])
         
         this.bankAccounts = bankAccountsRes.data.data || bankAccountsRes.data
