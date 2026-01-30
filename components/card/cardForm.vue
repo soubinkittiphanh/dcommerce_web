@@ -56,6 +56,87 @@
                                 ></v-autocomplete>
                             </v-col>
 
+                            <!-- Color Selection -->
+                            <v-col cols="12" md="6">
+                                <v-autocomplete 
+                                    item-text="color_name" 
+                                    item-value="id" 
+                                    :items="colorList" 
+                                    label="Color (Optional)"
+                                    v-model="colorId"
+                                    outlined
+                                    dense
+                                    clearable
+                                    prepend-inner-icon="mdi-palette"
+                                    :loading="loadingColors"
+                                >
+                                    <template v-slot:item="{ item }">
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                <div class="d-flex align-center">
+                                                    <div 
+                                                        v-if="item.hex_code"
+                                                        class="color-preview mr-2"
+                                                        :style="{ backgroundColor: item.hex_code }"
+                                                    ></div>
+                                                    <v-icon v-else small class="mr-2" color="grey">mdi-palette-outline</v-icon>
+                                                    {{ item.color_name }}
+                                                    <v-chip x-small class="ml-2" outlined>{{ item.color_code }}</v-chip>
+                                                </div>
+                                            </v-list-item-title>
+                                        </v-list-item-content>
+                                    </template>
+                                    <template v-slot:selection="{ item }">
+                                        <div class="d-flex align-center">
+                                            <div 
+                                                v-if="item.hex_code"
+                                                class="color-preview-small mr-2"
+                                                :style="{ backgroundColor: item.hex_code }"
+                                            ></div>
+                                            <v-icon v-else x-small class="mr-2" color="grey">mdi-palette-outline</v-icon>
+                                            {{ item.color_name }}
+                                        </div>
+                                    </template>
+                                </v-autocomplete>
+                            </v-col>
+
+                            <!-- Size Selection -->
+                            <v-col cols="12" md="6">
+                                <v-autocomplete 
+                                    item-text="size_name" 
+                                    item-value="id" 
+                                    :items="sizeList" 
+                                    label="Size (Optional)"
+                                    v-model="sizeId"
+                                    outlined
+                                    dense
+                                    clearable
+                                    prepend-inner-icon="mdi-ruler"
+                                    :loading="loadingSizes"
+                                >
+                                    <template v-slot:item="{ item }">
+                                        <v-list-item-content>
+                                            <v-list-item-title>
+                                                <div class="d-flex align-center">
+                                                    <v-icon small class="mr-2">mdi-ruler</v-icon>
+                                                    {{ item.size_name }}
+                                                    <v-chip x-small class="ml-2" outlined>{{ item.size_code }}</v-chip>
+                                                </div>
+                                            </v-list-item-title>
+                                            <v-list-item-subtitle v-if="item.description">
+                                                {{ item.description }}
+                                            </v-list-item-subtitle>
+                                        </v-list-item-content>
+                                    </template>
+                                    <template v-slot:selection="{ item }">
+                                        <div class="d-flex align-center">
+                                            <v-icon x-small class="mr-2">mdi-ruler</v-icon>
+                                            {{ item.size_name }}
+                                        </div>
+                                    </template>
+                                </v-autocomplete>
+                            </v-col>
+
                             <!-- Quantity -->
                             <v-col cols="12" md="6">
                                 <v-text-field 
@@ -97,6 +178,20 @@
                                     prepend-inner-icon="mdi-barcode"
                                     placeholder="e.g., LOT2024001"
                                     hint="Batch/Lot identification number"
+                                    persistent-hint
+                                ></v-text-field>
+                            </v-col>
+
+                            <!-- Serial Number -->
+                            <v-col cols="12" md="6">
+                                <v-text-field 
+                                    label="Serial Number (Optional)"
+                                    v-model="serialNo"
+                                    outlined
+                                    dense
+                                    prepend-inner-icon="mdi-numeric"
+                                    placeholder="e.g., SER001, DEVICE2024"
+                                    hint="Individual item serial number"
                                     persistent-hint
                                 ></v-text-field>
                             </v-col>
@@ -218,7 +313,7 @@
 
                                     <!-- Stock Info Summary -->
                                     <v-alert 
-                                        v-if="lotNumber || expiryDate" 
+                                        v-if="lotNumber || serialNo || expiryDate || colorId || sizeId" 
                                         :color="expiryStatus.color || 'primary'" 
                                         dense 
                                         outlined 
@@ -228,10 +323,33 @@
                                             <v-icon small class="mr-2">mdi-information</v-icon>
                                             <div>
                                                 <strong>Stock Information:</strong>
+                                                <span v-if="selectedColor" class="ml-2">
+                                                    <v-chip x-small color="secondary" outlined>
+                                                        <div 
+                                                            v-if="selectedColor.hex_code"
+                                                            class="color-preview-tiny mr-1"
+                                                            :style="{ backgroundColor: selectedColor.hex_code }"
+                                                        ></div>
+                                                        <v-icon v-else x-small left>mdi-palette</v-icon>
+                                                        {{ selectedColor.color_name }}
+                                                    </v-chip>
+                                                </span>
+                                                <span v-if="selectedSize" class="ml-2">
+                                                    <v-chip x-small color="secondary" outlined>
+                                                        <v-icon x-small left>mdi-ruler</v-icon>
+                                                        {{ selectedSize.size_name }}
+                                                    </v-chip>
+                                                </span>
                                                 <span v-if="lotNumber" class="ml-2">
                                                     <v-chip x-small color="secondary" outlined>
                                                         <v-icon x-small left>mdi-barcode</v-icon>
                                                         {{ lotNumber }}
+                                                    </v-chip>
+                                                </span>
+                                                <span v-if="serialNo" class="ml-2">
+                                                    <v-chip x-small color="info" outlined>
+                                                        <v-icon x-small left>mdi-numeric</v-icon>
+                                                        {{ serialNo }}
                                                     </v-chip>
                                                 </span>
                                                 <span v-if="expiryDate" class="ml-2">
@@ -327,8 +445,17 @@ export default {
             srcLocationId: null,
             currencyId: 1,
             lotNumber: '',
+            serialNo: '',
             expiryDate: null,
             expiryMenu: false,
+            
+            // New fields for Color and Size
+            colorId: null,
+            sizeId: null,
+            colorList: [],
+            sizeList: [],
+            loadingColors: false,
+            loadingSizes: false,
         }
     },
     computed: {
@@ -362,6 +489,14 @@ export default {
         selectedCurrencyCode() {
             const currency = this.findAllCurrency.find(el => el.id == this.currencyId)
             return currency ? currency.code : ''
+        },
+
+        selectedColor() {
+            return this.colorList.find(color => color.id === this.colorId)
+        },
+
+        selectedSize() {
+            return this.sizeList.find(size => size.id === this.sizeId)
         },
 
         costPerUnit() {
@@ -451,6 +586,8 @@ export default {
 
         this.loadLocation()
         this.loadProduct()
+        this.loadColors()
+        this.loadSizes()
     },
     
     methods: {
@@ -503,6 +640,34 @@ export default {
             }
         },
 
+        async loadColors() {
+            this.loadingColors = true
+            try {
+                const res = await this.$axios.get(`api/color`)
+                this.colorList = res.data.data || res.data || []
+                console.log('Colors loaded:', this.colorList.length)
+            } catch (error) {
+                console.error('Failed to load colors:', error)
+                swalError2(this.$swal, 'Warning', 'Failed to load colors: ' + error.message)
+                this.colorList = []
+            }
+            this.loadingColors = false
+        },
+
+        async loadSizes() {
+            this.loadingSizes = true
+            try {
+                const res = await this.$axios.get(`api/size`)
+                this.sizeList = res.data.data || res.data || []
+                console.log('Sizes loaded:', this.sizeList.length)
+            } catch (error) {
+                console.error('Failed to load sizes:', error)
+                swalError2(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message)
+                this.sizeList = []
+            }
+            this.loadingSizes = false
+        },
+
         async loadProduct() {
             this.isSubmitting = true
             try {
@@ -538,9 +703,13 @@ export default {
                     exchangeRate: this.currencyExchangeRate,
                     costType: this.costType,
                     lotNumber: this.lotNumber || null,
+                    serialNo: this.serialNo || null,
                     expiryDate: this.expiryDate || null,
                     hasExpiry: !!this.expiryDate,
-                    hasLot: !!this.lotNumber
+                    hasLot: !!this.lotNumber,
+                    // New fields for Color and Size
+                    colorId: this.colorId || null,
+                    sizeId: this.sizeId || null,
                 }
                 
                 console.log("Stock data:", stockData)
@@ -550,12 +719,16 @@ export default {
                     console.log(res.data)
                     
                     let successMessage = 'Stock added successfully!'
-                    if (this.lotNumber && this.expiryDate) {
-                        successMessage += ` (Lot: ${this.lotNumber}, Expires: ${this.expiryDateFormatted})`
-                    } else if (this.lotNumber) {
-                        successMessage += ` (Lot: ${this.lotNumber})`
-                    } else if (this.expiryDate) {
-                        successMessage += ` (Expires: ${this.expiryDateFormatted})`
+                    const details = []
+                    
+                    if (this.selectedColor) details.push(`Color: ${this.selectedColor.color_name}`)
+                    if (this.selectedSize) details.push(`Size: ${this.selectedSize.size_name}`)
+                    if (this.lotNumber) details.push(`Lot: ${this.lotNumber}`)
+                    if (this.serialNo) details.push(`Serial: ${this.serialNo}`)
+                    if (this.expiryDate) details.push(`Expires: ${this.expiryDateFormatted}`)
+                    
+                    if (details.length > 0) {
+                        successMessage += ` (${details.join(', ')})`
                     }
                     
                     swalSuccess(this.$swal, 'Success', successMessage)
@@ -592,5 +765,30 @@ export default {
 
 .grey--text .v-input__slot {
     background-color: #f5f5f5 !important;
+}
+
+/* Color preview styles */
+.color-preview {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+
+.color-preview-small {
+    width: 16px;
+    height: 16px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+    display: inline-block;
+}
+
+.color-preview-tiny {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    border: 1px solid #ddd;
+    display: inline-block;
 }
 </style>

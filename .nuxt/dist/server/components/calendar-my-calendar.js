@@ -1,7 +1,7 @@
 exports.ids = [38];
 exports.modules = {
 
-/***/ 1045:
+/***/ 1055:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2383,7 +2383,7 @@ function getParsedCategories(categories, categoryText) {
 
 /***/ }),
 
-/***/ 1597:
+/***/ 1613:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2391,7 +2391,7 @@ function getParsedCategories(categories, categoryText) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/VCalendar.js + 16 modules
-var VCalendar = __webpack_require__(1045);
+var VCalendar = __webpack_require__(1055);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
 var VContainer = __webpack_require__(434);

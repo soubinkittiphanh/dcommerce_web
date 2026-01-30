@@ -1,7 +1,7 @@
-exports.ids = [310,169,175];
+exports.ids = [314,171,177];
 exports.modules = {
 
-/***/ 1534:
+/***/ 1550:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -219,7 +219,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/VendorForm.vue + 4 modules
-var VendorForm = __webpack_require__(880);
+var VendorForm = __webpack_require__(888);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/vendor/index.vue?vue&type=script&lang=js
 
@@ -337,7 +337,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var vendor = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {VendorForm: __webpack_require__(880).default,YoutubePlayer: __webpack_require__(477).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {VendorForm: __webpack_require__(888).default,YoutubePlayer: __webpack_require__(476).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -371,7 +371,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 477:
+/***/ 476:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -467,7 +467,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 482:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -579,7 +579,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 880:
+/***/ 888:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -596,7 +596,7 @@ var VCard = __webpack_require__(125);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(482);
+var VCheckbox = __webpack_require__(480);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(129);

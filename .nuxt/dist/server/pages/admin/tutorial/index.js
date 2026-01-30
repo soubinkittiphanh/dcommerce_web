@@ -1,7 +1,7 @@
-exports.ids = [305,145,166,175];
+exports.ids = [309,146,168,177];
 exports.modules = {
 
-/***/ 1070:
+/***/ 1080:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -18,7 +18,7 @@ var VCard = __webpack_require__(125);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(482);
+var VCheckbox = __webpack_require__(480);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(129);
@@ -262,7 +262,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 
 /***/ }),
 
-/***/ 1529:
+/***/ 1545:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -495,7 +495,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/tutorial/index.vue?vue&type=template&id=a4e9f704
 
 // EXTERNAL MODULE: ./components/RiderForm.vue + 4 modules
-var RiderForm = __webpack_require__(743);
+var RiderForm = __webpack_require__(745);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -620,7 +620,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var tutorial = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {TutorialForm: __webpack_require__(1070).default,YoutubePlayer: __webpack_require__(477).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {TutorialForm: __webpack_require__(1080).default,YoutubePlayer: __webpack_require__(476).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -654,7 +654,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 477:
+/***/ 476:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -750,7 +750,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 482:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -862,7 +862,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 743:
+/***/ 745:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -879,7 +879,7 @@ var VCard = __webpack_require__(125);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(482);
+var VCheckbox = __webpack_require__(480);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(129);

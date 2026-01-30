@@ -557,6 +557,7 @@ export default {
           value: 'co_name',
         },
         { text: 'ຊື່ສິນຄ້າ', align: 'center', value: 'pro_name' },
+        { text: 'ບາໂຄດ', align: 'center', value: 'barCode' },
         { text: 'ຫມວດສິນຄ້າ', align: 'center', value: 'pro_category_desc' },
         { text: 'ລາຄາ', align: 'center', value: 'pro_price' },
         { text: 'minStock', align: 'center', value: 'minStock' },

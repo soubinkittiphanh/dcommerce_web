@@ -1,7 +1,7 @@
-exports.ids = [215,57];
+exports.ids = [218,58];
 exports.modules = {
 
-/***/ 1558:
+/***/ 1574:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -351,12 +351,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var withdraw = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(476).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(477).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
 
-/***/ 476:
+/***/ 477:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

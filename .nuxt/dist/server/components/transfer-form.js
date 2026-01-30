@@ -1,7 +1,7 @@
-exports.ids = [163];
+exports.ids = [165];
 exports.modules = {
 
-/***/ 1069:
+/***/ 1079:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -459,7 +459,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/TransferForm.vue?vue&type=template&id=1288710a
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
-var comma_thousand = __webpack_require__(469);
+var comma_thousand = __webpack_require__(471);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -974,7 +974,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 469:
+/***/ 471:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

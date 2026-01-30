@@ -1,7 +1,7 @@
-exports.ids = [98];
+exports.ids = [99];
 exports.modules = {
 
-/***/ 1602:
+/***/ 1618:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -161,7 +161,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(865),
+      imageSvg: __webpack_require__(871),
       imageSrc: __webpack_require__(202),
       terminalDialog: false,
       terminalSelected: this.findSelectedTerminal || 1
@@ -286,7 +286,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 865:
+/***/ 871:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";

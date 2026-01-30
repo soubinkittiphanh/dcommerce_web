@@ -1,4 +1,4 @@
-exports.ids = [141];
+exports.ids = [142];
 exports.modules = {
 
 /***/ 452:
@@ -30,7 +30,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 469:
+/***/ 471:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1337,7 +1337,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/PurchasingFormCRUD.vue?vue&type=template&id=2bb25126&scoped=true
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
-var comma_thousand = __webpack_require__(469);
+var comma_thousand = __webpack_require__(471);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);

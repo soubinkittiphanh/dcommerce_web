@@ -34,6 +34,7 @@ const _1c2fbe71 = () => interopDefault(import('../pages/admin/category/index.vue
 const _200e5ebc = () => interopDefault(import('../pages/admin/chartAccount/index.vue' /* webpackChunkName: "pages/admin/chartAccount/index" */))
 const _da94a204 = () => interopDefault(import('../pages/admin/client/index.vue' /* webpackChunkName: "pages/admin/client/index" */))
 const _1c6f474a = () => interopDefault(import('../pages/admin/cod_order/index.vue' /* webpackChunkName: "pages/admin/cod_order/index" */))
+const _513ef434 = () => interopDefault(import('../pages/admin/color/index.vue' /* webpackChunkName: "pages/admin/color/index" */))
 const _79315f00 = () => interopDefault(import('../pages/admin/company/index.vue' /* webpackChunkName: "pages/admin/company/index" */))
 const _10ce75c4 = () => interopDefault(import('../pages/admin/currency/index.vue' /* webpackChunkName: "pages/admin/currency/index" */))
 const _f13f2d5e = () => interopDefault(import('../pages/admin/customer/index.vue' /* webpackChunkName: "pages/admin/customer/index" */))
@@ -94,6 +95,7 @@ const _6363e6a2 = () => interopDefault(import('../pages/admin/saleReportDetailBy
 const _09851be1 = () => interopDefault(import('../pages/admin/saleReportDetailByUser/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByUser/index" */))
 const _a9d4e97a = () => interopDefault(import('../pages/admin/saleTicketReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleTicketReportDetailByProduct/index" */))
 const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue' /* webpackChunkName: "pages/admin/shipping/index" */))
+const _beea3498 = () => interopDefault(import('../pages/admin/size/index.vue' /* webpackChunkName: "pages/admin/size/index" */))
 const _cc17c2a8 = () => interopDefault(import('../pages/admin/spf/index.vue' /* webpackChunkName: "pages/admin/spf/index" */))
 const _e5b9f3a4 = () => interopDefault(import('../pages/admin/tax/index.vue' /* webpackChunkName: "pages/admin/tax/index" */))
 const _3b0e4e6f = () => interopDefault(import('../pages/admin/terminal/index.vue' /* webpackChunkName: "pages/admin/terminal/index" */))
@@ -305,6 +307,10 @@ export const routerOptions = {
     path: "/admin/cod_order",
     component: _1c6f474a,
     name: "admin-cod_order"
+  }, {
+    path: "/admin/color",
+    component: _513ef434,
+    name: "admin-color"
   }, {
     path: "/admin/company",
     component: _79315f00,
@@ -545,6 +551,10 @@ export const routerOptions = {
     path: "/admin/shipping",
     component: _f00a79be,
     name: "admin-shipping"
+  }, {
+    path: "/admin/size",
+    component: _beea3498,
+    name: "admin-size"
   }, {
     path: "/admin/spf",
     component: _cc17c2a8,
