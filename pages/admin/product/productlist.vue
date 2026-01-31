@@ -62,8 +62,7 @@
               <v-data-table
                 v-if="loaddata"
                 :headers="headers"
-                :search="search"
-                :items="loaddata"
+                :items="filteredProducts"
                 :items-per-page="pageLine"
               >
                 <template v-slot:top>
@@ -506,14 +505,17 @@
                 :style="getLabelStyle()"
               >
                 <div class="barcode-svg-container">
-                  <svg 
-                    :id="`barcode-${product.id}`"
-                    class="barcode-svg"
-                  ></svg>
+                  <svg :id="`barcode-${product.id}`" class="barcode-svg"></svg>
                 </div>
-                <div class="barcode-text">{{ product.barCode || product.pro_id }}</div>
-                <div class="product-name">{{ truncateText(product.pro_name, 25) }}</div>
-                <div class="product-price">{{ formatNumber(product.pro_price) }} LAK</div>
+                <div class="barcode-text">
+                  {{ product.barCode || product.pro_id }}
+                </div>
+                <div class="product-name">
+                  {{ truncateText(product.pro_name, 25) }}
+                </div>
+                <div class="product-price">
+                  {{ formatNumber(product.pro_price) }} LAK
+                </div>
               </div>
             </div>
           </div>
@@ -683,7 +685,7 @@ export default {
       }
       this.dialogMessage = false
     },
-    
+
     printDialog(val) {
       if (val) {
         // Generate barcodes when dialog opens
@@ -692,14 +694,14 @@ export default {
         })
       }
     },
-    
+
     selectedPrintFormat() {
       // Regenerate barcodes when format changes
       this.$nextTick(() => {
         this.generateBarcodes()
       })
     },
-    
+
     labelsPerRow() {
       // Regenerate barcodes when layout changes
       this.$nextTick(() => {
@@ -711,24 +713,35 @@ export default {
   async mounted() {
     // Load barcode library first
     this.loadBarcodeLibrary()
-    
+
     await this.loadCardCategory()
     await this.fetchData()
   },
 
   computed: {
     ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
-    
+
     filteredProducts() {
-      // Return products with search filter if any
-      let products = this.loaddata
+      // 1. Safety check: ensure loaddata exists
+      let products = this.loaddata || []
+
+      // 2. Perform filter if search exists
       if (this.search) {
-        const searchTerm = this.search.toLowerCase()
-        products = products.filter(product => 
-          product.pro_name.toLowerCase().includes(searchTerm) ||
-          product.barCode?.toLowerCase().includes(searchTerm) ||
-          product.pro_id?.toLowerCase().includes(searchTerm)
-        )
+        const searchTerm = this.search.toLowerCase().trim()
+
+        products = products.filter((product) => {
+          // 3. Safely convert fields to String to avoid "toUpperCase/toLowerCase" errors on Numbers
+          const name = String(product.pro_name || '').toLowerCase()
+          const barcode = String(product.barCode || '').toLowerCase()
+          const proId = String(product.pro_id || '').toLowerCase()
+
+          // 4. Return true if any field matches
+          return (
+            name.includes(searchTerm) ||
+            barcode.includes(searchTerm) ||
+            proId.includes(searchTerm)
+          )
+        })
       }
       return products
     },
@@ -745,23 +758,25 @@ export default {
       setTimeout(() => {
         this.filteredProducts.forEach((product) => {
           // FIX: Convert to String() explicitly
-          const barcodeValue = String(product.barCode || product.pro_id || '000000')
+          const barcodeValue = String(
+            product.barCode || product.pro_id || '000000'
+          )
           const element = document.getElementById(`barcode-${product.id}`)
-          
+
           if (element && window.JsBarcode) {
             try {
               // Clear previous barcode
               element.innerHTML = ''
-              
+
               // Determine barcode size based on format
               const formats = {
                 small: { width: 1, height: 30, fontSize: 8 },
                 standard: { width: 1.2, height: 40, fontSize: 10 },
                 large: { width: 1.5, height: 50, fontSize: 12 },
               }
-              
+
               const format = formats[this.selectedPrintFormat]
-              
+
               // Generate barcode
               window.JsBarcode(element, barcodeValue, {
                 format: this.getBarcodeFormat(barcodeValue),
@@ -769,13 +784,20 @@ export default {
                 height: format.height,
                 displayValue: false, // We'll show the text separately
                 margin: 2,
-                background: "#ffffff",
-                lineColor: "#000000",
+                background: '#ffffff',
+                lineColor: '#000000',
               })
             } catch (error) {
-              console.error('Barcode generation failed for:', barcodeValue, error)
+              console.error(
+                'Barcode generation failed for:',
+                barcodeValue,
+                error
+              )
               // Fallback: show text if barcode generation fails
-              element.innerHTML = '<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' + barcodeValue + '</text>'
+              element.innerHTML =
+                '<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' +
+                barcodeValue +
+                '</text>'
             }
           }
         })
@@ -784,37 +806,40 @@ export default {
 
     getBarcodeFormat(value) {
       // Force value to string to avoid "toUpperCase is not a function" error
-      const strValue = String(value);
-      
+      const strValue = String(value)
+
       // Auto-detect barcode format based on the value
-      if (!strValue) return "CODE128"
-      
+      if (!strValue) return 'CODE128'
+
       // EAN-13 (13 digits)
-      if (/^\d{13}$/.test(strValue)) return "EAN13"
-      
+      if (/^\d{13}$/.test(strValue)) return 'EAN13'
+
       // EAN-8 (8 digits)
-      if (/^\d{8}$/.test(strValue)) return "EAN8"
-      
+      if (/^\d{8}$/.test(strValue)) return 'EAN8'
+
       // UPC-A (12 digits)
-      if (/^\d{12}$/.test(strValue)) return "UPC"
-      
+      if (/^\d{12}$/.test(strValue)) return 'UPC'
+
       // Code 39 (alphanumeric)
-      if (/^[A-Z0-9\-. $/+%]*$/.test(strValue.toUpperCase())) return "CODE39"
-      
+      if (/^[A-Z0-9\-. $/+%]*$/.test(strValue.toUpperCase())) return 'CODE39'
+
       // Default to Code 128 (most versatile)
-      return "CODE128"
+      return 'CODE128'
     },
 
     truncateText(text, maxLength) {
       if (!text) return ''
-      return text.length > maxLength ? text.substring(0, maxLength) + '...' : text
+      return text.length > maxLength
+        ? text.substring(0, maxLength) + '...'
+        : text
     },
 
     loadBarcodeLibrary() {
       // Load JsBarcode library if not already loaded
       if (typeof window.JsBarcode === 'undefined') {
         const script = document.createElement('script')
-        script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js'
+        script.src =
+          'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js'
         script.onload = () => {
           console.log('JsBarcode library loaded')
         }
@@ -828,7 +853,7 @@ export default {
         standard: { width: '3cm', height: '3cm', fontSize: '10px' },
         large: { width: '4cm', height: '3cm', fontSize: '12px' },
       }
-      
+
       const format = formats[this.selectedPrintFormat]
       return {
         width: format.width,
@@ -841,10 +866,10 @@ export default {
     doPrint() {
       // Hide the dialog during printing
       this.printDialog = false
-      
+
       // Create a new window for printing
       const printWindow = window.open('', '_blank')
-      
+
       // Generate the print document with barcodes
       this.generatePrintDocument(printWindow)
     },
@@ -873,43 +898,56 @@ export default {
     generatePrintDocument(printWindow) {
       const labelsPerRow = this.labelsPerRow
       const labelStyle = this.getLabelStyle()
-      
+
       // Generate HTML content for labels
       let labelsHtml = ''
-      this.filteredProducts.forEach(product => {
+      this.filteredProducts.forEach((product) => {
         // FIX: Convert to String() explicitly
-        const barcodeValue = String(product.barCode || product.pro_id || '000000')
-        const productName = this.escapeHtml(this.truncateText(product.pro_name, 25))
+        const barcodeValue = String(
+          product.barCode || product.pro_id || '000000'
+        )
+        const productName = this.escapeHtml(
+          this.truncateText(product.pro_name, 25)
+        )
         const productPrice = this.formatNumber(product.pro_price)
-        
+
         labelsHtml += '<div class="barcode-label">'
         labelsHtml += '<div class="barcode-svg-container">'
-        labelsHtml += '<svg id="print-barcode-' + product.id + '" class="barcode-svg"></svg>'
+        labelsHtml +=
+          '<svg id="print-barcode-' +
+          product.id +
+          '" class="barcode-svg"></svg>'
         labelsHtml += '</div>'
         labelsHtml += '<div class="barcode-text">' + barcodeValue + '</div>'
         labelsHtml += '<div class="product-name">' + productName + '</div>'
-        labelsHtml += '<div class="product-price">' + productPrice + ' LAK</div>'
+        labelsHtml +=
+          '<div class="product-price">' + productPrice + ' LAK</div>'
         labelsHtml += '</div>'
       })
-      
+
       // Generate JavaScript for barcodes
       const formats = {
         small: { width: 1, height: 30 },
         standard: { width: 1.2, height: 40 },
         large: { width: 1.5, height: 50 },
       }
-      
+
       const format = formats[this.selectedPrintFormat]
-      
+
       let barcodeScript = ''
-      this.filteredProducts.forEach(product => {
+      this.filteredProducts.forEach((product) => {
         // FIX: Convert to String() explicitly
         const rawValue = String(product.barCode || product.pro_id || '000000')
         const barcodeValue = this.escapeJs(rawValue)
         const barcodeFormat = this.getBarcodeFormat(rawValue)
-        
+
         barcodeScript += 'try {'
-        barcodeScript += 'JsBarcode("#print-barcode-' + product.id + '", "' + barcodeValue + '", {'
+        barcodeScript +=
+          'JsBarcode("#print-barcode-' +
+          product.id +
+          '", "' +
+          barcodeValue +
+          '", {'
         barcodeScript += 'format: "' + barcodeFormat + '",'
         barcodeScript += 'width: ' + format.width + ','
         barcodeScript += 'height: ' + format.height + ','
@@ -920,45 +958,66 @@ export default {
         barcodeScript += '});'
         barcodeScript += '} catch(e) {'
         barcodeScript += 'console.error("Failed to generate barcode:", e);'
-        barcodeScript += 'var elem = document.getElementById("print-barcode-' + product.id + '");'
+        barcodeScript +=
+          'var elem = document.getElementById("print-barcode-' +
+          product.id +
+          '");'
         barcodeScript += 'if(elem) {'
-        barcodeScript += 'elem.innerHTML = \'<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' + barcodeValue + '</text>\';'
+        barcodeScript +=
+          'elem.innerHTML = \'<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' +
+          barcodeValue +
+          "</text>';"
         barcodeScript += '}'
         barcodeScript += '}'
       })
-      
+
       // Build complete HTML document
-      const printDocument = '<!DOCTYPE html>' +
+      const printDocument =
+        '<!DOCTYPE html>' +
         '<html>' +
         '<head>' +
-          '<title>Barcode Labels</title>' +
-          '<scr' + 'ipt src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></scr' + 'ipt>' +
-          '<sty' + 'le>' +
-            '@page { margin: 10mm; size: A4; }' +
-            'body { font-family: Arial, sans-serif; margin: 0; padding: 10px; }' +
-            '.barcode-grid { display: grid; grid-template-columns: repeat(' + labelsPerRow + ', 1fr); gap: 5mm; width: 100%; }' +
-            '.barcode-label { border: 1px solid #333; padding: 2mm; text-align: center; page-break-inside: avoid; display: flex; flex-direction: column; justify-content: center; align-items: center; width: ' + labelStyle.width + '; height: ' + labelStyle.height + '; box-sizing: border-box; font-size: ' + labelStyle.fontSize + '; }' +
-            '.barcode-svg-container { display: flex; justify-content: center; align-items: center; margin-bottom: 2px; flex-shrink: 0; }' +
-            '.barcode-svg { max-width: 100%; height: auto; }' +
-            '.barcode-text { font-family: "Courier New", monospace; font-weight: bold; font-size: 0.8em; margin-bottom: 2px; word-break: break-all; }' +
-            '.product-name { font-size: 0.8em; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.1; text-align: center; }' +
-            '.product-price { font-weight: bold; color: #d32f2f; font-size: 0.9em; }' +
-            '@media print { body { margin: 0; padding: 0; } .barcode-grid { gap: 3mm; } }' +
-          '</sty' + 'le>' +
+        '<title>Barcode Labels</title>' +
+        '<scr' +
+        'ipt src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></scr' +
+        'ipt>' +
+        '<sty' +
+        'le>' +
+        '@page { margin: 10mm; size: A4; }' +
+        'body { font-family: Arial, sans-serif; margin: 0; padding: 10px; }' +
+        '.barcode-grid { display: grid; grid-template-columns: repeat(' +
+        labelsPerRow +
+        ', 1fr); gap: 5mm; width: 100%; }' +
+        '.barcode-label { border: 1px solid #333; padding: 2mm; text-align: center; page-break-inside: avoid; display: flex; flex-direction: column; justify-content: center; align-items: center; width: ' +
+        labelStyle.width +
+        '; height: ' +
+        labelStyle.height +
+        '; box-sizing: border-box; font-size: ' +
+        labelStyle.fontSize +
+        '; }' +
+        '.barcode-svg-container { display: flex; justify-content: center; align-items: center; margin-bottom: 2px; flex-shrink: 0; }' +
+        '.barcode-svg { max-width: 100%; height: auto; }' +
+        '.barcode-text { font-family: "Courier New", monospace; font-weight: bold; font-size: 0.8em; margin-bottom: 2px; word-break: break-all; }' +
+        '.product-name { font-size: 0.8em; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.1; text-align: center; }' +
+        '.product-price { font-weight: bold; color: #d32f2f; font-size: 0.9em; }' +
+        '@media print { body { margin: 0; padding: 0; } .barcode-grid { gap: 3mm; } }' +
+        '</sty' +
+        'le>' +
         '</head>' +
         '<body>' +
-          '<div class="barcode-grid">' +
-            labelsHtml +
-          '</div>' +
-          '<scr' + 'ipt>' +
-            'window.onload = function() {' +
-              barcodeScript +
-              'setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 1000); }, 500);' +
-            '};' +
-          '</scr' + 'ipt>' +
+        '<div class="barcode-grid">' +
+        labelsHtml +
+        '</div>' +
+        '<scr' +
+        'ipt>' +
+        'window.onload = function() {' +
+        barcodeScript +
+        'setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 1000); }, 500);' +
+        '};' +
+        '</scr' +
+        'ipt>' +
         '</body>' +
         '</html>'
-      
+
       printWindow.document.write(printDocument)
       printWindow.document.close()
     },
@@ -1439,7 +1498,7 @@ export default {
     flex-direction: column;
     gap: 2px;
   }
-  
+
   .barcode-grid {
     grid-template-columns: repeat(2, 1fr) !important;
   }
@@ -1452,17 +1511,17 @@ export default {
   .print-options {
     display: none !important;
   }
-  
+
   .print-content {
     max-height: none !important;
     overflow: visible !important;
     border: none !important;
   }
-  
+
   .barcode-grid {
     gap: 3mm;
   }
-  
+
   .barcode-label {
     page-break-inside: avoid;
   }

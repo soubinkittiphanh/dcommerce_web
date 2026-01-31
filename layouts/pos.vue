@@ -15,30 +15,30 @@
       />
     </v-dialog>
 
-    <v-dialog 
-  v-model="showQuotationPrintDialog" 
-  fullscreen 
-  hide-overlay 
-  transition="dialog-bottom-transition"
->
-  <v-card>
-    <v-toolbar dark color="primary">
-      <v-btn icon dark @click="showQuotationPrintDialog = false">
-        <v-icon>mdi-close</v-icon>
-      </v-btn>
-      <v-toolbar-title>Print Quotation Preview</v-toolbar-title>
-      <v-spacer></v-spacer>
-    </v-toolbar>
-    
-    <div class="grey lighten-3 fill-height pa-4 d-flex justify-center">
-      <quotation-print 
-        v-if="showQuotationPrintDialog"
-        :record-id="quotationPrintId"
-        @close="showQuotationPrintDialog = false"
-      />
-    </div>
-  </v-card>
-</v-dialog>
+    <v-dialog
+      v-model="showQuotationPrintDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-toolbar dark color="primary">
+          <v-btn icon dark @click="showQuotationPrintDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+          <v-toolbar-title>Print Quotation Preview</v-toolbar-title>
+          <v-spacer></v-spacer>
+        </v-toolbar>
+
+        <div class="grey lighten-3 fill-height pa-4 d-flex justify-center">
+          <quotation-print
+            v-if="showQuotationPrintDialog"
+            :record-id="quotationPrintId"
+            @close="showQuotationPrintDialog = false"
+          />
+        </div>
+      </v-card>
+    </v-dialog>
     <!-- Terminal Selection Dialog - ENHANCED -->
     <v-dialog v-model="terminalDialog" scrollable max-width="700" persistent>
       <v-card class="terminal-dialog elevation-12">
@@ -548,6 +548,10 @@ import LoadingIndicator from '~/components/LoadingIndicator.vue'
 import DeliveryForm from '~/components/DeliveryForm.vue'
 import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue'
 import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
+import {
+  generateInvoiceHTML,
+  generateReceiptHTML,
+} from '~/common/printTemplates'
 
 // Import the components
 import CartItemComponent from '~/components/pos/CartItemComponent.vue'
@@ -586,7 +590,7 @@ export default {
   },
   data() {
     return {
-       showQuotationPrintDialog: false,
+      showQuotationPrintDialog: false,
       quotationPrintId: null,
       // PERFORMANCE OPTIMIZATION: Add new properties
       updateCustomerScreenDebounced: null,
@@ -755,6 +759,7 @@ export default {
       'findAllCurrency',
       'findLocalCurrency',
       'findAllClient',
+      'findSPF',
     ]),
     serachModel: {
       get() {
@@ -1858,23 +1863,27 @@ export default {
       }
 
       this.isloading = true
-      
+
       // 2. Prepare Data
       this.formSaleHeader('Quotation')
-      
+
       try {
         // 3. Send to API
-        const res = await this.$axios.post('/api/quotation/create', this.saleHeader)
-        
+        const res = await this.$axios.post(
+          '/api/quotation/create',
+          this.saleHeader
+        )
+
         // 4. Extract ID
         // Assuming response format is "Success - 123" or similar based on your original code
         const rawId = res.data.toString()
-        const quotationId = rawId.includes('-') ? rawId.split('-')[1].trim() : rawId
+        const quotationId = rawId.includes('-')
+          ? rawId.split('-')[1].trim()
+          : rawId
 
         // 5. Open In-App Dialog instead of Window.open
         this.quotationPrintId = quotationId
         this.showQuotationPrintDialog = true
-        
       } catch (er) {
         swalError2(this.$swal, 'Error', er)
       } finally {
@@ -1968,7 +1977,31 @@ export default {
           this.clearCustomerFormAction()
         } else {
           try {
-            this.printDefaultTicket()
+            // TODO: SET CONDITION HERE REGARDING TICKET FORMAT STYLE
+            console.info(`SPF DET ${JSON.stringify(this.findSPF)}`)
+            const PRINTFORMAT = this.findSPF.find(
+              (spf) => spf.code == 'TICKET_FORM'
+            )
+            if (PRINTFORMAT.value == 'FORMAL') {
+              const saleResponse = await this.$axios.get(
+                `api/sale/find/${saleHeaderId}`
+              )
+              const invoiceData = saleResponse.data
+              console.info(`MAIN COMPANY INFOR ${JSON.stringify(this.companyData)}`)
+              // Get company data
+              const fixCompanyData = this.$store.getters.findAllCompany[0] || {}
+              console.info(`fixed COMPANY INFOR ${JSON.stringify(fixCompanyData)}`)
+              
+              // Generate HTML based on type
+              let htmlContent = ''
+              console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
+              htmlContent = generateReceiptHTML(invoiceData, fixCompanyData)
+
+              // Print
+              this.openPrintWindow(htmlContent)
+            } else {
+              this.printDefaultTicket()
+            }
           } catch (error) {
             console.error(`PRINT TICKET FAIL ${error}`)
           }
@@ -2032,7 +2065,48 @@ export default {
 
       this.isloading = false
     },
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
 
+        if (!printWindow) {
+          this.showError(
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
+            }
+          }, 500)
+        }
+
+        // Fallback check
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try {
+              printWindow.print()
+            } catch (e) {}
+          }
+        }, 1000)
+      } catch (error) {
+        console.error('Error creating print window:', error)
+        this.showError('Failed to generate print document')
+      }
+    },
     generatePrintViewDeliveryCustomer() {
       let txnListHtml = ``
       for (const iterator of this.productCart) {

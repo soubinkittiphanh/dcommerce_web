@@ -1,6 +1,5 @@
 <template>
   <div class="sales-form-container">
-    <!-- Loading Overlay -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <v-card class="loading-card" color="primary" dark>
         <v-card-text class="text-center">
@@ -16,12 +15,10 @@
       </v-card>
     </v-dialog>
 
-    <!-- Customer Dialog -->
     <v-dialog v-model="customerDialog" max-width="1200" persistent>
       <customer-list @close-dialog="customerDialog = false" />
     </v-dialog>
 
-    <!-- Cancel Dialog -->
     <v-dialog v-model="cancelConfirmDialog" max-width="600" persistent>
       <cancel-ticket-form
         @refresh="$emit('reload')"
@@ -31,7 +28,6 @@
       />
     </v-dialog>
 
-    <!-- Pricing Dialog -->
     <v-dialog v-model="pricingDialog" max-width="800" persistent>
       <pricing-option
         :key="pricingDialogKey"
@@ -42,10 +38,6 @@
       />
     </v-dialog>
 
-    <!-- Print Invoice Dialog -->
-    <!-- Removed - direct printing instead -->
-
-    <!-- Error Sheet -->
     <v-snackbar
       v-model="errorSnackbar"
       :timeout="10000"
@@ -62,9 +54,7 @@
       </template>
     </v-snackbar>
 
-    <!-- Main Form Card -->
     <v-card class="sales-form-card" elevation="8">
-      <!-- Header Actions -->
       <v-card-title class="header-section primary white--text">
         <div class="d-flex justify-space-between align-center w-100">
           <div class="d-flex align-center">
@@ -107,7 +97,17 @@
               <v-icon left>mdi-cancel</v-icon>
               Cancel
             </v-btn>
-
+            <v-btn
+              color="white"
+              outlined
+              @click="printReceiptDirectly"
+              :disabled="!headerId"
+              :loading="isPrinting"
+              class="mr-2"
+            >
+              <v-icon left>mdi-receipt-text</v-icon>
+              Print Receipt
+            </v-btn>
             <v-btn
               color="white"
               outlined
@@ -123,7 +123,6 @@
       </v-card-title>
 
       <v-card-text class="form-content">
-        <!-- Transaction Header -->
         <v-card
           :class="['transaction-header', { 'header-error': headerError }]"
           elevation="2"
@@ -135,7 +134,6 @@
 
           <v-card-text>
             <v-row>
-              <!-- Left Column -->
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
@@ -194,7 +192,6 @@
                 </div>
               </v-col>
 
-              <!-- Middle Column -->
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
@@ -255,7 +252,6 @@
                 </div>
               </v-col>
 
-              <!-- Right Column -->
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
@@ -298,7 +294,6 @@
           </v-card-text>
         </v-card>
 
-        <!-- Line Items Section -->
         <v-card class="line-items-card mt-6" elevation="2">
           <v-card-title class="d-flex justify-space-between align-center">
             <div class="d-flex align-center">
@@ -320,7 +315,6 @@
           </v-card-title>
 
           <v-card-text class="pa-0">
-            <!-- Enhanced Data Table -->
             <v-data-table
               v-if="transaction.lines && transaction.lines.length > 0"
               :headers="enhancedHeaders"
@@ -331,7 +325,6 @@
               hide-default-footer
               :items-per-page="-1"
             >
-              <!-- Custom row template -->
               <template v-slot:item="{ item, index }">
                 <tr
                   :class="[
@@ -339,14 +332,12 @@
                     { 'error-row': errorLineNumber === index },
                   ]"
                 >
-                  <!-- Line Number -->
                   <td class="text-center">
                     <v-chip small color="grey lighten-2">
                       {{ index + 1 }}
                     </v-chip>
                   </td>
 
-                  <!-- Product -->
                   <td class="product-cell">
                     <v-autocomplete
                       v-model="item.productId"
@@ -373,7 +364,6 @@
                     </v-autocomplete>
                   </td>
 
-                  <!-- Quantity -->
                   <td class="quantity-cell">
                     <v-text-field
                       v-model="item.quantity"
@@ -387,7 +377,6 @@
                     />
                   </td>
 
-                  <!-- Unit -->
                   <td class="unit-cell">
                     <v-autocomplete
                       v-model="item.unitId"
@@ -408,7 +397,6 @@
                     </v-autocomplete>
                   </td>
 
-                  <!-- Unit Rate -->
                   <td class="rate-cell">
                     <v-text-field
                       v-model="item.unitRate"
@@ -422,7 +410,6 @@
                     />
                   </td>
 
-                  <!-- Price -->
                   <td class="price-cell text-right">
                     <v-chip
                       color="warning"
@@ -435,7 +422,6 @@
                     </v-chip>
                   </td>
 
-                  <!-- Discount -->
                   <td class="discount-cell">
                     <v-text-field
                       v-model="item.discount"
@@ -449,7 +435,6 @@
                     />
                   </td>
 
-                  <!-- Total -->
                   <td class="total-cell text-right">
                     <div class="total-amount">
                       <span class="text-h6 font-weight-bold">
@@ -458,7 +443,6 @@
                     </div>
                   </td>
 
-                  <!-- Actions -->
                   <td class="action-cell text-center">
                     <v-btn
                       icon
@@ -472,7 +456,6 @@
                 </tr>
               </template>
 
-              <!-- No data state -->
               <template v-slot:no-data>
                 <div class="text-center pa-8">
                   <v-icon size="64" color="grey lighten-2"
@@ -486,7 +469,6 @@
               </template>
             </v-data-table>
 
-            <!-- Empty state when no lines -->
             <div
               v-if="!transaction.lines || transaction.lines.length === 0"
               class="empty-state"
@@ -514,7 +496,6 @@
           </v-card-text>
         </v-card>
 
-        <!-- Summary Card -->
         <v-card
           v-if="transaction.lines && transaction.lines.length > 0"
           class="summary-card mt-6"
@@ -565,7 +546,6 @@
         </v-card>
       </v-card-text>
 
-      <!-- Actions Footer -->
       <v-card-actions class="actions-footer pa-6">
         <v-spacer />
         <v-btn large text color="grey darken-1" @click="toggleDialog">
@@ -588,7 +568,6 @@
     </v-card>
   </div>
 </template>
-
 <script>
 import commaThousand from '@/plugins/comma-thousand'
 import { mapActions, mapGetters } from 'vuex'
@@ -602,6 +581,8 @@ import {
   replaceAll,
 } from '~/common'
 import CancelTicketForm from './CancelTicketForm.vue'
+// UPDATED: Imported both template functions
+import { generateInvoiceHTML, generateReceiptHTML } from '~/common/printTemplates'
 
 export default {
   name: 'EnhancedSalesFormWithPrint',
@@ -648,7 +629,6 @@ export default {
       'findSelectedTerminal',
     ]),
 
-    // Enhanced computed properties
     clientList() {
       return this.findAllClient || []
     },
@@ -685,7 +665,6 @@ export default {
       return this.isQuotation ? 'quotation' : 'sale'
     },
 
-    // Enhanced UI computed properties
     formattedDate() {
       return this.transaction.bookingDate
         ? new Date(this.transaction.bookingDate).toLocaleDateString()
@@ -739,72 +718,18 @@ export default {
 
     enhancedHeaders() {
       return [
-        {
-          text: '#',
-          value: 'index',
-          sortable: false,
-          width: 80,
-          align: 'center',
-        },
-        {
-          text: 'Product',
-          value: 'productId',
-          sortable: false,
-          width: 250,
-        },
-        {
-          text: 'Quantity',
-          value: 'quantity',
-          sortable: false,
-          width: 120,
-          align: 'center',
-        },
-        {
-          text: 'Unit',
-          value: 'unitId',
-          sortable: false,
-          width: 120,
-          align: 'center',
-        },
-        {
-          text: 'Rate',
-          value: 'unitRate',
-          sortable: false,
-          width: 100,
-          align: 'center',
-        },
-        {
-          text: 'Price',
-          value: 'price',
-          sortable: false,
-          width: 120,
-          align: 'right',
-        },
-        {
-          text: 'Discount',
-          value: 'discount',
-          sortable: false,
-          width: 120,
-          align: 'center',
-        },
-        {
-          text: 'Total',
-          value: 'total',
-          sortable: false,
-          width: 150,
-          align: 'right',
-        },
-        {
-          text: 'Actions',
-          value: 'actions',
-          sortable: false,
-          width: 100,
-          align: 'center',
-        },
+        { text: '#', value: 'index', sortable: false, width: 80, align: 'center' },
+        { text: 'Product', value: 'productId', sortable: false, width: 250 },
+        { text: 'Quantity', value: 'quantity', sortable: false, width: 120, align: 'center' },
+        { text: 'Unit', value: 'unitId', sortable: false, width: 120, align: 'center' },
+        { text: 'Rate', value: 'unitRate', sortable: false, width: 100, align: 'center' },
+        { text: 'Price', value: 'price', sortable: false, width: 120, align: 'right' },
+        { text: 'Discount', value: 'discount', sortable: false, width: 120, align: 'center' },
+        { text: 'Total', value: 'total', sortable: false, width: 150, align: 'right' },
+        { text: 'Actions', value: 'actions', sortable: false, width: 100, align: 'center' },
       ]
     },
 
-    // Form validation rules
     rules() {
       return {
         required: (value) => !!value || 'This field is required',
@@ -824,22 +749,17 @@ export default {
 
   data() {
     return {
-      // UI state
       isloading: false,
       errorSnackbar: false,
       customerDialog: false,
       cancelConfirmDialog: false,
       pricingDialog: false,
       pricingDialogKey: 1,
-      isPrinting: false, // For direct printing loading state
+      isPrinting: false,
       search: '',
-
-      // Error handling
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
-
-      // Form data
       transaction: {
         isActive: true,
         exchangeRate: 1,
@@ -847,8 +767,6 @@ export default {
         bookingDate: new Date().toISOString().substr(0, 10),
         discount: 0,
       },
-
-      // Modal data
       productPricingSelected: null,
       onlineCustomerId: null,
     }
@@ -887,6 +805,14 @@ export default {
 
     // === DIRECT PRINT FUNCTIONALITY ===
     async printInvoiceDirectly() {
+      await this.printDocument('invoice')
+    },
+
+    async printReceiptDirectly() {
+      await this.printDocument('receipt')
+    },
+
+    async printDocument(type) {
       if (!this.headerId) {
         this.showError('Please save the transaction first before printing')
         return
@@ -898,23 +824,31 @@ export default {
         // Fetch invoice data
         const response = await this.$axios.get(`api/sale/find/${this.headerId}`)
         const invoiceData = response.data
+        
+        // Get company data
+        const companyData = this.$store.getters.findAllCompany[0] || {}
 
-        // Create print content
-        this.createAndPrintInvoice(invoiceData)
+        // Generate HTML based on type
+        let htmlContent = ''
+        console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
+        if (type === 'receipt') {
+          htmlContent = generateReceiptHTML(invoiceData, companyData)
+        } else {
+          htmlContent = generateInvoiceHTML(invoiceData, companyData)
+        }
+
+        // Print
+        this.openPrintWindow(htmlContent)
       } catch (error) {
-        console.error('Error fetching invoice data:', error)
-        this.showError('Failed to load invoice data for printing')
+        console.error('Error fetching data:', error)
+        this.showError('Failed to load data for printing')
       } finally {
         this.isPrinting = false
       }
     },
 
-    createAndPrintInvoice(invoiceData) {
+    openPrintWindow(htmlContent) {
       try {
-        // Generate the invoice HTML
-        const invoiceHTML = this.generateInvoiceHTML(invoiceData)
-
-        // Create a new window for printing
         const printWindow = window.open('', '_blank', 'width=800,height=600')
 
         if (!printWindow) {
@@ -924,17 +858,14 @@ export default {
           return
         }
 
-        // Write content to the new window
         printWindow.document.open()
-        printWindow.document.write(invoiceHTML)
+        printWindow.document.write(htmlContent)
         printWindow.document.close()
 
-        // Wait for content to load then print
         printWindow.onload = function () {
           setTimeout(() => {
             try {
               printWindow.print()
-              // Close window after print dialog
               setTimeout(() => {
                 printWindow.close()
               }, 100)
@@ -942,298 +873,20 @@ export default {
               console.error('Print error:', e)
               printWindow.close()
             }
-          }, 500) // Small delay to ensure content is fully rendered
+          }, 500)
         }
-
-        // Fallback if onload doesn't fire
+        
+        // Fallback check
         setTimeout(() => {
           if (printWindow && !printWindow.closed) {
-            try {
-              printWindow.print()
-            } catch (e) {
-              console.error('Fallback print error:', e)
-            }
+             try { printWindow.print() } catch(e) {}
           }
         }, 1000)
+
       } catch (error) {
-        console.error('Error creating print invoice:', error)
-        this.showError('Failed to generate invoice for printing')
+        console.error('Error creating print window:', error)
+        this.showError('Failed to generate print document')
       }
-    },
-
-    generateInvoiceHTML(header) {
-  const totalDiscount = this.calculateTotalDiscount(header)
-  const companyDataV1 = this.$store.getters.findAllCompany[0] || {}
-
-  // Helper functions
-  const formatDate = (dateString) => {
-    if (!dateString) return 'N/A'
-    try {
-      const date = new Date(dateString)
-      return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      })
-    } catch (error) {
-      return dateString
-    }
-  }
-
-  const formatNumber = (val) => {
-    return new Intl.NumberFormat().format(val || 0)
-  }
-
-  // Generate lines HTML with classic borders
-  const linesHTML = header.lines?.map((line, index) => `
-    <tr>
-      <td style="text-align: center;">${index + 1}</td>
-      <td>
-        <span class="pro-name">${line.product?.pro_name || 'Unknown Product'}</span>
-        ${line.product?.pro_id ? `<span class="pro-id"> (${line.product?.pro_id})</span>` : ''}
-        ${line.isGift ? '<small> [Gift]</small>' : ''}
-      </td>
-      <td style="text-align: center;">${formatNumber(line.quantity)}</td>
-      <td style="text-align: center;">${line.unit?.name || 'ແກັດ'}</td>
-      <td style="text-align: right;">${formatNumber(line.price)}</td>
-      <td style="text-align: right;">${formatNumber(line.discount)}</td>
-      <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
-    </tr>
-  `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 20px;">No items</td></tr>'
-
-  return `
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Invoice #${header.id}</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
-<style>
-    /* RESET & BASE */
-    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
-    body {
-        font-family: 'Noto Sans Lao', 'Phetsarath OT', Arial, sans-serif;
-        font-size: 11px;
-        line-height: 1.2;
-        color: #000;
-        margin: 0;
-        padding: 10px;
-        background: white;
-    }
-
-    /* UTILS */
-    .bold { font-weight: bold; }
-    .text-right { text-align: right; }
-
-    /* HEADER SECTION */
-    .header-container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 2px solid #000;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-    }
-    .company-info h1 {
-        font-size: 16px;
-        margin: 0;
-        text-transform: uppercase;
-    }
-    .company-info p { margin: 0; font-size: 11px; }
-    
-    .invoice-title {
-        text-align: right;
-        border: 2px solid #000;
-        padding: 5px 15px;
-    }
-    .invoice-title h2 { margin: 0; font-size: 18px; line-height: 1; }
-    .invoice-title span { font-size: 12px; }
-
-    /* COMPACT INFO SECTION */
-    .info-box {
-        width: 100%;
-        border: 1px solid #000;
-        margin-bottom: 10px;
-        padding: 5px;
-        display: flex;
-    }
-    .info-col {
-        flex: 1;
-    }
-    .info-col.right {
-        border-left: 1px solid #000;
-        padding-left: 10px;
-        flex: 0 0 250px;
-    }
-    
-    .field-row { margin-bottom: 2px; }
-    .field-label { font-weight: bold; margin-right: 5px; }
-    .field-val { margin-right: 15px; }
-
-    /* TABLE */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 10px;
-    }
-    th {
-        border: 1px solid #000;
-        background-color: #eee;
-        padding: 4px;
-        font-size: 10px;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle;
-    }
-    td {
-        border: 1px solid #000;
-        padding: 4px;
-        vertical-align: middle;
-        font-size: 11px;
-    }
-    .pro-name { font-weight: bold; }
-    .pro-id { font-size: 10px; }
-
-    /* TOTALS */
-    .totals-container {
-        display: flex;
-        justify-content: flex-end;
-    }
-    .totals-box {
-        width: 250px;
-        border: 1px solid #000;
-    }
-    .total-row {
-        display: flex;
-        justify-content: space-between;
-        padding: 3px 5px;
-        border-bottom: 1px solid #ccc;
-    }
-    .total-row.final {
-        border-bottom: none;
-        background-color: #eee;
-        font-weight: bold;
-        font-size: 13px;
-        border-top: 1px solid #000;
-    }
-
-    /* FOOTER */
-    .footer {
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-between;
-        text-align: center;
-    }
-    .sign-box {
-        border-top: 1px dashed #000;
-        width: 150px;
-        padding-top: 5px;
-        font-size: 10px;
-    }
-
-    @media print {
-        body { margin: 0; padding: 0; }
-        @page { size: A4; margin: 0.5cm; }
-    }
-</style>
-</head>
-<body>
-
-<div class="header-container">
-    <div class="company-info">
-        <h1>${companyDataV1.name || 'COMPANY NAME'}</h1>
-        <p>${companyDataV1.address || ''} | Tel: ${companyDataV1.tel || ''}</p>
-    </div>
-    <div class="invoice-title">
-        <h2>INVOICE</h2>
-        <span>ໃບແຈ້ງໜີ້</span>
-    </div>
-</div>
-
-<div class="info-box">
-    <div class="info-col">
-        <div class="field-row">
-            <span class="field-label">Customer / ລູກຄ້າ:</span>
-            <span class="field-val bold" style="font-size: 12px;">${header.client?.name || header.client?.company || 'Walk-in Customer'}</span>
-            
-            <span class="field-label">Tel:</span>
-            <span class="field-val">${header.client?.telephone || '-'}</span>
-        </div>
-        <div class="field-row">
-            <span class="field-label">Address / ທີ່ຢູ່:</span>
-            <span class="field-val">${header.client?.address || '-'}</span>
-        </div>
-    </div>
-    <div class="info-col right">
-        <div class="field-row">
-            <span class="field-label">No:</span> <span class="field-val bold">${header.id}</span>
-            <span class="field-label">Date:</span> <span class="field-val">${formatDate(header.bookingDate)}</span>
-        </div>
-        <div class="field-row">
-            <span class="field-label">Staff:</span> <span class="field-val">${header.user?.cus_name || '-'}</span>
-            <span class="field-label">Pay:</span> <span class="field-val">${header.payment?.payment_name || '-'}</span>
-        </div>
-    </div>
-</div>
-
-<table>
-    <thead>
-        <tr>
-            <th width="5%">#</th>
-            <th width="40%">Description / ລາຍການ</th>
-            <th width="10%">Qty<br>ຈຳນວນ</th>
-            <th width="10%">Unit<br>ຫົວໜ່ວຍ</th>
-            <th width="12%">Price<br>ລາຄາ</th>
-            <th width="10%">Disc.<br>ສ່ວນຫຼຸດ</th>
-            <th width="13%">Amount<br>ລວມ</th>
-        </tr>
-    </thead>
-    <tbody>
-        ${linesHTML}
-    </tbody>
-</table>
-
-<div class="totals-container">
-    <div class="totals-box">
-        <div class="total-row">
-            <span>Subtotal / ລວມ:</span>
-            <span>${formatNumber(header.total + totalDiscount)}</span>
-        </div>
-        ${totalDiscount > 0 ? `
-        <div class="total-row">
-            <span>Discount / ສ່ວນຫຼຸດ:</span>
-            <span>-${formatNumber(totalDiscount)}</span>
-        </div>` : ''}
-        <div class="total-row final">
-            <span>TOTAL / ລວມທັງໝົດ:</span>
-            <span>${formatNumber(header.total)}</span>
-        </div>
-    </div>
-</div>
-
-<div class="footer">
-    <div class="sign-box">
-        ຜູ້ຮັບສິນຄ້າ / Receiver
-    </div>
-    <div class="sign-box">
-        ຜູ້ອອກບິນ / Authorized By
-    </div>
-</div>
-
-</body>
-</html>
-  `
-},
-
-    calculateTotalDiscount(header) {
-      if (!header || !header.lines) return 0
-
-      let totalDiscount = 0
-      for (const line of header.lines) {
-        totalDiscount += line.discount || 0
-      }
-      totalDiscount += header.discount || 0
-      return totalDiscount
     },
 
     // === CURRENCY & PRICING ===
@@ -1243,7 +896,6 @@ export default {
       )
       if (currency) {
         this.transaction.exchangeRate = currency.rate || 1
-        console.log(`Exchange rate updated: ${this.transaction.exchangeRate}`)
       }
     },
 
@@ -1254,28 +906,17 @@ export default {
     // === PRODUCT & LINE ITEM MANAGEMENT ===
     productChange(item) {
       const product = this.productList.find((el) => el.id === item.productId)
-      if (!product) {
-        console.log('Product not found')
-        return
-      }
+      if (!product) return
 
-      const index = this.transaction.lines.indexOf(item)
       const currency = this.findCurrency(product.saleCurrencyId)
       const localPrice = (product.pro_price || 0) * (currency.rate || 1)
 
-      // Update product-related fields with Vue.set for reactivity
       this.$set(item, 'price', localPrice)
 
-      // Auto-populate unit if product has stockUnitId
       if (product.stockUnitId) {
         this.$set(item, 'unitId', product.stockUnitId)
-
         const unit = this.unitList.find((el) => el.id === product.stockUnitId)
-        if (unit?.unitRate) {
-          this.$set(item, 'unitRate', unit.unitRate)
-        } else {
-          this.$set(item, 'unitRate', 1)
-        }
+        this.$set(item, 'unitRate', unit?.unitRate || 1)
       } else {
         this.$set(item, 'unitId', null)
         this.$set(item, 'unitRate', 1)
@@ -1315,7 +956,7 @@ export default {
     },
 
     newRow() {
-      const defaultLine = {
+      this.transaction.lines.push({
         quantity: 1,
         unitRate: 1,
         price: 0,
@@ -1324,20 +965,15 @@ export default {
         isActive: true,
         productId: null,
         unitId: null,
-      }
-      this.transaction.lines.push(defaultLine)
+      })
     },
 
     async deleteItem(item) {
       try {
         this.isloading = true
-
         if (item.id) {
-          // Delete from server
           await this.$axios.delete(`api/${this.apiLine}Line/find/${item.id}`)
         }
-
-        // Remove from local array
         const index = this.transaction.lines.indexOf(item)
         if (index > -1) {
           this.transaction.lines.splice(index, 1)
@@ -1352,21 +988,11 @@ export default {
     // === VALIDATION ===
     validateHeader() {
       this.headerError = false
-
       const errors = []
 
-      if (!this.transaction.currencyId) {
-        errors.push('Currency is required')
-      }
-
-      if (!this.transaction.paymentId) {
-        errors.push('Payment method is required')
-      }
-
-      if (!this.transaction.clientId) {
-        errors.push('Customer is required')
-      }
-
+      if (!this.transaction.currencyId) errors.push('Currency is required')
+      if (!this.transaction.paymentId) errors.push('Payment method is required')
+      if (!this.transaction.clientId) errors.push('Customer is required')
       if (!this.transaction.lines || this.transaction.lines.length === 0) {
         errors.push('At least one line item is required')
       }
@@ -1376,46 +1002,30 @@ export default {
         this.showError(errors.join(', '))
         return false
       }
-
       return true
     },
 
     validateLine(item, lineNumber) {
       const errors = []
-
-      if (!item.productId) {
-        errors.push(`Line ${lineNumber}: Product is required`)
-      }
-
+      if (!item.productId) errors.push(`Line ${lineNumber}: Product is required`)
+      
       const quantity = parseFloat(item.quantity)
-      if (!quantity || quantity <= 0) {
-        errors.push(`Line ${lineNumber}: Quantity must be greater than 0`)
-      }
-
-      const unitRate = parseFloat(item.unitRate)
-      if (!unitRate || unitRate <= 0) {
-        errors.push(`Line ${lineNumber}: Unit rate must be greater than 0`)
-      }
+      if (!quantity || quantity <= 0) errors.push(`Line ${lineNumber}: Quantity must be positive`)
 
       const price = parseFloat(item.price)
-      if (!item.isGift && (!price || price <= 0)) {
-        errors.push(`Line ${lineNumber}: Price must be greater than 0`)
-      }
+      if (!item.isGift && (!price || price <= 0)) errors.push(`Line ${lineNumber}: Price must be positive`)
 
       if (errors.length > 0) {
         this.errorLineNumber = lineNumber - 1
         this.showError(errors.join(', '))
         return false
       }
-
       return true
     },
 
     validateAllLines() {
       for (let i = 0; i < this.transaction.lines.length; i++) {
-        if (!this.validateLine(this.transaction.lines[i], i + 1)) {
-          return false
-        }
+        if (!this.validateLine(this.transaction.lines[i], i + 1)) return false
       }
       this.errorLineNumber = null
       return true
@@ -1428,7 +1038,6 @@ export default {
           `api/${this.apiLine}/find/${this.headerId}`
         )
         this.transaction = response.data
-        console.log('Transaction loaded:', response.data)
       } catch (error) {
         this.showError('Failed to load transaction', error)
         throw error
@@ -1436,24 +1045,17 @@ export default {
     },
 
     async postTransaction() {
-      if (!this.validateHeader() || !this.validateAllLines()) {
-        return
-      }
-
+      if (!this.validateHeader() || !this.validateAllLines()) return
       this.isloading = true
 
       try {
-        // Prepare transaction data
         this.prepareTransactionForSubmit()
-
         const url = this.isUpdate
           ? `api/${this.apiLine}/update/${this.headerId}`
           : `api/${this.apiLine}/create`
-
         const method = this.isUpdate ? 'put' : 'post'
 
-        const response = await this.$axios[method](url, this.transaction)
-
+        await this.$axios[method](url, this.transaction)
         this.$emit('reload')
         swalSuccess(this.$swal, 'Success', 'Transaction saved successfully')
       } catch (error) {
@@ -1464,24 +1066,14 @@ export default {
     },
 
     async postToInvoice() {
-      if (!this.validateHeader() || !this.validateAllLines()) {
-        return
-      }
-
+      if (!this.validateHeader() || !this.validateAllLines()) return
       this.isloading = true
 
       try {
-        // Prepare quotation for conversion to invoice
         const invoiceData = this.prepareInvoiceFromQuotation()
-
-        const response = await this.$axios.post('api/sale/create', invoiceData)
-
+        await this.$axios.post('api/sale/create', invoiceData)
         this.$emit('reload')
-        swalSuccess(
-          this.$swal,
-          'Success',
-          'Quotation converted to invoice successfully'
-        )
+        swalSuccess(this.$swal, 'Success', 'Quotation converted successfully')
       } catch (error) {
         this.handleSubmitError(error)
       } finally {
@@ -1490,7 +1082,6 @@ export default {
     },
 
     prepareTransactionForSubmit() {
-      // Clean up line items
       this.transaction.lines.forEach((line) => {
         line.quantity = parseFloat(line.quantity) || 0
         line.unitRate = parseFloat(line.unitRate) || 1
@@ -1498,8 +1089,6 @@ export default {
         line.discount = parseFloat(line.discount) || 0
         line.total = parseFloat(line.total) || 0
       })
-
-      // Set transaction metadata
       this.transaction.userId = this.user.id
       this.transaction.total = this.grandTotal
       this.transaction.discount = this.headerDiscount
@@ -1509,9 +1098,8 @@ export default {
     prepareInvoiceFromQuotation() {
       const invoiceLines = this.transaction.lines.map((line) => ({
         ...line,
-        id: null, // Remove IDs for new invoice
+        id: null,
       }))
-
       return {
         ...this.transaction,
         lines: invoiceLines,
@@ -1523,24 +1111,14 @@ export default {
     },
 
     handleSubmitError(error) {
-      console.error('Submit error:', error)
-
       if (error.response?.data) {
         const errorData = error.response.data
-
-        // Handle out of stock errors
-        const outOfStockProductId = errorData.split('#')[1]
+        const outOfStockProductId = typeof errorData === 'string' ? errorData.split('#')[1] : null
+        
         if (outOfStockProductId) {
-          const product = this.productList.find(
-            (p) => p.id == outOfStockProductId
-          )
-          const productName = product?.pro_name || 'Unknown Product'
-          this.showError(`Insufficient stock for product: ${productName}`)
-
-          // Highlight the problematic line
-          this.errorLineNumber = this.transaction.lines.findIndex(
-            (line) => line.productId == outOfStockProductId
-          )
+          const product = this.productList.find((p) => p.id == outOfStockProductId)
+          this.showError(`Insufficient stock for: ${product?.pro_name || 'Unknown'}`)
+          this.errorLineNumber = this.transaction.lines.findIndex((line) => line.productId == outOfStockProductId)
         } else {
           this.showError('Failed to save transaction', error)
         }
@@ -1567,7 +1145,6 @@ export default {
       const index = this.transaction.lines.findIndex(
         (line) => line.productId === this.productPricingSelected
       )
-
       if (index < 0) return
 
       const line = this.transaction.lines[index]
@@ -1576,12 +1153,10 @@ export default {
       if (priceInfo.type === 'Price') {
         this.$set(line, 'price', newPrice)
       } else {
-        // Percentage adjustment
         const currentPrice = parseFloat(line.price) || 0
         const updatedPrice = currentPrice * (1 + newPrice / 100)
         this.$set(line, 'price', updatedPrice)
       }
-
       this.calculateLineTotal(line)
     },
 
@@ -1606,14 +1181,11 @@ export default {
     showError(message, error = null) {
       this.validateErrorMessage = message
       this.errorSnackbar = true
-      if (error) {
-        console.error('Error details:', error)
-      }
+      if (error) console.error('Error details:', error)
     },
   },
 }
 </script>
-
 <style scoped>
 .sales-form-container {
   background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
