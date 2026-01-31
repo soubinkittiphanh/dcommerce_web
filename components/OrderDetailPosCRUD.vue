@@ -69,19 +69,23 @@
         <div class="d-flex justify-space-between align-center w-100">
           <div class="d-flex align-center">
             <v-icon large color="white" class="mr-3">
-              {{ isQuotation ? 'mdi-file-document-edit-outline' : 'mdi-receipt' }}
+              {{
+                isQuotation ? 'mdi-file-document-edit-outline' : 'mdi-receipt'
+              }}
             </v-icon>
             <div>
               <h2 class="text-h5 mb-0">
-                {{ isQuotation ? 'Quotation' : 'Invoice' }} 
-                <span class="text-h6 opacity-80">#{{ transaction.id || 'New' }}</span>
+                {{ isQuotation ? 'Quotation' : 'Invoice' }}
+                <span class="text-h6 opacity-80"
+                  >#{{ transaction.id || 'New' }}</span
+                >
               </h2>
               <div class="text-caption opacity-80">
                 {{ formattedDate }}
               </div>
             </div>
           </div>
-          
+
           <div class="d-flex align-center gap-2">
             <v-btn
               v-if="isQuotation"
@@ -93,7 +97,7 @@
               <v-icon left>mdi-arrow-right</v-icon>
               Convert to Invoice
             </v-btn>
-            
+
             <v-btn
               color="warning"
               outlined
@@ -103,7 +107,7 @@
               <v-icon left>mdi-cancel</v-icon>
               Cancel
             </v-btn>
-            
+
             <v-btn
               color="white"
               outlined
@@ -120,7 +124,7 @@
 
       <v-card-text class="form-content">
         <!-- Transaction Header -->
-        <v-card 
+        <v-card
           :class="['transaction-header', { 'header-error': headerError }]"
           elevation="2"
         >
@@ -128,17 +132,19 @@
             <v-icon left color="primary">mdi-information</v-icon>
             Transaction Details
           </v-card-title>
-          
+
           <v-card-text>
             <v-row>
               <!-- Left Column -->
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-calendar</v-icon>
+                    <v-icon small color="primary" class="mr-2"
+                      >mdi-calendar</v-icon
+                    >
                     Date & Payment
                   </h4>
-                  
+
                   <v-text-field
                     v-model="transaction.bookingDate"
                     type="date"
@@ -148,7 +154,7 @@
                     required
                     :rules="[rules.required]"
                   />
-                  
+
                   <v-autocomplete
                     v-model="transaction.paymentId"
                     :items="paymentList"
@@ -166,7 +172,7 @@
                       </v-chip>
                     </template>
                   </v-autocomplete>
-                  
+
                   <v-text-field
                     v-model="transaction.discount"
                     label="Header Discount"
@@ -176,7 +182,7 @@
                     prefix="$"
                     :rules="[rules.positiveNumber]"
                   />
-                  
+
                   <v-text-field
                     v-if="isQuotation && transaction.referenceNo"
                     v-model="transaction.referenceNo"
@@ -192,10 +198,12 @@
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-account</v-icon>
+                    <v-icon small color="primary" class="mr-2"
+                      >mdi-account</v-icon
+                    >
                     Customer & Currency
                   </h4>
-                  
+
                   <v-autocomplete
                     v-model="transaction.clientId"
                     :items="clientList"
@@ -218,7 +226,7 @@
                       </div>
                     </template>
                   </v-autocomplete>
-                  
+
                   <v-autocomplete
                     v-model="transaction.currencyId"
                     :items="currencyList"
@@ -237,7 +245,7 @@
                       </v-chip>
                     </template>
                   </v-autocomplete>
-                  
+
                   <v-card color="grey lighten-4" flat class="pa-3">
                     <div class="text-subtitle-2">Exchange Rate</div>
                     <div class="text-h6 primary--text">
@@ -251,10 +259,12 @@
               <v-col cols="12" md="4">
                 <div class="form-section">
                   <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-note-text</v-icon>
+                    <v-icon small color="primary" class="mr-2"
+                      >mdi-note-text</v-icon
+                    >
                     Notes & Summary
                   </h4>
-                  
+
                   <v-textarea
                     v-model="transaction.remark"
                     label="Notes"
@@ -263,7 +273,7 @@
                     rows="3"
                     auto-grow
                   />
-                  
+
                   <div v-if="transaction.user" class="user-info">
                     <v-card color="grey lighten-5" flat class="pa-3">
                       <div class="text-caption">Created by</div>
@@ -275,7 +285,7 @@
                       </div>
                     </v-card>
                   </div>
-                  
+
                   <v-card color="success lighten-4" flat class="pa-3 mt-3">
                     <div class="text-subtitle-2">Total Amount</div>
                     <div class="text-h4 success--text font-weight-bold">
@@ -298,10 +308,10 @@
                 {{ transaction.lines.length }} items
               </v-chip>
             </div>
-            
-            <v-btn 
-              color="primary" 
-              @click="newRow" 
+
+            <v-btn
+              color="primary"
+              @click="newRow"
               :disabled="!transaction.isActive || !updateAllow"
             >
               <v-icon left>mdi-plus</v-icon>
@@ -323,8 +333,11 @@
             >
               <!-- Custom row template -->
               <template v-slot:item="{ item, index }">
-                <tr 
-                  :class="['line-item-row', { 'error-row': errorLineNumber === index }]"
+                <tr
+                  :class="[
+                    'line-item-row',
+                    { 'error-row': errorLineNumber === index },
+                  ]"
                 >
                   <!-- Line Number -->
                   <td class="text-center">
@@ -349,9 +362,11 @@
                     >
                       <template v-slot:selection="{ item: product }">
                         <div class="product-selection">
-                          <div class="font-weight-medium">{{ product.pro_name }}</div>
+                          <div class="font-weight-medium">
+                            {{ product.pro_name }}
+                          </div>
                           <div class="text-caption text--secondary">
-                            ID: {{ product.id }}
+                            barcode: {{ product.barCode }}
                           </div>
                         </div>
                       </template>
@@ -460,20 +475,30 @@
               <!-- No data state -->
               <template v-slot:no-data>
                 <div class="text-center pa-8">
-                  <v-icon size="64" color="grey lighten-2">mdi-package-variant</v-icon>
+                  <v-icon size="64" color="grey lighten-2"
+                    >mdi-package-variant</v-icon
+                  >
                   <div class="text-h6 mt-4 grey--text">No items added yet</div>
-                  <div class="text-body-2 grey--text">Click "Add Item" to get started</div>
+                  <div class="text-body-2 grey--text">
+                    Click "Add Item" to get started
+                  </div>
                 </div>
               </template>
             </v-data-table>
 
             <!-- Empty state when no lines -->
-            <div v-if="!transaction.lines || transaction.lines.length === 0" class="empty-state">
+            <div
+              v-if="!transaction.lines || transaction.lines.length === 0"
+              class="empty-state"
+            >
               <v-card flat color="grey lighten-5" class="text-center pa-12">
-                <v-icon size="80" color="grey lighten-1">mdi-package-variant-closed</v-icon>
+                <v-icon size="80" color="grey lighten-1"
+                  >mdi-package-variant-closed</v-icon
+                >
                 <h3 class="text-h5 mt-4 grey--text">No Items Added</h3>
                 <p class="text-body-1 grey--text mb-6">
-                  Start by adding your first product to this {{ isQuotation ? 'quotation' : 'invoice' }}
+                  Start by adding your first product to this
+                  {{ isQuotation ? 'quotation' : 'invoice' }}
                 </p>
                 <v-btn
                   color="primary"
@@ -490,7 +515,11 @@
         </v-card>
 
         <!-- Summary Card -->
-        <v-card v-if="transaction.lines && transaction.lines.length > 0" class="summary-card mt-6" elevation="4">
+        <v-card
+          v-if="transaction.lines && transaction.lines.length > 0"
+          class="summary-card mt-6"
+          elevation="4"
+        >
           <v-card-title class="secondary white--text">
             <v-icon left color="white">mdi-calculator</v-icon>
             Transaction Summary
@@ -501,7 +530,9 @@
                 <div class="summary-details">
                   <div class="summary-row">
                     <span>Subtotal ({{ transaction.lines.length }} items)</span>
-                    <span class="font-weight-medium">{{ formatCurrency(subtotal) }}</span>
+                    <span class="font-weight-medium">{{
+                      formatCurrency(subtotal)
+                    }}</span>
                   </div>
                   <div class="summary-row">
                     <span>Header Discount</span>
@@ -537,16 +568,11 @@
       <!-- Actions Footer -->
       <v-card-actions class="actions-footer pa-6">
         <v-spacer />
-        <v-btn
-          large
-          text
-          color="grey darken-1"
-          @click="toggleDialog"
-        >
+        <v-btn large text color="grey darken-1" @click="toggleDialog">
           <v-icon left>mdi-close</v-icon>
           Cancel
         </v-btn>
-        
+
         <v-btn
           large
           color="primary"
@@ -555,7 +581,8 @@
           :loading="isloading"
         >
           <v-icon left>mdi-content-save</v-icon>
-          {{ isUpdate ? 'Update' : 'Save' }} {{ isQuotation ? 'Quotation' : 'Invoice' }}
+          {{ isUpdate ? 'Update' : 'Save' }}
+          {{ isQuotation ? 'Quotation' : 'Invoice' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -578,11 +605,11 @@ import CancelTicketForm from './CancelTicketForm.vue'
 
 export default {
   name: 'EnhancedSalesFormWithPrint',
-  components: { 
-    PricingOption, 
-    CancelTicketForm
+  components: {
+    PricingOption,
+    CancelTicketForm,
   },
-  
+
   props: {
     headerId: {
       type: Number,
@@ -643,9 +670,11 @@ export default {
     },
 
     currentTerminal() {
-      return this.findAllTerminal?.find(
-        (el) => el.id === this.findSelectedTerminal
-      ) || {}
+      return (
+        this.findAllTerminal?.find(
+          (el) => el.id === this.findSelectedTerminal
+        ) || {}
+      )
     },
 
     user() {
@@ -658,21 +687,25 @@ export default {
 
     // Enhanced UI computed properties
     formattedDate() {
-      return this.transaction.bookingDate 
+      return this.transaction.bookingDate
         ? new Date(this.transaction.bookingDate).toLocaleDateString()
         : 'Today'
     },
 
     selectedCurrencyCode() {
-      const currency = this.currencyList.find(c => c.id === this.transaction.currencyId)
+      const currency = this.currencyList.find(
+        (c) => c.id === this.transaction.currencyId
+      )
       return currency?.code || 'USD'
     },
 
     canSave() {
-      return this.transaction.isActive && 
-             this.updateAllow && 
-             this.transaction.lines?.length > 0 &&
-             !this.isloading
+      return (
+        this.transaction.isActive &&
+        this.updateAllow &&
+        this.transaction.lines?.length > 0 &&
+        !this.isloading
+      )
     },
 
     canCancel() {
@@ -680,15 +713,19 @@ export default {
     },
 
     canConvertToInvoice() {
-      return this.isQuotation && 
-             this.transaction.lines?.length > 0 && 
-             this.transaction.isActive
+      return (
+        this.isQuotation &&
+        this.transaction.lines?.length > 0 &&
+        this.transaction.isActive
+      )
     },
 
     subtotal() {
-      return this.transaction.lines?.reduce((total, item) => {
-        return total + (item.total || 0)
-      }, 0) || 0
+      return (
+        this.transaction.lines?.reduce((total, item) => {
+          return total + (item.total || 0)
+        }, 0) || 0
+      )
     },
 
     headerDiscount() {
@@ -702,67 +739,67 @@ export default {
 
     enhancedHeaders() {
       return [
-        { 
-          text: '#', 
-          value: 'index', 
-          sortable: false, 
+        {
+          text: '#',
+          value: 'index',
+          sortable: false,
           width: 80,
-          align: 'center'
+          align: 'center',
         },
-        { 
-          text: 'Product', 
-          value: 'productId', 
-          sortable: false, 
-          width: 250 
+        {
+          text: 'Product',
+          value: 'productId',
+          sortable: false,
+          width: 250,
         },
-        { 
-          text: 'Quantity', 
-          value: 'quantity', 
-          sortable: false, 
+        {
+          text: 'Quantity',
+          value: 'quantity',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center',
         },
-        { 
-          text: 'Unit', 
-          value: 'unitId', 
-          sortable: false, 
+        {
+          text: 'Unit',
+          value: 'unitId',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center',
         },
-        { 
-          text: 'Rate', 
-          value: 'unitRate', 
-          sortable: false, 
+        {
+          text: 'Rate',
+          value: 'unitRate',
+          sortable: false,
           width: 100,
-          align: 'center' 
+          align: 'center',
         },
-        { 
-          text: 'Price', 
-          value: 'price', 
-          sortable: false, 
+        {
+          text: 'Price',
+          value: 'price',
+          sortable: false,
           width: 120,
-          align: 'right' 
+          align: 'right',
         },
-        { 
-          text: 'Discount', 
-          value: 'discount', 
-          sortable: false, 
+        {
+          text: 'Discount',
+          value: 'discount',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center',
         },
-        { 
-          text: 'Total', 
-          value: 'total', 
-          sortable: false, 
+        {
+          text: 'Total',
+          value: 'total',
+          sortable: false,
           width: 150,
-          align: 'right' 
+          align: 'right',
         },
-        { 
-          text: 'Actions', 
-          value: 'actions', 
-          sortable: false, 
+        {
+          text: 'Actions',
+          value: 'actions',
+          sortable: false,
           width: 100,
-          align: 'center' 
+          align: 'center',
         },
       ]
     },
@@ -770,17 +807,17 @@ export default {
     // Form validation rules
     rules() {
       return {
-        required: value => !!value || 'This field is required',
-        positiveNumber: value => {
+        required: (value) => !!value || 'This field is required',
+        positiveNumber: (value) => {
           if (!value) return true
           const num = parseFloat(value)
-          return !isNaN(num) && num >= 0 || 'Must be a positive number'
+          return (!isNaN(num) && num >= 0) || 'Must be a positive number'
         },
-        nonZeroNumber: value => {
+        nonZeroNumber: (value) => {
           if (!value) return 'This field is required'
           const num = parseFloat(value)
-          return !isNaN(num) && num > 0 || 'Must be greater than 0'
-        }
+          return (!isNaN(num) && num > 0) || 'Must be greater than 0'
+        },
       }
     },
   },
@@ -796,12 +833,12 @@ export default {
       pricingDialogKey: 1,
       isPrinting: false, // For direct printing loading state
       search: '',
-      
+
       // Error handling
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
-      
+
       // Form data
       transaction: {
         isActive: true,
@@ -810,7 +847,7 @@ export default {
         bookingDate: new Date().toISOString().substr(0, 10),
         discount: 0,
       },
-      
+
       // Modal data
       productPricingSelected: null,
       onlineCustomerId: null,
@@ -856,15 +893,14 @@ export default {
       }
 
       this.isPrinting = true
-      
+
       try {
         // Fetch invoice data
         const response = await this.$axios.get(`api/sale/find/${this.headerId}`)
         const invoiceData = response.data
-        
+
         // Create print content
         this.createAndPrintInvoice(invoiceData)
-        
       } catch (error) {
         console.error('Error fetching invoice data:', error)
         this.showError('Failed to load invoice data for printing')
@@ -877,22 +913,24 @@ export default {
       try {
         // Generate the invoice HTML
         const invoiceHTML = this.generateInvoiceHTML(invoiceData)
-        
+
         // Create a new window for printing
         const printWindow = window.open('', '_blank', 'width=800,height=600')
-        
+
         if (!printWindow) {
-          this.showError('Unable to open print window. Please check popup blocker settings.')
+          this.showError(
+            'Unable to open print window. Please check popup blocker settings.'
+          )
           return
         }
-        
+
         // Write content to the new window
         printWindow.document.open()
         printWindow.document.write(invoiceHTML)
         printWindow.document.close()
-        
+
         // Wait for content to load then print
-        printWindow.onload = function() {
+        printWindow.onload = function () {
           setTimeout(() => {
             try {
               printWindow.print()
@@ -906,7 +944,7 @@ export default {
             }
           }, 500) // Small delay to ensure content is fully rendered
         }
-        
+
         // Fallback if onload doesn't fire
         setTimeout(() => {
           if (printWindow && !printWindow.closed) {
@@ -917,7 +955,6 @@ export default {
             }
           }
         }, 1000)
-        
       } catch (error) {
         console.error('Error creating print invoice:', error)
         this.showError('Failed to generate invoice for printing')
@@ -927,8 +964,8 @@ export default {
     generateInvoiceHTML(header) {
       const totalDiscount = this.calculateTotalDiscount(header)
       const companyDataV1 = this.$store.getters.findAllCompany[0] || {}
-      
-      // Helper functions for formatting (moved inside to avoid 'this' context issues)
+
+      // Helper functions
       const formatDate = (dateString) => {
         if (!dateString) return 'N/A'
         try {
@@ -936,287 +973,294 @@ export default {
           return date.toLocaleDateString('en-GB', {
             day: '2-digit',
             month: '2-digit',
-            year: 'numeric'
+            year: 'numeric',
           })
         } catch (error) {
           return dateString
         }
       }
-      
+
       const formatNumber = (val) => {
         return new Intl.NumberFormat().format(val || 0)
       }
-      
-      // Generate lines HTML
-      const linesHTML = header.lines?.map((line, index) => `
-        <tr>
-          <td style="text-align: center;">${index + 1}</td>
-          <td>
-            <strong>${line.product?.pro_name || 'Unknown Product'}</strong><br>
-            <small>ID: ${line.product?.pro_id || line.productId}</small>
-            ${line.isGift ? '<br><small style="color: #ff6b35;">🎁 ຂອງຂວັນ / Gift</small>' : ''}
-          </td>
-          <td style="text-align: center;">${formatNumber(line.quantity)}</td>
-          <td style="text-align: center;">${line.unit?.name || 'ຊີ້ນ'}</td>
-          <td style="text-align: right;">${formatNumber(line.price)}</td>
-          <td style="text-align: right;">${formatNumber(line.discount)}</td>
-          <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
-        </tr>
-      `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>'
-      
+
+      // Generate lines HTML with classic borders
+      const linesHTML =
+        header.lines
+          ?.map(
+            (line, index) => `
+    <tr>
+      <td style="text-align: center;">${index + 1}</td>
+      <td>
+        <span class="pro-name">${
+          line.product?.pro_name || 'Unknown Product'
+        }</span>
+        ${
+          line.product?.pro_id
+            ? `<br><small class="pro-id">barcode: ${line.product?.barCode}</small>`
+            : ''
+        }
+        ${line.isGift ? '<br><small>🎁 Gift</small>' : ''}
+      </td>
+      <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+      <td style="text-align: center;">${line.unit?.name || 'ແກັດ'}</td>
+      <td style="text-align: right;">${formatNumber(line.price)}</td>
+      <td style="text-align: right;">${formatNumber(line.discount)}</td>
+      <td style="text-align: right;"><strong>${formatNumber(
+        line.total
+      )}</strong></td>
+    </tr>
+  `
+          )
+          .join('') ||
+        '<tr><td colspan="7" style="text-align: center; padding: 20px;">No items</td></tr>'
+
       return `
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Invoice #${header.id}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            padding: 20px;
-            background: white;
-            color: #333;
-            line-height: 1.4;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .company-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #246ab2;
-        }
-        
-        .company-info h2 {
-            color: #246ab2;
-            font-size: 24px;
-            margin-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            font-weight: bold;
-        }
-        
-        .company-info p {
-            margin: 4px 0;
-            color: #555;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .invoice-title {
-            text-align: center;
-            margin: 20px 0 30px 0;
-        }
-        
-        .invoice-title h1 {
-            color: #246ab2;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-section {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .info-card {
-            flex: 1;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        
-        .info-header {
-            color: #246ab2;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #246ab2;
-            padding-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-row {
-            margin-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-row strong {
-            display: inline-block;
-            min-width: 120px;
-            color: #495057;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table th {
-            background: #246ab2;
-            color: white;
-            padding: 12px 8px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #246ab2;
-            font-size: 11px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table td {
-            padding: 10px 8px;
-            border: 1px solid #ddd;
-            vertical-align: top;
-            font-size: 12px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-        
-        .summary-section {
-            float: right;
-            width: 300px;
-            margin-bottom: 30px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            margin-top: 10px;
-            border-top: 2px solid #246ab2;
-            font-weight: bold;
-            font-size: 16px;
-            color: #246ab2;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .footer-section {
-            clear: both;
-            margin-top: 40px;
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        /* Force font on all text elements */
-        h1, h2, h3, h4, h5, h6, p, div, span, td, th, strong, small {
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        @media print {
-            body { 
-                margin: 0; 
-                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            }
-            @page { margin: 1cm; size: A4; }
-            * {
-                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Invoice #${header.id}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* RESET & BASE */
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+    body {
+        font-family: 'Noto Sans Lao', 'Phetsarath OT', Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.3;
+        color: #000;
+        margin: 0;
+        padding: 15px;
+        background: white;
+    }
+
+    /* UTILS */
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .bold { font-weight: bold; }
+    .mb-2 { margin-bottom: 8px; }
+
+    /* HEADER SECTION */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .company-info h1 {
+        font-size: 18px;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+    }
+    .company-info p { margin: 2px 0; font-size: 12px; }
+    
+    .invoice-label {
+        text-align: right;
+    }
+    .invoice-label h2 {
+        font-size: 24px;
+        margin: 0;
+        letter-spacing: 2px;
+    }
+    .invoice-label span { font-size: 14px; }
+
+    /* INFO GRID (Classic Box Style) */
+    .info-grid {
+        display: flex;
+        width: 100%;
+        border: 1px solid #000;
+        margin-bottom: 15px;
+    }
+    .col-left {
+        width: 60%;
+        padding: 8px;
+        border-right: 1px solid #000;
+    }
+    .col-right {
+        width: 40%;
+        padding: 8px;
+    }
+    .info-row {
+        display: flex;
+        margin-bottom: 3px;
+    }
+    .label {
+        width: 100px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    /* PRODUCT TABLE (Classic Lines) */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+    th {
+        border: 1px solid #000;
+        background-color: #f0f0f0;
+        padding: 6px;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+    }
+    td {
+        border: 1px solid #000;
+        padding: 6px;
+        vertical-align: top;
+    }
+    .pro-name { font-weight: bold; font-size: 12px; }
+    .pro-id { color: #444; font-size: 10px; }
+
+    /* TOTALS SECTION */
+    .totals-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .totals-box {
+        width: 300px;
+        border: 1px solid #000;
+    }
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 8px;
+        border-bottom: 1px solid #ccc;
+    }
+    .total-row.final {
+        border-bottom: none;
+        background-color: #f0f0f0;
+        font-weight: bold;
+        font-size: 14px;
+        border-top: 2px solid #000;
+    }
+
+    /* FOOTER / SIGNATURE */
+    .footer {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+    .sign-box {
+        width: 200px;
+        padding-top: 40px;
+        border-top: 1px solid #000;
+        font-size: 11px;
+    }
+
+    /* PRINT SETTINGS */
+    @media print {
+        body { margin: 0; padding: 0; }
+        @page { size: A4; margin: 1cm; }
+    }
+</style>
 </head>
 <body>
-    <div class="company-header">
-        <div class="company-info">
-            <h2>${companyDataV1.name || ''}</h2>
-            <p>${companyDataV1.address || ''}</p>
-            <p>Tel: ${companyDataV1.tel || ''}</p>
-        </div>
+
+<div class="header-container">
+    <div class="company-info">
+        <h1>${companyDataV1.name || 'COMPANY NAME'}</h1>
+        <p>${companyDataV1.address || ''}</p>
+        <p>Tel: ${companyDataV1.tel || ''}</p>
     </div>
-    
-    <div class="invoice-title">
-        <h1>ໃບແຈ້ງໜີ້ / INVOICE</h1>
+    <div class="invoice-label">
+        <h2>INVOICE</h2>
+        <span>ໃບເກັບເງິນ</span>
     </div>
-    
-    <div class="info-section">
-        <div class="info-card">
-            <div class="info-header">ຂໍ້ມູນລູກຄ້າ / Customer Information</div>
-            <div class="info-row"><strong>Customer ID:</strong> ${header.client?.id || ''}</div>
-            <div class="info-row"><strong>Name:</strong> ${header.client?.name || ''}</div>
-            <div class="info-row"><strong>Company:</strong> ${header.client?.company || ''}</div>
-            <div class="info-row"><strong>Phone:</strong> ${header.client?.telephone || ''}</div>
-            <div class="info-row"><strong>Address:</strong> ${header.client?.address || ''}</div>
-        </div>
-        
-        <div class="info-card">
-            <div class="info-header">ລາຍລະອຽດໃບເກັບເງິນ / Invoice Details</div>
-            <div class="info-row"><strong>Invoice No:</strong> ${header.id}</div>
-            <div class="info-row"><strong>Date:</strong> ${formatDate(header.bookingDate)}</div>
-            <div class="info-row"><strong>Location:</strong> ${header.location?.name || 'N/A'}</div>
-            <div class="info-row"><strong>Prepared By:</strong> ${header.user?.cus_name || 'N/A'}</div>
-            <div class="info-row"><strong>Payment Method:</strong> ${header.payment?.payment_name || 'N/A'}</div>
-            <div class="info-row"><strong>Currency:</strong> ${header.currency?.code || 'LAK'}</div>
-        </div>
+</div>
+
+<div class="info-grid">
+    <div class="col-left">
+        <div class="mb-2 bold" style="text-decoration: underline;">Customer / ລູກຄ້າ:</div>
+        <div class="info-row"><span class="label">Name:</span> <span>${
+          header.client?.name || header.client?.company || 'Walk-in Customer'
+        }</span></div>
+        <div class="info-row"><span class="label">Tel:</span> <span>${
+          header.client?.telephone || '-'
+        }</span></div>
+        <div class="info-row"><span class="label">Address:</span> <span>${
+          header.client?.address || '-'
+        }</span></div>
     </div>
-    
-    <table class="products-table">
-        <thead>
-            <tr>
-                <th>ລດ / No.</th>
-                <th>ລາຍລະອຽດ / Description</th>
-                <th>ຈຳນວນ / Qty</th>
-                <th>ຫົວໜ່ວຍ / Unit</th>
-                <th>ລາຄາ / Unit Price</th>
-                <th>ສ່ວນຫຼຸດ / Discount</th>
-                <th>ຈຳນວນເງິນ / Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${linesHTML}
-        </tbody>
-    </table>
-    
-    <div class="summary-section">
-        <div class="summary-row">
-            <span>ລວມຍ່ອຍ / Subtotal:</span>
+    <div class="col-right">
+        <div class="mb-2 bold" style="text-decoration: underline;">Reference / ເລກທີ:</div>
+        <div class="info-row"><span class="label">No:</span> <span>${
+          header.id
+        }</span></div>
+        <div class="info-row"><span class="label">Date:</span> <span>${formatDate(
+          header.bookingDate
+        )}</span></div>
+        <div class="info-row"><span class="label">Staff:</span> <span>${
+          header.user?.cus_name || '-'
+        }</span></div>
+        <div class="info-row"><span class="label">Payment:</span> <span>${
+          header.payment?.payment_name || '-'
+        }</span></div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="40%">Description / ລາຍການ</th>
+            <th width="10%">Qty</th>
+            <th width="10%">Unit</th>
+            <th width="15%">Price</th>
+            <th width="10%">Disc.</th>
+            <th width="15%">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        ${linesHTML}
+    </tbody>
+</table>
+
+<div class="totals-container">
+    <div class="totals-box">
+        <div class="total-row">
+            <span>Subtotal / ລວມ:</span>
             <span>${formatNumber(header.total + totalDiscount)}</span>
         </div>
-        <div class="summary-row">
-            <span>ສ່ວນຫຼຸດລວມ / Total Discount:</span>
-            <span>-${formatNumber(totalDiscount)}</span>
-        </div>
+        ${
+          totalDiscount > 0
+            ? `
         <div class="total-row">
-            <span>ລວມທັງໝົດ / TOTAL:</span>
-            <span>${formatNumber(header.total)} ${header.currency?.code || 'LAK'}</span>
+            <span>Discount / ສ່ວນຫຼຸດ:</span>
+            <span>-${formatNumber(totalDiscount)}</span>
+        </div>`
+            : ''
+        }
+        <div class="total-row final">
+            <span>TOTAL / ລວມທັງໝົດ:</span>
+            <span>${formatNumber(header.total)} <small>${
+        header.currency?.code || 'LAK'
+      }</small></span>
         </div>
     </div>
-    
-    <div class="footer-section">
-        <p><strong>ຂອບໃຈທີ່ເລືອກໃຊ້ບໍລິການຂອງພວກເຮົາ / Thank you for your business</strong></p>
+</div>
+
+<div class="footer">
+    <div class="sign-box">
+        ຜູ້ຮັບສິນຄ້າ / Receiver
     </div>
+    <div class="sign-box">
+        ຜູ້ອອກບິນ / Authorized By
+    </div>
+</div>
+
 </body>
 </html>
-      `
+  `
     },
 
     calculateTotalDiscount(header) {
       if (!header || !header.lines) return 0
-      
+
       let totalDiscount = 0
       for (const line of header.lines) {
         totalDiscount += line.discount || 0
@@ -1242,7 +1286,7 @@ export default {
 
     // === PRODUCT & LINE ITEM MANAGEMENT ===
     productChange(item) {
-      const product = this.productList.find(el => el.id === item.productId)
+      const product = this.productList.find((el) => el.id === item.productId)
       if (!product) {
         console.log('Product not found')
         return
@@ -1258,8 +1302,8 @@ export default {
       // Auto-populate unit if product has stockUnitId
       if (product.stockUnitId) {
         this.$set(item, 'unitId', product.stockUnitId)
-        
-        const unit = this.unitList.find(el => el.id === product.stockUnitId)
+
+        const unit = this.unitList.find((el) => el.id === product.stockUnitId)
         if (unit?.unitRate) {
           this.$set(item, 'unitRate', unit.unitRate)
         } else {
@@ -1274,7 +1318,7 @@ export default {
     },
 
     unitChange(item) {
-      const unit = this.unitList.find(el => el.id === item.unitId)
+      const unit = this.unitList.find((el) => el.id === item.unitId)
       if (unit) {
         this.$set(item, 'unitRate', unit.unitRate || 1)
         this.calculateLineTotal(item)
@@ -1298,8 +1342,8 @@ export default {
       const unitRate = parseFloat(item.unitRate) || 1
       const price = parseFloat(item.price) || 0
       const discount = parseFloat(item.discount) || 0
-      
-      const total = Math.max(0, (qty * unitRate * price) - discount)
+
+      const total = Math.max(0, qty * unitRate * price - discount)
       this.$set(item, 'total', total)
     },
 
@@ -1320,12 +1364,12 @@ export default {
     async deleteItem(item) {
       try {
         this.isloading = true
-        
+
         if (item.id) {
           // Delete from server
           await this.$axios.delete(`api/${this.apiLine}Line/find/${item.id}`)
         }
-        
+
         // Remove from local array
         const index = this.transaction.lines.indexOf(item)
         if (index > -1) {
@@ -1341,62 +1385,62 @@ export default {
     // === VALIDATION ===
     validateHeader() {
       this.headerError = false
-      
+
       const errors = []
-      
+
       if (!this.transaction.currencyId) {
         errors.push('Currency is required')
       }
-      
+
       if (!this.transaction.paymentId) {
         errors.push('Payment method is required')
       }
-      
+
       if (!this.transaction.clientId) {
         errors.push('Customer is required')
       }
-      
+
       if (!this.transaction.lines || this.transaction.lines.length === 0) {
         errors.push('At least one line item is required')
       }
-      
+
       if (errors.length > 0) {
         this.headerError = true
         this.showError(errors.join(', '))
         return false
       }
-      
+
       return true
     },
 
     validateLine(item, lineNumber) {
       const errors = []
-      
+
       if (!item.productId) {
         errors.push(`Line ${lineNumber}: Product is required`)
       }
-      
+
       const quantity = parseFloat(item.quantity)
       if (!quantity || quantity <= 0) {
         errors.push(`Line ${lineNumber}: Quantity must be greater than 0`)
       }
-      
+
       const unitRate = parseFloat(item.unitRate)
       if (!unitRate || unitRate <= 0) {
         errors.push(`Line ${lineNumber}: Unit rate must be greater than 0`)
       }
-      
+
       const price = parseFloat(item.price)
       if (!item.isGift && (!price || price <= 0)) {
         errors.push(`Line ${lineNumber}: Price must be greater than 0`)
       }
-      
+
       if (errors.length > 0) {
         this.errorLineNumber = lineNumber - 1
         this.showError(errors.join(', '))
         return false
       }
-      
+
       return true
     },
 
@@ -1413,7 +1457,9 @@ export default {
     // === API OPERATIONS ===
     async loadTransaction() {
       try {
-        const response = await this.$axios.get(`api/${this.apiLine}/find/${this.headerId}`)
+        const response = await this.$axios.get(
+          `api/${this.apiLine}/find/${this.headerId}`
+        )
         this.transaction = response.data
         console.log('Transaction loaded:', response.data)
       } catch (error) {
@@ -1428,22 +1474,21 @@ export default {
       }
 
       this.isloading = true
-      
+
       try {
         // Prepare transaction data
         this.prepareTransactionForSubmit()
-        
-        const url = this.isUpdate 
+
+        const url = this.isUpdate
           ? `api/${this.apiLine}/update/${this.headerId}`
           : `api/${this.apiLine}/create`
-          
+
         const method = this.isUpdate ? 'put' : 'post'
-        
+
         const response = await this.$axios[method](url, this.transaction)
-        
+
         this.$emit('reload')
         swalSuccess(this.$swal, 'Success', 'Transaction saved successfully')
-        
       } catch (error) {
         this.handleSubmitError(error)
       } finally {
@@ -1457,16 +1502,19 @@ export default {
       }
 
       this.isloading = true
-      
+
       try {
         // Prepare quotation for conversion to invoice
         const invoiceData = this.prepareInvoiceFromQuotation()
-        
+
         const response = await this.$axios.post('api/sale/create', invoiceData)
-        
+
         this.$emit('reload')
-        swalSuccess(this.$swal, 'Success', 'Quotation converted to invoice successfully')
-        
+        swalSuccess(
+          this.$swal,
+          'Success',
+          'Quotation converted to invoice successfully'
+        )
       } catch (error) {
         this.handleSubmitError(error)
       } finally {
@@ -1476,14 +1524,14 @@ export default {
 
     prepareTransactionForSubmit() {
       // Clean up line items
-      this.transaction.lines.forEach(line => {
+      this.transaction.lines.forEach((line) => {
         line.quantity = parseFloat(line.quantity) || 0
         line.unitRate = parseFloat(line.unitRate) || 1
         line.price = parseFloat(line.price) || 0
         line.discount = parseFloat(line.discount) || 0
         line.total = parseFloat(line.total) || 0
       })
-      
+
       // Set transaction metadata
       this.transaction.userId = this.user.id
       this.transaction.total = this.grandTotal
@@ -1492,11 +1540,11 @@ export default {
     },
 
     prepareInvoiceFromQuotation() {
-      const invoiceLines = this.transaction.lines.map(line => ({
+      const invoiceLines = this.transaction.lines.map((line) => ({
         ...line,
         id: null, // Remove IDs for new invoice
       }))
-      
+
       return {
         ...this.transaction,
         lines: invoiceLines,
@@ -1509,20 +1557,22 @@ export default {
 
     handleSubmitError(error) {
       console.error('Submit error:', error)
-      
+
       if (error.response?.data) {
         const errorData = error.response.data
-        
+
         // Handle out of stock errors
         const outOfStockProductId = errorData.split('#')[1]
         if (outOfStockProductId) {
-          const product = this.productList.find(p => p.id == outOfStockProductId)
+          const product = this.productList.find(
+            (p) => p.id == outOfStockProductId
+          )
           const productName = product?.pro_name || 'Unknown Product'
           this.showError(`Insufficient stock for product: ${productName}`)
-          
+
           // Highlight the problematic line
           this.errorLineNumber = this.transaction.lines.findIndex(
-            line => line.productId == outOfStockProductId
+            (line) => line.productId == outOfStockProductId
           )
         } else {
           this.showError('Failed to save transaction', error)
@@ -1548,14 +1598,14 @@ export default {
 
     updatePricing(priceInfo) {
       const index = this.transaction.lines.findIndex(
-        line => line.productId === this.productPricingSelected
+        (line) => line.productId === this.productPricingSelected
       )
-      
+
       if (index < 0) return
-      
+
       const line = this.transaction.lines[index]
       const newPrice = parseFloat(priceInfo.amount) || 0
-      
+
       if (priceInfo.type === 'Price') {
         this.$set(line, 'price', newPrice)
       } else {
@@ -1564,7 +1614,7 @@ export default {
         const updatedPrice = currentPrice * (1 + newPrice / 100)
         this.$set(line, 'price', updatedPrice)
       }
-      
+
       this.calculateLineTotal(line)
     },
 
@@ -1612,7 +1662,11 @@ export default {
 }
 
 .header-section {
-  background: linear-gradient(135deg, var(--v-primary-base) 0%, var(--v-primary-darken2) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--v-primary-base) 0%,
+    var(--v-primary-darken2) 100%
+  );
   border-radius: 0 !important;
   padding: 24px !important;
 }
@@ -1700,7 +1754,11 @@ export default {
 
 .total-amount {
   font-family: 'Roboto Mono', monospace;
-  background: linear-gradient(135deg, rgba(var(--v-success-base), 0.1) 0%, rgba(var(--v-success-base), 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--v-success-base), 0.1) 0%,
+    rgba(var(--v-success-base), 0.05) 100%
+  );
   padding: 8px 12px;
   border-radius: 8px;
   border-left: 4px solid var(--v-success-base);
@@ -1728,14 +1786,22 @@ export default {
 }
 
 .total-row {
-  background: linear-gradient(135deg, rgba(var(--v-primary-base), 0.08) 0%, rgba(var(--v-primary-base), 0.04) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--v-primary-base), 0.08) 0%,
+    rgba(var(--v-primary-base), 0.04) 100%
+  );
   padding: 16px 20px;
   margin: 12px -20px;
   border-radius: 8px;
 }
 
 .grand-total-display {
-  background: linear-gradient(135deg, rgba(var(--v-primary-base), 0.05) 0%, rgba(var(--v-secondary-base), 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(var(--v-primary-base), 0.05) 0%,
+    rgba(var(--v-secondary-base), 0.05) 100%
+  );
   padding: 24px;
   border-radius: 16px;
   border: 2px dashed rgba(var(--v-primary-base), 0.2);
@@ -1790,24 +1856,24 @@ export default {
   .sales-form-container {
     padding: 12px;
   }
-  
+
   .form-content {
     padding: 16px !important;
   }
-  
+
   .header-section {
     padding: 16px !important;
   }
-  
+
   .header-section .d-flex {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .product-cell {
     min-width: 200px;
   }
-  
+
   .quantity-cell,
   .unit-cell,
   .rate-cell,
@@ -1820,7 +1886,7 @@ export default {
   .line-items-table {
     font-size: 0.875rem;
   }
-  
+
   .total-amount {
     font-size: 0.8rem;
     padding: 6px 8px;

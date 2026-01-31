@@ -2314,7 +2314,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("2805b4ec", content, true, context)
+  add("ddc9d0d8", content, true, context)
 };
 
 /***/ }),
@@ -2377,7 +2377,7 @@ var VTextField = __webpack_require__(39);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(479);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=58e12e7e&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=6a21de2a&scoped=true
 
 
 
@@ -2398,7 +2398,7 @@ var VTextarea = __webpack_require__(479);
 
 
 
-var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = function render() {
+var OrderDetailPosCRUDvue_type_template_id_6a21de2a_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2552,7 +2552,7 @@ var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = functio
     }
   }, [_vm._v("\n            " + _vm._s(_vm.isQuotation ? 'mdi-file-document-edit-outline' : 'mdi-receipt') + "\n          ")]), _vm._v(" "), _c('div', [_c('h2', {
     staticClass: "text-h5 mb-0"
-  }, [_vm._v("\n              " + _vm._s(_vm.isQuotation ? 'Quotation' : 'Invoice') + " \n              "), _c('span', {
+  }, [_vm._v("\n              " + _vm._s(_vm.isQuotation ? 'Quotation' : 'Invoice') + "\n              "), _c('span', {
     staticClass: "text-h6 opacity-80"
   }, [_vm._v("#" + _vm._s(_vm.transaction.id || 'New'))])]), _vm._v(" "), _c('div', {
     staticClass: "text-caption opacity-80"
@@ -2946,9 +2946,9 @@ var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = functio
                 staticClass: "product-selection"
               }, [_c('div', {
                 staticClass: "font-weight-medium"
-              }, [_vm._v(_vm._s(product.pro_name))]), _vm._v(" "), _c('div', {
+              }, [_vm._v("\n                          " + _vm._s(product.pro_name) + "\n                        ")]), _vm._v(" "), _c('div', {
                 staticClass: "text-caption text--secondary"
-              }, [_vm._v("\n                          ID: " + _vm._s(product.id) + "\n                        ")])])];
+              }, [_vm._v("\n                          barcode: " + _vm._s(product.barCode) + "\n                        ")])])];
             }
           }], null, true),
           model: {
@@ -3118,10 +3118,10 @@ var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = functio
           staticClass: "text-h6 mt-4 grey--text"
         }, [_vm._v("No items added yet")]), _vm._v(" "), _c('div', {
           staticClass: "text-body-2 grey--text"
-        }, [_vm._v("Click \"Add Item\" to get started")])], 1)];
+        }, [_vm._v("\n                  Click \"Add Item\" to get started\n                ")])], 1)];
       },
       proxy: true
-    }], null, false, 3440995950)
+    }], null, false, 1721470280)
   }) : _vm._e(), _vm._v(" "), !_vm.transaction.lines || _vm.transaction.lines.length === 0 ? _c('div', {
     staticClass: "empty-state"
   }, [_c(VCard["a" /* default */], {
@@ -3139,7 +3139,7 @@ var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = functio
     staticClass: "text-h5 mt-4 grey--text"
   }, [_vm._v("No Items Added")]), _vm._v(" "), _c('p', {
     staticClass: "text-body-1 grey--text mb-6"
-  }, [_vm._v("\n                Start by adding your first product to this " + _vm._s(_vm.isQuotation ? 'quotation' : 'invoice') + "\n              ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("\n                Start by adding your first product to this\n                " + _vm._s(_vm.isQuotation ? 'quotation' : 'invoice') + "\n              ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "large": "",
@@ -3235,11 +3235,11 @@ var OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render = functio
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-content-save")]), _vm._v("\n        " + _vm._s(_vm.isUpdate ? 'Update' : 'Save') + " " + _vm._s(_vm.isQuotation ? 'Quotation' : 'Invoice') + "\n      ")], 1)], 1)], 1)], 2);
+  }, [_vm._v("mdi-content-save")]), _vm._v("\n        " + _vm._s(_vm.isUpdate ? 'Update' : 'Save') + "\n        " + _vm._s(_vm.isQuotation ? 'Quotation' : 'Invoice') + "\n      ")], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=58e12e7e&scoped=true
+// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=6a21de2a&scoped=true
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(475);
@@ -3553,11 +3553,11 @@ var CancelTicketForm = __webpack_require__(461);
       }
     },
     generateInvoiceHTML(header) {
-      var _header$lines, _header$client, _header$client2, _header$client3, _header$client4, _header$client5, _header$location, _header$user, _header$payment, _header$currency, _header$currency2;
+      var _header$lines, _header$client, _header$client2, _header$client3, _header$client4, _header$user, _header$payment, _header$currency;
       const totalDiscount = this.calculateTotalDiscount(header);
       const companyDataV1 = this.$store.getters.findAllCompany[0] || {};
 
-      // Helper functions for formatting (moved inside to avoid 'this' context issues)
+      // Helper functions
       const formatDate = dateString => {
         if (!dateString) return 'N/A';
         try {
@@ -3575,273 +3575,246 @@ var CancelTicketForm = __webpack_require__(461);
         return new Intl.NumberFormat().format(val || 0);
       };
 
-      // Generate lines HTML
+      // Generate lines HTML with classic borders
       const linesHTML = ((_header$lines = header.lines) === null || _header$lines === void 0 ? void 0 : _header$lines.map((line, index) => {
-        var _line$product, _line$product2, _line$unit;
+        var _line$product, _line$product2, _line$product3, _line$unit;
         return `
-        <tr>
-          <td style="text-align: center;">${index + 1}</td>
-          <td>
-            <strong>${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product'}</strong><br>
-            <small>ID: ${((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_id) || line.productId}</small>
-            ${line.isGift ? '<br><small style="color: #ff6b35;">🎁 ຂອງຂວັນ / Gift</small>' : ''}
-          </td>
-          <td style="text-align: center;">${formatNumber(line.quantity)}</td>
-          <td style="text-align: center;">${((_line$unit = line.unit) === null || _line$unit === void 0 ? void 0 : _line$unit.name) || 'ຊີ້ນ'}</td>
-          <td style="text-align: right;">${formatNumber(line.price)}</td>
-          <td style="text-align: right;">${formatNumber(line.discount)}</td>
-          <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
-        </tr>
-      `;
-      }).join('')) || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>';
+    <tr>
+      <td style="text-align: center;">${index + 1}</td>
+      <td>
+        <span class="pro-name">${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product'}</span>
+        ${(_line$product2 = line.product) !== null && _line$product2 !== void 0 && _line$product2.pro_id ? `<br><small class="pro-id">barcode: ${(_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.barCode}</small>` : ''}
+        ${line.isGift ? '<br><small>🎁 Gift</small>' : ''}
+      </td>
+      <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+      <td style="text-align: center;">${((_line$unit = line.unit) === null || _line$unit === void 0 ? void 0 : _line$unit.name) || 'ແກັດ'}</td>
+      <td style="text-align: right;">${formatNumber(line.price)}</td>
+      <td style="text-align: right;">${formatNumber(line.discount)}</td>
+      <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
+    </tr>
+  `;
+      }).join('')) || '<tr><td colspan="7" style="text-align: center; padding: 20px;">No items</td></tr>';
       return `
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Invoice #${header.id}</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            padding: 20px;
-            background: white;
-            color: #333;
-            line-height: 1.4;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .company-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #246ab2;
-        }
-        
-        .company-info h2 {
-            color: #246ab2;
-            font-size: 24px;
-            margin-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            font-weight: bold;
-        }
-        
-        .company-info p {
-            margin: 4px 0;
-            color: #555;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .invoice-title {
-            text-align: center;
-            margin: 20px 0 30px 0;
-        }
-        
-        .invoice-title h1 {
-            color: #246ab2;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-section {
-            display: flex;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .info-card {
-            flex: 1;
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        
-        .info-header {
-            color: #246ab2;
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #246ab2;
-            padding-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-row {
-            margin-bottom: 8px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .info-row strong {
-            display: inline-block;
-            min-width: 120px;
-            color: #495057;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table th {
-            background: #246ab2;
-            color: white;
-            padding: 12px 8px;
-            text-align: center;
-            font-weight: bold;
-            border: 1px solid #246ab2;
-            font-size: 11px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table td {
-            padding: 10px 8px;
-            border: 1px solid #ddd;
-            vertical-align: top;
-            font-size: 12px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .products-table tr:nth-child(even) {
-            background: #f9f9f9;
-        }
-        
-        .summary-section {
-            float: right;
-            width: 300px;
-            margin-bottom: 30px;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .summary-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px solid #ddd;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .total-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            margin-top: 10px;
-            border-top: 2px solid #246ab2;
-            font-weight: bold;
-            font-size: 16px;
-            color: #246ab2;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        .footer-section {
-            clear: both;
-            margin-top: 40px;
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        /* Force font on all text elements */
-        h1, h2, h3, h4, h5, h6, p, div, span, td, th, strong, small {
-            font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-        }
-        
-        @media print {
-            body { 
-                margin: 0; 
-                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            }
-            @page { margin: 1cm; size: A4; }
-            * {
-                font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Invoice #${header.id}</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* RESET & BASE */
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+    body {
+        font-family: 'Noto Sans Lao', 'Phetsarath OT', Arial, sans-serif;
+        font-size: 12px;
+        line-height: 1.3;
+        color: #000;
+        margin: 0;
+        padding: 15px;
+        background: white;
+    }
+
+    /* UTILS */
+    .text-right { text-align: right; }
+    .text-center { text-align: center; }
+    .bold { font-weight: bold; }
+    .mb-2 { margin-bottom: 8px; }
+
+    /* HEADER SECTION */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 2px solid #000;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    .company-info h1 {
+        font-size: 18px;
+        margin: 0 0 5px 0;
+        text-transform: uppercase;
+    }
+    .company-info p { margin: 2px 0; font-size: 12px; }
+    
+    .invoice-label {
+        text-align: right;
+    }
+    .invoice-label h2 {
+        font-size: 24px;
+        margin: 0;
+        letter-spacing: 2px;
+    }
+    .invoice-label span { font-size: 14px; }
+
+    /* INFO GRID (Classic Box Style) */
+    .info-grid {
+        display: flex;
+        width: 100%;
+        border: 1px solid #000;
+        margin-bottom: 15px;
+    }
+    .col-left {
+        width: 60%;
+        padding: 8px;
+        border-right: 1px solid #000;
+    }
+    .col-right {
+        width: 40%;
+        padding: 8px;
+    }
+    .info-row {
+        display: flex;
+        margin-bottom: 3px;
+    }
+    .label {
+        width: 100px;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    /* PRODUCT TABLE (Classic Lines) */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 15px;
+    }
+    th {
+        border: 1px solid #000;
+        background-color: #f0f0f0;
+        padding: 6px;
+        font-size: 11px;
+        font-weight: bold;
+        text-align: center;
+    }
+    td {
+        border: 1px solid #000;
+        padding: 6px;
+        vertical-align: top;
+    }
+    .pro-name { font-weight: bold; font-size: 12px; }
+    .pro-id { color: #444; font-size: 10px; }
+
+    /* TOTALS SECTION */
+    .totals-container {
+        display: flex;
+        justify-content: flex-end;
+    }
+    .totals-box {
+        width: 300px;
+        border: 1px solid #000;
+    }
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 8px;
+        border-bottom: 1px solid #ccc;
+    }
+    .total-row.final {
+        border-bottom: none;
+        background-color: #f0f0f0;
+        font-weight: bold;
+        font-size: 14px;
+        border-top: 2px solid #000;
+    }
+
+    /* FOOTER / SIGNATURE */
+    .footer {
+        margin-top: 30px;
+        display: flex;
+        justify-content: space-between;
+        text-align: center;
+    }
+    .sign-box {
+        width: 200px;
+        padding-top: 40px;
+        border-top: 1px solid #000;
+        font-size: 11px;
+    }
+
+    /* PRINT SETTINGS */
+    @media print {
+        body { margin: 0; padding: 0; }
+        @page { size: A4; margin: 1cm; }
+    }
+</style>
 </head>
 <body>
-    <div class="company-header">
-        <div class="company-info">
-            <h2>${companyDataV1.name || ''}</h2>
-            <p>${companyDataV1.address || ''}</p>
-            <p>Tel: ${companyDataV1.tel || ''}</p>
-        </div>
+
+<div class="header-container">
+    <div class="company-info">
+        <h1>${companyDataV1.name || 'COMPANY NAME'}</h1>
+        <p>${companyDataV1.address || ''}</p>
+        <p>Tel: ${companyDataV1.tel || ''}</p>
     </div>
-    
-    <div class="invoice-title">
-        <h1>ໃບແຈ້ງໜີ້ / INVOICE</h1>
+    <div class="invoice-label">
+        <h2>INVOICE</h2>
+        <span>ໃບເກັບເງິນ</span>
     </div>
-    
-    <div class="info-section">
-        <div class="info-card">
-            <div class="info-header">ຂໍ້ມູນລູກຄ້າ / Customer Information</div>
-            <div class="info-row"><strong>Customer ID:</strong> ${((_header$client = header.client) === null || _header$client === void 0 ? void 0 : _header$client.id) || ''}</div>
-            <div class="info-row"><strong>Name:</strong> ${((_header$client2 = header.client) === null || _header$client2 === void 0 ? void 0 : _header$client2.name) || ''}</div>
-            <div class="info-row"><strong>Company:</strong> ${((_header$client3 = header.client) === null || _header$client3 === void 0 ? void 0 : _header$client3.company) || ''}</div>
-            <div class="info-row"><strong>Phone:</strong> ${((_header$client4 = header.client) === null || _header$client4 === void 0 ? void 0 : _header$client4.telephone) || ''}</div>
-            <div class="info-row"><strong>Address:</strong> ${((_header$client5 = header.client) === null || _header$client5 === void 0 ? void 0 : _header$client5.address) || ''}</div>
-        </div>
-        
-        <div class="info-card">
-            <div class="info-header">ລາຍລະອຽດໃບເກັບເງິນ / Invoice Details</div>
-            <div class="info-row"><strong>Invoice No:</strong> ${header.id}</div>
-            <div class="info-row"><strong>Date:</strong> ${formatDate(header.bookingDate)}</div>
-            <div class="info-row"><strong>Location:</strong> ${((_header$location = header.location) === null || _header$location === void 0 ? void 0 : _header$location.name) || 'N/A'}</div>
-            <div class="info-row"><strong>Prepared By:</strong> ${((_header$user = header.user) === null || _header$user === void 0 ? void 0 : _header$user.cus_name) || 'N/A'}</div>
-            <div class="info-row"><strong>Payment Method:</strong> ${((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_name) || 'N/A'}</div>
-            <div class="info-row"><strong>Currency:</strong> ${((_header$currency = header.currency) === null || _header$currency === void 0 ? void 0 : _header$currency.code) || 'LAK'}</div>
-        </div>
+</div>
+
+<div class="info-grid">
+    <div class="col-left">
+        <div class="mb-2 bold" style="text-decoration: underline;">Customer / ລູກຄ້າ:</div>
+        <div class="info-row"><span class="label">Name:</span> <span>${((_header$client = header.client) === null || _header$client === void 0 ? void 0 : _header$client.name) || ((_header$client2 = header.client) === null || _header$client2 === void 0 ? void 0 : _header$client2.company) || 'Walk-in Customer'}</span></div>
+        <div class="info-row"><span class="label">Tel:</span> <span>${((_header$client3 = header.client) === null || _header$client3 === void 0 ? void 0 : _header$client3.telephone) || '-'}</span></div>
+        <div class="info-row"><span class="label">Address:</span> <span>${((_header$client4 = header.client) === null || _header$client4 === void 0 ? void 0 : _header$client4.address) || '-'}</span></div>
     </div>
-    
-    <table class="products-table">
-        <thead>
-            <tr>
-                <th>ລດ / No.</th>
-                <th>ລາຍລະອຽດ / Description</th>
-                <th>ຈຳນວນ / Qty</th>
-                <th>ຫົວໜ່ວຍ / Unit</th>
-                <th>ລາຄາ / Unit Price</th>
-                <th>ສ່ວນຫຼຸດ / Discount</th>
-                <th>ຈຳນວນເງິນ / Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${linesHTML}
-        </tbody>
-    </table>
-    
-    <div class="summary-section">
-        <div class="summary-row">
-            <span>ລວມຍ່ອຍ / Subtotal:</span>
+    <div class="col-right">
+        <div class="mb-2 bold" style="text-decoration: underline;">Reference / ເລກທີ:</div>
+        <div class="info-row"><span class="label">No:</span> <span>${header.id}</span></div>
+        <div class="info-row"><span class="label">Date:</span> <span>${formatDate(header.bookingDate)}</span></div>
+        <div class="info-row"><span class="label">Staff:</span> <span>${((_header$user = header.user) === null || _header$user === void 0 ? void 0 : _header$user.cus_name) || '-'}</span></div>
+        <div class="info-row"><span class="label">Payment:</span> <span>${((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_name) || '-'}</span></div>
+    </div>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th width="5%">#</th>
+            <th width="40%">Description / ລາຍການ</th>
+            <th width="10%">Qty</th>
+            <th width="10%">Unit</th>
+            <th width="15%">Price</th>
+            <th width="10%">Disc.</th>
+            <th width="15%">Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        ${linesHTML}
+    </tbody>
+</table>
+
+<div class="totals-container">
+    <div class="totals-box">
+        <div class="total-row">
+            <span>Subtotal / ລວມ:</span>
             <span>${formatNumber(header.total + totalDiscount)}</span>
         </div>
-        <div class="summary-row">
-            <span>ສ່ວນຫຼຸດລວມ / Total Discount:</span>
-            <span>-${formatNumber(totalDiscount)}</span>
-        </div>
+        ${totalDiscount > 0 ? `
         <div class="total-row">
-            <span>ລວມທັງໝົດ / TOTAL:</span>
-            <span>${formatNumber(header.total)} ${((_header$currency2 = header.currency) === null || _header$currency2 === void 0 ? void 0 : _header$currency2.code) || 'LAK'}</span>
+            <span>Discount / ສ່ວນຫຼຸດ:</span>
+            <span>-${formatNumber(totalDiscount)}</span>
+        </div>` : ''}
+        <div class="total-row final">
+            <span>TOTAL / ລວມທັງໝົດ:</span>
+            <span>${formatNumber(header.total)} <small>${((_header$currency = header.currency) === null || _header$currency === void 0 ? void 0 : _header$currency.code) || 'LAK'}</small></span>
         </div>
     </div>
-    
-    <div class="footer-section">
-        <p><strong>ຂອບໃຈທີ່ເລືອກໃຊ້ບໍລິການຂອງພວກເຮົາ / Thank you for your business</strong></p>
+</div>
+
+<div class="footer">
+    <div class="sign-box">
+        ຜູ້ຮັບສິນຄ້າ / Receiver
     </div>
+    <div class="sign-box">
+        ຜູ້ອອກບິນ / Authorized By
+    </div>
+</div>
+
 </body>
 </html>
-      `;
+  `;
     },
     calculateTotalDiscount(header) {
       if (!header || !header.lines) return 0;
@@ -4175,11 +4148,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_OrderDetailPosCRUDvue_type_script_lang_js,
-  OrderDetailPosCRUDvue_type_template_id_58e12e7e_scoped_true_render,
+  OrderDetailPosCRUDvue_type_template_id_6a21de2a_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "58e12e7e",
+  "6a21de2a",
   "1657b766"
   
 )
@@ -5789,9 +5762,9 @@ var console = __webpack_require__(6);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_58e12e7e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -5803,7 +5776,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-58e12e7e]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-58e12e7e]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-58e12e7e]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-58e12e7e]{border-radius:16px!important}.form-content[data-v-58e12e7e]{padding:32px!important}.transaction-header[data-v-58e12e7e]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-58e12e7e]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-58e12e7e]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-58e12e7e]{padding:8px 0}.user-info[data-v-58e12e7e]{margin-top:16px}.line-items-card[data-v-58e12e7e]{border-radius:12px!important}.line-items-table[data-v-58e12e7e]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-58e12e7e]{transition:all .2s ease}.line-item-row[data-v-58e12e7e]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-58e12e7e]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-58e12e7e]{min-width:250px}.product-selection[data-v-58e12e7e]{max-width:200px;overflow:hidden}.discount-cell[data-v-58e12e7e],.quantity-cell[data-v-58e12e7e],.rate-cell[data-v-58e12e7e],.unit-cell[data-v-58e12e7e]{min-width:120px}.price-cell[data-v-58e12e7e],.total-cell[data-v-58e12e7e]{min-width:140px}.action-cell[data-v-58e12e7e]{min-width:80px}.total-amount[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-58e12e7e]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-58e12e7e]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-58e12e7e]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-58e12e7e]:last-child{border-bottom:none}.total-row[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-58e12e7e]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-58e12e7e]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-58e12e7e]{margin:32px 0}.gap-2>*+*[data-v-58e12e7e]{margin-left:8px}.line-item-row[data-v-58e12e7e]{animation:slideInFromLeft-58e12e7e .3s ease-out}@keyframes slideInFromLeft-58e12e7e{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-58e12e7e]{animation:fadeInUp-58e12e7e .5s ease-out}@keyframes fadeInUp-58e12e7e{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-58e12e7e]{padding:12px}.form-content[data-v-58e12e7e],.header-section[data-v-58e12e7e]{padding:16px!important}.header-section .d-flex[data-v-58e12e7e]{flex-direction:column;gap:16px}.product-cell[data-v-58e12e7e]{min-width:200px}.discount-cell[data-v-58e12e7e],.quantity-cell[data-v-58e12e7e],.rate-cell[data-v-58e12e7e],.unit-cell[data-v-58e12e7e]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-58e12e7e]{font-size:.875rem}.total-amount[data-v-58e12e7e]{font-size:.8rem;padding:6px 8px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-6a21de2a]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-6a21de2a]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-6a21de2a]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-6a21de2a]{border-radius:16px!important}.form-content[data-v-6a21de2a]{padding:32px!important}.transaction-header[data-v-6a21de2a]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-6a21de2a]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-6a21de2a]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-6a21de2a]{padding:8px 0}.user-info[data-v-6a21de2a]{margin-top:16px}.line-items-card[data-v-6a21de2a]{border-radius:12px!important}.line-items-table[data-v-6a21de2a]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-6a21de2a]{transition:all .2s ease}.line-item-row[data-v-6a21de2a]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-6a21de2a]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-6a21de2a]{min-width:250px}.product-selection[data-v-6a21de2a]{max-width:200px;overflow:hidden}.discount-cell[data-v-6a21de2a],.quantity-cell[data-v-6a21de2a],.rate-cell[data-v-6a21de2a],.unit-cell[data-v-6a21de2a]{min-width:120px}.price-cell[data-v-6a21de2a],.total-cell[data-v-6a21de2a]{min-width:140px}.action-cell[data-v-6a21de2a]{min-width:80px}.total-amount[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-6a21de2a]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-6a21de2a]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-6a21de2a]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-6a21de2a]:last-child{border-bottom:none}.total-row[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-6a21de2a]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-6a21de2a]{margin:32px 0}.gap-2>*+*[data-v-6a21de2a]{margin-left:8px}.line-item-row[data-v-6a21de2a]{animation:slideInFromLeft-6a21de2a .3s ease-out}@keyframes slideInFromLeft-6a21de2a{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-6a21de2a]{animation:fadeInUp-6a21de2a .5s ease-out}@keyframes fadeInUp-6a21de2a{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-6a21de2a]{padding:12px}.form-content[data-v-6a21de2a],.header-section[data-v-6a21de2a]{padding:16px!important}.header-section .d-flex[data-v-6a21de2a]{flex-direction:column;gap:16px}.product-cell[data-v-6a21de2a]{min-width:200px}.discount-cell[data-v-6a21de2a],.quantity-cell[data-v-6a21de2a],.rate-cell[data-v-6a21de2a],.unit-cell[data-v-6a21de2a]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-6a21de2a]{font-size:.875rem}.total-amount[data-v-6a21de2a]{font-size:.8rem;padding:6px 8px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
