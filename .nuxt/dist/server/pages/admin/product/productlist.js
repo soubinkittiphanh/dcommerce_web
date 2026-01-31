@@ -14,7 +14,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("1b7bafd8", content, true, context)
+  add("06edd402", content, true, context)
 };
 
 /***/ }),
@@ -1895,9 +1895,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_20b7a688_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1001);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_20b7a688_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_20b7a688_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_20b7a688_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_20b7a688_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_24b6f4d2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1001);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_24b6f4d2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_24b6f4d2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_24b6f4d2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_productlist_vue_vue_type_style_index_0_id_24b6f4d2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -1909,7 +1909,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".ingredient-info[data-v-20b7a688]{min-width:200px}.quantity-display[data-v-20b7a688]{font-family:monospace;font-weight:600;text-align:center}.cost-display[data-v-20b7a688],.total-cost-display[data-v-20b7a688]{font-family:monospace;font-weight:600;text-align:right}.total-cost-display strong[data-v-20b7a688]{color:var(--v-primary-base)}.recipe-buttons[data-v-20b7a688]{align-items:center;display:flex;gap:4px;justify-content:center}.v-tabs[data-v-20b7a688]{margin-bottom:0}.v-tab[data-v-20b7a688]{font-weight:600;text-transform:none!important}.primary.white--text[data-v-20b7a688]{background:var(--v-primary-base)}@media (max-width:768px){.recipeHeaders[data-v-20b7a688]{font-size:12px}.ingredient-info[data-v-20b7a688]{min-width:150px}.recipe-buttons[data-v-20b7a688]{flex-direction:column;gap:2px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".print-content[data-v-24b6f4d2]{border:1px solid #ddd;max-height:400px;overflow-y:auto;padding:10px}.barcode-grid[data-v-24b6f4d2]{display:grid;grid-gap:5mm;gap:5mm;width:100%}.barcode-label[data-v-24b6f4d2]{background:#fff;border:1px solid #333;box-sizing:border-box;flex-direction:column;padding:2mm;text-align:center}.barcode-label[data-v-24b6f4d2],.barcode-svg-container[data-v-24b6f4d2]{align-items:center;display:flex;justify-content:center}.barcode-svg-container[data-v-24b6f4d2]{flex-shrink:0;margin-bottom:2px;width:100%}.barcode-svg[data-v-24b6f4d2]{height:auto;max-width:100%}.barcode-text[data-v-24b6f4d2]{font-family:\"Courier New\",monospace;font-weight:700;word-break:break-all}.barcode-text[data-v-24b6f4d2],.product-name[data-v-24b6f4d2]{font-size:.8em;margin-bottom:2px}.product-name[data-v-24b6f4d2]{display:-webkit-box;-webkit-line-clamp:2;overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;line-height:1.1;text-align:center}.product-price[data-v-24b6f4d2]{color:#d32f2f;font-size:.9em;font-weight:700}.print-options[data-v-24b6f4d2]{background-color:#f5f5f5;border-radius:4px;padding:16px}.ingredient-info[data-v-24b6f4d2]{min-width:200px}.quantity-display[data-v-24b6f4d2]{font-family:monospace;font-weight:600;text-align:center}.cost-display[data-v-24b6f4d2],.total-cost-display[data-v-24b6f4d2]{font-family:monospace;font-weight:600;text-align:right}.total-cost-display strong[data-v-24b6f4d2]{color:var(--v-primary-base)}.recipe-buttons[data-v-24b6f4d2]{align-items:center;display:flex;gap:4px;justify-content:center}.v-tabs[data-v-24b6f4d2]{margin-bottom:0}.v-tab[data-v-24b6f4d2]{font-weight:600;text-transform:none!important}.primary.white--text[data-v-24b6f4d2]{background:var(--v-primary-base)}@media (max-width:768px){.recipeHeaders[data-v-24b6f4d2]{font-size:12px}.ingredient-info[data-v-24b6f4d2]{min-width:150px}.recipe-buttons[data-v-24b6f4d2]{flex-direction:column;gap:2px}.barcode-grid[data-v-24b6f4d2]{grid-template-columns:repeat(2,1fr)!important}}@media print{.print-options[data-v-24b6f4d2],.v-dialog[data-v-24b6f4d2],.v-overlay[data-v-24b6f4d2]{display:none!important}.print-content[data-v-24b6f4d2]{border:none!important;max-height:none!important;overflow:visible!important}.barcode-grid[data-v-24b6f4d2]{gap:3mm}.barcode-label[data-v-24b6f4d2]{page-break-inside:avoid}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1960,6 +1960,9 @@ var VProgressCircular = __webpack_require__(110);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(439);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
+var VSelect = __webpack_require__(20);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(442);
 
@@ -1987,7 +1990,7 @@ var components_VToolbar = __webpack_require__(73);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTooltip/VTooltip.js
 var VTooltip = __webpack_require__(446);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/productlist.vue?vue&type=template&id=20b7a688&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/product/productlist.vue?vue&type=template&id=24b6f4d2&scoped=true
 
 
 
@@ -2012,12 +2015,13 @@ var VTooltip = __webpack_require__(446);
 
 
 
-var productlistvue_type_template_id_20b7a688_scoped_true_render = function render() {
+
+var productlistvue_type_template_id_24b6f4d2_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-20b7a688>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-24b6f4d2>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -2085,7 +2089,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.search,
@@ -2143,7 +2147,19 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
           }
         }, [_c('span', {
           staticClass: "mdi mdi-microsoft-excel"
-        }), _vm._v("Generate\n                    excel file\n                  ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+        }), _vm._v("Generate\n                    excel file\n                  ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+          staticClass: "primary ml-2",
+          attrs: {
+            "size": "large",
+            "variant": "outlined",
+            "rounded": ""
+          },
+          on: {
+            "click": _vm.printBarcodeList
+          }
+        }, [_c('span', {
+          staticClass: "mdi mdi-printer"
+        }), _vm._v("Print Barcode List\n                  ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
           staticClass: "primary",
           attrs: {
             "size": "large",
@@ -2161,7 +2177,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
       },
       proxy: true
     }, {
-      key: `item.functionEdit`,
+      key: "item.functionEdit",
       fn: function ({
         item
       }) {
@@ -2181,7 +2197,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
         })])];
       }
     }, {
-      key: `item.functionStock`,
+      key: "item.functionStock",
       fn: function ({
         item
       }) {
@@ -2201,7 +2217,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
         })])];
       }
     }, {
-      key: `item.pricing`,
+      key: "item.pricing",
       fn: function ({
         item
       }) {
@@ -2219,7 +2235,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
         }, [_c(VIcon["a" /* default */], [_vm._v("mdi mdi-currency-usd")])], 1)];
       }
     }, {
-      key: `item.functionStockView`,
+      key: "item.functionStockView",
       fn: function ({
         item
       }) {
@@ -2239,11 +2255,11 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
         })])];
       }
     }, {
-      key: `item.functionRecipe`,
+      key: "item.functionRecipe",
       fn: function ({
         item
       }) {
-        return [(item._category = 'stock') ? _c('div', {
+        return [item._category === 'stock' ? _c('div', {
           staticClass: "recipe-buttons"
         }, [_c(VTooltip["a" /* default */], {
           attrs: {
@@ -2305,35 +2321,35 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
         }, [_vm._v("N/A")])];
       }
     }, {
-      key: `item.pro_cost_price`,
+      key: "item.pro_cost_price",
       fn: function ({
         item
       }) {
         return [_vm._v("\n                " + _vm._s(_vm.formatNumber(item.pro_cost_price)) + "\n              ")];
       }
     }, {
-      key: `item.pro_price`,
+      key: "item.pro_price",
       fn: function ({
         item
       }) {
         return [_vm._v("\n                " + _vm._s(_vm.formatNumber(item.pro_price)) + "\n              ")];
       }
     }, {
-      key: `item.pro_card_count`,
+      key: "item.pro_card_count",
       fn: function ({
         item
       }) {
         return [_vm._v("\n                " + _vm._s(item.pro_card_count) + "\n              ")];
       }
     }, {
-      key: `item.minStock`,
+      key: "item.minStock",
       fn: function ({
         item
       }) {
         return [_vm._v("\n                " + _vm._s(_vm.formatNumber(item.minStock)) + "\n              ")];
       }
     }, {
-      key: `item.status`,
+      key: "item.status",
       fn: function ({
         item
       }) {
@@ -2345,7 +2361,7 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
           }
         }, [_vm._v("\n                  " + _vm._s(_vm.verifyStockStatus(item.minStock, item.pro_card_count)) + "\n                ")])];
       }
-    }], null, true)
+    }], null, false, 2115139001)
   }) : _vm._e()], 1)], 1)], 1), _vm._v(" "), _c(VTabItem["a" /* default */], [_c(components_VCard["c" /* VCardText */], [_c('RecipeManagement', {
     ref: "recipeManagement"
   })], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
@@ -2719,11 +2735,130 @@ var productlistvue_type_template_id_20b7a688_scoped_true_render = function rende
       },
       "refresh": _vm.fetchData
     }
-  })], 1)], 2);
+  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+    attrs: {
+      "max-width": "900px",
+      "scrollable": ""
+    },
+    model: {
+      value: _vm.printDialog,
+      callback: function ($$v) {
+        _vm.printDialog = $$v;
+      },
+      expression: "printDialog"
+    }
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "primary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
+    attrs: {
+      "color": "white"
+    }
+  }, [_vm._v("mdi-printer")]), _vm._v("\n        Print Barcode List Preview\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "white--text",
+    attrs: {
+      "icon": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.printDialog = false;
+      }
+    }
+  }, [_c(VIcon["a" /* default */], [_vm._v("mdi-close")])], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
+    staticClass: "print-options mb-4"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    attrs: {
+      "items": _vm.printFormats,
+      "label": "Barcode Format",
+      "item-text": "label",
+      "item-value": "value",
+      "outlined": ""
+    },
+    model: {
+      value: _vm.selectedPrintFormat,
+      callback: function ($$v) {
+        _vm.selectedPrintFormat = $$v;
+      },
+      expression: "selectedPrintFormat"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "Labels per row",
+      "type": "number",
+      "min": "1",
+      "max": "6",
+      "outlined": ""
+    },
+    model: {
+      value: _vm.labelsPerRow,
+      callback: function ($$v) {
+        _vm.labelsPerRow = $$v;
+      },
+      expression: "labelsPerRow"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "mb-4"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "print-content",
+    attrs: {
+      "id": "printContent"
+    }
+  }, [_c('div', {
+    staticClass: "barcode-grid"
+  }, _vm._l(_vm.filteredProducts, function (product) {
+    return _c('div', {
+      key: product.id,
+      staticClass: "barcode-label",
+      style: _vm.getLabelStyle()
+    }, [_c('div', {
+      staticClass: "barcode-svg-container"
+    }, [_c('svg', {
+      staticClass: "barcode-svg",
+      attrs: {
+        "id": `barcode-${product.id}`
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "barcode-text"
+    }, [_vm._v(_vm._s(product.barCode || product.pro_id))]), _vm._v(" "), _c('div', {
+      staticClass: "product-name"
+    }, [_vm._v(_vm._s(_vm.truncateText(product.pro_name, 25)))]), _vm._v(" "), _c('div', {
+      staticClass: "product-price"
+    }, [_vm._v(_vm._s(_vm.formatNumber(product.pro_price)) + " LAK")])]);
+  }), 0)])], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VBtn["a" /* default */], {
+    attrs: {
+      "color": "primary"
+    },
+    on: {
+      "click": _vm.doPrint
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-printer")]), _vm._v("\n          Print\n        ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    attrs: {
+      "text": ""
+    },
+    on: {
+      "click": function ($event) {
+        _vm.printDialog = false;
+      }
+    }
+  }, [_vm._v("Cancel")])], 1)], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/product/productlist.vue?vue&type=template&id=20b7a688&scoped=true
+// CONCATENATED MODULE: ./pages/admin/product/productlist.vue?vue&type=template&id=24b6f4d2&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(146);
@@ -2830,6 +2965,20 @@ var recipe = __webpack_require__(1098);
     return {
       // Tab management
       activeTab: 0,
+      // Print-related data
+      printDialog: false,
+      selectedPrintFormat: 'standard',
+      labelsPerRow: 3,
+      printFormats: [{
+        label: 'Standard (3x3 cm)',
+        value: 'standard'
+      }, {
+        label: 'Large (4x3 cm)',
+        value: 'large'
+      }, {
+        label: 'Small (2.5x2 cm)',
+        value: 'small'
+      }],
       // Recipe-related data
       productRecipeDialog: false,
       selectedProductForRecipe: null,
@@ -2968,16 +3117,254 @@ var recipe = __webpack_require__(1098);
         return;
       }
       this.dialogMessage = false;
+    },
+    printDialog(val) {
+      if (val) {
+        // Generate barcodes when dialog opens
+        this.$nextTick(() => {
+          this.generateBarcodes();
+        });
+      }
+    },
+    selectedPrintFormat() {
+      // Regenerate barcodes when format changes
+      this.$nextTick(() => {
+        this.generateBarcodes();
+      });
+    },
+    labelsPerRow() {
+      // Regenerate barcodes when layout changes
+      this.$nextTick(() => {
+        this.generateBarcodes();
+      });
     }
   },
   async mounted() {
+    // Load barcode library first
+    this.loadBarcodeLibrary();
     await this.loadCardCategory();
     await this.fetchData();
   },
   computed: {
-    ...Object(external_vuex_["mapGetters"])(['currentSelectedLocation', 'findAllLocation'])
+    ...Object(external_vuex_["mapGetters"])(['currentSelectedLocation', 'findAllLocation']),
+    filteredProducts() {
+      // Return products with search filter if any
+      let products = this.loaddata;
+      if (this.search) {
+        const searchTerm = this.search.toLowerCase();
+        products = products.filter(product => {
+          var _product$barCode, _product$pro_id;
+          return product.pro_name.toLowerCase().includes(searchTerm) || ((_product$barCode = product.barCode) === null || _product$barCode === void 0 ? void 0 : _product$barCode.toLowerCase().includes(searchTerm)) || ((_product$pro_id = product.pro_id) === null || _product$pro_id === void 0 ? void 0 : _product$pro_id.toLowerCase().includes(searchTerm));
+        });
+      }
+      return products;
+    }
   },
   methods: {
+    // Print-related methods
+    printBarcodeList() {
+      this.printDialog = true;
+    },
+    generateBarcodes() {
+      // Wait for DOM elements to be available
+      setTimeout(() => {
+        this.filteredProducts.forEach(product => {
+          // FIX: Convert to String() explicitly
+          const barcodeValue = String(product.barCode || product.pro_id || '000000');
+          const element = document.getElementById(`barcode-${product.id}`);
+          if (element && window.JsBarcode) {
+            try {
+              // Clear previous barcode
+              element.innerHTML = '';
+
+              // Determine barcode size based on format
+              const formats = {
+                small: {
+                  width: 1,
+                  height: 30,
+                  fontSize: 8
+                },
+                standard: {
+                  width: 1.2,
+                  height: 40,
+                  fontSize: 10
+                },
+                large: {
+                  width: 1.5,
+                  height: 50,
+                  fontSize: 12
+                }
+              };
+              const format = formats[this.selectedPrintFormat];
+
+              // Generate barcode
+              window.JsBarcode(element, barcodeValue, {
+                format: this.getBarcodeFormat(barcodeValue),
+                width: format.width,
+                height: format.height,
+                displayValue: false,
+                // We'll show the text separately
+                margin: 2,
+                background: "#ffffff",
+                lineColor: "#000000"
+              });
+            } catch (error) {
+              console.error('Barcode generation failed for:', barcodeValue, error);
+              // Fallback: show text if barcode generation fails
+              element.innerHTML = '<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' + barcodeValue + '</text>';
+            }
+          }
+        });
+      }, 100);
+    },
+    getBarcodeFormat(value) {
+      // Force value to string to avoid "toUpperCase is not a function" error
+      const strValue = String(value);
+
+      // Auto-detect barcode format based on the value
+      if (!strValue) return "CODE128";
+
+      // EAN-13 (13 digits)
+      if (/^\d{13}$/.test(strValue)) return "EAN13";
+
+      // EAN-8 (8 digits)
+      if (/^\d{8}$/.test(strValue)) return "EAN8";
+
+      // UPC-A (12 digits)
+      if (/^\d{12}$/.test(strValue)) return "UPC";
+
+      // Code 39 (alphanumeric)
+      if (/^[A-Z0-9\-. $/+%]*$/.test(strValue.toUpperCase())) return "CODE39";
+
+      // Default to Code 128 (most versatile)
+      return "CODE128";
+    },
+    truncateText(text, maxLength) {
+      if (!text) return '';
+      return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+    },
+    loadBarcodeLibrary() {
+      // Load JsBarcode library if not already loaded
+      if (typeof window.JsBarcode === 'undefined') {
+        const script = document.createElement('script');
+        script.src = 'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js';
+        script.onload = () => {
+          console.log('JsBarcode library loaded');
+        };
+        document.head.appendChild(script);
+      }
+    },
+    getLabelStyle() {
+      const formats = {
+        small: {
+          width: '2.5cm',
+          height: '2cm',
+          fontSize: '8px'
+        },
+        standard: {
+          width: '3cm',
+          height: '3cm',
+          fontSize: '10px'
+        },
+        large: {
+          width: '4cm',
+          height: '3cm',
+          fontSize: '12px'
+        }
+      };
+      const format = formats[this.selectedPrintFormat];
+      return {
+        width: format.width,
+        height: format.height,
+        fontSize: format.fontSize,
+        gridTemplateColumns: 'repeat(' + this.labelsPerRow + ', 1fr)'
+      };
+    },
+    doPrint() {
+      // Hide the dialog during printing
+      this.printDialog = false;
+
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank');
+
+      // Generate the print document with barcodes
+      this.generatePrintDocument(printWindow);
+    },
+    escapeHtml(text) {
+      if (!text) return '';
+      return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    },
+    escapeJs(text) {
+      if (!text) return '';
+      return text.replace(/\\/g, '\\\\').replace(/"/g, '\\"').replace(/'/g, "\\'").replace(/\n/g, '\\n').replace(/\r/g, '\\r').replace(/\t/g, '\\t');
+    },
+    generatePrintDocument(printWindow) {
+      const labelsPerRow = this.labelsPerRow;
+      const labelStyle = this.getLabelStyle();
+
+      // Generate HTML content for labels
+      let labelsHtml = '';
+      this.filteredProducts.forEach(product => {
+        // FIX: Convert to String() explicitly
+        const barcodeValue = String(product.barCode || product.pro_id || '000000');
+        const productName = this.escapeHtml(this.truncateText(product.pro_name, 25));
+        const productPrice = this.formatNumber(product.pro_price);
+        labelsHtml += '<div class="barcode-label">';
+        labelsHtml += '<div class="barcode-svg-container">';
+        labelsHtml += '<svg id="print-barcode-' + product.id + '" class="barcode-svg"></svg>';
+        labelsHtml += '</div>';
+        labelsHtml += '<div class="barcode-text">' + barcodeValue + '</div>';
+        labelsHtml += '<div class="product-name">' + productName + '</div>';
+        labelsHtml += '<div class="product-price">' + productPrice + ' LAK</div>';
+        labelsHtml += '</div>';
+      });
+
+      // Generate JavaScript for barcodes
+      const formats = {
+        small: {
+          width: 1,
+          height: 30
+        },
+        standard: {
+          width: 1.2,
+          height: 40
+        },
+        large: {
+          width: 1.5,
+          height: 50
+        }
+      };
+      const format = formats[this.selectedPrintFormat];
+      let barcodeScript = '';
+      this.filteredProducts.forEach(product => {
+        // FIX: Convert to String() explicitly
+        const rawValue = String(product.barCode || product.pro_id || '000000');
+        const barcodeValue = this.escapeJs(rawValue);
+        const barcodeFormat = this.getBarcodeFormat(rawValue);
+        barcodeScript += 'try {';
+        barcodeScript += 'JsBarcode("#print-barcode-' + product.id + '", "' + barcodeValue + '", {';
+        barcodeScript += 'format: "' + barcodeFormat + '",';
+        barcodeScript += 'width: ' + format.width + ',';
+        barcodeScript += 'height: ' + format.height + ',';
+        barcodeScript += 'displayValue: false,';
+        barcodeScript += 'margin: 2,';
+        barcodeScript += 'background: "#ffffff",';
+        barcodeScript += 'lineColor: "#000000"';
+        barcodeScript += '});';
+        barcodeScript += '} catch(e) {';
+        barcodeScript += 'console.error("Failed to generate barcode:", e);';
+        barcodeScript += 'var elem = document.getElementById("print-barcode-' + product.id + '");';
+        barcodeScript += 'if(elem) {';
+        barcodeScript += 'elem.innerHTML = \'<text x="50%" y="50%" text-anchor="middle" font-family="monospace" font-size="12">' + barcodeValue + '</text>\';';
+        barcodeScript += '}';
+        barcodeScript += '}';
+      });
+
+      // Build complete HTML document
+      const printDocument = '<!DOCTYPE html>' + '<html>' + '<head>' + '<title>Barcode Labels</title>' + '<scr' + 'ipt src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></scr' + 'ipt>' + '<sty' + 'le>' + '@page { margin: 10mm; size: A4; }' + 'body { font-family: Arial, sans-serif; margin: 0; padding: 10px; }' + '.barcode-grid { display: grid; grid-template-columns: repeat(' + labelsPerRow + ', 1fr); gap: 5mm; width: 100%; }' + '.barcode-label { border: 1px solid #333; padding: 2mm; text-align: center; page-break-inside: avoid; display: flex; flex-direction: column; justify-content: center; align-items: center; width: ' + labelStyle.width + '; height: ' + labelStyle.height + '; box-sizing: border-box; font-size: ' + labelStyle.fontSize + '; }' + '.barcode-svg-container { display: flex; justify-content: center; align-items: center; margin-bottom: 2px; flex-shrink: 0; }' + '.barcode-svg { max-width: 100%; height: auto; }' + '.barcode-text { font-family: "Courier New", monospace; font-weight: bold; font-size: 0.8em; margin-bottom: 2px; word-break: break-all; }' + '.product-name { font-size: 0.8em; margin-bottom: 2px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.1; text-align: center; }' + '.product-price { font-weight: bold; color: #d32f2f; font-size: 0.9em; }' + '@media print { body { margin: 0; padding: 0; } .barcode-grid { gap: 3mm; } }' + '</sty' + 'le>' + '</head>' + '<body>' + '<div class="barcode-grid">' + labelsHtml + '</div>' + '<scr' + 'ipt>' + 'window.onload = function() {' + barcodeScript + 'setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 1000); }, 500);' + '};' + '</scr' + 'ipt>' + '</body>' + '</html>';
+      printWindow.document.write(printDocument);
+      printWindow.document.close();
+    },
     // Recipe-related methods
     async viewProductRecipes(product) {
       this.selectedProductForRecipe = product;
@@ -3286,11 +3673,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   product_productlistvue_type_script_lang_js,
-  productlistvue_type_template_id_20b7a688_scoped_true_render,
+  productlistvue_type_template_id_24b6f4d2_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "20b7a688",
+  "24b6f4d2",
   "16a8b308"
   
 )
