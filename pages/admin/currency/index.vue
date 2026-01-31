@@ -103,7 +103,7 @@
     <!-- Updated dialog configuration in parent summary screen -->
     <v-dialog
       v-model="currencyDialogForm"
-      max-width="650"
+      fullscreen
       persistent
       scrollable
     >

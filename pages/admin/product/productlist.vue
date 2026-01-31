@@ -410,7 +410,7 @@
       </dialog-classic-message>
     </v-dialog>
 
-    <v-dialog v-model="isstock" max-width="600px">
+    <v-dialog v-model="isstock" fullscreen>
       <card-form
         :key="stockFormKey"
         :product-id="selectedProductId"

@@ -5,7 +5,21 @@
         <div style="display: flex; justify-content: center;">
           <v-row>
             <v-col cols="6">
-              <img v-if="companyLogo" :src="companyLogo" width="200px" />
+              <img 
+                v-if="companyLogoUrl" 
+                :src="companyLogoUrl" 
+                :alt="companyDataV1?.name || 'Company Logo'"
+                width="200px" 
+                class="company-logo"
+                @error="handleLogoError"
+              />
+              <div 
+                v-else-if="!isLoading"
+                class="logo-placeholder"
+              >
+                <v-icon size="100" color="grey-lighten-2">mdi-domain</v-icon>
+                <div class="text-caption text-grey">No Logo Available</div>
+              </div>
             </v-col>
             <v-col cols="6" align-self="end">
               <table class="table-layout" style="font-size: larger; font-weight: bold;">
@@ -19,16 +33,20 @@
                   <tr style="white-space: nowrap">
                     <td>Tel: {{ companyDataV1?.tel || 'N/A' }}</td>
                   </tr>
+                  <tr style="white-space: nowrap">
+                    <td>Email: {{ companyDataV1?.email || 'N/A' }}</td>
+                  </tr>
                 </tbody>
               </table>
             </v-col>
           </v-row>
         </div>
-        <!-- <h1 style="text-align: center;">PHAIVANH PHARMACY</h1> -->
+        
         <p class="text-color" style="font-size: 21pt; font-weight: bold; text-align: center">
           ໃບສະເໜີລາຄາ / QUOTATION
         </p>
         <v-divider></v-divider>
+        
         <div v-if="header">
           <v-row>
             <v-col cols="6">
@@ -56,7 +74,7 @@
                     <td>Quotation No: {{ header.id || 'N/A' }}</td>
                   </tr>
                   <tr style="white-space: nowrap">
-                    <td>Date: {{ header.bookingDate || 'N/A' }}</td>
+                    <td>Date: {{ formatDate(header.bookingDate) || 'N/A' }}</td>
                   </tr>
                   <tr style="white-space: nowrap">
                     <td>Prepare By: {{ header.user?.cus_name || 'N/A' }}</td>
@@ -67,6 +85,7 @@
           </v-row>
         </div>
         <v-divider></v-divider>
+        
         <div v-if="header">
           <table class="table table-layout" style="border-collapse: collapse;" width="100%">
             <thead>
@@ -92,38 +111,40 @@
               </template>
               <template v-else>
                 <tr>
-                  <td colspan="6">ບໍ່ມີຂໍ້ມູນ</td>
+                  <td colspan="6" class="text-center text-grey">ບໍ່ມີຂໍ້ມູນ</td>
                 </tr>
               </template>
               <tr class="page-break">
                 <td style="text-align: right; font-weight: bold;" colspan="5">Discount</td>
                 <td style="text-align: right; font-weight: bold;">{{ formatNumber(totalDiscount) }}</td>
               </tr>
-              <tr class="page-break">
+              <tr class="page-break total-row">
                 <td style="text-align: right; font-weight: bold;" colspan="5">ລາຄາລວມ</td>
                 <td style="text-align: right; font-weight: bold;">{{ formatNumber((header.total || 0) - totalDiscount) }}</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <v-row no-gutters>
+        
+        <v-row no-gutters class="mt-4">
           <v-col>
-            <div>
+            <div class="signature-note">
               Name/signature/company stamp
             </div>
           </v-col>
         </v-row>
-        <div style="">
+        
+        <div class="signature-section">
           <v-row no-gutters>
             <v-col cols="5" style="" align-self="end">
-              <v-card class="mx-auto ml-0" height="134" width="100%" outlined>
-                Customer Acceptance (sign below):
+              <v-card class="mx-auto ml-0 signature-box" height="134" width="100%" outlined>
+                <div class="signature-label">Customer Acceptance (sign below):</div>
               </v-card>
             </v-col>
             <v-col cols="2"></v-col>
             <v-col cols="5">
-              <v-card class="mx-auto" height="134" width="100%" outlined>
-                Approved By:
+              <v-card class="mx-auto signature-box" height="134" width="100%" outlined>
+                <div class="signature-label">Approved By:</div>
               </v-card>
             </v-col>
           </v-row>
@@ -147,33 +168,59 @@ export default {
       id: null,
       header: null,
       isLoading: true,
+      logoLoadError: false,
     }
   },
 
   computed: {
+    ...mapGetters(['currentSelectedLocation']),
+
     companyData() {
       console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       return mainCompanyInfo()
     },
+    
     companyDataV1() {
       try {
         let comV1 = mainCompanyInfoV1(this.$store)
+        console.log('Company Data V1:', comV1)
         return comV1 || {}
       } catch (error) {
         console.error('Error loading company data:', error)
         return {}
       }
     },
-    companyLogo() {
+
+    // New computed property for API-based logo
+    companyLogoUrl() {
       try {
+        // First try to get from current selected location company data
+        if (this.currentSelectedLocation?.company?.profile_image_path) {
+          const imagePath = this.currentSelectedLocation.company.profile_image_path
+          // Convert relative path to full URL
+          return this.buildImageUrl(imagePath)
+        }
+        
+        // Fallback to companyDataV1 if available
+        if (this.companyDataV1?.profile_image_path) {
+          const imagePath = this.companyDataV1.profile_image_path
+          return this.buildImageUrl(imagePath)
+        }
+
+        // Final fallback to assets (original behavior)
         const logoName = this.companyData?.companyLogo
-        return logoName ? require(`~/assets/image/${logoName}`) : null
+        if (logoName && !this.logoLoadError) {
+          return require(`~/assets/image/${logoName}`)
+        }
+        
+        return null
       } catch (error) {
         console.error('Error loading company logo:', error)
+        this.logoLoadError = true
         return null
       }
     },
-    ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct']),
+
     totalDiscount() {
       if (!this.header || !this.header.lines) return 0
       
@@ -204,6 +251,22 @@ export default {
   methods: {
     ...mapActions(['initiateDataCompany', 'setSelectedTerminal', 'setSelectedLocation']),
     
+    buildImageUrl(imagePath) {
+      if (!imagePath) return null
+      
+      // Remove any leading slashes to avoid double slashes
+      const cleanPath = imagePath.replace(/^\/+/, '')
+      
+      // Build the full URL based on your API base URL
+      // Adjust this URL pattern to match your backend setup
+      const baseUrl = process.env.API_BASE_URL || this.$axios.defaults.baseURL || ''
+      
+      // Remove '/api' if it exists in baseURL for file serving
+      const fileBaseUrl = baseUrl.replace('/api', '')
+      
+      return `${fileBaseUrl}/${cleanPath}`
+    },
+    
     async loadQuotationData() {
       try {
         const response = await this.$axios.get(`api/quotation/find/${this.id}`)
@@ -211,15 +274,33 @@ export default {
         console.log('Quotation data loaded:', this.header)
       } catch (error) {
         console.error('Error loading quotation data:', error)
-        // You might want to show a user-friendly error message here
         this.$toast.error('Failed to load quotation data')
       }
+    },
+    
+    handleLogoError(event) {
+      console.error('Logo failed to load:', event.target.src)
+      this.logoLoadError = true
+      
+      // Optionally try to load from a different source or show placeholder
+      event.target.style.display = 'none'
     },
     
     formatNumber(val) {
       if (val === null || val === undefined || isNaN(val)) return '0'
       return getFormatNum(val)
     },
+
+    formatDate(dateString) {
+      if (!dateString) return 'N/A'
+      try {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('en-GB') // DD/MM/YYYY format
+      } catch (error) {
+        console.error('Error formatting date:', error)
+        return dateString
+      }
+    }
   }
 }
 </script>
@@ -231,6 +312,50 @@ export default {
 
 #body {
   font-size: 12px;
+}
+
+.company-logo {
+  max-width: 200px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.logo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 120px;
+  border: 2px dashed #e0e0e0;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.signature-section {
+  margin-top: 40px;
+}
+
+.signature-box {
+  padding: 10px;
+}
+
+.signature-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.signature-note {
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #555;
+}
+
+.total-row {
+  background-color: #f5f5f5;
+  font-size: 14pt;
 }
 
 .title-space {
@@ -290,6 +415,14 @@ export default {
   @page {
     margin: 1cm 0cm 0.2cm 0cm;
   }
+
+  .signature-section {
+    page-break-inside: avoid;
+  }
+
+  .company-logo {
+    max-width: 180px;
+  }
 }
 
 .page-footer,
@@ -313,6 +446,7 @@ th {
 .table th {
   font-size: 11pt;
   text-align: center;
+  background-color: #f8f9fa;
 }
 
 .table td {
@@ -332,6 +466,7 @@ th {
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .page[size="A4"] {
@@ -389,5 +524,16 @@ td {
   vertical-align: top;
   padding-right: 2px;
   padding-left: 2px;
+}
+
+/* Enhanced styling for better visual hierarchy */
+.v-divider {
+  margin: 16px 0;
+  border-color: #246AB2;
+  border-width: 1px;
+}
+
+.text-grey {
+  color: #757575;
 }
 </style>

@@ -1,44 +1,44 @@
 exports.ids = [303,58];
 exports.modules = {
 
-/***/ 1019:
+/***/ 1026:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1368);
+var content = __webpack_require__(1375);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("3eb75d99", content, true, context)
+  add("787ee424", content, true, context)
 };
 
 /***/ }),
 
-/***/ 1367:
+/***/ 1374:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ff88f822_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1019);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ff88f822_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ff88f822_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ff88f822_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_ff88f822_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1688dcbe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1026);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1688dcbe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1688dcbe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1688dcbe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1688dcbe_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1368:
+/***/ 1375:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".text-h4[data-v-ff88f822]{font-weight:700}.v-chip--outlined[data-v-ff88f822]{border-width:1px!important}.caption[data-v-ff88f822]{font-size:.75rem!important}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, "*[data-v-1688dcbe],.noto-sans-lao[data-v-1688dcbe]{font-family:\"Noto Sans Lao\",sans-serif}.circular-stat-card[data-v-1688dcbe]{background:#fafafa;border:1px solid #e0e0e0;border-radius:12px;transition:all .3s ease}.circular-stat-card[data-v-1688dcbe]:hover{box-shadow:0 4px 12px rgba(0,0,0,.1);transform:translateY(-2px)}.stat-label[data-v-1688dcbe]{color:#666;font-size:.9rem;font-weight:500;margin-bottom:8px}.text-h4[data-v-1688dcbe],.text-h5[data-v-1688dcbe],h1[data-v-1688dcbe],h2[data-v-1688dcbe],h3[data-v-1688dcbe],h4[data-v-1688dcbe],h5[data-v-1688dcbe],h6[data-v-1688dcbe]{font-family:\"Noto Sans Lao\",sans-serif!important}.v-chip--outlined[data-v-1688dcbe]{border-width:1px!important}.caption[data-v-1688dcbe]{font-family:\"Noto Sans Lao\",sans-serif;font-size:.75rem!important}.color-preview-small[data-v-1688dcbe]{border:1px solid #ddd;border-radius:3px;display:inline-block;height:16px;width:16px}.v-btn[data-v-1688dcbe],.v-data-table[data-v-1688dcbe],.v-data-table td[data-v-1688dcbe],.v-data-table th[data-v-1688dcbe],.v-select[data-v-1688dcbe],.v-text-field[data-v-1688dcbe]{font-family:\"Noto Sans Lao\",sans-serif}@media (max-width:768px){.circular-stat-card[data-v-1688dcbe]{margin-bottom:16px}.v-progress-circular[data-v-1688dcbe]{margin-top:8px!important}.stat-label[data-v-1688dcbe]{font-size:.8rem}}.text--secondary[data-v-1688dcbe]{color:rgba(0,0,0,.6)!important}.v-card-title[data-v-1688dcbe]{font-family:\"Noto Sans Lao\",sans-serif;word-break:break-word}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -46,7 +46,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1594:
+/***/ 1601:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54,52 +54,58 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(128);
+var VBtn = __webpack_require__(129);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
+var VBtnToggle = __webpack_require__(445);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(125);
+var VCard = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(129);
+var VChip = __webpack_require__(130);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
-var VChipGroup = __webpack_require__(573);
+var VChipGroup = __webpack_require__(577);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(436);
+var VCol = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(447);
+var VDataTable = __webpack_require__(451);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(484);
+var VDatePicker = __webpack_require__(488);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(411);
+var VDialog = __webpack_require__(415);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(124);
+var VDivider = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(64);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
-var VLayout = __webpack_require__(429);
+var VLayout = __webpack_require__(433);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
-var VMenu = __webpack_require__(130);
+var VMenu = __webpack_require__(131);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(110);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(435);
+var VRow = __webpack_require__(439);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(438);
+var VSpacer = __webpack_require__(442);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
@@ -108,11 +114,9 @@ var VTextField = __webpack_require__(39);
 var VToolbar = __webpack_require__(28);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
-var components_VToolbar = __webpack_require__(143);
+var components_VToolbar = __webpack_require__(73);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=ff88f822&scoped=true
-
-
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=template&id=1688dcbe&scoped=true
 
 
 
@@ -132,19 +136,22 @@ var components_VToolbar = __webpack_require__(143);
 
 
 
-var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
+
+
+
+var _idvue_type_template_id_1688dcbe_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "text-center"
-  }, [_vm._ssrNode("<h1 data-v-ff88f822>", "</h1>", [_c(VChip["a" /* default */], {
+    staticClass: "text-center noto-sans-lao"
+  }, [_vm._ssrNode("<h1 data-v-1688dcbe>", "</h1>", [_c(VChip["a" /* default */], {
     staticClass: "ma-0 white--text",
     attrs: {
       "large": "",
       "label": "",
       "color": "blue"
     }
-  }, [_vm._v("\n            ລາຍການ ສະຕັອກສິນຄ້າ   " + _vm._s(_vm.pro_name) + "\n  ")])], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("\n      ລາຍການ ສະຕັອກສິນຄ້າ " + _vm._s(_vm.pro_name) + "\n    ")])], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "max-width": "300px"
     },
@@ -201,168 +208,282 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
   }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
+    staticClass: "text-left mb-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "noto-sans-lao"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n        ສະຫຼຸບສະຖານະສິນຄ້າ\n      ")], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "color": "success",
-      "dark": ""
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ພ້ອມໃຊ້")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "success--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.available))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.availablePercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ພ້ອມໃຊ້")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "value": _vm.summaryStats.availablePercent,
+      "color": "success",
+      "size": "80",
+      "width": "6"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.availablePercent) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "color": "warning",
-      "dark": ""
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "warning--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.used))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.usedPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "value": _vm.summaryStats.usedPercent,
+      "color": "warning",
+      "size": "80",
+      "width": "6"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.usedPercent) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "color": "error",
-      "dark": ""
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ຖືກລົບ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "error--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.deleted))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.deletedPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ຖືກລົບ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "value": _vm.summaryStats.deletedPercent,
+      "color": "error",
+      "size": "80",
+      "width": "6"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.deletedPercent) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "color": "orange",
-      "dark": ""
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "orange--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.expired))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("\n            " + _vm._s(_vm.summaryStats.expiredPercent) + "% ຂອງທັງຫມົດ\n          ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ໝົດອາຍຸ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "value": _vm.summaryStats.expiredPercent,
+      "color": "orange",
+      "size": "80",
+      "width": "6"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.expiredPercent) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "color": "amber",
-      "dark": ""
-    }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ໃກ້ໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "amber--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.expiringSoon))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ໃນ 30 ວັນ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ໃກ້ໝົດອາຍຸ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "sm": "6",
+      "value": _vm.getExpiringPercentage(),
+      "color": "amber",
+      "size": "80",
+      "width": "6"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v("30 ວັນ")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
       "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "primary--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.totalCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມູນຄ່າລວມ (ກີບ)")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
+      "value": 100,
       "color": "primary",
-      "dark": ""
+      "size": "80",
+      "width": "6"
     }
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h6"
-  }, [_vm._v("ມູນຄ່າລວມ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h4"
-  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.totalCost)) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ກີບ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v("ລາວ")])])], 1)])], 1), _vm._ssrNode(" "), _c(VRow["a" /* default */], {
     staticClass: "mb-4"
   }, [_c(VCol["a" /* default */], {
+    staticClass: "text-left mb-2",
     attrs: {
-      "cols": "12",
-      "md": "3"
+      "cols": "12"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-subtitle-1"
-  }, [_vm._v("ມູນຄ່າສິນຄ້າພ້ອມໃຊ້")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h5 success--text"
-  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.availableCost)) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('h3', {
+    staticClass: "noto-sans-lao"
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "md": "3"
+      "left": ""
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-subtitle-1"
-  }, [_vm._v("ມູນຄ່າສິນຄ້າໃຊ້ງານແລ້ວ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h5 warning--text"
-  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.usedCost)) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_vm._v("mdi-chart-donut")]), _vm._v("\n        ການວິເຄາະລາຍລະອຽດ\n      ")], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "md": "3"
+      "cols": "6",
+      "md": "2"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-subtitle-1"
-  }, [_vm._v("ມູນຄ່າສິນຄ້າໝົດອາຍຸ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h5 orange--text"
-  }, [_vm._v("\n            " + _vm._s(_vm.formatNumber(_vm.summaryStats.expiredCost)) + "\n          ")]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ກີບ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "success--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.availableCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມູນຄ່າພ້ອມໃຊ້")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
     attrs: {
-      "cols": "12",
-      "md": "3"
+      "value": _vm.getCostPercentage(_vm.summaryStats.availableCost),
+      "color": "success",
+      "size": "60",
+      "width": "4"
     }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-subtitle-1"
-  }, [_vm._v("ສິນຄ້າມີລະຫັດ Lot")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('div', {
-    staticClass: "text-h5 info--text"
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getCostPercentage(_vm.summaryStats.availableCost).toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "warning--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.usedCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມູນຄ່າໃຊ້ແລ້ວ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "value": _vm.getCostPercentage(_vm.summaryStats.usedCost),
+      "color": "warning",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getCostPercentage(_vm.summaryStats.usedCost).toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "orange--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.summaryStats.expiredCost)))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມູນຄ່າໝົດອາຍຸ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "value": _vm.getCostPercentage(_vm.summaryStats.expiredCost),
+      "color": "orange",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getCostPercentage(_vm.summaryStats.expiredCost).toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "info--text mb-2 noto-sans-lao"
   }, [_vm._v(_vm._s(_vm.summaryStats.withLot))]), _vm._v(" "), _c('div', {
-    staticClass: "text-caption"
-  }, [_vm._v("ລາຍການ")])])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມີລະຫັດ Lot")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "value": _vm.getLotPercentage(),
+      "color": "info",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getLotPercentage().toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "purple--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.withSerial))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ມີ Serial No")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "value": _vm.getSerialPercentage(),
+      "color": "purple",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getSerialPercentage().toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "md": "2"
+    }
+  }, [_c('div', {
+    staticClass: "text-center pa-3 circular-stat-card"
+  }, [_c('h2', {
+    staticClass: "teal--text mb-2 noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.summaryStats.uniqueVariants))]), _vm._v(" "), _c('div', {
+    staticClass: "stat-label noto-sans-lao"
+  }, [_vm._v("ສີ/ຂະໜາດແຕກຕ່າງ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "value": _vm.getVariantPercentage(),
+      "color": "teal",
+      "size": "60",
+      "width": "4"
+    }
+  }, [_c('small', {
+    staticClass: "noto-sans-lao"
+  }, [_vm._v(_vm._s(_vm.getVariantPercentage().toFixed(0)) + "%")])])], 1)])], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -387,6 +508,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         attrs
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
+          staticClass: "noto-sans-lao",
           attrs: {
             "label": "ຈາກວັນທີ:",
             "hint": "MM/DD/YYYY format",
@@ -447,6 +569,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         attrs
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
+          staticClass: "noto-sans-lao",
           attrs: {
             "label": "ຫາວັນທີ:",
             "hint": "MM/DD/YYYY format",
@@ -496,6 +619,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
       "cols": "6"
     }
   }, [_c(VTextField["a" /* default */], {
+    staticClass: "noto-sans-lao",
     attrs: {
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
@@ -510,6 +634,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
       expression: "search"
     }
   }), _vm._v(" "), _c(VTextField["a" /* default */], {
+    staticClass: "noto-sans-lao",
     attrs: {
       "append-icon": "mdi-account",
       "label": "ລະຫັດແອັດມິນ",
@@ -524,7 +649,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
       expression: "userId"
     }
   }), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "primary",
+    staticClass: "primary noto-sans-lao",
     attrs: {
       "size": "large",
       "variant": "outlined",
@@ -542,9 +667,10 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
   }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VTextField["a" /* default */], {
+    staticClass: "noto-sans-lao",
     attrs: {
       "append-icon": "mdi-barcode",
       "label": "ຊອກຫາ Lot Number",
@@ -564,9 +690,33 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "append-icon": "mdi-numeric",
+      "label": "ຊອກຫາ Serial No",
+      "single-line": "",
+      "hide-details": ""
+    },
+    on: {
+      "input": _vm.applyFilters
+    },
+    model: {
+      value: _vm.serialFilter,
+      callback: function ($$v) {
+        _vm.serialFilter = $$v;
+      },
+      expression: "serialFilter"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
+    staticClass: "noto-sans-lao",
     attrs: {
       "items": _vm.statusOptions,
       "label": "ກັ່ນຕອງສະຖານະ",
@@ -585,9 +735,10 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "md": "3"
+      "md": "2"
     }
   }, [_c(VSelect["a" /* default */], {
+    staticClass: "noto-sans-lao",
     attrs: {
       "items": _vm.expiryOptions,
       "label": "ກັ່ນຕອງອາຍຸການໃຊ້",
@@ -606,10 +757,120 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
+      "md": "2"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "items": _vm.colorOptions,
+      "item-text": "name",
+      "item-value": "id",
+      "label": "ກັ່ນຕອງສີ",
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.applyFilters
+    },
+    model: {
+      value: _vm.colorFilter,
+      callback: function ($$v) {
+        _vm.colorFilter = $$v;
+      },
+      expression: "colorFilter"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "2"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "items": _vm.sizeOptions,
+      "item-text": "name",
+      "item-value": "id",
+      "label": "ກັ່ນຕອງຂະໜາດ",
+      "clearable": ""
+    },
+    on: {
+      "change": _vm.applyFilters
+    },
+    model: {
+      value: _vm.sizeFilter,
+      callback: function ($$v) {
+        _vm.sizeFilter = $$v;
+      },
+      expression: "sizeFilter"
+    }
+  })], 1)], 1), _vm._v(" "), _c(VLayout["a" /* default */], {
+    staticClass: "mt-2",
+    attrs: {
+      "row": "",
+      "wrap": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VBtnToggle["a" /* default */], {
+    attrs: {
+      "exclusive": ""
+    },
+    model: {
+      value: _vm.viewMode,
+      callback: function ($$v) {
+        _vm.viewMode = $$v;
+      },
+      expression: "viewMode"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "value": "detail"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-view-list")]), _vm._v("\n              ລາຍລະອຽດ\n            ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "value": "summary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ສະຫຼຸບ\n            ")], 1)], 1)], 1), _vm._v(" "), _vm.viewMode === 'summary' ? _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "3"
+    }
+  }, [_c(VSelect["a" /* default */], {
+    staticClass: "noto-sans-lao",
+    attrs: {
+      "items": _vm.groupByOptions,
+      "label": "ຈັດກຸ່ມຕາມ",
+      "dense": ""
+    },
+    on: {
+      "change": _vm.generateSummaryData
+    },
+    model: {
+      value: _vm.groupBy,
+      callback: function ($$v) {
+        _vm.groupBy = $$v;
+      },
+      expression: "groupBy"
+    }
+  })], 1) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
       "md": "3"
     }
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "success",
+    staticClass: "success noto-sans-lao",
     attrs: {
       "size": "large",
       "variant": "outlined",
@@ -623,10 +884,10 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n            Export\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _vm.filteredData ? _c(VDataTable["a" /* default */], {
-    staticClass: "elevation-1",
+  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n            Export\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _vm.viewMode === 'detail' && _vm.filteredData ? _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1 noto-sans-lao",
     attrs: {
-      "headers": _vm.headers,
+      "headers": _vm.detailHeaders,
       "search": _vm.search,
       "items": _vm.filteredData,
       "items-per-page": 15
@@ -637,7 +898,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [_c('span', {
-          staticClass: "font-weight-bold"
+          staticClass: "font-weight-bold noto-sans-lao"
         }, [_vm._v(_vm._s(_vm.formatNumber(item.cost)))])];
       }
     }, {
@@ -646,6 +907,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
           attrs: {
             "color": _vm.getStatusColor(item.status),
             "dark": "",
@@ -659,6 +921,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
           staticStyle: {
             "cursor": "pointer"
           },
@@ -672,7 +935,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
             "left": "",
             "small": ""
           }
-        }, [_vm._v("mdi-clock")]), _vm._v("\n            " + _vm._s(item.input_date_time) + "\n          ")], 1)];
+        }, [_vm._v("mdi-clock")]), _vm._v("\n          " + _vm._s(item.input_date_time) + "\n        ")], 1)];
       }
     }, {
       key: `item.update_time`,
@@ -680,6 +943,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
           staticStyle: {
             "cursor": "pointer"
           },
@@ -693,7 +957,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
             "left": "",
             "small": ""
           }
-        }, [_vm._v("mdi-clock")]), _vm._v("\n            " + _vm._s(item.update_time) + "\n          ")], 1)];
+        }, [_vm._v("mdi-clock")]), _vm._v("\n          " + _vm._s(item.update_time) + "\n        ")], 1)];
       }
     }, {
       key: `item.lotNumber`,
@@ -701,6 +965,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [item.lotNumber ? _c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
           attrs: {
             "color": "secondary",
             "outlined": "",
@@ -712,7 +977,62 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
             "left": ""
           }
         }, [_vm._v("mdi-barcode")]), _vm._v("\n          " + _vm._s(item.lotNumber) + "\n        ")], 1) : _c('span', {
-          staticClass: "grey--text"
+          staticClass: "grey--text noto-sans-lao"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: `item.serialNo`,
+      fn: function ({
+        item
+      }) {
+        return [item.serialNo ? _c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": "info",
+            "outlined": "",
+            "x-small": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-numeric")]), _vm._v("\n          " + _vm._s(item.serialNo) + "\n        ")], 1) : _c('span', {
+          staticClass: "grey--text noto-sans-lao"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: `item.colorInfo`,
+      fn: function ({
+        item
+      }) {
+        return [item.colorInfo ? _c('div', {
+          staticClass: "d-flex align-center"
+        }, [item.colorInfo.hex_code ? _c('div', {
+          staticClass: "color-preview-small mr-2",
+          style: {
+            backgroundColor: item.colorInfo.hex_code
+          }
+        }) : _vm._e(), _vm._v(" "), _c('span', {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v(_vm._s(item.colorInfo.name))])]) : _c('span', {
+          staticClass: "grey--text noto-sans-lao"
+        }, [_vm._v("-")])];
+      }
+    }, {
+      key: `item.sizeInfo`,
+      fn: function ({
+        item
+      }) {
+        return [item.sizeInfo ? _c('div', [_c(VIcon["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-ruler")]), _vm._v(" "), _c('span', {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v(_vm._s(item.sizeInfo.name))])], 1) : _c('span', {
+          staticClass: "grey--text noto-sans-lao"
         }, [_vm._v("-")])];
       }
     }, {
@@ -721,6 +1041,7 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
         item
       }) {
         return [item.expiryDate ? _c('div', [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
           attrs: {
             "color": _vm.getExpiryColor(item.expiryDate),
             "dark": "",
@@ -732,97 +1053,12 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
             "left": ""
           }
         }, [_vm._v("mdi-calendar")]), _vm._v("\n            " + _vm._s(_vm.formatDate(item.expiryDate)) + "\n          ")], 1), _vm._v(" "), _c('div', {
-          staticClass: "caption mt-1",
+          staticClass: "caption mt-1 noto-sans-lao",
           class: _vm.getExpiryColor(item.expiryDate) + '--text'
         }, [_vm._v("\n            " + _vm._s(_vm.getExpiryStatus(item.expiryDate)) + "\n          ")])], 1) : _c('span', {
-          staticClass: "grey--text"
+          staticClass: "grey--text noto-sans-lao"
         }, [_vm._v("-")])];
       }
-    }, {
-      key: `item.costDetails`,
-      fn: function ({
-        item
-      }) {
-        return [_c('div', [_c('div', {
-          staticClass: "font-weight-bold"
-        }, [_vm._v(_vm._s(_vm.formatNumber(item.cost)))]), _vm._v(" "), item.costType ? _c('div', {
-          staticClass: "caption"
-        }, [_vm._v("\n            " + _vm._s(item.costType === 'perUnit' ? 'ຕໍ່ຫົວໜ່ວຍ' : 'ລວມທັງໝົດ') + "\n          ")]) : _vm._e(), _vm._v(" "), item.totalCost && item.costType === 'perUnit' ? _c('div', {
-          staticClass: "caption grey--text"
-        }, [_vm._v("\n            ລວມ: " + _vm._s(_vm.formatNumber(item.totalCost)) + "\n          ")]) : _vm._e()])];
-      }
-    }, {
-      key: `item.location`,
-      fn: function ({
-        item
-      }) {
-        return [item.srcLocationName ? _c('span', [_vm._v(_vm._s(item.srcLocationName))]) : _c('span', {
-          staticClass: "grey--text"
-        }, [_vm._v("-")])];
-      }
-    }, {
-      key: "top",
-      fn: function () {
-        return [_c(VToolbar["a" /* default */], {
-          attrs: {
-            "flat": ""
-          }
-        }, [_c(components_VToolbar["b" /* VToolbarTitle */], [_vm._v("\n            ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filteredData.length) + "\n            "), _vm.statusFilter || _vm.expiryFilter ? _c('span', {
-          staticClass: "text-caption"
-        }, [_vm._v("\n              (ກັ່ນຕອງ: " + _vm._s(_vm.statusFilter || _vm.expiryFilter) + ")\n            ")]) : _vm._e()]), _vm._v(" "), _c(VDivider["a" /* default */], {
-          staticClass: "mx-4",
-          attrs: {
-            "inset": "",
-            "vertical": ""
-          }
-        }), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChipGroup["a" /* default */], [_c(VChip["a" /* default */], {
-          attrs: {
-            "color": _vm.expiryFilter === 'expiring' ? 'warning' : 'default',
-            "small": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.setQuickFilter('expiring');
-            }
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "small": "",
-            "left": ""
-          }
-        }, [_vm._v("mdi-clock-alert")]), _vm._v("\n              ໃກ້ໝົດອາຍຸ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
-          attrs: {
-            "color": _vm.expiryFilter === 'expired' ? 'error' : 'default',
-            "small": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.setQuickFilter('expired');
-            }
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "small": "",
-            "left": ""
-          }
-        }, [_vm._v("mdi-calendar-remove")]), _vm._v("\n              ໝົດອາຍຸແລ້ວ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
-          attrs: {
-            "color": _vm.lotFilter ? 'info' : 'default',
-            "small": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.setQuickFilter('withLot');
-            }
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "small": "",
-            "left": ""
-          }
-        }, [_vm._v("mdi-barcode")]), _vm._v("\n              ມີ Lot\n            ")], 1)], 1)], 1)];
-      },
-      proxy: true
     }, {
       key: `item.function`,
       fn: function ({
@@ -844,17 +1080,302 @@ var _idvue_type_template_id_ff88f822_scoped_true_render = function render() {
           }
         }, [_vm._v("mdi-delete")])], 1) : _vm._e()];
       }
+    }, {
+      key: "top",
+      fn: function () {
+        return [_c(VToolbar["a" /* default */], {
+          attrs: {
+            "flat": ""
+          }
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v("\n            ສິນຄ້າທັງຫມົດ: " + _vm._s(_vm.filteredData.length) + "\n            "), _vm.hasActiveFilters ? _c('span', {
+          staticClass: "text-caption"
+        }, [_vm._v("\n              (ກັ່ນຕອງແລ້ວ)\n            ")]) : _vm._e()]), _vm._v(" "), _c(VDivider["a" /* default */], {
+          staticClass: "mx-4",
+          attrs: {
+            "inset": "",
+            "vertical": ""
+          }
+        }), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChipGroup["a" /* default */], [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": _vm.expiryFilter === 'expiring' ? 'warning' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('expiring');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-clock-alert")]), _vm._v("\n              ໃກ້ໝົດອາຍຸ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": _vm.expiryFilter === 'expired' ? 'error' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('expired');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-calendar-remove")]), _vm._v("\n              ໝົດອາຍຸແລ້ວ\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": _vm.lotFilter ? 'info' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('withLot');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-barcode")]), _vm._v("\n              ມີ Lot\n            ")], 1), _vm._v(" "), _c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": _vm.serialFilter ? 'purple' : 'default',
+            "small": ""
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.setQuickFilter('withSerial');
+            }
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-numeric")]), _vm._v("\n              ມີ Serial\n            ")], 1)], 1)], 1)];
+      },
+      proxy: true
+    }], null, true)
+  }) : _vm._e(), _vm._v(" "), _vm.viewMode === 'summary' && _vm.summaryData ? _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1 noto-sans-lao",
+    attrs: {
+      "headers": _vm.summaryHeaders,
+      "items": _vm.summaryData,
+      "items-per-page": 15
+    },
+    scopedSlots: _vm._u([{
+      key: `item.count`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          staticClass: "noto-sans-lao",
+          attrs: {
+            "color": "primary",
+            "dark": ""
+          }
+        }, [_vm._v(_vm._s(item.count))])];
+      }
+    }, {
+      key: `item.totalCost`,
+      fn: function ({
+        item
+      }) {
+        return [_c('span', {
+          staticClass: "font-weight-bold noto-sans-lao"
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.totalCost)))])];
+      }
+    }, {
+      key: `item.avgCost`,
+      fn: function ({
+        item
+      }) {
+        return [_c('span', {
+          staticClass: "text-caption noto-sans-lao"
+        }, [_vm._v(_vm._s(_vm.formatNumber(item.avgCost)))])];
+      }
+    }, {
+      key: `item.colorInfo`,
+      fn: function ({
+        item
+      }) {
+        return [item.colorInfo ? _c('div', {
+          staticClass: "d-flex align-center"
+        }, [item.colorInfo.hex_code ? _c('div', {
+          staticClass: "color-preview-small mr-2",
+          style: {
+            backgroundColor: item.colorInfo.hex_code
+          }
+        }) : _vm._e(), _vm._v(" "), _c('span', {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v(_vm._s(item.colorInfo.name))])]) : _c('span', {
+          staticClass: "grey--text noto-sans-lao"
+        }, [_vm._v("ບໍ່ລະບຸສີ")])];
+      }
+    }, {
+      key: `item.sizeInfo`,
+      fn: function ({
+        item
+      }) {
+        return [item.sizeInfo ? _c('div', [_c(VIcon["a" /* default */], {
+          attrs: {
+            "x-small": "",
+            "left": ""
+          }
+        }, [_vm._v("mdi-ruler")]), _vm._v(" "), _c('span', {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v(_vm._s(item.sizeInfo.name))])], 1) : _c('span', {
+          staticClass: "grey--text noto-sans-lao"
+        }, [_vm._v("ບໍ່ລະບຸຂະໜາດ")])];
+      }
+    }, {
+      key: "top",
+      fn: function () {
+        return [_c(VToolbar["a" /* default */], {
+          attrs: {
+            "flat": ""
+          }
+        }, [_c(components_VToolbar["b" /* VToolbarTitle */], {
+          staticClass: "noto-sans-lao"
+        }, [_vm._v("\n            ສະຫຼຸບຕາມ: " + _vm._s(_vm.getGroupByLabel(_vm.groupBy)) + " (" + _vm._s(_vm.summaryData.length) + " ກຸ່ມ)\n          ")]), _vm._v(" "), _c(VSpacer["a" /* default */])], 1)];
+      },
+      proxy: true
     }], null, true)
   }) : _vm._e()], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=ff88f822&scoped=true
+// CONCATENATED MODULE: ./pages/admin/stock/_id/index.vue?vue&type=template&id=1688dcbe&scoped=true
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.delete-all.js"
+var esnext_map_delete_all_js_ = __webpack_require__(74);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.every.js"
+var esnext_map_every_js_ = __webpack_require__(75);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.filter.js"
+var esnext_map_filter_js_ = __webpack_require__(76);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find.js"
+var esnext_map_find_js_ = __webpack_require__(77);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.find-key.js"
+var esnext_map_find_key_js_ = __webpack_require__(78);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.includes.js"
+var esnext_map_includes_js_ = __webpack_require__(79);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.key-of.js"
+var esnext_map_key_of_js_ = __webpack_require__(80);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-keys.js"
+var esnext_map_map_keys_js_ = __webpack_require__(81);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.map-values.js"
+var esnext_map_map_values_js_ = __webpack_require__(82);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.merge.js"
+var esnext_map_merge_js_ = __webpack_require__(83);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.reduce.js"
+var esnext_map_reduce_js_ = __webpack_require__(84);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.some.js"
+var esnext_map_some_js_ = __webpack_require__(85);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.map.update.js"
+var esnext_map_update_js_ = __webpack_require__(86);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
+var esnext_set_add_all_js_ = __webpack_require__(146);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
+var esnext_set_delete_all_js_ = __webpack_require__(147);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
+var esnext_set_difference_js_ = __webpack_require__(148);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
+var esnext_set_every_js_ = __webpack_require__(149);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
+var esnext_set_filter_js_ = __webpack_require__(150);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
+var esnext_set_find_js_ = __webpack_require__(151);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
+var esnext_set_intersection_js_ = __webpack_require__(152);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(153);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
+var esnext_set_is_subset_of_js_ = __webpack_require__(154);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
+var esnext_set_is_superset_of_js_ = __webpack_require__(155);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
+var esnext_set_join_js_ = __webpack_require__(156);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
+var esnext_set_map_js_ = __webpack_require__(157);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
+var esnext_set_reduce_js_ = __webpack_require__(158);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
+var esnext_set_some_js_ = __webpack_require__(159);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
+var esnext_set_symmetric_difference_js_ = __webpack_require__(160);
+
+// EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
+var esnext_set_union_js_ = __webpack_require__(161);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/stock/_id/index.vue?vue&type=script&lang=js
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /* harmony default export */ var _idvue_type_script_lang_js = ({
   middleware: 'auths',
@@ -862,7 +1383,6 @@ var common = __webpack_require__(7);
     console.log('MIXIN ID: ' + data.params.id);
     return /^\d+$/.test(data.params.id);
   },
-  // USING SAME SIMPLE WATCH PATTERN AS PAYMENT PAGE
   watch: {
     message(val) {
       if (val != null) {
@@ -882,6 +1402,12 @@ var common = __webpack_require__(7);
     loaddata() {
       this.calculateSummaryStats();
       this.applyFilters();
+      this.loadColorSizeOptions();
+    },
+    viewMode() {
+      if (this.viewMode === 'summary') {
+        this.generateSummaryData();
+      }
     }
   },
   data() {
@@ -897,6 +1423,7 @@ var common = __webpack_require__(7);
       selectedStockProductId: '',
       loaddata: [],
       filteredData: [],
+      summaryData: [],
       carddata: [],
       cardType: [],
       content: null,
@@ -905,6 +1432,33 @@ var common = __webpack_require__(7);
       statusFilter: null,
       expiryFilter: null,
       lotFilter: '',
+      serialFilter: '',
+      colorFilter: null,
+      sizeFilter: null,
+      colorOptions: [],
+      sizeOptions: [],
+      viewMode: 'detail',
+      // 'detail' or 'summary'
+      groupBy: 'date',
+      groupByOptions: [{
+        text: 'ວັນທີ',
+        value: 'date'
+      }, {
+        text: 'ສີ',
+        value: 'color'
+      }, {
+        text: 'ຂະໜາດ',
+        value: 'size'
+      }, {
+        text: 'ສີ + ຂະໜາດ',
+        value: 'colorSize'
+      }, {
+        text: 'Lot Number',
+        value: 'lot'
+      }, {
+        text: 'ສະຖານະ',
+        value: 'status'
+      }],
       statusOptions: ['ພ້ອມໃຊ້', 'ໃຊ້ງານແລ້ວ', 'ຖືກລົບ'],
       expiryOptions: [{
         text: 'ໝົດອາຍຸແລ້ວ',
@@ -923,6 +1477,8 @@ var common = __webpack_require__(7);
         expired: 0,
         expiringSoon: 0,
         withLot: 0,
+        withSerial: 0,
+        uniqueVariants: 0,
         totalCost: 0,
         availableCost: 0,
         usedCost: 0,
@@ -935,7 +1491,7 @@ var common = __webpack_require__(7);
       },
       menu1: false,
       menu2: false,
-      headers: [{
+      detailHeaders: [{
         text: 'ID',
         align: 'center',
         value: 'card_id',
@@ -947,12 +1503,23 @@ var common = __webpack_require__(7);
       }, {
         text: 'ຕົ້ນທຶນ',
         align: 'center',
-        value: 'costDetails',
-        sortable: false
+        value: 'cost'
+      }, {
+        text: 'ສີ',
+        align: 'center',
+        value: 'colorInfo'
+      }, {
+        text: 'ຂະໜາດ',
+        align: 'center',
+        value: 'sizeInfo'
       }, {
         text: 'Lot Number',
         align: 'center',
         value: 'lotNumber'
+      }, {
+        text: 'Serial No',
+        align: 'center',
+        value: 'serialNo'
       }, {
         text: 'ວັນໝົດອາຍຸ',
         align: 'center',
@@ -988,7 +1555,27 @@ var common = __webpack_require__(7);
         sortable: false,
         width: '100px'
       }],
-      // USING SAME DATE INITIALIZATION AS PAYMENT PAGE
+      summaryHeaders: [{
+        text: 'ກຸ່ມ',
+        align: 'center',
+        value: 'groupKey',
+        sortable: true
+      }, {
+        text: 'ຈຳນວນ',
+        align: 'center',
+        value: 'count',
+        sortable: true
+      }, {
+        text: 'ມູນຄ່າລວມ',
+        align: 'center',
+        value: 'totalCost',
+        sortable: true
+      }, {
+        text: 'ມູນຄ່າສະເລ່ຍ',
+        align: 'center',
+        value: 'avgCost',
+        sortable: true
+      }],
       date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
@@ -1011,6 +1598,9 @@ var common = __webpack_require__(7);
     },
     user() {
       return this.$auth.user || '';
+    },
+    hasActiveFilters() {
+      return this.statusFilter || this.expiryFilter || this.lotFilter || this.serialFilter || this.colorFilter || this.sizeFilter;
     }
   },
   methods: {
@@ -1018,7 +1608,26 @@ var common = __webpack_require__(7);
     formatNumber(value) {
       return Object(common["e" /* getFormatNum */])(value);
     },
-    // USING SAME DATE FORMATTING METHODS AS PAYMENT PAGE
+    // New percentage calculation methods for circular progress
+    getExpiringPercentage() {
+      const total = this.loaddata.length;
+      return total > 0 ? this.summaryStats.expiringSoon / total * 100 : 0;
+    },
+    getCostPercentage(cost) {
+      return this.summaryStats.totalCost > 0 ? cost / this.summaryStats.totalCost * 100 : 0;
+    },
+    getLotPercentage() {
+      const total = this.loaddata.length;
+      return total > 0 ? this.summaryStats.withLot / total * 100 : 0;
+    },
+    getSerialPercentage() {
+      const total = this.loaddata.length;
+      return total > 0 ? this.summaryStats.withSerial / total * 100 : 0;
+    },
+    getVariantPercentage() {
+      const maxVariants = 20; // Assume max 20 different variants for calculation
+      return this.summaryStats.uniqueVariants > 0 ? this.summaryStats.uniqueVariants / maxVariants * 100 : 0;
+    },
     formatDate(date) {
       if (!date) return null;
       console.log("DATE FORMAT METHOD: " + date);
@@ -1070,28 +1679,57 @@ var common = __webpack_require__(7);
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       if (diffDays < 0) return `ໝົດອາຍຸ ${Math.abs(diffDays)} ວັນແລ້ວ`;
       if (diffDays === 0) return 'ໝົດອາຍຸມື້ນີ້';
-      if (diffDays <= 7) return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
       if (diffDays <= 30) return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
       return `ອີກ ${diffDays} ວັນໝົດອາຍຸ`;
+    },
+    getGroupByLabel(groupBy) {
+      const option = this.groupByOptions.find(opt => opt.value === groupBy);
+      return option ? option.text : groupBy;
+    },
+    loadColorSizeOptions() {
+      // Extract unique colors and sizes from loaded data
+      const colors = new Map();
+      const sizes = new Map();
+      this.loaddata.forEach(item => {
+        if (item.colorId && item.colorInfo) {
+          colors.set(item.colorId, {
+            id: item.colorId,
+            name: item.colorInfo.name,
+            hex_code: item.colorInfo.hex_code
+          });
+        }
+        if (item.sizeId && item.sizeInfo) {
+          sizes.set(item.sizeId, {
+            id: item.sizeId,
+            name: item.sizeInfo.name
+          });
+        }
+      });
+      this.colorOptions = Array.from(colors.values());
+      this.sizeOptions = Array.from(sizes.values());
     },
     calculateSummaryStats() {
       const total = this.loaddata.length;
       const available = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').length;
       const used = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length;
       const deleted = this.loaddata.filter(item => item.status === 'ຖືກລົບ').length;
-
-      // Calculate expired and expiring items
       const today = new Date();
       const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-      const expired = this.loaddata.filter(item => {
-        return item.expiryDate && new Date(item.expiryDate) < today;
-      }).length;
+      const expired = this.loaddata.filter(item => item.expiryDate && new Date(item.expiryDate) < today).length;
       const expiringSoon = this.loaddata.filter(item => {
         if (!item.expiryDate) return false;
         const expiry = new Date(item.expiryDate);
         return expiry >= today && expiry <= thirtyDaysFromNow;
       }).length;
       const withLot = this.loaddata.filter(item => item.lotNumber).length;
+      const withSerial = this.loaddata.filter(item => item.serialNo).length;
+
+      // Calculate unique variants (color + size combinations)
+      const variants = new Set();
+      this.loaddata.forEach(item => {
+        const variant = `${item.colorId || 'none'}_${item.sizeId || 'none'}`;
+        variants.add(variant);
+      });
 
       // Calculate costs
       const totalCost = this.loaddata.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0);
@@ -1106,6 +1744,8 @@ var common = __webpack_require__(7);
         expired,
         expiringSoon,
         withLot,
+        withSerial,
+        uniqueVariants: variants.size,
         totalCost,
         availableCost,
         usedCost,
@@ -1119,13 +1759,9 @@ var common = __webpack_require__(7);
     },
     applyFilters() {
       let filtered = [...this.loaddata];
-
-      // Status filter
       if (this.statusFilter) {
         filtered = filtered.filter(item => item.status === this.statusFilter);
       }
-
-      // Expiry filter
       if (this.expiryFilter) {
         const today = new Date();
         const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
@@ -1144,10 +1780,17 @@ var common = __webpack_require__(7);
           }
         });
       }
-
-      // Lot filter
       if (this.lotFilter) {
         filtered = filtered.filter(item => item.lotNumber && item.lotNumber.toLowerCase().includes(this.lotFilter.toLowerCase()));
+      }
+      if (this.serialFilter) {
+        filtered = filtered.filter(item => item.serialNo && item.serialNo.toLowerCase().includes(this.serialFilter.toLowerCase()));
+      }
+      if (this.colorFilter) {
+        filtered = filtered.filter(item => item.colorId === this.colorFilter);
+      }
+      if (this.sizeFilter) {
+        filtered = filtered.filter(item => item.sizeId === this.sizeFilter);
       }
       this.filteredData = filtered;
     },
@@ -1162,18 +1805,115 @@ var common = __webpack_require__(7);
         case 'withLot':
           this.lotFilter = this.lotFilter ? '' : 'LOT';
           break;
+        case 'withSerial':
+          this.serialFilter = this.serialFilter ? '' : 'SER';
+          break;
       }
       this.applyFilters();
     },
-    // MAIN FETCH METHOD - RENAMED TO MATCH PATTERN
+    generateSummaryData() {
+      const summary = new Map();
+      this.filteredData.forEach(item => {
+        var _item$colorInfo, _item$sizeInfo, _item$colorInfo2, _item$sizeInfo2;
+        let key = '';
+        let displayKey = '';
+        switch (this.groupBy) {
+          case 'date':
+            key = item.input_date_time.split(' ')[0]; // Extract date part
+            displayKey = key;
+            break;
+          case 'color':
+            key = item.colorId || 'no_color';
+            displayKey = ((_item$colorInfo = item.colorInfo) === null || _item$colorInfo === void 0 ? void 0 : _item$colorInfo.name) || 'ບໍ່ລະບຸສີ';
+            break;
+          case 'size':
+            key = item.sizeId || 'no_size';
+            displayKey = ((_item$sizeInfo = item.sizeInfo) === null || _item$sizeInfo === void 0 ? void 0 : _item$sizeInfo.name) || 'ບໍ່ລະບຸຂະໜາດ';
+            break;
+          case 'colorSize':
+            key = `${item.colorId || 'no_color'}_${item.sizeId || 'no_size'}`;
+            displayKey = `${((_item$colorInfo2 = item.colorInfo) === null || _item$colorInfo2 === void 0 ? void 0 : _item$colorInfo2.name) || 'ບໍ່ລະບຸສີ'} - ${((_item$sizeInfo2 = item.sizeInfo) === null || _item$sizeInfo2 === void 0 ? void 0 : _item$sizeInfo2.name) || 'ບໍ່ລະບຸຂະໜາດ'}`;
+            break;
+          case 'lot':
+            key = item.lotNumber || 'no_lot';
+            displayKey = item.lotNumber || 'ບໍ່ມີ Lot Number';
+            break;
+          case 'status':
+            key = item.status;
+            displayKey = item.status;
+            break;
+        }
+        if (!summary.has(key)) {
+          summary.set(key, {
+            groupKey: displayKey,
+            count: 0,
+            totalCost: 0,
+            colorInfo: item.colorInfo,
+            sizeInfo: item.sizeInfo
+          });
+        }
+        const group = summary.get(key);
+        group.count++;
+        group.totalCost += parseFloat(item.cost || 0);
+      });
+
+      // Convert to array and calculate averages
+      this.summaryData = Array.from(summary.values()).map(group => ({
+        ...group,
+        avgCost: group.count > 0 ? group.totalCost / group.count : 0
+      }));
+
+      // Update headers based on groupBy
+      this.updateSummaryHeaders();
+    },
+    updateSummaryHeaders() {
+      this.summaryHeaders = [{
+        text: 'ກຸ່ມ',
+        align: 'center',
+        value: 'groupKey',
+        sortable: true
+      }, {
+        text: 'ຈຳນວນ',
+        align: 'center',
+        value: 'count',
+        sortable: true
+      }, {
+        text: 'ມູນຄ່າລວມ',
+        align: 'center',
+        value: 'totalCost',
+        sortable: true
+      }, {
+        text: 'ມູນຄ່າສະເລ່ຍ',
+        align: 'center',
+        value: 'avgCost',
+        sortable: true
+      }];
+      if (this.groupBy === 'color' || this.groupBy === 'colorSize') {
+        this.summaryHeaders.splice(1, 0, {
+          text: 'ສີ',
+          align: 'center',
+          value: 'colorInfo',
+          sortable: false
+        });
+      }
+      if (this.groupBy === 'size' || this.groupBy === 'colorSize') {
+        this.summaryHeaders.splice(-3, 0, {
+          text: 'ຂະໜາດ',
+          align: 'center',
+          value: 'sizeInfo',
+          sortable: false
+        });
+      }
+    },
     async fetchData() {
       this.isloading = true;
       const prodId = this.$route.params.id;
-      console.log('Fetching data for product_id:', prodId);
+      console.log('Fetching enhanced data for product_id:', prodId);
       console.log('Date range:', this.date, 'to', this.date2);
       try {
-        const response = await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}&includeEnhanced=true`);
-        this.loaddata = response.data.map(el => {
+        const response = await this.$axios.get(`card_f/?pro_id=${prodId}&fDate=${this.date}&tDate=${this.date2}&userId=${this.userId}&includeEnhanced=true&includeColorSize=true`);
+        const responseData = response.data.success ? response.data.data : response.data;
+        this.loaddata = responseData.map(el => {
           var _el$location;
           return {
             card_id: el.id,
@@ -1184,7 +1924,17 @@ var common = __webpack_require__(7);
             totalCost: el.totalCost,
             costType: el.costType,
             lotNumber: el.lotNumber,
+            serialNo: el.serialNo,
             expiryDate: el.expiryDate,
+            colorId: el.colorId,
+            sizeId: el.sizeId,
+            colorInfo: el.color ? {
+              name: el.color.color_name,
+              hex_code: el.color.hex_code
+            } : null,
+            sizeInfo: el.size ? {
+              name: el.size.size_name
+            } : null,
             srcLocationName: ((_el$location = el.location) === null || _el$location === void 0 ? void 0 : _el$location.name) || '',
             inputter: el.inputter + ' ' + (el.cus_name || ''),
             status: el.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : el.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້',
@@ -1196,7 +1946,7 @@ var common = __webpack_require__(7);
         });
         this.calculateSummaryStats();
         this.applyFilters();
-        console.log('Data loaded successfully:', this.loaddata.length, 'items');
+        console.log('Enhanced data loaded successfully:', this.loaddata.length, 'items');
       } catch (error) {
         this.message = error.message || 'Error loading data';
         console.log('Error: ' + error);
@@ -1204,31 +1954,44 @@ var common = __webpack_require__(7);
       this.isloading = false;
     },
     exportToExcel() {
-      const exportData = this.filteredData.map(item => ({
-        ID: item.card_id,
-        ລະຫັດສິນຄ້າ: item.pro_id,
-        ຕົ້ນທຶນ: item.cost,
-        ຕົ້ນທຶນຕໍ່ຫົວໜ່ວຍ: item.costPerUnit || '',
-        ຕົ້ນທຶນລວມ: item.totalCost || '',
-        ປະເພດຄ່າໃຊ້ຈ່າຍ: item.costType || '',
-        'Lot Number': item.lotNumber || '',
-        ວັນໝົດອາຍຸ: item.expiryDate || '',
-        ສະຖານທີ່: item.srcLocationName || '',
-        ວັນທີ: item.input_date_time,
-        Admin: item.inputter,
-        ສະຖານະ: item.status,
-        ຜູ້ລົບ: item.updater || '',
-        ເວລາລົບ: item.update_time || ''
-      }));
+      const dataToExport = this.viewMode === 'detail' ? this.filteredData : this.summaryData;
+      const exportData = dataToExport.map(item => {
+        if (this.viewMode === 'detail') {
+          var _item$colorInfo3, _item$sizeInfo3;
+          return {
+            ID: item.card_id,
+            ລະຫັດສິນຄ້າ: item.pro_id,
+            ຕົ້ນທຶນ: item.cost,
+            ສີ: ((_item$colorInfo3 = item.colorInfo) === null || _item$colorInfo3 === void 0 ? void 0 : _item$colorInfo3.name) || '',
+            ຂະໜາດ: ((_item$sizeInfo3 = item.sizeInfo) === null || _item$sizeInfo3 === void 0 ? void 0 : _item$sizeInfo3.name) || '',
+            'Lot Number': item.lotNumber || '',
+            'Serial Number': item.serialNo || '',
+            ວັນໝົດອາຍຸ: item.expiryDate || '',
+            ສະຖານທີ່: item.srcLocationName || '',
+            ວັນທີ: item.input_date_time,
+            Admin: item.inputter,
+            ສະຖານະ: item.status
+          };
+        } else {
+          var _item$colorInfo4, _item$sizeInfo4;
+          return {
+            ກຸ່ມ: item.groupKey,
+            ຈຳນວນ: item.count,
+            ມູນຄ່າລວມ: item.totalCost,
+            ມູນຄ່າສະເລ່ຍ: item.avgCost,
+            ສີ: ((_item$colorInfo4 = item.colorInfo) === null || _item$colorInfo4 === void 0 ? void 0 : _item$colorInfo4.name) || '',
+            ຂະໜາດ: ((_item$sizeInfo4 = item.sizeInfo) === null || _item$sizeInfo4 === void 0 ? void 0 : _item$sizeInfo4.name) || ''
+          };
+        }
+      });
       const worksheet = this.$xlsx.utils.json_to_sheet(exportData);
       const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Enhanced Stock Report');
-      const filename = `enhanced_stock_report_${this.date}_to_${this.date2}.xlsx`;
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, this.viewMode === 'detail' ? 'Stock Detail' : 'Stock Summary');
+      const filename = `stock_${this.viewMode}_${this.date}_to_${this.date2}.xlsx`;
       this.$xlsx.writeFile(workbook, filename);
     },
     async delCard(id) {
       this.isloading = true;
-      const prodId = this.$route.params.id;
       const user = this.user.id;
       try {
         const response = await this.$axios.post('card_x', {
@@ -1256,7 +2019,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1367)
+  var style0 = __webpack_require__(1374)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1265,11 +2028,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   stock_idvue_type_script_lang_js,
-  _idvue_type_template_id_ff88f822_scoped_true_render,
+  _idvue_type_template_id_1688dcbe_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "ff88f822",
+  "1688dcbe",
   "54c0b213"
   
 )
@@ -1277,12 +2040,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var _id = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(477).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(481).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
 
-/***/ 450:
+/***/ 454:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1303,7 +2066,7 @@ installComponents(component, {DialogClassicMessage: __webpack_require__(477).def
 
 /***/ }),
 
-/***/ 451:
+/***/ 455:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1356,7 +2119,7 @@ function isLeapYear(year) {
 
 /***/ }),
 
-/***/ 454:
+/***/ 458:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1415,7 +2178,7 @@ function isLeapYear(year) {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return createDayList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return createIntervalList; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return createNativeLocaleFormatter; });
-/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(451);
+/* harmony import */ var _util_dateTimeUtils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(455);
 
 const PARSE_REGEX = /^(\d{4})-(\d{1,2})(-(\d{1,2}))?([^\d]+(\d{1,2}))?(:(\d{1,2}))?(:(\d{1,2}))?$/;
 const PARSE_TIME = /(\d\d?)(:(\d\d?)|)(:(\d\d?)|)/;
@@ -1813,64 +2576,6 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 459:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(460);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("265ccd52", content, true)
-
-/***/ }),
-
-/***/ 460:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-picker__title{background:#e0e0e0}.theme--dark.v-picker__title{background:#616161}.theme--light.v-picker__body{background:#fff}.theme--dark.v-picker__body{background:#424242}.v-picker{border-radius:4px;contain:layout style;display:inline-flex;flex-direction:column;font-size:1rem;position:relative;vertical-align:top}.v-picker--full-width{display:flex;width:100%}.v-picker--full-width>.v-picker__body{margin:initial}.v-picker__title{border-top-left-radius:4px;border-top-right-radius:4px;color:#fff;padding:16px}.v-picker__title__btn{transition:.3s cubic-bezier(.25,.8,.5,1)}.v-picker__title__btn:not(.v-picker__title__btn--active){cursor:pointer;opacity:.6}.v-picker__title__btn:not(.v-picker__title__btn--active):hover:not(:focus){opacity:1}.v-picker__title__btn--readonly{pointer-events:none}.v-picker__title__btn--active{opacity:1}.v-picker__body{align-items:center;display:flex;flex:1 0 auto;flex-direction:column;height:auto;margin:0 auto;overflow:hidden;position:relative;z-index:0}.v-picker__body>div{width:100%}.v-picker__body>div.fade-transition-leave-active{position:absolute}.v-picker--landscape .v-picker__title{border-bottom-right-radius:0;border-top-right-radius:0;height:100%;position:absolute;top:0;width:170px;z-index:1}.v-application--is-ltr .v-picker--landscape .v-picker__title{left:0}.v-application--is-rtl .v-picker--landscape .v-picker__title{right:0}.v-application--is-ltr .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-ltr .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:170px;margin-right:0}.v-application--is-rtl .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-rtl .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:0;margin-right:170px}.v-picker--flat{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 461:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(462);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("ec842454", content, true)
-
-/***/ }),
-
-/***/ 462:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".v-date-picker-title{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:space-between;line-height:1}.v-application--is-ltr .v-date-picker-title .v-picker__title__btn{text-align:left}.v-application--is-rtl .v-date-picker-title .v-picker__title__btn{text-align:right}.v-date-picker-title__year{align-items:center;display:inline-flex;font-size:14px;font-weight:500;margin-bottom:8px}.v-date-picker-title__date{font-size:34px;font-weight:500;margin-bottom:-8px;overflow:hidden;padding-bottom:8px;position:relative;text-align:left}.v-date-picker-title__date>div{position:relative}.v-date-picker-title--disabled{pointer-events:none}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
 /***/ 463:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -1881,7 +2586,7 @@ var content = __webpack_require__(464);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("075924a4", content, true)
+__webpack_require__(5).default("265ccd52", content, true)
 
 /***/ }),
 
@@ -1892,7 +2597,7 @@ __webpack_require__(5).default("075924a4", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:rgba(0,0,0,.87)}.theme--light.v-date-picker-header .v-date-picker-header__value--disabled button{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:#fff}.theme--dark.v-date-picker-header .v-date-picker-header__value--disabled button{color:hsla(0,0%,100%,.5)}.v-date-picker-header{align-items:center;display:flex;justify-content:space-between;padding:4px 16px;position:relative}.v-date-picker-header .v-btn{margin:0;z-index:auto}.v-date-picker-header .v-icon{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-date-picker-header__value{flex:1;overflow:hidden;position:relative;text-align:center}.v-date-picker-header__value div{transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-header__value button{cursor:pointer;font-weight:700;outline:none;padding:.5rem;transition:.3s cubic-bezier(.25,.8,.5,1)}.v-date-picker-header--disabled{pointer-events:none}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-picker__title{background:#e0e0e0}.theme--dark.v-picker__title{background:#616161}.theme--light.v-picker__body{background:#fff}.theme--dark.v-picker__body{background:#424242}.v-picker{border-radius:4px;contain:layout style;display:inline-flex;flex-direction:column;font-size:1rem;position:relative;vertical-align:top}.v-picker--full-width{display:flex;width:100%}.v-picker--full-width>.v-picker__body{margin:initial}.v-picker__title{border-top-left-radius:4px;border-top-right-radius:4px;color:#fff;padding:16px}.v-picker__title__btn{transition:.3s cubic-bezier(.25,.8,.5,1)}.v-picker__title__btn:not(.v-picker__title__btn--active){cursor:pointer;opacity:.6}.v-picker__title__btn:not(.v-picker__title__btn--active):hover:not(:focus){opacity:1}.v-picker__title__btn--readonly{pointer-events:none}.v-picker__title__btn--active{opacity:1}.v-picker__body{align-items:center;display:flex;flex:1 0 auto;flex-direction:column;height:auto;margin:0 auto;overflow:hidden;position:relative;z-index:0}.v-picker__body>div{width:100%}.v-picker__body>div.fade-transition-leave-active{position:absolute}.v-picker--landscape .v-picker__title{border-bottom-right-radius:0;border-top-right-radius:0;height:100%;position:absolute;top:0;width:170px;z-index:1}.v-application--is-ltr .v-picker--landscape .v-picker__title{left:0}.v-application--is-rtl .v-picker--landscape .v-picker__title{right:0}.v-application--is-ltr .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-ltr .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:170px;margin-right:0}.v-application--is-rtl .v-picker--landscape .v-picker__actions:not(.v-picker__actions--no-title),.v-application--is-rtl .v-picker--landscape .v-picker__body:not(.v-picker__body--no-title){margin-left:0;margin-right:170px}.v-picker--flat{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1910,7 +2615,7 @@ var content = __webpack_require__(466);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("0f7d136a", content, true)
+__webpack_require__(5).default("ec842454", content, true)
 
 /***/ }),
 
@@ -1921,7 +2626,7 @@ __webpack_require__(5).default("0f7d136a", content, true)
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-table .v-date-picker-table--date__week,.theme--light.v-date-picker-table th{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-table .v-date-picker-table--date__week,.theme--dark.v-date-picker-table th{color:hsla(0,0%,100%,.5)}.v-date-picker-table{height:242px;padding:0 12px;position:relative}.v-date-picker-table table{table-layout:fixed;top:0;transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-table td,.v-date-picker-table th{position:relative;text-align:center}.v-date-picker-table th{font-size:12px}.v-date-picker-table--date .v-btn{height:32px;width:32px}.v-date-picker-table .v-btn{font-size:12px;margin:0;z-index:auto}.v-date-picker-table .v-btn.v-btn--active{color:#fff}.v-date-picker-table--month td{height:56px;text-align:center;vertical-align:middle;width:33.333333%}.v-date-picker-table--month td .v-btn{margin:0 auto;max-width:140px;min-width:40px;width:100%}.v-date-picker-table--date th{font-weight:600;padding:8px 0}.v-date-picker-table--date td{width:45px}.v-date-picker-table__events{height:8px;left:0;position:absolute;text-align:center;white-space:pre;width:100%}.v-date-picker-table__events>div{border-radius:50%;display:inline-block;height:8px;margin:0 1px;width:8px}.v-date-picker-table--date .v-date-picker-table__events{bottom:6px}.v-date-picker-table--month .v-date-picker-table__events{bottom:8px}.v-date-picker-table__current .v-date-picker-table__events{margin-bottom:-1px}.v-date-picker-table--disabled{pointer-events:none}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".v-date-picker-title{display:flex;flex-direction:column;flex-wrap:wrap;justify-content:space-between;line-height:1}.v-application--is-ltr .v-date-picker-title .v-picker__title__btn{text-align:left}.v-application--is-rtl .v-date-picker-title .v-picker__title__btn{text-align:right}.v-date-picker-title__year{align-items:center;display:inline-flex;font-size:14px;font-weight:500;margin-bottom:8px}.v-date-picker-title__date{font-size:34px;font-weight:500;margin-bottom:-8px;overflow:hidden;padding-bottom:8px;position:relative;text-align:left}.v-date-picker-title__date>div{position:relative}.v-date-picker-title--disabled{pointer-events:none}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1939,11 +2644,69 @@ var content = __webpack_require__(468);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
-__webpack_require__(5).default("4dc2915a", content, true)
+__webpack_require__(5).default("075924a4", content, true)
 
 /***/ }),
 
 /***/ 468:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:rgba(0,0,0,.87)}.theme--light.v-date-picker-header .v-date-picker-header__value--disabled button{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus){color:#fff}.theme--dark.v-date-picker-header .v-date-picker-header__value--disabled button{color:hsla(0,0%,100%,.5)}.v-date-picker-header{align-items:center;display:flex;justify-content:space-between;padding:4px 16px;position:relative}.v-date-picker-header .v-btn{margin:0;z-index:auto}.v-date-picker-header .v-icon{cursor:pointer;-webkit-user-select:none;-moz-user-select:none;user-select:none}.v-date-picker-header__value{flex:1;overflow:hidden;position:relative;text-align:center}.v-date-picker-header__value div{transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-header__value button{cursor:pointer;font-weight:700;outline:none;padding:.5rem;transition:.3s cubic-bezier(.25,.8,.5,1)}.v-date-picker-header--disabled{pointer-events:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 469:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(470);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("0f7d136a", content, true)
+
+/***/ }),
+
+/***/ 470:
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.i, ".theme--light.v-date-picker-table .v-date-picker-table--date__week,.theme--light.v-date-picker-table th{color:rgba(0,0,0,.38)}.theme--dark.v-date-picker-table .v-date-picker-table--date__week,.theme--dark.v-date-picker-table th{color:hsla(0,0%,100%,.5)}.v-date-picker-table{height:242px;padding:0 12px;position:relative}.v-date-picker-table table{table-layout:fixed;top:0;transition:.3s cubic-bezier(.25,.8,.5,1);width:100%}.v-date-picker-table td,.v-date-picker-table th{position:relative;text-align:center}.v-date-picker-table th{font-size:12px}.v-date-picker-table--date .v-btn{height:32px;width:32px}.v-date-picker-table .v-btn{font-size:12px;margin:0;z-index:auto}.v-date-picker-table .v-btn.v-btn--active{color:#fff}.v-date-picker-table--month td{height:56px;text-align:center;vertical-align:middle;width:33.333333%}.v-date-picker-table--month td .v-btn{margin:0 auto;max-width:140px;min-width:40px;width:100%}.v-date-picker-table--date th{font-weight:600;padding:8px 0}.v-date-picker-table--date td{width:45px}.v-date-picker-table__events{height:8px;left:0;position:absolute;text-align:center;white-space:pre;width:100%}.v-date-picker-table__events>div{border-radius:50%;display:inline-block;height:8px;margin:0 1px;width:8px}.v-date-picker-table--date .v-date-picker-table__events{bottom:6px}.v-date-picker-table--month .v-date-picker-table__events{bottom:8px}.v-date-picker-table__current .v-date-picker-table__events{margin-bottom:-1px}.v-date-picker-table--disabled{pointer-events:none}", ""]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+module.exports = ___CSS_LOADER_EXPORT___;
+
+
+/***/ }),
+
+/***/ 471:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(472);
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+__webpack_require__(5).default("4dc2915a", content, true)
+
+/***/ }),
+
+/***/ 472:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1958,7 +2721,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 477:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1966,19 +2729,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(128);
+var VBtn = __webpack_require__(129);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(125);
+var VCard = __webpack_require__(126);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(124);
+var VDivider = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(438);
+var VSpacer = __webpack_require__(442);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DialogClassicMessage.vue?vue&type=template&id=3accbb34
 
@@ -2050,13 +2813,13 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 484:
+/***/ 488:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
-var VDatePickerTitle = __webpack_require__(461);
+var VDatePickerTitle = __webpack_require__(465);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/index.js
 var VIcon = __webpack_require__(13);
@@ -2179,13 +2942,13 @@ var helpers = __webpack_require__(0);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerHeader.sass
-var VDatePickerHeader = __webpack_require__(463);
+var VDatePickerHeader = __webpack_require__(467);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/index.js
 var VBtn = __webpack_require__(17);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/localable/index.js
-var localable = __webpack_require__(450);
+var localable = __webpack_require__(454);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/themeable/index.js
 var themeable = __webpack_require__(8);
@@ -2375,10 +3138,10 @@ function createNativeLocaleFormatter(locale, options, substrOptions = {
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTable.sass
-var VDatePickerTable = __webpack_require__(465);
+var VDatePickerTable = __webpack_require__(469);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/directives/touch/index.js
-var touch = __webpack_require__(140);
+var touch = __webpack_require__(142);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/util/eventHelpers.js
 function createItemTypeNativeListeners(instance, itemTypeSuffix, value) {
@@ -2624,7 +3387,7 @@ var mergeData = __webpack_require__(15);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/dateTimeUtils.js
-var dateTimeUtils = __webpack_require__(451);
+var dateTimeUtils = __webpack_require__(455);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerDateTable.js
 // Mixins
@@ -2793,7 +3556,7 @@ var dateTimeUtils = __webpack_require__(451);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerYears.sass
-var VDatePickerYears = __webpack_require__(467);
+var VDatePickerYears = __webpack_require__(471);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePickerYears.js
  // Mixins
@@ -2877,13 +3640,13 @@ var VDatePickerYears = __webpack_require__(467);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VPicker/VPicker.sass
-var VPicker = __webpack_require__(459);
+var VPicker = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(198);
+var VCard = __webpack_require__(200);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
-var elevatable = __webpack_require__(93);
+var elevatable = __webpack_require__(94);
 
 // CONCATENATED MODULE: ./node_modules/vuetify/lib/components/VPicker/VPicker.js
 
@@ -3038,7 +3801,7 @@ var elevatable = __webpack_require__(93);
   }
 }));
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCalendar/util/timestamp.js
-var timestamp = __webpack_require__(454);
+var timestamp = __webpack_require__(458);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/console.js
 var console = __webpack_require__(6);
@@ -3519,21 +4282,21 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 501:
+/***/ 505:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export calculateUpdatedOffset */
 /* unused harmony export calculateCenteredOffset */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return BaseSlideGroup; });
-/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(502);
+/* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(506);
 /* harmony import */ var _src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSlideGroup_VSlideGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(13);
 /* harmony import */ var _transitions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(33);
 /* harmony import */ var _VItemGroup_VItemGroup__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(22);
 /* harmony import */ var _mixins_mobile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(57);
 /* harmony import */ var _directives_resize__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(56);
-/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(140);
+/* harmony import */ var _directives_touch__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(142);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(2);
 /* harmony import */ var _util_helpers__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(0);
 // Styles
@@ -3947,13 +4710,13 @@ const BaseSlideGroup = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_7__[/* defau
 
 /***/ }),
 
-/***/ 502:
+/***/ 506:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(503);
+var content = __webpack_require__(507);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -3961,7 +4724,7 @@ __webpack_require__(5).default("d67becdc", content, true)
 
 /***/ }),
 
-/***/ 503:
+/***/ 507:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -3976,13 +4739,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 523:
+/***/ 527:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(524);
+var content = __webpack_require__(528);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -3990,7 +4753,7 @@ __webpack_require__(5).default("44600667", content, true)
 
 /***/ }),
 
-/***/ 524:
+/***/ 528:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -4005,13 +4768,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 573:
+/***/ 577:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(523);
+/* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(527);
 /* harmony import */ var _src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VChipGroup_VChipGroup_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(501);
+/* harmony import */ var _VSlideGroup_VSlideGroup__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(505);
 /* harmony import */ var _mixins_colorable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(11);
 /* harmony import */ var _util_mixins__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(2);
 // Styles

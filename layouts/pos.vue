@@ -15,6 +15,30 @@
       />
     </v-dialog>
 
+    <v-dialog 
+  v-model="showQuotationPrintDialog" 
+  fullscreen 
+  hide-overlay 
+  transition="dialog-bottom-transition"
+>
+  <v-card>
+    <v-toolbar dark color="primary">
+      <v-btn icon dark @click="showQuotationPrintDialog = false">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+      <v-toolbar-title>Print Quotation Preview</v-toolbar-title>
+      <v-spacer></v-spacer>
+    </v-toolbar>
+    
+    <div class="grey lighten-3 fill-height pa-4 d-flex justify-center">
+      <quotation-print 
+        v-if="showQuotationPrintDialog"
+        :record-id="quotationPrintId"
+        @close="showQuotationPrintDialog = false"
+      />
+    </div>
+  </v-card>
+</v-dialog>
     <!-- Terminal Selection Dialog - ENHANCED -->
     <v-dialog v-model="terminalDialog" scrollable max-width="700" persistent>
       <v-card class="terminal-dialog elevation-12">
@@ -518,6 +542,7 @@
 <script>
 import CustomerList from '~/components/customer/CustomerList.vue'
 import Quotation from '~/components/quotation'
+import QuotationPrint from '~/components/quotation/QuotationPrint.vue' // Add this
 import PricingOption from '~/components/PricingOption.vue'
 import LoadingIndicator from '~/components/LoadingIndicator.vue'
 import DeliveryForm from '~/components/DeliveryForm.vue'
@@ -545,6 +570,7 @@ export default {
   components: {
     CustomerList,
     Quotation,
+    QuotationPrint,
     PricingOption,
     LoadingIndicator,
     DeliveryForm,
@@ -560,6 +586,8 @@ export default {
   },
   data() {
     return {
+       showQuotationPrintDialog: false,
+      quotationPrintId: null,
       // PERFORMANCE OPTIMIZATION: Add new properties
       updateCustomerScreenDebounced: null,
       customerScreenUpdateTimeout: null,
@@ -1823,31 +1851,35 @@ export default {
     },
 
     async setQuotation() {
-      if (this.isloading || this.generateSaleLine == 0) {
-        if (this.generateSaleLine == 0) {
-          swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
-        }
+      // 1. Validation
+      if (this.isloading || this.generateSaleLine.length == 0) {
+        swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
         return
       }
 
       this.isloading = true
+      
+      // 2. Prepare Data
       this.formSaleHeader('Quotation')
-      await this.$axios
-        .post('/api/quotation/create', this.saleHeader)
-        .then((res) => {
-          this.lastTransactionSaleHeaderId = res.data
-            .split('-')[1]
-            .toString()
-            .trim()
-          window.open(
-            `/admin/PDFQuotation/${this.lastTransactionSaleHeaderId}`,
-            '_blank'
-          )
-        })
-        .catch((er) => {
-          swalError2(this.$swal, 'Error', er)
-        })
-      this.isloading = false
+      
+      try {
+        // 3. Send to API
+        const res = await this.$axios.post('/api/quotation/create', this.saleHeader)
+        
+        // 4. Extract ID
+        // Assuming response format is "Success - 123" or similar based on your original code
+        const rawId = res.data.toString()
+        const quotationId = rawId.includes('-') ? rawId.split('-')[1].trim() : rawId
+
+        // 5. Open In-App Dialog instead of Window.open
+        this.quotationPrintId = quotationId
+        this.showQuotationPrintDialog = true
+        
+      } catch (er) {
+        swalError2(this.$swal, 'Error', er)
+      } finally {
+        this.isloading = false
+      }
     },
 
     openCustomerDialog() {
