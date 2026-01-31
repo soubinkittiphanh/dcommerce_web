@@ -410,7 +410,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("ddc9d0d8", content, true, context)
+  add("09701fdf", content, true, context)
 };
 
 /***/ }),
@@ -473,7 +473,7 @@ var VTextField = __webpack_require__(39);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(479);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=6a21de2a&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=396e6e56&scoped=true
 
 
 
@@ -494,7 +494,7 @@ var VTextarea = __webpack_require__(479);
 
 
 
-var OrderDetailPosCRUDvue_type_template_id_6a21de2a_scoped_true_render = function render() {
+var OrderDetailPosCRUDvue_type_template_id_396e6e56_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -1335,7 +1335,7 @@ var OrderDetailPosCRUDvue_type_template_id_6a21de2a_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=6a21de2a&scoped=true
+// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=396e6e56&scoped=true
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(475);
@@ -1649,7 +1649,7 @@ var CancelTicketForm = __webpack_require__(461);
       }
     },
     generateInvoiceHTML(header) {
-      var _header$lines, _header$client, _header$client2, _header$client3, _header$client4, _header$user, _header$payment, _header$currency;
+      var _header$lines, _header$client, _header$client2, _header$client3, _header$client4, _header$user, _header$payment;
       const totalDiscount = this.calculateTotalDiscount(header);
       const companyDataV1 = this.$store.getters.findAllCompany[0] || {};
 
@@ -1679,8 +1679,8 @@ var CancelTicketForm = __webpack_require__(461);
       <td style="text-align: center;">${index + 1}</td>
       <td>
         <span class="pro-name">${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'Unknown Product'}</span>
-        ${(_line$product2 = line.product) !== null && _line$product2 !== void 0 && _line$product2.pro_id ? `<br><small class="pro-id">barcode: ${(_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.barCode}</small>` : ''}
-        ${line.isGift ? '<br><small>🎁 Gift</small>' : ''}
+        ${(_line$product2 = line.product) !== null && _line$product2 !== void 0 && _line$product2.pro_id ? `<span class="pro-id"> (${(_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.pro_id})</span>` : ''}
+        ${line.isGift ? '<small> [Gift]</small>' : ''}
       </td>
       <td style="text-align: center;">${formatNumber(line.quantity)}</td>
       <td style="text-align: center;">${((_line$unit = line.unit) === null || _line$unit === void 0 ? void 0 : _line$unit.name) || 'ແກັດ'}</td>
@@ -1702,135 +1702,127 @@ var CancelTicketForm = __webpack_require__(461);
     * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
     body {
         font-family: 'Noto Sans Lao', 'Phetsarath OT', Arial, sans-serif;
-        font-size: 12px;
-        line-height: 1.3;
+        font-size: 11px;
+        line-height: 1.2;
         color: #000;
         margin: 0;
-        padding: 15px;
+        padding: 10px;
         background: white;
     }
 
     /* UTILS */
-    .text-right { text-align: right; }
-    .text-center { text-align: center; }
     .bold { font-weight: bold; }
-    .mb-2 { margin-bottom: 8px; }
+    .text-right { text-align: right; }
 
     /* HEADER SECTION */
     .header-container {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         border-bottom: 2px solid #000;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
     }
     .company-info h1 {
-        font-size: 18px;
-        margin: 0 0 5px 0;
+        font-size: 16px;
+        margin: 0;
         text-transform: uppercase;
     }
-    .company-info p { margin: 2px 0; font-size: 12px; }
+    .company-info p { margin: 0; font-size: 11px; }
     
-    .invoice-label {
+    .invoice-title {
         text-align: right;
+        border: 2px solid #000;
+        padding: 5px 15px;
     }
-    .invoice-label h2 {
-        font-size: 24px;
-        margin: 0;
-        letter-spacing: 2px;
-    }
-    .invoice-label span { font-size: 14px; }
+    .invoice-title h2 { margin: 0; font-size: 18px; line-height: 1; }
+    .invoice-title span { font-size: 12px; }
 
-    /* INFO GRID (Classic Box Style) */
-    .info-grid {
-        display: flex;
+    /* COMPACT INFO SECTION */
+    .info-box {
         width: 100%;
         border: 1px solid #000;
-        margin-bottom: 15px;
-    }
-    .col-left {
-        width: 60%;
-        padding: 8px;
-        border-right: 1px solid #000;
-    }
-    .col-right {
-        width: 40%;
-        padding: 8px;
-    }
-    .info-row {
+        margin-bottom: 10px;
+        padding: 5px;
         display: flex;
-        margin-bottom: 3px;
     }
-    .label {
-        width: 100px;
-        font-weight: bold;
-        flex-shrink: 0;
+    .info-col {
+        flex: 1;
     }
+    .info-col.right {
+        border-left: 1px solid #000;
+        padding-left: 10px;
+        flex: 0 0 250px;
+    }
+    
+    .field-row { margin-bottom: 2px; }
+    .field-label { font-weight: bold; margin-right: 5px; }
+    .field-val { margin-right: 15px; }
 
-    /* PRODUCT TABLE (Classic Lines) */
+    /* TABLE */
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     th {
         border: 1px solid #000;
-        background-color: #f0f0f0;
-        padding: 6px;
-        font-size: 11px;
+        background-color: #eee;
+        padding: 4px;
+        font-size: 10px;
         font-weight: bold;
         text-align: center;
+        vertical-align: middle;
     }
     td {
         border: 1px solid #000;
-        padding: 6px;
-        vertical-align: top;
+        padding: 4px;
+        vertical-align: middle;
+        font-size: 11px;
     }
-    .pro-name { font-weight: bold; font-size: 12px; }
-    .pro-id { color: #444; font-size: 10px; }
+    .pro-name { font-weight: bold; }
+    .pro-id { font-size: 10px; }
 
-    /* TOTALS SECTION */
+    /* TOTALS */
     .totals-container {
         display: flex;
         justify-content: flex-end;
     }
     .totals-box {
-        width: 300px;
+        width: 250px;
         border: 1px solid #000;
     }
     .total-row {
         display: flex;
         justify-content: space-between;
-        padding: 5px 8px;
+        padding: 3px 5px;
         border-bottom: 1px solid #ccc;
     }
     .total-row.final {
         border-bottom: none;
-        background-color: #f0f0f0;
+        background-color: #eee;
         font-weight: bold;
-        font-size: 14px;
-        border-top: 2px solid #000;
+        font-size: 13px;
+        border-top: 1px solid #000;
     }
 
-    /* FOOTER / SIGNATURE */
+    /* FOOTER */
     .footer {
-        margin-top: 30px;
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
         text-align: center;
     }
     .sign-box {
-        width: 200px;
-        padding-top: 40px;
-        border-top: 1px solid #000;
-        font-size: 11px;
+        border-top: 1px dashed #000;
+        width: 150px;
+        padding-top: 5px;
+        font-size: 10px;
     }
 
-    /* PRINT SETTINGS */
     @media print {
         body { margin: 0; padding: 0; }
-        @page { size: A4; margin: 1cm; }
+        @page { size: A4; margin: 0.5cm; }
     }
 </style>
 </head>
@@ -1839,28 +1831,37 @@ var CancelTicketForm = __webpack_require__(461);
 <div class="header-container">
     <div class="company-info">
         <h1>${companyDataV1.name || 'COMPANY NAME'}</h1>
-        <p>${companyDataV1.address || ''}</p>
-        <p>Tel: ${companyDataV1.tel || ''}</p>
+        <p>${companyDataV1.address || ''} | Tel: ${companyDataV1.tel || ''}</p>
     </div>
-    <div class="invoice-label">
+    <div class="invoice-title">
         <h2>INVOICE</h2>
-        <span>ໃບເກັບເງິນ</span>
+        <span>ໃບແຈ້ງໜີ້</span>
     </div>
 </div>
 
-<div class="info-grid">
-    <div class="col-left">
-        <div class="mb-2 bold" style="text-decoration: underline;">Customer / ລູກຄ້າ:</div>
-        <div class="info-row"><span class="label">Name:</span> <span>${((_header$client = header.client) === null || _header$client === void 0 ? void 0 : _header$client.name) || ((_header$client2 = header.client) === null || _header$client2 === void 0 ? void 0 : _header$client2.company) || 'Walk-in Customer'}</span></div>
-        <div class="info-row"><span class="label">Tel:</span> <span>${((_header$client3 = header.client) === null || _header$client3 === void 0 ? void 0 : _header$client3.telephone) || '-'}</span></div>
-        <div class="info-row"><span class="label">Address:</span> <span>${((_header$client4 = header.client) === null || _header$client4 === void 0 ? void 0 : _header$client4.address) || '-'}</span></div>
+<div class="info-box">
+    <div class="info-col">
+        <div class="field-row">
+            <span class="field-label">Customer / ລູກຄ້າ:</span>
+            <span class="field-val bold" style="font-size: 12px;">${((_header$client = header.client) === null || _header$client === void 0 ? void 0 : _header$client.name) || ((_header$client2 = header.client) === null || _header$client2 === void 0 ? void 0 : _header$client2.company) || 'Walk-in Customer'}</span>
+            
+            <span class="field-label">Tel:</span>
+            <span class="field-val">${((_header$client3 = header.client) === null || _header$client3 === void 0 ? void 0 : _header$client3.telephone) || '-'}</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Address / ທີ່ຢູ່:</span>
+            <span class="field-val">${((_header$client4 = header.client) === null || _header$client4 === void 0 ? void 0 : _header$client4.address) || '-'}</span>
+        </div>
     </div>
-    <div class="col-right">
-        <div class="mb-2 bold" style="text-decoration: underline;">Reference / ເລກທີ:</div>
-        <div class="info-row"><span class="label">No:</span> <span>${header.id}</span></div>
-        <div class="info-row"><span class="label">Date:</span> <span>${formatDate(header.bookingDate)}</span></div>
-        <div class="info-row"><span class="label">Staff:</span> <span>${((_header$user = header.user) === null || _header$user === void 0 ? void 0 : _header$user.cus_name) || '-'}</span></div>
-        <div class="info-row"><span class="label">Payment:</span> <span>${((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_name) || '-'}</span></div>
+    <div class="info-col right">
+        <div class="field-row">
+            <span class="field-label">No:</span> <span class="field-val bold">${header.id}</span>
+            <span class="field-label">Date:</span> <span class="field-val">${formatDate(header.bookingDate)}</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Staff:</span> <span class="field-val">${((_header$user = header.user) === null || _header$user === void 0 ? void 0 : _header$user.cus_name) || '-'}</span>
+            <span class="field-label">Pay:</span> <span class="field-val">${((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_name) || '-'}</span>
+        </div>
     </div>
 </div>
 
@@ -1869,11 +1870,11 @@ var CancelTicketForm = __webpack_require__(461);
         <tr>
             <th width="5%">#</th>
             <th width="40%">Description / ລາຍການ</th>
-            <th width="10%">Qty</th>
-            <th width="10%">Unit</th>
-            <th width="15%">Price</th>
-            <th width="10%">Disc.</th>
-            <th width="15%">Amount</th>
+            <th width="10%">Qty<br>ຈຳນວນ</th>
+            <th width="10%">Unit<br>ຫົວໜ່ວຍ</th>
+            <th width="12%">Price<br>ລາຄາ</th>
+            <th width="10%">Disc.<br>ສ່ວນຫຼຸດ</th>
+            <th width="13%">Amount<br>ລວມ</th>
         </tr>
     </thead>
     <tbody>
@@ -1894,7 +1895,7 @@ var CancelTicketForm = __webpack_require__(461);
         </div>` : ''}
         <div class="total-row final">
             <span>TOTAL / ລວມທັງໝົດ:</span>
-            <span>${formatNumber(header.total)} <small>${((_header$currency = header.currency) === null || _header$currency === void 0 ? void 0 : _header$currency.code) || 'LAK'}</small></span>
+            <span>${formatNumber(header.total)}</span>
         </div>
     </div>
 </div>
@@ -2244,11 +2245,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_OrderDetailPosCRUDvue_type_script_lang_js,
-  OrderDetailPosCRUDvue_type_template_id_6a21de2a_scoped_true_render,
+  OrderDetailPosCRUDvue_type_template_id_396e6e56_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "6a21de2a",
+  "396e6e56",
   "1657b766"
   
 )
@@ -2266,9 +2267,9 @@ installComponents(component, {CustomerList: __webpack_require__(112).default,Can
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6a21de2a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_396e6e56_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_396e6e56_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_396e6e56_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_396e6e56_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_396e6e56_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -2280,7 +2281,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-6a21de2a]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-6a21de2a]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-6a21de2a]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-6a21de2a]{border-radius:16px!important}.form-content[data-v-6a21de2a]{padding:32px!important}.transaction-header[data-v-6a21de2a]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-6a21de2a]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-6a21de2a]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-6a21de2a]{padding:8px 0}.user-info[data-v-6a21de2a]{margin-top:16px}.line-items-card[data-v-6a21de2a]{border-radius:12px!important}.line-items-table[data-v-6a21de2a]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-6a21de2a]{transition:all .2s ease}.line-item-row[data-v-6a21de2a]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-6a21de2a]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-6a21de2a]{min-width:250px}.product-selection[data-v-6a21de2a]{max-width:200px;overflow:hidden}.discount-cell[data-v-6a21de2a],.quantity-cell[data-v-6a21de2a],.rate-cell[data-v-6a21de2a],.unit-cell[data-v-6a21de2a]{min-width:120px}.price-cell[data-v-6a21de2a],.total-cell[data-v-6a21de2a]{min-width:140px}.action-cell[data-v-6a21de2a]{min-width:80px}.total-amount[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-6a21de2a]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-6a21de2a]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-6a21de2a]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-6a21de2a]:last-child{border-bottom:none}.total-row[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-6a21de2a]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-6a21de2a]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-6a21de2a]{margin:32px 0}.gap-2>*+*[data-v-6a21de2a]{margin-left:8px}.line-item-row[data-v-6a21de2a]{animation:slideInFromLeft-6a21de2a .3s ease-out}@keyframes slideInFromLeft-6a21de2a{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-6a21de2a]{animation:fadeInUp-6a21de2a .5s ease-out}@keyframes fadeInUp-6a21de2a{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-6a21de2a]{padding:12px}.form-content[data-v-6a21de2a],.header-section[data-v-6a21de2a]{padding:16px!important}.header-section .d-flex[data-v-6a21de2a]{flex-direction:column;gap:16px}.product-cell[data-v-6a21de2a]{min-width:200px}.discount-cell[data-v-6a21de2a],.quantity-cell[data-v-6a21de2a],.rate-cell[data-v-6a21de2a],.unit-cell[data-v-6a21de2a]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-6a21de2a]{font-size:.875rem}.total-amount[data-v-6a21de2a]{font-size:.8rem;padding:6px 8px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-396e6e56]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-396e6e56]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-396e6e56]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-396e6e56]{border-radius:16px!important}.form-content[data-v-396e6e56]{padding:32px!important}.transaction-header[data-v-396e6e56]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-396e6e56]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-396e6e56]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-396e6e56]{padding:8px 0}.user-info[data-v-396e6e56]{margin-top:16px}.line-items-card[data-v-396e6e56]{border-radius:12px!important}.line-items-table[data-v-396e6e56]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-396e6e56]{transition:all .2s ease}.line-item-row[data-v-396e6e56]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-396e6e56]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-396e6e56]{min-width:250px}.product-selection[data-v-396e6e56]{max-width:200px;overflow:hidden}.discount-cell[data-v-396e6e56],.quantity-cell[data-v-396e6e56],.rate-cell[data-v-396e6e56],.unit-cell[data-v-396e6e56]{min-width:120px}.price-cell[data-v-396e6e56],.total-cell[data-v-396e6e56]{min-width:140px}.action-cell[data-v-396e6e56]{min-width:80px}.total-amount[data-v-396e6e56]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-396e6e56]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-396e6e56]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-396e6e56]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-396e6e56]:last-child{border-bottom:none}.total-row[data-v-396e6e56]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-396e6e56]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-396e6e56]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-396e6e56]{margin:32px 0}.gap-2>*+*[data-v-396e6e56]{margin-left:8px}.line-item-row[data-v-396e6e56]{animation:slideInFromLeft-396e6e56 .3s ease-out}@keyframes slideInFromLeft-396e6e56{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-396e6e56]{animation:fadeInUp-396e6e56 .5s ease-out}@keyframes fadeInUp-396e6e56{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-396e6e56]{padding:12px}.form-content[data-v-396e6e56],.header-section[data-v-396e6e56]{padding:16px!important}.header-section .d-flex[data-v-396e6e56]{flex-direction:column;gap:16px}.product-cell[data-v-396e6e56]{min-width:200px}.discount-cell[data-v-396e6e56],.quantity-cell[data-v-396e6e56],.rate-cell[data-v-396e6e56],.unit-cell[data-v-396e6e56]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-396e6e56]{font-size:.875rem}.total-amount[data-v-396e6e56]{font-size:.8rem;padding:6px 8px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

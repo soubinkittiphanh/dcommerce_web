@@ -962,60 +962,46 @@ export default {
     },
 
     generateInvoiceHTML(header) {
-      const totalDiscount = this.calculateTotalDiscount(header)
-      const companyDataV1 = this.$store.getters.findAllCompany[0] || {}
+  const totalDiscount = this.calculateTotalDiscount(header)
+  const companyDataV1 = this.$store.getters.findAllCompany[0] || {}
 
-      // Helper functions
-      const formatDate = (dateString) => {
-        if (!dateString) return 'N/A'
-        try {
-          const date = new Date(dateString)
-          return date.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-          })
-        } catch (error) {
-          return dateString
-        }
-      }
+  // Helper functions
+  const formatDate = (dateString) => {
+    if (!dateString) return 'N/A'
+    try {
+      const date = new Date(dateString)
+      return date.toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      })
+    } catch (error) {
+      return dateString
+    }
+  }
 
-      const formatNumber = (val) => {
-        return new Intl.NumberFormat().format(val || 0)
-      }
+  const formatNumber = (val) => {
+    return new Intl.NumberFormat().format(val || 0)
+  }
 
-      // Generate lines HTML with classic borders
-      const linesHTML =
-        header.lines
-          ?.map(
-            (line, index) => `
+  // Generate lines HTML with classic borders
+  const linesHTML = header.lines?.map((line, index) => `
     <tr>
       <td style="text-align: center;">${index + 1}</td>
       <td>
-        <span class="pro-name">${
-          line.product?.pro_name || 'Unknown Product'
-        }</span>
-        ${
-          line.product?.pro_id
-            ? `<br><small class="pro-id">barcode: ${line.product?.barCode}</small>`
-            : ''
-        }
-        ${line.isGift ? '<br><small>🎁 Gift</small>' : ''}
+        <span class="pro-name">${line.product?.pro_name || 'Unknown Product'}</span>
+        ${line.product?.pro_id ? `<span class="pro-id"> (${line.product?.pro_id})</span>` : ''}
+        ${line.isGift ? '<small> [Gift]</small>' : ''}
       </td>
       <td style="text-align: center;">${formatNumber(line.quantity)}</td>
       <td style="text-align: center;">${line.unit?.name || 'ແກັດ'}</td>
       <td style="text-align: right;">${formatNumber(line.price)}</td>
       <td style="text-align: right;">${formatNumber(line.discount)}</td>
-      <td style="text-align: right;"><strong>${formatNumber(
-        line.total
-      )}</strong></td>
+      <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
     </tr>
-  `
-          )
-          .join('') ||
-        '<tr><td colspan="7" style="text-align: center; padding: 20px;">No items</td></tr>'
+  `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 20px;">No items</td></tr>'
 
-      return `
+  return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -1027,135 +1013,127 @@ export default {
     * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
     body {
         font-family: 'Noto Sans Lao', 'Phetsarath OT', Arial, sans-serif;
-        font-size: 12px;
-        line-height: 1.3;
+        font-size: 11px;
+        line-height: 1.2;
         color: #000;
         margin: 0;
-        padding: 15px;
+        padding: 10px;
         background: white;
     }
 
     /* UTILS */
-    .text-right { text-align: right; }
-    .text-center { text-align: center; }
     .bold { font-weight: bold; }
-    .mb-2 { margin-bottom: 8px; }
+    .text-right { text-align: right; }
 
     /* HEADER SECTION */
     .header-container {
         display: flex;
         justify-content: space-between;
-        align-items: flex-start;
+        align-items: center;
         border-bottom: 2px solid #000;
-        padding-bottom: 10px;
-        margin-bottom: 15px;
+        padding-bottom: 5px;
+        margin-bottom: 10px;
     }
     .company-info h1 {
-        font-size: 18px;
-        margin: 0 0 5px 0;
+        font-size: 16px;
+        margin: 0;
         text-transform: uppercase;
     }
-    .company-info p { margin: 2px 0; font-size: 12px; }
+    .company-info p { margin: 0; font-size: 11px; }
     
-    .invoice-label {
+    .invoice-title {
         text-align: right;
+        border: 2px solid #000;
+        padding: 5px 15px;
     }
-    .invoice-label h2 {
-        font-size: 24px;
-        margin: 0;
-        letter-spacing: 2px;
-    }
-    .invoice-label span { font-size: 14px; }
+    .invoice-title h2 { margin: 0; font-size: 18px; line-height: 1; }
+    .invoice-title span { font-size: 12px; }
 
-    /* INFO GRID (Classic Box Style) */
-    .info-grid {
-        display: flex;
+    /* COMPACT INFO SECTION */
+    .info-box {
         width: 100%;
         border: 1px solid #000;
-        margin-bottom: 15px;
-    }
-    .col-left {
-        width: 60%;
-        padding: 8px;
-        border-right: 1px solid #000;
-    }
-    .col-right {
-        width: 40%;
-        padding: 8px;
-    }
-    .info-row {
+        margin-bottom: 10px;
+        padding: 5px;
         display: flex;
-        margin-bottom: 3px;
     }
-    .label {
-        width: 100px;
-        font-weight: bold;
-        flex-shrink: 0;
+    .info-col {
+        flex: 1;
     }
+    .info-col.right {
+        border-left: 1px solid #000;
+        padding-left: 10px;
+        flex: 0 0 250px;
+    }
+    
+    .field-row { margin-bottom: 2px; }
+    .field-label { font-weight: bold; margin-right: 5px; }
+    .field-val { margin-right: 15px; }
 
-    /* PRODUCT TABLE (Classic Lines) */
+    /* TABLE */
     table {
         width: 100%;
         border-collapse: collapse;
-        margin-bottom: 15px;
+        margin-bottom: 10px;
     }
     th {
         border: 1px solid #000;
-        background-color: #f0f0f0;
-        padding: 6px;
-        font-size: 11px;
+        background-color: #eee;
+        padding: 4px;
+        font-size: 10px;
         font-weight: bold;
         text-align: center;
+        vertical-align: middle;
     }
     td {
         border: 1px solid #000;
-        padding: 6px;
-        vertical-align: top;
+        padding: 4px;
+        vertical-align: middle;
+        font-size: 11px;
     }
-    .pro-name { font-weight: bold; font-size: 12px; }
-    .pro-id { color: #444; font-size: 10px; }
+    .pro-name { font-weight: bold; }
+    .pro-id { font-size: 10px; }
 
-    /* TOTALS SECTION */
+    /* TOTALS */
     .totals-container {
         display: flex;
         justify-content: flex-end;
     }
     .totals-box {
-        width: 300px;
+        width: 250px;
         border: 1px solid #000;
     }
     .total-row {
         display: flex;
         justify-content: space-between;
-        padding: 5px 8px;
+        padding: 3px 5px;
         border-bottom: 1px solid #ccc;
     }
     .total-row.final {
         border-bottom: none;
-        background-color: #f0f0f0;
+        background-color: #eee;
         font-weight: bold;
-        font-size: 14px;
-        border-top: 2px solid #000;
+        font-size: 13px;
+        border-top: 1px solid #000;
     }
 
-    /* FOOTER / SIGNATURE */
+    /* FOOTER */
     .footer {
-        margin-top: 30px;
+        margin-top: 20px;
         display: flex;
         justify-content: space-between;
         text-align: center;
     }
     .sign-box {
-        width: 200px;
-        padding-top: 40px;
-        border-top: 1px solid #000;
-        font-size: 11px;
+        border-top: 1px dashed #000;
+        width: 150px;
+        padding-top: 5px;
+        font-size: 10px;
     }
 
-    /* PRINT SETTINGS */
     @media print {
         body { margin: 0; padding: 0; }
-        @page { size: A4; margin: 1cm; }
+        @page { size: A4; margin: 0.5cm; }
     }
 </style>
 </head>
@@ -1164,42 +1142,37 @@ export default {
 <div class="header-container">
     <div class="company-info">
         <h1>${companyDataV1.name || 'COMPANY NAME'}</h1>
-        <p>${companyDataV1.address || ''}</p>
-        <p>Tel: ${companyDataV1.tel || ''}</p>
+        <p>${companyDataV1.address || ''} | Tel: ${companyDataV1.tel || ''}</p>
     </div>
-    <div class="invoice-label">
+    <div class="invoice-title">
         <h2>INVOICE</h2>
-        <span>ໃບເກັບເງິນ</span>
+        <span>ໃບແຈ້ງໜີ້</span>
     </div>
 </div>
 
-<div class="info-grid">
-    <div class="col-left">
-        <div class="mb-2 bold" style="text-decoration: underline;">Customer / ລູກຄ້າ:</div>
-        <div class="info-row"><span class="label">Name:</span> <span>${
-          header.client?.name || header.client?.company || 'Walk-in Customer'
-        }</span></div>
-        <div class="info-row"><span class="label">Tel:</span> <span>${
-          header.client?.telephone || '-'
-        }</span></div>
-        <div class="info-row"><span class="label">Address:</span> <span>${
-          header.client?.address || '-'
-        }</span></div>
+<div class="info-box">
+    <div class="info-col">
+        <div class="field-row">
+            <span class="field-label">Customer / ລູກຄ້າ:</span>
+            <span class="field-val bold" style="font-size: 12px;">${header.client?.name || header.client?.company || 'Walk-in Customer'}</span>
+            
+            <span class="field-label">Tel:</span>
+            <span class="field-val">${header.client?.telephone || '-'}</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Address / ທີ່ຢູ່:</span>
+            <span class="field-val">${header.client?.address || '-'}</span>
+        </div>
     </div>
-    <div class="col-right">
-        <div class="mb-2 bold" style="text-decoration: underline;">Reference / ເລກທີ:</div>
-        <div class="info-row"><span class="label">No:</span> <span>${
-          header.id
-        }</span></div>
-        <div class="info-row"><span class="label">Date:</span> <span>${formatDate(
-          header.bookingDate
-        )}</span></div>
-        <div class="info-row"><span class="label">Staff:</span> <span>${
-          header.user?.cus_name || '-'
-        }</span></div>
-        <div class="info-row"><span class="label">Payment:</span> <span>${
-          header.payment?.payment_name || '-'
-        }</span></div>
+    <div class="info-col right">
+        <div class="field-row">
+            <span class="field-label">No:</span> <span class="field-val bold">${header.id}</span>
+            <span class="field-label">Date:</span> <span class="field-val">${formatDate(header.bookingDate)}</span>
+        </div>
+        <div class="field-row">
+            <span class="field-label">Staff:</span> <span class="field-val">${header.user?.cus_name || '-'}</span>
+            <span class="field-label">Pay:</span> <span class="field-val">${header.payment?.payment_name || '-'}</span>
+        </div>
     </div>
 </div>
 
@@ -1208,11 +1181,11 @@ export default {
         <tr>
             <th width="5%">#</th>
             <th width="40%">Description / ລາຍການ</th>
-            <th width="10%">Qty</th>
-            <th width="10%">Unit</th>
-            <th width="15%">Price</th>
-            <th width="10%">Disc.</th>
-            <th width="15%">Amount</th>
+            <th width="10%">Qty<br>ຈຳນວນ</th>
+            <th width="10%">Unit<br>ຫົວໜ່ວຍ</th>
+            <th width="12%">Price<br>ລາຄາ</th>
+            <th width="10%">Disc.<br>ສ່ວນຫຼຸດ</th>
+            <th width="13%">Amount<br>ລວມ</th>
         </tr>
     </thead>
     <tbody>
@@ -1226,20 +1199,14 @@ export default {
             <span>Subtotal / ລວມ:</span>
             <span>${formatNumber(header.total + totalDiscount)}</span>
         </div>
-        ${
-          totalDiscount > 0
-            ? `
+        ${totalDiscount > 0 ? `
         <div class="total-row">
             <span>Discount / ສ່ວນຫຼຸດ:</span>
             <span>-${formatNumber(totalDiscount)}</span>
-        </div>`
-            : ''
-        }
+        </div>` : ''}
         <div class="total-row final">
             <span>TOTAL / ລວມທັງໝົດ:</span>
-            <span>${formatNumber(header.total)} <small>${
-        header.currency?.code || 'LAK'
-      }</small></span>
+            <span>${formatNumber(header.total)}</span>
         </div>
     </div>
 </div>
@@ -1256,7 +1223,7 @@ export default {
 </body>
 </html>
   `
-    },
+},
 
     calculateTotalDiscount(header) {
       if (!header || !header.lines) return 0
