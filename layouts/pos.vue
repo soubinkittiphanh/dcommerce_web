@@ -1987,9 +1987,8 @@ export default {
                 `api/sale/find/${saleHeaderId}`
               )
               const invoiceData = saleResponse.data
-              console.info(`MAIN COMPANY INFOR ${JSON.stringify(this.companyData)}`)
               // Get company data
-              const fixCompanyData = this.$store.getters.findAllCompany[0] || {}
+              const fixCompanyData = this.currentTerminal?.location?.company // this.$store.getters.findAllCompany[0] || {}
               console.info(`fixed COMPANY INFOR ${JSON.stringify(fixCompanyData)}`)
               
               // Generate HTML based on type

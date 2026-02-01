@@ -419,6 +419,7 @@ export default {
       this.isloading = true
 
       try {
+        console.info(`current location selected ${JSON.stringify(this.currentSelectedLocation)}`)
         await this.$store.dispatch(
           'initializeProductsByLocation',
           this.currentSelectedLocation['id']
