@@ -832,9 +832,9 @@ export default {
         let htmlContent = ''
         console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
         if (type === 'receipt') {
-          htmlContent = generateReceiptHTML(invoiceData, companyData)
+          htmlContent = generateReceiptHTML(invoiceData, companyData,this.findAllCurrency)
         } else {
-          htmlContent = generateInvoiceHTML(invoiceData, companyData)
+          htmlContent = generateInvoiceHTML(invoiceData, companyData,this.findAllCurrency)
         }
 
         // Print

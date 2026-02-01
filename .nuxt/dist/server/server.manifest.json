@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "349.js": "349.js",
+    "350.js": "350.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -133,6 +133,7 @@
     "components/pos-dialogs-ticket-details-dialog.js": "components/pos-dialogs-ticket-details-dialog.js",
     "components/pos-dialogs.js": "components/pos-dialogs.js",
     "components/pos-left-drawer.js": "components/pos-left-drawer.js",
+    "components/pos-recipe-currency-summary-cards.js": "components/pos-recipe-currency-summary-cards.js",
     "components/pos-recipe.js": "components/pos-recipe.js",
     "components/price-list-form.js": "components/price-list-form.js",
     "components/printable-invoice.js": "components/printable-invoice.js",
@@ -353,7 +354,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "349.js": "349.js.map",
+    "350.js": "350.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -485,6 +486,7 @@
     "components/pos-dialogs-ticket-details-dialog.js": "components/pos-dialogs-ticket-details-dialog.js.map",
     "components/pos-dialogs.js": "components/pos-dialogs.js.map",
     "components/pos-left-drawer.js": "components/pos-left-drawer.js.map",
+    "components/pos-recipe-currency-summary-cards.js": "components/pos-recipe-currency-summary-cards.js.map",
     "components/pos-recipe.js": "components/pos-recipe.js.map",
     "components/price-list-form.js": "components/price-list-form.js.map",
     "components/printable-invoice.js": "components/printable-invoice.js.map",

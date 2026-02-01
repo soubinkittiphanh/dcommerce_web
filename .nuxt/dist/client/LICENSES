@@ -1,3 +1,26 @@
+//! moment.js
+
+//! moment.js locale configuration
+
+
+/*!
+ * @kurkle/color v0.3.4
+ * https://github.com/kurkle/color#readme
+ * (c) 2024 Jukka Kurkela
+ * Released under the MIT License
+ */
+
+/*!
+ * Chart.js v4.5.1
+ * https://www.chartjs.org
+ * (c) 2025 Chart.js Contributors
+ * Released under the MIT License
+ */
+
+
+/*! @license DOMPurify 2.5.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.8/LICENSE */
+
+
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -14,21 +37,23 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 
 
-/*! @license DOMPurify 2.5.8 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/2.5.8/LICENSE */
-
-
 /*!
- * @kurkle/color v0.3.4
- * https://github.com/kurkle/color#readme
- * (c) 2024 Jukka Kurkela
- * Released under the MIT License
+ * Vue.js v2.7.16
+ * (c) 2014-2023 Evan You
+ * Released under the MIT License.
  */
 
 /*!
- * Chart.js v4.5.1
- * https://www.chartjs.org
- * (c) 2025 Chart.js Contributors
- * Released under the MIT License
+ * cookie
+ * Copyright(c) 2012-2014 Roman Shtylman
+ * Copyright(c) 2015 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
  */
 
 
@@ -93,6 +118,9 @@ PERFORMANCE OF THIS SOFTWARE.
     OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
     PERFORMANCE OF THIS SOFTWARE.
     ***************************************************************************** */
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
 
 /*! ieee754. BSD-3-Clause License. Feross Aboukhadijeh <https://feross.org/opensource> */
 
@@ -768,28 +796,3 @@ PERFORMANCE OF THIS SOFTWARE.
  * @author	owenm    <owen23355@gmail.com>
  * @license MIT
  */
-
-
-/*!
- * Vue.js v2.7.16
- * (c) 2014-2023 Evan You
- * Released under the MIT License.
- */
-
-/*!
- * cookie
- * Copyright(c) 2012-2014 Roman Shtylman
- * Copyright(c) 2015 Douglas Christopher Wilson
- * MIT Licensed
- */
-
-/*!
- * vuex v3.6.2
- * (c) 2021 Evan You
- * @license MIT
- */
-
-
-//! moment.js
-
-//! moment.js locale configuration

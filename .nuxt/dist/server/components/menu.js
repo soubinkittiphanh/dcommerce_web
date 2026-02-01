@@ -1,7 +1,7 @@
 exports.ids = [99];
 exports.modules = {
 
-/***/ 1626:
+/***/ 1627:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -27,7 +27,7 @@ var VDialog = __webpack_require__(416);
 var VDivider = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VHover/VHover.js
-var VHover = __webpack_require__(510);
+var VHover = __webpack_require__(511);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadio.js
 var VRadio = __webpack_require__(437);
@@ -161,7 +161,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(879),
+      imageSvg: __webpack_require__(880),
       imageSrc: __webpack_require__(205),
       terminalDialog: false,
       terminalSelected: this.findSelectedTerminal || 1
@@ -218,7 +218,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 510:
+/***/ 511:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -286,7 +286,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 879:
+/***/ 880:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";

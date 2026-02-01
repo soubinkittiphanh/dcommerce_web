@@ -21,7 +21,7 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <loading-indicator> </loading-indicator>
     </v-dialog>
-    
+
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
       <youtube-player
         @close-dialog="guidelineDialog = false"
@@ -29,10 +29,13 @@
       >
       </youtube-player>
     </v-dialog>
-    
+
     <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
-        @reload="loadData(); dialogOrderDetail = false"
+        @reload="
+          loadData()
+          dialogOrderDetail = false
+        "
         :is-quotation="false"
         :key="componentKey"
         :is-update="viewTransaction"
@@ -47,7 +50,10 @@
         :id="OrderIdSelected"
         :key="componentCancelFormKey"
         @close-dialog="cancelForm = false"
-        @reload="cancelForm = false; loadData()"
+        @reload="
+          cancelForm = false
+          loadData()
+        "
       ></cancel-ticket-form>
     </v-dialog>
 
@@ -126,7 +132,7 @@
                 </template>
               </v-menu>
             </v-col>
-            
+
             <v-col cols="6">
               <!-- Search and Filters -->
               <v-text-field
@@ -164,7 +170,7 @@
                 v-model="terminalId"
               ></v-autocomplete>
             </v-col>
-            
+
             <v-col cols="6" class="text-left">
               <v-btn
                 size="large"
@@ -229,7 +235,11 @@
             <v-col cols="6" lg="3">
               <order-sumary-card-pos
                 :showTotal="true"
-                :gross="getFormatNum(totalSaleRaw - +this.unpaidCodOrder.saleRawNumber)"
+                :gross="
+                  getFormatNum(
+                    totalSaleRaw - +this.unpaidCodOrder.saleRawNumber
+                  )
+                "
                 :orderDetail="{
                   title: 'ຍອດບິນທັງໝົດ',
                   amount: getFormatNum(filteredOrderHeaderList.length),
@@ -242,45 +252,44 @@
             <!-- Payment Type Summary Cards -->
             <v-col cols="6" lg="9">
               <v-row>
-                <v-col 
-                  v-for="paymentStat in paymentStatistics" 
+                <v-col
+                  v-for="paymentStat in paymentStatistics"
                   :key="paymentStat.code"
-                  cols="6" 
-                  md="4" 
+                  cols="6"
+                  md="4"
                   lg="3"
                 >
-                  <v-card 
-                    outlined 
+                  <v-card
+                    outlined
                     class="payment-summary-card pa-3 text-center elevation-2"
-                    :class="{ 'selected-payment': selectedPaymentFilter === paymentStat.code }"
+                    :class="{
+                      'selected-payment':
+                        selectedPaymentFilter === paymentStat.code,
+                    }"
                     @click="filterByPaymentType(paymentStat.code)"
-                    style="cursor: pointer; transition: all 0.2s ease;"
+                    style="cursor: pointer; transition: all 0.2s ease"
                   >
-                    <v-icon 
-                      :color="paymentStat.color" 
-                      size="32" 
-                      class="mb-2"
-                    >
+                    <v-icon :color="paymentStat.color" size="32" class="mb-2">
                       {{ paymentStat.icon }}
                     </v-icon>
-                    
+
                     <h3 :class="`${paymentStat.color}--text mb-1`">
                       {{ formatNumber(paymentStat.amount) }} LAK
                     </h3>
-                    
-                    <div class=" text--secondary mb-1">
+
+                    <div class="text--secondary mb-1">
                       {{ paymentStat.name }}
                     </div>
-                    
-                    <v-chip 
-                      :color="paymentStat.color" 
-                      small 
+
+                    <v-chip
+                      :color="paymentStat.color"
+                      small
                       outlined
                       class="font-weight-bold"
                     >
                       {{ paymentStat.count }} ລາຍການ
                     </v-chip>
-                    
+
                     <div class="mt-2">
                       <v-progress-linear
                         :value="paymentStat.percentage"
@@ -288,7 +297,7 @@
                         height="4"
                         rounded
                       ></v-progress-linear>
-                      <div class=" mt-1">
+                      <div class="mt-1">
                         {{ paymentStat.percentage.toFixed(1) }}% ຂອງຍອດລວມ
                       </div>
                     </div>
@@ -321,7 +330,7 @@
                       </v-progress-circular>
                     </div>
                   </v-col>
-                  
+
                   <v-col cols="6" md="3">
                     <div class="text-center">
                       <h2 class="success--text">{{ multiPaymentCount }}</h2>
@@ -344,28 +353,30 @@
                         color="primary"
                         @click="filterByPaymentType('SINGLE')"
                         class="mr-2"
-                        :class="{ 'primary white--text': selectedPaymentFilter === 'SINGLE' }"
+                        :class="{
+                          'primary white--text':
+                            selectedPaymentFilter === 'SINGLE',
+                        }"
                       >
                         <v-icon left>mdi-credit-card</v-icon>
                         ສະແດງແຕ່ການຊຳລະດຽວ
                       </v-btn>
-                      
+
                       <v-btn
                         outlined
                         color="success"
                         @click="filterByPaymentType('MULTI')"
                         class="mr-2"
-                        :class="{ 'success white--text': selectedPaymentFilter === 'MULTI' }"
+                        :class="{
+                          'success white--text':
+                            selectedPaymentFilter === 'MULTI',
+                        }"
                       >
                         <v-icon left>mdi-credit-card-multiple</v-icon>
                         ສະແດງການຊຳລະຫຼາຍວິທີ
                       </v-btn>
 
-                      <v-btn
-                        outlined
-                        color="grey"
-                        @click="clearPaymentFilter"
-                      >
+                      <v-btn outlined color="grey" @click="clearPaymentFilter">
                         <v-icon left>mdi-filter-off</v-icon>
                         ສະແດງທັງໝົດ
                       </v-btn>
@@ -389,16 +400,19 @@
         >
           <template v-slot:top>
             <div class="pa-3" v-if="selectedPaymentFilter">
-              <v-alert 
-                :type="selectedPaymentFilter === 'MULTI' ? 'success' : 'info'" 
-                dense 
-                text 
+              <v-alert
+                :type="selectedPaymentFilter === 'MULTI' ? 'success' : 'info'"
+                dense
+                text
                 dismissible
                 @input="clearPaymentFilter"
               >
                 <v-icon left>mdi-filter</v-icon>
-                ກຳລັງສະແດງ: {{ getFilterDisplayName(selectedPaymentFilter) }}
-                ({{ filteredOrderHeaderList.length }} ລາຍການ)
+                ກຳລັງສະແດງ:
+                {{ getFilterDisplayName(selectedPaymentFilter) }} ({{
+                  filteredOrderHeaderList.length
+                }}
+                ລາຍການ)
               </v-alert>
             </div>
           </template>
@@ -475,33 +489,26 @@
           </template>
 
           <template v-slot:[`item.createdAt`]="{ item }">
-             <v-chip 
-                color="success" 
-                small 
-                dark 
-                style="cursor: pointer"
-              >
-                <v-icon left small>mdi-clock</v-icon>
-                {{ getLocalDate(item.createdAt) }}
-              </v-chip>
+            <v-chip color="success" small dark style="cursor: pointer">
+              <v-icon left small>mdi-clock</v-icon>
+              {{ getLocalDate(item.createdAt) }}
+            </v-chip>
           </template>
           <template v-slot:[`item.ticketId`]="{ item }">
-             <v-chip 
-                color="success" 
-                small 
-                dark 
-                style="cursor: pointer"
-              >
-                <v-icon left small>mdi-ticket</v-icon>
-                {{ item.id }}
-              </v-chip>
+            <v-chip color="success" small dark style="cursor: pointer">
+              <v-icon left small>mdi-ticket</v-icon>
+              {{ item.id }}
+            </v-chip>
           </template>
 
           <template v-slot:[`item.id`]="{ item }">
             <v-btn
               color="primary"
               text
-              @click="viewItem(item); wallet = true"
+              @click="
+                viewItem(item)
+                wallet = true
+              "
             >
               <i class="fa-regular fa-pen-to-square"></i>
             </v-btn>
@@ -511,7 +518,10 @@
             <v-btn
               color="blue darken-1"
               text
-              @click="cancelItem(item); wallet = true"
+              @click="
+                cancelItem(item)
+                wallet = true
+              "
             >
               <i class="fas fa-sync"></i>
             </v-btn>
@@ -519,10 +529,10 @@
 
           <template v-slot:[`item.payment.payment_code`]="{ item }">
             <div v-if="isMultiPayment(item)">
-              <v-chip 
-                color="success" 
-                small 
-                dark 
+              <v-chip
+                color="success"
+                small
+                dark
                 @click="showPaymentDetails(item)"
                 style="cursor: pointer"
               >
@@ -531,21 +541,23 @@
               </v-chip>
             </div>
             <div v-else>
-              <v-chip 
-                :color="getPaymentMethodColor(item.payment?.payment_code)" 
-                small 
+              <v-chip
+                :color="getPaymentMethodColor(item.payment?.payment_code)"
+                small
                 dark
               >
-                <v-icon left small>{{ getPaymentMethodIcon(item.payment?.payment_code) }}</v-icon>
+                <v-icon left small>{{
+                  getPaymentMethodIcon(item.payment?.payment_code)
+                }}</v-icon>
                 {{ item.payment?.payment_name || 'N/A' }}
               </v-chip>
             </div>
           </template>
 
           <template v-slot:[`item.paymentDetails`]="{ item }">
-            <v-btn 
-              color="info" 
-              text 
+            <v-btn
+              color="info"
+              text
               small
               @click="showPaymentDetails(item)"
               :disabled="!hasPaymentDetails(item)"
@@ -602,11 +614,11 @@ import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vu
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
-  components: { 
-    OrderDetailPos, 
-    OrderSumaryCardPos, 
+  components: {
+    OrderDetailPos,
+    OrderSumaryCardPos,
     OrderDetailPosCRUD,
-    TicketDetailsDialog  // ADDED: Register the new component
+    TicketDetailsDialog, // ADDED: Register the new component
   },
   middleware: 'auths',
   data() {
@@ -635,14 +647,14 @@ export default {
       cancelForm: false,
       OrderIdSelected: '',
       lastTransactionSaleHeaderId: 0,
-      
+
       // SIMPLIFIED: Payment Details Dialog - now handled by component
       paymentDetailsDialog: false,
       selectedOrderForPayments: null,
 
       // Payment Filtering
       selectedPaymentFilter: null,
-      
+
       headers: [
         {
           text: 'ວັນທີ',
@@ -741,7 +753,7 @@ export default {
           sortable: false,
         },
       ],
-      
+
       // fromDate: getFirstDayOfMonth(),// FIRSTDAY OF MONTH
       fromDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -769,14 +781,14 @@ export default {
   async created() {
     this.terminalId = this.findSelectedTerminal
     console.log(`Current terminal select ${this.findSelectedTerminal}`)
-    
+
     try {
       await preloadCompanyData(this.$axios)
       console.log('Company data preloaded for sales report')
     } catch (error) {
       console.warn('Company preload failed, using fallback:', error)
     }
-    
+
     await this.loadData()
     await this.loadShipping()
     await this.loadCurrency()
@@ -883,7 +895,7 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
-      'findAllPayment'  // ADDED: Payment methods from store
+      'findAllPayment', // ADDED: Payment methods from store
     ]),
 
     activeOrderHeaderList() {
@@ -910,7 +922,7 @@ export default {
         return this.activeOrderHeaderList
       }
 
-      return this.activeOrderHeaderList.filter(item => {
+      return this.activeOrderHeaderList.filter((item) => {
         switch (this.selectedPaymentFilter) {
           case 'SINGLE':
             return !this.isMultiPayment(item)
@@ -922,8 +934,10 @@ export default {
           case 'CARD':
           case 'COD':
             if (this.isMultiPayment(item)) {
-              return item.payments.some(payment => 
-                payment.paymentMethod?.payment_code === this.selectedPaymentFilter
+              return item.payments.some(
+                (payment) =>
+                  payment.paymentMethod?.payment_code ===
+                  this.selectedPaymentFilter
               )
             } else {
               return item.payment?.payment_code === this.selectedPaymentFilter
@@ -938,11 +952,11 @@ export default {
       const stats = {}
       let totalAmount = 0
 
-      this.activeOrderHeaderList.forEach(item => {
+      this.activeOrderHeaderList.forEach((item) => {
         const itemTotal = item.total - item.discount
 
         if (this.isMultiPayment(item)) {
-          item.payments.forEach(payment => {
+          item.payments.forEach((payment) => {
             const code = payment.paymentMethod?.payment_code || 'UNKNOWN'
             if (!stats[code]) {
               stats[code] = {
@@ -951,7 +965,7 @@ export default {
                 amount: 0,
                 count: 0,
                 color: this.getPaymentMethodColor(code),
-                icon: this.getPaymentMethodIcon(code)
+                icon: this.getPaymentMethodIcon(code),
               }
             }
             stats[code].amount += payment.amount
@@ -967,7 +981,7 @@ export default {
               amount: 0,
               count: 0,
               color: this.getPaymentMethodColor(code),
-              icon: this.getPaymentMethodIcon(code)
+              icon: this.getPaymentMethodIcon(code),
             }
           }
           stats[code].amount += itemTotal
@@ -976,19 +990,24 @@ export default {
         }
       })
 
-      Object.values(stats).forEach(stat => {
-        stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
+      Object.values(stats).forEach((stat) => {
+        stat.percentage =
+          totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
       })
 
       return Object.values(stats).sort((a, b) => b.amount - a.amount)
     },
 
     singlePaymentCount() {
-      return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length
+      return this.activeOrderHeaderList.filter(
+        (item) => !this.isMultiPayment(item)
+      ).length
     },
 
     multiPaymentCount() {
-      return this.activeOrderHeaderList.filter(item => this.isMultiPayment(item)).length
+      return this.activeOrderHeaderList.filter((item) =>
+        this.isMultiPayment(item)
+      ).length
     },
 
     singlePaymentPercentage() {
@@ -1004,25 +1023,25 @@ export default {
     // ADDED: Dynamic payment filter options from store
     paymentFilterOptions() {
       const options = [{ label: 'ທັງໝົດ', value: null }]
-      
+
       // Add payment methods from store
       if (this.findAllPayment && this.findAllPayment.length > 0) {
-        this.findAllPayment.forEach(payment => {
+        this.findAllPayment.forEach((payment) => {
           if (payment.isActive) {
             options.push({
               label: payment.payment_name,
-              value: payment.payment_code
+              value: payment.payment_code,
             })
           }
         })
       }
-      
+
       // Add special filter options
       options.push(
         { label: 'ຊຳລະແບບດຽວ', value: 'SINGLE' },
         { label: 'ຊຳລະຫຼາຍວິທີ', value: 'MULTI' }
       )
-      
+
       return options
     },
 
@@ -1091,57 +1110,59 @@ export default {
 
   methods: {
     printSalesReport() {
-    try {
-      console.log('🖨️ Printing sales report summary...');
-      
-      // Prepare terminal info
-      const terminalInfo = this.terminalId === 999 
-        ? { name: 'ທັງໝົດ', id: 999 }
-        : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
-      
-      // Prepare company data
-      const companyData = this.companyData?.apiData || this.companyData || {};
-      
-      // Call the print function
-      printSalesReportSummary({
-        orderHeaderList: this.activeOrderHeaderList,
-        paymentStatistics: this.paymentStatistics,
-        filteredOrderHeaderList: this.filteredOrderHeaderList,
-        fromDate: this.fromDate,
-        toDate: this.toDate,
-        terminalInfo: terminalInfo,
-        companyData: companyData,
-        companyLogo: this.companyLogo,
-        formatNumber: this.formatNumber,
-        user: this.user,
-        singlePaymentCount: this.singlePaymentCount,
-        multiPaymentCount: this.multiPaymentCount
-      });
+      try {
+        console.log('🖨️ Printing sales report summary...')
 
-      // Optional: Show success message
-      if (this.$toast) {
-        this.$toast.success('ລາຍງານການຂາຍກຳລັງພິມ...', {
-          position: 'bottom-center'
-        });
+        // Prepare terminal info
+        const terminalInfo =
+          this.terminalId === 999
+            ? { name: 'ທັງໝົດ', id: 999 }
+            : this.customTerminalList.find(
+                (terminal) => terminal.id === this.terminalId
+              )
+
+        // Prepare company data
+        const companyData = this.companyData?.apiData || this.companyData || {}
+
+        // Call the print function
+        printSalesReportSummary({
+          orderHeaderList: this.activeOrderHeaderList,
+          paymentStatistics: this.paymentStatistics,
+          filteredOrderHeaderList: this.filteredOrderHeaderList,
+          fromDate: this.fromDate,
+          toDate: this.toDate,
+          terminalInfo: terminalInfo,
+          companyData: companyData,
+          companyLogo: this.companyLogo,
+          formatNumber: this.formatNumber,
+          user: this.user,
+          singlePaymentCount: this.singlePaymentCount,
+          multiPaymentCount: this.multiPaymentCount,
+        })
+
+        // Optional: Show success message
+        if (this.$toast) {
+          this.$toast.success('ລາຍງານການຂາຍກຳລັງພິມ...', {
+            position: 'bottom-center',
+          })
+        }
+      } catch (error) {
+        console.error('Error printing sales report:', error)
+
+        // Show error message
+        if (this.$toast) {
+          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ', {
+            position: 'bottom-center',
+          })
+        } else if (this.$swal) {
+          this.$swal.fire({
+            title: 'Error',
+            text: 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ',
+            icon: 'error',
+          })
+        }
       }
-      
-    } catch (error) {
-      console.error('Error printing sales report:', error);
-      
-      // Show error message
-      if (this.$toast) {
-        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ', {
-          position: 'bottom-center'
-        });
-      } else if (this.$swal) {
-        this.$swal.fire({
-          title: 'Error',
-          text: 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ',
-          icon: 'error'
-        });
-      }
-    }
-  },
+    },
     getLocalDate,
 
     // SIMPLIFIED: Dialog event handlers for the new component
@@ -1162,7 +1183,9 @@ export default {
     // NEW: Utility method to find payment method details
     getPaymentMethodDetails(paymentCode) {
       if (!paymentCode || !this.findAllPayment) return null
-      return this.findAllPayment.find(p => p.payment_code === paymentCode) || null
+      return (
+        this.findAllPayment.find((p) => p.payment_code === paymentCode) || null
+      )
     },
 
     // Payment Filter Methods (remain the same)
@@ -1184,13 +1207,19 @@ export default {
     },
 
     getFilterDisplayName(filterValue) {
-      const option = this.paymentFilterOptions.find(opt => opt.value === filterValue)
+      const option = this.paymentFilterOptions.find(
+        (opt) => opt.value === filterValue
+      )
       return option ? option.label : filterValue
     },
 
     // Multi-Payment Detection and Handling Methods (remain the same)
     isMultiPayment(item) {
-      return item.payments && Array.isArray(item.payments) && item.payments.length > 1
+      return (
+        item.payments &&
+        Array.isArray(item.payments) &&
+        item.payments.length > 1
+      )
     },
 
     hasPaymentDetails(item) {
@@ -1206,78 +1235,95 @@ export default {
 
     getPaymentMethodColor(paymentCode) {
       // Try to find the payment method in store first
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
-      
+      const paymentMethod = this.findAllPayment.find(
+        (p) => p.payment_code === paymentCode
+      )
+
       if (paymentMethod) {
         // Generate color based on payment code for consistency
         const colorMap = {
-          'CASH': 'green',
-          'QR': 'purple',
-          'TRANSFER': 'blue',
-          'TRANSFER_BCEL': 'blue',
-          'BCEL': 'blue',
-          'COD': 'orange',
-          'CREDIT': 'red',
-          'CARD': 'indigo',
-          'BANK': 'teal',
-          'MOBILE': 'pink'
+          CASH: 'green',
+          QR: 'purple',
+          TRANSFER: 'blue',
+          TRANSFER_BCEL: 'blue',
+          BCEL: 'blue',
+          COD: 'orange',
+          CREDIT: 'red',
+          CARD: 'indigo',
+          BANK: 'teal',
+          MOBILE: 'pink',
         }
-        
+
         // Check if exact match exists
         if (colorMap[paymentCode]) {
           return colorMap[paymentCode]
         }
-        
+
         // For other payment codes, generate color based on common keywords
         const code = paymentCode.toUpperCase()
         if (code.includes('CASH') || code.includes('MONEY')) return 'green'
         if (code.includes('QR') || code.includes('SCAN')) return 'purple'
-        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue'
+        if (
+          code.includes('TRANSFER') ||
+          code.includes('BANK') ||
+          code.includes('BCEL')
+        )
+          return 'blue'
         if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
         if (code.includes('COD') || code.includes('DELIVERY')) return 'orange'
         if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink'
-        
+
         return 'primary'
       }
-      
+
       return 'grey'
     },
 
     getPaymentMethodIcon(paymentCode) {
       // Try to find the payment method in store first
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
-      
+      const paymentMethod = this.findAllPayment.find(
+        (p) => p.payment_code === paymentCode
+      )
+
       if (paymentMethod) {
         const iconMap = {
-          'CASH': 'mdi-cash',
-          'QR': 'mdi-qrcode',
-          'TRANSFER': 'mdi-bank-transfer',
-          'TRANSFER_BCEL': 'mdi-bank-transfer',
-          'BCEL': 'mdi-bank',
-          'COD': 'mdi-truck-delivery',
-          'CREDIT': 'mdi-credit-card-outline',
-          'CARD': 'mdi-credit-card',
-          'BANK': 'mdi-bank',
-          'MOBILE': 'mdi-cellphone',
-          'WALLET': 'mdi-wallet'
+          CASH: 'mdi-cash',
+          QR: 'mdi-qrcode',
+          TRANSFER: 'mdi-bank-transfer',
+          TRANSFER_BCEL: 'mdi-bank-transfer',
+          BCEL: 'mdi-bank',
+          COD: 'mdi-truck-delivery',
+          CREDIT: 'mdi-credit-card-outline',
+          CARD: 'mdi-credit-card',
+          BANK: 'mdi-bank',
+          MOBILE: 'mdi-cellphone',
+          WALLET: 'mdi-wallet',
         }
-        
+
         if (iconMap[paymentCode]) {
           return iconMap[paymentCode]
         }
-        
+
         const code = paymentCode.toUpperCase()
         if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash'
         if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode'
-        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer'
-        if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
-        if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery'
-        if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone'
+        if (
+          code.includes('TRANSFER') ||
+          code.includes('BANK') ||
+          code.includes('BCEL')
+        )
+          return 'mdi-bank-transfer'
+        if (code.includes('CARD') || code.includes('CREDIT'))
+          return 'mdi-credit-card'
+        if (code.includes('COD') || code.includes('DELIVERY'))
+          return 'mdi-truck-delivery'
+        if (code.includes('MOBILE') || code.includes('PHONE'))
+          return 'mdi-cellphone'
         if (code.includes('WALLET')) return 'mdi-wallet'
-        
+
         return 'mdi-cash-multiple'
       }
-      
+
       return 'mdi-help-circle'
     },
 
@@ -1285,7 +1331,9 @@ export default {
     showPaymentDetails(item) {
       this.selectedOrderForPayments = item
       this.paymentDetailsDialog = true
-      console.info(`SELECTED TICKET DET: ${JSON.stringify(this.selectedOrderForPayments)}`)
+      console.info(
+        `SELECTED TICKET DET: ${JSON.stringify(this.selectedOrderForPayments)}`
+      )
     },
 
     // All your existing methods remain the same...
@@ -1329,8 +1377,8 @@ export default {
     },
 
     printDefaultTicket(data) {
-      console.info(`PRINTING TICKET WITH DATA: ${JSON.stringify(data)}`)
-      
+      console.info('PRINTING TICKET WITH DATA:', JSON.stringify(data))
+
       let paymentCode = 'UNKNOWN'
       if (this.isMultiPayment(data)) {
         paymentCode = 'MULTI-PAYMENT'
@@ -1338,8 +1386,29 @@ export default {
         paymentCode = data.payment.payment_code
       }
 
+      // 🔧 FIX: Transform the data structure to match what the ticket function expects
+      const transformedLines = data.lines.map((line) => ({
+        // Map the actual data structure to what the ticket function expects
+        id: line.product?.id || line.productId,
+        pro_name: line.product?.pro_name || 'Unknown Product',
+        qty: line.quantity, // ✅ quantity → qty
+        localPrice: line.price, // ✅ price → localPrice
+        pro_price: line.price, // ✅ fallback price
+        isGift: line.isGift || false, // ✅ Add isGift property
+        saleCurrencyId: line.currencyId, // ✅ currencyId → saleCurrencyId
+
+        // Additional properties that might be needed
+        total: line.total,
+        discount: line.discount || 0,
+        exchangeRate: line.exchangeRate || 1,
+        priceListId: line.priceListId || null,
+        priceLists: line.priceLists || [],
+      }))
+
+      console.info('🔧 TRANSFORMED LINES FOR TICKET:', transformedLines)
+
       defaultTicketReprint({
-        productCart: data.lines,
+        productCart: { lines: transformedLines }, // ✅ Pass transformed data
         findAllProduct: this.findAllProduct,
         formatNumber: this.formatNumber,
         discount: data.discount,
@@ -1355,7 +1424,7 @@ export default {
         changes: 0,
         bookingDate: data.createdAt,
         axios: this.$axios,
-        companyData: this.companyData
+        companyData: this.companyData,
       })
     },
 
@@ -1519,7 +1588,7 @@ table {
 
 .payment-summary-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .payment-summary-card.selected-payment {
@@ -1551,7 +1620,7 @@ table {
   .payment-summary-card {
     margin-bottom: 16px;
   }
-  
+
   .payment-summary-card h3 {
     font-size: 1.2rem;
   }

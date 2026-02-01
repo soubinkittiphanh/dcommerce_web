@@ -1993,8 +1993,9 @@ export default {
               
               // Generate HTML based on type
               let htmlContent = ''
+              console.info(`currency ${JSON.stringify(this.findAllCurrency)}`)
               console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
-              htmlContent = generateReceiptHTML(invoiceData, fixCompanyData)
+              htmlContent = generateReceiptHTML(invoiceData, fixCompanyData,this.findAllCurrency)
 
               // Print
               this.openPrintWindow(htmlContent)

@@ -1,7 +1,7 @@
-exports.ids = [208,47,58,177];
+exports.ids = [209,47,58,178];
 exports.modules = {
 
-/***/ 1487:
+/***/ 1488:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48,7 +48,7 @@ var VTextField = __webpack_require__(39);
 var VToolbar = __webpack_require__(28);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/index.js
-var components_VToolbar = __webpack_require__(73);
+var components_VToolbar = __webpack_require__(72);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/category/index.vue?vue&type=template&id=473ab660
 
@@ -267,7 +267,7 @@ var staticRenderFns = [];
 var myUtil = __webpack_require__(163);
 
 // EXTERNAL MODULE: ./components/CategoryForm.vue + 4 modules
-var CategoryForm = __webpack_require__(601);
+var CategoryForm = __webpack_require__(602);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/category/index.vue?vue&type=script&lang=js
 
@@ -378,7 +378,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var category = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(481).default,CategoryForm: __webpack_require__(601).default,DialogClassicMessage: __webpack_require__(482).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(481).default,CategoryForm: __webpack_require__(602).default,DialogClassicMessage: __webpack_require__(484).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -508,7 +508,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 482:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -712,7 +712,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 601:
+/***/ 602:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

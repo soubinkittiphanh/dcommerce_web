@@ -1,4 +1,4 @@
-exports.ids = [138,57,58,133];
+exports.ids = [139];
 exports.modules = {
 
 /***/ 38:
@@ -70,13 +70,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 474:
+/***/ 475:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(475);
+var content = __webpack_require__(476);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -84,7 +84,7 @@ __webpack_require__(5).default("59f225a8", content, true)
 
 /***/ }),
 
-/***/ 475:
+/***/ 476:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -200,98 +200,6 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 482:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DialogClassicMessage.vue?vue&type=template&id=3accbb34
-
-
-
-
-
-
-
-
-var DialogClassicMessagevue_type_template_id_3accbb34_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "text-h5 grey lighten-2"
-  }, [_vm._v(" ຂໍ້ຄວາມ ")]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_vm._v("\n    " + _vm._s(_vm.message) + "\n  ")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "text": ""
-    },
-    on: {
-      "click": _vm.toggleDialog
-    }
-  }, [_vm._v(" ຕົກລົງ ")])], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/DialogClassicMessage.vue?vue&type=template&id=3accbb34
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DialogClassicMessage.vue?vue&type=script&lang=js
-/* harmony default export */ var DialogClassicMessagevue_type_script_lang_js = ({
-  props: {
-    message: {
-      type: String,
-      default: ''
-    }
-  },
-  methods: {
-    toggleDialog() {
-      this.$emit('closedialog');
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/DialogClassicMessage.vue?vue&type=script&lang=js
- /* harmony default export */ var components_DialogClassicMessagevue_type_script_lang_js = (DialogClassicMessagevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/DialogClassicMessage.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_DialogClassicMessagevue_type_script_lang_js,
-  DialogClassicMessagevue_type_template_id_3accbb34_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "cf974660"
-  
-)
-
-/* harmony default export */ var DialogClassicMessage = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
 /***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -404,559 +312,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 492:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(420);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
-var VChip = __webpack_require__(130);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(452);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(416);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
-var VForm = __webpack_require__(438);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
-var VIcon = __webpack_require__(64);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
-var VSelect = __webpack_require__(20);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
-var VTextField = __webpack_require__(39);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=template&id=c7a1474c
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var PriceListFormvue_type_template_id_c7a1474c_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
-    staticClass: "pa-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VChip["a" /* default */], {
-    staticClass: "ma-0",
-    attrs: {
-      "color": "primary",
-      "label": "",
-      "text-color": "white"
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "start": ""
-    }
-  }, [_vm._v("mdi-label")]), _vm._v("\n        ຈັດການ ລາຍການລາຄາ\n      ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VForm["a" /* default */], {
-    ref: "form"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ລະຫັດສິນຄ້າ",
-      "disabled": ""
-    },
-    model: {
-      value: _vm.form.productId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "productId", $$v);
-      },
-      expression: "form.productId"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* Name",
-      "required": "",
-      "rules": _vm.nameRules
-    },
-    model: {
-      value: _vm.form.name,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "name", $$v);
-      },
-      expression: "form.name"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "items": _vm.grades,
-      "label": "Grade *"
-    },
-    model: {
-      value: _vm.form.grade,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "grade", $$v);
-      },
-      expression: "form.grade"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "* ລາຄາ"
-    },
-    model: {
-      value: _vm.form.amount,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "amount", $$v);
-      },
-      expression: "form.amount"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "code",
-      "item-value": "id",
-      "items": _vm.findAllCurrency,
-      "label": "Currency*"
-    },
-    model: {
-      value: _vm.form.currencyId,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "currencyId", $$v);
-      },
-      expression: "form.currencyId"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VSelect["a" /* default */], {
-    attrs: {
-      "items": _vm.type,
-      "label": "ຮູບແບບລາຄາ",
-      "required": ""
-    },
-    model: {
-      value: _vm.form.type,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "type", $$v);
-      },
-      expression: "form.type"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "2"
-    }
-  }, [_c(VCheckbox["a" /* default */], {
-    attrs: {
-      "label": "Is Active"
-    },
-    model: {
-      value: _vm.form.isActive,
-      callback: function ($$v) {
-        _vm.$set(_vm.form, "isActive", _vm._n($$v));
-      },
-      expression: "form.isActive"
-    }
-  })], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.commitRecord
-    }
-  }, [_vm._v("\n              ເພີ່ມ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c('small', [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ")]), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "search": _vm.search,
-      "items": _vm.entries
-    },
-    scopedSlots: _vm._u([{
-      key: `item.id`,
-      fn: function ({
-        item,
-        index
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "warning",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.deleteItem(item, index);
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fa fa-trash"
-        })])];
-      }
-    }, {
-      key: `item.name`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(item.name) + " [ " + _vm._s(item.grade) + " ]\n        ")];
-      }
-    }, {
-      key: `item.amount`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(_vm.formatNumber(item.amount)) + "\n        ")];
-      }
-    }], null, true)
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n        Close\n      ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=template&id=c7a1474c
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(14);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PriceListForm.vue?vue&type=script&lang=js
-
-
-/* harmony default export */ var PriceListFormvue_type_script_lang_js = ({
-  props: {
-    isCreate: {
-      type: Boolean,
-      require: true,
-      default: true
-    },
-    recordId: {
-      type: Number,
-      require: false,
-      default: 0
-    }
-  },
-  data() {
-    return {
-      // grades: ['A', 'B', 'C', 'D', 'E', 'F'],
-      grades: ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
-      search: '',
-      form: {
-        grade: '',
-        productId: '',
-        id: null,
-        name: '',
-        amount: 0,
-        type: 'Price',
-        currencyId: 1,
-        isActive: true
-      },
-      type: ['Price', 'Percent'],
-      entries: [],
-      headers: [{
-        text: 'Name',
-        align: 'end',
-        value: 'name',
-        sortable: false
-      }, {
-        text: 'ລາຄາ',
-        align: 'end',
-        value: 'amount',
-        sortable: false
-      }, {
-        text: 'ສູດຄິດໄລ່',
-        align: 'end',
-        value: 'type',
-        sortable: false
-      }, {
-        text: 'ລົບ',
-        align: 'end',
-        value: 'id',
-        sortable: false
-      }],
-      isloading: false,
-      nameRules: [value => !!value || 'Name is required', value => value && value.length <= 150 || 'Name must be less than 20 characters']
-    };
-  },
-  async created() {
-    this.form.productId = this.recordId;
-    this.loadEntry();
-  },
-  methods: {
-    ...Object(external_vuex_["mapActions"])(['addProductPricesToCreate', 'deleteProductPricesToCreate']),
-    formatNumber(value) {
-      return Object(common["e" /* getFormatNum */])(value);
-    },
-    async commitRecord() {
-      if (this.$refs.form.validate() && !this.isloading) {
-        if (this.recordId == 0) {
-          let localForm = {
-            ...this.form
-          };
-          this.addProductPricesToCreate(localForm);
-          console.log(`Item to create ${this.findAllProductPriceListToCreate.length}`);
-          return;
-        }
-        this.isloading = true;
-        let api = 'api/priceList/create';
-        console.log('API => ', api);
-        try {
-          const response = await this.$axios.post(api, this.form);
-          console.log(`Load data ${JSON.stringify(response)}`);
-          await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
-        } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-        }
-        this.isloading = false;
-      }
-    },
-    async deleteItem(item, idx) {
-      if (this.recordId == 0) {
-        this.deleteProductPricesToCreate(idx);
-        return;
-      }
-      if (!this.isloading) {
-        // Implement form submission logic here
-        this.isloading = true;
-        let api = `api/priceList/find/${item.id}`;
-        console.log('API => ', api);
-        try {
-          const response = await this.$axios.delete(api);
-          console.log(`Load data `);
-          await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
-        } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-        }
-        this.isloading = false;
-      }
-    },
-    async loadEntry() {
-      console.log(`Loading data .... ${this.recordId}`);
-      if (this.recordId == 0) {
-        this.entries = this.findAllProductPriceListToCreate;
-        return;
-      }
-      try {
-        const response = await this.$axios.get(`api/priceList/findByProductId/${this.recordId}`);
-        console.warn(`RESPONSE DATA ${JSON.stringify(response.data)}`);
-        this.entries = response.data;
-      } catch (error) {
-        console.log('Cannot fetch data ' + error);
-        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
-      }
-    },
-    refreshData() {
-      this.$emit('reload-data');
-    }
-  },
-  computed: {
-    ...Object(external_vuex_["mapGetters"])(['findAllProductPriceListToCreate', 'findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency'])
-  }
-});
-// CONCATENATED MODULE: ./components/PriceListForm.vue?vue&type=script&lang=js
- /* harmony default export */ var components_PriceListFormvue_type_script_lang_js = (PriceListFormvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/PriceListForm.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_PriceListFormvue_type_script_lang_js,
-  PriceListFormvue_type_template_id_c7a1474c_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "23382228"
-  
-)
-
-/* harmony default export */ var PriceListForm = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default})
-
-
-/***/ }),
-
-/***/ 493:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(105);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DiaImage.vue?vue&type=template&id=5419c5a1
-
-
-
-
-
-
-var DiaImagevue_type_template_id_5419c5a1_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], [_c(VImg["a" /* default */], {
-    attrs: {
-      "src": _vm.iUrl || 'No image'
-    }
-  }), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "primary",
-      "variant": "text",
-      "rounded": ""
-    },
-    on: {
-      "click": function ($event) {
-        $event.preventDefault();
-        return _vm.$emit('closeDia');
-      }
-    }
-  }, [_vm._v("\n      Close\n    ")])], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/DiaImage.vue?vue&type=template&id=5419c5a1
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/DiaImage.vue?vue&type=script&lang=js
-/* harmony default export */ var DiaImagevue_type_script_lang_js = ({
-  props: ['iUrl']
-});
-// CONCATENATED MODULE: ./components/DiaImage.vue?vue&type=script&lang=js
- /* harmony default export */ var components_DiaImagevue_type_script_lang_js = (DiaImagevue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/DiaImage.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_DiaImagevue_type_script_lang_js,
-  DiaImagevue_type_template_id_5419c5a1_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "f6f6a7dc"
-  
-)
-
-/* harmony default export */ var DiaImage = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 496:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -964,23 +320,14 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var jsbarcode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(414);
 /* harmony import */ var jsbarcode__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jsbarcode__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _common_barcodePrinter__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(503);
 
-// Try different import approaches - uncomment the one that works in your project:
 
-// Option 1: Relative path (if utils is in a specific folder)
-// import { getFormatNum, swalSuccess, swalError2 } from '../utils'
-// import { getFormatNum, swalSuccess, swalError2 } from '../../utils'
 
-// Option 2: Nuxt alias
-// import { getFormatNum, swalSuccess, swalError2 } from '~/utils'
+// ✅ IMPORT: Import the barcode logic (Adjust path to where you saved the file)
 
-// Option 3: Direct path from root
-// import { getFormatNum, swalSuccess, swalError2 } from '@/utils/index.js'
 
-// Option 4: If utils is in plugins or a different location
-// import { getFormatNum, swalSuccess, swalError2 } from '~/plugins/utils'
-
-// Option 5: Define inline if utils not available
+// Utils definition (kept from your original code)
 const getFormatNum = val => {
   if (!val) return '0';
   return Number(val).toLocaleString('en-US', {
@@ -1011,7 +358,6 @@ const swalError2 = (swal, title, error) => {
     alert(`${title}: ${error}`);
   }
 };
-
 /* harmony default export */ __webpack_exports__["a"] = ({
   props: {
     title: {
@@ -1036,6 +382,8 @@ const swalError2 = (swal, title, error) => {
       pricingRecordId: null,
       barcodeImage: '',
       threeColPaper: false,
+      // This toggles the print size
+
       // Tax-related data
       loadingTaxRates: false,
       taxRates: [],
@@ -1057,7 +405,8 @@ const swalError2 = (swal, title, error) => {
         stockUnitId: null,
         saleCurrencyId: null,
         vendorName: '',
-        taxId: null // Add tax field
+        taxId: null,
+        baseUnitId: null
       },
       rules: {
         nameRule: [v => !!v || 'ຊື່ສິນຄ້າຈຳເປັນ'],
@@ -1066,13 +415,11 @@ const swalError2 = (swal, title, error) => {
       },
       category: [],
       companyList: [],
-      // unitList: [],
       findAllCurrency: [],
       files: []
     };
   },
   computed: {
-    // ...mapGetters(['findAllProductPriceListToCreate']),
     ...Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['findAllProductPriceListToCreate', 'findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency']),
     unitList() {
       return this.findAllUnit;
@@ -1096,85 +443,13 @@ const swalError2 = (swal, title, error) => {
     selectedTaxRate() {
       if (!this.formData.taxId || !this.taxRates.length) return null;
       return this.taxRates.find(rate => rate.id === this.formData.taxId);
-    },
-    barcode3by2cm() {
-      const html = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <title></title>
-            <style>
-            @font-face {
-              font-family: 'DM Sans';
-              font-style: normal;
-              font-weight: 400;
-              font-display: swap;
-              src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-          }
-            *{
-              font-family: 'DM Sans';
-            }
-          </style>
-              </head>
-              <body>
-                  <div style="text-align: center;">
-                        <table style="width: 200px; text-align: center;" >
-                            <tr>
-                              <td style="width: 500px; height: 15px;font-size:8px;">
-                                ລາຄາ:${this.formatNumber(this.formData.pro_price)}
-                                </br>
-                                <img src="${this.barcodeImage}">
-                              </td>               
-                            </tr>
-                          </table>
-                    </div>
-            </body>
-            </html>
-        `;
-      return html;
-    },
-    barcodeNormal() {
-      const html = `
-            <!DOCTYPE html>
-            <html>
-            <head>
-            <title></title>
-            <style>
-            @font-face {
-              font-family: 'DM Sans';
-              font-style: normal;
-              font-weight: 400;
-              font-display: swap;
-              src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-          }
-            *{
-              font-family: 'DM Sans';
-            }
-          </style>
-              </head>
-              <body>
-              <div style="text-align: center;">
-                    <table style="width: 200px; text-align: center;" >
-                        <tr>
-                          <td style="width: 500px; height: 15px;font-size:8px;">
-                            ລາຄາ:${this.formatNumber(this.formData.pro_price)}
-                            </br>
-                            <img src="${this.barcodeImage}">
-                          </td>               
-                        </tr>
-                      </table>
-                </div>
-            </body>
-            </html>
-        `;
-      return html;
     }
+
+    // ✅ NOTE: barcode3by2cm and barcodeNormal are REMOVED from computed
+    // They are now handled by the imported functions.
   },
   async mounted() {
-    await Promise.all([this.fetchCategory(), this.fetchCompany(),
-    // this.fetchUnit(),
-    this.fetchCurrency(), this.fetchTaxRates() // Add tax rates fetching
-    ]);
+    await Promise.all([this.fetchCategory(), this.fetchCompany(), this.fetchCurrency(), this.fetchTaxRates()]);
   },
   methods: {
     ...Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['clearProductPricesToCreate', 'addProductPricesToCreate', 'deleteProductPricesToCreate']),
@@ -1196,19 +471,14 @@ const swalError2 = (swal, title, error) => {
       try {
         const response = await this.$axios.get('/api/tax/active');
         this.taxRates = response.data.data || [];
-
-        // Set default tax rate if no tax is selected and we have a default
         if (!this.formData.taxId) {
           const defaultTax = this.taxRates.find(tax => tax.isDefault);
           if (defaultTax) {
             this.formData.taxId = defaultTax.id;
           }
         }
-        console.log('Tax rates loaded:', this.taxRates);
       } catch (error) {
         console.error('Error loading tax rates:', error);
-        // Use console instead of toast if toast is not available
-        console.error('Failed to load tax rates');
       } finally {
         this.loadingTaxRates = false;
       }
@@ -1243,10 +513,7 @@ const swalError2 = (swal, title, error) => {
     },
     generateBarcodeImage(barcode) {
       const canvas = this.$refs.barcodeCanvas;
-      console.log(`.....Canvas logger.....`);
-      console.log(canvas);
       if (canvas) {
-        console.log(canvas.width, canvas.height);
         jsbarcode__WEBPACK_IMPORTED_MODULE_1___default()(canvas, barcode, {
           format: 'code128',
           displayValue: true,
@@ -1257,15 +524,23 @@ const swalError2 = (swal, title, error) => {
         this.barcodeImage = canvas.toDataURL();
       }
     },
+    // ✅ REFACTORED: Printing logic using external helper
     printBarcode() {
-      const windowContent = this.threeColPaper ? this.barcode3by2cm : this.barcodeNormal;
-      const printWin = window.open('', '', 'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0');
-      printWin.document.open();
-      printWin.document.write(windowContent);
-      setTimeout(() => {
-        printWin.print();
-        printWin.close();
-      }, 1000);
+      // 1. Get formatted price
+      const formattedPrice = this.formatNumber(this.formData.pro_price);
+
+      // 2. Select HTML template based on "threeColPaper" toggle
+      let windowContent = '';
+      if (this.threeColPaper) {
+        // Calls the imported function for small paper
+        windowContent = Object(_common_barcodePrinter__WEBPACK_IMPORTED_MODULE_2__[/* getBarcode2by2cmHtml */ "b"])(formattedPrice, this.barcodeImage);
+      } else {
+        // Calls the imported function for normal paper
+        windowContent = Object(_common_barcodePrinter__WEBPACK_IMPORTED_MODULE_2__[/* getBarcodeNormalHtml */ "c"])(formattedPrice, this.barcodeImage);
+      }
+
+      // 3. Execute print
+      Object(_common_barcodePrinter__WEBPACK_IMPORTED_MODULE_2__[/* executePrintWindow */ "a"])(windowContent);
     },
     reset() {
       this.$refs.form.reset();
@@ -1277,7 +552,6 @@ const swalError2 = (swal, title, error) => {
       this.isloading = true;
       try {
         const res = await this.$axios.get('category_f');
-        console.log('=>category' + res.data);
         this.category = res.data.map(el => {
           return {
             categ_id: el.categ_id,
@@ -1298,7 +572,6 @@ const swalError2 = (swal, title, error) => {
       this.isloading = true;
       try {
         const res = await this.$axios.get('api/company/find');
-        console.log('=>Company' + res.data);
         this.companyList = res.data.map(el => {
           return {
             id: el.id,
@@ -1314,20 +587,6 @@ const swalError2 = (swal, title, error) => {
       }
       this.isloading = false;
     },
-    // async fetchUnit() {
-    //   try {
-    //     const response = await this.$axios.get('/api/unit/find')
-    //     this.unitList = response.data.map((el) => ({
-    //       id: el.id,
-    //       name: el.name,
-    //     }))
-    //   } catch (error) {
-    //     console.error('Error fetching units:', error)
-    //     // Fallback if API doesn't exist
-    //     this.unitList = []
-    //   }
-    // },
-
     async fetchCurrency() {
       try {
         const response = await this.$axios.get('/api/currency/findAll');
@@ -1337,21 +596,18 @@ const swalError2 = (swal, title, error) => {
         }));
       } catch (error) {
         console.error('Error fetching currency:', error);
-        // Fallback if API doesn't exist
         this.findAllCurrency = [];
       }
     },
     onFilesChange(files) {
       this.files = files || [];
     },
-    // File preview helper
     getFilePreview(file) {
       if (file && file instanceof File) {
         return URL.createObjectURL(file);
       }
       return '';
     },
-    // Remove file from preview
     removeFile(index) {
       this.files.splice(index, 1);
     },
@@ -1361,8 +617,6 @@ const swalError2 = (swal, title, error) => {
       }
       this.isloading = true;
       const formData = new FormData();
-
-      // Include tax information in the form data
       this.formData.baseUnitId = this.formData.stockUnitId;
       const formDataWithTax = {
         ...this.formData,
@@ -1393,7 +647,6 @@ const swalError2 = (swal, title, error) => {
         console.info(`Commit response ${commResponse}`);
         this.isloading = false;
         swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
-        console.info(`Create product complete: response => ${JSON.stringify(response)}`);
         this.$emit('refresh');
         this.$emit('close-dialog');
       } catch (error) {
@@ -1405,7 +658,6 @@ const swalError2 = (swal, title, error) => {
     async commitPriceListRecord(productId) {
       this.isloading = true;
       let api = 'api/priceList/create';
-      console.log(`API => ProductId='${productId}'`, api);
       try {
         const requests = this.findAllProductPriceListToCreate.map(item => {
           const newItem = {
@@ -1415,14 +667,10 @@ const swalError2 = (swal, title, error) => {
           return this.$axios.post(api, newItem);
         });
         const responses = await Promise.all(requests);
-        responses.forEach(response => {
-          console.log(`Load data: ${JSON.stringify(response)}`);
-        });
         this.clearProductPricesToCreate();
         return responses;
       } catch (error) {
         swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ໃນການເພີ່ມ price list');
-        console.error('Error during price list commit:', error);
         return null;
       }
     },
@@ -1436,13 +684,13 @@ const swalError2 = (swal, title, error) => {
 
 /***/ }),
 
-/***/ 497:
+/***/ 495:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(200);
 /* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(474);
+/* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(475);
 /* harmony import */ var _src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_components_VSwitch_VSwitch_sass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(71);
 /* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
@@ -1566,13 +814,13 @@ const swalError2 = (swal, title, error) => {
 
 /***/ }),
 
-/***/ 498:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(499);
+var content = __webpack_require__(497);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1580,7 +828,7 @@ __webpack_require__(5).default("735d40bc", content, true)
 
 /***/ }),
 
-/***/ 499:
+/***/ 497:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1595,25 +843,179 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
+/***/ 503:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return getBarcode2by2cmHtml; });
+/* unused harmony export getBarcode3by2cmHtml */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return getBarcodeNormalHtml; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return executePrintWindow; });
+// ~/util/barcodePrinter.js
+
+/**
+ * Generates HTML for 2x2cm barcode
+ */
+const getBarcode2by2cmHtml = (formattedPrice, barcodeImage) => {
+  return `
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title></title>
+      <style>
+        @font-face {
+          font-family: 'DM Sans';
+          font-style: normal;
+          font-weight: 200;
+          font-display: swap;
+          src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+        }
+        * {
+          font-family: 'DM Sans';
+        }
+      </style>
+    </head>
+    <body>
+      <div style="text-align: center;">
+        <table style="width: 200px; text-align: center;">
+          <tr>
+            <td style="width: 100px; height: 20px; font-size: 9px;">
+              ລາຄາ: ${formattedPrice}
+              <img src="${barcodeImage}">
+            </td>
+            <td style="width: 100px; height: 20px; font-size: 9px;">
+              ລາຄາ: ${formattedPrice}
+              <img src="${barcodeImage}">
+            </td>
+          </tr>
+        </table>
+      </div>
+    </body>
+  </html>
+  `;
+};
+
+/**
+ * Generates HTML for 3x2cm barcode
+ * (Note: Your original code defined this but didn't use it in the print function, 
+ * but I have included it here just in case)
+ */
+const getBarcode3by2cmHtml = (formattedPrice, barcodeImage) => {
+  return `
+      <!DOCTYPE html>
+          <html>
+          <head>
+          <title></title>
+          <style>
+          @font-face {
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 200;
+            font-display: swap;
+            src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+        }
+          *{
+            font-family: 'DM Sans';
+          }
+        </style>
+            </head>
+            <body>
+              <div style="text-align: center;">
+      <table style="width: 200px; text-align: center;" >
+  <tr>
+    <td style="width: 50px; height: 20px;font-size:9px;">
+        ລາຄາ:${formattedPrice}
+      <img src="${barcodeImage}">
+    </td>
+    <td style="width: 50px; height: 20px;font-size:9px;">
+        ລາຄາ:${formattedPrice}
+        <img src="${barcodeImage}">
+    </td>
+    <td style="width: 50px; height: 20px;font-size:9px;">
+        ລາຄາ:${formattedPrice}
+        <img src="${barcodeImage}">
+    </td>
+  </tr>
+</table>
+</div>
+</body>
+</html>
+`;
+};
+
+/**
+ * Generates HTML for Normal barcode
+ */
+const getBarcodeNormalHtml = (formattedPrice, barcodeImage) => {
+  return `
+          <!DOCTYPE html>
+          <html>
+          <head>
+          <title></title>
+          <style>
+          @font-face {
+            font-family: 'DM Sans';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+        }
+          *{
+            font-family: 'DM Sans';
+          }
+        </style>
+            </head>
+            <body>
+                <div style="text-align: center;">
+                    <table style="width: 200px; text-align: center;" >
+                        <tr>
+                          <td style="width: 500px; height: 15px;font-size:8px;">
+                            ລາຄາ:${formattedPrice}
+                            </br>
+                            <img src="${barcodeImage}">
+                          </td>               
+                        </tr>
+                      </table>
+                </div>
+            </body>
+            </html>
+        `;
+};
+
+/**
+ * Handles opening the window and printing
+ */
+const executePrintWindow = htmlContent => {
+  const printWin = window.open('', '', 'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0');
+  printWin.document.open();
+  printWin.document.write(htmlContent);
+  setTimeout(() => {
+    printWin.print();
+    printWin.close();
+  }, 1000);
+};
+
+/***/ }),
+
 /***/ 505:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(526);
+var content = __webpack_require__(527);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("6195aacc", content, true, context)
+  add("53c7c341", content, true, context)
 };
 
 /***/ }),
 
-/***/ 518:
+/***/ 519:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1626,14 +1028,8 @@ var VAlert = __webpack_require__(442);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
 var VAutocomplete = __webpack_require__(420);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
-var VAvatar = __webpack_require__(123);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtnToggle/VBtnToggle.js
-var VBtnToggle = __webpack_require__(446);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
 var VCard = __webpack_require__(126);
@@ -1641,17 +1037,20 @@ var VCard = __webpack_require__(126);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
 var components_VCard = __webpack_require__(3);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
+var VCheckbox = __webpack_require__(485);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(441);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(416);
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VFileInput/VFileInput.js
-var VFileInput = __webpack_require__(527);
+var VFileInput = __webpack_require__(528);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VForm/VForm.js
 var VForm = __webpack_require__(438);
@@ -1659,14 +1058,11 @@ var VForm = __webpack_require__(438);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(64);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
-var VImg = __webpack_require__(105);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(497);
+var VSwitch = __webpack_require__(495);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
@@ -1674,7 +1070,7 @@ var VTextField = __webpack_require__(39);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(480);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductFormCreate.vue?vue&type=template&id=7ef89d1a&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductFormCreate.vue?vue&type=template&id=d3712508&scoped=true
 
 
 
@@ -1693,106 +1089,29 @@ var VTextarea = __webpack_require__(480);
 
 
 
-
-
-var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function render() {
+var ProductFormCreatevue_type_template_id_d3712508_scoped_true_render = function render() {
   var _vm$selectedTaxRate;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "modal-overlay"
-  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-7ef89d1a>", "</div>", [_c(VDialog["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-d3712508>", "</div>", [_vm._ssrNode("<div class=\"modal-content\" data-v-d3712508>", "</div>", [_c(VCard["a" /* default */], {
     attrs: {
-      "max-width": "300px",
-      "persistent": ""
-    },
-    model: {
-      value: _vm.dialogMessage,
-      callback: function ($$v) {
-        _vm.dialogMessage = $$v;
-      },
-      expression: "dialogMessage"
+      "flat": ""
     }
-  }, [_c('dialog-classic-message', {
-    attrs: {
-      "message": _vm.message
-    },
-    on: {
-      "closedialog": function ($event) {
-        _vm.message = null;
-      }
-    }
-  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "width": "400px"
-    },
-    model: {
-      value: _vm.preview,
-      callback: function ($$v) {
-        _vm.preview = $$v;
-      },
-      expression: "preview"
-    }
-  }, [_c('dia-image', {
-    attrs: {
-      "i-url": _vm.previewSrc
-    },
-    on: {
-      "closeDia": function ($event) {
-        _vm.preview = false;
-      }
-    }
-  })], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
-    attrs: {
-      "max-width": "800px"
-    },
-    model: {
-      value: _vm.priceListDialog,
-      callback: function ($$v) {
-        _vm.priceListDialog = $$v;
-      },
-      expression: "priceListDialog"
-    }
-  }, [_c('price-list-form', {
-    key: _vm.priceListFormKey,
-    attrs: {
-      "record-id": _vm.pricingRecordId
-    },
-    on: {
-      "close-dialog": function ($event) {
-        _vm.priceListDialog = false;
-      },
-      "refresh": _vm.fetchData
-    }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-content\" data-v-7ef89d1a>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], {
-    staticClass: "py-2"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "grey lighten-4 py-2 mb-4"
   }, [_c(VChip["a" /* default */], {
     attrs: {
-      "small": "",
       "color": "primary",
-      "text-color": "white"
+      "label": ""
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "left": "",
-      "small": ""
+      "left": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v("\n            " + _vm._s(_vm.title) + "\n          ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
-    staticClass: "pa-3"
+  }, [_vm._v("mdi-package-variant-closed")]), _vm._v("\n            " + _vm._s(_vm.title) + "\n          ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
   }, [_c(VForm["a" /* default */], {
     ref: "form",
     attrs: {
@@ -1805,7 +1124,10 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
       },
       expression: "valid"
     }
-  }, [_c(VRow["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "text-subtitle-2 primary--text mb-2"
+  }, [_vm._v("ຂໍ້ມູນພື້ນຖານ (General Information)")]), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4",
     attrs: {
       "dense": ""
     }
@@ -1816,13 +1138,12 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
+      "items": _vm.companyList,
       "item-text": "name",
       "item-value": "id",
-      "items": _vm.companyList,
       "label": "ຮ້ານ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.companyId,
@@ -1838,13 +1159,12 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
+      "items": _vm.category,
       "item-text": "categ_name",
       "item-value": "categ_id",
-      "items": _vm.category,
       "label": "ປະເພດສິນຄ້າ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.pro_category,
@@ -1860,25 +1180,23 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "value": _vm.formData.pro_id || '1XXX',
+      "value": _vm.formData.pro_id || 'AUTO',
       "label": "ໄອດີສິນຄ້າ",
       "disabled": "",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
-      "sm": "6"
+      "sm": "8"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "rules": _vm.rules.nameRule,
       "label": "ຊື້ສິນຄ້າ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.pro_name,
@@ -1889,16 +1207,63 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
+      "cols": "12",
+      "sm": "4"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "Barcode",
+      "dense": "",
+      "outlined": "",
+      "append-icon": "mdi-barcode-scan"
+    },
+    model: {
+      value: _vm.formData.barCode,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "barCode", $$v);
+      },
+      expression: "formData.barCode"
+    }
+  })], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "mb-4"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-2 orange--text text--darken-3 mb-2"
+  }, [_vm._v("ການກຳນົດລາຄາ ແລະ ພາສີ (Pricing & Tax)")]), _vm._v(" "), _c(VRow["a" /* default */], {
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
       "cols": "6",
       "sm": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "label": "ລາຄາ*",
+      "label": "ຕົ້ນທຶນ*",
       "type": "number",
       "dense": "",
       "outlined": "",
-      "hide-details": "auto"
+      "color": "error"
+    },
+    model: {
+      value: _vm.formData.pro_cost_price,
+      callback: function ($$v) {
+        _vm.$set(_vm.formData, "pro_cost_price", $$v);
+      },
+      expression: "formData.pro_cost_price"
+    }
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "6",
+      "sm": "3"
+    }
+  }, [_c(VTextField["a" /* default */], {
+    attrs: {
+      "label": "ລາຄາຂາຍ*",
+      "type": "number",
+      "dense": "",
+      "outlined": "",
+      "color": "success"
     },
     model: {
       value: _vm.formData.pro_price,
@@ -1912,36 +1277,14 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
       "cols": "6",
       "sm": "3"
     }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "ຕົ້ນທຶນ*",
-      "type": "number",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
-    },
-    model: {
-      value: _vm.formData.pro_cost_price,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_cost_price", $$v);
-      },
-      expression: "formData.pro_cost_price"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "sm": "2"
-    }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
+      "items": _vm.findAllCurrency,
       "item-text": "code",
       "item-value": "id",
-      "items": _vm.findAllCurrency,
-      "label": "Currency*",
-      "rules": _vm.rules.currencyRule,
+      "label": "ສະກຸນເງິນ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.saleCurrencyId,
@@ -1953,74 +1296,17 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "sm": "2"
+      "sm": "3"
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
-      "item-text": "displayText",
-      "item-value": "id",
-      "items": _vm.productType,
-      "label": "Product type",
-      "loading": _vm.loadingTaxRates,
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto",
-      "clearable": ""
-    },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          attrs: {
-            "x-small": "",
-            "color": item.isDefault ? 'primary' : 'default'
-          }
-        }, [_vm._v("\n                      " + _vm._s(item) + "\n                    ")]), _vm._v(" "), _c('span', {
-          staticClass: "ml-1 text-caption"
-        }, [_vm._v(_vm._s(item))])];
-      }
-    }]),
-    model: {
-      value: _vm.formData._category,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "_category", $$v);
-      },
-      expression: "formData._category"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "sm": "2"
-    }
-  }, [_c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "displayText",
-      "item-value": "id",
       "items": _vm.taxRateOptions,
-      "label": "Tax Rate",
-      "loading": _vm.loadingTaxRates,
+      "item-text": "displayText",
+      "item-value": "id",
+      "label": "ອາກອນ (Tax)",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto",
-      "clearable": ""
+      "outlined": ""
     },
-    scopedSlots: _vm._u([{
-      key: "selection",
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          attrs: {
-            "x-small": "",
-            "color": item.isDefault ? 'primary' : 'default'
-          }
-        }, [_vm._v("\n                      " + _vm._s(item.displayRate) + "\n                    ")]), _vm._v(" "), _c('span', {
-          staticClass: "ml-1 text-caption"
-        }, [_vm._v(_vm._s(item.name))])];
-      }
-    }]),
     model: {
       value: _vm.formData.taxId,
       callback: function ($$v) {
@@ -2028,20 +1314,61 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
       },
       expression: "formData.taxId"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1), _vm._v(" "), _vm.formData.taxId && _vm.formData.pro_price ? _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VAlert["a" /* default */], {
+    staticClass: "pa-2",
+    attrs: {
+      "dense": "",
+      "color": "blue-grey lighten-5"
+    }
+  }, [_c('div', {
+    staticClass: "d-flex justify-space-around text-caption blue-grey--text text--darken-3"
+  }, [_c('span', [_vm._v("Base: "), _c('strong', [_vm._v(_vm._s(_vm.formatNumber(_vm.formData.pro_price)))])]), _vm._v(" "), _c('span', [_vm._v("Tax (" + _vm._s((_vm$selectedTaxRate = _vm.selectedTaxRate) === null || _vm$selectedTaxRate === void 0 ? void 0 : _vm$selectedTaxRate.displayRate) + "): "), _c('strong', [_vm._v(_vm._s(_vm.formatNumber(_vm.calculateTaxAmount())))])]), _vm._v(" "), _c('span', {
+    staticClass: "primary--text"
+  }, [_vm._v("Total: "), _c('strong', [_vm._v(_vm._s(_vm.formatNumber(_vm.calculateTotalWithTax())))])])])])], 1) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticClass: "mt-n2 mb-4",
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VBtn["a" /* default */], {
+    attrs: {
+      "small": "",
+      "text": "",
+      "color": "primary"
+    },
+    on: {
+      "click": _vm.triggerPriceListForm
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-layers-plus")]), _vm._v(" ຈັດການລາຄາຫຼາຍລະດັບ (Multi-level Price)\n                ")], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "mb-4"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "text-subtitle-2 green--text text--darken-3 mb-2"
+  }, [_vm._v("ສາງ ແລະ ການຈັດຊື້ (Inventory)")]), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-4",
+    attrs: {
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
       "sm": "3"
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
+      "items": _vm.unitList,
       "item-text": "name",
       "item-value": "id",
-      "items": _vm.unitList,
       "label": "ຫົວຫນ່ວຍຮັບ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.receiveUnitId,
@@ -2057,13 +1384,12 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
+      "items": _vm.unitList,
       "item-text": "name",
       "item-value": "id",
-      "items": _vm.unitList,
       "label": "ຫົວຫນ່ວຍສາງ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.stockUnitId,
@@ -2075,35 +1401,14 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "6",
-      "sm": "2"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "type": "number",
-      "label": "ລາຄາສົ່ງ %",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
-    },
-    model: {
-      value: _vm.formData.pro_retail_price,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "pro_retail_price", $$v);
-      },
-      expression: "formData.pro_retail_price"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "sm": "2"
+      "sm": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "type": "number",
       "label": "ສຕັອກຂັ້ນຕ່ຳ*",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.minStock,
@@ -2114,86 +1419,14 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "12",
-      "sm": "4"
-    }
-  }, [_c(VTextField["a" /* default */], {
-    attrs: {
-      "label": "Barcode",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
-    },
-    model: {
-      value: _vm.formData.barCode,
-      callback: function ($$v) {
-        _vm.$set(_vm.formData, "barCode", $$v);
-      },
-      expression: "formData.barCode"
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "4"
-    }
-  }, [_c(VFileInput["a" /* default */], {
-    ref: "filesfield",
-    attrs: {
-      "multiple": "",
-      "accept": "image/*",
-      "label": "ຮູບພາບ",
-      "dense": "",
-      "outlined": "",
-      "hide-details": "auto",
-      "prepend-icon": "",
-      "prepend-inner-icon": "mdi-camera"
-    },
-    on: {
-      "change": _vm.onFilesChange
-    }
-  })], 1), _vm._v(" "), _vm.formData.taxId && _vm.formData.pro_price ? _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VAlert["a" /* default */], {
-    staticClass: "pa-2 mb-1",
-    attrs: {
-      "dense": "",
-      "outlined": "",
-      "color": "info"
-    }
-  }, [_c('div', {
-    staticClass: "d-flex justify-space-between text-caption flex-wrap"
-  }, [_c('span', [_vm._v("Base: " + _vm._s(_vm.formatNumber(_vm.formData.pro_price)))]), _vm._v(" "), _c('span', [_vm._v("Tax (" + _vm._s((_vm$selectedTaxRate = _vm.selectedTaxRate) === null || _vm$selectedTaxRate === void 0 ? void 0 : _vm$selectedTaxRate.displayRate) + "):\n                      " + _vm._s(_vm.formatNumber(_vm.calculateTaxAmount())))]), _vm._v(" "), _c('span', [_c('strong', [_vm._v("Total:\n                        " + _vm._s(_vm.formatNumber(_vm.calculateTotalWithTax())))])])])])], 1) : _vm._e(), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "2"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    attrs: {
-      "small": "",
-      "color": "primary",
-      "outlined": "",
-      "block": ""
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.triggerPriceListForm();
-      }
-    }
-  }, [_vm._v("\n                  ຈັດການລາຄາ\n                ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "sm": "6",
-      "md": "4"
+      "cols": "6",
+      "sm": "3"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
       "label": "Vendor name",
       "dense": "",
-      "outlined": "",
-      "hide-details": "auto"
+      "outlined": ""
     },
     model: {
       value: _vm.formData.vendorName,
@@ -2211,7 +1444,6 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     attrs: {
       "label": "Active",
       "dense": "",
-      "hide-details": "",
       "color": "success"
     },
     model: {
@@ -2230,8 +1462,7 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
     attrs: {
       "label": "ກວດສຕັອກກ່ອນຂາຍ",
       "dense": "",
-      "hide-details": "",
-      "color": "success"
+      "color": "warning"
     },
     model: {
       value: _vm.formData.validateStockOnSale,
@@ -2240,17 +1471,23 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
       },
       expression: "formData.validateStockOnSale"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "mb-4"
+  }), _vm._v(" "), _c(VRow["a" /* default */], {
     attrs: {
-      "cols": "12"
+      "dense": ""
+    }
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
     }
   }, [_c(VTextarea["a" /* default */], {
     attrs: {
-      "label": "ຄຳອະທິບາຍ",
-      "rows": "2",
+      "label": "ຄຳອະທິບາຍ (Description)",
+      "rows": "3",
       "dense": "",
       "outlined": "",
-      "hide-details": "auto",
       "no-resize": ""
     },
     model: {
@@ -2260,135 +1497,94 @@ var ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render = function
       },
       expression: "formData.pro_desc"
     }
+  }), _vm._v(" "), _c(VFileInput["a" /* default */], {
+    attrs: {
+      "multiple": "",
+      "accept": "image/*",
+      "label": "ຮູບພາບສິນຄ້າ",
+      "dense": "",
+      "outlined": "",
+      "prepend-icon": "",
+      "prepend-inner-icon": "mdi-camera"
+    },
+    on: {
+      "change": _vm.onFilesChange
+    }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
       "cols": "12",
       "md": "6"
     }
   }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-2",
+    staticClass: "pa-3 d-flex flex-column align-center",
     attrs: {
       "outlined": ""
     }
-  }, [_c('div', {
-    staticClass: "text-center mb-2"
   }, [_c('canvas', {
     ref: "barcodeCanvas",
     staticStyle: {
-      "max-width": "100%",
-      "height": "auto"
+      "max-width": "100%"
+    }
+  }), _vm._v(" "), _c(VCheckbox["a" /* default */], {
+    attrs: {
+      "label": "3 Column (Small Paper)",
+      "dense": "",
+      "hide-details": ""
+    },
+    model: {
+      value: _vm.threeColPaper,
+      callback: function ($$v) {
+        _vm.threeColPaper = $$v;
+      },
+      expression: "threeColPaper"
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "text-caption mt-1"
-  }, [_vm._v("\n                      ລາຄາ: " + _vm._s(_vm.formatNumber(_vm.formData.pro_price)) + "\n                    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "text-center"
-  }, [_c(VBtnToggle["a" /* default */], {
-    attrs: {
-      "dense": ""
-    }
+    staticClass: "mt-2"
   }, [_c(VBtn["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
-      "x-small": "",
-      "disabled": _vm.formData.barCode.length > 0,
+      "small": "",
       "color": "primary"
     },
     on: {
       "click": _vm.generateBarcode
     }
-  }, [_vm._v("\n                        Generate\n                      ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("ສ້າງ Barcode")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
-      "x-small": "",
-      "disabled": _vm.formData.barCode.length == 0,
-      "color": "success"
+      "small": "",
+      "color": "success",
+      "disabled": !_vm.formData.barCode
     },
     on: {
       "click": _vm.printBarcode
     }
-  }, [_vm._v("\n                        Print\n                      ")])], 1)], 1)])], 1), _vm._v(" "), _vm.files && _vm.files.length > 0 ? _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-2",
-    staticStyle: {
-      "max-height": "200px",
-      "overflow-y": "auto"
-    },
-    attrs: {
-      "outlined": ""
-    }
-  }, [_c('div', {
-    staticClass: "text-caption mb-2"
-  }, [_vm._v("Image Preview")]), _vm._v(" "), _vm._l(_vm.files, function (file, index) {
-    return _c('div', {
-      key: index,
-      staticClass: "d-flex align-center mb-1"
-    }, [_c(VAvatar["a" /* default */], {
-      attrs: {
-        "size": "30"
-      }
-    }, [_c(VImg["a" /* default */], {
-      attrs: {
-        "src": _vm.getFilePreview(file)
-      }
-    })], 1), _vm._v(" "), _c('span', {
-      staticClass: "text-caption ml-2 flex-grow-1"
-    }, [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c(VBtn["a" /* default */], {
-      attrs: {
-        "icon": "",
-        "x-small": "",
-        "color": "error"
-      },
-      on: {
-        "click": function ($event) {
-          return _vm.removeFile(index);
-        }
-      }
-    }, [_c(VIcon["a" /* default */], {
-      attrs: {
-        "x-small": ""
-      }
-    }, [_vm._v("mdi-delete")])], 1)], 1);
-  })], 2)], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "text-caption mt-2"
-  }, [_vm._v("* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ.")])], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-footer\" data-v-7ef89d1a>", "</div>", [_vm._ssrNode("<div class=\"footer-actions\" data-v-7ef89d1a>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._v("ພິມ")])], 1)], 1)], 1)], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-footer\" data-v-d3712508>", "</div>", [_vm._ssrNode("<div class=\"footer-actions\" data-v-d3712508>", "</div>", [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "secondary",
-      "small": ""
+      "depressed": ""
     },
     on: {
       "click": function ($event) {
         return _vm.$emit('close-dialog');
       }
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-close")]), _vm._v("\n          ຍົກເລີກ\n        ")], 1), _vm._ssrNode(" "), _c(VBtn["a" /* default */], {
+  }, [_vm._v("ຍົກເລີກ")]), _vm._ssrNode(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "color": "primary",
       "disabled": !_vm.valid,
-      "small": ""
+      "depressed": ""
     },
     on: {
       "click": _vm.uploadFiles
     }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": "",
-      "small": ""
-    }
-  }, [_vm._v("mdi-content-save")]), _vm._v("\n          ບັນທຶກ\n        ")], 1)], 2)])], 2)]);
+  }, [_vm._v("ບັນທຶກສິນຄ້າ")])], 2)])], 2)]);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/product/ProductFormCreate.vue?vue&type=template&id=7ef89d1a&scoped=true
+// CONCATENATED MODULE: ./components/product/ProductFormCreate.vue?vue&type=template&id=d3712508&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductFormCreate.vue?vue&type=script&lang=js
-var ProductFormCreatevue_type_script_lang_js = __webpack_require__(496);
+var ProductFormCreatevue_type_script_lang_js = __webpack_require__(494);
 
 // CONCATENATED MODULE: ./components/product/ProductFormCreate.vue?vue&type=script&lang=js
  /* harmony default export */ var product_ProductFormCreatevue_type_script_lang_js = (ProductFormCreatevue_type_script_lang_js["a" /* default */]); 
@@ -2401,7 +1597,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(525)
+  var style0 = __webpack_require__(526)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2410,43 +1606,39 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   product_ProductFormCreatevue_type_script_lang_js,
-  ProductFormCreatevue_type_template_id_7ef89d1a_scoped_true_render,
+  ProductFormCreatevue_type_template_id_d3712508_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "7ef89d1a",
+  "d3712508",
   "45253468"
   
 )
 
 /* harmony default export */ var ProductFormCreate = __webpack_exports__["default"] = (component.exports);
 
-/* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(482).default,LoadingIndicator: __webpack_require__(70).default,DiaImage: __webpack_require__(493).default,PriceListForm: __webpack_require__(492).default})
-
-
 /***/ }),
 
-/***/ 525:
+/***/ 526:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_7ef89d1a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(505);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_7ef89d1a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_7ef89d1a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_7ef89d1a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_7ef89d1a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_d3712508_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(505);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_d3712508_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_d3712508_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_d3712508_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductFormCreate_vue_vue_type_style_index_0_id_d3712508_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 526:
+/***/ 527:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-7ef89d1a]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;padding:0;position:fixed;top:0;z-index:1050}.enhanced-dialog[data-v-7ef89d1a],.modal-overlay[data-v-7ef89d1a]{display:flex;height:100vh;width:100vw}.enhanced-dialog[data-v-7ef89d1a]{background:#fff;flex-direction:column;overflow:hidden}.modal-content[data-v-7ef89d1a]{flex:1;overflow-x:hidden;overflow-y:auto;padding-bottom:20px}.modal-footer[data-v-7ef89d1a]{background:#f8f9fa;border-top:1px solid #e9ecef;bottom:0;box-shadow:0 -2px 4px rgba(0,0,0,.1);padding:12px 20px;position:sticky;z-index:10}.footer-actions[data-v-7ef89d1a]{display:flex;gap:8px;justify-content:flex-end}@media (max-width:768px){.enhanced-dialog[data-v-7ef89d1a]{height:100vh;width:100vw}.footer-actions[data-v-7ef89d1a]{flex-direction:row;gap:8px}.footer-actions .v-btn[data-v-7ef89d1a]{min-width:80px}}@media (max-width:600px){.modal-footer[data-v-7ef89d1a]{padding:8px 16px}.footer-actions[data-v-7ef89d1a]{width:100%}.footer-actions .v-btn[data-v-7ef89d1a]{flex:1}}.modal-content[data-v-7ef89d1a]::-webkit-scrollbar{width:8px}.modal-content[data-v-7ef89d1a]::-webkit-scrollbar-track{background:#f1f1f1}.modal-content[data-v-7ef89d1a]::-webkit-scrollbar-thumb{background:#c1c1c1;border-radius:4px}.modal-content[data-v-7ef89d1a]::-webkit-scrollbar-thumb:hover{background:#a8a8a8}.grey[data-v-7ef89d1a],.text-h5[data-v-7ef89d1a]{font-family:\"Noto Sans Lao\"}.my-form[data-v-7ef89d1a]{font-weight:700}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".enhanced-dialog[data-v-d3712508],.enhanced-dialog *[data-v-d3712508]{font-family:\"Noto Sans Lao\",sans-serif!important}.enhanced-dialog[data-v-d3712508] .text-caption,.enhanced-dialog[data-v-d3712508] .text-subtitle-2,.enhanced-dialog[data-v-d3712508] .v-alert__content,.enhanced-dialog[data-v-d3712508] .v-btn__content,.enhanced-dialog[data-v-d3712508] .v-chip__content,.enhanced-dialog[data-v-d3712508] .v-input,.enhanced-dialog[data-v-d3712508] .v-label,.enhanced-dialog[data-v-d3712508] .v-messages{font-family:\"Noto Sans Lao\",sans-serif!important}.modal-overlay[data-v-d3712508]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;padding:0;position:fixed;top:0;z-index:1050}.enhanced-dialog[data-v-d3712508],.modal-overlay[data-v-d3712508]{display:flex;height:100vh;width:100vw}.enhanced-dialog[data-v-d3712508]{background:#fff;flex-direction:column;overflow:hidden}.modal-content[data-v-d3712508]{flex:1;overflow-x:hidden;overflow-y:auto;padding-bottom:20px}.modal-footer[data-v-d3712508]{background:#f8f9fa;border-top:1px solid #e9ecef;bottom:0;box-shadow:0 -2px 4px rgba(0,0,0,.1);padding:12px 20px;position:sticky;z-index:10}.footer-actions[data-v-d3712508]{display:flex;gap:8px;justify-content:flex-end}@media (max-width:768px){.enhanced-dialog[data-v-d3712508]{height:100vh;width:100vw}.footer-actions[data-v-d3712508]{flex-direction:row;gap:8px}}@media (max-width:600px){.modal-footer[data-v-d3712508]{padding:8px 16px}.footer-actions[data-v-d3712508]{width:100%}.footer-actions .v-btn[data-v-d3712508]{flex:1}}.modal-content[data-v-d3712508]::-webkit-scrollbar{width:6px}.modal-content[data-v-d3712508]::-webkit-scrollbar-track{background:#f1f1f1}.modal-content[data-v-d3712508]::-webkit-scrollbar-thumb{background:#c1c1c1;border-radius:10px}.modal-content[data-v-d3712508]::-webkit-scrollbar-thumb:hover{background:#a8a8a8}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -2454,11 +1646,11 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 527:
+/***/ 528:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(498);
+/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(496);
 /* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var _VChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(130);
