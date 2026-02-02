@@ -1,150 +1,160 @@
 <template>
-  <v-card class="currency-form-card">
-    <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
-    </v-dialog>
-    
-    <v-card-title class="pb-2 form-header">
-      <v-chip color="primary" size="small" label class="currency-chip">
-        <v-icon start size="small">mdi-currency-usd</v-icon>
-        {{ isCreate ? 'Add Currency' : 'Edit Currency' }}
-      </v-chip>
-    </v-card-title>
-    
-    <v-card-text class="pt-2 form-content">
-      <v-form ref="form">
-        <!-- Basic Info Row -->
-        <v-row dense class="form-row">
-          <v-col cols="6">
-            <v-text-field
-              :disabled="!isCreate"
-              v-model="form.code"
-              label="* Code"
-              variant="outlined"
-              density="compact"
-              :rules="nameRules"
-              class="currency-input"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="6">
-            <v-text-field
-              v-model="form.name"
-              label="* Name"
-              variant="outlined"
-              density="compact"
-              :rules="nameRules"
-              class="currency-input"
-            ></v-text-field>
-          </v-col>
-        </v-row>
+  <div>
+    <v-card class="currency-form-card">
+      <v-dialog v-model="isloading" hide-overlay persistent width="300">
+        <loading-indicator> </loading-indicator>
+      </v-dialog>
 
-        <!-- Local Currency Info (Compact) -->
-        <div v-if="localCurrency" class="mb-4 local-currency-info">
-          <v-chip size="small" color="info" variant="tonal" class="local-currency-chip">
-            <v-icon start size="small">mdi-home</v-icon>
-            Current Local: {{ localCurrency.code }}
-          </v-chip>
-        </div>
+      <v-card-title class="pb-2 form-header">
+        <v-chip color="primary" size="small" label class="currency-chip">
+          <v-icon start size="small">mdi-currency-usd</v-icon>
+          {{ isCreate ? 'Add Currency' : 'Edit Currency' }}
+        </v-chip>
+      </v-card-title>
 
-        <!-- Checkboxes Row -->
-        <v-row dense class="mb-3 checkbox-row">
-          <v-col cols="4">
-            <v-checkbox
-              v-model="form.isActive"
-              label="Active"
+      <v-card-text class="pt-2 form-content">
+        <v-form ref="currencyForm" @submit.prevent="commitRecord">
+          <!-- Basic Info Row -->
+          <v-row dense class="form-row">
+            <v-col cols="6">
+              <v-text-field
+                :disabled="!isCreate"
+                v-model="form.code"
+                label="* Code"
+                variant="outlined"
+                density="compact"
+                :rules="nameRules"
+                class="currency-input"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                v-model="form.name"
+                label="* Name"
+                variant="outlined"
+                density="compact"
+                :rules="nameRules"
+                class="currency-input"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+
+          <!-- Local Currency Info (Compact) -->
+          <div v-if="localCurrency" class="mb-4 local-currency-info">
+            <v-chip
+              size="small"
+              color="info"
+              variant="tonal"
+              class="local-currency-chip"
+            >
+              <v-icon start size="small">mdi-home</v-icon>
+              Current Local: {{ localCurrency.code }}
+            </v-chip>
+          </div>
+
+          <!-- Checkboxes Row -->
+          <v-row dense class="mb-3 checkbox-row">
+            <v-col cols="4">
+              <v-checkbox
+                v-model="form.isActive"
+                label="Active"
+                density="compact"
+                hide-details
+                class="custom-checkbox"
+              ></v-checkbox>
+            </v-col>
+            <v-col cols="8">
+              <v-checkbox
+                v-model="form.isLocalCCY"
+                :disabled="hasExistingLocalCurrency && !form.isLocalCCY"
+                density="compact"
+                hide-details
+                class="custom-checkbox local-currency-checkbox"
+              >
+                <template v-slot:label>
+                  <span class="checkbox-label">
+                    Set as Local Currency
+                    <v-tooltip
+                      activator="parent"
+                      location="top"
+                      class="custom-tooltip"
+                    >
+                      {{
+                        hasExistingLocalCurrency && !form.isLocalCCY
+                          ? `${localCurrency?.name} is currently local`
+                          : 'Make this the base currency'
+                      }}
+                    </v-tooltip>
+                  </span>
+                </template>
+              </v-checkbox>
+            </v-col>
+          </v-row>
+
+          <!-- Rate Direction (Simplified) -->
+          <div class="rate-direction-section">
+            <v-radio-group
+              v-model="exchangeDirection"
+              inline
               density="compact"
-              hide-details
-              class="custom-checkbox"
-            ></v-checkbox>
-          </v-col>
-          <v-col cols="8">
-            <v-checkbox
-              v-model="form.isLocalCCY"
-              :disabled="hasExistingLocalCurrency && !form.isLocalCCY"
-              density="compact"
-              hide-details
-              class="custom-checkbox local-currency-checkbox"
+              class="mb-3 rate-radio-group"
             >
               <template v-slot:label>
-                <span class="checkbox-label">
-                  Set as Local Currency
-                  <v-tooltip activator="parent" location="top" class="custom-tooltip">
-                    {{ hasExistingLocalCurrency && !form.isLocalCCY ? 
-                       `${localCurrency?.name} is currently local` : 
-                       'Make this the base currency' }}
-                  </v-tooltip>
-                </span>
+                <span class="rate-direction-label">Rate Direction:</span>
               </template>
-            </v-checkbox>
-          </v-col>
-        </v-row>
+              <v-radio
+                :label="`${currentLocalCurrency} → ${form.code || 'Foreign'}`"
+                value="local_to_foreign"
+                density="compact"
+                class="rate-radio"
+              ></v-radio>
+              <v-radio
+                :label="`${form.code || 'Foreign'} → ${currentLocalCurrency}`"
+                value="foreign_to_local"
+                density="compact"
+                class="rate-radio"
+              ></v-radio>
+            </v-radio-group>
+          </div>
 
-        <!-- Rate Direction (Simplified) -->
-        <div class="rate-direction-section">
-          <v-radio-group 
-            v-model="exchangeDirection" 
-            inline 
-            density="compact"
-            class="mb-3 rate-radio-group"
-          >
-            <template v-slot:label>
-              <span class="rate-direction-label">Rate Direction:</span>
-            </template>
-            <v-radio 
-              :label="`${currentLocalCurrency} → ${form.code || 'Foreign'}`"
-              value="local_to_foreign"
+          <!-- Rate Input -->
+          <div class="rate-input-section">
+            <v-text-field
+              v-model="form.rate"
+              :label="rateLabel"
+              variant="outlined"
               density="compact"
-              class="rate-radio"
-            ></v-radio>
-            <v-radio 
-              :label="`${form.code || 'Foreign'} → ${currentLocalCurrency}`"
-              value="foreign_to_local"
-              density="compact"
-              class="rate-radio"
-            ></v-radio>
-          </v-radio-group>
-        </div>
+              type="number"
+              step="any"
+              :rules="rateRules"
+              :hint="form.rate && form.code ? conversionPreview : ''"
+              persistent-hint
+              class="rate-input"
+            ></v-text-field>
+          </div>
+        </v-form>
+      </v-card-text>
 
-        <!-- Rate Input -->
-        <div class="rate-input-section">
-          <v-text-field
-            v-model="form.rate"
-            :label="rateLabel"
-            variant="outlined"
-            density="compact"
-            type="number"
-            step="any"
-            :rules="rateRules"
-            :hint="form.rate && form.code ? conversionPreview : ''"
-            persistent-hint
-            class="rate-input"
-          ></v-text-field>
-        </div>
-
-      </v-form>
-    </v-card-text>
-    
-    <v-card-actions class="pt-0 form-actions">
-      <small class="text-caption text-grey required-text">* Required fields</small>
-      <v-spacer></v-spacer>
-      <v-btn
-        variant="text"
-        @click="$emit('close-dialog')"
-        class="cancel-btn"
-      >
-        Cancel
-      </v-btn>
-      <v-btn 
-        color="primary" 
-        variant="flat"
-        @click="commitRecord"
-        :loading="isloading"
-        class="save-btn"
-      >
-        Save
-      </v-btn>
-    </v-card-actions>
-  </v-card>
+      <v-card-actions class="pt-0 form-actions">
+        <small class="text-caption text-grey required-text"
+          >* Required fields</small
+        >
+        <v-spacer></v-spacer>
+        <v-btn variant="text" @click="$emit('close-dialog')" class="cancel-btn">
+          Cancel
+        </v-btn>
+        <v-btn
+          color="primary"
+          variant="flat"
+          @click="commitRecord"
+          :loading="isloading"
+          class="save-btn"
+        >
+          Save
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </div>
 </template>
 
 <script>
@@ -187,132 +197,175 @@ export default {
       ],
     }
   },
-  
-  computed: {   
-     ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
+
+  computed: {
+    ...mapGetters([
+      'currentSelectedCustomer',
+      'cartOfProduct',
+      'findAllCurrency',
+    ]),
     currentLocalCurrency() {
       if (this.form.isLocalCCY && this.form.code) {
-        return this.form.code;
+        return this.form.code
       }
-      return this.localCurrency?.code || 'LAK';
+      return this.localCurrency?.code || 'LAK'
     },
-    
+
     hasExistingLocalCurrency() {
-      return this.localCurrency && this.localCurrency.id;
+      return this.localCurrency && this.localCurrency.id
     },
-    
+
     rateLabel() {
       if (this.exchangeDirection === 'local_to_foreign') {
-        return `* Rate (1 ${this.currentLocalCurrency} = ? ${this.form.code || 'XXX'})`;
+        return `* Rate (1 ${this.currentLocalCurrency} = ? ${
+          this.form.code || 'XXX'
+        })`
       } else {
-        return `* Rate (1 ${this.form.code || 'XXX'} = ? ${this.currentLocalCurrency})`;
+        return `* Rate (1 ${this.form.code || 'XXX'} = ? ${
+          this.currentLocalCurrency
+        })`
       }
     },
-    
+
     conversionPreview() {
-      if (!this.form.rate || !this.form.code) return '';
-      
-      const rate = parseFloat(this.form.rate);
+      if (!this.form.rate || !this.form.code) return ''
+
+      const rate = parseFloat(this.form.rate)
       if (this.exchangeDirection === 'local_to_foreign') {
-        return `1 ${this.currentLocalCurrency} = ${rate.toFixed(4)} ${this.form.code} | 1 ${this.form.code} = ${(1/rate).toFixed(4)} ${this.currentLocalCurrency}`;
+        return `1 ${this.currentLocalCurrency} = ${rate.toFixed(4)} ${
+          this.form.code
+        } | 1 ${this.form.code} = ${(1 / rate).toFixed(4)} ${
+          this.currentLocalCurrency
+        }`
       } else {
-        return `1 ${this.form.code} = ${rate.toFixed(4)} ${this.currentLocalCurrency} | 1 ${this.currentLocalCurrency} = ${(1/rate).toFixed(6)} ${this.form.code}`;
+        return `1 ${this.form.code} = ${rate.toFixed(4)} ${
+          this.currentLocalCurrency
+        } | 1 ${this.currentLocalCurrency} = ${(1 / rate).toFixed(6)} ${
+          this.form.code
+        }`
       }
     },
   },
-  
+
   watch: {
     exchangeDirection(newVal) {
-      this.form.exchangeDirection = newVal;
+      this.form.exchangeDirection = newVal
     },
   },
-  
+
   async created() {
-    await this.loadLocalCurrency();
-    await this.loadCurrency();
+    await this.loadLocalCurrency()
+    await this.loadCurrency()
   },
-  
+
   methods: {
     ...mapActions([
       'initiateData',
       'setSelectedTerminal',
       'setSelectedLocation',
     ]),
-    
+
     initData() {
-      this.initiateData(this.$axios);
+      this.initiateData(this.$axios)
     },
-    
+
     async loadLocalCurrency() {
       try {
-        const response = await this.$axios.get('api/currency/findLocalCurrency');
-        this.localCurrency = response.data;
+        const response = await this.$axios.get('api/currency/findLocalCurrency')
+        this.localCurrency = response.data
       } catch (error) {
-        console.log('No local currency found:', error);
-        this.localCurrency = null;
+        console.log('No local currency found:', error)
+        this.localCurrency = null
       }
     },
-    
+
     async commitRecord() {
-      if (this.$refs.form.validate() && !this.isloading) {
-        this.isloading = true;
-        
+      if (
+        this.$refs.currencyForm &&
+        this.$refs.currencyForm.validate() &&
+        !this.isloading
+      ) {
+        this.isloading = true
+
         const formData = {
           ...this.form,
-          exchangeDirection: this.exchangeDirection
-        };
-        
+          exchangeDirection: this.exchangeDirection,
+        }
+
         let api = this.isCreate
           ? 'api/currency/create'
-          : `api/currency/update/${this.recordId}`;
-        
+          : `api/currency/update/${this.recordId}`
         try {
+          console.info(`data form ${JSON.stringify(formData)}`)
+          let response
           if (this.isCreate) {
-            await this.$axios.post(api, formData);
+            console.info(`create data`)
+            response = await this.$axios.post(api, formData)
           } else {
-            await this.$axios.put(api, formData);
+            console.info(`update data`)
+            response = await this.$axios.put(api, formData)
           }
-          
-          this.refreshData();
-          swalSuccess(this.$swal, 'Success', 'Currency saved successfully');
-          
+          console.warn(`response ${JSON.stringify(response)}`)
+
+          // // SUCCESS: Refresh data and show success message
+          swalSuccess(this.$swal, 'Success', 'Currency saved successfully')
+          // this.refreshData()
         } catch (error) {
-          console.log('Error: ', error);
-          
-          if (error.response?.data?.error?.includes('local currency already exists')) {
-            swalError2(this.$swal, 'Error', error.response.data.error);
+          console.info(`update data error ${error}`)
+
+          if (
+            error.response?.data?.error?.includes(
+              'local currency already exists'
+            )
+          ) {
+            swalError2(this.$swal, 'Error', error.response.data.error)
           } else {
-            swalError2(this.$swal, 'Error', 'Failed to save currency');
+            swalError2(this.$swal, 'Error', 'Failed to save currency')
           }
+        } finally {
+          this.isloading = false
         }
-        
-        this.isloading = false;
+      } else {
+        // Debug information for validation issues
+        console.log('Validation failed:')
+        console.log('Form ref exists:', !!this.$refs.currencyForm)
+        console.log(
+          'Form is valid:',
+          this.$refs.currencyForm ? this.$refs.currencyForm.validate() : false
+        )
+        console.log('Is loading:', this.isloading)
       }
     },
-    
+
     async loadCurrency() {
       if (this.recordId && !this.isCreate) {
         try {
-          const response = await this.$axios.get(`api/currency/find/${this.recordId}`);
-          const data = response.data;
-          
-          this.form.name = data.name;
-          this.form.code = data.code;
-          this.form.rate = data.rate;
-          this.form.isActive = data.isActive;
-          this.form.isLocalCCY = data.isLocalCCY;
-          this.exchangeDirection = data.exchangeDirection || 'local_to_foreign';
-          this.form.exchangeDirection = this.exchangeDirection;
-          
+          const response = await this.$axios.get(
+            `api/currency/find/${this.recordId}`
+          )
+          const data = response.data
+
+          this.form.name = data.name
+          this.form.code = data.code
+          this.form.rate = data.rate
+          this.form.isActive = data.isActive
+          this.form.isLocalCCY = data.isLocalCCY
+          this.exchangeDirection = data.exchangeDirection || 'local_to_foreign'
+          this.form.exchangeDirection = this.exchangeDirection
         } catch (error) {
-          console.log('Cannot fetch data:', error);
+          console.log('Cannot fetch data:', error)
         }
       }
     },
-    
+
     refreshData() {
-      this.initData();
-      this.$emit('reload-data');
+      // Emit reload-data first to refresh parent data
+      this.$emit('reload-data')
+
+      // Use nextTick to ensure data refresh completes before closing dialog
+      this.$nextTick(() => {
+        this.$emit('close-dialog')
+      })
     },
   },
 }
@@ -531,20 +584,20 @@ export default {
   .form-content {
     padding: 16px !important;
   }
-  
+
   .rate-radio {
     margin-right: 12px;
     margin-bottom: 8px;
   }
-  
+
   .rate-radio ::v-deep .v-label {
     font-size: 0.75rem;
   }
-  
+
   .form-actions {
     padding: 12px 16px 16px 16px !important;
   }
-  
+
   .checkbox-row {
     padding-left: 8px;
     padding-right: 8px;

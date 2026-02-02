@@ -23,9 +23,9 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
   // const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
   // const baseURL = 'http://150.95.31.23:8030' //  *** demo minimart
-  // const baseURL = 'http://150.95.31.23:8031' //  *** metta minimart
+  const baseURL = 'http://150.95.31.23:8031' //  *** metta minimart
   // const baseURL = 'http://150.95.31.23:8032' //  *** bounluay wherehouse
-  const baseURL = 'http://150.95.31.23:8033' //  *** amphai fishing tools
+  // const baseURL = 'http://150.95.31.23:8033' //  *** amphai fishing tools
   // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 

@@ -347,14 +347,14 @@
   "ProductFormCreate": {
     "description": "Auto imported from components/product/ProductFormCreate.vue"
   },
+  "PromotionsPromotionDialog": {
+    "description": "Auto imported from components/promotions/PromotionDialog.vue"
+  },
   "QuotationPrint": {
     "description": "Auto imported from components/quotation/QuotationPrint.vue"
   },
   "Quotation": {
     "description": "Auto imported from components/quotation/index.vue"
-  },
-  "PromotionsPromotionDialog": {
-    "description": "Auto imported from components/promotions/PromotionDialog.vue"
   },
   "ReportsProfitLossReport": {
     "description": "Auto imported from components/reports/ProfitLossReport.vue"
@@ -464,20 +464,20 @@
   "MASettlementVoucher": {
     "description": "Auto imported from components/MA/settlementVoucher/index.vue"
   },
+  "ApplicantsApplicantDialog": {
+    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  },
+  "ApplicantsStatusUpdateDialog": {
+    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
+  },
+  "ApplicantsApplicantViewDialog": {
+    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
+  },
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
   "BankBankAccount": {
     "description": "Auto imported from components/bank/bankAccount/index.vue"
-  },
-  "ApplicantsApplicantDialog": {
-    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
-  },
-  "ApplicantsApplicantViewDialog": {
-    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
-  },
-  "ApplicantsStatusUpdateDialog": {
-    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
   },
   "BenefitMaintain": {
     "description": "Auto imported from components/benefit/maintain/index.vue"
@@ -488,11 +488,11 @@
   "CompanyTheme": {
     "description": "Auto imported from components/company/theme/index.vue"
   },
-  "JobAdvertiseStatusUpdate": {
-    "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
-  },
   "JobAdvertiseMaintain": {
     "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
+  },
+  "JobAdvertiseStatusUpdate": {
+    "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
   },
   "JobAdvertiseView": {
     "description": "Auto imported from components/jobAdvertise/view/index.vue"

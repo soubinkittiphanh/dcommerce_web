@@ -27,7 +27,7 @@
     >
       <div class="d-flex justify-space-between align-center">
         <div>
-          <v-alert-title>Current Local Currency</v-alert-title>
+          <div class="text-h6">Current Local Currency</div>
           <div>
             {{ localCurrency.name }} ({{ localCurrency.code }}) - Rate:
             {{ getFormatNum(localCurrency.rate) }}
@@ -100,19 +100,14 @@
       <loading-indicator> </loading-indicator>
     </v-dialog>
 
-    <!-- Updated dialog configuration in parent summary screen -->
-    <v-dialog
-      v-model="currencyDialogForm"
-      fullscreen
-      persistent
-      scrollable
-    >
+    <!-- Fixed dialog configuration with proper event handling -->
+    <v-dialog v-model="currencyDialogForm">
       <currency-form
         @reload-data="handleReloadData"
         :isCreate="isCreate"
         :key="componentKey"
         :recordId="currencySelected"
-        @close-dialog="currencyDialogForm = false"
+        @close-dialog="handleCloseDialog"
       >
       </currency-form>
     </v-dialog>
@@ -165,7 +160,7 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-data-table
-        v-if="filteredCurrencyList"
+        v-if="filteredCurrencyList && filteredCurrencyList.length > 0"
         :headers="headers"
         :search="search"
         :items="filteredCurrencyList"
@@ -275,7 +270,28 @@
           </div>
         </template>
       </v-data-table>
+      
+      <!-- Empty State -->
+      <v-card-text v-else-if="!isloading && filteredCurrencyList && filteredCurrencyList.length === 0" class="text-center py-8">
+        <v-icon size="64" color="grey">mdi-currency-usd-off</v-icon>
+        <h3 class="text-h6 mt-4 mb-2">No currencies found</h3>
+        <p class="text-body-2 text-grey">Start by creating your first currency</p>
+        <v-btn color="primary" @click="createRecord" class="mt-4">
+          <v-icon start>mdi-plus</v-icon>
+          Create Currency
+        </v-btn>
+      </v-card-text>
     </v-card>
+
+    <!-- Error State -->
+    <!-- <v-alert v-if="pageError" type="error" class="mt-4">
+      <v-alert-title>Error Loading Data</v-alert-title>
+      <div>{{ errorMessage }}</div>
+      <v-btn color="error" variant="outlined" @click="retryLoad" class="mt-2">
+        <v-icon start>mdi-refresh</v-icon>
+        Retry
+      </v-btn>
+    </v-alert> -->
 
     <!-- Delete Confirmation Dialog -->
     <v-dialog v-model="deleteDialog" max-width="400">
@@ -349,6 +365,10 @@ export default {
       localCurrency: null,
       currencyTypeFilter: 'all',
 
+      // Error handling
+      pageError: false,
+      errorMessage: '',
+
       // Local currency switching
       showSwitchLocalDialog: false,
       selectedNewLocal: null,
@@ -419,12 +439,22 @@ export default {
   },
 
   async created() {
-    await this.loadData()
-    await this.loadLocalCurrency()
+    try {
+      await this.loadData()
+      await this.loadLocalCurrency()
+    } catch (error) {
+      console.error('Error during component creation:', error)
+      this.pageError = true
+      this.errorMessage = 'Failed to initialize page data'
+    }
   },
 
   computed: {
     filteredCurrencyList() {
+      if (!this.currencyList || this.currencyList.length === 0) {
+        return []
+      }
+
       if (this.currencyTypeFilter === 'all') {
         return this.currencyList
       } else if (this.currencyTypeFilter === 'local') {
@@ -447,6 +477,7 @@ export default {
 
   methods: {
     getFormatNum(val) {
+      if (val === null || val === undefined || isNaN(val)) return '0'
       return new Intl.NumberFormat().format(val)
     },
 
@@ -561,35 +592,90 @@ export default {
       this.currencyDialogForm = true
     },
 
+    // Improved dialog handling
     async handleReloadData() {
-      await this.loadData()
-      await this.loadLocalCurrency()
+      try {
+        this.isloading = true
+        console.log('Reloading data after currency save...')
+        
+        // Reload both currency list and local currency
+        await Promise.all([
+          this.loadData(),
+          this.loadLocalCurrency()
+        ])
+        
+        console.log('Data reloaded successfully')
+      } catch (error) {
+        console.error('Error reloading data:', error)
+        swalError2(this.$swal, 'Error', 'Failed to reload currency data')
+      } finally {
+        this.isloading = false
+      }
+    },
+
+    handleCloseDialog() {
       this.currencyDialogForm = false
+    },
+
+    async retryLoad() {
+      this.pageError = false
+      this.errorMessage = ''
+      try {
+        await this.loadData()
+        await this.loadLocalCurrency()
+      } catch (error) {
+        this.pageError = true
+        this.errorMessage = 'Failed to load data: ' + error.message
+      }
     },
 
     async loadData() {
       if (this.isloading) return
       this.isloading = true
+      this.pageError = false
 
       try {
+        console.log('Loading currency data...')
         const res = await this.$axios.get('api/currency/findAll')
+        
+        // Ensure we have a valid response
+        if (!res.data || !Array.isArray(res.data)) {
+          throw new Error('Invalid response format')
+        }
+
         this.currencyList = []
 
         for (const iterator of res.data) {
+          // Validate required fields
+          if (!iterator.id || !iterator.code || !iterator.name) {
+            console.warn('Skipping invalid currency record:', iterator)
+            continue
+          }
+
           iterator.pk = iterator.id
           if (!iterator.exchangeDirection) {
             iterator.exchangeDirection = 'local_to_foreign'
           }
+          
+          // Ensure rate is a valid number
+          if (iterator.rate === null || iterator.rate === undefined || isNaN(iterator.rate)) {
+            iterator.rate = 1
+          }
+
           this.currencyList.push(iterator)
         }
 
-        console.log('====> ' + this.currencyList.length)
-      } catch (er) {
-        swalError2(this.$swal, 'Error', 'Could not load data ' + er.message)
-        console.log('Error ===>: ' + er)
+        console.log(`Loaded ${this.currencyList.length} currencies`)
+      } catch (error) {
+        console.error('Load data error:', error)
+        this.pageError = true
+        this.errorMessage = 'Could not load data: ' + (error.response?.data?.message || error.message)
+        
+        // Don't throw error here to prevent white page
+        swalError2(this.$swal, 'Error', 'Could not load currency data')
+      } finally {
+        this.isloading = false
       }
-
-      this.isloading = false
     },
   },
 }
@@ -607,5 +693,22 @@ table {
 
 .gap-1 > * + * {
   margin-left: 4px;
+}
+
+/* Additional styles for better error handling */
+.retry-section {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.empty-state {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+/* Loading overlay improvements */
+.v-data-table__wrapper {
+  position: relative;
+  min-height: 300px;
 }
 </style>
