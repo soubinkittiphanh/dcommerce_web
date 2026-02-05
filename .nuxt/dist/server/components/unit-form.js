@@ -59,7 +59,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -160,7 +160,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,7 +337,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -379,7 +379,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/unitForm.vue?vue&type=template&id=4cf629c7&scoped=true
 
@@ -874,7 +874,7 @@ var external_vuex_ = __webpack_require__(14);
           // Handle both old and new response formats
           if (response.data.success !== false) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ');
           } else {
             throw new Error(response.data.message || 'Unknown error');
           }
@@ -882,7 +882,7 @@ var external_vuex_ = __webpack_require__(14);
           var _error$response, _error$response$data;
           console.log('Error: ', error);
           const errorMessage = ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : (_error$response$data = _error$response.data) === null || _error$response$data === void 0 ? void 0 : _error$response$data.message) || error.message || 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ';
-          Object(common["k" /* swalError2 */])(this.$swal, 'ຂໍ້ຜິດພາດ', errorMessage);
+          Object(common["l" /* swalError2 */])(this.$swal, 'ຂໍ້ຜິດພາດ', errorMessage);
         }
         this.isloading = false;
       }
@@ -910,7 +910,7 @@ var external_vuex_ = __webpack_require__(14);
           };
         } catch (error) {
           console.log('Cannot fetch data ' + error);
-          Object(common["k" /* swalError2 */])(this.$swal, 'ຂໍ້ຜິດພາດ', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້');
+          Object(common["l" /* swalError2 */])(this.$swal, 'ຂໍ້ຜິດພາດ', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້');
         }
       }
     },

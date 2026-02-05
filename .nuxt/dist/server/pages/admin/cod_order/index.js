@@ -1,7 +1,7 @@
 exports.ids = [212,40,58,118,153];
 exports.modules = {
 
-/***/ 1150:
+/***/ 1151:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1151:
+/***/ 1152:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1490:
+/***/ 1493:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -480,7 +480,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/cod_order/index.vue?vue&type=template&id=96450ce6&scoped=true
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./util/myUtil.js
 var myUtil = __webpack_require__(163);
@@ -772,7 +772,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1150)
+  var style0 = __webpack_require__(1151)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -793,7 +793,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var cod_order = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(484).default,Settlement: __webpack_require__(751).default,CancelTicketForm: __webpack_require__(462).default,LoadingIndicator: __webpack_require__(70).default,OrderSumaryCard: __webpack_require__(658).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(483).default,Settlement: __webpack_require__(751).default,CancelTicketForm: __webpack_require__(463).default,LoadingIndicator: __webpack_require__(70).default,OrderSumaryCard: __webpack_require__(658).default})
 
 
 /***/ }),
@@ -1329,7 +1329,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1496,11 +1496,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -1691,7 +1691,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 484:
+/***/ 483:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3629,11 +3629,11 @@ var external_vuex_ = __webpack_require__(14);
           // ******* reload data if transaction completed ********
           console.log("RELOAD DATA TRIGGER");
           this.refreshData(true);
-          return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         }
-        return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
       }).catch(er => {
-        return Object(common["k" /* swalError2 */])(this.$swal, "Error", `ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ${er}`);
+        return Object(common["l" /* swalError2 */])(this.$swal, "Error", `ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ${er}`);
       });
       this.isloading = false;
 
@@ -3694,7 +3694,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1151);
+var content = __webpack_require__(1152);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

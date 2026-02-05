@@ -1,7 +1,7 @@
 exports.ids = [116];
 exports.modules = {
 
-/***/ 1610:
+/***/ 1614:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -185,9 +185,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.post(api, this.form);
           console.log(`Load data ${JSON.stringify(response)}`);
           await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -202,9 +202,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.delete(api);
           console.log(`Load data `);
           await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
         } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -216,7 +216,7 @@ var external_vuex_ = __webpack_require__(14);
         this.entries = response.data;
       } catch (error) {
         console.log("Cannot fetch data " + error);
-        return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
       }
     },
     refreshData() {

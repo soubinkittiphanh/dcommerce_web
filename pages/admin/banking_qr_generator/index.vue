@@ -212,7 +212,6 @@ export default {
       error: null,
       qrGenerated: false,
       qrData: null,
-      apiBaseUrl: process.env.API_BASE_URL || 'http://localhost:3000',
       // Payment polling
       paymentPolling: null,
       paymentStatus: null,
@@ -247,7 +246,7 @@ export default {
       try {
         // Call API to generate QR (backend will set callback URL)
         const response = await this.$axios.post(
-          `${this.apiBaseUrl}/api/qr/generate`,
+          `api/qr/generate`,
           this.formData
         )
 
@@ -313,7 +312,7 @@ export default {
     async checkPaymentStatus() {
       try {
         const response = await this.$axios.get(
-          `${this.apiBaseUrl}/api/qr/payment-status/${this.qrData.billNumber}`
+          `api/qr/payment-status/${this.qrData.billNumber}`
         )
 
         if (response.data.success) {

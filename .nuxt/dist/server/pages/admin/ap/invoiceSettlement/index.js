@@ -1,7 +1,7 @@
 exports.ids = [190,7,8,9,10,11];
 exports.modules = {
 
-/***/ 1096:
+/***/ 1097:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1604,19 +1604,19 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1301:
+/***/ 1304:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(992);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(993);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_21700e05_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1302:
+/***/ 1305:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -1631,7 +1631,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1577:
+/***/ 1581:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2400,7 +2400,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/ap/invoiceSettlement/index.vue?vue&type=template&id=21700e05&scoped=true
 
 // EXTERNAL MODULE: ./components/accounting/ap/settlement/index.vue + 4 modules
-var ap_settlement = __webpack_require__(1096);
+var ap_settlement = __webpack_require__(1097);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -2952,7 +2952,7 @@ var common = __webpack_require__(7);
     },
     async approveSettlement(settlement) {
       try {
-        const result = await Object(common["j" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການອະນຸມັດ', `ທ່ານຕ້ອງການອະນຸມັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'question');
+        const result = await Object(common["k" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການອະນຸມັດ', `ທ່ານຕ້ອງການອະນຸມັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'question');
         if (result.isConfirmed) {
           await this.$axios.post(`/api/ap-invoices-settlement/${settlement.id}/approve`);
           this.$toast.success('ອະນຸມັດສຳເລັດ');
@@ -2965,7 +2965,7 @@ var common = __webpack_require__(7);
     },
     async completeSettlement(settlement) {
       try {
-        const result = await Object(common["j" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການສຳເລັດ', `ທ່ານຕ້ອງການສຳເລັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'question');
+        const result = await Object(common["k" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການສຳເລັດ', `ທ່ານຕ້ອງການສຳເລັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'question');
         if (result.isConfirmed) {
           await this.$axios.post(`/api/ap-invoices-settlement/${settlement.id}/complete`);
           this.$toast.success('ສຳເລັດສຳເລັດ');
@@ -2978,7 +2978,7 @@ var common = __webpack_require__(7);
     },
     async cancelSettlement(settlement) {
       try {
-        const result = await Object(common["j" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການຍົກເລີກ', `ທ່ານຕ້ອງການຍົກເລີກການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'warning');
+        const result = await Object(common["k" /* swalConfirm */])(this.$swal, 'ຢືນຢັນການຍົກເລີກ', `ທ່ານຕ້ອງການຍົກເລີກການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`, 'warning');
         if (result.isConfirmed) {
           await this.$axios.delete(`/api/ap-invoices-settlement/${settlement.id}`);
           this.$toast.success('ຍົກເລີກສຳເລັດ');
@@ -3045,7 +3045,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1301)
+  var style0 = __webpack_require__(1304)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -5515,13 +5515,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 992:
+/***/ 993:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1302);
+var content = __webpack_require__(1305);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

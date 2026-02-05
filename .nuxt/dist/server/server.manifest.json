@@ -1,7 +1,7 @@
 {
   "entry": "server.js",
   "files": {
-    "350.js": "350.js",
+    "351.js": "351.js",
     "components/account-form.js": "components/account-form.js",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js",
@@ -232,6 +232,7 @@
     "pages/admin/job_fair/employee/index.js": "pages/admin/job_fair/employee/index.js",
     "pages/admin/job_fair/login/index.js": "pages/admin/job_fair/login/index.js",
     "pages/admin/job_fair/mou/index.js": "pages/admin/job_fair/mou/index.js",
+    "pages/admin/laundry/index.js": "pages/admin/laundry/index.js",
     "pages/admin/location/index.js": "pages/admin/location/index.js",
     "pages/admin/login/index.js": "pages/admin/login/index.js",
     "pages/admin/logout/index.js": "pages/admin/logout/index.js",
@@ -354,7 +355,7 @@
     "server.js": "server.js"
   },
   "maps": {
-    "350.js": "350.js.map",
+    "351.js": "351.js.map",
     "components/account-form.js": "components/account-form.js.map",
     "components/accounting-ap-invoice-audit-view.js": "components/accounting-ap-invoice-audit-view.js.map",
     "components/accounting-ap-invoice-audit.js": "components/accounting-ap-invoice-audit.js.map",
@@ -585,6 +586,7 @@
     "pages/admin/job_fair/employee/index.js": "pages/admin/job_fair/employee/index.js.map",
     "pages/admin/job_fair/login/index.js": "pages/admin/job_fair/login/index.js.map",
     "pages/admin/job_fair/mou/index.js": "pages/admin/job_fair/mou/index.js.map",
+    "pages/admin/laundry/index.js": "pages/admin/laundry/index.js.map",
     "pages/admin/location/index.js": "pages/admin/location/index.js.map",
     "pages/admin/login/index.js": "pages/admin/login/index.js.map",
     "pages/admin/logout/index.js": "pages/admin/logout/index.js.map",

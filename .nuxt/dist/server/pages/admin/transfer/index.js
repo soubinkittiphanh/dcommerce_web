@@ -1,7 +1,7 @@
-exports.ids = [309,40,113,114,119,166];
+exports.ids = [310,40,113,114,119,166];
 exports.modules = {
 
-/***/ 1088:
+/***/ 1089:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48,7 +48,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/TransferForm.vue?vue&type=template&id=1288710a
 
@@ -541,35 +541,35 @@ var common = __webpack_require__(7);
       await this.$axios.get(`api/location/find`).then(res => {
         this.locationList = res.data.map(el => el);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
       });
       this.isloading = false;
     },
     quantityChange(data) {
       console.log("Qty change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     unitRateChange(data) {
       console.log("Unit rate change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     discountChange(data) {
       console.log("Discount change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     unitChange(data) {
@@ -578,9 +578,9 @@ var common = __webpack_require__(7);
       if (unit == undefined) return;
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['unitRate'] = unit['unitRate'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unit['unitRate'] * qty * price - discount;
     },
     productChange(data) {
@@ -592,10 +592,10 @@ var common = __webpack_require__(7);
       }
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['price'] = product['pro_price'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     newRow() {
@@ -618,7 +618,7 @@ var common = __webpack_require__(7);
         console.log("Data ", res.data);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     post() {
@@ -714,9 +714,9 @@ var common = __webpack_require__(7);
           return;
         }
         // iterator.id = null
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.quantity = parseInt(Object(common["i" /* replaceAll */])(iterator.quantity, ',', ''));
-        iterator.unitRate = parseInt(Object(common["i" /* replaceAll */])(iterator.unitRate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.quantity = parseInt(Object(common["j" /* replaceAll */])(iterator.quantity, ',', ''));
+        iterator.unitRate = parseInt(Object(common["j" /* replaceAll */])(iterator.unitRate, ',', ''));
         draftInvoiceLine.push(iterator);
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
@@ -734,10 +734,10 @@ var common = __webpack_require__(7);
       // ********** If header has data, that means we go for update API ********** //
       await this.$axios.post(`api/sale/create`, this.transaction).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
         console.error(er);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         const outOfStockProductId = er.response.data.split("#")[1];
         if (outOfStockProductId != undefined) {
           this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -751,7 +751,7 @@ var common = __webpack_require__(7);
     async postTransaction() {
       if (this.isloading || !this.validateHeader()) return;
       if (this.transaction.srcLocationId == this.transaction.desLocationId) {
-        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Source and destination location must be different');
+        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Source and destination location must be different');
       }
       this.isloading = true;
       this.errorLineNumber = null;
@@ -762,9 +762,9 @@ var common = __webpack_require__(7);
           this.isloading = false;
           return;
         }
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.quantity = parseInt(Object(common["i" /* replaceAll */])(iterator.quantity, ',', ''));
-        iterator.unitRate = parseInt(Object(common["i" /* replaceAll */])(iterator.unitRate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.quantity = parseInt(Object(common["j" /* replaceAll */])(iterator.quantity, ',', ''));
+        iterator.unitRate = parseInt(Object(common["j" /* replaceAll */])(iterator.unitRate, ',', ''));
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
       console.log("******** No error found process posting ********");
@@ -776,10 +776,10 @@ var common = __webpack_require__(7);
         // ********** If header has data, that means we go for update API ********** //
         await this.$axios.put(`api/${this.apiLine}/update/${this.headerId}`, this.transaction).then(res => {
           this.$emit('reload');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             const pronductOutStock = this.productList.find(el => el.id == outOfStockProductId);
@@ -793,10 +793,10 @@ var common = __webpack_require__(7);
         // ********** If header has data, that means we go for update API ********** //
         await this.$axios.post(`api/${this.apiLine}/create`, this.transaction).then(res => {
           this.$emit('reload');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -840,7 +840,7 @@ var common = __webpack_require__(7);
       let total = this.transaction.lines.reduce((total, item) => {
         return total + item.total;
       }, 0);
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.discount, ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.discount, ',', '');
       return total - discount;
     }
   },
@@ -945,19 +945,19 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default,
 
 /***/ }),
 
-/***/ 1260:
+/***/ 1263:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(974);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(975);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_6afa5d13_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1261:
+/***/ 1264:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -972,7 +972,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1552:
+/***/ 1556:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1436,13 +1436,13 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(492);
+var OrderDetailPos = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
-var OrderDetailPosCRUD = __webpack_require__(483);
+var OrderDetailPosCRUD = __webpack_require__(485);
 
 // EXTERNAL MODULE: ./components/orderSumaryCardPos.vue + 4 modules
-var orderSumaryCardPos = __webpack_require__(486);
+var orderSumaryCardPos = __webpack_require__(488);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/transfer/index.vue?vue&type=script&lang=js
 
@@ -1662,7 +1662,7 @@ var orderSumaryCardPos = __webpack_require__(486);
         }
         console.log("====> " + this.headerList.length);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
         console.log('Error ===>: ' + er);
       });
       this.isloading = false;
@@ -1700,7 +1700,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1260)
+  var style0 = __webpack_require__(1263)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1721,7 +1721,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var transfer = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,TransferForm: __webpack_require__(1088).default,CancelTicketForm: __webpack_require__(462).default,OrderSumaryCardPos: __webpack_require__(486).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,TransferForm: __webpack_require__(1089).default,CancelTicketForm: __webpack_require__(463).default,OrderSumaryCardPos: __webpack_require__(488).default})
 
 
 /***/ }),
@@ -2286,7 +2286,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2453,11 +2453,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -2697,7 +2697,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2816,7 +2816,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 483:
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2872,7 +2872,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
 
@@ -3766,7 +3766,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
 var printTemplates = __webpack_require__(162);
@@ -4205,7 +4205,7 @@ var printTemplates = __webpack_require__(162);
         const method = this.isUpdate ? 'put' : 'post';
         await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -4219,7 +4219,7 @@ var printTemplates = __webpack_require__(162);
         const invoiceData = this.prepareInvoiceFromQuotation();
         await this.$axios.post('api/sale/create', invoiceData);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -4349,12 +4349,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderDetailPosCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
 
 /***/ }),
 
-/***/ 486:
+/***/ 488:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5973,7 +5973,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 492:
+/***/ 497:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6222,9 +6222,9 @@ var common = __webpack_require__(7);
       };
       await this.$axios.put(`api/sale/postToInvoice/${this.header.id}`).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
         console.log('Error ===>: ' + er);
       });
       this.isloading = false;
@@ -6547,13 +6547,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 974:
+/***/ 975:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1261);
+var content = __webpack_require__(1264);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

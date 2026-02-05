@@ -1,7 +1,7 @@
 exports.ids = [200,12,13,14,16,72];
 exports.modules = {
 
-/***/ 1073:
+/***/ 1074:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51,7 +51,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VToolbar/VToolbar.js
 var VToolbar = __webpack_require__(28);
@@ -879,7 +879,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1140:
+/***/ 1141:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -891,7 +891,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1141:
+/***/ 1142:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -906,7 +906,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1480:
+/***/ 1483:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1597,7 +1597,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/batch_job/index.vue?vue&type=template&id=e6b9bac6&scoped=true
 
 // EXTERNAL MODULE: ./components/job_fair/job_batch/index.vue + 4 modules
-var job_batch = __webpack_require__(1073);
+var job_batch = __webpack_require__(1074);
 
 // EXTERNAL MODULE: external "lodash"
 var external_lodash_ = __webpack_require__(44);
@@ -2192,7 +2192,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1140)
+  var style0 = __webpack_require__(1141)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2919,7 +2919,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -7244,7 +7244,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1141);
+var content = __webpack_require__(1142);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

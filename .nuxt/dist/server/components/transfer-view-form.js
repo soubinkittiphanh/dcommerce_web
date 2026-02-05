@@ -1,7 +1,7 @@
 exports.ids = [167];
 exports.modules = {
 
-/***/ 1615:
+/***/ 1619:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -251,7 +251,7 @@ var common = __webpack_require__(7);
       await this.$axios.get(`api/location/find`).then(res => {
         this.locationList = res.data.map(el => el);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
       });
       this.isloading = false;
     },
@@ -261,7 +261,7 @@ var common = __webpack_require__(7);
         console.log("Data ", res.data);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     }
   },

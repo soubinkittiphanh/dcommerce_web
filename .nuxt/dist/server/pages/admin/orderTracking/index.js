@@ -1,13 +1,13 @@
-exports.ids = [248,40,113,114,119,155];
+exports.ids = [249,40,113,114,119,155];
 exports.modules = {
 
-/***/ 1212:
+/***/ 1215:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1213);
+var content = __webpack_require__(1216);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -15,7 +15,7 @@ __webpack_require__(5).default("befc3cc2", content, true)
 
 /***/ }),
 
-/***/ 1213:
+/***/ 1216:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -30,19 +30,19 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1214:
+/***/ 1217:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(951);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(952);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_5a942e8a_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1215:
+/***/ 1218:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -57,7 +57,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1458:
+/***/ 1461:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -71,7 +71,7 @@ var VCol = __webpack_require__(441);
 var VRow = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VTimeline/VTimeline.sass
-var VTimeline = __webpack_require__(1212);
+var VTimeline = __webpack_require__(1215);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/util/mixins.js
 var mixins = __webpack_require__(2);
@@ -269,13 +269,13 @@ var common = __webpack_require__(7);
 var ShippingForm = __webpack_require__(753);
 
 // EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(492);
+var OrderDetailPos = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
-var OrderDetailPosCRUD = __webpack_require__(483);
+var OrderDetailPosCRUD = __webpack_require__(485);
 
 // EXTERNAL MODULE: ./components/orderSumaryCardPos.vue + 4 modules
-var orderSumaryCardPos = __webpack_require__(486);
+var orderSumaryCardPos = __webpack_require__(488);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/orderTracking/index.vue?vue&type=script&lang=js
 
@@ -333,7 +333,7 @@ var orderSumaryCardPos = __webpack_require__(486);
         const response = await this.$axios.get(`api/order/find/${31}`);
         this.entry = response.data;
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
         console.log('Error ===>: ' + er);
       }
       this.isloading = false;
@@ -345,7 +345,7 @@ var orderSumaryCardPos = __webpack_require__(486);
         const response = await this.$axios.get(`api/location/find`);
         this.locationList = response.data;
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
         console.log('Error ===>: ' + error);
       }
       this.isloading = false;
@@ -363,7 +363,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1214)
+  var style0 = __webpack_require__(1217)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -443,7 +443,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -610,11 +610,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -709,7 +709,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -828,7 +828,119 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 483:
+/***/ 484:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(460);
+/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(200);
+/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
+/* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
+/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71);
+// Styles
+
+ // Components
+
+
+ // Mixins
+
+
+/* @vue/component */
+
+/* harmony default export */ __webpack_exports__["a"] = (_mixins_selectable__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].extend({
+  name: 'v-checkbox',
+  props: {
+    indeterminate: Boolean,
+    indeterminateIcon: {
+      type: String,
+      default: '$checkboxIndeterminate'
+    },
+    offIcon: {
+      type: String,
+      default: '$checkboxOff'
+    },
+    onIcon: {
+      type: String,
+      default: '$checkboxOn'
+    }
+  },
+  data() {
+    return {
+      inputIndeterminate: this.indeterminate
+    };
+  },
+  computed: {
+    classes() {
+      return {
+        ..._VInput__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.classes.call(this),
+        'v-input--selection-controls': true,
+        'v-input--checkbox': true,
+        'v-input--indeterminate': this.inputIndeterminate
+      };
+    },
+    computedIcon() {
+      if (this.inputIndeterminate) {
+        return this.indeterminateIcon;
+      } else if (this.isActive) {
+        return this.onIcon;
+      } else {
+        return this.offIcon;
+      }
+    },
+    // Do not return undefined if disabled,
+    // according to spec, should still show
+    // a color when disabled and active
+    validationState() {
+      if (this.isDisabled && !this.inputIndeterminate) return undefined;
+      if (this.hasError && this.shouldValidate) return 'error';
+      if (this.hasSuccess) return 'success';
+      if (this.hasColor !== null) return this.computedColor;
+      return undefined;
+    }
+  },
+  watch: {
+    indeterminate(val) {
+      // https://github.com/vuetifyjs/vuetify/issues/8270
+      this.$nextTick(() => this.inputIndeterminate = val);
+    },
+    inputIndeterminate(val) {
+      this.$emit('update:indeterminate', val);
+    },
+    isActive() {
+      if (!this.indeterminate) return;
+      this.inputIndeterminate = false;
+    }
+  },
+  methods: {
+    genCheckbox() {
+      const {
+        title,
+        ...checkboxAttrs
+      } = this.attrs$;
+      return this.$createElement('div', {
+        staticClass: 'v-input--selection-controls__input'
+      }, [this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], this.setTextColor(this.validationState, {
+        props: {
+          dense: this.dense,
+          dark: this.dark,
+          light: this.light
+        }
+      }), this.computedIcon), this.genInput('checkbox', {
+        ...checkboxAttrs,
+        'aria-checked': this.inputIndeterminate ? 'mixed' : this.isActive.toString()
+      }), this.genRipple(this.setTextColor(this.rippleState))]);
+    },
+    genDefaultSlot() {
+      return [this.genCheckbox(), this.genLabel()];
+    }
+  }
+}));
+
+/***/ }),
+
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -884,7 +996,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
 
@@ -1778,7 +1890,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
 var printTemplates = __webpack_require__(162);
@@ -2217,7 +2329,7 @@ var printTemplates = __webpack_require__(162);
         const method = this.isUpdate ? 'put' : 'post';
         await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -2231,7 +2343,7 @@ var printTemplates = __webpack_require__(162);
         const invoiceData = this.prepareInvoiceFromQuotation();
         await this.$axios.post('api/sale/create', invoiceData);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -2361,124 +2473,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderDetailPosCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
 
 /***/ }),
 
-/***/ 485:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(460);
-/* harmony import */ var _src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VCheckbox_VCheckbox_sass__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(200);
-/* harmony import */ var _src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_src_styles_components_selection_controls_sass__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _VIcon__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(13);
-/* harmony import */ var _VInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(16);
-/* harmony import */ var _mixins_selectable__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(71);
-// Styles
-
- // Components
-
-
- // Mixins
-
-
-/* @vue/component */
-
-/* harmony default export */ __webpack_exports__["a"] = (_mixins_selectable__WEBPACK_IMPORTED_MODULE_4__[/* default */ "a"].extend({
-  name: 'v-checkbox',
-  props: {
-    indeterminate: Boolean,
-    indeterminateIcon: {
-      type: String,
-      default: '$checkboxIndeterminate'
-    },
-    offIcon: {
-      type: String,
-      default: '$checkboxOff'
-    },
-    onIcon: {
-      type: String,
-      default: '$checkboxOn'
-    }
-  },
-  data() {
-    return {
-      inputIndeterminate: this.indeterminate
-    };
-  },
-  computed: {
-    classes() {
-      return {
-        ..._VInput__WEBPACK_IMPORTED_MODULE_3__[/* default */ "a"].options.computed.classes.call(this),
-        'v-input--selection-controls': true,
-        'v-input--checkbox': true,
-        'v-input--indeterminate': this.inputIndeterminate
-      };
-    },
-    computedIcon() {
-      if (this.inputIndeterminate) {
-        return this.indeterminateIcon;
-      } else if (this.isActive) {
-        return this.onIcon;
-      } else {
-        return this.offIcon;
-      }
-    },
-    // Do not return undefined if disabled,
-    // according to spec, should still show
-    // a color when disabled and active
-    validationState() {
-      if (this.isDisabled && !this.inputIndeterminate) return undefined;
-      if (this.hasError && this.shouldValidate) return 'error';
-      if (this.hasSuccess) return 'success';
-      if (this.hasColor !== null) return this.computedColor;
-      return undefined;
-    }
-  },
-  watch: {
-    indeterminate(val) {
-      // https://github.com/vuetifyjs/vuetify/issues/8270
-      this.$nextTick(() => this.inputIndeterminate = val);
-    },
-    inputIndeterminate(val) {
-      this.$emit('update:indeterminate', val);
-    },
-    isActive() {
-      if (!this.indeterminate) return;
-      this.inputIndeterminate = false;
-    }
-  },
-  methods: {
-    genCheckbox() {
-      const {
-        title,
-        ...checkboxAttrs
-      } = this.attrs$;
-      return this.$createElement('div', {
-        staticClass: 'v-input--selection-controls__input'
-      }, [this.$createElement(_VIcon__WEBPACK_IMPORTED_MODULE_2__[/* default */ "a"], this.setTextColor(this.validationState, {
-        props: {
-          dense: this.dense,
-          dark: this.dark,
-          light: this.light
-        }
-      }), this.computedIcon), this.genInput('checkbox', {
-        ...checkboxAttrs,
-        'aria-checked': this.inputIndeterminate ? 'mixed' : this.isActive.toString()
-      }), this.genRipple(this.setTextColor(this.rippleState))]);
-    },
-    genDefaultSlot() {
-      return [this.genCheckbox(), this.genLabel()];
-    }
-  }
-}));
-
-/***/ }),
-
-/***/ 486:
+/***/ 488:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2628,7 +2628,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 492:
+/***/ 497:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2877,9 +2877,9 @@ var common = __webpack_require__(7);
       };
       await this.$axios.put(`api/sale/postToInvoice/${this.header.id}`).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
         console.log('Error ===>: ' + er);
       });
       this.isloading = false;
@@ -3155,7 +3155,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -3349,18 +3349,18 @@ var common = __webpack_require__(7);
         if (this.isCreate) {
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -3419,13 +3419,13 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 
 /***/ }),
 
-/***/ 951:
+/***/ 952:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1215);
+var content = __webpack_require__(1218);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

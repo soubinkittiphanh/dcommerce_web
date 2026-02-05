@@ -30,7 +30,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -197,11 +197,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -296,7 +296,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -415,7 +415,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 483:
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -471,7 +471,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
 
@@ -1365,7 +1365,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
 var printTemplates = __webpack_require__(162);
@@ -1804,7 +1804,7 @@ var printTemplates = __webpack_require__(162);
         const method = this.isUpdate ? 'put' : 'post';
         await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -1818,7 +1818,7 @@ var printTemplates = __webpack_require__(162);
         const invoiceData = this.prepareInvoiceFromQuotation();
         await this.$axios.post('api/sale/create', invoiceData);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -1948,7 +1948,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderDetailPosCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
 
 /***/ }),

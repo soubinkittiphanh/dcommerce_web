@@ -41,7 +41,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -171,13 +171,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 496:
+/***/ 495:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(497);
+var content = __webpack_require__(496);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -185,7 +185,7 @@ __webpack_require__(5).default("735d40bc", content, true)
 
 /***/ }),
 
-/***/ 497:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -204,7 +204,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(496);
+/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
 /* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var _VChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(130);
@@ -571,7 +571,7 @@ module.exports.__inject__ = function (context) {
             await this.$axios.put(api, this.form);
           }
           this.refreshData();
-          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "l"])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "m"])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
           var _error$response, _error$response2;
           console.error('Error: ', error);
@@ -594,7 +594,7 @@ module.exports.__inject__ = function (context) {
           }
 
           // ❌ Other errors
-          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "k"])(this.$swal, 'Error', (data === null || data === void 0 ? void 0 : data.message) || 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່');
+          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "l"])(this.$swal, 'Error', (data === null || data === void 0 ? void 0 : data.message) || 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່');
         } finally {
           this.isloading = false;
         }
@@ -2722,7 +2722,7 @@ var VSpacer = __webpack_require__(443);
 var VSubheader = __webpack_require__(132);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
@@ -3624,7 +3624,7 @@ var common = __webpack_require__(7);
       this.saving = true;
       try {
         await this.$axios.put(`api/company/company-theme/${this.companyId}`, this.themeForm);
-        Object(common["l" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກສີທີມສຳເລັດແລ້ວ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກສີທີມສຳເລັດແລ້ວ');
 
         // Apply theme immediately
         this.applyThemeToVuetify();
@@ -3632,7 +3632,7 @@ var common = __webpack_require__(7);
         this.closeDialog();
       } catch (error) {
         console.error('Error saving theme:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'ຜິດພາດ', 'ບໍ່ສາມາດບັນທຶກສີທີມໄດ້');
+        Object(common["l" /* swalError2 */])(this.$swal, 'ຜິດພາດ', 'ບໍ່ສາມາດບັນທຶກສີທີມໄດ້');
       } finally {
         this.saving = false;
       }
@@ -3810,7 +3810,7 @@ var VRow = __webpack_require__(440);
 var VSpacer = __webpack_require__(443);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);

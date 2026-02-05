@@ -1,7 +1,7 @@
 exports.ids = [166];
 exports.modules = {
 
-/***/ 1088:
+/***/ 1089:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -48,7 +48,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/TransferForm.vue?vue&type=template&id=1288710a
 
@@ -541,35 +541,35 @@ var common = __webpack_require__(7);
       await this.$axios.get(`api/location/find`).then(res => {
         this.locationList = res.data.map(el => el);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
       });
       this.isloading = false;
     },
     quantityChange(data) {
       console.log("Qty change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     unitRateChange(data) {
       console.log("Unit rate change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     discountChange(data) {
       console.log("Discount change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     unitChange(data) {
@@ -578,9 +578,9 @@ var common = __webpack_require__(7);
       if (unit == undefined) return;
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['unitRate'] = unit['unitRate'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unit['unitRate'] * qty * price - discount;
     },
     productChange(data) {
@@ -592,10 +592,10 @@ var common = __webpack_require__(7);
       }
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['price'] = product['pro_price'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
-      const unitRate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['quantity'], ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['discount'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const unitRate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['unitRate'], ',', '');
       this.transaction.lines[index]['total'] = unitRate * qty * price - discount;
     },
     newRow() {
@@ -618,7 +618,7 @@ var common = __webpack_require__(7);
         console.log("Data ", res.data);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     post() {
@@ -714,9 +714,9 @@ var common = __webpack_require__(7);
           return;
         }
         // iterator.id = null
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.quantity = parseInt(Object(common["i" /* replaceAll */])(iterator.quantity, ',', ''));
-        iterator.unitRate = parseInt(Object(common["i" /* replaceAll */])(iterator.unitRate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.quantity = parseInt(Object(common["j" /* replaceAll */])(iterator.quantity, ',', ''));
+        iterator.unitRate = parseInt(Object(common["j" /* replaceAll */])(iterator.unitRate, ',', ''));
         draftInvoiceLine.push(iterator);
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
@@ -734,10 +734,10 @@ var common = __webpack_require__(7);
       // ********** If header has data, that means we go for update API ********** //
       await this.$axios.post(`api/sale/create`, this.transaction).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
         console.error(er);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         const outOfStockProductId = er.response.data.split("#")[1];
         if (outOfStockProductId != undefined) {
           this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -751,7 +751,7 @@ var common = __webpack_require__(7);
     async postTransaction() {
       if (this.isloading || !this.validateHeader()) return;
       if (this.transaction.srcLocationId == this.transaction.desLocationId) {
-        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Source and destination location must be different');
+        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Source and destination location must be different');
       }
       this.isloading = true;
       this.errorLineNumber = null;
@@ -762,9 +762,9 @@ var common = __webpack_require__(7);
           this.isloading = false;
           return;
         }
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.quantity = parseInt(Object(common["i" /* replaceAll */])(iterator.quantity, ',', ''));
-        iterator.unitRate = parseInt(Object(common["i" /* replaceAll */])(iterator.unitRate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.quantity = parseInt(Object(common["j" /* replaceAll */])(iterator.quantity, ',', ''));
+        iterator.unitRate = parseInt(Object(common["j" /* replaceAll */])(iterator.unitRate, ',', ''));
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
       console.log("******** No error found process posting ********");
@@ -776,10 +776,10 @@ var common = __webpack_require__(7);
         // ********** If header has data, that means we go for update API ********** //
         await this.$axios.put(`api/${this.apiLine}/update/${this.headerId}`, this.transaction).then(res => {
           this.$emit('reload');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             const pronductOutStock = this.productList.find(el => el.id == outOfStockProductId);
@@ -793,10 +793,10 @@ var common = __webpack_require__(7);
         // ********** If header has data, that means we go for update API ********** //
         await this.$axios.post(`api/${this.apiLine}/create`, this.transaction).then(res => {
           this.$emit('reload');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -840,7 +840,7 @@ var common = __webpack_require__(7);
       let total = this.transaction.lines.reduce((total, item) => {
         return total + item.total;
       }, 0);
-      const discount = Object(common["i" /* replaceAll */])(this.transaction.discount, ',', '');
+      const discount = Object(common["j" /* replaceAll */])(this.transaction.discount, ',', '');
       return total - discount;
     }
   },
@@ -994,7 +994,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

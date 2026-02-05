@@ -1,7 +1,7 @@
 exports.ids = [194,26,178];
 exports.modules = {
 
-/***/ 1134:
+/***/ 1135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1135:
+/***/ 1136:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1475:
+/***/ 1478:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -344,7 +344,7 @@ var AuthorityForm = __webpack_require__(882);
         // ****** Clear Old Data
         this.entries = res.data;
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
         console.log('Error ===>: ' + er);
       });
       this.isloading = false;
@@ -362,7 +362,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1134)
+  var style0 = __webpack_require__(1135)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -383,7 +383,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var authority = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(481).default,LoadingIndicator: __webpack_require__(70).default,AuthorityForm: __webpack_require__(882).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default,AuthorityForm: __webpack_require__(882).default})
 
 
 /***/ }),
@@ -417,7 +417,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 481:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -513,7 +513,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -642,7 +642,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -818,18 +818,18 @@ var common = __webpack_require__(7);
         if (this.isCreate) {
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -891,7 +891,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1135);
+var content = __webpack_require__(1136);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

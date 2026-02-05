@@ -1,7 +1,7 @@
 exports.ids = [213,48,178];
 exports.modules = {
 
-/***/ 1152:
+/***/ 1153:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1153:
+/***/ 1154:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1491:
+/***/ 1494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -45,7 +45,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -560,7 +560,7 @@ var colorForm = __webpack_require__(886);
         }
         console.log("====> " + this.entries.length);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could not load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could not load data ' + er.Error);
         console.log('Error ===>: ' + er);
       });
       this.isloading = false;
@@ -578,7 +578,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1152)
+  var style0 = __webpack_require__(1153)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -599,7 +599,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var color = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(481).default,LoadingIndicator: __webpack_require__(70).default,ColorForm: __webpack_require__(886).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default,ColorForm: __webpack_require__(886).default})
 
 
 /***/ }),
@@ -692,6 +692,102 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ }),
 
 /***/ 480:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(129);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+
+
+
+
+
+var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c('youtube', {
+    attrs: {
+      "video-id": _vm.youtubeLink
+    }
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(7);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
+
+/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
+  props: {
+    youtubeLink: {
+      type: String,
+      require: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_YoutubePlayervue_type_script_lang_js,
+  YoutubePlayervue_type_template_id_ba62a84e_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "9fefcabe"
+  
+)
+
+/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -792,103 +888,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 481:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-
-
-
-
-
-var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('youtube', {
-    attrs: {
-      "video-id": _vm.youtubeLink
-    }
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "warning",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
-
-/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
-  props: {
-    youtubeLink: {
-      type: String,
-      require: true
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
- /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_YoutubePlayervue_type_script_lang_js,
-  YoutubePlayervue_type_template_id_ba62a84e_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "9fefcabe"
-  
-)
-
-/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1000,7 +1000,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1216,13 +1216,13 @@ var VRow = __webpack_require__(440);
 var VSpacer = __webpack_require__(443);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/colorForm.vue?vue&type=template&id=02f14fa8&scoped=true
 
@@ -1736,7 +1736,7 @@ var common = __webpack_require__(7);
           this.colorPickerValue = this.formData.hex_code;
         }
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້: ' + error.message);
       }
       this.isSubmitting = false;
     },
@@ -1755,7 +1755,7 @@ var common = __webpack_require__(7);
           } else {
             res = await this.$axios.put(`/api/color/${this.recordId}`, submitData);
           }
-          Object(common["l" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', `${this.isCreate ? 'ເພີ່ມ' : 'ອັບເດດ'}ສີ "${this.formData.color_name}" ສຳເລັດແລ້ວ`);
+          Object(common["m" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', `${this.isCreate ? 'ເພີ່ມ' : 'ອັບເດດ'}ສີ "${this.formData.color_name}" ສຳເລັດແລ້ວ`);
           this.$emit('reload-data');
         } catch (error) {
           var _error$response, _error$response$data, _error$response2;
@@ -1764,7 +1764,7 @@ var common = __webpack_require__(7);
           if (((_error$response2 = error.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 400 && errorMessage.includes('already exists')) {
             errorMessage = 'ຊື່ສີ ຫຼື ລະຫັດນີ້ມີຢູ່ແລ້ວ';
           }
-          Object(common["k" /* swalError2 */])(this.$swal, "Error", errorMessage);
+          Object(common["l" /* swalError2 */])(this.$swal, "Error", errorMessage);
         }
         this.isSubmitting = false;
       }
@@ -1810,7 +1810,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1153);
+var content = __webpack_require__(1154);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

@@ -1,7 +1,7 @@
 exports.ids = [208,40,124,143,144];
 exports.modules = {
 
-/***/ 1486:
+/***/ 1489:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1152,7 +1152,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1319,11 +1319,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -1592,7 +1592,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3162,7 +3162,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3579,7 +3579,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ReceivingFormCRUD.vue?vue&type=template&id=6fcd6913
 
@@ -4123,7 +4123,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ReceivingFormCRUD.vue?vue&type=script&lang=js
 
@@ -4261,14 +4261,14 @@ var CancelTicketForm = __webpack_require__(462);
     },
     async deleteItem(item) {
       // TODO: Delete line not reduct card 
-      if (this.transaction.poHeaderId != null) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
+      if (this.transaction.poHeaderId != null) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
       if (item.id) {
         console.log("Line has id");
         this.isloading = true;
         await this.$axios.delete(`api/${this.apiLine}/line/find/${item.id}`).then(res => {
           this.transaction.lines.splice(this.transaction.lines.indexOf(item), 1);
         }).catch(er => {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
         });
         this.isloading = false;
       } else {
@@ -4279,37 +4279,37 @@ var CancelTicketForm = __webpack_require__(462);
     quantityChange(data) {
       console.log("Qty change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitRateChange(data) {
       console.log("Unit rate change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     priceChange(data) {
       console.log("Price change...");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     discountChange(data) {
       console.log("Discount change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitChange(data) {
@@ -4318,9 +4318,9 @@ var CancelTicketForm = __webpack_require__(462);
       if (unit == undefined) return;
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['rate'] = unit['rate'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unit['rate'] * qty * price;
     },
     productChange(data) {
@@ -4336,10 +4336,10 @@ var CancelTicketForm = __webpack_require__(462);
       const localPrice = product['cost_price'] * currency['rate'];
       // this.transaction.lines[index]['price'] = product['pro_price'] // *** Price original  ***
       this.transaction.lines[index]['price'] = localPrice; //  *** Price base on exchange rate  ***
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     newRow() {
@@ -4353,7 +4353,7 @@ var CancelTicketForm = __webpack_require__(462);
         "productId": 0,
         "unitId": 1
       };
-      if (this.transaction.poHeaderId) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
+      if (this.transaction.poHeaderId) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
       this.transaction.lines.push(defaultLine);
     },
     openCustomerDialog() {
@@ -4375,7 +4375,7 @@ var CancelTicketForm = __webpack_require__(462);
         this.transaction = res.data;
         console.log("Data ", res.data);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     async loadTransactionFromPoID(poHeaderId) {
@@ -4526,9 +4526,9 @@ var CancelTicketForm = __webpack_require__(462);
           return;
         }
         // iterator.id = null
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
         draftInvoiceLine.push(iterator);
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
@@ -4548,10 +4548,10 @@ var CancelTicketForm = __webpack_require__(462);
       // ********** If header has data, that means we go for update API ********** //
       await this.$axios.post(`api/sale/create`, this.transaction).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
         console.error(er);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         const outOfStockProductId = er.response.data.split("#")[1];
         if (outOfStockProductId != undefined) {
           this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -4573,9 +4573,9 @@ var CancelTicketForm = __webpack_require__(462);
           this.isloading = false;
           return;
         }
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
       console.log("******** No error found process posting ********");
@@ -4590,10 +4590,10 @@ var CancelTicketForm = __webpack_require__(462);
         await this.$axios.put(`api/${this.apiLine}/update/${this.headerId}`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             const pronductOutStock = this.productList.find(el => el.id == outOfStockProductId);
@@ -4609,10 +4609,10 @@ var CancelTicketForm = __webpack_require__(462);
         await this.$axios.post(`api/${this.apiLine}/create`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -4771,7 +4771,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ReceivingFormCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
 
 /***/ }),
@@ -4835,7 +4835,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PurchasingFormCRUD.vue?vue&type=template&id=2bb25126&scoped=true
 
@@ -6325,7 +6325,7 @@ var common = __webpack_require__(7);
         const method = this.isUpdate ? 'put' : 'post';
         const response = await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Purchase order saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Purchase order saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -6567,7 +6567,7 @@ var VRow = __webpack_require__(440);
 var VSpacer = __webpack_require__(443);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);

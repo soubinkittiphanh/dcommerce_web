@@ -43,6 +43,7 @@ const _09aa8974 = () => interopDefault(import('../pages/admin/generalLedger/inde
 const _975dcbfc = () => interopDefault(import('../pages/admin/group/index.vue' /* webpackChunkName: "pages/admin/group/index" */))
 const _df94d8de = () => interopDefault(import('../pages/admin/inventory_value/index.vue' /* webpackChunkName: "pages/admin/inventory_value/index" */))
 const _cdba2146 = () => interopDefault(import('../pages/admin/jobAdvertise/index.vue' /* webpackChunkName: "pages/admin/jobAdvertise/index" */))
+const _38d56420 = () => interopDefault(import('../pages/admin/laundry/index.vue' /* webpackChunkName: "pages/admin/laundry/index" */))
 const _70c5e868 = () => interopDefault(import('../pages/admin/location/index.vue' /* webpackChunkName: "pages/admin/location/index" */))
 const _54691328 = () => interopDefault(import('../pages/admin/login/index.vue' /* webpackChunkName: "pages/admin/login/index" */))
 const _51a6edfd = () => interopDefault(import('../pages/admin/logout/index.vue' /* webpackChunkName: "pages/admin/logout/index" */))
@@ -343,6 +344,10 @@ export const routerOptions = {
     path: "/admin/jobAdvertise",
     component: _cdba2146,
     name: "admin-jobAdvertise"
+  }, {
+    path: "/admin/laundry",
+    component: _38d56420,
+    name: "admin-laundry"
   }, {
     path: "/admin/location",
     component: _70c5e868,

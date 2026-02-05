@@ -30,7 +30,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2079,7 +2079,7 @@ var VSpacer = __webpack_require__(443);
 var VSubheader = __webpack_require__(132);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
@@ -2981,7 +2981,7 @@ var common = __webpack_require__(7);
       this.saving = true;
       try {
         await this.$axios.put(`api/company/company-theme/${this.companyId}`, this.themeForm);
-        Object(common["l" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກສີທີມສຳເລັດແລ້ວ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', 'ບັນທຶກສີທີມສຳເລັດແລ້ວ');
 
         // Apply theme immediately
         this.applyThemeToVuetify();
@@ -2989,7 +2989,7 @@ var common = __webpack_require__(7);
         this.closeDialog();
       } catch (error) {
         console.error('Error saving theme:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'ຜິດພາດ', 'ບໍ່ສາມາດບັນທຶກສີທີມໄດ້');
+        Object(common["l" /* swalError2 */])(this.$swal, 'ຜິດພາດ', 'ບໍ່ສາມາດບັນທຶກສີທີມໄດ້');
       } finally {
         this.saving = false;
       }

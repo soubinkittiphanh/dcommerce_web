@@ -234,6 +234,12 @@
     "chunkName": "pages/admin/jobAdvertise/index"
   },
   {
+    "name": "admin-laundry",
+    "path": "/admin/laundry",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/laundry/index.vue",
+    "chunkName": "pages/admin/laundry/index"
+  },
+  {
     "name": "admin-location",
     "path": "/admin/location",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/location/index.vue",

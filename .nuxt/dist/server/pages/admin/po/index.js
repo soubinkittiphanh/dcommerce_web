@@ -1,19 +1,19 @@
-exports.ids = [265,40,143,144,178];
+exports.ids = [266,40,143,144,178];
 exports.modules = {
 
-/***/ 1218:
+/***/ 1221:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(953);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(954);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_eff765d8_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1219:
+/***/ 1222:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1530:
+/***/ 1534:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1073,52 +1073,52 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/po/index.vue?vue&type=template&id=eff765d8&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(146);
+var esnext_set_add_all_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(147);
+var esnext_set_delete_all_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(148);
+var esnext_set_difference_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(149);
+var esnext_set_every_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(150);
+var esnext_set_filter_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(151);
+var esnext_set_find_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(152);
+var esnext_set_intersection_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(153);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(154);
+var esnext_set_is_subset_of_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(155);
+var esnext_set_is_superset_of_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(156);
+var esnext_set_join_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(157);
+var esnext_set_map_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(158);
+var esnext_set_reduce_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(159);
+var esnext_set_some_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(160);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(159);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(161);
+var esnext_set_union_js_ = __webpack_require__(160);
 
 // EXTERNAL MODULE: ./components/PurchasingFormCRUD.vue + 4 modules
 var PurchasingFormCRUD = __webpack_require__(582);
@@ -1402,7 +1402,7 @@ var common = __webpack_require__(7);
         this.createAndPrintPurchaseOrder(poData);
       } catch (error) {
         console.error('Error printing purchase order:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to print purchase order');
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to print purchase order');
       } finally {
         this.printingId = null;
       }
@@ -1412,7 +1412,7 @@ var common = __webpack_require__(7);
         const poHTML = this.generatePurchaseOrderHTML(poData);
         const printWindow = window.open('', '_blank', 'width=800,height=600');
         if (!printWindow) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
           return;
         }
         printWindow.document.open();
@@ -1431,7 +1431,7 @@ var common = __webpack_require__(7);
         };
       } catch (error) {
         console.error('Error creating print PO:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to generate purchase order for printing');
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to generate purchase order for printing');
       }
     },
     generatePurchaseOrderHTML(header) {
@@ -1506,7 +1506,7 @@ var common = __webpack_require__(7);
         const reportHTML = this.generatePurchaseReportHTML();
         const printWindow = window.open('', '_blank', 'width=800,height=600');
         if (!printWindow) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Unable to open print window.');
           return;
         }
         printWindow.document.open();
@@ -1525,7 +1525,7 @@ var common = __webpack_require__(7);
         };
       } catch (error) {
         console.error('Error printing report:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to print report');
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to print report');
       }
     },
     generatePurchaseReportHTML() {
@@ -1722,7 +1722,7 @@ var common = __webpack_require__(7);
         console.log("====> " + this.txnList.length + " purchase orders loaded");
       } catch (error) {
         console.error('Error loading transactions:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load purchase orders');
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load purchase orders');
       } finally {
         this.isloading = false;
       }
@@ -1740,7 +1740,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1218)
+  var style0 = __webpack_require__(1221)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1761,7 +1761,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var po = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(481).default,PurchasingFormCRUD: __webpack_require__(582).default,ReceivingFormCRUD: __webpack_require__(577).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,PurchasingFormCRUD: __webpack_require__(582).default,ReceivingFormCRUD: __webpack_require__(577).default})
 
 
 /***/ }),
@@ -2326,7 +2326,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -2493,11 +2493,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -2741,6 +2741,102 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(129);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+
+
+
+
+
+var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c('youtube', {
+    attrs: {
+      "video-id": _vm.youtubeLink
+    }
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(7);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
+
+/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
+  props: {
+    youtubeLink: {
+      type: String,
+      require: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_YoutubePlayervue_type_script_lang_js,
+  YoutubePlayervue_type_template_id_ba62a84e_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "9fefcabe"
+  
+)
+
+/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 481:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(457);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(39);
@@ -2835,102 +2931,6 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
     }
   }
 }));
-
-/***/ }),
-
-/***/ 481:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-
-
-
-
-
-var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('youtube', {
-    attrs: {
-      "video-id": _vm.youtubeLink
-    }
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "warning",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
-
-/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
-  props: {
-    youtubeLink: {
-      type: String,
-      require: true
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
- /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_YoutubePlayervue_type_script_lang_js,
-  YoutubePlayervue_type_template_id_ba62a84e_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "9fefcabe"
-  
-)
-
-/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -4690,7 +4690,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ReceivingFormCRUD.vue?vue&type=template&id=6fcd6913
 
@@ -5234,7 +5234,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/ReceivingFormCRUD.vue?vue&type=script&lang=js
 
@@ -5372,14 +5372,14 @@ var CancelTicketForm = __webpack_require__(462);
     },
     async deleteItem(item) {
       // TODO: Delete line not reduct card 
-      if (this.transaction.poHeaderId != null) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
+      if (this.transaction.poHeaderId != null) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
       if (item.id) {
         console.log("Line has id");
         this.isloading = true;
         await this.$axios.delete(`api/${this.apiLine}/line/find/${item.id}`).then(res => {
           this.transaction.lines.splice(this.transaction.lines.indexOf(item), 1);
         }).catch(er => {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
         });
         this.isloading = false;
       } else {
@@ -5390,37 +5390,37 @@ var CancelTicketForm = __webpack_require__(462);
     quantityChange(data) {
       console.log("Qty change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitRateChange(data) {
       console.log("Unit rate change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     priceChange(data) {
       console.log("Price change...");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     discountChange(data) {
       console.log("Discount change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitChange(data) {
@@ -5429,9 +5429,9 @@ var CancelTicketForm = __webpack_require__(462);
       if (unit == undefined) return;
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['rate'] = unit['rate'];
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unit['rate'] * qty * price;
     },
     productChange(data) {
@@ -5447,10 +5447,10 @@ var CancelTicketForm = __webpack_require__(462);
       const localPrice = product['cost_price'] * currency['rate'];
       // this.transaction.lines[index]['price'] = product['pro_price'] // *** Price original  ***
       this.transaction.lines[index]['price'] = localPrice; //  *** Price base on exchange rate  ***
-      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
-      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     newRow() {
@@ -5464,7 +5464,7 @@ var CancelTicketForm = __webpack_require__(462);
         "productId": 0,
         "unitId": 1
       };
-      if (this.transaction.poHeaderId) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
+      if (this.transaction.poHeaderId) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
       this.transaction.lines.push(defaultLine);
     },
     openCustomerDialog() {
@@ -5486,7 +5486,7 @@ var CancelTicketForm = __webpack_require__(462);
         this.transaction = res.data;
         console.log("Data ", res.data);
       }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     async loadTransactionFromPoID(poHeaderId) {
@@ -5637,9 +5637,9 @@ var CancelTicketForm = __webpack_require__(462);
           return;
         }
         // iterator.id = null
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
         draftInvoiceLine.push(iterator);
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
@@ -5659,10 +5659,10 @@ var CancelTicketForm = __webpack_require__(462);
       // ********** If header has data, that means we go for update API ********** //
       await this.$axios.post(`api/sale/create`, this.transaction).then(res => {
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
         console.error(er);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         const outOfStockProductId = er.response.data.split("#")[1];
         if (outOfStockProductId != undefined) {
           this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -5684,9 +5684,9 @@ var CancelTicketForm = __webpack_require__(462);
           this.isloading = false;
           return;
         }
-        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
       console.log("******** No error found process posting ********");
@@ -5701,10 +5701,10 @@ var CancelTicketForm = __webpack_require__(462);
         await this.$axios.put(`api/${this.apiLine}/update/${this.headerId}`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             const pronductOutStock = this.productList.find(el => el.id == outOfStockProductId);
@@ -5720,10 +5720,10 @@ var CancelTicketForm = __webpack_require__(462);
         await this.$axios.post(`api/${this.apiLine}/create`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -5882,7 +5882,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ReceivingFormCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
 
 /***/ }),
@@ -5946,7 +5946,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PurchasingFormCRUD.vue?vue&type=template&id=2bb25126&scoped=true
 
@@ -7436,7 +7436,7 @@ var common = __webpack_require__(7);
         const method = this.isUpdate ? 'put' : 'post';
         const response = await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Purchase order saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Purchase order saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -7634,13 +7634,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 953:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1219);
+var content = __webpack_require__(1222);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

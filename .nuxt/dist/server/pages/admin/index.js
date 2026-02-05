@@ -1,7 +1,7 @@
-exports.ids = [222,57,102,103,134,138,139,344];
+exports.ids = [222,57,102,103,134,138,139,345];
 exports.modules = {
 
-/***/ 1068:
+/***/ 1069:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -182,42 +182,42 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1113:
+/***/ 1114:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier_2.208aede.svg";
 
 /***/ }),
 
-/***/ 1114:
+/***/ 1115:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/invoice.45f420f.svg";
 
 /***/ }),
 
-/***/ 1115:
+/***/ 1116:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/pay-card.8fb80cc.svg";
 
 /***/ }),
 
-/***/ 1116:
+/***/ 1117:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/stock.b6becdb.svg";
 
 /***/ }),
 
-/***/ 1117:
+/***/ 1118:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/patient.1cdc99c.svg";
 
 /***/ }),
 
-/***/ 1118:
+/***/ 1119:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -229,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1119:
+/***/ 1120:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -245,7 +245,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1462:
+/***/ 1465:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -442,7 +442,7 @@ var common = __webpack_require__(7);
 var minStockCard = __webpack_require__(881);
 
 // EXTERNAL MODULE: ./components/menuOverview/index.vue + 4 modules
-var menuOverview = __webpack_require__(1068);
+var menuOverview = __webpack_require__(1069);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -533,23 +533,23 @@ var external_echarts_ = __webpack_require__(421);
       },
       menus: [{
         title: 'POS',
-        svgIcon: __webpack_require__(1113),
+        svgIcon: __webpack_require__(1114),
         path: '/pos/minimart'
       }, {
         title: 'Invoice',
-        svgIcon: __webpack_require__(1114),
+        svgIcon: __webpack_require__(1115),
         path: '/admin/ordersFromPos'
       }, {
         title: 'ລູກຫນີ້',
-        svgIcon: __webpack_require__(1115),
+        svgIcon: __webpack_require__(1116),
         path: '/admin/ordersFromPosCredit'
       }, {
         title: 'Stock',
-        svgIcon: __webpack_require__(1116),
+        svgIcon: __webpack_require__(1117),
         path: '/admin/product/productlist'
       }, {
         title: 'Customer',
-        svgIcon: __webpack_require__(1117),
+        svgIcon: __webpack_require__(1118),
         path: '/admin/client'
       }]
     };
@@ -870,7 +870,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1118)
+  var style0 = __webpack_require__(1119)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -994,7 +994,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1095,7 +1095,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1207,7 +1207,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 493:
+/***/ 492:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1372,9 +1372,9 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
       await this.$axios.post('uploadmulti_update', fData).then(() => {
         this.$emit('close-dialog');
         this.$emit('refresh');
-        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "l"])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "m"])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
-        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "k"])(this.$swal, 'Error', er.response.data);
+        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "l"])(this.$swal, 'Error', er.response.data);
       });
       this.isLoading = false;
     },
@@ -1459,7 +1459,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
           img_name: this.formData.pro_image[idx].name
         }).then(() => {
           this.formData.pro_image.splice(idx, 1);
-          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "l"])(this.$swal, 'Succeed', 'ລຶບສຳເລັດ');
+          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "m"])(this.$swal, 'Succeed', 'ລຶບສຳເລັດ');
         });
         this.isLoading = false;
       });
@@ -1479,7 +1479,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 494:
+/***/ 493:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1851,7 +1851,7 @@ const swalError2 = (swal, title, error) => {
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1981,13 +1981,13 @@ const swalError2 = (swal, title, error) => {
 
 /***/ }),
 
-/***/ 496:
+/***/ 495:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(497);
+var content = __webpack_require__(496);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -1995,7 +1995,7 @@ __webpack_require__(5).default("735d40bc", content, true)
 
 /***/ }),
 
-/***/ 497:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2048,7 +2048,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -2411,9 +2411,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.post(api, this.form);
           console.log(`Load data ${JSON.stringify(response)}`);
           await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -2432,9 +2432,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.delete(api);
           console.log(`Load data `);
           await this.loadEntry();
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
         } catch (error) {
-          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -2451,7 +2451,7 @@ var external_vuex_ = __webpack_require__(14);
         this.entries = response.data;
       } catch (error) {
         console.log('Cannot fetch data ' + error);
-        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
       }
     },
     refreshData() {
@@ -2890,7 +2890,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -2914,13 +2914,13 @@ var VIcon = __webpack_require__(64);
 var VRow = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductFormCreate.vue?vue&type=template&id=d3712508&scoped=true
 
@@ -3436,7 +3436,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/product/ProductFormCreate.vue?vue&type=template&id=d3712508&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductFormCreate.vue?vue&type=script&lang=js
-var ProductFormCreatevue_type_script_lang_js = __webpack_require__(494);
+var ProductFormCreatevue_type_script_lang_js = __webpack_require__(493);
 
 // CONCATENATED MODULE: ./components/product/ProductFormCreate.vue?vue&type=script&lang=js
  /* harmony default export */ var product_ProductFormCreatevue_type_script_lang_js = (ProductFormCreatevue_type_script_lang_js["a" /* default */]); 
@@ -3497,7 +3497,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -3527,13 +3527,13 @@ var VImg = __webpack_require__(105);
 var VRow = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=template&id=5dce2c23&scoped=true
 
@@ -4197,7 +4197,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=template&id=5dce2c23&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=script&lang=js
-var ProductFormvue_type_script_lang_js = __webpack_require__(493);
+var ProductFormvue_type_script_lang_js = __webpack_require__(492);
 
 // CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=script&lang=js
  /* harmony default export */ var product_ProductFormvue_type_script_lang_js = (ProductFormvue_type_script_lang_js["a" /* default */]); 
@@ -4595,7 +4595,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(496);
+/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
 /* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var _VChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(130);
@@ -5435,7 +5435,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1119);
+var content = __webpack_require__(1120);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

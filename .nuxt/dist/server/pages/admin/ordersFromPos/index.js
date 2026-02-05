@@ -1,26 +1,26 @@
-exports.ids = [252,40,113,114,119,130,178];
+exports.ids = [253,40,114,130,178];
 exports.modules = {
 
-/***/ 1194:
+/***/ 1197:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4a887a2d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(942);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4a887a2d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4a887a2d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4a887a2d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_4a887a2d_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7dfb1e6b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(943);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7dfb1e6b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7dfb1e6b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7dfb1e6b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7dfb1e6b_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1195:
+/***/ 1198:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-4a887a2d],.text-h5[data-v-4a887a2d]{font-family:\"Noto Sans Lao\"}table[data-v-4a887a2d]{border:1px solid #000}.payment-summary-card[data-v-4a887a2d]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-4a887a2d]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-4a887a2d]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-4a887a2d]{margin-bottom:8px}.payment-summary-card h3[data-v-4a887a2d]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-4a887a2d]{border-radius:4px}.v-alert--dense[data-v-4a887a2d]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-4a887a2d]{margin-bottom:16px}.payment-summary-card h3[data-v-4a887a2d]{font-size:1.2rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".payment-summary-card[data-v-7dfb1e6b]:hover{box-shadow:0 4px 15px rgba(0,0,0,.1)}.grey[data-v-7dfb1e6b],.text-h5[data-v-7dfb1e6b]{font-family:\"Noto Sans Lao\"}table[data-v-7dfb1e6b]{border:1px solid #000}.payment-summary-card[data-v-7dfb1e6b]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-7dfb1e6b]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-7dfb1e6b]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-7dfb1e6b]{margin-bottom:8px}.payment-summary-card h3[data-v-7dfb1e6b]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-7dfb1e6b]{border-radius:4px}.v-alert--dense[data-v-7dfb1e6b]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-7dfb1e6b]{margin-bottom:16px}.payment-summary-card h3[data-v-7dfb1e6b]{font-size:1.2rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,21 +28,12 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1459:
+/***/ 1462:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
-var VAlert = __webpack_require__(442);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(420);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
-var VAvatar = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(129);
@@ -74,9 +65,6 @@ var VDivider = __webpack_require__(125);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(64);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
-var VLayout = __webpack_require__(434);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(131);
 
@@ -95,7 +83,7 @@ var VSelect = __webpack_require__(20);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=4a887a2d&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=7dfb1e6b&scoped=true
 
 
 
@@ -114,30 +102,27 @@ var VTextField = __webpack_require__(39);
 
 
 
-
-
-
-
-var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function render() {
+var ordersFromPosvue_type_template_id_7dfb1e6b_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-4a887a2d>", "</div>", [_c(VChip["a" /* default */], {
-    staticClass: "pa-5",
+  }, [_vm._ssrNode("<div class=\"mb-5\" data-v-7dfb1e6b>", "</div>", [_c(VChip["a" /* default */], {
+    staticClass: "pa-5 mr-2",
     attrs: {
       "color": "primary",
       "label": "",
       "text-color": "white"
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການບິນຂາຍ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-file-document-outline")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການບິນຂາຍ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
-      "color": "primary",
+      "color": "secondary",
       "label": "",
       "text-color": "white"
     },
@@ -147,10 +132,11 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       }
     }
   }, [_c(VIcon["a" /* default */], {
+    staticClass: "mr-2",
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi mdi-lifebuoy")]), _vm._v(" "), _c('h3', [_vm._v("ຄູ່ມືການນຳໃຊ້")])], 1)], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("mdi-lifebuoy")]), _vm._v(" "), _c('h3', [_vm._v("ຄູ່ມືການນຳໃຊ້")])], 1)], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "persistent": "",
@@ -163,7 +149,20 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "isloading"
     }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "pa-5 text-center",
+    staticStyle: {
+      "background": "white",
+      "border-radius": "10px"
+    }
+  }, [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "indeterminate": "",
+      "color": "primary"
+    }
+  }), _vm._v(" "), _c('p', {
+    staticClass: "mt-2"
+  }, [_vm._v("ກຳລັງໂຫລດຂໍ້ມູນ...")])], 1)]), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "max-width": "700"
@@ -255,22 +254,26 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "paymentDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-4a887a2d>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "rounded-lg",
     attrs: {
-      "row": "",
+      "elevation": "2"
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "pa-6"
+  }, [_c(VRow["a" /* default */], {
+    attrs: {
       "wrap": ""
     }
   }, [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "4"
     }
   }, [_c(VMenu["a" /* default */], {
-    ref: "menu1",
     attrs: {
       "close-on-content-click": false,
-      "transition": "scale-transition",
       "offset-y": "",
-      "max-width": "290px",
       "min-width": "auto"
     },
     scopedSlots: _vm._u([{
@@ -282,14 +285,8 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
             "label": "ຈາກວັນທີ:",
-            "hint": "MM/DD/YYYY format",
-            "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
-          },
-          on: {
-            "blur": function ($event) {
-              _vm.fromDate = _vm.parseDate(_vm.fromDateLabel);
-            }
+            "prepend-inner-icon": "mdi-calendar",
+            "readonly": ""
           },
           model: {
             value: _vm.fromDateLabel,
@@ -308,10 +305,7 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "menu1"
     }
-  }, [_c(VDatePicker["a" /* default */], {
-    attrs: {
-      "no-title": ""
-    },
+  }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     on: {
       "input": function ($event) {
         _vm.menu1 = false;
@@ -325,12 +319,9 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       expression: "fromDate"
     }
   })], 1), _vm._v(" "), _c(VMenu["a" /* default */], {
-    ref: "menu2",
     attrs: {
       "close-on-content-click": false,
-      "transition": "scale-transition",
       "offset-y": "",
-      "max-width": "290px",
       "min-width": "auto"
     },
     scopedSlots: _vm._u([{
@@ -342,14 +333,8 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
             "label": "ຫາວັນທີ:",
-            "hint": "MM/DD/YYYY format",
-            "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
-          },
-          on: {
-            "blur": function ($event) {
-              _vm.toDate = _vm.parseDate(_vm.toDateLabel);
-            }
+            "prepend-inner-icon": "mdi-calendar",
+            "readonly": ""
           },
           model: {
             value: _vm.toDateLabel,
@@ -368,10 +353,7 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "menu2"
     }
-  }, [_c(VDatePicker["a" /* default */], {
-    attrs: {
-      "no-title": ""
-    },
+  }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     on: {
       "input": function ($event) {
         _vm.menu2 = false;
@@ -386,9 +368,11 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
     }
   })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "4"
     }
   }, [_c(VTextField["a" /* default */], {
+    staticClass: "mb-2",
     attrs: {
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
@@ -402,31 +386,14 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "search"
     }
-  }), _vm._v(" "), _c(VTextField["a" /* default */], {
-    attrs: {
-      "append-icon": "mdi-magnify",
-      "label": "ລະຫັດຜູ້ຂາຍ",
-      "single-line": "",
-      "hide-details": ""
-    },
-    model: {
-      value: _vm.userId,
-      callback: function ($$v) {
-        _vm.userId = $$v;
-      },
-      expression: "userId"
-    }
   }), _vm._v(" "), _c(VSelect["a" /* default */], {
     attrs: {
       "items": _vm.paymentFilterOptions,
       "item-text": "label",
       "item-value": "value",
-      "label": "ຟິລເຕີປະເພດການຊຳລະ",
+      "label": "ປະເພດການຊຳລະ",
       "clearable": "",
       "prepend-icon": "mdi-filter"
-    },
-    on: {
-      "change": _vm.applyPaymentFilter
     },
     model: {
       value: _vm.selectedPaymentFilter,
@@ -435,535 +402,148 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       },
       expression: "selectedPaymentFilter"
     }
-  }), _vm._v(" "), _c(VAutocomplete["a" /* default */], {
-    attrs: {
-      "item-text": "name",
-      "item-value": "id",
-      "items": _vm.customTerminalList,
-      "label": "ເລືອກຕາມ ຮ້ານ*"
-    },
-    model: {
-      value: _vm.terminalId,
-      callback: function ($$v) {
-        _vm.terminalId = $$v;
-      },
-      expression: "terminalId"
-    }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-left",
+    staticClass: "text-right",
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "4"
     }
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
+    staticClass: "mb-2",
     attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
+      "color": "primary",
+      "block": "",
+      "rounded": "",
+      "large": ""
     },
     on: {
       "click": _vm.createSale
     }
-  }, [_c('span', {
-    staticClass: "mdi mdi-plus"
-  }), _vm._v("Create\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.exportToExcel
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-microsoft-excel"
-  }), _vm._v("Generate excel file\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "success",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": "",
-      "disabled": _vm.isloading || _vm.filteredOrderHeaderList.length === 0
-    },
-    on: {
-      "click": _vm.printSalesReport
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-printer"
-  }), _vm._v("Print Report\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-right",
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.loadData
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-cloud-download"
-  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('h3', {
-    staticClass: "mb-3"
   }, [_c(VIcon["a" /* default */], {
     attrs: {
       "left": ""
     }
-  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n              ສະຫຼຸບຕາມປະເພດການຊຳລະ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+  }, [_vm._v("mdi-plus")]), _vm._v(" Create Sale")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
-      "cols": "6",
+      "color": "success",
+      "block": "",
+      "rounded": "",
+      "large": "",
+      "disabled": !_vm.filteredOrderHeaderList.length
+    },
+    on: {
+      "click": _vm.printSalesReport
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-printer")]), _vm._v(" Print Report")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-6"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
       "lg": "3"
     }
-  }, [_c('order-sumary-card-pos', {
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "pa-4 rounded-lg elevation-3",
     attrs: {
-      "showTotal": true,
-      "gross": _vm.getFormatNum(_vm.totalSaleRaw - +this.unpaidCodOrder.saleRawNumber),
-      "orderDetail": {
-        title: 'ຍອດບິນທັງໝົດ',
-        amount: _vm.getFormatNum(_vm.filteredOrderHeaderList.length),
-        sale: _vm.getFormatNum(_vm.totalSale)
-      }
+      "color": "primary",
+      "dark": ""
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "text-subtitle-1"
+  }, [_vm._v("ຍອດຂາຍລວມ (Converted)")]), _vm._v(" "), _c('div', {
+    staticClass: "text-h4 font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.formatNumber(_vm.totalSaleConverted)))]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "my-2",
     attrs: {
-      "cols": "6",
+      "dark": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "d-flex justify-space-between"
+  }, [_c('span', [_vm._v("ຈຳນວນບິນ:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.filteredOrderHeaderList.length) + " ບິນ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
       "lg": "9"
     }
-  }, [_c(VRow["a" /* default */], _vm._l(_vm.paymentStatistics, function (paymentStat) {
+  }, [_c(VRow["a" /* default */], _vm._l(_vm.paymentStatistics, function (stat) {
     return _c(VCol["a" /* default */], {
-      key: paymentStat.code,
+      key: stat.code,
       attrs: {
-        "cols": "6",
-        "md": "4",
-        "lg": "3"
+        "cols": "12",
+        "sm": "6",
+        "md": "3"
       }
     }, [_c(VCard["a" /* default */], {
-      staticClass: "payment-summary-card pa-3 text-center elevation-2",
-      class: {
-        'selected-payment': _vm.selectedPaymentFilter === paymentStat.code
-      },
-      staticStyle: {
-        "cursor": "pointer",
-        "transition": "all 0.2s ease"
-      },
+      staticClass: "payment-summary-card pa-3 text-center rounded-lg",
+      style: _vm.selectedPaymentFilter === stat.code ? 'border: 2px solid #1976d2' : '',
       attrs: {
         "outlined": ""
       },
       on: {
         "click": function ($event) {
-          return _vm.filterByPaymentType(paymentStat.code);
+          return _vm.filterByPaymentType(stat.code);
         }
       }
     }, [_c(VIcon["a" /* default */], {
-      staticClass: "mb-2",
       attrs: {
-        "color": paymentStat.color,
+        "color": stat.color,
         "size": "32"
       }
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.icon) + "\n                  ")]), _vm._v(" "), _c('h3', {
-      class: `${paymentStat.color}--text mb-1`
-    }, [_vm._v("\n                    " + _vm._s(_vm.formatNumber(paymentStat.amount)) + " LAK\n                  ")]), _vm._v(" "), _c('div', {
-      staticClass: "text--secondary mb-1"
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.name) + "\n                  ")]), _vm._v(" "), _c(VChip["a" /* default */], {
-      staticClass: "font-weight-bold",
+    }, [_vm._v("mdi-credit-card")]), _vm._v(" "), _c('div', {
+      staticClass: "text-h6 mt-1"
+    }, [_vm._v(_vm._s(_vm.formatNumber(stat.amount)))]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption grey--text"
+    }, [_vm._v(_vm._s(stat.name))]), _vm._v(" "), _c(VProgressLinear["a" /* default */], {
+      staticClass: "mt-2",
       attrs: {
-        "color": paymentStat.color,
-        "small": "",
-        "outlined": ""
-      }
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.count) + " ລາຍການ\n                  ")]), _vm._v(" "), _c('div', {
-      staticClass: "mt-2"
-    }, [_c(VProgressLinear["a" /* default */], {
-      attrs: {
-        "value": paymentStat.percentage,
-        "color": paymentStat.color,
-        "height": "4",
+        "value": stat.percentage,
+        "color": stat.color,
+        "height": "6",
         "rounded": ""
       }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "mt-1"
-    }, [_vm._v("\n                      " + _vm._s(paymentStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                    ")])], 1)], 1)], 1);
-  }), 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
-    staticClass: "mt-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c(VCard["a" /* default */], {
-    staticClass: "pa-4",
-    attrs: {
-      "outlined": ""
-    }
-  }, [_c('h4', {
-    staticClass: "mb-3"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n                ສະຖິຕິການຊຳລະ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "md": "3"
-    }
-  }, [_c('div', {
-    staticClass: "text-center"
-  }, [_c('h2', {
-    staticClass: "primary--text"
-  }, [_vm._v(_vm._s(_vm.singlePaymentCount))]), _vm._v(" "), _c('div', {}, [_vm._v("ຊຳລະແບບດຽວ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "value": _vm.singlePaymentPercentage,
-      "color": "primary",
-      "size": "60",
-      "width": "4"
-    }
-  }, [_c('small', [_vm._v(_vm._s(_vm.singlePaymentPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "md": "3"
-    }
-  }, [_c('div', {
-    staticClass: "text-center"
-  }, [_c('h2', {
-    staticClass: "success--text"
-  }, [_vm._v(_vm._s(_vm.multiPaymentCount))]), _vm._v(" "), _c('div', {}, [_vm._v("ຊຳລະຫຼາຍວິທີ")]), _vm._v(" "), _c(VProgressCircular["a" /* default */], {
-    attrs: {
-      "value": _vm.multiPaymentPercentage,
-      "color": "success",
-      "size": "60",
-      "width": "4"
-    }
-  }, [_c('small', [_vm._v(_vm._s(_vm.multiPaymentPercentage.toFixed(0)) + "%")])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12",
-      "md": "6"
-    }
-  }, [_c('div', {
-    staticClass: "d-flex justify-center align-center"
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
-    class: {
-      'primary white--text': _vm.selectedPaymentFilter === 'SINGLE'
-    },
-    attrs: {
-      "outlined": "",
-      "color": "primary"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.filterByPaymentType('SINGLE');
-      }
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-credit-card")]), _vm._v("\n                      ສະແດງແຕ່ການຊຳລະດຽວ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "mr-2",
-    class: {
-      'success white--text': _vm.selectedPaymentFilter === 'MULTI'
-    },
-    attrs: {
-      "outlined": "",
-      "color": "success"
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.filterByPaymentType('MULTI');
-      }
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n                      ສະແດງການຊຳລະຫຼາຍວິທີ\n                    ")], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "outlined": "",
-      "color": "grey"
-    },
-    on: {
-      "click": _vm.clearPaymentFilter
-    }
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-filter-off")]), _vm._v("\n                      ສະແດງທັງໝົດ\n                    ")], 1)], 1)])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _vm.filteredOrderHeaderList ? _c(VDataTable["a" /* default */], {
-    staticClass: "elevation-1",
+    })], 1)], 1);
+  }), 1)], 1)], 1), _vm._v(" "), _c(VDataTable["a" /* default */], {
+    staticClass: "elevation-1 mt-6",
     attrs: {
       "headers": _vm.headers,
-      "search": _vm.search,
       "items": _vm.filteredOrderHeaderList,
-      "loading": _vm.isloading,
-      "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ..."
+      "search": _vm.search,
+      "loading": _vm.isloading
     },
     scopedSlots: _vm._u([{
-      key: "top",
-      fn: function () {
-        return [_vm.selectedPaymentFilter ? _c('div', {
-          staticClass: "pa-3"
-        }, [_c(VAlert["a" /* default */], {
-          attrs: {
-            "type": _vm.selectedPaymentFilter === 'MULTI' ? 'success' : 'info',
-            "dense": "",
-            "text": "",
-            "dismissible": ""
-          },
-          on: {
-            "input": _vm.clearPaymentFilter
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": ""
-          }
-        }, [_vm._v("mdi-filter")]), _vm._v("\n              ກຳລັງສະແດງ:\n              " + _vm._s(_vm.getFilterDisplayName(_vm.selectedPaymentFilter)) + " (" + _vm._s(_vm.filteredOrderHeaderList.length) + "\n              ລາຍການ)\n            ")], 1)], 1) : _vm._e()];
-      },
-      proxy: true
-    }, {
       key: `item.bookingDate`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(item.bookingDate.split('T')[0]) + "\n          "), _c('h6', {
-          style: {
-            color: item.client && _vm.countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'red' : 'green'
-          }
-        }, [_vm._v("\n            " + _vm._s(_vm.countDay(item.bookingDate.split('T')[0])) + "\n          ")])];
-      }
-    }, {
-      key: `item.client.credit`,
-      fn: function ({
-        item
-      }) {
-        return [item.client ? [new Date(_vm.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date() ? _c(VChip["a" /* default */], {
-          staticClass: "ma-2",
-          attrs: {
-            "color": "red",
-            "text-color": "white"
-          }
-        }, [_vm._v("\n              " + _vm._s(_vm.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) + "\n            ")]) : _c(VChip["a" /* default */], {
-          staticClass: "ma-2",
-          attrs: {
-            "color": "green",
-            "text-color": "white"
-          }
-        }, [_vm._v("\n              " + _vm._s(_vm.dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) + "\n            ")])] : [_c(VChip["a" /* default */], {
-          staticClass: "ma-2",
-          attrs: {
-            "color": "grey",
-            "text-color": "white"
-          }
-        }, [_vm._v("\n              N/A\n            ")])]];
-      }
-    }, {
-      key: `item.dynamic_customer`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VAvatar["a" /* default */], {
-          attrs: {
-            "color": item.dynamic_customer ? 'green' : 'red',
-            "size": "10"
-          }
-        })];
-      }
-    }, {
-      key: `item.discount`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.discount)) + "\n        ")];
-      }
-    }, {
-      key: `item.total`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total + item.discount)) + "\n        ")];
-      }
-    }, {
-      key: `item.grandTotal`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total)) + "\n        ")];
-      }
-    }, {
-      key: `item.createdAt`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          staticStyle: {
-            "cursor": "pointer"
-          },
-          attrs: {
-            "color": "success",
-            "small": "",
-            "dark": ""
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "small": ""
-          }
-        }, [_vm._v("mdi-clock")]), _vm._v("\n            " + _vm._s(_vm.getLocalDate(item.createdAt)) + "\n          ")], 1)];
-      }
-    }, {
-      key: `item.ticketId`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VChip["a" /* default */], {
-          staticStyle: {
-            "cursor": "pointer"
-          },
-          attrs: {
-            "color": "success",
-            "small": "",
-            "dark": ""
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "small": ""
-          }
-        }, [_vm._v("mdi-ticket")]), _vm._v("\n            " + _vm._s(item.id) + "\n          ")], 1)];
-      }
-    }, {
-      key: `item.id`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "primary",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              _vm.viewItem(item);
-              _vm.wallet = true;
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fa-regular fa-pen-to-square"
-        })])];
-      }
-    }, {
-      key: `item.cancel`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "blue darken-1",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              _vm.cancelItem(item);
-              _vm.wallet = true;
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-sync"
-        })])];
+        return [_vm._v("\n          " + _vm._s(item.bookingDate.split('T')[0]) + "\n        ")];
       }
     }, {
       key: `item.payment.payment_code`,
       fn: function ({
         item
       }) {
-        var _item$payment, _item$payment2, _item$payment3;
-        return [_vm.isMultiPayment(item) ? _c('div', [_c(VChip["a" /* default */], {
-          staticStyle: {
-            "cursor": "pointer"
-          },
-          attrs: {
-            "color": "success",
-            "small": "",
-            "dark": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.showPaymentDetails(item);
-            }
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "small": ""
-          }
-        }, [_vm._v("mdi-credit-card-multiple")]), _vm._v("\n              ຫຼາຍວິທີ (" + _vm._s(_vm.getPaymentMethodsCount(item)) + ")\n            ")], 1)], 1) : _c('div', [_c(VChip["a" /* default */], {
+        var _item$payment, _item$payment2;
+        return [_c(VChip["a" /* default */], {
           attrs: {
             "color": _vm.getPaymentMethodColor((_item$payment = item.payment) === null || _item$payment === void 0 ? void 0 : _item$payment.payment_code),
             "small": "",
             "dark": ""
-          }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "left": "",
-            "small": ""
-          }
-        }, [_vm._v(_vm._s(_vm.getPaymentMethodIcon((_item$payment2 = item.payment) === null || _item$payment2 === void 0 ? void 0 : _item$payment2.payment_code)))]), _vm._v("\n              " + _vm._s(((_item$payment3 = item.payment) === null || _item$payment3 === void 0 ? void 0 : _item$payment3.payment_name) || 'N/A') + "\n            ")], 1)], 1)];
-      }
-    }, {
-      key: `item.paymentDetails`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "info",
-            "text": "",
-            "small": "",
-            "disabled": !_vm.hasPaymentDetails(item)
           },
           on: {
             "click": function ($event) {
               return _vm.showPaymentDetails(item);
             }
           }
-        }, [_c(VIcon["a" /* default */], {
-          attrs: {
-            "small": ""
-          }
-        }, [_vm._v("mdi-eye")]), _vm._v("\n            ລາຍລະອຽດ\n          ")], 1)];
+        }, [_vm._v("\n            " + _vm._s(_vm.isMultiPayment(item) ? 'ຫຼາຍວິທີ' : (_item$payment2 = item.payment) === null || _item$payment2 === void 0 ? void 0 : _item$payment2.payment_name) + "\n          ")])];
       }
     }, {
-      key: `item.cusTel`,
+      key: `item.total`,
       fn: function ({
         item
       }) {
-        return [item.client && item.client.telephone ? _c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "blue darken-1",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              return _vm.whatsappLink(item);
-            }
-          }
-        }, [_vm._v("\n            " + _vm._s(item.client.telephone) + "\n            "), _c('a', {
-          attrs: {
-            "href": _vm.whatsappContactLink,
-            "target": "_blank"
-          }
-        }, [_vm._v("Whatsapp")])]) : _c('span', {
-          staticClass: "text-grey"
-        }, [_vm._v("N/A")])];
+        return [_vm._v("\n           " + _vm._s(_vm.formatNumber(item.total)) + "\n        ")];
       }
     }, {
       key: `item.print`,
@@ -972,7 +552,7 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
       }) {
         return [_c(VBtn["a" /* default */], {
           attrs: {
-            "text": "",
+            "icon": "",
             "color": "primary"
           },
           on: {
@@ -980,16 +560,31 @@ var ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render = function ren
               return _vm.printDefaultTicket(item);
             }
           }
-        }, [_c('span', {
-          staticClass: "mdi mdi-printer"
-        })])];
+        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-printer")])], 1)];
+      }
+    }, {
+      key: `item.id`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VBtn["a" /* default */], {
+          attrs: {
+            "icon": "",
+            "color": "info"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.viewItem(item);
+            }
+          }
+        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-pencil-box-outline")])], 1)];
       }
     }], null, true)
-  }) : _vm._e()], 1)], 1)], 2);
+  })], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=4a887a2d&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=7dfb1e6b&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1498,14 +1093,8 @@ const formatDateForReport = formatDateLao;
 // EXTERNAL MODULE: ./common/ticket.js
 var ticket = __webpack_require__(167);
 
-// EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(492);
-
 // EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
-var OrderDetailPosCRUD = __webpack_require__(483);
-
-// EXTERNAL MODULE: ./components/orderSumaryCardPos.vue + 4 modules
-var orderSumaryCardPos = __webpack_require__(486);
+var OrderDetailPosCRUD = __webpack_require__(485);
 
 // EXTERNAL MODULE: ./components/pos/dialogs/TicketDetailsDialog.vue + 4 modules
 var TicketDetailsDialog = __webpack_require__(621);
@@ -1520,788 +1109,305 @@ var external_vuex_ = __webpack_require__(14);
 
 
 
-
-// IMPORT: Add the new reusable component
-
-
 /* harmony default export */ var ordersFromPosvue_type_script_lang_js = ({
   components: {
-    OrderDetailPos: OrderDetailPos["default"],
-    OrderSumaryCardPos: orderSumaryCardPos["default"],
     OrderDetailPosCRUD: OrderDetailPosCRUD["default"],
-    TicketDetailsDialog: TicketDetailsDialog["default"] // ADDED: Register the new component
+    TicketDetailsDialog: TicketDetailsDialog["default"]
   },
   middleware: 'auths',
   data() {
     return {
-      terminalId: 999,
-      guidelineDialog: false,
-      currencyList: [],
-      viewTransaction: false,
-      whatsappContactLink: '',
-      componentKey: 0,
-      dialogOrderDetail: false,
-      selectedOrder: 0,
-      wallet: false,
-      isedit: false,
-      dialog: false,
       isloading: false,
-      valid: true,
-      name: '',
+      guidelineDialog: false,
+      menu1: false,
+      menu2: false,
+      fromDate: new Date().toISOString().substr(0, 10),
+      toDate: new Date().toISOString().substr(0, 10),
+      fromDateLabel: '',
+      toDateLabel: '',
       search: '',
       userId: null,
       orderHeaderList: [],
-      loadDataNoCancelOrder: [],
-      codPaid: [],
-      shippingList: [],
-      componentCancelFormKey: 1,
-      cancelForm: false,
-      OrderIdSelected: '',
-      lastTransactionSaleHeaderId: 0,
-      // SIMPLIFIED: Payment Details Dialog - now handled by component
+      selectedPaymentFilter: null,
       paymentDetailsDialog: false,
       selectedOrderForPayments: null,
-      // Payment Filtering
-      selectedPaymentFilter: null,
+      dialogOrderDetail: false,
+      selectedOrder: 0,
+      viewTransaction: false,
+      componentKey: 0,
+      OrderIdSelected: '',
+      cancelForm: false,
+      componentCancelFormKey: 1,
       headers: [{
         text: 'ວັນທີ',
-        align: 'center',
-        value: 'bookingDate',
-        sortable: true
+        value: 'bookingDate'
       }, {
-        text: 'ເລກທີ ໃບບິນ',
-        align: 'center',
-        value: 'ticketId',
-        sortable: true
-      }, {
-        text: 'Offline/Online',
-        align: 'center',
-        value: 'dynamic_customer',
-        sortable: true
+        text: 'ເລກບິນ',
+        value: 'id'
       }, {
         text: 'ລູກຄ້າ',
-        align: 'center',
-        value: 'client.name',
-        sortable: true
-      }, {
-        text: 'ເບີໂທ',
-        align: 'center',
-        value: 'cusTel',
-        sortable: false
+        value: 'client.name'
       }, {
         text: 'ຊຳລະດ້ວຍ',
-        align: 'center',
-        value: 'payment.payment_code',
-        sortable: true
-      }, {
-        text: 'ລາຍລະອຽດການຊຳລະ',
-        align: 'center',
-        value: 'paymentDetails',
-        sortable: false
+        value: 'payment.payment_code'
       }, {
         text: 'ສະກຸນເງິນ',
-        align: 'center',
-        value: 'currency.code',
-        sortable: true
+        value: 'currency.code'
       }, {
-        text: 'ອັດຕາແລກປ່ຽນ',
-        align: 'center',
-        value: 'exchangeRate',
-        sortable: true
-      }, {
-        text: 'ລາຄາເຕັມ',
-        align: 'end',
+        text: 'ຍອດລວມ',
         value: 'total',
-        sortable: false
+        align: 'end'
       }, {
-        text: 'ສ່ວນຫລຸດ',
-        align: 'end',
-        value: 'discount',
-        sortable: true
-      }, {
-        text: 'ລວມ',
-        align: 'end',
-        value: 'grandTotal',
-        sortable: false
-      }, {
-        text: 'ຜູ້ລົງທຸລະກຳ',
-        align: 'end',
-        value: 'user.cus_name',
-        sortable: false
-      }, {
-        text: 'ເວລາລົງ',
-        align: 'end',
-        value: 'createdAt',
-        sortable: false
-      }, {
-        text: 'ພິມບິນ',
-        align: 'end',
+        text: 'ພິມ',
         value: 'print',
         sortable: false
       }, {
-        text: 'View/Update',
-        align: 'end',
+        text: 'Edit',
         value: 'id',
         sortable: false
-      }],
-      // fromDate: getFirstDayOfMonth(),// FIRSTDAY OF MONTH
-      fromDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      toDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      // fromDateLabel: this.formatDate(getFirstDayOfMonth()),// FRIST DATE OF THE MONTH
-      fromDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      toDateLabel: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
-      menu1: false,
-      menu2: false
+      }]
     };
   },
-  // Rest of your component logic remains the same...
-  async created() {
-    this.terminalId = this.findSelectedTerminal;
-    console.log(`Current terminal select ${this.findSelectedTerminal}`);
-    try {
-      await Object(api["d" /* preloadCompanyData */])(this.$axios);
-      console.log('Company data preloaded for sales report');
-    } catch (error) {
-      console.warn('Company preload failed, using fallback:', error);
-    }
-    await this.loadData();
-    await this.loadShipping();
-    await this.loadCurrency();
-  },
-  watch: {
-    fromDate(val) {
-      console.log(`FROM DATE WATCHER VAL ${val}`);
-      this.fromDateLabel = this.formatDate(this.fromDate);
-      this.loadData();
-    },
-    toDate(val) {
-      console.log(`TO DATE WATCHER ${this.toDate}`);
-      this.toDateLabel = this.formatDate(this.toDate);
-      this.loadData();
-    }
-  },
   computed: {
-    // All your existing computed properties remain the same...
+    ...Object(external_vuex_["mapGetters"])(['findAllCurrency', 'findAllPayment', 'currentSelectedLocation', 'findSelectedTerminal', 'findAllTerminal', 'findAllProduct']),
     companyData() {
-      console.log(`**********ENHANCED COMPANY DATA**********`);
-      const company = Object(api["b" /* mainCompanyInfo */])();
-      console.log('Company info:', company);
-      return company;
-    },
-    companyLogo() {
-      const company = this.companyData;
-      if (company.apiData && company.apiData.profile_image_path) {
-        const baseUrl = this.$axios.defaults.baseURL || '';
-        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`;
-        console.log('Using API logo:', logoUrl);
-        return logoUrl;
-      }
-      if (company.ticketLogo) {
-        try {
-          const staticLogo = __webpack_require__(145)(`./${company.ticketLogo}`);
-          console.log('Using static logo:', company.ticketLogo);
-          return staticLogo;
-        } catch (error) {
-          console.warn('Static logo not found:', company.ticketLogo, error);
-        }
-      }
-      if (company.dcLogo) {
-        try {
-          const fallbackLogo = __webpack_require__(145)(`./${company.dcLogo}`);
-          console.log('Using dcLogo fallback:', company.dcLogo);
-          return fallbackLogo;
-        } catch (error) {
-          console.warn('dcLogo not found:', company.dcLogo, error);
-        }
-      }
-      console.log('Using final fallback logo');
-      return '/static/images/default-logo.png';
+      return typeof common["mainCompanyInfo"] === 'function' ? Object(common["mainCompanyInfo"])() : {};
     },
     ticketCommon() {
-      return Object(common["m" /* ticketHtml */])();
+      return typeof common["n" /* ticketHtml */] === 'function' ? Object(common["n" /* ticketHtml */])() : '';
     },
-    // All your existing computed properties...
-    currentTerminal() {
-      console.log(`ALL TEMINAL ${this.findAllTerminal.length} SELECTED ${this.findSelectedTerminal}`);
-      const terminalInfo = this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
-      console.log(`************ ${this.findAllTerminal.length} SELECTED ${terminalInfo === null || terminalInfo === void 0 ? void 0 : terminalInfo['name']} ************ `);
-      return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
+    companyLogo() {
+      var _data$apiData;
+      const data = this.companyData;
+      if (data !== null && data !== void 0 && (_data$apiData = data.apiData) !== null && _data$apiData !== void 0 && _data$apiData.profile_image_path) return `${this.$axios.defaults.baseURL}/${data.apiData.profile_image_path}`;
+      return '';
     },
-    customTerminalList() {
-      let originalTerminalListVanilla = JSON.stringify(this.findAllTerminal);
-      let originalTerminalList = JSON.parse(originalTerminalListVanilla);
-      const extraTerminal = {
-        id: 999,
-        code: 1999,
-        name: 'ທັງໝົດ',
-        description: '',
-        locationId: 1
-      };
-      originalTerminalList.push(extraTerminal);
-      console.log(`Terminal customer all len: ${originalTerminalList.length}`);
-      return originalTerminalList;
-    },
-    ...Object(external_vuex_["mapGetters"])(['currentSelectedLocation', 'cartOfProduct', 'currenctSelectedCategoryId', 'findAllProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation', 'findAllPayment' // ADDED: Payment methods from store
-    ]),
-    activeOrderHeaderList() {
-      console.log(`TerminalSelcted ${this.terminalId}`);
-      const terminal = this.findAllTerminal.find(el => el['id'] == this.terminalId);
-      if (!terminal) {
-        return this.orderHeaderList.filter(el => el['isActive'] == true && el['paymentId'] != 2);
-      }
-      console.log(`Current location ${JSON.stringify(terminal)}`);
-      return this.orderHeaderList.filter(el => el['isActive'] == true && el['paymentId'] != 2 && el['locationId'] == terminal['locationId']);
+    totalSaleConverted() {
+      return this.filteredOrderHeaderList.reduce((sum, item) => sum + this.getConvertedSaleTotal(item), 0);
     },
     filteredOrderHeaderList() {
-      if (!this.selectedPaymentFilter) {
-        return this.activeOrderHeaderList;
+      let list = this.orderHeaderList.filter(el => el.isActive);
+      if (this.selectedPaymentFilter) {
+        list = list.filter(item => {
+          var _item$payment;
+          if (this.selectedPaymentFilter === 'MULTI') return this.isMultiPayment(item);
+          return ((_item$payment = item.payment) === null || _item$payment === void 0 ? void 0 : _item$payment.payment_code) === this.selectedPaymentFilter;
+        });
       }
-      return this.activeOrderHeaderList.filter(item => {
-        switch (this.selectedPaymentFilter) {
-          case 'SINGLE':
-            return !this.isMultiPayment(item);
-          case 'MULTI':
-            return this.isMultiPayment(item);
-          case 'CASH':
-          case 'TRANSFER_BCEL':
-          case 'QR':
-          case 'CARD':
-          case 'COD':
-            if (this.isMultiPayment(item)) {
-              return item.payments.some(payment => {
-                var _payment$paymentMetho;
-                return ((_payment$paymentMetho = payment.paymentMethod) === null || _payment$paymentMetho === void 0 ? void 0 : _payment$paymentMetho.payment_code) === this.selectedPaymentFilter;
-              });
-            } else {
-              var _item$payment;
-              return ((_item$payment = item.payment) === null || _item$payment === void 0 ? void 0 : _item$payment.payment_code) === this.selectedPaymentFilter;
-            }
-          default:
-            return true;
-        }
-      });
+      return list;
     },
     paymentStatistics() {
       const stats = {};
-      let totalAmount = 0;
-      this.activeOrderHeaderList.forEach(item => {
-        const itemTotal = item.total - item.discount;
+      this.filteredOrderHeaderList.forEach(item => {
+        const totalInLocal = this.getConvertedSaleTotal(item);
         if (this.isMultiPayment(item)) {
-          item.payments.forEach(payment => {
-            var _payment$paymentMetho2;
-            const code = ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_code) || 'UNKNOWN';
+          const rawPaidSum = item.payments.reduce((s, p) => s + Number(p.amount), 0);
+          item.payments.forEach(p => {
+            var _p$paymentMethod;
+            const code = ((_p$paymentMethod = p.paymentMethod) === null || _p$paymentMethod === void 0 ? void 0 : _p$paymentMethod.payment_code) || 'OTHER';
+            const weight = rawPaidSum > 0 ? Number(p.amount) / rawPaidSum : 0;
             if (!stats[code]) {
-              var _payment$paymentMetho3;
+              var _p$paymentMethod2;
               stats[code] = {
-                code: code,
-                name: ((_payment$paymentMetho3 = payment.paymentMethod) === null || _payment$paymentMetho3 === void 0 ? void 0 : _payment$paymentMetho3.payment_name) || 'Unknown',
+                code,
+                name: ((_p$paymentMethod2 = p.paymentMethod) === null || _p$paymentMethod2 === void 0 ? void 0 : _p$paymentMethod2.payment_name) || code,
                 amount: 0,
                 count: 0,
-                color: this.getPaymentMethodColor(code),
-                icon: this.getPaymentMethodIcon(code)
+                color: 'primary'
               };
             }
-            stats[code].amount += payment.amount;
-            stats[code].count += 1;
-            totalAmount += payment.amount;
+            stats[code].amount += totalInLocal * weight;
+            stats[code].count++;
           });
-        } else if (item.payment) {
-          const code = item.payment.payment_code;
+        } else {
+          var _item$payment2;
+          const code = ((_item$payment2 = item.payment) === null || _item$payment2 === void 0 ? void 0 : _item$payment2.payment_code) || 'CASH';
           if (!stats[code]) {
+            var _item$payment3;
             stats[code] = {
-              code: code,
-              name: item.payment.payment_name,
+              code,
+              name: ((_item$payment3 = item.payment) === null || _item$payment3 === void 0 ? void 0 : _item$payment3.payment_name) || code,
               amount: 0,
               count: 0,
-              color: this.getPaymentMethodColor(code),
-              icon: this.getPaymentMethodIcon(code)
+              color: 'success'
             };
           }
-          stats[code].amount += itemTotal;
-          stats[code].count += 1;
-          totalAmount += itemTotal;
+          stats[code].amount += totalInLocal;
+          stats[code].count++;
         }
       });
-      Object.values(stats).forEach(stat => {
-        stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
-      });
-      return Object.values(stats).sort((a, b) => b.amount - a.amount);
+      const total = Object.values(stats).reduce((s, i) => s + i.amount, 0);
+      return Object.values(stats).map(s => ({
+        ...s,
+        percentage: total > 0 ? s.amount / total * 100 : 0
+      }));
     },
-    singlePaymentCount() {
-      return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length;
-    },
-    multiPaymentCount() {
-      return this.activeOrderHeaderList.filter(item => this.isMultiPayment(item)).length;
-    },
-    singlePaymentPercentage() {
-      const total = this.activeOrderHeaderList.length;
-      return total > 0 ? this.singlePaymentCount / total * 100 : 0;
-    },
-    multiPaymentPercentage() {
-      const total = this.activeOrderHeaderList.length;
-      return total > 0 ? this.multiPaymentCount / total * 100 : 0;
-    },
-    // ADDED: Dynamic payment filter options from store
     paymentFilterOptions() {
-      const options = [{
+      const base = [{
         label: 'ທັງໝົດ',
         value: null
-      }];
-
-      // Add payment methods from store
-      if (this.findAllPayment && this.findAllPayment.length > 0) {
-        this.findAllPayment.forEach(payment => {
-          if (payment.isActive) {
-            options.push({
-              label: payment.payment_name,
-              value: payment.payment_code
-            });
-          }
-        });
-      }
-
-      // Add special filter options
-      options.push({
-        label: 'ຊຳລະແບບດຽວ',
-        value: 'SINGLE'
       }, {
         label: 'ຊຳລະຫຼາຍວິທີ',
         value: 'MULTI'
-      });
-      return options;
+      }];
+      const dynamic = (this.findAllPayment || []).map(p => ({
+        label: p.payment_name,
+        value: p.payment_code
+      }));
+      return [...base, ...dynamic];
+    }
+  },
+  watch: {
+    fromDate() {
+      this.fromDateLabel = this.formatDateDisplay(this.fromDate);
+      this.loadData();
     },
-    computedDateFormatted() {
-      return this.formatDate(this.fromDate);
-    },
-    totalSale() {
-      let total = 0;
-      this.filteredOrderHeaderList.forEach(el => {
-        total += el.total;
-      });
-      return total;
-    },
-    totalSaleRaw() {
-      let total = 0;
-      this.filteredOrderHeaderList.forEach(el => {
-        console.log('====>', el.cartTotal);
-        total += parseInt(el.cartTotal);
-      });
-      console.log('Price total: ' + total);
-      return total;
-    },
-    totalDiscount() {
-      let total = 0;
-      this.filteredOrderHeaderList.forEach(el => {
-        total += parseInt(el.discount);
-      });
-      return total;
-    },
-    unpaidCodOrder() {
-      let txnList = [];
-      let orderDetail = {};
-      this.orderHeaderList.forEach(element => {
-        if (element.paymentStatus === 'PENDING' && element.payment.includes('COD')) {
-          console.log('Concept applied');
-          txnList.push(element);
-        }
-      });
-      const totalPrice = txnList.reduce((total, item) => {
-        return total + item.cartTotal;
-      }, 0);
-      const totalDiscount = txnList.reduce((total, item) => {
-        return total + item.discount;
-      }, 0);
-      orderDetail.amount = txnList.length;
-      orderDetail.saleRawNumber = totalPrice;
-      orderDetail.sale = this.getFormatNum(totalPrice);
-      orderDetail.discount = this.getFormatNum(totalDiscount);
-      orderDetail.gross = this.getFormatNum(0);
-      orderDetail.title = 'ຍອດບິນ COD';
-      return orderDetail;
-    },
-    user() {
-      return this.$auth.user || '';
+    toDate() {
+      this.toDateLabel = this.formatDateDisplay(this.toDate);
+      this.loadData();
     }
   },
   methods: {
-    printSalesReport() {
+    getConvertedSaleTotal(sale) {
+      var _sale$lines;
+      const currencies = this.findAllCurrency || [];
+      const headerCcyId = sale.currencyId;
+      if (!((_sale$lines = sale.lines) !== null && _sale$lines !== void 0 && _sale$lines.length)) return Number(sale.total || 0);
+      return sale.lines.reduce((sum, line) => {
+        const lineAmt = Number(line.total || 0);
+        const ccyId = line.currencyId || headerCcyId;
+        const ccy = currencies.find(c => Number(c.id) === Number(ccyId));
+        if (!ccy || Number(ccy.isLocalCCY) === 1) return sum + lineAmt;
+        const rate = Number(line.exchangeRate || 1);
+        const converted = ccy.exchangeDirection === 'foreign_to_local' ? lineAmt * rate : lineAmt / rate;
+        return sum + converted;
+      }, 0);
+    },
+    async loadData() {
+      this.isloading = true;
       try {
-        var _this$companyData;
-        console.log('🖨️ Printing sales report summary...');
-
-        // Prepare terminal info
-        const terminalInfo = this.terminalId === 999 ? {
-          name: 'ທັງໝົດ',
-          id: 999
-        } : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
-
-        // Prepare company data
-        const companyData = ((_this$companyData = this.companyData) === null || _this$companyData === void 0 ? void 0 : _this$companyData.apiData) || this.companyData || {};
-
-        // Call the print function
-        printSalesReportSummary({
-          orderHeaderList: this.activeOrderHeaderList,
-          paymentStatistics: this.paymentStatistics,
-          filteredOrderHeaderList: this.filteredOrderHeaderList,
-          fromDate: this.fromDate,
-          toDate: this.toDate,
-          terminalInfo: terminalInfo,
-          companyData: companyData,
-          companyLogo: this.companyLogo,
-          formatNumber: this.formatNumber,
-          user: this.user,
-          singlePaymentCount: this.singlePaymentCount,
-          multiPaymentCount: this.multiPaymentCount
+        const params = {
+          startDate: this.fromDate,
+          endDate: this.toDate,
+          userId: this.userId
+        };
+        const res = await this.$axios.get('api/sale/findByDate', {
+          params: {
+            date: params
+          }
         });
-
-        // Optional: Show success message
-        if (this.$toast) {
-          this.$toast.success('ລາຍງານການຂາຍກຳລັງພິມ...', {
-            position: 'bottom-center'
-          });
-        }
-      } catch (error) {
-        console.error('Error printing sales report:', error);
-
-        // Show error message
-        if (this.$toast) {
-          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ', {
-            position: 'bottom-center'
-          });
-        } else if (this.$swal) {
-          this.$swal.fire({
-            title: 'Error',
-            text: 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ',
-            icon: 'error'
-          });
-        }
+        this.orderHeaderList = res.data;
+      } catch (e) {
+        console.error(e);
+      } finally {
+        this.isloading = false;
       }
     },
-    getLocalDate: common["f" /* getLocalDate */],
-    // SIMPLIFIED: Dialog event handlers for the new component
-    onTicketDialogClose() {
-      this.paymentDetailsDialog = false;
-      this.selectedOrderForPayments = null;
+    formatNumber(val) {
+      return Object(common["e" /* getFormatNum */])(Math.round(val));
     },
-    onPrintTicket(ticketData) {
-      this.printDefaultTicket(ticketData);
+    formatDateDisplay(date) {
+      const [y, m, d] = date.split('-');
+      return `${m}/${d}/${y}`;
     },
-    onPrintPaymentDetails(ticketData) {
-      console.log('Payment details printed for ticket:', ticketData.id);
-      // Optional: Add any additional logic after printing
-    },
-    // NEW: Utility method to find payment method details
-    getPaymentMethodDetails(paymentCode) {
-      if (!paymentCode || !this.findAllPayment) return null;
-      return this.findAllPayment.find(p => p.payment_code === paymentCode) || null;
-    },
-    // Payment Filter Methods (remain the same)
-    filterByPaymentType(paymentType) {
-      if (this.selectedPaymentFilter === paymentType) {
-        this.clearPaymentFilter();
-      } else {
-        this.selectedPaymentFilter = paymentType;
-        this.applyPaymentFilter();
-      }
-    },
-    applyPaymentFilter() {
-      console.log('Applied payment filter:', this.selectedPaymentFilter);
-    },
-    clearPaymentFilter() {
-      this.selectedPaymentFilter = null;
-    },
-    getFilterDisplayName(filterValue) {
-      const option = this.paymentFilterOptions.find(opt => opt.value === filterValue);
-      return option ? option.label : filterValue;
-    },
-    // Multi-Payment Detection and Handling Methods (remain the same)
     isMultiPayment(item) {
-      return item.payments && Array.isArray(item.payments) && item.payments.length > 1;
+      return item.payments && item.payments.length > 1;
     },
-    hasPaymentDetails(item) {
-      return item.payments && item.payments.length > 0 || item.payment;
-    },
-    getPaymentMethodsCount(item) {
-      if (this.isMultiPayment(item)) {
-        return item.payments.length;
-      }
-      return item.payment ? 1 : 0;
-    },
-    getPaymentMethodColor(paymentCode) {
-      // Try to find the payment method in store first
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode);
-      if (paymentMethod) {
-        // Generate color based on payment code for consistency
-        const colorMap = {
-          CASH: 'green',
-          QR: 'purple',
-          TRANSFER: 'blue',
-          TRANSFER_BCEL: 'blue',
-          BCEL: 'blue',
-          COD: 'orange',
-          CREDIT: 'red',
-          CARD: 'indigo',
-          BANK: 'teal',
-          MOBILE: 'pink'
-        };
-
-        // Check if exact match exists
-        if (colorMap[paymentCode]) {
-          return colorMap[paymentCode];
-        }
-
-        // For other payment codes, generate color based on common keywords
-        const code = paymentCode.toUpperCase();
-        if (code.includes('CASH') || code.includes('MONEY')) return 'green';
-        if (code.includes('QR') || code.includes('SCAN')) return 'purple';
-        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue';
-        if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo';
-        if (code.includes('COD') || code.includes('DELIVERY')) return 'orange';
-        if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink';
-        return 'primary';
-      }
-      return 'grey';
-    },
-    getPaymentMethodIcon(paymentCode) {
-      // Try to find the payment method in store first
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode);
-      if (paymentMethod) {
-        const iconMap = {
-          CASH: 'mdi-cash',
-          QR: 'mdi-qrcode',
-          TRANSFER: 'mdi-bank-transfer',
-          TRANSFER_BCEL: 'mdi-bank-transfer',
-          BCEL: 'mdi-bank',
-          COD: 'mdi-truck-delivery',
-          CREDIT: 'mdi-credit-card-outline',
-          CARD: 'mdi-credit-card',
-          BANK: 'mdi-bank',
-          MOBILE: 'mdi-cellphone',
-          WALLET: 'mdi-wallet'
-        };
-        if (iconMap[paymentCode]) {
-          return iconMap[paymentCode];
-        }
-        const code = paymentCode.toUpperCase();
-        if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash';
-        if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode';
-        if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer';
-        if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card';
-        if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery';
-        if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone';
-        if (code.includes('WALLET')) return 'mdi-wallet';
-        return 'mdi-cash-multiple';
-      }
-      return 'mdi-help-circle';
-    },
-    // SIMPLIFIED: Show payment details (now uses the component)
     showPaymentDetails(item) {
       this.selectedOrderForPayments = item;
       this.paymentDetailsDialog = true;
-      console.info(`SELECTED TICKET DET: ${JSON.stringify(this.selectedOrderForPayments)}`);
     },
-    // All your existing methods remain the same...
-    currentShipping(shippingId) {
-      const shipping = this.shippingList.find(el => el.id == shippingId);
-      if (shipping == undefined) return '';
-      return shipping['name'];
+    onTicketDialogClose() {
+      this.paymentDetailsDialog = false;
     },
-    formatNumber(val) {
-      return Object(common["e" /* getFormatNum */])(val);
+    onPrintTicket(item) {
+      this.printDefaultTicket(item);
     },
-    async loadShipping() {
-      this.$axios.get('/api/shipping/find').then(res => {
-        this.shippingList = res.data;
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er);
+    onPrintPaymentDetails(item) {
+      console.log('Print payment details', item.id);
+    },
+    filterByPaymentType(type) {
+      this.selectedPaymentFilter = this.selectedPaymentFilter === type ? null : type;
+    },
+    viewItem(item) {
+      this.selectedOrder = item.id;
+      this.viewTransaction = true;
+      this.componentKey++;
+      this.dialogOrderDetail = true;
+    },
+    createSale() {
+      this.selectedOrder = 0;
+      this.viewTransaction = false;
+      this.componentKey++;
+      this.dialogOrderDetail = true;
+    },
+    getPaymentMethodColor(code) {
+      const map = {
+        CASH: 'green',
+        QR: 'purple',
+        TRANSFER_BCEL: 'blue',
+        CARD: 'indigo',
+        COD: 'orange'
+      };
+      return map[code] || 'primary';
+    },
+    getPaymentMethodIcon(code) {
+      const map = {
+        CASH: 'mdi-cash',
+        QR: 'mdi-qrcode',
+        TRANSFER_BCEL: 'mdi-bank-transfer',
+        CARD: 'mdi-credit-card',
+        COD: 'mdi-truck-delivery'
+      };
+      return map[code] || 'mdi-credit-card-outline';
+    },
+    printSalesReport() {
+      printSalesReportSummary({
+        orderHeaderList: this.orderHeaderList,
+        paymentStatistics: this.paymentStatistics,
+        filteredOrderHeaderList: this.filteredOrderHeaderList,
+        fromDate: this.fromDate,
+        toDate: this.toDate,
+        companyData: this.companyData,
+        companyLogo: this.companyLogo,
+        formatNumber: this.formatNumber,
+        user: this.$auth.user
       });
-      this.isloading = false;
-    },
-    async loadCurrency() {
-      this.isloading = true;
-      this.currencyList = [];
-      console.log('Loading currency ===>');
-      await this.$axios.get('/api/currency/findAll').then(res => {
-        for (const iterator of res.data) {
-          this.currencyList.push(iterator);
-        }
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er);
-      });
-      this.isloading = false;
     },
     printDefaultTicket(data) {
-      console.info('PRINTING TICKET WITH DATA:', JSON.stringify(data));
-      let paymentCode = 'UNKNOWN';
-      if (this.isMultiPayment(data)) {
-        paymentCode = 'MULTI-PAYMENT';
-      } else if (data.payment) {
-        paymentCode = data.payment.payment_code;
-      }
-
-      // 🔧 FIX: Transform the data structure to match what the ticket function expects
+      var _data$payment;
       const transformedLines = data.lines.map(line => {
         var _line$product, _line$product2;
         return {
-          // Map the actual data structure to what the ticket function expects
           id: ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.id) || line.productId,
-          pro_name: ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || 'Unknown Product',
+          pro_name: ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || 'Unknown',
           qty: line.quantity,
-          // ✅ quantity → qty
           localPrice: line.price,
-          // ✅ price → localPrice
-          pro_price: line.price,
-          // ✅ fallback price
-          isGift: line.isGift || false,
-          // ✅ Add isGift property
           saleCurrencyId: line.currencyId,
-          // ✅ currencyId → saleCurrencyId
-
-          // Additional properties that might be needed
-          total: line.total,
-          discount: line.discount || 0,
-          exchangeRate: line.exchangeRate || 1,
-          priceListId: line.priceListId || null,
-          priceLists: line.priceLists || []
+          isGift: line.isGift || false,
+          total: line.total
         };
       });
-      console.info('🔧 TRANSFORMED LINES FOR TICKET:', transformedLines);
       Object(ticket["b" /* defaultTicketReprint */])({
         productCart: {
           lines: transformedLines
         },
-        // ✅ Pass transformed data
         findAllProduct: this.findAllProduct,
         formatNumber: this.formatNumber,
         discount: data.discount,
-        currencyList: this.currencyList,
         grandTotal: data.total,
         companyLogo: this.companyLogo,
-        lastTransactionSaleHeaderId: data.id,
-        currentTerminal: this.currentTerminal,
-        user: this.user,
+        user: this.$auth.user,
         ticketCommon: this.ticketCommon,
-        currentPaymentCode: paymentCode,
-        cashReceived: data.total,
-        changes: 0,
+        currentPaymentCode: ((_data$payment = data.payment) === null || _data$payment === void 0 ? void 0 : _data$payment.payment_code) || 'CASH',
         bookingDate: data.createdAt,
-        axios: this.$axios,
         companyData: this.companyData
       });
-    },
-    exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(this.filteredOrderHeaderList);
-      const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
-    },
-    createSale() {
-      this.componentKey += 1;
-      this.selectedOrder = 0;
-      this.viewTransaction = false;
-      this.dialogOrderDetail = true;
-    },
-    countDay(startDate) {
-      return Object(common["b" /* dayCount */])(startDate);
-    },
-    dueDate(startDate, day) {
-      console.log('DATE ', startDate, ' to ', day);
-      return Object(common["g" /* getNextDate */])(startDate, day);
-    },
-    numberWithCommas(value) {
-      if (value === null || value === undefined) {
-        return '0';
-      }
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    },
-    whatsappLink(item) {
-      if (!item.client || !item.client.telephone) {
-        console.warn('No client or telephone number available for WhatsApp link');
-        return;
-      }
-      const tel = item.client.telephone.trim();
-      const completeTel = tel.substring(tel.length - 8);
-      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
-    },
-    getClientName(item) {
-      return item.client ? item.client.name : 'Walk-in Customer';
-    },
-    getClientId(item) {
-      return item.client ? item.client.id : 'N/A';
-    },
-    getClientTelephone(item) {
-      return item.client ? item.client.telephone : null;
-    },
-    getFormatNum(val) {
-      return new Intl.NumberFormat().format(val);
-    },
-    editItem(item) {
-      this.componentKey += 1;
-      this.selectedOrderId = item.orderId.toString();
-      this.dialogOrderDetail = !this.dialogOrderDetail;
-    },
-    viewItem(item) {
-      this.componentKey += 1;
-      this.viewTransaction = true;
-      this.selectedOrder = item.id;
-      this.dialogOrderDetail = true;
-    },
-    cancelItem(payload) {
-      console.log('Order id', payload.orderId);
-      this.componentCancelFormKey += 1;
-      this.OrderIdSelected = payload.orderId;
-      this.cancelForm = true;
-    },
-    handleEvent() {
-      this.dialogOrderDetail = false;
-    },
-    async loadData() {
-      this.isloading = true;
-      const date = {
-        startDate: this.fromDate,
-        endDate: this.toDate,
-        userId: this.userId
-      };
-      let apiLine = 'api/sale/findByDate';
-      if (date.userId) {
-        apiLine = 'api/sale/findByDateAndUser';
-      }
-      await this.$axios.get(apiLine, {
-        params: {
-          date
-        }
-      }).then(res => {
-        this.orderHeaderList = [];
-        for (const iterator of res.data) {
-          this.orderHeaderList.push(iterator);
-        }
-        console.log('====> ' + this.orderHeaderList.length);
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
-        console.log('Error ===>: ' + er);
-      });
-      this.isloading = false;
-    },
-    formatDate(date) {
-      if (!date) return null;
-      console.log('DATE FORMAT METHOD1: ' + date);
-      const formattedDate = this.formatDateToISO(date);
-      const [year, month, day] = formattedDate.split('-');
-      return `${month}/${day}/${year}`;
-    },
-    parseDate(date) {
-      console.log('DATE PARSE METHOD1: ' + date);
-      if (!date) return null;
-      const [month, day, year] = date.split('/');
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-    },
-    formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date);
-      const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0');
-      const day = `${date.getDate()}`.padStart(2, '0');
-      return `${year}-${month}-${day}`;
     }
+  },
+  mounted() {
+    this.fromDateLabel = this.formatDateDisplay(this.fromDate);
+    this.toDateLabel = this.formatDateDisplay(this.toDate);
   }
 });
 // CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=script&lang=js
@@ -2315,7 +1421,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1194)
+  var style0 = __webpack_require__(1197)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -2324,11 +1430,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_4a887a2d_scoped_true_render,
+  ordersFromPosvue_type_template_id_7dfb1e6b_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "4a887a2d",
+  "7dfb1e6b",
   "ac53ec12"
   
 )
@@ -2336,7 +1442,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersFromPos = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(481).default,OrderDetailPosCRUD: __webpack_require__(483).default,CancelTicketForm: __webpack_require__(462).default,OrderSumaryCardPos: __webpack_require__(486).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default})
 
 
 /***/ }),
@@ -2901,7 +2007,7 @@ function createNativeLocaleFormatter(locale, getOptions) {
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3068,11 +2174,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -3316,6 +2422,102 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
+var VBtn = __webpack_require__(129);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+
+
+
+
+
+var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c('div', {
+    staticClass: "text-center"
+  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c('youtube', {
+    attrs: {
+      "video-id": _vm.youtubeLink
+    }
+  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "warning",
+    attrs: {
+      "size": "large",
+      "variant": "outlined",
+      "rounded": ""
+    },
+    on: {
+      "click": function ($event) {
+        return _vm.$emit('close-dialog');
+      }
+    }
+  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
+
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(7);
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
+
+/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
+  props: {
+    youtubeLink: {
+      type: String,
+      require: true
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/YoutubePlayer.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_YoutubePlayervue_type_script_lang_js,
+  YoutubePlayervue_type_template_id_ba62a84e_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "9fefcabe"
+  
+)
+
+/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ 481:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(457);
 /* harmony import */ var _src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VTextarea_VTextarea_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField_VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(39);
@@ -3413,102 +2615,6 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 481:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-
-
-
-
-
-var YoutubePlayervue_type_template_id_ba62a84e_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "text-center"
-  }, [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], {
-    staticClass: "text-center"
-  }, [_c('youtube', {
-    attrs: {
-      "video-id": _vm.youtubeLink
-    }
-  })], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "warning",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": function ($event) {
-        return _vm.$emit('close-dialog');
-      }
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=template&id=ba62a84e
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/YoutubePlayer.vue?vue&type=script&lang=js
-
-/* harmony default export */ var YoutubePlayervue_type_script_lang_js = ({
-  props: {
-    youtubeLink: {
-      type: String,
-      require: true
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue?vue&type=script&lang=js
- /* harmony default export */ var components_YoutubePlayervue_type_script_lang_js = (YoutubePlayervue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/YoutubePlayer.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_YoutubePlayervue_type_script_lang_js,
-  YoutubePlayervue_type_template_id_ba62a84e_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "9fefcabe"
-  
-)
-
-/* harmony default export */ var YoutubePlayer = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
 /***/ 482:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3527,7 +2633,7 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 483:
+/***/ 485:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3583,7 +2689,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
 
@@ -4477,7 +3583,7 @@ var PricingOption = __webpack_require__(109);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./components/CancelTicketForm.vue + 4 modules
-var CancelTicketForm = __webpack_require__(462);
+var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
 var printTemplates = __webpack_require__(162);
@@ -4916,7 +4022,7 @@ var printTemplates = __webpack_require__(162);
         const method = this.isUpdate ? 'put' : 'post';
         await this.$axios[method](url, this.transaction);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -4930,7 +4036,7 @@ var printTemplates = __webpack_require__(162);
         const invoiceData = this.prepareInvoiceFromQuotation();
         await this.$axios.post('api/sale/create', invoiceData);
         this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
+        Object(common["m" /* swalSuccess */])(this.$swal, 'Success', 'Quotation converted successfully');
       } catch (error) {
         this.handleSubmitError(error);
       } finally {
@@ -5060,131 +4166,8 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var OrderDetailPosCRUD = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default,PricingOption: __webpack_require__(109).default})
+installComponents(component, {CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default,PricingOption: __webpack_require__(109).default})
 
-
-/***/ }),
-
-/***/ 486:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-
-
-
-
-
-
-var orderSumaryCardPosvue_type_template_id_3b45c91c_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], {
-    staticClass: "ml-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_vm._v(_vm._s(this.orderDetail.title))]), _vm._v(" "), _c('div', {
-    staticClass: "pa-4"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ຈຳນວນ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.amount) + " ອໍເດີ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ມູນຄ່າ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.sale))])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */])], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=script&lang=js
-/* harmony default export */ var orderSumaryCardPosvue_type_script_lang_js = ({
-  props: {
-    orderDetail: {
-      type: Object,
-      default: ''
-    },
-    showTotal: {
-      type: Boolean,
-      default: false
-    },
-    gross: {
-      type: String,
-      default: '0'
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=script&lang=js
- /* harmony default export */ var components_orderSumaryCardPosvue_type_script_lang_js = (orderSumaryCardPosvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_orderSumaryCardPosvue_type_script_lang_js,
-  orderSumaryCardPosvue_type_template_id_3b45c91c_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "95ead728"
-  
-)
-
-/* harmony default export */ var orderSumaryCardPos = __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -6684,329 +5667,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 492:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(452);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(416);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPos.vue?vue&type=template&id=5d931e66
-
-
-
-
-
-
-
-
-
-
-
-
-var OrderDetailPosvue_type_template_id_5d931e66_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["b" /* VCardSubtitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.isQuotation ? `Quotation #` : `Invoice #`) + "\n                    " + _vm._s(_vm.header.id) + "\n                ")]), _vm._v(" "), _vm.isQuotation ? _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined"
-    },
-    on: {
-      "click": _vm.post
-    }
-  }, [_vm._v("\n                        Post to invoice"), _c('span', {
-    staticClass: "mdi mdi-cloud-download"
-  })])], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], [_c('div', [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ວັນທີ: " + _vm._s(_vm.header.bookingDate) + " ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຊື່ລູກຄ້າ: " + _vm._s(_vm.header.client.name))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ເບີໂທ: " + _vm._s(_vm.header.client.telephone))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ບໍລິສັດ: " + _vm._s(_vm.header.client.company))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ການຊຳລະ: " + _vm._s(_vm.header.payment.payment_code) + " ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ສະກຸນ: " + _vm._s(_vm.header.currency.code))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ອັດຕາແລກປ່ຽນ: " + _vm._s(_vm.header.exchangeRate))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ສ່ວນຫລຸດ: " + _vm._s(_vm.header.discount))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຍອດລວມທັງໝົດ: " + _vm._s(_vm.getFormatNum(_vm.header.total)))])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "end"
-    },
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຜູ້ລົງ: " + _vm._s(_vm.header.user.cus_id) + " ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຊື່: " + _vm._s(_vm.header.user.cus_name))])], 1)], 1)], 1)], 1)])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _vm.header.lines ? _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "search": _vm.search,
-      "items": _vm.header.lines
-    },
-    scopedSlots: _vm._u([{
-      key: `item.function`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "blue darken-1",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              _vm.editItem(item);
-              _vm.wallet = true;
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-wallet"
-        })])];
-      }
-    }, {
-      key: `item.price`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.price)) + "\n                ")];
-      }
-    }, {
-      key: `item.discount`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.discount)) + "\n                ")];
-      }
-    }, {
-      key: `item.total`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.total)) + "\n                ")];
-      }
-    }], null, true)
-  }) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.toggleDialog
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue?vue&type=template&id=5d931e66
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPos.vue?vue&type=script&lang=js
-
-/* harmony default export */ var OrderDetailPosvue_type_script_lang_js = ({
-  props: {
-    // entry: {
-    //     type: Object,
-    //     default: '',
-    // },
-    header: {
-      type: Object,
-      default: null
-    },
-    isQuotation: {
-      type: Boolean,
-      default: false
-    }
-  },
-  methods: {
-    post() {
-      //  ********** Enable below line to confirm before clear ***********//
-      Object(common["a" /* confirmSwal */])(this.$swal, 'You are posting to invoice ?', this.postToInvoice);
-      // this.clearCart()
-    },
-    getFormatNum(val) {
-      return new Intl.NumberFormat().format(val);
-    },
-    toggleDialog() {
-      this.$emit('close-dialog');
-    },
-    async postToInvoice() {
-      if (this.isloading) return;
-      this.isloading = true;
-      // TODO: How to split data between cod order[not yet paid] and all order
-      const date = {
-        startDate: this.date,
-        endDate: this.date2
-      };
-      await this.$axios.put(`api/sale/postToInvoice/${this.header.id}`).then(res => {
-        this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
-        console.log('Error ===>: ' + er);
-      });
-      this.isloading = false;
-    }
-  },
-  data() {
-    return {
-      search: '',
-      isloading: false,
-      headers: [{
-        text: 'ສິນຄ້າ',
-        align: 'start',
-        value: 'product.pro_name'
-      }, {
-        text: 'ຈຳນວນ',
-        align: 'end',
-        value: 'quantity'
-      }, {
-        text: 'ລາຄາ',
-        align: 'end',
-        value: 'price',
-        sortable: true
-      }, {
-        text: 'ສ່ວນຫລຸດ',
-        align: 'end',
-        value: 'discount',
-        sortable: true
-      }, {
-        text: 'ລວມ',
-        align: 'end',
-        value: 'total',
-        sortable: false
-      }]
-    };
-  }
-});
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue?vue&type=script&lang=js
- /* harmony default export */ var components_OrderDetailPosvue_type_script_lang_js = (OrderDetailPosvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_OrderDetailPosvue_type_script_lang_js,
-  OrderDetailPosvue_type_template_id_5d931e66_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "32269b28"
-  
-)
-
-/* harmony default export */ var OrderDetailPos = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default})
-
-
-/***/ }),
-
 /***/ 499:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -8310,20 +6970,20 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 942:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1195);
+var content = __webpack_require__(1198);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5998948f", content, true, context)
+  add("ba138c22", content, true, context)
 };
 
 /***/ })

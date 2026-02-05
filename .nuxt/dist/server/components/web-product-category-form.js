@@ -217,20 +217,20 @@ var common = __webpack_require__(7);
           await this.$axios.post(api, this.localProduct).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           this.localProduct.groupList = this.localProduct.webProductGroups;
           await this.$axios.put(api, this.localProduct).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;

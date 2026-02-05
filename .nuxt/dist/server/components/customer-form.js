@@ -50,7 +50,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -221,7 +221,7 @@ var VRow = __webpack_require__(440);
 var VSpacer = __webpack_require__(443);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
@@ -525,7 +525,7 @@ var external_vuex_ = __webpack_require__(14);
       await this.$axios.get(`/api/client/find/${this.customerId}`).then(response => {
         this.client = response.data;
       }).catch(error => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data);
       });
       this.isloading = false;
     },
@@ -534,17 +534,17 @@ var external_vuex_ = __webpack_require__(14);
       this.isloading = true;
       if (this.isEdit) {
         await this.$axios.put(`/api/client/update/${this.customerId}`, this.client).then(response => {
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
           this.$emit('reload-data');
         }).catch(error => {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data);
         });
       } else {
         await this.$axios.post('/api/client/create', this.client).then(response => {
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
           this.$emit('reload-data');
         }).catch(error => {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data.errors[0].msg);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data.errors[0].msg);
         });
       }
       this.initData();

@@ -1,7 +1,7 @@
 exports.ids = [21,40];
 exports.modules = {
 
-/***/ 1077:
+/***/ 1078:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -60,7 +60,7 @@ var VSpacer = __webpack_require__(443);
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/GLForm.vue?vue&type=template&id=f09cae02&scoped=true
 
@@ -747,52 +747,52 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/accounting/GLForm.vue?vue&type=template&id=f09cae02&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
-var esnext_set_add_all_js_ = __webpack_require__(146);
+var esnext_set_add_all_js_ = __webpack_require__(145);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.delete-all.js"
-var esnext_set_delete_all_js_ = __webpack_require__(147);
+var esnext_set_delete_all_js_ = __webpack_require__(146);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.difference.js"
-var esnext_set_difference_js_ = __webpack_require__(148);
+var esnext_set_difference_js_ = __webpack_require__(147);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.every.js"
-var esnext_set_every_js_ = __webpack_require__(149);
+var esnext_set_every_js_ = __webpack_require__(148);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.filter.js"
-var esnext_set_filter_js_ = __webpack_require__(150);
+var esnext_set_filter_js_ = __webpack_require__(149);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.find.js"
-var esnext_set_find_js_ = __webpack_require__(151);
+var esnext_set_find_js_ = __webpack_require__(150);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.intersection.js"
-var esnext_set_intersection_js_ = __webpack_require__(152);
+var esnext_set_intersection_js_ = __webpack_require__(151);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-disjoint-from.js"
-var esnext_set_is_disjoint_from_js_ = __webpack_require__(153);
+var esnext_set_is_disjoint_from_js_ = __webpack_require__(152);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-subset-of.js"
-var esnext_set_is_subset_of_js_ = __webpack_require__(154);
+var esnext_set_is_subset_of_js_ = __webpack_require__(153);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.is-superset-of.js"
-var esnext_set_is_superset_of_js_ = __webpack_require__(155);
+var esnext_set_is_superset_of_js_ = __webpack_require__(154);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.join.js"
-var esnext_set_join_js_ = __webpack_require__(156);
+var esnext_set_join_js_ = __webpack_require__(155);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.map.js"
-var esnext_set_map_js_ = __webpack_require__(157);
+var esnext_set_map_js_ = __webpack_require__(156);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.reduce.js"
-var esnext_set_reduce_js_ = __webpack_require__(158);
+var esnext_set_reduce_js_ = __webpack_require__(157);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.some.js"
-var esnext_set_some_js_ = __webpack_require__(159);
+var esnext_set_some_js_ = __webpack_require__(158);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.symmetric-difference.js"
-var esnext_set_symmetric_difference_js_ = __webpack_require__(160);
+var esnext_set_symmetric_difference_js_ = __webpack_require__(159);
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.union.js"
-var esnext_set_union_js_ = __webpack_require__(161);
+var esnext_set_union_js_ = __webpack_require__(160);
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(477);
@@ -1091,8 +1091,8 @@ var common = __webpack_require__(7);
       this.validateLineField(index, 'rate');
     },
     calculateLocalAmount(item, index) {
-      const amount = parseFloat(Object(common["i" /* replaceAll */])(item.amount || '0', ',', ''));
-      const rate = parseFloat(Object(common["i" /* replaceAll */])(item.rate || '1', ',', ''));
+      const amount = parseFloat(Object(common["j" /* replaceAll */])(item.amount || '0', ',', ''));
+      const rate = parseFloat(Object(common["j" /* replaceAll */])(item.rate || '1', ',', ''));
       if (!isNaN(amount) && !isNaN(rate)) {
         item.localAmount = amount * rate;
       } else {
@@ -1129,13 +1129,13 @@ var common = __webpack_require__(7);
           break;
         case 'amount':
           if (!line.amount) errors.push('Amount is required');else {
-            const amount = parseFloat(Object(common["i" /* replaceAll */])(line.amount, ',', ''));
+            const amount = parseFloat(Object(common["j" /* replaceAll */])(line.amount, ',', ''));
             if (isNaN(amount) || amount <= 0) errors.push('Amount must be greater than 0');
           }
           break;
         case 'rate':
           if (!line.rate) errors.push('Rate is required');else {
-            const rate = parseFloat(Object(common["i" /* replaceAll */])(line.rate, ',', ''));
+            const rate = parseFloat(Object(common["j" /* replaceAll */])(line.rate, ',', ''));
             if (isNaN(rate) || rate <= 0) errors.push('Rate must be greater than 0');
           }
           break;
@@ -1259,8 +1259,8 @@ var common = __webpack_require__(7);
         };
         transactionData.lines = transactionData.lines.map(line => ({
           ...line,
-          amount: parseFloat(Object(common["i" /* replaceAll */])(line.amount.toString(), ',', '')),
-          rate: parseFloat(Object(common["i" /* replaceAll */])(line.rate.toString(), ',', '')),
+          amount: parseFloat(Object(common["j" /* replaceAll */])(line.amount.toString(), ',', '')),
+          rate: parseFloat(Object(common["j" /* replaceAll */])(line.rate.toString(), ',', '')),
           localAmount: parseFloat(line.localAmount || 0),
           bookingDate: transactionData.bookingDate
         }));
@@ -1535,7 +1535,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var GLForm = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(462).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,CustomerList: __webpack_require__(112).default,CancelTicketForm: __webpack_require__(463).default})
 
 
 /***/ }),
@@ -1569,7 +1569,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 462:
+/***/ 463:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1736,11 +1736,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -1835,7 +1835,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

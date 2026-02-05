@@ -3104,7 +3104,7 @@ var external_vuex_ = __webpack_require__(14);
         const res = await this.$axios.get(`api/location/find`);
         this.locationList = res.data.map(el => el);
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
       }
     },
     async loadColors() {
@@ -3115,7 +3115,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Colors loaded:', this.colorList.length);
       } catch (error) {
         console.error('Failed to load colors:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
         this.colorList = [];
       }
       this.loadingColors = false;
@@ -3128,7 +3128,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Sizes loaded:', this.sizeList.length);
       } catch (error) {
         console.error('Failed to load sizes:', error);
-        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
         this.sizeList = [];
       }
       this.loadingSizes = false;
@@ -3144,7 +3144,7 @@ var external_vuex_ = __webpack_require__(14);
           console.log(`Cost info not available`);
         }
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
       }
       this.isSubmitting = false;
     },
@@ -3187,13 +3187,13 @@ var external_vuex_ = __webpack_require__(14);
           if (details.length > 0) {
             successMessage += ` (${details.join(', ')})`;
           }
-          Object(common["l" /* swalSuccess */])(this.$swal, 'Success', successMessage);
+          Object(common["m" /* swalSuccess */])(this.$swal, 'Success', successMessage);
           this.$emit('reload');
           this.$emit('close-dialog');
         } catch (error) {
           var _error$response;
           console.log(error);
-          Object(common["k" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
+          Object(common["l" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
         }
         this.isSubmitting = false;
       }

@@ -1,7 +1,7 @@
 exports.ids = [216,58,174];
 exports.modules = {
 
-/***/ 1076:
+/***/ 1077:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,12 +350,12 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var Wallet = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(484).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(483).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
 
-/***/ 1158:
+/***/ 1159:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -367,7 +367,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1159:
+/***/ 1160:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -382,7 +382,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1494:
+/***/ 1497:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -399,7 +399,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
 var VContainer = __webpack_require__(439);
@@ -921,7 +921,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1158)
+  var style0 = __webpack_require__(1159)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -942,7 +942,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var customer = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {DialogClassicMessage: __webpack_require__(484).default,Wallet: __webpack_require__(1076).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {DialogClassicMessage: __webpack_require__(483).default,Wallet: __webpack_require__(1077).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -976,7 +976,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 484:
+/***/ 483:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1068,7 +1068,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1186,7 +1186,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1159);
+var content = __webpack_require__(1160);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

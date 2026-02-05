@@ -1,7 +1,7 @@
-exports.ids = [327,109];
+exports.ids = [328,109];
 exports.modules = {
 
-/***/ 1122:
+/***/ 1123:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13,7 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1123:
+/***/ 1124:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1464:
+/***/ 1467:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -488,7 +488,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1122)
+  var style0 = __webpack_require__(1123)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1519,7 +1519,7 @@ module.exports = __webpack_require__.p + "img/wdb.7af4225.png";
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1123);
+var content = __webpack_require__(1124);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

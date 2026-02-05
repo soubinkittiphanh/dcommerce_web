@@ -1,7 +1,7 @@
-exports.ids = [315,172,178];
+exports.ids = [316,172,178];
 exports.modules = {
 
-/***/ 1558:
+/***/ 1562:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -292,7 +292,7 @@ var VendorForm = __webpack_require__(897);
     },
     editItem(item) {
       if (this.user.id != 1) {
-        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ສະເພາະ ຜູ້ດູແລລະບົບເທົ່ານັ້ນ ');
+        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ສະເພາະ ຜູ້ດູແລລະບົບເທົ່ານັ້ນ ');
       }
       this.componentKey += 1;
       this.entrySelectedId = item.id;
@@ -337,7 +337,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var vendor = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {VendorForm: __webpack_require__(897).default,YoutubePlayer: __webpack_require__(481).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {VendorForm: __webpack_require__(897).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -371,7 +371,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 481:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -467,7 +467,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -596,7 +596,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -782,19 +782,19 @@ var common = __webpack_require__(7);
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;

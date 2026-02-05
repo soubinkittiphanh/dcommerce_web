@@ -59,7 +59,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 480:
+/***/ 481:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -160,7 +160,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 
 /***/ }),
 
-/***/ 495:
+/***/ 494:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -376,13 +376,13 @@ var VRow = __webpack_require__(440);
 var VSpacer = __webpack_require__(443);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSwitch/VSwitch.js
-var VSwitch = __webpack_require__(495);
+var VSwitch = __webpack_require__(494);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
-var VTextarea = __webpack_require__(480);
+var VTextarea = __webpack_require__(481);
 
 // CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/sizeForm.vue?vue&type=template&id=e33ab908&scoped=true
 
@@ -755,7 +755,7 @@ var common = __webpack_require__(7);
           isActive: data.isActive !== undefined ? data.isActive : true
         };
       } catch (error) {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້: ' + error.message);
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດໂຫຼດຂໍ້ມູນໄດ້: ' + error.message);
       }
       this.isSubmitting = false;
     },
@@ -774,7 +774,7 @@ var common = __webpack_require__(7);
           } else {
             res = await this.$axios.put(`/api/size/${this.recordId}`, submitData);
           }
-          Object(common["l" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', `${this.isCreate ? 'ເພີ່ມ' : 'ອັບເດດ'}ຂະໜາດ "${this.formData.size_name}" ສຳເລັດແລ້ວ`);
+          Object(common["m" /* swalSuccess */])(this.$swal, 'ສຳເລັດ', `${this.isCreate ? 'ເພີ່ມ' : 'ອັບເດດ'}ຂະໜາດ "${this.formData.size_name}" ສຳເລັດແລ້ວ`);
           this.$emit('reload-data');
         } catch (error) {
           var _error$response, _error$response$data, _error$response2;
@@ -783,7 +783,7 @@ var common = __webpack_require__(7);
           if (((_error$response2 = error.response) === null || _error$response2 === void 0 ? void 0 : _error$response2.status) === 400 && errorMessage.includes('already exists')) {
             errorMessage = 'ຊື່ຂະໜາດ ຫຼື ລະຫັດນີ້ມີຢູ່ແລ້ວ';
           }
-          Object(common["k" /* swalError2 */])(this.$swal, "Error", errorMessage);
+          Object(common["l" /* swalError2 */])(this.$swal, "Error", errorMessage);
         }
         this.isSubmitting = false;
       }

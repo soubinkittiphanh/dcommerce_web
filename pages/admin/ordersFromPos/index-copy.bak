@@ -895,6 +895,7 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
+      'findAllCurrency',
       'findAllPayment', // ADDED: Payment methods from store
     ]),
 

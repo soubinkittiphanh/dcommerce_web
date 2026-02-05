@@ -1,7 +1,7 @@
-exports.ids = [290,147,178];
+exports.ids = [291,147,178];
 exports.modules = {
 
-/***/ 1537:
+/***/ 1541:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -363,7 +363,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var rider = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {RiderForm: __webpack_require__(754).default,YoutubePlayer: __webpack_require__(481).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {RiderForm: __webpack_require__(754).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -397,7 +397,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 481:
+/***/ 480:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -493,7 +493,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 485:
+/***/ 484:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -622,7 +622,7 @@ var VCard = __webpack_require__(126);
 var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCheckbox/VCheckbox.js
-var VCheckbox = __webpack_require__(485);
+var VCheckbox = __webpack_require__(484);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
