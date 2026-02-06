@@ -11,7 +11,7 @@
           <v-card-text style="height: 300px">
             <v-radio-group v-model="terminalSelected" column>
               <v-radio
-                v-for="terminal in findAllTerminal"
+                v-for="terminal in findAllTerminal.filter(terminal=>terminal.isActive)"
                 :key="terminal.id"
                 :label="terminal.name + ' - ' + terminal.description"
                 :value="terminal.id"

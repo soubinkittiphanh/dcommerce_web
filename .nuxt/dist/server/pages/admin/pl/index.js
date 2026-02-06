@@ -251,7 +251,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/pl/index.vue?vue&type=template&id=9dafd99a
 
 // EXTERNAL MODULE: external "echarts"
-var external_echarts_ = __webpack_require__(421);
+var external_echarts_ = __webpack_require__(420);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);

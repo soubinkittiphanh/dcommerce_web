@@ -1,26 +1,26 @@
 exports.ids = [298,40,113,114,119,178];
 exports.modules = {
 
-/***/ 1245:
+/***/ 1242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_af7aa636_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(966);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_af7aa636_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_af7aa636_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_af7aa636_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_af7aa636_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02baee06_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(963);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02baee06_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02baee06_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02baee06_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_02baee06_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1246:
+/***/ 1243:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-af7aa636],.text-h5[data-v-af7aa636]{font-family:\"Noto Sans Lao\"}table[data-v-af7aa636]{border:1px solid #000}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-report-container[data-v-02baee06]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif;min-height:100vh;padding:20px}.header-section[data-v-02baee06]{margin-bottom:32px}.header-chips-container[data-v-02baee06]{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px}.header-chip[data-v-02baee06]{border-radius:12px!important;cursor:pointer;font-size:16px!important;font-weight:600!important;transition:all .3s cubic-bezier(.4,0,.2,1)}.header-chip[data-v-02baee06]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15);transform:translateY(-4px)}.main-card[data-v-02baee06]{background:#fff;border-radius:16px!important;box-shadow:0 10px 40px rgba(0,0,0,.1);overflow:hidden}.filter-section[data-v-02baee06]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken1) 100%)!important;color:#fff!important;position:relative}.filter-section[data-v-02baee06]:before{background:url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='a' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath fill='none' stroke='rgba(255,255,255,0.05)' d='M10 0H0v10'/%3E%3C/pattern%3E%3C/defs%3E%3Cpath fill='url(%23a)' d='M0 0h100v100H0z'/%3E%3C/svg%3E\");bottom:0;content:\"\";left:0;pointer-events:none;position:absolute;right:0;top:0}.filter-group[data-v-02baee06]{backdrop-filter:blur(10px);background:hsla(0,0%,100%,.15);border:1px solid hsla(0,0%,100%,.2);border-radius:12px;padding:24px}.filter-title[data-v-02baee06]{font-weight:700;margin-bottom:16px}.dashboard-title[data-v-02baee06],.filter-title[data-v-02baee06]{align-items:center;display:flex}.dashboard-title[data-v-02baee06]{color:var(--v-primary-base);font-size:2rem!important;font-weight:800!important;margin-bottom:24px;position:relative}.dashboard-title[data-v-02baee06]:after{background:linear-gradient(90deg,var(--v-primary-base),var(--v-secondary-base));border-radius:2px;bottom:-8px;content:\"\";height:4px;left:0;position:absolute;width:60px}.metric-card[data-v-02baee06]{background:linear-gradient(135deg,#fff,#f8f9fa);border:2px solid transparent;border-radius:20px!important;overflow:hidden;position:relative;transition:all .4s cubic-bezier(.4,0,.2,1)}.metric-card[data-v-02baee06]:before{background:radial-gradient(circle at 50% 50%,rgba(var(--v-primary-rgb),.03) 0,transparent 70%);bottom:0;content:\"\";left:0;pointer-events:none;position:absolute;right:0;top:0}.metric-card[data-v-02baee06]:hover{border-color:var(--v-primary-base);box-shadow:0 20px 60px rgba(0,0,0,.15);transform:translateY(-8px) scale(1.02)}.summary-details[data-v-02baee06]{padding:20px 0}.summary-line[data-v-02baee06]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-line.total[data-v-02baee06]{border-bottom:none;border-top:3px solid var(--v-primary-base);margin-top:16px;padding-top:20px}.progress-circle[data-v-02baee06]{position:relative}.progress-content[data-v-02baee06]{left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%)}.enhanced-table[data-v-02baee06]{background:transparent;border-radius:0!important}.enhanced-table[data-v-02baee06] .v-data-table__wrapper{border-radius:0 0 12px 12px;overflow:hidden}.enhanced-table[data-v-02baee06] .v-data-table-header{background:var(--v-secondary-base)!important}.enhanced-table[data-v-02baee06] .v-data-table-header th{border-bottom:2px solid hsla(0,0%,100%,.2)!important;color:#fff!important;font-weight:600!important}.enhanced-table[data-v-02baee06] tbody tr:hover{background-color:rgba(var(--v-primary-rgb),.08)!important}.enhanced-table[data-v-02baee06] tbody tr{transition:all .2s ease}.product-info[data-v-02baee06]{padding:8px 0}.user-info[data-v-02baee06]{align-items:center;display:flex}.action-buttons[data-v-02baee06]{display:flex;gap:8px;justify-content:center}.action-btn[data-v-02baee06]{border-radius:8px!important;transition:all .2s ease}.action-btn[data-v-02baee06]:hover{transform:scale(1.15)}.loading-card[data-v-02baee06]{background:#fff;border-radius:16px!important}@media (max-width:960px){.header-chips-container[data-v-02baee06]{flex-direction:column}.header-chip[data-v-02baee06]{justify-content:center}.filter-group[data-v-02baee06]{margin-bottom:20px}.dashboard-title[data-v-02baee06]{font-size:1.5rem!important}}@media (max-width:600px){.sales-report-container[data-v-02baee06]{padding:12px}.main-card[data-v-02baee06]{border-radius:12px!important}.filter-group[data-v-02baee06]{padding:16px}.metric-card[data-v-02baee06]{border-radius:16px!important}}@keyframes fadeInUp-02baee06{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@keyframes slideInRight-02baee06{0%{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}.metric-card[data-v-02baee06]{animation:fadeInUp-02baee06 .6s ease-out}.metric-card[data-v-02baee06]:first-child{animation-delay:.1s}.metric-card[data-v-02baee06]:nth-child(2){animation-delay:.2s}.metric-card[data-v-02baee06]:nth-child(3){animation-delay:.3s}.enhanced-table[data-v-02baee06]{animation:slideInRight-02baee06 .8s ease-out}[data-v-02baee06]::-webkit-scrollbar{width:8px}[data-v-02baee06]::-webkit-scrollbar-track{background:#f1f1f1;border-radius:4px}[data-v-02baee06]::-webkit-scrollbar-thumb{background:var(--v-primary-base);border-radius:4px}[data-v-02baee06]::-webkit-scrollbar-thumb:hover{background:var(--v-primary-darken1)}.grey[data-v-02baee06],.text-h5[data-v-02baee06]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}table[data-v-02baee06]{border:1px solid rgba(0,0,0,.05)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -36,7 +36,10 @@ module.exports = ___CSS_LOADER_EXPORT___;
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(420);
+var VAutocomplete = __webpack_require__(419);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
+var VAvatar = __webpack_require__(123);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(129);
@@ -53,6 +56,9 @@ var VChip = __webpack_require__(130);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
 var VCol = __webpack_require__(441);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VContainer.js
+var VContainer = __webpack_require__(439);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
 var VDataTable = __webpack_require__(452);
 
@@ -68,19 +74,22 @@ var VDivider = __webpack_require__(125);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(64);
 
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VLayout.js
-var VLayout = __webpack_require__(434);
-
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(131);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(110);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(440);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleReportDetailByUser/index.vue?vue&type=template&id=af7aa636&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleReportDetailByUser/index.vue?vue&type=template&id=02baee06&scoped=true
 
 
 
@@ -98,28 +107,33 @@ var VTextField = __webpack_require__(39);
 
 
 
-var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = function render() {
+
+
+
+var saleReportDetailByUservue_type_template_id_02baee06_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-af7aa636>", "</div>", [_c(VChip["a" /* default */], {
-    staticClass: "pa-5",
+    staticClass: "sales-report-container"
+  }, [_vm._ssrNode("<div class=\"header-section\" data-v-02baee06>", "</div>", [_vm._ssrNode("<div class=\"header-chips-container\" data-v-02baee06>", "</div>", [_c(VChip["a" /* default */], {
+    staticClass: "header-chip pa-5",
     attrs: {
       "color": "primary",
       "label": "",
-      "text-color": "white"
+      "text-color": "white",
+      "elevation": "4"
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "start": ""
+      "left": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການບິນຂາຍ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
-    staticClass: "pa-5",
+  }, [_vm._v("mdi-chart-line")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍງານການຂາຍບິນ")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+    staticClass: "header-chip pa-5",
     attrs: {
-      "color": "primary",
+      "color": "secondary",
       "label": "",
-      "text-color": "white"
+      "text-color": "white",
+      "elevation": "4"
     },
     on: {
       "click": function ($event) {
@@ -128,13 +142,28 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
     }
   }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "start": ""
+      "left": ""
     }
-  }, [_vm._v("mdi mdi-lifebuoy")]), _vm._v(" "), _c('h3', [_vm._v("ຄູ່ມືການນຳໃຊ້ ")])], 1)], 2), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("mdi-help-circle")]), _vm._v(" "), _c('h3', [_vm._v("ຄູ່ມືການນຳໃຊ້")])], 1), _vm._ssrNode(" "), _c(VChip["a" /* default */], {
+    staticClass: "header-chip pa-5",
+    attrs: {
+      "color": "lightprimary",
+      "label": "",
+      "text-color": "white",
+      "elevation": "4"
+    },
+    on: {
+      "click": _vm.exportSimplePDFAudit
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-file-chart")]), _vm._v(" "), _c('h3', [_vm._v("PDF Audit")])], 1)], 2)]), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "persistent": "",
-      "width": "300"
+      "width": "320"
     },
     model: {
       value: _vm.isloading,
@@ -143,7 +172,19 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       },
       expression: "isloading"
     }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "loading-card"
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center pa-6"
+  }, [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "size": "48",
+      "color": "primary",
+      "indeterminate": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "mt-4"
+  }, [_vm._v("ກຳລັງໂຫຼດຂໍ້ມູນ...")])], 1)], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "max-width": "700"
@@ -212,17 +253,36 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
         _vm.cancelForm = false;
       },
       "reload": function ($event) {
-        _vm.cancelForm = false, _vm.loadData();
+        _vm.cancelForm = false;
+        _vm.loadData();
       }
     }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-af7aa636>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "main-card"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "filter-section pa-6"
+  }, [_c(VContainer["a" /* default */], {
     attrs: {
-      "row": "",
-      "wrap": ""
+      "fluid": ""
     }
-  }, [_c(VCol["a" /* default */], {
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c('div', {
+    staticClass: "filter-group"
+  }, [_c('h4', {
+    staticClass: "filter-title white--text mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-calendar-range")]), _vm._v("\n                ຊ່ວງເວລາ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VMenu["a" /* default */], {
     ref: "menu1",
@@ -241,10 +301,13 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "ຈາກວັນທີ:",
-            "hint": "MM/DD/YYYY format",
+            "label": "ຈາກວັນທີ",
+            "hint": "MM/DD/YYYY",
             "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
+            "prepend-icon": "mdi-calendar-start",
+            "outlined": "",
+            "dense": "",
+            "background-color": "white"
           },
           on: {
             "blur": function ($event) {
@@ -270,7 +333,8 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
     }
   }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     attrs: {
-      "no-title": ""
+      "no-title": "",
+      "color": "primary"
     },
     on: {
       "input": function ($event) {
@@ -284,7 +348,12 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       },
       expression: "date"
     }
-  })], 1), _vm._v(" "), _c(VMenu["a" /* default */], {
+  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_c(VMenu["a" /* default */], {
     ref: "menu2",
     attrs: {
       "close-on-content-click": false,
@@ -301,10 +370,13 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       }) {
         return [_c(VTextField["a" /* default */], _vm._g(_vm._b({
           attrs: {
-            "label": "ຫາວັນທີ:",
-            "hint": "MM/DD/YYYY format",
+            "label": "ຫາວັນທີ",
+            "hint": "MM/DD/YYYY",
             "persistent-hint": "",
-            "prepend-icon": "mdi-calendar"
+            "prepend-icon": "mdi-calendar-end",
+            "outlined": "",
+            "dense": "",
+            "background-color": "white"
           },
           on: {
             "blur": function ($event) {
@@ -330,7 +402,8 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
     }
   }, [_vm._v(" "), _c(VDatePicker["a" /* default */], {
     attrs: {
-      "no-title": ""
+      "no-title": "",
+      "color": "primary"
     },
     on: {
       "input": function ($event) {
@@ -344,16 +417,33 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       },
       expression: "date2"
     }
-  })], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+  })], 1)], 1)], 1)], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c('div', {
+    staticClass: "filter-group"
+  }, [_c('h4', {
+    staticClass: "filter-title white--text mb-3"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-filter")]), _vm._v("\n                ຟິລເຕີ\n              ")], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
     }
   }, [_c(VTextField["a" /* default */], {
     attrs: {
-      "append-icon": "mdi-magnify",
+      "prepend-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
-      "single-line": "",
-      "hide-detailsx": ""
+      "outlined": "",
+      "dense": "",
+      "clearable": "",
+      "background-color": "white"
     },
     model: {
       value: _vm.search,
@@ -362,12 +452,25 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       },
       expression: "search"
     }
-  }), _vm._v(" "), _c(VAutocomplete["a" /* default */], {
+  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "sm": "6"
+    }
+  }, [_c(VAutocomplete["a" /* default */], {
     attrs: {
       "item-text": "cus_name",
       "item-value": "id",
       "items": _vm.userList,
-      "label": "ພະນັກງານຂາຍ*"
+      "label": "ພະນັກງານຂາຍ",
+      "prepend-icon": "mdi-account",
+      "outlined": "",
+      "dense": "",
+      "clearable": "",
+      "background-color": "white"
+    },
+    on: {
+      "change": _vm.loadData
     },
     model: {
       value: _vm.creteria.userId,
@@ -376,130 +479,396 @@ var saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render = fun
       },
       expression: "creteria.userId"
     }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-left",
+  })], 1)], 1)], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mt-3"
+  }, [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6"
+      "cols": "12"
     }
+  }, [_c('div', {
+    staticClass: "d-flex flex-wrap justify-space-between"
+  }, [_c('div', {
+    staticClass: "d-flex flex-wrap"
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
+    staticClass: "ma-2",
     attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.createSale
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-plus"
-  }), _vm._v("Create\n            ")]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.exportToExcel
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-microsoft-excel"
-  }), _vm._v("Generate excel file\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-right",
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
+      "color": "white",
+      "rounded": "",
+      "elevation": "2"
     },
     on: {
       "click": _vm.loadData
     }
-  }, [_c('span', {
-    staticClass: "mdi mdi-cloud-download"
-  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VLayout["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "row": "",
-      "wrap": ""
+      "left": "",
+      "color": "primary"
     }
+  }, [_vm._v("mdi-refresh")]), _vm._v(" "), _c('span', {
+    staticClass: "primary--text font-weight-bold"
+  }, [_vm._v("ດຶງລາຍງານ")])], 1), _vm._v(" "), _c(VBtn["a" /* default */], {
+    staticClass: "ma-2",
+    attrs: {
+      "color": "success",
+      "rounded": "",
+      "elevation": "2",
+      "dark": ""
+    },
+    on: {
+      "click": _vm.exportToExcel
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-microsoft-excel")]), _vm._v("\n                  Excel\n                ")], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "d-flex flex-wrap"
+  }, [_c(VBtn["a" /* default */], {
+    staticClass: "ma-2",
+    attrs: {
+      "color": "primary",
+      "rounded": "",
+      "elevation": "2",
+      "dark": ""
+    },
+    on: {
+      "click": _vm.createSale
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-plus")]), _vm._v("\n                  ສ້າງການຂາຍ\n                ")], 1)], 1)])])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-6"
+  }, [_c(VRow["a" /* default */], {
+    staticClass: "mb-6"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "dashboard-title"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "primary"
+    }
+  }, [_vm._v("mdi-chart-box")]), _vm._v("\n            ສະຫຼຸບລາຍງານ\n          ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+    staticClass: "mb-6"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "metric-card",
+    attrs: {
+      "elevation": "8",
+      "shaped": ""
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center pa-6"
+  }, [_c('div', {
+    staticClass: "d-flex justify-center mb-3"
+  }, [_c(VAvatar["a" /* default */], {
+    attrs: {
+      "size": "64",
+      "color": "primary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "32",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-receipt-text")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "display-1 primary--text font-weight-bold mb-2"
+  }, [_vm._v("\n                " + _vm._s(_vm.getFormatNum(_vm.activeOrderHeaderList.length)) + "\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "subtitle-1 font-weight-medium mb-1"
+  }, [_vm._v("ຈຳນວນບິນທັງໝົດ")]), _vm._v(" "), _c('div', {
+    staticClass: "caption grey--text"
+  }, [_vm._v("ໃນຊ່ວງເວລາທີ່ເລືອກ")])])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12",
+      "md": "6"
+    }
+  }, [_c(VCard["a" /* default */], {
+    staticClass: "metric-card",
+    attrs: {
+      "elevation": "8",
+      "shaped": ""
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center pa-6"
+  }, [_c('div', {
+    staticClass: "d-flex justify-center mb-3"
+  }, [_c(VAvatar["a" /* default */], {
+    attrs: {
+      "size": "64",
+      "color": "success"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "32",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-currency-usd")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "display-1 success--text font-weight-bold mb-2"
+  }, [_vm._v("\n                " + _vm._s(_vm.getFormatNum(_vm.totalSale - _vm.totalDiscount)) + "\n              ")]), _vm._v(" "), _c('div', {
+    staticClass: "subtitle-1 font-weight-medium mb-1"
+  }, [_vm._v("ລາຍຮັບລວມ")]), _vm._v(" "), _c('div', {
+    staticClass: "caption grey--text"
+  }, [_vm._v("LAK")])])], 1)], 1)], 1), _vm._v(" "), _vm.activeOrderHeaderList.length > 0 ? _c(VRow["a" /* default */], {
+    staticClass: "mb-6"
+  }, [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c(VCard["a" /* default */], {
+    attrs: {
+      "elevation": "6",
+      "shaped": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "primary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-chart-pie")]), _vm._v(" "), _c('span', [_vm._v("ສະຫຼຸບຍອດຂາຍ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "small": "",
+      "label": "",
+      "text-color": "primary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": "",
+      "color": "primary"
+    }
+  }, [_vm._v("mdi-calculator")]), _vm._v("\n                ຍອດລວມ\n              ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-6"
   }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
     attrs: {
-      "cols": "6",
-      "lg": "6"
+      "cols": "12",
+      "md": "8"
     }
-  }, [_c('order-sumary-card-pos', {
+  }, [_c('div', {
+    staticClass: "summary-details"
+  }, [_c('div', {
+    staticClass: "summary-line"
+  }, [_c('span', {
+    staticClass: "subtitle-1 font-weight-medium"
+  }, [_vm._v("ລວມຍ່ອຍ:")]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle-1 font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.getFormatNum(_vm.totalSaleRaw)))])]), _vm._v(" "), _c('div', {
+    staticClass: "summary-line"
+  }, [_c('span', {
+    staticClass: "subtitle-1 font-weight-medium"
+  }, [_vm._v("ສ່ວນຫຼຸດລວມ:")]), _vm._v(" "), _c('span', {
+    staticClass: "subtitle-1 font-weight-bold text--secondary"
+  }, [_vm._v(_vm._s(_vm.getFormatNum(_vm.totalDiscount)))])]), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "my-3"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "summary-line total"
+  }, [_c('span', {
+    staticClass: "headline font-weight-bold"
+  }, [_vm._v("ລວມທັງໝົດ:")]), _vm._v(" "), _c('span', {
+    staticClass: "headline font-weight-bold primary--text"
+  }, [_vm._v(_vm._s(_vm.getFormatNum(_vm.totalSale - _vm.totalDiscount)))])])], 1)]), _vm._v(" "), _c(VCol["a" /* default */], {
     attrs: {
-      "showTotal": true,
-      "gross": _vm.getFormatNum(_vm.totalSaleRaw - +this.unpaidCodOrder.saleRawNumber),
-      "orderDetail": {
-        'title': 'ຍອດບິນ',
-        'amount': _vm.getFormatNum(_vm.activeOrderHeaderList.length),
-        'sale': _vm.getFormatNum(_vm.totalSale - _vm.totalDiscount)
-        // 'discount': getFormatNum(totalDiscount),
-        // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-        // 'gross': getFormatNum(totalSale - totalDiscount)
-      }
+      "cols": "12",
+      "md": "4"
     }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _vm.orderLineByUser ? _c(VDataTable["a" /* default */], {
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c(VProgressCircular["a" /* default */], {
+    staticClass: "progress-circle",
     attrs: {
-      "headers": _vm.headers,
+      "value": 100,
+      "size": "120",
+      "width": "12",
+      "color": "primary"
+    }
+  }, [_c('div', {
+    staticClass: "progress-content"
+  }, [_c('div', {
+    staticClass: "body-2 font-weight-medium"
+  }, [_vm._v("ຍອດສຳເລັດ")]), _vm._v(" "), _c('div', {
+    staticClass: "headline font-weight-bold primary--text"
+  }, [_vm._v("100%")])])])], 1)])], 1)], 1)], 1)], 1)], 1) : _vm._e(), _vm._v(" "), _vm.orderLineByUser && _vm.orderLineByUser.length > 0 ? _c('div', {
+    staticClass: "mt-8"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    attrs: {
+      "cols": "12"
+    }
+  }, [_c('h3', {
+    staticClass: "dashboard-title"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "lightprimary"
+    }
+  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n              ລາຍການສິນຄ້າທີ່ຂາຍ\n            ")], 1)])], 1), _vm._v(" "), _c(VCard["a" /* default */], {
+    attrs: {
+      "elevation": "6",
+      "shaped": ""
+    }
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "secondary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-package-variant")]), _vm._v(" "), _c('span', [_vm._v("ລາຍລະອຽດການຂາຍ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "small": "",
+      "label": "",
+      "text-color": "secondary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": "",
+      "color": "secondary"
+    }
+  }, [_vm._v("mdi-format-list-bulleted")]), _vm._v("\n              " + _vm._s(_vm.orderLineByUser.length) + " ລາຍການ\n            ")], 1)], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_c(VDataTable["a" /* default */], {
+    staticClass: "enhanced-table elevation-0",
+    attrs: {
+      "headers": _vm.enhancedHeaders,
       "search": _vm.search,
-      "items": _vm.orderLineByUser
+      "items": _vm.orderLineByUser,
+      "items-per-page": 25,
+      "loading": _vm.isloading,
+      "loading-text": "ກຳລັງໂຫຼດຂໍ້ມູນ..."
     },
     scopedSlots: _vm._u([{
+      key: `item.header.bookingDate`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "info",
+            "small": "",
+            "dark": ""
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "left": "",
+            "small": ""
+          }
+        }, [_vm._v("mdi-clock")]), _vm._v("\n                  " + _vm._s(item.header.bookingDate.split('T')[0]) + "\n                ")], 1)];
+      }
+    }, {
+      key: `item.product.pro_name`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "product-info"
+        }, [_c('div', {
+          staticClass: "font-weight-bold"
+        }, [_vm._v(_vm._s(item.product.pro_name))]), _vm._v(" "), _c('div', {
+          staticClass: "caption grey--text"
+        }, [_vm._v("#" + _vm._s(item.header.id))])])];
+      }
+    }, {
+      key: `item.quantity`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": "primary",
+            "small": "",
+            "dark": "",
+            "outlined": ""
+          }
+        }, [_vm._v("\n                  " + _vm._s(item.quantity) + "\n                ")])];
+      }
+    }, {
       key: `item.discount`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.discount)) + "\n        ")];
+        return [_c('span', {
+          staticClass: "font-weight-bold text--secondary"
+        }, [_vm._v("\n                  " + _vm._s(_vm.numberWithCommas(item.discount)) + "\n                ")])];
       }
     }, {
       key: `item.total`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total)) + "\n        ")];
+        return [_c('span', {
+          staticClass: "font-weight-bold primary--text"
+        }, [_vm._v("\n                  " + _vm._s(_vm.numberWithCommas(item.total)) + "\n                ")])];
       }
     }, {
-      key: `item.price`,
+      key: `item.user.cus_name`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total)) + "\n        ")];
-      }
-    }, {
-      key: `item.cusTel`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
+        return [_c('div', {
+          staticClass: "user-info"
+        }, [_c(VAvatar["a" /* default */], {
+          staticClass: "mr-2",
           attrs: {
-            "color": "blue darken-1",
-            "text": ""
+            "size": "24",
+            "color": "secondary"
+          }
+        }, [_c('span', {
+          staticClass: "white--text caption"
+        }, [_vm._v(_vm._s(item.user.cus_name.charAt(0)))])]), _vm._v(" "), _c('span', {
+          staticClass: "font-weight-medium"
+        }, [_vm._v(_vm._s(item.user.cus_name))])], 1)];
+      }
+    }, {
+      key: `item.actions`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "action-buttons"
+        }, [_c(VBtn["a" /* default */], {
+          staticClass: "action-btn",
+          attrs: {
+            "icon": "",
+            "small": "",
+            "color": "info"
           },
           on: {
             "click": function ($event) {
-              return _vm.whatsappLink(item);
+              return _vm.viewItem(item.header);
             }
           }
-        }, [_vm._v("\n            " + _vm._s(item.cusTel) + "\n            "), _c('a', {
+        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-eye")])], 1), _vm._v(" "), item.header.cusTel ? _c(VBtn["a" /* default */], {
+          staticClass: "action-btn",
           attrs: {
-            "href": _vm.whatsappContactLink,
-            "target": "_blank"
+            "icon": "",
+            "small": "",
+            "color": "success"
+          },
+          on: {
+            "click": function ($event) {
+              return _vm.whatsappLink(item.header);
+            }
           }
-        }, [_vm._v("Whatsapp")])])];
+        }, [_c(VIcon["a" /* default */], [_vm._v("mdi-whatsapp")])], 1) : _vm._e()], 1)];
       }
     }], null, true)
-  }) : _vm._e()], 1)], 1)], 2);
+  })], 1)], 1)], 1) : _vm._e()], 1)], 1)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/saleReportDetailByUser/index.vue?vue&type=template&id=af7aa636&scoped=true
+// CONCATENATED MODULE: ./pages/admin/saleReportDetailByUser/index.vue?vue&type=template&id=02baee06&scoped=true
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -554,7 +923,7 @@ var orderSumaryCardPos = __webpack_require__(488);
       creteria: {
         userId: -1
       },
-      headers: [{
+      enhancedHeaders: [{
         text: 'ເລກອໍເດີ',
         align: 'center',
         value: 'header.id',
@@ -566,7 +935,7 @@ var orderSumaryCardPos = __webpack_require__(488);
         sortable: true
       }, {
         text: 'ສິນຄ້າ',
-        align: 'center',
+        align: 'left',
         value: 'product.pro_name',
         sortable: true
       }, {
@@ -576,80 +945,39 @@ var orderSumaryCardPos = __webpack_require__(488);
         sortable: true
       }, {
         text: 'ລາຄາ',
-        align: 'center',
+        align: 'right',
         value: 'price',
         sortable: true
       }, {
         text: 'ສ່ວນຫຼຸດ',
-        align: 'center',
+        align: 'right',
         value: 'discount',
         sortable: true
       }, {
         text: 'ລວມ',
-        align: 'center',
+        align: 'right',
         value: 'total',
         sortable: true
       }, {
         text: 'ຜູ້ຂາຍ',
-        align: 'center',
+        align: 'left',
         value: 'user.cus_name',
         sortable: true
-      }
-      // {
-      //   text: 'ອັດຕາແລກປ່ຽນ',
-      //   align: 'center',
-      //   value: 'exchangeRate',
-      //   sortable: true,
-      // },
-      // {
-      //   text: 'ສ່ວນຫລຸດ',
-      //   align: 'end',
-      //   value: 'discount',
-      //   sortable: true,
-      // },
-
-      // {
-      //   text: 'ລວມ',
-      //   align: 'end',
-      //   value: 'total',
-      //   sortable: false,
-      // },
-      // {
-      //   text: 'ຜູ້ລົງທຸລະກຳ',
-      //   align: 'end',
-      //   value: 'user.cus_name',
-      //   sortable: false,
-      // },
-      // {
-      //   text: 'ເວລາລົງ',
-      //   align: 'end',
-      //   value: 'createdAt',
-      //   sortable: false,
-      // },
-      // {
-      //   text: 'View/Update',
-      //   align: 'end',
-      //   value: 'id',
-      //   sortable: false,
-      // },
-      ],
-      // date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10),
+      }, {
+        text: 'ການດຳເນີນການ',
+        align: 'center',
+        value: 'actions',
+        sortable: false
+      }],
       date: Object(common["d" /* getFirstDayOfMonth */])(),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      dateFormatted: this.formatDate(
-      // new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10)
-      Object(common["d" /* getFirstDayOfMonth */])()),
+      dateFormatted: this.formatDate(Object(common["d" /* getFirstDayOfMonth */])()),
       dateFormatted2: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
       menu1: false,
       menu2: false
     };
   },
   async created() {
-    // this.creteria.userId = this.user['id']
     await this.loadData();
     await this.loadUserData();
   },
@@ -670,15 +998,12 @@ var orderSumaryCardPos = __webpack_require__(488);
     orderLineByUser() {
       let lines = [];
       for (const iterator of this.activeOrderHeaderList) {
-        console.log(`Header user: ${JSON.stringify(iterator.user)}`);
         for (const line of iterator['lines']) {
-          //Assign inputter 
           line['user'] = iterator.user;
+          line['header'] = iterator;
         }
         lines.push(...iterator['lines']);
       }
-      console.log(`Total line count: ${lines.length}`);
-      console.log(`Total line count: ${JSON.stringify(lines)}`);
       return lines;
     },
     ...Object(external_vuex_["mapGetters"])(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
@@ -697,18 +1022,13 @@ var orderSumaryCardPos = __webpack_require__(488);
         total += el.total;
       });
       return total;
-      // return total
     },
     totalSaleRaw() {
       let total = 0;
       this.activeOrderHeaderList.forEach(el => {
-        console.log("====>", el.cartTotal);
         total += parseInt(el.cartTotal);
       });
-      console.log('Price total: ' + total);
-      // return previousValue.cartTotal + currentValue.cartTotal
       return total;
-      // return total
     },
     user() {
       return this.$auth.user || '';
@@ -719,14 +1039,12 @@ var orderSumaryCardPos = __webpack_require__(488);
         total += parseInt(el.discount);
       });
       return total;
-      // return total
     },
     unpaidCodOrder() {
       let txnList = [];
       let orderDetail = {};
       this.orderHeaderList.forEach(element => {
         if (element.paymentStatus === 'PENDING' && element.payment.includes('COD')) {
-          console.log("Concept applied");
           txnList.push(element);
         }
       });
@@ -746,6 +1064,10 @@ var orderSumaryCardPos = __webpack_require__(488);
     }
   },
   methods: {
+    exportSimplePDFAudit() {
+      // Implementation would go here
+      this.$toast.success('PDF audit feature coming soon!');
+    },
     exportToExcel() {
       let messageLineExport = [];
       for (const iterator of this.orderLineByUser) {
@@ -766,7 +1088,7 @@ var orderSumaryCardPos = __webpack_require__(488);
       const worksheet = this.$xlsx.utils.json_to_sheet(messageLineExport);
       const workbook = this.$xlsx.utils.book_new();
       this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
+      this.$xlsx.writeFile(workbook, 'sales_report.xlsx');
     },
     createSale() {
       this.componentKey += 1;
@@ -778,20 +1100,16 @@ var orderSumaryCardPos = __webpack_require__(488);
       return Object(common["b" /* dayCount */])(startDate);
     },
     dueDate(startDate, day) {
-      console.log("DATE ", startDate, " to ", day);
       return Object(common["g" /* getNextDate */])(startDate, day);
     },
     numberWithCommas(value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     whatsappLink(item) {
-      // const completeTel = tel.substring(tel.length-7);
       const tel = item.cusTel.trim();
-
-      // console.log("Customer tel: ",tel);
       const completeTel = tel.substring(tel.length - 8);
       this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
-      // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
+      window.open(this.whatsappContactLink, '_blank');
     },
     getFormatNum(val) {
       return new Intl.NumberFormat().format(val);
@@ -808,10 +1126,8 @@ var orderSumaryCardPos = __webpack_require__(488);
       this.dialogOrderDetail = true;
     },
     cancelItem(payload) {
-      console.log("Order id", payload.orderId);
       this.componentCancelFormKey += 1;
       this.OrderIdSelected = payload.orderId;
-      // this.orderLockingSessionId = payload.lockingSessionId;
       this.cancelForm = true;
     },
     handleEvent() {
@@ -825,7 +1141,7 @@ var orderSumaryCardPos = __webpack_require__(488);
         userId: this.creteria.userId
       };
       let apiLine = 'api/sale/findByDate';
-      if (date.userId) {
+      if (date.userId && date.userId !== -1) {
         apiLine = 'api/sale/findByDateAndUser';
       }
       try {
@@ -836,7 +1152,7 @@ var orderSumaryCardPos = __webpack_require__(488);
         });
         this.orderHeaderList = response.data;
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + JSON.stringify(error));
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could not load data ' + JSON.stringify(error));
       }
       this.isloading = false;
     },
@@ -851,19 +1167,17 @@ var orderSumaryCardPos = __webpack_require__(488);
           'cus_name': 'ທັງຫມົດ'
         });
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + JSON.stringify(error));
+        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could not load user data ' + JSON.stringify(error));
       }
       this.isloading = false;
     },
     formatDate(date) {
       if (!date) return null;
-      console.log("DATE FORMAT METHOD1: " + date);
       const formattedDate = this.formatDateToISO(date);
       const [year, month, day] = formattedDate.split('-');
       return `${month}/${day}/${year}`;
     },
     parseDate(date) {
-      console.log("DATE PARSE METHOD1: " + date);
       if (!date) return null;
       const [month, day, year] = date.split('/');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
@@ -871,7 +1185,7 @@ var orderSumaryCardPos = __webpack_require__(488);
     formatDateToISO(date) {
       if (!(date instanceof Date)) date = new Date(date);
       const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+      const month = `${date.getMonth() + 1}`.padStart(2, '0');
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
     }
@@ -888,7 +1202,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1245)
+  var style0 = __webpack_require__(1242)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -897,11 +1211,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_saleReportDetailByUservue_type_script_lang_js,
-  saleReportDetailByUservue_type_template_id_af7aa636_scoped_true_render,
+  saleReportDetailByUservue_type_template_id_02baee06_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "af7aa636",
+  "02baee06",
   "9571bb1c"
   
 )
@@ -909,7 +1223,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var saleReportDetailByUser = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(480).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default,OrderSumaryCardPos: __webpack_require__(488).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default})
 
 
 /***/ }),
@@ -2108,7 +2422,7 @@ module.exports.__inject__ = function (context) {
 __webpack_require__.r(__webpack_exports__);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAutocomplete/VAutocomplete.js
-var VAutocomplete = __webpack_require__(420);
+var VAutocomplete = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
 var VAvatar = __webpack_require__(123);
@@ -5767,20 +6081,20 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 
 /***/ }),
 
-/***/ 966:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1246);
+var content = __webpack_require__(1243);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("32711208", content, true, context)
+  add("608f4e9c", content, true, context)
 };
 
 /***/ })

@@ -1,164 +1,26 @@
-exports.ids = [293,55];
+exports.ids = [293];
 exports.modules = {
 
-/***/ 1083:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/MetricCard.vue?vue&type=template&id=36193a2f&scoped=true
-var render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "metric-card",
-    class: {
-      'metric-card--alert': _vm.alert
-    }
-  }, [_vm._ssrNode("<div class=\"metric-card__content\" data-v-36193a2f>", "</div>", [_vm._ssrNode("<div class=\"metric-card__header\" data-v-36193a2f>", "</div>", [_vm._ssrNode("<div class=\"metric-card__text\" data-v-36193a2f><h3 class=\"metric-card__title\" data-v-36193a2f>" + _vm._ssrEscape(_vm._s(_vm.title)) + "</h3> <p class=\"metric-card__value\" data-v-36193a2f>" + _vm._ssrEscape(_vm._s(_vm.value)) + "</p> " + (_vm.subtitle ? "<p class=\"metric-card__subtitle\" data-v-36193a2f>" + _vm._ssrEscape(_vm._s(_vm.subtitle)) + "</p>" : "<!---->") + "</div>\n      METRIC\n      "), _vm._ssrNode("<div class=\"metric-card__icon-container\"" + _vm._ssrStyle(null, {
-    backgroundColor: `${_vm.color}15`
-  }, null) + " data-v-36193a2f>", "</div>", [_c(_vm.iconComponent, {
-    tag: "component",
-    staticClass: "metric-card__icon",
-    style: {
-      color: _vm.color
-    }
-  })], 1)], 2), _vm._ssrNode(" "), _vm.trend !== null && _vm.trend !== undefined ? _vm._ssrNode("<div class=\"metric-card__trend\" data-v-36193a2f>", "</div>", [_vm.trend >= 0 ? _c('TrendingUpIcon', {
-    staticClass: "metric-card__trend-icon metric-card__trend-icon--positive"
-  }) : _c('TrendingDownIcon', {
-    staticClass: "metric-card__trend-icon metric-card__trend-icon--negative"
-  }), _vm._ssrNode(" <span" + _vm._ssrClass("metric-card__trend-text", {
-    'metric-card__trend-text--positive': _vm.trend >= 0,
-    'metric-card__trend-text--negative': _vm.trend < 0
-  }) + " data-v-36193a2f>" + _vm._ssrEscape("\n        " + _vm._s(Math.abs(_vm.trend).toFixed(1)) + "% vs last period\n      ") + "</span>")], 2) : _vm._e()], 2), _vm._ssrNode(" "), _vm.alert ? _vm._ssrNode("<div class=\"metric-card__alert-indicator\" data-v-36193a2f>", "</div>", [_c('AlertTriangleIcon', {
-    staticClass: "metric-card__alert-icon"
-  })], 1) : _vm._e()], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/dashboard/MetricCard.vue?vue&type=template&id=36193a2f&scoped=true
-
-// EXTERNAL MODULE: external "vue-feather-icons"
-var external_vue_feather_icons_ = __webpack_require__(419);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/dashboard/MetricCard.vue?vue&type=script&lang=js
-
-/* harmony default export */ var MetricCardvue_type_script_lang_js = ({
-  name: 'MetricCard',
-  components: {
-    DollarSignIcon: external_vue_feather_icons_["DollarSignIcon"],
-    ShoppingCartIcon: external_vue_feather_icons_["ShoppingCartIcon"],
-    TrendingUpIcon: external_vue_feather_icons_["TrendingUpIcon"],
-    TrendingDownIcon: external_vue_feather_icons_["TrendingDownIcon"],
-    AlertTriangleIcon: external_vue_feather_icons_["AlertTriangleIcon"],
-    UsersIcon: external_vue_feather_icons_["UsersIcon"],
-    PackageIcon: external_vue_feather_icons_["PackageIcon"],
-    ClockIcon: external_vue_feather_icons_["ClockIcon"],
-    BarChart3Icon: external_vue_feather_icons_["BarChart3Icon"],
-    PieChartIcon: external_vue_feather_icons_["PieChartIcon"]
-  },
-  props: {
-    title: {
-      type: String,
-      required: true
-    },
-    value: {
-      type: [String, Number],
-      required: true
-    },
-    subtitle: {
-      type: String,
-      default: null
-    },
-    icon: {
-      type: String,
-      default: 'bar-chart-3'
-    },
-    color: {
-      type: String,
-      default: '#3B82F6'
-    },
-    trend: {
-      type: Number,
-      default: null
-    },
-    alert: {
-      type: Boolean,
-      default: false
-    }
-  },
-  computed: {
-    iconComponent() {
-      const iconMap = {
-        'dollar-sign': 'DollarSignIcon',
-        'shopping-cart': 'ShoppingCartIcon',
-        'trending-up': 'TrendingUpIcon',
-        'alert-triangle': 'AlertTriangleIcon',
-        'users': 'UsersIcon',
-        'package': 'PackageIcon',
-        'clock': 'ClockIcon',
-        'bar-chart-3': 'BarChart3Icon',
-        'pie-chart': 'PieChartIcon'
-      };
-      return iconMap[this.icon] || 'BarChart3Icon';
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/dashboard/MetricCard.vue?vue&type=script&lang=js
- /* harmony default export */ var dashboard_MetricCardvue_type_script_lang_js = (MetricCardvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/dashboard/MetricCard.vue
-
-
-
-function injectStyles (context) {
-  
-  var style0 = __webpack_require__(813)
-if (style0.__inject__) style0.__inject__(context)
-
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  dashboard_MetricCardvue_type_script_lang_js,
-  render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  "36193a2f",
-  "53b8628e"
-  
-)
-
-/* harmony default export */ var MetricCard = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 1235:
+/***/ 1232:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_012defd0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(961);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_012defd0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_012defd0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_012defd0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_012defd0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_414547b0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(958);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_414547b0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_414547b0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_414547b0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_414547b0_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1236:
+/***/ 1233:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".dashboard-container[data-v-012defd0]{background-color:#f9fafb;min-height:100vh}.dashboard-header[data-v-012defd0]{background:#fff;border-bottom:1px solid #e5e7eb;padding:1rem 0}.header-content[data-v-012defd0]{align-items:center;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin:0 auto;max-width:1200px;padding:0 1rem}.dashboard-title[data-v-012defd0]{color:#111827;font-size:1.875rem;font-weight:700;margin:0}.date-selector[data-v-012defd0]{align-items:flex-start;display:flex;flex-direction:column;flex-wrap:wrap;gap:1rem;width:100%}.date-label[data-v-012defd0]{align-items:center;color:#374151;display:flex;font-weight:500;gap:.25rem;margin-bottom:.5rem}.icon[data-v-012defd0]{height:1.25rem;width:1.25rem}.date-range-container[data-v-012defd0]{margin-top:1rem;width:100%}.vuetify-date-inputs[data-v-012defd0]{display:grid;grid-template-columns:1fr 1fr auto;grid-gap:1rem;align-items:start;gap:1rem;margin-bottom:1rem}.date-picker-wrapper[data-v-012defd0]{min-width:200px}.date-action-buttons[data-v-012defd0]{align-self:start;display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}.quick-date-chips[data-v-012defd0]{margin-bottom:1rem}.date-range-display[data-v-012defd0]{margin-top:1rem;width:100%}.range-text[data-v-012defd0]{font-weight:500}.error-container[data-v-012defd0],.loading-container[data-v-012defd0]{align-items:center;display:flex;flex-direction:column;gap:1rem;justify-content:center;min-height:400px}.loading-spinner[data-v-012defd0]{animation:spin-012defd0 1s linear infinite;border:3px solid #e5e7eb;border-radius:50%;border-top-color:#3b82f6;height:2rem;width:2rem}@keyframes spin-012defd0{to{transform:rotate(1turn)}}.error-message[data-v-012defd0]{color:#dc2626;font-weight:500}.retry-button[data-v-012defd0]{background:#3b82f6;border:none;border-radius:.375rem;color:#fff;cursor:pointer;font-weight:500;padding:.5rem 1rem}.retry-button[data-v-012defd0]:hover{background:#2563eb}.dashboard-content[data-v-012defd0]{margin:0 auto;max-width:1200px;padding:2rem 1rem}.metrics-grid[data-v-012defd0]{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:1.5rem}.charts-section[data-v-012defd0],.metrics-grid[data-v-012defd0]{display:grid;gap:1.5rem;margin-bottom:2rem}.charts-section[data-v-012defd0]{grid-template-columns:2fr 1fr;grid-gap:1.5rem}.chart-container[data-v-012defd0]{background:#fff;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:1.5rem}.chart-title[data-v-012defd0]{color:#111827;font-size:1.125rem;font-weight:600;margin:0 0 1rem}.analytics-grid[data-v-012defd0]{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));grid-gap:1.5rem;gap:1.5rem;margin-bottom:2rem}.analytics-card[data-v-012defd0]{background:#fff;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:1.5rem}.card-title[data-v-012defd0]{color:#111827;font-size:1.125rem;font-weight:600;margin:0 0 1rem}.products-list[data-v-012defd0]{space-y:.75rem}.product-item[data-v-012defd0]{align-items:center;border:1px solid #e5e7eb;border-radius:.375rem;display:flex;justify-content:space-between;padding:.75rem}.product-name[data-v-012defd0]{color:#111827;font-size:.875rem;font-weight:500;margin:0 0 .25rem}.product-details[data-v-012defd0]{color:#6b7280;font-size:.75rem;margin:0}.product-revenue[data-v-012defd0]{color:#059669;font-weight:600}.alerts-panel .no-alerts[data-v-012defd0]{align-items:center;color:#6b7280;display:flex;flex-direction:column;gap:.5rem;padding:2rem}.success-icon[data-v-012defd0]{color:#059669;height:2rem;width:2rem}.alerts-list[data-v-012defd0]{space-y:.75rem}.alert-item[data-v-012defd0]{align-items:flex-start;border-left:4px solid;border-radius:.375rem;display:flex;gap:.75rem;padding:.75rem}.alert-critical[data-v-012defd0]{background:#fef2f2;border-left-color:#dc2626}.alert-warning[data-v-012defd0]{background:#fffbeb;border-left-color:#f59e0b}.alert-icon[data-v-012defd0]{height:1.25rem;margin-top:.125rem;width:1.25rem}.alert-critical .alert-icon[data-v-012defd0]{color:#dc2626}.alert-warning .alert-icon[data-v-012defd0]{color:#f59e0b}.alert-message[data-v-012defd0]{color:#111827;font-size:.875rem;font-weight:500;margin:0 0 .25rem}.alert-time[data-v-012defd0]{color:#6b7280;font-size:.75rem}.recent-orders-section[data-v-012defd0]{background:#fff;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1);padding:1.5rem}.section-title[data-v-012defd0]{color:#111827;font-size:1.125rem;font-weight:600;margin:0 0 1rem}.table-container[data-v-012defd0]{overflow-x:auto}.orders-table[data-v-012defd0]{border-collapse:collapse;width:100%}.orders-table th[data-v-012defd0]{background:#f9fafb;color:#374151;font-size:.75rem;font-weight:500;letter-spacing:.05em;text-align:left;text-transform:uppercase}.orders-table td[data-v-012defd0],.orders-table th[data-v-012defd0]{border-bottom:1px solid #e5e7eb;padding:.75rem}.orders-table td[data-v-012defd0]{font-size:.875rem}.order-number[data-v-012defd0]{color:#111827;font-weight:500}.payment-badge[data-v-012defd0],.status-badge[data-v-012defd0]{align-items:center;border-radius:9999px;display:inline-flex;font-size:.75rem;font-weight:500;padding:.25rem .5rem;text-transform:capitalize}.status-pending[data-v-012defd0]{background:#f3f4f6;color:#374151}.status-preparing[data-v-012defd0]{background:#fef3c7;color:#92400e}.status-completed[data-v-012defd0]{background:#d1fae5;color:#065f46}.payment-pending[data-v-012defd0]{background:#fef2f2;color:#991b1b}.payment-completed[data-v-012defd0]{background:#d1fae5;color:#065f46}.order-items[data-v-012defd0]{color:#6b7280}.order-total[data-v-012defd0]{color:#111827;font-weight:500}.order-staff[data-v-012defd0],.order-time[data-v-012defd0]{color:#6b7280}@media (max-width:768px){.header-content[data-v-012defd0]{align-items:stretch;flex-direction:column}.date-selector[data-v-012defd0]{width:100%}.vuetify-date-inputs[data-v-012defd0]{gap:.75rem;grid-template-columns:1fr}.date-picker-wrapper[data-v-012defd0]{min-width:auto;width:100%}.date-action-buttons[data-v-012defd0]{flex-direction:row;justify-content:center}.analytics-grid[data-v-012defd0],.charts-section[data-v-012defd0]{grid-template-columns:1fr}.orders-table[data-v-012defd0]{font-size:.75rem}.orders-table td[data-v-012defd0],.orders-table th[data-v-012defd0]{padding:.5rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".dashboard-container[data-v-414547b0]{background-color:#f9fafb;min-height:100vh}.dashboard-header[data-v-414547b0]{background:#fff;border-bottom:1px solid #e5e7eb;padding:1rem 0}.header-content[data-v-414547b0]{align-items:center;display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;margin:0 auto;max-width:1200px;padding:0 1rem}.dashboard-title[data-v-414547b0]{color:#111827;font-size:1.875rem;font-weight:700;margin:0}.date-selector[data-v-414547b0]{align-items:flex-start;display:flex;flex-direction:column;flex-wrap:wrap;gap:1rem;width:100%}.date-label[data-v-414547b0]{align-items:center;color:#374151;display:flex;font-weight:500;gap:.25rem;margin-bottom:.5rem}.date-range-container[data-v-414547b0]{margin-top:1rem;width:100%}.vuetify-date-inputs[data-v-414547b0]{display:grid;grid-template-columns:1fr 1fr auto;grid-gap:1rem;align-items:start;gap:1rem;margin-bottom:1rem}.date-picker-wrapper[data-v-414547b0]{min-width:200px}.date-action-buttons[data-v-414547b0]{align-self:start;display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem}.quick-date-chips[data-v-414547b0]{margin-bottom:1rem}.date-range-display[data-v-414547b0]{margin-top:1rem;width:100%}.default-state[data-v-414547b0],.error-container[data-v-414547b0],.loading-container[data-v-414547b0]{align-items:center;display:flex;flex-direction:column;gap:1rem;justify-content:center;min-height:400px}.dashboard-content[data-v-414547b0]{margin:0 auto;max-width:1200px;padding:2rem 1rem}.metrics-grid[data-v-414547b0]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:1.5rem;gap:1.5rem;margin-bottom:2rem}.metric-card[data-v-414547b0]{transition:all .3s ease}.metric-card[data-v-414547b0]:hover{transform:translateY(-4px)}.alert-card[data-v-414547b0]{animation:pulse-414547b0 2s infinite}@keyframes pulse-414547b0{0%{box-shadow:0 0 0 0 rgba(255,193,7,.4)}70%{box-shadow:0 0 0 10px rgba(255,193,7,0)}to{box-shadow:0 0 0 0 rgba(255,193,7,0)}}.charts-section[data-v-414547b0]{display:grid;grid-template-columns:2fr 1fr;grid-gap:1.5rem;gap:1.5rem;margin-bottom:2rem}.chart-container[data-v-414547b0]{transition:all .3s ease}.chart-container[data-v-414547b0]:hover{transform:translateY(-2px)}.chart-placeholder[data-v-414547b0]{align-items:center;background:#fafafa;border-radius:8px;display:flex;flex-direction:column;justify-content:center;min-height:250px;padding:2rem;text-align:center}.order-status-summary[data-v-414547b0]{padding:1rem}.analytics-grid[data-v-414547b0]{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));grid-gap:1.5rem;gap:1.5rem;margin-bottom:2rem}.analytics-card[data-v-414547b0]{transition:all .3s ease}.analytics-card[data-v-414547b0]:hover{transform:translateY(-2px)}.hourly-summary[data-v-414547b0]{padding:1rem 0}.hourly-item[data-v-414547b0]{background:rgba(0,0,0,.05);border-radius:8px;transition:all .2s ease}.hourly-item[data-v-414547b0]:hover{background:rgba(0,0,0,.1)}.recent-orders-section[data-v-414547b0]{margin-bottom:2rem}.orders-table[data-v-414547b0] tbody tr:hover{background-color:rgba(0,0,0,.04)!important}.items-summary[data-v-414547b0]{max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}@media (max-width:768px){.header-content[data-v-414547b0]{align-items:stretch;flex-direction:column}.date-selector[data-v-414547b0]{width:100%}.vuetify-date-inputs[data-v-414547b0]{gap:.75rem;grid-template-columns:1fr}.date-picker-wrapper[data-v-414547b0]{min-width:auto;width:100%}.date-action-buttons[data-v-414547b0]{flex-direction:row;justify-content:center}.analytics-grid[data-v-414547b0],.charts-section[data-v-414547b0]{grid-template-columns:1fr}.items-summary[data-v-414547b0]{max-width:120px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -176,8 +38,17 @@ __webpack_require__.r(__webpack_exports__);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAlert/VAlert.js
 var VAlert = __webpack_require__(442);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VAvatar/VAvatar.js
+var VAvatar = __webpack_require__(123);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(129);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChip/VChip.js
 var VChip = __webpack_require__(130);
@@ -185,22 +56,55 @@ var VChip = __webpack_require__(130);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VChipGroup/VChipGroup.js
 var VChipGroup = __webpack_require__(579);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(441);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
+var VDataTable = __webpack_require__(452);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
 var VDatePicker = __webpack_require__(489);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(125);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VIcon/VIcon.js
 var VIcon = __webpack_require__(64);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VList.js
+var VList = __webpack_require__(119);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItem.js
+var VListItem = __webpack_require__(87);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAction.js
+var VListItemAction = __webpack_require__(120);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/VListItemAvatar.js
+var VListItemAvatar = __webpack_require__(122);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VList/index.js
+var components_VList = __webpack_require__(9);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMenu/VMenu.js
 var VMenu = __webpack_require__(131);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
+var VProgressCircular = __webpack_require__(110);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(440);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSelect/VSelect.js + 2 modules
 var VSelect = __webpack_require__(20);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleDashBoard/index.vue?vue&type=template&id=012defd0&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleDashBoard/index.vue?vue&type=template&id=414547b0&scoped=true
 
 
 
@@ -211,15 +115,29 @@ var VTextField = __webpack_require__(39);
 
 
 
-var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function render() {
-  var _vm$comparisonData, _vm$comparisonData2, _vm$comparisonData3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var saleDashBoardvue_type_template_id_414547b0_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "dashboard-container"
-  }, [_vm._ssrNode("<div class=\"dashboard-header\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-012defd0>", "</div>", [_vm._ssrNode("<h1 class=\"dashboard-title\" data-v-012defd0>Business Dashboard</h1> "), _vm._ssrNode("<div class=\"date-selector\" data-v-012defd0>", "</div>", [_vm._ssrNode("<label class=\"date-label\" data-v-012defd0>", "</label>", [_c('CalendarIcon', {
-    staticClass: "icon"
-  }), _vm._ssrNode("\n          Period:\n        ")], 2), _vm._ssrNode(" "), _c(VSelect["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"dashboard-header\" data-v-414547b0>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-414547b0>", "</div>", [_vm._ssrNode("<h1 class=\"dashboard-title\" data-v-414547b0>Business Dashboard</h1> "), _vm._ssrNode("<div class=\"date-selector\" data-v-414547b0>", "</div>", [_vm._ssrNode("<label class=\"date-label\" data-v-414547b0>", "</label>", [_c(VIcon["a" /* default */], [_vm._v("mdi-calendar")]), _vm._ssrNode("\n          Period:\n        ")], 2), _vm._ssrNode(" "), _c(VSelect["a" /* default */], {
     staticStyle: {
       "min-width": "200px"
     },
@@ -239,7 +157,7 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
       },
       expression: "selectedPeriod"
     }
-  }), _vm._ssrNode(" "), _vm.selectedPeriod === 'custom' || _vm.selectedPeriod === 'between_dates' ? _vm._ssrNode("<div class=\"date-range-container\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"vuetify-date-inputs\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"date-picker-wrapper\" data-v-012defd0>", "</div>", [_c(VMenu["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm.selectedPeriod === 'custom' || _vm.selectedPeriod === 'between_dates' ? _vm._ssrNode("<div class=\"date-range-container\" data-v-414547b0>", "</div>", [_vm._ssrNode("<div class=\"vuetify-date-inputs\" data-v-414547b0>", "</div>", [_vm._ssrNode("<div class=\"date-picker-wrapper\" data-v-414547b0>", "</div>", [_c(VMenu["a" /* default */], {
     attrs: {
       "close-on-content-click": false,
       "nudge-right": 40,
@@ -304,7 +222,7 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
       },
       expression: "customStartDate"
     }
-  })], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"date-picker-wrapper\" data-v-012defd0>", "</div>", [_c(VMenu["a" /* default */], {
+  })], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"date-picker-wrapper\" data-v-414547b0>", "</div>", [_c(VMenu["a" /* default */], {
     attrs: {
       "close-on-content-click": false,
       "nudge-right": 40,
@@ -370,7 +288,7 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
       },
       expression: "customEndDate"
     }
-  })], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"date-action-buttons\" data-v-012defd0>", "</div>", [_c(VBtn["a" /* default */], {
+  })], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"date-action-buttons\" data-v-414547b0>", "</div>", [_c(VBtn["a" /* default */], {
     attrs: {
       "disabled": !_vm.customStartDate || !_vm.customEndDate,
       "color": "primary",
@@ -399,7 +317,7 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
       "left": "",
       "small": ""
     }
-  }, [_vm._v("mdi-close")]), _vm._v("\n                Clear\n              ")], 1)], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"quick-date-chips\" data-v-012defd0>", "</div>", [_c(VChipGroup["a" /* default */], [_c(VChip["a" /* default */], {
+  }, [_vm._v("mdi-close")]), _vm._v("\n                Clear\n              ")], 1)], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"quick-date-chips\" data-v-414547b0>", "</div>", [_c(VChipGroup["a" /* default */], [_c(VChip["a" /* default */], {
     attrs: {
       "small": "",
       "outlined": ""
@@ -439,7 +357,7 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
         return _vm.setQuickRange('thisyear');
       }
     }
-  }, [_vm._v("This Year")])], 1)], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm.dateRangeDisplay ? _vm._ssrNode("<div class=\"date-range-display\" data-v-012defd0>", "</div>", [_c(VAlert["a" /* default */], {
+  }, [_vm._v("This Year")])], 1)], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm.dateRangeDisplay ? _vm._ssrNode("<div class=\"date-range-display\" data-v-414547b0>", "</div>", [_c(VAlert["a" /* default */], {
     staticClass: "ma-0",
     attrs: {
       "dense": "",
@@ -448,98 +366,497 @@ var saleDashBoardvue_type_template_id_012defd0_scoped_true_render = function ren
     }
   }, [_c('span', {
     staticClass: "range-text"
-  }, [_vm._v(_vm._s(_vm.dateRangeDisplay))])])], 1) : _vm._e()], 2)], 2)]), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"loading-container\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"loading-spinner\" data-v-012defd0></div> <p data-v-012defd0>Loading dashboard data...</p>")], 2) : _vm.error ? _vm._ssrNode("<div class=\"error-container\" data-v-012defd0><p class=\"error-message\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(_vm.error)) + "</p> <button class=\"retry-button\" data-v-012defd0>Retry</button></div>") : _vm.dashboardData ? _vm._ssrNode("<div class=\"dashboard-content\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"metrics-grid\" data-v-012defd0>", "</div>", [_c('MetricCard', {
+  }, [_vm._v(_vm._s(_vm.dateRangeDisplay))])])], 1) : _vm._e()], 2)], 2)]), _vm._ssrNode(" "), _vm.loading ? _vm._ssrNode("<div class=\"loading-container\" data-v-414547b0>", "</div>", [_c(VProgressCircular["a" /* default */], {
     attrs: {
-      "title": "Total Revenue",
-      "value": _vm.formatCurrency(_vm.dashboardData.financial.totalRevenue),
-      "subtitle": `${_vm.dashboardData.financial.totalOrders} orders`,
-      "icon": "dollar-sign",
-      "color": "#3B82F6",
-      "trend": (_vm$comparisonData = _vm.comparisonData) === null || _vm$comparisonData === void 0 ? void 0 : _vm$comparisonData.revenue
+      "size": 70,
+      "width": 7,
+      "color": "primary",
+      "indeterminate": ""
     }
-  }), _vm._ssrNode(" "), _c('MetricCard', {
+  }), _vm._ssrNode(" <p class=\"mt-4\" data-v-414547b0>Loading dashboard data...</p>")], 2) : _vm.error ? _vm._ssrNode("<div class=\"error-container\" data-v-414547b0>", "</div>", [_c(VAlert["a" /* default */], {
+    staticClass: "mb-4",
     attrs: {
-      "title": "Average Order Value",
-      "value": _vm.formatCurrency(_vm.dashboardData.financial.averageOrderValue),
-      "subtitle": "Per order",
-      "icon": "shopping-cart",
-      "color": "#10B981",
-      "trend": (_vm$comparisonData2 = _vm.comparisonData) === null || _vm$comparisonData2 === void 0 ? void 0 : _vm$comparisonData2.avgOrderValue
+      "type": "error",
+      "prominent": ""
     }
-  }), _vm._ssrNode(" "), _c('MetricCard', {
+  }, [_c('h3', [_vm._v("Dashboard Error")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.error))])]), _vm._ssrNode(" "), _c(VBtn["a" /* default */], {
     attrs: {
-      "title": "Pending Payments",
-      "value": _vm.formatCurrency(_vm.dashboardData.financial.pendingPayments),
-      "subtitle": `${_vm.dashboardData.orders.byPaymentStatus.pending} orders`,
-      "icon": "alert-triangle",
-      "color": "#F59E0B",
-      "alert": _vm.dashboardData.financial.pendingPayments > 0
+      "color": "primary"
+    },
+    on: {
+      "click": _vm.loadDashboardData
     }
-  }), _vm._ssrNode(" "), _c('MetricCard', {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "title": "Profit Margin",
-      "value": `${_vm.dashboardData.financial.profitMargin.toFixed(1)}%`,
-      "subtitle": _vm.formatCurrency(_vm.dashboardData.financial.totalProfit),
-      "icon": "trending-up",
-      "color": "#8B5CF6",
-      "trend": (_vm$comparisonData3 = _vm.comparisonData) === null || _vm$comparisonData3 === void 0 ? void 0 : _vm$comparisonData3.profitMargin
+      "left": ""
     }
-  })], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"charts-section\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"chart-container revenue-chart\" data-v-012defd0>", "</div>", [_vm._ssrNode("<h3 class=\"chart-title\" data-v-012defd0>Revenue Trends</h3> "), _c('client-only', [_c('apexchart', {
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n      Retry\n    ")], 1)], 2) : _vm.dashboardData ? _vm._ssrNode("<div class=\"dashboard-content\" data-v-414547b0>", "</div>", [_vm._ssrNode("<div class=\"metrics-grid\" data-v-414547b0>", "</div>", [_c(VCard["a" /* default */], {
+    staticClass: "metric-card"
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "size": "60",
+      "color": "primary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "30",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-currency-usd")])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "text-h4 primary--text font-weight-bold"
+  }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.dashboardData.financial.totalRevenue)) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 mb-2"
+  }, [_vm._v("Total Revenue")]), _vm._v(" "), _c('p', {
+    staticClass: "text-body-2 grey--text"
+  }, [_vm._v(_vm._s(_vm.dashboardData.financial.totalOrders) + " orders")]), _vm._v(" "), _vm.comparisonData && _vm.comparisonData.revenue !== undefined ? _c(VChip["a" /* default */], {
+    attrs: {
+      "color": _vm.comparisonData.revenue >= 0 ? 'success' : 'error',
+      "small": "",
+      "dark": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.comparisonData.revenue >= 0 ? 'mdi-trending-up' : 'mdi-trending-down') + "\n            ")]), _vm._v("\n            " + _vm._s(Math.abs(_vm.comparisonData.revenue).toFixed(1)) + "%\n          ")], 1) : _vm._e()], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "metric-card"
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "size": "60",
+      "color": "success"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "30",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-shopping-cart")])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "text-h4 success--text font-weight-bold"
+  }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.dashboardData.financial.averageOrderValue)) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 mb-2"
+  }, [_vm._v("Average Order Value")]), _vm._v(" "), _c('p', {
+    staticClass: "text-body-2 grey--text"
+  }, [_vm._v("Per order")]), _vm._v(" "), _vm.comparisonData && _vm.comparisonData.avgOrderValue !== undefined ? _c(VChip["a" /* default */], {
+    attrs: {
+      "color": _vm.comparisonData.avgOrderValue >= 0 ? 'success' : 'error',
+      "small": "",
+      "dark": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.comparisonData.avgOrderValue >= 0 ? 'mdi-trending-up' : 'mdi-trending-down') + "\n            ")]), _vm._v("\n            " + _vm._s(Math.abs(_vm.comparisonData.avgOrderValue).toFixed(1)) + "%\n          ")], 1) : _vm._e()], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "metric-card",
+    class: {
+      'alert-card': _vm.dashboardData.financial.pendingPayments > 0
+    }
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "size": "60",
+      "color": _vm.dashboardData.financial.pendingPayments > 0 ? 'warning' : 'grey'
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "30",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-alert-circle")])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "text-h4 font-weight-bold",
+    class: _vm.dashboardData.financial.pendingPayments > 0 ? 'warning--text' : 'grey--text'
+  }, [_vm._v("\n            " + _vm._s(_vm.formatCurrency(_vm.dashboardData.financial.pendingPayments)) + "\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 mb-2"
+  }, [_vm._v("Pending Payments")]), _vm._v(" "), _c('p', {
+    staticClass: "text-body-2 grey--text"
+  }, [_vm._v(_vm._s(_vm.dashboardData.orders.byPaymentStatus.pending || 0) + " orders")]), _vm._v(" "), _vm.dashboardData.financial.pendingPayments > 0 ? _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "warning",
+      "small": "",
+      "dark": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("mdi-clock-alert")]), _vm._v("\n            Action Required\n          ")], 1) : _vm._e()], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "metric-card"
+  }, [_c(components_VCard["c" /* VCardText */], {
+    staticClass: "text-center"
+  }, [_c(VAvatar["a" /* default */], {
+    staticClass: "mb-3",
+    attrs: {
+      "size": "60",
+      "color": "secondary"
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "30",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-trending-up")])], 1), _vm._v(" "), _c('h3', {
+    staticClass: "text-h4 secondary--text font-weight-bold"
+  }, [_vm._v("\n            " + _vm._s(_vm.dashboardData.financial.profitMargin.toFixed(1)) + "%\n          ")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 mb-2"
+  }, [_vm._v("Profit Margin")]), _vm._v(" "), _c('p', {
+    staticClass: "text-body-2 grey--text"
+  }, [_vm._v(_vm._s(_vm.formatCurrency(_vm.dashboardData.financial.totalProfit)))]), _vm._v(" "), _vm.comparisonData && _vm.comparisonData.profitMargin !== undefined ? _c(VChip["a" /* default */], {
+    attrs: {
+      "color": _vm.comparisonData.profitMargin >= 0 ? 'success' : 'error',
+      "small": "",
+      "dark": ""
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "small": ""
+    }
+  }, [_vm._v("\n              " + _vm._s(_vm.comparisonData.profitMargin >= 0 ? 'mdi-trending-up' : 'mdi-trending-down') + "\n            ")]), _vm._v("\n            " + _vm._s(Math.abs(_vm.comparisonData.profitMargin).toFixed(1)) + "%\n          ")], 1) : _vm._e()], 1)], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"charts-section\" data-v-414547b0>", "</div>", [_c(VCard["a" /* default */], {
+    staticClass: "chart-container"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "primary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-chart-line")]), _vm._v("\n          Revenue Trends\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "small": "",
+      "text-color": "primary",
+      "outlined": ""
+    }
+  }, [_vm._v("\n            Live Data\n          ")])], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-6"
+  }, [_c('client-only', [_vm.revenueChartSeries && _vm.revenueChartSeries.length > 0 ? _c('apexchart', {
     attrs: {
       "type": "line",
       "height": "350",
       "options": _vm.revenueChartOptions,
       "series": _vm.revenueChartSeries
     }
-  })], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"chart-container order-status-chart\" data-v-012defd0>", "</div>", [_vm._ssrNode("<h3 class=\"chart-title\" data-v-012defd0>Order Status Distribution</h3> "), _c('client-only', [_c('apexchart', {
+  }) : _c('div', {
+    staticClass: "chart-placeholder"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "64",
+      "color": "grey lighten-2"
+    }
+  }, [_vm._v("mdi-chart-line")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 grey--text mt-4"
+  }, [_vm._v("No Revenue Data")]), _vm._v(" "), _c('p', {
+    staticClass: "text-body-2 grey--text"
+  }, [_vm._v("Select a different date range")])], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "chart-container"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "secondary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-pie-chart")]), _vm._v("\n          Order Status Distribution\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c('client-only', [_vm.orderStatusChartSeries && _vm.orderStatusChartSeries.some(val => val > 0) ? _c('apexchart', {
     attrs: {
       "type": "donut",
       "height": "350",
       "options": _vm.orderStatusChartOptions,
       "series": _vm.orderStatusChartSeries
     }
-  })], 1)], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"analytics-grid\" data-v-012defd0>", "</div>", [_vm._ssrNode("<div class=\"analytics-card\" data-v-012defd0><h3 class=\"card-title\" data-v-012defd0>Top Performing Products</h3> <div class=\"products-list\" data-v-012defd0>" + _vm._ssrList(_vm.dashboardData.products.topRevenue.slice(0, 5), function (product) {
-    return "<div class=\"product-item\" data-v-012defd0><div class=\"product-info\" data-v-012defd0><h4 class=\"product-name\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(product.name)) + "</h4> <p class=\"product-details\" data-v-012defd0>" + _vm._ssrEscape("\n                Qty: " + _vm._s(product.totalQuantity) + " | \n                Profit: " + _vm._s(_vm.formatCurrency(product.totalProfit)) + "\n              ") + "</p></div> <div class=\"product-revenue\" data-v-012defd0>" + _vm._ssrEscape("\n              " + _vm._s(_vm.formatCurrency(product.totalRevenue)) + "\n            ") + "</div></div>";
-  }) + "</div></div> "), _vm._ssrNode("<div class=\"analytics-card\" data-v-012defd0>", "</div>", [_vm._ssrNode("<h3 class=\"card-title\" data-v-012defd0>Category Performance</h3> "), _c('client-only', [_c('apexchart', {
+  }) : _c('div', {
+    staticClass: "order-status-summary"
+  }, [_vm._l(_vm.dashboardData.orders.byStatus, function (value, status) {
+    return _c('div', {
+      key: status,
+      staticClass: "status-item d-flex justify-space-between align-center mb-3"
+    }, [_c('div', {
+      staticClass: "d-flex align-center"
+    }, [_c(VChip["a" /* default */], {
+      staticClass: "mr-2",
+      attrs: {
+        "color": _vm.getStatusColor(status),
+        "small": "",
+        "dark": ""
+      }
+    }, [_vm._v("\n                    " + _vm._s(status) + "\n                  ")])], 1), _vm._v(" "), _c('span', {
+      staticClass: "font-weight-bold"
+    }, [_vm._v(_vm._s(value))])]);
+  }), _vm._v(" "), _c(VDivider["a" /* default */], {
+    staticClass: "my-3"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "d-flex justify-space-between"
+  }, [_c('span', {
+    staticClass: "font-weight-medium"
+  }, [_vm._v("Total Orders:")]), _vm._v(" "), _c('span', {
+    staticClass: "font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.dashboardData.financial.totalOrders))])])], 2)], 1)], 1)], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"analytics-grid\" data-v-414547b0>", "</div>", [_c(VCard["a" /* default */], {
+    staticClass: "analytics-card"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "info white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-trophy")]), _vm._v("\n          Top Performing Products\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [!_vm.dashboardData.products.topRevenue || _vm.dashboardData.products.topRevenue.length === 0 ? _c('div', {
+    staticClass: "text-center pa-8"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "64",
+      "color": "grey lighten-2"
+    }
+  }, [_vm._v("mdi-package-variant")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 grey--text mt-4"
+  }, [_vm._v("No product data available")])], 1) : _c(VList["a" /* default */], {
+    attrs: {
+      "three-line": ""
+    }
+  }, _vm._l(_vm.dashboardData.products.topRevenue.slice(0, 5), function (product, index) {
+    return _c('div', {
+      key: product.id
+    }, [_c(VListItem["a" /* default */], [_c(VListItemAvatar["a" /* default */], [_c(VAvatar["a" /* default */], {
+      attrs: {
+        "color": _vm.getProductRankColor(index),
+        "size": "40"
+      }
+    }, [_c('span', {
+      staticClass: "white--text font-weight-bold"
+    }, [_vm._v(_vm._s(index + 1))])])], 1), _vm._v(" "), _c(components_VList["a" /* VListItemContent */], [_c(components_VList["c" /* VListItemTitle */], {
+      staticClass: "font-weight-medium"
+    }, [_vm._v("\n                    " + _vm._s(product.name) + "\n                  ")]), _vm._v(" "), _c(components_VList["b" /* VListItemSubtitle */], [_vm._v("\n                    Qty: " + _vm._s(product.totalQuantity) + " | \n                    Profit: " + _vm._s(_vm.formatCurrency(product.totalProfit)) + "\n                  ")])], 1), _vm._v(" "), _c(VListItemAction["a" /* default */], [_c('div', {
+      staticClass: "text-h6 font-weight-bold primary--text"
+    }, [_vm._v("\n                    " + _vm._s(_vm.formatCurrency(product.totalRevenue)) + "\n                  ")])])], 1), _vm._v(" "), index < 4 ? _c(VDivider["a" /* default */]) : _vm._e()], 1);
+  }), 0)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "analytics-card"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "success white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-chart-bar")]), _vm._v("\n          Category Performance\n        ")], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c('client-only', [_vm.categoryChartSeries && _vm.categoryChartSeries[0].data.length > 0 ? _c('apexchart', {
     attrs: {
       "type": "bar",
       "height": "300",
       "options": _vm.categoryChartOptions,
       "series": _vm.categoryChartSeries
     }
-  })], 1)], 2), _vm._ssrNode(" "),  false ? undefined : _vm._e(), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"analytics-card\" data-v-012defd0>", "</div>", [_vm._ssrNode("<h3 class=\"card-title\" data-v-012defd0>Hourly Sales Pattern</h3> "), _c('client-only', [_c('apexchart', {
+  }) : _c('div', {
+    staticClass: "text-center pa-8"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "64",
+      "color": "grey lighten-2"
+    }
+  }, [_vm._v("mdi-chart-bar")]), _vm._v(" "), _c('p', {
+    staticClass: "text-h6 grey--text mt-4"
+  }, [_vm._v("No category data available")])], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "analytics-card"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "warning white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-clock-time-four")]), _vm._v("\n          Hourly Sales Pattern\n          "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "small": "",
+      "text-color": "warning",
+      "outlined": ""
+    }
+  }, [_vm._v("\n            " + _vm._s(_vm.selectedPeriod === 'today' ? 'Real-time' : 'Historical') + "\n          ")])], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-4"
+  }, [_c('client-only', [_vm.hourlyChartSeries && _vm.hourlyChartSeries[0].data.some(val => val > 0) ? _c('apexchart', {
     attrs: {
       "type": "area",
       "height": "300",
       "options": _vm.hourlyChartOptions,
       "series": _vm.hourlyChartSeries
     }
-  })], 1)], 2)], 2), _vm._ssrNode(" <div class=\"recent-orders-section\" data-v-012defd0><h3 class=\"section-title\" data-v-012defd0>Recent Orders</h3> <div class=\"table-container\" data-v-012defd0><table class=\"orders-table\" data-v-012defd0><thead data-v-012defd0><tr data-v-012defd0><th data-v-012defd0>Order #</th> <th data-v-012defd0>Status</th> <th data-v-012defd0>Items</th> <th data-v-012defd0>Total</th> <th data-v-012defd0>Payment</th> <th data-v-012defd0>Time</th> <th data-v-012defd0>Staff</th></tr></thead> <tbody data-v-012defd0>" + _vm._ssrList(_vm.recentOrders, function (order) {
-    var _order$createUser;
-    return "<tr data-v-012defd0><td class=\"order-number\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(order.ticketNumber)) + "</td> <td data-v-012defd0><span" + _vm._ssrClass(null, ['status-badge', `status-${order.status}`]) + " data-v-012defd0>" + _vm._ssrEscape("\n                  " + _vm._s(order.status) + "\n                ") + "</span></td> <td class=\"order-items\" data-v-012defd0>" + _vm._ssrEscape("\n                " + _vm._s(_vm.getOrderItemsSummary(order.ticketLines)) + "\n              ") + "</td> <td class=\"order-total\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(_vm.formatCurrency(order.total))) + "</td> <td data-v-012defd0><span" + _vm._ssrClass(null, ['payment-badge', `payment-${order.paymentStatus}`]) + " data-v-012defd0>" + _vm._ssrEscape("\n                  " + _vm._s(order.paymentStatus) + "\n                ") + "</span></td> <td class=\"order-time\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(_vm.formatTime(order.createdAt))) + "</td> <td class=\"order-staff\" data-v-012defd0>" + _vm._ssrEscape(_vm._s(((_order$createUser = order.createUser) === null || _order$createUser === void 0 ? void 0 : _order$createUser.cus_name) || 'N/A')) + "</td></tr>";
-  }) + "</tbody></table></div></div>")], 2) : _vm._e()], 2);
+  }) : _c('div', {
+    staticClass: "hourly-summary"
+  }, [_c('p', {
+    staticClass: "text-center text-body-1 grey--text mb-4"
+  }, [_vm._v("Business Hours Overview")]), _vm._v(" "), _c(VRow["a" /* default */], _vm._l(_vm.getHourlyData().slice(8, 20), function (value, index) {
+    return _c(VCol["a" /* default */], {
+      key: index,
+      staticClass: "text-center mb-2",
+      attrs: {
+        "cols": "6",
+        "sm": "4",
+        "md": "3"
+      }
+    }, [_c('div', {
+      staticClass: "hourly-item pa-2"
+    }, [_c('div', {
+      staticClass: "text-h6 font-weight-bold"
+    }, [_vm._v(_vm._s(value))]), _vm._v(" "), _c('div', {
+      staticClass: "text-caption grey--text"
+    }, [_vm._v(_vm._s(index + 8) + ":00")])])]);
+  }), 1)], 1)], 1)], 1)], 1)], 2), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "recent-orders-section"
+  }, [_c(components_VCard["d" /* VCardTitle */], {
+    staticClass: "primary white--text"
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": "",
+      "color": "white"
+    }
+  }, [_vm._v("mdi-receipt")]), _vm._v("\n        Recent Orders\n        "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VChip["a" /* default */], {
+    attrs: {
+      "color": "white",
+      "small": "",
+      "text-color": "primary",
+      "outlined": ""
+    }
+  }, [_vm._v("\n          " + _vm._s(_vm.recentOrders.length) + " orders\n        ")])], 1), _vm._v(" "), _c(components_VCard["c" /* VCardText */], {
+    staticClass: "pa-0"
+  }, [_c(VDataTable["a" /* default */], {
+    staticClass: "orders-table",
+    attrs: {
+      "headers": _vm.orderHeaders,
+      "items": _vm.recentOrders,
+      "items-per-page": 10,
+      "no-data-text": "No recent orders found",
+      "loading": _vm.loading,
+      "loading-text": "Loading orders..."
+    },
+    scopedSlots: _vm._u([{
+      key: `item.ticketNumber`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          staticClass: "font-weight-bold",
+          attrs: {
+            "color": "primary",
+            "small": "",
+            "outlined": ""
+          }
+        }, [_vm._v("\n              #" + _vm._s(item.ticketNumber) + "\n            ")])];
+      }
+    }, {
+      key: `item.status`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getStatusColor(item.status),
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v("\n              " + _vm._s(item.status) + "\n            ")])];
+      }
+    }, {
+      key: `item.items`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "items-summary"
+        }, [_vm._v("\n              " + _vm._s(_vm.getOrderItemsSummary(item.ticketLines)) + "\n            ")])];
+      }
+    }, {
+      key: `item.total`,
+      fn: function ({
+        item
+      }) {
+        return [_c('span', {
+          staticClass: "font-weight-bold"
+        }, [_vm._v(_vm._s(_vm.formatCurrency(item.total)))])];
+      }
+    }, {
+      key: `item.paymentStatus`,
+      fn: function ({
+        item
+      }) {
+        return [_c(VChip["a" /* default */], {
+          attrs: {
+            "color": _vm.getPaymentStatusColor(item.paymentStatus),
+            "small": "",
+            "dark": ""
+          }
+        }, [_vm._v("\n              " + _vm._s(item.paymentStatus) + "\n            ")])];
+      }
+    }, {
+      key: `item.createdAt`,
+      fn: function ({
+        item
+      }) {
+        return [_c('div', {
+          staticClass: "text-body-2"
+        }, [_c('div', [_vm._v(_vm._s(_vm.formatTime(item.createdAt)))]), _vm._v(" "), _c('div', {
+          staticClass: "text-caption grey--text"
+        }, [_vm._v(_vm._s(_vm.formatDate(item.createdAt)))])])];
+      }
+    }, {
+      key: `item.createUser`,
+      fn: function ({
+        item
+      }) {
+        var _item$createUser;
+        return [_c('div', {
+          staticClass: "d-flex align-center"
+        }, [_c(VAvatar["a" /* default */], {
+          staticClass: "mr-2",
+          attrs: {
+            "size": "24",
+            "color": "grey lighten-2"
+          }
+        }, [_c(VIcon["a" /* default */], {
+          attrs: {
+            "size": "16"
+          }
+        }, [_vm._v("mdi-account")])], 1), _vm._v(" "), _c('span', [_vm._v(_vm._s(((_item$createUser = item.createUser) === null || _item$createUser === void 0 ? void 0 : _item$createUser.cus_name) || 'N/A'))])], 1)];
+      }
+    }], null, true)
+  })], 1)], 1)], 2) : _vm._ssrNode("<div class=\"default-state\" data-v-414547b0>", "</div>", [_vm._ssrNode("<div class=\"text-center pa-8\" data-v-414547b0>", "</div>", [_c(VIcon["a" /* default */], {
+    attrs: {
+      "size": "80",
+      "color": "grey lighten-2"
+    }
+  }, [_vm._v("mdi-view-dashboard")]), _vm._ssrNode(" <h3 class=\"text-h5 grey--text mt-4\" data-v-414547b0>Welcome to Dashboard</h3> <p class=\"text-body-1 grey--text\" data-v-414547b0>Select a date range to view analytics</p> "), _c(VBtn["a" /* default */], {
+    staticClass: "mt-4",
+    attrs: {
+      "color": "primary"
+    },
+    on: {
+      "click": _vm.loadDashboardData
+    }
+  }, [_c(VIcon["a" /* default */], {
+    attrs: {
+      "left": ""
+    }
+  }, [_vm._v("mdi-refresh")]), _vm._v("\n        Load Data\n      ")], 1)], 2)])], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/saleDashBoard/index.vue?vue&type=template&id=012defd0&scoped=true
-
-// EXTERNAL MODULE: ./components/dashboard/MetricCard.vue + 4 modules
-var MetricCard = __webpack_require__(1083);
-
-// EXTERNAL MODULE: external "vue-feather-icons"
-var external_vue_feather_icons_ = __webpack_require__(419);
+// CONCATENATED MODULE: ./pages/admin/saleDashBoard/index.vue?vue&type=template&id=414547b0&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleDashBoard/index.vue?vue&type=script&lang=js
-
-
 /* harmony default export */ var saleDashBoardvue_type_script_lang_js = ({
   name: 'Dashboard',
-  components: {
-    MetricCard: MetricCard["default"],
-    CalendarIcon: external_vue_feather_icons_["CalendarIcon"],
-    AlertTriangleIcon: external_vue_feather_icons_["AlertTriangleIcon"],
-    CheckCircleIcon: external_vue_feather_icons_["CheckCircleIcon"]
-  },
   data() {
     return {
       selectedPeriod: 'current_month',
@@ -550,7 +867,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       startDateMenu: false,
       endDateMenu: false,
       today: new Date().toISOString().substr(0, 10),
-      // Use simple substr for reliable today
       dashboardData: null,
       comparisonData: null,
       loading: false,
@@ -582,6 +898,35 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       }, {
         text: 'Between Dates',
         value: 'between_dates'
+      }],
+      orderHeaders: [{
+        text: 'Order #',
+        value: 'ticketNumber',
+        sortable: false
+      }, {
+        text: 'Status',
+        value: 'status',
+        sortable: true
+      }, {
+        text: 'Items',
+        value: 'items',
+        sortable: false
+      }, {
+        text: 'Total',
+        value: 'total',
+        sortable: true
+      }, {
+        text: 'Payment',
+        value: 'paymentStatus',
+        sortable: true
+      }, {
+        text: 'Time',
+        value: 'createdAt',
+        sortable: true
+      }, {
+        text: 'Staff',
+        value: 'createUser',
+        sortable: false
       }]
     };
   },
@@ -598,7 +943,8 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             enabled: false
           }
         },
-        colors: ['#3B82F6', '#10B981'],
+        colors: ['#1976D2', '#4CAF50'],
+        // Primary and Success colors
         dataLabels: {
           enabled: false
         },
@@ -638,23 +984,24 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       };
     },
     revenueChartSeries() {
+      const revenueData = this.getRevenueData();
+      const profitData = this.getProfitData();
       return [{
         name: 'Revenue',
-        data: this.getRevenueData()
+        data: revenueData
       }, {
         name: 'Profit',
-        data: this.getProfitData()
+        data: profitData
       }];
     },
     // Order Status Chart Configuration
     orderStatusChartOptions() {
-      if (!this.dashboardData) return {};
       return {
         chart: {
           type: 'donut'
         },
         labels: ['Pending', 'Preparing', 'Completed', 'Cancelled'],
-        colors: ['#F59E0B', '#3B82F6', '#10B981', '#EF4444'],
+        colors: ['#FF9800', '#2196F3', '#4CAF50', '#F44336'],
         legend: {
           position: 'bottom'
         },
@@ -676,11 +1023,7 @@ var external_vue_feather_icons_ = __webpack_require__(419);
     orderStatusChartSeries() {
       if (!this.dashboardData) return [];
       const orders = this.dashboardData.orders.byStatus;
-      console.log('Order status data:', orders); // Debug log
-
-      const seriesData = [orders.pending || 0, orders.preparing || 0, orders.completed || 0, orders.cancelled || 0];
-      console.log('Chart series data:', seriesData); // Debug log
-      return seriesData;
+      return [orders.pending || 0, orders.preparing || 0, orders.completed || 0, orders.cancelled || 0];
     },
     // Category Performance Chart
     categoryChartOptions() {
@@ -691,7 +1034,7 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             show: false
           }
         },
-        colors: ['#8B5CF6'],
+        colors: ['#4CAF50'],
         plotOptions: {
           bar: {
             horizontal: false,
@@ -738,7 +1081,7 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             show: false
           }
         },
-        colors: ['#06B6D4'],
+        colors: ['#FF9800'],
         dataLabels: {
           enabled: false
         },
@@ -785,10 +1128,8 @@ var external_vue_feather_icons_ = __webpack_require__(419);
     }
   },
   async mounted() {
-    // Set today using simple method that definitely works
     this.today = new Date().toISOString().substr(0, 10);
-    console.log('Dashboard mounted - Today is:', this.today); // Debug log
-
+    console.log('Dashboard mounted - Today is:', this.today);
     this.updateDateRangeDisplay();
     await this.loadDashboardData();
     this.setupRealTimeUpdates();
@@ -803,28 +1144,36 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       this.loading = true;
       this.error = null;
       try {
+        console.log('Loading dashboard data...');
         const dateRange = this.getDateRange();
-
-        // Fetch main dashboard data
+        console.log('Date range:', dateRange);
         const response = await this.$axios.get('/api/ticket/find', {
           params: {
             startDate: dateRange.startDate,
             endDate: dateRange.endDate,
-            include: 'client,table,ticketLines,payment'
+            include: 'client,table,ticketLines,payment,createUser'
           }
         });
-        if (response.data.success) {
-          this.dashboardData = this.processDashboardData(response.data.tickets || []);
-          this.recentOrders = (response.data.tickets || []).slice(0, 10);
-
-          // Load comparison data
+        console.log('API Response:', response.data);
+        if (response.data) {
+          const tickets = response.data.data || response.data.tickets || response.data || [];
+          console.log('Tickets found:', tickets.length);
+          this.dashboardData = this.processDashboardData(tickets);
+          this.recentOrders = tickets.slice(0, 10);
+          console.log('Dashboard data processed:', this.dashboardData);
           await this.loadComparisonData();
+          if (this.$toast) {
+            this.$toast.success('Dashboard data loaded successfully');
+          }
         } else {
-          throw new Error('Failed to load dashboard data');
+          throw new Error('No data received from API');
         }
       } catch (error) {
         this.error = error.message || 'An error occurred while loading dashboard data';
         console.error('Dashboard loading error:', error);
+        if (this.$toast) {
+          this.$toast.error('Failed to load dashboard data: ' + error.message);
+        }
       } finally {
         this.loading = false;
       }
@@ -840,24 +1189,79 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             include: 'client,table,ticketLines,payment'
           }
         });
-        if (response.data.success) {
-          const previousData = this.processDashboardData(response.data.tickets || []);
+        if (response.data) {
+          const tickets = response.data.data || response.data.tickets || response.data || [];
+          const previousData = this.processDashboardData(tickets);
           this.comparisonData = this.calculateComparison(this.dashboardData, previousData);
         }
       } catch (error) {
         console.error('Failed to load comparison data:', error);
       }
     },
-    handlePeriodChange() {
-      if (this.selectedPeriod !== 'custom' && this.selectedPeriod !== 'between_dates') {
-        this.updateDateRangeDisplay();
-        this.loadDashboardData();
+    // Chart data methods
+    getChartCategories() {
+      switch (this.selectedPeriod) {
+        case 'today':
+        case 'yesterday':
+          return Array.from({
+            length: 24
+          }, (_, i) => `${i}:00`);
+        case 'this_week':
+        case 'last_week':
+          return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+        default:
+          return Array.from({
+            length: 30
+          }, (_, i) => `Day ${i + 1}`);
       }
     },
-    handleCustomDateChange() {
-      this.updateDateRangeDisplay();
-      // Only auto-load if both dates are selected
-      if (this.customStartDate && this.customEndDate) {
+    getRevenueData() {
+      var _this$dashboardData, _this$dashboardData2, _this$dashboardData3;
+      switch (this.selectedPeriod) {
+        case 'today':
+        case 'yesterday':
+          // Return hourly revenue data
+          const hourlyRevenue = Array(24).fill(0);
+          if ((_this$dashboardData = this.dashboardData) !== null && _this$dashboardData !== void 0 && _this$dashboardData.orders.hourlyDistribution) {
+            this.dashboardData.orders.hourlyDistribution.forEach((orders, hour) => {
+              hourlyRevenue[hour] = orders * (this.dashboardData.financial.averageOrderValue || 0);
+            });
+          }
+          return hourlyRevenue;
+        case 'this_week':
+        case 'last_week':
+          // Mock weekly data - you can enhance this with real daily breakdowns
+          const avgDaily = ((_this$dashboardData2 = this.dashboardData) === null || _this$dashboardData2 === void 0 ? void 0 : _this$dashboardData2.financial.totalRevenue) / 7 || 0;
+          return Array(7).fill(0).map(() => avgDaily * (0.8 + Math.random() * 0.4));
+        default:
+          // Mock monthly data - you can enhance this with real daily breakdowns
+          const avgDailyMonth = ((_this$dashboardData3 = this.dashboardData) === null || _this$dashboardData3 === void 0 ? void 0 : _this$dashboardData3.financial.totalRevenue) / 30 || 0;
+          return Array(30).fill(0).map(() => avgDailyMonth * (0.8 + Math.random() * 0.4));
+      }
+    },
+    getProfitData() {
+      var _this$dashboardData4;
+      const revenueData = this.getRevenueData();
+      const profitMargin = (((_this$dashboardData4 = this.dashboardData) === null || _this$dashboardData4 === void 0 ? void 0 : _this$dashboardData4.financial.profitMargin) || 20) / 100;
+      return revenueData.map(revenue => revenue * profitMargin);
+    },
+    getCategoryNames() {
+      var _this$dashboardData5;
+      return ((_this$dashboardData5 = this.dashboardData) === null || _this$dashboardData5 === void 0 ? void 0 : _this$dashboardData5.products.categoryPerformance.map(cat => cat.name)) || [];
+    },
+    getCategoryRevenue() {
+      var _this$dashboardData6;
+      return ((_this$dashboardData6 = this.dashboardData) === null || _this$dashboardData6 === void 0 ? void 0 : _this$dashboardData6.products.categoryPerformance.map(cat => cat.totalRevenue)) || [];
+    },
+    getHourlyData() {
+      var _this$dashboardData7;
+      return ((_this$dashboardData7 = this.dashboardData) === null || _this$dashboardData7 === void 0 ? void 0 : _this$dashboardData7.orders.hourlyDistribution) || Array(24).fill(0);
+    },
+    // All other methods remain the same...
+    handlePeriodChange() {
+      console.log('Period changed to:', this.selectedPeriod);
+      if (this.selectedPeriod !== 'custom' && this.selectedPeriod !== 'between_dates') {
+        this.updateDateRangeDisplay();
         this.loadDashboardData();
       }
     },
@@ -866,15 +1270,21 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         this.updateDateRangeDisplay();
         this.loadDashboardData();
       } else {
-        var _this$$toast, _this$$toast$error;
-        (_this$$toast = this.$toast) === null || _this$$toast === void 0 ? void 0 : (_this$$toast$error = _this$$toast.error) === null || _this$$toast$error === void 0 ? void 0 : _this$$toast$error.call(_this$$toast, 'Please select both start and end dates'); // Optional toast notification
+        if (this.$toast) {
+          this.$toast.error('Please select both start and end dates');
+        } else {
+          alert('Please select both start and end dates');
+        }
       }
     },
     clearDateRange() {
       this.customStartDate = '';
       this.customEndDate = '';
+      this.startDateFormatted = '';
+      this.endDateFormatted = '';
       this.dateRangeDisplay = '';
       this.selectedPeriod = 'current_month';
+      this.updateDateRangeDisplay();
       this.loadDashboardData();
     },
     setQuickRange(range) {
@@ -884,41 +1294,27 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         case 'last7days':
           const last7Days = new Date(now);
           last7Days.setDate(now.getDate() - 7);
-          const l7Year = last7Days.getFullYear();
-          const l7Month = String(last7Days.getMonth() + 1).padStart(2, '0');
-          const l7Day = String(last7Days.getDate()).padStart(2, '0');
-          this.customStartDate = `${l7Year}-${l7Month}-${l7Day}`;
+          this.customStartDate = this.formatDateToISO(last7Days);
           this.customEndDate = today;
           break;
         case 'last30days':
           const last30Days = new Date(now);
           last30Days.setDate(now.getDate() - 30);
-          const l30Year = last30Days.getFullYear();
-          const l30Month = String(last30Days.getMonth() + 1).padStart(2, '0');
-          const l30Day = String(last30Days.getDate()).padStart(2, '0');
-          this.customStartDate = `${l30Year}-${l30Month}-${l30Day}`;
+          this.customStartDate = this.formatDateToISO(last30Days);
           this.customEndDate = today;
           break;
         case 'last90days':
           const last90Days = new Date(now);
           last90Days.setDate(now.getDate() - 90);
-          const l90Year = last90Days.getFullYear();
-          const l90Month = String(last90Days.getMonth() + 1).padStart(2, '0');
-          const l90Day = String(last90Days.getDate()).padStart(2, '0');
-          this.customStartDate = `${l90Year}-${l90Month}-${l90Day}`;
+          this.customStartDate = this.formatDateToISO(last90Days);
           this.customEndDate = today;
           break;
         case 'thisyear':
           const startOfYear = new Date(now.getFullYear(), 0, 1);
-          const syYear = startOfYear.getFullYear();
-          const syMonth = String(startOfYear.getMonth() + 1).padStart(2, '0');
-          const syDay = String(startOfYear.getDate()).padStart(2, '0');
-          this.customStartDate = `${syYear}-${syMonth}-${syDay}`;
+          this.customStartDate = this.formatDateToISO(startOfYear);
           this.customEndDate = today;
           break;
       }
-
-      // Update formatted versions
       this.updateStartDateFormatted();
       this.updateEndDateFormatted();
       this.selectedPeriod = 'between_dates';
@@ -932,14 +1328,11 @@ var external_vue_feather_icons_ = __webpack_require__(419);
           const endDate = new Date(this.customEndDate);
           const formatDate = date => {
             return date.toLocaleDateString('en-US', {
-              year: 'numeric',
               month: 'short',
               day: 'numeric'
             });
           };
           this.dateRangeDisplay = `${formatDate(startDate)} - ${formatDate(endDate)}`;
-
-          // Calculate number of days
           const diffTime = Math.abs(endDate - startDate);
           const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
           this.dateRangeDisplay += ` (${diffDays} day${diffDays !== 1 ? 's' : ''})`;
@@ -947,7 +1340,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
           this.dateRangeDisplay = 'Select date range';
         }
       } else {
-        // Display range for predefined periods
         const range = this.getDateRange();
         const startDate = new Date(range.startDate);
         const endDate = new Date(range.endDate);
@@ -959,7 +1351,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         };
         if (range.startDate === range.endDate) {
           this.dateRangeDisplay = startDate.toLocaleDateString('en-US', {
-            year: 'numeric',
             month: 'short',
             day: 'numeric'
           });
@@ -969,7 +1360,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       }
     },
     setupRealTimeUpdates() {
-      // Update every 30 seconds for critical metrics
       this.realTimeInterval = setInterval(() => {
         if (this.selectedPeriod === 'today') {
           this.loadDashboardData();
@@ -980,8 +1370,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
       const targetPeriod = period || this.selectedPeriod;
       const now = new Date();
       const today = this.getCurrentLocalDate();
-
-      // Handle custom date ranges
       if ((targetPeriod === 'custom' || targetPeriod === 'between_dates') && this.customStartDate && this.customEndDate) {
         return {
           startDate: this.customStartDate,
@@ -997,68 +1385,21 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         case 'yesterday':
           const yesterday = new Date(now);
           yesterday.setDate(now.getDate() - 1);
-          const year = yesterday.getFullYear();
-          const month = String(yesterday.getMonth() + 1).padStart(2, '0');
-          const day = String(yesterday.getDate()).padStart(2, '0');
-          const yesterdayFormatted = `${year}-${month}-${day}`;
+          const yesterdayFormatted = this.formatDateToISO(yesterday);
           return {
             startDate: yesterdayFormatted,
             endDate: yesterdayFormatted
           };
-        case 'this_week':
-          const startOfWeek = new Date(now);
-          startOfWeek.setDate(now.getDate() - now.getDay());
-          const weekStartYear = startOfWeek.getFullYear();
-          const weekStartMonth = String(startOfWeek.getMonth() + 1).padStart(2, '0');
-          const weekStartDay = String(startOfWeek.getDate()).padStart(2, '0');
-          return {
-            startDate: `${weekStartYear}-${weekStartMonth}-${weekStartDay}`,
-            endDate: today
-          };
-        case 'last_week':
-          const lastWeekEnd = new Date(now);
-          lastWeekEnd.setDate(now.getDate() - now.getDay() - 1);
-          const lastWeekStart = new Date(lastWeekEnd);
-          lastWeekStart.setDate(lastWeekEnd.getDate() - 6);
-          const lwsYear = lastWeekStart.getFullYear();
-          const lwsMonth = String(lastWeekStart.getMonth() + 1).padStart(2, '0');
-          const lwsDay = String(lastWeekStart.getDate()).padStart(2, '0');
-          const lweYear = lastWeekEnd.getFullYear();
-          const lweMonth = String(lastWeekEnd.getMonth() + 1).padStart(2, '0');
-          const lweDay = String(lastWeekEnd.getDate()).padStart(2, '0');
-          return {
-            startDate: `${lwsYear}-${lwsMonth}-${lwsDay}`,
-            endDate: `${lweYear}-${lweMonth}-${lweDay}`
-          };
         case 'current_month':
           const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
-          const somYear = startOfMonth.getFullYear();
-          const somMonth = String(startOfMonth.getMonth() + 1).padStart(2, '0');
-          const somDay = String(startOfMonth.getDate()).padStart(2, '0');
           return {
-            startDate: `${somYear}-${somMonth}-${somDay}`,
+            startDate: this.formatDateToISO(startOfMonth),
             endDate: today
-          };
-        case 'last_month':
-          const lastMonthStart = new Date(now.getFullYear(), now.getMonth() - 1, 1);
-          const lastMonthEnd = new Date(now.getFullYear(), now.getMonth(), 0);
-          const lmsYear = lastMonthStart.getFullYear();
-          const lmsMonth = String(lastMonthStart.getMonth() + 1).padStart(2, '0');
-          const lmsDay = String(lastMonthStart.getDate()).padStart(2, '0');
-          const lmeYear = lastMonthEnd.getFullYear();
-          const lmeMonth = String(lastMonthEnd.getMonth() + 1).padStart(2, '0');
-          const lmeDay = String(lastMonthEnd.getDate()).padStart(2, '0');
-          return {
-            startDate: `${lmsYear}-${lmsMonth}-${lmsDay}`,
-            endDate: `${lmeYear}-${lmeMonth}-${lmeDay}`
           };
         default:
           const defaultStart = new Date(now.getFullYear(), now.getMonth(), 1);
-          const dsYear = defaultStart.getFullYear();
-          const dsMonth = String(defaultStart.getMonth() + 1).padStart(2, '0');
-          const dsDay = String(defaultStart.getDate()).padStart(2, '0');
           return {
-            startDate: `${dsYear}-${dsMonth}-${dsDay}`,
+            startDate: this.formatDateToISO(defaultStart),
             endDate: today
           };
       }
@@ -1102,37 +1443,24 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             completed: 0,
             failed: 0
           },
-          hourlyDistribution: {}
+          hourlyDistribution: Array(24).fill(0)
         },
         products: {
           topSelling: [],
           topRevenue: [],
           lowStock: [],
-          categoryPerformance: {}
+          categoryPerformance: []
         },
         alerts: []
       };
       const productStats = {};
       const categoryStats = {};
-      const hourlyStats = Array(24).fill(0);
-
-      // Debug: Log all ticket statuses first
-      console.log('Ticket statuses:', tickets.map(t => ({
-        id: t.id,
-        number: t.ticketNumber,
-        status: t.status,
-        paymentStatus: t.paymentStatus
-      })));
       tickets.forEach((ticket, index) => {
         var _ticket$paymentStatus, _ticket$status, _ticket$status$toLowe;
         console.log(`Processing ticket ${index + 1}/${tickets.length}: ${ticket.ticketNumber}`);
-
-        // Financial calculations
         metrics.financial.totalRevenue += ticket.total || 0;
         metrics.financial.totalSubtotal += ticket.subtotal || 0;
         metrics.financial.totalTax += ticket.tax || 0;
-
-        // Payment status tracking
         const paymentStatus = ((_ticket$paymentStatus = ticket.paymentStatus) === null || _ticket$paymentStatus === void 0 ? void 0 : _ticket$paymentStatus.toLowerCase()) || 'unknown';
         if (paymentStatus === 'pending') {
           metrics.financial.pendingPayments += ticket.total || 0;
@@ -1140,46 +1468,32 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         } else if (paymentStatus === 'completed' || paymentStatus === 'paid') {
           metrics.financial.completedPayments += ticket.total || 0;
           metrics.orders.byPaymentStatus.completed++;
-        } else if (paymentStatus === 'failed') {
-          metrics.orders.byPaymentStatus.failed++;
         }
-
-        // Order status tracking - FIXED to handle actual API statuses
         const orderStatus = ((_ticket$status = ticket.status) === null || _ticket$status === void 0 ? void 0 : (_ticket$status$toLowe = _ticket$status.toLowerCase()) === null || _ticket$status$toLowe === void 0 ? void 0 : _ticket$status$toLowe.trim()) || 'pending';
-        console.log(`  Original status: "${ticket.status}" -> Normalized: "${orderStatus}"`);
         switch (orderStatus) {
           case 'pending':
             metrics.orders.byStatus.pending++;
-            console.log(`  ✅ Incremented pending count to ${metrics.orders.byStatus.pending}`);
             break;
           case 'preparing':
             metrics.orders.byStatus.preparing++;
-            console.log(`  ✅ Incremented preparing count to ${metrics.orders.byStatus.preparing}`);
             break;
           case 'paid':
           case 'completed':
           case 'complete':
             metrics.orders.byStatus.completed++;
-            console.log(`  ✅ Incremented completed count to ${metrics.orders.byStatus.completed}`);
             break;
           case 'cancelled':
           case 'canceled':
             metrics.orders.byStatus.cancelled++;
-            console.log(`  ✅ Incremented cancelled count to ${metrics.orders.byStatus.cancelled}`);
             break;
           default:
-            console.warn(`  ⚠️ Unknown status "${orderStatus}", defaulting to pending`);
             metrics.orders.byStatus.pending++;
             break;
         }
-
-        // Hourly distribution
         const orderHour = new Date(ticket.createdAt).getHours();
         if (orderHour >= 0 && orderHour < 24) {
-          hourlyStats[orderHour]++;
+          metrics.orders.hourlyDistribution[orderHour]++;
         }
-
-        // Process ticket lines (products)
         if (ticket.ticketLines && Array.isArray(ticket.ticketLines)) {
           ticket.ticketLines.forEach(line => {
             var _product$category;
@@ -1187,8 +1501,6 @@ var external_vue_feather_icons_ = __webpack_require__(419);
             if (!product) return;
             const productId = product.id;
             const categoryName = ((_product$category = product.category) === null || _product$category === void 0 ? void 0 : _product$category.categ_name) || 'Unknown';
-
-            // Product statistics
             if (!productStats[productId]) {
               productStats[productId] = {
                 id: productId,
@@ -1196,19 +1508,11 @@ var external_vue_feather_icons_ = __webpack_require__(419);
                 category: categoryName,
                 totalQuantity: 0,
                 totalRevenue: 0,
-                totalProfit: 0,
-                currentStock: product.stock_count,
-                minStock: product.minStock,
-                costPrice: product.cost_price,
-                salePrice: product.pro_price,
-                profitPerUnit: (product.pro_price || 0) - (product.cost_price || 0)
+                totalProfit: 0
               };
             }
             productStats[productId].totalQuantity += line.quantity || 0;
             productStats[productId].totalRevenue += line.totalPrice || 0;
-            productStats[productId].totalProfit += (line.quantity || 0) * productStats[productId].profitPerUnit;
-
-            // Category statistics
             if (!categoryStats[categoryName]) {
               categoryStats[categoryName] = {
                 name: categoryName,
@@ -1217,60 +1521,17 @@ var external_vue_feather_icons_ = __webpack_require__(419);
               };
             }
             categoryStats[categoryName].totalRevenue += line.totalPrice || 0;
-            categoryStats[categoryName].totalProfit += (line.quantity || 0) * productStats[productId].profitPerUnit;
-
-            // Stock alerts
-            if (product.stock_count <= product.minStock) {
-              const alertType = product.stock_count === 0 ? 'critical' : 'warning';
-              const alertMessage = product.stock_count === 0 ? `${product.pro_name} is out of stock` : `${product.pro_name} is running low (${product.stock_count} remaining)`;
-              metrics.alerts.push({
-                type: alertType,
-                category: 'inventory',
-                message: alertMessage,
-                productId: product.id,
-                productName: product.pro_name,
-                currentStock: product.stock_count,
-                minStock: product.minStock,
-                timestamp: new Date().toISOString()
-              });
-            }
           });
         }
       });
-
-      // Calculate derived metrics
       metrics.financial.averageOrderValue = metrics.financial.totalOrders > 0 ? metrics.financial.totalRevenue / metrics.financial.totalOrders : 0;
       metrics.financial.totalProfit = Object.values(productStats).reduce((sum, product) => sum + product.totalProfit, 0);
       metrics.financial.profitMargin = metrics.financial.totalRevenue > 0 ? metrics.financial.totalProfit / metrics.financial.totalRevenue * 100 : 0;
-
-      // Process product arrays
       const productsArray = Object.values(productStats);
       metrics.products.topSelling = productsArray.sort((a, b) => b.totalQuantity - a.totalQuantity).slice(0, 10);
       metrics.products.topRevenue = productsArray.sort((a, b) => b.totalRevenue - a.totalRevenue).slice(0, 10);
-      metrics.products.lowStock = productsArray.filter(product => product.currentStock <= product.minStock).sort((a, b) => a.currentStock / a.minStock - b.currentStock / b.minStock);
       metrics.products.categoryPerformance = Object.values(categoryStats).sort((a, b) => b.totalRevenue - a.totalRevenue);
-      metrics.orders.hourlyDistribution = hourlyStats;
-
-      // Payment alerts
-      if (metrics.financial.pendingPayments > 0) {
-        metrics.alerts.push({
-          type: 'warning',
-          category: 'payment',
-          message: `${metrics.orders.byPaymentStatus.pending} orders with pending payments (${this.formatCurrency(metrics.financial.pendingPayments)})`,
-          amount: metrics.financial.pendingPayments,
-          count: metrics.orders.byPaymentStatus.pending,
-          timestamp: new Date().toISOString()
-        });
-      }
-
-      // Final debug logging
-      console.log('=== Final Order Status Counts ===');
-      console.log('Pending:', metrics.orders.byStatus.pending);
-      console.log('Preparing:', metrics.orders.byStatus.preparing);
-      console.log('Completed:', metrics.orders.byStatus.completed);
-      console.log('Cancelled:', metrics.orders.byStatus.cancelled);
-      console.log('Total counted:', Object.values(metrics.orders.byStatus).reduce((a, b) => a + b, 0));
-      console.log('Expected total:', tickets.length);
+      console.log('Final processed data:', metrics);
       return metrics;
     },
     calculateComparison(current, previous) {
@@ -1285,121 +1546,86 @@ var external_vue_feather_icons_ = __webpack_require__(419);
         profitMargin: calculateChange(current.financial.profitMargin, previous.financial.profitMargin)
       };
     },
-    // Chart data methods
-    getChartCategories() {
-      // Generate categories based on selected period
-      switch (this.selectedPeriod) {
-        case 'today':
-        case 'yesterday':
-          return Array.from({
-            length: 24
-          }, (_, i) => `${i}:00`);
-        case 'this_week':
-        case 'last_week':
-          return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        default:
-          return ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-      }
+    // Helper methods for styling
+    getStatusColor(status) {
+      const statusMap = {
+        pending: 'warning',
+        preparing: 'info',
+        completed: 'success',
+        paid: 'success',
+        cancelled: 'error',
+        canceled: 'error'
+      };
+      return statusMap[status === null || status === void 0 ? void 0 : status.toLowerCase()] || 'grey';
     },
-    getRevenueData() {
-      // Mock data - replace with actual revenue breakdown
-      switch (this.selectedPeriod) {
-        case 'today':
-        case 'yesterday':
-          return Array(24).fill(0).map((_, i) => {
-            var _this$dashboardData, _this$dashboardData2;
-            return ((_this$dashboardData = this.dashboardData) === null || _this$dashboardData === void 0 ? void 0 : _this$dashboardData.orders.hourlyDistribution[i]) * (((_this$dashboardData2 = this.dashboardData) === null || _this$dashboardData2 === void 0 ? void 0 : _this$dashboardData2.financial.averageOrderValue) || 0) || 0;
-          });
-        default:
-          return [85000, 120000, 95000, 160000];
-        // Sample weekly data
-      }
+    getPaymentStatusColor(status) {
+      const statusMap = {
+        pending: 'warning',
+        completed: 'success',
+        paid: 'success',
+        failed: 'error',
+        refunded: 'info'
+      };
+      return statusMap[status === null || status === void 0 ? void 0 : status.toLowerCase()] || 'grey';
     },
-    getProfitData() {
-      var _this$dashboardData3;
-      // Mock data - replace with actual profit breakdown
-      const revenueData = this.getRevenueData();
-      const profitMargin = ((_this$dashboardData3 = this.dashboardData) === null || _this$dashboardData3 === void 0 ? void 0 : _this$dashboardData3.financial.profitMargin) || 20;
-      return revenueData.map(revenue => revenue * (profitMargin / 100));
-    },
-    getCategoryNames() {
-      var _this$dashboardData4;
-      return ((_this$dashboardData4 = this.dashboardData) === null || _this$dashboardData4 === void 0 ? void 0 : _this$dashboardData4.products.categoryPerformance.map(cat => cat.name)) || [];
-    },
-    getCategoryRevenue() {
-      var _this$dashboardData5;
-      return ((_this$dashboardData5 = this.dashboardData) === null || _this$dashboardData5 === void 0 ? void 0 : _this$dashboardData5.products.categoryPerformance.map(cat => cat.totalRevenue)) || [];
-    },
-    getHourlyData() {
-      var _this$dashboardData6;
-      return ((_this$dashboardData6 = this.dashboardData) === null || _this$dashboardData6 === void 0 ? void 0 : _this$dashboardData6.orders.hourlyDistribution) || Array(24).fill(0);
+    getProductRankColor(index) {
+      const colors = ['success', 'secondary', 'warning', 'info', 'primary'];
+      return colors[index % colors.length];
     },
     // Utility methods
     formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'LAK',
-        minimumFractionDigits: 0
-      }).format(amount || 0).replace('LAK', '₭');
+      if (!amount) return '0 ₭';
+      if (amount >= 1000000) {
+        return (amount / 1000000).toFixed(1) + 'M ₭';
+      } else if (amount >= 1000) {
+        return (amount / 1000).toFixed(1) + 'K ₭';
+      }
+      return new Intl.NumberFormat().format(amount) + ' ₭';
     },
     formatTime(timestamp) {
+      if (!timestamp) return '';
       return new Date(timestamp).toLocaleTimeString('en-US', {
         hour: '2-digit',
         minute: '2-digit'
       });
     },
-    formatRelativeTime(timestamp) {
+    formatDate(timestamp) {
+      if (!timestamp) return '';
+      return new Date(timestamp).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric'
+      });
+    },
+    formatDateToISO(date) {
+      if (!(date instanceof Date)) date = new Date(date);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    },
+    getCurrentLocalDate() {
       const now = new Date();
-      const time = new Date(timestamp);
-      const diffInMinutes = Math.floor((now - time) / (1000 * 60));
-      if (diffInMinutes < 60) {
-        return `${diffInMinutes} minutes ago`;
-      } else if (diffInMinutes < 1440) {
-        return `${Math.floor(diffInMinutes / 60)} hours ago`;
-      } else {
-        return `${Math.floor(diffInMinutes / 1440)} days ago`;
-      }
+      return this.formatDateToISO(now);
     },
     updateStartDateFormatted() {
       if (this.customStartDate) {
         this.startDateFormatted = this.formatDate(this.customStartDate);
         this.updateDateRangeDisplay();
-        if (this.customEndDate) {
-          this.loadDashboardData();
-        }
       }
     },
     updateEndDateFormatted() {
       if (this.customEndDate) {
         this.endDateFormatted = this.formatDate(this.customEndDate);
         this.updateDateRangeDisplay();
-        if (this.customStartDate) {
-          this.loadDashboardData();
-        }
       }
-    },
-    formatDate(date) {
-      if (!date) return '';
-      const [year, month, day] = date.split('-');
-      return `${month}/${day}/${year}`;
     },
     parseDate(date) {
       if (!date) return '';
-
-      // Handle MM/DD/YYYY format
       const [month, day, year] = date.split('/');
       if (month && day && year) {
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
       }
       return date;
-    },
-    getCurrentLocalDate() {
-      // Get current date in YYYY-MM-DD format using local timezone
-      const now = new Date();
-      const year = now.getFullYear();
-      const month = String(now.getMonth() + 1).padStart(2, '0');
-      const day = String(now.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
     },
     getOrderItemsSummary(ticketLines) {
       if (!ticketLines || ticketLines.length === 0) return 'No items';
@@ -1426,7 +1652,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1235)
+  var style0 = __webpack_require__(1232)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1435,11 +1661,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_saleDashBoardvue_type_script_lang_js,
-  saleDashBoardvue_type_template_id_012defd0_scoped_true_render,
+  saleDashBoardvue_type_template_id_414547b0_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "012defd0",
+  "414547b0",
   "0c58663f"
   
 )
@@ -4134,65 +4360,20 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 717:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(814);
+var content = __webpack_require__(1233);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("07e58046", content, true, context)
-};
-
-/***/ }),
-
-/***/ 813:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MetricCard_vue_vue_type_style_index_0_id_36193a2f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(717);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MetricCard_vue_vue_type_style_index_0_id_36193a2f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MetricCard_vue_vue_type_style_index_0_id_36193a2f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MetricCard_vue_vue_type_style_index_0_id_36193a2f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MetricCard_vue_vue_type_style_index_0_id_36193a2f_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-
-
-/***/ }),
-
-/***/ 814:
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
-var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
-// Module
-___CSS_LOADER_EXPORT___.push([module.i, ".metric-card[data-v-36193a2f]{background:#fff;border-left:4px solid transparent;border-radius:.5rem;box-shadow:0 1px 3px rgba(0,0,0,.1);overflow:hidden;position:relative;transition:all .2s ease}.metric-card[data-v-36193a2f]:hover{box-shadow:0 4px 6px rgba(0,0,0,.1);transform:translateY(-1px)}.metric-card--alert[data-v-36193a2f]{background:linear-gradient(135deg,#fffbeb,#fff);border-left-color:#f59e0b}.metric-card__content[data-v-36193a2f]{padding:1.5rem}.metric-card__header[data-v-36193a2f]{align-items:flex-start;display:flex;justify-content:space-between;margin-bottom:1rem}.metric-card__text[data-v-36193a2f]{flex:1}.metric-card__title[data-v-36193a2f]{color:#6b7280;font-size:.875rem;font-weight:500;line-height:1.2;margin:0 0 .5rem}.metric-card__value[data-v-36193a2f]{color:#111827;font-size:1.875rem;font-weight:700;line-height:1.1;margin:0 0 .25rem}.metric-card__subtitle[data-v-36193a2f]{color:#6b7280;font-size:.75rem;line-height:1.3;margin:0}.metric-card__icon-container[data-v-36193a2f]{align-items:center;border-radius:.75rem;display:flex;flex-shrink:0;height:3rem;justify-content:center;margin-left:1rem;width:3rem}.metric-card__icon[data-v-36193a2f]{height:1.5rem;width:1.5rem}.metric-card__trend[data-v-36193a2f]{align-items:center;border-top:1px solid #f3f4f6;display:flex;gap:.25rem;padding-top:.75rem}.metric-card__trend-icon[data-v-36193a2f]{height:1rem;width:1rem}.metric-card__trend-icon--positive[data-v-36193a2f]{color:#059669}.metric-card__trend-icon--negative[data-v-36193a2f]{color:#dc2626}.metric-card__trend-text[data-v-36193a2f]{font-size:.75rem;font-weight:500}.metric-card__trend-text--positive[data-v-36193a2f]{color:#059669}.metric-card__trend-text--negative[data-v-36193a2f]{color:#dc2626}.metric-card__alert-indicator[data-v-36193a2f]{align-items:center;animation:pulse-36193a2f 2s infinite;background:#f59e0b;border-radius:50%;display:flex;height:1.5rem;justify-content:center;position:absolute;right:.75rem;top:.75rem;width:1.5rem}.metric-card__alert-icon[data-v-36193a2f]{color:#fff;height:.875rem;width:.875rem}@keyframes pulse-36193a2f{0%,to{opacity:1}50%{opacity:.7}}@media (max-width:640px){.metric-card__content[data-v-36193a2f]{padding:1rem}.metric-card__header[data-v-36193a2f]{align-items:stretch;flex-direction:column;gap:1rem}.metric-card__icon-container[data-v-36193a2f]{align-self:flex-end;margin-left:0}.metric-card__value[data-v-36193a2f]{font-size:1.5rem}}@media (prefers-color-scheme:dark){.metric-card[data-v-36193a2f]{background:#1f2937;border-color:#374151}.metric-card__title[data-v-36193a2f]{color:#9ca3af}.metric-card__value[data-v-36193a2f]{color:#f9fafb}.metric-card__subtitle[data-v-36193a2f]{color:#9ca3af}.metric-card__trend[data-v-36193a2f]{border-top-color:#374151}}", ""]);
-// Exports
-___CSS_LOADER_EXPORT___.locals = {};
-module.exports = ___CSS_LOADER_EXPORT___;
-
-
-/***/ }),
-
-/***/ 961:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1236);
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add CSS to SSR context
-var add = __webpack_require__(5).default
-module.exports.__inject__ = function (context) {
-  add("e9f66464", content, true, context)
+  add("2600c37d", content, true, context)
 };
 
 /***/ })

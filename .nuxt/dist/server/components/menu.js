@@ -161,7 +161,7 @@ var external_vuex_ = __webpack_require__(14);
   },
   data() {
     return {
-      imageSvg: __webpack_require__(880),
+      imageSvg: __webpack_require__(877),
       imageSrc: __webpack_require__(205),
       terminalDialog: false,
       terminalSelected: this.findSelectedTerminal || 1
@@ -286,7 +286,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 880:
+/***/ 877:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier.a8bb445.svg";
