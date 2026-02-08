@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26541daa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(937);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26541daa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26541daa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26541daa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_26541daa_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(937);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-26541daa],.text-h5[data-v-26541daa]{font-family:\"Noto Sans Lao\"}table[data-v-26541daa]{border:1px solid #000}.payment-summary-card[data-v-26541daa]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-26541daa]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-26541daa]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-26541daa]{margin-bottom:8px}.payment-summary-card h3[data-v-26541daa]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-26541daa]{border-radius:4px}.v-alert--dense[data-v-26541daa]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-26541daa]{margin-bottom:16px}.payment-summary-card h3[data-v-26541daa]{font-size:1.2rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-2c5a3632],.text-h5[data-v-2c5a3632]{font-family:\"Noto Sans Lao\"}table[data-v-2c5a3632]{border:1px solid #000}.payment-summary-card[data-v-2c5a3632]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-2c5a3632]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-2c5a3632]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-2c5a3632]{margin-bottom:8px}.payment-summary-card h3[data-v-2c5a3632]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-2c5a3632]{border-radius:4px}.v-alert--dense[data-v-2c5a3632]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-2c5a3632]{margin-bottom:16px}.payment-summary-card h3[data-v-2c5a3632]{font-size:1.2rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -95,7 +95,7 @@ var VSelect = __webpack_require__(20);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=26541daa&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2c5a3632&scoped=true
 
 
 
@@ -118,12 +118,12 @@ var VTextField = __webpack_require__(39);
 
 
 
-var ordersFromPosvue_type_template_id_26541daa_scoped_true_render = function render() {
+var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-26541daa>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-2c5a3632>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -239,7 +239,7 @@ var ordersFromPosvue_type_template_id_26541daa_scoped_true_render = function ren
   })], 1), _vm._ssrNode(" "), _c('ticket-details-dialog', {
     attrs: {
       "ticket-data": _vm.selectedOrderForPayments,
-      "company-logo": _vm.companyLogo,
+      "company-logo": _vm.companyData.ticketLogo,
       "ticket-common": _vm.ticketCommon,
       "show-print-button": true
     },
@@ -255,7 +255,7 @@ var ordersFromPosvue_type_template_id_26541daa_scoped_true_render = function ren
       },
       expression: "paymentDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-26541daa>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-2c5a3632>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -989,7 +989,7 @@ var ordersFromPosvue_type_template_id_26541daa_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=26541daa&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2c5a3632&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1496,7 +1496,7 @@ const printSalesReportSummary = params => {
  */
 const formatDateForReport = formatDateLao;
 // EXTERNAL MODULE: ./common/ticket.js
-var ticket = __webpack_require__(167);
+var ticket = __webpack_require__(166);
 
 // EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
 var OrderDetailPos = __webpack_require__(495);
@@ -1681,41 +1681,38 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
-    // All your existing computed properties remain the same...
-    companyData() {
-      console.log(`**********ENHANCED COMPANY DATA**********`);
-      const company = Object(api["b" /* mainCompanyInfo */])();
-      console.log('Company info:', company);
-      return company;
+    getSPF() {
+      return this.$store.getters.findSPF;
     },
-    companyLogo() {
-      const company = this.companyData;
-      if (company.apiData && company.apiData.profile_image_path) {
-        const baseUrl = this.$axios.defaults.baseURL || '';
-        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`;
-        console.log('Using API logo:', logoUrl);
-        return logoUrl;
-      }
-      if (company.ticketLogo) {
-        try {
-          const staticLogo = __webpack_require__(145)(`./${company.ticketLogo}`);
-          console.log('Using static logo:', company.ticketLogo);
-          return staticLogo;
-        } catch (error) {
-          console.warn('Static logo not found:', company.ticketLogo, error);
-        }
-      }
-      if (company.dcLogo) {
-        try {
-          const fallbackLogo = __webpack_require__(145)(`./${company.dcLogo}`);
-          console.log('Using dcLogo fallback:', company.dcLogo);
-          return fallbackLogo;
-        } catch (error) {
-          console.warn('dcLogo not found:', company.dcLogo, error);
-        }
-      }
-      console.log('Using final fallback logo');
-      return '/static/images/default-logo.png';
+    paperSize() {
+      const item = this.getSPF.find(spf => spf.code == 'PAPER_SIZE');
+      return (item === null || item === void 0 ? void 0 : item.value) || '80mm';
+    },
+    // All your existing computed properties remain the same...
+    // companyData() {
+    //   console.log(`**********ENHANCED COMPANY DATA**********`)
+    //   const company = mainCompanyInfo()
+    //   console.log('Company info:', company)
+    //   return company
+    // },
+    companyData() {
+      var _this$currentTerminal, _this$currentTerminal2;
+      const baseCompany = Object(api["b" /* mainCompanyInfo */])();
+      const terminalCompany = (_this$currentTerminal = this.currentTerminal) === null || _this$currentTerminal === void 0 ? void 0 : (_this$currentTerminal2 = _this$currentTerminal.location) === null || _this$currentTerminal2 === void 0 ? void 0 : _this$currentTerminal2.company;
+      console.info(`TERMINAL COMPAYMEN ${JSON.stringify(terminalCompany)}`);
+      const baseUrl = this.$axios.defaults.baseURL || '';
+      return {
+        name: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.name) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.name) || 'DCOMMERCE MART',
+        address: this.formatCompanyAddress(terminalCompany) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.address) || '123 Main Street',
+        tel: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.tel) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.tel) || '',
+        email: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.email) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.email) || '',
+        bank: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.bank) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.bank) || '',
+        accountName: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.accountName) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.accountName) || '',
+        accounts: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.accounts) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.accounts) || '',
+        remark: (terminalCompany === null || terminalCompany === void 0 ? void 0 : terminalCompany.remark) || (baseCompany === null || baseCompany === void 0 ? void 0 : baseCompany.remark) || '',
+        ticketLogo: `${baseUrl}/${terminalCompany.profile_image_path}` || 'default-logo.png',
+        qrCode: `${baseUrl}/${terminalCompany.bank_qr_image_path}` || 'default-logo.png'
+      };
     },
     ticketCommon() {
       return Object(common["m" /* ticketHtml */])();
@@ -1924,6 +1921,15 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
+    formatCompanyAddress(company) {
+      if (!company) return '';
+      let formattedAddress = '';
+      if (company.address) formattedAddress += company.address;
+      if (company.village) formattedAddress += `<br>${company.village}`;
+      if (company.district) formattedAddress += `, ${company.district}`;
+      if (company.province) formattedAddress += `, ${company.province}`;
+      return formattedAddress || company.address || '';
+    },
     printSalesReport() {
       try {
         var _this$companyData;
@@ -1946,8 +1952,8 @@ var external_vuex_ = __webpack_require__(14);
           fromDate: this.fromDate,
           toDate: this.toDate,
           terminalInfo: terminalInfo,
-          companyData: companyData,
-          companyLogo: this.companyLogo,
+          companyData: companyData.ticketLogo,
+          companyLogo: this.companyData.ticketLogo,
           formatNumber: this.formatNumber,
           user: this.user,
           singlePaymentCount: this.singlePaymentCount,
@@ -2131,6 +2137,7 @@ var external_vuex_ = __webpack_require__(14);
       this.isloading = false;
     },
     printDefaultTicket(data) {
+      //TODO: PRINTING TICKET ISSUE NO LOGO SHOWING.
       console.info('PRINTING TICKET WITH DATA:', JSON.stringify(data));
       let paymentCode = 'UNKNOWN';
       if (this.isMultiPayment(data)) {
@@ -2177,9 +2184,11 @@ var external_vuex_ = __webpack_require__(14);
         discount: data.discount,
         currencyList: this.currencyList,
         grandTotal: data.total,
-        companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: data.id,
-        currentTerminal: this.currentTerminal,
+        currentTerminal: {
+          ...this.currentTerminal,
+          baseURL: this.$axios.defaults.baseURL
+        },
         user: this.user,
         ticketCommon: this.ticketCommon,
         currentPaymentCode: paymentCode,
@@ -2187,7 +2196,8 @@ var external_vuex_ = __webpack_require__(14);
         changes: 0,
         bookingDate: data.createdAt,
         axios: this.$axios,
-        companyData: this.companyData
+        companyData: this.companyData,
+        paperWidth: this.paperSize
       });
     },
     exportToExcel() {
@@ -2325,11 +2335,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_26541daa_scoped_true_render,
+  ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "26541daa",
+  "2c5a3632",
   "ac53ec12"
   
 )
@@ -4481,7 +4491,7 @@ var common = __webpack_require__(7);
 var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
-var printTemplates = __webpack_require__(162);
+var printTemplates = __webpack_require__(161);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=script&lang=js
 
@@ -6019,7 +6029,7 @@ var VDatePickerYears = __webpack_require__(472);
 var VPicker = __webpack_require__(464);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(201);
+var VCard = __webpack_require__(200);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(94);
@@ -8324,7 +8334,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("16b32188", content, true, context)
+  add("9867e5b6", content, true, context)
 };
 
 /***/ })

@@ -90,7 +90,7 @@ exports.modules = {
     // Get default/fallback logo
     getDefaultLogo() {
       try {
-        return __webpack_require__(164);
+        return __webpack_require__(163);
       } catch {
         return '/static/images/default-logo.png';
       }

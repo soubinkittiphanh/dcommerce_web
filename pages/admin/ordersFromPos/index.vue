@@ -62,7 +62,7 @@
     <ticket-details-dialog
       v-model="paymentDetailsDialog"
       :ticket-data="selectedOrderForPayments"
-      :company-logo="companyLogo"
+      :company-logo="companyData.ticketLogo"
       :ticket-common="ticketCommon"
       :show-print-button="true"
       @close="onTicketDialogClose"
@@ -809,46 +809,46 @@ export default {
   },
 
   computed: {
-    // All your existing computed properties remain the same...
-    companyData() {
-      console.log(`**********ENHANCED COMPANY DATA**********`)
-      const company = mainCompanyInfo()
-      console.log('Company info:', company)
-      return company
+    getSPF() {
+      return this.$store.getters.findSPF
     },
+    paperSize() {
+      const item = this.getSPF.find((spf) => spf.code == 'PAPER_SIZE')
+      return item?.value || '80mm'
+    },
+    // All your existing computed properties remain the same...
+    // companyData() {
+    //   console.log(`**********ENHANCED COMPANY DATA**********`)
+    //   const company = mainCompanyInfo()
+    //   console.log('Company info:', company)
+    //   return company
+    // },
+    companyData() {
+      const baseCompany = mainCompanyInfo()
+      const terminalCompany = this.currentTerminal?.location?.company
+      console.info(`TERMINAL COMPAYMEN ${JSON.stringify(terminalCompany)}`)
 
-    companyLogo() {
-      const company = this.companyData
-
-      if (company.apiData && company.apiData.profile_image_path) {
-        const baseUrl = this.$axios.defaults.baseURL || ''
-        const logoUrl = `${baseUrl}/${company.apiData.profile_image_path}`
-        console.log('Using API logo:', logoUrl)
-        return logoUrl
+      const baseUrl = this.$axios.defaults.baseURL || ''
+      return {
+        name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
+        address:
+          this.formatCompanyAddress(terminalCompany) ||
+          baseCompany?.address ||
+          '123 Main Street',
+        tel: terminalCompany?.tel || baseCompany?.tel || '',
+        email: terminalCompany?.email || baseCompany?.email || '',
+        bank: terminalCompany?.bank || baseCompany?.bank || '',
+        accountName:
+          terminalCompany?.accountName || baseCompany?.accountName || '',
+        accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
+        remark: terminalCompany?.remark || baseCompany?.remark || '',
+        ticketLogo:
+          `${baseUrl}/${terminalCompany.profile_image_path}` ||
+          'default-logo.png',
+        qrCode:
+          `${baseUrl}/${terminalCompany.bank_qr_image_path}` ||
+          'default-logo.png',
       }
-
-      if (company.ticketLogo) {
-        try {
-          const staticLogo = require(`~/assets/image/${company.ticketLogo}`)
-          console.log('Using static logo:', company.ticketLogo)
-          return staticLogo
-        } catch (error) {
-          console.warn('Static logo not found:', company.ticketLogo, error)
-        }
-      }
-
-      if (company.dcLogo) {
-        try {
-          const fallbackLogo = require(`~/assets/image/${company.dcLogo}`)
-          console.log('Using dcLogo fallback:', company.dcLogo)
-          return fallbackLogo
-        } catch (error) {
-          console.warn('dcLogo not found:', company.dcLogo, error)
-        }
-      }
-
-      console.log('Using final fallback logo')
-      return '/static/images/default-logo.png'
     },
 
     ticketCommon() {
@@ -1111,6 +1111,17 @@ export default {
   },
 
   methods: {
+    formatCompanyAddress(company) {
+      if (!company) return ''
+
+      let formattedAddress = ''
+      if (company.address) formattedAddress += company.address
+      if (company.village) formattedAddress += `<br>${company.village}`
+      if (company.district) formattedAddress += `, ${company.district}`
+      if (company.province) formattedAddress += `, ${company.province}`
+
+      return formattedAddress || company.address || ''
+    },
     printSalesReport() {
       try {
         console.log('🖨️ Printing sales report summary...')
@@ -1134,8 +1145,8 @@ export default {
           fromDate: this.fromDate,
           toDate: this.toDate,
           terminalInfo: terminalInfo,
-          companyData: companyData,
-          companyLogo: this.companyLogo,
+          companyData: companyData.ticketLogo,
+          companyLogo: this.companyData.ticketLogo,
           formatNumber: this.formatNumber,
           user: this.user,
           singlePaymentCount: this.singlePaymentCount,
@@ -1379,6 +1390,7 @@ export default {
     },
 
     printDefaultTicket(data) {
+      //TODO: PRINTING TICKET ISSUE NO LOGO SHOWING.
       console.info('PRINTING TICKET WITH DATA:', JSON.stringify(data))
 
       let paymentCode = 'UNKNOWN'
@@ -1416,9 +1428,11 @@ export default {
         discount: data.discount,
         currencyList: this.currencyList,
         grandTotal: data.total,
-        companyLogo: this.companyLogo,
         lastTransactionSaleHeaderId: data.id,
-        currentTerminal: this.currentTerminal,
+        currentTerminal: {
+          ...this.currentTerminal,
+          baseURL: this.$axios.defaults.baseURL,
+        },
         user: this.user,
         ticketCommon: this.ticketCommon,
         currentPaymentCode: paymentCode,
@@ -1427,6 +1441,7 @@ export default {
         bookingDate: data.createdAt,
         axios: this.$axios,
         companyData: this.companyData,
+        paperWidth: this.paperSize,
       })
     },
 

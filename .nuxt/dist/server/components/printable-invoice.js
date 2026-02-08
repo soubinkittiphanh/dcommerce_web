@@ -164,7 +164,7 @@ var api = __webpack_require__(43);
       }
       if (company.ticketLogo) {
         try {
-          return __webpack_require__(145)(`./${company.ticketLogo}`);
+          return __webpack_require__(201)(`./${company.ticketLogo}`);
         } catch (error) {
           console.warn('Static logo not found:', error);
         }

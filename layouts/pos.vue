@@ -683,6 +683,13 @@ export default {
   },
 
   computed: {
+    getSPF() {
+      return this.$store.getters.findSPF
+    },
+    paperSize() {
+      const item = this.getSPF.find((spf) => spf.code == 'PAPER_SIZE')
+      return item?.value || '80mm'
+    },
     // ENHANCED COMPANY DATA FOR CUSTOMER SCREEN
     companyData() {
       const baseCompany = mainCompanyInfo()
@@ -718,10 +725,6 @@ export default {
           ? 0
           : this.cashReceived - (this.grandTotal - this.discount)
       return this.formatNumber(changeValue)
-    },
-
-    companyLogo() {
-      return require(`~/assets/image/${this.companyData.ticketLogo}`)
     },
     ticketCommon() {
       return ticketHtml()
@@ -1836,6 +1839,7 @@ export default {
         changes: theChanges,
         axios: this.$axios,
         companyData: this.companyData,
+        paperWidth: this.paperSize,
       })
     },
 
@@ -1989,13 +1993,19 @@ export default {
               const invoiceData = saleResponse.data
               // Get company data
               const fixCompanyData = this.currentTerminal?.location?.company // this.$store.getters.findAllCompany[0] || {}
-              console.info(`fixed COMPANY INFOR ${JSON.stringify(fixCompanyData)}`)
-              
+              console.info(
+                `fixed COMPANY INFOR ${JSON.stringify(fixCompanyData)}`
+              )
+
               // Generate HTML based on type
               let htmlContent = ''
               console.info(`currency ${JSON.stringify(this.findAllCurrency)}`)
               console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
-              htmlContent = generateReceiptHTML(invoiceData, fixCompanyData,this.findAllCurrency)
+              htmlContent = generateReceiptHTML(
+                invoiceData,
+                fixCompanyData,
+                this.findAllCurrency
+              )
 
               // Print
               this.openPrintWindow(htmlContent)

@@ -2382,7 +2382,7 @@ var api = __webpack_require__(43);
     },
     fallbackLogoUrl() {
       // Return your default logo
-      return __webpack_require__(164);
+      return __webpack_require__(163);
     },
     // Company information
     companyName() {

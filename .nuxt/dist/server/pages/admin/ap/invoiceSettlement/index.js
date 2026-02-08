@@ -1690,7 +1690,7 @@ var VRow = __webpack_require__(440);
 var VSelect = __webpack_require__(20);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VSimpleTable.js
-var VSimpleTable = __webpack_require__(196);
+var VSimpleTable = __webpack_require__(195);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSnackbar/VSnackbar.js
 var VSnackbar = __webpack_require__(499);
@@ -3372,7 +3372,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
     // Get default/fallback logo
     getDefaultLogo() {
       try {
-        return __webpack_require__(164);
+        return __webpack_require__(163);
       } catch {
         return '/static/images/default-logo.png';
       }

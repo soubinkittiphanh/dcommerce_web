@@ -3850,7 +3850,7 @@ var VDatePickerYears = __webpack_require__(472);
 var VPicker = __webpack_require__(464);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(201);
+var VCard = __webpack_require__(200);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(94);
@@ -5744,7 +5744,7 @@ var api = __webpack_require__(43);
     },
     fallbackLogoUrl() {
       // Return your default logo
-      return __webpack_require__(164);
+      return __webpack_require__(163);
     },
     // Company information
     companyName() {

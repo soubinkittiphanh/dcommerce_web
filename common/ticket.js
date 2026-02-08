@@ -1,8 +1,7 @@
 /**
- * Enhanced Ticket Generation Module - FINAL PRODUCTION VERSION
- * FIXED: Accurate Price List & Currency extraction.
- * FIXED: 'isGift' correctly overridden by localPrice if not free.
- * FIXED: Currency breakdown always visible to show foreign vs local comparison.
+ * Enhanced Ticket Generation Module - VERSION 3.0 (A4 & A5 SUPPORT)
+ * FIXED: Professional layout for A4/A5 documents.
+ * FIXED: Thermal layout for 58mm/80mm receipts.
  */
 
 import CurrencyHelper from '@/utils/currency-helper'
@@ -108,39 +107,26 @@ const safeParseNumber = (value, defaultValue = 0) => {
   return isNaN(Number(value)) ? defaultValue : Number(value);
 };
 
-/**
- * ✅ Determines the active price of an item using exact list matching.
- */
 const getItemActivePrice = (item) => {
-  // RULE 1: Gift/Special Item Override (localPrice is the final truth for gifts)
   if (item.isGift === true && typeof item.localPrice !== 'undefined') {
     return safeParseNumber(item.localPrice, 0);
   }
-
-  // RULE 2: Active Price List Selection (Find exact match in array)
   if (item.priceListId !== null && item.priceListId !== undefined && Array.isArray(item.priceLists)) {
     const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
     if (activePriceList) {
       return safeParseNumber(activePriceList.amount, 0);
     }
   }
-
-  // RULE 3: Standard Price Fallback
   return safeParseNumber(item.localPrice ?? item.pro_price, 0);
 };
 
-/**
- * ✅ Determines the active currency using exact list matching.
- */
 const getItemActiveCurrencyId = (item) => {
-  // If a specific price list is selected, find its currency in the array
   if (item.priceListId !== null && item.priceListId !== undefined && Array.isArray(item.priceLists)) {
     const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
     if (activePriceList && activePriceList.currencyId) {
       return activePriceList.currencyId;
     }
   }
-  // Fallback to the item's default sale currency
   return item.saleCurrencyId;
 };
 
@@ -159,7 +145,9 @@ const validateTicketParams = (params, formatNumber) => {
 const getPaperConfig = (paperWidth = '80mm') => {
   const configs = {
     '58mm': { width: '58mm', fontSize: '10px', logoSize: '35px', padding: '6px', lineHeight: '1.1', itemSpacing: '1px', sectionSpacing: '4px' },
-    '80mm': { width: '80mm', fontSize: '11px', logoSize: '45px', padding: '8px', lineHeight: '1.2', itemSpacing: '2px', sectionSpacing: '6px' }
+    '80mm': { width: '80mm', fontSize: '11px', logoSize: '45px', padding: '8px', lineHeight: '1.2', itemSpacing: '2px', sectionSpacing: '6px' },
+    'A5':   { width: '148mm', fontSize: '14px', logoSize: '70px', padding: '20px', lineHeight: '1.4', itemSpacing: '4px', sectionSpacing: '12px' },
+    'A4':   { width: '210mm', fontSize: '16px', logoSize: '90px', padding: '30px', lineHeight: '1.5', itemSpacing: '6px', sectionSpacing: '18px' }
   };
   return configs[paperWidth] || configs['80mm'];
 };
@@ -173,18 +161,12 @@ const getLocalCurrency = (currencyList) => {
 // TRANSACTION GENERATORS
 // ============================================================================
 
-/**
- * ✅ Display Logic for Gifts vs Special Prices
- */
 const getGiftDisplayInfo = (item, activePrice) => {
   const isFree = activePrice === 0;
   const isGiftMarked = item.isGift === true;
-  const hasSpecialPrice = isGiftMarked && !isFree;
-
   return {
     isGift: isGiftMarked,
     isFree,
-    hasSpecialPrice,
     displayPrice: isFree ? 'FREE' : null, 
     cssClass: isGiftMarked ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
     labelSuffix: isGiftMarked ? (isFree ? ' [GIFT]' : ' [SPECIAL]') : ''
@@ -194,64 +176,48 @@ const getGiftDisplayInfo = (item, activePrice) => {
 const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, currencyList, paperWidth = '80mm') => {
   const cartItems = productCart.lines || productCart;
   if (!Array.isArray(cartItems) || cartItems.length === 0) return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
-  const is58mm = paperWidth === '58mm';
+  const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
 
   return cartItems.map(item => {
     const productName = item.pro_name || findAllProduct.find(el => el.id === item.id)?.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ';
     const quantity = item.qty || 0;
-
     const activePrice = getItemActivePrice(item);
     const total = quantity * activePrice;
-
-    const currencyId = getItemActiveCurrencyId(item);
-    const currency = currencyList.find(c => c.id === currencyId);
+    const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
     const currencyCode = currency?.code || 'LAK';
-
     const giftInfo = getGiftDisplayInfo(item, activePrice);
 
-    if (is58mm) {
+    if (paperWidth === '58mm') {
       return `
         <div class="item ${giftInfo.cssClass}">
           <div class="item-left">${quantity}x ${productName}${giftInfo.labelSuffix}</div>
           <div class="item-right">${giftInfo.displayPrice || `${formatNumber(total)} ${currencyCode}`}</div>
-        </div>
-      `;
+        </div>`;
     } else {
       return `
         <div class="item ${giftInfo.cssClass}">
           <div class="item-desc">
-            <div class="item-name">${productName}${giftInfo.labelSuffix}</div>
+            <div class="item-name" style="${!isThermal ? 'font-size: 1.1em;' : ''}">${productName}${giftInfo.labelSuffix}</div>
             <div class="item-detail">${quantity} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : `${formatNumber(activePrice)} ${currencyCode}`}</div>
           </div>
-          <div class="item-total">${giftInfo.displayPrice || `${formatNumber(total)} ${currencyCode}`}</div>
-        </div>
-      `;
+          <div class="item-total" style="${!isThermal ? 'font-size: 1.1em;' : ''}">${giftInfo.displayPrice || `${formatNumber(total)} ${currencyCode}`}</div>
+        </div>`;
     }
   }).join('');
-};
-
-const generateFlexibleReprintTransactionList = (productCart, findAllProduct, formatNumber, currencyList, paperWidth = '80mm') => {
-  return generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList, paperWidth);
 };
 
 const generateCurrencyBreakdownSection = (productCart, currencyList, formatNumber, paperWidth = '80mm') => {
   const cartItems = productCart.lines || productCart;
   if (!Array.isArray(cartItems) || cartItems.length === 0) return '';
-
   const currencyGroups = {};
 
   cartItems.forEach(item => {
     const currencyId = getItemActiveCurrencyId(item);
     if (!currencyGroups[currencyId]) {
-      currencyGroups[currencyId] = { currency: currencyList.find(c => c.id === currencyId), total: 0, items: [] };
+      currencyGroups[currencyId] = { currency: currencyList.find(c => c.id === currencyId), total: 0 };
     }
-    
-    const total = (item.qty || 0) * getItemActivePrice(item);
-    currencyGroups[currencyId].total += total;
-    currencyGroups[currencyId].items.push(item);
+    currencyGroups[currencyId].total += (item.qty || 0) * getItemActivePrice(item);
   });
-
-  // ✅ The "currencies.length <= 1" check has been REMOVED so the subtotal always shows.
 
   const is58mm = paperWidth === '58mm';
   const breakdownHtml = Object.values(currencyGroups).map(group => {
@@ -261,7 +227,7 @@ const generateCurrencyBreakdownSection = (productCart, currencyList, formatNumbe
       `<div class="item currency-subtotal"><div class="item-desc"><div class="item-name">Subtotal ${currencyCode}:</div></div><div class="item-total">${formatNumber(group.total)} ${currencyCode}</div></div>`;
   }).join('');
 
-  return `<div class="divider">${is58mm ? '- - - - - - - - - - - - - - -' : '- - - - - - - - - - - - - - - - - - - - - - - - -'}</div>${breakdownHtml}`;
+  return `<div class="divider">${is58mm ? '- - - - - - -' : '- - - - - - - - - - - - - - - - -'}</div>${breakdownHtml}`;
 };
 
 const calculateTotalInLocalCurrency = (productCart, currencyList) => {
@@ -270,31 +236,24 @@ const calculateTotalInLocalCurrency = (productCart, currencyList) => {
   if (!localCurrency) return { totalInLocal: 0, localCurrency: null };
 
   let totalInLocal = 0;
-
   cartItems.forEach(item => {
     const itemTotal = (item.qty || 0) * getItemActivePrice(item);
     const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
-
-    if (currency && !currency.isLocalCCY) {
-      totalInLocal += CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency);
-    } else {
-      totalInLocal += itemTotal;
-    }
+    totalInLocal += (currency && !currency.isLocalCCY) ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) : itemTotal;
   });
-
   return { totalInLocal, localCurrency };
 };
 
 const generateFlexibleTotalSection = (productCart, currencyList, discount, formatNumber, paperWidth = '80mm') => {
   const { totalInLocal, localCurrency } = calculateTotalInLocalCurrency(productCart, currencyList);
   if (!localCurrency) return '';
-
   const finalTotal = totalInLocal - safeParseNumber(discount, 0);
   const is58mm = paperWidth === '58mm';
+  const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
 
   return is58mm ? 
     `<div class="total-line-compact"><strong>ລວມທັງໝົດ: ${formatNumber(finalTotal)} ${localCurrency.code}</strong></div>` : 
-    `<div class="total-line primary-total"><span class="total-label">ລວມທັງໝົດ:</span><span class="total-amount">${formatNumber(finalTotal)} ${localCurrency.code}</span></div>`;
+    `<div class="total-line primary-total" style="${isLarge ? 'font-size: 1.3em; margin-top: 10px;' : ''}"><span class="total-label">ລວມທັງໝົດ:</span><span class="total-amount">${formatNumber(finalTotal)} ${localCurrency.code}</span></div>`;
 };
 
 const generateFlexibleDiscountSection = (discount, formatNumber, currencyList, paperWidth = '80mm') => {
@@ -312,36 +271,66 @@ const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidt
   const { lastTransactionSaleHeaderId, currentTerminal, user } = headerData;
   const companyName = currentTerminal?.location?.company?.name || companyLogoCache.company?.name || 'Dcommerce';
   const companyTel = currentTerminal?.location?.company?.tel || companyLogoCache.company?.tel || 'N/A';
-  const companyLogoUrl = currentTerminal?.location?.company?.profile_image_path || companyLogoCache.company?.profile_image_path || 'N/A';
+  const companyLogoPath = currentTerminal?.location?.company?.profile_image_path || companyLogoCache.company?.profile_image_path;
   const userName = user?.cus_name || 'N/A';
   const config = getPaperConfig(paperWidth);
   const is58mm = paperWidth === '58mm';
+  const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
 
-  const logoHtml = logoUrl ?
-    `<img src="${currentTerminal.baseURL}/${companyLogoUrl}" alt="Logo" style="width: ${config.logoSize}; height: ${config.logoSize}; object-fit: contain;" onerror="this.style.display='none';">` :
+  const finalLogoUrl = companyLogoPath ? `${currentTerminal.baseURL}/${companyLogoPath}` : logoUrl;
+  const logoHtml = finalLogoUrl ?
+    `<img src="${finalLogoUrl}" alt="Logo" style="width: ${config.logoSize}; height: auto; max-height: ${config.logoSize}; object-fit: contain;" onerror="this.style.display='none';">` :
     `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
 
+  if (isLarge) {
+    return `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
+        <div class="header-left">${logoHtml}</div>
+        <div style="text-align: right;">
+          <div class="company-name" style="font-size: ${paperWidth === 'A4' ? '24px' : '20px'};">${companyName}</div>
+          <div class="company-tel" style="font-size: 14px;">ເບີໂທ: ${companyTel}</div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 13px; background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #eee;">
+        <div>
+          <div><strong>ວັນທີ / Date:</strong> ${formatDate(dateValue)}</div>
+          <div><strong>ຜູ້ຂາຍ / Cashier:</strong> ${userName}</div>
+        </div>
+        <div style="text-align: right;">
+          <div><strong>ເລກທີ / No.:</strong> ${lastTransactionSaleHeaderId}</div>
+        </div>
+      </div>`;
+  }
+
   return is58mm ? 
-    `<div class="header-58mm"><div class="header-logo">${logoHtml}</div><div class="company-info-58mm"><div class="company-name">${companyName}</div><div class="company-tel">ເບີໂທ: ${companyTel}</div></div></div><div class="receipt-info-58mm"><div>ວັນທີ: ${formatDate(dateValue)}</div><div>ເລກທີ: ${lastTransactionSaleHeaderId}</div><div>ຜູ້ຂາຍ: ${userName}</div></div><div class="divider">- - - - - - - - - - - - - - -</div>` : 
-    `<div class="header-80mm"><div class="header-left">${logoHtml}</div><div class="header-right"><div class="company-name">${companyName}</div><div class="company-tel">ເບີໂທ: ${companyTel}</div><div class="receipt-info-80mm"><div>ວັນທີ: ${formatDate(dateValue)}</div><div>ເລກທີ: ${lastTransactionSaleHeaderId}</div><div>ຜູ້ຂາຍ: ${userName}</div></div></div></div><div class="divider">- - - - - - - - - - - - - - - - - - - - - - - - -</div>`;
+    `<div class="header-58mm"><div class="header-logo">${logoHtml}</div><div class="company-info-58mm"><div class="company-name">${companyName}</div><div class="company-tel">ເບີໂທ: ${companyTel}</div></div></div><div class="receipt-info-58mm"><div>ວັນທີ: ${formatDate(dateValue)}</div><div>ເລກທີ: ${lastTransactionSaleHeaderId}</div><div>ຜູ້ຂາຍ: ${userName}</div></div>` : 
+    `<div class="header-80mm"><div class="header-left">${logoHtml}</div><div class="header-right"><div class="company-name">${companyName}</div><div class="company-tel">ເບີໂທ: ${companyTel}</div><div class="receipt-info-80mm"><div>ວັນທີ: ${formatDate(dateValue)}</div><div>ເລກທີ: ${lastTransactionSaleHeaderId}</div><div>ຜູ້ຂາຍ: ${userName}</div></div></div></div>`;
 };
 
 const generateFlexiblePaymentSection = (paymentData, formatNumber, currencyList, paperWidth = '80mm') => {
   const { currentPaymentCode, cashReceived, changes } = paymentData;
-  const safeCashReceived = safeParseNumber(cashReceived, 0);
-  const safeChanges = safeParseNumber(changes, 0);
   const currencyCode = getLocalCurrency(currencyList)?.code || 'LAK';
   const is58mm = paperWidth === '58mm';
 
-  return is58mm ? 
-    `<div class="payment-section"><div class="item"><div class="item-left">ຊຳລະດ້ວຍ:</div><div class="item-right">${currentPaymentCode || 'N/A'}</div></div><div class="item"><div class="item-left">ຮັບຊຳລະ:</div><div class="item-right">${formatNumber(safeCashReceived)} ${currencyCode}</div></div><div class="item"><div class="item-left">ເງິນທອນ:</div><div class="item-right">${formatNumber(safeChanges)} ${currencyCode}</div></div></div>` :
-    `<div class="payment-section"><div class="payment-item"><span class="payment-label">ຊຳລະດ້ວຍ:</span><span class="payment-value">${currentPaymentCode || 'N/A'}</span></div><div class="payment-item"><span class="payment-label">ຮັບຊຳລະ:</span><span class="payment-value">${formatNumber(safeCashReceived)} ${currencyCode}</span></div><div class="payment-item"><span class="payment-label">ເງິນທອນ:</span><span class="payment-value">${formatNumber(safeChanges)} ${currencyCode}</span></div></div>`;
+  const rows = [
+    { label: 'ຊຳລະດ້ວຍ:', value: currentPaymentCode || 'N/A' },
+    { label: 'ຮັບຊຳລະ:', value: `${formatNumber(safeParseNumber(cashReceived))} ${currencyCode}` },
+    { label: 'ເງິນທອນ:', value: `${formatNumber(safeParseNumber(changes))} ${currencyCode}` }
+  ];
+
+  return `<div class="payment-section">
+    ${rows.map(row => is58mm ? 
+      `<div class="item"><div class="item-left">${row.label}</div><div class="item-right">${row.value}</div></div>` :
+      `<div class="payment-item"><span class="payment-label">${row.label}</span><span class="payment-value">${row.value}</span></div>`
+    ).join('')}
+  </div>`;
 };
 
 const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
   const { headerHtml, transactionListHtml, currencyBreakdownHtml, discountHtml, totalHtml, paymentSectionHtml } = contentData;
   const config = getPaperConfig(paperWidth);
   const is58mm = paperWidth === '58mm';
+  const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
 
   return `
     <!DOCTYPE html>
@@ -351,59 +340,54 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
       <title>Receipt</title>
       <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
-        body { font-family: 'Noto Sans Lao', sans-serif; margin: 0; padding: ${config.padding}; font-size: ${config.fontSize}; line-height: ${config.lineHeight}; width: ${config.width}; max-width: ${config.width}; }
-        .title { text-align: center; font-weight: 600; font-size: ${is58mm ? '12px' : '13px'}; margin-bottom: ${config.sectionSpacing}; }
-        .divider { text-align: center; margin: ${config.sectionSpacing} 0; font-size: 9px; color: #999; }
-        .logo-placeholder { width: ${config.logoSize}; height: ${config.logoSize}; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-size: ${is58mm ? '8px' : '10px'}; font-weight: bold; }
-        .company-name { font-weight: 600; font-size: ${is58mm ? '11px' : '12px'}; margin-bottom: 2px; }
-        .company-tel { font-size: ${is58mm ? '8px' : '9px'}; color: #666; }
-        
-        /* Gift Styles */
-        .gift-item .item-name, .gift-item .item-left, .gift-item .item-total, .gift-item .item-right { font-weight: 600; }
-        .gift-free .item-total, .gift-free .item-right { font-style: italic; color: #4caf50; } /* Green for Free */
-        .gift-special .item-total, .gift-special .item-right { color: #1976d2; } /* Blue for Special Price */
-        
-        .currency-subtotal { font-style: italic; border-top: 1px dashed #ccc; margin-top: 2px; padding-top: 2px; }
-        .currency-subtotal .item-name, .currency-subtotal .item-left, .currency-subtotal .item-total, .currency-subtotal .item-right { font-weight: 600; }
-        ${is58mm ? `
-        .header-58mm { display: flex; align-items: center; margin-bottom: 4px; gap: 6px; }
-        .company-info-58mm { flex: 1; min-width: 0; }
-        .receipt-info-58mm { font-size: 8px; margin-bottom: 4px; }
-        .item { display: flex; justify-content: space-between; margin-bottom: ${config.itemSpacing}; padding: 1px 0; }
-        .item-left { flex: 1; margin-right: 4px; }
-        .item-right { text-align: right; white-space: nowrap; }
-        .total-line-compact { text-align: center; font-size: 11px; font-weight: 600; margin: 2px 0; }
-        ` : `
-        .header-80mm { display: flex; align-items: flex-start; margin-bottom: 6px; gap: 10px; }
-        .header-right { flex: 1; min-width: 0; }
-        .receipt-info-80mm { margin-top: 4px; font-size: 9px; }
-        .item { display: flex; justify-content: space-between; margin-bottom: ${config.itemSpacing}; padding: 1px 0; }
-        .item-desc { flex: 1; margin-right: 8px; }
+        body { font-family: 'Noto Sans Lao', sans-serif; margin: 0 auto; padding: ${config.padding}; font-size: ${config.fontSize}; line-height: ${config.lineHeight}; width: ${config.width}; max-width: ${config.width}; background: white; }
+        .title { text-align: center; font-weight: 700; font-size: ${isLarge ? '28px' : is58mm ? '12px' : '14px'}; margin-bottom: ${config.sectionSpacing}; text-transform: uppercase; }
+        .divider { text-align: center; margin: ${config.sectionSpacing} 0; font-size: 10px; color: #888; border-bottom: 1px dashed #eee; height: 1px; }
+        .logo-placeholder { width: ${config.logoSize}; height: ${config.logoSize}; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; }
+        .company-name { font-weight: 600; margin-bottom: 2px; }
+        .item { display: flex; justify-content: space-between; margin-bottom: ${config.itemSpacing}; padding: 4px 0; border-bottom: ${isLarge ? '1px solid #f0f0f0' : 'none'}; }
         .item-name { font-weight: 500; }
-        .item-detail { font-size: 9px; }
-        .item-total { text-align: right; white-space: nowrap; }
-        .total-line { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; margin: 2px 0; }
-        .payment-item { display: flex; justify-content: space-between; margin-bottom: 2px; }
+        .item-total { text-align: right; white-space: nowrap; font-weight: 600; }
+        
+        ${is58mm ? `
+          .header-58mm { display: flex; align-items: center; margin-bottom: 8px; gap: 8px; }
+          .receipt-info-58mm { font-size: 9px; margin-bottom: 6px; }
+          .total-line-compact { text-align: right; font-size: 12px; border-top: 1px solid #000; padding-top: 4px; }
+        ` : `
+          .header-80mm { display: flex; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
+          .receipt-info-80mm { margin-top: 4px; font-size: 10px; color: #444; }
+          .total-line { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-top: 8px; }
+          .payment-item { display: flex; justify-content: space-between; margin-bottom: 3px; }
         `}
-        .payment-section { margin-top: ${config.sectionSpacing}; padding-top: 4px; border-top: 1px dashed #999; }
-        .total-section { margin-top: 4px; padding-top: 4px; border-top: 1px solid #000; }
-        .footer { text-align: center; margin-top: ${config.sectionSpacing}; font-size: ${is58mm ? '9px' : '10px'}; }
-        .footer .thank-you { font-weight: 600; }
-        .footer .sub-text { color: #666; font-size: ${is58mm ? '8px' : '9px'}; }
-        @media print { body { margin: 0; padding: 4px; width: auto; max-width: none; } }
-        @page { margin: 0; size: ${config.width} auto; }
+
+        .gift-item { color: #1976d2; }
+        .gift-free { color: #2e7d32; }
+        .payment-section { margin-top: ${config.sectionSpacing}; padding-top: 8px; border-top: 1px solid #eee; }
+        .total-section { margin-top: 10px; padding-top: 8px; border-top: 2px solid #333; }
+        .footer { text-align: center; margin-top: ${isLarge ? '50px' : '30px'}; }
+        .thank-you { font-weight: 700; font-size: ${isLarge ? '20px' : '12px'}; }
+
+        @media print { 
+          body { margin: 0; padding: ${config.padding}; width: 100%; } 
+          @page { margin: 0; size: ${paperWidth === 'A4' ? 'A4 portrait' : (paperWidth === 'A5' ? 'A5 portrait' : 'auto')}; }
+        }
       </style>
     </head>
     <body>
-      <div class="title">ໃບຮັບເງິນ</div>
+      <div class="title">${isLarge ? 'ໃບຮັບເງິນ / Receipt' : 'ໃບຮັບເງິນ (RECEIPT)'}</div>
       ${headerHtml}
-      ${transactionListHtml}
+      <div class="${isLarge ? '' : 'divider'}"></div>
+      <div style="margin-top: ${isLarge ? '20px' : '0'};">
+        ${transactionListHtml}
+      </div>
       ${currencyBreakdownHtml}
       ${discountHtml}
-      <div class="divider">${is58mm ? '- - - - - - - - - - - - - - -' : '- - - - - - - - - - - - - - - - - - - - - - - - -'}</div>
-      ${paymentSectionHtml}
       <div class="total-section">${totalHtml}</div>
-      <div class="footer"><div class="thank-you">THANK YOU</div><div class="sub-text">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</div></div>
+      ${paymentSectionHtml}
+      <div class="footer">
+        <div class="thank-you">THANK YOU</div>
+        <div style="font-size: 11px;">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</div>
+      </div>
     </body>
     </html>
   `;
@@ -411,14 +395,14 @@ const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
 
 const printTicket = (windowContent, paperWidth = '80mm') => {
   try {
-    const windowWidth = paperWidth === '58mm' ? 350 : 450;
-    const printWin = window.open('', '', `left=0,top=0,width=${windowWidth},height=600,toolbar=0,scrollbars=1,status=0`);
-    if (!printWin) throw new Error('Popup blocked');
-    printWin.document.open();
+    const widthMap = { 'A4': 850, 'A5': 650, '80mm': 450, '58mm': 350 };
+    const windowWidth = widthMap[paperWidth] || 450;
+    const printWin = window.open('', '', `width=${windowWidth},height=850,scrollbars=1`);
+    if (!printWin) return;
     printWin.document.write(windowContent);
     printWin.document.close();
-    printWin.onload = () => setTimeout(() => { printWin.print(); printWin.close(); }, 800);
-    setTimeout(() => { if (!printWin.closed) { printWin.print(); printWin.close(); } }, 2000);
+    printWin.focus();
+    setTimeout(() => { printWin.print(); printWin.close(); }, 1000);
   } catch (error) { console.error(error); }
 };
 
@@ -432,23 +416,23 @@ const executeTicketPrint = async (params, dateValue) => {
 
   try {
     const logoUrl = await getCompanyLogo({ axios, staticLogoPath: companyLogo, companyData });
-    const transactionListHtml = generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList, paperWidth);
-    const currencyBreakdownHtml = generateCurrencyBreakdownSection(productCart, currencyList, formatNumber, paperWidth);
-    const discountHtml = generateFlexibleDiscountSection(discount, formatNumber, currencyList, paperWidth);
-    const totalHtml = generateFlexibleTotalSection(productCart, currencyList, discount, formatNumber, paperWidth);
-    const headerHtml = generateFlexibleHeaderSection({ lastTransactionSaleHeaderId, currentTerminal, user }, dateValue, logoUrl, paperWidth);
-    const paymentSectionHtml = generateFlexiblePaymentSection({ currentPaymentCode, cashReceived, changes }, formatNumber, currencyList, paperWidth);
+    
+    const contentData = {
+      headerHtml: generateFlexibleHeaderSection({ lastTransactionSaleHeaderId, currentTerminal, user }, dateValue, logoUrl, paperWidth),
+      transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList, paperWidth),
+      currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber, paperWidth),
+      discountHtml: generateFlexibleDiscountSection(discount, formatNumber, currencyList, paperWidth),
+      totalHtml: generateFlexibleTotalSection(productCart, currencyList, discount, formatNumber, paperWidth),
+      paymentSectionHtml: generateFlexiblePaymentSection({ currentPaymentCode, cashReceived, changes }, formatNumber, currencyList, paperWidth),
+      ticketCommon
+    };
 
-    const windowContent = generateFlexibleWindowContent({ ticketCommon, headerHtml, transactionListHtml, currencyBreakdownHtml, discountHtml, totalHtml, paymentSectionHtml }, paperWidth);
+    const windowContent = generateFlexibleWindowContent(contentData, paperWidth);
     printTicket(windowContent, paperWidth);
-  } catch (error) { console.error('Error generating ticket:', error); }
+  } catch (error) { console.error('Ticket Error:', error); }
 };
 
 export const defaultTicket = (params) => executeTicketPrint(params, new Date());
-export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date().toISOString());
+export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
 export const customerTicket = (params) => executeTicketPrint(params, new Date());
-
-export const refreshCompanyLogo = async (axios) => { clearLogoCache(); return await loadCompanyLogoFromAPI(axios); };
-export const getLogoCacheInfo = () => ({ ...companyLogoCache });
-export const preloadCompanyLogo = async (axios) => { try { await loadCompanyLogoFromAPI(axios); } catch (e) {} };
-export const getSupportedPaperWidths = () => ['58mm', '80mm'];
+export const getSupportedPaperWidths = () => ['58mm', '80mm', 'A5', 'A4'];

@@ -407,7 +407,7 @@ var api = __webpack_require__(43);
         // Final fallback to assets (original behavior)
         const logoName = (_this$companyData = this.companyData) === null || _this$companyData === void 0 ? void 0 : _this$companyData.companyLogo;
         if (logoName && !this.logoLoadError) {
-          return __webpack_require__(145)(`./${logoName}`);
+          return __webpack_require__(201)(`./${logoName}`);
         }
         return null;
       } catch (error) {

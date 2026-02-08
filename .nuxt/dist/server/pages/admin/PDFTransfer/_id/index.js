@@ -312,7 +312,7 @@ var api = __webpack_require__(43);
       return comV1;
     },
     companyLogo() {
-      return __webpack_require__(145)(`./${this.companyData.companyLogo}`);
+      return __webpack_require__(201)(`./${this.companyData.companyLogo}`);
     },
     ...Object(external_vuex_["mapGetters"])(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct'])
   },

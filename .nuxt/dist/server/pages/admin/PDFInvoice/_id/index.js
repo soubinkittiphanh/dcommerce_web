@@ -289,7 +289,7 @@ var api = __webpack_require__(43);
       // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
-          const staticLogo = __webpack_require__(145)(`./${company.ticketLogo}`);
+          const staticLogo = __webpack_require__(201)(`./${company.ticketLogo}`);
           console.log('Using static logo:', company.ticketLogo);
           return staticLogo;
         } catch (error) {
@@ -300,7 +300,7 @@ var api = __webpack_require__(43);
       // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
-          const fallbackLogo = __webpack_require__(145)(`./${company.dcLogo}`);
+          const fallbackLogo = __webpack_require__(201)(`./${company.dcLogo}`);
           console.log('Using dcLogo fallback:', company.dcLogo);
           return fallbackLogo;
         } catch (error) {

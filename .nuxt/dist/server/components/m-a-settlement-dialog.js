@@ -1507,7 +1507,7 @@ var VDatePickerYears = __webpack_require__(472);
 var VPicker = __webpack_require__(464);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(201);
+var VCard = __webpack_require__(200);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(94);
@@ -2218,7 +2218,7 @@ var settlementVouchervue_type_template_id_7af4a21a_scoped_true_render = function
   }, [_c('img', {
     staticClass: "voucher-logo",
     attrs: {
-      "src": __webpack_require__(164),
+      "src": __webpack_require__(163),
       "alt": "Ministry Logo"
     }
   }), _vm._v(" "), _c('div', {

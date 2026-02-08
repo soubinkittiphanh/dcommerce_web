@@ -1108,7 +1108,7 @@ var Settlement = __webpack_require__(747);
       // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
-          const staticLogo = __webpack_require__(145)(`./${company.ticketLogo}`);
+          const staticLogo = __webpack_require__(201)(`./${company.ticketLogo}`);
           console.log('Using static logo for COD sales:', company.ticketLogo);
           return staticLogo;
         } catch (error) {
@@ -1119,7 +1119,7 @@ var Settlement = __webpack_require__(747);
       // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
-          const fallbackLogo = __webpack_require__(145)(`./${company.dcLogo}`);
+          const fallbackLogo = __webpack_require__(201)(`./${company.dcLogo}`);
           console.log('Using dcLogo fallback for COD sales:', company.dcLogo);
           return fallbackLogo;
         } catch (error) {
@@ -3737,7 +3737,7 @@ var common = __webpack_require__(7);
 var CancelTicketForm = __webpack_require__(463);
 
 // EXTERNAL MODULE: ./common/printTemplates.js
-var printTemplates = __webpack_require__(162);
+var printTemplates = __webpack_require__(161);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=script&lang=js
 
@@ -5275,7 +5275,7 @@ var VDatePickerYears = __webpack_require__(472);
 var VPicker = __webpack_require__(464);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VCard/VCard.sass
-var VCard = __webpack_require__(201);
+var VCard = __webpack_require__(200);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/mixins/elevatable/index.js
 var elevatable = __webpack_require__(94);
