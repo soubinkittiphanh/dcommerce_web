@@ -142,7 +142,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 559:
+/***/ 558:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -833,20 +833,20 @@ var external_vuex_ = __webpack_require__(14);
           this.form.locationId = this.currentTerminal['locationId'];
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           this.form.userId = this.user.id;
           this.form.locationId = this.currentTerminal['locationId'];
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -859,7 +859,7 @@ var external_vuex_ = __webpack_require__(14);
         const response = await this.$axios.get(`api/location/find`);
         this.locationList = response.data;
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
         console.log('Error ===>: ' + error);
       }
       this.isloading = false;
@@ -881,7 +881,7 @@ var external_vuex_ = __webpack_require__(14);
           }
         } catch (error) {
           console.log("Cannot fetch data " + error);
-          return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
       }
     },

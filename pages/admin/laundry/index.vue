@@ -80,7 +80,7 @@ export default {
   layout: 'login',
   data() {
     return {
-      apiBaseUrl: 'http://192.168.1.7:8000',
+      apiBaseUrl: 'http://192.168.1.9:8000',
       deviceId: '1e008816-50fb-ea87-b2c1-e98ee3306e1a',
       step: 'selection', // selection, payment, starting
       selectedProgram: null,
@@ -203,7 +203,7 @@ export default {
     async triggerMachine() {
       this.step = 'starting'
       try {
-        await this.$axios.$post(`${this.apiBaseUrl}/api/devices/${this.deviceId}/start`, {
+        await this.$axios.$post(`${this.apiBaseUrl}/api/smartthings/start/${this.deviceId}`, {
           program: this.selectedProgram,
           dryTime: this.selectedProgram === '39' ? this.selectedTime : null
         })

@@ -1,7 +1,7 @@
 exports.ids = [265];
 exports.modules = {
 
-/***/ 1533:
+/***/ 1532:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -431,7 +431,7 @@ var common = __webpack_require__(7);
         };
         chart.setOption(PLoption);
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
       }
       this.isloading = false;
     },

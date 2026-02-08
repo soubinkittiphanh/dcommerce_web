@@ -1,7 +1,7 @@
 exports.ids = [224,43,57,58,134,138,139,178,345];
 exports.modules = {
 
-/***/ 1501:
+/***/ 1500:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -891,7 +891,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var inventory_value = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default,DialogClassicMessage: __webpack_require__(483).default,CardForm: __webpack_require__(660).default,ProductForm: __webpack_require__(520).default,ProductFormCreate: __webpack_require__(519).default,PriceListForm: __webpack_require__(501).default})
+installComponents(component, {YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default,DialogClassicMessage: __webpack_require__(483).default,CardForm: __webpack_require__(657).default,ProductForm: __webpack_require__(520).default,ProductFormCreate: __webpack_require__(519).default,PriceListForm: __webpack_require__(501).default})
 
 
 /***/ }),
@@ -3705,9 +3705,9 @@ var console = __webpack_require__(6);
       await this.$axios.post('uploadmulti_update', fData).then(() => {
         this.$emit('close-dialog');
         this.$emit('refresh');
-        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "m"])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "l"])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
-        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "l"])(this.$swal, 'Error', er.response.data);
+        Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalError2 */ "k"])(this.$swal, 'Error', er.response.data);
       });
       this.isLoading = false;
     },
@@ -3792,7 +3792,7 @@ var console = __webpack_require__(6);
           img_name: this.formData.pro_image[idx].name
         }).then(() => {
           this.formData.pro_image.splice(idx, 1);
-          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "m"])(this.$swal, 'Succeed', 'ລຶບສຳເລັດ');
+          Object(_common__WEBPACK_IMPORTED_MODULE_0__[/* swalSuccess */ "l"])(this.$swal, 'Succeed', 'ລຶບສຳເລັດ');
         });
         this.isLoading = false;
       });
@@ -4314,13 +4314,13 @@ const swalError2 = (swal, title, error) => {
 
 /***/ }),
 
-/***/ 495:
+/***/ 496:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(496);
+var content = __webpack_require__(497);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -4328,7 +4328,7 @@ __webpack_require__(5).default("735d40bc", content, true)
 
 /***/ }),
 
-/***/ 496:
+/***/ 497:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -4744,9 +4744,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.post(api, this.form);
           console.log(`Load data ${JSON.stringify(response)}`);
           await this.loadEntry();
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
-          return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -4765,9 +4765,9 @@ var external_vuex_ = __webpack_require__(14);
           const response = await this.$axios.delete(api);
           console.log(`Load data `);
           await this.loadEntry();
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction has been deleted');
         } catch (error) {
-          return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -4784,7 +4784,7 @@ var external_vuex_ = __webpack_require__(14);
         this.entries = response.data;
       } catch (error) {
         console.log('Cannot fetch data ' + error);
-        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
       }
     },
     refreshData() {
@@ -6928,7 +6928,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(495);
+/* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(496);
 /* harmony import */ var _src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_src_components_VFileInput_VFileInput_sass__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _VTextField__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(38);
 /* harmony import */ var _VChip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(130);
@@ -7402,13 +7402,13 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 567:
+/***/ 566:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(637);
+var content = __webpack_require__(634);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -7420,19 +7420,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 636:
+/***/ 633:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(567);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(566);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 637:
+/***/ 634:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -7447,7 +7447,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 660:
+/***/ 657:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8360,7 +8360,7 @@ var external_vuex_ = __webpack_require__(14);
         const res = await this.$axios.get(`api/location/find`);
         this.locationList = res.data.map(el => el);
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
       }
     },
     async loadColors() {
@@ -8371,7 +8371,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Colors loaded:', this.colorList.length);
       } catch (error) {
         console.error('Failed to load colors:', error);
-        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
         this.colorList = [];
       }
       this.loadingColors = false;
@@ -8384,7 +8384,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Sizes loaded:', this.sizeList.length);
       } catch (error) {
         console.error('Failed to load sizes:', error);
-        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
         this.sizeList = [];
       }
       this.loadingSizes = false;
@@ -8400,7 +8400,7 @@ var external_vuex_ = __webpack_require__(14);
           console.log(`Cost info not available`);
         }
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
       }
       this.isSubmitting = false;
     },
@@ -8443,13 +8443,13 @@ var external_vuex_ = __webpack_require__(14);
           if (details.length > 0) {
             successMessage += ` (${details.join(', ')})`;
           }
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Success', successMessage);
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Success', successMessage);
           this.$emit('reload');
           this.$emit('close-dialog');
         } catch (error) {
           var _error$response;
           console.log(error);
-          Object(common["l" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
+          Object(common["k" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
         }
         this.isSubmitting = false;
       }
@@ -8467,7 +8467,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(636)
+  var style0 = __webpack_require__(633)
 if (style0.__inject__) style0.__inject__(context)
 
 }

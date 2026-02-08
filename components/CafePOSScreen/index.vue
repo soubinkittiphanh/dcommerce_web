@@ -1,14 +1,6 @@
 <template>
   <v-container fluid class="pa-0 fill-height">
-    <!-- Print Dialog -->
-    <PrintTicketDialog
-      :show="showCustomerPrint"
-      :key="printDialogKey"
-      :ticket="selectedTicket"
-      :restaurant-info="restaurantConfig"
-      @close="closePrintDialog"
-      @printed="onPrintSuccess"
-    />
+
 
     <!-- Notes Dialog Component -->
     <NotesDialog
@@ -945,16 +937,15 @@
   </v-container>
 </template>
 <script>
-import PrintTicketDialog from '@/components/CAFE/printdialog'
 import PaymentDialog from '@/components/CAFE/paymentDialogFront'
 import CustomerDialog from '@/components/CAFE/customerDialog'
 import NotesDialog from '~/components/tickets/NotesDialog.vue'
-import { mapActions, mapGetters } from 'vuex'
+import { ticketPrinter } from '~/utils/ticketPrinter' // ✅ ADDED
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     NotesDialog,
-    PrintTicketDialog,
     PaymentDialog,
     CustomerDialog,
   },
@@ -2577,13 +2568,7 @@ export default {
       if (shouldPrint) {
         this.printCustomerReceipt()
       } else {
-        this.showMessage(
-          `Payment of ${this.formatPrice(
-            this.paymentAmount
-          )} processed successfully`,
-          'success',
-          'mdi-check-circle'
-        )
+        this.showMessage(`Payment processed successfully`, 'success', 'mdi-check-circle')
       }
       this.paymentAmount = 0
     },
@@ -2665,128 +2650,47 @@ export default {
     },
 
     async printCustomerReceipt() {
-      console.log('Print button clicked')
       if (!this.currentTicket) {
-        this.showMessage(
-          'Please save the ticket first before printing',
-          'warning',
-          'mdi-alert'
-        )
-        return
+        this.showMessage('Please save the ticket first', 'warning');
+        return;
       }
+
       try {
-        this.loading = true
-        const ticketResponse = await this.$axios.get(
-          `api/ticket/${this.currentTicket.id}`
-        )
-        const latestTicket = ticketResponse.data.data || ticketResponse.data
-        let customerData = null
-        if (latestTicket.clientId) {
-          try {
-            const customerResponse = await this.$axios.get(
-              `api/client/find/${latestTicket.clientId}`
-            )
-            customerData = customerResponse.data.data || customerResponse.data
-          } catch (error) {
-            console.warn('Could not fetch customer data:', error)
-            customerData = this.selectedCustomer
+        this.loading = true;
+        
+        // 1. Fetch deep-linked data needed for the utility (tax, lines, customer)
+        const [ticketRes, linesRes] = await Promise.all([
+          this.$axios.get(`api/ticket/${this.currentTicket.id}`),
+          this.$axios.get(`api/ticketLine/ticket/${this.currentTicket.id}`)
+        ]);
+
+        const ticketData = ticketRes.data.data || ticketRes.data;
+        const linesData = linesRes.data.data || linesRes.data;
+        console.info(`CCOMANY IN FOR ${JSON.stringify(this.currentSelectedLocation)}`)
+        // 2. Execute Instant Print via Utility
+        ticketPrinter.printCustomerReceipt(ticketData, {
+          companyInfo: this.currentSelectedLocation.company, // from your existing computed
+          formatPrice: (amt) => this.formatPrice(amt),
+          formatPrintDate: (d) => new Date(d).toLocaleDateString('en-GB'),
+          formatPrintTime: (d) => new Date(d).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          getQueNo: (num) => {
+            const parts = num?.split('-')[0]?.split('/')
+            return parts?.length === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : num
           }
-        }
-        const ticketLinesResponse = await this.$axios.get(
-          `api/ticketLine/ticket/${latestTicket.id}`
-        )
-        const ticketLines =
-          ticketLinesResponse.data.data || ticketLinesResponse.data
-        const mappedTicketLines = ticketLines
-          .map((line) => {
-            const product = this.products.find((p) => p.id === line.productId)
-            return {
-              id: line.productId,
-              pro_id: line.productId,
-              pro_name:
-                line.product?.name ||
-                product?.pro_name ||
-                `Product ${line.productId}`,
-              categ_name: product?.categ_name || 'Unknown Category',
-              stock_count: product?.stock_count || 0,
-              isActive: product?.isActive || false,
-              pro_price: line.unitPrice,
-              quantity: line.quantity,
-              ticketLineId: line.id,
-              totalPrice: line.totalPrice || line.unitPrice * line.quantity,
-              isFromTicketLine: true,
-              originalTicketLinePrice: line.unitPrice,
-            }
-          })
-          .filter((item) => item.pro_name)
-        const ticketForPrint = {
-          ...latestTicket,
-          client: customerData,
-          table: this.isWalkIn
-            ? { id: null, number: null, name: 'Walk-in' }
-            : {
-                id: this.tableId,
-                number: this.tableId,
-                name: `Table ${this.tableId}`,
-              },
-          ticketLines: mappedTicketLines,
-        }
-        if (!ticketForPrint.subtotal || !ticketForPrint.promotionDiscount) {
-          const subtotal = mappedTicketLines.reduce((total, item) => {
-            return total + parseFloat(item.pro_price) * item.quantity
-          }, 0)
-          if (!ticketForPrint.promotionDiscount) {
-            const promotionDiscount = this.getTotalPromotionDiscount()
-            ticketForPrint.promotionDiscount = promotionDiscount
-            ticketForPrint.subtotal = subtotal
-          }
-        }
-        console.log('Updated ticket for print:', ticketForPrint)
-        this.currentTicket = latestTicket
-        this.selectedTicket = ticketForPrint
-        this.printDialogKey++
-        this.showCustomerPrint = true
-        // this.onPrintSuccess()
+        });
+
+        this.showMessage('Receipt sent to printer', 'success', 'mdi-printer');
       } catch (error) {
-        console.error('Error fetching latest ticket data for printing:', error)
-        this.showMessage(
-          'Failed to load latest ticket data. Using current data for printing.',
-          'warning',
-          'mdi-alert'
-        )
-        const ticketForPrint = {
-          ...this.currentTicket,
-          client: this.selectedCustomer || null,
-          table: this.isWalkIn
-            ? { id: null, number: null, name: 'Walk-in' }
-            : {
-                id: this.tableId,
-                number: this.tableId,
-                name: `Table ${this.tableId}`,
-              },
-          ticketLines: this.cart,
-          subtotal: this.getTotalPrice(),
-          promotionDiscount: this.getTotalPromotionDiscount(),
-          tax: this.getTotalAfterPromotions() * 0.085,
-          total: this.getFinalTotal,
-        }
-        this.selectedTicket = ticketForPrint
-        this.printDialogKey++
-        this.showCustomerPrint = true
+        console.error('Print error:', error);
+        this.showMessage('Failed to generate receipt', 'error');
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
 
-    closePrintDialog() {
-      this.showCustomerPrint = false
-      this.selectedTicket = null
-    },
+    
 
-    onPrintSuccess(ticket) {
-      console.log('Ticket printed successfully:', ticket.id)
-      this.showMessage('Ticket printed successfully!', 'success', 'mdi-printer')
-    },
+    
 
     showMessage(message, color = 'success', icon = 'mdi-check-circle') {
       this.snackbar = {

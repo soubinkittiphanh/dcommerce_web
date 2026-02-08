@@ -1,12 +1,12 @@
 <template>
-  <div class="sales-report-container">
+  <div>
     <!-- ENHANCED HEADER SECTION -->
     <div class="header-section">
       <div class="header-chips-container">
-        <v-chip 
-          class="header-chip pa-5" 
-          color="primary" 
-          label 
+        <v-chip
+          class="header-chip pa-5"
+          color="primary"
+          label
           text-color="white"
           elevation="4"
         >
@@ -42,8 +42,12 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="320">
       <v-card class="loading-card">
         <v-card-text class="text-center pa-6">
-          <v-progress-circular size="48" color="primary" indeterminate></v-progress-circular>
-          <div class="mt-4 ">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
+          <v-progress-circular
+            size="48"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
+          <div class="mt-4">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -76,15 +80,23 @@
                 <div class="detail-grid">
                   <div class="detail-item">
                     <span class="detail-label">ເລກບິນ:</span>
-                    <span class="detail-value">{{ selectedTicket.ticketNumber }}</span>
+                    <span class="detail-value">{{
+                      selectedTicket.ticketNumber
+                    }}</span>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">ວັນທີ:</span>
-                    <span class="detail-value">{{ formatDateTime(selectedTicket.createdAt) }}</span>
+                    <span class="detail-value">{{
+                      formatDateTime(selectedTicket.createdAt)
+                    }}</span>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">ສະຖານະ:</span>
-                    <v-chip :color="getStatusColor(selectedTicket.status)" small dark>
+                    <v-chip
+                      :color="getStatusColor(selectedTicket.status)"
+                      small
+                      dark
+                    >
                       {{ getStatusText(selectedTicket.status) }}
                     </v-chip>
                   </div>
@@ -97,17 +109,27 @@
                 <div class="detail-grid">
                   <div class="detail-item">
                     <span class="detail-label">ການຈ່າຍເງິນ:</span>
-                    <v-chip :color="getPaymentStatusColor(selectedTicket.paymentStatus)" small dark>
+                    <v-chip
+                      :color="
+                        getPaymentStatusColor(selectedTicket.paymentStatus)
+                      "
+                      small
+                      dark
+                    >
                       {{ getPaymentStatusText(selectedTicket.paymentStatus) }}
                     </v-chip>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">ລູກຄ້າ:</span>
-                    <span class="detail-value">{{ selectedTicket.client?.name || 'ບໍ່ລະບຸ' }}</span>
+                    <span class="detail-value">{{
+                      selectedTicket.client?.name || 'ບໍ່ລະບຸ'
+                    }}</span>
                   </div>
                   <div class="detail-item">
                     <span class="detail-label">ໂຕະ:</span>
-                    <span class="detail-value">{{ selectedTicket.table?.name || 'ບໍ່ລະບຸ' }}</span>
+                    <span class="detail-value">{{
+                      selectedTicket.table?.name || 'ບໍ່ລະບຸ'
+                    }}</span>
                   </div>
                 </div>
               </div>
@@ -132,10 +154,18 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="line in selectedTicket.ticketLines" :key="line.id" class="table-row">
-                      <td class="product-name">{{ line.product?.pro_name || 'ບໍ່ລະບຸ' }}</td>
+                    <tr
+                      v-for="line in selectedTicket.ticketLines"
+                      :key="line.id"
+                      class="table-row"
+                    >
+                      <td class="product-name">
+                        {{ line.product?.pro_name || 'ບໍ່ລະບຸ' }}
+                      </td>
                       <td class="text-center">
-                        <v-chip color="blue" small dark>{{ line.quantity }}</v-chip>
+                        <v-chip color="blue" small dark>{{
+                          line.quantity
+                        }}</v-chip>
                       </td>
                       <td class="text-center price-cell">
                         {{ numberWithCommas(line.unitPrice) }}
@@ -159,20 +189,31 @@
                   <div class="summary-section">
                     <div class="summary-line">
                       <span>ລວມຍ່ອຍ:</span>
-                      <span class="amount">{{ numberWithCommas(selectedTicket.subtotal) }}</span>
+                      <span class="amount">{{
+                        numberWithCommas(selectedTicket.subtotal)
+                      }}</span>
                     </div>
                     <div class="summary-line">
                       <span>ພາສີ:</span>
-                      <span class="amount">{{ numberWithCommas(selectedTicket.tax) }}</span>
+                      <span class="amount">{{
+                        numberWithCommas(selectedTicket.tax)
+                      }}</span>
                     </div>
-                    <div v-if="selectedTicket.promotionDiscount > 0" class="summary-line discount">
+                    <div
+                      v-if="selectedTicket.promotionDiscount > 0"
+                      class="summary-line discount"
+                    >
                       <span>ສ່ວນຫຼຸດ:</span>
-                      <span class="amount">{{ numberWithCommas(selectedTicket.promotionDiscount) }}</span>
+                      <span class="amount">{{
+                        numberWithCommas(selectedTicket.promotionDiscount)
+                      }}</span>
                     </div>
                     <v-divider class="my-2"></v-divider>
                     <div class="summary-line total">
                       <span>ລວມທັງໝົດ:</span>
-                      <span class="amount total-amount">{{ numberWithCommas(selectedTicket.total) }}</span>
+                      <span class="amount total-amount">{{
+                        numberWithCommas(selectedTicket.total)
+                      }}</span>
                     </div>
                   </div>
                 </v-col>
@@ -188,7 +229,11 @@
             <v-icon left>mdi-printer</v-icon>
             ພິມບິນ
           </v-btn>
-          <v-btn outlined @click="dialogTicketDetail = false" class="action-btn">
+          <v-btn
+            outlined
+            @click="dialogTicketDetail = false"
+            class="action-btn"
+          >
             <v-icon left>mdi-close</v-icon>
             ປິດ
           </v-btn>
@@ -393,11 +438,11 @@
                     <v-icon size="32" color="white">mdi-receipt-text</v-icon>
                   </v-avatar>
                 </div>
-                <div class=" primary--text font-weight-bold mb-2">
+                <div class="primary--text font-weight-bold mb-2">
                   {{ ticketsSummary.totalTickets }}
                 </div>
-                <div class=" font-weight-medium mb-1">ຈຳນວນບິນທັງໝົດ</div>
-                <div class=" grey--text">ໃນຊ່ວງເວລາທີ່ເລືອກ</div>
+                <div class="font-weight-medium mb-1">ຈຳນວນບິນທັງໝົດ</div>
+                <div class="grey--text">ໃນຊ່ວງເວລາທີ່ເລືອກ</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -410,13 +455,19 @@
                     <v-icon size="32" color="white">mdi-check-circle</v-icon>
                   </v-avatar>
                 </div>
-                <div class=" success--text font-weight-bold mb-2">
+                <div class="success--text font-weight-bold mb-2">
                   {{ ticketsSummary.paidTickets }}
                 </div>
-                <div class=" font-weight-medium mb-1">ບິນທີ່ຊຳລະແລ້ວ</div>
-                <div class=" grey--text">
-                  {{ ticketsSummary.totalTickets > 0 ? 
-                    ((ticketsSummary.paidTickets / ticketsSummary.totalTickets) * 100).toFixed(1) : 0 
+                <div class="font-weight-medium mb-1">ບິນທີ່ຊຳລະແລ້ວ</div>
+                <div class="grey--text">
+                  {{
+                    ticketsSummary.totalTickets > 0
+                      ? (
+                          (ticketsSummary.paidTickets /
+                            ticketsSummary.totalTickets) *
+                          100
+                        ).toFixed(1)
+                      : 0
                   }}% ຂອງທັງໝົດ
                 </div>
               </v-card-text>
@@ -431,11 +482,11 @@
                     <v-icon size="32" color="white">mdi-currency-usd</v-icon>
                   </v-avatar>
                 </div>
-                <div class=" secondary--text font-weight-bold mb-2">
+                <div class="secondary--text font-weight-bold mb-2">
                   {{ formatCurrency(ticketsSummary.totalRevenue) }}
                 </div>
-                <div class=" font-weight-medium mb-1">ລາຍຮັບລວມ</div>
-                <div class=" grey--text">LAK</div>
+                <div class="font-weight-medium mb-1">ລາຍຮັບລວມ</div>
+                <div class="grey--text">LAK</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -451,7 +502,7 @@
               </h3>
             </v-col>
           </v-row>
-          
+
           <v-row class="mt-4">
             <v-col
               v-for="(payment, index) in paymentTypeSummary"
@@ -460,8 +511,8 @@
               sm="6"
               lg="3"
             >
-              <v-card 
-                class="payment-card" 
+              <v-card
+                class="payment-card"
                 elevation="6"
                 shaped
                 @click="filterByPaymentType(payment.code)"
@@ -469,17 +520,19 @@
               >
                 <v-card-text class="pa-4">
                   <div class="d-flex justify-space-between align-center mb-3">
-                    <v-avatar 
-                      :color="getPaymentCardVuetifyColor(index)" 
+                    <v-avatar
+                      :color="getPaymentCardVuetifyColor(index)"
                       size="40"
                     >
                       <v-icon color="white" size="20">
-                        {{ getPaymentIcon(payment.payment_code || payment.code) }}
+                        {{
+                          getPaymentIcon(payment.payment_code || payment.code)
+                        }}
                       </v-icon>
                     </v-avatar>
-                    <v-chip 
-                      :color="getPaymentCardVuetifyColor(index)" 
-                      small 
+                    <v-chip
+                      :color="getPaymentCardVuetifyColor(index)"
+                      small
                       dark
                       label
                     >
@@ -487,23 +540,30 @@
                     </v-chip>
                   </div>
                   <div class="payment-card-content mb-3">
-                    <div class=" font-weight-medium mb-1">
+                    <div class="font-weight-medium mb-1">
                       {{ payment.name || payment.code }}
                     </div>
-                    <div class=" font-weight-bold primary--text">
+                    <div class="font-weight-bold primary--text">
                       {{ numberWithCommas(payment.amount) }}
                     </div>
-                    <div class=" grey--text">LAK</div>
+                    <div class="grey--text">LAK</div>
                   </div>
                   <v-progress-linear
-                    :value="(payment.amount / ticketsSummary.totalRevenue) * 100"
+                    :value="
+                      (payment.amount / ticketsSummary.totalRevenue) * 100
+                    "
                     :color="getPaymentCardVuetifyColor(index)"
                     height="6"
                     rounded
                     class="mb-2"
                   ></v-progress-linear>
-                  <div class="text-center  grey--text">
-                    {{ ((payment.amount / ticketsSummary.totalRevenue) * 100).toFixed(1) }}% ຂອງທັງໝົດ
+                  <div class="text-center grey--text">
+                    {{
+                      (
+                        (payment.amount / ticketsSummary.totalRevenue) *
+                        100
+                      ).toFixed(1)
+                    }}% ຂອງທັງໝົດ
                   </div>
                 </v-card-text>
               </v-card>
@@ -547,7 +607,10 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="(product, index) in productSummary.slice(0, showAllProducts ? productSummary.length : 10)"
+                      v-for="(product, index) in productSummary.slice(
+                        0,
+                        showAllProducts ? productSummary.length : 10
+                      )"
                       :key="product.id"
                       class="product-row"
                       :class="{ 'grey lighten-5': index % 2 === 0 }"
@@ -557,7 +620,9 @@
                           :color="getProductRankVuetifyColor(index)"
                           size="32"
                         >
-                          <span class="white--text font-weight-bold">{{ index + 1 }}</span>
+                          <span class="white--text font-weight-bold">{{
+                            index + 1
+                          }}</span>
                         </v-avatar>
                       </td>
                       <td class="text-left">
@@ -569,17 +634,26 @@
                         </v-chip>
                       </td>
                       <td class="text-right">
-                        <span class="font-weight-bold">{{ numberWithCommas(product.total) }}</span>
+                        <span class="font-weight-bold">{{
+                          numberWithCommas(product.total)
+                        }}</span>
                       </td>
                       <td class="text-center">
                         <v-progress-circular
-                          :value="(product.total / ticketsSummary.totalRevenue) * 100"
+                          :value="
+                            (product.total / ticketsSummary.totalRevenue) * 100
+                          "
                           size="32"
                           width="4"
                           :color="getProductRankVuetifyColor(index)"
                         >
                           <span class="caption font-weight-bold">
-                            {{ ((product.total / ticketsSummary.totalRevenue) * 100).toFixed(0) }}
+                            {{
+                              (
+                                (product.total / ticketsSummary.totalRevenue) *
+                                100
+                              ).toFixed(0)
+                            }}
                           </span>
                         </v-progress-circular>
                       </td>
@@ -595,8 +669,14 @@
                   @click="showAllProducts = !showAllProducts"
                   class="font-weight-medium"
                 >
-                  {{ showAllProducts ? 'ເບິ່ງໜ້ອຍ' : `ເບິ່ງທັງໝົດ (${productSummary.length})` }}
-                  <v-icon>{{ showAllProducts ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                  {{
+                    showAllProducts
+                      ? 'ເບິ່ງໜ້ອຍ'
+                      : `ເບິ່ງທັງໝົດ (${productSummary.length})`
+                  }}
+                  <v-icon>{{
+                    showAllProducts ? 'mdi-chevron-up' : 'mdi-chevron-down'
+                  }}</v-icon>
                 </v-btn>
               </div>
             </v-card-text>
@@ -637,13 +717,23 @@
         </template>
 
         <template v-slot:[`item.status`]="{ item }">
-          <v-chip :color="getStatusColor(item.status)" small dark class="status-chip">
+          <v-chip
+            :color="getStatusColor(item.status)"
+            small
+            dark
+            class="status-chip"
+          >
             {{ getStatusText(item.status) }}
           </v-chip>
         </template>
 
         <template v-slot:[`item.paymentStatus`]="{ item }">
-          <v-chip :color="getPaymentStatusColor(item.paymentStatus)" small dark class="payment-status-chip">
+          <v-chip
+            :color="getPaymentStatusColor(item.paymentStatus)"
+            small
+            dark
+            class="payment-status-chip"
+          >
             {{ getPaymentStatusText(item.paymentStatus) }}
           </v-chip>
         </template>
@@ -654,10 +744,22 @@
 
         <template v-slot:[`item.actions`]="{ item }">
           <div class="action-buttons">
-            <v-btn icon small color="info" @click="viewTicketDetail(item)" class="action-btn">
+            <v-btn
+              icon
+              small
+              color="info"
+              @click="viewTicketDetail(item)"
+              class="action-btn"
+            >
               <v-icon>mdi-eye</v-icon>
             </v-btn>
-            <v-btn icon small color="primary" @click="printSingleTicket(item)" class="action-btn">
+            <v-btn
+              icon
+              small
+              color="primary"
+              @click="printSingleTicket(item)"
+              class="action-btn"
+            >
               <v-icon>mdi-printer</v-icon>
             </v-btn>
           </div>
@@ -791,7 +893,18 @@ export default {
       'currentSelectedLocation',
       'findAllLocation',
     ]),
-
+    companyInfo() {
+      const currentTerminal = this.findAllTerminal?.find(
+        (el) => el.id == this.findSelectedTerminal
+      )
+      const company = currentTerminal?.location?.company
+      return {
+        name: company?.name || 'Restaurant Name',
+        address: company?.address || 'Vientiane, Laos',
+        tel: company?.tel || '',
+        email: company?.email || '',
+      }
+    },
     user() {
       return this.$auth.user || ''
     },
@@ -808,7 +921,8 @@ export default {
     ticketsSummary() {
       const summary = {
         totalTickets: this.ticketsList.length,
-        paidTickets: this.ticketsList.filter((t) => t.paymentStatus === 'paid').length,
+        paidTickets: this.ticketsList.filter((t) => t.paymentStatus === 'paid')
+          .length,
         totalRevenue: this.ticketsList
           .filter((t) => t.paymentStatus === 'paid')
           .reduce((sum, ticket) => sum + parseFloat(ticket.total || 0), 0),
@@ -817,7 +931,9 @@ export default {
     },
 
     paymentTypeSummary() {
-      const paidTickets = this.ticketsList.filter((t) => t.paymentStatus === 'paid')
+      const paidTickets = this.ticketsList.filter(
+        (t) => t.paymentStatus === 'paid'
+      )
       const paymentSummary = {}
 
       paidTickets.forEach((ticket) => {
@@ -841,7 +957,9 @@ export default {
     },
 
     productSummary() {
-      const paidTickets = this.ticketsList.filter((t) => t.paymentStatus === 'paid')
+      const paidTickets = this.ticketsList.filter(
+        (t) => t.paymentStatus === 'paid'
+      )
       const productSummary = {}
 
       paidTickets.forEach((ticket) => {
@@ -878,10 +996,10 @@ export default {
       } else {
         // Find the corresponding status filter value
         const paymentMapping = {
-          'CASH': 'paid',
-          'QR': 'paid', 
-          'TRANSFER': 'paid',
-          'CARD': 'paid'
+          CASH: 'paid',
+          QR: 'paid',
+          TRANSFER: 'paid',
+          CARD: 'paid',
         }
         this.statusFilter = paymentMapping[paymentCode] || 'paid'
       }
@@ -903,7 +1021,10 @@ export default {
           dateRange: `${this.dateFormatted} - ${this.dateFormatted2}`,
           totalTickets: this.filteredTickets.length,
           paidTickets: this.ticketsSummary.paidTickets,
-          totalItems: this.productSummary.reduce((sum, p) => sum + p.quantity, 0),
+          totalItems: this.productSummary.reduce(
+            (sum, p) => sum + p.quantity,
+            0
+          ),
           categoryCount,
           paymentTypeSummary: this.paymentTypeSummary,
           productSummary: this.productSummary.slice(0, 10),
@@ -924,7 +1045,10 @@ export default {
         const status = this.getPaymentStatusText(ticket.paymentStatus)
         statusBreakdown[status] = (statusBreakdown[status] || 0) + 1
       })
-      return Object.entries(statusBreakdown).map(([name, count]) => ({ name, count }))
+      return Object.entries(statusBreakdown).map(([name, count]) => ({
+        name,
+        count,
+      }))
     },
 
     async loadData() {
@@ -940,7 +1064,11 @@ export default {
         const response = await this.$axios.get('api/ticket/find', { params })
         this.ticketsList = response.data.data || response.data || []
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could not load ticket data: ' + error.message)
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load ticket data: ' + error.message
+        )
         this.ticketsList = []
       }
       this.isloading = false
@@ -957,9 +1085,22 @@ export default {
     },
 
     printTicket() {
-      ticketPrinter.printSingle(this.selectedTicket, {
-        formatDateTime: this.formatDateTime,
-        numberWithCommas: this.numberWithCommas,
+      // ✅ FIXED: Change printSingle to printCustomerReceipt to match ticketPrinter.js
+      ticketPrinter.printCustomerReceipt(this.selectedTicket, {
+        companyInfo: this.companyInfo, // Make sure you have this in computed
+        formatPrice: (amt) => this.numberWithCommas(amt) + '₭',
+        formatPrintDate: (date) => new Date(date).toLocaleDateString('en-GB'),
+        formatPrintTime: (date) =>
+          new Date(date).toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+        getQueNo: (num) => {
+          const parts = num?.split('-')[0]?.split('/')
+          return parts?.length === 2
+            ? (parseInt(parts[0]) * parseInt(parts[1])).toString()
+            : num
+        },
       })
     },
 
@@ -991,7 +1132,10 @@ export default {
         ສິນຄ້າ: product.name,
         ຈຳນວນ: product.quantity,
         ຍອດຂາຍ: product.total,
-        ເປີເຊັນ: ((product.total / this.ticketsSummary.totalRevenue) * 100).toFixed(1) + '%',
+        ເປີເຊັນ:
+          ((product.total / this.ticketsSummary.totalRevenue) * 100).toFixed(
+            1
+          ) + '%',
       }))
 
       const ticketsData = tickets.map((ticket) => ({
@@ -1004,30 +1148,54 @@ export default {
       }))
 
       const workbook = this.$xlsx.utils.book_new()
-      const paymentSummarySheet = this.$xlsx.utils.json_to_sheet(paymentSummaryData)
-      this.$xlsx.utils.book_append_sheet(workbook, paymentSummarySheet, 'Payment Summary')
+      const paymentSummarySheet =
+        this.$xlsx.utils.json_to_sheet(paymentSummaryData)
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        paymentSummarySheet,
+        'Payment Summary'
+      )
 
-      const productSummarySheet = this.$xlsx.utils.json_to_sheet(productSummaryData)
-      this.$xlsx.utils.book_append_sheet(workbook, productSummarySheet, 'Product Summary')
+      const productSummarySheet =
+        this.$xlsx.utils.json_to_sheet(productSummaryData)
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        productSummarySheet,
+        'Product Summary'
+      )
 
       const ticketsSheet = this.$xlsx.utils.json_to_sheet(ticketsData)
-      this.$xlsx.utils.book_append_sheet(workbook, ticketsSheet, 'Ticket Details')
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        ticketsSheet,
+        'Ticket Details'
+      )
 
-      this.$xlsx.writeFile(workbook, `ticket_report_${this.date}_${this.date2}.xlsx`)
+      this.$xlsx.writeFile(
+        workbook,
+        `ticket_report_${this.date}_${this.date2}.xlsx`
+      )
     },
 
     // Helper methods for Vuetify theme colors
     getPaymentCardVuetifyColor(index) {
-      const colors = ['primary', 'secondary', 'success', 'info', 'warning', 'error']
+      const colors = [
+        'primary',
+        'secondary',
+        'success',
+        'info',
+        'warning',
+        'error',
+      ]
       return colors[index % colors.length]
     },
 
     getProductRankVuetifyColor(index) {
-      if (index === 0) return 'success'  // Gold equivalent
-      if (index === 1) return 'secondary' // Silver equivalent  
-      if (index === 2) return 'warning'  // Bronze equivalent
-      if (index < 5) return 'primary'    // Top 5
-      return 'info'                      // Others
+      if (index === 0) return 'success' // Gold equivalent
+      if (index === 1) return 'secondary' // Silver equivalent
+      if (index === 2) return 'warning' // Bronze equivalent
+      if (index < 5) return 'primary' // Top 5
+      return 'info' // Others
     },
 
     formatCurrency(amount) {
@@ -1053,7 +1221,16 @@ export default {
     },
 
     getPaymentCardColor(index) {
-      const colors = ['teal', 'orange', 'purple', 'pink', 'cyan', 'indigo', 'deep-orange', 'light-green']
+      const colors = [
+        'teal',
+        'orange',
+        'purple',
+        'pink',
+        'cyan',
+        'indigo',
+        'deep-orange',
+        'light-green',
+      ]
       return colors[index % colors.length]
     },
 
@@ -1429,11 +1606,11 @@ export default {
   .header-chips-container {
     flex-direction: column;
   }
-  
+
   .header-chip {
     justify-content: center;
   }
-  
+
   .filter-group {
     margin-bottom: 16px;
   }
@@ -1443,19 +1620,19 @@ export default {
   .sales-report-container {
     padding: 8px;
   }
-  
+
   .main-card {
     border-radius: 4px !important;
   }
-  
+
   .metric-card {
     border-radius: 4px !important;
   }
-  
+
   .detail-section {
     padding: 16px;
   }
-  
+
   .detail-item {
     flex-direction: column;
     align-items: flex-start;
@@ -1480,21 +1657,27 @@ export default {
   animation: fadeInUp 0.6s ease-out;
 }
 
-.metric-card:nth-child(1) { animation-delay: 0.1s; }
-.metric-card:nth-child(2) { animation-delay: 0.2s; }
-.metric-card:nth-child(3) { animation-delay: 0.3s; }
+.metric-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.metric-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.metric-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
 
 /* Print Styles */
 @media print {
   .no-print {
     display: none !important;
   }
-  
+
   .sales-report-container {
     background: white;
     padding: 0;
   }
-  
+
   .main-card {
     box-shadow: none;
     border: 1px solid #ccc;

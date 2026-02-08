@@ -561,9 +561,9 @@ var external_vuex_ = __webpack_require__(14);
       this.luckyNumberOptionForSelect = [];
     },
     selectLuckyNumberUP() {
-      if (this.amountUp < 1000) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+      if (this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
       for (const iterator of this.luckyNumberOptionForSelect) {
-        if (iterator.length > this.maxLength) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+        if (iterator.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
         const existTxn = this.transactionList.find(el => el['luckyNumber'] == iterator && el['normal'] == false);
         if (existTxn != undefined) {
           existTxn['amount'] += parseInt(this.amountUp, 10);
@@ -607,7 +607,7 @@ var external_vuex_ = __webpack_require__(14);
       if (this.luckyNumber.includes(",")) {
         for (const iterator of this.luckyNumber.split(',')) {
           if (this.amount > 0) {
-            if (iterator.length > this.maxLength) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+            if (iterator.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
             const existTxn = this.transactionList.find(el => el['luckyNumber'] == iterator && el['normal'] == true);
             if (existTxn != undefined) {
               existTxn['amount'] += parseInt(this.amount, 10);
@@ -621,7 +621,7 @@ var external_vuex_ = __webpack_require__(14);
           }
           // // AMOUNT UPPER ADD
           if (this.amountUp > 0) {
-            if (this.amountUp < 1000) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+            if (this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
             const existTxnUP = this.transactionList.find(el => el['luckyNumber'] == iterator && el['normal'] == false);
             if (existTxnUP != undefined) {
               return existTxnUP['amount'] += parseInt(this.amountUp, 10);
@@ -637,7 +637,7 @@ var external_vuex_ = __webpack_require__(14);
       } else {
         // Dupplicate check
         if (this.amount > 0) {
-          if (this.luckyNumber.length > this.maxLength) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
+          if (this.luckyNumber.length > this.maxLength) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ທາງເຮົາຂາຍສະເພາະເລກ 3 ຕົວ");
           const existTxn = this.transactionList.find(el => el['luckyNumber'] == this.luckyNumber && el['normal'] == true);
           if (existTxn != undefined) {
             existTxn['amount'] += parseInt(this.amount, 10);
@@ -651,7 +651,7 @@ var external_vuex_ = __webpack_require__(14);
         }
         // AMOUNT UPPER ADD
         if (this.amountUp > 0) {
-          if (this.amountUp < 1000) return Object(common["l" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
+          if (this.amountUp < 1000) return Object(common["k" /* swalError2 */])(this.$swal, "ເກີດຂໍ້ຜິດພາດ", "ກະລຸນາໃສ່ຈຳນວນເງິນ 1000 ຂັ້ນຕ່ຳ");
           const existTxnUP = this.transactionList.find(el => el['luckyNumber'] == this.luckyNumber && el['normal'] == false);
           if (existTxnUP != undefined) {
             return existTxnUP['amount'] += parseInt(this.amountUp, 10);

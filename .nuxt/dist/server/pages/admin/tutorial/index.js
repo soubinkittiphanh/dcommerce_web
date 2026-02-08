@@ -1,7 +1,7 @@
 exports.ids = [311,147,169,178];
 exports.modules = {
 
-/***/ 1087:
+/***/ 1085:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -194,19 +194,19 @@ var common = __webpack_require__(7);
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
             this.$emit('close-dialog');
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -495,7 +495,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/tutorial/index.vue?vue&type=template&id=a4e9f704
 
 // EXTERNAL MODULE: ./components/RiderForm.vue + 4 modules
-var RiderForm = __webpack_require__(753);
+var RiderForm = __webpack_require__(750);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -575,7 +575,7 @@ var common = __webpack_require__(7);
     },
     editItem(item) {
       if (this.user.id != 1) {
-        return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ສະເພາະ ຜູ້ດູແລລະບົບເທົ່ານັ້ນ ');
+        return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ສະເພາະ ຜູ້ດູແລລະບົບເທົ່ານັ້ນ ');
       }
       this.componentKey += 1;
       this.entrySelectedId = item.id;
@@ -620,7 +620,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var tutorial = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {TutorialForm: __webpack_require__(1087).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {TutorialForm: __webpack_require__(1085).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -862,7 +862,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 753:
+/***/ 750:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

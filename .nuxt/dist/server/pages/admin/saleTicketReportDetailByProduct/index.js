@@ -1,26 +1,26 @@
 exports.ids = [299,178];
 exports.modules = {
 
-/***/ 1244:
+/***/ 1242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bedc99e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(964);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bedc99e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bedc99e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bedc99e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3bedc99e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a87a3f44_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(961);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a87a3f44_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a87a3f44_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a87a3f44_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_a87a3f44_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1245:
+/***/ 1243:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".sales-report-container[data-v-3bedc99e]{background-color:#f5f5f5;font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif;min-height:100vh;padding:16px}.header-section[data-v-3bedc99e]{margin-bottom:24px}.header-chips-container[data-v-3bedc99e]{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}.header-chip[data-v-3bedc99e]{cursor:pointer;font-size:16px!important;font-weight:600!important;transition:all .3s cubic-bezier(.4,0,.2,1)}.header-chip[data-v-3bedc99e]:hover{transform:translateY(-2px)}.main-card[data-v-3bedc99e]{border-radius:8px!important;overflow:hidden}.filter-section[data-v-3bedc99e]{background-color:var(--v-primary-base)!important;color:#fff!important}.filter-group[data-v-3bedc99e]{background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2);border-radius:8px;padding:20px}.filter-title[data-v-3bedc99e]{font-weight:600}.dashboard-title[data-v-3bedc99e],.filter-title[data-v-3bedc99e]{align-items:center;display:flex;margin-bottom:16px}.dashboard-title[data-v-3bedc99e]{font-size:1.5rem!important;font-weight:700!important}.metric-card[data-v-3bedc99e]{border:1px solid rgba(0,0,0,.05);transition:all .3s cubic-bezier(.4,0,.2,1)}.metric-card[data-v-3bedc99e]:hover{transform:translateY(-4px)}.payment-card[data-v-3bedc99e]{border:2px solid transparent;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}.payment-card[data-v-3bedc99e]:hover{border-color:var(--v-primary-base);transform:translateY(-4px)}.product-row[data-v-3bedc99e]{transition:background-color .2s ease}.product-row[data-v-3bedc99e]:hover{background-color:var(--v-grey-lighten4)!important}.tickets-table[data-v-3bedc99e]{border-radius:0 0 8px 8px;overflow:hidden}.table-toolbar[data-v-3bedc99e]{background:var(--v-grey-lighten4);border-bottom:1px solid var(--v-grey-lighten2)}.table-title[data-v-3bedc99e],.table-toolbar[data-v-3bedc99e]{align-items:center;display:flex}.table-title[data-v-3bedc99e]{font-size:1.25rem;font-weight:600}.payment-status-chip[data-v-3bedc99e],.status-chip[data-v-3bedc99e]{font-weight:600!important}.total-amount[data-v-3bedc99e]{font-size:1rem;font-weight:600}.action-buttons[data-v-3bedc99e]{display:flex;gap:4px}.action-btn[data-v-3bedc99e]{transition:all .2s ease}.action-btn[data-v-3bedc99e]:hover{transform:scale(1.1)}.ticket-detail-card[data-v-3bedc99e]{border-radius:8px!important;overflow:hidden}.ticket-header[data-v-3bedc99e]{background-color:var(--v-primary-base)!important;color:#fff!important}.detail-section[data-v-3bedc99e]{background:var(--v-grey-lighten4);border-radius:8px;height:100%;padding:20px}.section-title[data-v-3bedc99e]{align-items:center;display:flex;font-weight:600;margin-bottom:16px}.detail-grid[data-v-3bedc99e]{display:flex;flex-direction:column;gap:12px}.detail-item[data-v-3bedc99e]{align-items:center;display:flex;justify-content:space-between;padding:8px 0}.detail-label[data-v-3bedc99e]{color:var(--v-grey-darken2)}.detail-label[data-v-3bedc99e],.detail-value[data-v-3bedc99e]{font-weight:600}.items-section[data-v-3bedc99e]{margin-top:24px}.table-header th[data-v-3bedc99e]{background:var(--v-primary-base)!important;color:#fff!important;font-weight:600;padding:12px}.table-row[data-v-3bedc99e]{transition:background-color .2s ease}.table-row[data-v-3bedc99e]:hover{background-color:var(--v-grey-lighten5)!important}.price-cell[data-v-3bedc99e],.product-name[data-v-3bedc99e],.total-cell[data-v-3bedc99e]{font-weight:600}.summary-card[data-v-3bedc99e]{background:var(--v-grey-lighten4)!important;border-radius:8px!important}.summary-section[data-v-3bedc99e]{padding:16px}.summary-line[data-v-3bedc99e]{align-items:center;display:flex;font-weight:500;justify-content:space-between;padding:8px 0}.summary-line.discount[data-v-3bedc99e]{color:var(--v-success-base)}.summary-line.total[data-v-3bedc99e]{border-top:2px solid var(--v-grey-lighten2);font-size:1.125rem;font-weight:700;margin-top:8px;padding-top:12px}.amount[data-v-3bedc99e]{font-weight:600}.total-amount[data-v-3bedc99e]{color:var(--v-primary-base)!important;font-size:1.25rem;font-weight:700}.action-btn[data-v-3bedc99e]{border-radius:4px;font-weight:600;margin-left:8px;padding:8px 24px;text-transform:none;transition:all .3s ease}.action-btn[data-v-3bedc99e]:hover{transform:translateY(-2px)}@media (max-width:960px){.header-chips-container[data-v-3bedc99e]{flex-direction:column}.header-chip[data-v-3bedc99e]{justify-content:center}.filter-group[data-v-3bedc99e]{margin-bottom:16px}}@media (max-width:600px){.sales-report-container[data-v-3bedc99e]{padding:8px}.main-card[data-v-3bedc99e],.metric-card[data-v-3bedc99e]{border-radius:4px!important}.detail-section[data-v-3bedc99e]{padding:16px}.detail-item[data-v-3bedc99e]{align-items:flex-start;flex-direction:column;gap:4px}}@keyframes fadeInUp-3bedc99e{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.metric-card[data-v-3bedc99e],.payment-card[data-v-3bedc99e]{animation:fadeInUp-3bedc99e .6s ease-out}.metric-card[data-v-3bedc99e]:first-child{animation-delay:.1s}.metric-card[data-v-3bedc99e]:nth-child(2){animation-delay:.2s}.metric-card[data-v-3bedc99e]:nth-child(3){animation-delay:.3s}@media print{.no-print[data-v-3bedc99e]{display:none!important}.sales-report-container[data-v-3bedc99e]{background:#fff;padding:0}.main-card[data-v-3bedc99e]{border:1px solid #ccc;box-shadow:none}}.grey[data-v-3bedc99e],.text-h5[data-v-3bedc99e]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}table[data-v-3bedc99e]{border:1px solid var(--v-grey-lighten2)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-report-container[data-v-a87a3f44]{background-color:#f5f5f5;font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif;min-height:100vh;padding:16px}.header-section[data-v-a87a3f44]{margin-bottom:24px}.header-chips-container[data-v-a87a3f44]{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:16px}.header-chip[data-v-a87a3f44]{cursor:pointer;font-size:16px!important;font-weight:600!important;transition:all .3s cubic-bezier(.4,0,.2,1)}.header-chip[data-v-a87a3f44]:hover{transform:translateY(-2px)}.main-card[data-v-a87a3f44]{border-radius:8px!important;overflow:hidden}.filter-section[data-v-a87a3f44]{background-color:var(--v-primary-base)!important;color:#fff!important}.filter-group[data-v-a87a3f44]{background:hsla(0,0%,100%,.1);border:1px solid hsla(0,0%,100%,.2);border-radius:8px;padding:20px}.filter-title[data-v-a87a3f44]{font-weight:600}.dashboard-title[data-v-a87a3f44],.filter-title[data-v-a87a3f44]{align-items:center;display:flex;margin-bottom:16px}.dashboard-title[data-v-a87a3f44]{font-size:1.5rem!important;font-weight:700!important}.metric-card[data-v-a87a3f44]{border:1px solid rgba(0,0,0,.05);transition:all .3s cubic-bezier(.4,0,.2,1)}.metric-card[data-v-a87a3f44]:hover{transform:translateY(-4px)}.payment-card[data-v-a87a3f44]{border:2px solid transparent;cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}.payment-card[data-v-a87a3f44]:hover{border-color:var(--v-primary-base);transform:translateY(-4px)}.product-row[data-v-a87a3f44]{transition:background-color .2s ease}.product-row[data-v-a87a3f44]:hover{background-color:var(--v-grey-lighten4)!important}.tickets-table[data-v-a87a3f44]{border-radius:0 0 8px 8px;overflow:hidden}.table-toolbar[data-v-a87a3f44]{background:var(--v-grey-lighten4);border-bottom:1px solid var(--v-grey-lighten2)}.table-title[data-v-a87a3f44],.table-toolbar[data-v-a87a3f44]{align-items:center;display:flex}.table-title[data-v-a87a3f44]{font-size:1.25rem;font-weight:600}.payment-status-chip[data-v-a87a3f44],.status-chip[data-v-a87a3f44]{font-weight:600!important}.total-amount[data-v-a87a3f44]{font-size:1rem;font-weight:600}.action-buttons[data-v-a87a3f44]{display:flex;gap:4px}.action-btn[data-v-a87a3f44]{transition:all .2s ease}.action-btn[data-v-a87a3f44]:hover{transform:scale(1.1)}.ticket-detail-card[data-v-a87a3f44]{border-radius:8px!important;overflow:hidden}.ticket-header[data-v-a87a3f44]{background-color:var(--v-primary-base)!important;color:#fff!important}.detail-section[data-v-a87a3f44]{background:var(--v-grey-lighten4);border-radius:8px;height:100%;padding:20px}.section-title[data-v-a87a3f44]{align-items:center;display:flex;font-weight:600;margin-bottom:16px}.detail-grid[data-v-a87a3f44]{display:flex;flex-direction:column;gap:12px}.detail-item[data-v-a87a3f44]{align-items:center;display:flex;justify-content:space-between;padding:8px 0}.detail-label[data-v-a87a3f44]{color:var(--v-grey-darken2)}.detail-label[data-v-a87a3f44],.detail-value[data-v-a87a3f44]{font-weight:600}.items-section[data-v-a87a3f44]{margin-top:24px}.table-header th[data-v-a87a3f44]{background:var(--v-primary-base)!important;color:#fff!important;font-weight:600;padding:12px}.table-row[data-v-a87a3f44]{transition:background-color .2s ease}.table-row[data-v-a87a3f44]:hover{background-color:var(--v-grey-lighten5)!important}.price-cell[data-v-a87a3f44],.product-name[data-v-a87a3f44],.total-cell[data-v-a87a3f44]{font-weight:600}.summary-card[data-v-a87a3f44]{background:var(--v-grey-lighten4)!important;border-radius:8px!important}.summary-section[data-v-a87a3f44]{padding:16px}.summary-line[data-v-a87a3f44]{align-items:center;display:flex;font-weight:500;justify-content:space-between;padding:8px 0}.summary-line.discount[data-v-a87a3f44]{color:var(--v-success-base)}.summary-line.total[data-v-a87a3f44]{border-top:2px solid var(--v-grey-lighten2);font-size:1.125rem;font-weight:700;margin-top:8px;padding-top:12px}.amount[data-v-a87a3f44]{font-weight:600}.total-amount[data-v-a87a3f44]{color:var(--v-primary-base)!important;font-size:1.25rem;font-weight:700}.action-btn[data-v-a87a3f44]{border-radius:4px;font-weight:600;margin-left:8px;padding:8px 24px;text-transform:none;transition:all .3s ease}.action-btn[data-v-a87a3f44]:hover{transform:translateY(-2px)}@media (max-width:960px){.header-chips-container[data-v-a87a3f44]{flex-direction:column}.header-chip[data-v-a87a3f44]{justify-content:center}.filter-group[data-v-a87a3f44]{margin-bottom:16px}}@media (max-width:600px){.sales-report-container[data-v-a87a3f44]{padding:8px}.main-card[data-v-a87a3f44],.metric-card[data-v-a87a3f44]{border-radius:4px!important}.detail-section[data-v-a87a3f44]{padding:16px}.detail-item[data-v-a87a3f44]{align-items:flex-start;flex-direction:column;gap:4px}}@keyframes fadeInUp-a87a3f44{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}.metric-card[data-v-a87a3f44],.payment-card[data-v-a87a3f44]{animation:fadeInUp-a87a3f44 .6s ease-out}.metric-card[data-v-a87a3f44]:first-child{animation-delay:.1s}.metric-card[data-v-a87a3f44]:nth-child(2){animation-delay:.2s}.metric-card[data-v-a87a3f44]:nth-child(3){animation-delay:.3s}@media print{.no-print[data-v-a87a3f44]{display:none!important}.sales-report-container[data-v-a87a3f44]{background:#fff;padding:0}.main-card[data-v-a87a3f44]{border:1px solid #ccc;box-shadow:none}}.grey[data-v-a87a3f44],.text-h5[data-v-a87a3f44]{font-family:\"Noto Sans Lao\",\"Roboto\",sans-serif}table[data-v-a87a3f44]{border:1px solid var(--v-grey-lighten2)}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -28,7 +28,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1463:
+/***/ 1548:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -95,7 +95,7 @@ var VSpacer = __webpack_require__(443);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=3bedc99e&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=a87a3f44&scoped=true
 
 
 
@@ -119,13 +119,11 @@ var VTextField = __webpack_require__(39);
 
 
 
-var saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_render = function render() {
+var saleTicketReportDetailByProductvue_type_template_id_a87a3f44_scoped_true_render = function render() {
   var _vm$selectedTicket$cl, _vm$selectedTicket$ta;
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', {
-    staticClass: "sales-report-container"
-  }, [_vm._ssrNode("<div class=\"header-section\" data-v-3bedc99e>", "</div>", [_vm._ssrNode("<div class=\"header-chips-container\" data-v-3bedc99e>", "</div>", [_c(VChip["a" /* default */], {
+  return _c('div', [_vm._ssrNode("<div class=\"header-section\" data-v-a87a3f44>", "</div>", [_vm._ssrNode("<div class=\"header-chips-container\" data-v-a87a3f44>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "header-chip pa-5",
     attrs: {
       "color": "primary",
@@ -348,7 +346,7 @@ var saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_ren
             staticClass: "table-row"
           }, [_c('td', {
             staticClass: "product-name"
-          }, [_vm._v(_vm._s(((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'ບໍ່ລະບຸ'))]), _vm._v(" "), _c('td', {
+          }, [_vm._v("\n                      " + _vm._s(((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'ບໍ່ລະບຸ') + "\n                    ")]), _vm._v(" "), _c('td', {
             staticClass: "text-center"
           }, [_c(VChip["a" /* default */], {
             attrs: {
@@ -364,7 +362,7 @@ var saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_ren
         }), 0)];
       },
       proxy: true
-    }], null, false, 699338572)
+    }], null, false, 1341215052)
   })], 1)], 1), _vm._v(" "), _c(VCard["a" /* default */], {
     staticClass: "summary-card mt-6",
     attrs: {
@@ -1005,7 +1003,7 @@ var saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_ren
         }), 0)];
       },
       proxy: true
-    }], null, false, 1658759971)
+    }], null, false, 3687674467)
   }), _vm._v(" "), _vm.productSummary.length > 10 ? _c('div', {
     staticClass: "text-center pa-4"
   }, [_c(VBtn["a" /* default */], {
@@ -1137,191 +1135,18 @@ var saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_ren
         }, [_c(VIcon["a" /* default */], [_vm._v("mdi-printer")])], 1)], 1)];
       }
     }], null, true)
-  }) : _vm._e()], 1), _vm._ssrNode(" <div id=\"printArea\" style=\"display: none\" data-v-3bedc99e><div id=\"ticketPrint\" data-v-3bedc99e></div></div>")], 2);
+  }) : _vm._e()], 1), _vm._ssrNode(" <div id=\"printArea\" style=\"display: none\" data-v-a87a3f44><div id=\"ticketPrint\" data-v-a87a3f44></div></div>")], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=3bedc99e&scoped=true
+// CONCATENATED MODULE: ./pages/admin/saleTicketReportDetailByProduct/index.vue?vue&type=template&id=a87a3f44&scoped=true
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
 
-// CONCATENATED MODULE: ./utils/ticketPrinter.js
-// utils/ticketPrinter.js
+// EXTERNAL MODULE: ./utils/ticketPrinter.js
+var ticketPrinter = __webpack_require__(579);
 
-/**
- * Utility to handle printing logic outside of the Vue component
- */
-const ticketPrinter = {
-  // Print Single Ticket
-  printSingle(ticket, helpers) {
-    var _ticket$client, _ticket$table, _ticket$ticketLines;
-    const {
-      formatDateTime,
-      numberWithCommas
-    } = helpers;
-    let printContent = `
-      <div style="font-family: 'Noto Sans Lao', Arial, sans-serif; width: 300px; margin: 0 auto;">
-        <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 15px;">
-          <h2 style="margin: 0;">ບິນຂາຍ</h2>
-          <p style="margin: 5px 0;">ເລກບິນ: ${ticket.ticketNumber}</p>
-          <p style="margin: 5px 0;">ວັນທີ: ${formatDateTime(ticket.createdAt)}</p>
-        </div>
-        <div style="margin-bottom: 15px;">
-          <p style="margin: 3px 0;"><strong>ລູກຄ້າ:</strong> ${((_ticket$client = ticket.client) === null || _ticket$client === void 0 ? void 0 : _ticket$client.name) || 'ບໍ່ລະບຸ'}</p>
-          <p style="margin: 3px 0;"><strong>ໂຕະ:</strong> ${((_ticket$table = ticket.table) === null || _ticket$table === void 0 ? void 0 : _ticket$table.name) || 'ບໍ່ລະບຸ'}</p>
-        </div>
-        <div style="border-top: 1px solid #000; border-bottom: 1px solid #000; padding: 10px 0;">
-          <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-              <tr style="border-bottom: 1px solid #000;">
-                <th style="text-align: left; padding: 5px;">ສິນຄ້າ</th>
-                <th style="text-align: center; padding: 5px;">ຈ/ນ</th>
-                <th style="text-align: right; padding: 5px;">ລວມ</th>
-              </tr>
-            </thead>
-            <tbody>
-    `;
-    (_ticket$ticketLines = ticket.ticketLines) === null || _ticket$ticketLines === void 0 ? void 0 : _ticket$ticketLines.forEach(line => {
-      var _line$product;
-      printContent += `
-        <tr>
-          <td style="padding: 3px; text-align: left;">${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || 'ບໍ່ລະບຸ'}</td>
-          <td style="padding: 3px; text-align: center;">${line.quantity}</td>
-          <td style="padding: 3px; text-align: right;">${numberWithCommas(line.totalPrice)}</td>
-        </tr>
-      `;
-    });
-    printContent += `
-            </tbody>
-          </table>
-        </div>
-        <div style="margin-top: 15px; text-align: right;">
-          <p style="margin: 3px 0;"><strong>ລວມຍ່ອຍ: ${numberWithCommas(ticket.subtotal)}</strong></p>
-          <p style="margin: 3px 0;"><strong>ພາສີ: ${numberWithCommas(ticket.tax)}</strong></p>
-          ${ticket.promotionDiscount > 0 ? `<p style="margin: 3px 0;"><strong>ສ່ວນຫຼຸດ: ${numberWithCommas(ticket.promotionDiscount)}</strong></p>` : ''}
-          <div style="border-top: 2px solid #000; margin-top: 10px; padding-top: 10px;">
-            <p style="margin: 0; font-size: 18px;"><strong>ລວມທັງໝົດ: ${numberWithCommas(ticket.total)}</strong></p>
-          </div>
-        </div>
-        <div style="text-align: center; margin-top: 20px; border-top: 1px solid #000; padding-top: 10px;">
-          <p style="margin: 0; font-size: 12px;">ຂອບໃຈທີ່ໃຊ້ບໍລິການ!</p>
-        </div>
-      </div>
-    `;
-    this._openPrintWindow(`Print Ticket - ${ticket.ticketNumber}`, printContent);
-  },
-  // Print Summary Report
-  printSummary(data, helpers) {
-    const {
-      terminalName,
-      startDate,
-      endDate,
-      summary,
-      paymentSummary,
-      productSummary,
-      tickets,
-      formatDateTime,
-      numberWithCommas
-    } = data;
-    let reportContent = `
-      <div style="font-family: 'Noto Sans Lao', Arial, sans-serif; margin: 20px;">
-        <div style="text-align: center; border-bottom: 2px solid #000; padding-bottom: 15px; margin-bottom: 20px;">
-          <h1 style="margin: 0;">ລາຍງານການຂາຍບິນ ${terminalName}</h1>
-          <p style="margin: 10px 0;">ຈາກວັນທີ: ${startDate} ຫາວັນທີ: ${endDate}</p>
-        </div>
-        <div style="margin-bottom: 20px;">
-          <h3>ສະຫຼຸບລວມ:</h3>
-          <p><strong>ບິນທັງໝົດ:</strong> ${summary.totalTickets} | <strong>ຈ່າຍແລ້ວ:</strong> ${summary.paidTickets}</p>
-          <p><strong>ລາຍຮັບລວມ:</strong> ${numberWithCommas(summary.totalRevenue)}</p>
-        </div>
-        `;
-
-    // ... (You would copy the rest of the table building logic here)
-
-    this._openPrintWindow('Sales Report', reportContent);
-  },
-  printAudit(data, helpers) {
-    const {
-      dateRange,
-      totalTickets,
-      paidTickets,
-      totalItems,
-      categoryCount,
-      paymentTypeSummary,
-      productSummary,
-      statusBreakdown
-    } = data;
-    const htmlContent = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 20px; }
-          .header { text-align: center; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px; }
-          .summary-box { border: 1px solid #ddd; padding: 15px; margin: 10px 0; background-color: #f9f9f9; }
-          .summary-title { font-weight: bold; font-size: 14px; color: #333; margin-bottom: 10px; }
-          .section { margin: 20px 0; }
-          table { width: 100%; border-collapse: collapse; margin: 10px 0; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-          th { background-color: #f0f0f0; }
-          .footer { text-align: center; font-size: 12px; color: #666; margin-top: 30px; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h2>TICKET AUDIT SUMMARY REPORT</h2>
-          <p>Period: ${dateRange}</p>
-          <p>Generated: ${new Date().toLocaleDateString()}</p>
-        </div>
-
-        <div class="summary-box">
-          <div class="summary-title">📊 OVERVIEW</div>
-          <div>Total Tickets: ${totalTickets}</div>
-          <div>Paid Tickets: ${paidTickets}</div>
-          <div>Total Items Sold: ${totalItems}</div>
-        </div>
-
-        <div class="section">
-          <h3>📂 BY CATEGORY</h3>
-          <table>
-            <tr><th>Category</th><th>Count</th></tr>
-            ${Object.entries(categoryCount).sort(([, a], [, b]) => b - a).map(([cat, count]) => `<tr><td>${cat}</td><td>${count}</td></tr>`).join('')}
-          </table>
-        </div>
-
-        <div class="section">
-          <h3>💳 BY PAYMENT METHOD</h3>
-          <table>
-            <tr><th>Method</th><th>Count</th></tr>
-            ${paymentTypeSummary.map(p => `<tr><td>${p.name}</td><td>${p.count}</td></tr>`).join('')}
-          </table>
-        </div>
-
-        <div class="footer">
-          <p><strong>NOTE:</strong> Operational data only - no financial amounts</p>
-        </div>
-      </body>
-      </html>`;
-
-    // Reuse the private window opener or use a PDF library if preferred
-    this._openPrintWindow('Audit Report', htmlContent);
-  },
-  // Private helper to open window
-  _openPrintWindow(title, content) {
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`
-      <html>
-        <head>
-          <title>${title}</title>
-          <style>@media print { body { margin: 0; } @page { margin: 10mm; } }</style>
-        </head>
-        <body onload="window.print(); window.close();">${content}</body>
-      </html>
-    `);
-    printWindow.document.close();
-  }
-};
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
@@ -1421,6 +1246,17 @@ var common = __webpack_require__(7);
   },
   computed: {
     ...Object(external_vuex_["mapGetters"])(['findAllTerminal', 'findSelectedTerminal', 'currentSelectedLocation', 'findAllLocation']),
+    companyInfo() {
+      var _this$findAllTerminal, _currentTerminal$loca;
+      const currentTerminal = (_this$findAllTerminal = this.findAllTerminal) === null || _this$findAllTerminal === void 0 ? void 0 : _this$findAllTerminal.find(el => el.id == this.findSelectedTerminal);
+      const company = currentTerminal === null || currentTerminal === void 0 ? void 0 : (_currentTerminal$loca = currentTerminal.location) === null || _currentTerminal$loca === void 0 ? void 0 : _currentTerminal$loca.company;
+      return {
+        name: (company === null || company === void 0 ? void 0 : company.name) || 'Restaurant Name',
+        address: (company === null || company === void 0 ? void 0 : company.address) || 'Vientiane, Laos',
+        tel: (company === null || company === void 0 ? void 0 : company.tel) || '',
+        email: (company === null || company === void 0 ? void 0 : company.email) || ''
+      };
+    },
     user() {
       return this.$auth.user || '';
     },
@@ -1492,10 +1328,10 @@ var common = __webpack_require__(7);
       } else {
         // Find the corresponding status filter value
         const paymentMapping = {
-          'CASH': 'paid',
-          'QR': 'paid',
-          'TRANSFER': 'paid',
-          'CARD': 'paid'
+          CASH: 'paid',
+          QR: 'paid',
+          TRANSFER: 'paid',
+          CARD: 'paid'
         };
         this.statusFilter = paymentMapping[paymentCode] || 'paid';
       }
@@ -1523,7 +1359,7 @@ var common = __webpack_require__(7);
           productSummary: this.productSummary.slice(0, 10),
           statusBreakdown: this.getTicketStatusBreakdown()
         };
-        ticketPrinter.printAudit(auditData);
+        ticketPrinter["a" /* ticketPrinter */].printAudit(auditData);
         this.$toast.success('PDF audit report generated!');
       } catch (error) {
         console.error(error);
@@ -1555,7 +1391,7 @@ var common = __webpack_require__(7);
         });
         this.ticketsList = response.data.data || response.data || [];
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could not load ticket data: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could not load ticket data: ' + error.message);
         this.ticketsList = [];
       }
       this.isloading = false;
@@ -1569,9 +1405,21 @@ var common = __webpack_require__(7);
       this.printTicket();
     },
     printTicket() {
-      ticketPrinter.printSingle(this.selectedTicket, {
-        formatDateTime: this.formatDateTime,
-        numberWithCommas: this.numberWithCommas
+      // ✅ FIXED: Change printSingle to printCustomerReceipt to match ticketPrinter.js
+      ticketPrinter["a" /* ticketPrinter */].printCustomerReceipt(this.selectedTicket, {
+        companyInfo: this.companyInfo,
+        // Make sure you have this in computed
+        formatPrice: amt => this.numberWithCommas(amt) + '₭',
+        formatPrintDate: date => new Date(date).toLocaleDateString('en-GB'),
+        formatPrintTime: date => new Date(date).toLocaleTimeString([], {
+          hour: '2-digit',
+          minute: '2-digit'
+        }),
+        getQueNo: num => {
+          var _num$split$;
+          const parts = num === null || num === void 0 ? void 0 : (_num$split$ = num.split('-')[0]) === null || _num$split$ === void 0 ? void 0 : _num$split$.split('/');
+          return (parts === null || parts === void 0 ? void 0 : parts.length) === 2 ? (parseInt(parts[0]) * parseInt(parts[1])).toString() : num;
+        }
       });
     },
     printSummaryReport() {
@@ -1585,7 +1433,7 @@ var common = __webpack_require__(7);
         formatDateTime: this.formatDateTime,
         numberWithCommas: this.numberWithCommas
       };
-      ticketPrinter.printSummary(data);
+      ticketPrinter["a" /* ticketPrinter */].printSummary(data);
     },
     exportToExcel() {
       const tickets = this.filteredTickets;
@@ -1628,7 +1476,7 @@ var common = __webpack_require__(7);
     },
     getProductRankVuetifyColor(index) {
       if (index === 0) return 'success'; // Gold equivalent
-      if (index === 1) return 'secondary'; // Silver equivalent  
+      if (index === 1) return 'secondary'; // Silver equivalent
       if (index === 2) return 'warning'; // Bronze equivalent
       if (index < 5) return 'primary'; // Top 5
       return 'info'; // Others
@@ -1755,7 +1603,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1244)
+  var style0 = __webpack_require__(1242)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -1764,11 +1612,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_saleTicketReportDetailByProductvue_type_script_lang_js,
-  saleTicketReportDetailByProductvue_type_template_id_3bedc99e_scoped_true_render,
+  saleTicketReportDetailByProductvue_type_template_id_a87a3f44_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "3bedc99e",
+  "a87a3f44",
   "2fd357d2"
   
 )
@@ -4022,20 +3870,314 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 964:
+/***/ 579:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ticketPrinter; });
+/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(74);
+/* harmony import */ var core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_delete_all_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(75);
+/* harmony import */ var core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_every_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(76);
+/* harmony import */ var core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_filter_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(77);
+/* harmony import */ var core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_js__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(78);
+/* harmony import */ var core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_find_key_js__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(79);
+/* harmony import */ var core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_includes_js__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(80);
+/* harmony import */ var core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_key_of_js__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(81);
+/* harmony import */ var core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_keys_js__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(82);
+/* harmony import */ var core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_map_values_js__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(83);
+/* harmony import */ var core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_merge_js__WEBPACK_IMPORTED_MODULE_9__);
+/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(84);
+/* harmony import */ var core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_reduce_js__WEBPACK_IMPORTED_MODULE_10__);
+/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(85);
+/* harmony import */ var core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_some_js__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(86);
+/* harmony import */ var core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_esnext_map_update_js__WEBPACK_IMPORTED_MODULE_12__);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * Utility to handle printing logic for Thermal (80mm) and A4
+ */
+const ticketPrinter = {
+  // 1. Unified Customer Receipt (80mm Thermal)
+  printCustomerReceipt(ticket, helpers) {
+    var _ticket$client, _ticket$table, _ticket$ticketLines;
+    const {
+      companyInfo,
+      formatPrice,
+      formatPrintDate,
+      formatPrintTime,
+      getQueNo
+    } = helpers;
+
+    // --- TAX & PROMOTION CALCULATIONS ---
+    const getTicketTaxBreakdown = () => {
+      if (!(ticket !== null && ticket !== void 0 && ticket.ticketLines)) return [];
+      const taxGroups = new Map();
+      const totalBaseAmount = ticket.ticketLines.reduce((total, line) => {
+        const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0);
+        return total + (line.taxType === 'INC' ? itemTotal / (1 + parseFloat(line.taxRate)) : itemTotal);
+      }, 0);
+      const discountRatio = totalBaseAmount > 0 ? (ticket.promotionDiscount || 0) / totalBaseAmount : 0;
+      ticket.ticketLines.forEach(line => {
+        if (line.taxRate && line.taxRate > 0) {
+          const taxKey = line.taxId || 'default';
+          const itemTotal = line.quantity * (line.unitPrice || line.pro_price || 0);
+          const itemBase = line.taxType === 'INC' ? itemTotal / (1 + parseFloat(line.taxRate)) : itemTotal;
+          if (!taxGroups.has(taxKey)) {
+            taxGroups.set(taxKey, {
+              name: `Tax ${(parseFloat(line.taxRate) * 100).toFixed(1)}%`,
+              rate: parseFloat(line.taxRate),
+              baseAmount: 0
+            });
+          }
+          taxGroups.get(taxKey).baseAmount += itemBase;
+        }
+      });
+      return Array.from(taxGroups.values()).map(g => ({
+        name: g.name,
+        taxAmount: g.baseAmount * (1 - discountRatio) * g.rate
+      }));
+    };
+    const taxBreakdown = getTicketTaxBreakdown();
+    const htmlContent = `
+      <div class="thermal-container">
+        <div class="header-row">
+          <div class="queue-section">
+            <div class="queue-number">Q${getQueNo(ticket.ticketNumber)}</div>
+            <div class="queue-label">Queue #</div>
+          </div>
+          <div class="company-section">
+            <div class="restaurant-name">${companyInfo.name}</div>
+            <div class="restaurant-address">${companyInfo.address}</div>
+            <div class="contact-line">${companyInfo.tel} ${companyInfo.email ? '| ' + companyInfo.email : ''}</div>
+          </div>
+        </div>
+
+        <div class="print-divider"></div>
+
+        <div class="detail-row"><span>No:</span><span>${ticket.ticketNumber || ticket.id}</span></div>
+        <div class="detail-row"><span>Date:</span><span>${formatPrintDate(ticket.createdAt)} ${formatPrintTime(ticket.createdAt)}</span></div>
+        <div class="detail-row"><span>Customer:</span><span>${((_ticket$client = ticket.client) === null || _ticket$client === void 0 ? void 0 : _ticket$client.name) || 'Walk-in'}</span></div>
+        <div class="detail-row"><span>Table:</span><span>${((_ticket$table = ticket.table) === null || _ticket$table === void 0 ? void 0 : _ticket$table.name) || '-'}</span></div>
+
+        <div class="print-divider"></div>
+        <div class="section-title">ITEMS</div>
+
+        ${(_ticket$ticketLines = ticket.ticketLines) === null || _ticket$ticketLines === void 0 ? void 0 : _ticket$ticketLines.map(line => {
+      var _line$product;
+      return `
+          <div class="item-row">
+            <div class="item-main">
+              <span>${((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.pro_name) || line.pro_name || 'Item'}</span>
+              <span>${formatPrice(line.totalPrice || line.quantity * line.unitPrice)}</span>
+            </div>
+            <div class="item-sub">${line.quantity} x ${formatPrice(line.unitPrice || line.pro_price)}</div>
+            ${line.notes ? `<div class="item-notes">* ${line.notes}</div>` : ''}
+          </div>
+        `;
+    }).join('')}
+
+        <div class="print-divider"></div>
+
+        <div class="summary-line"><span>Subtotal:</span><span>${formatPrice(ticket.subtotal)}</span></div>
+        ${ticket.promotionDiscount > 0 ? `<div class="summary-line promo"><span>Discount:</span><span>-${formatPrice(ticket.promotionDiscount)}</span></div>` : ''}
+        ${taxBreakdown.map(tax => `<div class="summary-line small-text"><span>${tax.name}:</span><span>${formatPrice(tax.taxAmount)}</span></div>`).join('')}
+        
+        <div class="summary-line total"><span>FINAL TOTAL:</span><span>${formatPrice(ticket.total)}</span></div>
+
+        <div class="print-divider"></div>
+        <div class="footer text-center">
+          <div class="thank-you">ຂອບໃຈທີ່ໃຊ້ບໍລິການ / Thank You</div>
+          <div class="print-time">${new Date().toLocaleString('en-GB')}</div>
+        </div>
+      </div>
+    `;
+    this._openPrintWindow(`Receipt-${ticket.id}`, htmlContent, 'thermal');
+  },
+  // 2. Bar/Kitchen Order (Instant Thermal)
+  printBarInstant(ticket, helpers) {
+    var _ticket$ticketLines2, _ticket$table2;
+    const {
+      formatPrintTime,
+      getQueNo
+    } = helpers;
+    const itemsHtml = ((_ticket$ticketLines2 = ticket.ticketLines) === null || _ticket$ticketLines2 === void 0 ? void 0 : _ticket$ticketLines2.map(line => {
+      var _line$product2;
+      return `
+      <div class="bar-item-box">
+        <div class="bar-qty">${line.quantity}x</div>
+        <div class="bar-details">
+          <div class="bar-name">${((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || line.pro_name || 'Unknown'}</div>
+          ${line.notes ? `<div class="bar-notes">NOTE: ${line.notes}</div>` : ''}
+        </div>
+        <div class="bar-check">☐</div>
+      </div>
+    `;
+    }).join('')) || '';
+    const content = `
+      <div class="thermal-container">
+        <div class="bar-header">
+          <h1 style="margin: 0; font-size: 24px;">BAR/KITCHEN</h1>
+          <div class="bar-que">QUE: ${getQueNo(ticket.ticketNumber)}</div>
+        </div>
+        <div class="bar-meta">
+          <span>TABLE: ${((_ticket$table2 = ticket.table) === null || _ticket$table2 === void 0 ? void 0 : _ticket$table2.name) || 'Takeaway'}</span>
+          <span>#${ticket.id}</span>
+        </div>
+        <div class="print-divider" style="border-top: 3px double #000;"></div>
+        ${itemsHtml}
+        <div class="print-divider"></div>
+        <div class="text-center" style="font-size: 12px; font-weight: bold;">
+          ORDER TIME: ${formatPrintTime(new Date())}
+        </div>
+      </div>
+    `;
+    this._openPrintWindow(`Bar-${ticket.id}`, content, 'thermal');
+  },
+  // 3. Summary Report (A4 Support)
+  printSummary(data, helpers) {
+    const {
+      terminalName,
+      startDate,
+      endDate,
+      summary,
+      tickets,
+      formatDateTime,
+      numberWithCommas
+    } = data;
+    let reportContent = `
+      <div class="a4-container">
+        <div class="text-center mb-4">
+          <h1 style="margin: 0;">ລາຍງານການຂາຍ (Sales Report)</h1>
+          <p>Terminal: ${terminalName} | Period: ${startDate} - ${endDate}</p>
+        </div>
+        <div class="summary-stats">
+          <div class="stat-box">Total Tickets: <strong>${summary.totalTickets}</strong></div>
+          <div class="stat-box">Total Revenue: <strong>${numberWithCommas(summary.totalRevenue)}</strong></div>
+        </div>
+        <table class="report-table">
+          <thead>
+            <tr>
+              <th>Ticket #</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${tickets.map(t => `
+              <tr>
+                <td>${t.ticketNumber}</td>
+                <td>${formatDateTime(t.createdAt)}</td>
+                <td>${t.paymentStatus}</td>
+                <td style="text-align: right;">${numberWithCommas(t.total)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+    this._openPrintWindow('Sales-Report', reportContent, 'a4');
+  },
+  // 4. Private Helper: The Styling Engine
+  _openPrintWindow(title, content, format = 'thermal') {
+    const printWindow = window.open('', '_blank');
+    const styles = `
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+        
+        * { box-sizing: border-box; }
+        body { font-family: 'Noto Sans Lao', 'Courier New', monospace; font-size: 12px; color: #000; margin: 0; padding: 0; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .w-100 { width: 100%; }
+
+        /* FORMAT: THERMAL 80mm */
+        .thermal-container { width: 72mm; margin: 0 auto; padding: 2mm; }
+        .header-row { display: flex; align-items: flex-start; gap: 8px; margin-bottom: 10px; }
+        .queue-section { flex: 0 0 25%; text-align: center; border: 2px solid #000; background: #000; color: #fff; padding: 5px; border-radius: 4px; }
+        .queue-number { font-size: 22px; font-weight: bold; line-height: 1; }
+        .queue-label { font-size: 8px; text-transform: uppercase; }
+        .company-section { flex: 1; text-align: center; }
+        .restaurant-name { font-size: 14px; font-weight: bold; }
+        .restaurant-address { font-size: 9px; line-height: 1.2; }
+        
+        .detail-row, .summary-line, .item-main { display: flex; justify-content: space-between; margin-bottom: 2px; }
+        .print-divider { border-top: 1px dashed #000; margin: 6px 0; }
+        .section-title { text-align: center; font-weight: bold; margin-bottom: 5px; text-decoration: underline; }
+        .total { font-size: 18px; font-weight: bold; border-top: 2px solid #000; padding-top: 4px; margin-top: 5px; }
+        .item-sub { font-size: 10px; color: #444; margin-left: 10px; }
+        .item-notes { font-size: 10px; font-style: italic; margin-left: 10px; }
+        .promo { color: green; font-weight: bold; }
+        .small-text { font-size: 10px; }
+
+        /* BAR STYLES */
+        .bar-header { text-align: center; background: #000; color: #fff; padding: 8px; margin-bottom: 5px; }
+        .bar-que { font-size: 18px; font-weight: bold; }
+        .bar-meta { display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; }
+        .bar-item-box { display: flex; gap: 8px; border: 2px solid #000; padding: 5px; margin-bottom: 5px; }
+        .bar-qty { font-size: 24px; font-weight: bold; min-width: 40px; text-align: center; border-right: 1px solid #000; }
+        .bar-details { flex: 1; }
+        .bar-name { font-size: 16px; font-weight: bold; text-transform: uppercase; }
+        .bar-notes { font-size: 12px; background: #eee; padding: 2px; font-weight: bold; }
+        .bar-check { font-size: 24px; }
+
+        /* FORMAT: A4 */
+        .a4-container { width: 210mm; margin: 0 auto; padding: 15mm; }
+        .report-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .report-table th, .report-table td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .summary-stats { display: flex; gap: 20px; margin-bottom: 20px; }
+        .stat-box { border: 1px solid #000; padding: 10px; flex: 1; text-align: center; }
+
+        @media print {
+          @page { margin: 0; size: ${format === 'thermal' ? 'auto' : 'A4'}; }
+          body { margin: 0; }
+          .thermal-container, .a4-container { width: 100%; }
+        }
+      </style>
+    `;
+    printWindow.document.write(`<html><head><title>${title}</title>${styles}</head>`);
+    printWindow.document.write(`<body onload="setTimeout(() => { window.print(); window.close(); }, 350);">${content}</body></html>`);
+    printWindow.document.close();
+  }
+};
+
+/***/ }),
+
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1245);
+var content = __webpack_require__(1243);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("7b26dcb1", content, true, context)
+  add("5bb86455", content, true, context)
 };
 
 /***/ })

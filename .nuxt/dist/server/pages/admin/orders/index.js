@@ -1,7 +1,7 @@
 exports.ids = [250,115,117,178];
 exports.modules = {
 
-/***/ 1520:
+/***/ 1519:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -479,10 +479,10 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/orders/index.vue?vue&type=template&id=9d6d785a
 
 // EXTERNAL MODULE: ./components/OrderForm.vue + 4 modules
-var OrderForm = __webpack_require__(559);
+var OrderForm = __webpack_require__(558);
 
 // EXTERNAL MODULE: ./components/OrderStatusForm.vue + 4 modules
-var OrderStatusForm = __webpack_require__(560);
+var OrderStatusForm = __webpack_require__(559);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -685,7 +685,7 @@ var common = __webpack_require__(7);
       const isValid = regex.test(barcode); // Should return true
       if (!isValid) {
         //  Lao character handle
-        return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ລະບົບບໍ່ເຂົ້າໃຈພາສາລາວ ກະລຸນາປ່ງນພາສາ ເປັນພາສາອັງກິດ ກ່ອນສະແກນ');
+        return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ລະບົບບໍ່ເຂົ້າໃຈພາສາລາວ ກະລຸນາປ່ງນພາສາ ເປັນພາສາອັງກິດ ກ່ອນສະແກນ');
       } else {
         console.log(`ENGLISH ACCEPT`);
         console.log(`FIND TRACKING NUMBER BY BARCODE SCAN RESULT: ${barcode}`);
@@ -723,9 +723,9 @@ var common = __webpack_require__(7);
       // validate input here
       console.log(`VALIDATING INPUTT...${isValid}`);
       if (isValid) {
-        return Object(common["l" /* swalError2 */])(this.$swal, "Error", `CONVERT TO UPPER CASE ${input} TO ${input.toUpperCase()}`);
+        return Object(common["k" /* swalError2 */])(this.$swal, "Error", `CONVERT TO UPPER CASE ${input} TO ${input.toUpperCase()}`);
       } else {
-        return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ລະບົບບໍ່ເຂົ້າໃຈພາສາລາວ ກະລຸນາປ່ງນພາສາ ເປັນພາສາອັງກິດ ກ່ອນສະແກນ');
+        return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ລະບົບບໍ່ເຂົ້າໃຈພາສາລາວ ກະລຸນາປ່ງນພາສາ ເປັນພາສາອັງກິດ ກ່ອນສະແກນ');
       }
     },
     exportToExcel() {
@@ -830,7 +830,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var orders = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {OrderForm: __webpack_require__(559).default,OrderStatusForm: __webpack_require__(560).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {OrderForm: __webpack_require__(558).default,OrderStatusForm: __webpack_require__(559).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),
@@ -3217,7 +3217,7 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 559:
+/***/ 558:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3908,20 +3908,20 @@ var external_vuex_ = __webpack_require__(14);
           this.form.locationId = this.currentTerminal['locationId'];
           await this.$axios.post(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         } else {
           this.form.userId = this.user.id;
           this.form.locationId = this.currentTerminal['locationId'];
           await this.$axios.put(api, this.form).then(response => {
             this.refreshData();
-            return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+            return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
           }).catch(error => {
             console.log("Error: ", error);
-            return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+            return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
           });
         }
         this.isloading = false;
@@ -3934,7 +3934,7 @@ var external_vuex_ = __webpack_require__(14);
         const response = await this.$axios.get(`api/location/find`);
         this.locationList = response.data;
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + error);
         console.log('Error ===>: ' + error);
       }
       this.isloading = false;
@@ -3956,7 +3956,7 @@ var external_vuex_ = __webpack_require__(14);
           }
         } catch (error) {
           console.log("Cannot fetch data " + error);
-          return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
       }
     },
@@ -4012,7 +4012,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 
 /***/ }),
 
-/***/ 560:
+/***/ 559:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4511,7 +4511,7 @@ var external_vuex_ = __webpack_require__(14);
             const response = await this.$axios.post(api, order);
           }
         } catch (error) {
-          return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
       }
       console.log(`START REMOVING ENTRY FROM STATE`);
@@ -4738,7 +4738,7 @@ var external_vuex_ = __webpack_require__(14);
     },
     async confirmOrder(order) {
       // if(order['shippingFee']<=0 && this.orderStatus=='RECEIVED') return swalError2(this.$swal, "Error", 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
-      if (order['shippingFee'] <= 0) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
+      if (order['shippingFee'] <= 0) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ກະລຸນາໃສ່ຄ່າສົ່ງ');
       if (!this.isloading) {
         // Implement form submission logic here
         this.isloading = true;
@@ -4759,10 +4759,10 @@ var external_vuex_ = __webpack_require__(14);
           // *** remove from state ****
           this.removeItemFromConfirmEntrie(order);
           this.refreshData();
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         } catch (error) {
           console.log('Error: ', error);
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
         }
         this.isloading = false;
       }
@@ -4797,7 +4797,7 @@ var external_vuex_ = __webpack_require__(14);
       // 2. Try static logo from company data
       if (company.ticketLogo) {
         try {
-          const staticLogo = __webpack_require__(161)(`./${company.ticketLogo}`);
+          const staticLogo = __webpack_require__(145)(`./${company.ticketLogo}`);
           console.log('Using static logo for shipping:', company.ticketLogo);
           return staticLogo;
         } catch (error) {
@@ -4808,7 +4808,7 @@ var external_vuex_ = __webpack_require__(14);
       // 3. Try dcLogo fallback
       if (company.dcLogo) {
         try {
-          const fallbackLogo = __webpack_require__(161)(`./${company.dcLogo}`);
+          const fallbackLogo = __webpack_require__(145)(`./${company.dcLogo}`);
           console.log('Using dcLogo fallback for shipping:', company.dcLogo);
           return fallbackLogo;
         } catch (error) {
@@ -4830,7 +4830,7 @@ var external_vuex_ = __webpack_require__(14);
       return this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal);
     },
     ticketCommon() {
-      return Object(common["n" /* ticketHtml */])();
+      return Object(common["m" /* ticketHtml */])();
     },
     currencyList() {
       return this.findAllCurrency;

@@ -197,11 +197,11 @@ var common = __webpack_require__(7);
           const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form);
           if (response.status = 200) {
             this.refreshData();
-            Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+            Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
             this.$emit('close-dialog');
           }
         } catch (error) {
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Something went wrong ' + error);
         }
         this.isLoading = false;
       } else {
@@ -397,7 +397,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 577:
+/***/ 576:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -408,7 +408,7 @@ __webpack_require__.r(__webpack_exports__);
 var VAutocomplete = __webpack_require__(419);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBottomSheet/VBottomSheet.js
-var VBottomSheet = __webpack_require__(595);
+var VBottomSheet = __webpack_require__(592);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
 var VBtn = __webpack_require__(129);
@@ -1132,14 +1132,14 @@ var CancelTicketForm = __webpack_require__(463);
     },
     async deleteItem(item) {
       // TODO: Delete line not reduct card 
-      if (this.transaction.poHeaderId != null) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
+      if (this.transaction.poHeaderId != null) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', `ບໍ່ສາມາດລົບໄດ້ ການຮັບເຄື່ອງຈາກ PO ຕ້ອງອີງຕາມລາຍການຢູ່ໃນ PO ເທົ່ານັ້ນ`);
       if (item.id) {
         console.log("Line has id");
         this.isloading = true;
         await this.$axios.delete(`api/${this.apiLine}/line/find/${item.id}`).then(res => {
           this.transaction.lines.splice(this.transaction.lines.indexOf(item), 1);
         }).catch(er => {
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Operation fail ' + er.Error);
         });
         this.isloading = false;
       } else {
@@ -1150,37 +1150,37 @@ var CancelTicketForm = __webpack_require__(463);
     quantityChange(data) {
       console.log("Qty change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitRateChange(data) {
       console.log("Unit rate change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     priceChange(data) {
       console.log("Price change...");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     discountChange(data) {
       console.log("Discount change");
       let index = this.transaction.lines.indexOf(data);
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
-      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     unitChange(data) {
@@ -1189,9 +1189,9 @@ var CancelTicketForm = __webpack_require__(463);
       if (unit == undefined) return;
       let index = this.transaction.lines.indexOf(data);
       this.transaction.lines[index]['rate'] = unit['rate'];
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
       this.transaction.lines[index]['total'] = unit['rate'] * qty * price;
     },
     productChange(data) {
@@ -1207,10 +1207,10 @@ var CancelTicketForm = __webpack_require__(463);
       const localPrice = product['cost_price'] * currency['rate'];
       // this.transaction.lines[index]['price'] = product['pro_price'] // *** Price original  ***
       this.transaction.lines[index]['price'] = localPrice; //  *** Price base on exchange rate  ***
-      const qty = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
+      const qty = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['qty'], ',', '');
       // const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
-      const price = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
-      const rate = Object(common["j" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
+      const price = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['price'], ',', '');
+      const rate = Object(common["i" /* replaceAll */])(this.transaction.lines[index]['rate'], ',', '');
       this.transaction.lines[index]['total'] = rate * qty * price;
     },
     newRow() {
@@ -1224,7 +1224,7 @@ var CancelTicketForm = __webpack_require__(463);
         "productId": 0,
         "unitId": 1
       };
-      if (this.transaction.poHeaderId) return Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
+      if (this.transaction.poHeaderId) return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເນື່ອງຈາກ ໃບຮັບເຄື່ອງຜູ້ກັບໃບສັ່ງຊື້, ບໍ່ມາດເພີ່ມ ລາຍການອື່ນ ທີ່ບໍ່ມີໃນໃບສັ່ງຊື້ໄດ້');
       this.transaction.lines.push(defaultLine);
     },
     openCustomerDialog() {
@@ -1246,7 +1246,7 @@ var CancelTicketForm = __webpack_require__(463);
         this.transaction = res.data;
         console.log("Data ", res.data);
       }).catch(er => {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     async loadTransactionFromPoID(poHeaderId) {
@@ -1397,9 +1397,9 @@ var CancelTicketForm = __webpack_require__(463);
           return;
         }
         // iterator.id = null
-        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
         draftInvoiceLine.push(iterator);
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
@@ -1419,10 +1419,10 @@ var CancelTicketForm = __webpack_require__(463);
       // ********** If header has data, that means we go for update API ********** //
       await this.$axios.post(`api/sale/create`, this.transaction).then(res => {
         this.$emit('reload');
-        Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
       }).catch(er => {
         console.error(er);
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         const outOfStockProductId = er.response.data.split("#")[1];
         if (outOfStockProductId != undefined) {
           this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -1444,9 +1444,9 @@ var CancelTicketForm = __webpack_require__(463);
           this.isloading = false;
           return;
         }
-        iterator.discount = parseInt(Object(common["j" /* replaceAll */])(iterator.discount, ',', ''));
-        iterator.qty = parseInt(Object(common["j" /* replaceAll */])(iterator.qty, ',', ''));
-        iterator.rate = parseInt(Object(common["j" /* replaceAll */])(iterator.rate, ',', ''));
+        iterator.discount = parseInt(Object(common["i" /* replaceAll */])(iterator.discount, ',', ''));
+        iterator.qty = parseInt(Object(common["i" /* replaceAll */])(iterator.qty, ',', ''));
+        iterator.rate = parseInt(Object(common["i" /* replaceAll */])(iterator.rate, ',', ''));
         // iterator['total'] = ((iterator['quantity'] * iterator['unitRate']) * iterator['price']) - iterator['discount']
       }
       console.log("******** No error found process posting ********");
@@ -1461,10 +1461,10 @@ var CancelTicketForm = __webpack_require__(463);
         await this.$axios.put(`api/${this.apiLine}/update/${this.headerId}`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             const pronductOutStock = this.productList.find(el => el.id == outOfStockProductId);
@@ -1480,10 +1480,10 @@ var CancelTicketForm = __webpack_require__(463);
         await this.$axios.post(`api/${this.apiLine}/create`, this.transaction).then(res => {
           this.$emit('reload');
           this.$emit('close-dialog');
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
           const outOfStockProductId = er.response.data.split("#")[1];
           if (outOfStockProductId != undefined) {
             this.validateErrorMessage = `********  ສິນຄ້າໃນສ້າງບໍ່ພຽງພໍ ********`;
@@ -1647,7 +1647,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default,
 
 /***/ }),
 
-/***/ 595:
+/***/ 592:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

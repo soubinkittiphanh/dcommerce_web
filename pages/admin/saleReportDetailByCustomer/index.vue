@@ -18,7 +18,7 @@
       <youtube-player @close-dialog="guidelineDialog = false" youtube-link="W6KiQWtiqBM">
       </youtube-player>
     </v-dialog>
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD @reload="loadData()
       dialogOrderDetail = false" :is-quotation="false" :key="componentKey" :is-update="viewTransaction"
         :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">

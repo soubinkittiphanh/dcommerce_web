@@ -180,7 +180,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 893:
+/***/ 890:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -532,7 +532,7 @@ var common = __webpack_require__(7);
         console.log("User ===> ", res.data);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     async loadTerminal() {
@@ -541,7 +541,7 @@ var common = __webpack_require__(7);
         console.log("TERMINAL => ", res.data);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     async loadGroup() {
@@ -550,7 +550,7 @@ var common = __webpack_require__(7);
         console.log("Group count => ", res.data.length);
         // swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
       }).catch(er => {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
       });
     },
     toggleDialog() {
@@ -563,18 +563,18 @@ var common = __webpack_require__(7);
       if (this.isUpdate) {
         await this.$axios.put(`api/user/update/${this.recordId}`, this.record).then(res => {
           this.$emit('reload');
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         });
       } else {
         await this.$axios.post(`api/user/create`, this.record).then(res => {
           this.$emit('reload');
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
         }).catch(er => {
           console.error(er);
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', er.response.data);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', er.response.data);
         });
       }
       this.isloading = false;

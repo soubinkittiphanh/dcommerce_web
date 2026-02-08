@@ -1,5 +1,5 @@
 <template>
-  <div class="sales-report-container">
+  <div >
     <!-- ENHANCED HEADER SECTION -->
     <div class="header-section">
       <div class="header-chips-container">
@@ -56,7 +56,7 @@
       </youtube-player>
     </v-dialog>
 
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
         @reload="loadData(); dialogOrderDetail = false"
         :is-quotation="false"
@@ -272,8 +272,8 @@
                 <div class="display-1 primary--text font-weight-bold mb-2">
                   {{ getFormatNum(activeOrderHeaderList.length) }}
                 </div>
-                <div class="subtitle-1 font-weight-medium mb-1">ຈຳນວນບິນທັງໝົດ</div>
-                <div class="caption grey--text">ໃນຊ່ວງເວລາທີ່ເລືອກ</div>
+                <div class=" font-weight-medium mb-1">ຈຳນວນບິນທັງໝົດ</div>
+                <div class=" grey--text">ໃນຊ່ວງເວລາທີ່ເລືອກ</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -289,8 +289,8 @@
                 <div class="display-1 success--text font-weight-bold mb-2">
                   {{ getFormatNum(totalSale - totalDiscount) }}
                 </div>
-                <div class="subtitle-1 font-weight-medium mb-1">ລາຍຮັບລວມ</div>
-                <div class="caption grey--text">LAK</div>
+                <div class=" font-weight-medium mb-1">ລາຍຮັບລວມ</div>
+                <div class=" grey--text">LAK</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -315,17 +315,17 @@
                   <v-col cols="12" md="8">
                     <div class="summary-details">
                       <div class="summary-line">
-                        <span class="subtitle-1 font-weight-medium">ລວມຍ່ອຍ:</span>
-                        <span class="subtitle-1 font-weight-bold">{{ getFormatNum(totalSaleRaw) }}</span>
+                        <span class=" font-weight-medium">ລວມຍ່ອຍ:</span>
+                        <span class=" font-weight-bold">{{ getFormatNum(totalSaleRaw) }}</span>
                       </div>
                       <div class="summary-line">
-                        <span class="subtitle-1 font-weight-medium">ສ່ວນຫຼຸດລວມ:</span>
-                        <span class="subtitle-1 font-weight-bold text--secondary">{{ getFormatNum(totalDiscount) }}</span>
+                        <span class=" font-weight-medium">ສ່ວນຫຼຸດລວມ:</span>
+                        <span class=" font-weight-bold text--secondary">{{ getFormatNum(totalDiscount) }}</span>
                       </div>
                       <v-divider class="my-3"></v-divider>
                       <div class="summary-line total">
-                        <span class="headline font-weight-bold">ລວມທັງໝົດ:</span>
-                        <span class="headline font-weight-bold primary--text">{{ getFormatNum(totalSale - totalDiscount) }}</span>
+                        <span class=" font-weight-bold">ລວມທັງໝົດ:</span>
+                        <span class=" font-weight-bold primary--text">{{ getFormatNum(totalSale - totalDiscount) }}</span>
                       </div>
                     </div>
                   </v-col>
@@ -340,7 +340,7 @@
                       >
                         <div class="progress-content">
                           <div class="body-2 font-weight-medium">ຍອດສຳເລັດ</div>
-                          <div class="headline font-weight-bold primary--text">100%</div>
+                          <div class=" font-weight-bold primary--text">100%</div>
                         </div>
                       </v-progress-circular>
                     </div>
@@ -394,7 +394,7 @@
                 <template v-slot:[`item.product.pro_name`]="{ item }">
                   <div class="product-info">
                     <div class="font-weight-bold">{{ item.product.pro_name }}</div>
-                    <div class="caption grey--text">#{{ item.header.id }}</div>
+                    <div class=" grey--text">#{{ item.header.id }}</div>
                   </div>
                 </template>
 
@@ -419,7 +419,7 @@
                 <template v-slot:[`item.user.cus_name`]="{ item }">
                   <div class="user-info">
                     <v-avatar size="24" color="secondary" class="mr-2">
-                      <span class="white--text caption">{{ item.user.cus_name.charAt(0) }}</span>
+                      <span class="white--text ">{{ item.user.cus_name.charAt(0) }}</span>
                     </v-avatar>
                     <span class="font-weight-medium">{{ item.user.cus_name }}</span>
                   </div>

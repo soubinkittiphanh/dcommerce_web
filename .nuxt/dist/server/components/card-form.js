@@ -2146,13 +2146,13 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
-/***/ 567:
+/***/ 566:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(637);
+var content = __webpack_require__(634);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
@@ -2164,19 +2164,19 @@ module.exports.__inject__ = function (context) {
 
 /***/ }),
 
-/***/ 636:
+/***/ 633:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(567);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(566);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cardForm_vue_vue_type_style_index_0_id_65231e11_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 637:
+/***/ 634:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -2191,7 +2191,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 660:
+/***/ 657:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3104,7 +3104,7 @@ var external_vuex_ = __webpack_require__(14);
         const res = await this.$axios.get(`api/location/find`);
         this.locationList = res.data.map(el => el);
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load locations: ' + error.message);
       }
     },
     async loadColors() {
@@ -3115,7 +3115,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Colors loaded:', this.colorList.length);
       } catch (error) {
         console.error('Failed to load colors:', error);
-        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load colors: ' + error.message);
         this.colorList = [];
       }
       this.loadingColors = false;
@@ -3128,7 +3128,7 @@ var external_vuex_ = __webpack_require__(14);
         console.log('Sizes loaded:', this.sizeList.length);
       } catch (error) {
         console.error('Failed to load sizes:', error);
-        Object(common["l" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Warning', 'Failed to load sizes: ' + error.message);
         this.sizeList = [];
       }
       this.loadingSizes = false;
@@ -3144,7 +3144,7 @@ var external_vuex_ = __webpack_require__(14);
           console.log(`Cost info not available`);
         }
       } catch (error) {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Failed to load product: ' + error.message);
       }
       this.isSubmitting = false;
     },
@@ -3187,13 +3187,13 @@ var external_vuex_ = __webpack_require__(14);
           if (details.length > 0) {
             successMessage += ` (${details.join(', ')})`;
           }
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Success', successMessage);
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Success', successMessage);
           this.$emit('reload');
           this.$emit('close-dialog');
         } catch (error) {
           var _error$response;
           console.log(error);
-          Object(common["l" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
+          Object(common["k" /* swalError2 */])(this.$swal, "Error", ((_error$response = error.response) === null || _error$response === void 0 ? void 0 : _error$response.data) || error.message);
         }
         this.isSubmitting = false;
       }
@@ -3211,7 +3211,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(636)
+  var style0 = __webpack_require__(633)
 if (style0.__inject__) style0.__inject__(context)
 
 }

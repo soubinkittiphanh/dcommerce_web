@@ -1,7 +1,7 @@
 exports.ids = [211,52,178];
 exports.modules = {
 
-/***/ 1492:
+/***/ 1491:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -297,7 +297,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/client/index.vue?vue&type=template&id=34836002
 
 // EXTERNAL MODULE: ./components/customer/CustomerForm.vue + 4 modules
-var CustomerForm = __webpack_require__(882);
+var CustomerForm = __webpack_require__(879);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/client/index.vue?vue&type=script&lang=js
 
@@ -420,7 +420,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var client = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {CustomerForm: __webpack_require__(882).default,LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(480).default})
+installComponents(component, {CustomerForm: __webpack_require__(879).default,LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(480).default})
 
 
 /***/ }),
@@ -841,7 +841,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 882:
+/***/ 879:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1186,7 +1186,7 @@ var external_vuex_ = __webpack_require__(14);
       await this.$axios.get(`/api/client/find/${this.customerId}`).then(response => {
         this.client = response.data;
       }).catch(error => {
-        Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data);
       });
       this.isloading = false;
     },
@@ -1195,17 +1195,17 @@ var external_vuex_ = __webpack_require__(14);
       this.isloading = true;
       if (this.isEdit) {
         await this.$axios.put(`/api/client/update/${this.customerId}`, this.client).then(response => {
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
           this.$emit('reload-data');
         }).catch(error => {
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data);
         });
       } else {
         await this.$axios.post('/api/client/create', this.client).then(response => {
-          Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
+          Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
           this.$emit('reload-data');
         }).catch(error => {
-          Object(common["l" /* swalError2 */])(this.$swal, 'Error', error.response.data.errors[0].msg);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', error.response.data.errors[0].msg);
         });
       }
       this.initData();

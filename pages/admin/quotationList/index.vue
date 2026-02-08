@@ -23,7 +23,7 @@
       dialogOrderDetail=false" :is-quotation="true" :key="componentKey" :header="selectedOrder" @close-dialog="dialogOrderDetail = false">
       </OrderDetailPos>
     </v-dialog> -->
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD @reload="loadData()
       dialogOrderDetail = false" :is-quotation="true" :key="componentKey" :is-update="viewTransaction"
         :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">

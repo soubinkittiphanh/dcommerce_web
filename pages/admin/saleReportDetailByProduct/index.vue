@@ -1,12 +1,12 @@
 <template>
-  <div class="product-sales-container">
+  <div>
     <!-- ENHANCED HEADER SECTION -->
     <div class="header-section">
       <div class="header-chips-container">
-        <v-chip 
-          class="header-chip pa-5" 
-          color="primary" 
-          label 
+        <v-chip
+          class="header-chip pa-5"
+          color="primary"
+          label
           text-color="white"
           elevation="4"
         >
@@ -31,7 +31,11 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="320">
       <v-card class="loading-card">
         <v-card-text class="text-center pa-6">
-          <v-progress-circular size="48" color="primary" indeterminate></v-progress-circular>
+          <v-progress-circular
+            size="48"
+            color="primary"
+            indeterminate
+          ></v-progress-circular>
           <div class="mt-4">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
         </v-card-text>
       </v-card>
@@ -45,9 +49,12 @@
       </youtube-player>
     </v-dialog>
 
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-dialog v-model="dialogOrderDetail" fullscreen>
       <OrderDetailPosCRUD
-        @reload="loadData(); dialogOrderDetail = false"
+        @reload="
+          loadData()
+          dialogOrderDetail = false
+        "
         :is-quotation="false"
         :key="componentKey"
         :is-update="viewTransaction"
@@ -62,7 +69,10 @@
         :id="OrderIdSelected"
         :key="componentCancelFormKey"
         @close-dialog="cancelForm = false"
-        @reload="cancelForm = false; loadData()"
+        @reload="
+          cancelForm = false
+          loadData()
+        "
       ></cancel-ticket-form>
     </v-dialog>
 
@@ -202,7 +212,9 @@
                     elevation="3"
                   >
                     <v-icon left color="primary">mdi-refresh</v-icon>
-                    <span class="primary--text font-weight-bold">ດຶງລາຍງານ</span>
+                    <span class="primary--text font-weight-bold"
+                      >ດຶງລາຍງານ</span
+                    >
                   </v-btn>
                   <v-btn
                     class="ma-2 action-btn"
@@ -283,8 +295,8 @@
                 <div class="display-1 primary--text font-weight-bold mb-2">
                   {{ activeOrderHeaderList.length }}
                 </div>
-                <div class=" font-weight-medium mb-1">ຈຳນວນສິນຄ້າ</div>
-                <div class="caption grey--text">ທີ່ມີການຂາຍ</div>
+                <div class="font-weight-medium mb-1">ຈຳນວນສິນຄ້າ</div>
+                <div class=" grey--text">ທີ່ມີການຂາຍ</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -300,8 +312,8 @@
                 <div class="display-1 success--text font-weight-bold mb-2">
                   {{ getTotalQuantity() }}
                 </div>
-                <div class=" font-weight-medium mb-1">ຈຳນວນທີ່ຂາຍ</div>
-                <div class="caption grey--text">ລວມທັງໝົດ</div>
+                <div class="font-weight-medium mb-1">ຈຳນວນທີ່ຂາຍ</div>
+                <div class=" grey--text">ລວມທັງໝົດ</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -317,8 +329,8 @@
                 <div class="display-1 warning--text font-weight-bold mb-2">
                   {{ numberWithCommas(totalDiscount) }}
                 </div>
-                <div class=" font-weight-medium mb-1">ສ່ວນຫຼຸດລວມ</div>
-                <div class="caption grey--text">LAK</div>
+                <div class="font-weight-medium mb-1">ສ່ວນຫຼຸດລວມ</div>
+                <div class=" grey--text">LAK</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -334,8 +346,8 @@
                 <div class="display-1 secondary--text font-weight-bold mb-2">
                   {{ numberWithCommas(totalSale - totalDiscount) }}
                 </div>
-                <div class=" font-weight-medium mb-1">ລາຍຮັບສຸດທິ</div>
-                <div class="caption grey--text">LAK</div>
+                <div class="font-weight-medium mb-1">ລາຍຮັບສຸດທິ</div>
+                <div class=" grey--text">LAK</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -360,24 +372,34 @@
                   <div class="summary-line">
                     <div class="d-flex align-center">
                       <v-icon color="primary" class="mr-3">mdi-cash</v-icon>
-                      <span class=" font-weight-medium">ຍອດຂາຍລວມ:</span>
+                      <span class="font-weight-medium">ຍອດຂາຍລວມ:</span>
                     </div>
-                    <span class="headline font-weight-bold primary--text">{{ numberWithCommas(totalSaleRaw) }}</span>
+                    <span class=" font-weight-bold primary--text">{{
+                      numberWithCommas(totalSaleRaw)
+                    }}</span>
                   </div>
                   <div class="summary-line">
                     <div class="d-flex align-center">
-                      <v-icon color="warning" class="mr-3">mdi-tag-remove</v-icon>
-                      <span class=" font-weight-medium">ສ່ວນຫຼຸດລວມ:</span>
+                      <v-icon color="warning" class="mr-3"
+                        >mdi-tag-remove</v-icon
+                      >
+                      <span class="font-weight-medium">ສ່ວນຫຼຸດລວມ:</span>
                     </div>
-                    <span class=" font-weight-bold warning--text">{{ numberWithCommas(totalDiscount) }}</span>
+                    <span class="font-weight-bold warning--text">{{
+                      numberWithCommas(totalDiscount)
+                    }}</span>
                   </div>
                   <v-divider class="my-4"></v-divider>
                   <div class="summary-line total-line">
                     <div class="d-flex align-center">
-                      <v-icon color="success" class="mr-3">mdi-check-circle</v-icon>
-                      <span class="headline font-weight-bold">ລວມສຸດທິ:</span>
+                      <v-icon color="success" class="mr-3"
+                        >mdi-check-circle</v-icon
+                      >
+                      <span class=" font-weight-bold">ລວມສຸດທິ:</span>
                     </div>
-                    <span class="headline font-weight-bold success--text">{{ numberWithCommas(totalSale - totalDiscount) }}</span>
+                    <span class=" font-weight-bold success--text">{{
+                      numberWithCommas(totalSale - totalDiscount)
+                    }}</span>
                   </div>
                 </div>
               </v-card-text>
@@ -459,20 +481,27 @@
 
                 <template v-slot:[`item.product.pro_name`]="{ item }">
                   <div class="product-info">
-                    <div class="font-weight-bold text-truncate" style="max-width: 200px;">
-                      {{ item.product.pro_name }}
+                    <div
+                      class="font-weight-bold text-truncate"
+                      style="max-width: 200px"
+                    >
+                      {{ item.product.pro_name || '' }}
                     </div>
-                    <div class="caption grey--text">
-                      {{ item.product.category ? item.product.category.categ_name : 'ບໍ່ມີໝວດໝູ່' }}
+                    <div class=" grey--text">
+                      {{
+                        item.product.category
+                          ? item.product.category.categ_name
+                          : 'ບໍ່ມີໝວດໝູ່'
+                      }}
                     </div>
                   </div>
                 </template>
 
                 <template v-slot:[`item.totalQTY`]="{ item }">
-                  <v-chip 
-                    :color="getQuantityColor(item.totalQTY)" 
-                    small 
-                    dark 
+                  <v-chip
+                    :color="getQuantityColor(item.totalQTY)"
+                    small
+                    dark
                     outlined
                   >
                     <v-icon left small>mdi-counter</v-icon>
@@ -482,8 +511,10 @@
 
                 <template v-slot:[`item.totalPrice`]="{ item }">
                   <div class="price-info">
-                    <div class="font-weight-bold">{{ numberWithCommas(item.totalPrice / item.totalQTY) }}</div>
-                    <div class="caption grey--text">ລາຄາ/ໜ່ວຍ</div>
+                    <div class="font-weight-bold">
+                      {{ numberWithCommas(item.totalPrice / item.totalQTY) }}
+                    </div>
+                    <div class=" grey--text">ລາຄາ/ໜ່ວຍ</div>
                   </div>
                 </template>
 
@@ -492,27 +523,44 @@
                     <span class="font-weight-bold warning--text">
                       {{ numberWithCommas(item.totalDiscount) }}
                     </span>
-                    <div class="caption grey--text">
-                      {{ getDiscountPercentage(item.totalDiscount, item.totalPrice) }}%
+                    <div class=" grey--text">
+                      {{
+                        getDiscountPercentage(
+                          item.totalDiscount,
+                          item.totalPrice
+                        )
+                      }}%
                     </div>
                   </div>
                 </template>
 
                 <template v-slot:[`item.totalAmount`]="{ item }">
                   <div class="total-info">
-                    <span class="font-weight-bold success--text headline">
+                    <span class="font-weight-bold success--text ">
                       {{ numberWithCommas(item.totalAmount) }}
                     </span>
-                    <div class="caption grey--text">LAK</div>
+                    <div class=" grey--text">LAK</div>
                   </div>
                 </template>
 
                 <template v-slot:[`item.actions`]="{ item }">
                   <div class="action-buttons">
-                    <v-btn icon small color="info" @click="viewItem(item)" class="action-btn">
+                    <v-btn
+                      icon
+                      small
+                      color="info"
+                      @click="viewItem(item)"
+                      class="action-btn"
+                    >
                       <v-icon>mdi-eye</v-icon>
                     </v-btn>
-                    <v-btn icon small color="primary" @click="editItem(item)" class="action-btn">
+                    <v-btn
+                      icon
+                      small
+                      color="primary"
+                      @click="editItem(item)"
+                      class="action-btn"
+                    >
                       <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                   </div>
@@ -528,7 +576,14 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common/index'
+import {
+  swalSuccess,
+  swalError2,
+  dayCount,
+  getNextDate,
+  getFirstDayOfMonth,
+  getFormatNum,
+} from '~/common/index'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -640,30 +695,60 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
-    
+    ...mapGetters([
+      'currentSelectedLocation',
+      'findAllProduct',
+      'findAllClient',
+      'findAllPayment',
+      'findAllUnit',
+      'findAllCurrency',
+      'findAllTerminal',
+      'findSelectedTerminal',
+    ]),
+
     activeOrderHeaderList() {
-      // Handle different data structures - check if header exists or if isActive is directly on the element
-      return this.orderHeaderList.filter(el => {
-        if (el.header && el.header.isActive !== undefined) {
-          return el.header.isActive == true
-        } else if (el.isActive !== undefined) {
-          return el.isActive == true
-        } else {
-          // If no isActive property found, include all items
-          return true
-        }
+      // Transform the raw order data into product-aggregated data
+      const productMap = {}
+
+      this.orderHeaderList.forEach((order) => {
+        if (!order.isActive) return
+
+        order.lines?.forEach((line) => {
+          if (!line.product) return // Skip if product is missing
+
+          const productId = line.product.id
+
+          if (!productMap[productId]) {
+            productMap[productId] = {
+              product: line.product,
+              bookingDate: order.bookingDate,
+              totalQTY: 0,
+              totalPrice: 0,
+              totalDiscount: 0,
+              totalAmount: 0,
+              orderId: order.id,
+              header: order,
+            }
+          }
+
+          productMap[productId].totalQTY += line.quantity || 0
+          productMap[productId].totalPrice += line.price * line.quantity || 0
+          productMap[productId].totalDiscount += line.discount || 0
+          productMap[productId].totalAmount += line.total || 0
+        })
       })
+
+      return Object.values(productMap)
     },
-    
+
     computedDateFormatted() {
       return this.formatDate(this.date)
     },
-    
+
     currencyList() {
       return this.findAllCurrency
     },
-    
+
     totalSale() {
       let total = 0
       this.activeOrderHeaderList.forEach((el) => {
@@ -671,7 +756,7 @@ export default {
       })
       return total
     },
-    
+
     totalSaleRaw() {
       let total = 0
       this.activeOrderHeaderList.forEach((el) => {
@@ -679,11 +764,11 @@ export default {
       })
       return total
     },
-    
+
     user() {
       return this.$auth.user || ''
     },
-    
+
     totalDiscount() {
       let total = 0
       this.activeOrderHeaderList.forEach((el) => {
@@ -695,33 +780,36 @@ export default {
     unpaidCodOrder() {
       let txnList = []
       let orderDetail = {}
-      this.orderHeaderList.forEach(element => {
+      this.orderHeaderList.forEach((element) => {
         // Handle different data structures for payment status
-        const paymentStatus = element.paymentStatus || (element.header && element.header.paymentStatus)
-        const payment = element.payment || (element.header && element.header.payment)
-        
+        const paymentStatus =
+          element.paymentStatus ||
+          (element.header && element.header.paymentStatus)
+        const payment =
+          element.payment || (element.header && element.header.payment)
+
         if (paymentStatus === 'PENDING' && payment && payment.includes('COD')) {
           txnList.push(element)
         }
-      });
-      
+      })
+
       const totalPrice = txnList.reduce((total, item) => {
-        const amount = item.totalAmount || item.cartTotal || 0;
-        return total + amount;
-      }, 0);
-      
+        const amount = item.totalAmount || item.cartTotal || 0
+        return total + amount
+      }, 0)
+
       const totalDiscount = txnList.reduce((total, item) => {
-        const discount = item.discount || item.totalDiscount || 0;
-        return total + discount;
-      }, 0);
+        const discount = item.discount || item.totalDiscount || 0
+        return total + discount
+      }, 0)
 
       orderDetail.amount = txnList.length
-      orderDetail.saleRawNumber = totalPrice;
+      orderDetail.saleRawNumber = totalPrice
       orderDetail.sale = this.numberWithCommas(totalPrice)
       orderDetail.discount = this.numberWithCommas(totalDiscount)
       orderDetail.gross = this.numberWithCommas(0)
       orderDetail.title = 'ຍອດບິນ COD'
-      return orderDetail;
+      return orderDetail
     },
   },
 
@@ -761,7 +849,9 @@ export default {
 
     getAverageRevenue() {
       if (this.activeOrderHeaderList.length === 0) return '0'
-      const avgRevenue = (this.totalSale - this.totalDiscount) / this.activeOrderHeaderList.length
+      const avgRevenue =
+        (this.totalSale - this.totalDiscount) /
+        this.activeOrderHeaderList.length
       return this.numberWithCommas(Math.round(avgRevenue))
     },
 
@@ -779,46 +869,61 @@ export default {
 
     // Export methods
     exportToExcel() {
-      let messageLineExport = [];
+      let messageLineExport = []
       for (const iterator of this.activeOrderHeaderList) {
-        const product = iterator['product']['pro_name'];
-        const avgPrice = iterator['totalPrice'] / iterator['totalQTY'];
-        const discountPercentage = this.getDiscountPercentage(iterator['totalDiscount'], iterator['totalPrice']);
-        
+        const product = iterator['product']['pro_name']
+        const avgPrice = iterator['totalPrice'] / iterator['totalQTY']
+        const discountPercentage = this.getDiscountPercentage(
+          iterator['totalDiscount'],
+          iterator['totalPrice']
+        )
+
         const newRow = {
-          'ສິນຄ້າ': product,
-          'ຫມວດໝູ່': iterator['product']['category'] ? iterator['product']['category']['categ_name'] : 'ບໍ່ມີໝວດໝູ່',
-          'ຈຳນວນ': iterator['totalQTY'],
+          ສິນຄ້າ: product,
+          ຫມວດໝູ່: iterator['product']['category']
+            ? iterator['product']['category']['categ_name']
+            : 'ບໍ່ມີໝວດໝູ່',
+          ຈຳນວນ: iterator['totalQTY'],
           'ລາຄາ/ໜ່ວຍ': Math.round(avgPrice),
           'ສ່ວນຫຼຸດ (%)': discountPercentage + '%',
           'ສ່ວນຫຼຸດ (ເງິນ)': iterator['totalDiscount'],
-          'ລວມສຸດທິ': iterator['totalAmount'],
+          ລວມສຸດທິ: iterator['totalAmount'],
         }
-        messageLineExport.push(newRow);
+        messageLineExport.push(newRow)
       }
-      
-      const worksheet = this.$xlsx.utils.json_to_sheet(messageLineExport);
-      const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Product Sales Report');
-      this.$xlsx.writeFile(workbook, `product_sales_report_${this.date}_to_${this.date2}.xlsx`);
+
+      const worksheet = this.$xlsx.utils.json_to_sheet(messageLineExport)
+      const workbook = this.$xlsx.utils.book_new()
+      this.$xlsx.utils.book_append_sheet(
+        workbook,
+        worksheet,
+        'Product Sales Report'
+      )
+      this.$xlsx.writeFile(
+        workbook,
+        `product_sales_report_${this.date}_to_${this.date2}.xlsx`
+      )
     },
 
     exportSimplePDFReport() {
       try {
-        const totalTickets = this.activeOrderHeaderList.length;
-        const totalItems = this.getTotalQuantity();
-        
+        const totalTickets = this.activeOrderHeaderList.length
+        const totalItems = this.getTotalQuantity()
+
         // Product and category counting
-        const productCount = {};
-        const categoryCount = {};
-        
+        const productCount = {}
+        const categoryCount = {}
+
         this.activeOrderHeaderList.forEach((item) => {
-          const productName = item.product?.pro_name || 'Other';
-          productCount[productName] = (productCount[productName] || 0) + parseInt(item.totalQTY || 0);
-          
-          const categoryName = item.product?.category?.categ_name || 'Unknown Category';
-          categoryCount[categoryName] = (categoryCount[categoryName] || 0) + parseInt(item.totalQTY || 0);
-        });
+          const productName = item.product?.pro_name || 'Other'
+          productCount[productName] =
+            (productCount[productName] || 0) + parseInt(item.totalQTY || 0)
+
+          const categoryName =
+            item.product?.category?.categ_name || 'Unknown Category'
+          categoryCount[categoryName] =
+            (categoryCount[categoryName] || 0) + parseInt(item.totalQTY || 0)
+        })
 
         const htmlContent = `
         <!DOCTYPE html>
@@ -848,7 +953,11 @@ export default {
             <div class="summary-title">📊 OVERVIEW</div>
             <div class="summary-item">Total Product Lines: ${totalTickets}</div>
             <div class="summary-item">Total Items Sold: ${totalItems}</div>
-            <div class="summary-item">Average Quantity per Product: ${totalTickets > 0 ? Math.round((totalItems / totalTickets) * 100) / 100 : 0}</div>
+            <div class="summary-item">Average Quantity per Product: ${
+              totalTickets > 0
+                ? Math.round((totalItems / totalTickets) * 100) / 100
+                : 0
+            }</div>
             <div class="summary-item">Average Discount Rate: ${this.getAverageDiscount()}%</div>
           </div>
 
@@ -857,8 +966,11 @@ export default {
             <table>
               <tr><th>Category</th><th>Quantity Sold</th></tr>
               ${Object.entries(categoryCount)
-                .sort(([,a], [,b]) => b - a)
-                .map(([category, count]) => `<tr><td>${category}</td><td>${count}</td></tr>`)
+                .sort(([, a], [, b]) => b - a)
+                .map(
+                  ([category, count]) =>
+                    `<tr><td>${category}</td><td>${count}</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -868,9 +980,12 @@ export default {
             <table>
               <tr><th>Product</th><th>Quantity Sold</th></tr>
               ${Object.entries(productCount)
-                .sort(([,a], [,b]) => b - a)
+                .sort(([, a], [, b]) => b - a)
                 .slice(0, 15) // Top 15 only
-                .map(([product, count]) => `<tr><td>${product}</td><td>${count}</td></tr>`)
+                .map(
+                  ([product, count]) =>
+                    `<tr><td>${product}</td><td>${count}</td></tr>`
+                )
                 .join('')}
             </table>
           </div>
@@ -880,13 +995,12 @@ export default {
             <p>Generated for external compliance and inventory tracking</p>
           </div>
         </body>
-        </html>`;
+        </html>`
 
-        this.generatePDFFromHTML(htmlContent);
-        
+        this.generatePDFFromHTML(htmlContent)
       } catch (error) {
-        console.error('Error generating PDF report:', error);
-        this.$toast.error('Error generating PDF report: ' + error.message);
+        console.error('Error generating PDF report:', error)
+        this.$toast.error('Error generating PDF report: ' + error.message)
       }
     },
 
@@ -898,86 +1012,96 @@ export default {
           filename: `product_audit_summary_${this.date}_to_${this.date2}.pdf`,
           image: { type: 'jpeg', quality: 0.98 },
           html2canvas: { scale: 2 },
-          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-        };
-        html2pdf().from(htmlContent).set(opt).save();
+          jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+        }
+        html2pdf().from(htmlContent).set(opt).save()
       } else if (typeof jsPDF !== 'undefined') {
-        const doc = new jsPDF();
-        doc.setFontSize(16);
-        doc.text('PRODUCT SALES AUDIT REPORT', 20, 20);
-        doc.setFontSize(12);
-        doc.text(`Period: ${this.dateFormatted} - ${this.dateFormatted2}`, 20, 35);
-        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45);
-        doc.text('OVERVIEW', 20, 65);
-        doc.text(`Total Product Lines: ${this.activeOrderHeaderList.length}`, 20, 75);
-        doc.text(`Total Items: ${this.getTotalQuantity()}`, 20, 85);
-        doc.save(`product_audit_summary_${this.date}_to_${this.date2}.pdf`);
+        const doc = new jsPDF()
+        doc.setFontSize(16)
+        doc.text('PRODUCT SALES AUDIT REPORT', 20, 20)
+        doc.setFontSize(12)
+        doc.text(
+          `Period: ${this.dateFormatted} - ${this.dateFormatted2}`,
+          20,
+          35
+        )
+        doc.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 45)
+        doc.text('OVERVIEW', 20, 65)
+        doc.text(
+          `Total Product Lines: ${this.activeOrderHeaderList.length}`,
+          20,
+          75
+        )
+        doc.text(`Total Items: ${this.getTotalQuantity()}`, 20, 85)
+        doc.save(`product_audit_summary_${this.date}_to_${this.date2}.pdf`)
       } else {
-        const printWindow = window.open('', '_blank');
-        printWindow.document.write(htmlContent);
-        printWindow.document.close();
-        printWindow.print();
+        const printWindow = window.open('', '_blank')
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+        printWindow.print()
       }
-      
-      this.$toast.success('PDF report generated successfully!');
+
+      this.$toast.success('PDF report generated successfully!')
     },
 
     exportAuditReport() {
       try {
-        const categoryStats = {};
-        const productStats = {};
-        
-        this.activeOrderHeaderList.forEach((item) => {
-          const category = item.product?.category?.categ_name || 'Unknown';
-          const product = item.product?.pro_name || 'Unknown';
-          const quantity = parseInt(item.totalQTY || 0);
-          
-          if (!categoryStats[category]) categoryStats[category] = { count: 0, quantity: 0 };
-          categoryStats[category].count += 1;
-          categoryStats[category].quantity += quantity;
-          
-          if (!productStats[product]) productStats[product] = { count: 0, quantity: 0 };
-          productStats[product].count += 1;
-          productStats[product].quantity += quantity;
-        });
+        const categoryStats = {}
+        const productStats = {}
 
-        const auditData = [];
-        
+        this.activeOrderHeaderList.forEach((item) => {
+          const category = item.product?.category?.categ_name || 'Unknown'
+          const product = item.product?.pro_name || 'Unknown'
+          const quantity = parseInt(item.totalQTY || 0)
+
+          if (!categoryStats[category])
+            categoryStats[category] = { count: 0, quantity: 0 }
+          categoryStats[category].count += 1
+          categoryStats[category].quantity += quantity
+
+          if (!productStats[product])
+            productStats[product] = { count: 0, quantity: 0 }
+          productStats[product].count += 1
+          productStats[product].quantity += quantity
+        })
+
+        const auditData = []
+
         // Header info
         auditData.push({
           'Report Type': 'Product Sales External Audit Report',
-          'Period': `${this.dateFormatted} - ${this.dateFormatted2}`,
+          Period: `${this.dateFormatted} - ${this.dateFormatted2}`,
           'Generated On': new Date().toLocaleDateString(),
           'Generated By': this.user?.name || 'System',
-          'Location': this.currentSelectedLocation?.name || 'All Locations'
-        });
-        
-        auditData.push({});
-        auditData.push({ 'Report Type': '=== SALES BY CATEGORY ===' });
-        
+          Location: this.currentSelectedLocation?.name || 'All Locations',
+        })
+
+        auditData.push({})
+        auditData.push({ 'Report Type': '=== SALES BY CATEGORY ===' })
+
         Object.entries(categoryStats).forEach(([category, stats]) => {
           auditData.push({
-            'Category': category,
+            Category: category,
             'Product Lines': stats.count,
             'Total Quantity': stats.quantity,
-          });
-        });
-        
-        auditData.push({});
-        auditData.push({ 'Report Type': '=== TOP PRODUCTS BY QUANTITY ===' });
-        
+          })
+        })
+
+        auditData.push({})
+        auditData.push({ 'Report Type': '=== TOP PRODUCTS BY QUANTITY ===' })
+
         Object.entries(productStats)
-          .sort(([,a], [,b]) => b.quantity - a.quantity)
+          .sort(([, a], [, b]) => b.quantity - a.quantity)
           .slice(0, 20)
           .forEach(([product, stats]) => {
             auditData.push({
-              'Product': product,
+              Product: product,
               'Sales Count': stats.count,
               'Total Quantity': stats.quantity,
-            });
-          });
-        
-        auditData.push({});
+            })
+          })
+
+        auditData.push({})
         auditData.push({
           'Report Type': '=== SUMMARY ===',
           'Total Product Lines': this.activeOrderHeaderList.length,
@@ -985,29 +1109,32 @@ export default {
           'Unique Products': Object.keys(productStats).length,
           'Unique Categories': Object.keys(categoryStats).length,
           'Average Discount Rate': this.getAverageDiscount() + '%',
-        });
+        })
 
-        const worksheet = this.$xlsx.utils.json_to_sheet(auditData);
-        const workbook = this.$xlsx.utils.book_new();
-        this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Product Audit Report');
-        
-        const filename = `product_audit_report_${this.date}_to_${this.date2}.xlsx`;
-        this.$xlsx.writeFile(workbook, filename);
-        
-        this.$toast.success('Product audit report exported successfully!');
-        
+        const worksheet = this.$xlsx.utils.json_to_sheet(auditData)
+        const workbook = this.$xlsx.utils.book_new()
+        this.$xlsx.utils.book_append_sheet(
+          workbook,
+          worksheet,
+          'Product Audit Report'
+        )
+
+        const filename = `product_audit_report_${this.date}_to_${this.date2}.xlsx`
+        this.$xlsx.writeFile(workbook, filename)
+
+        this.$toast.success('Product audit report exported successfully!')
       } catch (error) {
-        console.error('Error generating audit report:', error);
-        this.$toast.error('Error generating audit report: ' + error.message);
+        console.error('Error generating audit report:', error)
+        this.$toast.error('Error generating audit report: ' + error.message)
       }
     },
 
     // Other methods
     createSale() {
-      this.componentKey += 1;
+      this.componentKey += 1
       this.selectedOrder = 0
-      this.viewTransaction = false;
-      this.dialogOrderDetail = true;
+      this.viewTransaction = false
+      this.dialogOrderDetail = true
     },
 
     countDay(startDate) {
@@ -1023,9 +1150,9 @@ export default {
     },
 
     editItem(item) {
-      this.componentKey += 1;
+      this.componentKey += 1
       // Handle different data structures
-      let itemId;
+      let itemId
       if (item.orderId) {
         itemId = item.orderId.toString()
       } else if (item.header && item.header.id) {
@@ -1034,31 +1161,31 @@ export default {
         itemId = item.id.toString()
       }
       this.selectedOrderId = itemId
-      this.dialogOrderDetail = !this.dialogOrderDetail;
+      this.dialogOrderDetail = !this.dialogOrderDetail
     },
 
     viewItem(item) {
-      this.componentKey += 1;
+      this.componentKey += 1
       this.viewTransaction = true
       // Handle different data structures
-      let selectedId;
+      let selectedId
       if (item.header && item.header.id) {
         selectedId = item.header.id
       } else if (item.id) {
         selectedId = item.id
       }
       this.selectedOrder = selectedId
-      this.dialogOrderDetail = true;
+      this.dialogOrderDetail = true
     },
 
     cancelItem(payload) {
-      this.componentCancelFormKey += 1;
+      this.componentCancelFormKey += 1
       this.OrderIdSelected = payload.orderId
-      this.cancelForm = true;
+      this.cancelForm = true
     },
 
     handleEvent() {
-      this.dialogOrderDetail = false;
+      this.dialogOrderDetail = false
     },
 
     async loadData() {
@@ -1069,7 +1196,7 @@ export default {
         productId: this.creteria.productId,
         locationId: this.currentSelectedLocation['id'] || 1,
       }
-      
+
       let apiLine = 'api/sale/findByDate'
       if (date.productId && date.productId !== -1) {
         apiLine = 'api/sale/findByDateAndProduct'
@@ -1079,7 +1206,11 @@ export default {
         const response = await this.$axios.get(apiLine, { params: { date } })
         this.orderHeaderList = response.data
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could not load data ' + JSON.stringify(error))
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load data ' + JSON.stringify(error)
+        )
       }
 
       this.isloading = false
@@ -1088,18 +1219,31 @@ export default {
     async loadProduct() {
       this.isloading = true
       try {
-        const response = await this.$axios.get('api/product/find');
-        this.productList = response.data.data.products
-        this.productList.push({ id: -1, 'pro_name': 'ທັງຫມົດ' })
+        const response = await this.$axios.get(
+          `product_f/${this.currentSelectedLocation.id}?include=priceList`
+        )
+
+        // The products are directly in response.data.data (it's an array)
+        this.productList = response.data.data || []
+
+        // Add "All" option at the beginning
+        this.productList.unshift({ id: -1, pro_name: 'ທັງຫມົດ' })
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could not load product data ' + JSON.stringify(error))
+        console.error('Product load error:', error)
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load product data: ' +
+            (error.message || JSON.stringify(error))
+        )
+        this.productList = [{ id: -1, pro_name: 'ທັງຫມົດ' }] // Fallback with at least the "All" option
       }
       this.isloading = false
     },
 
     formatDate(date) {
       if (!date) return null
-      const formattedDate = this.formatDateToISO(date);
+      const formattedDate = this.formatDateToISO(date)
       const [year, month, day] = formattedDate.split('-')
       return `${month}/${day}/${year}`
     },
@@ -1111,11 +1255,11 @@ export default {
     },
 
     formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date);
-      const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0');
-      const day = `${date.getDate()}`.padStart(2, '0');
-      return `${year}-${month}-${day}`;
+      if (!(date instanceof Date)) date = new Date(date)
+      const year = date.getFullYear()
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
+      const day = `${date.getDate()}`.padStart(2, '0')
+      return `${year}-${month}-${day}`
     },
   },
 }
@@ -1165,7 +1309,11 @@ export default {
 
 /* Filter Section */
 .filter-section {
-  background: linear-gradient(135deg, var(--v-primary-base) 0%, var(--v-primary-darken1) 100%) !important;
+  background: linear-gradient(
+    135deg,
+    var(--v-primary-base) 0%,
+    var(--v-primary-darken1) 100%
+  ) !important;
   color: white !important;
   position: relative;
 }
@@ -1226,7 +1374,11 @@ export default {
   left: 0;
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, var(--v-primary-base), var(--v-secondary-base));
+  background: linear-gradient(
+    90deg,
+    var(--v-primary-base),
+    var(--v-secondary-base)
+  );
   border-radius: 2px;
 }
 
@@ -1247,7 +1399,11 @@ export default {
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(var(--v-primary-rgb), 0.03) 0%, transparent 70%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(var(--v-primary-rgb), 0.03) 0%,
+    transparent 70%
+  );
   pointer-events: none;
 }
 
@@ -1372,19 +1528,19 @@ export default {
   .header-chips-container {
     flex-direction: column;
   }
-  
+
   .header-chip {
     justify-content: center;
   }
-  
+
   .filter-group {
     margin-bottom: 20px;
   }
-  
+
   .dashboard-title {
     font-size: 1.5rem !important;
   }
-  
+
   .metric-value {
     font-size: 1.25rem;
   }
@@ -1394,19 +1550,19 @@ export default {
   .product-sales-container {
     padding: 12px;
   }
-  
+
   .main-card {
     border-radius: 12px !important;
   }
-  
+
   .filter-group {
     padding: 16px;
   }
-  
+
   .metric-card {
     border-radius: 16px !important;
   }
-  
+
   .summary-line {
     flex-direction: column;
     text-align: center;
@@ -1441,10 +1597,18 @@ export default {
   animation: fadeInUp 0.6s ease-out;
 }
 
-.metric-card:nth-child(1) { animation-delay: 0.1s; }
-.metric-card:nth-child(2) { animation-delay: 0.2s; }
-.metric-card:nth-child(3) { animation-delay: 0.3s; }
-.metric-card:nth-child(4) { animation-delay: 0.4s; }
+.metric-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.metric-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.metric-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.metric-card:nth-child(4) {
+  animation-delay: 0.4s;
+}
 
 .enhanced-table {
   animation: slideInRight 0.8s ease-out;

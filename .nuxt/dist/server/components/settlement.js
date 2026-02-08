@@ -1,7 +1,7 @@
 exports.ids = [153];
 exports.modules = {
 
-/***/ 750:
+/***/ 747:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -243,11 +243,11 @@ var external_vuex_ = __webpack_require__(14);
           // ******* reload data if transaction completed ********
           console.log("RELOAD DATA TRIGGER");
           this.refreshData(true);
-          return Object(common["m" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
+          return Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'Your transaction completed');
         }
-        return Object(common["l" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
+        return Object(common["k" /* swalError2 */])(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ');
       }).catch(er => {
-        return Object(common["l" /* swalError2 */])(this.$swal, "Error", `ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ${er}`);
+        return Object(common["k" /* swalError2 */])(this.$swal, "Error", `ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ${er}`);
       });
       this.isloading = false;
 
