@@ -1,4 +1,4 @@
-exports.ids = [254,40,113,114,119];
+exports.ids = [254,40,114];
 exports.modules = {
 
 /***/ 1194:
@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f2fcf4c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(938);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f2fcf4c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f2fcf4c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f2fcf4c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f2fcf4c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_487f93c2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(938);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_487f93c2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_487f93c2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_487f93c2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_487f93c2_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-f2fcf4c4],.text-h5[data-v-f2fcf4c4]{font-family:\"Noto Sans Lao\"}table[data-v-f2fcf4c4]{border:1px solid #000}.v-chip.v-size--small[data-v-f2fcf4c4]{font-size:.75rem}.v-chip .v-icon[data-v-f2fcf4c4]{margin-right:4px}.caption[data-v-f2fcf4c4]{font-size:.75rem;line-height:1.2}.booking-status-chip[data-v-f2fcf4c4]{transition:all .3s ease}.booking-status-chip[data-v-f2fcf4c4]:hover{transform:scale(1.05)}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".noto-sans-lao[data-v-487f93c2]{font-family:\"Noto Sans Lao\",sans-serif}.kpi-card[data-v-487f93c2]{transition:.3s}.kpi-card[data-v-487f93c2]:hover{transform:translateY(-5px)}.breakdown-row[data-v-487f93c2]{background:#fff5f5;border:1px dashed #feb2b2}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -54,7 +54,7 @@ var VCol = __webpack_require__(441);
 var VDataTable = __webpack_require__(452);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(489);
+var VDatePicker = __webpack_require__(488);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(416);
@@ -77,7 +77,7 @@ var VRow = __webpack_require__(440);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosCancel/index.vue?vue&type=template&id=f2fcf4c4&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosCancel/index.vue?vue&type=template&id=487f93c2&scoped=true
 
 
 
@@ -94,12 +94,12 @@ var VTextField = __webpack_require__(39);
 
 
 
-var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = function render() {
+var ordersFromPosCancelvue_type_template_id_487f93c2_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
-    staticClass: "text-left"
-  }, [_c(VChip["a" /* default */], {
+    staticClass: "text-left noto-sans-lao"
+  }, [_vm._ssrNode("<div data-v-487f93c2>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -110,7 +110,7 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
     attrs: {
       "start": ""
     }
-  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການ ຍົກເລີກ")])], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
+  }, [_vm._v("mdi-label")]), _vm._v(" "), _c('h3', [_vm._v("ລາຍການ ຍົກເລີກ")])], 1)], 1), _vm._ssrNode(" "), _c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "persistent": "",
@@ -174,7 +174,9 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
         _vm.cancelForm = false, _vm.loadData();
       }
     }
-  })], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], {
+    staticClass: "mt-5"
+  }, [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -312,7 +314,7 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
       "append-icon": "mdi-magnify",
       "label": "ຊອກຫາ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.search,
@@ -326,7 +328,7 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
       "append-icon": "mdi-magnify",
       "label": "ລະຫັດຜູ້ຂາຍ",
       "single-line": "",
-      "hide-detailsx": ""
+      "hide-details": ""
     },
     model: {
       value: _vm.userId,
@@ -336,68 +338,84 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
       expression: "userId"
     }
   })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticClass: "text-left",
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
-    },
-    on: {
-      "click": _vm.createSale
-    }
-  }, [_c('span', {
-    staticClass: "mdi mdi-plus"
-  }), _vm._v("Create\n            ")])], 1), _vm._v(" "), _c(VCol["a" /* default */], {
     staticClass: "text-right",
     attrs: {
-      "cols": "6"
+      "cols": "12"
     }
   }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
     attrs: {
-      "size": "large",
-      "variant": "outlined",
-      "rounded": ""
+      "color": "primary",
+      "rounded": "",
+      "large": "",
+      "elevation": "2"
     },
     on: {
       "click": _vm.loadData
     }
-  }, [_c('span', {
-    staticClass: "mdi mdi-cloud-download"
-  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VLayout["a" /* default */], {
+  }, [_c(VIcon["a" /* default */], {
     attrs: {
-      "row": "",
-      "wrap": ""
+      "left": ""
     }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_c('order-sumary-card-pos', {
-    attrs: {
-      "showTotal": true,
-      "gross": _vm.getFormatNum(_vm.totalSaleRaw - +this.unpaidCodOrder.saleRawNumber),
-      "orderDetail": {
-        'title': 'ຍອດບິນ',
-        'amount': _vm.getFormatNum(_vm.quotationList.length),
-        'sale': _vm.getFormatNum(_vm.totalSale - _vm.totalDiscount)
-        // 'discount': getFormatNum(totalDiscount),
-        // 'gross': getFormatNum(totalSale - totalDiscount)
+  }, [_vm._v("mdi-cloud-download")]), _vm._v("ດຶງລາຍງານ\n          ")], 1)], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], _vm._l(_vm.cancelStatistics, function (item, index) {
+    var _vm$localCurrency;
+    return _c(VCol["a" /* default */], {
+      key: index,
+      attrs: {
+        "cols": "12",
+        "sm": "6",
+        "md": "4"
       }
-    }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _vm.quotationList ? _c(VDataTable["a" /* default */], {
+    }, [_c('div', {
+      staticClass: "kpi-card pa-4 elevation-2",
+      staticStyle: {
+        "border-left": "5px solid #F44336",
+        "border-radius": "12px",
+        "background": "#fff"
+      }
+    }, [_c('div', {
+      staticClass: "d-flex justify-space-between align-center mb-2"
+    }, [_c('span', {
+      staticClass: "text-overline grey--text"
+    }, [_vm._v("ຍອດຍົກເລີກລວມ")]), _vm._v(" "), _c(VIcon["a" /* default */], {
+      attrs: {
+        "color": "red"
+      }
+    }, [_vm._v("mdi-close-circle")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "text-h5 font-weight-black red--text mb-2"
+    }, [_vm._v("\n              " + _vm._s(_vm.formatNumber(item.totalLocal)) + " "), _c('small', [_vm._v(_vm._s((_vm$localCurrency = _vm.localCurrency) === null || _vm$localCurrency === void 0 ? void 0 : _vm$localCurrency.code))])]), _vm._v(" "), _c('div', {
+      staticClass: "currency-breakdown-container"
+    }, _vm._l(item.groupedCurrency, function (val, code) {
+      var _vm$localCurrency2, _vm$localCurrency3;
+      return _c('div', {
+        key: code,
+        staticClass: "breakdown-row pa-2 mb-1 rounded"
+      }, [_c('div', {
+        staticClass: "d-flex justify-space-between align-center"
+      }, [_c('span', {
+        staticClass: "caption font-weight-bold"
+      }, [_vm._v(_vm._s(code))]), _vm._v(" "), _c('span', {
+        staticClass: "caption font-weight-black"
+      }, [_vm._v(_vm._s(_vm.formatNumber(val.original)))])]), _vm._v(" "), code !== ((_vm$localCurrency2 = _vm.localCurrency) === null || _vm$localCurrency2 === void 0 ? void 0 : _vm$localCurrency2.code) ? _c('div', {
+        staticClass: "text-right grey--text",
+        staticStyle: {
+          "font-size": "0.65rem"
+        }
+      }, [_vm._v("\n                  ≈ " + _vm._s(_vm.formatNumber(val.local)) + " " + _vm._s((_vm$localCurrency3 = _vm.localCurrency) === null || _vm$localCurrency3 === void 0 ? void 0 : _vm$localCurrency3.code) + "\n                ")]) : _vm._e()]);
+    }), 0)])]);
+  }), 1)], 1), _vm._v(" "), _vm.quotationList ? _c(VDataTable["a" /* default */], {
     attrs: {
       "headers": _vm.headers,
       "search": _vm.search,
       "items": _vm.quotationList
     },
     scopedSlots: _vm._u([{
+      key: `item.recid`,
+      fn: function ({
+        item
+      }) {
+        return [_vm._v("\n        " + _vm._s(item.id) + "\n      ")];
+      }
+    }, {
       key: `item.bookingDate`,
       fn: function ({
         item
@@ -417,7 +435,7 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
             "left": "",
             "small": ""
           }
-        }, [_vm._v(_vm._s(_vm.getBookingStatusChip(item).icon))]), _vm._v("\n              " + _vm._s(_vm.getBookingStatusChip(item).text) + "\n            ")], 1)], 1)];
+        }, [_vm._v(_vm._s(_vm.getBookingStatusChip(item).icon))]), _vm._v("\n            " + _vm._s(_vm.getBookingStatusChip(item).text) + "\n          ")], 1)], 1)];
       }
     }, {
       key: `item.client.credit`,
@@ -447,35 +465,35 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
             "left": "",
             "small": ""
           }
-        }, [_vm._v(_vm._s(_vm.getDueDateChip(item).icon))]), _vm._v("\n              " + _vm._s(_vm.getDueDateChip(item).text) + "\n            ")], 1)], 1)];
+        }, [_vm._v(_vm._s(_vm.getDueDateChip(item).icon))]), _vm._v("\n            " + _vm._s(_vm.getDueDateChip(item).text) + "\n          ")], 1)], 1)];
       }
     }, {
       key: `item.discount`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.discount)) + "\n        ")];
+        return [_vm._v("\n        " + _vm._s(_vm.numberWithCommas(item.discount)) + "\n      ")];
       }
     }, {
       key: `item.total`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total)) + "\n        ")];
+        var _vm$localCurrency4;
+        return [_c('div', {
+          staticClass: "d-flex flex-column text-right"
+        }, [_c('span', {
+          staticClass: "font-weight-bold red--text"
+        }, [_vm._v(_vm._s(_vm.numberWithCommas(_vm.calculateHeaderTotalLocal(item))))]), _vm._v(" "), _c('small', {
+          staticClass: "grey--text"
+        }, [_vm._v(_vm._s((_vm$localCurrency4 = _vm.localCurrency) === null || _vm$localCurrency4 === void 0 ? void 0 : _vm$localCurrency4.code))])])];
       }
     }, {
       key: `item.createdAt`,
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(item.createdAt.split('.')[0]) + "\n        ")];
-      }
-    }, {
-      key: `item.recid`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n          " + _vm._s(item.id) + "\n        ")];
+        return [_vm._v("\n        " + _vm._s(item.createdAt.split('.')[0]) + "\n      ")];
       }
     }, {
       key: `item.id`,
@@ -489,8 +507,7 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
           },
           on: {
             "click": function ($event) {
-              _vm.viewItem(item);
-              _vm.wallet = true;
+              return _vm.viewItem(item);
             }
           }
         }, [_c('i', {
@@ -502,55 +519,34 @@ var ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render = functi
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPosCancel/index.vue?vue&type=template&id=f2fcf4c4&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPosCancel/index.vue?vue&type=template&id=487f93c2&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
-// EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(495);
-
-// EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
-var OrderDetailPosCRUD = __webpack_require__(485);
-
-// EXTERNAL MODULE: ./components/orderSumaryCardPos.vue + 4 modules
-var orderSumaryCardPos = __webpack_require__(488);
+// EXTERNAL MODULE: external "vuex"
+var external_vuex_ = __webpack_require__(14);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPosCancel/index.vue?vue&type=script&lang=js
 
 
-
-
 /* harmony default export */ var ordersFromPosCancelvue_type_script_lang_js = ({
-  components: {
-    OrderDetailPos: OrderDetailPos["default"],
-    OrderSumaryCardPos: orderSumaryCardPos["default"],
-    OrderDetailPosCRUD: OrderDetailPosCRUD["default"]
-  },
   middleware: 'auths',
   data() {
     return {
-      whatsappContactLink: '',
       componentKey: 0,
       dialogOrderDetail: false,
       selectedOrder: 0,
-      isedit: false,
-      dialog: false,
-      isloading: false,
-      dialogForm: false,
       viewTransaction: false,
-      valid: true,
-      name: '',
+      isloading: false,
       search: '',
       userId: null,
       orderHeaderList: [],
-      loadDataNoCancelOrder: [],
-      codPaid: [],
-      componentCancelFormKey: 1,
-      cancelForm: false,
       OrderIdSelected: 0,
+      cancelForm: false,
+      componentCancelFormKey: 1,
       headers: [{
-        text: 'recid',
+        text: 'ເລກທີ',
         align: 'center',
         value: 'recid',
         sortable: true
@@ -616,150 +612,133 @@ var orderSumaryCardPos = __webpack_require__(488);
         sortable: false
       }],
       date: Object(common["d" /* getFirstDayOfMonth */])(),
-      // date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10),
-      date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-      dateFormatted: this.formatDate(
-      // new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10)
-      Object(common["d" /* getFirstDayOfMonth */])() //this will get first date of current month
-      ),
-      dateFormatted2: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      date2: new Date().toISOString().substr(0, 10),
+      dateFormatted: '',
+      dateFormatted2: '',
       menu1: false,
       menu2: false
     };
   },
+  computed: {
+    ...Object(external_vuex_["mapGetters"])(['findAllCurrency']),
+    localCurrency() {
+      var _this$findAllCurrency;
+      return (_this$findAllCurrency = this.findAllCurrency) === null || _this$findAllCurrency === void 0 ? void 0 : _this$findAllCurrency.find(c => c.isLocalCCY === true || c.isLocalCCY === 1);
+    },
+    quotationList() {
+      return this.orderHeaderList.filter(el => el['isActive'] == false);
+    },
+    cancelStatistics() {
+      const grouped = {
+        totalLocal: 0,
+        count: this.quotationList.length,
+        groupedCurrency: {}
+      };
+      this.quotationList.forEach(header => {
+        const headerTotal = this.calculateHeaderTotalLocal(header);
+        grouped.totalLocal += headerTotal;
+        header.lines.forEach(line => {
+          var _this$findAllCurrency2;
+          const lineCurrency = (_this$findAllCurrency2 = this.findAllCurrency) === null || _this$findAllCurrency2 === void 0 ? void 0 : _this$findAllCurrency2.find(c => c.id === line.currencyId);
+          const cCode = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.code) || 'UNKNOWN';
+          const isLocal = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === true || (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === 1;
+          const rate = isLocal ? 1 : line.exchangeRate || 1;
+          if (!grouped.groupedCurrency[cCode]) grouped.groupedCurrency[cCode] = {
+            original: 0,
+            local: 0
+          };
+          grouped.groupedCurrency[cCode].original += line.quantity * line.price;
+          grouped.groupedCurrency[cCode].local += line.quantity * line.price * rate;
+        });
+      });
+      return [grouped];
+    }
+  },
   async created() {
+    this.dateFormatted = this.formatDate(this.date);
+    this.dateFormatted2 = this.formatDate(this.date2);
     await this.loadData();
   },
   watch: {
-    isedit(v) {
-      if (!v) this.form_data.cus_id = '1XXX';
-    },
     date(val) {
-      this.dateFormatted = this.formatDate(this.date);
+      this.dateFormatted = this.formatDate(val);
       this.loadData();
     },
     date2(val) {
-      this.dateFormatted2 = this.formatDate(this.date2);
+      this.dateFormatted2 = this.formatDate(val);
       this.loadData();
     }
   },
-  computed: {
-    quotationList() {
-      // return this.orderHeaderList.filter(el => el['isActive'] != true)
-      return this.orderHeaderList.filter(el => el['isActive'] == false);
-    },
-    computedDateFormatted() {
-      return this.formatDate(this.date);
-    },
-    totalSale() {
-      let total = 0;
-      this.quotationList.forEach(el => {
-        total += el.total;
-      });
-      return total;
-      // return total
-    },
-    totalSaleRaw() {
-      let total = 0;
-      this.quotationList.forEach(el => {
-        console.log("====>", el.cartTotal);
-        total += parseInt(el.cartTotal);
-      });
-      console.log('Price total: ' + total);
-      // return previousValue.cartTotal + currentValue.cartTotal
-      return total;
-      // return total
-    },
-    totalDiscount() {
-      let total = 0;
-      this.quotationList.forEach(el => {
-        total += parseInt(el.discount);
-      });
-      return total;
-      // return total
-    },
-    unpaidCodOrder() {
-      let txnList = [];
-      let orderDetail = {};
-      this.orderHeaderList.forEach(element => {
-        if (element.paymentStatus === 'PENDING' && element.payment.includes('COD')) {
-          console.log("Concept applied");
-          txnList.push(element);
-        }
-      });
-      const totalPrice = txnList.reduce((total, item) => {
-        return total + item.cartTotal;
-      }, 0);
-      const totalDiscount = txnList.reduce((total, item) => {
-        return total + item.discount;
-      }, 0);
-      orderDetail.amount = txnList.length;
-      orderDetail.saleRawNumber = totalPrice;
-      orderDetail.sale = this.getFormatNum(totalPrice);
-      orderDetail.discount = this.getFormatNum(totalDiscount);
-      orderDetail.gross = this.getFormatNum(0);
-      orderDetail.title = 'ຍອດບິນ COD';
-      return orderDetail;
-    },
-    codFeeTotal() {
-      let sum = this.orderHeaderList.reduce((total, current) => total + current['codFee'], 0);
-      return sum;
-    }
-  },
   methods: {
-    // ===== EXISTING METHODS =====
+    calculateHeaderTotalLocal(header) {
+      if (!header.lines) return header.total;
+      return header.lines.reduce((sum, line) => {
+        var _this$findAllCurrency3;
+        const lineCurrency = (_this$findAllCurrency3 = this.findAllCurrency) === null || _this$findAllCurrency3 === void 0 ? void 0 : _this$findAllCurrency3.find(c => c.id === line.currencyId);
+        const isLocal = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === true || (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === 1;
+        const rate = isLocal ? 1 : line.exchangeRate || 1;
+        return sum + line.quantity * line.price * rate;
+      }, 0) - (header.discount || 0);
+    },
+    // RESTORED: All your original table helper methods
+    hasValidClient(item) {
+      return item && item.client && item.client.credit !== undefined && item.client.credit !== null;
+    },
+    getClientCredit(item) {
+      return this.hasValidClient(item) ? parseInt(item.client.credit) : 0;
+    },
+    getClientName(item) {
+      return item.client ? item.client.name || 'Unnamed' : 'Walk-in';
+    },
+    getNoClientText(item) {
+      return item.client ? 'No Credit Info' : 'Walk-in';
+    },
+    formatBookingDate(date) {
+      return date ? date.split('T')[0] : 'Invalid';
+    },
     countDay(startDate) {
       return Object(common["b" /* dayCount */])(startDate);
     },
     dueDate(startDate, day) {
-      console.log("DATE ", startDate, " to ", day);
       return Object(common["g" /* getNextDate */])(startDate, day);
     },
-    numberWithCommas(value) {
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    numberWithCommas(val) {
+      return (val || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
-    whatsappLink(item) {
-      // const completeTel = tel.substring(tel.length-7);
-      const tel = item.cusTel.trim();
-
-      // console.log("Customer tel: ",tel);
-      const completeTel = tel.substring(tel.length - 8);
-      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
-      // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
+    formatNumber(val) {
+      return new Intl.NumberFormat().format(Math.round(val || 0));
     },
-    getFormatNum(val) {
-      return new Intl.NumberFormat().format(val);
+    getBookingStatusChip(item) {
+      const dayCnt = this.countDay(item.bookingDate.split('T')[0]);
+      if (!this.hasValidClient(item)) return {
+        color: 'grey',
+        icon: 'mdi-account-off',
+        text: `${dayCnt} days`
+      };
+      const credit = this.getClientCredit(item);
+      if (dayCnt > credit) return {
+        color: 'red',
+        icon: 'mdi-alert',
+        text: `${dayCnt} days - Overdue`
+      };
+      return {
+        color: 'green',
+        icon: 'mdi-check',
+        text: `${dayCnt} days - OK`
+      };
     },
-    editItem(item) {
-      this.componentKey += 1;
-      this.selectedOrder = item.orderId.toString();
-      this.dialogOrderDetail = !this.dialogOrderDetail;
-    },
-    viewItem(item) {
-      this.componentKey += 1;
-      this.viewTransaction = true;
-      this.selectedOrder = item.id;
-      this.dialogOrderDetail = true;
-    },
-    createSale() {
-      this.componentKey += 1;
-      this.selectedOrder = 0;
-      this.viewTransaction = false;
-      this.dialogOrderDetail = true;
-    },
-    cancelItem(payload) {
-      console.log("Order id", payload.orderId);
-      this.componentCancelFormKey += 1;
-      this.OrderIdSelected = payload.orderId;
-      // this.orderLockingSessionId = payload.lockingSessionId;
-      this.cancelForm = true;
-    },
-    handleEvent() {
-      this.dialogOrderDetail = false;
+    getDueDateChip(item) {
+      if (!this.hasValidClient(item)) return {
+        color: 'grey',
+        icon: 'mdi-calendar',
+        text: 'N/A'
+      };
+      const dueStr = this.dueDate(item.bookingDate, this.getClientCredit(item)).toISOString().split('T')[0];
+      return {
+        color: 'primary',
+        icon: 'mdi-calendar-check',
+        text: dueStr
+      };
     },
     async loadData() {
       this.isloading = true;
@@ -768,242 +747,33 @@ var orderSumaryCardPos = __webpack_require__(488);
         endDate: this.date2,
         userId: this.userId
       };
-      let apiLine = 'api/sale/findByDate';
-      if (date.userId) {
-        apiLine = 'api/sale/findByDateAndUser';
+      try {
+        const res = await this.$axios.get('api/sale/findByDate', {
+          params: {
+            date
+          }
+        });
+        this.orderHeaderList = res.data;
+      } catch (er) {
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', er);
       }
-      await this.$axios.get(apiLine, {
-        params: {
-          date
-        }
-      }).then(res => {
-        // ****** Clear Old Data
-        this.orderHeaderList = [];
-        for (const iterator of res.data) {
-          this.orderHeaderList.push(iterator);
-        }
-        console.log("====> " + this.orderHeaderList.length);
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
-        console.log('Error ===>: ' + er);
-      });
       this.isloading = false;
     },
     formatDate(date) {
       if (!date) return null;
-      console.log("DATE FORMAT METHOD1: " + date);
-      const formattedDate = this.formatDateToISO(date);
-      const [year, month, day] = formattedDate.split('-');
+      const [year, month, day] = date.split('-');
       return `${month}/${day}/${year}`;
     },
     parseDate(date) {
-      console.log("DATE PARSE METHOD1: " + date);
       if (!date) return null;
       const [month, day, year] = date.split('/');
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
     },
-    formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date);
-      const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
-      const day = `${date.getDate()}`.padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    },
-    // ===== NEW SAFE CLIENT HANDLING METHODS =====
-
-    // Check if item has valid client data
-    hasValidClient(item) {
-      return item && item.client && typeof item.client === 'object' && item.client.credit !== undefined && item.client.credit !== null;
-    },
-    // Get client credit with default fallback
-    getClientCredit(item) {
-      if (!this.hasValidClient(item)) {
-        return 0; // Default credit days
-      }
-      return parseInt(item.client.credit) || 0;
-    },
-    // Get client name safely
-    getClientName(item) {
-      if (!item.client) {
-        return 'Walk-in Customer';
-      }
-      return item.client.name || 'Unnamed Client';
-    },
-    // Get message for items without client
-    getNoClientText(item) {
-      if (!item.client) {
-        return 'Walk-in Customer';
-      } else if (typeof item.client.credit === 'undefined') {
-        return 'No Credit Info';
-      }
-      return 'Unknown Client';
-    },
-    // Format booking date safely
-    formatBookingDate(bookingDate) {
-      if (!bookingDate) return 'Invalid Date';
-      try {
-        return bookingDate.split('T')[0];
-      } catch (error) {
-        console.warn('Error formatting booking date:', error);
-        return 'Invalid Date';
-      }
-    },
-    // Get booking status chip with comprehensive logic
-    getBookingStatusChip(item) {
-      if (!item.bookingDate) {
-        return {
-          color: 'grey',
-          icon: 'mdi-calendar-remove',
-          text: 'No Date'
-        };
-      }
-      const dayCount = this.countDay(item.bookingDate.split('T')[0]);
-      if (!this.hasValidClient(item)) {
-        return {
-          color: 'grey',
-          icon: 'mdi-account-off',
-          text: `${dayCount} days - No Client`
-        };
-      }
-      const creditDays = this.getClientCredit(item);
-      if (dayCount > creditDays + 7) {
-        return {
-          color: 'red',
-          icon: 'mdi-alert-circle',
-          text: `${dayCount} days - Overdue`
-        };
-      } else if (dayCount > creditDays) {
-        return {
-          color: 'orange',
-          icon: 'mdi-clock-alert',
-          text: `${dayCount} days - Past Due`
-        };
-      } else if (dayCount > creditDays - 3) {
-        return {
-          color: 'yellow',
-          icon: 'mdi-clock',
-          text: `${dayCount} days - Due Soon`
-        };
-      } else {
-        return {
-          color: 'green',
-          icon: 'mdi-check-circle',
-          text: `${dayCount} days - OK`
-        };
-      }
-    },
-    // Get due date chip with comprehensive status
-    getDueDateChip(item) {
-      if (!this.hasValidClient(item)) {
-        return {
-          color: 'grey',
-          icon: 'mdi-calendar-remove',
-          text: 'No Due Date'
-        };
-      }
-      try {
-        const dueDate = this.dueDate(item.bookingDate, this.getClientCredit(item));
-        const dueDateStr = dueDate.toISOString().split('T')[0];
-        const today = new Date();
-        const dueDateOnly = new Date(dueDateStr);
-        const todayOnly = new Date(today.toISOString().split('T')[0]);
-        const daysDifference = Math.ceil((dueDateOnly - todayOnly) / (1000 * 60 * 60 * 24));
-        if (daysDifference < 0) {
-          return {
-            color: 'red',
-            icon: 'mdi-calendar-alert',
-            text: `${Math.abs(daysDifference)} days overdue`
-          };
-        } else if (daysDifference === 0) {
-          return {
-            color: 'orange',
-            icon: 'mdi-calendar-today',
-            text: 'Due today'
-          };
-        } else if (daysDifference <= 3) {
-          return {
-            color: 'yellow',
-            icon: 'mdi-calendar-clock',
-            text: `Due in ${daysDifference} days`
-          };
-        } else {
-          return {
-            color: 'green',
-            icon: 'mdi-calendar-check',
-            text: dueDateStr
-          };
-        }
-      } catch (error) {
-        console.warn('Error calculating due date:', error);
-        return {
-          color: 'grey',
-          icon: 'mdi-calendar-remove',
-          text: 'Invalid Date'
-        };
-      }
-    },
-    // Safe wrapper for countDay method
-    safeCountDay(bookingDate) {
-      try {
-        if (!bookingDate) return 0;
-        return this.countDay(bookingDate.split('T')[0]);
-      } catch (error) {
-        console.warn('Error counting days:', error);
-        return 0;
-      }
-    },
-    // Safe wrapper for dueDate method
-    safeDueDate(bookingDate, credit) {
-      try {
-        if (!bookingDate || credit === undefined) return new Date();
-        return this.dueDate(bookingDate, credit);
-      } catch (error) {
-        console.warn('Error calculating due date:', error);
-        return new Date(); // Return today as fallback
-      }
-    },
-    // Validate client data and return detailed validation info
-    validateClientData(item) {
-      const validation = {
-        hasClient: false,
-        hasCredit: false,
-        hasValidCredit: false,
-        creditValue: 0,
-        errors: []
-      };
-      if (!item) {
-        validation.errors.push('Item is null or undefined');
-        return validation;
-      }
-      if (!item.client) {
-        validation.errors.push('Client is null or undefined');
-        return validation;
-      }
-      validation.hasClient = true;
-      if (item.client.credit === undefined || item.client.credit === null) {
-        validation.errors.push('Client credit is null or undefined');
-        return validation;
-      }
-      validation.hasCredit = true;
-      const creditValue = parseInt(item.client.credit);
-      if (isNaN(creditValue) || creditValue < 0) {
-        validation.errors.push('Client credit is not a valid positive number');
-        return validation;
-      }
-      validation.hasValidCredit = true;
-      validation.creditValue = creditValue;
-      return validation;
-    },
-    // Get comprehensive client display information
-    getClientDisplayInfo(item) {
-      const validation = this.validateClientData(item);
-      return {
-        name: validation.hasClient ? item.client.name || 'Unnamed Client' : 'Walk-in Customer',
-        credit: validation.hasValidCredit ? validation.creditValue : 0,
-        status: validation.hasValidCredit ? 'Valid' : 'Invalid',
-        errors: validation.errors,
-        color: validation.hasValidCredit ? 'primary' : 'grey'
-      };
+    viewItem(item) {
+      this.componentKey += 1;
+      this.viewTransaction = true;
+      this.selectedOrder = item.id;
+      this.dialogOrderDetail = true;
     }
   }
 });
@@ -1027,11 +797,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosCancelvue_type_script_lang_js,
-  ordersFromPosCancelvue_type_template_id_f2fcf4c4_scoped_true_render,
+  ordersFromPosCancelvue_type_template_id_487f93c2_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "f2fcf4c4",
+  "487f93c2",
   "e2acd1de"
   
 )
@@ -1039,7 +809,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersFromPosCancel = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default,OrderSumaryCardPos: __webpack_require__(488).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default})
 
 
 /***/ }),
@@ -3676,129 +3446,6 @@ installComponents(component, {CustomerList: __webpack_require__(112).default,Can
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-
-
-
-
-
-
-var orderSumaryCardPosvue_type_template_id_3b45c91c_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], {
-    staticClass: "ml-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_vm._v(_vm._s(this.orderDetail.title))]), _vm._v(" "), _c('div', {
-    staticClass: "pa-4"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ຈຳນວນ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.amount) + " ອໍເດີ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ມູນຄ່າ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.sale))])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */])], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=script&lang=js
-/* harmony default export */ var orderSumaryCardPosvue_type_script_lang_js = ({
-  props: {
-    orderDetail: {
-      type: Object,
-      default: ''
-    },
-    showTotal: {
-      type: Boolean,
-      default: false
-    },
-    gross: {
-      type: String,
-      default: '0'
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=script&lang=js
- /* harmony default export */ var components_orderSumaryCardPosvue_type_script_lang_js = (orderSumaryCardPosvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_orderSumaryCardPosvue_type_script_lang_js,
-  orderSumaryCardPosvue_type_template_id_3b45c91c_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "95ead728"
-  
-)
-
-/* harmony default export */ var orderSumaryCardPos = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 489:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
 var VDatePickerTitle = __webpack_require__(466);
@@ -5291,329 +4938,6 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VBtn/VBtn.js
-var VBtn = __webpack_require__(129);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDataTable/VDataTable.js + 12 modules
-var VDataTable = __webpack_require__(452);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
-var VDialog = __webpack_require__(416);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPos.vue?vue&type=template&id=5d931e66
-
-
-
-
-
-
-
-
-
-
-
-
-var OrderDetailPosvue_type_template_id_5d931e66_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c('div', [_c(VDialog["a" /* default */], {
-    attrs: {
-      "hide-overlay": "",
-      "persistent": "",
-      "width": "300"
-    },
-    model: {
-      value: _vm.isloading,
-      callback: function ($$v) {
-        _vm.isloading = $$v;
-      },
-      expression: "isloading"
-    }
-  }, [_c('loading-indicator')], 1), _vm._ssrNode(" "), _c(VCard["a" /* default */], [_c(components_VCard["b" /* VCardSubtitle */], [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.isQuotation ? `Quotation #` : `Invoice #`) + "\n                    " + _vm._s(_vm.header.id) + "\n                ")]), _vm._v(" "), _vm.isQuotation ? _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6"
-    }
-  }, [_c(VBtn["a" /* default */], {
-    staticClass: "primary",
-    attrs: {
-      "size": "large",
-      "variant": "outlined"
-    },
-    on: {
-      "click": _vm.post
-    }
-  }, [_vm._v("\n                        Post to invoice"), _c('span', {
-    staticClass: "mdi mdi-cloud-download"
-  })])], 1) : _vm._e()], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VCard["a" /* default */], [_c(components_VCard["c" /* VCardText */], [_c('div', [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ວັນທີ: " + _vm._s(_vm.header.bookingDate) + " ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຊື່ລູກຄ້າ: " + _vm._s(_vm.header.client.name))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ເບີໂທ: " + _vm._s(_vm.header.client.telephone))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ບໍລິສັດ: " + _vm._s(_vm.header.client.company))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ການຊຳລະ: " + _vm._s(_vm.header.payment.payment_code) + " ")])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ສະກຸນ: " + _vm._s(_vm.header.currency.code))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ອັດຕາແລກປ່ຽນ: " + _vm._s(_vm.header.exchangeRate))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ສ່ວນຫລຸດ: " + _vm._s(_vm.header.discount))]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຍອດລວມທັງໝົດ: " + _vm._s(_vm.getFormatNum(_vm.header.total)))])], 1)], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "end"
-    },
-    attrs: {
-      "cols": "4"
-    }
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຜູ້ລົງ: " + _vm._s(_vm.header.user.cus_id) + " ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_vm._v("ຊື່: " + _vm._s(_vm.header.user.cus_name))])], 1)], 1)], 1)], 1)])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _vm.header.lines ? _c(VDataTable["a" /* default */], {
-    attrs: {
-      "headers": _vm.headers,
-      "search": _vm.search,
-      "items": _vm.header.lines
-    },
-    scopedSlots: _vm._u([{
-      key: `item.function`,
-      fn: function ({
-        item
-      }) {
-        return [_c(VBtn["a" /* default */], {
-          attrs: {
-            "color": "blue darken-1",
-            "text": ""
-          },
-          on: {
-            "click": function ($event) {
-              _vm.editItem(item);
-              _vm.wallet = true;
-            }
-          }
-        }, [_c('i', {
-          staticClass: "fas fa-wallet"
-        })])];
-      }
-    }, {
-      key: `item.price`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.price)) + "\n                ")];
-      }
-    }, {
-      key: `item.discount`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.discount)) + "\n                ")];
-      }
-    }, {
-      key: `item.total`,
-      fn: function ({
-        item
-      }) {
-        return [_vm._v("\n                    " + _vm._s(_vm.getFormatNum(item.total)) + "\n                ")];
-      }
-    }], null, true)
-  }) : _vm._e()], 1), _vm._v(" "), _c(components_VCard["a" /* VCardActions */], [_c(VSpacer["a" /* default */]), _vm._v(" "), _c(VBtn["a" /* default */], {
-    attrs: {
-      "color": "warning",
-      "rounded": "",
-      "variant": "text"
-    },
-    on: {
-      "click": _vm.toggleDialog
-    }
-  }, [_vm._v("\n                Close\n            ")])], 1)], 1)], 2);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue?vue&type=template&id=5d931e66
-
-// EXTERNAL MODULE: ./common/index.js
-var common = __webpack_require__(7);
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPos.vue?vue&type=script&lang=js
-
-/* harmony default export */ var OrderDetailPosvue_type_script_lang_js = ({
-  props: {
-    // entry: {
-    //     type: Object,
-    //     default: '',
-    // },
-    header: {
-      type: Object,
-      default: null
-    },
-    isQuotation: {
-      type: Boolean,
-      default: false
-    }
-  },
-  methods: {
-    post() {
-      //  ********** Enable below line to confirm before clear ***********//
-      Object(common["a" /* confirmSwal */])(this.$swal, 'You are posting to invoice ?', this.postToInvoice);
-      // this.clearCart()
-    },
-    getFormatNum(val) {
-      return new Intl.NumberFormat().format(val);
-    },
-    toggleDialog() {
-      this.$emit('close-dialog');
-    },
-    async postToInvoice() {
-      if (this.isloading) return;
-      this.isloading = true;
-      // TODO: How to split data between cod order[not yet paid] and all order
-      const date = {
-        startDate: this.date,
-        endDate: this.date2
-      };
-      await this.$axios.put(`api/sale/postToInvoice/${this.header.id}`).then(res => {
-        this.$emit('reload');
-        Object(common["l" /* swalSuccess */])(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ');
-      }).catch(er => {
-        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'Could no load data ' + er.Error);
-        console.log('Error ===>: ' + er);
-      });
-      this.isloading = false;
-    }
-  },
-  data() {
-    return {
-      search: '',
-      isloading: false,
-      headers: [{
-        text: 'ສິນຄ້າ',
-        align: 'start',
-        value: 'product.pro_name'
-      }, {
-        text: 'ຈຳນວນ',
-        align: 'end',
-        value: 'quantity'
-      }, {
-        text: 'ລາຄາ',
-        align: 'end',
-        value: 'price',
-        sortable: true
-      }, {
-        text: 'ສ່ວນຫລຸດ',
-        align: 'end',
-        value: 'discount',
-        sortable: true
-      }, {
-        text: 'ລວມ',
-        align: 'end',
-        value: 'total',
-        sortable: false
-      }]
-    };
-  }
-});
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue?vue&type=script&lang=js
- /* harmony default export */ var components_OrderDetailPosvue_type_script_lang_js = (OrderDetailPosvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/OrderDetailPos.vue
-
-
-
-function injectStyles (context) {
-  
-  
-}
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_OrderDetailPosvue_type_script_lang_js,
-  OrderDetailPosvue_type_template_id_5d931e66_render,
-  staticRenderFns,
-  false,
-  injectStyles,
-  null,
-  "32269b28"
-  
-)
-
-/* harmony default export */ var OrderDetailPos = __webpack_exports__["default"] = (component.exports);
-
-/* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default})
-
-
-/***/ }),
-
 /***/ 499:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -5814,7 +5138,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("5f790df0", content, true, context)
+  add("7cd988dc", content, true, context)
 };
 
 /***/ })

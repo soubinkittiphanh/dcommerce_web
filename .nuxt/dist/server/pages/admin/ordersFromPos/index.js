@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(937);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_2c5a3632_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c6bd9c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(937);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c6bd9c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c6bd9c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c6bd9c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7c6bd9c4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-2c5a3632],.text-h5[data-v-2c5a3632]{font-family:\"Noto Sans Lao\"}table[data-v-2c5a3632]{border:1px solid #000}.payment-summary-card[data-v-2c5a3632]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-2c5a3632]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-2c5a3632]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-2c5a3632]{margin-bottom:8px}.payment-summary-card h3[data-v-2c5a3632]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-2c5a3632]{border-radius:4px}.v-alert--dense[data-v-2c5a3632]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-2c5a3632]{margin-bottom:16px}.payment-summary-card h3[data-v-2c5a3632]{font-size:1.2rem}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".grey[data-v-7c6bd9c4],.text-h5[data-v-7c6bd9c4]{font-family:\"Noto Sans Lao\"}table[data-v-7c6bd9c4]{border:1px solid #000}.payment-summary-card[data-v-7c6bd9c4]{border-radius:12px;cursor:pointer;overflow:hidden;transition:all .3s ease}.payment-summary-card[data-v-7c6bd9c4]:hover{box-shadow:0 8px 25px rgba(0,0,0,.15)!important;transform:translateY(-4px)}.payment-summary-card.selected-payment[data-v-7c6bd9c4]{border:3px solid #1976d2!important;box-shadow:0 0 0 1px rgba(25,118,210,.3)}.payment-summary-card .v-icon[data-v-7c6bd9c4]{margin-bottom:8px}.payment-summary-card h3[data-v-7c6bd9c4]{font-weight:600;letter-spacing:-.5px}.payment-summary-card .v-progress-linear[data-v-7c6bd9c4]{border-radius:4px}.v-alert--dense[data-v-7c6bd9c4]{border-radius:8px}@media (max-width:600px){.payment-summary-card[data-v-7c6bd9c4]{margin-bottom:16px}.payment-summary-card h3[data-v-7c6bd9c4]{font-size:1.2rem}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -63,7 +63,7 @@ var VCol = __webpack_require__(441);
 var VDataTable = __webpack_require__(452);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDatePicker/VDatePicker.js + 16 modules
-var VDatePicker = __webpack_require__(489);
+var VDatePicker = __webpack_require__(488);
 
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDialog/VDialog.js
 var VDialog = __webpack_require__(416);
@@ -95,7 +95,7 @@ var VSelect = __webpack_require__(20);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2c5a3632&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/ordersFromPos/index.vue?vue&type=template&id=7c6bd9c4&scoped=true
 
 
 
@@ -118,12 +118,12 @@ var VTextField = __webpack_require__(39);
 
 
 
-var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function render() {
+var ordersFromPosvue_type_template_id_7c6bd9c4_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "text-left"
-  }, [_vm._ssrNode("<div data-v-2c5a3632>", "</div>", [_c(VChip["a" /* default */], {
+  }, [_vm._ssrNode("<div data-v-7c6bd9c4>", "</div>", [_c(VChip["a" /* default */], {
     staticClass: "pa-5",
     attrs: {
       "color": "primary",
@@ -255,7 +255,7 @@ var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function ren
       },
       expression: "paymentDetailsDialog"
     }
-  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-2c5a3632>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
+  }), _vm._ssrNode(" "), _vm._ssrNode("<div data-v-7c6bd9c4>", "</div>", [_c(VCard["a" /* default */], [_c(components_VCard["d" /* VCardTitle */], [_c(VLayout["a" /* default */], {
     attrs: {
       "row": "",
       "wrap": ""
@@ -508,93 +508,93 @@ var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function ren
     }
   }, [_c('span', {
     staticClass: "mdi mdi-cloud-download"
-  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c(VRow["a" /* default */], {
-    staticClass: "mb-4"
-  }, [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "12"
-    }
-  }, [_c('h3', {
-    staticClass: "mb-3"
-  }, [_c(VIcon["a" /* default */], {
-    attrs: {
-      "left": ""
-    }
-  }, [_vm._v("mdi-chart-pie")]), _vm._v("\n              ສະຫຼຸບຕາມປະເພດການຊຳລະ\n            ")], 1)])], 1), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "lg": "3"
-    }
-  }, [_c('order-sumary-card-pos', {
-    attrs: {
-      "showTotal": true,
-      "gross": _vm.getFormatNum(_vm.totalSaleRaw - +this.unpaidCodOrder.saleRawNumber),
-      "orderDetail": {
-        title: 'ຍອດບິນທັງໝົດ',
-        amount: _vm.getFormatNum(_vm.filteredOrderHeaderList.length),
-        sale: _vm.getFormatNum(_vm.totalSale)
-      }
-    }
-  })], 1), _vm._v(" "), _c(VCol["a" /* default */], {
-    attrs: {
-      "cols": "6",
-      "lg": "9"
-    }
-  }, [_c(VRow["a" /* default */], _vm._l(_vm.paymentStatistics, function (paymentStat) {
+  }), _vm._v("\n              ດຶງລາຍງານ\n            ")])], 1)], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(components_VCard["c" /* VCardText */], [_c('section', {
+    staticClass: "kpi-section mt-5"
+  }, [_c(VRow["a" /* default */], {
+    staticClass: "kpi-grid"
+  }, _vm._l(_vm.paymentStatistics, function (item, index) {
+    var _vm$localCurrency;
     return _c(VCol["a" /* default */], {
-      key: paymentStat.code,
+      key: index,
       attrs: {
-        "cols": "6",
+        "cols": "12",
         "md": "4",
-        "lg": "3"
+        "lg": "4"
       }
-    }, [_c(VCard["a" /* default */], {
-      staticClass: "payment-summary-card pa-3 text-center elevation-2",
-      class: {
-        'selected-payment': _vm.selectedPaymentFilter === paymentStat.code
-      },
+    }, [_c('div', {
+      staticClass: "kpi-card elevation-2 pa-4",
       staticStyle: {
-        "cursor": "pointer",
-        "transition": "all 0.2s ease"
-      },
-      attrs: {
-        "outlined": ""
+        "border-radius": "16px",
+        "background": "white",
+        "border": "1px solid #e2e8f0",
+        "cursor": "pointer"
       },
       on: {
         "click": function ($event) {
-          return _vm.filterByPaymentType(paymentStat.code);
+          return _vm.filterByPaymentType(item.code);
         }
       }
-    }, [_c(VIcon["a" /* default */], {
-      staticClass: "mb-2",
+    }, [_c('div', {
+      staticClass: "kpi-header d-flex justify-space-between align-center mb-4"
+    }, [_c(VAvatar["a" /* default */], {
       attrs: {
-        "color": paymentStat.color,
-        "size": "32"
+        "color": item.color,
+        "size": "48"
       }
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.icon) + "\n                  ")]), _vm._v(" "), _c('h3', {
-      class: `${paymentStat.color}--text mb-1`
-    }, [_vm._v("\n                    " + _vm._s(_vm.formatNumber(paymentStat.amount)) + " LAK\n                  ")]), _vm._v(" "), _c('div', {
-      staticClass: "text--secondary mb-1"
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.name) + "\n                  ")]), _vm._v(" "), _c(VChip["a" /* default */], {
+    }, [_c(VIcon["a" /* default */], {
+      attrs: {
+        "color": "white"
+      }
+    }, [_vm._v(_vm._s(item.icon))])], 1), _vm._v(" "), _c(VChip["a" /* default */], {
       staticClass: "font-weight-bold",
       attrs: {
-        "color": paymentStat.color,
-        "small": "",
-        "outlined": ""
+        "x-small": "",
+        "color": "success",
+        "text-color": "white"
       }
-    }, [_vm._v("\n                    " + _vm._s(paymentStat.count) + " ລາຍການ\n                  ")]), _vm._v(" "), _c('div', {
-      staticClass: "mt-2"
-    }, [_c(VProgressLinear["a" /* default */], {
+    }, [_vm._v("\n                    " + _vm._s(item.percentage.toFixed(1)) + "%\n                  ")])], 1), _vm._v(" "), _c('div', {
+      staticClass: "kpi-content"
+    }, [_c('h3', {
+      staticClass: "kpi-title text-subtitle-2 grey--text mb-1"
+    }, [_vm._v("\n                    " + _vm._s(item.title) + "\n                  ")]), _vm._v(" "), _c('div', {
+      staticClass: "kpi-value text-h5 font-weight-black primary--text mb-3"
+    }, [_vm._v("\n                    " + _vm._s(_vm.formatNumber(item.total)) + "\n                    "), _c('small', {
+      staticClass: "text-caption"
+    }, [_vm._v(_vm._s((_vm$localCurrency = _vm.localCurrency) === null || _vm$localCurrency === void 0 ? void 0 : _vm$localCurrency.code))])]), _vm._v(" "), item.groupedCurrency ? _c('div', {
+      staticClass: "currency-breakdown-container"
+    }, _vm._l(item.groupedCurrency, function (val, code) {
+      var _vm$localCurrency2, _vm$localCurrency3;
+      return _c('div', {
+        key: code,
+        staticClass: "d-flex justify-space-between align-center mb-1 pa-1 rounded bg-light",
+        staticStyle: {
+          "background": "#f8fafc",
+          "border": "1px dashed #e2e8f0"
+        }
+      }, [_c('span', {
+        staticClass: "font-weight-bold caption"
+      }, [_vm._v(_vm._s(code))]), _vm._v(" "), _c('div', {
+        staticClass: "text-right"
+      }, [_c('div', {
+        staticClass: "caption font-weight-bold"
+      }, [_vm._v("\n                          " + _vm._s(_vm.formatNumber(val.original)) + " " + _vm._s(code) + "\n                        ")]), _vm._v(" "), code !== ((_vm$localCurrency2 = _vm.localCurrency) === null || _vm$localCurrency2 === void 0 ? void 0 : _vm$localCurrency2.code) ? _c('div', {
+        staticClass: "grey--text",
+        staticStyle: {
+          "font-size": "0.65rem"
+        }
+      }, [_vm._v("\n                          ≈ " + _vm._s(_vm.formatNumber(val.local)) + "\n                          " + _vm._s((_vm$localCurrency3 = _vm.localCurrency) === null || _vm$localCurrency3 === void 0 ? void 0 : _vm$localCurrency3.code) + "\n                        ")]) : _vm._e()])]);
+    }), 0) : _vm._e(), _vm._v(" "), _c(VProgressLinear["a" /* default */], {
+      staticClass: "mt-3",
       attrs: {
-        "value": paymentStat.percentage,
-        "color": paymentStat.color,
-        "height": "4",
+        "value": item.percentage,
+        "color": item.color,
+        "height": "6",
         "rounded": ""
       }
     }), _vm._v(" "), _c('div', {
-      staticClass: "mt-1"
-    }, [_vm._v("\n                      " + _vm._s(paymentStat.percentage.toFixed(1)) + "% ຂອງຍອດລວມ\n                    ")])], 1)], 1)], 1);
-  }), 1)], 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
+      staticClass: "caption text-right mt-1 grey--text"
+    }, [_vm._v("\n                    " + _vm._s(item.count) + " Transactions\n                  ")])], 1)])]);
+  }), 1)], 1), _vm._v(" "), _c(VRow["a" /* default */], {
     staticClass: "mt-4"
   }, [_c(VCol["a" /* default */], {
     attrs: {
@@ -796,7 +796,7 @@ var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function ren
       fn: function ({
         item
       }) {
-        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(item.total)) + "\n        ")];
+        return [_vm._v("\n          " + _vm._s(_vm.numberWithCommas(_vm.calculateHeaderTotalLocal(item))) + "\n          " + _vm._s(_vm.localCurrency ? _vm.localCurrency.code : '') + "\n        ")];
       }
     }, {
       key: `item.createdAt`,
@@ -989,7 +989,7 @@ var ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render = function ren
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=2c5a3632&scoped=true
+// CONCATENATED MODULE: ./pages/admin/ordersFromPos/index.vue?vue&type=template&id=7c6bd9c4&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -1499,13 +1499,13 @@ const formatDateForReport = formatDateLao;
 var ticket = __webpack_require__(166);
 
 // EXTERNAL MODULE: ./components/OrderDetailPos.vue + 4 modules
-var OrderDetailPos = __webpack_require__(495);
+var OrderDetailPos = __webpack_require__(497);
 
 // EXTERNAL MODULE: ./components/OrderDetailPosCRUD.vue + 4 modules
 var OrderDetailPosCRUD = __webpack_require__(485);
 
 // EXTERNAL MODULE: ./components/orderSumaryCardPos.vue + 4 modules
-var orderSumaryCardPos = __webpack_require__(488);
+var orderSumaryCardPos = __webpack_require__(489);
 
 // EXTERNAL MODULE: ./components/pos/dialogs/TicketDetailsDialog.vue + 4 modules
 var TicketDetailsDialog = __webpack_require__(618);
@@ -1681,6 +1681,41 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   computed: {
+    localCurrency() {
+      var _this$findAllCurrency;
+      return (_this$findAllCurrency = this.findAllCurrency) === null || _this$findAllCurrency === void 0 ? void 0 : _this$findAllCurrency.find(c => c.isLocalCCY === true || c.isLocalCCY === 1);
+    },
+    currencyStatistics() {
+      const stats = {};
+      this.activeOrderHeaderList.forEach(header => {
+        header.lines.forEach(line => {
+          var _this$findAllCurrency2, _this$findAllCurrency3;
+          const lineCurrency = ((_this$findAllCurrency2 = this.findAllCurrency) === null || _this$findAllCurrency2 === void 0 ? void 0 : _this$findAllCurrency2.find(c => c.id === line.currencyId)) || ((_this$findAllCurrency3 = this.findAllCurrency) === null || _this$findAllCurrency3 === void 0 ? void 0 : _this$findAllCurrency3.find(c => {
+            var _line$product;
+            return c.id === ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.saleCurrencyId);
+          }));
+          const currencyCode = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.code) || 'UNKNOWN';
+          const isLocal = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === true || (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === 1;
+
+          // Logic Fix: Conversion is 1 if local, else use stored exchangeRate
+          const rate = isLocal ? 1 : line.exchangeRate || 1;
+          const lineTotalLocal = line.quantity * line.price * rate;
+          if (!stats[currencyCode]) {
+            stats[currencyCode] = {
+              code: currencyCode,
+              amountOriginal: 0,
+              amountLocal: 0,
+              count: 0,
+              isLocal: isLocal
+            };
+          }
+          stats[currencyCode].amountOriginal += line.quantity * line.price;
+          stats[currencyCode].amountLocal += lineTotalLocal;
+          stats[currencyCode].count += 1;
+        });
+      });
+      return Object.values(stats);
+    },
     getSPF() {
       return this.$store.getters.findSPF;
     },
@@ -1780,49 +1815,56 @@ var external_vuex_ = __webpack_require__(14);
     },
     paymentStatistics() {
       const stats = {};
-      let totalAmount = 0;
-      this.activeOrderHeaderList.forEach(item => {
-        const itemTotal = item.total - item.discount;
-        if (this.isMultiPayment(item)) {
-          item.payments.forEach(payment => {
-            var _payment$paymentMetho2;
-            const code = ((_payment$paymentMetho2 = payment.paymentMethod) === null || _payment$paymentMetho2 === void 0 ? void 0 : _payment$paymentMetho2.payment_code) || 'UNKNOWN';
-            if (!stats[code]) {
-              var _payment$paymentMetho3;
-              stats[code] = {
-                code: code,
-                name: ((_payment$paymentMetho3 = payment.paymentMethod) === null || _payment$paymentMetho3 === void 0 ? void 0 : _payment$paymentMetho3.payment_name) || 'Unknown',
-                amount: 0,
-                count: 0,
-                color: this.getPaymentMethodColor(code),
-                icon: this.getPaymentMethodIcon(code)
-              };
-            }
-            stats[code].amount += payment.amount;
-            stats[code].count += 1;
-            totalAmount += payment.amount;
-          });
-        } else if (item.payment) {
-          const code = item.payment.payment_code;
-          if (!stats[code]) {
-            stats[code] = {
-              code: code,
-              name: item.payment.payment_name,
-              amount: 0,
+      let grandTotalLocal = 0;
+      this.activeOrderHeaderList.forEach(header => {
+        const headerTotalLocal = this.calculateHeaderTotalLocal(header);
+        grandTotalLocal += headerTotalLocal;
+        const processPayment = (paymentCode, paymentName, amountLocal, headerLines) => {
+          if (!stats[paymentCode]) {
+            stats[paymentCode] = {
+              code: paymentCode,
+              title: paymentName,
+              icon: this.getPaymentMethodIcon(paymentCode),
+              color: this.getPaymentMethodColor(paymentCode),
+              total: 0,
               count: 0,
-              color: this.getPaymentMethodColor(code),
-              icon: this.getPaymentMethodIcon(code)
+              groupedCurrency: {}
             };
           }
-          stats[code].amount += itemTotal;
-          stats[code].count += 1;
-          totalAmount += itemTotal;
+          stats[paymentCode].total += amountLocal;
+          stats[paymentCode].count += 1;
+          headerLines.forEach(line => {
+            var _this$findAllCurrency4;
+            const lineCurrency = (_this$findAllCurrency4 = this.findAllCurrency) === null || _this$findAllCurrency4 === void 0 ? void 0 : _this$findAllCurrency4.find(c => c.id === line.currencyId);
+            const cCode = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.code) || 'Unknown';
+            if (!stats[paymentCode].groupedCurrency[cCode]) {
+              stats[paymentCode].groupedCurrency[cCode] = {
+                original: 0,
+                local: 0
+              };
+            }
+            const isLocal = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === true || (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === 1;
+            const rate = isLocal ? 1 : line.exchangeRate || 1;
+
+            // Track both values
+            stats[paymentCode].groupedCurrency[cCode].original += line.quantity * line.price;
+            stats[paymentCode].groupedCurrency[cCode].local += line.quantity * line.price * rate;
+          });
+        };
+        if (this.isMultiPayment(header)) {
+          header.payments.forEach(p => {
+            var _p$paymentMethod, _p$paymentMethod2;
+            processPayment((_p$paymentMethod = p.paymentMethod) === null || _p$paymentMethod === void 0 ? void 0 : _p$paymentMethod.payment_code, (_p$paymentMethod2 = p.paymentMethod) === null || _p$paymentMethod2 === void 0 ? void 0 : _p$paymentMethod2.payment_name, p.amount, header.lines);
+          });
+        } else {
+          var _header$payment, _header$payment2;
+          processPayment((_header$payment = header.payment) === null || _header$payment === void 0 ? void 0 : _header$payment.payment_code, (_header$payment2 = header.payment) === null || _header$payment2 === void 0 ? void 0 : _header$payment2.payment_name, headerTotalLocal, header.lines);
         }
       });
-      Object.values(stats).forEach(stat => {
-        stat.percentage = totalAmount > 0 ? stat.amount / totalAmount * 100 : 0;
-      });
-      return Object.values(stats).sort((a, b) => b.amount - a.amount);
+      return Object.values(stats).map(stat => ({
+        ...stat,
+        percentage: grandTotalLocal > 0 ? stat.total / grandTotalLocal * 100 : 0
+      }));
     },
     singlePaymentCount() {
       return this.activeOrderHeaderList.filter(item => !this.isMultiPayment(item)).length;
@@ -1870,12 +1912,25 @@ var external_vuex_ = __webpack_require__(14);
     computedDateFormatted() {
       return this.formatDate(this.fromDate);
     },
-    totalSale() {
-      let total = 0;
-      this.filteredOrderHeaderList.forEach(el => {
-        total += el.total;
+    normalizedSales() {
+      return this.filteredOrderHeaderList.map(header => {
+        // Calculate the actual total by summing normalized lines
+        const actualTotalLAK = header.lines.reduce((sum, line) => {
+          // Calculate line total in its own currency first
+          const lineTotalOriginal = line.quantity * line.price;
+          // Convert to local currency using the line's specific exchange rate
+          const lineTotalLAK = lineTotalOriginal * (line.exchangeRate || 1);
+          return sum + lineTotalLAK;
+        }, 0);
+        return {
+          ...header,
+          calculatedTotalLAK: actualTotalLAK,
+          netTotalLAK: actualTotalLAK - header.discount
+        };
       });
-      return total;
+    },
+    totalSale() {
+      return this.activeOrderHeaderList.reduce((sum, item) => sum + this.calculateHeaderTotalLocal(item), 0);
     },
     totalSaleRaw() {
       let total = 0;
@@ -1921,6 +1976,19 @@ var external_vuex_ = __webpack_require__(14);
     }
   },
   methods: {
+    calculateHeaderTotalLocal(header) {
+      if (!header.lines) return header.total;
+      const total = header.lines.reduce((sum, line) => {
+        var _this$findAllCurrency5;
+        const lineCurrency = (_this$findAllCurrency5 = this.findAllCurrency) === null || _this$findAllCurrency5 === void 0 ? void 0 : _this$findAllCurrency5.find(c => c.id === line.currencyId);
+        const isLocal = (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === true || (lineCurrency === null || lineCurrency === void 0 ? void 0 : lineCurrency.isLocalCCY) === 1;
+
+        // Use 1 for local, or the exchangeRate for foreign
+        const rate = isLocal ? 1 : line.exchangeRate || 1;
+        return sum + line.quantity * line.price * rate;
+      }, 0);
+      return total - (header.discount || 0);
+    },
     formatCompanyAddress(company) {
       if (!company) return '';
       let formattedAddress = '';
@@ -2113,7 +2181,7 @@ var external_vuex_ = __webpack_require__(14);
       return shipping['name'];
     },
     formatNumber(val) {
-      return Object(common["e" /* getFormatNum */])(val);
+      return new Intl.NumberFormat().format(val || 0);
     },
     async loadShipping() {
       this.$axios.get('/api/shipping/find').then(res => {
@@ -2148,11 +2216,11 @@ var external_vuex_ = __webpack_require__(14);
 
       // 🔧 FIX: Transform the data structure to match what the ticket function expects
       const transformedLines = data.lines.map(line => {
-        var _line$product, _line$product2;
+        var _line$product2, _line$product3;
         return {
           // Map the actual data structure to what the ticket function expects
-          id: ((_line$product = line.product) === null || _line$product === void 0 ? void 0 : _line$product.id) || line.productId,
-          pro_name: ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.pro_name) || 'Unknown Product',
+          id: ((_line$product2 = line.product) === null || _line$product2 === void 0 ? void 0 : _line$product2.id) || line.productId,
+          pro_name: ((_line$product3 = line.product) === null || _line$product3 === void 0 ? void 0 : _line$product3.pro_name) || 'Unknown Product',
           qty: line.quantity,
           // ✅ quantity → qty
           localPrice: line.price,
@@ -2220,10 +2288,7 @@ var external_vuex_ = __webpack_require__(14);
       return Object(common["g" /* getNextDate */])(startDate, day);
     },
     numberWithCommas(value) {
-      if (value === null || value === undefined) {
-        return '0';
-      }
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      return (value || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
     whatsappLink(item) {
       if (!item.client || !item.client.telephone) {
@@ -2335,11 +2400,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_ordersFromPosvue_type_script_lang_js,
-  ordersFromPosvue_type_template_id_2c5a3632_scoped_true_render,
+  ordersFromPosvue_type_template_id_7c6bd9c4_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "2c5a3632",
+  "7c6bd9c4",
   "ac53ec12"
   
 )
@@ -2347,7 +2412,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var ordersFromPos = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(480).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default,OrderSumaryCardPos: __webpack_require__(488).default})
+installComponents(component, {LoadingIndicator: __webpack_require__(70).default,YoutubePlayer: __webpack_require__(480).default,OrderDetailPosCRUD: __webpack_require__(485).default,CancelTicketForm: __webpack_require__(463).default})
 
 
 /***/ }),
@@ -5080,129 +5145,6 @@ installComponents(component, {CustomerList: __webpack_require__(112).default,Can
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
-var VCard = __webpack_require__(126);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
-var components_VCard = __webpack_require__(3);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
-var VCol = __webpack_require__(441);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
-var VDivider = __webpack_require__(125);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
-var VRow = __webpack_require__(440);
-
-// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
-var VSpacer = __webpack_require__(443);
-
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-
-
-
-
-
-
-var orderSumaryCardPosvue_type_template_id_3b45c91c_render = function render() {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c(VCard["a" /* default */], {
-    staticClass: "ml-4"
-  }, [_c(components_VCard["d" /* VCardTitle */], [_vm._v(_vm._s(this.orderDetail.title))]), _vm._v(" "), _c('div', {
-    staticClass: "pa-4"
-  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ຈຳນວນ")]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.amount) + " ອໍເດີ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "left"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v("ມູນຄ່າ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VCol["a" /* default */], {
-    staticStyle: {
-      "text-align": "right"
-    },
-    attrs: {
-      "cols": "6",
-      "lg": "6"
-    }
-  }, [_vm._v(_vm._s(this.orderDetail.sale))])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */])], 1);
-};
-var staticRenderFns = [];
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=script&lang=js
-/* harmony default export */ var orderSumaryCardPosvue_type_script_lang_js = ({
-  props: {
-    orderDetail: {
-      type: Object,
-      default: ''
-    },
-    showTotal: {
-      type: Boolean,
-      default: false
-    },
-    gross: {
-      type: String,
-      default: '0'
-    }
-  }
-});
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=script&lang=js
- /* harmony default export */ var components_orderSumaryCardPosvue_type_script_lang_js = (orderSumaryCardPosvue_type_script_lang_js); 
-// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
-var componentNormalizer = __webpack_require__(10);
-
-// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue
-
-
-
-
-
-/* normalize component */
-
-var component = Object(componentNormalizer["a" /* default */])(
-  components_orderSumaryCardPosvue_type_script_lang_js,
-  orderSumaryCardPosvue_type_template_id_3b45c91c_render,
-  staticRenderFns,
-  false,
-  null,
-  null,
-  "95ead728"
-  
-)
-
-/* harmony default export */ var orderSumaryCardPos = __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 489:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 
 // EXTERNAL MODULE: ./node_modules/vuetify/src/components/VDatePicker/VDatePickerTitle.sass
 var VDatePickerTitle = __webpack_require__(466);
@@ -6668,6 +6610,129 @@ var console = __webpack_require__(6);
 
 /***/ }),
 
+/***/ 489:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/VCard.js
+var VCard = __webpack_require__(126);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VCard/index.js
+var components_VCard = __webpack_require__(3);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VCol.js
+var VCol = __webpack_require__(441);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VDivider/VDivider.js
+var VDivider = __webpack_require__(125);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
+var VRow = __webpack_require__(440);
+
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
+var VSpacer = __webpack_require__(443);
+
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
+
+
+
+
+
+
+
+var orderSumaryCardPosvue_type_template_id_3b45c91c_render = function render() {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c(VCard["a" /* default */], {
+    staticClass: "ml-4"
+  }, [_c(components_VCard["d" /* VCardTitle */], [_vm._v(_vm._s(this.orderDetail.title))]), _vm._v(" "), _c('div', {
+    staticClass: "pa-4"
+  }, [_c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    staticStyle: {
+      "text-align": "left"
+    },
+    attrs: {
+      "cols": "6",
+      "lg": "6"
+    }
+  }, [_vm._v("ຈຳນວນ")]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticStyle: {
+      "text-align": "right"
+    },
+    attrs: {
+      "cols": "6",
+      "lg": "6"
+    }
+  }, [_vm._v(_vm._s(this.orderDetail.amount) + " ອໍເດີ")])], 1), _vm._v(" "), _c(VDivider["a" /* default */]), _vm._v(" "), _c(VRow["a" /* default */], [_c(VCol["a" /* default */], {
+    staticStyle: {
+      "text-align": "left"
+    },
+    attrs: {
+      "cols": "6",
+      "lg": "6"
+    }
+  }, [_vm._v("ມູນຄ່າ")]), _vm._v(" "), _c(VSpacer["a" /* default */]), _vm._v(" "), _c(VCol["a" /* default */], {
+    staticStyle: {
+      "text-align": "right"
+    },
+    attrs: {
+      "cols": "6",
+      "lg": "6"
+    }
+  }, [_vm._v(_vm._s(this.orderDetail.sale))])], 1)], 1), _vm._v(" "), _c(VDivider["a" /* default */])], 1);
+};
+var staticRenderFns = [];
+
+// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=template&id=3b45c91c
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/orderSumaryCardPos.vue?vue&type=script&lang=js
+/* harmony default export */ var orderSumaryCardPosvue_type_script_lang_js = ({
+  props: {
+    orderDetail: {
+      type: Object,
+      default: ''
+    },
+    showTotal: {
+      type: Boolean,
+      default: false
+    },
+    gross: {
+      type: String,
+      default: '0'
+    }
+  }
+});
+// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue?vue&type=script&lang=js
+ /* harmony default export */ var components_orderSumaryCardPosvue_type_script_lang_js = (orderSumaryCardPosvue_type_script_lang_js); 
+// EXTERNAL MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
+var componentNormalizer = __webpack_require__(10);
+
+// CONCATENATED MODULE: ./components/orderSumaryCardPos.vue
+
+
+
+
+
+/* normalize component */
+
+var component = Object(componentNormalizer["a" /* default */])(
+  components_orderSumaryCardPosvue_type_script_lang_js,
+  orderSumaryCardPosvue_type_template_id_3b45c91c_render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  "95ead728"
+  
+)
+
+/* harmony default export */ var orderSumaryCardPos = __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ 490:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -6695,7 +6760,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 495:
+/***/ 497:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -8334,7 +8399,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("9867e5b6", content, true, context)
+  add("0641c564", content, true, context)
 };
 
 /***/ })

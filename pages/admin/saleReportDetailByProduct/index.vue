@@ -273,6 +273,42 @@
 
       <!-- Enhanced Summary Dashboard -->
       <v-card-text class="pa-6">
+        <!-- Currency Breakdown Section - NEW -->
+        <v-row class="mb-6">
+          <v-col cols="12">
+            <h3 class="dashboard-title">
+              <v-icon left color="primary">mdi-cash-multiple</v-icon>
+              ສະຫຼຸບຍອດຂາຍຕາມສະກຸນເງິນ
+            </h3>
+          </v-col>
+        </v-row>
+
+        <v-row class="mb-6">
+          <v-col v-for="(item, index) in salesStatistics" :key="index" cols="12" sm="6" md="4">
+            <div class="kpi-card pa-4 elevation-2" style="border-left: 5px solid #4CAF50; border-radius: 12px; background: #fff;">
+              <div class="d-flex justify-space-between align-center mb-2">
+                <span class="grey--text">ຍອດຂາຍລວມ</span>
+                <v-icon color="success">mdi-cash-check</v-icon>
+              </div>
+              <div class="text-h5 font-weight-black success--text mb-2">
+                {{ formatNumber(item.totalLocal) }} <small>{{ localCurrency?.code }}</small>
+              </div>
+              
+              <div class="currency-breakdown-container">
+                <div v-for="(val, code) in item.groupedCurrency" :key="code" class="breakdown-row pa-2 mb-1 rounded">
+                  <div class="d-flex justify-space-between align-center">
+                    <span class="caption font-weight-bold">{{ code }}</span>
+                    <span class="caption font-weight-black">{{ formatNumber(val.original) }}</span>
+                  </div>
+                  <div v-if="code !== localCurrency?.code" class="text-right grey--text" style="font-size: 0.65rem;">
+                    ≈ {{ formatNumber(val.local) }} {{ localCurrency?.code }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </v-col>
+        </v-row>
+
         <!-- Key Metrics Cards -->
         <v-row class="mb-6">
           <v-col cols="12">
@@ -330,7 +366,7 @@
                   {{ numberWithCommas(totalDiscount) }}
                 </div>
                 <div class="font-weight-medium mb-1">ສ່ວນຫຼຸດລວມ</div>
-                <div class=" grey--text">LAK</div>
+                <div class=" grey--text">{{ localCurrency?.code }}</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -347,7 +383,7 @@
                   {{ numberWithCommas(totalSale - totalDiscount) }}
                 </div>
                 <div class="font-weight-medium mb-1">ລາຍຮັບສຸດທິ</div>
-                <div class=" grey--text">LAK</div>
+                <div class=" grey--text">{{ localCurrency?.code }}</div>
               </v-card-text>
             </v-card>
           </v-col>
@@ -376,7 +412,7 @@
                     </div>
                     <span class=" font-weight-bold primary--text">{{
                       numberWithCommas(totalSaleRaw)
-                    }}</span>
+                    }} {{ localCurrency?.code }}</span>
                   </div>
                   <div class="summary-line">
                     <div class="d-flex align-center">
@@ -387,7 +423,7 @@
                     </div>
                     <span class="font-weight-bold warning--text">{{
                       numberWithCommas(totalDiscount)
-                    }}</span>
+                    }} {{ localCurrency?.code }}</span>
                   </div>
                   <v-divider class="my-4"></v-divider>
                   <div class="summary-line total-line">
@@ -399,7 +435,7 @@
                     </div>
                     <span class=" font-weight-bold success--text">{{
                       numberWithCommas(totalSale - totalDiscount)
-                    }}</span>
+                    }} {{ localCurrency?.code }}</span>
                   </div>
                 </div>
               </v-card-text>
@@ -417,7 +453,7 @@
                   <div class="metric-item mb-4">
                     <div class="metric-label">ລາຄາສະເລ່ຍຕໍ່ໜ່ວຍ</div>
                     <div class="metric-value primary--text">
-                      {{ getAveragePrice() }}
+                      {{ getAveragePrice() }} {{ localCurrency?.code }}
                     </div>
                   </div>
                   <div class="metric-item mb-4">
@@ -429,7 +465,7 @@
                   <div class="metric-item">
                     <div class="metric-label">ລາຍຮັບສະເລ່ຍຕໍ່ລາຍການ</div>
                     <div class="metric-value success--text">
-                      {{ getAverageRevenue() }}
+                      {{ getAverageRevenue() }} {{ localCurrency?.code }}
                     </div>
                   </div>
                 </div>
@@ -509,37 +545,37 @@
                   </v-chip>
                 </template>
 
-                <template v-slot:[`item.totalPrice`]="{ item }">
+                <template v-slot:[`item.totalPriceLocal`]="{ item }">
                   <div class="price-info">
                     <div class="font-weight-bold">
-                      {{ numberWithCommas(item.totalPrice / item.totalQTY) }}
+                      {{ numberWithCommas(item.totalPriceLocal / item.totalQTY) }}
                     </div>
-                    <div class=" grey--text">ລາຄາ/ໜ່ວຍ</div>
+                    <div class=" grey--text">{{ localCurrency?.code }}/ໜ່ວຍ</div>
                   </div>
                 </template>
 
-                <template v-slot:[`item.totalDiscount`]="{ item }">
+                <template v-slot:[`item.totalDiscountLocal`]="{ item }">
                   <div class="discount-info">
                     <span class="font-weight-bold warning--text">
-                      {{ numberWithCommas(item.totalDiscount) }}
+                      {{ numberWithCommas(item.totalDiscountLocal) }}
                     </span>
                     <div class=" grey--text">
                       {{
                         getDiscountPercentage(
-                          item.totalDiscount,
-                          item.totalPrice
+                          item.totalDiscountLocal,
+                          item.totalPriceLocal
                         )
                       }}%
                     </div>
                   </div>
                 </template>
 
-                <template v-slot:[`item.totalAmount`]="{ item }">
+                <template v-slot:[`item.totalAmountLocal`]="{ item }">
                   <div class="total-info">
                     <span class="font-weight-bold success--text ">
-                      {{ numberWithCommas(item.totalAmount) }}
+                      {{ numberWithCommas(item.totalAmountLocal) }}
                     </span>
-                    <div class=" grey--text">LAK</div>
+                    <div class=" grey--text">{{ localCurrency?.code }}</div>
                   </div>
                 </template>
 
@@ -635,24 +671,9 @@ export default {
           value: 'totalQTY',
           sortable: true,
         },
-        {
-          text: 'ລາຄາ/ໜ່ວຍ',
-          align: 'right',
-          value: 'totalPrice',
-          sortable: true,
-        },
-        {
-          text: 'ສ່ວນຫຼຸດ',
-          align: 'right',
-          value: 'totalDiscount',
-          sortable: true,
-        },
-        {
-          text: 'ລວມສຸດທິ',
-          align: 'right',
-          value: 'totalAmount',
-          sortable: true,
-        },
+        { text: 'ລາຄາ/ໜ່ວຍ', align: 'right', value: 'totalPriceLocal', sortable: true },
+        { text: 'ສ່ວນຫຼຸດ', align: 'right', value: 'totalDiscountLocal', sortable: true },
+        { text: 'ລວມສຸດທິ', align: 'right', value: 'totalAmountLocal', sortable: true },
         {
           text: 'ການດຳເນີນການ',
           align: 'center',
@@ -696,6 +717,7 @@ export default {
 
   computed: {
     ...mapGetters([
+      'findAllCurrency',
       'currentSelectedLocation',
       'findAllProduct',
       'findAllClient',
@@ -705,40 +727,75 @@ export default {
       'findAllTerminal',
       'findSelectedTerminal',
     ]),
-
+    
+    localCurrency() {
+      return this.findAllCurrency?.find(c => c.isLocalCCY === true || c.isLocalCCY === 1);
+    },
+    
     activeOrderHeaderList() {
-      // Transform the raw order data into product-aggregated data
-      const productMap = {}
+      const productMap = {};
 
       this.orderHeaderList.forEach((order) => {
-        if (!order.isActive) return
+        if (!order.isActive) return;
 
         order.lines?.forEach((line) => {
-          if (!line.product) return // Skip if product is missing
+          if (!line.product) return;
 
-          const productId = line.product.id
+          const productId = line.product.id;
+          
+          // Identify line currency and conversion rate
+          const lineCurrency = this.findAllCurrency?.find(c => c.id === line.currencyId);
+          const isLocal = lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1;
+          const rate = isLocal ? 1 : (line.exchangeRate || 1);
 
           if (!productMap[productId]) {
             productMap[productId] = {
               product: line.product,
               bookingDate: order.bookingDate,
               totalQTY: 0,
-              totalPrice: 0,
-              totalDiscount: 0,
-              totalAmount: 0,
-              orderId: order.id,
+              totalPriceLocal: 0,
+              totalDiscountLocal: 0,
+              totalAmountLocal: 0,
               header: order,
-            }
+            };
           }
 
-          productMap[productId].totalQTY += line.quantity || 0
-          productMap[productId].totalPrice += line.price * line.quantity || 0
-          productMap[productId].totalDiscount += line.discount || 0
-          productMap[productId].totalAmount += line.total || 0
-        })
-      })
+          const qty = line.quantity || 0;
+          productMap[productId].totalQTY += qty;
+          productMap[productId].totalPriceLocal += (line.price * qty * rate);
+          productMap[productId].totalDiscountLocal += (line.discount * rate);
+          productMap[productId].totalAmountLocal += (line.total * rate);
+        });
+      });
 
-      return Object.values(productMap)
+      return Object.values(productMap);
+    },
+
+    // NEW: Sales Statistics with Currency Breakdown
+    salesStatistics() {
+      const grouped = { totalLocal: 0, count: this.activeOrderHeaderList.length, groupedCurrency: {} };
+      
+      this.orderHeaderList.forEach(order => {
+        if (!order.isActive) return;
+        
+        order.lines?.forEach(line => {
+          const lineCurrency = this.findAllCurrency?.find(c => c.id === line.currencyId);
+          const cCode = lineCurrency?.code || 'UNKNOWN';
+          const isLocal = lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1;
+          const rate = isLocal ? 1 : (line.exchangeRate || 1);
+          
+          if (!grouped.groupedCurrency[cCode]) {
+            grouped.groupedCurrency[cCode] = { original: 0, local: 0 };
+          }
+          
+          const lineTotal = (line.quantity * line.price);
+          grouped.groupedCurrency[cCode].original += lineTotal;
+          grouped.groupedCurrency[cCode].local += (lineTotal * rate);
+          grouped.totalLocal += (lineTotal * rate);
+        });
+      });
+      
+      return [grouped];
     },
 
     computedDateFormatted() {
@@ -748,21 +805,13 @@ export default {
     currencyList() {
       return this.findAllCurrency
     },
-
+    
     totalSale() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        total += parseInt(el.totalAmount || 0)
-      })
-      return total
+      return this.activeOrderHeaderList.reduce((sum, item) => sum + (item.totalAmountLocal || 0), 0);
     },
 
     totalSaleRaw() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        total += parseInt(el.totalAmount || 0)
-      })
-      return total
+      return this.totalSale + this.totalDiscount;
     },
 
     user() {
@@ -770,18 +819,13 @@ export default {
     },
 
     totalDiscount() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        total += parseInt(el.totalDiscount)
-      })
-      return total
+      return this.activeOrderHeaderList.reduce((sum, item) => sum + (item.totalDiscountLocal || 0), 0);
     },
 
     unpaidCodOrder() {
       let txnList = []
       let orderDetail = {}
       this.orderHeaderList.forEach((element) => {
-        // Handle different data structures for payment status
         const paymentStatus =
           element.paymentStatus ||
           (element.header && element.header.paymentStatus)
@@ -814,7 +858,10 @@ export default {
   },
 
   methods: {
-    // Helper method to safely get booking date from different data structures
+    formatNumber(val) {
+      return new Intl.NumberFormat().format(Math.round(val || 0));
+    },
+
     getBookingDate(item) {
       if (item.header && item.header.bookingDate) {
         return item.header.bookingDate.split('T')[0]
@@ -824,7 +871,6 @@ export default {
       return 'N/A'
     },
 
-    // Enhanced calculation methods
     getTotalQuantity() {
       return this.activeOrderHeaderList.reduce((sum, item) => {
         const quantity = parseInt(item.totalQTY || item.quantity || 0)
@@ -867,15 +913,14 @@ export default {
       return ((discount / (totalPrice + discount)) * 100).toFixed(1)
     },
 
-    // Export methods
     exportToExcel() {
       let messageLineExport = []
       for (const iterator of this.activeOrderHeaderList) {
         const product = iterator['product']['pro_name']
-        const avgPrice = iterator['totalPrice'] / iterator['totalQTY']
+        const avgPrice = iterator['totalPriceLocal'] / iterator['totalQTY']
         const discountPercentage = this.getDiscountPercentage(
-          iterator['totalDiscount'],
-          iterator['totalPrice']
+          iterator['totalDiscountLocal'],
+          iterator['totalPriceLocal']
         )
 
         const newRow = {
@@ -886,8 +931,9 @@ export default {
           ຈຳນວນ: iterator['totalQTY'],
           'ລາຄາ/ໜ່ວຍ': Math.round(avgPrice),
           'ສ່ວນຫຼຸດ (%)': discountPercentage + '%',
-          'ສ່ວນຫຼຸດ (ເງິນ)': iterator['totalDiscount'],
-          ລວມສຸດທິ: iterator['totalAmount'],
+          'ສ່ວນຫຼຸດ (ເງິນ)': iterator['totalDiscountLocal'],
+          ລວມສຸດທິ: iterator['totalAmountLocal'],
+          ສະກຸນເງິນ: this.localCurrency?.code,
         }
         messageLineExport.push(newRow)
       }
@@ -910,7 +956,6 @@ export default {
         const totalTickets = this.activeOrderHeaderList.length
         const totalItems = this.getTotalQuantity()
 
-        // Product and category counting
         const productCount = {}
         const categoryCount = {}
 
@@ -981,7 +1026,7 @@ export default {
               <tr><th>Product</th><th>Quantity Sold</th></tr>
               ${Object.entries(productCount)
                 .sort(([, a], [, b]) => b - a)
-                .slice(0, 15) // Top 15 only
+                .slice(0, 15)
                 .map(
                   ([product, count]) =>
                     `<tr><td>${product}</td><td>${count}</td></tr>`
@@ -1005,7 +1050,6 @@ export default {
     },
 
     generatePDFFromHTML(htmlContent) {
-      // Same PDF generation logic as before
       if (typeof html2pdf !== 'undefined') {
         const opt = {
           margin: 1,
@@ -1067,7 +1111,6 @@ export default {
 
         const auditData = []
 
-        // Header info
         auditData.push({
           'Report Type': 'Product Sales External Audit Report',
           Period: `${this.dateFormatted} - ${this.dateFormatted2}`,
@@ -1129,7 +1172,6 @@ export default {
       }
     },
 
-    // Other methods
     createSale() {
       this.componentKey += 1
       this.selectedOrder = 0
@@ -1151,7 +1193,6 @@ export default {
 
     editItem(item) {
       this.componentKey += 1
-      // Handle different data structures
       let itemId
       if (item.orderId) {
         itemId = item.orderId.toString()
@@ -1167,7 +1208,6 @@ export default {
     viewItem(item) {
       this.componentKey += 1
       this.viewTransaction = true
-      // Handle different data structures
       let selectedId
       if (item.header && item.header.id) {
         selectedId = item.header.id
@@ -1223,10 +1263,7 @@ export default {
           `product_f/${this.currentSelectedLocation.id}?include=priceList`
         )
 
-        // The products are directly in response.data.data (it's an array)
         this.productList = response.data.data || []
-
-        // Add "All" option at the beginning
         this.productList.unshift({ id: -1, pro_name: 'ທັງຫມົດ' })
       } catch (error) {
         console.error('Product load error:', error)
@@ -1236,7 +1273,7 @@ export default {
           'Could not load product data: ' +
             (error.message || JSON.stringify(error))
         )
-        this.productList = [{ id: -1, pro_name: 'ທັງຫມົດ' }] // Fallback with at least the "All" option
+        this.productList = [{ id: -1, pro_name: 'ທັງຫມົດ' }]
       }
       this.isloading = false
     },
