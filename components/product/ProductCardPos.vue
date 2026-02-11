@@ -227,7 +227,7 @@ export default {
     ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
 
     host() {
-      return hostName()
+      return this.$axios.defaults.baseURL
     },
 
     effectiveCustomer() {

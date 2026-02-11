@@ -231,7 +231,7 @@ var external_vuex_ = __webpack_require__(14);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/PDFTicket/_id/index.vue?vue&type=script&lang=js
 
@@ -253,8 +253,8 @@ var api = __webpack_require__(43);
   },
   computed: {
     companyData() {
-      console.log(`**********COMPANY DATA ${api["b" /* mainCompanyInfo */]}**********`);
-      return Object(api["b" /* mainCompanyInfo */])();
+      console.log(`**********COMPANY DATA ${api["a" /* mainCompanyInfo */]}**********`);
+      return Object(api["a" /* mainCompanyInfo */])();
     },
     companyLogo() {
       return __webpack_require__(201)(`./${this.companyData.companyLogo}`);

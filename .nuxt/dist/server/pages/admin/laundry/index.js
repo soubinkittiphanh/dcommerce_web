@@ -6,9 +6,9 @@ exports.modules = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_696e54a7_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(921);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_696e54a7_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_696e54a7_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_696e54a7_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_696e54a7_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_87598ae4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(921);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_87598ae4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_87598ae4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_87598ae4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_87598ae4_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -20,7 +20,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".font-lao[data-v-696e54a7]{font-family:\"Noto Sans Lao\",sans-serif!important}.selection-card[data-v-696e54a7]{border-width:1px!important;cursor:pointer;transition:.2s}.border-primary[data-v-696e54a7]{border:2px solid #1976d2!important}.qr-container[data-v-696e54a7]{background:#fff;border-radius:12px;padding:10px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".font-lao[data-v-87598ae4]{font-family:\"Noto Sans Lao\",sans-serif!important}.selection-card[data-v-87598ae4]{border-width:1px!important;cursor:pointer;transition:.2s}.border-primary[data-v-87598ae4]{border:2px solid #1976d2!important}.qr-container[data-v-87598ae4]{background:#fff;border-radius:12px;padding:10px}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -77,6 +77,9 @@ var VList = __webpack_require__(9);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VMain/VMain.js
 var VMain = __webpack_require__(435);
 
+// EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VOverlay/VOverlay.js
+var VOverlay = __webpack_require__(118);
+
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VProgressCircular/VProgressCircular.js
 var VProgressCircular = __webpack_require__(110);
 
@@ -86,7 +89,7 @@ var VProgressLinear = __webpack_require__(127);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VRow.js
 var VRow = __webpack_require__(440);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/laundry/index.vue?vue&type=template&id=696e54a7&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/laundry/index.vue?vue&type=template&id=87598ae4&scoped=true
 
 
 
@@ -107,14 +110,31 @@ var VRow = __webpack_require__(440);
 
 
 
-var laundryvue_type_template_id_696e54a7_scoped_true_render = function render() {
+
+var laundryvue_type_template_id_87598ae4_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VApp["a" /* default */], {
     attrs: {
       "id": "laundry-kiosk"
     }
-  }, [_c(VMain["a" /* default */], {
+  }, [_c(VOverlay["a" /* default */], {
+    attrs: {
+      "value": _vm.loading,
+      "z-index": "999"
+    }
+  }, [_c('div', {
+    staticClass: "text-center"
+  }, [_c(VProgressCircular["a" /* default */], {
+    attrs: {
+      "indeterminate": "",
+      "size": "64",
+      "width": "7",
+      "color": "primary"
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "mt-3 font-lao white--text text-h6"
+  }, [_vm._v("\n        ກຳລັງກວດສອບສະຖານະເຄື່ອງ...\n      ")])], 1)]), _vm._v(" "), _c(VMain["a" /* default */], {
     staticClass: "grey lighten-5"
   }, [_c(VContainer["a" /* default */], {
     attrs: {
@@ -170,14 +190,14 @@ var laundryvue_type_template_id_696e54a7_scoped_true_render = function render() 
       staticClass: "text-h4 mb-1"
     }, [_vm._v(_vm._s(item.icon))]), _vm._v(" "), _c('div', {
       staticClass: "font-lao font-weight-bold primary--text caption"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                    " + _vm._s(item.name) + "\n                  ")]), _vm._v(" "), _c('div', {
       staticClass: "blue--text font-weight-bold"
-    }, [_vm._v(_vm._s(item.price.toLocaleString()) + " ₭")])])], 1);
+    }, [_vm._v("\n                    " + _vm._s(item.price.toLocaleString()) + " ₭\n                  ")])])], 1);
   }), 1), _vm._v(" "), _c(transitions["a" /* VExpandTransition */], [_vm.selectedProgram === '39' ? _c('div', {
     staticClass: "mt-4 pa-3 rounded-lg grey lighten-4"
   }, [_c('div', {
     staticClass: "font-lao caption text-center mb-2"
-  }, [_vm._v("ເລືອກເວລາອົບແຫ້ງ")]), _vm._v(" "), _c(VBtnToggle["a" /* default */], {
+  }, [_vm._v("\n                  ເລືອກເວລາອົບແຫ້ງ\n                ")]), _vm._v(" "), _c(VBtnToggle["a" /* default */], {
     staticClass: "d-flex justify-space-between",
     attrs: {
       "mandatory": "",
@@ -227,7 +247,7 @@ var laundryvue_type_template_id_696e54a7_scoped_true_render = function render() 
     }
   }) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "mt-3 font-lao grey--text text--darken-2"
-  }, [_vm._v("\n              ຍອດຊຳລະ: "), _c('span', {
+  }, [_vm._v("\n              ຍອດຊຳລະ:\n              "), _c('span', {
     staticClass: "primary--text font-weight-bold"
   }, [_vm._v(_vm._s(_vm.totalPrice.toLocaleString()) + " ₭")])]), _vm._v(" "), _c(VBtn["a" /* default */], {
     staticClass: "mt-4 font-lao",
@@ -252,7 +272,7 @@ var laundryvue_type_template_id_696e54a7_scoped_true_render = function render() 
     staticClass: "font-lao mt-5 success--text"
   }, [_vm._v("ຊຳລະເງິນສຳເລັດແລ້ວ!")]), _vm._v(" "), _c('p', {
     staticClass: "font-lao grey--text"
-  }, [_vm._v("ກຳລັງເລີ່ມເຄື່ອງຊັກຜ້າ ແລະ ລັອກຝາ...")])], 1) : _vm._e()]), _vm._v(" "), _c(VFooter["a" /* default */], {
+  }, [_vm._v("\n              ກຳລັງເລີ່ມເຄື່ອງຊັກຜ້າ ແລະ ລັອກຝາ...\n            ")])], 1) : _vm._e()]), _vm._v(" "), _c(VFooter["a" /* default */], {
     staticClass: "white pa-2 justify-center border-top"
   }, [_c('span', {
     staticClass: "font-lao grey--text caption"
@@ -260,19 +280,23 @@ var laundryvue_type_template_id_696e54a7_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/laundry/index.vue?vue&type=template&id=696e54a7&scoped=true
+// CONCATENATED MODULE: ./pages/admin/laundry/index.vue?vue&type=template&id=87598ae4&scoped=true
 
 // EXTERNAL MODULE: external "qrcode"
 var external_qrcode_ = __webpack_require__(421);
 var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode_);
 
+// EXTERNAL MODULE: ./common/index.js
+var common = __webpack_require__(7);
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/laundry/index.vue?vue&type=script&lang=js
+
 
 /* harmony default export */ var laundryvue_type_script_lang_js = ({
   layout: 'login',
   data() {
     return {
-      apiBaseUrl: 'http://192.168.1.9:8000',
+      apiBaseUrl: 'http://192.168.1.7:8000',
       deviceId: '1e008816-50fb-ea87-b2c1-e98ee3306e1a',
       step: 'selection',
       // selection, payment, starting
@@ -323,46 +347,78 @@ var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode
       this.selectedProgram = item.id;
       this.totalPrice = item.price;
     },
+    // Inside your Vue methods
     async initiatePayment() {
+      // 1. Start Loading UI
       this.loading = true;
-      this.statusMessage = '';
       try {
-        // Generate unique bill number as per your generator spec
-        const timestamp = Date.now();
-        const random = Math.floor(Math.random() * 1000);
-        const billNo = `BILL-${timestamp}-${random}`;
+        var _raw$samsungceSoften, _raw$samsungceSoften$, _raw$samsungceDeterg, _raw$samsungceDeterg$;
+        // 2. PRE-CHECK: Get Device Status from your SmartThings API
+        // This calls your backend getDeviceStatus(req, res) method
+        const statusRes = await this.$axios.$get(`${this.apiBaseUrl}/api/smartthings/status/${this.deviceId}`);
+        if (!statusRes.success) {
+          this.loading = false;
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດຕິດຕໍ່ກັບເຄື່ອງຊັກຜ້າໄດ້');
+        }
+        const status = statusRes.status;
+        const raw = statusRes.raw.components.main;
 
-        // BANK SPEC FORM DATA: 
-        // These fields must match exactly what worked in your QR Generator sample
+        // A. Check Power
+        if (status.power !== 'on') {
+          this.loading = false;
+          return Object(common["k" /* swalError2 */])(this.$swal, 'ເຄື່ອງປິດຢູ່', 'ກະລຸນາເປີດເຄື່ອງຊັກຜ້າກ່ອນຊຳລະເງິນ');
+        }
+
+        // B. Check for Softener/Detergent Empty (The "Refill" Blocker)
+        // We check the raw OCF data for dispenser status
+        const softener = (_raw$samsungceSoften = raw['samsungce.softenerDispenser']) === null || _raw$samsungceSoften === void 0 ? void 0 : (_raw$samsungceSoften$ = _raw$samsungceSoften.remainingAmount) === null || _raw$samsungceSoften$ === void 0 ? void 0 : _raw$samsungceSoften$.value;
+        const detergent = (_raw$samsungceDeterg = raw['samsungce.detergentDispenser']) === null || _raw$samsungceDeterg === void 0 ? void 0 : (_raw$samsungceDeterg$ = _raw$samsungceDeterg.remainingAmount) === null || _raw$samsungceDeterg$ === void 0 ? void 0 : _raw$samsungceDeterg$.value;
+        if (softener === 'empty' || detergent === 'empty') {
+          this.loading = false;
+          return Object(common["k" /* swalError2 */])(this.$swal, 'ພົບຂໍ້ຜິດພາດຢູ່ໜ້າຈໍເຄື່ອງ', 'ນ້ຳຢາປັບຜ້ານຸ້ມ ຫຼື ແຟັບໝົດ. ກະລຸນາເຕີມ ແລະ ກົດ OK ຢູ່ໜ້າຈໍເຄື່ອງເພື່ອລຶບຂໍ້ຄວາມເຕືອນກ່ອນ');
+        }
+
+        // C. Check Smart Control (Must be enabled to start via API)
+        if (!status.remoteControlEnabled) {
+          this.loading = false;
+          return Object(common["k" /* swalError2 */])(this.$swal, 'Smart Control ປິດຢູ່', 'ກະລຸນາກົດປຸ່ມ Smart Control ຢູ່ໜ້າຈໍເຄື່ອງຊັກຜ້າໃຫ້ເປັນ ON ກ່ອນຈຶ່ງຈະຊຳລະເງິນໄດ້');
+        }
+
+        // D. Check Door State
+        if (status.doorState === 'open') {
+          this.loading = false;
+          return Object(common["k" /* swalError2 */])(this.$swal, 'ຝາເຄື່ອງເປີດຢູ່', 'ກະລຸນາອັດຝາເຄື່ອງຊັກຜ້າໃຫ້ສະນິດ');
+        }
+
+        // 3. GENERATE QR: If we reached here, the machine is READY
+        const billNo = `BILL-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         const qrRequestPayload = {
           memberId: 'KOKKOKMOV',
           txnAmount: this.totalPrice,
           purposeOfTxn: `Wash ${this.selectedProgram}`,
           billNumber: billNo,
           merchantId: '000000000001749',
-          storeLabel: 'Order06989-004-003',
-          terminalLabel: 'terminal00001'
+          storeLabel: 'Order-Laundry',
+          terminalLabel: 'terminal01'
         };
+        const qrResponse = await this.$axios.$post(`/api/qr/generate`, qrRequestPayload);
+        if (qrResponse.success) {
+          this.qrData = qrResponse.data;
+          this.step = 'payment'; // Change UI to QR Scan mode
 
-        // Note: Using full hardcoded IP as you requested for direct posting
-        const response = await this.$axios.$post(`/api/qr/generate`, qrRequestPayload);
-        if (response.success) {
-          // In your spec, the QR string is inside response.data.data or response.data
-          // Based on your sample: response.data.data.qrString
-          this.qrData = response.data;
-          this.step = 'payment';
           this.$nextTick(() => {
             this.renderQRCode();
           });
           this.startPaymentPolling();
         } else {
-          alert("Error: " + response.message);
+          Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ບໍ່ສາມາດສ້າງ QR ໄດ້: ' + qrResponse.message);
         }
       } catch (err) {
         var _err$response, _err$response$data;
-        console.error('QR Generation Error:', err);
-        alert("ບໍ່ສາມາດສ້າງ QR ໄດ້: " + (((_err$response = err.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.message) || err.message));
+        console.error('Payment Flow Error:', err);
+        Object(common["k" /* swalError2 */])(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດ: ' + (((_err$response = err.response) === null || _err$response === void 0 ? void 0 : (_err$response$data = _err$response.data) === null || _err$response$data === void 0 ? void 0 : _err$response$data.message) || err.message));
       } finally {
+        // 4. End Loading UI
         this.loading = false;
       }
     },
@@ -371,7 +427,7 @@ var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode
       // Accessing qrString based on your bank spec object structure
       const qrString = this.qrData.qrString || ((_this$qrData$data = this.qrData.data) === null || _this$qrData$data === void 0 ? void 0 : _this$qrData$data.qrString);
       if (!qrString) {
-        console.error("No QR String found in response");
+        console.error('No QR String found in response');
         return;
       }
       try {
@@ -386,7 +442,7 @@ var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode
         });
         this.$refs.qrcode.appendChild(canvas);
       } catch (err) {
-        console.error("Canvas Render Error", err);
+        console.error('Canvas Render Error', err);
       }
     },
     async renderQRCode() {
@@ -406,7 +462,7 @@ var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode
             this.triggerMachine();
           }
         } catch (e) {
-          console.error("Polling error", e);
+          console.error('Polling error', e);
         }
       }, 3000);
     },
@@ -427,7 +483,7 @@ var external_qrcode_default = /*#__PURE__*/__webpack_require__.n(external_qrcode
           this.selectedProgram = null;
         }, 10000);
       } catch (e) {
-        alert("ຊຳລະແລ້ວ ແຕ່ເຄື່ອງບໍ່ສາມາດເລີ່ມໄດ້. ກະລຸນາຕິດຕໍ່ພະນັກງານ");
+        alert('ຊຳລະແລ້ວ ແຕ່ເຄື່ອງບໍ່ສາມາດເລີ່ມໄດ້. ກະລຸນາຕິດຕໍ່ພະນັກງານ');
       }
     },
     cancelPayment() {
@@ -459,11 +515,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   admin_laundryvue_type_script_lang_js,
-  laundryvue_type_template_id_696e54a7_scoped_true_render,
+  laundryvue_type_template_id_87598ae4_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "696e54a7",
+  "87598ae4",
   "5db9a4a2"
   
 )
@@ -485,7 +541,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("079ef5a5", content, true, context)
+  add("3d198999", content, true, context)
 };
 
 /***/ })

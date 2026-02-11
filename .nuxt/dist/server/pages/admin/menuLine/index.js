@@ -966,7 +966,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("0595e0da", content, true, context)
+  add("43f4e578", content, true, context)
 };
 
 /***/ }),
@@ -1141,7 +1141,7 @@ var VTextField = __webpack_require__(39);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(481);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderDetailPosCRUD.vue?vue&type=template&id=6d2b9d34&scoped=true
 
 
 
@@ -1162,7 +1162,7 @@ var VTextarea = __webpack_require__(481);
 
 
 
-var OrderDetailPosCRUDvue_type_template_id_7fddf843_scoped_true_render = function render() {
+var OrderDetailPosCRUDvue_type_template_id_6d2b9d34_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -2018,7 +2018,7 @@ var OrderDetailPosCRUDvue_type_template_id_7fddf843_scoped_true_render = functio
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=7fddf843&scoped=true
+// CONCATENATED MODULE: ./components/OrderDetailPosCRUD.vue?vue&type=template&id=6d2b9d34&scoped=true
 
 // EXTERNAL MODULE: ./plugins/comma-thousand.js
 var comma_thousand = __webpack_require__(477);
@@ -2470,6 +2470,7 @@ var printTemplates = __webpack_require__(161);
         this.prepareTransactionForSubmit();
         const url = this.isUpdate ? `api/${this.apiLine}/update/${this.headerId}` : `api/${this.apiLine}/create`;
         const method = this.isUpdate ? 'put' : 'post';
+        console.info(`Transaction DET ${JSON.stringify(this.transaction)}`);
         await this.$axios[method](url, this.transaction);
         this.$emit('reload');
         Object(common["l" /* swalSuccess */])(this.$swal, 'Success', 'Transaction saved successfully');
@@ -2530,10 +2531,10 @@ var printTemplates = __webpack_require__(161);
           this.showError(`Insufficient stock for: ${(product === null || product === void 0 ? void 0 : product.pro_name) || 'Unknown'}`);
           this.errorLineNumber = this.transaction.lines.findIndex(line => line.productId == outOfStockProductId);
         } else {
-          this.showError('Failed to save transaction', error);
+          this.showError(`Failed to save transaction ${error}`, error);
         }
       } else {
-        this.showError('Failed to save transaction', error);
+        this.showError(`Failed to save transaction ${error}`, error);
       }
     },
     // === DIALOGS & UI ===
@@ -2604,11 +2605,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_OrderDetailPosCRUDvue_type_script_lang_js,
-  OrderDetailPosCRUDvue_type_template_id_7fddf843_scoped_true_render,
+  OrderDetailPosCRUDvue_type_template_id_6d2b9d34_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "7fddf843",
+  "6d2b9d34",
   "1657b766"
   
 )
@@ -2749,9 +2750,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_7fddf843_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_7fddf843_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_7fddf843_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_7fddf843_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_7fddf843_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6d2b9d34_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(482);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6d2b9d34_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6d2b9d34_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6d2b9d34_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderDetailPosCRUD_vue_vue_type_style_index_0_id_6d2b9d34_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -2763,7 +2764,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-7fddf843]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-7fddf843]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-7fddf843]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-7fddf843]{border-radius:16px!important}.form-content[data-v-7fddf843]{padding:32px!important}.transaction-header[data-v-7fddf843]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-7fddf843]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-7fddf843]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-7fddf843]{padding:8px 0}.user-info[data-v-7fddf843]{margin-top:16px}.line-items-card[data-v-7fddf843]{border-radius:12px!important}.line-items-table[data-v-7fddf843]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-7fddf843]{transition:all .2s ease}.line-item-row[data-v-7fddf843]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-7fddf843]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-7fddf843]{min-width:250px}.product-selection[data-v-7fddf843]{max-width:200px;overflow:hidden}.discount-cell[data-v-7fddf843],.quantity-cell[data-v-7fddf843],.rate-cell[data-v-7fddf843],.unit-cell[data-v-7fddf843]{min-width:120px}.price-cell[data-v-7fddf843],.total-cell[data-v-7fddf843]{min-width:140px}.action-cell[data-v-7fddf843]{min-width:80px}.total-amount[data-v-7fddf843]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-7fddf843]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-7fddf843]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-7fddf843]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-7fddf843]:last-child{border-bottom:none}.total-row[data-v-7fddf843]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-7fddf843]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-7fddf843]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-7fddf843]{margin:32px 0}.gap-2>*+*[data-v-7fddf843]{margin-left:8px}.line-item-row[data-v-7fddf843]{animation:slideInFromLeft-7fddf843 .3s ease-out}@keyframes slideInFromLeft-7fddf843{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-7fddf843]{animation:fadeInUp-7fddf843 .5s ease-out}@keyframes fadeInUp-7fddf843{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-7fddf843]{padding:12px}.form-content[data-v-7fddf843],.header-section[data-v-7fddf843]{padding:16px!important}.header-section .d-flex[data-v-7fddf843]{flex-direction:column;gap:16px}.product-cell[data-v-7fddf843]{min-width:200px}.discount-cell[data-v-7fddf843],.quantity-cell[data-v-7fddf843],.rate-cell[data-v-7fddf843],.unit-cell[data-v-7fddf843]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-7fddf843]{font-size:.875rem}.total-amount[data-v-7fddf843]{font-size:.8rem;padding:6px 8px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".sales-form-container[data-v-6d2b9d34]{background:linear-gradient(135deg,#f5f7fa,#c3cfe2);min-height:100vh;padding:20px}.sales-form-card[data-v-6d2b9d34]{border-radius:16px!important;margin:0 auto;max-width:1400px;overflow:hidden}.header-section[data-v-6d2b9d34]{background:linear-gradient(135deg,var(--v-primary-base) 0,var(--v-primary-darken2) 100%);border-radius:0!important;padding:24px!important}.loading-card[data-v-6d2b9d34]{border-radius:16px!important}.form-content[data-v-6d2b9d34]{padding:32px!important}.transaction-header[data-v-6d2b9d34]{border-radius:12px!important;transition:all .3s ease}.transaction-header.header-error[data-v-6d2b9d34]{border:2px solid var(--v-error-base)!important;box-shadow:0 0 0 3px rgba(var(--v-error-base),.1)}.section-title[data-v-6d2b9d34]{align-items:center;color:var(--v-primary-base);display:flex;font-size:.95rem;font-weight:600;margin-bottom:16px}.form-section[data-v-6d2b9d34]{padding:8px 0}.user-info[data-v-6d2b9d34]{margin-top:16px}.line-items-card[data-v-6d2b9d34]{border-radius:12px!important}.line-items-table[data-v-6d2b9d34]{border-radius:0 0 12px 12px!important}.line-item-row[data-v-6d2b9d34]{transition:all .2s ease}.line-item-row[data-v-6d2b9d34]:hover{background-color:rgba(var(--v-primary-base),.04)!important}.error-row[data-v-6d2b9d34]{background-color:rgba(var(--v-error-base),.1)!important;border-left:4px solid var(--v-error-base)!important}.product-cell[data-v-6d2b9d34]{min-width:250px}.product-selection[data-v-6d2b9d34]{max-width:200px;overflow:hidden}.discount-cell[data-v-6d2b9d34],.quantity-cell[data-v-6d2b9d34],.rate-cell[data-v-6d2b9d34],.unit-cell[data-v-6d2b9d34]{min-width:120px}.price-cell[data-v-6d2b9d34],.total-cell[data-v-6d2b9d34]{min-width:140px}.action-cell[data-v-6d2b9d34]{min-width:80px}.total-amount[data-v-6d2b9d34]{background:linear-gradient(135deg,rgba(var(--v-success-base),.1) 0,rgba(var(--v-success-base),.05) 100%);border-left:4px solid var(--v-success-base);border-radius:8px;font-family:\"Roboto Mono\",monospace;padding:8px 12px}.summary-card[data-v-6d2b9d34]{border:1px solid rgba(var(--v-primary-base),.1);border-radius:12px!important}.summary-details[data-v-6d2b9d34]{font-family:\"Roboto\",sans-serif}.summary-row[data-v-6d2b9d34]{align-items:center;border-bottom:1px solid rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 0}.summary-row[data-v-6d2b9d34]:last-child{border-bottom:none}.total-row[data-v-6d2b9d34]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.08) 0,rgba(var(--v-primary-base),.04) 100%);border-radius:8px;margin:12px -20px;padding:16px 20px}.grand-total-display[data-v-6d2b9d34]{background:linear-gradient(135deg,rgba(var(--v-primary-base),.05) 0,rgba(var(--v-secondary-base),.05) 100%);border:2px dashed rgba(var(--v-primary-base),.2);border-radius:16px;padding:24px}.actions-footer[data-v-6d2b9d34]{background:linear-gradient(135deg,#f8f9fa,#e9ecef);border-top:1px solid rgba(0,0,0,.08)}.empty-state[data-v-6d2b9d34]{margin:32px 0}.gap-2>*+*[data-v-6d2b9d34]{margin-left:8px}.line-item-row[data-v-6d2b9d34]{animation:slideInFromLeft-6d2b9d34 .3s ease-out}@keyframes slideInFromLeft-6d2b9d34{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.sales-form-card[data-v-6d2b9d34]{animation:fadeInUp-6d2b9d34 .5s ease-out}@keyframes fadeInUp-6d2b9d34{0%{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}@media (max-width:768px){.sales-form-container[data-v-6d2b9d34]{padding:12px}.form-content[data-v-6d2b9d34],.header-section[data-v-6d2b9d34]{padding:16px!important}.header-section .d-flex[data-v-6d2b9d34]{flex-direction:column;gap:16px}.product-cell[data-v-6d2b9d34]{min-width:200px}.discount-cell[data-v-6d2b9d34],.quantity-cell[data-v-6d2b9d34],.rate-cell[data-v-6d2b9d34],.unit-cell[data-v-6d2b9d34]{min-width:100px}}@media (max-width:480px){.line-items-table[data-v-6d2b9d34]{font-size:.875rem}.total-amount[data-v-6d2b9d34]{font-size:.8rem;padding:6px 8px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;

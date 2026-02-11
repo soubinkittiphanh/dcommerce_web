@@ -222,9 +222,9 @@ module.exports = __webpack_require__.p + "img/patient.1cdc99c.svg";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e0f4a63_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(898);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e0f4a63_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e0f4a63_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e0f4a63_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_1e0f4a63_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20edbe42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(898);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20edbe42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20edbe42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20edbe42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_20edbe42_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -237,7 +237,7 @@ var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.push([module.i, "@import url(https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".dashboard-container[data-v-1e0f4a63]{background:#f8fafc;font-family:\"Inter\",\"Noto Sans Lao\",sans-serif;margin:0 auto;max-width:1440px;padding:20px}.dashboard-header[data-v-1e0f4a63]{align-items:center;display:flex;justify-content:space-between;margin-bottom:30px}.dashboard-title[data-v-1e0f4a63]{color:#1e293b;font-size:2.2rem;font-weight:700}.dashboard-subtitle[data-v-1e0f4a63]{color:#64748b}.date-display[data-v-1e0f4a63]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.05);color:#64748b;font-weight:500;padding:10px 20px}.quick-actions-grid[data-v-1e0f4a63]{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-gap:20px;gap:20px;margin-bottom:40px}.action-card[data-v-1e0f4a63]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;cursor:pointer;overflow:hidden;padding:24px;position:relative;transition:all .3s ease}.action-card[data-v-1e0f4a63]:hover{box-shadow:0 10px 15px -3px rgba(0,0,0,.1);transform:translateY(-5px)}.card-icon[data-v-1e0f4a63]{align-items:center;border-radius:12px;display:flex;height:48px;justify-content:center;margin-bottom:16px;width:48px}.card-icon img[data-v-1e0f4a63]{filter:brightness(0) invert(1);width:24px}.kpi-grid[data-v-1e0f4a63]{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));grid-gap:24px;gap:24px;margin-bottom:40px}.kpi-card[data-v-1e0f4a63]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;position:relative}.kpi-header[data-v-1e0f4a63]{display:flex;justify-content:space-between;margin-bottom:16px}.kpi-icon[data-v-1e0f4a63]{align-items:center;border-radius:12px;display:flex;height:48px;justify-content:center;width:48px}.kpi-value[data-v-1e0f4a63]{color:#0f172a;font-size:1.8rem;font-weight:700;margin-bottom:8px}.kpi-title[data-v-1e0f4a63]{color:#64748b;font-size:.9rem;margin-bottom:12px}.currency-summary[data-v-1e0f4a63]{display:flex;flex-wrap:wrap;gap:6px}.payment-breakdown[data-v-1e0f4a63]{border-top:1px dashed #e2e8f0;margin-top:16px;padding-top:16px}.payment-item[data-v-1e0f4a63]{color:#475569;display:flex;font-size:.9rem;justify-content:space-between;margin-bottom:8px}.analytics-grid[data-v-1e0f4a63]{display:grid;grid-template-columns:repeat(12,1fr);grid-gap:24px;gap:24px}.chart-card[data-v-1e0f4a63]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;grid-column:span 6;padding:20px}.chart-card.chart-card--large[data-v-1e0f4a63]{grid-column:span 8}.chart-card.chart-card--small[data-v-1e0f4a63]{grid-column:span 4}.chart-card.full-width[data-v-1e0f4a63]{grid-column:span 12}.chart-header[data-v-1e0f4a63]{border-bottom:1px solid #f1f5f9;color:#1e293b;font-weight:600;margin-bottom:20px;padding-bottom:10px}.echarts-container[data-v-1e0f4a63]{height:350px;width:100%}.loading-container[data-v-1e0f4a63]{align-items:center;background:#fff;border-radius:12px;display:flex;flex-direction:column;padding:30px}.loading-spinner[data-v-1e0f4a63]{animation:spin-1e0f4a63 1s linear infinite;border:4px solid #f3f3f3;border-radius:50%;border-top-color:#6366f1;height:40px;width:40px}@keyframes spin-1e0f4a63{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.terminal-option[data-v-1e0f4a63]{align-items:center;border:2px solid #f1f5f9;border-radius:12px;cursor:pointer;display:flex;margin-bottom:12px;padding:16px;transition:.2s}.terminal-option[data-v-1e0f4a63]:hover{border-color:#6366f1}.terminal-option.selected[data-v-1e0f4a63]{background:#f5f3ff;border-color:#6366f1}.terminal-info h4[data-v-1e0f4a63]{color:#1e293b;margin:0}.terminal-info p[data-v-1e0f4a63]{color:#64748b;font-size:.8rem;margin:0}.hidden[data-v-1e0f4a63]{display:none}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".dashboard-container[data-v-20edbe42]{background:#f8fafc;font-family:\"Inter\",\"Noto Sans Lao\",sans-serif;margin:0 auto;max-width:1440px;padding:20px}.dashboard-header[data-v-20edbe42]{align-items:center;display:flex;justify-content:space-between;margin-bottom:30px}.dashboard-title[data-v-20edbe42]{color:#1e293b;font-size:2.2rem;font-weight:700}.dashboard-subtitle[data-v-20edbe42]{color:#64748b}.date-display[data-v-20edbe42]{background:#fff;border-radius:12px;box-shadow:0 2px 4px rgba(0,0,0,.05);color:#64748b;font-weight:500;padding:10px 20px}.quick-actions-grid[data-v-20edbe42]{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));grid-gap:20px;gap:20px;margin-bottom:40px}.action-card[data-v-20edbe42]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;cursor:pointer;overflow:hidden;padding:24px;position:relative;transition:all .3s ease}.action-card[data-v-20edbe42]:hover{box-shadow:0 10px 15px -3px rgba(0,0,0,.1);transform:translateY(-5px)}.card-icon[data-v-20edbe42]{align-items:center;border-radius:12px;display:flex;height:48px;justify-content:center;margin-bottom:16px;width:48px}.card-icon img[data-v-20edbe42]{filter:brightness(0) invert(1);width:24px}.kpi-grid[data-v-20edbe42]{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));grid-gap:24px;gap:24px;margin-bottom:40px}.kpi-card[data-v-20edbe42]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:24px;position:relative}.kpi-header[data-v-20edbe42]{display:flex;justify-content:space-between;margin-bottom:16px}.kpi-icon[data-v-20edbe42]{align-items:center;border-radius:12px;display:flex;height:48px;justify-content:center;width:48px}.kpi-value[data-v-20edbe42]{color:#0f172a;font-size:1.8rem;font-weight:700;margin-bottom:8px}.kpi-title[data-v-20edbe42]{color:#64748b;font-size:.9rem;margin-bottom:12px}.payment-breakdown[data-v-20edbe42]{border-top:1px dashed #e2e8f0;margin-top:16px;padding-top:16px}.payment-item[data-v-20edbe42]{color:#475569;display:flex;font-size:.9rem;justify-content:space-between;margin-bottom:8px}.analytics-grid[data-v-20edbe42]{display:grid;grid-template-columns:repeat(12,1fr);grid-gap:24px;gap:24px}.chart-card[data-v-20edbe42]{background:#fff;border:1px solid #e2e8f0;border-radius:16px;grid-column:span 6;padding:20px}.chart-card.chart-card--large[data-v-20edbe42]{grid-column:span 8}.chart-card.chart-card--small[data-v-20edbe42]{grid-column:span 4}.chart-card.full-width[data-v-20edbe42]{grid-column:span 12}.chart-header[data-v-20edbe42]{border-bottom:1px solid #f1f5f9;color:#1e293b;font-weight:600;margin-bottom:20px;padding-bottom:10px}.echarts-container[data-v-20edbe42]{height:350px;width:100%}.chart-container[data-v-20edbe42]{min-height:250px;width:100%}.loading-container[data-v-20edbe42]{align-items:center;background:#fff;border-radius:12px;display:flex;flex-direction:column;padding:30px}.loading-spinner[data-v-20edbe42]{animation:spin-20edbe42 1s linear infinite;border:4px solid #f3f3f3;border-radius:50%;border-top-color:#6366f1;height:40px;width:40px}@keyframes spin-20edbe42{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.terminal-option[data-v-20edbe42]{align-items:center;border:2px solid #f1f5f9;border-radius:12px;cursor:pointer;display:flex;margin-bottom:12px;padding:16px;transition:.2s}.terminal-option.selected[data-v-20edbe42]{background:#f5f3ff;border-color:#6366f1}.hidden[data-v-20edbe42]{display:none}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -273,7 +273,7 @@ var VRadio = __webpack_require__(437);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VRadioGroup/VRadioGroup.js
 var VRadioGroup = __webpack_require__(436);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=1e0f4a63&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/index.vue?vue&type=template&id=20edbe42&scoped=true
 
 
 
@@ -282,7 +282,7 @@ var VRadioGroup = __webpack_require__(436);
 
 
 
-var adminvue_type_template_id_1e0f4a63_scoped_true_render = function render() {
+var adminvue_type_template_id_20edbe42_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', [_c(VDialog["a" /* default */], {
@@ -322,7 +322,7 @@ var adminvue_type_template_id_1e0f4a63_scoped_true_render = function render() {
   }, [_c('div', {
     staticClass: "dialog-header",
     style: _vm.dialogHeaderStyle
-  }, [_c('h3', [_vm._v("ເລືອກ Terminal")]), _vm._v(" "), _c(VBtn["a" /* default */], {
+  }, [_c('h3', [_vm._v("ເລືອກຈຸດຂາຍ (Terminal)")]), _vm._v(" "), _c(VBtn["a" /* default */], {
     attrs: {
       "icon": "",
       "small": ""
@@ -382,26 +382,26 @@ var adminvue_type_template_id_1e0f4a63_scoped_true_render = function render() {
     on: {
       "click": _vm.chooseTerminal
     }
-  }, [_vm._v("\n          ເລືອກ Terminal\n        ")])], 1)])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"dashboard-container\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"dashboard-header\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-1e0f4a63><h1 class=\"dashboard-title\" data-v-1e0f4a63>Dashboard Overview</h1> <p class=\"dashboard-subtitle\" data-v-1e0f4a63>Business performance and payment tracking</p></div> "), _vm._ssrNode("<div class=\"header-actions\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"date-display\" data-v-1e0f4a63>", "</div>", [_c(VIcon["a" /* default */], {
+  }, [_vm._v("\n          ຢືນຢັນເລືອກ Terminal\n        ")])], 1)])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"dashboard-container\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"dashboard-header\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"header-content\" data-v-20edbe42><h1 class=\"dashboard-title\" data-v-20edbe42>ພາບລວມລະບົບ</h1> <p class=\"dashboard-subtitle\" data-v-20edbe42>\n          ຕິດຕາມຜົນການດຳເນີນງານ ແລະ ການຊຳລະເງິນ\n        </p></div> "), _vm._ssrNode("<div class=\"header-actions\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"date-display\" data-v-20edbe42>", "</div>", [_c(VIcon["a" /* default */], {
     staticClass: "mr-2",
     attrs: {
       "color": "primary"
     }
-  }, [_vm._v("mdi-calendar")]), _vm._ssrNode(_vm._ssrEscape(" " + _vm._s(_vm.currentDate)))], 2)])], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"quick-actions-section\" data-v-1e0f4a63>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-1e0f4a63><h2 class=\"section-title\" data-v-1e0f4a63>Quick Actions</h2></div> "), _vm._ssrNode("<div class=\"quick-actions-grid\" data-v-1e0f4a63>", "</div>", _vm._l(_vm.menus, function (item, index) {
-    return _vm._ssrNode("<div class=\"action-card\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"card-icon\"" + _vm._ssrStyle(null, _vm.cardIconStyle, null) + " data-v-1e0f4a63><img" + _vm._ssrAttr("src", item.svgIcon) + " alt data-v-1e0f4a63></div> "), _vm._ssrNode("<div class=\"card-content\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<h3 data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> "), _c(VIcon["a" /* default */], {
+  }, [_vm._v("mdi-calendar")]), _vm._ssrNode(_vm._ssrEscape("\n          " + _vm._s(_vm.currentDate) + "\n        "))], 2)])], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"quick-actions-section\" data-v-20edbe42>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-20edbe42><h2 class=\"section-title\" data-v-20edbe42>ເມນູດ່ວນ</h2></div> "), _vm._ssrNode("<div class=\"quick-actions-grid\" data-v-20edbe42>", "</div>", _vm._l(_vm.menus, function (item, index) {
+    return _vm._ssrNode("<div class=\"action-card\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"card-icon\"" + _vm._ssrStyle(null, _vm.cardIconStyle, null) + " data-v-20edbe42><img" + _vm._ssrAttr("src", item.svgIcon) + " alt data-v-20edbe42></div> "), _vm._ssrNode("<div class=\"card-content\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<h3 data-v-20edbe42>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> "), _c(VIcon["a" /* default */], {
       staticClass: "arrow-icon"
-    }, [_vm._v("mdi-arrow-right")])], 2), _vm._ssrNode(" <div class=\"card-overlay\" data-v-1e0f4a63></div>")], 2);
-  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"kpi-section\" data-v-1e0f4a63>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-1e0f4a63><h2 class=\"section-title\" data-v-1e0f4a63>Sales Overview</h2></div> "), _vm._ssrNode("<div class=\"kpi-grid\" data-v-1e0f4a63>", "</div>", _vm._l(_vm.menusOverview, function (item, index) {
-    return _vm._ssrNode("<div" + _vm._ssrClass("kpi-card", `kpi-card--${index}`) + " data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"kpi-header\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"kpi-icon\"" + _vm._ssrStyle(null, _vm.kpiIconStyle, null) + " data-v-1e0f4a63>", "</div>", [_c(VIcon["a" /* default */], {
+    }, [_vm._v("mdi-arrow-right")])], 2), _vm._ssrNode(" <div class=\"card-overlay\" data-v-20edbe42></div>")], 2);
+  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"kpi-section\" data-v-20edbe42>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-20edbe42><h2 class=\"section-title\" data-v-20edbe42>ສະຫຼຸບຍອດຂາຍ</h2></div> "), _vm._ssrNode("<div class=\"kpi-grid\" data-v-20edbe42>", "</div>", _vm._l(_vm.menusOverview, function (item, index) {
+    return _vm._ssrNode("<div" + _vm._ssrClass("kpi-card", `kpi-card--${index}`) + " data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"kpi-header\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"kpi-icon\"" + _vm._ssrStyle(null, _vm.kpiIconStyle, null) + " data-v-20edbe42>", "</div>", [_c(VIcon["a" /* default */], {
       attrs: {
         "color": "white"
       }
-    }, [_vm._v(_vm._s(item.icon))])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"kpi-trend\" data-v-1e0f4a63>", "</div>", [_c(VIcon["a" /* default */], {
+    }, [_vm._v(_vm._s(item.icon))])], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"kpi-trend\" data-v-20edbe42>", "</div>", [_c(VIcon["a" /* default */], {
       attrs: {
         "size": "18",
         "color": "#10B981"
       }
-    }, [_vm._v("mdi-trending-up")])], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"kpi-content\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<h3 class=\"kpi-title\" data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> <div class=\"kpi-value\" data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(item.total)) + "</div> "), item.groupedCurrency ? _vm._ssrNode("<div class=\"currency-summary mb-4\" data-v-1e0f4a63>", "</div>", _vm._l(item.groupedCurrency, function (amount, code) {
+    }, [_vm._v("mdi-trending-up")])], 1)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"kpi-content\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<h3 class=\"kpi-title\" data-v-20edbe42>" + _vm._ssrEscape(_vm._s(item.title)) + "</h3> <div class=\"kpi-value\" data-v-20edbe42>" + _vm._ssrEscape(_vm._s(item.total)) + "</div> "), item.groupedCurrency ? _vm._ssrNode("<div class=\"currency-summary mb-4\" data-v-20edbe42>", "</div>", _vm._l(item.groupedCurrency, function (amount, code) {
       return _c(VChip["a" /* default */], {
         key: code,
         staticClass: "mr-2 mb-1",
@@ -412,28 +412,35 @@ var adminvue_type_template_id_1e0f4a63_scoped_true_render = function render() {
           "color": "primary"
         }
       }, [_c('strong', [_vm._v(_vm._s(code))]), _vm._v(": " + _vm._s(_vm.numberFormatter(amount)) + "\n              ")]);
-    }), 1) : _vm._e(), _vm._ssrNode(" " + (item.groupedSales && Object.keys(item.groupedSales).length > 0 ? "<div class=\"payment-breakdown\" data-v-1e0f4a63>" + _vm._ssrList(item.groupedSales, function (payment, key) {
-      return "<div class=\"payment-item\" data-v-1e0f4a63><div class=\"d-flex flex-column\" data-v-1e0f4a63><span class=\"payment-method\" data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(payment.paymentName)) + "</span> <small class=\"text--secondary font-weight-bold\" style=\"font-size: 0.7rem; color: #94a3b8;\" data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(payment.currencyCode)) + "</small></div> <span class=\"payment-amount font-weight-bold\" data-v-1e0f4a63>" + _vm._ssrEscape(_vm._s(_vm.numberFormatter(payment.amount))) + "</span></div>";
+    }), 1) : _vm._e(), _vm._ssrNode(" " + (item.groupedSales && Object.keys(item.groupedSales).length > 0 ? "<div class=\"payment-breakdown\" data-v-20edbe42>" + _vm._ssrList(item.groupedSales, function (payment, key) {
+      return "<div class=\"payment-item\" data-v-20edbe42><div class=\"d-flex flex-column\" data-v-20edbe42><span class=\"payment-method\" data-v-20edbe42>" + _vm._ssrEscape(_vm._s(payment.paymentName)) + "</span> <small class=\"text--secondary font-weight-bold\" style=\"font-size: 0.7rem; color: #94a3b8\" data-v-20edbe42>" + _vm._ssrEscape(_vm._s(payment.currencyCode)) + "</small></div> <span class=\"payment-amount font-weight-bold\" data-v-20edbe42>" + _vm._ssrEscape(_vm._s(_vm.numberFormatter(payment.amount))) + "</span></div>";
     }) + "</div>" : "<!---->"))], 2)], 2);
-  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"analytics-section\" data-v-1e0f4a63>", "</section>", [_vm._ssrNode("<div class=\"analytics-grid\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"chart-card chart-card--large\" data-v-1e0f4a63><div class=\"chart-header\" data-v-1e0f4a63><h3 data-v-1e0f4a63>ສິນຄ້າຂາຍດີຕາມໝວດ</h3></div> <div class=\"chart-container\" data-v-1e0f4a63><div class=\"echarts-container\" data-v-1e0f4a63></div></div></div> "), _vm._ssrNode("<div class=\"chart-card chart-card--small\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-1e0f4a63><h3 data-v-1e0f4a63>Payment Methods (Local Value)</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-1e0f4a63>", "</div>", [_c('apexchart', {
+  }), 0)], 2), _vm._ssrNode(" "), _vm._ssrNode("<section class=\"analytics-section\" data-v-20edbe42>", "</section>", [_vm._ssrNode("<div class=\"analytics-grid\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"chart-card chart-card--large\" data-v-20edbe42><div class=\"chart-header\" data-v-20edbe42><h3 data-v-20edbe42>ສິນຄ້າຂາຍດີຕາມໝວດ</h3></div> <div class=\"chart-container\" data-v-20edbe42><div class=\"echarts-container\" data-v-20edbe42></div></div></div> "), _vm._ssrNode("<div class=\"chart-card chart-card--small\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-20edbe42><h3 data-v-20edbe42>ຮູບແບບການຊຳລະ (ມູນຄ່າລວມ)</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-20edbe42>", "</div>", [_c('apexchart', {
     attrs: {
       "type": "donut",
       "height": "250",
       "options": _vm.options,
       "series": _vm.paymentSeries
     }
-  })], 1)], 2), _vm._ssrNode(" "), _vm.dailyState ? _vm._ssrNode("<div class=\"chart-card full-width\" data-v-1e0f4a63>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-1e0f4a63><h3 data-v-1e0f4a63>Daily Trend (Converted Local)</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-1e0f4a63>", "</div>", [_c('apexchart', {
+  })], 1)], 2), _vm._ssrNode(" "), _vm.dailyState ? _vm._ssrNode("<div class=\"chart-card full-width\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-20edbe42><h3 data-v-20edbe42>ທ່າອ່ຽງການຂາຍລາຍວັນ (ສະກຸນເງິນກີບ)</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-20edbe42>", "</div>", [_c('apexchart', {
     attrs: {
       "type": "line",
       "height": "300",
       "options": _vm.barOptionsForDailyStat,
       "series": _vm.barSeriesForDailyStat
     }
-  })], 1)], 2) : _vm._e()], 2)]), _vm._ssrNode(" "), _vm.currentSelectedLocation ? _vm._ssrNode("<section class=\"inventory-section mt-10\" data-v-1e0f4a63>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-1e0f4a63><h2 class=\"section-title\" data-v-1e0f4a63>Inventory Alerts</h2> <p class=\"section-description\" data-v-1e0f4a63>Items with stock lower than minimum requirement</p></div> "), _vm._ssrNode("<div class=\"inventory-container\" data-v-1e0f4a63>", "</div>", [_c('MinStockCard')], 1)], 2) : _vm._e()], 2)], 2);
+  })], 1)], 2) : _vm._e(), _vm._ssrNode(" "), _vm.monthlyState ? _vm._ssrNode("<div class=\"chart-card full-width\" data-v-20edbe42>", "</div>", [_vm._ssrNode("<div class=\"chart-header\" data-v-20edbe42><h3 data-v-20edbe42>ທ່າອ່ຽງການຂາຍລາຍເດືອນ (6 ເດືອນຍ້ອນຫຼັງ)</h3></div> "), _vm._ssrNode("<div class=\"chart-container\" data-v-20edbe42>", "</div>", [_c('apexchart', {
+    attrs: {
+      "type": "bar",
+      "height": "300",
+      "options": _vm.barOptionsForMonthlyStat,
+      "series": _vm.barSeriesForMonthlyStat
+    }
+  })], 1)], 2) : _vm._e()], 2)]), _vm._ssrNode(" "), _vm.currentSelectedLocation ? _vm._ssrNode("<section class=\"inventory-section mt-10\" data-v-20edbe42>", "</section>", [_vm._ssrNode("<div class=\"section-header\" data-v-20edbe42><h2 class=\"section-title\" data-v-20edbe42>ແຈ້ງເຕືອນສິນຄ້າໃນສາງ</h2> <p class=\"section-description\" data-v-20edbe42>\n          ລາຍການສິນຄ້າທີ່ມີຈຳນວນຕ່ຳກວ່າເກນກຳນົດ\n        </p></div> "), _vm._ssrNode("<div class=\"inventory-container\" data-v-20edbe42>", "</div>", [_c('MinStockCard')], 1)], 2) : _vm._e()], 2)], 2);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=1e0f4a63&scoped=true
+// CONCATENATED MODULE: ./pages/admin/index.vue?vue&type=template&id=20edbe42&scoped=true
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -466,49 +473,20 @@ var external_echarts_ = __webpack_require__(420);
     return {
       terminalDialog: false,
       terminalSelected: null,
-      currentDate: new Date().toLocaleDateString('en-US', {
+      isloading: false,
+      dailyState: false,
+      monthlyState: false,
+      minstockComponentsKey: 1,
+      topSaleChartInstance: null,
+      yearlySale: [],
+      currentDate: new Date().toLocaleDateString('lo-LA', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       }),
-      yearlySale: [],
-      isloading: false,
-      dailyState: false,
-      minstockComponentsKey: 1,
-      topSaleChartInstance: null,
-      menusOverview: [{
-        title: 'ຍອດຂາຍມື້ນິ (Local Total)',
-        icon: 'mdi-calendar-today',
-        total: '0',
-        groupedSales: {},
-        groupedCurrency: {}
-      }, {
-        title: `ຍອດຂາຍເດືອນນີ້`,
-        icon: 'mdi-calendar-month',
-        total: '0',
-        groupedSales: {},
-        groupedCurrency: {}
-      }, {
-        title: `ຍອດຂາຍ 6 ເດືອນຫຼັງ`,
-        icon: 'mdi-calendar-range',
-        total: '0',
-        groupedSales: {},
-        groupedCurrency: {}
-      }],
-      options: {
-        chart: {
-          type: 'donut',
-          height: 250
-        },
-        labels: [],
-        legend: {
-          position: 'bottom'
-        },
-        colors: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe']
-      },
       barSeriesForDailyStat: [{
-        name: 'Sales',
+        name: 'ຍອດຂາຍ',
         data: []
       }],
       barOptionsForDailyStat: {
@@ -531,24 +509,88 @@ var external_echarts_ = __webpack_require__(420);
           }
         }
       },
+      barSeriesForMonthlyStat: [{
+        name: 'ຍອດຂາຍລາຍເດືອນ',
+        data: []
+      }],
+      barOptionsForMonthlyStat: {
+        chart: {
+          type: 'bar',
+          toolbar: {
+            show: false
+          },
+          animations: {
+            enabled: true
+          }
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 4,
+            columnWidth: '45%',
+            distributed: true
+          }
+        },
+        colors: ['#764ba2'],
+        xaxis: {
+          categories: []
+        },
+        yaxis: {
+          labels: {
+            formatter: val => Number(val).toLocaleString()
+          }
+        },
+        dataLabels: {
+          enabled: false
+        }
+      },
+      options: {
+        chart: {
+          type: 'donut',
+          height: 250
+        },
+        labels: [],
+        legend: {
+          position: 'bottom'
+        },
+        colors: ['#667eea', '#764ba2', '#f093fb', '#4facfe', '#00f2fe']
+      },
+      menusOverview: [{
+        title: 'ຍອດຂາຍມື້ນີ້ (ລວມເງິນກີບ)',
+        icon: 'mdi-calendar-today',
+        total: '0',
+        groupedSales: {},
+        groupedCurrency: {}
+      }, {
+        title: 'ຍອດຂາຍເດືອນນີ້',
+        icon: 'mdi-calendar-month',
+        total: '0',
+        groupedSales: {},
+        groupedCurrency: {}
+      }, {
+        title: 'ຍອດຂາຍ 6 ເດືອນຫຼັງ',
+        icon: 'mdi-calendar-range',
+        total: '0',
+        groupedSales: {},
+        groupedCurrency: {}
+      }],
       menus: [{
-        title: 'POS',
+        title: 'ຂາຍສິນຄ້າ (POS)',
         svgIcon: __webpack_require__(1109),
         path: '/pos/minimart'
       }, {
-        title: 'Invoice',
+        title: 'ໃບບິນ (Invoice)',
         svgIcon: __webpack_require__(1110),
         path: '/admin/ordersFromPos'
       }, {
-        title: 'ລູກຫນີ້',
+        title: 'ລູກໜີ້',
         svgIcon: __webpack_require__(1111),
         path: '/admin/ordersFromPosCredit'
       }, {
-        title: 'Stock',
+        title: 'ສາງສິນຄ້າ',
         svgIcon: __webpack_require__(1112),
         path: '/admin/product/productlist'
       }, {
-        title: 'Customer',
+        title: 'ລູກຄ້າ',
         svgIcon: __webpack_require__(1113),
         path: '/admin/client'
       }]
@@ -556,13 +598,9 @@ var external_echarts_ = __webpack_require__(420);
   },
   computed: {
     ...Object(external_vuex_["mapGetters"])(['findAllTerminal', 'findAllLocation', 'findAllPayment', 'findAllCurrency', 'currentSelectedLocation']),
-    // UI Styling logic
     primaryGradient() {
       const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light;
       return `linear-gradient(135deg, ${theme.primary} 0%, ${theme.secondary} 100%)`;
-    },
-    primaryColor() {
-      return this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark.primary : this.$vuetify.theme.themes.light.primary;
     },
     dialogHeaderStyle() {
       return {
@@ -600,7 +638,6 @@ var external_echarts_ = __webpack_require__(420);
       const data = Object.values(grouped);
       return {
         series: data.map(i => Math.round(i.totalSales)),
-        // Total converted local for chart
         labels: data.map(i => `${i.paymentName} (${i.currencyCode})`)
       };
     }
@@ -635,7 +672,6 @@ var external_echarts_ = __webpack_require__(420);
       var _this$topSaleChartIns;
       (_this$topSaleChartIns = this.topSaleChartInstance) === null || _this$topSaleChartIns === void 0 ? void 0 : _this$topSaleChartIns.resize();
     },
-    // CORE LOGIC: Converts line totals to local currency
     getLineConvertedAmount(line, currencies, headerCcyId) {
       const lineTotal = Number(line.total || 0);
       const targetCcyId = line.currencyId || headerCcyId;
@@ -646,12 +682,8 @@ var external_echarts_ = __webpack_require__(420);
     },
     getConvertedSaleTotal(sale) {
       const currencies = this.findAllCurrency || [];
-      let total = 0;
-      if (sale.lines && sale.lines.length > 0) {
-        total = sale.lines.reduce((sum, line) => sum + this.getLineConvertedAmount(line, currencies, sale.currencyId), 0);
-      } else {
-        total = Number(sale.total || 0);
-      }
+      let total = (sale.lines || []).reduce((sum, line) => sum + this.getLineConvertedAmount(line, currencies, sale.currencyId), 0);
+      if (!sale.lines || sale.lines.length === 0) total = Number(sale.total || 0);
       if (sale.dynamic_customer) {
         total += Number(sale.dynamic_customer.rider_fee) || 0;
         total -= Number(sale.dynamic_customer.cod_fee) || 0;
@@ -661,14 +693,12 @@ var external_echarts_ = __webpack_require__(420);
     getRawCurrencySummary(saleList) {
       const currencies = this.findAllCurrency || [];
       return saleList.reduce((acc, sale) => {
-        if (sale.lines) {
-          sale.lines.forEach(line => {
-            const targetId = line.currencyId || sale.currencyId;
-            const ccy = currencies.find(c => Number(c.id) === Number(targetId));
-            const code = ccy ? ccy.code : '???';
-            acc[code] = (acc[code] || 0) + Number(line.total || 0);
-          });
-        }
+        (sale.lines || []).forEach(line => {
+          const targetId = line.currencyId || sale.currencyId;
+          const ccy = currencies.find(c => Number(c.id) === Number(targetId));
+          const code = ccy ? ccy.code : '???';
+          acc[code] = (acc[code] || 0) + Number(line.total || 0);
+        });
         return acc;
       }, {});
     },
@@ -678,50 +708,36 @@ var external_echarts_ = __webpack_require__(420);
       return saleList.reduce((acc, sale) => {
         const headerCcy = currencies.find(c => Number(c.id) === Number(sale.currencyId));
         const headerCode = headerCcy ? headerCcy.code : '???';
-
-        // 1. Multi-payment logic (Detailed)
         if (sale.payments && sale.payments.length > 0) {
           sale.payments.forEach(p => {
             const pmDetails = this.findAllPayment.find(pm => pm.id === p.paymentId);
-            const pName = (pmDetails === null || pmDetails === void 0 ? void 0 : pmDetails.payment_name) || 'Other';
             const pCcy = currencies.find(c => Number(c.id) === Number(p.currencyId || sale.currencyId));
             const pCode = pCcy ? pCcy.code : headerCode;
-            const uniqueKey = `${p.paymentId}_${pCode}`;
-            if (!acc[uniqueKey]) {
-              acc[uniqueKey] = {
-                amount: 0,
-                totalSales: 0,
-                paymentName: pName,
-                currencyCode: pCode
-              };
-            }
-            const rawAmt = Number(p.amount || 0);
-            acc[uniqueKey].amount += rawAmt;
-
-            // Calculate converted local value for main KPI cards
-            let converted = rawAmt;
-            if (pCcy && Number(pCcy.isLocalCCY) !== 1) {
-              const rate = Number(p.exchangeRate || 1);
-              converted = pCcy.exchangeDirection === 'foreign_to_local' ? rawAmt * rate : rawAmt / rate;
-            }
-            acc[uniqueKey].totalSales += converted;
-          });
-        }
-        // 2. Fallback for single payment old data
-        else {
-          var _sale$payment;
-          const pName = ((_sale$payment = sale.payment) === null || _sale$payment === void 0 ? void 0 : _sale$payment.payment_name) || 'Cash';
-          const uniqueKey = `old_${headerCode}`;
-          if (!acc[uniqueKey]) {
-            acc[uniqueKey] = {
+            const key = `${p.paymentId}_${pCode}`;
+            if (!acc[key]) acc[key] = {
               amount: 0,
               totalSales: 0,
-              paymentName: pName,
-              currencyCode: headerCode
+              paymentName: (pmDetails === null || pmDetails === void 0 ? void 0 : pmDetails.payment_name) || 'ອື່ນໆ',
+              currencyCode: pCode
             };
-          }
-          acc[uniqueKey].amount += Number(sale.total || 0);
-          acc[uniqueKey].totalSales += this.getConvertedSaleTotal(sale);
+            acc[key].amount += Number(p.amount || 0);
+            let conv = Number(p.amount || 0);
+            if (pCcy && Number(pCcy.isLocalCCY) !== 1) {
+              const r = Number(p.exchangeRate || 1);
+              conv = pCcy.exchangeDirection === 'foreign_to_local' ? conv * r : conv / r;
+            }
+            acc[key].totalSales += conv;
+          });
+        } else if (sale.payment) {
+          const key = `${sale.payment.id}_${headerCode}`;
+          if (!acc[key]) acc[key] = {
+            amount: 0,
+            totalSales: 0,
+            paymentName: sale.payment.payment_name || 'ເງິນສົດ',
+            currencyCode: headerCode
+          };
+          acc[key].amount += Number(sale.total || 0);
+          acc[key].totalSales += this.getConvertedSaleTotal(sale);
         }
         return acc;
       }, {});
@@ -735,7 +751,8 @@ var external_echarts_ = __webpack_require__(420);
         const res = await this.$axios.get('api/sale/sumsaleYearly', {
           params: {
             date: dateRange,
-            locationId: (_this$currentSelected = this.currentSelectedLocation) === null || _this$currentSelected === void 0 ? void 0 : _this$currentSelected.id
+            locationId: (_this$currentSelected = this.currentSelectedLocation) === null || _this$currentSelected === void 0 ? void 0 : _this$currentSelected.id,
+            includeCards: false
           }
         });
         this.yearlySale = res.data;
@@ -752,8 +769,8 @@ var external_echarts_ = __webpack_require__(420);
         }];
         periods.forEach(p => {
           const grouped = this.saleGroupByPayment(p.list);
-          const totalConverted = Object.values(grouped).reduce((s, i) => s + i.totalSales, 0);
-          this.menusOverview[p.key].total = Object(common["e" /* getFormatNum */])(Math.round(totalConverted));
+          const total = Object.values(grouped).reduce((s, i) => s + i.totalSales, 0);
+          this.menusOverview[p.key].total = Object(common["e" /* getFormatNum */])(Math.round(total));
           this.menusOverview[p.key].groupedSales = grouped;
           this.menusOverview[p.key].groupedCurrency = this.getRawCurrencySummary(p.list);
         });
@@ -769,12 +786,11 @@ var external_echarts_ = __webpack_require__(420);
       const dailyMap = {};
       const monthStr = new Date().toISOString().split('-')[1];
       this.yearlySale.filter(el => el.bookingDate.split('-')[1] === monthStr).forEach(sale => {
-        const d = sale.bookingDate;
-        dailyMap[d] = (dailyMap[d] || 0) + this.getConvertedSaleTotal(sale);
+        dailyMap[sale.bookingDate] = (dailyMap[sale.bookingDate] || 0) + this.getConvertedSaleTotal(sale);
       });
       const dates = Object.keys(dailyMap).sort();
       this.barSeriesForDailyStat = [{
-        name: 'Total Local',
+        name: 'ຍອດລວມ (ກີບ)',
         data: dates.map(d => Math.round(dailyMap[d]))
       }];
       this.barOptionsForDailyStat = {
@@ -783,37 +799,43 @@ var external_echarts_ = __webpack_require__(420);
           categories: dates
         }
       };
-      this.dailyState = true;
+      this.dailyState = dates.length > 0;
     },
     monthGroupSale() {
+      if (!this.yearlySale.length) return;
       let grouped = {};
       this.yearlySale.forEach(sale => {
-        const date = new Date(sale.bookingDate);
-        const key = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+        const d = new Date(sale.bookingDate);
+        const key = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`;
         grouped[key] = (grouped[key] || 0) + this.getConvertedSaleTotal(sale);
       });
       const keys = Object.keys(grouped).sort();
+      const values = keys.map(k => Math.round(grouped[k]));
       this.barSeriesForMonthlyStat = [{
-        name: 'Monthly Local',
-        data: keys.map(k => Math.round(grouped[k]))
+        name: 'ຍອດຂາຍ (ກີບ)',
+        data: values
       }];
       this.barOptionsForMonthlyStat = {
         ...this.barOptionsForMonthlyStat,
         xaxis: {
+          ...this.barOptionsForMonthlyStat.xaxis,
           categories: keys
         }
       };
+      this.monthlyState = values.length > 0;
     },
     async chooseTerminal() {
       const term = this.findAllTerminal.find(t => t.id === this.terminalSelected);
-      const loc = this.findAllLocation.find(l => l.id === term.locationId);
-      if (loc) {
-        this.setSelectedLocation(loc);
-        this.terminalDialog = false;
-        this.minstockComponentsKey++;
-        await this.loadProduct(loc.id);
-        await this.loadSaleStatistic();
-        await this.loadTopSale();
+      if (term) {
+        const loc = this.findAllLocation.find(l => l.id === term.locationId);
+        if (loc) {
+          this.setSelectedLocation(loc);
+          this.terminalDialog = false;
+          this.minstockComponentsKey++;
+          await this.loadProduct(loc.id);
+          await this.loadSaleStatistic();
+          await this.loadTopSale();
+        }
       }
     },
     async loadProduct(locationId) {
@@ -821,8 +843,8 @@ var external_echarts_ = __webpack_require__(420);
       try {
         const res = await this.$axios.get(`product_f/${locationId}`);
         this.initProduct(res.data.data);
-      } catch (er) {
-        console.log(er);
+      } catch (e) {
+        console.log(e);
       }
       this.isloading = false;
     },
@@ -879,11 +901,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   pages_adminvue_type_script_lang_js,
-  adminvue_type_template_id_1e0f4a63_scoped_true_render,
+  adminvue_type_template_id_20edbe42_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "1e0f4a63",
+  "20edbe42",
   "8e090fbe"
   
 )
@@ -1213,7 +1235,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
 "use strict";
 /* WEBPACK VAR INJECTION */(function(URL) {/* harmony import */ var _common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 /* harmony import */ var _pages_product_index_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(523);
-/* harmony import */ var _common_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(43);
+/* harmony import */ var _common_api__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(50);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(14);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vuex__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var jsbarcode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(414);
@@ -1294,7 +1316,7 @@ const baseMixins = Object(_util_mixins__WEBPACK_IMPORTED_MODULE_2__[/* default *
       return this.findAllUnit;
     },
     host() {
-      return Object(_common_api__WEBPACK_IMPORTED_MODULE_2__[/* hostName */ "a"])();
+      return this.$axios.defaults.baseURL;
     },
     taxRateOptions() {
       return this.taxRates.map(tax => ({
@@ -2661,7 +2683,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("7c292d8c", content, true, context)
+  add("4809edc9", content, true, context)
 };
 
 /***/ }),
@@ -3535,7 +3557,7 @@ var VTextField = __webpack_require__(39);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextarea/VTextarea.js
 var VTextarea = __webpack_require__(481);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=template&id=5dce2c23&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=template&id=5e8ca846&scoped=true
 
 
 
@@ -3557,13 +3579,13 @@ var VTextarea = __webpack_require__(481);
 
 
 
-var ProductFormvue_type_template_id_5dce2c23_scoped_true_render = function render() {
+var ProductFormvue_type_template_id_5e8ca846_scoped_true_render = function render() {
   var _vm$selectedTaxRate;
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "modal-overlay"
-  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-5dce2c23>", "</div>", [_c(VDialog["a" /* default */], {
+  }, [_vm._ssrNode("<div class=\"enhanced-dialog\" data-v-5e8ca846>", "</div>", [_c(VDialog["a" /* default */], {
     attrs: {
       "hide-overlay": "",
       "persistent": "",
@@ -3619,7 +3641,7 @@ var ProductFormvue_type_template_id_5dce2c23_scoped_true_render = function rende
       },
       "refresh": _vm.fetchData
     }
-  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-content\" data-v-5dce2c23>", "</div>", [_c(VCard["a" /* default */], {
+  })], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-content\" data-v-5e8ca846>", "</div>", [_c(VCard["a" /* default */], {
     attrs: {
       "flat": ""
     }
@@ -4171,7 +4193,7 @@ var ProductFormvue_type_template_id_5dce2c23_scoped_true_render = function rende
     on: {
       "click": _vm.printBarcode
     }
-  }, [_vm._v("Print")])], 1)], 1)], 1)], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-footer\" data-v-5dce2c23>", "</div>", [_vm._ssrNode("<div class=\"footer-actions\" data-v-5dce2c23>", "</div>", [_c(VBtn["a" /* default */], {
+  }, [_vm._v("Print")])], 1)], 1)], 1)], 1)], 1)], 1)], 1)], 1), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"modal-footer\" data-v-5e8ca846>", "</div>", [_vm._ssrNode("<div class=\"footer-actions\" data-v-5e8ca846>", "</div>", [_c(VBtn["a" /* default */], {
     attrs: {
       "color": "secondary",
       "depressed": ""
@@ -4194,7 +4216,7 @@ var ProductFormvue_type_template_id_5dce2c23_scoped_true_render = function rende
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=template&id=5dce2c23&scoped=true
+// CONCATENATED MODULE: ./components/product/ProductForm.vue?vue&type=template&id=5e8ca846&scoped=true
 
 // EXTERNAL MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/product/ProductForm.vue?vue&type=script&lang=js
 var ProductFormvue_type_script_lang_js = __webpack_require__(492);
@@ -4219,11 +4241,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   product_ProductFormvue_type_script_lang_js,
-  ProductFormvue_type_template_id_5dce2c23_scoped_true_render,
+  ProductFormvue_type_template_id_5e8ca846_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "5dce2c23",
+  "5e8ca846",
   "51248ea0"
   
 )
@@ -4542,9 +4564,9 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5dce2c23_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(504);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5dce2c23_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5dce2c23_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5dce2c23_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5dce2c23_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5e8ca846_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(504);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5e8ca846_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5e8ca846_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5e8ca846_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProductForm_vue_vue_type_style_index_0_id_5e8ca846_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -4556,7 +4578,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".enhanced-dialog[data-v-5dce2c23],.enhanced-dialog *[data-v-5dce2c23],.v-application .enhanced-dialog[data-v-5dce2c23]{font-family:\"Noto Sans Lao\",sans-serif!important}.enhanced-dialog[data-v-5dce2c23] .text-subtitle-2,.enhanced-dialog[data-v-5dce2c23] .v-btn__content,.enhanced-dialog[data-v-5dce2c23] .v-input,.enhanced-dialog[data-v-5dce2c23] .v-label{font-family:\"Noto Sans Lao\",sans-serif!important}.modal-overlay[data-v-5dce2c23]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;position:fixed;top:0;z-index:1050}.enhanced-dialog[data-v-5dce2c23],.modal-overlay[data-v-5dce2c23]{display:flex;height:100vh;width:100vw}.enhanced-dialog[data-v-5dce2c23]{background:#fff;flex-direction:column;overflow:hidden}.modal-content[data-v-5dce2c23]{flex:1;overflow-y:auto;padding-bottom:20px}.modal-footer[data-v-5dce2c23]{background:#f8f9fa;border-top:1px solid #e9ecef;bottom:0;padding:12px 20px;position:sticky;z-index:10}.footer-actions[data-v-5dce2c23]{display:flex;gap:8px;justify-content:flex-end}.modal-content[data-v-5dce2c23]::-webkit-scrollbar{width:6px}.modal-content[data-v-5dce2c23]::-webkit-scrollbar-thumb{background:#c1c1c1;border-radius:10px}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".enhanced-dialog[data-v-5e8ca846],.enhanced-dialog *[data-v-5e8ca846],.v-application .enhanced-dialog[data-v-5e8ca846]{font-family:\"Noto Sans Lao\",sans-serif!important}.enhanced-dialog[data-v-5e8ca846] .text-subtitle-2,.enhanced-dialog[data-v-5e8ca846] .v-btn__content,.enhanced-dialog[data-v-5e8ca846] .v-input,.enhanced-dialog[data-v-5e8ca846] .v-label{font-family:\"Noto Sans Lao\",sans-serif!important}.modal-overlay[data-v-5e8ca846]{align-items:center;background-color:rgba(0,0,0,.7);justify-content:center;left:0;position:fixed;top:0;z-index:1050}.enhanced-dialog[data-v-5e8ca846],.modal-overlay[data-v-5e8ca846]{display:flex;height:100vh;width:100vw}.enhanced-dialog[data-v-5e8ca846]{background:#fff;flex-direction:column;overflow:hidden}.modal-content[data-v-5e8ca846]{flex:1;overflow-y:auto;padding-bottom:20px}.modal-footer[data-v-5e8ca846]{background:#f8f9fa;border-top:1px solid #e9ecef;bottom:0;padding:12px 20px;position:sticky;z-index:10}.footer-actions[data-v-5e8ca846]{display:flex;gap:8px;justify-content:flex-end}.modal-content[data-v-5e8ca846]::-webkit-scrollbar{width:6px}.modal-content[data-v-5e8ca846]::-webkit-scrollbar-thumb{background:#c1c1c1;border-radius:10px}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -5442,7 +5464,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("0d05b529", content, true, context)
+  add("3d1e885a", content, true, context)
 };
 
 /***/ })

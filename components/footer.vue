@@ -43,7 +43,7 @@
 
 <script>
 import {  getFormatNum } from '~/common'
-import { hostName,mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
+import { mainCompanyInfo,mainCompanyInfoV1 } from '~/common/api'
 export default {
   name: 'MyFooter',
   data() {

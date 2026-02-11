@@ -132,7 +132,7 @@
 <script>
 import OrderForm from '@/components/OrderForm.vue';
 import { mapActions, mapGetters } from 'vuex'
-import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
+import {  mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import OrderStatusForm from '@/components/OrderStatusForm.vue';
 import { ticketHtml, jsDateToMysqlDate, swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
 

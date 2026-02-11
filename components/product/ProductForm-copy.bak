@@ -470,7 +470,7 @@ export default {
       return this.findAllUnit
     },
     host() {
-      return hostName()
+      return this.$axios.defaults.baseURL
     },
     barcode2by2cm() {
       const html = `

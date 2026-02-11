@@ -3616,7 +3616,7 @@ var staticRenderFns = [];
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(44);
+var external_lodash_ = __webpack_require__(43);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -4000,7 +4000,7 @@ var VSpacer = __webpack_require__(443);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VTextField/VTextField.js + 3 modules
 var VTextField = __webpack_require__(39);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderStatusForm.vue?vue&type=template&id=06313687
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/OrderStatusForm.vue?vue&type=template&id=05785b1c
 
 
 
@@ -4017,7 +4017,7 @@ var VTextField = __webpack_require__(39);
 
 
 
-var OrderStatusFormvue_type_template_id_06313687_render = function render() {
+var OrderStatusFormvue_type_template_id_05785b1c_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -4306,16 +4306,16 @@ var OrderStatusFormvue_type_template_id_06313687_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/OrderStatusForm.vue?vue&type=template&id=06313687
+// CONCATENATED MODULE: ./components/OrderStatusForm.vue?vue&type=template&id=05785b1c
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(44);
+var external_lodash_ = __webpack_require__(43);
 
 // EXTERNAL MODULE: ./common/api.js
-var common_api = __webpack_require__(43);
+var common_api = __webpack_require__(50);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -4359,7 +4359,7 @@ var external_vuex_ = __webpack_require__(14);
   async mounted() {
     // ENHANCED: Preload company data for API logos
     try {
-      await Object(common_api["d" /* preloadCompanyData */])(this.$axios);
+      await Object(common_api["c" /* preloadCompanyData */])(this.$axios);
       console.log('Company data preloaded for shipping confirmation');
     } catch (error) {
       console.warn('Company preload failed, using fallback:', error);
@@ -4720,7 +4720,7 @@ var external_vuex_ = __webpack_require__(14);
     // ENHANCED: Company data with API integration
     companyData() {
       console.log(`**********ENHANCED COMPANY DATA**********`);
-      const company = Object(common_api["b" /* mainCompanyInfo */])();
+      const company = Object(common_api["a" /* mainCompanyInfo */])();
       console.log('Company info:', company);
       return company;
     },
@@ -4804,7 +4804,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_OrderStatusFormvue_type_script_lang_js,
-  OrderStatusFormvue_type_template_id_06313687_render,
+  OrderStatusFormvue_type_template_id_05785b1c_render,
   staticRenderFns,
   false,
   null,

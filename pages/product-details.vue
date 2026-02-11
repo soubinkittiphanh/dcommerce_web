@@ -246,7 +246,7 @@ export default {
         mainImage() {
             return this.productImages[this.selectedThumbnail]
         }, host() {
-            return hostName()
+            return this.$axios.defaults.baseURL
         }
     },
 }

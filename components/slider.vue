@@ -51,7 +51,7 @@ export default {
   },
   computed: {
     host() {
-      return hostName()
+      return this.$axios.defaults.baseURL
     }
   },
   data() {

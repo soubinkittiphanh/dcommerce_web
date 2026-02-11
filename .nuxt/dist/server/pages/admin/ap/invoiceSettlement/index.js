@@ -3846,7 +3846,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("694e5e06", content, true, context)
+  add("6d92a19d", content, true, context)
 };
 
 /***/ }),
@@ -4313,9 +4313,9 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_15bd16ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(612);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_15bd16ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_15bd16ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_15bd16ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_15bd16ba_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7a8a3fae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(612);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7a8a3fae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7a8a3fae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7a8a3fae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_7a8a3fae_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -4327,7 +4327,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".voucher-container[data-v-15bd16ba]{background:#fff;margin:0 auto;max-width:900px;padding:40px}.voucher-header[data-v-15bd16ba]{border-bottom:3px solid primary;margin-bottom:30px;padding-bottom:15px}.header-flex[data-v-15bd16ba]{align-items:center;display:flex;gap:20px;justify-content:space-between}.header-left[data-v-15bd16ba]{flex-shrink:0}.header-center[data-v-15bd16ba]{flex:1;text-align:left}.header-right[data-v-15bd16ba]{flex-shrink:0;text-align:right}.logo-placeholder[data-v-15bd16ba]{align-items:center;border:2px dashed #ddd;border-radius:4px;display:flex;height:100px;justify-content:center;width:120px}.company-logo[data-v-15bd16ba]{border-radius:4px;display:block;height:auto;max-height:100px;-o-object-fit:contain;object-fit:contain;width:120px}.company-name[data-v-15bd16ba]{color:primary;font-size:24px;font-weight:700;margin:0 0 8px}.company-address[data-v-15bd16ba],.company-contact[data-v-15bd16ba]{color:#666;font-size:13px;margin:5px 0}.voucher-title h3[data-v-15bd16ba]{color:#333;font-size:20px;margin:0 0 5px}.voucher-title h4[data-v-15bd16ba]{color:#666;font-size:16px;margin:0}.voucher-info-grid[data-v-15bd16ba]{display:grid;grid-template-columns:1fr 1fr;grid-gap:15px;background-color:#f9f9f9;border-radius:4px;gap:15px;margin:25px 0;padding:15px}.info-row[data-v-15bd16ba]{display:flex;padding:5px 0}.label[data-v-15bd16ba]{color:#333;font-weight:600;min-width:130px}.value[data-v-15bd16ba]{color:#666}.voucher-table[data-v-15bd16ba]{border-collapse:collapse;font-size:13px;margin:25px 0;width:100%}.voucher-table td[data-v-15bd16ba],.voucher-table th[data-v-15bd16ba]{border:1px solid #ddd;padding:10px}.voucher-table th[data-v-15bd16ba]{background-color:primary;font-weight:600;text-align:left}.voucher-table tbody tr[data-v-15bd16ba]:nth-child(2n){background-color:#f9f9f9}.voucher-table .text-center[data-v-15bd16ba]{text-align:center}.voucher-table .text-right[data-v-15bd16ba]{text-align:right}.total-row td[data-v-15bd16ba]{background-color:#e8f5e9;font-size:14px;font-weight:700}.amount-words[data-v-15bd16ba]{background-color:#f0f4ff;border-left:4px solid primary;font-size:14px;margin:20px 0;padding:15px}.voucher-description[data-v-15bd16ba]{background-color:#fff9e6;border-radius:4px;font-size:13px;margin:20px 0;padding:15px}.signature-section[data-v-15bd16ba]{display:flex;gap:40px;justify-content:space-between;margin-top:60px}.signature-box[data-v-15bd16ba]{flex:1;text-align:center}.signature-line[data-v-15bd16ba]{border-top:2px solid #333;margin:80px 10px 15px}.signature-label[data-v-15bd16ba]{color:#333;font-size:13px;font-weight:600;margin:8px 0}.signature-name[data-v-15bd16ba]{font-size:14px;font-weight:500;margin:5px 0}.signature-date[data-v-15bd16ba]{color:#666;font-size:12px}@media print{.voucher-container[data-v-15bd16ba]{padding:20px}.company-logo[data-v-15bd16ba]{max-height:80px;width:100px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".voucher-container[data-v-7a8a3fae]{background:#fff;margin:0 auto;max-width:900px;padding:40px}.voucher-header[data-v-7a8a3fae]{border-bottom:3px solid primary;margin-bottom:30px;padding-bottom:15px}.header-flex[data-v-7a8a3fae]{align-items:center;display:flex;gap:20px;justify-content:space-between}.header-left[data-v-7a8a3fae]{flex-shrink:0}.header-center[data-v-7a8a3fae]{flex:1;text-align:left}.header-right[data-v-7a8a3fae]{flex-shrink:0;text-align:right}.logo-placeholder[data-v-7a8a3fae]{align-items:center;border:2px dashed #ddd;border-radius:4px;display:flex;height:100px;justify-content:center;width:120px}.company-logo[data-v-7a8a3fae]{border-radius:4px;display:block;height:auto;max-height:100px;-o-object-fit:contain;object-fit:contain;width:120px}.company-name[data-v-7a8a3fae]{color:primary;font-size:24px;font-weight:700;margin:0 0 8px}.company-address[data-v-7a8a3fae],.company-contact[data-v-7a8a3fae]{color:#666;font-size:13px;margin:5px 0}.voucher-title h3[data-v-7a8a3fae]{color:#333;font-size:20px;margin:0 0 5px}.voucher-title h4[data-v-7a8a3fae]{color:#666;font-size:16px;margin:0}.voucher-info-grid[data-v-7a8a3fae]{display:grid;grid-template-columns:1fr 1fr;grid-gap:15px;background-color:#f9f9f9;border-radius:4px;gap:15px;margin:25px 0;padding:15px}.info-row[data-v-7a8a3fae]{display:flex;padding:5px 0}.label[data-v-7a8a3fae]{color:#333;font-weight:600;min-width:130px}.value[data-v-7a8a3fae]{color:#666}.voucher-table[data-v-7a8a3fae]{border-collapse:collapse;font-size:13px;margin:25px 0;width:100%}.voucher-table td[data-v-7a8a3fae],.voucher-table th[data-v-7a8a3fae]{border:1px solid #ddd;padding:10px}.voucher-table th[data-v-7a8a3fae]{background-color:primary;font-weight:600;text-align:left}.voucher-table tbody tr[data-v-7a8a3fae]:nth-child(2n){background-color:#f9f9f9}.voucher-table .text-center[data-v-7a8a3fae]{text-align:center}.voucher-table .text-right[data-v-7a8a3fae]{text-align:right}.total-row td[data-v-7a8a3fae]{background-color:#e8f5e9;font-size:14px;font-weight:700}.amount-words[data-v-7a8a3fae]{background-color:#f0f4ff;border-left:4px solid primary;font-size:14px;margin:20px 0;padding:15px}.voucher-description[data-v-7a8a3fae]{background-color:#fff9e6;border-radius:4px;font-size:13px;margin:20px 0;padding:15px}.signature-section[data-v-7a8a3fae]{display:flex;gap:40px;justify-content:space-between;margin-top:60px}.signature-box[data-v-7a8a3fae]{flex:1;text-align:center}.signature-line[data-v-7a8a3fae]{border-top:2px solid #333;margin:80px 10px 15px}.signature-label[data-v-7a8a3fae]{color:#333;font-size:13px;font-weight:600;margin:8px 0}.signature-name[data-v-7a8a3fae]{font-size:14px;font-weight:500;margin:5px 0}.signature-date[data-v-7a8a3fae]{color:#666;font-size:12px}@media print{.voucher-container[data-v-7a8a3fae]{padding:20px}.company-logo[data-v-7a8a3fae]{max-height:80px;width:100px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -4795,7 +4795,7 @@ var VProgressCircular = __webpack_require__(110);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(443);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/settlement/voucher/index.vue?vue&type=template&id=15bd16ba&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/accounting/ap/settlement/voucher/index.vue?vue&type=template&id=7a8a3fae&scoped=true
 
 
 
@@ -4806,7 +4806,7 @@ var VSpacer = __webpack_require__(443);
 
 
 
-var vouchervue_type_template_id_15bd16ba_scoped_true_render = function render() {
+var vouchervue_type_template_id_7a8a3fae_scoped_true_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c(VDialog["a" /* default */], {
@@ -5061,10 +5061,10 @@ var vouchervue_type_template_id_15bd16ba_scoped_true_render = function render() 
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/accounting/ap/settlement/voucher/index.vue?vue&type=template&id=15bd16ba&scoped=true
+// CONCATENATED MODULE: ./components/accounting/ap/settlement/voucher/index.vue?vue&type=template&id=7a8a3fae&scoped=true
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // EXTERNAL MODULE: ./mixins/companyLogoMixin.js
 var companyLogoMixin = __webpack_require__(556);
@@ -5109,8 +5109,8 @@ var external_vuex_ = __webpack_require__(14);
   computed: {
     ...Object(external_vuex_["mapGetters"])(['findAllPayment', 'findAllCurrency']),
     companyDataV1() {
-      console.log(`**********COMPANY DATA V1 PDFINVOICE ${api["b" /* mainCompanyInfo */]}**********`);
-      let comV1 = Object(api["c" /* mainCompanyInfoV1 */])(this.$store);
+      console.log(`**********COMPANY DATA V1 PDFINVOICE ${api["a" /* mainCompanyInfo */]}**********`);
+      let comV1 = Object(api["b" /* mainCompanyInfoV1 */])(this.$store);
       console.info(`Company data fetch from api V1 ${comV1}`);
       return comV1;
     },
@@ -5408,11 +5408,11 @@ if (style0.__inject__) style0.__inject__(context)
 
 var component = Object(componentNormalizer["a" /* default */])(
   settlement_vouchervue_type_script_lang_js,
-  vouchervue_type_template_id_15bd16ba_scoped_true_render,
+  vouchervue_type_template_id_7a8a3fae_scoped_true_render,
   staticRenderFns,
   false,
   injectStyles,
-  "15bd16ba",
+  "7a8a3fae",
   "1d8f96b8"
   
 )

@@ -211,7 +211,7 @@
 </template>
 
 <script>
-import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
+import {  mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
 
 export default {
   name: 'ARInvoicePrinter',

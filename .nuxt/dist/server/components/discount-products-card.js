@@ -97,7 +97,7 @@ var VIcon = __webpack_require__(64);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VImg/VImg.js + 2 modules
 var VImg = __webpack_require__(105);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=template&id=5dff869a
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=template&id=4fe0d0a0
 
 
 
@@ -106,7 +106,7 @@ var VImg = __webpack_require__(105);
 
 
 
-var discount_products_cardvue_type_template_id_5dff869a_render = function render() {
+var discount_products_cardvue_type_template_id_4fe0d0a0_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -180,13 +180,13 @@ var discount_products_cardvue_type_template_id_5dff869a_render = function render
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=template&id=5dff869a
+// CONCATENATED MODULE: ./components/discount-products-card.vue?vue&type=template&id=4fe0d0a0
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/discount-products-card.vue?vue&type=script&lang=js
 
@@ -201,7 +201,7 @@ var api = __webpack_require__(43);
   },
   computed: {
     host() {
-      return Object(api["a" /* hostName */])();
+      return this.$axios.defaults.baseURL;
     }
   },
   data() {
@@ -244,7 +244,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_discount_products_cardvue_type_script_lang_js,
-  discount_products_cardvue_type_template_id_5dff869a_render,
+  discount_products_cardvue_type_template_id_4fe0d0a0_render,
   staticRenderFns,
   false,
   injectStyles,

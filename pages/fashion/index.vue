@@ -194,7 +194,7 @@ export default {
   layout: 'fashion',
   computed: {
     host() {
-      return hostName()
+      return this.$axios.defaults.baseURL
     },
   },
   data() {

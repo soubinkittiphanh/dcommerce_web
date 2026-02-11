@@ -26,7 +26,7 @@ var VImg = __webpack_require__(105);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(443);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-products-card.vue?vue&type=template&id=291565d8
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-products-card.vue?vue&type=template&id=2ee1a752
 
 
 
@@ -34,7 +34,7 @@ var VSpacer = __webpack_require__(443);
 
 
 
-var new_products_cardvue_type_template_id_291565d8_render = function render() {
+var new_products_cardvue_type_template_id_2ee1a752_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -90,10 +90,10 @@ var new_products_cardvue_type_template_id_291565d8_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/new-products-card.vue?vue&type=template&id=291565d8
+// CONCATENATED MODULE: ./components/new-products-card.vue?vue&type=template&id=2ee1a752
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/new-products-card.vue?vue&type=script&lang=js
 
@@ -115,7 +115,7 @@ var api = __webpack_require__(43);
   },
   computed: {
     host() {
-      return Object(api["a" /* hostName */])();
+      return this.$axios.defaults.baseURL;
     }
   },
   data() {
@@ -137,7 +137,7 @@ var componentNormalizer = __webpack_require__(10);
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_new_products_cardvue_type_script_lang_js,
-  new_products_cardvue_type_template_id_291565d8_render,
+  new_products_cardvue_type_template_id_2ee1a752_render,
   staticRenderFns,
   false,
   null,

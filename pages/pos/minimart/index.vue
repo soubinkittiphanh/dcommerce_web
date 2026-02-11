@@ -85,7 +85,7 @@
 <script>
 import { getFormatNum, swalError2, swalSuccess } from '~/common'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-import { hostName, mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
+import {  mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
 
 export default {
   name: 'ProductList',

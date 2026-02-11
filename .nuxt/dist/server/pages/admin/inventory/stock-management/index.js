@@ -2197,7 +2197,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./pages/admin/inventory/stock-management/index.vue?vue&type=template&id=1d0932aa&scoped=true
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(44);
+var external_lodash_ = __webpack_require__(43);
 
 // EXTERNAL MODULE: ./components/card/stockMaintenance.vue + 5 modules
 var stockMaintenance = __webpack_require__(1062);

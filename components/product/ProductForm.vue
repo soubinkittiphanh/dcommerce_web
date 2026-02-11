@@ -244,7 +244,7 @@ export default {
   computed: {
     ...mapGetters(['findAllUnit', 'findAllCurrency']),
     unitList() { return this.findAllUnit },
-    host() { return hostName() },
+    host() { return this.$axios.defaults.baseURL },
     taxRateOptions() {
       return this.taxRates.map((tax) => ({
         id: tax.id,

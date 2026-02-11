@@ -191,7 +191,7 @@
 <script>
 import { swalSuccess, swalError2, ticketHtml, getFormatNum } from '~/common'
 import { debounce } from 'lodash'
-import { hostName, mainCompanyInfo, mainCompanyInfoV1, preloadCompanyData } from '~/common/api'
+import {  mainCompanyInfo, mainCompanyInfoV1, preloadCompanyData } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {

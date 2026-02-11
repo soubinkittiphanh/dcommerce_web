@@ -258,7 +258,7 @@
                   </div>
 
                   <div class="kpi-content">
-                    <h3 class="kpi-title text-subtitle-2 grey--text mb-1">
+                    <h3 class="kpi-title grey--text mb-1">
                       {{ item.title }}
                     </h3>
                     <div
@@ -609,7 +609,7 @@ import {
   getLocalDate,
 } from '~/common'
 import { printSalesReportSummary } from '~/common/sales-report-printer.js'
-import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
+import {  mainCompanyInfo, preloadCompanyData } from '~/common/api'
 
 import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
@@ -829,7 +829,7 @@ export default {
               (c) => c.id === line.product?.saleCurrencyId
             )
 
-          const currencyCode = lineCurrency?.code || 'UNKNOWN'
+          const currencyCode = lineCurrency?.code || this.findLocalCurrency.code
           const isLocal =
             lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1
 
@@ -941,6 +941,7 @@ export default {
       'findAllTerminal',
       'findAllLocation',
       'findAllCurrency',
+      'findLocalCurrency',
       'findAllPayment', // ADDED: Payment methods from store
     ]),
 
@@ -1027,7 +1028,7 @@ export default {
             const lineCurrency = this.findAllCurrency?.find(
               (c) => c.id === line.currencyId
             )
-            const cCode = lineCurrency?.code || 'Unknown'
+            const cCode = lineCurrency?.code || this.findLocalCurrency.code
 
             if (!stats[paymentCode].groupedCurrency[cCode]) {
               stats[paymentCode].groupedCurrency[cCode] = {

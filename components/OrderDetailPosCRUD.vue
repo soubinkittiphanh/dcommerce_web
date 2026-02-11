@@ -1054,7 +1054,7 @@ export default {
           ? `api/${this.apiLine}/update/${this.headerId}`
           : `api/${this.apiLine}/create`
         const method = this.isUpdate ? 'put' : 'post'
-
+        console.info(`Transaction DET ${JSON.stringify(this.transaction)}`)
         await this.$axios[method](url, this.transaction)
         this.$emit('reload')
         swalSuccess(this.$swal, 'Success', 'Transaction saved successfully')
@@ -1120,10 +1120,10 @@ export default {
           this.showError(`Insufficient stock for: ${product?.pro_name || 'Unknown'}`)
           this.errorLineNumber = this.transaction.lines.findIndex((line) => line.productId == outOfStockProductId)
         } else {
-          this.showError('Failed to save transaction', error)
+          this.showError(`Failed to save transaction ${error}`, error)
         }
       } else {
-        this.showError('Failed to save transaction', error)
+        this.showError(`Failed to save transaction ${error}`, error)
       }
     },
 

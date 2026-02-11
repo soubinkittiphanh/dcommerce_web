@@ -26,7 +26,7 @@ var VImg = __webpack_require__(105);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(443);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/hot-products-card.vue?vue&type=template&id=5c7e1c36
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/hot-products-card.vue?vue&type=template&id=650d0b42
 
 
 
@@ -34,7 +34,7 @@ var VSpacer = __webpack_require__(443);
 
 
 
-var hot_products_cardvue_type_template_id_5c7e1c36_render = function render() {
+var hot_products_cardvue_type_template_id_650d0b42_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -90,10 +90,10 @@ var hot_products_cardvue_type_template_id_5c7e1c36_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/hot-products-card.vue?vue&type=template&id=5c7e1c36
+// CONCATENATED MODULE: ./components/hot-products-card.vue?vue&type=template&id=650d0b42
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/hot-products-card.vue?vue&type=script&lang=js
 
@@ -115,7 +115,7 @@ var api = __webpack_require__(43);
   },
   computed: {
     host() {
-      return Object(api["a" /* hostName */])();
+      return this.$axios.defaults.baseURL;
     }
   },
   data() {
@@ -140,7 +140,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_hot_products_cardvue_type_script_lang_js,
-  hot_products_cardvue_type_template_id_5c7e1c36_render,
+  hot_products_cardvue_type_template_id_650d0b42_render,
   staticRenderFns,
   false,
   injectStyles,

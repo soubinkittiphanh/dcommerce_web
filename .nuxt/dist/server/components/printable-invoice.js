@@ -118,7 +118,7 @@ var external_vuex_ = __webpack_require__(14);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/PrintableInvoice.vue?vue&type=script&lang=js
 
@@ -151,10 +151,10 @@ var api = __webpack_require__(43);
       return totalDiscount;
     },
     companyData() {
-      return Object(api["b" /* mainCompanyInfo */])();
+      return Object(api["a" /* mainCompanyInfo */])();
     },
     companyDataV1() {
-      return Object(api["c" /* mainCompanyInfoV1 */])(this.$store);
+      return Object(api["b" /* mainCompanyInfoV1 */])(this.$store);
     },
     companyLogo() {
       const company = this.companyData;

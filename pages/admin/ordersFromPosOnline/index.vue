@@ -331,7 +331,7 @@
 </template>
 <script>
 import { ticketHtml, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
-import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
+import {  mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'

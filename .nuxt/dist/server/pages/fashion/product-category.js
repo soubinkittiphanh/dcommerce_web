@@ -525,7 +525,7 @@ var VImg = __webpack_require__(105);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VGrid/VSpacer.js
 var VSpacer = __webpack_require__(443);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/all-product.vue?vue&type=template&id=10a052e7
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/all-product.vue?vue&type=template&id=52e207a1
 
 
 
@@ -533,7 +533,7 @@ var VSpacer = __webpack_require__(443);
 
 
 
-var all_productvue_type_template_id_10a052e7_render = function render() {
+var all_productvue_type_template_id_52e207a1_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -595,13 +595,13 @@ var all_productvue_type_template_id_10a052e7_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/all-product.vue?vue&type=template&id=10a052e7
+// CONCATENATED MODULE: ./components/all-product.vue?vue&type=template&id=52e207a1
 
 // EXTERNAL MODULE: ./assets/img/product/product.jpg
 var product = __webpack_require__(560);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/all-product.vue?vue&type=script&lang=js
 
@@ -640,7 +640,7 @@ var api = __webpack_require__(43);
   },
   computed: {
     host() {
-      return Object(api["a" /* hostName */])();
+      return this.$axios.defaults.baseURL;
     }
   }
 });
@@ -662,7 +662,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_all_productvue_type_script_lang_js,
-  all_productvue_type_template_id_10a052e7_render,
+  all_productvue_type_template_id_52e207a1_render,
   staticRenderFns,
   false,
   injectStyles,

@@ -83,9 +83,21 @@ export default {
     iconPack: 'fontawesome' // Since you're using FontAwesome
   },
 
-  axios: {
-    baseURL: hostName(),
+  // axios: {
+  //   baseURL: hostName(),
+  // },
+  publicRuntimeConfig: {
+    axios: {
+      browserBaseURL: process.env.BASE_URL
+    }
   },
+
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL
+    }
+  },
+
 
   auth: {
     strategies: {
@@ -140,30 +152,30 @@ export default {
   // nuxt.config.js
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  // Add Chart.js transpilation + gantt package
-  transpile: ['lucide-vue-next', 'chart.js', 'gantt-schedule-timeline-calendar'],
-  terser: {
-    parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
-  },
-  extend(config, { isDev, isClient }) {
-    // Suppress SES warnings in development
-    if (isDev && isClient) {
-      config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
-    }
-    // For Chart.js compatibility with Nuxt 2/Webpack 4
-    if (isClient) {
-      config.node = {
-        fs: 'empty'
+    // Add Chart.js transpilation + gantt package
+    transpile: ['lucide-vue-next', 'chart.js', 'gantt-schedule-timeline-calendar'],
+    terser: {
+      parallel: false, // <-- ADD THIS LINE to prevent EPIPE errors
+    },
+    extend(config, { isDev, isClient }) {
+      // Suppress SES warnings in development
+      if (isDev && isClient) {
+        config.resolve.alias['@babel/runtime/regenerator'] = '@babel/runtime/regenerator'
       }
+      // For Chart.js compatibility with Nuxt 2/Webpack 4
+      if (isClient) {
+        config.node = {
+          fs: 'empty'
+        }
+      }
+      // Handle ES modules for gantt package
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      })
     }
-    // Handle ES modules for gantt package
-    config.module.rules.push({
-      test: /\.mjs$/,
-      include: /node_modules/,
-      type: 'javascript/auto'
-    })
-  }
-},
+  },
 
   // Add this to suppress console warnings
   render: {

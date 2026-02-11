@@ -23,7 +23,7 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
   // const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
   // const baseURL = 'http://150.95.31.23:8030' //  *** demo minimart
-  const baseURL = 'http://150.95.31.23:8031' //  *** metta minimart
+  // const baseURL = 'http://150.95.31.23:8031' //  *** metta minimart
   // const baseURL = 'http://150.95.31.23:8032' //  *** bounluay wherehouse
   // const baseURL = 'http://150.95.31.23:8033' //  *** amphai fishing tools
   // const baseURL = 'http://150.95.31.23:8034' //  *** Yensabai 90
@@ -31,10 +31,17 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://150.95.31.23:8921' //  *** QR PAYMENT BANK
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
-  
-  console.info(`BASE_URL ${process.env.BASE_URL}`)
+  const defaultURL = 'http://150.95.31.23:8031' // fallback
+
+  const envURL = process.env.BASE_URL
+
+  console.info(`BASE_URL from ENV: ${envURL}`)
+
+  return envURL || defaultURL
+
+  // console.info(`BASE_URL ${process.env.BASE_URL}`)
   // return process.env.BASE_URL || 'http://localhost:8888'
-  return baseURL;
+  // return baseURL;
 }
 
 /**
@@ -65,7 +72,7 @@ let apiCompanyCache = {
 export const loadCompanyFromAPI = async (axios) => {
   // Check cache validity
   const now = Date.now();
-  const cacheValid = apiCompanyCache.lastFetch && 
+  const cacheValid = apiCompanyCache.lastFetch &&
     (now - apiCompanyCache.lastFetch) < apiCompanyCache.cacheExpiry;
 
   if (cacheValid && apiCompanyCache.data) {
@@ -96,24 +103,24 @@ export const loadCompanyFromAPI = async (axios) => {
 
   try {
     console.info('Loading company data from API...');
-    
+
     const response = await axios.get('/api/public/company/findAll');
     const companies = Array.isArray(response.data) ? response.data : [];
-    
+
     // Get the first active company
     const firstActiveCompany = companies.find(company => company.isActive === true);
-    
+
     if (firstActiveCompany) {
       apiCompanyCache.data = firstActiveCompany;
       apiCompanyCache.lastFetch = now;
-      
+
       console.info('Company data loaded from API:', {
         id: firstActiveCompany.id,
         name: firstActiveCompany.name,
         mnemonic: firstActiveCompany.mnemonic,
         hasLogo: !!firstActiveCompany.profile_image_path
       });
-      
+
       return firstActiveCompany;
     } else {
       console.warn('No active company found in API response');

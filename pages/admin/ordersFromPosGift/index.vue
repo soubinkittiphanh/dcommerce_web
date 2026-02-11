@@ -129,7 +129,7 @@
                   <v-icon color="success" class="mr-2">mdi-gift</v-icon>
                   <div class="flex-grow-1">
                     <div class="font-weight-medium">{{ gift.productName }}</div>
-                    <div class="caption success--text">{{ gift.quantity }} ຊິ້ນ - {{ formatNumber(gift.total) }} LAK</div>
+                    <div class=" success--text">{{ gift.quantity }} ຊິ້ນ - {{ formatNumber(gift.total) }} LAK</div>
                   </div>
                 </div>
               </v-card>
@@ -328,7 +328,7 @@
                   <v-icon color="error" size="32" class="mb-2">mdi-currency-usd</v-icon>
                   <h4 class="error--text">{{ formatNumber(totalGiftValue) }} LAK</h4>
                   <div class="">ມູນຄ່າຂອງຂວັນທັງໝົດ</div>
-                  <div class="caption grey--text mt-2">
+                  <div class=" grey--text mt-2">
                     ຄ່າສະເລ່ຍ: {{ formatNumber(averageGiftValue) }} LAK/ບິນ
                   </div>
                 </v-card>
@@ -340,7 +340,7 @@
                   <v-icon color="purple" size="32" class="mb-2">mdi-piggy-bank</v-icon>
                   <h4 class="purple--text">{{ formatNumber(totalCustomerSavings) }} LAK</h4>
                   <div class="">ລູກຄ້າປະຫຍັດໄດ້</div>
-                  <div class="caption grey--text mt-2">
+                  <div class=" grey--text mt-2">
                     ສະເລ່ຍ: {{ formatNumber(averageSavingsPerOrder) }} LAK/ບິນ
                   </div>
                 </v-card>
@@ -385,7 +385,7 @@
               <div class="font-weight-medium">
                 {{ item.client?.name || 'Walk-in Customer' }}
               </div>
-              <div class="caption text--secondary" v-if="item.client?.id">
+              <div class=" text--secondary" v-if="item.client?.id">
                 ID: {{ item.client.id }}
               </div>
             </div>
@@ -403,7 +403,7 @@
               <strong style="color: #4caf50">
                 {{ formatNumber(getGiftItemsValue(item)) }} LAK
               </strong>
-              <div class="caption success--text">
+              <div class="success--text">
                 ປະຫຍັດ: {{ formatNumber(getGiftSavings(item)) }} LAK
               </div>
             </div>
@@ -503,7 +503,7 @@ import {
   ticketHtml,
   getLocalDate,
 } from '~/common'
-import { hostName, mainCompanyInfo, preloadCompanyData } from '~/common/api'
+import {  mainCompanyInfo, preloadCompanyData } from '~/common/api'
 import { defaultTicketReprint } from '~/common/ticket.js'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'

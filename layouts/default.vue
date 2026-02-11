@@ -284,7 +284,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { hostName, mainCompanyInfo } from '~/common/api'
+import {  mainCompanyInfo } from '~/common/api'
 
 export default {
   data() {

@@ -577,7 +577,7 @@
                 <v-col cols="6" md="2">
                   <div class="text-center">
                     <h2>{{ businessHealthScore }}</h2>
-                    <div>ຄະແນນສຸຂະພາບ</div>
+                    <div>ຄະແນນຄວາມສົມບູນຂອງທຸລະກິດ</div>
                   </div>
                 </v-col>
               </v-row>

@@ -1495,7 +1495,7 @@ var esnext_set_union_js_ = __webpack_require__(160);
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // CONCATENATED MODULE: ./common/enhanced-sales-report-printer.js
 /**
@@ -2543,7 +2543,7 @@ var external_vuex_ = __webpack_require__(14);
       return [...this.baseHeaders, ...gradeHeaders, ...this.endHeaders];
     },
     companyLogo() {
-      const company = Object(api["b" /* mainCompanyInfo */])();
+      const company = Object(api["a" /* mainCompanyInfo */])();
       if (company.apiData && company.apiData.profile_image_path) {
         const baseUrl = this.$axios.defaults.baseURL || '';
         return `${baseUrl}/${company.apiData.profile_image_path}`;
@@ -3034,7 +3034,7 @@ var external_vuex_ = __webpack_require__(14);
           name: 'ທັງໝົດ',
           id: 999
         } : this.customTerminalList.find(terminal => terminal.id === this.terminalId);
-        const companyData = ((_mainCompanyInfo = Object(api["b" /* mainCompanyInfo */])()) === null || _mainCompanyInfo === void 0 ? void 0 : _mainCompanyInfo.apiData) || Object(api["b" /* mainCompanyInfo */])() || {};
+        const companyData = ((_mainCompanyInfo = Object(api["a" /* mainCompanyInfo */])()) === null || _mainCompanyInfo === void 0 ? void 0 : _mainCompanyInfo.apiData) || Object(api["a" /* mainCompanyInfo */])() || {};
         printEnhancedSalesReportSummary({
           orderHeaderList: this.salesData,
           filteredOrderHeaderList: this.filteredSalesData,

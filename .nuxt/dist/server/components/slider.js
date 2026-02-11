@@ -32,7 +32,7 @@ var VSlideGroup = __webpack_require__(506);
 // EXTERNAL MODULE: ./node_modules/vuetify/lib/components/VSlideGroup/VSlideItem.js + 1 modules
 var VSlideItem = __webpack_require__(895);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=template&id=921bc894
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/slider.vue?vue&type=template&id=28c24730
 
 
 
@@ -42,7 +42,7 @@ var VSlideItem = __webpack_require__(895);
 
 
 
-var slidervue_type_template_id_921bc894_render = function render() {
+var slidervue_type_template_id_28c24730_render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
@@ -118,13 +118,13 @@ var slidervue_type_template_id_921bc894_render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/slider.vue?vue&type=template&id=921bc894
+// CONCATENATED MODULE: ./components/slider.vue?vue&type=template&id=28c24730
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // EXTERNAL MODULE: ./assets/img/products/product_1.jpg
 var product_1 = __webpack_require__(871);
@@ -145,7 +145,7 @@ var product_1_default = /*#__PURE__*/__webpack_require__.n(product_1);
   },
   computed: {
     host() {
-      return Object(api["a" /* hostName */])();
+      return this.$axios.defaults.baseURL;
     }
   },
   data() {
@@ -191,7 +191,7 @@ function injectStyles (context) {
 
 var component = Object(componentNormalizer["a" /* default */])(
   components_slidervue_type_script_lang_js,
-  slidervue_type_template_id_921bc894_render,
+  slidervue_type_template_id_28c24730_render,
   staticRenderFns,
   false,
   injectStyles,

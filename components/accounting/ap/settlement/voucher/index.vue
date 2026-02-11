@@ -212,7 +212,7 @@
 </template>
 
 <script>
-import { hostName, mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
+import {  mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
 import companyLogoMixin from '~/mixins/companyLogoMixin'
 import { mapActions, mapGetters } from 'vuex'
 

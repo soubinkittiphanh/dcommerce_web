@@ -1157,7 +1157,7 @@ var staticRenderFns = [];
 // CONCATENATED MODULE: ./components/pos/recipe/index.vue?vue&type=template&id=7c805bba&scoped=true
 
 // EXTERNAL MODULE: external "lodash"
-var external_lodash_ = __webpack_require__(44);
+var external_lodash_ = __webpack_require__(43);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/pos/recipe/index.vue?vue&type=script&lang=js
 

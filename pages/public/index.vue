@@ -238,7 +238,7 @@ export default {
   },
   computed: {
     host() {
-      return hostName()
+      return this.$axios.defaults.baseURL
     },
     activeProducts() {
       return this.products.filter((p) => {

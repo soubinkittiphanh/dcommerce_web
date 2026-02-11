@@ -23,12 +23,7 @@ const formatDate = (dateString) => {
 
 // Enhanced currency helper functions
 const getCurrency = (currencyId, currencyList = []) => {
-  return currencyList.find(c => c.id === currencyId) || { 
-    id: currencyId,
-    code: 'UNKNOWN', 
-    rate: 1,
-    isLocalCCY: false 
-  }
+  return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
 }
 
 // Convert amount to local currency for totals summary

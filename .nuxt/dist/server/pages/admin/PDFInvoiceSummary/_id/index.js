@@ -315,7 +315,7 @@ var staticRenderFns = [];
 var external_vuex_ = __webpack_require__(14);
 
 // EXTERNAL MODULE: ./common/api.js
-var api = __webpack_require__(43);
+var api = __webpack_require__(50);
 
 // EXTERNAL MODULE: ./common/index.js
 var common = __webpack_require__(7);
@@ -346,12 +346,12 @@ var common = __webpack_require__(7);
   },
   computed: {
     companyData() {
-      console.log(`**********COMPANY DATA ${api["b" /* mainCompanyInfo */]}**********`);
-      return Object(api["b" /* mainCompanyInfo */])();
+      console.log(`**********COMPANY DATA ${api["a" /* mainCompanyInfo */]}**********`);
+      return Object(api["a" /* mainCompanyInfo */])();
     },
     companyDataV1() {
-      console.log(`**********COMPANY DATA V1 PDFINVOICE ${api["b" /* mainCompanyInfo */]}**********`);
-      let comV1 = Object(api["c" /* mainCompanyInfoV1 */])(this.$store);
+      console.log(`**********COMPANY DATA V1 PDFINVOICE ${api["a" /* mainCompanyInfo */]}**********`);
+      let comV1 = Object(api["b" /* mainCompanyInfoV1 */])(this.$store);
       console.info(`Company data fetch from api V1 ${comV1}`);
       return comV1;
     },

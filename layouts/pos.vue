@@ -558,7 +558,7 @@ import CartItemComponent from '~/components/pos/CartItemComponent.vue'
 import CartFooterComponent from '~/components/pos/CartFooterComponent.vue'
 
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
-import { hostName, mainCompanyInfo } from '~/common/api'
+import {  mainCompanyInfo } from '~/common/api'
 import { defaultTicket, customerTicket } from '~/common/ticket.js'
 import Vue from 'vue'
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
