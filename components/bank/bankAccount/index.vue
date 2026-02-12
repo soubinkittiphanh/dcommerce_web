@@ -131,7 +131,7 @@
                     <option value="USD">USD - ໂດລາ</option>
                     <option value="THB">THB - ບາດ</option>
                     <option value="CNY">CNY - ຢວນ</option>
-                    <option value="CNY">EUR - ຢູໂລ</option>
+                    <option value="EUR">EUR - ຢູໂລ</option>
                   </select>
                 </div>
                 <div v-if="errors.currency" class="invalid-feedback">
@@ -235,6 +235,7 @@ export default {
         { code: 'BMB', name: 'ທະນາຄານເມືອງເຮືອງ (BMB)' },
         { code: 'KKB', name: 'ທະນາຄານຂົງໄຂ (KKB)' },
         { code: 'SACOM', name: 'ທະນາຄານສະຫະກອນ (SACOM)' },
+        { code: 'BOL', name: 'ທະນາຄານແຫ່ງ ສປປ ລາວ (BOL)' },
         { code: 'OTHER', name: 'ອື່ນໆ' }
       ]
     }

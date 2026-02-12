@@ -31,7 +31,7 @@ export const hostName = () => {
   // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
   // const baseURL = 'http://150.95.31.23:8921' //  *** QR PAYMENT BANK
   // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
-  const defaultURL = 'http://150.95.31.23:8031' // fallback
+  const defaultURL = 'http://150.95.31.23:8026' // fallback
 
   const envURL = process.env.BASE_URL
 
