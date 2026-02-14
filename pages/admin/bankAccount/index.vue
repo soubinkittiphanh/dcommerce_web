@@ -1,6 +1,5 @@
 <template>
   <div class="bank-account-page">
-    <!-- Page Header -->
     <div class="page-header">
       <div class="header-content">
         <h1 class="page-title">
@@ -21,7 +20,6 @@
       </div>
     </div>
 
-    <!-- Filters Section -->
     <div class="filters-section">
       <div class="filter-row">
         <div class="filter-group">
@@ -32,10 +30,20 @@
               v-model="filters.search"
               type="text"
               class="search-input"
-              placeholder="ຄົ້ນຫາເລກບັນຊີ, ຊື່ບັນຊີ, ທະນາຄານ..."
+              placeholder="ຄົ້ນຫາເລກບັນຊີ, ຊື່ບັນຊີ..."
               @input="applyFilters"
             />
           </div>
+        </div>
+
+        <div class="filter-group">
+          <label class="filter-label">ທະນາຄານ</label>
+          <select v-model="filters.bankId" @change="applyFilters" class="filter-select">
+            <option value="">ທັງໝົດ</option>
+            <option v-for="bank in bankList" :key="bank.id" :value="bank.id">
+              {{ bank.bank_name }}
+            </option>
+          </select>
         </div>
 
         <div class="filter-group">
@@ -45,17 +53,6 @@
             <option value="LAK">LAK</option>
             <option value="USD">USD</option>
             <option value="THB">THB</option>
-            <option value="CNY">CNY</option>
-          </select>
-        </div>
-
-        <div class="filter-group">
-          <label class="filter-label">ປະເພດບັນຊີ</label>
-          <select v-model="filters.accountType" @change="applyFilters" class="filter-select">
-            <option value="">ທັງໝົດ</option>
-            <option value="Saving">Saving</option>
-            <option value="Current">Current</option>
-            <option value="Fixed Deposit">Fixed Deposit</option>
           </select>
         </div>
 
@@ -70,49 +67,29 @@
 
         <div class="filter-actions">
           <button class="btn btn-outline-secondary" @click="resetFilters">
-            <i class="fas fa-refresh"></i>
-            ລ້າງ
+            <i class="fas fa-redo"></i> ລ້າງ
           </button>
         </div>
       </div>
     </div>
 
-    <!-- Statistics Cards -->
     <div class="stats-section">
       <div class="stat-card">
-        <div class="stat-icon stat-icon-primary">
-          <i class="fas fa-university"></i>
-        </div>
+        <div class="stat-icon stat-icon-primary"><i class="fas fa-university"></i></div>
         <div class="stat-content">
           <h3 class="stat-number">{{ statistics.total }}</h3>
           <p class="stat-label">ທັງໝົດ</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon stat-icon-success">
-          <i class="fas fa-check-circle"></i>
-        </div>
+        <div class="stat-icon stat-icon-success"><i class="fas fa-check-circle"></i></div>
         <div class="stat-content">
           <h3 class="stat-number">{{ statistics.active }}</h3>
           <p class="stat-label">ໃຊ້ງານ</p>
         </div>
       </div>
-
       <div class="stat-card">
-        <div class="stat-icon stat-icon-warning">
-          <i class="fas fa-pause-circle"></i>
-        </div>
-        <div class="stat-content">
-          <h3 class="stat-number">{{ statistics.inactive }}</h3>
-          <p class="stat-label">ປິດໃຊ້ງານ</p>
-        </div>
-      </div>
-
-      <div class="stat-card">
-        <div class="stat-icon stat-icon-info">
-          <i class="fas fa-dollar-sign"></i>
-        </div>
+        <div class="stat-icon stat-icon-info"><i class="fas fa-dollar-sign"></i></div>
         <div class="stat-content">
           <h3 class="stat-number">{{ statistics.currencies }}</h3>
           <p class="stat-label">ສະກຸນເງິນ</p>
@@ -120,13 +97,10 @@
       </div>
     </div>
 
-    <!-- Data Table -->
     <div class="table-section">
       <div class="table-header">
         <h3 class="table-title">ລາຍການບັນຊີທະນາຄານ</h3>
-        <div class="table-info">
-          ທັງໝົດ {{ filteredAccounts.length }} ລາຍການ
-        </div>
+        <div class="table-info">ທັງໝົດ {{ filteredAccounts.length }} ລາຍການ</div>
       </div>
 
       <div class="table-wrapper">
@@ -138,7 +112,6 @@
         <div v-else-if="filteredAccounts.length === 0" class="empty-state">
           <i class="fas fa-university"></i>
           <h3>ບໍ່ມີຂໍ້ມູນບັນຊີທະນາຄານ</h3>
-          <p>ກົດປຸ່ມ "ເພີ່ມບັນຊີໃໝ່" ເພື່ອເພີ່ມບັນຊີທະນາຄານ</p>
         </div>
 
         <table v-else class="data-table">
@@ -147,38 +120,19 @@
               <th>ເລກບັນຊີ</th>
               <th>ຊື່ບັນຊີ</th>
               <th>ທະນາຄານ</th>
-              <th>ສາຂາ</th>
-              <th>ປະເພດ</th>
               <th>ສະກຸນເງິນ</th>
               <th>ສະຖານະ</th>
-              <th>ວັນທີສ້າງ</th>
               <th>ຈັດການ</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="account in paginatedAccounts" :key="account.id">
-              <td>
-                <div class="account-number">
-                  <i class="fas fa-credit-card"></i>
-                  {{ account.accountNumber }}
-                </div>
-              </td>
-              <td>
-                <div class="account-name">
-                  {{ account.accountName }}
-                </div>
-              </td>
+              <td><div class="account-number">{{ account.accountNumber }}</div></td>
+              <td><div class="account-name">{{ account.accountName }}</div></td>
               <td>
                 <div class="bank-info">
-                  <i class="fas fa-university"></i>
-                  {{ account.bankName }}
+                  <strong>{{ getBankName(account.bankId) }}</strong>
                 </div>
-              </td>
-              <td>{{ account.bankBranch || '-' }}</td>
-              <td>
-                <span class="account-type-badge" :class="getAccountTypeClass(account.accountType)">
-                  {{ account.accountType }}
-                </span>
               </td>
               <td>
                 <span class="currency-badge" :class="getCurrencyClass(account.currency)">
@@ -187,37 +141,14 @@
               </td>
               <td>
                 <span class="status-badge" :class="account.isActive ? 'status-active' : 'status-inactive'">
-                  <i :class="account.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle'"></i>
                   {{ account.isActive ? 'ໃຊ້ງານ' : 'ປິດໃຊ້ງານ' }}
                 </span>
               </td>
-              <td>{{ formatDate(account.createdAt) }}</td>
               <td>
                 <div class="action-buttons">
-                  <button
-                    class="btn-icon btn-icon-primary"
-                    @click="openEditDialog(account)"
-                    :disabled="loading"
-                    title="ແກ້ໄຂ"
-                  >
+                  <button class="btn-icon btn-icon-primary" @click="openEditDialog(account)" title="ແກ້ໄຂ">
                     <i class="fas fa-edit"></i>
                   </button>
-                  <!-- <button
-                    class="btn-icon btn-icon-warning"
-                    @click="toggleStatus(account)"
-                    :disabled="loading"
-                    :title="account.isActive ? 'ປິດໃຊ້ງານ' : 'ເປີດໃຊ້ງານ'"
-                  >
-                    <i :class="account.isActive ? 'fas fa-pause' : 'fas fa-play'"></i>
-                  </button>
-                  <button
-                    class="btn-icon btn-icon-danger"
-                    @click="confirmDelete(account)"
-                    :disabled="loading"
-                    title="ລຶບ"
-                  >
-                    <i class="fas fa-trash"></i>
-                  </button> -->
                 </div>
               </td>
             </tr>
@@ -225,49 +156,8 @@
         </table>
       </div>
 
-      <!-- Pagination -->
-      <div v-if="totalPages > 1" class="pagination-section">
-        <div class="pagination-info">
-          ສະແດງ {{ (currentPage - 1) * pageSize + 1 }} - {{ Math.min(currentPage * pageSize, filteredAccounts.length) }} 
-          ຈາກ {{ filteredAccounts.length }} ລາຍການ
-        </div>
-        <div class="pagination-controls">
-          <button
-            class="btn btn-outline-secondary"
-            @click="currentPage = 1"
-            :disabled="currentPage === 1"
-          >
-            <i class="fas fa-angle-double-left"></i>
-          </button>
-          <button
-            class="btn btn-outline-secondary"
-            @click="currentPage--"
-            :disabled="currentPage === 1"
-          >
-            <i class="fas fa-angle-left"></i>
-          </button>
-          <span class="page-info">
-            ໜ້າ {{ currentPage }} ຈາກ {{ totalPages }}
-          </span>
-          <button
-            class="btn btn-outline-secondary"
-            @click="currentPage++"
-            :disabled="currentPage === totalPages"
-          >
-            <i class="fas fa-angle-right"></i>
-          </button>
-          <button
-            class="btn btn-outline-secondary"
-            @click="currentPage = totalPages"
-            :disabled="currentPage === totalPages"
-          >
-            <i class="fas fa-angle-double-right"></i>
-          </button>
-        </div>
       </div>
-    </div>
 
-    <!-- Bank Account Dialog Component -->
     <BankAccountDialog
       :show="showDialog"
       :account="selectedAccount"
@@ -282,277 +172,124 @@ import BankAccountDialog from '~/components/bank/bankAccount'
 
 export default {
   name: 'BankAccountPage',
-  
-  components: {
-    BankAccountDialog
-  },
+  components: { BankAccountDialog },
   middleware: 'auths',
+  
   data() {
     return {
       loading: false,
       showDialog: false,
       selectedAccount: null,
-      
       accounts: [],
       filteredAccounts: [],
-      
-      // Pagination
+      bankList: [], // Dynamic Bank Master Data
       currentPage: 1,
       pageSize: 10,
-      
-      // Filters
       filters: {
         search: '',
+        bankId: '',
         currency: '',
-        accountType: '',
         isActive: ''
       },
-      
-      // Statistics
-      statistics: {
-        total: 0,
-        active: 0,
-        inactive: 0,
-        currencies: 0
-      }
+      statistics: { total: 0, active: 0, currencies: 0 }
     }
   },
 
   computed: {
-    totalPages() {
-      return Math.ceil(this.filteredAccounts.length / this.pageSize)
-    },
-    
+    totalPages() { return Math.ceil(this.filteredAccounts.length / this.pageSize) },
     paginatedAccounts() {
       const start = (this.currentPage - 1) * this.pageSize
-      const end = start + this.pageSize
-      return this.filteredAccounts.slice(start, end)
+      return this.filteredAccounts.slice(start, start + this.pageSize)
     }
   },
 
   async mounted() {
-    await this.fetchAccounts()
+    // Fetch both Bank Master and Accounts together
+    await Promise.all([this.fetchBanks(), this.fetchAccounts()])
   },
 
   methods: {
-    async fetchAccounts() {
+    async fetchBanks() {
       try {
-        this.loading = true
-        const response = await this.$axios.get('/api/bank_account/findAll')
-        
-        if (response.data) {
-          this.accounts = response.data || []
-        } else {
-          this.accounts = []
-        }
-        
+        const res = await this.$axios.get('/api/bank/find')
+        this.bankList = res.data || []
+      } catch (e) {
+        console.error("Failed to load banks", e)
+      }
+    },
+
+    async fetchAccounts() {
+      this.loading = true
+      try {
+        const res = await this.$axios.get('/api/bank_account/findAll')
+        this.accounts = res.data || []
         this.applyFilters()
         this.calculateStatistics()
-      } catch (error) {
-        console.error('Error fetching bank accounts:', error)
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ', 'error')
-        this.accounts = []
       } finally {
         this.loading = false
       }
     },
 
+    getBankName(bankId) {
+      const bank = this.bankList.find(b => b.id === bankId)
+      return bank ? bank.bank_name : 'Unknown Bank'
+    },
+
     applyFilters() {
       let filtered = [...this.accounts]
 
-      // Search filter
       if (this.filters.search) {
-        const searchLower = this.filters.search.toLowerCase()
-        filtered = filtered.filter(account =>
-          account.accountNumber.toLowerCase().includes(searchLower) ||
-          account.accountName.toLowerCase().includes(searchLower) ||
-          account.bankName.toLowerCase().includes(searchLower) ||
-          (account.bankBranch && account.bankBranch.toLowerCase().includes(searchLower))
+        const s = this.filters.search.toLowerCase()
+        filtered = filtered.filter(a => 
+          a.accountNumber.toLowerCase().includes(s) || 
+          a.accountName.toLowerCase().includes(s)
         )
       }
 
-      // Currency filter
+      if (this.filters.bankId) {
+        filtered = filtered.filter(a => a.bankId === parseInt(this.filters.bankId))
+      }
+
       if (this.filters.currency) {
-        filtered = filtered.filter(account => account.currency === this.filters.currency)
+        filtered = filtered.filter(a => a.currency === this.filters.currency)
       }
 
-      // Account type filter
-      if (this.filters.accountType) {
-        filtered = filtered.filter(account => account.accountType === this.filters.accountType)
-      }
-
-      // Status filter
       if (this.filters.isActive !== '') {
-        const isActive = this.filters.isActive === 'true'
-        filtered = filtered.filter(account => account.isActive === isActive)
+        filtered = filtered.filter(a => a.isActive === (this.filters.isActive === 'true'))
       }
 
       this.filteredAccounts = filtered
-      this.currentPage = 1 // Reset to first page
-    },
-
-    resetFilters() {
-      this.filters = {
-        search: '',
-        currency: '',
-        accountType: '',
-        isActive: ''
-      }
-      this.applyFilters()
+      this.currentPage = 1
     },
 
     calculateStatistics() {
       this.statistics.total = this.accounts.length
-      this.statistics.active = this.accounts.filter(account => account.isActive).length
-      this.statistics.inactive = this.accounts.filter(account => !account.isActive).length
-      
-      const uniqueCurrencies = [...new Set(this.accounts.map(account => account.currency))]
+      this.statistics.active = this.accounts.filter(a => a.isActive).length
+      const uniqueCurrencies = [...new Set(this.accounts.map(a => a.currency))]
       this.statistics.currencies = uniqueCurrencies.length
     },
 
-    openCreateDialog() {
-      this.selectedAccount = null
-      this.showDialog = true
+    resetFilters() {
+      this.filters = { search: '', bankId: '', currency: '', isActive: '' }
+      this.applyFilters()
     },
 
-    openEditDialog(account) {
-      this.selectedAccount = account
-      this.showDialog = true
-    },
-
-    closeDialog() {
-      this.showDialog = false
-      this.selectedAccount = null
-    },
-
-    async onAccountSaved(response) {
-      try {
-        if (response && response.success !== false) {
-          this.showToast('ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ', 'success')
-          await this.fetchAccounts()
-        } else {
-          const errorMessage = response?.message || 'ການບັນທຶກບໍ່ສຳເລັດ'
-          this.showToast(errorMessage, 'error')
-        }
-      } catch (error) {
-        console.error('Error in onAccountSaved:', error)
-        this.showToast('ມີຂໍ້ຜິດພາດຢ່າງບໍ່ຄາດຄິດ', 'error')
-      }
-    },
-
-    async toggleStatus(account) {
-      try {
-        const response = await this.$axios.put(`/api/bank_account/${account.id}/toggle-status`)
-        
-        if (response.data && response.data.success) {
-          const status = account.isActive ? 'ປິດໃຊ້ງານ' : 'ເປີດໃຊ້ງານ'
-          this.showToast(`${status}ສຳເລັດແລ້ວ`, 'success')
-          await this.fetchAccounts()
-        } else {
-          this.showToast('ມີຂໍ້ຜິດພາດໃນການປ່ຽນສະຖານະ', 'error')
-        }
-      } catch (error) {
-        console.error('Error toggling status:', error)
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການປ່ຽນສະຖານະ', 'error')
-      }
-    },
-
-    confirmDelete(account) {
-      if (this.$swal) {
-        this.$swal.fire({
-          title: 'ຢືນຢັນການລຶບ',
-          text: `ທ່ານຕ້ອງການລຶບບັນຊີ "${account.accountNumber}" ແມ່ນບໍ?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'ລຶບ',
-          cancelButtonText: 'ຍົກເລີກ'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            this.deleteAccount(account)
-          }
-        })
-      } else {
-        if (confirm(`ທ່ານຕ້ອງການລຶບບັນຊີ "${account.accountNumber}" ແມ່ນບໍ?`)) {
-          this.deleteAccount(account)
-        }
-      }
-    },
-
-    async deleteAccount(account) {
-      try {
-        const response = await this.$axios.delete(`/api/bank_account/${account.id}`)
-        
-        if (response.data && response.data.success) {
-          this.showToast('ລຶບຂໍ້ມູນສຳເລັດແລ້ວ', 'success')
-          await this.fetchAccounts()
-        } else {
-          this.showToast('ມີຂໍ້ຜິດພາດໃນການລຶບຂໍ້ມູນ', 'error')
-        }
-      } catch (error) {
-        console.error('Error deleting account:', error)
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການລຶບຂໍ້ມູນ', 'error')
-      }
-    },
-
-    getAccountTypeClass(type) {
-      const classes = {
-        'Saving': 'type-saving',
-        'Current': 'type-current',
-        'Fixed Deposit': 'type-fixed'
-      }
-      return classes[type] || 'type-default'
+    openCreateDialog() { this.selectedAccount = null; this.showDialog = true; },
+    openEditDialog(account) { this.selectedAccount = account; this.showDialog = true; },
+    closeDialog() { this.showDialog = false; this.selectedAccount = null; },
+    
+    async onAccountSaved() {
+      await this.fetchAccounts()
+      this.showToast('ບັນທຶກສຳເລັດ', 'success')
     },
 
     getCurrencyClass(currency) {
-      const classes = {
-        'LAK': 'currency-lak',
-        'USD': 'currency-usd',
-        'THB': 'currency-thb',
-        'CNY': 'currency-cny'
-      }
-      return classes[currency] || 'currency-default'
-    },
-
-    formatDate(dateString) {
-      if (!dateString) return '-'
-      const date = new Date(dateString)
-      return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      })
+      return { 'currency-lak': currency === 'LAK', 'currency-usd': currency === 'USD', 'currency-thb': currency === 'THB' }
     },
 
     showToast(message, type = 'info') {
       if (this.$swal) {
-        const Toast = this.$swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: type === 'error' ? 5000 : 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-          }
-        })
-
-        const iconMap = {
-          success: 'success',
-          error: 'error',
-          warning: 'warning',
-          info: 'info'
-        }
-
-        Toast.fire({
-          icon: iconMap[type] || 'info',
-          title: message
-        })
-      } else {
-        console.log(`${type}: ${message}`)
-        alert(`${type.toUpperCase()}: ${message}`)
+        this.$swal.fire({ toast: true, position: 'top-end', icon: type, title: message, showConfirmButton: false, timer: 3000 })
       }
     }
   }

@@ -1,7 +1,7 @@
 exports.ids = [311,147,169,178];
 exports.modules = {
 
-/***/ 1085:
+/***/ 1086:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -262,7 +262,7 @@ installComponents(component, {LoadingIndicator: __webpack_require__(70).default}
 
 /***/ }),
 
-/***/ 1556:
+/***/ 1559:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -620,7 +620,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var tutorial = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {TutorialForm: __webpack_require__(1085).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
+installComponents(component, {TutorialForm: __webpack_require__(1086).default,YoutubePlayer: __webpack_require__(480).default,LoadingIndicator: __webpack_require__(70).default})
 
 
 /***/ }),

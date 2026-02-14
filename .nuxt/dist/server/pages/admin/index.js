@@ -1,7 +1,7 @@
 exports.ids = [222,57,102,103,134,138,139,345];
 exports.modules = {
 
-/***/ 1065:
+/***/ 1066:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -182,42 +182,42 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1109:
+/***/ 1110:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/cashier_2.208aede.svg";
 
 /***/ }),
 
-/***/ 1110:
+/***/ 1111:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/invoice.45f420f.svg";
 
 /***/ }),
 
-/***/ 1111:
+/***/ 1112:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/pay-card.8fb80cc.svg";
 
 /***/ }),
 
-/***/ 1112:
+/***/ 1113:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/stock.b6becdb.svg";
 
 /***/ }),
 
-/***/ 1113:
+/***/ 1114:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "img/patient.1cdc99c.svg";
 
 /***/ }),
 
-/***/ 1114:
+/***/ 1115:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -229,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ 1115:
+/***/ 1116:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
@@ -245,7 +245,7 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1464:
+/***/ 1467:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -449,7 +449,7 @@ var common = __webpack_require__(7);
 var minStockCard = __webpack_require__(875);
 
 // EXTERNAL MODULE: ./components/menuOverview/index.vue + 4 modules
-var menuOverview = __webpack_require__(1065);
+var menuOverview = __webpack_require__(1066);
 
 // EXTERNAL MODULE: external "vuex"
 var external_vuex_ = __webpack_require__(14);
@@ -575,23 +575,23 @@ var external_echarts_ = __webpack_require__(420);
       }],
       menus: [{
         title: 'ຂາຍສິນຄ້າ (POS)',
-        svgIcon: __webpack_require__(1109),
+        svgIcon: __webpack_require__(1110),
         path: '/pos/minimart'
       }, {
         title: 'ໃບບິນ (Invoice)',
-        svgIcon: __webpack_require__(1110),
+        svgIcon: __webpack_require__(1111),
         path: '/admin/ordersFromPos'
       }, {
         title: 'ລູກໜີ້',
-        svgIcon: __webpack_require__(1111),
+        svgIcon: __webpack_require__(1112),
         path: '/admin/ordersFromPosCredit'
       }, {
         title: 'ສາງສິນຄ້າ',
-        svgIcon: __webpack_require__(1112),
+        svgIcon: __webpack_require__(1113),
         path: '/admin/product/productlist'
       }, {
         title: 'ລູກຄ້າ',
-        svgIcon: __webpack_require__(1113),
+        svgIcon: __webpack_require__(1114),
         path: '/admin/client'
       }]
     };
@@ -892,7 +892,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1114)
+  var style0 = __webpack_require__(1115)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -5457,7 +5457,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1115);
+var content = __webpack_require__(1116);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;

@@ -162,7 +162,7 @@
               :class="{ active: manualBalanceMode }"
             >
               <span v-if="!manualBalanceMode">✏️ ປ້ອນຍອດສຸດທ້າຍເອງ</span>
-              <span v-else">🔄 ໃຊ້ການຄິດໄລ່ອັດຕະໂນມັດ</span>
+              <span v-else>🔄 ໃຊ້ການຄິດໄລ່ອັດຕະໂນມັດ</span>
             </button>
             <small v-if="manualBalanceMode" class="toggle-hint">
               ໃຊ້ເມື່ອຍອດຄິດໄລ່ບໍ່ກົງກັບໃບແຈ້ງຍອດທະນາຄານ
@@ -396,7 +396,7 @@ export default {
         this.bankAccounts = (res.data.data || res.data || []).map(account => ({
           ...account,
           accountDisplayName: `${account.accountName} - ${account.accountNumber}`
-        }))
+        })).filter((account) => account.isActive)
       } catch (error) {
         console.error('Error loading bank accounts:', error)
         this.$toast.error('ບໍ່ສາມາດໂຫຼດບັນຊີໄດ້')

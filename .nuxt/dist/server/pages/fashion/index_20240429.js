@@ -1,7 +1,7 @@
 exports.ids = [330,31,60];
 exports.modules = {
 
-/***/ 1088:
+/***/ 1089:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -131,7 +131,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1568:
+/***/ 1571:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -448,7 +448,7 @@ var component = Object(componentNormalizer["a" /* default */])(
 /* harmony default export */ var index_20240429 = __webpack_exports__["default"] = (component.exports);
 
 /* nuxt-component-imports */
-installComponents(component, {Brands: __webpack_require__(1088).default,DiscountProductsCard: __webpack_require__(763).default})
+installComponents(component, {Brands: __webpack_require__(1089).default,DiscountProductsCard: __webpack_require__(763).default})
 
 
 /***/ }),

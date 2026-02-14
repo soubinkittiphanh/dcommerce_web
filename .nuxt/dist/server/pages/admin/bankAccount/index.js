@@ -1,33 +1,34 @@
 exports.ids = [196,27];
 exports.modules = {
 
-/***/ 1069:
+/***/ 1070:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/bank/bankAccount/index.vue?vue&type=template&id=3dc26164&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/bank/bankAccount/index.vue?vue&type=template&id=41f75863&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
-  return _c('div', [_vm.showModal ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<div class=\"modal-container\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-3dc26164><h3 class=\"modal-title\" data-v-3dc26164>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂບັນຊີທະນາຄານ' : 'ເພີ່ມບັນຊີທະນາຄານໃໝ່') + "\n        ") + "</h3> <button class=\"modal-close-btn\" data-v-3dc26164><i class=\"fas fa-times\" data-v-3dc26164></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<form class=\"account-form\" data-v-3dc26164>", "</form>", [_vm._ssrNode("<div class=\"form-row\" data-v-3dc26164><div class=\"form-group\" data-v-3dc26164><label class=\"form-label required\" data-v-3dc26164>ເລກບັນຊີ *</label> <div class=\"input-with-icon\" data-v-3dc26164><i class=\"fas fa-credit-card input-icon\" data-v-3dc26164></i> <input type=\"text\" placeholder=\"ໃສ່ເລກບັນຊີ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.accountNumber) + _vm._ssrClass("form-control", {
+  return _c('div', [_vm.showModal ? _vm._ssrNode("<div class=\"modal-overlay\" data-v-41f75863>", "</div>", [_vm._ssrNode("<div class=\"modal-container\" data-v-41f75863>", "</div>", [_vm._ssrNode("<div class=\"modal-header\" data-v-41f75863><h3 class=\"modal-title\" data-v-41f75863>" + _vm._ssrEscape("\n          " + _vm._s(_vm.isEdit ? 'ແກ້ໄຂບັນຊີທະນາຄານ' : 'ເພີ່ມບັນຊີທະນາຄານໃໝ່') + "\n        ") + "</h3> <button class=\"modal-close-btn\" data-v-41f75863><i class=\"fas fa-times\" data-v-41f75863></i></button></div> "), _vm._ssrNode("<div class=\"modal-body\" data-v-41f75863>", "</div>", [_vm._ssrNode("<form class=\"account-form\" data-v-41f75863>", "</form>", [_vm._ssrNode("<div class=\"form-row\" data-v-41f75863><div class=\"form-group\" data-v-41f75863><label class=\"form-label required\" data-v-41f75863>ເລກບັນຊີ *</label> <div class=\"input-with-icon\" data-v-41f75863><i class=\"fas fa-credit-card input-icon\" data-v-41f75863></i> <input type=\"text\" placeholder=\"ໃສ່ເລກບັນຊີ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.accountNumber) + _vm._ssrClass("form-control", {
     'is-invalid': _vm.errors.accountNumber
-  }) + " data-v-3dc26164></div> " + (_vm.errors.accountNumber ? "<div class=\"invalid-feedback\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.accountNumber) + "\n              ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-3dc26164><label class=\"form-label required\" data-v-3dc26164>ຊື່ບັນຊີ *</label> <div class=\"input-with-icon\" data-v-3dc26164><i class=\"fas fa-user input-icon\" data-v-3dc26164></i> <input type=\"text\" placeholder=\"ໃສ່ຊື່ບັນຊີ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.accountName) + _vm._ssrClass("form-control", {
+  }) + " data-v-41f75863></div> " + (_vm.errors.accountNumber ? "<div class=\"invalid-feedback\" data-v-41f75863>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.accountNumber) + "\n              ") + "</div>" : "<!---->") + "</div> <div class=\"form-group\" data-v-41f75863><label class=\"form-label required\" data-v-41f75863>ຊື່ບັນຊີ *</label> <div class=\"input-with-icon\" data-v-41f75863><i class=\"fas fa-user input-icon\" data-v-41f75863></i> <input type=\"text\" placeholder=\"ໃສ່ຊື່ບັນຊີ\" required=\"required\"" + _vm._ssrAttr("value", _vm.form.accountName) + _vm._ssrClass("form-control", {
     'is-invalid': _vm.errors.accountName
-  }) + " data-v-3dc26164></div> " + (_vm.errors.accountName ? "<div class=\"invalid-feedback\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.accountName) + "\n              ") + "</div>" : "<!---->") + "</div></div> "), _vm._ssrNode("<div class=\"form-row\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-3dc26164>ຊື່ທະນາຄານ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<i class=\"fas fa-university input-icon\" data-v-3dc26164></i> "), _c('select', {
+  }) + " data-v-41f75863></div> " + (_vm.errors.accountName ? "<div class=\"invalid-feedback\" data-v-41f75863>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.accountName) + "\n              ") + "</div>" : "<!---->") + "</div></div> "), _vm._ssrNode("<div class=\"form-row\" data-v-41f75863>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-41f75863>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-41f75863>ຊື່ທະນາຄານ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-41f75863>", "</div>", [_vm._ssrNode("<i class=\"fas fa-university input-icon\" data-v-41f75863></i> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.bankName,
-      expression: "form.bankName"
+      value: _vm.form.bankId,
+      expression: "form.bankId"
     }],
     staticClass: "form-control",
     class: {
-      'is-invalid': _vm.errors.bankName
+      'is-invalid': _vm.errors.bankId
     },
     attrs: {
+      "disabled": _vm.bankLoading,
       "required": ""
     },
     on: {
@@ -38,21 +39,21 @@ var render = function render() {
           var val = "_value" in o ? o._value : o.value;
           return val;
         });
-        _vm.$set(_vm.form, "bankName", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+        _vm.$set(_vm.form, "bankId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
       }
     }
   }, [_c('option', {
     attrs: {
       "value": ""
     }
-  }, [_vm._v("ເລືອກທະນາຄານ")]), _vm._v(" "), _vm._l(_vm.bankList, function (bank) {
+  }, [_vm._v("\n                    " + _vm._s(_vm.bankLoading ? 'ກຳລັງໂຫຼດ...' : 'ເລືອກທະນາຄານ') + "\n                  ")]), _vm._v(" "), _vm._l(_vm.bankList, function (bank) {
     return _c('option', {
-      key: bank.code,
+      key: bank.id,
       domProps: {
-        "value": bank.name
+        "value": bank.id
       }
-    }, [_vm._v("\n                    " + _vm._s(bank.name) + "\n                  ")]);
-  })], 2)], 2), _vm._ssrNode(" " + (_vm.errors.bankName ? "<div class=\"invalid-feedback\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.bankName) + "\n              ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-3dc26164><label class=\"form-label\" data-v-3dc26164>ສາຂາ</label> <div class=\"input-with-icon\" data-v-3dc26164><i class=\"fas fa-map-marker-alt input-icon\" data-v-3dc26164></i> <input type=\"text\" placeholder=\"ໃສ່ຊື່ສາຂາ (ທາງເລືອກ)\"" + _vm._ssrAttr("value", _vm.form.bankBranch) + " class=\"form-control\" data-v-3dc26164></div></div>")], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-3dc26164>ປະເພດບັນຊີ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<i class=\"fas fa-list input-icon\" data-v-3dc26164></i> "), _c('select', {
+    }, [_vm._v("\n                    " + _vm._s(bank.bank_name) + " (" + _vm._s(bank.code) + ")\n                  ")]);
+  })], 2)], 2), _vm._ssrNode(" " + (_vm.errors.bankId ? "<div class=\"invalid-feedback\" data-v-41f75863>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.bankId) + "\n              ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-41f75863><label class=\"form-label\" data-v-41f75863>ສາຂາ</label> <div class=\"input-with-icon\" data-v-41f75863><i class=\"fas fa-map-marker-alt input-icon\" data-v-41f75863></i> <input type=\"text\" placeholder=\"ໃສ່ຊື່ສາຂາ (ທາງເລືອກ)\"" + _vm._ssrAttr("value", _vm.form.bankBranch) + " class=\"form-control\" data-v-41f75863></div></div>")], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-row\" data-v-41f75863>", "</div>", [_vm._ssrNode("<div class=\"form-group\" data-v-41f75863>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-41f75863>ປະເພດບັນຊີ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-41f75863>", "</div>", [_vm._ssrNode("<i class=\"fas fa-list input-icon\" data-v-41f75863></i> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -60,9 +61,6 @@ var render = function render() {
       expression: "form.accountType"
     }],
     staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.accountType
-    },
     attrs: {
       "required": ""
     },
@@ -93,7 +91,7 @@ var render = function render() {
     attrs: {
       "value": "Fixed Deposit"
     }
-  }, [_vm._v("Fixed Deposit")])])], 2), _vm._ssrNode(" " + (_vm.errors.accountType ? "<div class=\"invalid-feedback\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.accountType) + "\n              ") + "</div>" : "<!---->"))], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-3dc26164>ສະກຸນເງິນ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-3dc26164>", "</div>", [_vm._ssrNode("<i class=\"fas fa-dollar-sign input-icon\" data-v-3dc26164></i> "), _c('select', {
+  }, [_vm._v("Fixed Deposit")])])], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"form-group\" data-v-41f75863>", "</div>", [_vm._ssrNode("<label class=\"form-label required\" data-v-41f75863>ສະກຸນເງິນ *</label> "), _vm._ssrNode("<div class=\"input-with-icon\" data-v-41f75863>", "</div>", [_vm._ssrNode("<i class=\"fas fa-dollar-sign input-icon\" data-v-41f75863></i> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -101,9 +99,6 @@ var render = function render() {
       expression: "form.currency"
     }],
     staticClass: "form-control",
-    class: {
-      'is-invalid': _vm.errors.currency
-    },
     attrs: {
       "required": ""
     },
@@ -142,17 +137,13 @@ var render = function render() {
     attrs: {
       "value": "EUR"
     }
-  }, [_vm._v("EUR - ຢູໂລ")])])], 2), _vm._ssrNode(" " + (_vm.errors.currency ? "<div class=\"invalid-feedback\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.errors.currency) + "\n              ") + "</div>" : "<!---->"))], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-3dc26164><label class=\"form-label\" data-v-3dc26164>ສະຖານະ</label> <div class=\"status-toggle\" data-v-3dc26164><label class=\"toggle-switch\" data-v-3dc26164><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.form.isActive) ? _vm._i(_vm.form.isActive, null) > -1 : _vm.form.isActive) + " class=\"toggle-input\" data-v-3dc26164> <span class=\"toggle-slider\" data-v-3dc26164></span></label> <span class=\"toggle-label\" data-v-3dc26164>" + _vm._ssrEscape("\n                " + _vm._s(_vm.form.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n              ") + "</span></div></div>")], 2)]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-3dc26164><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-outline-secondary\" data-v-3dc26164><i class=\"fas fa-times\" data-v-3dc26164></i>\n          ຍົກເລີກ\n        </button> <button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-3dc26164>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-3dc26164></i>" : "<i class=\"fas fa-save\" data-v-3dc26164></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div>")], 2)]) : _vm._e()]);
+  }, [_vm._v("EUR - ຢູໂລ")])])], 2)], 2)], 2), _vm._ssrNode(" <div class=\"form-group\" data-v-41f75863><label class=\"form-label\" data-v-41f75863>ສະຖານະ</label> <div class=\"status-toggle\" data-v-41f75863><label class=\"toggle-switch\" data-v-41f75863><input type=\"checkbox\"" + _vm._ssrAttr("checked", Array.isArray(_vm.form.isActive) ? _vm._i(_vm.form.isActive, null) > -1 : _vm.form.isActive) + " class=\"toggle-input\" data-v-41f75863> <span class=\"toggle-slider\" data-v-41f75863></span></label> <span class=\"toggle-label\" data-v-41f75863>" + _vm._ssrEscape(_vm._s(_vm.form.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ')) + "</span></div></div>")], 2)]), _vm._ssrNode(" <div class=\"modal-footer\" data-v-41f75863><button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-outline-secondary\" data-v-41f75863>\n          ຍົກເລີກ\n        </button> <button type=\"button\"" + _vm._ssrAttr("disabled", _vm.loading || !_vm.isFormValid) + " class=\"btn btn-primary\" data-v-41f75863>" + (_vm.loading ? "<i class=\"fas fa-spinner fa-spin\" data-v-41f75863></i>" : "<i class=\"fas fa-save\" data-v-41f75863></i>") + _vm._ssrEscape("\n          " + _vm._s(_vm.isEdit ? 'ອັບເດດ' : 'ບັນທຶກ') + "\n        ") + "</button></div>")], 2)]) : _vm._e()]);
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./components/bank/bankAccount/index.vue?vue&type=template&id=3dc26164&scoped=true
-
-// EXTERNAL MODULE: external "vuex"
-var external_vuex_ = __webpack_require__(14);
+// CONCATENATED MODULE: ./components/bank/bankAccount/index.vue?vue&type=template&id=41f75863&scoped=true
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./components/bank/bankAccount/index.vue?vue&type=script&lang=js
-
 /* harmony default export */ var bankAccountvue_type_script_lang_js = ({
   name: 'BankAccountDialog',
   props: {
@@ -169,124 +160,79 @@ var external_vuex_ = __webpack_require__(14);
     return {
       showModal: false,
       loading: false,
+      bankLoading: false,
       form: {
         accountNumber: '',
         accountName: '',
-        bankName: '',
+        bankId: '',
         bankBranch: '',
         accountType: '',
         currency: 'LAK',
         isActive: true
       },
       errors: {},
-      // Bank list for dropdown
-      bankList: [{
-        code: 'BCEL',
-        name: 'ທະນາຄານການຄ້າຕ່າງປະເທດລາວ (BCEL)'
-      }, {
-        code: 'LDB',
-        name: 'ທະນາຄານພັດທະນາລາວ (LDB)'
-      }, {
-        code: 'APB',
-        name: 'ທະນາຄານກະເສດຊາວກະສິກອນ (APB)'
-      }, {
-        code: 'JDB',
-        name: 'ທະນາຄານຮ່ວມພັດທະນາລາວ-ຫວຽດ (JDB)'
-      }, {
-        code: 'LVB',
-        name: 'ທະນາຄານລາວ-ຫວຽດ (LVB)'
-      }, {
-        code: 'IBL',
-        name: 'ທະນາຄານອຸດສາຫະກຳ (IBL)'
-      }, {
-        code: 'STB',
-        name: 'ທະນາຄານເສດຖະກິດລາວ (STB)'
-      }, {
-        code: 'MPB',
-        name: 'ທະນາຄານມະຫາຊົນ (MPB)'
-      }, {
-        code: 'LXB',
-        name: 'ທະນາຄານລາວ-ຈີນ (LXB)'
-      }, {
-        code: 'BMB',
-        name: 'ທະນາຄານເມືອງເຮືອງ (BMB)'
-      }, {
-        code: 'KKB',
-        name: 'ທະນາຄານຂົງໄຂ (KKB)'
-      }, {
-        code: 'SACOM',
-        name: 'ທະນາຄານສະຫະກອນ (SACOM)'
-      }, {
-        code: 'BOL',
-        name: 'ທະນາຄານແຫ່ງ ສປປ ລາວ (BOL)'
-      }, {
-        code: 'OTHER',
-        name: 'ອື່ນໆ'
-      }]
+      bankList: [] // Now dynamically fetched
     };
   },
   computed: {
-    ...Object(external_vuex_["mapGetters"])(['findAllCurrency']),
     isEdit() {
       return !!this.account && !!this.account.id;
     },
     isFormValid() {
-      return this.form.accountNumber && this.form.accountName && this.form.bankName && this.form.accountType && this.form.currency && Object.keys(this.errors).length === 0;
+      return this.form.accountNumber && this.form.accountName && this.form.bankId && this.form.accountType && Object.keys(this.errors).length === 0;
     }
   },
   watch: {
     show(newVal) {
       this.showModal = newVal;
       if (newVal) {
+        this.fetchBanks();
         this.initializeForm();
-        // Prevent body scroll when modal is open
         document.body.style.overflow = 'hidden';
       } else {
-        // Restore body scroll when modal is closed
         document.body.style.overflow = '';
       }
     },
-    // Watch form fields for validation
     'form.accountNumber'() {
       this.validateAccountNumber();
     },
     'form.accountName'() {
       this.validateAccountName();
     },
-    'form.bankName'() {
-      this.validateBankName();
-    },
-    'form.accountType'() {
-      this.validateAccountType();
-    },
-    'form.currency'() {
-      this.validateCurrency();
+    'form.bankId'() {
+      this.validateBankId();
     }
   },
-  beforeDestroy() {
-    // Ensure body scroll is restored when component is destroyed
-    document.body.style.overflow = '';
-  },
   methods: {
+    async fetchBanks() {
+      this.bankLoading = true;
+      try {
+        const res = await this.$axios.get('/api/bank/find');
+        this.bankList = res.data;
+      } catch (err) {
+        this.showToast('ບໍ່ສາມາດໂຫຼດລາຍຊື່ທະນາຄານໄດ້', 'error');
+      } finally {
+        this.bankLoading = false;
+      }
+    },
     initializeForm() {
       this.errors = {};
       if (this.isEdit) {
-        // Pre-populate form with existing account data
         this.form = {
           accountNumber: this.account.accountNumber || '',
           accountName: this.account.accountName || '',
-          bankName: this.account.bankName || '',
+          bankId: this.account.bankId || '',
+          // Note: using bankId from DB
           bankBranch: this.account.bankBranch || '',
           accountType: this.account.accountType || '',
           currency: this.account.currency || 'LAK',
           isActive: this.account.isActive !== undefined ? this.account.isActive : true
         };
       } else {
-        // Reset form for new account
         this.form = {
           accountNumber: '',
           accountName: '',
-          bankName: '',
+          bankId: '',
           bankBranch: '',
           accountType: '',
           currency: 'LAK',
@@ -294,118 +240,44 @@ var external_vuex_ = __webpack_require__(14);
         };
       }
     },
-    // Validation methods
     validateAccountNumber() {
-      if (!this.form.accountNumber) {
-        this.$set(this.errors, 'accountNumber', 'ກະລຸນາໃສ່ເລກບັນຊີ');
-      } else if (this.form.accountNumber.length < 5) {
-        this.$set(this.errors, 'accountNumber', 'ເລກບັນຊີຕ້ອງມີຢ່າງນ້ອຍ 5 ຫຼັກ');
-      } else if (!/^[0-9\-]+$/.test(this.form.accountNumber)) {
-        this.$set(this.errors, 'accountNumber', 'ເລກບັນຊີຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ');
-      } else {
-        this.$delete(this.errors, 'accountNumber');
-      }
+      if (!this.form.accountNumber) this.$set(this.errors, 'accountNumber', 'ກະລຸນາໃສ່ເລກບັນຊີ');else if (!/^[0-9\-]+$/.test(this.form.accountNumber)) this.$set(this.errors, 'accountNumber', 'ເລກບັນຊີຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ');else this.$delete(this.errors, 'accountNumber');
     },
     validateAccountName() {
-      if (!this.form.accountName) {
-        this.$set(this.errors, 'accountName', 'ກະລຸນາໃສ່ຊື່ບັນຊີ');
-      } else if (this.form.accountName.length < 2) {
-        this.$set(this.errors, 'accountName', 'ຊື່ບັນຊີຕ້ອງມີຢ່າງນ້ອຍ 2 ຕົວອັກສອນ');
-      } else {
-        this.$delete(this.errors, 'accountName');
-      }
+      if (!this.form.accountName) this.$set(this.errors, 'accountName', 'ກະລຸນາໃສ່ຊື່ບັນຊີ');else this.$delete(this.errors, 'accountName');
     },
-    validateBankName() {
-      if (!this.form.bankName) {
-        this.$set(this.errors, 'bankName', 'ກະລຸນາເລືອກທະນາຄານ');
-      } else {
-        this.$delete(this.errors, 'bankName');
-      }
-    },
-    validateAccountType() {
-      if (!this.form.accountType) {
-        this.$set(this.errors, 'accountType', 'ກະລຸນາເລືອກປະເພດບັນຊີ');
-      } else {
-        this.$delete(this.errors, 'accountType');
-      }
-    },
-    validateCurrency() {
-      if (!this.form.currency) {
-        this.$set(this.errors, 'currency', 'ກະລຸນາເລືອກສະກຸນເງິນ');
-      } else {
-        this.$delete(this.errors, 'currency');
-      }
-    },
-    validateForm() {
-      this.validateAccountNumber();
-      this.validateAccountName();
-      this.validateBankName();
-      this.validateAccountType();
-      this.validateCurrency();
-      return Object.keys(this.errors).length === 0;
+    validateBankId() {
+      if (!this.form.bankId) this.$set(this.errors, 'bankId', 'ກະລຸນາເລືອກທະນາຄານ');else this.$delete(this.errors, 'bankId');
     },
     async saveAccount() {
-      if (!this.validateForm()) {
-        this.showToast('ກະລຸນາກວດສອບຂໍ້ມູນທີ່ໃສ່ອີກຄັ້ງ', 'error');
+      if (!this.form.bankId) {
+        this.showToast('ກະລຸນາເລືອກທະນາຄານ', 'error');
         return;
       }
+      this.loading = true;
       try {
-        this.loading = true;
-        const accountData = {
+        const payload = {
           accountNumber: this.form.accountNumber.trim(),
           accountName: this.form.accountName.trim(),
-          bankName: this.form.bankName,
-          bankBranch: this.form.bankBranch ? this.form.bankBranch.trim() : null,
+          bankId: this.form.bankId,
+          // Mapping to backend key
+          bankBranch: this.form.bankBranch,
           accountType: this.form.accountType,
           currency: this.form.currency,
           isActive: this.form.isActive
         };
-        let response;
-        if (this.isEdit) {
-          // Update existing account
-          response = await this.$axios.put(`/api/bank_account/update/${this.account.id}`, accountData);
-        } else {
-          // Create new account
-          response = await this.$axios.post('/api/bank_account/create', accountData);
-        }
 
-        // Check if response indicates success
-        if (response.data && response.data.success !== false) {
-          // Success case
-          const successMessage = this.isEdit ? 'ອັບເດດຂໍ້ມູນສຳເລັດແລ້ວ' : 'ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ';
-          this.showToast(successMessage, 'success');
-
-          // Emit saved event and close modal
-          this.$emit('saved', response.data);
+        // Inside saveAccount() method in BankAccountDialog.vue
+        const method = this.isEdit ? 'put' : 'post';
+        const url = this.isEdit ? `/api/bank_account/update/${this.account.id}` : '/api/bank_account/create';
+        const res = await this.$axios[method](url, payload);
+        if (res.data && res.data.success !== false) {
+          this.showToast('ບັນທຶກສຳເລັດ', 'success');
+          this.$emit('saved');
           this.closeModal();
-        } else {
-          // Handle API error response (when success: false)
-          const errorMessage = response.data.message || 'ມີຂໍ້ຜິດພາດໃນການບັນທຶກຂໍ້ມູນ';
-          this.showToast(errorMessage, 'error');
         }
       } catch (error) {
-        console.error('Error saving bank account:', error);
-
-        // Handle different types of errors
-        let errorMessage = 'ມີຂໍ້ຜິດພາດໃນການບັນທຶກຂໍ້ມູນ';
-        if (error.response) {
-          // Server responded with error status
-          if (error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message;
-          } else if (error.response.status === 404) {
-            errorMessage = 'ບໍ່ພົບຂໍ້ມູນທີ່ຕ້ອງການ';
-          } else if (error.response.status === 403) {
-            errorMessage = 'ບໍ່ມີສິດໃນການດຳເນີນການນີ້';
-          } else if (error.response.status === 500) {
-            errorMessage = 'ມີຂໍ້ຜິດພາດຈາກເຊີເວີ ກະລຸນາລອງໃໝ່ໃນພາຍຫຼັງ';
-          } else if (error.response.status === 409) {
-            errorMessage = 'ເລກບັນຊີນີ້ມີໃນລະບົບແລ້ວ';
-          }
-        } else if (error.request) {
-          // Network error
-          errorMessage = 'ບໍ່ສາມາດເຊື່ອມຕໍ່ກັບເຊີເວີໄດ້ ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ອິນເຕີເນັດ';
-        }
-        this.showToast(errorMessage, 'error');
+        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ', 'error');
       } finally {
         this.loading = false;
       }
@@ -413,38 +285,20 @@ var external_vuex_ = __webpack_require__(14);
     closeModal() {
       this.showModal = false;
       this.$emit('close');
-
-      // Reset form after modal closes
-      setTimeout(() => {
-        this.initializeForm();
-      }, 300);
+      setTimeout(() => this.initializeForm(), 300);
     },
     showToast(message, type = 'info') {
       if (this.$swal) {
-        const Toast = this.$swal.mixin({
+        this.$swal.fire({
           toast: true,
           position: 'top-end',
+          icon: type,
+          title: message,
           showConfirmButton: false,
-          timer: type === 'error' ? 5000 : 3000,
-          timerProgressBar: true,
-          didOpen: toast => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer);
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer);
-          }
-        });
-        const iconMap = {
-          success: 'success',
-          error: 'error',
-          warning: 'warning',
-          info: 'info'
-        };
-        Toast.fire({
-          icon: iconMap[type] || 'info',
-          title: message
+          timer: 3000
         });
       } else {
-        console.log(`${type}: ${message}`);
-        alert(`${type.toUpperCase()}: ${message}`);
+        alert(message);
       }
     }
   }
@@ -473,7 +327,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "3dc26164",
+  "41f75863",
   "004819f4"
   
 )
@@ -482,26 +336,26 @@ var component = Object(componentNormalizer["a" /* default */])(
 
 /***/ }),
 
-/***/ 1132:
+/***/ 1135:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(907);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_b9c5925e_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f5d79d26_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(908);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f5d79d26_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f5d79d26_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f5d79d26_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_f5d79d26_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
 
-/***/ 1133:
+/***/ 1136:
 /***/ (function(module, exports, __webpack_require__) {
 
 // Imports
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-page[data-v-b9c5925e]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-b9c5925e]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-b9c5925e]{flex:1}.page-title[data-v-b9c5925e]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-b9c5925e]{color:#666;font-size:16px;margin:0}.header-actions[data-v-b9c5925e]{display:flex;gap:12px}.filters-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-b9c5925e]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-b9c5925e]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-b9c5925e]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-b9c5925e]{position:relative}.search-icon[data-v-b9c5925e]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-b9c5925e]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-b9c5925e]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-b9c5925e]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-b9c5925e]{align-items:end;display:flex}.stats-section[data-v-b9c5925e]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-b9c5925e],.stat-icon[data-v-b9c5925e]{align-items:center;display:flex}.stat-icon[data-v-b9c5925e]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-b9c5925e]{background-color:#007bff}.stat-icon-success[data-v-b9c5925e]{background-color:#28a745}.stat-icon-warning[data-v-b9c5925e]{background-color:#ffc107}.stat-icon-info[data-v-b9c5925e]{background-color:#17a2b8}.stat-content[data-v-b9c5925e]{flex:1}.stat-number[data-v-b9c5925e]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-b9c5925e]{color:#666;font-size:14px;margin:0}.table-section[data-v-b9c5925e]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-b9c5925e]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-b9c5925e]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-b9c5925e]{color:#666;font-size:14px}.table-wrapper[data-v-b9c5925e]{overflow-x:auto}.data-table[data-v-b9c5925e]{border-collapse:collapse;width:100%}.data-table td[data-v-b9c5925e],.data-table th[data-v-b9c5925e]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-b9c5925e]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-b9c5925e]{color:#555;font-size:14px}.account-number[data-v-b9c5925e]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.account-name[data-v-b9c5925e]{font-weight:500}.bank-info[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.account-type-badge[data-v-b9c5925e],.currency-badge[data-v-b9c5925e]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-saving[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.type-current[data-v-b9c5925e]{background-color:#d1ecf1;color:#0c5460}.type-fixed[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-lak[data-v-b9c5925e]{background-color:#e7f3ff;color:#0056b3}.currency-usd[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.currency-thb[data-v-b9c5925e]{background-color:#fff3cd;color:#856404}.currency-cny[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.status-badge[data-v-b9c5925e]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-b9c5925e]{background-color:#d4edda;color:#155724}.status-inactive[data-v-b9c5925e]{background-color:#f8d7da;color:#721c24}.action-buttons[data-v-b9c5925e]{display:flex;gap:8px}.btn-icon[data-v-b9c5925e]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon[data-v-b9c5925e]:hover{transform:translateY(-1px)}.btn-icon[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-b9c5925e]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3}.btn-icon-warning[data-v-b9c5925e]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-b9c5925e]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-b9c5925e]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-b9c5925e]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-b9c5925e],.loading-state[data-v-b9c5925e]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-b9c5925e]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-b9c5925e]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-b9c5925e]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-b9c5925e]{font-size:16px;margin:0}.pagination-section[data-v-b9c5925e]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-b9c5925e]{color:#666;font-size:14px}.pagination-controls[data-v-b9c5925e]{align-items:center;display:flex;gap:8px}.page-info[data-v-b9c5925e]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-b9c5925e]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-b9c5925e]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-b9c5925e]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-b9c5925e]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-b9c5925e]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-b9c5925e]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.bank-account-page[data-v-b9c5925e]{padding:16px}.page-header[data-v-b9c5925e]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-b9c5925e]{flex-direction:column;gap:12px}.filter-group[data-v-b9c5925e]{min-width:auto}.stats-section[data-v-b9c5925e]{grid-template-columns:1fr}.table-wrapper[data-v-b9c5925e]{overflow-x:scroll}.data-table[data-v-b9c5925e]{min-width:800px}.pagination-section[data-v-b9c5925e]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-b9c5925e]{font-size:24px}.stat-card[data-v-b9c5925e]{padding:16px}.stat-number[data-v-b9c5925e]{font-size:20px}.action-buttons[data-v-b9c5925e]{flex-direction:column;gap:4px}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".bank-account-page[data-v-f5d79d26]{background-color:#f8f9fa;min-height:100vh;padding:24px}.page-header[data-v-f5d79d26]{align-items:center;background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);display:flex;justify-content:space-between;margin-bottom:24px;padding:24px}.header-content[data-v-f5d79d26]{flex:1}.page-title[data-v-f5d79d26]{align-items:center;color:#333;display:flex;font-size:28px;font-weight:600;gap:12px;margin:0 0 8px}.page-subtitle[data-v-f5d79d26]{color:#666;font-size:16px;margin:0}.header-actions[data-v-f5d79d26]{display:flex;gap:12px}.filters-section[data-v-f5d79d26]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);margin-bottom:24px;padding:20px}.filter-row[data-v-f5d79d26]{align-items:end;display:flex;flex-wrap:wrap;gap:16px}.filter-group[data-v-f5d79d26]{display:flex;flex-direction:column;gap:8px;min-width:200px}.filter-label[data-v-f5d79d26]{color:#555;font-size:14px;font-weight:500}.search-input-wrapper[data-v-f5d79d26]{position:relative}.search-icon[data-v-f5d79d26]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%)}.search-input[data-v-f5d79d26]{border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 36px;transition:border-color .2s;width:100%}.search-input[data-v-f5d79d26]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-select[data-v-f5d79d26]{background:#fff;border:1px solid #ced4da;border-radius:6px;cursor:pointer;font-size:14px;padding:10px 12px;transition:border-color .2s}.filter-select[data-v-f5d79d26]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.filter-actions[data-v-f5d79d26]{align-items:end;display:flex}.stats-section[data-v-f5d79d26]{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));grid-gap:20px;gap:20px;margin-bottom:24px}.stat-card[data-v-f5d79d26]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);gap:16px;padding:24px}.stat-card[data-v-f5d79d26],.stat-icon[data-v-f5d79d26]{align-items:center;display:flex}.stat-icon[data-v-f5d79d26]{border-radius:50%;color:#fff;font-size:20px;height:48px;justify-content:center;width:48px}.stat-icon-primary[data-v-f5d79d26]{background-color:#007bff}.stat-icon-success[data-v-f5d79d26]{background-color:#28a745}.stat-icon-warning[data-v-f5d79d26]{background-color:#ffc107}.stat-icon-info[data-v-f5d79d26]{background-color:#17a2b8}.stat-content[data-v-f5d79d26]{flex:1}.stat-number[data-v-f5d79d26]{color:#333;font-size:24px;font-weight:600;margin:0 0 4px}.stat-label[data-v-f5d79d26]{color:#666;font-size:14px;margin:0}.table-section[data-v-f5d79d26]{background:#fff;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,.1);overflow:hidden}.table-header[data-v-f5d79d26]{align-items:center;border-bottom:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.table-title[data-v-f5d79d26]{color:#333;font-size:18px;font-weight:600;margin:0}.table-info[data-v-f5d79d26]{color:#666;font-size:14px}.table-wrapper[data-v-f5d79d26]{overflow-x:auto}.data-table[data-v-f5d79d26]{border-collapse:collapse;width:100%}.data-table td[data-v-f5d79d26],.data-table th[data-v-f5d79d26]{border-bottom:1px solid #e9ecef;padding:12px;text-align:left}.data-table th[data-v-f5d79d26]{background-color:#f8f9fa;color:#333;font-size:14px;font-weight:600}.data-table td[data-v-f5d79d26]{color:#555;font-size:14px}.account-number[data-v-f5d79d26]{align-items:center;display:flex;font-family:monospace;font-weight:500;gap:8px}.account-name[data-v-f5d79d26]{font-weight:500}.bank-info[data-v-f5d79d26]{align-items:center;display:flex;gap:8px}.account-type-badge[data-v-f5d79d26],.currency-badge[data-v-f5d79d26]{border-radius:4px;font-size:12px;font-weight:500;padding:4px 8px;text-transform:uppercase}.type-saving[data-v-f5d79d26]{background-color:#d4edda;color:#155724}.type-current[data-v-f5d79d26]{background-color:#d1ecf1;color:#0c5460}.type-fixed[data-v-f5d79d26]{background-color:#fff3cd;color:#856404}.currency-lak[data-v-f5d79d26]{background-color:#e7f3ff;color:#0056b3}.currency-usd[data-v-f5d79d26]{background-color:#d4edda;color:#155724}.currency-thb[data-v-f5d79d26]{background-color:#fff3cd;color:#856404}.currency-cny[data-v-f5d79d26]{background-color:#f8d7da;color:#721c24}.status-badge[data-v-f5d79d26]{align-items:center;border-radius:4px;display:flex;font-size:12px;font-weight:500;gap:4px;padding:4px 8px}.status-active[data-v-f5d79d26]{background-color:#d4edda;color:#155724}.status-inactive[data-v-f5d79d26]{background-color:#f8d7da;color:#721c24}.action-buttons[data-v-f5d79d26]{display:flex;gap:8px}.btn-icon[data-v-f5d79d26]{align-items:center;border:none;border-radius:4px;cursor:pointer;display:flex;font-size:12px;height:32px;justify-content:center;transition:all .2s;width:32px}.btn-icon[data-v-f5d79d26]:hover{transform:translateY(-1px)}.btn-icon[data-v-f5d79d26]:disabled{cursor:not-allowed;opacity:.5}.btn-icon-primary[data-v-f5d79d26]{background-color:#007bff;color:#fff}.btn-icon-primary[data-v-f5d79d26]:hover:not(:disabled){background-color:#0056b3}.btn-icon-warning[data-v-f5d79d26]{background-color:#ffc107;color:#333}.btn-icon-warning[data-v-f5d79d26]:hover:not(:disabled){background-color:#e0a800}.btn-icon-danger[data-v-f5d79d26]{background-color:#dc3545;color:#fff}.btn-icon-danger[data-v-f5d79d26]:hover:not(:disabled){background-color:#c82333}.empty-state[data-v-f5d79d26],.loading-state[data-v-f5d79d26]{color:#666;padding:60px 20px;text-align:center}.loading-state i[data-v-f5d79d26]{color:#007bff;font-size:32px;margin-bottom:16px}.empty-state i[data-v-f5d79d26]{color:#ccc;font-size:64px;margin-bottom:16px}.empty-state h3[data-v-f5d79d26]{color:#333;font-size:20px;margin:0 0 8px}.empty-state p[data-v-f5d79d26]{font-size:16px;margin:0}.pagination-section[data-v-f5d79d26]{align-items:center;border-top:1px solid #e9ecef;display:flex;justify-content:space-between;padding:20px}.pagination-info[data-v-f5d79d26]{color:#666;font-size:14px}.pagination-controls[data-v-f5d79d26]{align-items:center;display:flex;gap:8px}.page-info[data-v-f5d79d26]{color:#666;font-size:14px;padding:0 16px}.btn[data-v-f5d79d26]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-f5d79d26]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-f5d79d26]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-f5d79d26]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-f5d79d26]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-f5d79d26]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.bank-account-page[data-v-f5d79d26]{padding:16px}.page-header[data-v-f5d79d26]{align-items:stretch;flex-direction:column;gap:16px}.filter-row[data-v-f5d79d26]{flex-direction:column;gap:12px}.filter-group[data-v-f5d79d26]{min-width:auto}.stats-section[data-v-f5d79d26]{grid-template-columns:1fr}.table-wrapper[data-v-f5d79d26]{overflow-x:scroll}.data-table[data-v-f5d79d26]{min-width:800px}.pagination-section[data-v-f5d79d26]{flex-direction:column;gap:16px}}@media (max-width:480px){.page-title[data-v-f5d79d26]{font-size:24px}.stat-card[data-v-f5d79d26]{padding:16px}.stat-number[data-v-f5d79d26]{font-size:20px}.action-buttons[data-v-f5d79d26]{flex-direction:column;gap:4px}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -509,20 +363,50 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 1479:
+/***/ 1482:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
-// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/bankAccount/index.vue?vue&type=template&id=b9c5925e&scoped=true
+// CONCATENATED MODULE: ./node_modules/vuetify-loader/lib/loader.js??ref--4!./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--7!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/bankAccount/index.vue?vue&type=template&id=f5d79d26&scoped=true
 var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c('div', {
     staticClass: "bank-account-page"
-  }, [_vm._ssrNode("<div class=\"page-header\" data-v-b9c5925e><div class=\"header-content\" data-v-b9c5925e><h1 class=\"page-title\" data-v-b9c5925e><i class=\"fas fa-university\" data-v-b9c5925e></i>\n        ຈັດການບັນຊີທະນາຄານ\n      </h1> <p class=\"page-subtitle\" data-v-b9c5925e>ຈັດການຂໍ້ມູນບັນຊີທະນາຄານທັງໝົດ</p></div> <div class=\"header-actions\" data-v-b9c5925e><button" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-primary\" data-v-b9c5925e><i class=\"fas fa-plus\" data-v-b9c5925e></i>\n        ເພີ່ມບັນຊີໃໝ່\n      </button></div></div> "), _vm._ssrNode("<div class=\"filters-section\" data-v-b9c5925e>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-b9c5925e>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-b9c5925e><label class=\"filter-label\" data-v-b9c5925e>ຄົ້ນຫາ</label> <div class=\"search-input-wrapper\" data-v-b9c5925e><i class=\"fas fa-search search-icon\" data-v-b9c5925e></i> <input type=\"text\" placeholder=\"ຄົ້ນຫາເລກບັນຊີ, ຊື່ບັນຊີ, ທະນາຄານ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"search-input\" data-v-b9c5925e></div></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-b9c5925e>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-b9c5925e>ສະກຸນເງິນ</label> "), _c('select', {
+  }, [_vm._ssrNode("<div class=\"page-header\" data-v-f5d79d26><div class=\"header-content\" data-v-f5d79d26><h1 class=\"page-title\" data-v-f5d79d26><i class=\"fas fa-university\" data-v-f5d79d26></i>\n        ຈັດການບັນຊີທະນາຄານ\n      </h1> <p class=\"page-subtitle\" data-v-f5d79d26>ຈັດການຂໍ້ມູນບັນຊີທະນາຄານທັງໝົດ</p></div> <div class=\"header-actions\" data-v-f5d79d26><button" + _vm._ssrAttr("disabled", _vm.loading) + " class=\"btn btn-primary\" data-v-f5d79d26><i class=\"fas fa-plus\" data-v-f5d79d26></i>\n        ເພີ່ມບັນຊີໃໝ່\n      </button></div></div> "), _vm._ssrNode("<div class=\"filters-section\" data-v-f5d79d26>", "</div>", [_vm._ssrNode("<div class=\"filter-row\" data-v-f5d79d26>", "</div>", [_vm._ssrNode("<div class=\"filter-group\" data-v-f5d79d26><label class=\"filter-label\" data-v-f5d79d26>ຄົ້ນຫາ</label> <div class=\"search-input-wrapper\" data-v-f5d79d26><i class=\"fas fa-search search-icon\" data-v-f5d79d26></i> <input type=\"text\" placeholder=\"ຄົ້ນຫາເລກບັນຊີ, ຊື່ບັນຊີ...\"" + _vm._ssrAttr("value", _vm.filters.search) + " class=\"search-input\" data-v-f5d79d26></div></div> "), _vm._ssrNode("<div class=\"filter-group\" data-v-f5d79d26>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-f5d79d26>ທະນາຄານ</label> "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.filters.bankId,
+      expression: "filters.bankId"
+    }],
+    staticClass: "filter-select",
+    on: {
+      "change": [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.$set(_vm.filters, "bankId", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
+      }, _vm.applyFilters]
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": ""
+    }
+  }, [_vm._v("ທັງໝົດ")]), _vm._v(" "), _vm._l(_vm.bankList, function (bank) {
+    return _c('option', {
+      key: bank.id,
+      domProps: {
+        "value": bank.id
+      }
+    }, [_vm._v("\n            " + _vm._s(bank.bank_name) + "\n          ")]);
+  })], 2)], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-f5d79d26>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-f5d79d26>ສະກຸນເງິນ</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -557,46 +441,7 @@ var render = function render() {
     attrs: {
       "value": "THB"
     }
-  }, [_vm._v("THB")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "CNY"
-    }
-  }, [_vm._v("CNY")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-b9c5925e>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-b9c5925e>ປະເພດບັນຊີ</label> "), _c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.filters.accountType,
-      expression: "filters.accountType"
-    }],
-    staticClass: "filter-select",
-    on: {
-      "change": [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.$set(_vm.filters, "accountType", $event.target.multiple ? $$selectedVal : $$selectedVal[0]);
-      }, _vm.applyFilters]
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("ທັງໝົດ")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "Saving"
-    }
-  }, [_vm._v("Saving")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "Current"
-    }
-  }, [_vm._v("Current")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "Fixed Deposit"
-    }
-  }, [_vm._v("Fixed Deposit")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-b9c5925e>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-b9c5925e>ສະຖານະ</label> "), _c('select', {
+  }, [_vm._v("THB")])])], 2), _vm._ssrNode(" "), _vm._ssrNode("<div class=\"filter-group\" data-v-f5d79d26>", "</div>", [_vm._ssrNode("<label class=\"filter-label\" data-v-f5d79d26>ສະຖານະ</label> "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -627,9 +472,9 @@ var render = function render() {
     attrs: {
       "value": "false"
     }
-  }, [_vm._v("ປິດໃຊ້ງານ")])])], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-b9c5925e><button class=\"btn btn-outline-secondary\" data-v-b9c5925e><i class=\"fas fa-refresh\" data-v-b9c5925e></i>\n          ລ້າງ\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"stats-section\" data-v-b9c5925e><div class=\"stat-card\" data-v-b9c5925e><div class=\"stat-icon stat-icon-primary\" data-v-b9c5925e><i class=\"fas fa-university\" data-v-b9c5925e></i></div> <div class=\"stat-content\" data-v-b9c5925e><h3 class=\"stat-number\" data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(_vm.statistics.total)) + "</h3> <p class=\"stat-label\" data-v-b9c5925e>ທັງໝົດ</p></div></div> <div class=\"stat-card\" data-v-b9c5925e><div class=\"stat-icon stat-icon-success\" data-v-b9c5925e><i class=\"fas fa-check-circle\" data-v-b9c5925e></i></div> <div class=\"stat-content\" data-v-b9c5925e><h3 class=\"stat-number\" data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(_vm.statistics.active)) + "</h3> <p class=\"stat-label\" data-v-b9c5925e>ໃຊ້ງານ</p></div></div> <div class=\"stat-card\" data-v-b9c5925e><div class=\"stat-icon stat-icon-warning\" data-v-b9c5925e><i class=\"fas fa-pause-circle\" data-v-b9c5925e></i></div> <div class=\"stat-content\" data-v-b9c5925e><h3 class=\"stat-number\" data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(_vm.statistics.inactive)) + "</h3> <p class=\"stat-label\" data-v-b9c5925e>ປິດໃຊ້ງານ</p></div></div> <div class=\"stat-card\" data-v-b9c5925e><div class=\"stat-icon stat-icon-info\" data-v-b9c5925e><i class=\"fas fa-dollar-sign\" data-v-b9c5925e></i></div> <div class=\"stat-content\" data-v-b9c5925e><h3 class=\"stat-number\" data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(_vm.statistics.currencies)) + "</h3> <p class=\"stat-label\" data-v-b9c5925e>ສະກຸນເງິນ</p></div></div></div> <div class=\"table-section\" data-v-b9c5925e><div class=\"table-header\" data-v-b9c5925e><h3 class=\"table-title\" data-v-b9c5925e>ລາຍການບັນຊີທະນາຄານ</h3> <div class=\"table-info\" data-v-b9c5925e>" + _vm._ssrEscape("\n        ທັງໝົດ " + _vm._s(_vm.filteredAccounts.length) + " ລາຍການ\n      ") + "</div></div> <div class=\"table-wrapper\" data-v-b9c5925e>" + (_vm.loading ? "<div class=\"loading-state\" data-v-b9c5925e><i class=\"fas fa-spinner fa-spin\" data-v-b9c5925e></i> <p data-v-b9c5925e>ກຳລັງໂຫຼດຂໍ້ມູນ...</p></div>" : _vm.filteredAccounts.length === 0 ? "<div class=\"empty-state\" data-v-b9c5925e><i class=\"fas fa-university\" data-v-b9c5925e></i> <h3 data-v-b9c5925e>ບໍ່ມີຂໍ້ມູນບັນຊີທະນາຄານ</h3> <p data-v-b9c5925e>ກົດປຸ່ມ &quot;ເພີ່ມບັນຊີໃໝ່&quot; ເພື່ອເພີ່ມບັນຊີທະນາຄານ</p></div>" : "<table class=\"data-table\" data-v-b9c5925e><thead data-v-b9c5925e><tr data-v-b9c5925e><th data-v-b9c5925e>ເລກບັນຊີ</th> <th data-v-b9c5925e>ຊື່ບັນຊີ</th> <th data-v-b9c5925e>ທະນາຄານ</th> <th data-v-b9c5925e>ສາຂາ</th> <th data-v-b9c5925e>ປະເພດ</th> <th data-v-b9c5925e>ສະກຸນເງິນ</th> <th data-v-b9c5925e>ສະຖານະ</th> <th data-v-b9c5925e>ວັນທີສ້າງ</th> <th data-v-b9c5925e>ຈັດການ</th></tr></thead> <tbody data-v-b9c5925e>" + _vm._ssrList(_vm.paginatedAccounts, function (account) {
-    return "<tr data-v-b9c5925e><td data-v-b9c5925e><div class=\"account-number\" data-v-b9c5925e><i class=\"fas fa-credit-card\" data-v-b9c5925e></i>" + _vm._ssrEscape("\n                " + _vm._s(account.accountNumber) + "\n              ") + "</div></td> <td data-v-b9c5925e><div class=\"account-name\" data-v-b9c5925e>" + _vm._ssrEscape("\n                " + _vm._s(account.accountName) + "\n              ") + "</div></td> <td data-v-b9c5925e><div class=\"bank-info\" data-v-b9c5925e><i class=\"fas fa-university\" data-v-b9c5925e></i>" + _vm._ssrEscape("\n                " + _vm._s(account.bankName) + "\n              ") + "</div></td> <td data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(account.bankBranch || '-')) + "</td> <td data-v-b9c5925e><span" + _vm._ssrClass("account-type-badge", _vm.getAccountTypeClass(account.accountType)) + " data-v-b9c5925e>" + _vm._ssrEscape("\n                " + _vm._s(account.accountType) + "\n              ") + "</span></td> <td data-v-b9c5925e><span" + _vm._ssrClass("currency-badge", _vm.getCurrencyClass(account.currency)) + " data-v-b9c5925e>" + _vm._ssrEscape("\n                " + _vm._s(account.currency) + "\n              ") + "</span></td> <td data-v-b9c5925e><span" + _vm._ssrClass("status-badge", account.isActive ? 'status-active' : 'status-inactive') + " data-v-b9c5925e><i" + _vm._ssrClass(null, account.isActive ? 'fas fa-check-circle' : 'fas fa-times-circle') + " data-v-b9c5925e></i>" + _vm._ssrEscape("\n                " + _vm._s(account.isActive ? 'ໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n              ") + "</span></td> <td data-v-b9c5925e>" + _vm._ssrEscape(_vm._s(_vm.formatDate(account.createdAt))) + "</td> <td data-v-b9c5925e><div class=\"action-buttons\" data-v-b9c5925e><button" + _vm._ssrAttr("disabled", _vm.loading) + " title=\"ແກ້ໄຂ\" class=\"btn-icon btn-icon-primary\" data-v-b9c5925e><i class=\"fas fa-edit\" data-v-b9c5925e></i></button></div></td></tr>";
-  }) + "</tbody></table>") + "</div> " + (_vm.totalPages > 1 ? "<div class=\"pagination-section\" data-v-b9c5925e><div class=\"pagination-info\" data-v-b9c5925e>" + _vm._ssrEscape("\n        ສະແດງ " + _vm._s((_vm.currentPage - 1) * _vm.pageSize + 1) + " - " + _vm._s(Math.min(_vm.currentPage * _vm.pageSize, _vm.filteredAccounts.length)) + " \n        ຈາກ " + _vm._s(_vm.filteredAccounts.length) + " ລາຍການ\n      ") + "</div> <div class=\"pagination-controls\" data-v-b9c5925e><button" + _vm._ssrAttr("disabled", _vm.currentPage === 1) + " class=\"btn btn-outline-secondary\" data-v-b9c5925e><i class=\"fas fa-angle-double-left\" data-v-b9c5925e></i></button> <button" + _vm._ssrAttr("disabled", _vm.currentPage === 1) + " class=\"btn btn-outline-secondary\" data-v-b9c5925e><i class=\"fas fa-angle-left\" data-v-b9c5925e></i></button> <span class=\"page-info\" data-v-b9c5925e>" + _vm._ssrEscape("\n          ໜ້າ " + _vm._s(_vm.currentPage) + " ຈາກ " + _vm._s(_vm.totalPages) + "\n        ") + "</span> <button" + _vm._ssrAttr("disabled", _vm.currentPage === _vm.totalPages) + " class=\"btn btn-outline-secondary\" data-v-b9c5925e><i class=\"fas fa-angle-right\" data-v-b9c5925e></i></button> <button" + _vm._ssrAttr("disabled", _vm.currentPage === _vm.totalPages) + " class=\"btn btn-outline-secondary\" data-v-b9c5925e><i class=\"fas fa-angle-double-right\" data-v-b9c5925e></i></button></div></div>" : "<!---->") + "</div> "), _c('BankAccountDialog', {
+  }, [_vm._v("ປິດໃຊ້ງານ")])])], 2), _vm._ssrNode(" <div class=\"filter-actions\" data-v-f5d79d26><button class=\"btn btn-outline-secondary\" data-v-f5d79d26><i class=\"fas fa-redo\" data-v-f5d79d26></i> ລ້າງ\n        </button></div>")], 2)]), _vm._ssrNode(" <div class=\"stats-section\" data-v-f5d79d26><div class=\"stat-card\" data-v-f5d79d26><div class=\"stat-icon stat-icon-primary\" data-v-f5d79d26><i class=\"fas fa-university\" data-v-f5d79d26></i></div> <div class=\"stat-content\" data-v-f5d79d26><h3 class=\"stat-number\" data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(_vm.statistics.total)) + "</h3> <p class=\"stat-label\" data-v-f5d79d26>ທັງໝົດ</p></div></div> <div class=\"stat-card\" data-v-f5d79d26><div class=\"stat-icon stat-icon-success\" data-v-f5d79d26><i class=\"fas fa-check-circle\" data-v-f5d79d26></i></div> <div class=\"stat-content\" data-v-f5d79d26><h3 class=\"stat-number\" data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(_vm.statistics.active)) + "</h3> <p class=\"stat-label\" data-v-f5d79d26>ໃຊ້ງານ</p></div></div> <div class=\"stat-card\" data-v-f5d79d26><div class=\"stat-icon stat-icon-info\" data-v-f5d79d26><i class=\"fas fa-dollar-sign\" data-v-f5d79d26></i></div> <div class=\"stat-content\" data-v-f5d79d26><h3 class=\"stat-number\" data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(_vm.statistics.currencies)) + "</h3> <p class=\"stat-label\" data-v-f5d79d26>ສະກຸນເງິນ</p></div></div></div> <div class=\"table-section\" data-v-f5d79d26><div class=\"table-header\" data-v-f5d79d26><h3 class=\"table-title\" data-v-f5d79d26>ລາຍການບັນຊີທະນາຄານ</h3> <div class=\"table-info\" data-v-f5d79d26>" + _vm._ssrEscape("ທັງໝົດ " + _vm._s(_vm.filteredAccounts.length) + " ລາຍການ") + "</div></div> <div class=\"table-wrapper\" data-v-f5d79d26>" + (_vm.loading ? "<div class=\"loading-state\" data-v-f5d79d26><i class=\"fas fa-spinner fa-spin\" data-v-f5d79d26></i> <p data-v-f5d79d26>ກຳລັງໂຫຼດຂໍ້ມູນ...</p></div>" : _vm.filteredAccounts.length === 0 ? "<div class=\"empty-state\" data-v-f5d79d26><i class=\"fas fa-university\" data-v-f5d79d26></i> <h3 data-v-f5d79d26>ບໍ່ມີຂໍ້ມູນບັນຊີທະນາຄານ</h3></div>" : "<table class=\"data-table\" data-v-f5d79d26><thead data-v-f5d79d26><tr data-v-f5d79d26><th data-v-f5d79d26>ເລກບັນຊີ</th> <th data-v-f5d79d26>ຊື່ບັນຊີ</th> <th data-v-f5d79d26>ທະນາຄານ</th> <th data-v-f5d79d26>ສະກຸນເງິນ</th> <th data-v-f5d79d26>ສະຖານະ</th> <th data-v-f5d79d26>ຈັດການ</th></tr></thead> <tbody data-v-f5d79d26>" + _vm._ssrList(_vm.paginatedAccounts, function (account) {
+    return "<tr data-v-f5d79d26><td data-v-f5d79d26><div class=\"account-number\" data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(account.accountNumber)) + "</div></td> <td data-v-f5d79d26><div class=\"account-name\" data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(account.accountName)) + "</div></td> <td data-v-f5d79d26><div class=\"bank-info\" data-v-f5d79d26><strong data-v-f5d79d26>" + _vm._ssrEscape(_vm._s(_vm.getBankName(account.bankId))) + "</strong></div></td> <td data-v-f5d79d26><span" + _vm._ssrClass("currency-badge", _vm.getCurrencyClass(account.currency)) + " data-v-f5d79d26>" + _vm._ssrEscape("\n                " + _vm._s(account.currency) + "\n              ") + "</span></td> <td data-v-f5d79d26><span" + _vm._ssrClass("status-badge", account.isActive ? 'status-active' : 'status-inactive') + " data-v-f5d79d26>" + _vm._ssrEscape("\n                " + _vm._s(account.isActive ? 'ໃຊ້ງານ' : 'ປິດໃຊ້ງານ') + "\n              ") + "</span></td> <td data-v-f5d79d26><div class=\"action-buttons\" data-v-f5d79d26><button title=\"ແກ້ໄຂ\" class=\"btn-icon btn-icon-primary\" data-v-f5d79d26><i class=\"fas fa-edit\" data-v-f5d79d26></i></button></div></td></tr>";
+  }) + "</tbody></table>") + "</div></div> "), _c('BankAccountDialog', {
     attrs: {
       "show": _vm.showDialog,
       "account": _vm.selectedAccount
@@ -642,7 +487,7 @@ var render = function render() {
 };
 var staticRenderFns = [];
 
-// CONCATENATED MODULE: ./pages/admin/bankAccount/index.vue?vue&type=template&id=b9c5925e&scoped=true
+// CONCATENATED MODULE: ./pages/admin/bankAccount/index.vue?vue&type=template&id=f5d79d26&scoped=true
 
 // EXTERNAL MODULE: external "core-js/modules/esnext.set.add-all.js"
 var esnext_set_add_all_js_ = __webpack_require__(145);
@@ -693,7 +538,7 @@ var esnext_set_symmetric_difference_js_ = __webpack_require__(159);
 var esnext_set_union_js_ = __webpack_require__(160);
 
 // EXTERNAL MODULE: ./components/bank/bankAccount/index.vue + 4 modules
-var bankAccount = __webpack_require__(1069);
+var bankAccount = __webpack_require__(1070);
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/@nuxt/components/dist/loader.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./pages/admin/bankAccount/index.vue?vue&type=script&lang=js
 
@@ -726,21 +571,19 @@ var bankAccount = __webpack_require__(1069);
       selectedAccount: null,
       accounts: [],
       filteredAccounts: [],
-      // Pagination
+      bankList: [],
+      // Dynamic Bank Master Data
       currentPage: 1,
       pageSize: 10,
-      // Filters
       filters: {
         search: '',
+        bankId: '',
         currency: '',
-        accountType: '',
         isActive: ''
       },
-      // Statistics
       statistics: {
         total: 0,
         active: 0,
-        inactive: 0,
         currencies: 0
       }
     };
@@ -751,75 +594,69 @@ var bankAccount = __webpack_require__(1069);
     },
     paginatedAccounts() {
       const start = (this.currentPage - 1) * this.pageSize;
-      const end = start + this.pageSize;
-      return this.filteredAccounts.slice(start, end);
+      return this.filteredAccounts.slice(start, start + this.pageSize);
     }
   },
   async mounted() {
-    await this.fetchAccounts();
+    // Fetch both Bank Master and Accounts together
+    await Promise.all([this.fetchBanks(), this.fetchAccounts()]);
   },
   methods: {
-    async fetchAccounts() {
+    async fetchBanks() {
       try {
-        this.loading = true;
-        const response = await this.$axios.get('/api/bank_account/findAll');
-        if (response.data) {
-          this.accounts = response.data || [];
-        } else {
-          this.accounts = [];
-        }
+        const res = await this.$axios.get('/api/bank/find');
+        this.bankList = res.data || [];
+      } catch (e) {
+        console.error("Failed to load banks", e);
+      }
+    },
+    async fetchAccounts() {
+      this.loading = true;
+      try {
+        const res = await this.$axios.get('/api/bank_account/findAll');
+        this.accounts = res.data || [];
         this.applyFilters();
         this.calculateStatistics();
-      } catch (error) {
-        console.error('Error fetching bank accounts:', error);
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ', 'error');
-        this.accounts = [];
       } finally {
         this.loading = false;
       }
     },
+    getBankName(bankId) {
+      const bank = this.bankList.find(b => b.id === bankId);
+      return bank ? bank.bank_name : 'Unknown Bank';
+    },
     applyFilters() {
       let filtered = [...this.accounts];
-
-      // Search filter
       if (this.filters.search) {
-        const searchLower = this.filters.search.toLowerCase();
-        filtered = filtered.filter(account => account.accountNumber.toLowerCase().includes(searchLower) || account.accountName.toLowerCase().includes(searchLower) || account.bankName.toLowerCase().includes(searchLower) || account.bankBranch && account.bankBranch.toLowerCase().includes(searchLower));
+        const s = this.filters.search.toLowerCase();
+        filtered = filtered.filter(a => a.accountNumber.toLowerCase().includes(s) || a.accountName.toLowerCase().includes(s));
       }
-
-      // Currency filter
+      if (this.filters.bankId) {
+        filtered = filtered.filter(a => a.bankId === parseInt(this.filters.bankId));
+      }
       if (this.filters.currency) {
-        filtered = filtered.filter(account => account.currency === this.filters.currency);
+        filtered = filtered.filter(a => a.currency === this.filters.currency);
       }
-
-      // Account type filter
-      if (this.filters.accountType) {
-        filtered = filtered.filter(account => account.accountType === this.filters.accountType);
-      }
-
-      // Status filter
       if (this.filters.isActive !== '') {
-        const isActive = this.filters.isActive === 'true';
-        filtered = filtered.filter(account => account.isActive === isActive);
+        filtered = filtered.filter(a => a.isActive === (this.filters.isActive === 'true'));
       }
       this.filteredAccounts = filtered;
-      this.currentPage = 1; // Reset to first page
+      this.currentPage = 1;
+    },
+    calculateStatistics() {
+      this.statistics.total = this.accounts.length;
+      this.statistics.active = this.accounts.filter(a => a.isActive).length;
+      const uniqueCurrencies = [...new Set(this.accounts.map(a => a.currency))];
+      this.statistics.currencies = uniqueCurrencies.length;
     },
     resetFilters() {
       this.filters = {
         search: '',
+        bankId: '',
         currency: '',
-        accountType: '',
         isActive: ''
       };
       this.applyFilters();
-    },
-    calculateStatistics() {
-      this.statistics.total = this.accounts.length;
-      this.statistics.active = this.accounts.filter(account => account.isActive).length;
-      this.statistics.inactive = this.accounts.filter(account => !account.isActive).length;
-      const uniqueCurrencies = [...new Set(this.accounts.map(account => account.currency))];
-      this.statistics.currencies = uniqueCurrencies.length;
     },
     openCreateDialog() {
       this.selectedAccount = null;
@@ -833,123 +670,27 @@ var bankAccount = __webpack_require__(1069);
       this.showDialog = false;
       this.selectedAccount = null;
     },
-    async onAccountSaved(response) {
-      try {
-        if (response && response.success !== false) {
-          this.showToast('ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ', 'success');
-          await this.fetchAccounts();
-        } else {
-          const errorMessage = (response === null || response === void 0 ? void 0 : response.message) || 'ການບັນທຶກບໍ່ສຳເລັດ';
-          this.showToast(errorMessage, 'error');
-        }
-      } catch (error) {
-        console.error('Error in onAccountSaved:', error);
-        this.showToast('ມີຂໍ້ຜິດພາດຢ່າງບໍ່ຄາດຄິດ', 'error');
-      }
-    },
-    async toggleStatus(account) {
-      try {
-        const response = await this.$axios.put(`/api/bank_account/${account.id}/toggle-status`);
-        if (response.data && response.data.success) {
-          const status = account.isActive ? 'ປິດໃຊ້ງານ' : 'ເປີດໃຊ້ງານ';
-          this.showToast(`${status}ສຳເລັດແລ້ວ`, 'success');
-          await this.fetchAccounts();
-        } else {
-          this.showToast('ມີຂໍ້ຜິດພາດໃນການປ່ຽນສະຖານະ', 'error');
-        }
-      } catch (error) {
-        console.error('Error toggling status:', error);
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການປ່ຽນສະຖານະ', 'error');
-      }
-    },
-    confirmDelete(account) {
-      if (this.$swal) {
-        this.$swal.fire({
-          title: 'ຢືນຢັນການລຶບ',
-          text: `ທ່ານຕ້ອງການລຶບບັນຊີ "${account.accountNumber}" ແມ່ນບໍ?`,
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
-          confirmButtonText: 'ລຶບ',
-          cancelButtonText: 'ຍົກເລີກ'
-        }).then(result => {
-          if (result.isConfirmed) {
-            this.deleteAccount(account);
-          }
-        });
-      } else {
-        if (confirm(`ທ່ານຕ້ອງການລຶບບັນຊີ "${account.accountNumber}" ແມ່ນບໍ?`)) {
-          this.deleteAccount(account);
-        }
-      }
-    },
-    async deleteAccount(account) {
-      try {
-        const response = await this.$axios.delete(`/api/bank_account/${account.id}`);
-        if (response.data && response.data.success) {
-          this.showToast('ລຶບຂໍ້ມູນສຳເລັດແລ້ວ', 'success');
-          await this.fetchAccounts();
-        } else {
-          this.showToast('ມີຂໍ້ຜິດພາດໃນການລຶບຂໍ້ມູນ', 'error');
-        }
-      } catch (error) {
-        console.error('Error deleting account:', error);
-        this.showToast('ມີຂໍ້ຜິດພາດໃນການລຶບຂໍ້ມູນ', 'error');
-      }
-    },
-    getAccountTypeClass(type) {
-      const classes = {
-        'Saving': 'type-saving',
-        'Current': 'type-current',
-        'Fixed Deposit': 'type-fixed'
-      };
-      return classes[type] || 'type-default';
+    async onAccountSaved() {
+      await this.fetchAccounts();
+      this.showToast('ບັນທຶກສຳເລັດ', 'success');
     },
     getCurrencyClass(currency) {
-      const classes = {
-        'LAK': 'currency-lak',
-        'USD': 'currency-usd',
-        'THB': 'currency-thb',
-        'CNY': 'currency-cny'
+      return {
+        'currency-lak': currency === 'LAK',
+        'currency-usd': currency === 'USD',
+        'currency-thb': currency === 'THB'
       };
-      return classes[currency] || 'currency-default';
-    },
-    formatDate(dateString) {
-      if (!dateString) return '-';
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric'
-      });
     },
     showToast(message, type = 'info') {
       if (this.$swal) {
-        const Toast = this.$swal.mixin({
+        this.$swal.fire({
           toast: true,
           position: 'top-end',
+          icon: type,
+          title: message,
           showConfirmButton: false,
-          timer: type === 'error' ? 5000 : 3000,
-          timerProgressBar: true,
-          didOpen: toast => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer);
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer);
-          }
+          timer: 3000
         });
-        const iconMap = {
-          success: 'success',
-          error: 'error',
-          warning: 'warning',
-          info: 'info'
-        };
-        Toast.fire({
-          icon: iconMap[type] || 'info',
-          title: message
-        });
-      } else {
-        console.log(`${type}: ${message}`);
-        alert(`${type.toUpperCase()}: ${message}`);
       }
     }
   }
@@ -965,7 +706,7 @@ var componentNormalizer = __webpack_require__(10);
 
 function injectStyles (context) {
   
-  var style0 = __webpack_require__(1132)
+  var style0 = __webpack_require__(1135)
 if (style0.__inject__) style0.__inject__(context)
 
 }
@@ -978,7 +719,7 @@ var component = Object(componentNormalizer["a" /* default */])(
   staticRenderFns,
   false,
   injectStyles,
-  "b9c5925e",
+  "f5d79d26",
   "ea805d3a"
   
 )
@@ -1000,7 +741,7 @@ if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("c9cdd648", content, true, context)
+  add("714b955e", content, true, context)
 };
 
 /***/ }),
@@ -1010,9 +751,9 @@ module.exports.__inject__ = function (context) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dc26164_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(670);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dc26164_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dc26164_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dc26164_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_3dc26164_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_41f75863_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(670);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_41f75863_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_41f75863_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_41f75863_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_ref_3_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_3_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_ref_3_oneOf_1_2_node_modules_nuxt_components_dist_loader_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_style_index_0_id_41f75863_prod_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 
 
 /***/ }),
@@ -1024,7 +765,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_API_IMPORT___ = __webpack_require__(4);
 var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-3dc26164]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.modal-container[data-v-3dc26164]{animation:modalSlideIn-3dc26164 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,.2);max-height:90vh;max-width:700px;overflow-y:auto;width:100%}@keyframes modalSlideIn-3dc26164{0%{opacity:0;transform:translateY(-30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-3dc26164]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;padding:20px 20px 16px}.modal-title[data-v-3dc26164]{color:#333;font-size:20px;font-weight:600;margin:0}.modal-close-btn[data-v-3dc26164]{background:none;border:none;border-radius:4px;color:#666;cursor:pointer;font-size:18px;padding:4px 8px;transition:background-color .2s}.modal-close-btn[data-v-3dc26164]:hover{background-color:#e9ecef;color:#333}.modal-body[data-v-3dc26164]{padding:24px}.account-form[data-v-3dc26164]{display:flex;flex-direction:column;gap:20px}.form-row[data-v-3dc26164]{display:grid;grid-template-columns:1fr 1fr;grid-gap:20px;gap:20px}.form-group[data-v-3dc26164]{display:flex;flex-direction:column;gap:8px}.form-label[data-v-3dc26164]{color:#555;font-size:14px;font-weight:500}.form-label.required[data-v-3dc26164]:after{color:#dc3545;content:\" *\"}.input-with-icon[data-v-3dc26164]{position:relative}.input-icon[data-v-3dc26164]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%);z-index:1}.form-control[data-v-3dc26164]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 40px;transition:all .2s}.form-control[data-v-3dc26164]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.form-control.is-invalid[data-v-3dc26164]{border-color:#dc3545}.invalid-feedback[data-v-3dc26164]{color:#dc3545;font-size:12px;margin-top:4px}.status-toggle[data-v-3dc26164]{align-items:center;display:flex;gap:12px}.toggle-switch[data-v-3dc26164]{display:inline-block;height:24px;position:relative;width:48px}.toggle-input[data-v-3dc26164]{height:0;opacity:0;width:0}.toggle-slider[data-v-3dc26164]{background-color:#ccc;border-radius:24px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0;transition:.4s}.toggle-slider[data-v-3dc26164]:before{background-color:#fff;border-radius:50%;bottom:3px;content:\"\";height:18px;left:3px;position:absolute;transition:.4s;width:18px}.toggle-input:checked+.toggle-slider[data-v-3dc26164]{background-color:#28a745}.toggle-input:checked+.toggle-slider[data-v-3dc26164]:before{transform:translateX(24px)}.toggle-label[data-v-3dc26164]{color:#555;font-weight:500}.modal-footer[data-v-3dc26164]{display:flex;gap:12px;justify-content:flex-end;padding:16px 24px 24px}.btn[data-v-3dc26164]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-3dc26164]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-3dc26164]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-3dc26164]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-3dc26164]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-3dc26164]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.modal-overlay[data-v-3dc26164]{padding:10px}.modal-container[data-v-3dc26164]{max-height:95vh}.modal-header[data-v-3dc26164]{padding:16px}.modal-body[data-v-3dc26164]{padding:20px 16px}.modal-footer[data-v-3dc26164]{flex-direction:column-reverse;padding:12px 16px 16px}.form-row[data-v-3dc26164]{gap:16px;grid-template-columns:1fr}.btn[data-v-3dc26164]{justify-content:center;width:100%}}@media (max-width:480px){.modal-title[data-v-3dc26164]{font-size:18px}.account-form[data-v-3dc26164]{gap:16px}.form-group[data-v-3dc26164]{gap:6px}.toggle-switch[data-v-3dc26164]{height:20px;width:40px}.toggle-slider[data-v-3dc26164]:before{bottom:2px;height:16px;left:2px;width:16px}.toggle-input:checked+.toggle-slider[data-v-3dc26164]:before{transform:translateX(20px)}}", ""]);
+___CSS_LOADER_EXPORT___.push([module.i, ".modal-overlay[data-v-41f75863]{align-items:center;background-color:rgba(0,0,0,.5);bottom:0;display:flex;justify-content:center;left:0;padding:20px;position:fixed;right:0;top:0;z-index:1000}.modal-container[data-v-41f75863]{animation:modalSlideIn-41f75863 .3s ease-out;background:#fff;border-radius:8px;box-shadow:0 10px 25px rgba(0,0,0,.2);max-height:90vh;max-width:700px;overflow-y:auto;width:100%}@keyframes modalSlideIn-41f75863{0%{opacity:0;transform:translateY(-30px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}.modal-header[data-v-41f75863]{align-items:center;background-color:#f8f9fa;border-bottom:1px solid #e9ecef;border-radius:8px 8px 0 0;display:flex;justify-content:space-between;padding:20px 20px 16px}.modal-title[data-v-41f75863]{color:#333;font-size:20px;font-weight:600;margin:0}.modal-close-btn[data-v-41f75863]{background:none;border:none;border-radius:4px;color:#666;cursor:pointer;font-size:18px;padding:4px 8px;transition:background-color .2s}.modal-close-btn[data-v-41f75863]:hover{background-color:#e9ecef;color:#333}.modal-body[data-v-41f75863]{padding:24px}.account-form[data-v-41f75863]{display:flex;flex-direction:column;gap:20px}.form-row[data-v-41f75863]{display:grid;grid-template-columns:1fr 1fr;grid-gap:20px;gap:20px}.form-group[data-v-41f75863]{display:flex;flex-direction:column;gap:8px}.form-label[data-v-41f75863]{color:#555;font-size:14px;font-weight:500}.form-label.required[data-v-41f75863]:after{color:#dc3545;content:\" *\"}.input-with-icon[data-v-41f75863]{position:relative}.input-icon[data-v-41f75863]{color:#666;font-size:14px;left:12px;position:absolute;top:50%;transform:translateY(-50%);z-index:1}.form-control[data-v-41f75863]{background-color:#fff;border:1px solid #ced4da;border-radius:6px;font-size:14px;padding:10px 12px 10px 40px;transition:all .2s}.form-control[data-v-41f75863]:focus{border-color:#007bff;box-shadow:0 0 0 3px rgba(0,123,255,.1);outline:none}.form-control.is-invalid[data-v-41f75863]{border-color:#dc3545}.invalid-feedback[data-v-41f75863]{color:#dc3545;font-size:12px;margin-top:4px}.status-toggle[data-v-41f75863]{align-items:center;display:flex;gap:12px}.toggle-switch[data-v-41f75863]{display:inline-block;height:24px;position:relative;width:48px}.toggle-input[data-v-41f75863]{height:0;opacity:0;width:0}.toggle-slider[data-v-41f75863]{background-color:#ccc;border-radius:24px;bottom:0;cursor:pointer;left:0;position:absolute;right:0;top:0;transition:.4s}.toggle-slider[data-v-41f75863]:before{background-color:#fff;border-radius:50%;bottom:3px;content:\"\";height:18px;left:3px;position:absolute;transition:.4s;width:18px}.toggle-input:checked+.toggle-slider[data-v-41f75863]{background-color:#28a745}.toggle-input:checked+.toggle-slider[data-v-41f75863]:before{transform:translateX(24px)}.toggle-label[data-v-41f75863]{color:#555;font-weight:500}.modal-footer[data-v-41f75863]{display:flex;gap:12px;justify-content:flex-end;padding:16px 24px 24px}.btn[data-v-41f75863]{align-items:center;border:1px solid transparent;border-radius:6px;cursor:pointer;display:inline-flex;font-size:14px;font-weight:500;gap:8px;padding:10px 20px;-webkit-text-decoration:none;text-decoration:none;transition:all .2s}.btn[data-v-41f75863]:disabled{cursor:not-allowed;opacity:.5}.btn-primary[data-v-41f75863]{background-color:#007bff;border-color:#007bff;color:#fff}.btn-primary[data-v-41f75863]:hover:not(:disabled){background-color:#0056b3;border-color:#0056b3}.btn-outline-secondary[data-v-41f75863]{background-color:transparent;border-color:#6c757d;color:#6c757d}.btn-outline-secondary[data-v-41f75863]:hover:not(:disabled){background-color:#6c757d;color:#fff}@media (max-width:768px){.modal-overlay[data-v-41f75863]{padding:10px}.modal-container[data-v-41f75863]{max-height:95vh}.modal-header[data-v-41f75863]{padding:16px}.modal-body[data-v-41f75863]{padding:20px 16px}.modal-footer[data-v-41f75863]{flex-direction:column-reverse;padding:12px 16px 16px}.form-row[data-v-41f75863]{gap:16px;grid-template-columns:1fr}.btn[data-v-41f75863]{justify-content:center;width:100%}}@media (max-width:480px){.modal-title[data-v-41f75863]{font-size:18px}.account-form[data-v-41f75863]{gap:16px}.form-group[data-v-41f75863]{gap:6px}.toggle-switch[data-v-41f75863]{height:20px;width:40px}.toggle-slider[data-v-41f75863]:before{bottom:2px;height:16px;left:2px;width:16px}.toggle-input:checked+.toggle-slider[data-v-41f75863]:before{transform:translateX(20px)}}", ""]);
 // Exports
 ___CSS_LOADER_EXPORT___.locals = {};
 module.exports = ___CSS_LOADER_EXPORT___;
@@ -1032,20 +773,20 @@ module.exports = ___CSS_LOADER_EXPORT___;
 
 /***/ }),
 
-/***/ 907:
+/***/ 908:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1133);
+var content = __webpack_require__(1136);
 if(content.__esModule) content = content.default;
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add CSS to SSR context
 var add = __webpack_require__(5).default
 module.exports.__inject__ = function (context) {
-  add("fabe22f8", content, true, context)
+  add("0cf5ac03", content, true, context)
 };
 
 /***/ })

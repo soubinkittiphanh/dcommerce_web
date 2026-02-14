@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Modal Overlay -->
     <div v-if="showModal" class="modal-overlay" @click="closeModal">
       <div class="modal-container" @click.stop>
         <div class="modal-header">
@@ -15,7 +14,6 @@
         <div class="modal-body">
           <form @submit.prevent="saveAccount" class="account-form">
             <div class="form-row">
-              <!-- Account Number -->
               <div class="form-group">
                 <label class="form-label required">ເລກບັນຊີ *</label>
                 <div class="input-with-icon">
@@ -34,7 +32,6 @@
                 </div>
               </div>
 
-              <!-- Account Name -->
               <div class="form-group">
                 <label class="form-label required">ຊື່ບັນຊີ *</label>
                 <div class="input-with-icon">
@@ -55,29 +52,34 @@
             </div>
 
             <div class="form-row">
-              <!-- Bank Name -->
               <div class="form-group">
                 <label class="form-label required">ຊື່ທະນາຄານ *</label>
                 <div class="input-with-icon">
                   <i class="fas fa-university input-icon"></i>
                   <select
-                    v-model="form.bankName"
+                    v-model="form.bankId"
                     class="form-control"
-                    :class="{ 'is-invalid': errors.bankName }"
+                    :class="{ 'is-invalid': errors.bankId }"
+                    :disabled="bankLoading"
                     required
                   >
-                    <option value="">ເລືອກທະນາຄານ</option>
-                    <option v-for="bank in bankList" :key="bank.code" :value="bank.name">
-                      {{ bank.name }}
+                    <option value="">
+                      {{ bankLoading ? 'ກຳລັງໂຫຼດ...' : 'ເລືອກທະນາຄານ' }}
+                    </option>
+                    <option
+                      v-for="bank in bankList"
+                      :key="bank.id"
+                      :value="bank.id"
+                    >
+                      {{ bank.bank_name }} ({{ bank.code }})
                     </option>
                   </select>
                 </div>
-                <div v-if="errors.bankName" class="invalid-feedback">
-                  {{ errors.bankName }}
+                <div v-if="errors.bankId" class="invalid-feedback">
+                  {{ errors.bankId }}
                 </div>
               </div>
 
-              <!-- Bank Branch -->
               <div class="form-group">
                 <label class="form-label">ສາຂາ</label>
                 <div class="input-with-icon">
@@ -93,7 +95,6 @@
             </div>
 
             <div class="form-row">
-              <!-- Account Type -->
               <div class="form-group">
                 <label class="form-label required">ປະເພດບັນຊີ *</label>
                 <div class="input-with-icon">
@@ -101,7 +102,6 @@
                   <select
                     v-model="form.accountType"
                     class="form-control"
-                    :class="{ 'is-invalid': errors.accountType }"
                     required
                   >
                     <option value="">ເລືອກປະເພດບັນຊີ</option>
@@ -110,22 +110,13 @@
                     <option value="Fixed Deposit">Fixed Deposit</option>
                   </select>
                 </div>
-                <div v-if="errors.accountType" class="invalid-feedback">
-                  {{ errors.accountType }}
-                </div>
               </div>
 
-              <!-- Currency -->
               <div class="form-group">
                 <label class="form-label required">ສະກຸນເງິນ *</label>
                 <div class="input-with-icon">
                   <i class="fas fa-dollar-sign input-icon"></i>
-                  <select
-                    v-model="form.currency"
-                    class="form-control"
-                    :class="{ 'is-invalid': errors.currency }"
-                    required
-                  >
+                  <select v-model="form.currency" class="form-control" required>
                     <option value="">ເລືອກສະກຸນເງິນ</option>
                     <option value="LAK">LAK - ກີບ</option>
                     <option value="USD">USD - ໂດລາ</option>
@@ -134,13 +125,9 @@
                     <option value="EUR">EUR - ຢູໂລ</option>
                   </select>
                 </div>
-                <div v-if="errors.currency" class="invalid-feedback">
-                  {{ errors.currency }}
-                </div>
               </div>
             </div>
 
-            <!-- Status -->
             <div class="form-group">
               <label class="form-label">ສະຖານະ</label>
               <div class="status-toggle">
@@ -152,9 +139,9 @@
                   />
                   <span class="toggle-slider"></span>
                 </label>
-                <span class="toggle-label">
-                  {{ form.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ' }}
-                </span>
+                <span class="toggle-label">{{
+                  form.isActive ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ'
+                }}</span>
               </div>
             </div>
           </form>
@@ -167,10 +154,8 @@
             @click="closeModal"
             :disabled="loading"
           >
-            <i class="fas fa-times"></i>
             ຍົກເລີກ
           </button>
-          
           <button
             type="button"
             class="btn btn-primary"
@@ -188,73 +173,42 @@
 </template>
 
 <script>
-
-import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'BankAccountDialog',
-
   props: {
-    show: {
-      type: Boolean,
-      default: false,
-    },
-    account: {
-      type: Object,
-      default: null,
-    },
+    show: { type: Boolean, default: false },
+    account: { type: Object, default: null },
   },
 
   data() {
     return {
       showModal: false,
       loading: false,
-
+      bankLoading: false,
       form: {
         accountNumber: '',
         accountName: '',
-        bankName: '',
+        bankId: '',
         bankBranch: '',
         accountType: '',
         currency: 'LAK',
         isActive: true,
       },
-
       errors: {},
-
-      // Bank list for dropdown
-      bankList: [
-        { code: 'BCEL', name: 'ທະນາຄານການຄ້າຕ່າງປະເທດລາວ (BCEL)' },
-        { code: 'LDB', name: 'ທະນາຄານພັດທະນາລາວ (LDB)' },
-        { code: 'APB', name: 'ທະນາຄານກະເສດຊາວກະສິກອນ (APB)' },
-        { code: 'JDB', name: 'ທະນາຄານຮ່ວມພັດທະນາລາວ-ຫວຽດ (JDB)' },
-        { code: 'LVB', name: 'ທະນາຄານລາວ-ຫວຽດ (LVB)' },
-        { code: 'IBL', name: 'ທະນາຄານອຸດສາຫະກຳ (IBL)' },
-        { code: 'STB', name: 'ທະນາຄານເສດຖະກິດລາວ (STB)' },
-        { code: 'MPB', name: 'ທະນາຄານມະຫາຊົນ (MPB)' },
-        { code: 'LXB', name: 'ທະນາຄານລາວ-ຈີນ (LXB)' },
-        { code: 'BMB', name: 'ທະນາຄານເມືອງເຮືອງ (BMB)' },
-        { code: 'KKB', name: 'ທະນາຄານຂົງໄຂ (KKB)' },
-        { code: 'SACOM', name: 'ທະນາຄານສະຫະກອນ (SACOM)' },
-        { code: 'BOL', name: 'ທະນາຄານແຫ່ງ ສປປ ລາວ (BOL)' },
-        { code: 'OTHER', name: 'ອື່ນໆ' }
-      ]
+      bankList: [], // Now dynamically fetched
     }
   },
 
   computed: {
-    ...mapGetters(['findAllCurrency']),
-
     isEdit() {
       return !!this.account && !!this.account.id
     },
-
     isFormValid() {
       return (
         this.form.accountNumber &&
         this.form.accountName &&
-        this.form.bankName &&
+        this.form.bankId &&
         this.form.accountType &&
-        this.form.currency &&
         Object.keys(this.errors).length === 0
       )
     },
@@ -264,59 +218,55 @@ export default {
     show(newVal) {
       this.showModal = newVal
       if (newVal) {
+        this.fetchBanks()
         this.initializeForm()
-        // Prevent body scroll when modal is open
         document.body.style.overflow = 'hidden'
       } else {
-        // Restore body scroll when modal is closed
         document.body.style.overflow = ''
       }
     },
-
-    // Watch form fields for validation
     'form.accountNumber'() {
       this.validateAccountNumber()
     },
     'form.accountName'() {
       this.validateAccountName()
     },
-    'form.bankName'() {
-      this.validateBankName()
+    'form.bankId'() {
+      this.validateBankId()
     },
-    'form.accountType'() {
-      this.validateAccountType()
-    },
-    'form.currency'() {
-      this.validateCurrency()
-    },
-  },
-
-  beforeDestroy() {
-    // Ensure body scroll is restored when component is destroyed
-    document.body.style.overflow = ''
   },
 
   methods: {
+    async fetchBanks() {
+      this.bankLoading = true
+      try {
+        const res = await this.$axios.get('/api/bank/find')
+        this.bankList = res.data
+      } catch (err) {
+        this.showToast('ບໍ່ສາມາດໂຫຼດລາຍຊື່ທະນາຄານໄດ້', 'error')
+      } finally {
+        this.bankLoading = false
+      }
+    },
+
     initializeForm() {
       this.errors = {}
-
       if (this.isEdit) {
-        // Pre-populate form with existing account data
         this.form = {
           accountNumber: this.account.accountNumber || '',
           accountName: this.account.accountName || '',
-          bankName: this.account.bankName || '',
+          bankId: this.account.bankId || '', // Note: using bankId from DB
           bankBranch: this.account.bankBranch || '',
           accountType: this.account.accountType || '',
           currency: this.account.currency || 'LAK',
-          isActive: this.account.isActive !== undefined ? this.account.isActive : true,
+          isActive:
+            this.account.isActive !== undefined ? this.account.isActive : true,
         }
       } else {
-        // Reset form for new account
         this.form = {
           accountNumber: '',
           accountName: '',
-          bankName: '',
+          bankId: '',
           bankBranch: '',
           accountType: '',
           currency: 'LAK',
@@ -325,133 +275,63 @@ export default {
       }
     },
 
-    // Validation methods
     validateAccountNumber() {
-      if (!this.form.accountNumber) {
+      if (!this.form.accountNumber)
         this.$set(this.errors, 'accountNumber', 'ກະລຸນາໃສ່ເລກບັນຊີ')
-      } else if (this.form.accountNumber.length < 5) {
-        this.$set(this.errors, 'accountNumber', 'ເລກບັນຊີຕ້ອງມີຢ່າງນ້ອຍ 5 ຫຼັກ')
-      } else if (!/^[0-9\-]+$/.test(this.form.accountNumber)) {
-        this.$set(this.errors, 'accountNumber', 'ເລກບັນຊີຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ')
-      } else {
-        this.$delete(this.errors, 'accountNumber')
-      }
+      else if (!/^[0-9\-]+$/.test(this.form.accountNumber))
+        this.$set(
+          this.errors,
+          'accountNumber',
+          'ເລກບັນຊີຕ້ອງເປັນຕົວເລກເທົ່ານັ້ນ'
+        )
+      else this.$delete(this.errors, 'accountNumber')
     },
 
     validateAccountName() {
-      if (!this.form.accountName) {
+      if (!this.form.accountName)
         this.$set(this.errors, 'accountName', 'ກະລຸນາໃສ່ຊື່ບັນຊີ')
-      } else if (this.form.accountName.length < 2) {
-        this.$set(this.errors, 'accountName', 'ຊື່ບັນຊີຕ້ອງມີຢ່າງນ້ອຍ 2 ຕົວອັກສອນ')
-      } else {
-        this.$delete(this.errors, 'accountName')
-      }
+      else this.$delete(this.errors, 'accountName')
     },
 
-    validateBankName() {
-      if (!this.form.bankName) {
-        this.$set(this.errors, 'bankName', 'ກະລຸນາເລືອກທະນາຄານ')
-      } else {
-        this.$delete(this.errors, 'bankName')
-      }
-    },
-
-    validateAccountType() {
-      if (!this.form.accountType) {
-        this.$set(this.errors, 'accountType', 'ກະລຸນາເລືອກປະເພດບັນຊີ')
-      } else {
-        this.$delete(this.errors, 'accountType')
-      }
-    },
-
-    validateCurrency() {
-      if (!this.form.currency) {
-        this.$set(this.errors, 'currency', 'ກະລຸນາເລືອກສະກຸນເງິນ')
-      } else {
-        this.$delete(this.errors, 'currency')
-      }
-    },
-
-    validateForm() {
-      this.validateAccountNumber()
-      this.validateAccountName()
-      this.validateBankName()
-      this.validateAccountType()
-      this.validateCurrency()
-      return Object.keys(this.errors).length === 0
+    validateBankId() {
+      if (!this.form.bankId)
+        this.$set(this.errors, 'bankId', 'ກະລຸນາເລືອກທະນາຄານ')
+      else this.$delete(this.errors, 'bankId')
     },
 
     async saveAccount() {
-      if (!this.validateForm()) {
-        this.showToast('ກະລຸນາກວດສອບຂໍ້ມູນທີ່ໃສ່ອີກຄັ້ງ', 'error')
+      if (!this.form.bankId) {
+        this.showToast('ກະລຸນາເລືອກທະນາຄານ', 'error')
         return
       }
 
+      this.loading = true
       try {
-        this.loading = true
-
-        const accountData = {
+        const payload = {
           accountNumber: this.form.accountNumber.trim(),
           accountName: this.form.accountName.trim(),
-          bankName: this.form.bankName,
-          bankBranch: this.form.bankBranch ? this.form.bankBranch.trim() : null,
+          bankId: this.form.bankId, // Mapping to backend key
+          bankBranch: this.form.bankBranch,
           accountType: this.form.accountType,
           currency: this.form.currency,
           isActive: this.form.isActive,
         }
 
-        let response
-        if (this.isEdit) {
-          // Update existing account
-          response = await this.$axios.put(
-            `/api/bank_account/update/${this.account.id}`,
-            accountData
-          )
-        } else {
-          // Create new account
-          response = await this.$axios.post('/api/bank_account/create', accountData)
-        }
+        // Inside saveAccount() method in BankAccountDialog.vue
+        const method = this.isEdit ? 'put' : 'post'
+        const url = this.isEdit
+          ? `/api/bank_account/update/${this.account.id}`
+          : '/api/bank_account/create'
 
-        // Check if response indicates success
-        if (response.data && response.data.success !== false) {
-          // Success case
-          const successMessage = this.isEdit ? 'ອັບເດດຂໍ້ມູນສຳເລັດແລ້ວ' : 'ບັນທຶກຂໍ້ມູນສຳເລັດແລ້ວ'
-          this.showToast(successMessage, 'success')
-          
-          // Emit saved event and close modal
-          this.$emit('saved', response.data)
+        const res = await this.$axios[method](url, payload)
+
+        if (res.data && res.data.success !== false) {
+          this.showToast('ບັນທຶກສຳເລັດ', 'success')
+          this.$emit('saved')
           this.closeModal()
-        } else {
-          // Handle API error response (when success: false)
-          const errorMessage = response.data.message || 'ມີຂໍ້ຜິດພາດໃນການບັນທຶກຂໍ້ມູນ'
-          this.showToast(errorMessage, 'error')
         }
-
       } catch (error) {
-        console.error('Error saving bank account:', error)
-        
-        // Handle different types of errors
-        let errorMessage = 'ມີຂໍ້ຜິດພາດໃນການບັນທຶກຂໍ້ມູນ'
-        
-        if (error.response) {
-          // Server responded with error status
-          if (error.response.data && error.response.data.message) {
-            errorMessage = error.response.data.message
-          } else if (error.response.status === 404) {
-            errorMessage = 'ບໍ່ພົບຂໍ້ມູນທີ່ຕ້ອງການ'
-          } else if (error.response.status === 403) {
-            errorMessage = 'ບໍ່ມີສິດໃນການດຳເນີນການນີ້'
-          } else if (error.response.status === 500) {
-            errorMessage = 'ມີຂໍ້ຜິດພາດຈາກເຊີເວີ ກະລຸນາລອງໃໝ່ໃນພາຍຫຼັງ'
-          } else if (error.response.status === 409) {
-            errorMessage = 'ເລກບັນຊີນີ້ມີໃນລະບົບແລ້ວ'
-          }
-        } else if (error.request) {
-          // Network error
-          errorMessage = 'ບໍ່ສາມາດເຊື່ອມຕໍ່ກັບເຊີເວີໄດ້ ກະລຸນາກວດສອບການເຊື່ອມຕໍ່ອິນເຕີເນັດ'
-        }
-        
-        this.showToast(errorMessage, 'error')
+        this.showToast('ເກີດຂໍ້ຜິດພາດໃນການບັນທຶກ', 'error')
       } finally {
         this.loading = false
       }
@@ -460,44 +340,24 @@ export default {
     closeModal() {
       this.showModal = false
       this.$emit('close')
-
-      // Reset form after modal closes
-      setTimeout(() => {
-        this.initializeForm()
-      }, 300)
+      setTimeout(() => this.initializeForm(), 300)
     },
 
     showToast(message, type = 'info') {
       if (this.$swal) {
-        const Toast = this.$swal.mixin({
+        this.$swal.fire({
           toast: true,
           position: 'top-end',
+          icon: type,
+          title: message,
           showConfirmButton: false,
-          timer: type === 'error' ? 5000 : 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', this.$swal.stopTimer)
-            toast.addEventListener('mouseleave', this.$swal.resumeTimer)
-          }
-        })
-
-        const iconMap = {
-          success: 'success',
-          error: 'error',
-          warning: 'warning',
-          info: 'info'
-        }
-
-        Toast.fire({
-          icon: iconMap[type] || 'info',
-          title: message
+          timer: 3000,
         })
       } else {
-        console.log(`${type}: ${message}`)
-        alert(`${type.toUpperCase()}: ${message}`)
+        alert(message)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
