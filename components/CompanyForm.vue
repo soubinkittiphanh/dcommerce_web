@@ -400,7 +400,7 @@
           </v-row>
         </v-form>
 
-        <div class="text-caption grey--text mt-3">
+        <div class="grey--text mt-3">
           <v-icon x-small>mdi-asterisk</v-icon> ຟິວທີ່ຈຳເປັນຕ້ອງໃສ່
         </div>
       </v-card-text>

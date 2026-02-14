@@ -723,7 +723,8 @@ export default {
 
     filteredProducts() {
       // 1. Safety check: ensure loaddata exists
-      let products = this.loaddata.filter((product)=>product.co_name==this.currentSelectedLocation.company.name) || []
+      // let products = this.loaddata.filter((product)=>product.co_name==this.currentSelectedLocation.company.name) || []
+      let products = this.loaddata || []
       console.info(`PRODUCT MODEL ${JSON.stringify(products[0])} current location ${JSON.stringify(this.currentSelectedLocation)}`)
 
       // 2. Perform filter if search exists
