@@ -1,0 +1,587 @@
+{
+  "AccountForm": {
+    "description": "Auto imported from components/AccountForm.vue"
+  },
+  "AuthorityForm": {
+    "description": "Auto imported from components/AuthorityForm.vue"
+  },
+  "BasicAlert": {
+    "description": "Auto imported from components/BasicAlert.vue"
+  },
+  "CancelTicketForm": {
+    "description": "Auto imported from components/CancelTicketForm.vue"
+  },
+  "CardDashBoard": {
+    "description": "Auto imported from components/CardDashBoard.vue"
+  },
+  "Carousel3d": {
+    "description": "Auto imported from components/Carousel3d.vue"
+  },
+  "CategoryForm": {
+    "description": "Auto imported from components/CategoryForm.vue"
+  },
+  "ComingSoon": {
+    "description": "Auto imported from components/ComingSoon.vue"
+  },
+  "CompanyForm": {
+    "description": "Auto imported from components/CompanyForm.vue"
+  },
+  "CurrencyForm": {
+    "description": "Auto imported from components/CurrencyForm.vue"
+  },
+  "DiaConfirm": {
+    "description": "Auto imported from components/DiaConfirm.vue"
+  },
+  "DiaImage": {
+    "description": "Auto imported from components/DiaImage.vue"
+  },
+  "DialogClassicMessage": {
+    "description": "Auto imported from components/DialogClassicMessage.vue"
+  },
+  "GanttChart": {
+    "description": "Auto imported from components/GanttChart.vue"
+  },
+  "GroupForm": {
+    "description": "Auto imported from components/GroupForm.vue"
+  },
+  "ImageDialog": {
+    "description": "Auto imported from components/ImageDialog.vue"
+  },
+  "ImageUpload": {
+    "description": "Auto imported from components/ImageUpload.vue"
+  },
+  "LineChart": {
+    "description": "Auto imported from components/LineChart.vue"
+  },
+  "LoadingIndicator": {
+    "description": "Auto imported from components/LoadingIndicator.vue"
+  },
+  "LocationForm": {
+    "description": "Auto imported from components/LocationForm.vue"
+  },
+  "MenuHeaderForm": {
+    "description": "Auto imported from components/MenuHeaderForm.vue"
+  },
+  "MenuLineForm": {
+    "description": "Auto imported from components/MenuLineForm.vue"
+  },
+  "MyChart": {
+    "description": "Auto imported from components/MyChart.vue"
+  },
+  "NewComing": {
+    "description": "Auto imported from components/NewComing.vue"
+  },
+  "Notification": {
+    "description": "Auto imported from components/Notification.vue"
+  },
+  "NuxtLogo": {
+    "description": "Auto imported from components/NuxtLogo.vue"
+  },
+  "OrderDetail": {
+    "description": "Auto imported from components/OrderDetail.vue"
+  },
+  "OrderDetailPos": {
+    "description": "Auto imported from components/OrderDetailPos.vue"
+  },
+  "OrderDetailPosCRUD": {
+    "description": "Auto imported from components/OrderDetailPosCRUD.vue"
+  },
+  "OrderForm": {
+    "description": "Auto imported from components/OrderForm.vue"
+  },
+  "OrderHistoryList": {
+    "description": "Auto imported from components/OrderHistoryList.vue"
+  },
+  "OrderStatusForm": {
+    "description": "Auto imported from components/OrderStatusForm.vue"
+  },
+  "PaymentForm": {
+    "description": "Auto imported from components/PaymentForm.vue"
+  },
+  "PriceListForm": {
+    "description": "Auto imported from components/PriceListForm.vue"
+  },
+  "PricingOption": {
+    "description": "Auto imported from components/PricingOption.vue"
+  },
+  "PrintableInvoice": {
+    "description": "Auto imported from components/PrintableInvoice.vue"
+  },
+  "ProductCard": {
+    "description": "Auto imported from components/ProductCard.vue"
+  },
+  "ProductPriceManager": {
+    "description": "Auto imported from components/ProductPriceManager.vue"
+  },
+  "PurchasingFormCRUD": {
+    "description": "Auto imported from components/PurchasingFormCRUD.vue"
+  },
+  "ReceivingFormCRUD": {
+    "description": "Auto imported from components/ReceivingFormCRUD.vue"
+  },
+  "ReservationForm": {
+    "description": "Auto imported from components/ReservationForm.vue"
+  },
+  "RiderFormCopy": {
+    "description": "Auto imported from components/RiderForm-copy.vue"
+  },
+  "RiderForm": {
+    "description": "Auto imported from components/RiderForm.vue"
+  },
+  "Settlement": {
+    "description": "Auto imported from components/Settlement.vue"
+  },
+  "ShippingForm": {
+    "description": "Auto imported from components/ShippingForm.vue"
+  },
+  "SpfDialog": {
+    "description": "Auto imported from components/SpfDialog.vue"
+  },
+  "TerminalForm": {
+    "description": "Auto imported from components/TerminalForm.vue"
+  },
+  "TransferForm": {
+    "description": "Auto imported from components/TransferForm.vue"
+  },
+  "TransferViewForm": {
+    "description": "Auto imported from components/TransferViewForm.vue"
+  },
+  "Tutorial": {
+    "description": "Auto imported from components/Tutorial.vue"
+  },
+  "TutorialForm": {
+    "description": "Auto imported from components/TutorialForm.vue"
+  },
+  "UserForm": {
+    "description": "Auto imported from components/UserForm.vue"
+  },
+  "VendorForm": {
+    "description": "Auto imported from components/VendorForm.vue"
+  },
+  "VuetifyLogo": {
+    "description": "Auto imported from components/VuetifyLogo.vue"
+  },
+  "Wallet": {
+    "description": "Auto imported from components/Wallet.vue"
+  },
+  "WebCategoryForm": {
+    "description": "Auto imported from components/WebCategoryForm.vue"
+  },
+  "WebCategoryProductForm": {
+    "description": "Auto imported from components/WebCategoryProductForm.vue"
+  },
+  "WebProductCategoryForm": {
+    "description": "Auto imported from components/WebProductCategoryForm.vue"
+  },
+  "YoutubePlayer": {
+    "description": "Auto imported from components/YoutubePlayer.vue"
+  },
+  "AllProduct": {
+    "description": "Auto imported from components/all-product.vue"
+  },
+  "Brands": {
+    "description": "Auto imported from components/brands.vue"
+  },
+  "ColorForm": {
+    "description": "Auto imported from components/colorForm.vue"
+  },
+  "DeliveryForm": {
+    "description": "Auto imported from components/deliveryForm.vue"
+  },
+  "DiscountProductsCard": {
+    "description": "Auto imported from components/discount-products-card.vue"
+  },
+  "EnhancedInvoicePrinter": {
+    "description": "Auto imported from components/enhanced-invoice-printer.vue"
+  },
+  "Footer": {
+    "description": "Auto imported from components/footer.vue"
+  },
+  "HotProductsCard": {
+    "description": "Auto imported from components/hot-products-card.vue"
+  },
+  "NewProductsCard": {
+    "description": "Auto imported from components/new-products-card.vue"
+  },
+  "NewUpdateProduct": {
+    "description": "Auto imported from components/new-update-product.vue"
+  },
+  "OrderSumaryCard": {
+    "description": "Auto imported from components/orderSumaryCard.vue"
+  },
+  "OrderSumaryCardPos": {
+    "description": "Auto imported from components/orderSumaryCardPos.vue"
+  },
+  "OrderSumaryCardV2": {
+    "description": "Auto imported from components/orderSumaryCardV2.vue"
+  },
+  "SimplifiedCompanyForm": {
+    "description": "Auto imported from components/simplified-company-form.vue"
+  },
+  "SizeForm": {
+    "description": "Auto imported from components/sizeForm.vue"
+  },
+  "Slider": {
+    "description": "Auto imported from components/slider.vue"
+  },
+  "UnitForm": {
+    "description": "Auto imported from components/unitForm.vue"
+  },
+  "CafePOSScreen": {
+    "description": "Auto imported from components/CafePOSScreen/index.vue"
+  },
+  "CAFEPOSDialog": {
+    "description": "Auto imported from components/CAFE/POSDialog.vue"
+  },
+  "ApplicantsImportDialog": {
+    "description": "Auto imported from components/applicants/ImportDialog.vue"
+  },
+  "AccountingApPayment": {
+    "description": "Auto imported from components/accounting/ApPayment.vue"
+  },
+  "AccountingArReceivable": {
+    "description": "Auto imported from components/accounting/ArReceivable.vue"
+  },
+  "AccountingGLForm": {
+    "description": "Auto imported from components/accounting/GLForm.vue"
+  },
+  "CalendarMyCalendar": {
+    "description": "Auto imported from components/calendar/MyCalendar.vue"
+  },
+  "CampaignForm": {
+    "description": "Auto imported from components/campaign/CampaignForm.vue"
+  },
+  "CardGiftDialog": {
+    "description": "Auto imported from components/card/GiftDialog.vue"
+  },
+  "CardCampaignCard": {
+    "description": "Auto imported from components/card/campaignCard.vue"
+  },
+  "CardForm": {
+    "description": "Auto imported from components/card/cardForm.vue"
+  },
+  "CardStockAdjustMent": {
+    "description": "Auto imported from components/card/stockAdjustMent.vue"
+  },
+  "CardStockMaintenance": {
+    "description": "Auto imported from components/card/stockMaintenance.vue"
+  },
+  "CustomerForm": {
+    "description": "Auto imported from components/customer/CustomerForm.vue"
+  },
+  "CustomerList": {
+    "description": "Auto imported from components/customer/CustomerList.vue"
+  },
+  "CustomerOrderSection": {
+    "description": "Auto imported from components/customer/OrderSection.vue"
+  },
+  "CustomerPaymentSection": {
+    "description": "Auto imported from components/customer/PaymentSection.vue"
+  },
+  "CustomerSuccessOverlay": {
+    "description": "Auto imported from components/customer/SuccessOverlay.vue"
+  },
+  "CustomerWelcomeScreen": {
+    "description": "Auto imported from components/customer/WelcomeScreen.vue"
+  },
+  "DashboardCardGrouping": {
+    "description": "Auto imported from components/dashboard/CardGrouping.vue"
+  },
+  "DashboardCardOnTop": {
+    "description": "Auto imported from components/dashboard/CardOnTop.vue"
+  },
+  "DashboardMetricCard": {
+    "description": "Auto imported from components/dashboard/MetricCard.vue"
+  },
+  "DialogsBottomAlert": {
+    "description": "Auto imported from components/dialogs/bottomAlert.vue"
+  },
+  "MemberOffer": {
+    "description": "Auto imported from components/member_offer/index.vue"
+  },
+  "MemberUsage": {
+    "description": "Auto imported from components/member_usage/index.vue"
+  },
+  "Menu": {
+    "description": "Auto imported from components/menu/index.vue"
+  },
+  "MenuOverview": {
+    "description": "Auto imported from components/menuOverview/index.vue"
+  },
+  "MinStockCard": {
+    "description": "Auto imported from components/minStockCard/index.vue"
+  },
+  "MinistryDialog": {
+    "description": "Auto imported from components/ministry/MinistryDialog.vue"
+  },
+  "MinistryViewDialog": {
+    "description": "Auto imported from components/ministry/MinistryViewDialog.vue"
+  },
+  "PaymentCard": {
+    "description": "Auto imported from components/paymentCard/index.vue"
+  },
+  "PaymentQr": {
+    "description": "Auto imported from components/payment_qr/index.vue"
+  },
+  "PoForm": {
+    "description": "Auto imported from components/po/PoForm.vue"
+  },
+  "PosCartFooterComponent": {
+    "description": "Auto imported from components/pos/CartFooterComponent.vue"
+  },
+  "PosCartItemComponent": {
+    "description": "Auto imported from components/pos/CartItemComponent.vue"
+  },
+  "PosCateogoryList": {
+    "description": "Auto imported from components/pos/CateogoryList.vue"
+  },
+  "PosMultiPaymentDialogVue2": {
+    "description": "Auto imported from components/pos/MultiPaymentDialog-vue2.vue"
+  },
+  "PosAppBar": {
+    "description": "Auto imported from components/pos/PosAppBar.vue"
+  },
+  "PosCartDrawer": {
+    "description": "Auto imported from components/pos/PosCartDrawer.vue"
+  },
+  "PosDialogs": {
+    "description": "Auto imported from components/pos/PosDialogs.vue"
+  },
+  "PosLeftDrawer": {
+    "description": "Auto imported from components/pos/PosLeftDrawer.vue"
+  },
+  "ProductItem": {
+    "description": "Auto imported from components/product/Item.vue"
+  },
+  "ProductCardPos": {
+    "description": "Auto imported from components/product/ProductCardPos.vue"
+  },
+  "ProductForm": {
+    "description": "Auto imported from components/product/ProductForm.vue"
+  },
+  "ProductFormCreate": {
+    "description": "Auto imported from components/product/ProductFormCreate.vue"
+  },
+  "PromotionsPromotionDialog": {
+    "description": "Auto imported from components/promotions/PromotionDialog.vue"
+  },
+  "ReportsProfitLossReport": {
+    "description": "Auto imported from components/reports/ProfitLossReport.vue"
+  },
+  "QuotationPrint": {
+    "description": "Auto imported from components/quotation/QuotationPrint.vue"
+  },
+  "Quotation": {
+    "description": "Auto imported from components/quotation/index.vue"
+  },
+  "RolesRoleCard": {
+    "description": "Auto imported from components/roles/RoleCard.vue"
+  },
+  "RolesRoleDialog": {
+    "description": "Auto imported from components/roles/RoleDialog.vue"
+  },
+  "RolesUsersListDialog": {
+    "description": "Auto imported from components/roles/UsersListDialog.vue"
+  },
+  "ScheduleMonthTable": {
+    "description": "Auto imported from components/schedule/MonthTable.vue"
+  },
+  "SharedConfirmDialog": {
+    "description": "Auto imported from components/shared/ConfirmDialog.vue"
+  },
+  "TicketsNotesDialog": {
+    "description": "Auto imported from components/tickets/NotesDialog.vue"
+  },
+  "TicketsPrintDialog": {
+    "description": "Auto imported from components/tickets/PrintDialog.vue"
+  },
+  "TicketsTicketCard": {
+    "description": "Auto imported from components/tickets/TicketCard.vue"
+  },
+  "TicketsTicketDetailDialog": {
+    "description": "Auto imported from components/tickets/TicketDetailDialog.vue"
+  },
+  "TimelineGianttTimeline": {
+    "description": "Auto imported from components/timeline/GianttTimeline.vue"
+  },
+  "CAFECustomerDialog": {
+    "description": "Auto imported from components/CAFE/customerDialog/index.vue"
+  },
+  "CAFEPaymentDialogFront": {
+    "description": "Auto imported from components/CAFE/paymentDialogFront/index.vue"
+  },
+  "CAFEPrintBarDialog": {
+    "description": "Auto imported from components/CAFE/printBarDialog/index.vue"
+  },
+  "CAFEPrintdialog": {
+    "description": "Auto imported from components/CAFE/printdialog/index.vue"
+  },
+  "MAPaymentAuditDialog": {
+    "description": "Auto imported from components/MA/paymentAuditDialog/index.vue"
+  },
+  "MAPaymentAuditReportDialog": {
+    "description": "Auto imported from components/MA/paymentAuditReportDialog/index.vue"
+  },
+  "MAPaymentCompareDialog": {
+    "description": "Auto imported from components/MA/paymentCompareDialog/index.vue"
+  },
+  "MAPaymentComponentsBankAccountInfo": {
+    "description": "Auto imported from components/MA/paymentComponents/BankAccountInfo.vue"
+  },
+  "MAPaymentComponentsDateField": {
+    "description": "Auto imported from components/MA/paymentComponents/DateField.vue"
+  },
+  "MAPaymentComponentsDialogFooter": {
+    "description": "Auto imported from components/MA/paymentComponents/DialogFooter.vue"
+  },
+  "MAPaymentComponentsDialogHeader": {
+    "description": "Auto imported from components/MA/paymentComponents/DialogHeader.vue"
+  },
+  "MAPaymentComponentsFormSection": {
+    "description": "Auto imported from components/MA/paymentComponents/FormSection.vue"
+  },
+  "MAPaymentComponentsInputField": {
+    "description": "Auto imported from components/MA/paymentComponents/InputField.vue"
+  },
+  "MAPaymentComponentsLoadingState": {
+    "description": "Auto imported from components/MA/paymentComponents/LoadingState.vue"
+  },
+  "MAPaymentComponentsMinistryInfo": {
+    "description": "Auto imported from components/MA/paymentComponents/MinistryInfo.vue"
+  },
+  "MAPaymentComponentsSelectField": {
+    "description": "Auto imported from components/MA/paymentComponents/SelectField.vue"
+  },
+  "MAPaymentComponentsTextareaField": {
+    "description": "Auto imported from components/MA/paymentComponents/TextareaField.vue"
+  },
+  "MAPaymentComponentsValidationErrors": {
+    "description": "Auto imported from components/MA/paymentComponents/ValidationErrors.vue"
+  },
+  "MAPaymentDialog": {
+    "description": "Auto imported from components/MA/paymentDialog/index.vue"
+  },
+  "MAPaymentDetailDialog": {
+    "description": "Auto imported from components/MA/paymentDetailDialog/index.vue"
+  },
+  "MAPaymentVoucher": {
+    "description": "Auto imported from components/MA/paymentVoucher/index.vue"
+  },
+  "MARevenueTargetDialog": {
+    "description": "Auto imported from components/MA/revenueTargetDialog/index.vue"
+  },
+  "MASettlementDialog": {
+    "description": "Auto imported from components/MA/settlementDialog/index.vue"
+  },
+  "MASettlementViewDialog": {
+    "description": "Auto imported from components/MA/settlementViewDialog/index.vue"
+  },
+  "MASettlementVoucher": {
+    "description": "Auto imported from components/MA/settlementVoucher/index.vue"
+  },
+  "ApplicantsApplicantDialog": {
+    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  },
+  "ApplicantsStatusUpdateDialog": {
+    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
+  },
+  "ApplicantsApplicantViewDialog": {
+    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
+  },
+  "BankBankAccount": {
+    "description": "Auto imported from components/bank/bankAccount/index.vue"
+  },
+  "BenefitMaintain": {
+    "description": "Auto imported from components/benefit/maintain/index.vue"
+  },
+  "BenefitView": {
+    "description": "Auto imported from components/benefit/view/index.vue"
+  },
+  "AccountingTransaction": {
+    "description": "Auto imported from components/accounting/transaction/index.vue"
+  },
+  "CompanyTheme": {
+    "description": "Auto imported from components/company/theme/index.vue"
+  },
+  "JobAdvertiseMaintain": {
+    "description": "Auto imported from components/jobAdvertise/maintain/index.vue"
+  },
+  "JobAdvertiseStatusUpdate": {
+    "description": "Auto imported from components/jobAdvertise/statusUpdate/index.vue"
+  },
+  "JobAdvertiseView": {
+    "description": "Auto imported from components/jobAdvertise/view/index.vue"
+  },
+  "JobFairJobBatch": {
+    "description": "Auto imported from components/job_fair/job_batch/index.vue"
+  },
+  "PosDialogsQuantityUpdateDialog": {
+    "description": "Auto imported from components/pos/dialogs/QuantityUpdateDialog.vue"
+  },
+  "PosDialogsTicketDetailsDialog": {
+    "description": "Auto imported from components/pos/dialogs/TicketDetailsDialog.vue"
+  },
+  "PosRecipeCurrencySummaryCards": {
+    "description": "Auto imported from components/pos/recipe/CurrencySummaryCards.vue"
+  },
+  "PosRecipe": {
+    "description": "Auto imported from components/pos/recipe/index.vue"
+  },
+  "AccountingApInvoice": {
+    "description": "Auto imported from components/accounting/ap/invoice/index.vue"
+  },
+  "AccountingApSettlement": {
+    "description": "Auto imported from components/accounting/ap/settlement/index.vue"
+  },
+  "JobFairAgencyMaintain": {
+    "description": "Auto imported from components/job_fair/agency/maintain/index.vue"
+  },
+  "JobFairAgencyView": {
+    "description": "Auto imported from components/job_fair/agency/view/index.vue"
+  },
+  "JobFairMouMaintain": {
+    "description": "Auto imported from components/job_fair/mou/maintain/index.vue"
+  },
+  "AccountingApInvoiceAudit": {
+    "description": "Auto imported from components/accounting/ap/invoice/audit/index.vue"
+  },
+  "AccountingApSettlementAudit": {
+    "description": "Auto imported from components/accounting/ap/settlement/audit/index.vue"
+  },
+  "AccountingApSettlementBrowsemou": {
+    "description": "Auto imported from components/accounting/ap/settlement/browsemou/index.vue"
+  },
+  "AccountingApSettlementVoucher": {
+    "description": "Auto imported from components/accounting/ap/settlement/voucher/index.vue"
+  },
+  "AccountingArInvoiceAudit": {
+    "description": "Auto imported from components/accounting/ar/invoice/audit/index.vue"
+  },
+  "AccountingArInvoiceMaintain": {
+    "description": "Auto imported from components/accounting/ar/invoice/maintain/index.vue"
+  },
+  "AccountingArInvoiceView": {
+    "description": "Auto imported from components/accounting/ar/invoice/view/index.vue"
+  },
+  "AccountingArInvoiceVoucher": {
+    "description": "Auto imported from components/accounting/ar/invoice/voucher/index.vue"
+  },
+  "AccountingArReceiveMaintain": {
+    "description": "Auto imported from components/accounting/ar/receive/maintain/index.vue"
+  },
+  "AccountingArReceiveView": {
+    "description": "Auto imported from components/accounting/ar/receive/view/index.vue"
+  },
+  "AccountingArReceiveVoucher": {
+    "description": "Auto imported from components/accounting/ar/receive/voucher/index.vue"
+  },
+  "AccountingApInvoiceAuditView": {
+    "description": "Auto imported from components/accounting/ap/invoice/audit/view/index.vue"
+  },
+  "AccountingApSettlementAuditView": {
+    "description": "Auto imported from components/accounting/ap/settlement/audit/view/index.vue"
+  },
+  "AccountingArInvoiceAuditView": {
+    "description": "Auto imported from components/accounting/ar/invoice/audit/view/index.vue"
+  }
+}

@@ -1,0 +1,558 @@
+<template>
+  <div>
+    <v-hover v-slot:default="{ hover }" open-delay="100">
+      <v-card 
+        :elevation="hover ? 16 : 4" 
+        hover
+        outlined
+        class="ma-0 text-center cursor-pointer product-card d-flex flex-column position-relative overflow-hidden"
+        height="220"
+        :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+        :class="{
+          'product-disabled': (!product.isActive || stock <= 0) && product.validateStockOnSale==1,
+          'promotion-eligible': isProductInPromotion(product),
+          'customer-grade-pricing': getCustomerGradePrice(product),
+        }"
+        @click="handleCardClick"
+      >
+        <!-- Background Image -->
+        <div 
+          class="product-background ma-0"
+          :class="{ 'grayscale-filter': (!product.isActive || stock <= 0) && product.validateStockOnSale==1 }"
+          :style="!imageError ? `background-image: url('${host}/uploads/${imagePath}')` : ''"
+        ></div>
+        
+        <!-- Fallback for missing image -->
+        <div v-if="imageError" class="broken-image-background">
+          <v-icon size="48" color="grey lighten-2">mdi-image-broken-variant</v-icon>
+        </div>
+
+        <!-- Content Overlay -->
+        <div class="content-overlay d-flex flex-column justify-space-between fill-height">
+          <!-- Top Section - Badges -->
+          <div class="top-section pa-2">
+            <!-- Promotion indicator -->
+            <v-icon
+              v-if="isProductInPromotion(product)"
+              color="success"
+              class="promotion-badge"
+              small
+            >
+              mdi-tag
+            </v-icon>
+
+            <!-- Customer Grade Badge -->
+            <v-chip
+              v-if="getCustomerGradePrice(product)"
+              x-small
+              :color="getGradeColor(selectedCustomer?.grade)"
+              text-color="white"
+              class="grade-price-badge"
+            >
+              <v-icon x-small left>mdi-account-star</v-icon>
+              Grade {{ selectedCustomer?.grade }}
+            </v-chip>
+
+            <!-- Price List Badge (if available) -->
+            <v-chip
+              v-else-if="hasAvailablePriceLists(product)"
+              x-small
+              color="purple"
+              text-color="white"
+              class="price-list-badge"
+            >
+              <v-icon x-small left>mdi-tag-multiple</v-icon>
+              {{ getProductPriceLists(product).length }} prices
+            </v-chip>
+
+            <!-- Stock chip in top right -->
+            <v-chip
+              :color="getStockColor(stock)"
+              text-color="white"
+              x-small
+              class="stock-chip-overlay"
+            >
+              {{ stock }}
+            </v-chip>
+          </div>
+
+          <!-- Bottom Section - Product Info -->
+          <div class="bottom-section">
+            <!-- Product Name with overlay background -->
+            <div class="product-name-overlay pa-2 mb-2">
+              <div class="font-weight-bold white--text">
+                {{ productName }}
+              </div>
+            </div>
+
+            <!-- Price and Actions Section -->
+            <div class="price-actions-overlay pa-2">
+              <!-- Enhanced Price Display -->
+              <div class="price-section mb-2">
+                <!-- Show customer grade price if available -->
+                <div v-if="getCustomerGradePrice(product)" class="text-center">
+                  <!-- Base price (struck through) -->
+                  <div class="caption white--text text-decoration-line-through" style="opacity: 0.75;">
+                    {{ formatNumber(product.localPrice || product.pro_price) }}
+                  </div>
+                  <!-- Customer grade price (highlighted) -->
+                  <div class="subtitle-1 white--text font-weight-bold">
+                    {{ formatNumber(getCustomerGradePrice(product)) }}
+                  </div>
+                </div>
+                <!-- Default price display -->
+                <div v-else>
+                  <div class="subtitle-1 white--text font-weight-bold">
+                    {{ formatNumber(product.localPrice || product.pro_price) }}
+                  </div>
+                  <!-- Show price range if price lists available -->
+                  <div
+                    v-if="hasAvailablePriceLists(product)"
+                    class="caption white--text"
+                    style="opacity: 0.75;"
+                  >
+                    {{ getPriceRangeText(product) }}
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex gap-1">
+                <!-- Quick Add Button -->
+                <!-- <v-btn
+                  @click.stop="handleQuickAdd"
+                  color="primary"
+                  x-small
+                  block
+                  :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+                  class="quick-add-btn"
+                >
+                  <v-icon x-small left>mdi-cart-plus</v-icon>
+                  Add
+                </v-btn> -->
+
+                <!-- Price Selection Button -->
+                <v-btn
+                  v-if="hasAvailablePriceLists(product) || !getCustomerGradePrice(product)"
+                  @click.stop="handlePriceSelection"
+                  color="white"
+                  text-color="primary"
+                  x-small
+                  icon
+                  :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale==1"
+                  class="price-select-btn"
+                >
+                  <v-icon x-small color="primary">mdi-tag-multiple</v-icon>
+                </v-btn>
+              </div>
+
+              <!-- Status Indicators -->
+              <div v-if="!product.isActive" class="status-overlay mt-1">
+                <v-chip x-small color="error" text-color="white">
+                  INACTIVE
+                </v-chip>
+              </div>
+              <div v-else-if="stock <= 0 && product.validateStockOnSale==1" class="status-overlay mt-1">
+                <v-chip x-small color="warning" text-color="white">
+                  OUT OF STOCK
+                </v-chip>
+              </div>
+            </div>
+          </div>
+        </div>
+      </v-card>
+    </v-hover>
+  </div>
+</template>
+
+<script>
+import { mapActions, mapGetters } from 'vuex'
+import { getFormatNum } from '../../common/index'
+import { hostName } from '~/common/api'
+
+export default {
+  name: 'ProductCardPosEnhanced',
+  props: {
+    imagePath: { type: String, default: 'default-product.png' },
+    productName: { type: String, default: '' },
+    product: { type: Object, default: () => ({}) },
+    stock: { type: Number, default: 0 },
+    selectedCustomer: { type: Object, default: null },
+    promotions: { type: Array, default: () => [] },
+    priceLists: { type: Array, default: () => [] }
+  },
+
+  data() {
+    return {
+      imageError: false,
+      imageLoading: true
+    }
+  },
+
+  computed: {
+    ...mapGetters([
+      'currentSelectedCustomer'
+    ]),
+
+    host() {
+      return this.$axios.defaults.baseURL
+    },
+
+    effectiveCustomer() {
+      return this.selectedCustomer || this.currentSelectedCustomer
+    }
+  },
+
+  mounted() {
+    this.checkImage()
+  },
+
+  methods: {
+    ...mapActions(['addProduct']),
+
+    handleCardClick() {
+      // Default card click behavior - could be quick add or open product details
+      this.handleQuickAdd()
+    },
+
+    handleQuickAdd() {
+      if (!this.validateProductAvailability()) {
+        return
+      }
+
+      // Use customer grade price if available, otherwise use default price
+      const productToAdd = {
+        ...this.product,
+        localPrice: this.getCustomerGradePrice(this.product) || this.product.localPrice || this.product.pro_price
+      }
+
+      this.addProduct(productToAdd)
+      this.$emit('update-cus-screen')
+      
+      // Show success feedback
+      if (this.$toast) {
+        this.$toast.success(`${this.productName} added to cart`)
+      }
+    },
+
+    handlePriceSelection() {
+      if (!this.validateProductAvailability()) {
+        return
+      }
+
+      // Emit event for parent to handle price selection dialog
+      this.$emit('open-price-selector', this.product)
+    },
+
+    validateProductAvailability() {
+      if (!this.product.isActive) {
+        this.showError("Product is inactive")
+        return false
+      }
+
+      if (this.stock <= 0 && this.product.validateStockOnSale==1) {
+        this.showError("Stock not enough")
+        return false
+      }
+
+      return true
+    },
+
+    showError(message) {
+      if (this.$toast) {
+        this.$toast.error(message)
+      } else if (this.$swal) {
+        this.$swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: message,
+          timer: 2000
+        })
+      } else {
+        alert(message)
+      }
+    },
+
+    handleImageError() {
+      this.imageError = true
+      this.imageLoading = false
+    },
+
+    handleImageLoad() {
+      this.imageError = false
+      this.imageLoading = false
+    },
+
+    // Preload image to detect errors
+    checkImage() {
+      const img = new Image()
+      img.onload = this.handleImageLoad
+      img.onerror = this.handleImageError
+      img.src = `${this.host}/uploads/${this.imagePath}`
+    },
+
+    formatNumber(val) {
+      return getFormatNum(val)
+    },
+
+    // Promotion-related methods
+    isProductInPromotion(product) {
+      if (!this.promotions || this.promotions.length === 0) return false
+      return this.promotions.some(promo => 
+        promo.productId === product.id && 
+        promo.isActive && 
+        new Date() >= new Date(promo.startDate) && 
+        new Date() <= new Date(promo.endDate)
+      )
+    },
+
+    // Customer grade pricing methods
+    getCustomerGradePrice(product) {
+      if (!this.effectiveCustomer?.grade || !product.gradePricing) return null
+      
+      const gradePrice = product.gradePricing.find(
+        pricing => pricing.grade === this.effectiveCustomer.grade
+      )
+      
+      return gradePrice ? gradePrice.price : null
+    },
+
+    getGradeColor(grade) {
+      const gradeColors = {
+        'A': 'green',
+        'B': 'blue',
+        'C': 'orange',
+        'D': 'red'
+      }
+      return gradeColors[grade] || 'grey'
+    },
+
+    // Price list methods
+    hasAvailablePriceLists(product) {
+      if (!this.priceLists || this.priceLists.length === 0) return false
+      return this.priceLists.some(priceList => 
+        priceList.productId === product.id && priceList.isActive
+      )
+    },
+
+    getProductPriceLists(product) {
+      if (!this.priceLists) return []
+      return this.priceLists.filter(priceList => 
+        priceList.productId === product.id && priceList.isActive
+      )
+    },
+
+    getPriceRangeText(product) {
+      const priceLists = this.getProductPriceLists(product)
+      if (priceLists.length === 0) return ''
+      
+      const prices = priceLists.map(pl => pl.price)
+      const minPrice = Math.min(...prices)
+      const maxPrice = Math.max(...prices)
+      
+      if (minPrice === maxPrice) {
+        return `Special: ${this.formatNumber(minPrice)}`
+      }
+      
+      return `${this.formatNumber(minPrice)} - ${this.formatNumber(maxPrice)}`
+    },
+
+    // Stock color coding
+    getStockColor(stockCount) {
+      if (stockCount <= 0) return 'error'
+      if (stockCount <= 5) return 'warning'
+      if (stockCount <= 20) return 'orange'
+      return 'success'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.product-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  height: 220px !important; /* Fixed height for all cards */
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+}
+
+.product-card:hover .content-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0.2) 40%,
+    rgba(0, 0, 0, 0.6) 100%
+  ) !important;
+}
+
+.product-disabled {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+  pointer-events: none;
+}
+
+.promotion-eligible {
+  border: 2px solid #4CAF50 !important;
+}
+
+.customer-grade-pricing {
+  border: 2px solid #2196F3 !important;
+}
+
+/* Background Image Styling */
+.product-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+.broken-image-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.content-overlay {
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.0) 0%,
+    rgba(0, 0, 0, 0.1) 30%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+  transition: background 0.3s ease;
+}
+
+/* Overlay sections */
+.top-section {
+  position: relative;
+}
+
+.bottom-section {
+  margin-top: auto;
+}
+
+.product-name-overlay {
+  background: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(4px);
+  border-radius: 8px;
+}
+
+.price-actions-overlay {
+  background: rgba(0, 0, 0, 0.01);
+  backdrop-filter: blur(6px);
+  border-radius: 8px 8px 0 0;
+}
+
+/* Badge positioning */
+.promotion-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.grade-price-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.price-list-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+}
+
+.stock-chip-overlay {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.7rem;
+  height: 20px;
+  min-width: 40px;
+}
+
+/* Grayscale filter ONLY for disabled products */
+.grayscale-filter {
+  filter: grayscale(100%) brightness(0.7);
+}
+
+/* Button styling for overlay */
+.quick-add-btn {
+  font-size: 0.7rem;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: var(--v-primary-base) !important;
+  font-weight: bold;
+}
+
+.price-select-btn {
+  height: 24px;
+  width: 24px;
+  min-width: 24px;
+  background: rgba(255, 255, 255, 0.9) !important;
+}
+
+.status-overlay {
+  text-align: center;
+}
+
+/* Animation for adding to cart */
+.product-card.adding {
+  animation: pulse-green 0.6s ease-in-out;
+}
+
+@keyframes pulse-green {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .product-card {
+    height: 200px !important; /* Slightly smaller on mobile */
+  }
+  
+  .quick-add-btn {
+    font-size: 0.65rem;
+    height: 22px;
+  }
+  
+  .price-select-btn {
+    height: 22px;
+    width: 22px;
+    min-width: 22px;
+  }
+  
+  .product-name-overlay {
+    padding: 8px !important;
+  }
+  
+  .price-actions-overlay {
+    padding: 8px !important;
+  }
+}
+</style>

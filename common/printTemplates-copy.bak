@@ -1,0 +1,500 @@
+// ~/common/printTemplates.js
+
+// Helper to format numbers
+const formatNumber = (val) => {
+  return new Intl.NumberFormat().format(val || 0)
+}
+
+// Helper to format dates
+const formatDate = (dateString) => {
+  if (!dateString) return 'N/A'
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+  } catch (error) {
+    return dateString
+  }
+}
+
+const calculateTotalDiscount = (header) => {
+  if (!header || !header.lines) return 0
+  let totalDiscount = 0
+  for (const line of header.lines) {
+    totalDiscount += line.discount || 0
+  }
+  totalDiscount += header.discount || 0
+  return totalDiscount
+}
+
+// ==========================================
+// 1. INVOICE TEMPLATE (For Sales)
+// ==========================================
+export const generateInvoiceHTML = (header, companyData) => {
+  const totalDiscount = calculateTotalDiscount(header)
+  
+  const linesHTML = header.lines?.map((line, index) => `
+    <tr>
+      <td style="text-align: center;">${index + 1}</td>
+      <td>
+        <span class="pro-name">${line.product?.pro_name || 'Unknown Product'}</span>
+        ${line.product?.pro_id ? `<span class="pro-id"> (${line.product?.pro_id})</span>` : ''}
+        ${line.isGift ? '<small> [Gift]</small>' : ''}
+      </td>
+      <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+      <td style="text-align: center;">${line.unit?.name || ''}</td>
+      <td style="text-align: right;">${formatNumber(line.price)}</td>
+      <td style="text-align: right;">${formatNumber(line.discount)}</td>
+      <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
+    </tr>
+  `).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Invoice #${header.id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body { font-family: 'Noto Sans Lao', Arial, sans-serif; font-size: 11px; line-height: 1.2; padding: 10px; }
+        .header-container { display: flex; justify-content: space-between; border-bottom: 2px solid #000; padding-bottom: 5px; margin-bottom: 10px; }
+        .company-info h1 { font-size: 16px; margin: 0; text-transform: uppercase; }
+        .invoice-title { text-align: right; border: 2px solid #000; padding: 5px 15px; }
+        .invoice-title h2 { margin: 0; font-size: 18px; line-height: 1; }
+        .info-box { width: 100%; border: 1px solid #000; margin-bottom: 10px; padding: 5px; display: flex; }
+        .info-col { flex: 1; }
+        .info-col.right { border-left: 1px solid #000; padding-left: 10px; flex: 0 0 250px; }
+        .field-label { font-weight: bold; margin-right: 5px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        th { border: 1px solid #000; background-color: #eee; padding: 4px; font-size: 10px; font-weight: bold; }
+        td { border: 1px solid #000; padding: 4px; }
+        .totals-container { display: flex; justify-content: flex-end; }
+        .totals-box { width: 250px; border: 1px solid #000; }
+        .total-row { display: flex; justify-content: space-between; padding: 3px 5px; border-bottom: 1px solid #ccc; }
+        .total-row.final { border-bottom: none; background-color: #eee; font-weight: bold; border-top: 1px solid #000; }
+        .footer { margin-top: 20px; display: flex; justify-content: space-between; text-align: center; }
+        .sign-box { border-top: 1px dashed #000; width: 150px; padding-top: 5px; font-size: 10px; }
+        @media print { body { margin: 0; padding: 0; } @page { size: A4; margin: 0.5cm; } }
+    </style>
+    </head>
+    <body>
+    <div class="header-container">
+        <div class="company-info">
+            <h1>${companyData.name || 'COMPANY NAME'}</h1>
+            <p>${companyData.address || ''} | Tel: ${companyData.tel || ''}</p>
+        </div>
+        <div class="invoice-title">
+            <h2>INVOICE</h2>
+            <span>ໃບແຈ້ງໜີ້</span>
+        </div>
+    </div>
+    <div class="info-box">
+        <div class="info-col">
+            <div><span class="field-label">Customer:</span> <b>${header.client?.name || header.client?.company || 'Walk-in'}</b></div>
+            <div><span class="field-label">Tel:</span> ${header.client?.telephone || '-'}</div>
+            <div><span class="field-label">Addr:</span> ${header.client?.address || '-'}</div>
+        </div>
+        <div class="info-col right">
+            <div><span class="field-label">No:</span> <b>${header.id}</b></div>
+            <div><span class="field-label">Date:</span> ${formatDate(header.bookingDate)}</div>
+            <div><span class="field-label">Pay:</span> ${header.payment?.payment_name || '-'}</div>
+        </div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th width="5%">#</th><th width="40%">Description</th><th width="10%">Qty</th><th width="10%">Unit</th>
+                <th width="12%">Price</th><th width="10%">Disc.</th><th width="13%">Amount</th>
+            </tr>
+        </thead>
+        <tbody>${linesHTML}</tbody>
+    </table>
+    <div class="totals-container">
+        <div class="totals-box">
+            <div class="total-row"><span>Subtotal:</span><span>${formatNumber(header.total + totalDiscount)}</span></div>
+            ${totalDiscount > 0 ? `<div class="total-row"><span>Discount:</span><span>-${formatNumber(totalDiscount)}</span></div>` : ''}
+            <div class="total-row final"><span>TOTAL:</span><span>${formatNumber(header.total)}</span></div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="sign-box">Receiver</div>
+        <div class="sign-box">Authorized By</div>
+    </div>
+    </body>
+    </html>
+  `
+}
+// ==========================================
+// 2. RECEIPT TEMPLATE (For Goods Receive)
+// ==========================================
+export const generateReceiptHTML = (header, companyData, currencyList = []) => {
+  // Helper function to get currency by ID
+  const getCurrency = (currencyId) => {
+    return currencyList.find(c => c.id === currencyId) || { code: 'N/A', rate: 1 }
+  }
+
+  // Get the main sale currency (header currency)
+  const saleCurrency = header.currency || getCurrency(header.currencyId)
+  const isLocalCurrency = saleCurrency.isLocalCCY
+  
+  // Helper function to convert amount to sale currency
+  const convertToSaleCurrency = (amount, lineCurrency, lineExchangeRate) => {
+    if (lineCurrency.id === saleCurrency.id) {
+      // Same currency, no conversion needed
+      return amount
+    }
+    
+    // Convert to local currency first, then to sale currency
+    let convertedAmount = amount
+    
+    if (lineCurrency.isLocalCCY) {
+      // Line is in local currency, convert to sale currency
+      convertedAmount = amount / saleCurrency.rate
+    } else if (saleCurrency.isLocalCCY) {
+      // Sale is in local currency, line is foreign
+      convertedAmount = amount * lineExchangeRate
+    } else {
+      // Both are foreign currencies, convert via local currency
+      const toLocal = amount * lineExchangeRate
+      convertedAmount = toLocal / saleCurrency.rate
+    }
+    
+    return convertedAmount
+  }
+
+  // Generate lines HTML with proper currency conversion
+  const linesHTML = header.lines?.map((line, index) => {
+    const lineCurrency = getCurrency(line.currencyId)
+    const lineExchangeRate = line.exchangeRate || 1
+    
+    // Convert line amounts to sale currency
+    const convertedPrice = convertToSaleCurrency(line.price, lineCurrency, lineExchangeRate)
+    const convertedTotal = convertToSaleCurrency(line.total, lineCurrency, lineExchangeRate)
+    
+    // Show original currency info if different from sale currency
+    const showOriginalCurrency = line.currencyId !== header.currencyId
+    const originalCurrencyInfo = showOriginalCurrency 
+      ? `<br><small style="color: #666;">(${formatNumber(line.price)} ${lineCurrency.code} @ ${formatNumber(lineExchangeRate)})</small>`
+      : ''
+
+    return `
+      <tr>
+        <td style="text-align: center;">${index + 1}</td>
+        <td style="text-align: center;">${line.product?.id}</td>
+        <td>
+          <span class="pro-name">${line.product?.pro_name || 'Unknown Product'}</span>
+          ${line.product?.barCode ? `<br><small style="color: #888;">${line.product?.barCode}</small>` : ''}
+        </td>
+        <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+        <td style="text-align: center;">${line.unit?.name || 'ແກັດ'}</td>
+        <td style="text-align: right;">
+          <strong>${formatNumber(convertedPrice)} ${saleCurrency.code}</strong>
+          ${originalCurrencyInfo}
+        </td>
+        <td style="text-align: right;">
+          <strong>${formatNumber(convertedTotal)} ${saleCurrency.code}</strong>
+        </td>
+      </tr>
+    `
+  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+
+  // Calculate converted subtotal
+  const convertedSubtotal = header.lines?.reduce((sum, line) => {
+    const lineCurrency = getCurrency(line.currencyId)
+    const lineExchangeRate = line.exchangeRate || 1
+    const convertedTotal = convertToSaleCurrency(line.total, lineCurrency, lineExchangeRate)
+    return sum + convertedTotal
+  }, 0) || 0
+
+  // Handle discounts
+  const totalDiscount = header.discount || 0
+  const lineDiscounts = header.lines?.reduce((sum, line) => {
+    const lineCurrency = getCurrency(line.currencyId)
+    const lineExchangeRate = line.exchangeRate || 1
+    const convertedDiscount = convertToSaleCurrency(line.discount || 0, lineCurrency, lineExchangeRate)
+    return sum + convertedDiscount
+  }, 0) || 0
+  const allDiscounts = totalDiscount + lineDiscounts
+
+  // Final total should match header.total (already in sale currency)
+  const finalTotal = header.total || (convertedSubtotal - allDiscounts)
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Receipt #${header.id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        html, body { height: 100%; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Noto Sans Lao', Arial, sans-serif; 
+            font-size: 11px; 
+            line-height: 1.2; 
+            padding: 10px; 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .content { flex: 1; }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            border-bottom: 2px solid #000; 
+            padding-bottom: 8px; 
+            margin-bottom: 12px; 
+        }
+        .company-info h1 { 
+            font-size: 16px; 
+            margin: 0; 
+            text-transform: uppercase; 
+            color: #000;
+        }
+        .company-info p { 
+            margin: 2px 0; 
+            font-size: 10px; 
+            color: #444; 
+        }
+        .receipt-title { 
+            text-align: right; 
+            border: 2px solid #000; 
+            padding: 8px 15px; 
+            background: #f5f5f5; 
+            border-radius: 4px;
+        }
+        .receipt-title h2 { 
+            margin: 0; 
+            font-size: 18px; 
+            line-height: 1; 
+            color: #000;
+        }
+        .receipt-title span { 
+            font-size: 11px; 
+            color: #666; 
+        }
+        
+        /* Currency Info Banner */
+        .currency-banner {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 4px;
+            padding: 6px 10px;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 11px;
+            color: #1976d2;
+            font-weight: bold;
+        }
+        
+        .info-box { 
+            width: 100%; 
+            border: 1px solid #000; 
+            margin-bottom: 12px; 
+            padding: 8px; 
+            display: flex; 
+            background: #fafafa;
+        }
+        .info-col { flex: 1; font-size: 10px; }
+        .info-col.right { 
+            border-left: 1px solid #ccc; 
+            padding-left: 12px; 
+            flex: 0 0 250px; 
+        }
+        .field-label { 
+            font-weight: bold; 
+            margin-right: 5px; 
+            color: #333;
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 12px; 
+            border: 2px solid #000;
+        }
+        th { 
+            border: 1px solid #000; 
+            background-color: #e8e8e8; 
+            padding: 6px 4px; 
+            font-size: 9px; 
+            font-weight: bold; 
+            text-align: center;
+        }
+        td { 
+            border: 1px solid #000; 
+            padding: 6px 4px; 
+            font-size: 10px;
+            vertical-align: top;
+        }
+        
+        .totals-container { 
+            display: flex; 
+            justify-content: flex-end; 
+            margin-bottom: 20px; 
+        }
+        .totals-box { 
+            width: 280px; 
+            border: 2px solid #000; 
+            background: #fafafa;
+        }
+        .total-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 5px 8px; 
+            border-bottom: 1px solid #ccc; 
+            font-size: 11px;
+        }
+        .total-row.final { 
+            border-bottom: none; 
+            background-color: #e8f5e8; 
+            font-weight: bold; 
+            border-top: 2px solid #000; 
+            font-size: 13px;
+            color: #2e7d32;
+        }
+        .discount-row { 
+            color: #d32f2f; 
+            background-color: #ffebee;
+        }
+        
+        .footer { 
+            margin-top: auto; 
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        .footer-row { 
+            display: flex; 
+            justify-content: space-between; 
+            text-align: center; 
+            margin-bottom: 35px;
+        }
+        .sign-box { 
+            border-top: 1px solid #000; 
+            width: 140px; 
+            padding-top: 8px; 
+            font-size: 9px; 
+            font-weight: bold;
+        }
+        
+        /* Multi-currency specific styles */
+        .currency-note {
+            font-size: 8px;
+            color: #666;
+            font-style: italic;
+            margin-top: 2px;
+        }
+        
+        @media print { 
+            body { margin: 0; padding: 5mm; } 
+            @page { size: A4; margin: 5mm; } 
+            .footer { page-break-inside: avoid; }
+            .currency-banner { background: #f0f0f0 !important; }
+            .totals-box { background: #f8f8f8 !important; }
+            .total-row.final { background: #f0f0f0 !important; }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="header-container">
+            <div class="company-info">
+                <h1>${companyData.name || 'COMPANY NAME'}</h1>
+                <p>${companyData.address || ''}</p>
+                <p>Tel: ${companyData.tel || ''}</p>
+                <p>Email: ${companyData.email || ''}</p>
+            </div>
+            <div class="receipt-title">
+                <h2>RECEIVE NOTE</h2>
+                <span>ໃບຂາຍສິນຄ້າ</span>
+            </div>
+        </div>
+        
+        <!-- Currency Information Banner -->
+        <div class="currency-banner">
+            📋 All amounts displayed in: <strong>${saleCurrency.code}</strong> ${saleCurrency.isLocalCCY ? '(Local Currency)' : '(Foreign Currency)'}
+            ${!saleCurrency.isLocalCCY ? `• Rate: 1 ${saleCurrency.code} = ${formatNumber(saleCurrency.rate)} LAK` : ''}
+        </div>
+        
+        <div class="info-box">
+            <div class="info-col">
+                <div><span class="field-label">ລູກຄ້າ:</span> <b>${header.client?.company || '-'}</b></div>
+                <div><span class="field-label">ຊື່:</span> ${header.client?.name || '-'}</div>
+                <div><span class="field-label">ເບິໂທ:</span> ${header.client?.telephone || '-'}</div>
+                <div><span class="field-label">ເລກອ້າງອີງ:</span> ${header.referenceNo || '-'}</div>
+            </div>
+            <div class="info-col right">
+                <div><span class="field-label">ເລກບິນ:</span> <b>RCP-${header.id}</b></div>
+                <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
+                <div><span class="field-label">ສະກຸນເງິນ:</span> <strong>${saleCurrency.code}</strong></div>
+                <div><span class="field-label">ອັດຕາແລກປ່ຽນ:</span> ${saleCurrency.isLocalCCY ? '1 (Local)' : formatNumber(saleCurrency.rate)}</div>
+                <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
+                <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">ລຳດັບ</th>
+                    <th width="8%">ລະຫັດ</th>
+                    <th width="30%">Description / ລາຍການ</th>
+                    <th width="8%">Qty<br>ຈຳນວນ</th>
+                    <th width="8%">Unit<br>ຫົວໜ່ວຍ</th>
+                    <th width="18%">Price / ລາຄາ<br><small>(${saleCurrency.code})</small></th>
+                    <th width="18%">Total / ລວມ<br><small>(${saleCurrency.code})</small></th>
+                </tr>
+            </thead>
+            <tbody>${linesHTML}</tbody>
+        </table>
+        
+        <div class="totals-container">
+            <div class="totals-box">
+                <div class="total-row">
+                    <span>Subtotal / ລວມຍ່ອຍ:</span>
+                    <span><strong>${formatNumber(convertedSubtotal)} ${saleCurrency.code}</strong></span>
+                </div>
+                ${allDiscounts > 0 ? `
+                    <div class="total-row discount-row">
+                        <span>Discount / ສ່ວນຫຼຸດ:</span>
+                        <span><strong>-${formatNumber(allDiscounts)} ${saleCurrency.code}</strong></span>
+                    </div>
+                ` : ''}
+                <div class="total-row final">
+                    <span>GRAND TOTAL / ຍອດລວມສຸດທ້າຍ:</span>
+                    <span><strong>${formatNumber(finalTotal)} ${saleCurrency.code}</strong></span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Currency conversion note -->
+        ${header.lines?.some(line => line.currencyId !== header.currencyId) ? `
+            <div class="currency-note">
+                <strong>Note:</strong> This receipt contains items priced in multiple currencies. 
+                All amounts have been converted to ${saleCurrency.code} using the exchange rates at time of sale.
+                Original pricing and exchange rates are shown in item details where applicable.
+            </div>
+        ` : ''}
+    </div>
+    
+    <div class="footer">
+        <div class="footer-row">
+            <div class="sign-box">ຜູ້ກວດຮັບ<br>Receiver</div>
+            <div class="sign-box">ຜູ້ສົ່ງສິນຄ້າ<br>Sender</div>
+        </div>
+        <div class="footer-row">
+            <div class="sign-box">ຜູ້ຈ່າຍເງິນ<br>Payer</div>
+            <div class="sign-box">ຜູ້ຮັບເງິນ<br>Receiver</div>
+            <div class="sign-box">ຜູ້ອະນຸມັດ<br>Approved By</div>
+        </div>
+    </div>
+    </body>
+    </html>
+  `
+}

@@ -1,0 +1,25 @@
+/* Import GSTC styles */
+@import 'node_modules/gantt-schedule-timeline-calendar/dist/style.css';
+
+/* app font */
+#app {
+  font-family: NotoSansLaoUI-Regular, Roboto-Regular;
+}
+/* sweetalert font */
+.swal2-content,
+.swal2-title,
+.swal2-confirm,
+.swal2-cancel {
+  font-family: NotoSansLaoUI-Regular, Roboto-Regular;
+}
+
+
+@font-face {
+  font-family: 'NotoSansLaoUI-Regular';
+  src: url(~assets/fonts/NotoSansLaoUI-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url(~assets/fonts/Roboto-Regular.ttf) format('truetype');
+}

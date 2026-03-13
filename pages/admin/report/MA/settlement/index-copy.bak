@@ -1,0 +1,934 @@
+<template>
+  <div class="settlement-report">
+    <!-- Header -->
+    <div class="report-header primary">
+      <div class="title-section">
+        <h1 class="page-title">
+          <i class="fas fa-chart-bar"></i>
+          ລາຍງານ ການຊຳລະ
+        </h1>
+        <p class="page-subtitle">Settlement Report</p>
+      </div>
+      <div class="action-buttons">
+        <v-btn
+          class="custom-btn export-btn"
+          @click="exportToExcel"
+          :loading="exporting"
+        >
+          <i class="fas fa-file-excel"></i>
+          Export Excel
+        </v-btn>
+        <v-btn class="custom-btn print-btn" @click="printReport">
+          <i class="fas fa-print"></i>
+          Print
+        </v-btn>
+        <v-btn
+          class="custom-btn refresh-btn"
+          @click="refreshData"
+          :loading="loading"
+        >
+          <i class="fas fa-sync-alt"></i>
+          Refresh
+        </v-btn>
+      </div>
+    </div>
+
+    <!-- Filters Card -->
+    <v-card class="filter-card mb-4 primary" elevation="1">
+      <v-card-title class="filter-title py-2">
+        <v-icon small class="mr-2">mdi-filter</v-icon>
+        ຕົວກອງ (Filters)
+      </v-card-title>
+      <v-card-text class="pa-3">
+        <v-row dense>
+          <!-- Date Range -->
+          <v-col cols="6" sm="3">
+            <v-text-field
+              v-model="filters.fromDate"
+              type="date"
+              label="From"
+              outlined
+              dense
+              hide-details
+              dark
+              @change="applyFilters"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="6" sm="3">
+            <v-text-field
+              v-model="filters.toDate"
+              type="date"
+              label="To"
+              outlined
+              dense
+              hide-details
+              dark
+              @change="applyFilters"
+            ></v-text-field>
+          </v-col>
+          
+          <!-- Status -->
+          <v-col cols="6" sm="2">
+            <v-select
+              v-model="filters.status"
+              :items="statusOptions"
+              label="Status"
+              clearable
+              outlined
+              dense
+              hide-details
+              dark
+              @change="applyFilters"
+            ></v-select>
+          </v-col>
+          
+          <!-- Method -->
+          <v-col cols="6" sm="2">
+            <v-select
+              v-model="filters.method"
+              :items="methodOptions"
+              label="Method"
+              clearable
+              outlined
+              dense
+              hide-details
+              dark
+              @change="applyFilters"
+            ></v-select>
+          </v-col>
+          
+          <!-- Actions -->
+          <v-col cols="12" sm="2" class="d-flex align-center">
+            <v-btn
+              class="custom-secondary-btn white--text mr-1"
+              small
+              @click="applyFilters"
+              :loading="loading"
+            >
+              <v-icon small>mdi-refresh</v-icon>
+            </v-btn>
+            <v-btn
+              class="custom-secondary-btn white--text"
+              small
+              @click="resetFilters"
+            >
+              <v-icon small>mdi-restore</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
+    <!-- Summary Cards -->
+    <v-row class="mb-4" dense>
+      <v-col cols="12" md="3" v-for="(card, index) in summaryCards" :key="index">
+        <v-card class="summary-card primary" elevation="4">
+          <v-card-text class="pa-4">
+            <v-row align="center">
+              <v-col cols="3">
+                <div class="summary-icon">
+                  <i :class="card.icon"></i>
+                </div>
+              </v-col>
+              <v-col cols="9">
+                <div class="summary-details">
+                  <div class="summary-title">{{ card.title }}</div>
+                  <div class="summary-subtitle">{{ card.subtitle }}</div>
+                  <div class="summary-amount">
+                    {{ card.amount }}
+                  </div>
+                  <div v-if="card.lcyAmount" class="summary-lcy">
+                    LCY: {{ formatCurrency(card.lcyAmount) }}
+                  </div>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Detailed Report Table -->
+    <v-card class="table-card" elevation="2">
+      <v-card-title class="table-title">
+        <i class="fas fa-table"></i>
+        ລາຍລະອຽດລາຍງານ (Detailed Report)
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="ຄົ້ນຫາ..."
+          single-line
+          hide-details
+          class="search-field"
+          outlined
+          dense
+        ></v-text-field>
+      </v-card-title>
+
+      <v-data-table
+        :headers="tableHeaders"
+        :items="settlements"
+        :search="search"
+        :loading="loading"
+        :server-items-length="pagination.totalItems"
+        :options.sync="tableOptions"
+        @update:options="onTableOptionsUpdate"
+        class="report-table"
+        :footer-props="{
+          itemsPerPageOptions: [10, 25, 50, 100],
+          itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
+        }"
+      >
+        <!-- ID formatting -->
+        <template v-slot:item.id="{ item }">
+          <span class="date-cell">{{ formatSettlementNumber(item.id) }}</span>
+        </template>
+
+        <!-- Date formatting -->
+        <template v-slot:item.bookingDate="{ item }">
+          <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
+        </template>
+
+        <!-- Amount formatting -->
+        <template v-slot:item.amount="{ item }">
+          <div class="amount-display">
+            <span class="amount-cell settlement-amount">
+              {{ getCurrencySymbol(item.currency?.code) }}{{ formatCurrency(item.amount) }}
+            </span>
+            <div v-if="item.currency && item.currency.code !== 'LAK'" class="currency-info">
+              {{ item.currency.code }} @ {{ item.exchangeRate || 1 }}
+            </div>
+          </div>
+        </template>
+
+        <!-- Method -->
+        <template v-slot:item.method="{ item }">
+          <v-chip :color="getMethodColor(item.method)" text-color="white" small>
+            <v-icon left x-small>{{ getMethodIcon(item.method) }}</v-icon>
+            {{ formatMethod(item.method) }}
+          </v-chip>
+        </template>
+
+        <!-- Proceeder -->
+        <template v-slot:item.proceeder="{ item }">
+          <div v-if="item.proceeder" class="proceeder-cell">
+            <span class="proceeder-name">{{ item.proceeder.cus_name || item.proceeder.cus_email }}</span>
+            <span class="proceeder-email">{{ item.proceeder.cus_email }}</span>
+          </div>
+          <span v-else class="text-grey">N/A</span>
+        </template>
+
+        <!-- Money Advance -->
+        <template v-slot:item.moneyAdvance="{ item }">
+          <div v-if="item.moneyAdvance" class="advance-cell">
+            <v-chip x-small color="primary" text-color="white" class="mb-1">
+              #{{ item.moneyAdvance.id }}
+            </v-chip>
+            <br>
+            <v-chip x-small :color="getStatusColor(item.moneyAdvance.status)" text-color="white">
+              {{ getStatusText(item.moneyAdvance.status) }}
+            </v-chip>
+          </div>
+          <v-chip v-else x-small color="grey" text-color="white">
+            Independent
+          </v-chip>
+        </template>
+
+        <!-- Status -->
+        <template v-slot:item.status="{ item }">
+          <v-chip
+            :color="item.moneyAdvance ? getStatusColor(item.moneyAdvance.status) : 'grey'"
+            text-color="white"
+            small
+          >
+            <v-icon left x-small>
+              {{ item.moneyAdvance ? getStatusIcon(item.moneyAdvance.status) : 'mdi-check-circle' }}
+            </v-icon>
+            {{ item.moneyAdvance ? getStatusText(item.moneyAdvance.status) : 'Independent' }}
+          </v-chip>
+        </template>
+
+        <!-- Actions -->
+        <template v-slot:item.actions="{ item }">
+          <v-btn small color="primary" @click="viewDetails(item)" class="mr-2">
+            <i class="fas fa-eye"></i>
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
+
+    <!-- Settlement Details Dialog -->
+    <v-dialog v-model="detailsDialog" max-width="900px">
+      <v-card>
+        <v-card-title class="dialog-header">
+          <i class="fas fa-info-circle"></i>
+          ລາຍລະອຽດການຊຳລະ (Settlement Details)
+          <v-spacer></v-spacer>
+          <v-btn icon @click="detailsDialog = false" class="close-btn">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text v-if="selectedItem">
+          <v-row>
+            <v-col cols="6" v-for="(field, index) in detailFields" :key="index">
+              <div class="detail-item">
+                <strong>{{ field.label }}:</strong>
+                <span v-if="field.type === 'chip'">
+                  <v-chip :color="field.color(selectedItem[field.key])" text-color="white" small>
+                    {{ field.formatter ? field.formatter(selectedItem[field.key]) : selectedItem[field.key] }}
+                  </v-chip>
+                </span>
+                <span v-else>
+                  {{ field.formatter ? field.formatter(getNestedValue(selectedItem, field.key)) : getNestedValue(selectedItem, field.key) || 'N/A' }}
+                </span>
+              </div>
+            </v-col>
+          </v-row>
+          <v-divider class="my-4"></v-divider>
+          <div class="detail-item">
+            <strong>ໝາຍເຫດ:</strong> {{ selectedItem.notes || 'ບໍ່ມີໝາຍເຫດ' }}
+          </div>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'SettlementReport',
+
+  data() {
+    return {
+      loading: false,
+      exporting: false,
+      search: '',
+      detailsDialog: false,
+      selectedItem: null,
+
+      // Filter data
+      filters: {
+        fromDate: null,
+        toDate: null,
+        status: null,
+        method: null
+      },
+
+      // Report data
+      settlements: [],
+      stats: {
+        totalCount: 0,
+        totalAmount: 0,
+        thisMonth: 0,
+        pending: 0
+      },
+
+      // Table configuration
+      tableOptions: {
+        page: 1,
+        itemsPerPage: 25,
+        sortBy: ['id'],
+        sortDesc: [true]
+      },
+
+      pagination: {
+        totalItems: 0
+      },
+
+      // Table headers
+      tableHeaders: [
+        { text: 'ID', value: 'id', width: '100px' },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '100px' },
+        { text: 'ຈຳນວນເງິນ', value: 'amount', width: '150px' },
+        { text: 'ເນື້ອໃນ', value: 'notes', width: '150px' },
+        { text: 'ວິທີການ', value: 'method', width: '140px' },
+        { text: 'ຜູ້ດຳເນີນການ', value: 'proceeder', width: '180px' },
+        { text: 'ລາຍຈ່າຍ', value: 'moneyAdvance', width: '140px' },
+        { text: 'ສະຖານະ', value: 'status', width: '120px' },
+        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' }
+      ],
+
+      // Options
+      statusOptions: [
+        { text: 'ທັງໝົດ', value: null },
+        { text: 'ລໍຖ້າອະນຸມັດ', value: 'pending' },
+        { text: 'ອະນຸມັດແລ້ວ', value: 'approved' },
+        { text: 'ຊຳລະແລ້ວ', value: 'settled' }
+      ],
+
+      methodOptions: [
+        { text: 'ທັງໝົດ', value: null },
+        { text: 'ເງິນສົດ', value: 'cash' },
+        { text: 'ໂອນເງິນ', value: 'bank_transfer' },
+        { text: 'ຫັກລົບ', value: 'deduction' }
+      ]
+    }
+  },
+
+  computed: {
+    summaryCards() {
+      return [
+        {
+          title: 'ລວມການຊຳລະ',
+          subtitle: 'Total Settlements',
+          amount: this.stats.totalCount || 0,
+          icon: 'fas fa-file-document-multiple'
+        },
+        {
+          title: 'ລວມຈຳນວນເງິນ',
+          subtitle: 'Total Amount',
+          amount: `₭${this.formatCurrency(this.stats.totalAmount)}`,
+          icon: 'fas fa-currency-usd'
+        },
+        {
+          title: 'ເດືອນນີ້',
+          subtitle: 'This Month',
+          amount: this.stats.thisMonth || 0,
+          icon: 'fas fa-calendar-month'
+        },
+        {
+          title: 'ລໍຖ້າ',
+          subtitle: 'Pending',
+          amount: this.stats.pending || 0,
+          icon: 'fas fa-clock-outline'
+        }
+      ]
+    },
+
+    detailFields() {
+      return [
+        { key: 'bookingDate', label: 'ວັນທີບັນທຶກ', formatter: this.formatDate },
+        { key: 'amount', label: 'ຈຳນວນເງິນ', formatter: (val) => `${this.getCurrencySymbol()}${this.formatCurrency(val)}` },
+        { key: 'currency.code', label: 'ສະກຸນເງິນ' },
+        { key: 'exchangeRate', label: 'ອັດຕາແລກປ່ຽນ', formatter: (val) => val || '1.0000' },
+        { 
+          key: 'method', 
+          label: 'ວິທີການຊຳລະ',
+          type: 'chip',
+          formatter: this.formatMethod,
+          color: this.getMethodColor
+        },
+        { key: 'proceeder.cus_name', label: 'ຜູ້ດຳເນີນການ' },
+        { key: 'moneyAdvance.id', label: 'ເລກທີລາຍຈ່າຍ', formatter: (val) => val ? `#${val}` : 'Independent' },
+        { 
+          key: 'moneyAdvance.status', 
+          label: 'ສະຖານະ',
+          type: 'chip',
+          formatter: this.getStatusText,
+          color: this.getStatusColor
+        }
+      ]
+    }
+  },
+
+  async created() {
+    this.setDefaultDates()
+    await this.loadInitialData()
+  },
+
+  methods: {
+    async loadInitialData() {
+      await Promise.all([
+        this.fetchSettlements(),
+        this.fetchStats()
+      ])
+    },
+
+    setDefaultDates() {
+      const now = new Date()
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+      this.filters.fromDate = firstDay.toISOString().substr(0, 10)
+      this.filters.toDate = now.toISOString().substr(0, 10)
+    },
+
+    async applyFilters() {
+      this.tableOptions.page = 1
+      await this.fetchSettlements()
+    },
+
+    resetFilters() {
+      this.filters = {
+        fromDate: null,
+        toDate: null,
+        status: null,
+        method: null
+      }
+      this.setDefaultDates()
+      this.applyFilters()
+    },
+
+    async refreshData() {
+      await this.loadInitialData()
+      this.$toast.success('Data refreshed successfully')
+    },
+
+    async fetchSettlements() {
+      this.loading = true
+      try {
+        const params = {
+          page: this.tableOptions.page || 1,
+          limit: this.tableOptions.itemsPerPage || 25,
+          sortBy: this.tableOptions.sortBy?.[0] || 'id',
+          sortOrder: this.tableOptions.sortDesc?.[0] ? 'desc' : 'asc',
+          ...this.filters
+        }
+
+        // Remove null/empty filter values
+        Object.keys(params).forEach(key => {
+          if (params[key] === null || params[key] === '') {
+            delete params[key]
+          }
+        })
+
+        const response = await this.$axios.get('/api/settlements', { params })
+
+        this.settlements = response.data.data.settlements || []
+        this.pagination.totalItems = response.data.data.pagination?.totalItems || 0
+      } catch (error) {
+        console.error('Error fetching settlements:', error)
+        this.$toast.error('Failed to load settlements')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async fetchStats() {
+      try {
+        const response = await this.$axios.get('/api/settlements/stats')
+        this.stats = response.data.data || {}
+      } catch (error) {
+        console.error('Error fetching stats:', error)
+      }
+    },
+
+    // Table events
+    onTableOptionsUpdate(options) {
+      this.tableOptions = options
+      this.fetchSettlements()
+    },
+
+    // Export method using frontend data
+    async exportToExcel() {
+      if (!this.settlements.length) {
+        this.$toast.warning('No data to export')
+        return
+      }
+
+      this.exporting = true
+      try {
+        // Prepare data from frontend
+        const exportData = this.settlements.map((item, index) => ({
+          '#': index + 1,
+          'ເລກທີ': `'${this.formatSettlementNumber(item.id)}`,
+          'ວ.ດ.ປ': this.formatDate(item.bookingDate),
+          'ເບື້ອງຫນີ້': item.moneyAdvance ? item.moneyAdvance.amount : 0 ,
+          'ເບື້ອງມີ': item.amount,
+          'ສະກຸນ': item.currency?.code || 'LAK',
+          'ອັດຕາແລກປ່ຽນ': item.exchangeRate || 1,
+          'ປະເພດການຊຳລະ': this.formatMethod(item.method),
+          // 'Proceeder': item.proceeder?.cus_name || 'N/A',
+          // 'Proceeder Email': item.proceeder?.cus_email || 'N/A',
+          'ເລກອ້າງອີກ ລາຍຈ່າຍ': item.moneyAdvance?.id || 'Independent',
+          // 'Money Advance Status': item.moneyAdvance ? this.getStatusText(item.moneyAdvance.status) : 'Independent',
+          'Notes': item.notes || ''
+        }))
+
+        // Create CSV content
+        const headers = Object.keys(exportData[0])
+        const csvContent = [
+          headers.join(','),
+          ...exportData.map((row) =>
+            headers.map((header) => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
+          )
+        ].join('\n')
+
+        // Download file
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+        const link = document.createElement('a')
+        const url = URL.createObjectURL(blob)
+        link.setAttribute('href', url)
+        link.setAttribute('download', `settlement-report-${new Date().toISOString().substr(0, 10)}.csv`)
+        link.style.visibility = 'hidden'
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+
+        this.$toast.success('Report exported successfully')
+      } catch (error) {
+        console.error('Error exporting report:', error)
+        this.$toast.error('Error exporting report')
+      } finally {
+        this.exporting = false
+      }
+    },
+
+    printReport() {
+      window.print()
+    },
+
+    // Dialog methods
+    viewDetails(item) {
+      this.selectedItem = item
+      this.detailsDialog = true
+    },
+
+    // Utility methods
+    getNestedValue(obj, path) {
+      return path.split('.').reduce((current, key) => current?.[key], obj)
+    },
+
+    formatSettlementNumber(id) {
+      return String(id).padStart(6, '0')
+    },
+
+    formatDate(date) {
+      if (!date) return ''
+      return new Date(date).toLocaleDateString('lo-LA')
+    },
+
+    formatCurrency(amount) {
+      if (!amount && amount !== 0) return '0.00'
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(amount)
+    },
+
+    formatMethod(method) {
+      const methods = {
+        cash: 'ເງິນສົດ',
+        bank_transfer: 'ໂອນເງິນ',
+        deduction: 'ຫັກລົບ'
+      }
+      return methods[method] || method
+    },
+
+    getMethodColor(method) {
+      const colors = {
+        cash: 'primary',
+        bank_transfer: '#228B22',
+        deduction: '#F59E0B'
+      }
+      return colors[method] || 'grey'
+    },
+
+    getMethodIcon(method) {
+      const icons = {
+        cash: 'mdi-cash',
+        bank_transfer: 'mdi-bank',
+        deduction: 'mdi-minus-circle'
+      }
+      return icons[method] || 'mdi-help-circle'
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        pending: '#32CD32',
+        approved: '#228B22',
+        settled: 'primary'
+      }
+      return colors[status] || '#666'
+    },
+
+    getStatusText(status) {
+      const texts = {
+        pending: 'ລໍຖ້າ',
+        approved: 'ອະນຸມັດ',
+        settled: 'ຊຳລະແລ້ວ'
+      }
+      return texts[status] || status
+    },
+
+    getStatusIcon(status) {
+      const icons = {
+        pending: 'mdi-clock-outline',
+        approved: 'mdi-check-circle',
+        settled: 'mdi-check-all'
+      }
+      return icons[status] || 'mdi-help-circle'
+    },
+
+    getCurrencySymbol(currencyCode = 'LAK') {
+      const symbols = {
+        USD: '$',
+        LAK: '₭',
+        THB: '฿',
+        EUR: '€',
+        CNY: '¥',
+        VND: '₫'
+      }
+      return symbols[currencyCode] || '₭'
+    }
+  }
+}
+</script>
+
+<style scoped>
+.settlement-report {
+  padding: 0;
+}
+
+/* Header Section */
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 24px;
+  color: white;
+  border-radius: 8px;
+}
+
+.title-section h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.title-section p {
+  margin: 8px 0 0 0;
+  opacity: 0.9;
+  font-size: 14px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 16px;
+}
+
+.custom-btn {
+  color: primary !important;
+  border: 1px solid white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-btn:hover {
+  background-color: white !important;
+  color: primary !important;
+}
+
+/* Filter Card */
+.filter-card {
+  background: white;
+  border-radius: 8px;
+}
+
+.filter-title {
+  color: white;
+  font-weight: 600;
+}
+
+.custom-secondary-btn {
+  background-color: #6c757d !important;
+  color: white !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+}
+
+.custom-secondary-btn:hover {
+  background-color: #5a6268 !important;
+}
+
+/* Summary Cards */
+.summary-card {
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-icon {
+  font-size: 48px;
+  opacity: 0.9;
+  margin-right: 16px;
+  color: white;
+}
+
+.summary-details .summary-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+}
+
+.summary-details .summary-subtitle {
+  margin: 4px 0;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.summary-details .summary-amount {
+  margin: 8px 0 0 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+}
+
+.summary-lcy {
+  font-size: 11px;
+  opacity: 0.9;
+  margin-top: 4px !important;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Main Table Section */
+.table-card {
+  margin-bottom: 24px;
+  border-radius: 8px;
+}
+
+.table-title {
+  color: white;
+  font-weight: 600;
+}
+
+.search-field {
+  max-width: 300px;
+}
+
+.search-field >>> input {
+  color: white !important;
+}
+
+.search-field >>> .v-icon {
+  color: white !important;
+}
+
+.report-table {
+  background: white;
+}
+
+.report-table >>> thead th {
+  background-color: primary !important;
+  color: white !important;
+  font-weight: 600 !important;
+  border-bottom: none !important;
+}
+
+.report-table >>> tbody tr:hover {
+  background-color: rgba(1, 83, 43, 0.1) !important;
+}
+
+/* Table Cell Styling */
+.date-cell {
+  font-family: monospace;
+  font-size: 13px;
+  color: primary;
+}
+
+.amount-cell {
+  font-family: monospace;
+  font-weight: 600;
+  text-align: right;
+  display: block;
+}
+
+.settlement-amount {
+  color: #228b22;
+}
+
+.amount-display {
+  text-align: right;
+}
+
+.currency-info {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.proceeder-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.proceeder-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: primary;
+}
+
+.proceeder-email {
+  font-size: 11px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.advance-cell {
+  text-align: center;
+}
+
+/* Dialog Styling */
+.dialog-header {
+  color: white !important;
+  font-weight: 600 !important;
+}
+
+.close-btn {
+  color: white !important;
+}
+
+.detail-item {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.detail-item strong {
+  color: primary;
+}
+
+/* Print styles */
+@media print {
+  .action-buttons,
+  .filter-card,
+  .v-btn {
+    display: none !important;
+  }
+
+  .summary-cards {
+    page-break-inside: avoid;
+  }
+
+  .report-header {
+    color: white !important;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .report-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .title-section h1 {
+    font-size: 24px;
+  }
+
+  .action-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .summary-icon {
+    margin-right: 0;
+    margin-bottom: 8px;
+    font-size: 40px;
+  }
+
+  .summary-details .summary-amount {
+    font-size: 20px;
+  }
+}
+</style>

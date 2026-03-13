@@ -1,0 +1,311 @@
+<!-- 
+<template>
+    <div class="container">
+        <v-dialog v-model="isloading" hide-overlay persistent width="300">
+            <loading-indicator> </loading-indicator>
+        </v-dialog>
+       
+        <div class="mb-1">
+            <v-card class="pa-4">
+                <v-card-title>
+                   Menu
+                </v-card-title>
+                <v-row>
+                    <v-col :cols="12">
+                        <div class="row">
+                            <div v-for="(item, index) in menus" :key="index"
+                                class="col-12 col-md-3 col-sm-6 col-xs-6 text-center">
+                                <Menu :title="item.title" :icon="item.icon" :path="item.path"></Menu>
+                            </div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-card>
+        </div>
+        <div class="mb-1">
+            <v-row>
+                <v-col cols="4" md="6" sm="12" xl="12">
+                    <v-card>
+                        <apexchart :options="pieChartOption" :series="pieChartOption.barSeries"></apexchart>
+                    </v-card>
+                </v-col>
+                <v-col cols="8" md="6" sm="12" xl="12" v-if="dailyState">
+                    <v-card>
+                        <apexchart :options="barOptionsForDailyStat" :series="barSeriesForDailyStat"></apexchart>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </div>
+
+    </div>
+</template>
+  
+<script>
+import { getFormatNum } from '~/util/myUtil'
+import { generateColorShades } from '~/common'
+import CardOnTop from '~/components/dashboard/CardOnTop.vue'
+import CardGrouping from '~/components/dashboard/CardGrouping.vue'
+import CampaignCard from '~/components/card/campaignCard.vue'
+import Menu from '~/components/menu'
+
+export default {
+    components: { CardOnTop, CampaignCard, CardGrouping, Menu },
+    middleware: 'auths',
+    data() {
+        return {
+            saleValue: 0,
+            menuKey: 1,
+            menus: [
+                {
+                    title: 'POS',
+                    icon: 'mdi-network-pos',
+                    path: '/pos'
+                }
+            ],
+            items: [
+                {
+                    name: 'Item #1',
+                    id: 1,
+                },
+                {
+                    name: 'Item #2',
+                    id: 2,
+                },
+                {
+                    name: 'Item #3',
+                    id: 3,
+                },
+            ],
+            minProductList: [],
+            isloading: false,
+            dailyState: false,
+            series: [0, 0],
+            options: {
+                chart: {
+                    type: 'donut',
+                }, responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                            width: 200
+                        },
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }],
+                labels: ['CASH', 'COD'],
+                title: {
+                    text: 'ອໍເດີ ປະເພດ'
+                },
+
+                annotations: {
+                    points: [
+                    ]
+                },
+            },
+            peeair: {
+                series: [],
+                options: {
+                    colors: ['#FF4560', '#775DD0'],
+                },
+            },
+
+            pieChartOption: {
+                // plotOptions: {
+                //     pie: {
+                //         customScale: 0.9
+                //     }
+                // },
+                title: {
+                    text: 'ສິນຄ້າຂາຍດີ',
+                    align: 'center',
+                    style: {
+                        fontSize: '16px',
+                    },
+                },
+                labels: [
+                ],
+
+                barSeries: [],
+                theme: {
+                    monochrome: {
+                        enabled: true,
+                        color: 'primary',
+                    }
+                },
+                chart: {
+                    type: 'pie',
+                    width: '100%',
+                    height: '400px',
+                },
+            },
+            barSeriesForDailyStat: [{
+                data: []
+            }],
+            //ກາບຍອດຂາຍແຕ່ລະມື ເປັນ ຮູບທຽນ
+            barOptionsForDailyStat: {
+                colors: [],
+                chart: {
+                    type: 'line',
+                },
+                plotOptions: {
+                    bar: {
+                        borderRadius: 4,
+                        horizontal: true,
+                    }, dataLabels: {
+                        style: {
+                            fontSize: '12px',
+                        },
+                        formatter: function (val) {
+                            return val.toFixed(2);
+                        },
+                    },
+                },
+                dataLabels: {
+                    enabled: true
+                },
+                xaxis: {
+                    categories: [
+                    ],
+                }, yaxis: {
+                    title: {
+                        text: 'Sales (in thousands)'
+                    }
+                },
+                title: {
+                    text: 'ສະຖິຕິການຂາຍໃນເດືອນ'
+                }
+            }
+        };
+    },
+    async created() {
+        await this.loadDailySaleStatistic()
+        this.init();
+        await this.minStockProduct()
+    }, async mounted() {
+        await this.loadTopSale()
+        await this.paymentGroup()
+    },
+    methods: {
+        numberFormatter(value) {
+            return getFormatNum(value)
+        },
+
+        async minStockProduct() {
+            this.isloading = true
+            await this.$axios
+                .get('product_f')
+                .then((res) => {
+                    this.minProductList = []
+                    for (const iterator of res.data) {
+                        if (iterator['minStock'] > iterator['card_count']) {
+                            this.minProductList.push({
+                                pro_id: iterator.pro_id,
+                                pro_name: iterator.pro_name,
+                                pro_price: iterator.pro_price,
+                                pro_desc: iterator.pro_desc,
+                                pro_status: iterator.pro_status,
+                                pro_category: iterator.pro_category,
+                                pro_category_desc: iterator.pro_category + ' - ' + iterator.categ_name,
+                                pro_card_count: iterator.card_count,
+                                pro_cost_price: iterator.cost_price,
+                                pro_outlet: iterator.outlet,
+                                pro_outlet_name: iterator.outlet_name,
+                                minStock: iterator.minStock,
+                                function: iterator.pro_id,
+                            })
+                        }
+                    }
+                })
+                .catch((er) => {
+                    this.message = er
+                    console.log('Error: ' + er)
+                })
+            this.isloading = false
+        },
+
+        getRandomColor() {
+            var letters = '0123456789ABCDEF';
+            var color = '#';
+            for (var i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        },
+        async loadTopSale() {
+            this.isloading = true
+            await this.$axios
+                .get('api/topsale/?top=' + 5)
+                .then((res) => {
+                    console.log("Data ", res.data[0]);
+                    res.data.map((el) => {
+                        this.pieChartOption.barSeries.push(+el.sale_count)
+                        this.pieChartOption.labels.push(el.categ_name + ' ' + getFormatNum(el.total_sale))
+                    })
+
+                }).catch(err => {
+                    console.log('error', err);
+                });
+            this.isloading = false
+        },
+        async loadDailySaleStatistic() {
+            this.isloading = true
+            await this.$axios
+                .get('api/dailySaleReport')
+                .then((res) => {
+                    console.log("Data ", res.data[0]);
+                    for (const iterator of res.data) {
+                        // this.barOptionsForDailyStat.colors.push(this.getRandomColor) // ******* Original
+                        this.barOptionsForDailyStat.colors.push('primary') // ******* Original
+
+                        this.barSeriesForDailyStat[0].data.push(iterator.total_sale)
+                        this.barOptionsForDailyStat.xaxis.categories.push(iterator.txn_date_short)
+                    }
+                }).catch(err => {
+                    console.log('error', err);
+                });
+            this.dailyState = true
+            this.isloading = false
+        },
+        async paymentGroup() {
+            this.isloading = true
+            await this.$axios
+                .get('api/cod_n_cash_report')
+                .then((res) => {
+                    this.series = res.data.series;
+                    this.options.labels = res.data.labels
+                }).catch(err => {
+                    console.log('error', err);
+                });
+            this.isloading = false
+        },
+        init() {
+            console.log("Init function");
+            const series2 = [66, 33]
+            this.peeair.options = {
+                title: {
+                    text: 'GreenWood',
+                    align: 'center',
+                    style: {
+                        fontSize: '16px',
+                    },
+                },
+                labels: [
+                    ` COD ${series2[0]} ບິນ `,
+                    ` ORDER ${series2[1]} ບິນ`,
+                ],
+                chart: {
+                    type: 'pie',
+                    width: '100%',
+                    height: '400px',
+                },
+
+            }
+            this.peeair.series = series2;
+        }
+    }
+
+}
+</script>
+   -->

@@ -1,0 +1,305 @@
+/**
+ * Optimized Ticket Generation Module - VERSION 3.8 (RESTORED ALL MODES)
+ * CLEANUP: Removed redundant API logo fetching (uses direct companyData).
+ * RESTORED: All Gift logic, Multi-Currency, QR Code, and Delivery functionality.
+ */
+
+import CurrencyHelper from '@/utils/currency-helper'
+
+// ============================================================================
+// UTILITY FUNCTIONS
+// ============================================================================
+
+const safeParseNumber = (value, defaultValue = 0) => {
+    if (value === null || value === undefined || value === '') return defaultValue;
+    const parsed = parseFloat(value.toString().replace(/[^\d.-]/g, ''));
+    return isNaN(parsed) ? defaultValue : parsed;
+};
+
+const getItemActivePrice = (item) => {
+    if (item.isGift === true && typeof item.localPrice !== 'undefined') return safeParseNumber(item.localPrice, 0);
+    if (item.priceListId !== null && Array.isArray(item.priceLists)) {
+        const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
+        if (activePriceList) return safeParseNumber(activePriceList.amount, 0);
+    }
+    return safeParseNumber(item.localPrice ?? item.pro_price, 0);
+};
+
+const getItemActiveCurrencyId = (item) => {
+    if (item.priceListId !== null && Array.isArray(item.priceLists)) {
+        const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
+        if (activePriceList && activePriceList.currencyId) return activePriceList.currencyId;
+    }
+    return item.saleCurrencyId;
+};
+
+const formatDate = (dateInput) => {
+    try {
+        const date = new Date(dateInput);
+        return isNaN(date.getTime()) ? 'Invalid Date' : `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    } catch (error) { return 'Date Error'; }
+};
+
+const getPaperConfig = (paperWidth = '80mm') => {
+    const configs = {
+        '58mm': { width: '200px', fontSize: '10px', logoSize: '40px' }, // Reduced from 210
+        '80mm': { width: '280px', fontSize: '11px', logoSize: '50px' }, // Reduced from 300
+        'A5': { width: '540px', fontSize: '14px', logoSize: '70px' },
+        'A4': { width: '750px', fontSize: '16px', logoSize: '90px' }
+    };
+    return configs[paperWidth] || configs['80mm'];
+};
+
+const getLocalCurrency = (currencyList) => Array.isArray(currencyList) ? currencyList.find(currency => currency.isLocalCCY === true) : null;
+
+// ============================================================================
+// CSS ENGINE
+// ============================================================================
+const getBaseStyles = (config, isThermal) => `
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+  * { box-sizing: border-box; }
+  
+  html, body { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    width: ${config.width} !important;
+  }
+
+  body { 
+    font-family: 'Noto Sans Lao', sans-serif; 
+    font-size: ${config.fontSize}; 
+    line-height: 1.3;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+  }
+
+  .receipt-container { 
+    width: ${config.width} !important; 
+    margin: 0 auto !important; 
+    /* Add specific right padding to prevent overflow */
+    padding: ${isThermal ? '0 10px 0 5px' : '20px'}; 
+    overflow: hidden;
+  }
+
+  .item { 
+    display: flex; 
+    justify-content: space-between; 
+    width: 100%; 
+    margin-bottom: 3px; 
+  }
+
+  /* Ensure long names wrap and don't push the price off-screen */
+  .item-desc { 
+    flex: 1; 
+    text-align: left; 
+    padding-right: 10px; 
+    word-wrap: break-word;
+    max-width: 70%; 
+  }
+
+  .item-total { 
+    text-align: right; 
+    font-weight: 700; 
+    white-space: nowrap; 
+    min-width: 80px; 
+  }
+
+  @media print {
+    @page {
+      margin: 0; /* Tells the printer driver not to add its own margins */
+    }
+    .receipt-container {
+       width: ${config.width} !important;
+    }
+  }
+`;
+
+// ============================================================================
+// GENERATORS (POS, MULTI-CURRENCY, QR)
+// ============================================================================
+
+const getGiftDisplayInfo = (item, activePrice) => {
+    const isFree = activePrice === 0;
+    const isGiftMarked = item.isGift === true;
+    return {
+        isGift: isGiftMarked,
+        isFree,
+        displayPrice: isFree ? 'FREE' : null,
+        cssClass: isGiftMarked ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
+        labelSuffix: isGiftMarked ? (isFree ? ' [GIFT]' : ' [SPECIAL]') : ''
+    };
+};
+
+const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, currencyList) => {
+    const cartItems = productCart.lines || productCart;
+    if (!Array.isArray(cartItems) || cartItems.length === 0) return '<div>ບໍ່ມີສິນຄ້າ</div>';
+    return cartItems.map(item => {
+        const productName = item.pro_name || findAllProduct.find(el => el.id === item.id)?.pro_name || 'ສິນຄ້າ';
+        const activePrice = getItemActivePrice(item);
+        const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item))?.code || 'LAK';
+        const giftInfo = getGiftDisplayInfo(item, activePrice);
+        return `
+      <div class="item ${giftInfo.cssClass}">
+        <div class="item-desc">
+          <div class="item-name">${productName}${giftInfo.labelSuffix}</div>
+          <div class="item-detail">${item.qty} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(activePrice)}</div>
+        </div>
+        <div class="item-total">${giftInfo.displayPrice || formatNumber(item.qty * activePrice)} ${currency}</div>
+      </div>`;
+    }).join('');
+};
+
+const generateCurrencyBreakdownSection = (productCart, currencyList, formatNumber) => {
+    const cartItems = productCart.lines || productCart;
+    const groups = {};
+    cartItems.forEach(item => {
+        const cId = getItemActiveCurrencyId(item);
+        if (!groups[cId]) groups[cId] = { code: currencyList.find(c => c.id === cId)?.code || 'CCY', total: 0 };
+        groups[cId].total += (item.qty * getItemActivePrice(item));
+    });
+    return Object.values(groups).map(g => `
+    <div class="item" style="font-size:0.95em;">
+      <div class="item-desc">Subtotal ${g.code}:</div>
+      <div class="item-total">${formatNumber(g.total)} ${g.code}</div>
+    </div>`).join('');
+};
+
+const calculateTotalInLocalCurrency = (productCart, currencyList) => {
+    const cartItems = productCart.lines || productCart;
+    const localCurrency = getLocalCurrency(currencyList);
+    if (!localCurrency) return { totalInLocal: 0, localCurrency: null };
+    let totalInLocal = 0;
+    cartItems.forEach(item => {
+        const itemTotal = (item.qty || 0) * getItemActivePrice(item);
+        const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
+        totalInLocal += (currency && !currency.isLocalCCY) ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) : itemTotal;
+    });
+    return { totalInLocal, localCurrency };
+};
+
+const generateFlexibleTotalSection = (params, config) => {
+    const { productCart, currencyList, discount, formatNumber, companyData } = params;
+    const { totalInLocal, localCurrency } = calculateTotalInLocalCurrency(productCart, currencyList);
+    if (!localCurrency) return '';
+
+    const finalTotalLAK = totalInLocal - safeParseNumber(discount, 0);
+
+    let html = `
+        <div class="total-line" style="font-size: 1.2em; border-top: 2px solid #000; padding-top: 8px;">
+            <span>ລວມທັງໝົດ (Total):</span>
+            <span>${formatNumber(finalTotalLAK)} ${localCurrency.code}</span>
+        </div>
+        <div class="currency-conversions" style="font-size: 0.9em; margin-top: 5px; border-top: 1px dashed #ccc; padding-bottom: 10px;">
+    `;
+
+    currencyList.filter(curr => curr.isActive && !curr.isLocalCCY).forEach(curr => {
+        let convertedAmount = (curr.exchangeDirection === 'foreign_to_local') ? finalTotalLAK / curr.rate : finalTotalLAK * curr.rate;
+        html += `<div class="total-line" style="font-weight: normal;">
+                <span>ເປັນເງິນ (${curr.code}):</span>
+                <span>${formatNumber(convertedAmount, 2)} ${curr.code}</span>
+            </div>`;
+    });
+
+    html += `</div>`;
+
+    if (companyData?.qrCode) {
+        html += `
+            <div class="qr-section" style="text-align: center; margin-top: 15px; padding-top: 10px; border-top: 1px solid #eee;">
+                <div style="font-size: 0.8em; margin-bottom: 5px; color: #333;">Scan to Pay / ສະແກນເພື່ອຈ່າຍ</div>
+                <img src="${companyData.qrCode}" style="width:140px; height:auto; display: block; margin: 0 auto;">
+            </div>`;
+    }
+
+    return html;
+};
+
+// ============================================================================
+// DELIVERY TICKET GENERATOR (RESTORED)
+// ============================================================================
+
+const generateDeliveryCustomerHTML = (params) => {
+    const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList, paperWidth = '80mm' } = params;
+    const config = getPaperConfig(paperWidth);
+    const today = new Date();
+
+    const itemsHtml = (productCart.lines || productCart).map(item => {
+        const productName = findAllProduct.find(el => el.id == item.id)?.pro_name || item.pro_name || 'ສິນຄ້າ';
+        return `<div class="item">
+                  <div class="item-desc"><div class="item-name">${productName}</div></div>
+                  <div class="item-total">${item.qty} ${onlineCustomerInfo.payment === 'COD' ? 'x ' + formatNumber(item.qty * item.localPrice) : ''}</div>
+                </div>`;
+    }).join('');
+
+    const totalInLocal = (grandTotal + Number(onlineCustomerInfo.riderFee || 0) - discount);
+    const localCurrency = getLocalCurrency(currencyList)?.code || 'LAK';
+
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${getBaseStyles(config, true)} h5 { margin: 2px 0; font-size: 13px; }</style></head>
+    <body><div class="receipt-container"><div style="text-align:center; font-weight:700; font-size:1.3em; margin-bottom:5px;">ONLINE DELIVERY</div>
+      <h5>ວັນທີ: ${formatDate(today)}</h5><h5>ຮ້ານ: ${onlineCustomerInfo.branch} (${onlineCustomerInfo.branchTel})</h5><div class="divider"></div>
+      <h5>ຜູ້ຮັບ: ${onlineCustomerInfo.name} | ໂທ: ${onlineCustomerInfo.tel}</h5><h5>ບ່ອນສົ່ງ: ${onlineCustomerInfo.address}</h5>
+      <h5>ຂົນສົ່ງ: ${onlineCustomerInfo.shipping} ${onlineCustomerInfo.shipping !== 'RIDER' ? '(' + onlineCustomerInfo.shippingFeeBy + ')' : ''}</h5><div class="divider"></div>
+      ${itemsHtml}${onlineCustomerInfo.riderFee > 0 ? `<div class="item"><div>ຄ່າສົ່ງ (Rider Fee)</div><div class="item-total">${formatNumber(onlineCustomerInfo.riderFee)}</div></div>` : ''}<div class="divider"></div>
+      <div class="total-line"><span>ລວມ (${onlineCustomerInfo.payment}):</span><span>${formatNumber(totalInLocal)} ${localCurrency}</span></div>
+    </div></body></html>`;
+};
+
+// ============================================================================
+// BRIDGE & EXPORTS
+// ============================================================================
+
+const printTicketElectron = async (windowContent, paperWidth = '80mm', printers) => {
+    const bridge = typeof window !== 'undefined' ? window.posApi : null;
+    if (bridge && typeof bridge.printReceipt === 'function') {
+        const p = printers?.find(p => p.type === 'ticket');
+        const target = p?.printerName || '';
+        bridge.printReceipt({ printerName: target, html: windowContent, width: paperWidth });
+    } else {
+        const win = window.open('', '', 'width=450,height=800');
+        win.document.write(windowContent); win.document.close();
+        setTimeout(() => { win.print(); win.close(); }, 1000);
+    }
+};
+
+export const executeTicketPrint = async (params, dateValue) => {
+    const { productCart, findAllProduct, formatNumber, discount, currencyList, paperWidth, printers, companyData } = params;
+    try {
+        const config = getPaperConfig(paperWidth);
+        const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
+
+        const contentData = {
+            headerHtml: `<div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+                            <img src="${companyData.ticketLogo}" style="width:${config.logoSize}; height:auto; object-fit:contain;">
+                            <div>
+                                <div style="font-weight:700; font-size:1.1em;">${companyData.name}</div>
+                                <div style="font-size:0.85em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
+                                <div style="font-size:0.8em; color:#444;font-weight:700;">No: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
+                            </div>
+                         </div>`,
+            transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList),
+            currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber),
+            discountHtml: discount > 0 ? `<div class="divider"></div><div class="item"><div>ສ່ວນຫຼຸດ:</div><div class="item-total">-${formatNumber(discount)}</div></div>` : '',
+            totalHtml: generateFlexibleTotalSection(params, config),
+            paymentSectionHtml: `<div style="margin-top:10px; font-size:0.85em; border-top:1px solid #eee; padding-top:5px; text-align:center;">ຊຳລະດ້ວຍ: ${params.currentPaymentCode || 'N/A'}<br>Cashier: ${params.user?.cus_name || ''}</div>`
+        };
+
+        const windowContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${getBaseStyles(config, isThermal)}</style></head>
+          <body><div class="receipt-container">
+            <div style="text-align:center; font-weight:700; font-size:1.2em; margin-bottom:8px;">ໃບຮັບເງິນ (RECEIPT)</div>
+            ${contentData.headerHtml}<div class="divider"></div>
+            ${contentData.transactionListHtml}${contentData.currencyBreakdownHtml}${contentData.discountHtml}
+            ${contentData.totalHtml}${contentData.paymentSectionHtml}
+            <div style="text-align:center; margin-top:15px; font-weight:700;">THANK YOU</div>
+          </div></body></html>`;
+
+        printTicketElectron(windowContent, paperWidth, printers);
+    } catch (error) { console.error('Ticket Print Error:', error); }
+};
+
+export const defaultTicket = (params) => executeTicketPrint(params, new Date());
+export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
+
+export const deliveryCustomerTicket = (params) => {
+    const windowContent = generateDeliveryCustomerHTML(params);
+    printTicketElectron(windowContent, params.paperWidth || '80mm', params.printers || []);
+};
+
+export const getSupportedPaperWidths = () => ['58mm', '80mm', 'A5', 'A4'];

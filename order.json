@@ -1,0 +1,25 @@
+{
+    "id": null,
+    "bookingDate": "2023-11-05",
+    "name": "",
+    "note": "",
+    "trackingNumber": "",
+    "link": "",
+    "price": 0,
+    "priceRate": 1,
+    "shippingFee": 0,
+    "shippingRate": 1,
+    "status": "RECEIVED",
+    "isActive": true,
+    "riderId": null,
+    "locationId": 1,
+    "userId": 1,
+    "currencyId": 1,
+    "shippingFeeCurrencyId": 1,
+    "vendorId": null,
+    "paymentId": 1,
+    "client": {
+        "id": 61,
+        "name": "ແບ້"
+    }
+}

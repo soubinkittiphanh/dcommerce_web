@@ -1,0 +1,334 @@
+<template>
+  <v-card flat class="cart-item pa-2" :class="{ 'cart-item-hover': true }">
+    <v-row no-gutters align="center">
+      <!-- Delete Button -->
+      <v-col cols="1">
+        <v-btn
+          icon
+          small
+          color="error"
+          @click="$emit('delete', item)"
+          title="ລົບອອກ"
+        >
+          <v-icon small>mdi-delete</v-icon>
+        </v-btn>
+      </v-col>
+
+      <!-- Product Name -->
+      <v-col cols="4" class="pr-2">
+        <div class="font-weight-medium text-wrap">
+          {{ item.pro_name }}
+          <!-- {{ item.lineUUID}}  -->
+          <!-- Gift indicator -->
+          <v-chip
+            v-if="item.isGift"
+            x-small
+            color="pink"
+            text-color="white"
+            class="ml-1 gift-indicator"
+          >
+            <v-icon x-small left>mdi-gift</v-icon>
+            GIFT
+          </v-chip>
+          <!-- Gift partial indicator -->
+          <v-chip
+            v-else-if="item.giftQuantity > 0"
+            x-small
+            color="purple"
+            text-color="white"
+            class="ml-1 gift-indicator"
+          >
+            <v-icon x-small left>mdi-gift-outline</v-icon>
+            {{ item.giftQuantity }}/{{ item.qty }} GIFT
+          </v-chip>
+        </div>
+        <!-- Gift note display -->
+        <div v-if="item.giftNote" class=" pink--text mt-1">
+          <v-icon x-small class="mr-1">mdi-note-text</v-icon>
+          {{ item.giftNote }}
+        </div>
+      </v-col>
+
+      <!-- Quantity Controls -->
+      <v-col cols="2">
+        <div class="d-flex align-center justify-center">
+          <v-btn
+            icon
+            x-small
+            @click="$emit('decrease', item)"
+            :disabled="item.qty <= 1"
+          >
+            <v-icon small>mdi-minus</v-icon>
+          </v-btn>
+          <v-btn
+            text
+            small
+            @click="$emit('update-qty', item)"
+            class="mx-1 qty-btn"
+            min-width="40"
+          >
+            {{ item.qty }}
+          </v-btn>
+          <v-btn icon x-small @click="$emit('increase', item)">
+            <v-icon small>mdi-plus</v-icon>
+          </v-btn>
+        </div>
+      </v-col>
+
+      <!-- Gift Action Button -->
+      <v-col cols="1" class="text-center">
+        <v-btn
+          icon
+          small
+          :color="item.isGift || item.giftQuantity > 0 ? 'pink' : 'grey'"
+          @click="handleGiftClick"
+          :title="getGiftButtonTitle()"
+          class="gift-btn"
+        >
+          <v-icon
+            small
+            :class="{ 'gift-active': item.isGift || item.giftQuantity > 0 }"
+          >
+            {{ getGiftIcon() }}
+          </v-icon>
+        </v-btn>
+      </v-col>
+
+      <!-- Price -->
+      <v-col cols="4" class="text-right">
+        <div class="d-flex flex-column align-end">
+          <!-- Main price chip -->
+          <v-chip
+            small
+            :color="item.isGift ? 'pink' : 'warning'"
+            outlined
+            @click="$emit('price-click', item)"
+            class="price-chip mb-1"
+            :class="{ 'gift-price': item.isGift }"
+          >
+            <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
+            {{ getPriceDisplay() }}
+            <!-- TODO: SHOW CURRENCY HERE-->
+          </v-chip>
+
+          <!-- Gift breakdown for partial gifts -->
+          <div
+            v-if="item.giftQuantity > 0 && !item.isGift"
+            class="gift-breakdown"
+          >
+            <div class=" pink--text">
+              <v-icon x-small class="mr-1">mdi-gift</v-icon>
+              {{ item.giftQuantity }} × {{ getGiftPriceDisplay() }}
+            </div>
+            <div class=" grey--text">
+              <v-icon x-small class="mr-1">mdi-currency-usd</v-icon>
+              {{ item.qty - item.giftQuantity }} ×
+              {{ formatNumber(item.localPrice) }}
+            </div>
+          </div>
+        </div>
+      </v-col>
+    </v-row>
+
+    <!-- Gift Dialog -->
+    <GiftDialog
+      v-model="giftDialogOpen"
+      :item="item"
+      :format-number="formatNumber"
+      @confirm-gift="handleGiftConfirm"
+    />
+  </v-card>
+</template>
+
+<script>
+// We assume getFormatNum is available via a utility file
+import { getFormatNum } from '~/common'
+import GiftDialog from '~/components/card/GiftDialog.vue'
+import { mapActions, mapGetters } from 'vuex'
+export default {
+  name: 'CartItem',
+
+  components: {
+    GiftDialog,
+  },
+
+  props: {
+    item: {
+      type: Object,
+      required: true,
+    },
+    // The main layout passes its formatNumber method to keep consistency
+    formatNumber: {
+      type: Function,
+      required: true,
+    },
+  },
+
+  data() {
+    return {
+      giftDialogOpen: false,
+    }
+  },
+  computed: {
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
+  },
+  methods: {
+    handleGiftClick() {
+      if (this.item.isGift || this.item.giftQuantity > 0) {
+        // If item has gift settings, open dialog to modify
+        this.giftDialogOpen = true
+      } else {
+        // If no gift settings, open dialog to create gift
+        this.giftDialogOpen = true
+      }
+    },
+
+    handleGiftConfirm(giftData) {
+      // Emit gift configuration to parent component
+      console.info(`GIFT DATA ITEM CART logs ${JSON.stringify(giftData)}`)
+      console.info(`GIFT DATA ITEM CART logs ${giftData}`)
+      this.$emit('configure-gift', giftData)
+      //  please sent this data to cart state to modify cart item split normal and gift amount accordingly
+      this.giftDialogOpen = false
+    },
+
+    getGiftButtonTitle() {
+      if (this.item.isGift) {
+        return 'ແກ້ໄຂການຕັ້ງຄ່າຂອງຂວັນ'
+      } else if (this.item.giftQuantity > 0) {
+        return 'ແກ້ໄຂຂອງຂວັນບາງສ່ວນ'
+      } else {
+        return 'ກຳນົດເປັນຂອງຂວັນ'
+      }
+    },
+
+    getGiftIcon() {
+      if (this.item.isGift) {
+        return 'mdi-gift'
+      } else if (this.item.giftQuantity > 0) {
+        return 'mdi-gift-outline'
+      } else {
+        return 'mdi-gift-outline'
+      }
+    },
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find((el) => el.id == currencyId)
+    },
+    getPriceDisplay() {
+      const currency= this.findCurrency(this.item.saleCurrencyId)
+      const currencyCode = currency.code;
+      console.info(`IT IS ITEM GIFT ${JSON.stringify(this.item)}`)
+      if (this.item.isGift) {
+        console.info(
+          `IT IS GIFT ${
+            this.item.giftAmount === 0
+              ? 'FREE'
+              : this.formatNumber(this.item.giftAmount * this.item.qty)
+          }`
+        )
+
+        return this.item.localPrice === 0
+          ? 'FREE'
+          : `${this.formatNumber(this.item.localPrice * this.item.qty)}${currencyCode}`
+      } else if (this.item.giftQuantity > 0) {
+        // Mixed pricing: regular + gift
+        const regularPrice =
+          (this.item.qty - this.item.giftQuantity) * this.item.localPrice
+        const giftPrice = this.item.giftQuantity * (this.item.giftAmount || 0)
+        return `${this.formatNumber(regularPrice + giftPrice)}${currencyCode}`
+      } else {
+        return `${this.formatNumber(this.item.localPrice * this.item.qty)}${currencyCode}`
+      }
+    },
+
+    getGiftPriceDisplay() {
+      if (this.item.giftAmount === 0) {
+        return 'FREE'
+      }
+      return this.formatNumber(this.item.giftAmount)
+    },
+  },
+
+  // Emit events: delete, decrease, increase, update-qty, price-click, configure-gift
+}
+</script>
+
+<style scoped>
+/* Scoped styles for the cart item container */
+.cart-item {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  transition: background-color 0.2s ease;
+}
+
+.cart-item:hover {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.qty-btn {
+  background-color: rgba(var(--v-primary-base), 0.1) !important;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.price-chip {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gift-price {
+  background-color: rgba(233, 30, 99, 0.1) !important;
+  border-color: #e91e63 !important;
+  color: #e91e63 !important;
+}
+
+.gift-btn {
+  transition: all 0.3s ease;
+}
+
+.gift-btn:hover {
+  transform: scale(1.1);
+}
+
+.gift-active {
+  animation: gift-pulse 2s infinite;
+}
+
+.gift-indicator {
+  animation: gift-glow 2s infinite alternate;
+}
+
+.gift-breakdown {
+  font-size: 10px;
+  line-height: 1.2;
+}
+
+.gift-breakdown . {
+  margin: 1px 0;
+}
+
+@keyframes gift-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes gift-glow {
+  0% {
+    box-shadow: 0 0 5px rgba(233, 30, 99, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(233, 30, 99, 0.8);
+  }
+}
+
+/* Enhanced hover effects */
+.cart-item-hover:hover .gift-btn {
+  background-color: rgba(233, 30, 99, 0.1) !important;
+}
+</style>

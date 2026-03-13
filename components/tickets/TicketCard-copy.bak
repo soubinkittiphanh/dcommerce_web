@@ -1,0 +1,635 @@
+<template>
+  <div
+    class="ticket-card"
+    :class="{ urgent: isUrgent }"
+    @click="$emit('click', ticket)"
+  >
+    <!-- Card Header -->
+    <div class="card-header">
+      <div class="ticket-number">
+        <span class="ticket-id">#{{ ticket.ticketNumber || ticket.id }}</span>
+        <span class="ticket-time">{{ formatTime(ticket.createdAt) }}</span>
+      </div>
+      <div class="ticket-badges">
+        <span :class="['status-badge', `status-${ticket.status}`]">
+          {{ formatStatus(ticket.status) }}
+        </span>
+        <span :class="['payment-badge', `payment-${ticket.paymentStatus}`]">
+          {{ formatPaymentStatus(ticket.paymentStatus) }}
+        </span>
+      </div>
+    </div>
+
+    <!-- Customer & Table Info -->
+    <div class="card-info">
+      <div class="info-row">
+        <span class="info-label">Customer:</span>
+        <span class="info-value">{{ ticket.client?.name || 'Walk-in' }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Table:</span>
+        <span class="info-value">{{
+          ticket.table?.number || ticket.table?.name || 'N/A'
+        }}</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Items:</span>
+        <span class="info-value"
+          >{{ ticket.ticketLines?.length || 0 }} items</span
+        >
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="card-summary">
+      <div class="summary-total">
+        <span class="total-label">Total:</span>
+        <span class="total-amount">{{ formatPrice(ticket.total) }}</span>
+      </div>
+      
+      <!-- ✅ Notes Preview Section -->
+      <div v-if="ticket.notes" class="ticket-notes-preview" @click.stop>
+        <span class="notes-icon">📝</span>
+        <span class="notes-text">{{ truncateNotes(ticket.notes) }}</span>
+        <button 
+          @click="$emit('edit-notes', ticket)" 
+          class="notes-edit-btn"
+          title="Edit notes"
+        >
+          ✏️
+        </button>
+      </div>
+      
+      <!-- ✅ Add Notes Button (when no notes exist) -->
+      <div v-else class="ticket-notes-empty" @click.stop>
+        <button 
+          @click="$emit('add-notes', ticket)" 
+          class="add-notes-btn"
+        >
+          <span class="btn-icon">📝</span>
+          <span>Add Notes</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="card-actions" @click.stop>
+      <!-- <button
+        v-if="ticket.status === 'pending'"
+        @click="$emit('update-status', ticket.id, 'preparing')"
+        class="action-btn btn-preparing"
+      >
+        Start Prep
+      </button>
+      <button
+        v-if="ticket.status === 'preparing'"
+        @click="$emit('update-status', ticket.id, 'ready')"
+        class="action-btn btn-ready"
+      >
+        Mark Ready
+      </button> -->
+      <button
+        v-if="ticket.status === 'ready'"
+        @click="$emit('update-status', ticket.id, 'served')"
+        class="action-btn btn-served"
+      >
+        Mark Served
+      </button>
+      <button
+        v-if="ticket.status === 'served' && ticket.paymentStatus === 'pending'"
+        @click="$emit('process-payment', ticket.id)"
+        class="action-btn btn-payment"
+      >
+        Process Payment
+      </button>
+      
+      <!-- ✅ Notes Button in Actions -->
+      <button
+        @click="ticket.notes ? $emit('edit-notes', ticket) : $emit('add-notes', ticket)"
+        class="action-btn btn-notes"
+        :class="{ 'has-notes': ticket.notes }"
+      >
+        <span class="btn-icon">📝</span>
+        {{ ticket.notes ? 'Edit Notes' : 'Add Notes' }}
+      </button>
+      
+      <button @click="$emit('print', ticket)" class="action-btn btn-print">
+        Print
+      </button>
+      <button v-if="ticket.status!=='cancel'"
+        @click="$emit('update-status', ticket.id, 'cancel')"
+        class="action-btn btn-cancel"
+      >
+        Cancel
+      </button>
+      <button
+        v-if="!['paid', 'cancel', 'void'].includes(ticket.status)"
+        @click="handleAddItem"
+        class="action-btn btn-add-item"
+        :disabled="['paid', 'cancel', 'void'].includes(ticket.status)"
+      >
+        <span class="btn-icon">➕</span>
+        Add Item
+      </button>
+    </div>
+
+    <!-- Urgency Indicator -->
+    <div v-if="isUrgent" class="urgency-indicator">
+      <span class="urgency-icon">⚠️</span>
+      <span class="urgency-text">{{ urgencyReason }}</span>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'TicketCard',
+
+  props: {
+    ticket: {
+      type: Object,
+      required: true,
+    },
+  },
+
+  computed: {
+    isUrgent() {
+      const now = new Date()
+      const createdAt = new Date(this.ticket.createdAt)
+      const minutesAgo = (now - createdAt) / (1000 * 60)
+
+      return (
+        (this.ticket.status === 'preparing' && minutesAgo > 15) ||
+        (this.ticket.status === 'ready' && minutesAgo > 5)
+      )
+    },
+
+    urgencyReason() {
+      const now = new Date()
+      const createdAt = new Date(this.ticket.createdAt)
+      const minutesAgo = Math.floor((now - createdAt) / (1000 * 60))
+
+      if (this.ticket.status === 'preparing') {
+        return `Preparing for ${minutesAgo} minutes`
+      } else if (this.ticket.status === 'ready') {
+        return `Ready for ${minutesAgo} minutes`
+      }
+      return ''
+    },
+  },
+
+  methods: {
+    handleAddItem() {
+      this.$emit('add-item', {
+        ticketId: this.ticket.id,
+        tableId: this.ticket.tableId || this.ticket.table?.id || null,
+        ticket: this.ticket
+      })
+    },
+
+    formatTime(date) {
+      if (!date) return 'N/A'
+      return new Date(date).toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    },
+
+    formatPrice(amount) {
+      const formattedNumber = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0,
+      }).format(Math.round(amount || 0))
+
+      return `${formattedNumber} ₭`
+    },
+
+    formatStatus(status) {
+      const statusMap = {
+        pending: 'Pending',
+        preparing: 'Preparing',
+        ready: 'Ready',
+        served: 'Served',
+        paid: 'Paid',
+        cancel: 'Cancelled',
+      }
+      return statusMap[status] || status
+    },
+
+    formatPaymentStatus(status) {
+      const statusMap = {
+        pending: 'Unpaid',
+        paid: 'Paid',
+        refunded: 'Refunded',
+      }
+      return statusMap[status] || status
+    },
+
+    truncateNotes(notes) {
+      if (!notes) return ''
+      return notes.length > 60 ? notes.substring(0, 60) + '...' : notes
+    },
+  },
+}
+</script>
+
+<style scoped>
+.btn-add-item {
+  background: #805ad5;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-add-item:hover:not(:disabled) {
+  background: #6b46c1;
+}
+
+.btn-add-item:disabled {
+  background: #cbd5e0;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* ✅ Notes Styles */
+.btn-notes {
+  background: #f6ad55;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-notes:hover {
+  background: #ed8936;
+}
+
+.btn-notes.has-notes {
+  background: #dd6b20;
+}
+
+.btn-notes.has-notes:hover {
+  background: #c05621;
+}
+
+.ticket-notes-preview {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: #718096;
+  padding: 10px 12px;
+  background: #fffaf0;
+  border: 1px solid #f6ad55;
+  border-radius: 8px;
+  margin-top: 12px;
+  position: relative;
+}
+
+.notes-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.notes-text {
+  font-style: italic;
+  flex: 1;
+  color: #2d3748;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.notes-edit-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.notes-edit-btn:hover {
+  background: rgba(237, 137, 54, 0.1);
+  transform: scale(1.1);
+}
+
+.ticket-notes-empty {
+  margin-top: 12px;
+}
+
+.add-notes-btn {
+  width: 100%;
+  padding: 10px 12px;
+  background: #fff;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  color: #718096;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.add-notes-btn:hover {
+  border-color: #f6ad55;
+  background: #fffaf0;
+  color: #ed8936;
+}
+
+.btn-icon {
+  font-size: 14px;
+}
+
+.btn-cancel {
+  background: #fc8181;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: #f56565;
+}
+
+/* Rest of existing styles */
+.ticket-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.ticket-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  border-color: #4299e1;
+}
+
+.ticket-card.urgent {
+  border-color: #ed8936;
+  background: #fffaf0;
+}
+
+/* Card Header */
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.ticket-number {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ticket-id {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a202c;
+}
+
+.ticket-time {
+  font-size: 12px;
+  color: #718096;
+  font-weight: 500;
+}
+
+.ticket-badges {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-end;
+}
+
+/* Status Badges */
+.status-badge,
+.payment-badge {
+  padding: 5px 10px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.status-pending {
+  background: #fef5e7;
+  color: #b7791f;
+}
+.status-preparing {
+  background: #ebf8ff;
+  color: #2c5282;
+}
+.status-ready {
+  background: #f0fff4;
+  color: #22543d;
+}
+.status-served {
+  background: #edf2f7;
+  color: #2d3748;
+}
+.status-paid {
+  background: #f0fff4;
+  color: #22543d;
+}
+.status-cancel {
+  background: #fff5f5;
+  color: #c53030;
+}
+.payment-pending {
+  background: #fef5e7;
+  color: #b7791f;
+}
+.payment-paid {
+  background: #f0fff4;
+  color: #22543d;
+}
+.payment-refunded {
+  background: #fff5f5;
+  color: #c53030;
+}
+
+/* Card Info */
+.card-info {
+  margin-bottom: 16px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.info-row:last-child {
+  margin-bottom: 0;
+}
+
+.info-label {
+  color: #718096;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+/* Card Summary */
+.card-summary {
+  margin-bottom: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.summary-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.total-label {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 15px;
+}
+
+.total-amount {
+  font-size: 22px;
+  font-weight: 700;
+  color: #38a169;
+}
+
+/* Card Actions */
+.card-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-preparing {
+  background: #4299e1;
+  color: white;
+}
+.btn-preparing:hover {
+  background: #3182ce;
+}
+
+.btn-ready {
+  background: #48bb78;
+  color: white;
+}
+.btn-ready:hover {
+  background: #38a169;
+}
+
+.btn-served {
+  background: #9f7aea;
+  color: white;
+}
+.btn-served:hover {
+  background: #805ad5;
+}
+
+.btn-payment {
+  background: #ed8936;
+  color: white;
+}
+.btn-payment:hover {
+  background: #dd6b20;
+}
+
+.btn-print {
+  background: #718096;
+  color: white;
+}
+.btn-print:hover {
+  background: #4a5568;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Urgency Indicator */
+.urgency-indicator {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: #ed8936;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(237, 137, 54, 0.4);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.urgency-icon {
+  font-size: 14px;
+}
+
+.urgency-text {
+  font-size: 11px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ticket-card {
+    padding: 16px;
+  }
+
+  .card-actions {
+    flex-direction: column;
+  }
+
+  .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>

@@ -1,0 +1,534 @@
+/**
+ * Enhanced Ticket Generation Module - VERSION 3.1 (ELECTRON OPTIMIZED)
+ * FIXED: Content clipping in Electron silent printing.
+ * FIXED: Professional layout for A4/A5 and Thermal 58mm/80mm.
+ */
+
+import CurrencyHelper from '@/utils/currency-helper'
+
+// ============================================================================
+// API INTEGRATION & LOGO MANAGEMENT
+// ============================================================================
+
+let companyLogoCache = {
+    url: null,
+    company: null,
+    loading: false,
+    error: false,
+    lastFetch: null,
+    cacheExpiry: 5 * 60 * 1000,
+};
+
+const loadCompanyLogoFromAPI = async (axios) => {
+    const now = Date.now();
+    const cacheValid = companyLogoCache.lastFetch &&
+        (now - companyLogoCache.lastFetch) < companyLogoCache.cacheExpiry;
+
+    if (cacheValid && companyLogoCache.url) return companyLogoCache.url;
+
+    if (companyLogoCache.loading) {
+        return new Promise((resolve) => {
+            const checkInterval = setInterval(() => {
+                if (!companyLogoCache.loading) {
+                    clearInterval(checkInterval);
+                    resolve(companyLogoCache.url);
+                }
+            }, 100);
+        });
+    }
+
+    companyLogoCache.loading = true;
+    companyLogoCache.error = false;
+
+    try {
+        const response = await axios.get('/api/public/company/findAll');
+        const companies = Array.isArray(response.data) ? response.data : [];
+
+        const firstActiveCompany = companies.find(company =>
+            company.isActive === true &&
+            company.profile_image_path &&
+            company.profile_image_path.trim() !== '' &&
+            company.profile_image_path !== null
+        );
+
+        if (firstActiveCompany) {
+            companyLogoCache.company = firstActiveCompany;
+            let baseUrl = axios.defaults.baseURL ? axios.defaults.baseURL.replace(/\/$/, '') : (typeof window !== 'undefined' ? window.location.origin : '');
+            const logoPath = firstActiveCompany.profile_image_path.startsWith('/') ? firstActiveCompany.profile_image_path : `/${firstActiveCompany.profile_image_path}`;
+            companyLogoCache.url = baseUrl ? `${baseUrl}${logoPath}` : logoPath;
+            companyLogoCache.lastFetch = now;
+            return companyLogoCache.url;
+        } else {
+            companyLogoCache.url = null;
+            companyLogoCache.lastFetch = now;
+            return null;
+        }
+    } catch (error) {
+        companyLogoCache.error = true;
+        companyLogoCache.url = null;
+        companyLogoCache.lastFetch = now;
+        return null;
+    } finally {
+        companyLogoCache.loading = false;
+    }
+};
+
+const getCompanyLogo = async (params) => {
+    const { axios, staticLogoPath = null, companyData = null, fallbackLogo = '/static/images/default-logo.png' } = params;
+
+    try {
+        if (axios) {
+            const apiLogo = await loadCompanyLogoFromAPI(axios);
+            if (apiLogo) return apiLogo;
+        }
+        if (staticLogoPath) return staticLogoPath;
+        if (companyData?.dcLogo) return `/assets/image/${companyData.dcLogo}`;
+        return '/assets/image/MPWT/PWT.png';
+    } catch (error) {
+        return fallbackLogo;
+    }
+};
+
+// ============================================================================
+// UTILITY FUNCTIONS & PRICE/CURRENCY ENGINE
+// ============================================================================
+
+const safeParseNumber = (value, defaultValue = 0) => {
+    if (value === null || value === undefined || value === '') return defaultValue;
+    if (typeof value === 'number') return isNaN(value) ? defaultValue : value;
+    if (typeof value === 'string') {
+        const parsed = parseFloat(value.toString().replace(/[^\d.-]/g, ''));
+        return isNaN(parsed) ? defaultValue : parsed;
+    }
+    return isNaN(Number(value)) ? defaultValue : Number(value);
+};
+
+const getItemActivePrice = (item) => {
+    if (item.isGift === true && typeof item.localPrice !== 'undefined') {
+        return safeParseNumber(item.localPrice, 0);
+    }
+    if (item.priceListId !== null && item.priceListId !== undefined && Array.isArray(item.priceLists)) {
+        const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
+        if (activePriceList) {
+            return safeParseNumber(activePriceList.amount, 0);
+        }
+    }
+    return safeParseNumber(item.localPrice ?? item.pro_price, 0);
+};
+
+const getItemActiveCurrencyId = (item) => {
+    if (item.priceListId !== null && item.priceListId !== undefined && Array.isArray(item.priceLists)) {
+        const activePriceList = item.priceLists.find(pl => pl.id === item.priceListId);
+        if (activePriceList && activePriceList.currencyId) {
+            return activePriceList.currencyId;
+        }
+    }
+    return item.saleCurrencyId;
+};
+
+const formatDate = (dateInput) => {
+    try {
+        const date = new Date(dateInput);
+        if (isNaN(date.getTime())) return 'Invalid Date';
+        return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()} ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+    } catch (error) { return 'Date Error'; }
+};
+
+const validateTicketParams = (params, formatNumber) => {
+    return params && typeof formatNumber === 'function';
+};
+
+const getPaperConfig = (paperWidth = '80mm') => {
+    const configs = {
+        '58mm': { width: '58mm', fontSize: '10px', logoSize: '35px', padding: '6px', lineHeight: '1.1', itemSpacing: '1px', sectionSpacing: '4px' },
+        '80mm': { width: '80mm', fontSize: '11px', logoSize: '45px', padding: '8px', lineHeight: '1.2', itemSpacing: '2px', sectionSpacing: '6px' },
+        'A5': { width: '148mm', fontSize: '14px', logoSize: '70px', padding: '20px', lineHeight: '1.4', itemSpacing: '4px', sectionSpacing: '12px' },
+        'A4': { width: '210mm', fontSize: '16px', logoSize: '90px', padding: '30px', lineHeight: '1.5', itemSpacing: '6px', sectionSpacing: '18px' }
+    };
+    return configs[paperWidth] || configs['80mm'];
+};
+
+const getLocalCurrency = (currencyList) => {
+    if (!Array.isArray(currencyList)) return null;
+    return currencyList.find(currency => currency.isLocalCCY === true) || null;
+};
+
+// ============================================================================
+// TRANSACTION GENERATORS
+// ============================================================================
+
+const getGiftDisplayInfo = (item, activePrice) => {
+    const isFree = activePrice === 0;
+    const isGiftMarked = item.isGift === true;
+    return {
+        isGift: isGiftMarked,
+        isFree,
+        displayPrice: isFree ? 'FREE' : null,
+        cssClass: isGiftMarked ? (isFree ? 'gift-item gift-free' : 'gift-item gift-special') : '',
+        labelSuffix: isGiftMarked ? (isFree ? ' [GIFT]' : ' [SPECIAL]') : ''
+    };
+};
+
+const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, currencyList, paperWidth = '80mm') => {
+    const cartItems = productCart.lines || productCart;
+    if (!Array.isArray(cartItems) || cartItems.length === 0) return '<div class="item">ບໍ່ມີສິນຄ້າ</div>';
+    const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
+
+    return cartItems.map(item => {
+        const productName = item.pro_name || findAllProduct.find(el => el.id === item.id)?.pro_name || 'ສິນຄ້າບໍ່ຮູ້ຈັກ';
+        const quantity = item.qty || 0;
+        const activePrice = getItemActivePrice(item);
+        const total = quantity * activePrice;
+        const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
+        const currencyCode = currency?.code || 'LAK';
+        const giftInfo = getGiftDisplayInfo(item, activePrice);
+
+        return `
+      <div class="item ${giftInfo.cssClass}">
+        <div class="item-desc">
+          <div class="item-name" style="${!isThermal ? 'font-size: 1.1em;' : ''}">${quantity}x ${productName}${giftInfo.labelSuffix}</div>
+          <div class="item-detail">${giftInfo.displayPrice === 'FREE' ? 'FREE' : `${formatNumber(activePrice)} ${currencyCode}`}</div>
+        </div>
+        <div class="item-total" style="${!isThermal ? 'font-size: 1.1em;' : ''}">${giftInfo.displayPrice || `${formatNumber(total)} ${currencyCode}`}</div>
+      </div>`;
+    }).join('');
+};
+
+const generateCurrencyBreakdownSection = (productCart, currencyList, formatNumber, paperWidth = '80mm') => {
+    const cartItems = productCart.lines || productCart;
+    if (!Array.isArray(cartItems) || cartItems.length === 0) return '';
+    const currencyGroups = {};
+
+    cartItems.forEach(item => {
+        const currencyId = getItemActiveCurrencyId(item);
+        if (!currencyGroups[currencyId]) {
+            currencyGroups[currencyId] = { currency: currencyList.find(c => c.id === currencyId), total: 0 };
+        }
+        currencyGroups[currencyId].total += (item.qty || 0) * getItemActivePrice(item);
+    });
+
+    const breakdownHtml = Object.values(currencyGroups).map(group => {
+        const currencyCode = group.currency?.code || 'N/A';
+        return `<div class="item currency-subtotal">
+              <div class="item-desc"><div class="item-name">Subtotal ${currencyCode}:</div></div>
+              <div class="item-total">${formatNumber(group.total)} ${currencyCode}</div>
+            </div>`;
+    }).join('');
+
+    return `<div class="divider">- - - - - - - - - - - - - - - - -</div>${breakdownHtml}`;
+};
+
+const calculateTotalInLocalCurrency = (productCart, currencyList) => {
+    const cartItems = productCart.lines || productCart;
+    const localCurrency = getLocalCurrency(currencyList);
+    if (!localCurrency) return { totalInLocal: 0, localCurrency: null };
+
+    let totalInLocal = 0;
+    cartItems.forEach(item => {
+        const itemTotal = (item.qty || 0) * getItemActivePrice(item);
+        const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
+        totalInLocal += (currency && !currency.isLocalCCY) ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) : itemTotal;
+    });
+    return { totalInLocal, localCurrency };
+};
+
+const generateFlexibleTotalSection = (productCart, currencyList, discount, formatNumber, paperWidth = '80mm') => {
+    const { totalInLocal, localCurrency } = calculateTotalInLocalCurrency(productCart, currencyList);
+    if (!localCurrency) return '';
+    const finalTotal = totalInLocal - safeParseNumber(discount, 0);
+    const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
+
+    return `<div class="total-line primary-total" style="${isLarge ? 'font-size: 1.3em; margin-top: 10px;' : ''}">
+            <span class="total-label">ລວມທັງໝົດ:</span>
+            <span class="total-amount">${formatNumber(finalTotal)} ${localCurrency.code}</span>
+          </div>`;
+};
+
+const generateFlexibleDiscountSection = (discount, formatNumber, currencyList, paperWidth = '80mm') => {
+    const safeDiscount = safeParseNumber(discount, 0);
+    if (safeDiscount <= 0) return '';
+    const currencyCode = getLocalCurrency(currencyList)?.code || 'LAK';
+
+    return `<div class="item discount">
+            <div class="item-desc"><div class="item-name">ສ່ວນຫຼຸດ</div></div>
+            <div class="item-total">-${formatNumber(safeDiscount)} ${currencyCode}</div>
+          </div>`;
+};
+
+const generateFlexibleHeaderSection = (headerData, dateValue, logoUrl, paperWidth = '80mm') => {
+    const { lastTransactionSaleHeaderId, currentTerminal, user } = headerData;
+    const companyName = currentTerminal?.location?.company?.name || companyLogoCache.company?.name || 'Dcommerce';
+    const companyTel = currentTerminal?.location?.company?.tel || companyLogoCache.company?.tel || 'N/A';
+    const companyLogoPath = currentTerminal?.location?.company?.profile_image_path || companyLogoCache.company?.profile_image_path;
+    const userName = user?.cus_name || 'N/A';
+    const config = getPaperConfig(paperWidth);
+    const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
+
+    const finalLogoUrl = companyLogoPath ? `${currentTerminal.baseURL}/${companyLogoPath}` : logoUrl;
+    const logoHtml = finalLogoUrl ?
+        `<img src="${finalLogoUrl}" alt="Logo" style="width: ${config.logoSize}; height: auto; max-height: ${config.logoSize}; object-fit: contain;" onerror="this.style.display='none';">` :
+        `<div class="logo-placeholder">${companyName.substring(0, 2).toUpperCase()}</div>`;
+
+    if (isLarge) {
+        return `
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 25px;">
+        <div class="header-left">${logoHtml}</div>
+        <div style="text-align: right;">
+          <div class="company-name" style="font-size: ${paperWidth === 'A4' ? '24px' : '20px'};">${companyName}</div>
+          <div class="company-tel" style="font-size: 14px;">ເບີໂທ: ${companyTel}</div>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-bottom: 15px; font-size: 13px; background: #f9f9f9; padding: 15px; border-radius: 6px; border: 1px solid #eee;">
+        <div>
+          <div><strong>ວັນທີ / Date:</strong> ${formatDate(dateValue)}</div>
+          <div><strong>ຜູ້ຂາຍ / Cashier:</strong> ${userName}</div>
+        </div>
+        <div style="text-align: right;">
+          <div><strong>ເລກທີ / No.:</strong> ${lastTransactionSaleHeaderId}</div>
+        </div>
+      </div>`;
+    }
+
+    return `<div class="header-80mm">
+            <div class="header-left">${logoHtml}</div>
+            <div class="header-right">
+              <div class="company-name">${companyName}</div>
+              <div class="company-tel">ເບີໂທ: ${companyTel}</div>
+              <div class="receipt-info-80mm">
+                <div>ວັນທີ: ${formatDate(dateValue)}</div>
+                <div>ເລກທີ: ${lastTransactionSaleHeaderId}</div>
+                <div>ຜູ້ຂາຍ: ${userName}</div>
+              </div>
+            </div>
+          </div>`;
+};
+
+const generateFlexiblePaymentSection = (paymentData, formatNumber, currencyList, paperWidth = '80mm') => {
+    const { currentPaymentCode, cashReceived, changes } = paymentData;
+    const currencyCode = getLocalCurrency(currencyList)?.code || 'LAK';
+
+    const rows = [
+        { label: 'ຊຳລະດ້ວຍ:', value: currentPaymentCode || 'N/A' },
+        { label: 'ຮັບຊຳລະ:', value: `${formatNumber(safeParseNumber(cashReceived))} ${currencyCode}` },
+        { label: 'ເງິນທອນ:', value: `${formatNumber(safeParseNumber(changes))} ${currencyCode}` }
+    ];
+
+    return `<div class="payment-section">
+    ${rows.map(row => `<div class="payment-item"><span class="payment-label">${row.label}</span><span class="payment-value">${row.value}</span></div>`).join('')}
+  </div>`;
+};
+
+const generateFlexibleWindowContent = (contentData, paperWidth = '80mm') => {
+    const { headerHtml, transactionListHtml, currencyBreakdownHtml, discountHtml, totalHtml, paymentSectionHtml } = contentData;
+    const config = getPaperConfig(paperWidth);
+    const isLarge = paperWidth === 'A4' || paperWidth === 'A5';
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8">
+      <title>Receipt</title>
+      <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;500;600;700&display=swap');
+        
+        /* CRITICAL FIX FOR ELECTRON CLIPPING */
+        html, body { 
+          margin: 0; 
+          padding: 0; 
+          background: white; 
+          height: auto !important; 
+          overflow: visible !important;
+        }
+        
+        body { 
+          font-family: 'Noto Sans Lao', sans-serif; 
+          padding: ${config.padding}; 
+          font-size: ${config.fontSize}; 
+          line-height: ${config.lineHeight}; 
+          width: ${config.width}; 
+          max-width: ${config.width}; 
+          margin: 0 auto;
+        }
+
+        .receipt-container { 
+          width: 100%; 
+          height: auto; 
+          overflow: visible; 
+        }
+
+        .title { text-align: center; font-weight: 700; font-size: ${isLarge ? '28px' : '14px'}; margin-bottom: ${config.sectionSpacing}; text-transform: uppercase; }
+        .divider { text-align: center; margin: ${config.sectionSpacing} 0; font-size: 10px; color: #888; border-bottom: 1px dashed #eee; height: 1px; }
+        .logo-placeholder { width: ${config.logoSize}; height: ${config.logoSize}; background: #f0f0f0; display: flex; align-items: center; justify-content: center; border-radius: 4px; font-weight: bold; }
+        .company-name { font-weight: 600; margin-bottom: 2px; }
+        .item { display: flex; justify-content: space-between; margin-bottom: ${config.itemSpacing}; padding: 4px 0; }
+        .item-name { font-weight: 500; }
+        .item-total { text-align: right; white-space: nowrap; font-weight: 600; }
+        
+        .header-80mm { display: flex; align-items: flex-start; margin-bottom: 10px; gap: 12px; }
+        .receipt-info-80mm { margin-top: 4px; font-size: 10px; color: #444; }
+        .total-line { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-top: 8px; }
+        .payment-item { display: flex; justify-content: space-between; margin-bottom: 3px; }
+
+        .payment-section { margin-top: ${config.sectionSpacing}; padding-top: 8px; border-top: 1px solid #eee; }
+        .total-section { margin-top: 10px; padding-top: 8px; border-top: 2px solid #333; }
+        .footer { text-align: center; margin-top: 30px; padding-bottom: 20px; }
+        .thank-you { font-weight: 700; font-size: ${isLarge ? '20px' : '12px'}; }
+
+        @media print { 
+          body { width: ${config.width}; margin: 0; padding: ${config.padding}; } 
+          @page { margin: 0; size: auto; }
+          .receipt-container { page-break-inside: avoid; }
+        }
+      </style>
+    </head>
+    <body>
+      <div class="receipt-container">
+        <div class="title">${isLarge ? 'ໃບຮັບເງິນ / Receipt' : 'ໃບຮັບເງິນ (RECEIPT)'}</div>
+        ${headerHtml}
+        <div class="${isLarge ? '' : 'divider'}"></div>
+        <div style="margin-top: ${isLarge ? '20px' : '0'};">
+          ${transactionListHtml}
+        </div>
+        ${currencyBreakdownHtml}
+        ${discountHtml}
+        <div class="total-section">${totalHtml}</div>
+        ${paymentSectionHtml}
+        <div class="footer">
+          <div class="thank-you">THANK YOU</div>
+          <div style="font-size: 11px;">ຂໍຂອບໃຈທີ່ໃຊ້ບໍລິການ</div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+};
+
+/**
+ * Executes silent printing via Electron Bridge or falls back to Browser Print.
+ */
+const printTicketElectron = async (windowContent, paperWidth = '80mm', printers) => {
+    const isClient = typeof window !== 'undefined';
+    const bridge = isClient ? window.posApi : null;
+
+    try {
+        if (bridge && typeof bridge.printReceipt === 'function') {
+            console.log('✅ Executing Electron Silent Print');
+
+            let targetPrinterName = '';
+            if (printers && Array.isArray(printers)) {
+                const config = printers.find(p => p.type === 'ticket' || p.code === 'TICKET');
+                if (config) {
+                    targetPrinterName = config.printerName || config.printer_name || '';
+                }
+            }
+
+            bridge.printReceipt({
+                printerName: targetPrinterName,
+                html: windowContent,
+                width: paperWidth
+            });
+
+            return;
+        }
+
+        // --- FALLBACK LOGIC ---
+        console.warn('⚠️ Electron Bridge not found, using browser dialog');
+        const widthMap = { 'A4': 850, 'A5': 650, '80mm': 450, '58mm': 350 };
+        const windowWidth = widthMap[paperWidth] || 450;
+        const printWin = window.open('', '', `width=${windowWidth},height=850,scrollbars=1`);
+
+        if (!printWin) return;
+
+        printWin.document.write(windowContent);
+        printWin.document.close();
+
+        setTimeout(() => {
+            printWin.focus();
+            printWin.print();
+            printWin.close();
+        }, 1000);
+
+    } catch (error) {
+        console.error('Critical Print Error:', error);
+    }
+};
+
+const executeTicketPrint = async (params, dateValue) => {
+    const { productCart = {}, findAllProduct = [], formatNumber, discount = 0, currencyList = [], companyLogo = '', lastTransactionSaleHeaderId = '', currentTerminal = {}, user = {}, ticketCommon = {}, currentPaymentCode = '', cashReceived = 0, changes = 0, axios = null, companyData = null, paperWidth = '80mm', printers = [] } = params;
+
+    if (!validateTicketParams(params, formatNumber)) return;
+
+    try {
+        const logoUrl = await getCompanyLogo({ axios, staticLogoPath: companyLogo, companyData });
+
+        const contentData = {
+            headerHtml: generateFlexibleHeaderSection({ lastTransactionSaleHeaderId, currentTerminal, user }, dateValue, logoUrl, paperWidth),
+            transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList, paperWidth),
+            currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber, paperWidth),
+            discountHtml: generateFlexibleDiscountSection(discount, formatNumber, currencyList, paperWidth),
+            totalHtml: generateFlexibleTotalSection(productCart, currencyList, discount, formatNumber, paperWidth),
+            paymentSectionHtml: generateFlexiblePaymentSection({ currentPaymentCode, cashReceived, changes }, formatNumber, currencyList, paperWidth),
+            ticketCommon
+        };
+
+        const windowContent = generateFlexibleWindowContent(contentData, paperWidth);
+        printTicketElectron(windowContent, paperWidth, printers);
+    } catch (error) { console.error('Ticket Error:', error); }
+};
+
+// ============================================================================
+// DELIVERY TICKET
+// ============================================================================
+
+const generateDeliveryCustomerHTML = (params) => {
+    const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList, paperWidth = '80mm' } = params;
+    const config = getPaperConfig(paperWidth);
+    const today = new Date();
+
+    const itemsHtml = productCart.map(item => {
+        const product = findAllProduct.find(el => el.id == item.id)?.pro_name || 'ສິນຄ້າ';
+        return `<div class="item">
+              <div class="item-desc"><div class="item-name">${product}</div></div>
+              <div class="item-total">${item.qty} ${onlineCustomerInfo.payment === 'COD' ? 'x ' + formatNumber(item.qty * item.localPrice) : ''}</div>
+            </div>`;
+    }).join('');
+
+    const totalInLocal = (grandTotal + Number(onlineCustomerInfo.riderFee || 0) - discount);
+    const localCurrency = getLocalCurrency(currencyList)?.code || 'LAK';
+
+    return `
+    <!DOCTYPE html><html><head><meta charset="UTF-8">
+    <style>${getBaseStyles(config, true)} h5 { margin: 2px 0; font-size: 13px; }</style></head>
+    <body><div class="receipt-container">
+      <div style="text-align:center; font-weight:700; font-size:1.3em; margin-bottom:5px;">ONLINE DELIVERY</div>
+      <h5>ວັນທີ: ${today.toLocaleString()}</h5>
+      <h5>ຮ້ານ V20: ${onlineCustomerInfo.branch} (${onlineCustomerInfo.branchTel})</h5>
+      <div class="divider"></div>
+      <h5>ຜູ້ຮັບ: ${onlineCustomerInfo.name} | ໂທ: ${onlineCustomerInfo.tel}</h5>
+      <h5>ບ່ອນສົ່ງ: ${onlineCustomerInfo.address}</h5>
+      <h5>ຂົນສົ່ງ: ${onlineCustomerInfo.shipping} ${onlineCustomerInfo.shipping !== 'RIDER' ? '(' + onlineCustomerInfo.shippingFeeBy + ')' : ''}</h5>
+      <div class="divider"></div>
+      ${itemsHtml}
+      ${onlineCustomerInfo.riderFee > 0 ? `<div class="item"><div>ຄ່າສົ່ງ</div><div class="item-total">${formatNumber(onlineCustomerInfo.riderFee)}</div></div>` : ''}
+      <div class="divider"></div>
+      <div class="total-line"><span>ລວມ (${onlineCustomerInfo.payment}):</span><span>${formatNumber(totalInLocal)} ${localCurrency}</span></div>
+    </div></body></html>`;
+};
+
+
+/**
+ * Main export for Delivery Customer Tickets
+ */
+export const deliveryCustomerTicket = (params) => {
+    const windowContent = generateDeliveryCustomerHTML(params);
+    // Reusing your optimized Electron bridge function
+    printTicketElectron(windowContent, params.paperWidth || '80mm', params.printers || []);
+};
+
+// ... keep existing defaultTicket, customerTicket exports ...
+
+export const defaultTicket = (params) => executeTicketPrint(params, new Date());
+export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
+export const customerTicket = (params) => executeTicketPrint(params, new Date());
+export const getSupportedPaperWidths = () => ['58mm', '80mm', 'A5', 'A4'];

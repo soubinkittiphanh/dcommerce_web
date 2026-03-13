@@ -1,0 +1,591 @@
+<template>
+  <div>
+    <!-- Customer Selection Dialog -->
+    <v-dialog v-model="dialogVisible" fullscreen persistent>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-account-search</v-icon>
+          Select Customer
+          <v-spacer></v-spacer>
+          <v-btn icon color="white" @click="closeDialog">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-3">
+          <!-- Customer Search -->
+          <v-text-field
+            v-model="customerSearchQuery"
+            prepend-inner-icon="mdi-magnify"
+            label="Search customers by name, company, phone..."
+            outlined
+            dense
+            clearable
+            class="mb-3"
+          />
+
+          <!-- Quick Actions -->
+          <div class="mb-3">
+            <v-btn
+              @click="showAddCustomerForm = true"
+              color="success"
+              class="mr-2"
+              small
+            >
+              <v-icon left small>mdi-account-plus</v-icon>
+              Add New Customer
+            </v-btn>
+            <v-btn @click="selectWalkInCustomer" color="info" outlined small>
+              <v-icon left small>mdi-walk</v-icon>
+              Walk-in Customer
+            </v-btn>
+          </div>
+
+          <!-- Loading State -->
+          <div v-if="loadingCustomers" class="text-center pa-4">
+            <v-progress-circular
+              size="48"
+              color="primary"
+              indeterminate
+            ></v-progress-circular>
+            <p class="mt-2">Loading customers...</p>
+          </div>
+
+          <!-- Customer List -->
+          <div v-else style="max-height: 400px; overflow-y: auto">
+            <v-card
+              v-for="customer in filteredCustomers"
+              :key="customer.id"
+              @click="selectCustomer(customer)"
+              class="mb-2 cursor-pointer customer-card"
+              :class="{
+                'selected-customer': tempSelectedCustomer?.id === customer.id,
+              }"
+              outlined
+              hover
+            >
+              <v-card-text class="pa-3">
+                <div class="d-flex justify-space-between align-center">
+                  <div>
+                    <div class="font-weight-bold text-subtitle-1">
+                      {{ customer.name }}
+                    </div>
+                    <div class="text-body-2 grey--text">
+                      {{ customer.company || 'No company' }}
+                    </div>
+                    <div class="caption mt-1">
+                      <span v-if="customer.email">
+                        <v-icon x-small>mdi-email</v-icon>
+                        {{ customer.email }}
+                      </span>
+                      <span v-if="customer.telephone" class="ml-2">
+                        <v-icon x-small>mdi-phone</v-icon>
+                        {{ customer.telephone }}
+                      </span>
+                      <span v-if="customer.dob" class="ml-2">
+                        <v-icon x-small>mdi-cake</v-icon>
+                        Born: {{ formatDate(customer.dob) }}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <!-- Customer Class Chip -->
+                    <v-chip
+                      :color="getClassColor(customer.class)"
+                      text-color="white"
+                      small
+                      class="mb-1"
+                    >
+                      <v-icon left x-small>mdi-star</v-icon>
+                      {{ customer.class || 'BRONZE' }}
+                    </v-chip>
+                    <br>
+                    <v-chip
+                      :color="getGradeColor(customer.grade)"
+                      text-color="white"
+                      small
+                      class="mb-1"
+                    >
+                      Grade {{ customer.grade }}
+                    </v-chip>
+                    <div class="caption">
+                      Credit: {{ customer.credit }} days
+                    </div>
+                    <v-chip
+                      v-if="!customer.isActive"
+                      color="error"
+                      text-color="white"
+                      x-small
+                    >
+                      Inactive
+                    </v-chip>
+                    
+                    <!-- NEW: Manage Offers Button -->
+                    <div class="mt-2">
+                      <v-btn
+                        @click.stop="manageOffers(customer)"
+                        color="purple"
+                        text
+                        x-small
+                      >
+                        <v-icon left x-small>mdi-gift</v-icon>
+                        Manage Offers
+                      </v-btn>
+                    </div>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+
+            <!-- No customers found -->
+            <div v-if="filteredCustomers.length === 0" class="text-center pa-4">
+              <v-icon size="48" color="grey">mdi-account-search</v-icon>
+              <p class="mt-2 grey--text">No customers found</p>
+            </div>
+          </div>
+        </v-card-text>
+
+        <v-card-actions class="pa-4">
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="closeDialog"> Cancel </v-btn>
+          <v-btn
+            color="primary"
+            @click="confirmCustomerSelection"
+            :disabled="!tempSelectedCustomer"
+          >
+            Select Customer
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Add Customer Dialog -->
+    <v-dialog v-model="showAddCustomerForm" max-width="700" persistent>
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-account-plus</v-icon>
+          Add New Customer
+          <v-spacer></v-spacer>
+          <v-btn icon color="white" @click="closeAddCustomerForm">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-3">
+          <v-form ref="customerForm" v-model="customerFormValid">
+            <v-row dense>
+              <!-- Row 1: Name and Company -->
+              <v-col cols="6">
+                <v-text-field
+                  v-model="newCustomer.name"
+                  label="Customer Name *"
+                  outlined
+                  dense
+                  :rules="[rules.required]"
+                  required
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="newCustomer.company"
+                  label="Company"
+                  outlined
+                  dense
+                />
+              </v-col>
+              
+              <!-- Row 2: Email and Phone -->
+              <v-col cols="6">
+                <v-text-field
+                  v-model="newCustomer.email"
+                  label="Email"
+                  outlined
+                  dense
+                  :rules="[rules.email]"
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-text-field
+                  v-model="newCustomer.telephone"
+                  label="Phone"
+                  outlined
+                  dense
+                />
+              </v-col>
+              
+              <!-- Row 3: DOB and Class -->
+              <v-col cols="6">
+                <v-text-field
+                  v-model="newCustomer.dob"
+                  label="Date of Birth"
+                  type="date"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-calendar"
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  v-model="newCustomer.class"
+                  :items="classOptions"
+                  item-text="title"
+                  item-value="value"
+                  label="Customer Class *"
+                  outlined
+                  dense
+                  prepend-inner-icon="mdi-star"
+                  :rules="[rules.required]"
+                >
+                  <template v-slot:selection="{ item }">
+                    <v-chip
+                      :color="getClassColor(item.value)"
+                      text-color="white"
+                      small
+                    >
+                      <v-icon left x-small>mdi-star</v-icon>
+                      {{ item.title }}
+                    </v-chip>
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <v-chip
+                      :color="getClassColor(item.value)"
+                      text-color="white"
+                      small
+                      class="ma-1"
+                    >
+                      <v-icon left x-small>mdi-star</v-icon>
+                      {{ item.title }}
+                    </v-chip>
+                  </template>
+                </v-select>
+              </v-col>
+              
+              <!-- Row 4: Address (full width) -->
+              <v-col cols="12">
+                <v-textarea
+                  v-model="newCustomer.address"
+                  label="Address"
+                  outlined
+                  dense
+                  rows="2"
+                  auto-grow
+                />
+              </v-col>
+              
+              <!-- Row 5: Grade, Credit, Late Charge -->
+              <v-col cols="4">
+                <v-select
+                  v-model="newCustomer.grade"
+                  :items="gradeOptions"
+                  label="Grade"
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="newCustomer.credit"
+                  label="Credit Days"
+                  type="number"
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col cols="4">
+                <v-text-field
+                  v-model="newCustomer.lateChargePercent"
+                  label="Late Charge %"
+                  type="number"
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+          </v-form>
+        </v-card-text>
+
+        <v-card-actions class="pa-3">
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text small @click="closeAddCustomerForm">
+            Cancel
+          </v-btn>
+          <v-btn
+            color="success"
+            small
+            @click="saveNewCustomer"
+            :disabled="!customerFormValid"
+            :loading="savingCustomer"
+          >
+            <v-icon left small>mdi-content-save</v-icon>
+            Save Customer
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- NEW: Member Offer Management Dialog -->
+    <MemberOfferDialog
+      :show="showMemberOfferDialog"
+      :selected-member="selectedMemberForOffers"
+      @close="closeMemberOfferDialog"
+    />
+  </div>
+</template>
+
+<script>
+import MemberOfferDialog from '~/components/member_offer' // NEW: Import member offer dialog
+
+export default {
+  name: 'CustomerDialog',
+  components: {
+    MemberOfferDialog // NEW: Register component
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+    customers: {
+      type: Array,
+      default: () => [],
+    },
+    selectedCustomer: {
+      type: Object,
+      default: null,
+    },
+    loadingCustomers: {
+      type: Boolean,
+      default: false,
+    },
+  },
+
+  data() {
+    return {
+      tempSelectedCustomer: null,
+      customerSearchQuery: '',
+      showAddCustomerForm: false,
+      savingCustomer: false,
+      customerFormValid: false,
+      showMemberOfferDialog: false, // NEW: Member offer dialog state
+      selectedMemberForOffers: null, // NEW: Selected member for offer management
+      newCustomer: {
+        name: '',
+        company: '',
+        email: '',
+        address: '',
+        telephone: '',
+        dob: null, // NEW FIELD
+        class: 'BRONZE', // NEW FIELD with default value
+        credit: 30,
+        lateChargePercent: 0,
+        grade: 'A',
+        isActive: true,
+      },
+      rules: {
+        required: (value) => !!value || 'This field is required',
+        email: (value) => {
+          if (!value) return true
+          const pattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+          return pattern.test(value) || 'Invalid email format'
+        },
+      },
+      gradeOptions: ['A', 'B', 'C', 'D', 'E', 'F'],
+      // NEW: Class options matching your Sequelize enum
+      classOptions: [
+        { title: 'Bronze', value: 'BRONZE' },
+        { title: 'Silver', value: 'SILVER' },
+        { title: 'Gold', value: 'GOLD' },
+        { title: 'Platinum', value: 'PLATINUM' },
+        { title: 'Diamond', value: 'DIAMOND' },
+      ],
+    }
+  },
+
+  computed: {
+    dialogVisible: {
+      get() {
+        return this.show
+      },
+      set(value) {
+        if (!value) {
+          this.closeDialog()
+        }
+      },
+    },
+
+    filteredCustomers() {
+      if (!this.customerSearchQuery) {
+        return this.customers.filter((customer) => customer.isActive)
+      }
+
+      const searchTerm = this.customerSearchQuery.toLowerCase()
+      return this.customers.filter(
+        (customer) =>
+          customer.isActive &&
+          (customer.name.toLowerCase().includes(searchTerm) ||
+            customer.company?.toLowerCase().includes(searchTerm) ||
+            customer.email?.toLowerCase().includes(searchTerm) ||
+            customer.telephone?.includes(searchTerm))
+      )
+    },
+  },
+
+  watch: {
+    show(newVal) {
+      if (!newVal) {
+        this.tempSelectedCustomer = null
+        this.customerSearchQuery = ''
+      }
+    },
+  },
+
+  methods: {
+    selectCustomer(customer) {
+      this.tempSelectedCustomer = customer
+    },
+
+    confirmCustomerSelection() {
+      this.$emit('customer-selected', this.tempSelectedCustomer)
+      this.closeDialog()
+    },
+
+    selectWalkInCustomer() {
+      this.$emit('walk-in-selected')
+      this.closeDialog()
+    },
+
+    closeDialog() {
+      this.tempSelectedCustomer = null
+      this.customerSearchQuery = ''
+      this.$emit('close')
+    },
+
+    closeAddCustomerForm() {
+      this.showAddCustomerForm = false
+      this.resetNewCustomerForm()
+    },
+
+    resetNewCustomerForm() {
+      this.newCustomer = {
+        name: '',
+        company: '',
+        email: '',
+        address: '',
+        telephone: '',
+        dob: null, // Reset new field
+        class: 'BRONZE', // Reset new field to default
+        credit: 30,
+        lateChargePercent: 0,
+        grade: 'A',
+        isActive: true,
+      }
+      this.customerFormValid = false
+      if (this.$refs.customerForm) {
+        this.$refs.customerForm.resetValidation()
+      }
+    },
+
+    async saveNewCustomer() {
+      if (!this.customerFormValid) {
+        this.$emit('show-message', 'Please fill in all required fields', 'warning', 'mdi-alert')
+        return
+      }
+
+      this.savingCustomer = true
+      
+      const customerData = {
+        name: this.newCustomer.name.trim(),
+        company: this.newCustomer.company?.trim() || null,
+        email: this.newCustomer.email?.trim() || null,
+        address: this.newCustomer.address?.trim() || null,
+        telephone: this.newCustomer.telephone?.trim() || null,
+        dob: this.newCustomer.dob || null, // NEW FIELD
+        class: this.newCustomer.class, // NEW FIELD
+        credit: parseInt(this.newCustomer.credit) || 30,
+        lateChargePercent: parseFloat(this.newCustomer.lateChargePercent) || 0,
+        grade: this.newCustomer.grade,
+        isActive: true,
+      }
+
+      try {
+        this.$emit('save-customer', customerData)
+        this.closeAddCustomerForm()
+      } finally {
+        this.savingCustomer = false
+      }
+    },
+
+    onCustomerSaved() {
+      this.closeAddCustomerForm()
+      this.closeDialog()
+    },
+
+    getGradeColor(grade) {
+      const colors = {
+        A: 'success',
+        B: 'info',
+        C: 'warning',
+        D: 'orange',
+        E: 'deep-orange',
+        F: 'error',
+      }
+      return colors[grade] || 'grey'
+    },
+
+    // NEW METHOD: Get color for customer class
+    getClassColor(customerClass) {
+      const colors = {
+        BRONZE: 'brown',
+        SILVER: 'grey',
+        GOLD: 'amber',
+        PLATINUM: 'blue-grey',
+        DIAMOND: 'purple',
+      }
+      return colors[customerClass] || 'grey'
+    },
+
+    // NEW METHOD: Open member offer management dialog
+    manageOffers(customer) {
+      this.selectedMemberForOffers = customer
+      this.showMemberOfferDialog = true
+    },
+
+    // NEW METHOD: Close member offer dialog
+    closeMemberOfferDialog() {
+      this.showMemberOfferDialog = false
+      this.selectedMemberForOffers = null
+    },
+
+    // NEW METHOD: Format date for display
+    formatDate(date) {
+      if (!date) return ''
+      try {
+        return new Date(date).toLocaleDateString('en-GB')
+      } catch (error) {
+        return date
+      }
+    },
+  },
+}
+</script>
+
+<style scoped>
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.customer-card {
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.customer-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(25, 118, 210, 0.3);
+}
+
+.selected-customer {
+  border-color: #1976d2 !important;
+  background-color: rgba(25, 118, 210, 0.1);
+}
+</style>
