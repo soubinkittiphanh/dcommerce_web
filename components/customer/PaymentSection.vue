@@ -86,7 +86,16 @@ export default {
         console.error('QR rendering failed', err)
       }
     },
-    formatPrice(amt) { return new Intl.NumberFormat('en-US').format(amt || 0) + ' ₭' },
+    formatPrice(amt, currencyCode = 'LAK') {
+      const symbols = {
+        'LAK': '₭',
+        'THB': '฿',
+        'USD': '$',
+      };
+      const symbol = symbols[currencyCode] || currencyCode;
+      const formatted = new Intl.NumberFormat('en-US').format(amt || 0);
+      return `${formatted} ${symbol}`;
+    },
     formatTime(sec) {
       const mins = Math.floor(sec / 60);
       const secs = (sec % 60).toString().padStart(2, '0');

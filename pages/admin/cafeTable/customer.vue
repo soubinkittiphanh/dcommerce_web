@@ -117,6 +117,12 @@ export default {
     convertedAmounts() {
       if (!this.qrData.amount || !this.currencyList) return []
 
+      const symbols = {
+        'LAK': '₭',
+        'THB': '฿',
+        'USD': '$',
+      };
+
       return this.currencyList
         .filter((c) => c.isActive && !c.isLocalCCY)
         .map((curr) => {
@@ -128,12 +134,15 @@ export default {
             val = this.qrData.amount * curr.rate
           }
 
+          const symbol = symbols[curr.code] || curr.code;
+          const formatted = new Intl.NumberFormat('en-US', {
+            minimumFractionDigits: curr.code === 'THB' ? 0 : 2,
+            maximumFractionDigits: 2,
+          }).format(val);
+
           return {
             code: curr.code,
-            value: new Intl.NumberFormat('en-US', {
-              minimumFractionDigits: curr.code === 'THB' ? 0 : 2,
-              maximumFractionDigits: 2,
-            }).format(val),
+            value: `${formatted} ${symbol}`,
           }
         })
     },

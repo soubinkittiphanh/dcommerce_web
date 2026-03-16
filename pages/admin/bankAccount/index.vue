@@ -154,9 +154,34 @@
             </tr>
           </tbody>
         </table>
+      </div> <!-- Close table-wrapper -->
+
+      <div class="pagination-section" v-if="filteredAccounts.length > 0">
+        <div class="pagination-info">
+          ສະແດງໜ້າທີ {{ currentPage }} ຈາກ {{ totalPages }} ໜ້າ (ທັງໝົດ {{ filteredAccounts.length }} ລາຍການ)
+        </div>
+        <div class="pagination-controls">
+          <button 
+            class="btn btn-outline-secondary" 
+            :disabled="currentPage === 1"
+            @click="currentPage--"
+          >
+            <i class="fas fa-chevron-left"></i> ກ່ອນໜ້າ
+          </button>
+          <div class="page-info">
+            ໜ້າ {{ currentPage }} / {{ totalPages }}
+          </div>
+          <button 
+            class="btn btn-outline-secondary" 
+            :disabled="currentPage === totalPages || totalPages === 0"
+            @click="currentPage++"
+          >
+            ຖັດໄປ <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
       </div>
 
-      </div>
+    </div> <!-- Close table-section -->
 
     <BankAccountDialog
       :show="showDialog"

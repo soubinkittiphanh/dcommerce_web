@@ -10,9 +10,9 @@ export default {
       browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8027'
     }
   },
-  // 1. MANDATORY FOR ELECTRON: Disable Server-Side Rendering
-  ssr: false,
-  target: 'static',
+  // 1. CONDITIONAL SSR: Enabled for web server (supervisorctl), Disabled for Electron (static)
+  ssr: process.env.NUXT_TARGET === 'server',
+  target: process.env.NUXT_TARGET === 'server' ? 'server' : 'static',
 
   server: {
     host: '0.0.0.0'

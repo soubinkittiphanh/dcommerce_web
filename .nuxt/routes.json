@@ -987,6 +987,13 @@
     "_name": "_38fd842d"
   },
   {
+    "name": "admin-reports-moneyAdvance",
+    "path": "/admin/reports/moneyAdvance",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/moneyAdvance/index.vue",
+    "chunkName": "pages/admin/reports/moneyAdvance/index",
+    "_name": "_cf45db36"
+  },
+  {
     "name": "admin-settings-system",
     "path": "/admin/settings/system",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/system.vue",

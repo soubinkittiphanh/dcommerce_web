@@ -30,7 +30,7 @@
           </div>
           <div class="item-quantity">{{ item.quantity }}x</div>
           <div class="item-price">
-            {{ isFreeGift(item) ? 'FREE' : formatPrice(calculateInclusiveTotal(item)) }}
+            {{ isFreeGift(item) ? 'FREE' : formatPrice(calculateInclusiveTotal(item), item.currencyCode) }}
           </div>
         </div>
       </div>
@@ -96,8 +96,15 @@ export default {
       if (!this.isGiftItem(item)) return 'regular-item'
       return this.isFreeGift(item) ? 'gift-item gift-item-free' : 'gift-item gift-item-special'
     },
-    formatPrice(amt) {
-      return new Intl.NumberFormat('en-US').format(Math.round(amt || 0)) + ' ₭'
+    formatPrice(amt, currencyCode = 'LAK') {
+      const symbols = {
+        'LAK': '₭',
+        'THB': '฿',
+        'USD': '$',
+      };
+      const symbol = symbols[currencyCode] || currencyCode;
+      const formatted = new Intl.NumberFormat('en-US').format(Math.round(amt || 0));
+      return `${formatted} ${symbol}`;
     }
   }
 }

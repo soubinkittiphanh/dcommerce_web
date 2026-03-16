@@ -3,13 +3,7 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <v-card class="loading-card" color="primary" dark>
         <v-card-text class="text-center">
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="white"
-            indeterminate
-            class="mb-4"
-          />
+          <v-progress-circular :size="70" :width="7" color="white" indeterminate class="mb-4" />
           <div class="text-h6">Processing...</div>
         </v-card-text>
       </v-card>
@@ -20,32 +14,16 @@
     </v-dialog>
 
     <v-dialog v-model="cancelConfirmDialog" max-width="600" persistent>
-      <cancel-ticket-form
-        @refresh="$emit('reload')"
-        :id="headerId"
-        :customerId="onlineCustomerId"
-        @close-dialog="cancelConfirmDialog = false"
-      />
+      <cancel-ticket-form @refresh="$emit('reload')" :id="headerId" :customerId="onlineCustomerId"
+        @close-dialog="cancelConfirmDialog = false" />
     </v-dialog>
 
     <v-dialog v-model="pricingDialog" max-width="800" persistent>
-      <pricing-option
-        :key="pricingDialogKey"
-        :isBackend="true"
-        @new-price-update="updatePricing"
-        @close-dialog="pricingDialog = false"
-        :record-id="productPricingSelected"
-      />
+      <pricing-option :key="pricingDialogKey" :isBackend="true" @new-price-update="updatePricing"
+        @close-dialog="pricingDialog = false" :record-id="productPricingSelected" />
     </v-dialog>
 
-    <v-snackbar
-      v-model="errorSnackbar"
-      :timeout="10000"
-      color="error"
-      multi-line
-      top
-      right
-    >
+    <v-snackbar v-model="errorSnackbar" :timeout="10000" color="error" multi-line top right>
       {{ validateErrorMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="errorSnackbar = false">
@@ -66,9 +44,7 @@
             <div>
               <h2 class="text-h5 mb-0">
                 {{ isQuotation ? 'Quotation' : 'Invoice' }}
-                <span class="text-h6 opacity-80"
-                  >#{{ transaction.id || 'New' }}</span
-                >
+                <span class="text-h6 opacity-80">#{{ transaction.id || 'New' }}</span>
               </h2>
               <div class=" opacity-80">
                 {{ formattedDate }}
@@ -76,45 +52,29 @@
             </div>
           </div>
 
+          <!-- INTEGRATED BARCODE SCANNER -->
+          <div class="barcode-search-container mx-4 flex-grow-1" style="max-width: 400px;">
+            <v-text-field v-model="barcodeSearch" prepend-inner-icon="mdi-barcode-scan" placeholder="Scan Barcode..."
+              outlined dense hide-details dark @keyup.enter="handleBarcodeScan" ref="barcodeInput"
+              class="barcode-input-field" />
+          </div>
+
           <div class="d-flex align-center gap-2">
-            <v-btn
-              v-if="isQuotation"
-              color="white"
-              outlined
-              @click="postToInvoice"
-              :disabled="!canConvertToInvoice"
-            >
+            <v-btn v-if="isQuotation" color="white" outlined @click="postToInvoice" :disabled="!canConvertToInvoice">
               <v-icon left>mdi-arrow-right</v-icon>
               Convert to Invoice
             </v-btn>
 
-            <v-btn
-              color="warning"
-              outlined
-              @click="cancelOrder"
-              :disabled="!canCancel"
-            >
+            <v-btn color="warning" outlined @click="cancelOrder" :disabled="!canCancel">
               <v-icon left>mdi-cancel</v-icon>
               Cancel
             </v-btn>
-            <v-btn
-              color="white"
-              outlined
-              @click="printReceiptDirectly"
-              :disabled="!headerId"
-              :loading="isPrinting"
-              class="mr-2"
-            >
+            <v-btn color="white" outlined @click="printReceiptDirectly" :disabled="!headerId" :loading="isPrinting"
+              class="mr-2">
               <v-icon left>mdi-receipt-text</v-icon>
               Print Receipt
             </v-btn>
-            <v-btn
-              color="white"
-              outlined
-              @click="printInvoiceDirectly"
-              :disabled="!headerId"
-              :loading="isPrinting"
-            >
+            <v-btn color="white" outlined @click="printInvoiceDirectly" :disabled="!headerId" :loading="isPrinting">
               <v-icon left>mdi-printer</v-icon>
               Print
             </v-btn>
@@ -123,171 +83,72 @@
       </v-card-title>
 
       <v-card-text class="form-content">
-        <v-card
-          :class="['transaction-header', { 'header-error': headerError }]"
-          elevation="2"
-        >
+        <v-card :class="['transaction-header', { 'header-error': headerError }]" elevation="2">
           <v-card-title class="text-h6 pb-2">
             <v-icon left color="primary">mdi-information</v-icon>
             Transaction Details
           </v-card-title>
 
           <v-card-text>
-            <v-row>
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2"
-                      >mdi-calendar</v-icon
-                    >
-                    Date & Payment
-                  </h4>
+            <v-row dense class="compact-grid">
+              <!-- Row 1: Primary Inputs -->
+              <v-col cols="12" sm="6" md="3">
+                <v-text-field v-model="transaction.bookingDate" type="date" label="Transaction Date" outlined dense
+                  hide-details class="mb-2" required :rules="[rules.required]" />
+                <v-autocomplete v-model="transaction.paymentId" :items="paymentList" item-text="payment_code"
+                  item-value="id" label="Payment Method" outlined dense hide-details required :rules="[rules.required]">
+                  <template v-slot:selection="{ item }">
+                    <span class="text-caption font-weight-bold">{{ item.payment_code }}</span>
+                  </template>
+                </v-autocomplete>
+              </v-col>
 
-                  <v-text-field
-                    v-model="transaction.bookingDate"
-                    type="date"
-                    label="Transaction Date"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                  />
-
-                  <v-autocomplete
-                    v-model="transaction.paymentId"
-                    :items="paymentList"
-                    item-text="payment_code"
-                    item-value="id"
-                    label="Payment Method"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                  >
-                    <template v-slot:selection="{ item }">
-                      <v-chip small color="primary" outlined>
-                        {{ item.payment_code }}
-                      </v-chip>
-                    </template>
-                  </v-autocomplete>
-
-                  <v-text-field
-                    v-model="transaction.discount"
-                    label="Header Discount"
-                    outlined
-                    dense
-                    type="number"
-                    prefix="$"
-                    :rules="[rules.positiveNumber]"
-                  />
-
-                  <v-text-field
-                    v-if="isQuotation && transaction.referenceNo"
-                    v-model="transaction.referenceNo"
-                    label="Reference Number"
-                    outlined
-                    dense
-                    readonly
-                  />
+              <v-col cols="12" sm="6" md="3">
+                <v-autocomplete v-model="transaction.clientId" :items="clientList" item-text="company" item-value="id"
+                  label="Customer" outlined dense hide-details class="mb-2" required :rules="[rules.required]">
+                </v-autocomplete>
+                <div class="d-flex gap-2">
+                  <v-autocomplete v-model="transaction.currencyId" :items="currencyList" item-text="code"
+                    item-value="id" label="Currency" outlined dense hide-details @input="currencyChange"
+                    :rules="[rules.required]" class="flex-grow-1" />
+                  <v-text-field v-model="transaction.exchangeRate" label="Rate" outlined dense hide-details readonly
+                    style="max-width: 80px;" class="rate-input" />
                 </div>
               </v-col>
 
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2"
-                      >mdi-account</v-icon
-                    >
-                    Customer & Currency
-                  </h4>
-
-                  <v-autocomplete
-                    v-model="transaction.clientId"
-                    :items="clientList"
-                    item-text="company"
-                    item-value="id"
-                    label="Customer"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                  >
-                    <template v-slot:selection="{ item }">
-                      <div class="d-flex align-center">
-                        <v-avatar size="24" color="primary" class="mr-2">
-                          <span class=" white--text">
-                            {{ item.company.charAt(0) }}
-                          </span>
-                        </v-avatar>
-                        {{ item.company }}
-                      </div>
-                    </template>
-                  </v-autocomplete>
-
-                  <v-autocomplete
-                    v-model="transaction.currencyId"
-                    :items="currencyList"
-                    item-text="code"
-                    item-value="id"
-                    label="Currency"
-                    outlined
-                    dense
-                    required
-                    @input="currencyChange"
-                    :rules="[rules.required]"
-                  >
-                    <template v-slot:selection="{ item }">
-                      <v-chip small color="secondary" outlined>
-                        {{ item.code }}
-                      </v-chip>
-                    </template>
-                  </v-autocomplete>
-
-                  <v-card color="grey lighten-4" flat class="pa-3">
-                    <div class="text-subtitle-2">Exchange Rate</div>
-                    <div class="text-h6 primary--text">
-                      {{ getFormatNum(transaction.exchangeRate) }}
-                    </div>
-                  </v-card>
-                </div>
+              <v-col cols="12" md="3">
+                <v-textarea v-model="transaction.remark" label="Notes" outlined dense rows="2" hide-details />
               </v-col>
 
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2"
-                      >mdi-note-text</v-icon
-                    >
-                    Notes & Summary
-                  </h4>
-
-                  <v-textarea
-                    v-model="transaction.remark"
-                    label="Notes"
-                    outlined
-                    dense
-                    rows="3"
-                    auto-grow
-                  />
-
-                  <div v-if="transaction.user" class="user-info">
-                    <v-card color="grey lighten-5" flat class="pa-3">
-                      <div class="">Created by</div>
-                      <div class="text-subtitle-2">
-                        {{ transaction.user.cus_name }}
-                      </div>
-                      <div class=" text--secondary">
-                        ID: {{ transaction.user.cus_id }}
-                      </div>
-                    </v-card>
+              <v-col cols="12" md="3">
+                <v-card color="success lighten-5" flat
+                  class="pa-2 d-flex flex-column justify-center fill-height border-success">
+                  <div class="text-caption grey--text text--darken-1">Total Amount</div>
+                  <div class="text-h6 success--text font-weight-bold line-height-1">
+                    {{ formatCurrency(grandTotal) }}
                   </div>
+                </v-card>
+              </v-col>
+            </v-row>
 
-                  <v-card color="success lighten-4" flat class="pa-3 mt-3">
-                    <div class="text-subtitle-2">Total Amount</div>
-                    <div class=" success--text font-weight-bold">
-                      {{ formatCurrency(grandTotal) }}
-                    </div>
-                  </v-card>
+            <v-row dense class="mt-2 secondary-info-row">
+              <v-col cols="12" class="d-flex align-center gap-4 flex-wrap">
+                <v-text-field v-model="transaction.discount" label="Header Discount" outlined dense hide-details
+                  type="number" prefix="$" :rules="[rules.positiveNumber]" style="max-width: 160px;" />
+
+                <v-text-field v-if="isQuotation && transaction.referenceNo" v-model="transaction.referenceNo"
+                  label="Ref #" outlined dense hide-details readonly style="max-width: 140px;" />
+
+                <div v-if="transaction.user"
+                  class="creator-badge grey lighten-4 px-3 py-1 rounded-pill d-flex align-center">
+                  <v-icon x-small class="mr-1">mdi-account-edit</v-icon>
+                  <span class="text-caption">Created by: <strong>{{ transaction.user.cus_name }}</strong></span>
+                </div>
+
+                <v-spacer />
+
+                <div class="timestamp-info grey--text text--darken-1 text-caption" v-if="transaction.updateTimestamp">
+                  Updated: {{ new Date(transaction.updateTimestamp).toLocaleString() }}
                 </div>
               </v-col>
             </v-row>
@@ -304,34 +165,21 @@
               </v-chip>
             </div>
 
-            <v-btn
-              color="primary"
-              @click="newRow"
-              :disabled="!transaction.isActive || !updateAllow"
-            >
+            <v-btn color="primary" @click="newRow" :disabled="!transaction.isActive || !updateAllow">
               <v-icon left>mdi-plus</v-icon>
               Add Item
             </v-btn>
           </v-card-title>
 
           <v-card-text class="pa-0">
-            <v-data-table
-              v-if="transaction.lines && transaction.lines.length > 0"
-              :headers="enhancedHeaders"
-              :items="transaction.lines"
-              :search="search"
-              item-key="id"
-              class="elevation-0 line-items-table"
-              hide-default-footer
-              :items-per-page="-1"
-            >
+            <v-data-table v-if="transaction.lines && transaction.lines.length > 0" :headers="enhancedHeaders"
+              :items="transaction.lines" :search="search" item-key="id" class="elevation-0 line-items-table"
+              hide-default-footer :items-per-page="-1">
               <template v-slot:item="{ item, index }">
-                <tr
-                  :class="[
-                    'line-item-row',
-                    { 'error-row': errorLineNumber === index },
-                  ]"
-                >
+                <tr :class="[
+                  'line-item-row',
+                  { 'error-row': errorLineNumber === index },
+                ]">
                   <td class="text-center">
                     <v-chip small color="grey lighten-2">
                       {{ index + 1 }}
@@ -339,18 +187,9 @@
                   </td>
 
                   <td class="product-cell">
-                    <v-autocomplete
-                      v-model="item.productId"
-                      :items="productList"
-                      item-text="pro_name"
-                      item-value="id"
-                      label="Select Product"
-                      outlined
-                      dense
-                      hide-details
-                      @input="productChange(item)"
-                      :rules="[rules.required]"
-                    >
+                    <v-autocomplete v-model="item.productId" :items="productList" item-text="pro_name" item-value="id"
+                      label="Select Product" outlined dense hide-details @input="productChange(item)"
+                      :rules="[rules.required]">
                       <template v-slot:selection="{ item: product }">
                         <div class="product-selection">
                           <div class="font-weight-medium">
@@ -365,30 +204,13 @@
                   </td>
 
                   <td class="quantity-cell">
-                    <v-text-field
-                      v-model="item.quantity"
-                      type="number"
-                      label="Qty"
-                      outlined
-                      dense
-                      hide-details
-                      @input="quantityChange(item)"
-                      :rules="[rules.required, rules.positiveNumber]"
-                    />
+                    <v-text-field v-model="item.quantity" type="number" label="Qty" outlined dense hide-details
+                      @input="quantityChange(item)" :rules="[rules.required, rules.positiveNumber]" />
                   </td>
 
                   <td class="unit-cell">
-                    <v-autocomplete
-                      v-model="item.unitId"
-                      :items="unitList"
-                      item-text="name"
-                      item-value="id"
-                      label="Unit"
-                      outlined
-                      dense
-                      hide-details
-                      @input="unitChange(item)"
-                    >
+                    <v-autocomplete v-model="item.unitId" :items="unitList" item-text="name" item-value="id"
+                      label="Unit" outlined dense hide-details @input="unitChange(item)">
                       <template v-slot:selection="{ item: unit }">
                         <v-chip small color="info" outlined>
                           {{ unit.name }}
@@ -398,58 +220,33 @@
                   </td>
 
                   <td class="rate-cell">
-                    <v-text-field
-                      v-model="item.unitRate"
-                      type="number"
-                      label="Rate"
-                      outlined
-                      dense
-                      hide-details
-                      @input="unitRateChange(item)"
-                      :rules="[rules.positiveNumber]"
-                    />
+                    <v-text-field v-model="item.unitRate" type="number" label="Rate" outlined dense hide-details
+                      @input="unitRateChange(item)" :rules="[rules.positiveNumber]" />
                   </td>
 
                   <td class="price-cell text-right">
-                    <v-chip
-                      color="warning"
-                      outlined
-                      clickable
-                      @click="pricingLogig(item)"
-                    >
+                    <v-chip color="warning" outlined clickable @click="pricingLogig(item)">
                       <v-icon left small>mdi-currency-usd</v-icon>
-                      {{ formatCurrency(item.price) }}
+                      {{ formatCurrency(item.price, item.currencyId) }}
                     </v-chip>
                   </td>
 
                   <td class="discount-cell">
-                    <v-text-field
-                      v-model="item.discount"
-                      type="number"
-                      label="Discount"
-                      outlined
-                      dense
-                      hide-details
-                      @input="discountChange(item)"
-                      prefix="$"
-                    />
+                    <v-text-field v-model="item.discount" type="number" label="Discount" outlined dense hide-details
+                      @input="discountChange(item)" prefix="$" />
                   </td>
 
                   <td class="total-cell text-right">
                     <div class="total-amount">
                       <span class="text-h6 font-weight-bold">
-                        {{ formatCurrency(item.total) }}
+                        {{ formatCurrency(item.total, item.currencyId) }}
                       </span>
                     </div>
                   </td>
 
                   <td class="action-cell text-center">
-                    <v-btn
-                      icon
-                      color="error"
-                      @click="deleteItem(item)"
-                      :disabled="!transaction.isActive || !updateAllow"
-                    >
+                    <v-btn icon color="error" @click="deleteItem(item)"
+                      :disabled="!transaction.isActive || !updateAllow">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -458,9 +255,7 @@
 
               <template v-slot:no-data>
                 <div class="text-center pa-8">
-                  <v-icon size="64" color="grey lighten-2"
-                    >mdi-package-variant</v-icon
-                  >
+                  <v-icon size="64" color="grey lighten-2">mdi-package-variant</v-icon>
                   <div class="text-h6 mt-4 grey--text">No items added yet</div>
                   <div class="text-body-2 grey--text">
                     Click "Add Item" to get started
@@ -469,25 +264,15 @@
               </template>
             </v-data-table>
 
-            <div
-              v-if="!transaction.lines || transaction.lines.length === 0"
-              class="empty-state"
-            >
+            <div v-if="!transaction.lines || transaction.lines.length === 0" class="empty-state">
               <v-card flat color="grey lighten-5" class="text-center pa-12">
-                <v-icon size="80" color="grey lighten-1"
-                  >mdi-package-variant-closed</v-icon
-                >
+                <v-icon size="80" color="grey lighten-1">mdi-package-variant-closed</v-icon>
                 <h3 class="text-h5 mt-4 grey--text">No Items Added</h3>
                 <p class="text-body-1 grey--text mb-6">
                   Start by adding your first product to this
                   {{ isQuotation ? 'quotation' : 'invoice' }}
                 </p>
-                <v-btn
-                  color="primary"
-                  large
-                  @click="newRow"
-                  :disabled="!transaction.isActive || !updateAllow"
-                >
+                <v-btn color="primary" large @click="newRow" :disabled="!transaction.isActive || !updateAllow">
                   <v-icon left>mdi-plus</v-icon>
                   Add First Item
                 </v-btn>
@@ -496,11 +281,7 @@
           </v-card-text>
         </v-card>
 
-        <v-card
-          v-if="transaction.lines && transaction.lines.length > 0"
-          class="summary-card mt-6"
-          elevation="4"
-        >
+        <v-card v-if="transaction.lines && transaction.lines.length > 0" class="summary-card mt-6" elevation="4">
           <v-card-title class="secondary white--text">
             <v-icon left color="white">mdi-calculator</v-icon>
             Transaction Summary
@@ -515,12 +296,29 @@
                       formatCurrency(subtotal)
                     }}</span>
                   </div>
-                  <div class="summary-row">
-                    <span>Header Discount</span>
-                    <span class="font-weight-medium text-error">
-                      -{{ formatCurrency(headerDiscount) }}
-                    </span>
+
+                  <!-- Currency Breakdown -->
+                  <div v-if="currencyBreakdown.length > 1" class="breakdown-container mb-4">
+                    <div class="text-subtitle-2 grey--text text--darken-2 mb-1">
+                      <v-icon x-small left>mdi-chart-pie</v-icon> Breakdown by Currency
+                    </div>
+                    <div v-for="curr in currencyBreakdown" :key="curr.code"
+                      class="breakdown-item d-flex justify-space-between py-1">
+                      <span class="grey--text text--darken-1">{{ curr.code }} Total:</span>
+                      <span class="font-weight-medium">{{formatCurrency(curr.amount, currencyList.find(c => c.code ===
+                        curr.code)?.id) }}</span>
+                    </div>
                   </div>
+
+                  <div class="summary-line" v-if="headerDiscount > 0">
+                    <div class="summary-row">
+                      <span>Header Discount</span>
+                      <span class="font-weight-medium text-error">
+                        -{{ formatCurrency(headerDiscount) }}
+                      </span>
+                    </div>
+                  </div>
+
                   <v-divider class="my-3" />
                   <div class="summary-row total-row">
                     <span class="text-h6">Grand Total</span>
@@ -550,16 +348,10 @@
         <v-spacer />
         <v-btn large text color="grey darken-1" @click="toggleDialog">
           <v-icon left>mdi-close</v-icon>
-          Cancel
+          Close
         </v-btn>
 
-        <v-btn
-          large
-          color="primary"
-          @click="postTransaction"
-          :disabled="!canSave"
-          :loading="isloading"
-        >
+        <v-btn large color="primary" @click="postTransaction" :disabled="!canSave" :loading="isloading">
           <v-icon left>mdi-content-save</v-icon>
           {{ isUpdate ? 'Update' : 'Save' }}
           {{ isQuotation ? 'Quotation' : 'Invoice' }}
@@ -700,11 +492,27 @@ export default {
     },
 
     subtotal() {
-      return (
-        this.transaction.lines?.reduce((total, item) => {
-          return total + (item.total || 0)
-        }, 0) || 0
-      )
+      if (!this.transaction.lines) return 0
+
+      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId)
+      if (!headerCurrency) return 0
+
+      return this.transaction.lines.reduce((total, item) => {
+        const lineCurrency = this.currencyList.find(c => c.id === item.currencyId)
+        const lineTotal = item.total || 0
+
+        if (!lineCurrency || lineCurrency.id === headerCurrency.id) {
+          return total + lineTotal
+        }
+
+        // Convert line total (in line currency) to header currency
+        // 1. Line currency amount -> Local amount
+        const localAmount = lineTotal * (lineCurrency.rate || 1)
+        // 2. Local amount -> Header currency amount
+        const headerAmount = localAmount / (headerCurrency.rate || 1)
+
+        return total + headerAmount
+      }, 0)
     },
 
     headerDiscount() {
@@ -714,6 +522,23 @@ export default {
 
     grandTotal() {
       return Math.max(0, this.subtotal - this.headerDiscount)
+    },
+
+    currencyBreakdown() {
+      const breakdown = {}
+      if (!this.transaction.lines) return []
+
+      this.transaction.lines.forEach(item => {
+        const currency = this.currencyList.find(c => c.id === item.currencyId)
+        const code = currency?.code || '???'
+
+        if (!breakdown[code]) {
+          breakdown[code] = { code, symbol: this.getSymbol(code), amount: 0 }
+        }
+        breakdown[code].amount += (item.total || 0)
+      })
+
+      return Object.values(breakdown)
     },
 
     enhancedHeaders() {
@@ -769,6 +594,7 @@ export default {
       },
       productPricingSelected: null,
       onlineCustomerId: null,
+      barcodeSearch: '',
     }
   },
 
@@ -824,7 +650,7 @@ export default {
         // Fetch invoice data
         const response = await this.$axios.get(`api/sale/find/${this.headerId}`)
         const invoiceData = response.data
-        
+
         // Get company data
         const companyData = this.$store.getters.findAllCompany[0] || {}
 
@@ -832,9 +658,9 @@ export default {
         let htmlContent = ''
         console.info(`DATA MODEL ${JSON.stringify(invoiceData)}`)
         if (type === 'receipt') {
-          htmlContent = generateReceiptHTML(invoiceData, companyData,this.findAllCurrency)
+          htmlContent = generateReceiptHTML(invoiceData, companyData, this.findAllCurrency)
         } else {
-          htmlContent = generateInvoiceHTML(invoiceData, companyData,this.findAllCurrency)
+          htmlContent = generateInvoiceHTML(invoiceData, companyData, this.findAllCurrency)
         }
 
         // Print
@@ -875,11 +701,11 @@ export default {
             }
           }, 500)
         }
-        
+
         // Fallback check
         setTimeout(() => {
           if (printWindow && !printWindow.closed) {
-             try { printWindow.print() } catch(e) {}
+            try { printWindow.print() } catch (e) { }
           }
         }, 1000)
 
@@ -901,6 +727,60 @@ export default {
 
     findCurrency(currencyId) {
       return this.findAllCurrency?.find((el) => el.id === currencyId) || {}
+    },
+
+    // === BARCODE SCANNING ===
+    async handleBarcodeScan() {
+      if (!this.barcodeSearch) return
+
+      try {
+        const barcode = this.barcodeSearch.trim()
+        console.log(`🔍 Scanning barcode: ${barcode}`)
+
+        // 1. Find product by barcode in productList
+        const product = this.productList.find(
+          (p) => p.barCode === barcode || p.pro_code === barcode
+        )
+
+        if (product) {
+          this.addProductToLines(product)
+          this.barcodeSearch = '' // Clear for next scan
+          this.$nextTick(() => {
+            this.$refs.barcodeInput.focus()
+          })
+        } else {
+          this.showError(`Product with barcode "${barcode}" not found`)
+        }
+      } catch (error) {
+        console.error('Barcode scan error:', error)
+      }
+    },
+
+    addProductToLines(product) {
+      // Check if product already exists in lines
+      const existingLine = this.transaction.lines.find(
+        (l) => l.productId === product.id
+      )
+
+      if (existingLine) {
+        existingLine.quantity = (parseFloat(existingLine.quantity) || 0) + 1
+        this.calculateLineTotal(existingLine)
+        swalSuccess(this.$swal, 'Updated', `${product.pro_name} quantity increased`)
+      } else {
+        const newLine = {
+          quantity: 1,
+          unitRate: 1,
+          price: 0,
+          discount: 0,
+          total: 0,
+          isActive: true,
+          productId: product.id,
+          unitId: null,
+        }
+        this.transaction.lines.push(newLine)
+        this.productChange(newLine)
+        swalSuccess(this.$swal, 'Added', `${product.pro_name} added to list`)
+      }
     },
 
     // === PRODUCT & LINE ITEM MANAGEMENT ===
@@ -1008,7 +888,7 @@ export default {
     validateLine(item, lineNumber) {
       const errors = []
       if (!item.productId) errors.push(`Line ${lineNumber}: Product is required`)
-      
+
       const quantity = parseFloat(item.quantity)
       if (!quantity || quantity <= 0) errors.push(`Line ${lineNumber}: Quantity must be positive`)
 
@@ -1114,7 +994,7 @@ export default {
       if (error.response?.data) {
         const errorData = error.response.data
         const outOfStockProductId = typeof errorData === 'string' ? errorData.split('#')[1] : null
-        
+
         if (outOfStockProductId) {
           const product = this.productList.find((p) => p.id == outOfStockProductId)
           this.showError(`Insufficient stock for: ${product?.pro_name || 'Unknown'}`)
@@ -1165,13 +1045,33 @@ export default {
     },
 
     // === UTILITY METHODS ===
-    formatCurrency(amount) {
+    formatCurrency(amount, currencyId = null) {
       const num = parseFloat(amount) || 0
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: this.selectedCurrencyCode,
-        minimumFractionDigits: 2,
+
+      let code = this.selectedCurrencyCode
+      if (currencyId) {
+        const currency = this.currencyList.find(c => c.id === currencyId)
+        if (currency) code = currency.code
+      }
+
+      const symbols = {
+        'LAK': '₭',
+        'THB': '฿',
+        'USD': '$',
+      };
+
+      const symbol = symbols[code] || code
+      const formatted = new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: code === 'LAK' ? 0 : 2,
+        maximumFractionDigits: 2,
       }).format(num)
+
+      return `${formatted} ${symbol}`
+    },
+
+    getSymbol(code) {
+      const symbols = { 'LAK': '₭', 'THB': '฿', 'USD': '$' };
+      return symbols[code] || code;
     },
 
     getFormatNum(val) {
@@ -1201,13 +1101,16 @@ export default {
 }
 
 .header-section {
-  background: linear-gradient(
-    135deg,
-    var(--v-primary-base) 0%,
-    var(--v-primary-darken2) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--v-primary-base) 0%,
+      var(--v-primary-darken2) 100%);
   border-radius: 0 !important;
   padding: 24px !important;
+}
+
+.barcode-input-field>>>.v-input__slot {
+  background: rgba(255, 255, 255, 0.15) !important;
+  min-height: 40px !important;
 }
 
 .loading-card {
@@ -1215,26 +1118,50 @@ export default {
 }
 
 .form-content {
-  padding: 32px !important;
+  padding: 16px 24px !important;
 }
 
 .transaction-header {
-  border-radius: 12px !important;
+  border-radius: 8px !important;
   transition: all 0.3s ease;
+  padding: 8px !important;
 }
 
-.transaction-header.header-error {
-  border: 2px solid var(--v-error-base) !important;
-  box-shadow: 0 0 0 3px rgba(var(--v-error-base), 0.1);
+.transaction-header>>>.v-card__text {
+  padding: 8px 12px !important;
+}
+
+.compact-grid>>>.v-input__control {
+  min-height: 38px !important;
+}
+
+.secondary-info-row {
+  opacity: 0.9;
+}
+
+.creator-badge {
+  border: 1px solid #e0e0e0;
+}
+
+.border-success {
+  border: 1px solid rgba(var(--v-success-base), 0.2) !important;
+}
+
+.line-height-1 {
+  line-height: 1 !important;
+}
+
+.gap-4 {
+  gap: 16px;
 }
 
 .section-title {
   color: var(--v-primary-base);
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
 }
 
 .form-section {
@@ -1293,11 +1220,9 @@ export default {
 
 .total-amount {
   font-family: 'Roboto Mono', monospace;
-  background: linear-gradient(
-    135deg,
-    rgba(var(--v-success-base), 0.1) 0%,
-    rgba(var(--v-success-base), 0.05) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(var(--v-success-base), 0.1) 0%,
+      rgba(var(--v-success-base), 0.05) 100%);
   padding: 8px 12px;
   border-radius: 8px;
   border-left: 4px solid var(--v-success-base);
@@ -1325,25 +1250,36 @@ export default {
 }
 
 .total-row {
-  background: linear-gradient(
-    135deg,
-    rgba(var(--v-primary-base), 0.08) 0%,
-    rgba(var(--v-primary-base), 0.04) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(var(--v-primary-base), 0.08) 0%,
+      rgba(var(--v-primary-base), 0.04) 100%);
   padding: 16px 20px;
   margin: 12px -20px;
   border-radius: 8px;
 }
 
 .grand-total-display {
-  background: linear-gradient(
-    135deg,
-    rgba(var(--v-primary-base), 0.05) 0%,
-    rgba(var(--v-secondary-base), 0.05) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(var(--v-primary-base), 0.05) 0%,
+      rgba(var(--v-secondary-base), 0.05) 100%);
   padding: 24px;
   border-radius: 16px;
   border: 2px dashed rgba(var(--v-primary-base), 0.2);
+}
+
+.breakdown-container {
+  background: rgba(0, 0, 0, 0.02);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--v-secondary-base);
+}
+
+.breakdown-item {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.05);
+}
+
+.breakdown-item:last-child {
+  border-bottom: none;
 }
 
 .actions-footer {
@@ -1355,7 +1291,7 @@ export default {
   margin: 32px 0;
 }
 
-.gap-2 > * + * {
+.gap-2>*+* {
   margin-left: 8px;
 }
 
@@ -1369,6 +1305,7 @@ export default {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1384,6 +1321,7 @@ export default {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

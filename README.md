@@ -76,4 +76,5 @@ npx electron-builder --win --x64
 tar -cvf nuxt.tar .nuxt
 scp -r nuxt.tar administrator@155.117.44.133:/home/administrator
  BASE_URL="http://150.95.31.23:8030" npm run dev
+ BASE_URL="http://150.95.31.23:8026" npm run dev
  BASE_URL="http://localhost:8888" npm run dev

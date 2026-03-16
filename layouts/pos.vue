@@ -1036,6 +1036,7 @@ export default {
 
       return this.productCart.map((cartItem) => {
         const product = this.productLookupCache.get(cartItem.id)
+        const currency = this.findAllCurrency.find(c => c.id === cartItem.saleCurrencyId)
 
         return {
           id: cartItem.id,
@@ -1045,6 +1046,7 @@ export default {
           quantity: cartItem.qty,
           unitPrice: cartItem.localPrice,
           localPrice: cartItem.localPrice, // Added for clarity
+          currencyCode: currency?.code || 'LAK',
           isGift: cartItem.isGift,
           giftQuantity: cartItem.giftQuantity || 0, // Added to handle partial gifts
           giftAmount: cartItem.giftAmount || 0, // Added for gift pricing

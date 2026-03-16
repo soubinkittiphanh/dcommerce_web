@@ -257,67 +257,63 @@ export default {
   computed: {
     ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
     grandSaleTotal() {
-      const totalStockValue = this.loaddata.reduce((total, item) => {
-        return total + item.total;
-      }, 0);
-      return totalStockValue;
+      // ✅ Normalize to LAK: total * exchangeRate
+      return this.loaddata.reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.total * rate)
+      }, 0)
     },
     grandSaleDiscountTotal() {
-      const totalStockValue = this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
-        return total + item.discount;
-      }, 0);
-      return totalStockValue;
+      // ✅ Normalize to LAK: discount * exchangeRate
+      return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.discount * rate)
+      }, 0)
     },
     grandSaleCancelTotal() {
       console.log(`Sale cancel status ${this.loaddata.filter(el => el.isActive == false).length}`);
-      const totalStockValue = this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
-        return total + item.total;
-      }, 0);
-      return totalStockValue;
+      // ✅ Normalize to LAK: total * exchangeRate
+      return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.total * rate)
+      }, 0)
     },
     grandSaleCost() {
       let totalSaleValue = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
-        console.log(`Sale ID: ${sale.id}`);
         for (const line of sale.lines) {
-          console.log(`  Line ID: ${line.lineId}`);
-
           let totalLineValue = 0;
-
           for (const card of line.cards) {
-            console.log(`    Card Number: ${card.cardNumber}, Value: ${card.value}`);
-            totalLineValue += card.cost;
+            // ✅ Use costLCY (LAK) if available, otherwise calculate from cost * exchangeRate
+            if (card.costLCY !== undefined && card.costLCY !== null) {
+              totalLineValue += parseFloat(card.costLCY);
+            } else {
+              const rate = card.exchangeRate || 1;
+              totalLineValue += (parseFloat(card.cost || 0) * rate);
+            }
           }
-
-          console.log(`  Total Line Value: ${totalLineValue}`);
           totalSaleValue += totalLineValue;
         }
-
-        console.log(`Total Sale Value: ${totalSaleValue}`);
       }
       return totalSaleValue;
     },
     grandCODCost() {
       let totalCOD = 0;
-      let totalCancelFee = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
-        console.log(`Sale ID: ${sale.id}`);
         if (sale.dynamic_customer) {
-          totalCOD += sale.dynamic_customer.cod_fee;
-          totalCancelFee += sale.dynamic_customer.cancel_fee;
+          const rate = sale.exchangeRate || 1;
+          totalCOD += (sale.dynamic_customer.cod_fee || 0) * rate;
         }
-        console.log(`Total Sale Value: ${totalCOD}`);
       }
       return totalCOD;
     },
     grandCancellationCost() {
       let totalCancellationFee = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == false)) {
-        console.log(`Sale ID: ${sale.id}`);
         if (sale.dynamic_customer) {
-          totalCancellationFee += sale.dynamic_customer.cancel_fee;
+          const rate = sale.exchangeRate || 1;
+          totalCancellationFee += (sale.dynamic_customer.cancel_fee || 0) * rate;
         }
-        console.log(`Total cancellation fee: ${totalCancellationFee}`);
       }
       return totalCancellationFee;
     },

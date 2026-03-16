@@ -145,6 +145,7 @@ const _4031d773 = () => interopDefault(import('../pages/admin/job_fair/login/ind
 const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
+const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/reports/moneyAdvance/index" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
@@ -755,6 +756,10 @@ export const routerOptions = {
     path: "/admin/product/productlist",
     component: _38fd842d,
     name: "admin-product-productlist"
+  }, {
+    path: "/admin/reports/moneyAdvance",
+    component: _cf45db36,
+    name: "admin-reports-moneyAdvance"
   }, {
     path: "/admin/settings/system",
     component: _228e3c4a,

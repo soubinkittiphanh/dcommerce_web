@@ -65,7 +65,7 @@
               </v-card-title>
 
               <v-data-table v-if="loaddata" :headers="headers" :items="filteredProducts" :items-per-page="pageLine"
-                class="compact-table rounded-xl elevation-0 border-light" :search="search">
+                class="compact-table rounded-xl elevation-0 border-light">
                 <!-- Thumbnail Slot -->
                 <template v-slot:item.thumbnail="{ item }">
                   <v-avatar size="40" rounded class="border-light elevation-1 bg-white">
@@ -539,6 +539,8 @@ export default {
         { text: 'ສະຖານະ', align: 'center', value: 'status', width: '120px' },
         { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '80px' },
       ],
+      barcodeBuffer: '',
+      barcodeTimeout: null,
     }
   },
 
@@ -581,6 +583,11 @@ export default {
 
     await this.loadCardCategory()
     await this.fetchData()
+    window.addEventListener('keydown', this.handleBarcodeScanner)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleBarcodeScanner)
   },
 
   computed: {
@@ -615,6 +622,38 @@ export default {
   },
 
   methods: {
+    handleBarcodeScanner(e) {
+      // If user is already focused on an input/textarea (like the search bar), let the native input handle the scan
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable)) {
+        return
+      }
+
+      // Ignore scanner if any dialog or loading indicator is open
+      if (this.productFormCreate || this.editProductForm || this.isstock || this.printDialog || this.priceListDialog || this.recipeManagementDialog || this.productRecipeDialog || this.isloading) {
+        return
+      }
+
+      if (e.key === 'Enter') {
+        if (this.barcodeBuffer && this.barcodeBuffer.length > 2) {
+          // If buffered string looks like a barcode, set it to search
+          this.search = this.barcodeBuffer
+        }
+        this.barcodeBuffer = ''
+        return
+      }
+
+      // Keep alphanumeric and common characters
+      const isCharacter = e.key.length === 1
+      if (!isCharacter) return
+
+      this.barcodeBuffer += e.key
+      
+      // Clear buffer if typing stops (1 second gap)
+      if (this.barcodeTimeout) clearTimeout(this.barcodeTimeout)
+      this.barcodeTimeout = setTimeout(() => {
+        this.barcodeBuffer = ''
+      }, 1000) // Increased to 1000ms to allow all hardware scanners to finish
+    },
     createProduct() {
       this.productFormKey++
       this.productFormCreate = true

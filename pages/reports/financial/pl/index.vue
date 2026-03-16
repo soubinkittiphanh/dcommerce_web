@@ -112,7 +112,8 @@
                 {{ profitMarginPercentage }}% ອັດຕາ
               </v-chip>
               <div class="mt-2">
-                <v-progress-linear :value="profitMarginPercentage" color="primary" height="4" rounded></v-progress-linear>
+                <v-progress-linear :value="profitMarginPercentage" color="primary" height="4"
+                  rounded></v-progress-linear>
                 <div class="mt-1">{{ profitMarginPercentage }}% ອັດຕາກຳໄລ</div>
               </div>
             </v-card>
@@ -298,15 +299,9 @@
                 <div class="title white--text mb-2">
                   Profit Margin: {{ profitMarginPercentage }}%
                 </div>
-                <v-progress-linear 
-                  :value="Math.min(profitMarginPercentage, 100)" 
-                  color="white" 
-                  background-color="primary lighten-1"
-                  height="8" 
-                  rounded
-                  class="mb-2"
-                ></v-progress-linear>
-                <div class="body-2 white--text" style="opacity: 0.8">
+                <v-progress-linear :value="Math.min(profitMarginPercentage, 100)" color="white"
+                  background-color="primary lighten-1" height="8" rounded class="mb-2"></v-progress-linear>
+                <div class=" white--text" style="opacity: 0.8">
                   {{ netProfit >= 0 ? 'ທຸລະກິດມີກຳໄລ' : 'ທຸລະກິດຂາດທຶນ' }}
                 </div>
               </div>
@@ -340,8 +335,9 @@
                 {{ profitabilityGrade }}
               </v-chip>
               <div class="mt-2">
-                <v-progress-linear :value="(profitabilityScore/25)*100" :color="profitabilityColor" height="4" rounded></v-progress-linear>
-                <div class="mt-1">{{ ((profitabilityScore/25)*100).toFixed(0) }}%</div>
+                <v-progress-linear :value="(profitabilityScore / 25) * 100" :color="profitabilityColor" height="4"
+                  rounded></v-progress-linear>
+                <div class="mt-1">{{ ((profitabilityScore / 25) * 100).toFixed(0) }}%</div>
               </div>
             </v-card>
           </v-col>
@@ -360,8 +356,9 @@
                 {{ efficiencyGrade }}
               </v-chip>
               <div class="mt-2">
-                <v-progress-linear :value="(efficiencyScore/25)*100" :color="efficiencyColor" height="4" rounded></v-progress-linear>
-                <div class="mt-1">{{ ((efficiencyScore/25)*100).toFixed(0) }}%</div>
+                <v-progress-linear :value="(efficiencyScore / 25) * 100" :color="efficiencyColor" height="4"
+                  rounded></v-progress-linear>
+                <div class="mt-1">{{ ((efficiencyScore / 25) * 100).toFixed(0) }}%</div>
               </div>
             </v-card>
           </v-col>
@@ -380,8 +377,9 @@
                 {{ stabilityGrade }}
               </v-chip>
               <div class="mt-2">
-                <v-progress-linear :value="(stabilityScore/25)*100" :color="stabilityColor" height="4" rounded></v-progress-linear>
-                <div class="mt-1">{{ ((stabilityScore/25)*100).toFixed(0) }}%</div>
+                <v-progress-linear :value="(stabilityScore / 25) * 100" :color="stabilityColor" height="4"
+                  rounded></v-progress-linear>
+                <div class="mt-1">{{ ((stabilityScore / 25) * 100).toFixed(0) }}%</div>
               </div>
             </v-card>
           </v-col>
@@ -437,15 +435,13 @@
                   <div>ບໍ່ມີລາຍຮັບອື່ນໃນໄລຍະນີ້</div>
                 </div>
                 <div v-else>
-                  <div v-for="(income, index) in incomeData.slice(0, 5)" :key="income.id" 
-                       class="financial-row pa-3" 
-                       :class="{ 'grey lighten-5': index % 2 === 1 }">
+                  <div v-for="(income, index) in incomeData.slice(0, 5)" :key="income.id" class="financial-row pa-3"
+                    :class="{ 'grey lighten-5': index % 2 === 1 }">
                     <div class="flex-grow-1">
                       <div class="font-weight-bold">{{ income.payee }}</div>
                       <div class="caption grey--text">{{ income.notes }}</div>
                       <div class="caption">
-                        <v-chip :color="getPaymentColor(income.payment?.payment_code)" 
-                                small dark class="mr-1">
+                        <v-chip :color="getPaymentColor(income.payment?.payment_code)" small dark class="mr-1">
                           {{ income.payment?.payment_name }}
                         </v-chip>
                         <span class="grey--text">{{ formatDateShort(income.bookingDate) }}</span>
@@ -456,7 +452,7 @@
                         +{{ formatNumber(income.totalAmount * income.rate) }}
                       </div>
                       <div class="caption grey--text">
-                        {{ income.currency?.code }} 
+                        {{ income.currency?.code }}
                         <span v-if="income.rate !== 1">({{ formatNumber(income.rate) }})</span>
                       </div>
                     </div>
@@ -494,15 +490,13 @@
                   <div>ບໍ່ມີລາຍຈ່າຍໃນໄລຍະນີ້</div>
                 </div>
                 <div v-else>
-                  <div v-for="(expense, index) in expenseData.slice(0, 5)" :key="expense.id" 
-                       class="financial-row pa-3" 
-                       :class="{ 'grey lighten-5': index % 2 === 1 }">
+                  <div v-for="(expense, index) in expenseData.slice(0, 5)" :key="expense.id" class="financial-row pa-3"
+                    :class="{ 'grey lighten-5': index % 2 === 1 }">
                     <div class="flex-grow-1">
                       <div class="font-weight-bold">{{ expense.payee }}</div>
                       <div class="caption grey--text">{{ expense.notes }}</div>
                       <div class="caption">
-                        <v-chip :color="getPaymentColor(expense.payment?.payment_code)" 
-                                small dark class="mr-1">
+                        <v-chip :color="getPaymentColor(expense.payment?.payment_code)" small dark class="mr-1">
                           {{ expense.payment?.payment_name }}
                         </v-chip>
                         <span class="grey--text">{{ formatDateShort(expense.bookingDate) }}</span>
@@ -513,7 +507,7 @@
                         -{{ formatNumber(expense.totalAmount * expense.rate) }}
                       </div>
                       <div class="caption grey--text">
-                        {{ expense.currency?.code }} 
+                        {{ expense.currency?.code }}
                         <span v-if="expense.rate !== 1">({{ formatNumber(expense.rate) }})</span>
                       </div>
                     </div>
@@ -654,20 +648,38 @@ export default {
 
     // Sales calculations
     grandSaleTotal() {
-      return this.loaddata.reduce((total, item) => total + item.total, 0);
+      // ✅ Normalize to LAK: total * exchangeRate
+      return this.loaddata.reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.total * rate)
+      }, 0)
     },
     grandSaleDiscountTotal() {
-      return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => total + item.discount, 0);
+      // ✅ Normalize to LAK: discount * exchangeRate
+      return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.discount * rate)
+      }, 0)
     },
     grandSaleCancelTotal() {
-      return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => total + item.total, 0);
+      // ✅ Normalize to LAK: total * exchangeRate
+      return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        return total + (item.total * rate)
+      }, 0)
     },
     grandSaleCost() {
       let totalSaleValue = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
         for (const line of sale.lines) {
           for (const card of line.cards) {
-            totalSaleValue += card.cost;
+            // ✅ Use costLCY (LAK) if available, otherwise calculate from cost * exchangeRate
+            if (card.costLCY !== undefined && card.costLCY !== null) {
+              totalSaleValue += parseFloat(card.costLCY);
+            } else {
+              const rate = card.exchangeRate || 1;
+              totalSaleValue += (parseFloat(card.cost || 0) * rate);
+            }
           }
         }
       }
@@ -677,7 +689,8 @@ export default {
       let totalCOD = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
         if (sale.dynamic_customer) {
-          totalCOD += sale.dynamic_customer.cod_fee;
+          const rate = sale.exchangeRate || 1;
+          totalCOD += (sale.dynamic_customer.cod_fee || 0) * rate;
         }
       }
       return totalCOD;
@@ -686,7 +699,8 @@ export default {
       let totalCancellationFee = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == false)) {
         if (sale.dynamic_customer) {
-          totalCancellationFee += sale.dynamic_customer.cancel_fee;
+          const rate = sale.exchangeRate || 1;
+          totalCancellationFee += (sale.dynamic_customer.cancel_fee || 0) * rate;
         }
       }
       return totalCancellationFee;
@@ -699,7 +713,7 @@ export default {
     totalCOGS() {
       return this.grandSaleCost + this.grandCODCost + this.grandCancellationCost;
     },
-    
+
     // Real financial data calculations
     totalOtherIncome() {
       return this.incomeData
@@ -708,7 +722,7 @@ export default {
           return total + (income.totalAmount * income.rate);
         }, 0);
     },
-    
+
     totalExpenses() {
       return this.expenseData
         .filter(expense => expense.isActive)
@@ -716,7 +730,7 @@ export default {
           return total + (expense.totalAmount * expense.rate);
         }, 0);
     },
-    
+
     // Categorized expenses based on notes
     expenseByCategory() {
       const categories = {
@@ -725,13 +739,13 @@ export default {
         officeExpense: 0,
         other: 0
       };
-      
+
       this.expenseData
         .filter(expense => expense.isActive)
         .forEach(expense => {
           const amount = expense.totalAmount * expense.rate;
           const notes = (expense.notes || '').toUpperCase();
-          
+
           if (notes.includes('STAFF') || notes.includes('SALARY') || notes.includes('ພະນັກງານ')) {
             categories.staffSalary += amount;
           } else if (notes.includes('ADVERTISING') || notes.includes('ADS') || notes.includes('ໂຄສະນາ')) {
@@ -742,26 +756,26 @@ export default {
             categories.other += amount;
           }
         });
-      
+
       return categories;
     },
-    
+
     staffSalaryExpense() {
       return this.expenseByCategory.staffSalary;
     },
-    
+
     advertisingExpense() {
       return this.expenseByCategory.advertising;
     },
-    
+
     officeExpenseAmount() {
       return this.expenseByCategory.officeExpense;
     },
-    
+
     otherExpenses() {
       return this.expenseByCategory.other;
     },
-    
+
     netProfit() {
       return this.netSale + this.totalOtherIncome - this.totalCOGS - this.totalExpenses;
     },
@@ -895,12 +909,12 @@ export default {
         startDate: this.date,
         endDate: this.date2,
       }
-      
+
       try {
         // Fetch sales data
         const salesResponse = await this.$axios.get(`api/sale/findDetailByDate`, { params: { date } })
         this.loaddata = salesResponse.data;
-        
+
         // Fetch income data
         try {
           const incomeResponse = await this.$axios.get(`api/finanicial/ar/header/findByDate`, { params: { date } })
@@ -910,7 +924,7 @@ export default {
           console.warn('Could not load income data:', incomeError);
           this.incomeData = [];
         }
-        
+
         // Fetch expense data
         try {
           const expenseResponse = await this.$axios.get(`api/finanicial/ap/header/findByDate`, { params: { date } })
@@ -920,12 +934,12 @@ export default {
           console.warn('Could not load expense data:', expenseError);
           this.expenseData = [];
         }
-        
+
       } catch (error) {
         this.message = error
         console.log('Error: ' + error)
       }
-      
+
       this.isloading = false
     },
     exportToExcel() {
@@ -936,11 +950,11 @@ export default {
       // Print implementation
       console.log('Printing report...');
     },
-    
+
     // Payment helper methods
     getPaymentColor(paymentCode) {
       if (!paymentCode) return 'primary';
-      
+
       const colorMap = {
         'CASH': 'green',
         'QR': 'purple',
@@ -960,11 +974,11 @@ export default {
         'WALLET': 'amber',
         'DIGITAL_WALLET': 'amber'
       }
-      
+
       if (colorMap[paymentCode]) {
         return colorMap[paymentCode]
       }
-      
+
       const code = paymentCode.toUpperCase()
       if (code.includes('CASH') || code.includes('MONEY')) return 'green'
       if (code.includes('QR') || code.includes('SCAN')) return 'purple'
@@ -973,10 +987,10 @@ export default {
       if (code.includes('COD') || code.includes('DELIVERY')) return 'orange'
       if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink'
       if (code.includes('WALLET')) return 'amber'
-      
+
       return 'primary'
     },
-    
+
     formatDateShort(dateString) {
       if (!dateString) return '';
       const date = new Date(dateString);
@@ -1078,7 +1092,7 @@ export default {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .grade-summary-card {
     margin-bottom: 16px;
   }
@@ -1099,6 +1113,7 @@ export default {
 }
 
 @media print {
+
   .v-btn,
   .v-text-field,
   .v-select {

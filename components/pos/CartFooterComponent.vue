@@ -34,6 +34,17 @@
         <div class="stat-value success--text font-weight-bold">+{{ formatNumber(totalTaxLAK) }}</div>
       </div>
 
+      <!-- Currency Breakdown -->
+      <div v-if="currencyBreakdown.length > 1" class="currency-breakdown-section mt-1 pt-1">
+        <div v-for="curr in currencyBreakdown" :key="curr.code"
+          class="d-flex justify-space-between align-center mb-0 breakdown-row">
+          <div class="breakdown-label grey--text">{{ curr.code }} Total</div>
+          <div class="breakdown-value grey--text text--darken-2 font-weight-medium">
+            {{ formatNumber(curr.amount) }} {{ curr.code }}
+          </div>
+        </div>
+      </div>
+
       <div class="d-flex justify-space-between align-end mt-2 pt-2 border-top">
         <div class="change-info">
           <div class="change-label grey--text text--darken-1">ເງິນທອນ</div>
@@ -190,6 +201,35 @@ export default {
 
     totalQty() {
       return this.productCart.reduce((sum, item) => sum + (Number(item.qty) || 0), 0)
+    },
+
+    currencyBreakdown() {
+      const breakdown = {}
+      
+      this.productCart.forEach(item => {
+        const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
+        if (!currency) return
+
+        if (!breakdown[currency.code]) {
+          breakdown[currency.code] = {
+            code: currency.code,
+            amount: 0
+          }
+        }
+
+        const lineSubtotal = item.qty * (item.localPrice || 0)
+        let lineTotal = lineSubtotal
+
+        // Include tax if exclusive
+        if (item.tax?.taxType === 'EXC') {
+          const rate = parseFloat(item.tax.rate || 0)
+          lineTotal += (lineSubtotal * rate)
+        }
+
+        breakdown[currency.code].amount += lineTotal
+      })
+
+      return Object.values(breakdown)
     }
   },
 
@@ -330,6 +370,19 @@ export default {
   font-size: 14px;
   font-weight: 500;
   margin-left: 2px;
+}
+
+.currency-breakdown-section {
+  border-top: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.breakdown-row {
+  line-height: 1.2;
+}
+
+.breakdown-label,
+.breakdown-value {
+  font-size: 10px;
 }
 
 .border-top {
