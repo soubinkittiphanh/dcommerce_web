@@ -81,7 +81,7 @@
             <v-col cols="2"></v-col>
             <v-col cols="4" style="font-weight: bold; font-style: italic;">Net sale</v-col>
             <v-col cols="6" style="font-weight: bold; font-style: italic;">{{
-        formatNumber(grandSaleTotal - (grandSaleCancelTotal + grandSaleDiscountTotal)) }}</v-col>
+              formatNumber(grandSaleTotal - (grandSaleCancelTotal + grandSaleDiscountTotal)) }}</v-col>
           </v-row>
         </v-col>
         <!-- Cost of goods sold -->
@@ -111,7 +111,7 @@
             <v-col cols="2"></v-col>
             <v-col cols="4" style="font-weight: bold; font-style: italic;">Total cost of goods sold</v-col>
             <v-col cols="6" style="font-weight: bold; font-style: italic;">{{
-        formatNumber(grandSaleCost + grandCODCost + grandCancellationCost) }}</v-col>
+              formatNumber(grandSaleCost + grandCODCost + grandCancellationCost) }}</v-col>
           </v-row>
         </v-col>
         <!-- Accounting expense -->
@@ -279,23 +279,19 @@ export default {
       }, 0)
     },
     grandSaleCost() {
-      let totalSaleValue = 0;
-      for (const sale of this.loaddata.filter(el => el.isActive == true)) {
-        for (const line of sale.lines) {
-          let totalLineValue = 0;
-          for (const card of line.cards) {
-            // ✅ Use costLCY (LAK) if available, otherwise calculate from cost * exchangeRate
-            if (card.costLCY !== undefined && card.costLCY !== null) {
-              totalLineValue += parseFloat(card.costLCY);
-            } else {
-              const rate = card.exchangeRate || 1;
-              totalLineValue += (parseFloat(card.cost || 0) * rate);
-            }
-          }
-          totalSaleValue += totalLineValue;
-        }
-      }
-      return totalSaleValue;
+      let totalCost = 0;
+      this.loaddata.filter(sale => sale.isActive === true).forEach(sale => {
+        // Console log to see which sale is pushing the cost too high
+        let saleCost = 0;
+        sale.lines?.forEach(line => {
+          line.cards?.forEach(card => {
+            saleCost += parseFloat(card.cost || 0);
+          });
+        });
+        console.log(`Sale ID: ${sale.id} | Cost: ${saleCost}`);
+        totalCost += saleCost;
+      });
+      return totalCost;
     },
     grandCODCost() {
       let totalCOD = 0;

@@ -138,7 +138,7 @@
                       {{ formatNumber(item.total) }}
                       <small class="">{{
                         localCurrency?.code
-                      }}</small>
+                        }}</small>
                     </div>
 
                     <div v-if="item.groupedCurrency" class="currency-breakdown-container">
@@ -348,7 +348,7 @@
               <v-chip :color="getPaymentMethodColor(item.payment?.payment_code)" small dark>
                 <v-icon left small>{{
                   getPaymentMethodIcon(item.payment?.payment_code)
-                }}</v-icon>
+                  }}</v-icon>
                 {{ item.payment?.payment_name || 'N/A' }}
               </v-chip>
             </div>
@@ -669,6 +669,7 @@ export default {
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
+        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
         ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
         ticketLogo:

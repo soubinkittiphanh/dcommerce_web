@@ -96,6 +96,12 @@ export default {
           sortable: true,
         },
         {
+          text: 'ໜ້າຫຼັກ',
+          align: 'center',
+          value: 'homePage',
+          sortable: true,
+        },
+        {
           text: 'View/Update',
           align: 'end',
           value: 'id',

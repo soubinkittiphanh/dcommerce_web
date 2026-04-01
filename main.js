@@ -6,7 +6,8 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://150.95.31.23:8030" };
+let configData = { BASE_URL: "http://150.95.31.23:8014" };
+// let configData = { BASE_URL: "http://localhost:8888" };
 
 function loadExternalConfig() {
     let configPath;
@@ -66,12 +67,12 @@ async function processQueue() {
 
         // Step B: Load HTML
         await printWindow.loadURL('about:blank');
-        
+
         // Barcodes usually need a specific CSS to fit the small label
-        const barcodeStyle = isBarcode 
+        const barcodeStyle = isBarcode
             ? `<style>body { margin: 0; padding: 0; width: 40mm; height: 20mm; overflow: hidden; display: flex; justify-content: center; align-items: center; }</style>`
             : `<style>body { margin: 0; padding: 0; width: ${width}; overflow: hidden; font-family: sans-serif; }</style>`;
-        
+
         const escapedHtml = (barcodeStyle + html).replace(/`/g, '\\`').replace(/\${/g, '\\${');
 
         const contentHeight = await printWindow.webContents.executeJavaScript(`
@@ -103,7 +104,7 @@ async function processQueue() {
         } else {
             printOptions.pageSize = {
                 width: (width === '58mm' ? 58000 : 80000),
-                height: (contentHeight * 264) + 15000 
+                height: (contentHeight * 264) + 15000
             };
         }
 
@@ -115,7 +116,7 @@ async function processQueue() {
             } else {
                 console.log(`✅ PRINT SUCCESSFUL`);
             }
-            
+
             printWindow.destroy();
             isPrinting = false;
             setTimeout(processQueue, 500);
@@ -160,7 +161,50 @@ ipcMain.on('print-barcode', (event, payload) => {
     processQueue();
 });
 
-// --- 4. WINDOW LIFECYCLE ---
+// --- 4. HARDWARE NFC INTEGRATION ---
+let nfcObj = null;
+
+function setupNativeNfc() {
+    try {
+        const { NFC } = require('nfc-pcsc');
+        nfcObj = new NFC();
+
+        nfcObj.on('reader', reader => {
+            console.log(`🔌 NFC Reader Connected: ${reader.reader.name}`);
+            reader.autoProcessing = true;
+
+            reader.on('card', card => {
+                let uid = card.uid;
+                if (typeof uid !== 'string') {
+                    uid = Buffer.isBuffer(uid) ? uid.toString('hex') : String(uid);
+                }
+                const formattedUid = uid.toUpperCase();
+                console.log(`📡 NFC SCAN DETECTED: [${formattedUid}]`);
+
+                // Broadcast to all active application windows
+                BrowserWindow.getAllWindows().forEach(win => {
+                    win.webContents.send('nfc-card-scanned', formattedUid);
+                });
+            });
+
+            reader.on('error', err => {
+                console.log(`⚠️ NFC Reader Error:`, err);
+            });
+
+            reader.on('end', () => {
+                console.log(`❌ NFC Reader Disconnected: ${reader.reader.name}`);
+            });
+        });
+
+        nfcObj.on('error', err => {
+            console.log('nfc-pcsc library error:', err);
+        });
+    } catch (e) {
+        console.warn("⚠️ NFC hardware integration skipped or failed (Ignore if on web layer)", e.message);
+    }
+}
+
+// --- 5. WINDOW LIFECYCLE ---
 function createWindow() {
     loadExternalConfig();
     const win = new BrowserWindow({
@@ -176,5 +220,8 @@ function createWindow() {
     else { loadURL(win); }
 }
 
-app.whenReady().then(createWindow);
+app.whenReady().then(() => {
+    createWindow();
+    setTimeout(setupNativeNfc, 1000); // Initialize NFC reader after UI mounts
+});
 app.on('window-all-closed', () => { if (process.platform !== 'darwin') app.quit(); });

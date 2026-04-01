@@ -17,6 +17,8 @@
                     <v-text-field disabled v-model="form.categ_id" label="* CODE"></v-text-field>
                     <v-text-field v-model="form.categ_name" label="* ຊື່" required :rules="nameRules"></v-text-field>
                     <v-text-field v-model="form.categ_desc" label="ໝາຍເຫດ"></v-text-field>
+                    <v-select v-model="form.mainCategoryId" :items="mainCategories" item-text="categoryName"
+                        item-value="id" label="ໝວດສິນຄ້າຫຼັກ" clearable></v-select>
                     <v-checkbox v-model.number="form.isActive" label="Is Active"></v-checkbox>
                 </v-form>
                 <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
@@ -56,8 +58,10 @@ export default {
                 categ_id: '1XXX',
                 categ_name: '',
                 categ_desc: '',
+                mainCategoryId: null,
                 isActive: true
             },
+            mainCategories: [],
             isloading: false,
             nameRules: [
                 value => !!value || 'Name is required',
@@ -69,6 +73,7 @@ export default {
     //     this.loadEntry();
     // },
     async created() {
+        await this.loadMainCategories();
         this.loadEntry();
     },
     methods: {
@@ -115,6 +120,14 @@ export default {
         },
         refreshData() {
             this.$emit('reload-data')
+        },
+        async loadMainCategories() {
+            try {
+                const res = await this.$axios.get('api/mainCategory/findAll');
+                this.mainCategories = res.data;
+            } catch (e) {
+                console.error('Error loading main categories', e);
+            }
         }
     },
     computed: {

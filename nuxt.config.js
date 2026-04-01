@@ -7,7 +7,7 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8027'
+      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8037'
     }
   },
   // 1. CONDITIONAL SSR: Enabled for web server (supervisorctl), Disabled for Electron (static)

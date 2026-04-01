@@ -279,14 +279,15 @@ export default {
       )
       this.setSelectedLocation(location)
 
-      const homePage = this.spfList.find((spf) => spf.code === 'HOME')
-      if (homePage?.value) {
-        this.$router.push(homePage.value)
+      const userGroup = this.$auth.user?.userGroup
+
+      if (userGroup && userGroup.homePage) {
+        this.$router.push(userGroup.homePage)
       } else {
         // Fallback route
         this.$router.push('/admin')
-        // Or show error
-        this.$toast.error('Home page configuration not found')
+        // Or show warning if preferred
+        this.$toast.warning('Home page configuration not found for your user group')
       }
       this.terminalDialog = false
     },

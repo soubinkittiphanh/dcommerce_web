@@ -91,130 +91,70 @@ export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage) => {
 }
 
 /**
- * Generates HTML for Normal barcode
- */
-// export const getBarcodeNormalHtml = (formattedPrice, barcodeImage) => {
-//   return `
-//           <!DOCTYPE html>
-//           <html>
-//           <head>
-//           <title></title>
-//           <style>
-//           @font-face {
-//             font-family: 'DM Sans';
-//             font-style: normal;
-//             font-weight: 400;
-//             font-display: swap;
-//             src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-//         }
-//           *{
-//             font-family: 'DM Sans';
-//           }
-//         </style>
-//             </head>
-//             <body>
-//                 <div style="text-align: center;">
-//                     <table style="width: 200px; text-align: center;" >
-//                         <tr>
-//                           <td style="width: 500px; height: 15px;font-size:8px;">
-//                             ລາຄາ:${formattedPrice}
-//                             </br>
-//                             <img src="${barcodeImage}">
-//                           </td>               
-//                         </tr>
-//                       </table>
-//                 </div>
-//             </body>
-//             </html>
-//         `
-// }
-
-/**
  * Generates HTML for Normal barcode optimized for 20mm * 40mm
  * Fixed horizontal centering and minimized vertical gap.
  */
 export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '') => {
   return `
-          <!DOCTYPE html>
-          <html>
-          <head>
-          <style>
-            @font-face {
-                font-family: 'DM Sans';
-                font-style: normal;
-                font-weight: 700;
-                font-display: swap;
-                src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-            }
-            
-            @page {
-              size: 40mm 20mm;
-              margin: 0;
-            }
+  <!DOCTYPE html>
+<html>
+<head>
+<style>
+  @font-face {
+    font-family: 'DM Sans';
+    src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+  }
 
-            body {
-              margin: 0;
-              padding: 0;
-              width: 40mm;
-              height: 20mm;
-              display: flex;
-              flex-direction: column;
-              justify-content: flex-start; 
-              align-items: center; /* Centers items horizontally in flex */
-              font-family: 'DM Sans', sans-serif;
-              overflow: hidden;
-              background-color: white;
-            }
+  @page {
+    size: 40mm 20mm;
+    margin: 0;
+  }
 
-            .container {
-              width: 40mm;
-              display: block;
-              text-align: center; /* Forces inline content like text to center */
-              padding-top: 1mm;
-            }
+  body {
+    margin: 0;
+    width: 40mm;
+    height: 20mm;
+    font-family: 'DM Sans', sans-serif;
 
-            .price {
-              display: block;
-              width: 100%;
-              font-size: 10pt;
-              font-weight: bold;
-              text-align: center;
-              line-height: 1.0; 
-              margin: 0;
-              padding: 0;
-              white-space: nowrap;
-            }
+    display: flex;
+    justify-content: center;  /* horizontal center */
+    align-items: center;      /* vertical center */
+  }
 
-            .name {
-              display: block;
-              width: 100%;
-              font-size: 8pt;
-              font-weight: normal;
-              text-align: center;
-              line-height: 1.0;
-              margin: 0;
-              padding: 0;
-              white-space: nowrap;
-            }
+  .container {
+    width: 100%;
+    text-align: center;
+  }
 
-            .barcode-img {
-              display: block;
-              width: 38mm;
-              height: 12mm; 
-              margin: -2px auto 0 auto; 
-              image-rendering: pixelated;
-              vertical-align: top;
-            }
-          </style>
-          </head>
-          <body>
-              <div class="container">
-                  <div class="price">ລາຄາ: ${formattedPrice}</div>
-                  <div class="name">${name}</div>
-                  <img src="${barcodeImage}" class="barcode-img">
-              </div>
-          </body>
-          </html>
+  .price {
+    font-size: 7pt;
+    font-weight: bold;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .name {
+    font-size: 7pt;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .barcode-img {
+    width: 40mm;
+    height: 11mm;
+    display: block;
+    margin: 1px auto 0 auto; /* small gap from text */
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="price">ລາຄາ: ${formattedPrice}</div>
+    <div class="name">${name}</div>
+    <img src="${barcodeImage}" class="barcode-img">
+  </div>
+</body>
+</html>
         `
 }
 

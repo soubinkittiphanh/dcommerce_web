@@ -301,6 +301,13 @@
     "_name": "_51a6edfd"
   },
   {
+    "name": "admin-mainCategory",
+    "path": "/admin/mainCategory",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/mainCategory/index.vue",
+    "chunkName": "pages/admin/mainCategory/index",
+    "_name": "_645c380a"
+  },
+  {
     "name": "admin-manage_stock",
     "path": "/admin/manage_stock",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/manage_stock/index.vue",
@@ -588,6 +595,13 @@
     "_name": "_0f005c3d"
   },
   {
+    "name": "admin-saleByMainCategory",
+    "path": "/admin/saleByMainCategory",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleByMainCategory/index.vue",
+    "chunkName": "pages/admin/saleByMainCategory/index",
+    "_name": "_490002a8"
+  },
+  {
     "name": "admin-saleCost",
     "path": "/admin/saleCost",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleCost/index.vue",
@@ -663,6 +677,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/spf/index.vue",
     "chunkName": "pages/admin/spf/index",
     "_name": "_cc17c2a8"
+  },
+  {
+    "name": "admin-student",
+    "path": "/admin/student",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/student/index.vue",
+    "chunkName": "pages/admin/student/index",
+    "_name": "_3fe900be"
   },
   {
     "name": "admin-tax",
@@ -994,6 +1015,13 @@
     "_name": "_cf45db36"
   },
   {
+    "name": "admin-reports-stockActivity",
+    "path": "/admin/reports/stockActivity",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/stockActivity/index.vue",
+    "chunkName": "pages/admin/reports/stockActivity/index",
+    "_name": "_2d13abf8"
+  },
+  {
     "name": "admin-settings-system",
     "path": "/admin/settings/system",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/system.vue",
@@ -1006,6 +1034,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/userRole.vue",
     "chunkName": "pages/admin/settings/userRole",
     "_name": "_4e54f48d"
+  },
+  {
+    "name": "admin-student-wallet",
+    "path": "/admin/student/wallet",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/student/wallet.vue",
+    "chunkName": "pages/admin/student/wallet",
+    "_name": "_26644e3d"
   },
   {
     "name": "admin-web_category-test",

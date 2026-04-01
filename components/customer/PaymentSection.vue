@@ -27,11 +27,14 @@
               <span>Dynamic Bank QR</span>
             </div>
           </div>
-          <div v-else class="qr-payment-methods">
-            <div class="qr-method-item">
-              <img v-if="companyQRImageUrl" :src="companyQRImageUrl" class="qr-payment-method-logo" />
-              <img v-else :src="bcelQrImage" class="qr-payment-method-logo" />
+          <div v-else class="qr-payment-methods" :class="{ 'dual-qr': hasTwoQrs }">
+            <div v-if="qr1" class="qr-method-item">
+              <img :src="qr1" class="qr-payment-method-logo" />
               <span class="qr-method-label">{{ parsedCompanyInfo?.bank || 'Mobile Banking' }}</span>
+            </div>
+            <div v-if="qr2" class="qr-method-item">
+              <img :src="qr2" class="qr-payment-method-logo" />
+              <span class="qr-method-label">{{ parsedCompanyInfo?.bank2 || 'Mobile Banking 2' }}</span>
             </div>
           </div>
         </div>
@@ -57,7 +60,18 @@
 import QRCode from 'qrcode'
 
 export default {
-  props: ['qrData', 'parsedCompanyInfo', 'convertedAmounts', 'timeRemaining', 'companyQRImageUrl', 'bcelQrImage', 'paymentComplete'],
+  props: ['qrData', 'parsedCompanyInfo', 'convertedAmounts', 'timeRemaining', 'companyQRImageUrl', 'companyQRImageUrl2', 'bcelQrImage', 'bcelQrImage2', 'paymentComplete'],
+  computed: {
+    qr1() {
+      return this.companyQRImageUrl || this.bcelQrImage
+    },
+    qr2() {
+      return this.companyQRImageUrl2 || this.bcelQrImage2
+    },
+    hasTwoQrs() {
+      return !!(this.qr1 && this.qr2)
+    }
+  },
   watch: {
     'qrData.qrString': {
       handler(newVal) {
@@ -151,10 +165,29 @@ export default {
   box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
 }
 
+.qr-payment-methods {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.qr-method-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .qr-payment-method-logo {
   width: 250px;
   height: 250px;
   object-fit: contain;
+}
+
+.qr-method-label {
+  font-weight: 600;
+  color: #666;
+  font-size: 0.9rem;
 }
 
 .dynamic-qr-container {

@@ -9,6 +9,12 @@
         @payment-error="handleMultiPaymentError" />
     </v-dialog>
 
+    <!-- NFC Payment Dialog - NEW -->
+    <v-dialog v-model="nfcPaymentDialog" max-width="650" persistent>
+      <nfc-payment-dialog v-if="nfcPaymentDialog" :sale-total="grandTotal - discount" :format-number="formatNumber"
+        @cancel="nfcPaymentDialog = false" @confirmed="processNfcSettlement" />
+    </v-dialog>
+
     <v-dialog v-model="showQuotationPrintDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
@@ -134,57 +140,58 @@
 
     <!-- ENHANCED App Bar -->
     <v-app-bar app color="primary" dark clipped-left clipped-right elevation="8" height="80" class="app-header">
-      <v-container fluid class="pa-3">
-        <v-row align="center" no-gutters>
-          <!-- Left Section - Menu & Mobile Cart -->
-          <v-col cols="12" md="2" class="d-flex align-center">
-            <v-btn icon @click="drawer = !drawer" class="mr-3 menu-btn" large>
+      <v-container fluid class="pa-0"> <v-row align="center" no-gutters>
+
+          <v-col cols="auto" class="d-flex align-center pl-4">
+            <v-btn icon @click="drawer = !drawer" class="mr-1" large>
               <v-icon size="28">mdi-menu</v-icon>
             </v-btn>
 
-            <!-- Mobile Cart Button -->
-            <v-btn icon @click="drawer_right = !drawer_right" class="d-lg-none cart-mobile-btn" large>
-              <v-badge v-if="productCart.length > 0" :content="productCart.length" color="error" overlap dot>
+            <v-btn text @click="showProductList = !showProductList" class="mr-1 px-2" large>
+              <v-icon size="28" left>
+                {{ showProductList ? 'mdi-view-list' : 'mdi-view-grid-plus' }}
+              </v-icon>
+              <span class="d-none d-md-inline font-weight-medium">
+                {{ showProductList ? 'ຊ່ອນກາດ' : 'ສະແດງກາດ' }}
+              </span>
+            </v-btn>
+
+            <v-btn icon @click="drawer_right = !drawer_right" class="d-lg-none" large>
+              <v-badge v-if="productCart.length > 0" :content="productCart.length" color="error" overlap small>
                 <v-icon size="28">mdi-cart</v-icon>
               </v-badge>
               <v-icon v-else size="28">mdi-cart-outline</v-icon>
             </v-btn>
           </v-col>
 
-          <!-- Right Section - Action Buttons -->
-          <v-col cols="12" md="8" lg="9" class="d-flex justify-end">
-            <div class="d-flex align-center flex-wrap ga-2">
-              <!-- Customer Screen Button - ENHANCED -->
-              <v-btn class="header-btn mr-2" :color="isCustomerDisplayOpen() ? 'success' : 'white'" text
-                @click="openCustomerScreenEnhanced" large rounded>
+          <v-spacer></v-spacer> <v-col cols="auto" class="d-flex justify-end pr-4">
+            <div class="d-flex align-center">
+
+              <v-btn class="header-btn mr-2" :color="isCustomerDisplayOpen() ? 'success' : 'rgba(255,255,255,0.1)'"
+                depressed @click="openCustomerScreenEnhanced" large rounded>
                 <v-icon left size="20">
-                  {{
-                    isCustomerDisplayOpen()
-                      ? 'mdi-monitor-eye'
-                      : 'mdi-monitor-share'
-                  }}
+                  {{ isCustomerDisplayOpen() ? 'mdi-monitor-eye' : 'mdi-monitor-share' }}
                 </v-icon>
                 <span class="d-none d-sm-inline font-weight-medium">
                   {{ isCustomerDisplayOpen() ? 'ອັບເດດຈໍ' : 'ຈໍລູກຄ້າ' }}
                 </span>
               </v-btn>
 
-              <!-- Navigation Buttons -->
               <v-btn v-for="item in headerMenu" :key="item.title" :to="item.path" @click="item.method" text
-                class="header-btn" :class="{ 'active-route': $route.path === item.path }" large rounded>
+                class="header-btn ml-1" :class="{ 'active-route': $route.path === item.path }" large rounded>
                 <v-icon left size="20">{{ item.icon }}</v-icon>
-                <span class="d-none d-sm-inline font-weight-medium">{{
-                  item.title
-                }}</span>
+                <span class="d-none d-lg-inline font-weight-medium">{{ item.title }}</span>
               </v-btn>
             </div>
           </v-col>
+
         </v-row>
       </v-container>
     </v-app-bar>
 
     <!-- ENHANCED Left Navigation Drawer -->
-    <v-navigation-drawer app v-model="drawer" clipped width="300" class="drawer-left elevation-8">
+    <v-navigation-drawer v-if="showProductList" app v-model="drawer" clipped width="300"
+      class="drawer-left elevation-8">
       <div class="drawer-header pa-4 ma-0">
         <v-row align="center" no-gutters>
           <v-col cols="auto" class="mr-3">
@@ -252,7 +259,7 @@
     </v-navigation-drawer>
 
     <!-- ENHANCED Main Content -->
-    <v-main class="main-content">
+    <v-main class="main-content" v-if="showProductList">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
           <!-- TODO: customer update screen seems there is a bug -->
@@ -262,7 +269,7 @@
     </v-main>
 
     <!-- ENHANCED Right Navigation Drawer (Cart) -->
-    <v-navigation-drawer app right clipped width="500" class="cart-drawer elevation-8"
+    <v-navigation-drawer app right clipped :width="showProductList ? '500' : '100%'" class="cart-drawer elevation-8"
       :permanent="$vuetify.breakpoint.lgAndUp" :temporary="$vuetify.breakpoint.mdAndDown" v-model="drawer_right">
       <div class="cart-container">
         <!-- Enhanced Customer Bar -->
@@ -361,6 +368,7 @@ import PricingOption from '~/components/PricingOption.vue'
 import LoadingIndicator from '~/components/LoadingIndicator.vue'
 import DeliveryForm from '~/components/deliveryForm.vue'
 import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue'
+import NfcPaymentDialog from '~/components/pos/NfcPaymentDialog.vue'
 import CurrencyHelper from '~/utils/currency-helper'
 import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
 import {
@@ -400,6 +408,7 @@ export default {
     CartItemComponent,
     CartFooterComponent,
     MultiPaymentDialog,
+    NfcPaymentDialog,
   },
   name: 'DefaultLayout',
   provide() {
@@ -409,6 +418,7 @@ export default {
   },
   data() {
     return {
+      showProductList: true,
       showQuotationPrintDialog: false,
       quotationPrintId: null,
       // PERFORMANCE OPTIMIZATION: Add new properties
@@ -423,6 +433,7 @@ export default {
       }),
       customerScreenSyncInterval: null,
       multiPaymentDialog: false,
+      nfcPaymentDialog: false,
       pendingSaleHeaderId: null,
       isCreatingSale: false,
       qtyDialog: false,
@@ -430,7 +441,7 @@ export default {
       selectedProductId: null,
       upSvg: require('~/assets/icons/dcommerce/up.svg'),
       downSvg: require('~/assets/icons/dcommerce/down.svg'),
-      showCheckOut: false,
+      showCheckOut: true,
       productPricingSelected: null,
       pricingDialogKey: 1,
       pricingDialog: false,
@@ -458,32 +469,6 @@ export default {
       quotation: false,
       // paymentList: [],
       selectedItem: 0,
-      headerMenu: [
-        {
-          title: 'Home',
-          path: '/admin',
-          icon: 'mdi-home-circle-outline',
-          method: () => { },
-        },
-        {
-          title: 'Orders',
-          path: '/admin/ordersFromPos',
-          icon: 'mdi-reorder-horizontal',
-          method: () => { },
-        },
-        {
-          title: 'Quotation',
-          path: '',
-          icon: 'mdi-receipt-text-clock-outline',
-          method: this.setQuotation,
-        },
-        {
-          title: 'Logout',
-          path: '/admin/logout',
-          icon: 'mdi-logout',
-          method: () => { },
-        },
-      ],
       shippingFormKey: 1,
       // currencyList: [],
       saleHeader: {
@@ -556,6 +541,7 @@ export default {
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
+        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
         ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
         ticketLogo:
@@ -594,6 +580,37 @@ export default {
     },
     user() {
       return this.$auth.user || ''
+    },
+    headerMenu() {
+      // Determine the dynamic home path based on the user's group configuration
+      const homePath = this.user?.userGroup?.homePage || '/admin';
+
+      return [
+        {
+          title: 'Home',
+          path: homePath,
+          icon: 'mdi-home-circle-outline',
+          method: () => { },
+        },
+        {
+          title: 'Orders',
+          path: '/admin/ordersFromPos',
+          icon: 'mdi-reorder-horizontal',
+          method: () => { },
+        },
+        {
+          title: 'Quotation',
+          path: '',
+          icon: 'mdi-receipt-text-clock-outline',
+          method: this.setQuotation,
+        },
+        {
+          title: 'Logout',
+          path: '/admin/logout',
+          icon: 'mdi-logout',
+          method: () => { },
+        },
+      ];
     },
     ...mapState(['productSearchKeyboard']),
     ...mapGetters([
@@ -726,6 +743,11 @@ export default {
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null
     window.addEventListener('message', this.handleCustomerScreenMessage)
+
+    // Auto-sync if customer display is already open
+    if (this.isCustomerDisplayOpen()) {
+      this.batchUpdateCustomerScreen()
+    }
 
     if (this.$vuetify.breakpoint.lgAndUp) {
       this.drawer_right = true
@@ -1212,6 +1234,7 @@ export default {
         }
 
         this.setupCustomerWindowHandlers()
+        localStorage.setItem('customerDisplayOpen', 'true')
         this.batchUpdateCustomerScreen()
       } catch (error) {
         console.error('Error opening customer screen:', error)
@@ -1224,6 +1247,7 @@ export default {
       this.$customerWindow.addEventListener('beforeunload', () => {
         console.log('Customer display window is closing')
         this.$customerWindow = null
+        localStorage.setItem('customerDisplayOpen', 'false')
       })
     },
 
@@ -1427,7 +1451,9 @@ export default {
     },
 
     isCustomerDisplayOpen() {
-      return this.$customerWindow && !this.$customerWindow.closed
+      const isWindowOpen = this.$customerWindow && !this.$customerWindow.closed
+      const isLocalStorageOpen = localStorage.getItem('customerDisplayOpen') === 'true'
+      return !!(isWindowOpen || isLocalStorageOpen)
     },
 
     closeCustomerDisplayWindow() {
@@ -1435,6 +1461,7 @@ export default {
         this.$customerWindow.close()
       }
       this.$customerWindow = null
+      localStorage.setItem('customerDisplayOpen', 'false')
       localStorage.removeItem('customerDisplay')
     },
 
@@ -1503,6 +1530,12 @@ export default {
         if (!this.currentPayment) {
           swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກວິທີການຊຳລະ')
           return
+        }
+
+        const paymentMethod = this.findAllPayment.find(p => p.id === this.currentPayment);
+        if (paymentMethod && (paymentMethod.payment_code === 'NFC' || paymentMethod.payment_code === 'WALLET')) {
+          this.nfcPaymentDialog = true;
+          return;
         }
 
         await this.postTransactionOriginal(false)
@@ -1941,7 +1974,16 @@ export default {
       swalError2(this.$swal, 'Error', errorMessage)
     },
 
-    async postTransactionOriginal(isDeliveryCustomer) {
+    async processNfcSettlement(nfcData) {
+      try {
+        await this.postTransactionOriginal(false, nfcData);
+        this.nfcPaymentDialog = false;
+      } catch (error) {
+        console.error('NFC Settlement error:', error);
+      }
+    },
+
+    async postTransactionOriginal(isDeliveryCustomer, nfcData = null) {
       if (this.isloading || this.generateSaleLine == 0) {
         if (this.generateSaleLine == 0) {
           swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
@@ -1981,6 +2023,25 @@ export default {
         }
 
         this.lastTransactionSaleHeaderId = saleHeaderId
+
+        // Handle NFC Double Entry BEFORE asking to print
+        if (nfcData) {
+          try {
+            await this.$axios.post('/api/transactions/settlement', {
+              studentAccountId: nfcData.studentAccountId,
+              shopAccountId: nfcData.shopAccountId,
+              amount: nfcData.amount,
+              saleHeaderId: saleHeaderId
+            });
+            console.log("NFC settlement double-entry complete for sale", saleHeaderId);
+          } catch (nfcSettlementErr) {
+            console.error("NFC Settlement failed!", nfcSettlementErr);
+            swalError2(this.$swal, 'Error', 'ການຕັດເງິນຜ່ານບັດລົ້ມເຫຼວ (NFC Settlement Failed)');
+            this.isloading = false;
+            // Optionally: Reverse the created sale
+            return;
+          }
+        }
 
         // 1. Show Success Message
         await swalSuccess(this.$swal, 'Succeed', successMessage)

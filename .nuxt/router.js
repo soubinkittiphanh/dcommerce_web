@@ -47,6 +47,7 @@ const _38d56420 = () => interopDefault(import('../pages/admin/laundry/index.vue'
 const _70c5e868 = () => interopDefault(import('../pages/admin/location/index.vue' /* webpackChunkName: "pages/admin/location/index" */))
 const _54691328 = () => interopDefault(import('../pages/admin/login/index.vue' /* webpackChunkName: "pages/admin/login/index" */))
 const _51a6edfd = () => interopDefault(import('../pages/admin/logout/index.vue' /* webpackChunkName: "pages/admin/logout/index" */))
+const _645c380a = () => interopDefault(import('../pages/admin/mainCategory/index.vue' /* webpackChunkName: "pages/admin/mainCategory/index" */))
 const _ad29d0a2 = () => interopDefault(import('../pages/admin/manage_stock/index.vue' /* webpackChunkName: "pages/admin/manage_stock/index" */))
 const _3a4e4f0d = () => interopDefault(import('../pages/admin/member/index.vue' /* webpackChunkName: "pages/admin/member/index" */))
 const _b984ba82 = () => interopDefault(import('../pages/admin/menuHeader/index.vue' /* webpackChunkName: "pages/admin/menuHeader/index" */))
@@ -88,6 +89,7 @@ const _1b91bdb2 = () => interopDefault(import('../pages/admin/report/index.vue' 
 const _79f169be = () => interopDefault(import('../pages/admin/report_card/index.vue' /* webpackChunkName: "pages/admin/report_card/index" */))
 const _4c7625e2 = () => interopDefault(import('../pages/admin/reservation/index.vue' /* webpackChunkName: "pages/admin/reservation/index" */))
 const _0f005c3d = () => interopDefault(import('../pages/admin/rider/index.vue' /* webpackChunkName: "pages/admin/rider/index" */))
+const _490002a8 = () => interopDefault(import('../pages/admin/saleByMainCategory/index.vue' /* webpackChunkName: "pages/admin/saleByMainCategory/index" */))
 const _966e82b2 = () => interopDefault(import('../pages/admin/saleCost/index.vue' /* webpackChunkName: "pages/admin/saleCost/index" */))
 const _50aa43f0 = () => interopDefault(import('../pages/admin/saleDashBoard/index.vue' /* webpackChunkName: "pages/admin/saleDashBoard/index" */))
 const _21cd947f = () => interopDefault(import('../pages/admin/saleReportDetail/index.vue' /* webpackChunkName: "pages/admin/saleReportDetail/index" */))
@@ -99,6 +101,7 @@ const _a9d4e97a = () => interopDefault(import('../pages/admin/saleTicketReportDe
 const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue' /* webpackChunkName: "pages/admin/shipping/index" */))
 const _beea3498 = () => interopDefault(import('../pages/admin/size/index.vue' /* webpackChunkName: "pages/admin/size/index" */))
 const _cc17c2a8 = () => interopDefault(import('../pages/admin/spf/index.vue' /* webpackChunkName: "pages/admin/spf/index" */))
+const _3fe900be = () => interopDefault(import('../pages/admin/student/index.vue' /* webpackChunkName: "pages/admin/student/index" */))
 const _e5b9f3a4 = () => interopDefault(import('../pages/admin/tax/index.vue' /* webpackChunkName: "pages/admin/tax/index" */))
 const _3b0e4e6f = () => interopDefault(import('../pages/admin/terminal/index.vue' /* webpackChunkName: "pages/admin/terminal/index" */))
 const _f3186e02 = () => interopDefault(import('../pages/admin/ticket/index.vue' /* webpackChunkName: "pages/admin/ticket/index" */))
@@ -146,8 +149,10 @@ const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
 const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/reports/moneyAdvance/index" */))
+const _2d13abf8 = () => interopDefault(import('../pages/admin/reports/stockActivity/index.vue' /* webpackChunkName: "pages/admin/reports/stockActivity/index" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
+const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
 const _01d70745 = () => interopDefault(import('../pages/reports/financial/pl/index.vue' /* webpackChunkName: "pages/reports/financial/pl/index" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
@@ -365,6 +370,10 @@ export const routerOptions = {
     component: _51a6edfd,
     name: "admin-logout"
   }, {
+    path: "/admin/mainCategory",
+    component: _645c380a,
+    name: "admin-mainCategory"
+  }, {
     path: "/admin/manage_stock",
     component: _ad29d0a2,
     name: "admin-manage_stock"
@@ -529,6 +538,10 @@ export const routerOptions = {
     component: _0f005c3d,
     name: "admin-rider"
   }, {
+    path: "/admin/saleByMainCategory",
+    component: _490002a8,
+    name: "admin-saleByMainCategory"
+  }, {
     path: "/admin/saleCost",
     component: _966e82b2,
     name: "admin-saleCost"
@@ -572,6 +585,10 @@ export const routerOptions = {
     path: "/admin/spf",
     component: _cc17c2a8,
     name: "admin-spf"
+  }, {
+    path: "/admin/student",
+    component: _3fe900be,
+    name: "admin-student"
   }, {
     path: "/admin/tax",
     component: _e5b9f3a4,
@@ -761,6 +778,10 @@ export const routerOptions = {
     component: _cf45db36,
     name: "admin-reports-moneyAdvance"
   }, {
+    path: "/admin/reports/stockActivity",
+    component: _2d13abf8,
+    name: "admin-reports-stockActivity"
+  }, {
     path: "/admin/settings/system",
     component: _228e3c4a,
     name: "admin-settings-system"
@@ -768,6 +789,10 @@ export const routerOptions = {
     path: "/admin/settings/userRole",
     component: _4e54f48d,
     name: "admin-settings-userRole"
+  }, {
+    path: "/admin/student/wallet",
+    component: _26644e3d,
+    name: "admin-student-wallet"
   }, {
     path: "/admin/web_category/test",
     component: _4183d918,

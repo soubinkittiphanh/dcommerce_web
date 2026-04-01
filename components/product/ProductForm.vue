@@ -378,45 +378,41 @@ export default {
       let finalPrice = rawPrice
 
       if (this.selectedTaxRate) {
-        // Check if the tax is EXCLUSIVE (not INC)
         if (this.selectedTaxRate.taxType !== 'INC') {
           const taxRate = parseFloat(this.selectedTaxRate.rate || 0)
-          // Add the tax to the base price: Price + (Price * Rate)
           finalPrice = rawPrice + rawPrice * taxRate
           console.log(`Tax added (EXC). New Total: ${finalPrice}`)
-        } else {
-          console.log('Tax is Inclusive (INC). Price remains the same.')
         }
       }
 
-      // Format the final calculated price for the barcode
       const formattedPrice = this.formatNumber(finalPrice)
       console.log('Price to print:', formattedPrice)
 
-      // 1. Check the printers array
-      console.log('Available printer settings:', this.findAllprinters)
+      let printerList = this.findAllprinters || []
+      console.log('Available printer settings:', printerList)
 
-      const barcodePrinter = this.findAllprinters.find(
-        (p) => p.type === 'barcode'
-      )
-
+      const barcodePrinter = printerList.find((p) => p.type === 'barcode')
       console.log('Found barcode printer config:', barcodePrinter)
 
-      // 🔴 POTENTIAL BUG: Check if your object uses .name or .printerName
-      const printerName = barcodePrinter ? barcodePrinter.printerName || '' : ''
-      console.log('Final Printer Name string being sent:', `"${printerName}"`)
+      // Handle both property name variations: printerName and printer_name
+      const printerName = barcodePrinter 
+        ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+        : ''
+      
+      console.log('Final Printer Name string:', `"${printerName}"`)
 
       let windowContent = this.threeColPaper
         ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage)
         : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name)
 
-      // 2. Check if bridge exists
       if (window.posApi) {
-        console.log('Bridge window.posApi found. Sending to IPC...')
+        console.log('Bridge window.posApi found. Checking for printer name...')
 
         if (!printerName) {
-          this.$toast.error("Error: No printer name found for 'barcode' type!")
-          console.error('Stopping print: printerName is empty.')
+          const msg = "Error: No printer name found for 'barcode' type in settings!"
+          this.$toast.error(msg)
+          console.error(msg)
+          // Open settings if possible? For now just alert.
           return
         }
 
@@ -427,15 +423,10 @@ export default {
         }
 
         console.log('Payload sent to printBarcode:', payload)
-
         window.posApi.printBarcode(payload)
-        this.$toast.success(
-          `Printing ${this.printQty} barcode(s) to ${printerName}`
-        )
+        this.$toast.success(`Printing ${this.printQty} barcode(s) to ${printerName}`)
       } else {
-        console.warn(
-          'window.posApi NOT found. Using fallback executePrintWindow.'
-        )
+        console.warn('window.posApi NOT found. Using browser print dialog (fallback).')
         executePrintWindow(windowContent)
       }
     },
@@ -570,10 +561,12 @@ export default {
     },
     async fetchCategory() {
       const res = await this.$axios.get('category_f')
-      this.category = res.data.map((el) => ({
-        categ_id: el.categ_id,
-        categ_name: el.categ_name,
-      }))
+      this.category = res.data
+        .filter((el) => el.isActive === true || el.isActive === 1)
+        .map((el) => ({
+          categ_id: el.categ_id,
+          categ_name: el.categ_name,
+        }))
     },
     async fetchCompany() {
       const res = await this.$axios.get('api/company/find')

@@ -288,7 +288,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters']),
     barcodeNormal() {
       let labelsHTML = ''
 
@@ -465,22 +465,45 @@ export default {
     printBarcode() {
       if (this.productSelectedList.length < 1)
         return swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກ ລາຍການທີຈະພິມ')
-      const threeColPaper = false
-      const windowContent = threeColPaper
-        ? this.barcode3by2cm
-        : this.barcodeNormal
-      const printWin = window.open(
-        '',
-        '',
-        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
-      )
-      printWin.document.open()
-      printWin.document.write(windowContent)
 
-      setTimeout(() => {
-        printWin.print()
-        printWin.close()
-      }, 1000)
+      const windowContent = this.barcodeNormal
+      
+      // Get printer name from Vuex store
+      const printerList = this.findAllprinters || []
+      const barcodePrinter = printerList.find((p) => p.type === 'barcode')
+      const printerName = barcodePrinter 
+        ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+        : ''
+
+      if (window.posApi) {
+        if (!printerName) {
+          const msg = "Error: No printer name found for 'barcode' type in settings!"
+          this.$toast.error(msg)
+          return
+        }
+
+        const payload = {
+          html: windowContent,
+          printerName: printerName,
+          copies: 1, // Full HTML already contains all labels
+        }
+
+        window.posApi.printBarcode(payload)
+        this.$toast.success(`Printing barcodes to ${printerName}`)
+      } else {
+        const printWin = window.open(
+          '',
+          '',
+          'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
+        )
+        printWin.document.open()
+        printWin.document.write(windowContent)
+
+        setTimeout(() => {
+          printWin.print()
+          printWin.close()
+        }, 1000)
+      }
     },
   },
 }

@@ -304,15 +304,16 @@ export const executeTicketPrint = async (params, dateValue) => {
         const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
 
         // CONDITIONAL LOGO HEADER
+        console.info(`company data is ${JSON.stringify(companyData)}`);
         const logoPath = companyData.profile_image_path || companyData.ticketLogo;
         const logoHtml = logoPath ? `<div class="logo-wrapper"><img src="${logoPath}" class="logo-img"></div>` : '';
         const layout = companyData.ticketLayout || 'classic';
-
+        const showLogo = companyData.showLogoOnTicket;
         let headerHtml = '';
         if (layout === 'modern') {
             headerHtml = `
             <div class="header-modern">
-                ${logoHtml}
+                ${showLogo ? logoHtml : ''}
                 <div class="company-details">
                     <div class="company-name">${companyData.name}</div>
                     <div class="company-info">ໂທ: ${companyData.tel}</div>
@@ -323,10 +324,10 @@ export const executeTicketPrint = async (params, dateValue) => {
         } else {
             headerHtml = `
             <div class="header-section">
-                ${logoHtml}
+                ${showLogo ? logoHtml : ''}
                 <div style="font-weight:700; font-size:1.5em;">${companyData.name}</div>
                 <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
-                <div style="font-size:0.9em;font-weight:700; color:#444; margin-top:3px;">ເລກທີ: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
+                <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
             </div>`;
         }
 

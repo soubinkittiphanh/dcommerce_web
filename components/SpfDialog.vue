@@ -10,41 +10,20 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="formData.code"
-                  :rules="codeRules"
-                  label="Code *"
-                  required
-                  outlined
-                  :disabled="isEdit"
-                  hint="Code cannot be changed after creation"
-                  persistent-hint
-                ></v-text-field>
+                <v-text-field v-model="formData.code" :rules="codeRules" label="Code *" required outlined
+                  :disabled="isEdit" hint="Code cannot be changed after creation" persistent-hint></v-text-field>
               </v-col>
 
               <v-col cols="12" md="6">
-                <v-text-field
-                  v-model="formData.value"
-                  label="Value"
-                  outlined
-                ></v-text-field>
+                <v-text-field v-model="formData.value" label="Value" outlined></v-text-field>
               </v-col>
 
               <v-col cols="12">
-                <v-textarea
-                  v-model="formData.remark"
-                  label="Remark"
-                  outlined
-                  rows="3"
-                ></v-textarea>
+                <v-textarea v-model="formData.remark" label="Remark" outlined rows="3"></v-textarea>
               </v-col>
 
               <v-col cols="12">
-                <v-switch
-                  v-model="formData.isActive"
-                  label="Active"
-                  color="success"
-                ></v-switch>
+                <v-switch v-model="formData.isActive" label="Active" color="success"></v-switch>
               </v-col>
             </v-row>
           </v-form>
@@ -53,20 +32,10 @@
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="close"
-        >
+        <v-btn color="blue darken-1" text @click="close">
           Cancel
         </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          :loading="saving"
-          :disabled="!valid"
-          @click="save"
-        >
+        <v-btn color="blue darken-1" text :loading="saving" :disabled="!valid" @click="save">
           Save
         </v-btn>
       </v-card-actions>
@@ -77,7 +46,7 @@
 <script>
 export default {
   name: 'SpfDialog',
-  
+
   props: {
     value: {
       type: Boolean,
@@ -99,11 +68,11 @@ export default {
         remark: '',
         isActive: true
       },
-      
+
       codeRules: [
         v => !!v || 'Code is required',
         v => (v && v.length >= 2) || 'Code must be at least 2 characters',
-        v => /^[A-Za-z0-9_-]+$/.test(v) || 'Code can only contain letters, numbers, underscores, and hyphens'
+        v => /^[A-Za-z0-9._-]+$/.test(v) || 'Code can only contain letters, numbers, dots, underscores, and hyphens'
       ]
     }
   },

@@ -26,7 +26,7 @@
       <v-card-text>
         <v-row align="center">
           <v-col cols="12" md="3">
-            <v-select v-model="filters.ministryId" :items="ministries" item-text="ministryName" item-value="id"
+            <v-select v-model="filters.ministryId" :items="[{id: 'ALL', ministryName: 'ທັງໝົດ (All Ministries)'}, ...ministries]" item-text="ministryName" item-value="id"
               label="ເລືອກກະຊວງ (Ministry)" outlined dense hide-details clearable></v-select>
           </v-col>
           <v-col cols="12" md="3">
@@ -89,6 +89,10 @@
         no-data-text="ບໍ່ພົບຂໍ້ມູນໃນຊ່ວງເວລານີ້" :items-per-page="50" :footer-props="{
           'items-per-page-options': [25, 50, 100, -1]
         }" class="elevation-0" disable-sort>
+        <template v-slot:item.index="{ item }">
+          {{ ledgerEntries.indexOf(item) + 1 }}
+        </template>
+
         <template v-slot:item.date="{ item }">
           {{ formatDate(item.date) }}
         </template>
@@ -138,7 +142,7 @@ export default {
       exporting: false,
       ministries: [],
       filters: {
-        ministryId: null,
+        ministryId: 'ALL',
         fromDate: '',
         toDate: ''
       },
@@ -148,7 +152,9 @@ export default {
       totalSettlements: 0,
       currentOutstanding: 0,
       headers: [
+        { text: 'ລຳດັບ (No.)', value: 'index', width: '80px', align: 'center' },
         { text: 'ວັນທີ', value: 'date', width: '120px' },
+        { text: 'ກະຊວງ (Ministry)', value: 'ministryLabel', width: '180px' },
         { text: 'ປະເພດທຸລະກຳ', value: 'type', width: '120px' },
         { text: 'ລາຍລະອຽດ / ເລກທີ', value: 'description' },
         { text: 'ຈຳນວນເງິນຈ່າຍ (Dr)', value: 'advanceAmount', align: 'right', width: '150px' },
@@ -218,12 +224,12 @@ export default {
         // We will filter out the ones after 'toDate' just in case, and segregate those before 'fromDate' for Brought Forward
         const [advances, settlements] = await Promise.all([
           this.fetchAllPaginated('/api/money-advances', {
-            ministryId: this.filters.ministryId,
+            ...(this.filters.ministryId !== 'ALL' && { ministryId: this.filters.ministryId }),
             toDate: this.filters.toDate,
             include: ['ministry']
           }),
           this.fetchAllPaginated('/api/settlements', {
-            ministryId: this.filters.ministryId,
+            ...(this.filters.ministryId !== 'ALL' && { ministryId: this.filters.ministryId }),
             toDate: this.filters.toDate,
             isPosted: true,
             include: ['ministry', 'advance']
@@ -252,6 +258,7 @@ export default {
             periodTransactions.push({
               date: tDate,
               type: 'ADVANCE',
+              ministryLabel: adv.ministry?.ministryName || '-',
               description: adv.purpose || 'ເບີກຈ່າຍເງິນລາຍໜ້າ',
               referenceNo: `MA-${String(adv.id).padStart(6, '0')}`,
               advanceAmount: amount,
@@ -273,6 +280,7 @@ export default {
             periodTransactions.push({
               date: tDate,
               type: 'SETTLEMENT',
+              ministryLabel: set.ministry?.ministryName || '-',
               description: set.notes || 'ຮັບຊຳລະເງິນຄືນ',
               referenceNo: `MAS-${String(set.id).padStart(6, '0')}`,
               advanceAmount: 0,
@@ -293,6 +301,7 @@ export default {
         finalEntries.push({
           date: fromDateObj,
           type: 'BF',
+          ministryLabel: '-',
           description: 'ຍອດຍົກມາ (Brought Forward)',
           referenceNo: '-',
           advanceAmount: 0,
@@ -346,12 +355,14 @@ export default {
       this.exporting = true
 
       try {
-        const ministryName = this.ministries.find(m => m.id === this.filters.ministryId)?.ministryName || 'Unknown'
+        const ministryName = this.filters.ministryId === 'ALL'
+          ? 'ທັງໝົດ (All Ministries)'
+          : (this.ministries.find(m => m.id === this.filters.ministryId)?.ministryName || 'Unknown')
 
         const exportData = this.ledgerEntries.map((row, index) => ({
           '#': index + 1,
           'ວັນທີ': this.formatDate(row.date),
-          'ກະຊວງ': ministryName,
+          'ກະຊວງ': row.ministryLabel !== '-' && row.ministryLabel ? row.ministryLabel : ministryName,
           'ປະເພດ': this.getTypeText(row.type),
           'ລາຍລະອຽດ': row.description,
           'ເລກທີເອກະສານ': row.referenceNo,

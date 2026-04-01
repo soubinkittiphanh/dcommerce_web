@@ -59,6 +59,7 @@
                         <v-icon left small>mdi-refresh</v-icon>
                         Fix Stock
                       </v-btn>
+                      <v-checkbox v-model.number="showActive" label="ສະແດງລາຍການ inActive"></v-checkbox>
                     </div>
                   </v-col>
                 </v-row>
@@ -445,6 +446,7 @@ import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
 import { mapActions, mapGetters } from 'vuex'
 import RecipeManagement from '~/components/pos/recipe'
+import JsBarcode from 'jsbarcode'
 
 export default {
   components: {
@@ -460,6 +462,7 @@ export default {
       // Tab management
       activeTab: 0,
       recipeManagementDialog: false,
+      showActive: false,
 
       // Print-related data
       printDialog: false,
@@ -579,7 +582,7 @@ export default {
 
   async mounted() {
     // Load barcode library first
-    this.loadBarcodeLibrary()
+    // this.loadBarcodeLibrary() // Removed in favor of static import
 
     await this.loadCardCategory()
     await this.fetchData()
@@ -591,7 +594,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters']),
 
     filteredProducts() {
       // 1. Safety check: ensure loaddata exists
@@ -617,7 +620,7 @@ export default {
           )
         })
       }
-      return products
+      return products.filter((product) => product.isActive === this.showActive == 0 ? '1' : '0')
     },
   },
 
@@ -647,7 +650,7 @@ export default {
       if (!isCharacter) return
 
       this.barcodeBuffer += e.key
-      
+
       // Clear buffer if typing stops (1 second gap)
       if (this.barcodeTimeout) clearTimeout(this.barcodeTimeout)
       this.barcodeTimeout = setTimeout(() => {
@@ -688,7 +691,7 @@ export default {
               const format = formats[this.selectedPrintFormat]
 
               // Generate barcode
-              window.JsBarcode(element, barcodeValue, {
+              JsBarcode(element, barcodeValue, {
                 format: this.getBarcodeFormat(barcodeValue),
                 width: format.width,
                 height: format.height,
@@ -744,18 +747,7 @@ export default {
         : text
     },
 
-    loadBarcodeLibrary() {
-      // Load JsBarcode library if not already loaded
-      if (typeof window.JsBarcode === 'undefined') {
-        const script = document.createElement('script')
-        script.src =
-          'https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js'
-        script.onload = () => {
-          console.log('JsBarcode library loaded')
-        }
-        document.head.appendChild(script)
-      }
-    },
+    // Removed loadBarcodeLibrary in favor of static import
 
     getLabelStyle() {
       const formats = {
@@ -773,15 +765,133 @@ export default {
       }
     },
 
-    doPrint() {
+    async doPrint() {
       // Hide the dialog during printing
       this.printDialog = false
 
-      // Create a new window for printing
-      const printWindow = window.open('', '_blank')
+      // Generate the print document HTML first
+      const windowContent = await this.generateStaticPrintHtml()
 
-      // Generate the print document with barcodes
-      this.generatePrintDocument(printWindow)
+      // Bridge for Electron
+      if (window.posApi) {
+        let printerList = this.findAllprinters || []
+        const barcodePrinter = printerList.find((p) => p.type === 'barcode')
+        const printerName = barcodePrinter 
+          ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+          : ''
+
+        if (!printerName) {
+          const msg = "Error: No printer name found for 'barcode' type in settings!"
+          this.$toast.error(msg)
+          return
+        }
+
+        const payload = {
+          html: windowContent,
+          printerName: printerName,
+          copies: 1, // HTML already contains all labels
+        }
+        window.posApi.printBarcode(payload)
+        this.$toast.success(`Printing barcodes to ${printerName}`)
+      } else {
+        // Fallback for browser
+        const printWindow = window.open('', '_blank')
+        printWindow.document.write(windowContent)
+        printWindow.document.close()
+        
+        // Browser print handled by onload in generateStaticPrintHtml
+      }
+    },
+
+    async generateStaticPrintHtml() {
+      const labelStyle = this.getLabelStyle()
+      let labelsHtml = ''
+
+      // For each product, generate a base64 barcode
+      for (const product of this.filteredProducts) {
+        const barcodeValue = String(product.barCode || product.pro_id || '000000')
+        const productName = this.escapeHtml(this.truncateText(product.pro_name, 25))
+        const productPrice = this.formatNumber(product.pro_price)
+        
+        // Generate base64 barcode image
+        const barcodeDataUrl = await this.generateBarcodeDataUrl(barcodeValue)
+
+        labelsHtml += `
+          <div class="barcode-label" style="width: ${labelStyle.width}; height: ${labelStyle.height}; break-inside: avoid;">
+            <div class="barcode-svg-container" style="text-align: center;">
+              <img src="${barcodeDataUrl}" style="max-width: 100%; height: auto;" />
+            </div>
+            <div class="barcode-text" style="font-size: 8pt; text-align: center;">${barcodeValue}</div>
+            <div class="product-name" style="font-size: ${labelStyle.fontSize}; text-align: center;">${productName}</div>
+            <div class="product-price" style="font-size: ${labelStyle.fontSize}; font-weight: bold; text-align: center;">${productPrice} LAK</div>
+          </div>
+        `
+      }
+
+      const html = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Barcode Print</title>
+          <style>
+            @font-face {
+              font-family: 'DM Sans';
+              src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+            }
+            body { 
+              margin: 0; 
+              padding: 0; 
+              font-family: 'DM Sans', sans-serif;
+            }
+            .print-grid {
+              display: grid;
+              grid-template-columns: ${labelStyle.gridTemplateColumns};
+              gap: 2mm;
+              padding: 2mm;
+            }
+            .barcode-label {
+              border: 0.1mm solid #eee;
+              padding: 1mm;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              overflow: hidden;
+            }
+            @media print {
+              .barcode-label { border: none; }
+            }
+          </style>
+        </head>
+        <body onload="setTimeout(() => { window.print(); window.close(); }, 500)">
+          <div class="print-grid">
+            ${labelsHtml}
+          </div>
+        </body>
+        </html>
+      `
+      return html
+    },
+
+    generateBarcodeDataUrl(value) {
+      return new Promise((resolve) => {
+        const canvas = document.createElement('canvas')
+        const formats = {
+          small: { width: 1, height: 30 },
+          standard: { width: 1.2, height: 40 },
+          large: { width: 1.5, height: 50 },
+        }
+        const format = formats[this.selectedPrintFormat]
+        
+        JsBarcode(canvas, value, {
+          format: 'CODE128',
+          width: format.width,
+          height: format.height,
+          displayValue: false,
+          margin: 0
+        })
+        resolve(canvas.toDataURL())
+      })
     },
 
     escapeHtml(text) {
@@ -1181,7 +1291,7 @@ export default {
 
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`, {
-          params: { include: 'priceList' },
+          params: { include: 'priceList', isActive: false },
         })
         .then((res) => {
           this.initProduct(res.data.data)
@@ -1210,6 +1320,7 @@ export default {
               priceLists: el.priceLists,
               actions: el.pro_id, // ✅ Unified actions
               status: el.pro_id,
+              isActive: el.isActive,
             }
           })
         })

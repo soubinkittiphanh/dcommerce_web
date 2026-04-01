@@ -471,25 +471,27 @@ export default {
           text += numbers[hundreds] + 'ຮ້ອຍ'
         }
 
+        if (remainder === 0) return text
+
         // Tens and ones place
-        if (remainder === 20) {
-          // Special case: 20 = ຊາວ
+        if (tens === 2) {
+          // Special case: 20s = ຊາວ
           text += 'ຊາວ'
-        } else if (tens >= 2) {
+        } else if (tens > 2) {
           // 30, 40, 50, etc.
           text += numbers[tens] + 'ສິບ'
-          if (ones > 0) {
-            text += numbers[ones]
-          }
         } else if (tens === 1) {
           // 10-19
           text += 'ສິບ'
-          if (ones > 0) {
+        }
+
+        if (ones > 0) {
+          if (ones === 1 && tens > 0) {
+            // Numbers ending in 1 from 11 onwards use ເອັດ
+            text += 'ເອັດ'
+          } else {
             text += numbers[ones]
           }
-        } else if (ones > 0) {
-          // 1-9
-          text += numbers[ones]
         }
 
         return text

@@ -2,8 +2,8 @@
   <div class="customer-display-container">
     <WelcomeScreen v-if="!showQR" :parsed-company-info="parsedCompanyInfo" :promotions="promotions"
       :special-offers="specialOffers" :wifi-credentials="wifiCredentials" :logo-url="logoUrl"
-      :company-logo="companyLogo" :store-name="storeName" :bcel-qr-image="bcelQrImage"
-      :company-q-r-image-url="companyQRImageUrl" />
+      :company-logo="companyLogo" :store-name="storeName" :bcel-qr-image="bcelQrImage" :bcel-qr-image2="bcelQrImage2"
+      :company-q-r-image-url="companyQRImageUrl" :company-q-r-image-url2="companyQRImageUrl2" />
 
     <div v-if="showQR" class="qr-payment-screen">
       <div class="payment-layout">
@@ -46,7 +46,8 @@ export default {
   },
   data() {
     return {
-      bcelQrImage: require('~/assets/image/qr_code/HAPPY_BUN.png'),
+      bcelQrImage: null,
+      bcelQrImage2: null,
       showQR: false,
       paymentComplete: false,
       qrData: {
@@ -169,8 +170,24 @@ export default {
     companyQRImageUrl() {
       return this.parsedCompanyInfo?.qrCode || null
     },
+    companyQRImageUrl2() {
+      return this.parsedCompanyInfo?.qrCode2 || null
+    },
     logoUrl() {
-      return this.companyLogo.url || null
+      // Prioritize the full URL passed from the POS in the query string
+      if (this.parsedCompanyInfo?.ticketLogo) {
+        return this.parsedCompanyInfo.ticketLogo
+      }
+      // Fallback to the logo fetched from the API
+      if (this.companyLogo.url) return this.companyLogo.url
+
+      // Secondary fallback using the profile_image_path from query string
+      if (this.parsedCompanyInfo?.profile_image_path) {
+        const baseUrl = (this.$axios.defaults.baseURL || '').replace(/\/+$/, '')
+        const path = this.parsedCompanyInfo.profile_image_path.replace(/^\/+/, '')
+        return `${baseUrl}/${path}`
+      }
+      return null
     },
     storeName() {
       return this.companyLogo.company?.name || 'DCOMMERCE CAFE'
@@ -193,6 +210,10 @@ export default {
     window.addEventListener('storage', this.handleStorageChange)
     this.checkForExistingQR() // FIXED: Named correctly to match methods
     this.loadCompanyLogo()
+    
+    // Set open state for POS sync
+    localStorage.setItem('customerDisplayOpen', 'true')
+    window.addEventListener('beforeunload', this.handleUnload)
 
     // Initialize currencyList from URL if present
     if (this.parsedCurrencies && this.parsedCurrencies.length > 0) {
@@ -311,20 +332,52 @@ export default {
     },
     async loadCompanyLogo() {
       try {
+        this.companyLogo.loading = true
         const res = await this.$axios.get('/api/public/company/findAll')
-        const comp = res.data.find((c) => c.profile_image_path && c.isActive)
+        // Prioritize active company with profile image to ensure we get the logo
+        let comp = res.data.find((c) => c.isActive && c.profile_image_path)
+
+        // If not found, just get ANY active company for the QR code
+        if (!comp) {
+          comp = res.data.find((c) => c.isActive)
+        }
+
         if (comp) {
           this.companyLogo.company = comp
-          this.companyLogo.url = `${this.$axios.defaults.baseURL}/${comp.profile_image_path}`
+          const baseUrl = (this.$axios.defaults.baseURL || '').replace(/\/+$/, '')
+
+          // Set profile logo
+          if (comp.profile_image_path) {
+            const path = comp.profile_image_path.replace(/^\/+/, '')
+            this.companyLogo.url = `${baseUrl}/${path}`
+          }
+
+          // Set BCEL QR Image dynamically
+          if (comp.bank_qr_image_path) {
+            const path = comp.bank_qr_image_path.replace(/^\/+/, '')
+            this.bcelQrImage = `${baseUrl}/${path}`
+          }
+
+          if (comp.bank_qr_image_path_2) {
+            const path = comp.bank_qr_image_path_2.replace(/^\/+/, '')
+            this.bcelQrImage2 = `${baseUrl}/${path}`
+          }
         }
       } catch (e) {
         this.companyLogo.error = true
+        console.error('Logo loading error:', e)
+      } finally {
+        this.companyLogo.loading = false
       }
     },
     cleanup() {
       window.removeEventListener('storage', this.handleStorageChange)
+      window.removeEventListener('beforeunload', this.handleUnload)
       this.stopTimer()
       this.stopSuccessTimer()
+    },
+    handleUnload() {
+      localStorage.setItem('customerDisplayOpen', 'false')
     },
   },
 }

@@ -170,6 +170,12 @@
         &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R{{ appVersion }}
       </span>
 
+      <!-- Refresh Button -->
+      <v-btn small text color="primary" class="ma-1" @click="refreshStoreData" :loading="isRefreshing">
+        <v-icon small left>mdi-refresh</v-icon>
+        ໂຫຼດຂໍ້ມູນໃໝ່ (Refresh)
+      </v-btn>
+
       <!-- Change Password Button -->
       <v-btn v-if="user" small text color="primary" class="ma-1" @click="openPasswordDialog">
         <v-icon small left>mdi-lock-reset</v-icon>
@@ -190,6 +196,7 @@ import { mainCompanyInfo } from '~/common/api'
 export default {
   data() {
     return {
+      isRefreshing: false,
       spfList: [],
       intervalId: null,
       terminalDialog: false,
@@ -286,12 +293,13 @@ export default {
       return this.$vuetify.breakpoint.mdAndDown
     },
     homePage() {
-      const homePage = this.spfList.find((spf) => spf.code === 'HOME')
-      if (homePage?.value) {
-        return homePage.value
+      const userGroup = this.$auth.user?.userGroup;
+
+      if (userGroup && userGroup.homePage) {
+        return userGroup.homePage;
       } else {
         // Fallback route
-        return '/admin'
+        return '/admin';
       }
     },
 
@@ -390,6 +398,24 @@ export default {
       'setSelectedTerminal',
       'setSelectedLocation',
     ]),
+
+    async refreshStoreData() {
+      if (this.isRefreshing) return;
+      this.isRefreshing = true;
+      try {
+        await this.initData();
+        if (this.$toast) {
+          this.$toast.success('ໂຫຼດຂໍ້ມູນໃໝ່ສຳເລັດແລ້ວ (Data refreshed successfully)');
+        }
+      } catch (error) {
+        console.error('Error refreshing data:', error);
+        if (this.$toast) {
+          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ (Error refreshing data)');
+        }
+      } finally {
+        this.isRefreshing = false;
+      }
+    },
 
     async initializeApp() {
       // Set default terminal if available

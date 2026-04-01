@@ -22,8 +22,8 @@
                                 <v-row>ບ່ອນສົ່ງ: {{ customerForm.address }} - {{ currentGeo }}</v-row>
                                 <v-row v-if="currentShipping != 'RIDER'">ຄ່າຝາກ: {{
                                     customerForm.shipping_fee_by.includes('destination') ? 'ປາຍທາງ' :
-                                    'ຕົ້ນທາງ'
-                                }}</v-row>
+                                        'ຕົ້ນທາງ'
+                                    }}</v-row>
                             </v-col>
                         </v-row>
                         <v-row>
@@ -78,8 +78,16 @@
                 <v-form>
                     <v-row>
                         <v-col cols="4">
-                            <v-text-field type="date" label="ວັນທີ*" v-model="customerForm.txn_date"
-                                hint="ເດຶອນ/ວັນ/ປີ 12/31/2023"></v-text-field>
+                            <v-menu v-model="dateMenu" :close-on-content-click="false" transition="scale-transition"
+                                offset-y min-width="auto">
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field :value="formattedDate" label="ວັນທີ*" hint="ວັນ/ເດືອນ/ປີ (DD/MM/YYYY)"
+                                        persistent-hint prepend-inner-icon="mdi-calendar" readonly v-bind="attrs"
+                                        v-on="on"></v-text-field>
+                                </template>
+                                <v-date-picker v-model="customerForm.txn_date"
+                                    @input="dateMenu = false"></v-date-picker>
+                            </v-menu>
                         </v-col>
                         <v-col cols="4">
                             <v-text-field v-model="customerForm.name" label="ຊືລູກຄ້າ"></v-text-field>
@@ -94,16 +102,9 @@
                             <v-text-field v-model="customerForm.address" label="*ບ່ອນສົ່ງ"></v-text-field>
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete 
-                                item-text="abbr" 
-                                item-value="id" 
-                                :items="geographyList" 
-                                label="ແຂວງ*"
-                                v-model="customerForm.geoId"
-                                clearable
-                                placeholder="ເລືອກແຂວງ"
-                                :rules="[v => !!v || 'ກະລຸນາເລືອກແຂວງ']"
-                            ></v-autocomplete>
+                            <v-autocomplete item-text="abbr" item-value="id" :items="geographyList" label="ແຂວງ*"
+                                v-model="customerForm.geoId" clearable placeholder="ເລືອກແຂວງ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກແຂວງ']"></v-autocomplete>
                         </v-col>
                         <v-col cols="4">
                             <v-radio-group v-model="customerForm.shipping_fee_by" row align="center">
@@ -115,19 +116,10 @@
                     </v-row>
                     <v-row>
                         <v-col cols="4">
-                            <v-autocomplete 
-                                item-text="name" 
-                                item-value="id" 
-                                :items="shippingList" 
-                                label="ຂົນສົ່ງ*"
-                                v-model="customerForm.shippingId"
-                                clearable
-                                placeholder="ເລືອກວິທີຂົນສົ່ງ"
-                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຂົນສົ່ງ']"
-                                :error="shippingError"
-                                :error-messages="shippingErrorMessage"
-                                @input="clearShippingError"
-                            >
+                            <v-autocomplete item-text="name" item-value="id" :items="shippingList" label="ຂົນສົ່ງ*"
+                                v-model="customerForm.shippingId" clearable placeholder="ເລືອກວິທີຂົນສົ່ງ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຂົນສົ່ງ']" :error="shippingError"
+                                :error-messages="shippingErrorMessage" @input="clearShippingError">
                                 <template v-slot:no-data>
                                     <v-list-item>
                                         <v-list-item-content>
@@ -140,15 +132,8 @@
                             </v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete 
-                                item-text="name" 
-                                item-value="id" 
-                                :items="riderList" 
-                                label="Rider"
-                                v-model="customerForm.riderId"
-                                clearable
-                                placeholder="ເລືອກ Rider"
-                            ></v-autocomplete>
+                            <v-autocomplete item-text="name" item-value="id" :items="riderList" label="Rider"
+                                v-model="customerForm.riderId" clearable placeholder="ເລືອກ Rider"></v-autocomplete>
                         </v-col>
                         <!-- <v-col cols="4">
                             <v-autocomplete 
@@ -163,14 +148,8 @@
                             ></v-autocomplete>
                         </v-col> -->
                         <v-col cols="4">
-                            <v-text-field 
-                                v-model="customerForm.rider_fee" 
-                                label="ຄ່າສົ່ງ"
-                                type="number"
-                                min="0"
-                                step="0.01"
-                                placeholder="0.00"
-                            ></v-text-field>
+                            <v-text-field v-model="customerForm.rider_fee" label="ຄ່າສົ່ງ" type="number" min="0"
+                                step="0.01" placeholder="0.00"></v-text-field>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -178,26 +157,13 @@
                             <!-- Empty column for spacing -->
                         </v-col>
                         <v-col cols="4">
-                            <v-autocomplete 
-                                item-text="payment_code" 
-                                item-value="id" 
-                                :items="paymentList" 
-                                label="ການຊຳລະ*"
-                                v-model="paymentSelected"
-                                clearable
-                                placeholder="ເລືອກວິທີຊຳລະ"
-                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຊຳລະ']"
-                            ></v-autocomplete>
+                            <v-autocomplete item-text="payment_code" item-value="id" :items="paymentList"
+                                label="ການຊຳລະ*" v-model="paymentSelected" clearable placeholder="ເລືອກວິທີຊຳລະ"
+                                :rules="[v => !!v || 'ກະລຸນາເລືອກວິທີຊຳລະ']"></v-autocomplete>
                         </v-col>
                         <v-col cols="4">
-                            <v-text-field 
-                                v-model="customerForm.discount" 
-                                label="ສ່ວນຫລຸດ"
-                                type="number"
-                                min="0"
-                                step="0.01"
-                                placeholder="0.00"
-                            ></v-text-field>
+                            <v-text-field v-model="customerForm.discount" label="ສ່ວນຫລຸດ" type="number" min="0"
+                                step="0.01" placeholder="0.00"></v-text-field>
                         </v-col>
                     </v-row>
                 </v-form>
@@ -210,7 +176,7 @@
         </v-card>
     </div>
 </template>
-  
+
 <script>
 import { mapMutations, mapState, mapGetters, mapActions } from 'vuex'
 import { getFormatNum, swalError2 } from '~/common'
@@ -222,21 +188,21 @@ export default {
         // Load the delivery info form from state
         this.customerForm = JSON.parse(JSON.stringify(this.$store.state.customerForm))
         console.log(`Customer information load from state \n${JSON.stringify(this.customerForm)}`);
-        
+
         const today = new Date().toISOString().substr(0, 10);
         this.customerForm.txn_date = today;
         console.log(`PRODUCT ${this.cartOfProduct[0]['pro_name']}`);
-        
+
         // Clear any pre-selected shipping values to force manual selection
         this.customerForm.shippingId = null;
         this.customerForm.riderId = null;
         this.customerForm.geoId = null;
-        
+
         await this.loadRider()
         await this.loadGeo()
         await this.loadShipping()
         await this.loadPayment()
-        
+
         // Only set payment if there's a current selection from store, otherwise leave null
         this.paymentSelected = this.currentSelectedPayment || null
     },
@@ -295,11 +261,22 @@ export default {
             if (payment == undefined) return ''
             return payment['payment_code']
         },
+        formattedDate() {
+            // 1. Check if it exists
+            // 2. Ensure it is a string (to avoid errors if it's a Date object or null)
+            if (!this.customerForm.txn_date || typeof this.customerForm.txn_date !== 'string') {
+                return '';
+            }
+
+            const [year, month, day] = this.customerForm.txn_date.split('-');
+            return `${day}/${month}/${year}`;
+        },
         ...mapGetters(['currentSelectedLocation', 'cartOfProduct', 'currenctSelectedCategoryId', 'findAllProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation']),
     },
 
     data() {
         return {
+            dateMenu: false,
             geographyList: [],
             paymentList: [],
             previewDialogKey: 1,
@@ -386,7 +363,7 @@ export default {
         previewTicket() {
             if (!this.customerForm.tel) return swalError2(this.$swal, "ກະລຸນາໃສ່ເບີໂທ")
             if (!this.customerForm.address) return swalError2(this.$swal, "ກະລຸນາໃສ່ທີ່ຢູ່")
-            
+
             // Validate shipping selection before preview
             if (!this.validateForm()) {
                 return;

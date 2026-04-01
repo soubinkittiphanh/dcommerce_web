@@ -123,7 +123,7 @@ export default {
     formatNumber: { type: Function, required: true },
     selectedPayment: { type: [Number, String], default: null },
     paymentList: { type: Array, default: () => [] },
-    showCheckOut: { type: Boolean, default: false }
+    showCheckOut: { type: Boolean, default: true }
   },
 
   data() {
@@ -205,7 +205,7 @@ export default {
 
     currencyBreakdown() {
       const breakdown = {}
-      
+
       this.productCart.forEach(item => {
         const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
         if (!currency) return

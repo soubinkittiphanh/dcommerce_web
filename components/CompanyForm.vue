@@ -53,15 +53,19 @@
             <v-col cols="12" sm="4">
               <v-text-field v-model="form.district" label="ເມືອງ" dense outlined hide-details="auto"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="4" class="d-flex align-center">
+            <v-col cols="12" sm="3" class="d-flex align-center">
               <v-switch v-model="form.isActive" label="ເປີດໃຊ້ງານ" color="primary" dense hide-details
                 class="mt-0 pt-0"></v-switch>
             </v-col>
-            <v-col cols="12" sm="4" class="d-flex align-center">
+            <v-col cols="12" sm="3" class="d-flex align-center">
               <v-switch v-model="form.ticketQRcode" label="ສະແດງ QR ໃນໃບບິນ" color="primary" dense hide-details
                 class="mt-0 pt-0"></v-switch>
             </v-col>
-            <v-col cols="12" sm="4">
+            <v-col cols="12" sm="3" class="d-flex align-center">
+              <v-switch v-model="form.showLogoOnTicket" label="ສະແດງໂລໂກ້ໃນໃບບິນ" color="primary" dense hide-details
+                class="mt-0 pt-0"></v-switch>
+            </v-col>
+            <v-col cols="12" sm="3">
               <v-select v-model="form.ticketLayout" :items="[
                 { text: 'Classic (Default)', value: 'classic' },
                 { text: 'Modern (Premium)', value: 'modern' }
@@ -312,6 +316,7 @@ export default {
         bank_qr_image_path_2: null, // Ensure this is here
         isActive: true,
         ticketQRcode: false,
+        showLogoOnTicket: false,
         ticketLayout: 'classic',
       },
       isloading: false,

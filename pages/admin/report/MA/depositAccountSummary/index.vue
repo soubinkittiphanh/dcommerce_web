@@ -31,20 +31,27 @@
             <v-card-text class="pa-4">
                 <v-row>
                     <!-- From Date -->
-                    <v-col cols="12" md="3">
+                    <v-col cols="12" md="2">
                         <v-text-field v-model="filters.fromDate" type="date" label="ຈາກວັນທີ (From Date)" outlined dense
                             @change="fetchReportData"></v-text-field>
                     </v-col>
 
                     <!-- To Date -->
-                    <v-col cols="12" md="3">
+                    <v-col cols="12" md="2">
                         <v-text-field v-model="filters.toDate" type="date" label="ເຖິງວັນທີ (To Date)" outlined dense
                             @change="fetchReportData"></v-text-field>
                     </v-col>
 
+                    <!-- Bank -->
+                    <v-col cols="12" md="3">
+                        <v-select v-model="filters.bankId" :items="[{id: 'ALL', bank_name: 'ທັງໝົດ (All Banks)'}, ...banks]"
+                            item-text="bank_name" item-value="id" label="ທະນາຄານ (Bank)"
+                            outlined dense @change="onBankChange"></v-select>
+                    </v-col>
+
                     <!-- Bank Account -->
-                    <v-col cols="12" md="4">
-                        <v-autocomplete v-model="filters.bankAccountIds" :items="bankAccounts"
+                    <v-col cols="12" md="3">
+                        <v-autocomplete v-model="filters.bankAccountIds" :items="filteredBankAccounts"
                             item-text="accountDisplayName" item-value="id" label="ບັນຊີທະນາຄານ (Bank Account)" multiple
                             chips small-chips clearable outlined dense @change="fetchReportData">
                             <template v-slot:selection="{ item, index }">
@@ -155,9 +162,11 @@ export default {
             filters: {
                 fromDate: firstDay,
                 toDate: lastDay,
+                bankId: 'ALL',
                 bankAccountIds: []
             },
 
+            banks: [],
             bankAccounts: [],
             reportData: [],
 
@@ -174,6 +183,13 @@ export default {
     computed: {
         ...mapGetters(['findAllCurrency']),
 
+        filteredBankAccounts() {
+            if (!this.filters.bankId || this.filters.bankId === 'ALL') {
+                return this.bankAccounts
+            }
+            return this.bankAccounts.filter(a => a.bankId === this.filters.bankId)
+        },
+
         grandTotal() {
             return this.reportData.reduce((acc, curr) => {
                 acc.broughtForwardLcy += curr.broughtForwardLcy
@@ -188,7 +204,6 @@ export default {
     async created() {
         await this.loadBankAccounts()
         if (this.bankAccounts.length > 0) {
-            this.filters.bankAccountIds = this.bankAccounts.map(a => a.id)
             await this.fetchReportData()
         }
     },
@@ -196,8 +211,12 @@ export default {
     methods: {
         async loadBankAccounts() {
             try {
-                const res = await this.$axios.get('/api/bank_account/find')
-                this.bankAccounts = (res.data.data || res.data || []).map(account => ({
+                const [accountsRes, banksRes] = await Promise.all([
+                    this.$axios.get('/api/bank_account/find'),
+                    this.$axios.get('/api/bank/find')
+                ])
+                this.banks = banksRes.data?.data || banksRes.data || []
+                this.bankAccounts = (accountsRes.data.data || accountsRes.data || []).map(account => ({
                     ...account,
                     accountDisplayName: `${account.accountName} - ${account.accountNumber} (${account.currency})`
                 })).filter(a => a.isActive)
@@ -207,14 +226,23 @@ export default {
             }
         },
 
+        onBankChange() {
+            this.filters.bankAccountIds = []
+            this.fetchReportData()
+        },
+
         async fetchReportData() {
             if (!this.filters.fromDate || !this.filters.toDate) return
 
             this.loading = true
             try {
-                const accountsToProcess = this.filters.bankAccountIds.length > 0
-                    ? this.bankAccounts.filter(a => this.filters.bankAccountIds.includes(a.id))
-                    : this.bankAccounts
+                let accountsToProcess = this.bankAccounts
+                if (this.filters.bankId && this.filters.bankId !== 'ALL') {
+                    accountsToProcess = accountsToProcess.filter(a => a.bankId === this.filters.bankId)
+                }
+                if (this.filters.bankAccountIds && this.filters.bankAccountIds.length > 0) {
+                    accountsToProcess = accountsToProcess.filter(a => this.filters.bankAccountIds.includes(a.id))
+                }
 
                 const results = await Promise.all(accountsToProcess.map(async (account) => {
                     // 1. Fetch Brought Forward (Last statement before fromDate)

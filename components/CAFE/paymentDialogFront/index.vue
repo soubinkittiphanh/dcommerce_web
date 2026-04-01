@@ -9,13 +9,7 @@
           Payment - Table {{ tableNumber }} Ticket - ID {{ ticketId }}
           <v-spacer></v-spacer>
           <div class="text-h6 font-weight-bold">{{ formatPrice(amount) }}</div>
-          <v-btn
-            icon
-            color="white"
-            @click="closeDialog"
-            :disabled="actionLoading"
-            class="ml-2"
-          >
+          <v-btn icon color="white" @click="closeDialog" :disabled="actionLoading" class="ml-2">
             <v-icon size="20">mdi-close</v-icon>
           </v-btn>
         </v-card-title>
@@ -24,12 +18,8 @@
           <!-- QR Actions Row -->
           <v-row dense class="mb-3">
             <v-col cols="4">
-              <v-btn
-                block
-                @click="showQROnCustomerScreen('manual')"
-                :color="isCustomerDisplayOpen() ? 'success' : 'primary'"
-                class="text-none"
-              >
+              <v-btn block @click="showQROnCustomerScreen('manual')"
+                :color="isCustomerDisplayOpen() ? 'success' : 'primary'" class="text-none">
                 <v-icon left size="20">
                   {{
                     isCustomerDisplayOpen()
@@ -43,24 +33,14 @@
               </v-btn>
             </v-col>
             <v-col cols="4" v-if="1 == 0">
-              <v-btn
-                block
-                @click="showQRDialog = true"
-                color="deep-purple"
-                class="text-none"
-              >
+              <v-btn block @click="showQRDialog = true" color="deep-purple" class="text-none">
                 <v-icon left size="20">mdi-qrcode</v-icon>
                 Local QR
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn
-                block
-                @click="closeCustomerDisplayWindow"
-                :disabled="!isCustomerDisplayOpen()"
-                color="grey"
-                class="text-none"
-              >
+              <v-btn block @click="closeCustomerDisplayWindow" :disabled="!isCustomerDisplayOpen()" color="grey"
+                class="text-none">
                 <v-icon left size="20">mdi-monitor-off</v-icon>
                 Close Display
               </v-btn>
@@ -69,12 +49,8 @@
 
           <!-- Payment Methods -->
           <div v-if="paymentLoading" class="text-center py-2">
-            <v-progress-circular
-              size="32"
-              color="primary"
-              indeterminate
-            ></v-progress-circular>
-            <div class="caption mt-1">Loading...</div>
+            <v-progress-circular size="32" color="primary" indeterminate></v-progress-circular>
+            <div class=" mt-1">Loading...</div>
           </div>
 
           <div v-else>
@@ -85,40 +61,24 @@
 
             <div v-if="paymentMethods.length > 0">
               <v-row dense>
-                <v-col
-                  v-for="payment in paymentMethods"
-                  :key="payment.id"
-                  cols="4"
-                  class="pa-1"
-                >
-                  <v-card
-                    @click="selectPaymentMethod(payment)"
-                    :color="
-                      selectedPaymentMethod?.id === payment.id
-                        ? getPaymentColor(payment.payment_code)
-                        : ''
-                    "
-                    :class="[
+                <v-col v-for="payment in paymentMethods" :key="payment.id" cols="4" class="pa-1">
+                  <v-card @click="selectPaymentMethod(payment)" :color="selectedPaymentMethod?.id === payment.id
+                      ? getPaymentColor(payment.payment_code)
+                      : ''
+                    " :class="[
                       'payment-card cursor-pointer text-center',
                       selectedPaymentMethod?.id === payment.id
                         ? 'white--text elevation-3'
                         : 'elevation-1',
-                    ]"
-                    hover
-                    height="70"
-                  >
+                    ]" hover height="70">
                     <v-card-text class="pa-2">
-                      <v-icon
-                        :color="
-                          selectedPaymentMethod?.id === payment.id
-                            ? 'white'
-                            : getPaymentColor(payment.payment_code)
-                        "
-                        size="24"
-                      >
+                      <v-icon :color="selectedPaymentMethod?.id === payment.id
+                          ? 'white'
+                          : getPaymentColor(payment.payment_code)
+                        " size="24">
                         {{ getPaymentIcon(payment.payment_code) }}
                       </v-icon>
-                      <div class="caption font-weight-medium mt-1">
+                      <div class=" font-weight-medium mt-1">
                         {{ payment.payment_name }}
                       </div>
                     </v-card-text>
@@ -138,41 +98,28 @@
 
                   <v-row dense>
                     <v-col cols="12" md="6">
-                      <v-text-field
-                        v-model="cashReceivedFormatted"
-                        label="Cash Received"
-                        :suffix="'₭'"
-                        outlined
-                        dense
-                        :rules="cashRules"
-                        @input="onCashInput"
-                        @blur="formatCashDisplay"
-                        prepend-inner-icon="mdi-cash-plus"
-                        hint="Enter amount received from customer"
-                        persistent-hint
-                        placeholder="0"
-                      ></v-text-field>
+                      <v-text-field v-model="cashReceivedFormatted" label="Cash Received" :suffix="'₭'" outlined dense
+                        :rules="cashRules" @input="onCashInput" @blur="formatCashDisplay"
+                        prepend-inner-icon="mdi-cash-plus" hint="Enter amount received from customer" persistent-hint
+                        placeholder="0"></v-text-field>
                     </v-col>
 
                     <v-col cols="12" md="6">
-                      <v-card
-                        :color="changeAmount >= 0 ? 'success' : 'error'"
-                        class="pa-3 text-center white--text"
-                        :elevation="changeAmount !== 0 ? 3 : 1"
-                      >
-                        <div class="caption">CHANGE</div>
+                      <v-card :color="changeAmount >= 0 ? 'success' : 'error'" class="pa-3 text-center white--text"
+                        :elevation="changeAmount !== 0 ? 3 : 1">
+                        <div class="">CHANGE</div>
                         <div class="text-h6 font-weight-bold">
                           {{ formatPrice(Math.abs(changeAmount)) }}
                         </div>
-                        <div class="caption" v-if="changeAmount < 0">
+                        <div class="" v-if="changeAmount < 0">
                           <v-icon small color="white">mdi-alert</v-icon>
                           Insufficient
                         </div>
-                        <div class="caption" v-else-if="changeAmount > 0">
+                        <div class="" v-else-if="changeAmount > 0">
                           <v-icon small color="white">mdi-arrow-up</v-icon>
                           To Return
                         </div>
-                        <div class="caption" v-else>
+                        <div class="" v-else>
                           <v-icon small color="white">mdi-check</v-icon>
                           Exact Amount
                         </div>
@@ -182,17 +129,10 @@
 
                   <!-- Quick Cash Amount Buttons -->
                   <div class="mt-2">
-                    <div class="caption mb-1 grey--text">Quick amounts:</div>
+                    <div class=" mb-1 grey--text">Quick amounts:</div>
                     <v-chip-group class="quick-cash-chips">
-                      <v-chip
-                        v-for="quickAmount in getQuickCashAmounts()"
-                        :key="quickAmount"
-                        small
-                        outlined
-                        color="success"
-                        @click="setCashReceived(quickAmount)"
-                        class="ma-1"
-                      >
+                      <v-chip v-for="quickAmount in getQuickCashAmounts()" :key="quickAmount" small outlined
+                        color="success" @click="setCashReceived(quickAmount)" class="ma-1">
                         {{ formatPrice(quickAmount, false) }}₭
                       </v-chip>
                     </v-chip-group>
@@ -205,12 +145,7 @@
             <div v-else>
               <v-alert type="warning" dense class="ma-0">
                 No payment methods available
-                <v-btn
-                  x-small
-                  color="warning"
-                  class="ml-2"
-                  @click="$emit('reload-payment-methods')"
-                >
+                <v-btn x-small color="warning" class="ml-2" @click="$emit('reload-payment-methods')">
                   Retry
                 </v-btn>
               </v-alert>
@@ -220,17 +155,10 @@
 
         <!-- Compact Actions -->
         <v-card-actions class="pa-3">
-          <v-btn text @click="closeDialog" :disabled="actionLoading"
-            >Cancel</v-btn
-          >
+          <v-btn text @click="closeDialog" :disabled="actionLoading">Cancel</v-btn>
           <v-spacer></v-spacer>
-          <v-btn
-            color="success"
-            @click="confirmPayment"
-            :disabled="!isPaymentValid || actionLoading"
-            :loading="actionLoading"
-            class="text-none"
-          >
+          <v-btn color="success" @click="confirmPayment" :disabled="!isPaymentValid || actionLoading"
+            :loading="actionLoading" class="text-none">
             <v-icon left size="18">mdi-check</v-icon>
             Process Payment
           </v-btn>
@@ -241,10 +169,7 @@
     <!-- Minimal QR Dialog -->
     <v-dialog v-model="showQRDialog" max-width="400" persistent>
       <v-card>
-        <v-card-title
-          style="background-color: primary !important"
-          class="white--text py-2"
-        >
+        <v-card-title style="background-color: primary !important" class="white--text py-2">
           <v-icon left color="white" size="20">mdi-qrcode</v-icon>
           QR Payment
           <v-spacer></v-spacer>
@@ -256,26 +181,17 @@
 
         <v-card-text class="pa-4 text-center">
           <!-- QR Code -->
-          <v-card
-            outlined
-            class="pa-2 mb-3"
-            style="border-color: primary !important"
-          >
-            <img
-              :src="qrCodeUrl"
-              alt="QR Payment Code"
-              style="
+          <v-card outlined class="pa-2 mb-3" style="border-color: primary !important">
+            <img :src="qrCodeUrl" alt="QR Payment Code" style="
                 width: 200px;
                 height: 200px;
                 display: block;
                 margin: 0 auto;
-              "
-              @error="onQRError"
-            />
+              " @error="onQRError" />
           </v-card>
 
           <!-- Compact Instructions -->
-          <div class="caption grey--text mb-3">
+          <div class=" grey--text mb-3">
             <v-icon small left>mdi-information</v-icon>
             Scan with mobile banking app
           </div>
@@ -283,35 +199,20 @@
           <!-- Action Buttons -->
           <v-row dense>
             <v-col cols="4">
-              <v-btn
-                small
-                text
-                @click="downloadQR"
-                style="color: primary !important"
-              >
+              <v-btn small text @click="downloadQR" style="color: primary !important">
                 <v-icon small>mdi-download</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn
-                small
-                text
-                @click="shareQR"
-                style="color: primary !important"
-              >
+              <v-btn small text @click="shareQR" style="color: primary !important">
                 <v-icon small>mdi-share</v-icon>
               </v-btn>
             </v-col>
             <v-col cols="4">
-              <v-btn
-                small
-                text
-                @click="copyQRString"
-                style="color: primary !important"
-              >
+              <v-btn small text @click="copyQRString" style="color: primary !important">
                 <v-icon small>{{
                   copied ? 'mdi-check' : 'mdi-content-copy'
-                }}</v-icon>
+                  }}</v-icon>
               </v-btn>
             </v-col>
           </v-row>

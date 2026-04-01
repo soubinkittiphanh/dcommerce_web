@@ -294,6 +294,7 @@ export default {
       'findAllPayment',
       'findAllUnit',
       'findAllCurrency',
+      'findAllprinters',
     ]),
     unitList() {
       return this.findAllUnit
@@ -450,41 +451,60 @@ export default {
 
     // ✅ REFACTORED: Printing logic using external helper
     printBarcode() {
-      // 1. Get formatted price
-      // formatNumber(calculateTotalWithTax())
-      console.info(`Etax Data: ${JSON.stringify(this.selectedTaxRate)}`)
+      console.log('--- 🏁 Starting printBarcode Function ---')
 
       let rawPrice = parseFloat(this.formData.pro_price || 0)
       let finalPrice = rawPrice
 
       if (this.selectedTaxRate) {
-        // Check if the tax is EXCLUSIVE (not INC)
         if (this.selectedTaxRate.taxType !== 'INC') {
           const taxRate = parseFloat(this.selectedTaxRate.rate || 0)
-          // Add the tax to the base price: Price + (Price * Rate)
           finalPrice = rawPrice + rawPrice * taxRate
           console.log(`Tax added (EXC). New Total: ${finalPrice}`)
-        } else {
-          console.log('Tax is Inclusive (INC). Price remains the same.')
         }
       }
 
-      // Format the final calculated price for the barcode
       const formattedPrice = this.formatNumber(finalPrice)
+      console.log('Price to print:', formattedPrice)
 
-      // 2. Select HTML template based on "threeColPaper" toggle
-      let windowContent = ''
+      let printerList = this.findAllprinters || []
+      console.log('Available printer settings:', printerList)
 
-      if (this.threeColPaper) {
-        // Calls the imported function for small paper
-        windowContent = getBarcode2by2cmHtml(formattedPrice, this.barcodeImage)
+      const barcodePrinter = printerList.find((p) => p.type === 'barcode')
+      console.log('Found barcode printer config:', barcodePrinter)
+
+      // Handle both property name variations: printerName and printer_name
+      const printerName = barcodePrinter 
+        ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+        : ''
+      
+      console.log('Final Printer Name string:', `"${printerName}"`)
+
+      let windowContent = this.threeColPaper
+        ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage)
+        : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name)
+
+      if (window.posApi) {
+        console.log('Bridge window.posApi found. Checking for printer name...')
+
+        if (!printerName) {
+          const msg = "Error: No printer name found for 'barcode' type in settings!"
+          this.$toast.error(msg)
+          return
+        }
+
+        const payload = {
+          html: windowContent,
+          printerName: printerName,
+          copies: 1,
+        }
+
+        window.posApi.printBarcode(payload)
+        this.$toast.success(`Printing barcode to ${printerName}`)
       } else {
-        // Calls the imported function for normal paper
-        windowContent = getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name)
+        console.warn('window.posApi NOT found. Using browser print dialog (fallback).')
+        executePrintWindow(windowContent)
       }
-
-      // 3. Execute print
-      executePrintWindow(windowContent)
     },
 
     reset() {
@@ -499,13 +519,16 @@ export default {
       this.isloading = true
       try {
         const res = await this.$axios.get('category_f')
-        this.category = res.data.map((el) => {
-          return {
-            categ_id: el.categ_id,
-            categ_name: el.categ_name,
-            categ_desc: el.categ_desc,
-          }
-        })
+        // Filter only active categories and map the required fields
+        this.category = res.data
+          .filter((el) => el.isActive === true || el.isActive === 1)
+          .map((el) => {
+            return {
+              categ_id: el.categ_id,
+              categ_name: el.categ_name,
+              categ_desc: el.categ_desc,
+            }
+          })
         if (this.category.length > 0) {
           this.formData.pro_category = this.category[0]['categ_id']
         }
@@ -537,10 +560,12 @@ export default {
     async fetchCurrency() {
       try {
         const response = await this.$axios.get('/api/currency/findAll')
-        this.findAllCurrency = response.data.map((el) => ({
-          id: el.id,
-          code: el.code,
-        }))
+        this.findAllCurrency = response.data
+          .filter((el) => el.isActive === true || el.isActive === 1)
+          .map((el) => ({
+            id: el.id,
+            code: el.code,
+          }))
       } catch (error) {
         console.error('Error fetching currency:', error)
         this.findAllCurrency = []

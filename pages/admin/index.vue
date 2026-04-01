@@ -289,6 +289,7 @@ export default {
         { title: 'ລູກໜີ້', svgIcon: require('~/assets/icons/pay-card.svg'), path: '/admin/ordersFromPosCredit' },
         { title: 'ສາງສິນຄ້າ', svgIcon: require('~/assets/icons/stock.svg'), path: '/admin/product/productlist' },
         { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), path: '/admin/client' },
+        { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
       ],
     }
   },

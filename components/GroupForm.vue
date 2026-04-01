@@ -25,6 +25,12 @@
             required
             :rules="nameRules"
           ></v-text-field>
+          <v-text-field
+            v-model="form.homePage"
+            label="* ໜ້າຫຼັກ (Home Page path)"
+            required
+            :rules="homePageRules"
+          ></v-text-field>
           <v-autocomplete
             item-text="name"
             item-value="id"
@@ -154,6 +160,7 @@ export default {
       form: {
         code: '',
         name: '',
+        homePage: '',
         menuHeaders: [],
         isActive: true,
         ticketCancel: false, // Add this new field
@@ -166,6 +173,9 @@ export default {
         (value) =>
           (value && value.length <= 100) ||
           'Name must be less than 20 characters',
+      ],
+      homePageRules: [
+        (value) => !!value || 'Home Page path is required',
       ],
     }
   },

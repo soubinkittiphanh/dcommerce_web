@@ -1255,9 +1255,20 @@ const initProductPrices = async (dispatch, axios) => {
     }
 }
 
-const initCurrency = (dispatch, axios) =>
-    fetchData('api/currency/findAll', 'initCurrency', dispatch, axios, 'Currency initialization failed')
-
+const initCurrency = async (dispatch, axios) => {
+    try {
+        const response = await axios.get('api/currency/findAll')
+        let data = response.data?.data ?? response.data
+        if (Array.isArray(data)) {
+            data = data.filter(c => c.isActive === true || c.isActive === 1)
+        }
+        await dispatch('initCurrency', data)
+    } catch (error) {
+        console.error(`Currency initialization failed: ${error.message || error}`)
+        await dispatch('addError', `Currency initialization failed: ${error.message || error}`)
+        throw error
+    }
+}
 const initLocation = (dispatch, axios) =>
     fetchData('api/location/find', 'initLocation', dispatch, axios, 'Location initialization failed')
 
