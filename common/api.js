@@ -6,42 +6,17 @@
  * @returns {string} The base URL for the application
  */
 export const hostName = () => {
-  // const baseURL = 'http://150.95.31.23:8003' // *** CHITHAN
-  // const baseURL = 'http://150.95.31.23:8010' // *** THE PEEAIR
-  // const baseURL = 'http://150.95.31.23:8015' // *** THE CORNERS
-  // const baseURL = 'http://150.95.31.23:8017' //  *** PHAIVANH PHARMACY
-  // const baseURL = 'http://150.95.31.23:8018' //  *** BMART
-  // const baseURL = 'http://150.95.31.23:8019' //  *** TP AUTO PART
-  // const baseURL = 'http://150.95.31.23:8020' //  *** KSOUK
-  // const baseURL = 'http://150.95.31.23:8021' //  *** carcare sokpaluang
-  // const baseURL = 'http://150.95.31.23:8022' //  *** PM Jobfair ..
-  // const baseURL = 'http://150.95.31.23:8023' //  *** BEST COFFEE
-  // const baseURL = 'http://150.95.31.23:8024' //  *** DCOMMERCE
-  // const baseURL = 'http://150.95.31.23:8025' //  *** DCOMMERCE MAIN
-  // const baseURL = 'http://150.95.31.23:8026' //  *** DEV DEMO
-  // const baseURL = 'http://150.95.31.23:8027' //  *** HAPPY BUN
-  // const baseURL = 'http://150.95.31.23:8028' //  *** PHASOK MINIMART
-  // const baseURL = 'http://150.95.31.23:8029' //  *** bounluay MINIMART
-  // const baseURL = 'http://150.95.31.23:8030' //  *** demo minimart
-  // const baseURL = 'http://150.95.31.23:8031' //  *** metta minimart
-  // const baseURL = 'http://150.95.31.23:8032' //  *** bounluay wherehouse
-  // const baseURL = 'http://150.95.31.23:8033' //  *** amphai fishing tools
-  // const baseURL = 'http://150.95.31.23:8034' //  *** Yensabai 90
-  // const baseURL = 'http://150.95.31.23:8014' //  *** PWT YOTHA
-  // const baseURL = 'http://150.95.31.23:8918' //  *** TAIPHUAN
-  // const baseURL = 'http://150.95.31.23:8921' //  *** QR PAYMENT BANK
-  // const baseURL = 'http://localhost:8888' // ***Demo 1*** 
-  const defaultURL = 'http://150.95.31.23:8026' // fallback
-
+  const defaultURL = 'http://150.95.31.23:8026' // fallback dev demo
   const envURL = process.env.BASE_URL
 
-  console.info(`BASE_URL from ENV: ${envURL}`)
+  // Note: process.env.BASE_URL works on server-side (SSR)
+  // On client-side, it relies on what was baked in during build unless using $config
+  if (envURL) {
+    console.info(`Using BASE_URL from environment/build: ${envURL}`)
+    return envURL
+  }
 
-  return envURL || defaultURL
-
-  // console.info(`BASE_URL ${process.env.BASE_URL}`)
-  // return process.env.BASE_URL || 'http://localhost:8888'
-  // return baseURL;
+  return defaultURL
 }
 
 /**

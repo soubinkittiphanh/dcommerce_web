@@ -7,12 +7,17 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8037'
+      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8026'
     }
   },
-  // 1. CONDITIONAL SSR: Enabled for web server (supervisorctl), Disabled for Electron (static)
-  ssr: process.env.NUXT_TARGET === 'server',
-  target: process.env.NUXT_TARGET === 'server' ? 'server' : 'static',
+  privateRuntimeConfig: {
+    axios: {
+      baseURL: process.env.BASE_URL || 'http://150.95.31.23:8026'
+    }
+  },
+  // 1. CONDITIONAL SSR: Defaults to 'server' for VPS deployment. Uses 'static' only if explicitly requested.
+  ssr: process.env.NUXT_TARGET !== 'static',
+  target: process.env.NUXT_TARGET === 'static' ? 'static' : 'server',
 
   server: {
     host: '0.0.0.0'
