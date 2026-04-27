@@ -66,7 +66,7 @@
                         </template>
 
                         <template v-slot:item.validationError="{ item }">
-                            <span class="error--text text-caption">{{ item.validationError }}</span>
+                            <span class="error--text ">{{ item.validationError }}</span>
                         </template>
                     </v-data-table>
                 </div>

@@ -10,55 +10,32 @@
               ກະດານ ແຜນລາຍຮັບ
             </span>
           </v-card-title>
-          
+
           <v-divider></v-divider>
-          
+
           <!-- Filters -->
           <v-card-text class="pa-4">
             <v-row>
               <v-col cols="12" md="2">
-                <v-select
-                  v-model="selectedYear"
-                  :items="availableYears"
-                  label="Year"
-                  outlined
-                  dense
-                  @change="loadDashboardData"
-                ></v-select>
+                <v-select v-model="selectedYear" :items="availableYears" label="Year" outlined dense
+                  @change="loadDashboardData"></v-select>
               </v-col>
-              
-  
-              
+
+
+
               <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="dateRange.start"
-                  type="date"
-                  label="From Date"
-                  outlined
-                  dense
-                  @change="loadDashboardData"
-                ></v-text-field>
+                <v-text-field v-model="dateRange.start" type="date" label="From Date" outlined dense
+                  @change="loadDashboardData"></v-text-field>
               </v-col>
-              
+
               <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="dateRange.end"
-                  type="date"
-                  label="To Date"
-                  outlined
-                  dense
-                  @change="loadDashboardData"
-                ></v-text-field>
+                <v-text-field v-model="dateRange.end" type="date" label="To Date" outlined dense
+                  @change="loadDashboardData"></v-text-field>
               </v-col>
-              
+
               <v-col cols="12" md="2">
-                <v-btn
-                  class="custom-primary-bg white--text"
-                  block
-                  outlined
-                  @click="loadDashboardData"
-                  :loading="loading"
-                >
+                <v-btn class="custom-primary-bg white--text" block outlined @click="loadDashboardData"
+                  :loading="loading">
                   <v-icon left color="white">mdi-refresh</v-icon>
                   Refresh
                 </v-btn>
@@ -97,7 +74,8 @@
               </v-avatar>
               <div>
                 <div class=" grey--text">ບັນລຸແລ້ວ </div>
-                <div class="text-h6 font-weight-bold custom-primary-text">{{ formatAmount(summaryTotals.totalAchieved) }}</div>
+                <div class="text-h6 font-weight-bold custom-primary-text">{{ formatAmount(summaryTotals.totalAchieved)
+                  }}</div>
                 <div class="">{{ achievementPercentage }}% of target</div>
               </div>
             </div>
@@ -114,7 +92,8 @@
               </v-avatar>
               <div>
                 <div class=" grey--text">ຍອດຄ້າງ</div>
-                <div class="text-h6 font-weight-bold warning--text">{{ formatAmount(summaryTotals.totalOutstanding) }}</div>
+                <div class="text-h6 font-weight-bold warning--text">{{ formatAmount(summaryTotals.totalOutstanding) }}
+                </div>
                 <div class="">{{ outstandingPercentage }}% ຍັງເຫລືອ</div>
               </div>
             </div>
@@ -126,12 +105,15 @@
         <v-card elevation="2" class="rounded-lg">
           <v-card-text class="pa-4">
             <div class="d-flex align-center">
-              <v-avatar :color="performanceStatus.color === 'custom-primary-bg' ? 'primary' : performanceStatus.color" class="mr-3">
+              <v-avatar :color="performanceStatus.color === 'custom-primary-bg' ? 'primary' : performanceStatus.color"
+                class="mr-3">
                 <v-icon color="white">mdi-chart-line</v-icon>
               </v-avatar>
               <div>
                 <div class=" grey--text">ປະສິດທິພາບ</div>
-                <div class="text-h6 font-weight-bold" :class="performanceStatus.color === 'custom-primary-bg' ? 'custom-primary-text' : performanceStatus.color + '--text'">{{ performanceStatus.text }}</div>
+                <div class="text-h6 font-weight-bold"
+                  :class="performanceStatus.color === 'custom-primary-bg' ? 'custom-primary-text' : performanceStatus.color + '--text'">
+                  {{ performanceStatus.text }}</div>
                 <div class="">{{ activeTargetsCount }} active targets</div>
               </div>
             </div>
@@ -148,22 +130,17 @@
             <v-icon color="white" class="mr-2">mdi-progress-check</v-icon>
             <span class="text-subtitle-1 font-weight-medium">ພາບລວມ ຄວາມຄືບຫນ້າ</span>
           </v-card-title>
-          
+
           <v-divider></v-divider>
-          
+
           <v-card-text class="pa-4">
             <div class="d-flex align-center mb-2">
               <span class="text-body-2 font-weight-medium">{{ achievementPercentage }}% Complete</span>
               <v-spacer></v-spacer>
               <span class="text-body-2">{{ formatAmount(summaryTotals.totalOutstanding) }} LAK Remaining</span>
             </div>
-            <v-progress-linear
-              :value="achievementPercentage"
-              height="20"
-              rounded
-              class="custom-progress"
-              background-color="grey lighten-3"
-            ></v-progress-linear>
+            <v-progress-linear :value="achievementPercentage" height="20" rounded class="custom-progress"
+              background-color="grey lighten-3"></v-progress-linear>
           </v-card-text>
         </v-card>
       </v-col>
@@ -179,25 +156,12 @@
               ເປົ້າໝາຍລາຍຮັບຕາມກະຊວງ ແລະ ຜັງບັນຊີ
             </span>
             <v-spacer></v-spacer>
-            <v-btn
-              color="white"
-              small
-              outlined
-              class="mr-2"
-              @click="exportToCSV"
-              :disabled="!dashboardData.length"
-              :loading="exporting"
-            >
+            <v-btn color="white" small outlined class="mr-2" @click="exportToCSV" :disabled="!dashboardData.length"
+              :loading="exporting">
               <v-icon small left color="white">mdi-file-excel</v-icon>
               <span style="color: white;">Export</span>
             </v-btn>
-            <v-btn
-              icon
-              small
-              @click="loadDashboardData"
-              :loading="loading"
-              color="white"
-            >
+            <v-btn icon small @click="loadDashboardData" :loading="loading" color="white">
               <v-icon small color="white">mdi-refresh</v-icon>
             </v-btn>
           </v-card-title>
@@ -212,12 +176,9 @@
               </div>
             </div>
 
-            <div
-              v-else-if="!dashboardData.length"
-              class="text-center py-6"
-            >
+            <div v-else-if="!dashboardData.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No revenue target data available
               </div>
             </div>
@@ -231,19 +192,13 @@
                     <th class="white--text  font-weight-bold">ກົມ</th>
                     <th class="white--text  font-weight-bold">ລະຫັດລາຍຮັບ</th>
                     <!-- Dynamic Target Currency Columns -->
-                    <th
-                      v-for="currency in currencyList"
-                      :key="'target-' + currency"
-                      class="white--text  font-weight-bold text-right"
-                    >
+                    <th v-for="currency in currencyList" :key="'target-' + currency"
+                      class="white--text  font-weight-bold text-right">
                       ແຜນ {{ currency }}
                     </th>
                     <!-- Dynamic Achieved Currency Columns -->
-                    <th
-                      v-for="currency in currencyList"
-                      :key="'achieved-' + currency"
-                      class="white--text  font-weight-bold text-right"
-                    >
+                    <th v-for="currency in currencyList" :key="'achieved-' + currency"
+                      class="white--text  font-weight-bold text-right">
                       ບັນລຸ {{ currency }}
                     </th>
                     <th class="white--text  font-weight-bold text-right">ແຜນ (LAK)</th>
@@ -254,14 +209,10 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr
-                    v-for="(item, index) in dashboardData"
-                    :key="item.id"
-                    :class="{
-                      'grey lighten-5': index % 2 === 0,
-                      'orange lighten-4': !item.isActive,
-                    }"
-                  >
+                  <tr v-for="(item, index) in dashboardData" :key="item.id" :class="{
+                    'grey lighten-5': index % 2 === 0,
+                    'orange lighten-4': !item.isActive,
+                  }">
                     <td class=" text-center">{{ index + 1 }}</td>
                     <td class="text-body-2">
                       <div class="font-weight-medium">{{ item.name }}</div>
@@ -276,19 +227,12 @@
                       <div class=" grey--text">{{ item.accountName || 'No Chart Account' }}</div>
                     </td>
                     <!-- Dynamic Target Amount Columns -->
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'target-amt-' + currency"
-                      class="text-body-2 text-right"
-                    >
+                    <td v-for="currency in currencyList" :key="'target-amt-' + currency" class="text-body-2 text-right">
                       {{ formatAmount(item.targetAmounts[currency] || 0) }}
                     </td>
                     <!-- Dynamic Achieved Amount Columns -->
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'achieved-amt-' + currency"
-                      class="text-body-2 text-right custom-primary-text"
-                    >
+                    <td v-for="currency in currencyList" :key="'achieved-amt-' + currency"
+                      class="text-body-2 text-right custom-primary-text">
                       {{ formatAmount(item.achievedAmounts[currency] || 0) }}
                     </td>
                     <td class="text-body-2 text-right font-weight-medium">
@@ -302,22 +246,15 @@
                     </td>
                     <td class="text-center">
                       <div class="d-flex align-center justify-center">
-                        <v-progress-circular
-                          :value="item.progressPercentage"
-                          :color="getProgressColor(item.progressPercentage)"
-                          size="30"
-                          width="3"
-                          class="mr-2"
-                        >
+                        <v-progress-circular :value="item.progressPercentage"
+                          :color="getProgressColor(item.progressPercentage)" size="30" width="3" class="mr-2">
                           <span class="">{{ item.progressPercentage }}%</span>
                         </v-progress-circular>
                       </div>
                     </td>
                     <td class="text-center">
-                      <v-chip 
-                        small 
-                        :style="{ backgroundColor: getStatusColor(item.progressPercentage), color: 'white' }"
-                      >
+                      <v-chip small
+                        :style="{ backgroundColor: getStatusColor(item.progressPercentage), color: 'white' }">
                         {{ getStatusText(item.progressPercentage) }}
                       </v-chip>
                     </td>
@@ -328,19 +265,13 @@
                       ລວມ (Total)
                     </td>
                     <!-- Dynamic Target Totals -->
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'target-total-' + currency"
-                      class="text-right font-weight-bold text-body-2 white--text"
-                    >
+                    <td v-for="currency in currencyList" :key="'target-total-' + currency"
+                      class="text-right font-weight-bold text-body-2 white--text">
                       {{ formatAmount(summaryTotals.targetCurrencyTotals[currency] || 0) }}
                     </td>
                     <!-- Dynamic Achieved Totals -->
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'achieved-total-' + currency"
-                      class="text-right font-weight-bold text-body-2 white--text"
-                    >
+                    <td v-for="currency in currencyList" :key="'achieved-total-' + currency"
+                      class="text-right font-weight-bold text-body-2 white--text">
                       {{ formatAmount(summaryTotals.achievedCurrencyTotals[currency] || 0) }}
                     </td>
                     <td class="text-right font-weight-bold text-body-2 white--text">
@@ -353,20 +284,12 @@
                       {{ formatAmount(summaryTotals.totalOutstanding) }}
                     </td>
                     <td class="text-center">
-                      <v-progress-circular
-                        :value="achievementPercentage"
-                        color="white"
-                        size="35"
-                        width="4"
-                      >
+                      <v-progress-circular :value="achievementPercentage" color="white" size="35" width="4">
                         <span class=" font-weight-bold white--text">{{ achievementPercentage }}%</span>
                       </v-progress-circular>
                     </td>
                     <td class="text-center">
-                      <v-chip 
-                        color="white"
-                        text-color="primary"
-                      >
+                      <v-chip color="white" text-color="primary">
                         {{ getStatusText(achievementPercentage) }}
                       </v-chip>
                     </td>
@@ -384,25 +307,25 @@
 <script>
 export default {
   name: 'RevenueTargetDashboard',
-  
+
   data() {
     return {
       loading: false,
       exporting: false,
-      
+
       // Filter states
       selectedYear: new Date().getFullYear(),
       dateRange: {
         start: new Date(new Date().getFullYear(), 0, 1).toISOString().split('T')[0], // Jan 1st
         end: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0]  // Dec 31st
       },
-      
+
       // Data
       revenueTargets: [],
       settlements: [],
       dashboardData: [],
       currencyList: [],
-      
+
       // Computed totals
       summaryTotals: {
         totalTarget: 0,
@@ -474,7 +397,7 @@ export default {
         }
 
         const response = await this.$axios.get('/api/revenue-targets', { params })
-        
+
         if (Array.isArray(response.data)) {
           this.revenueTargets = response.data.map(target => ({
             id: target.id,
@@ -587,14 +510,14 @@ export default {
         const targetAmountLAK = target.targetAmount * target.exchangeRate
         const achievedAmount = settlementMap.get(key)?.totalLakEquivalent || 0
         const outstandingAmount = Math.max(0, targetAmountLAK - achievedAmount)
-        const progressPercentage = targetAmountLAK > 0 
+        const progressPercentage = targetAmountLAK > 0
           ? Math.min(100, Math.round((achievedAmount / targetAmountLAK) * 100))
           : 0
 
         // Create currency breakdowns
         const targetAmounts = {}
         const achievedAmounts = {}
-        
+
         this.currencyList.forEach(currency => {
           // Target amounts: only show in the target's currency
           if (currency === (target.currency?.code || 'LAK')) {
@@ -602,7 +525,7 @@ export default {
           } else {
             targetAmounts[currency] = 0
           }
-          
+
           // Achieved amounts: from settlements
           achievedAmounts[currency] = settlementMap.get(key)?.amounts[currency] || 0
         })
@@ -632,10 +555,10 @@ export default {
       const achievedCurrencyTotals = {}
 
       this.currencyList.forEach(currency => {
-        targetCurrencyTotals[currency] = this.dashboardData.reduce((sum, item) => 
+        targetCurrencyTotals[currency] = this.dashboardData.reduce((sum, item) =>
           sum + (item.targetAmounts[currency] || 0), 0
         )
-        achievedCurrencyTotals[currency] = this.dashboardData.reduce((sum, item) => 
+        achievedCurrencyTotals[currency] = this.dashboardData.reduce((sum, item) =>
           sum + (item.achievedAmounts[currency] || 0), 0
         )
       })
@@ -686,17 +609,17 @@ export default {
           'Target Name', 'Year', 'Ministry Code', 'Ministry Name',
           'Account Number', 'Account Name'
         ]
-        
+
         // Add dynamic target currency headers
         this.currencyList.forEach(currency => {
           headers.push(`Target ${currency}`)
         })
-        
+
         // Add dynamic achieved currency headers
         this.currencyList.forEach(currency => {
           headers.push(`Achieved ${currency}`)
         })
-        
+
         headers.push('Target Amount (LAK)', 'Achieved Amount (LAK)', 'Outstanding Amount (LAK)', 'Progress %', 'Status')
 
         const rows = this.dashboardData.map(item => {
@@ -708,17 +631,17 @@ export default {
             item.accountNumber || '',
             item.accountName || ''
           ]
-          
+
           // Add target amounts for each currency
           this.currencyList.forEach(currency => {
             row.push(item.targetAmounts[currency] || 0)
           })
-          
+
           // Add achieved amounts for each currency
           this.currencyList.forEach(currency => {
             row.push(item.achievedAmounts[currency] || 0)
           })
-          
+
           row.push(
             item.targetAmountLAK,
             item.achievedAmount,
@@ -726,7 +649,7 @@ export default {
             item.progressPercentage,
             this.getStatusText(item.progressPercentage)
           )
-          
+
           return row
         })
 
@@ -778,7 +701,7 @@ export default {
   background-color: rgba(1, 83, 43, 0.8) !important;
 }
 
-.custom-progress >>> .v-progress-linear__determinate {
+.custom-progress>>>.v-progress-linear__determinate {
   background-color: primary !important;
 }
 
@@ -788,11 +711,11 @@ export default {
 }
 
 /* Table styling enhancements */
-.v-simple-table >>> thead tr th {
+.v-simple-table>>>thead tr th {
   background-color: primary !important;
 }
 
-.v-simple-table >>> tbody tr:hover {
+.v-simple-table>>>tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.04) !important;
 }
 

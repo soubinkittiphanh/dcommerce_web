@@ -4,6 +4,8 @@ export default {
     return {
       companyLogo: {
         url: null,
+        bankQrUrl: null,
+        bankQrUrl2: null,
         company: null,
         loading: false,
         error: null,
@@ -21,6 +23,11 @@ export default {
     // Check if logo is available
     hasCompanyLogo() {
       return !!this.companyLogo.url
+    },
+
+    // Check if bank QR is available
+    hasBankQr() {
+      return !!(this.companyLogo.bankQrUrl || this.companyLogo.bankQrUrl2)
     },
 
     // Get company name from logo data
@@ -42,12 +49,22 @@ export default {
         
         const companies = Array.isArray(response.data) ? response.data : []
         const companyWithImage = companies.find(company => 
-          company.profile_image_path && company.isActive
+           company.isActive
         )
         
         if (companyWithImage) {
           this.companyLogo.company = companyWithImage
-          this.companyLogo.url = this.buildImageUrl(companyWithImage.profile_image_path)
+          if (companyWithImage.profile_image_path) {
+            this.companyLogo.url = this.buildImageUrl(companyWithImage.profile_image_path)
+          }
+
+          if (companyWithImage.bank_qr_image_path) {
+            this.companyLogo.bankQrUrl = this.buildImageUrl(companyWithImage.bank_qr_image_path)
+          }
+
+          if (companyWithImage.bank_qr_image_path_2) {
+            this.companyLogo.bankQrUrl2 = this.buildImageUrl(companyWithImage.bank_qr_image_path_2)
+          }
         }
         
         this.companyLogo.fallbackUrl = this.getDefaultLogo()
@@ -76,6 +93,18 @@ export default {
           this.companyLogo.url = this.buildImageUrl(company.profile_image_path)
         } else {
           this.companyLogo.url = null
+        }
+
+        if (company.bank_qr_image_path) {
+          this.companyLogo.bankQrUrl = this.buildImageUrl(company.bank_qr_image_path)
+        } else {
+          this.companyLogo.bankQrUrl = null
+        }
+
+        if (company.bank_qr_image_path_2) {
+          this.companyLogo.bankQrUrl2 = this.buildImageUrl(company.bank_qr_image_path_2)
+        } else {
+          this.companyLogo.bankQrUrl2 = null
         }
         
         this.companyLogo.fallbackUrl = this.getDefaultLogo()

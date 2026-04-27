@@ -100,6 +100,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -144,10 +145,14 @@ export default {
           printerName: name,
         })
         this.$toast.success(`${type} printer saved successfully`)
+        
+        // Refresh the global Vuex store so all other screens see the new printer immediately
+        await this.refreshPrintersAction()
       } catch (e) {
         this.$toast.error('Error saving to database')
       }
     },
+    ...mapActions(['refreshPrintersAction']),
 
     testPrint(type, name) {
       if (!window.posApi) return

@@ -221,7 +221,7 @@
                 <v-list-item-content>
                   <v-list-item-title>{{
                     category.categ_name
-                  }}</v-list-item-title>
+                    }}</v-list-item-title>
                   <v-list-item-subtitle>
                     {{ getProductCountByCategory(category.categ_id) }} items
                   </v-list-item-subtitle>
@@ -281,7 +281,7 @@
                 <v-chip small :color="getCategoryColor(getSelectedCategoryName())" class="mr-2">
                   <v-icon small left>{{
                     getCategoryIcon(getSelectedCategoryName())
-                  }}</v-icon>
+                    }}</v-icon>
                   {{ getSelectedCategoryName() }}
                 </v-chip>
                 <span class="caption grey--text">
@@ -362,7 +362,7 @@
                         <!-- Price Section -->
                         <div class="price-display-wrapper">
                           <div v-if="getCustomerGradePrice(product)" class="d-flex align-center flex-wrap">
-                            <span class="text-caption grey--text text-decoration-line-through mr-1">
+                            <span class=" grey--text text-decoration-line-through mr-1">
                               {{ formatPrice(product.pro_price) }}
                             </span>
                             <span class="primary--text font-weight-bold">
@@ -373,7 +373,7 @@
                             <span class="primary--text font-weight-bold">
                               {{ formatPrice(product.pro_price) }}
                             </span>
-                            <span v-if="hasAvailablePriceLists(product)" class="text-caption grey--text">
+                            <span v-if="hasAvailablePriceLists(product)" class=" grey--text">
                               {{ getPriceRangeText(product) }}
                             </span>
                           </div>
@@ -445,7 +445,7 @@
                     <div class="caption grey--text">
                       <span v-if="selectedCustomer?.phone">{{
                         selectedCustomer.phone
-                      }}</span>
+                        }}</span>
                       <span v-if="selectedCustomer?.grade" class="ml-2">
                         • Grade {{ selectedCustomer.grade }}
                       </span>
@@ -454,7 +454,7 @@
                   <v-btn @click="openCustomerDialog" icon small color="primary">
                     <v-icon small>{{
                       selectedCustomer ? 'mdi-account-edit' : 'mdi-account-plus'
-                    }}</v-icon>
+                      }}</v-icon>
                   </v-btn>
                 </div>
               </v-col>
@@ -511,7 +511,7 @@
                     </v-btn>
                     <span class="mx-2 font-weight-bold">{{
                       item.quantity
-                    }}</span>
+                      }}</span>
                     <v-btn @click="updateQuantity(item.id, 1)" icon x-small color="grey" :disabled="item.quantity >= item.stock_count &&
                       item.validateStockOnSale
                       ">
@@ -570,7 +570,7 @@
                     class="d-flex justify-space-between caption mb-1">
                     <span>{{ taxItem.name }} ({{
                       (taxItem.rate * 100).toFixed(2)
-                      }}% {{ taxItem.type }}):</span>
+                    }}% {{ taxItem.type }}):</span>
                     <span>{{ formatPrice(taxItem.taxAmount) }}</span>
                   </div>
                 </div>
@@ -581,7 +581,7 @@
                   <span>Final Total:</span>
                   <span class="primary--text">{{
                     formatPrice(getFinalTotal)
-                  }}</span>
+                    }}</span>
                 </div>
               </v-card>
             </div>

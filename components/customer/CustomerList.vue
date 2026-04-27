@@ -84,6 +84,7 @@ export default {
             headers: [
                 { text: "ຊື່ລູກຄ້າ", value: "name" },
                 { text: "Grade", value: "grade" },
+                { text: "Points", value: "loyaltyPoints" },
                 { text: "ບໍລິສັດ", value: "company" },
                 { text: "ທີ່ຢູ່", value: "address" },
                 { text: "ເບີໂທ", value: "telephone" },

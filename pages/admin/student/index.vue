@@ -7,7 +7,7 @@
           <v-icon color="primary" class="mr-2">mdi-account-school</v-icon>
           ຂໍ້ມູນນັກຮຽນ (Student Management)
         </h1>
-        <div class="text-subtitle-2 grey--text">
+        <div class=" grey--text">
           Manage students, NFC cards, and wallets
         </div>
       </div>
@@ -23,14 +23,8 @@
       <v-card-text>
         <v-row align="center">
           <v-col cols="12" md="4">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ຄົ້ນຫາ (Search)"
-              outlined
-              dense
-              hide-details
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="ຄົ້ນຫາ (Search)" outlined dense
+              hide-details></v-text-field>
           </v-col>
         </v-row>
       </v-card-text>
@@ -38,21 +32,13 @@
 
     <!-- Table -->
     <v-card elevation="1">
-      <v-data-table
-        :headers="headers"
-        :items="students"
-        :search="search"
-        :loading="loading"
-        loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-        no-data-text="ບໍ່ພົບຂໍ້ມູນ"
-        :items-per-page="50"
-        :footer-props="{'items-per-page-options': [25, 50, 100, -1]}"
-        class="elevation-0"
-      >
+      <v-data-table :headers="headers" :items="students" :search="search" :loading="loading"
+        loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ພົບຂໍ້ມູນ" :items-per-page="50"
+        :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }" class="elevation-0">
         <template v-slot:item.index="{ item }">
           {{ students.indexOf(item) + 1 }}
         </template>
-        
+
         <template v-slot:item.name="{ item }">
           <div class="font-weight-medium">{{ item.firstName }} {{ item.lastName }}</div>
         </template>
@@ -65,12 +51,7 @@
         </template>
 
         <template v-slot:item.nfcCard="{ item }">
-          <v-chip
-            v-if="item.nfcCards && item.nfcCards.length > 0"
-            color="primary"
-            small
-            outlined
-          >
+          <v-chip v-if="item.nfcCards && item.nfcCards.length > 0" color="primary" small outlined>
             <v-icon left small>mdi-contactless-payment</v-icon>
             {{ item.nfcCards[0].cardUid }}
           </v-chip>
@@ -98,13 +79,8 @@
 
     <!-- Student Form Dialog -->
     <v-dialog v-model="dialog" max-width="800px" persistent scrollable>
-      <StudentFormCRUD
-        v-if="dialog"
-        :is-update="isEdit"
-        :student-id="selectedId"
-        @close="dialog = false"
-        @reload="fetchData"
-      />
+      <StudentFormCRUD v-if="dialog" :is-update="isEdit" :student-id="selectedId" @close="dialog = false"
+        @reload="fetchData" />
     </v-dialog>
   </div>
 </template>

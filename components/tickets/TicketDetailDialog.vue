@@ -1,32 +1,33 @@
 <template>
-  <v-dialog v-model="internalShow" max-width="900" scrollable transition="dialog-bottom-transition">
-    <v-card class="rounded-xl overflow-hidden">
+  <v-dialog v-model="internalShow" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-card class="overflow-hidden d-flex flex-column" height="100vh">
       <!-- Header -->
-      <v-card-title class="pa-4 grey lighten-4 d-flex justify-space-between align-center border-bottom">
+      <v-card-title
+        class="pa-4 primary darken-1 white--text d-flex justify-space-between align-center border-bottom flex-grow-0">
         <div class="d-flex align-center">
-          <v-avatar color="primary lighten-4" size="48" class="mr-4">
+          <v-avatar color="white" size="48" class="mr-4">
             <v-icon color="primary">mdi-ticket-account</v-icon>
           </v-avatar>
           <div>
-            <div class="text-h5 font-weight-bold grey--text text--darken-3">
+            <div class="text-h5 font-weight-bold">
               Ticket #{{ ticket?.id }}
             </div>
-            <div class="text-caption grey--text">
+            <div class=" white--text opacity-80">
               Created on {{ formatDate(ticket?.createdAt) }}
             </div>
           </div>
         </div>
-        <v-btn icon @click="$emit('close')" large color="grey">
+        <v-btn icon @click="$emit('close')" large color="white">
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-title>
 
-      <v-card-text class="pa-0">
+      <v-card-text class="pa-0 flex-grow-1 overflow-y-auto bg-slate-50">
         <div v-if="ticket" class="pa-6">
           <!-- Status & Main Info -->
           <v-row class="mb-4">
             <v-col cols="12" sm="6">
-              <div class="text-subtitle-2 font-weight-bold grey--text text-uppercase mb-2">Status & Payment</div>
+              <div class=" font-weight-bold grey--text text-uppercase mb-2">Status & Payment</div>
               <div class="d-flex gap-2">
                 <v-chip :color="getStatusColor(ticket.status)" text-color="white" class="font-weight-bold">
                   {{ formatStatus(ticket.status) }}
@@ -37,7 +38,7 @@
               </div>
             </v-col>
             <v-col cols="12" sm="6" class="text-sm-right">
-              <div class="text-subtitle-2 font-weight-bold grey--text text-uppercase mb-2">Table / Area</div>
+              <div class=" font-weight-bold grey--text text-uppercase mb-2">Table / Area</div>
               <div class="text-h5 font-weight-black primary--text">
                 <v-icon color="primary" class="mr-1">mdi-table-furniture</v-icon>
                 {{ ticket.table?.number || ticket.table?.name || 'Walk-in' }}
@@ -123,7 +124,7 @@
                     <tr v-for="line in ticket.ticketLines" :key="line.id" class="item-row-modern">
                       <td>
                         <div class="font-weight-bold">{{ line.product.pro_name || 'Unknown Item' }}</div>
-                        <div v-if="line.notes" class="text-caption orange--text italic">
+                        <div v-if="line.notes" class=" orange--text italic">
                           <v-icon x-small color="orange">mdi-information-outline</v-icon>
                           {{ line.notes }}
                         </div>
@@ -185,15 +186,15 @@
             <v-card outlined class="rounded-lg pa-4 bg-slate-50 border-success">
               <v-row dense>
                 <v-col cols="6" sm="3">
-                  <div class="text-caption grey--text">Method</div>
+                  <div class=" grey--text">Method</div>
                   <div class="font-weight-bold">{{ ticket.payment.method || 'N/A' }}</div>
                 </v-col>
                 <v-col cols="6" sm="3">
-                  <div class="text-caption grey--text">Amount Paid</div>
+                  <div class=" grey--text">Amount Paid</div>
                   <div class="font-weight-bold">{{ formatPrice(ticket.payment.amount) }}</div>
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <div class="text-caption grey--text">Transaction ID</div>
+                  <div class=" grey--text">Transaction ID</div>
                   <div class="font-weight-bold font-mono">{{ ticket.payment.transactionId || 'Internal/Cash' }}</div>
                 </v-col>
               </v-row>
@@ -205,7 +206,7 @@
       <v-divider></v-divider>
 
       <!-- Actions -->
-      <v-card-actions class="pa-4 bg-slate-50">
+      <v-card-actions class="pa-4 white elevation-4 border-top flex-grow-0">
         <v-spacer></v-spacer>
         <v-btn text large color="grey" @click="$emit('close')" class="px-6 rounded-lg mr-2">
           Close
@@ -236,9 +237,15 @@
         </v-btn>
 
         <v-btn v-if="ticket?.status === 'served' && ticket?.paymentStatus === 'pending'" color="primary" large depressed
-          @click="$emit('process-payment')" class="px-6 rounded-lg">
+          @click="$emit('process-payment')" class="px-6 rounded-lg mr-2">
           <v-icon left>mdi-cash-multiple</v-icon>
           Process Payment
+        </v-btn>
+
+        <v-btn v-if="ticket?.status !== 'cancel' && canCancelPermission" color="error" large outlined
+          @click="$emit('update-status', 'cancel')" class="px-6 rounded-lg">
+          <v-icon left>mdi-cancel</v-icon>
+          Cancel Ticket
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -319,6 +326,12 @@ export default {
 
     getPaymentStatusColor(status) {
       return status === 'paid' ? 'success' : 'warning'
+    },
+
+    canCancelPermission() {
+      const user = this.$auth.user;
+      const groupPermission = user?.userGroup?.ticketCancel;
+      return !!groupPermission;
     },
   },
 }

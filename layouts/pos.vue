@@ -12,7 +12,7 @@
     <!-- NFC Payment Dialog - NEW -->
     <v-dialog v-model="nfcPaymentDialog" max-width="650" persistent>
       <nfc-payment-dialog v-if="nfcPaymentDialog" :sale-total="grandTotal - discount" :format-number="formatNumber"
-        @cancel="nfcPaymentDialog = false" @confirmed="processNfcSettlement" />
+        :initial-nfc-uid="initialNfcUid" @cancel="nfcPaymentDialog = false" @confirmed="processNfcSettlement" />
     </v-dialog>
 
     <v-dialog v-model="showQuotationPrintDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
@@ -286,6 +286,9 @@
                       <div class="font-weight-bold text-truncate">
                         {{ customerDisplayName }}
                       </div>
+                      <div v-if="currenctCustomer && currenctCustomer.loyaltyPoints !== undefined" class="text-caption">
+                        Points: {{ currenctCustomer.loyaltyPoints }}
+                      </div>
                     </v-col>
                     <v-col cols="auto">
                       <v-icon color="success" small>mdi-pencil</v-icon>
@@ -299,6 +302,10 @@
               <div class="d-flex ga-2">
                 <v-btn icon color="primary" @click="openDeliveryBox" title="ຈັດສົ່ງ" class="action-btn">
                   <v-icon>mdi-truck-delivery</v-icon>
+                </v-btn>
+
+                <v-btn icon color="secondary" @click="loyaltyGuideDialog = true" title="System Guide / ຄູ່ມືລະບົບ" class="action-btn">
+                  <v-icon>mdi-settings-transfer</v-icon>
                 </v-btn>
 
                 <v-btn icon color="primary" @click="newOrder" title="ອໍເດີໃໝ່" class="action-btn">
@@ -351,12 +358,15 @@
           :changes="changes" :grand-total="grandTotal" :currency-list="findAllCurrency" :payment-list="findAllPayment"
           :show-check-out="showCheckOut" :selected-payment="currentPayment" :format-number="formatNumber"
           :svg-icon="svgIcon" :enablePredefinedPayments="true" :defaultPaymentMethods="[14, 15]"
+          :current-customer="currenctCustomer"
           @update:discount="handleDiscountUpdate" @update:cash-received="handleCashReceivedUpdate"
+          @update:redeemed-points="handleRedeemedPointsUpdate"
           @toggle-checkout="showCheckOut = !showCheckOut" @process-single-payment="processSinglePayment"
           @select-payment="selectePaymentMethod" @open-multi-payment="openMultiPaymentDialog"
           @show-error="handlePaymentError" />
       </div>
     </v-navigation-drawer>
+    <SystemGuideDialog v-model="loyaltyGuideDialog" />
   </v-app>
 </template>
 
@@ -389,6 +399,7 @@ import {
 } from '~/common/ticket.js'
 import Vue from 'vue'
 import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
+import SystemGuideDialog from '~/components/common/SystemGuideDialog.vue'
 import {
   swalSuccess,
   swalError2,
@@ -409,6 +420,7 @@ export default {
     CartFooterComponent,
     MultiPaymentDialog,
     NfcPaymentDialog,
+    SystemGuideDialog,
   },
   name: 'DefaultLayout',
   provide() {
@@ -434,6 +446,7 @@ export default {
       customerScreenSyncInterval: null,
       multiPaymentDialog: false,
       nfcPaymentDialog: false,
+      initialNfcUid: '',
       pendingSaleHeaderId: null,
       isCreatingSale: false,
       qtyDialog: false,
@@ -487,6 +500,8 @@ export default {
       qrPolling: null,
       currentDynamicQR: null,
       lastQRTotal: 0,
+      redeemedPoints: 0,
+      loyaltyGuideDialog: false,
     }
   },
 
@@ -738,6 +753,7 @@ export default {
     // this.loadCurrency()
     this.checkAllInitData()
     this.initializeMultiPayment()
+    this.setupGlobalNfcListener()
     // this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
 
     // CUSTOMER SCREEN INTEGRATION
@@ -762,6 +778,7 @@ export default {
     this.stopCustomerScreenSync()
     window.removeEventListener('message', this.handleCustomerScreenMessage)
     this.stopDynamicQRPolling()
+    this.removeGlobalNfcListener()
 
     // PERFORMANCE OPTIMIZATION: Clear timeouts and caches
     if (this.customerScreenUpdateTimeout) {
@@ -799,6 +816,17 @@ export default {
         }
       }, 200),
       immediate: false,
+    },
+
+    nfcPaymentDialog(isOpen) {
+      if (!isOpen) {
+        // Clear initial UID when dialog closes
+        this.initialNfcUid = '';
+        // Re-setup global listener after a short delay to ensure the dialog's listener cleanup has finished
+        setTimeout(() => {
+          this.setupGlobalNfcListener();
+        }, 500);
+      }
     },
 
     // PERFORMANCE OPTIMIZATION: Rebuild cache when products change
@@ -1572,6 +1600,7 @@ export default {
           locationId: this.currentTerminal['locationId'],
           remark: 'Multi-payment transaction',
           qrRequestId: this.saleHeader.qrRequestId,
+          redeemedPoints: this.redeemedPoints,
         }
 
         const response = await this.$axios.post(
@@ -1888,6 +1917,7 @@ export default {
       this.saleHeader.isActive = true
       this.saleHeader.discount = this.discount
       this.saleHeader.total = this.grandTotal - this.discount
+      this.saleHeader.redeemedPoints = this.redeemedPoints
       this.saleHeader.clientId = this.currenctCustomer.id
       this.saleHeader.paymentId = this.currentPayment
       this.saleHeader.currencyId = this.findLocalCurrency.id
@@ -1939,8 +1969,50 @@ export default {
       }
     },
 
+    handleRedeemedPointsUpdate(val) {
+      this.redeemedPoints = val;
+      this.batchUpdateCustomerScreen();
+    },
+
     openCustomerDialog() {
       this.customerDialog = true
+    },
+
+    setupGlobalNfcListener() {
+      if (typeof window !== 'undefined' && window.posApi && window.posApi.onNfcScan) {
+        console.log('Setting up Global NFC Listener in POS Layout');
+        window.posApi.onNfcScan((uid) => {
+          // Only trigger if cart not empty and no dialog is currently open
+          if (this.productCart.length > 0 && !this.nfcPaymentDialog && !this.multiPaymentDialog) {
+            this.handleGlobalNfcScan(uid);
+          }
+        });
+      }
+    },
+
+    removeGlobalNfcListener() {
+      if (typeof window !== 'undefined' && window.posApi && window.posApi.removeNfcListener) {
+        window.posApi.removeNfcListener();
+      }
+    },
+
+    handleGlobalNfcScan(uid) {
+      console.log('Global NFC Scan detected:', uid);
+      
+      // 1. Find NFC Payment Method
+      const nfcPayment = this.findAllPayment.find(p => p.payment_code === 'NFC');
+      
+      if (nfcPayment) {
+        // 2. Automatically select NFC payment method
+        this.selectePaymentMethod(nfcPayment.id);
+        
+        // 3. Store UID and open dialog
+        this.initialNfcUid = uid;
+        this.nfcPaymentDialog = true;
+      } else {
+        console.warn('Payment method with code "NFC" not found in the system.');
+        this.$toast?.error('Payment method "NFC" not found. Please check configuration.');
+      }
     },
 
     ...mapMutations({

@@ -98,7 +98,7 @@
                 <v-autocomplete v-model="transaction.paymentId" :items="paymentList" item-text="payment_code"
                   item-value="id" label="Payment Method" outlined dense hide-details required :rules="[rules.required]">
                   <template v-slot:selection="{ item }">
-                    <span class="text-caption font-weight-bold">{{ item.payment_code }}</span>
+                    <span class=" font-weight-bold">{{ item.payment_code }}</span>
                   </template>
                 </v-autocomplete>
               </v-col>
@@ -123,7 +123,7 @@
               <v-col cols="12" md="3">
                 <v-card color="success lighten-5" flat
                   class="pa-2 d-flex flex-column justify-center fill-height border-success">
-                  <div class="text-caption grey--text text--darken-1">Total Amount</div>
+                  <div class=" grey--text text--darken-1">Total Amount</div>
                   <div class="text-h6 success--text font-weight-bold line-height-1">
                     {{ formatCurrency(grandTotal) }}
                   </div>
@@ -142,12 +142,12 @@
                 <div v-if="transaction.user"
                   class="creator-badge grey lighten-4 px-3 py-1 rounded-pill d-flex align-center">
                   <v-icon x-small class="mr-1">mdi-account-edit</v-icon>
-                  <span class="text-caption">Created by: <strong>{{ transaction.user.cus_name }}</strong></span>
+                  <span class="">Created by: <strong>{{ transaction.user.cus_name }}</strong></span>
                 </div>
 
                 <v-spacer />
 
-                <div class="timestamp-info grey--text text--darken-1 text-caption" v-if="transaction.updateTimestamp">
+                <div class="timestamp-info grey--text text--darken-1 " v-if="transaction.updateTimestamp">
                   Updated: {{ new Date(transaction.updateTimestamp).toLocaleString() }}
                 </div>
               </v-col>
@@ -299,14 +299,14 @@
 
                   <!-- Currency Breakdown -->
                   <div v-if="currencyBreakdown.length > 1" class="breakdown-container mb-4">
-                    <div class="text-subtitle-2 grey--text text--darken-2 mb-1">
+                    <div class=" grey--text text--darken-2 mb-1">
                       <v-icon x-small left>mdi-chart-pie</v-icon> Breakdown by Currency
                     </div>
                     <div v-for="curr in currencyBreakdown" :key="curr.code"
                       class="breakdown-item d-flex justify-space-between py-1">
                       <span class="grey--text text--darken-1">{{ curr.code }} Total:</span>
                       <span class="font-weight-medium">{{formatCurrency(curr.amount, currencyList.find(c => c.code ===
-                        curr.code)?.id) }}</span>
+                        curr.code)?.id)}}</span>
                     </div>
                   </div>
 

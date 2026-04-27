@@ -9,22 +9,12 @@
             <span>ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ (P&L Report)</span>
             <v-spacer />
             <!-- Export to Excel Button -->
-            <v-btn 
-              color="success" 
-              @click="exportToExcel"
-              :loading="exporting"
-              class="mr-2"
-            >
+            <v-btn color="success" @click="exportToExcel" :loading="exporting" class="mr-2">
               <v-icon left>mdi-file-excel</v-icon>
               ສົ່ງອອກ Excel
             </v-btn>
             <!-- Refresh Button -->
-            <v-btn 
-              color="white" 
-              text 
-              @click="fetchData"
-              :loading="loading"
-            >
+            <v-btn color="white" text @click="fetchData" :loading="loading">
               <v-icon left>mdi-refresh</v-icon>
               ໂຫຼດໃໝ່
             </v-btn>
@@ -34,57 +24,27 @@
           <v-card-text class="pa-4">
             <v-row>
               <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="filters.fromDate"
-                  label="ວັນທີເລີ່ມຕົ້ນ"
-                  type="date"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-calendar-start"
-                  :rules="[rules.required, rules.validFromDate]"
-                />
+                <v-text-field v-model="filters.fromDate" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense
+                  prepend-inner-icon="mdi-calendar-start" :rules="[rules.required, rules.validFromDate]" />
               </v-col>
               <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="filters.toDate"
-                  label="ວັນທີສິ້ນສຸດ"
-                  type="date"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-calendar-end"
-                  :rules="[rules.required, rules.validToDate]"
-                />
+                <v-text-field v-model="filters.toDate" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense
+                  prepend-inner-icon="mdi-calendar-end" :rules="[rules.required, rules.validToDate]" />
               </v-col>
               <v-col cols="12" md="2">
-                <v-btn 
-                  color="primary" 
-                  block 
-                  @click="generateReport"
-                  :loading="loading"
-                  :disabled="!isValidDateRange"
-                >
+                <v-btn color="primary" block @click="generateReport" :loading="loading" :disabled="!isValidDateRange">
                   <v-icon left>mdi-chart-box</v-icon>
                   ສ້າງລາຍງານ
                 </v-btn>
               </v-col>
               <v-col cols="12" md="2">
-                <v-btn 
-                  color="secondary" 
-                  outlined 
-                  block 
-                  @click="setCurrentMonth"
-                >
+                <v-btn color="secondary" outlined block @click="setCurrentMonth">
                   <v-icon left>mdi-calendar-month</v-icon>
                   ເດືອນນີ້
                 </v-btn>
               </v-col>
               <v-col cols="12" md="2">
-                <v-btn 
-                  color="secondary" 
-                  outlined 
-                  block 
-                  @click="setCurrentYear"
-                >
+                <v-btn color="secondary" outlined block @click="setCurrentYear">
                   <v-icon left>mdi-calendar-range</v-icon>
                   ປີນີ້
                 </v-btn>
@@ -109,13 +69,8 @@
             <p class=" grey--text mt-1">LAK</p>
           </v-card-text>
           <v-card-actions class="pt-0">
-            <v-btn 
-              text 
-              small 
-              color="success" 
-              @click="showRevenueDetails = true"
-              :disabled="receiveRecords.length === 0"
-            >
+            <v-btn text small color="success" @click="showRevenueDetails = true"
+              :disabled="receiveRecords.length === 0">
               <v-icon small left>mdi-eye</v-icon>
               ລາຍລະອຽດ
             </v-btn>
@@ -135,13 +90,7 @@
             <p class=" grey--text mt-1">LAK</p>
           </v-card-text>
           <v-card-actions class="pt-0">
-            <v-btn 
-              text 
-              small 
-              color="error" 
-              @click="showExpenseDetails = true"
-              :disabled="expenseRecords.length === 0"
-            >
+            <v-btn text small color="error" @click="showExpenseDetails = true" :disabled="expenseRecords.length === 0">
               <v-icon small left>mdi-eye</v-icon>
               ລາຍລະອຽດ
             </v-btn>
@@ -152,10 +101,7 @@
       <v-col cols="12" md="2">
         <v-card class="text-center" :loading="loading">
           <v-card-text class="pb-2">
-            <v-icon 
-              size="40" 
-              :color="netProfitLoss >= 0 ? 'success' : 'error'"
-            >
+            <v-icon size="40" :color="netProfitLoss >= 0 ? 'success' : 'error'">
               {{ netProfitLoss >= 0 ? 'mdi-trending-up' : 'mdi-trending-down' }}
             </v-icon>
             <h3 class="mt-2 text-subtitle-1">
@@ -164,22 +110,14 @@
             <p class=" grey--text">
               {{ netProfitLoss >= 0 ? 'Net Profit' : 'Net Loss' }}
             </p>
-            <h2 
-              class="text-h5 font-weight-bold"
-              :class="netProfitLoss >= 0 ? 'success--text' : 'error--text'"
-            >
+            <h2 class="text-h5 font-weight-bold" :class="netProfitLoss >= 0 ? 'success--text' : 'error--text'">
               {{ formatCurrency(Math.abs(netProfitLoss)) }}
             </h2>
             <p class=" grey--text mt-1">LAK</p>
           </v-card-text>
           <v-card-actions class="pt-0">
-            <v-btn 
-              text 
-              small 
-              :color="netProfitLoss >= 0 ? 'success' : 'error'"
-              @click="showPLBreakdown = true"
-              :disabled="!hasData"
-            >
+            <v-btn text small :color="netProfitLoss >= 0 ? 'success' : 'error'" @click="showPLBreakdown = true"
+              :disabled="!hasData">
               <v-icon small left>mdi-chart-pie</v-icon>
               ວິເຄາະ
             </v-btn>
@@ -193,10 +131,7 @@
             <v-icon size="40" color="info">mdi-percent</v-icon>
             <h3 class="mt-2 text-subtitle-1">ອັດຕາກຳໄລ</h3>
             <p class=" grey--text">Profit Margin</p>
-            <h2 
-              class="text-h5 font-weight-bold"
-              :class="profitMargin >= 0 ? 'info--text' : 'error--text'"
-            >
+            <h2 class="text-h5 font-weight-bold" :class="profitMargin >= 0 ? 'info--text' : 'error--text'">
               {{ formatPercentage(profitMargin) }}%
             </h2>
             <p class=" grey--text mt-1">
@@ -219,13 +154,8 @@
             <p class=" grey--text mt-1">ປະເພດ</p>
           </v-card-text>
           <v-card-actions class="pt-0">
-            <v-btn 
-              text 
-              small 
-              color="purple" 
-              @click="showRevenueCodeBreakdown = true"
-              :disabled="Object.keys(revenueByTransactionCode).length === 0"
-            >
+            <v-btn text small color="purple" @click="showRevenueCodeBreakdown = true"
+              :disabled="Object.keys(revenueByTransactionCode).length === 0">
               <v-icon small left>mdi-eye</v-icon>
               ວິເຄາະ
             </v-btn>
@@ -245,13 +175,8 @@
             <p class=" grey--text mt-1">ປະເພດ</p>
           </v-card-text>
           <v-card-actions class="pt-0">
-            <v-btn 
-              text 
-              small 
-              color="orange" 
-              @click="showExpenseCodeBreakdown = true"
-              :disabled="Object.keys(expenseByTransactionCode).length === 0"
-            >
+            <v-btn text small color="orange" @click="showExpenseCodeBreakdown = true"
+              :disabled="Object.keys(expenseByTransactionCode).length === 0">
               <v-icon small left>mdi-eye</v-icon>
               ວິເຄາະ
             </v-btn>
@@ -280,16 +205,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr 
-                    v-for="(item, code) in revenueByTransactionCode" 
-                    :key="`revenue-${code}`"
-                  >
+                  <tr v-for="(item, code) in revenueByTransactionCode" :key="`revenue-${code}`">
                     <td>
-                      <v-chip 
-                        small 
-                        :color="code === 'UN-ALLOCATED' ? 'grey' : 'success'" 
-                        text-color="white"
-                      >
+                      <v-chip small :color="code === 'UN-ALLOCATED' ? 'grey' : 'success'" text-color="white">
                         {{ code }}
                       </v-chip>
                     </td>
@@ -326,16 +244,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr 
-                    v-for="(item, code) in expenseByTransactionCode" 
-                    :key="`expense-${code}`"
-                  >
+                  <tr v-for="(item, code) in expenseByTransactionCode" :key="`expense-${code}`">
                     <td>
-                      <v-chip 
-                        small 
-                        :color="code === 'UN-ALLOCATED' ? 'grey' : 'error'" 
-                        text-color="white"
-                      >
+                      <v-chip small :color="code === 'UN-ALLOCATED' ? 'grey' : 'error'" text-color="white">
                         {{ code }}
                       </v-chip>
                     </td>
@@ -369,20 +280,14 @@
               <div class="chart-bar-wrapper">
                 <div class="chart-label">ລາຍຮັບ</div>
                 <div class="chart-bar">
-                  <div 
-                    class="chart-fill success" 
-                    :style="{ width: revenuePercentage + '%' }"
-                  ></div>
+                  <div class="chart-fill success" :style="{ width: revenuePercentage + '%' }"></div>
                 </div>
                 <div class="chart-value">{{ formatCurrency(totalRevenueLAK) }} LAK</div>
               </div>
               <div class="chart-bar-wrapper">
                 <div class="chart-label">ລາຍຈ່າຍ</div>
                 <div class="chart-bar">
-                  <div 
-                    class="chart-fill error" 
-                    :style="{ width: expensePercentage + '%' }"
-                  ></div>
+                  <div class="chart-fill error" :style="{ width: expensePercentage + '%' }"></div>
                 </div>
                 <div class="chart-value">{{ formatCurrency(totalExpenseLAK) }} LAK</div>
               </div>
@@ -441,16 +346,11 @@
         <v-card>
           <v-card-text class="text-center py-8">
             <v-icon size="64" color="grey">mdi-chart-line-variant</v-icon>
-            <h3 class="mt-4 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນໃນໄລຍະທີ່ເລືອກ</h3>
+            <h3 class="mt-4 grey--text">ບໍ່ມີຂໍ້ມູນໃນໄລຍະທີ່ເລືອກ</h3>
             <p class=" grey--text mt-2">
               ກະລຸນາເລືອກໄລຍະເວລາທີ່ມີຂໍ້ມູນລາຍຮັບ ຫຼື ລາຍຈ່າຍ
             </p>
-            <v-btn 
-              color="primary" 
-              outlined 
-              class="mt-4" 
-              @click="setCurrentMonth"
-            >
+            <v-btn color="primary" outlined class="mt-4" @click="setCurrentMonth">
               ລອງເບິ່ງເດືອນນີ້
             </v-btn>
           </v-card-text>
@@ -470,13 +370,8 @@
           </v-btn>
         </v-card-title>
         <v-card-text class="pa-0">
-          <v-data-table
-            :headers="revenueHeaders"
-            :items="revenueDetailItems"
-            :items-per-page="10"
-            class="elevation-0"
-            dense
-          >
+          <v-data-table :headers="revenueHeaders" :items="revenueDetailItems" :items-per-page="10" class="elevation-0"
+            dense>
             <template v-slot:item.receivedDate="{ item }">
               {{ formatDate(item.receivedDate) }}
             </template>
@@ -493,11 +388,7 @@
               </div>
             </template>
             <template v-slot:item.transactionCode="{ item }">
-              <v-chip 
-                small 
-                :color="item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'success'" 
-                text-color="white"
-              >
+              <v-chip small :color="item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'success'" text-color="white">
                 {{ item.transactionCode }}
               </v-chip>
             </template>
@@ -518,13 +409,8 @@
           </v-btn>
         </v-card-title>
         <v-card-text class="pa-0">
-          <v-data-table
-            :headers="expenseHeaders"
-            :items="expenseDetailItems"
-            :items-per-page="10"
-            class="elevation-0"
-            dense
-          >
+          <v-data-table :headers="expenseHeaders" :items="expenseDetailItems" :items-per-page="10" class="elevation-0"
+            dense>
             <template v-slot:item.settlementDate="{ item }">
               {{ formatDate(item.settlementDate) }}
             </template>
@@ -541,11 +427,7 @@
               </div>
             </template>
             <template v-slot:item.transactionCode="{ item }">
-              <v-chip 
-                small 
-                :color="item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'error'" 
-                text-color="white"
-              >
+              <v-chip small :color="item.transactionCode === 'UN-ALLOCATED' ? 'grey' : 'error'" text-color="white">
                 {{ item.transactionCode }}
               </v-chip>
             </template>
@@ -566,23 +448,14 @@
           </v-btn>
         </v-card-title>
         <v-card-text>
-          <v-card 
-            v-for="(item, code) in revenueByTransactionCode" 
-            :key="`revenue-card-${code}`"
-            class="mb-3"
-            outlined
-          >
+          <v-card v-for="(item, code) in revenueByTransactionCode" :key="`revenue-card-${code}`" class="mb-3" outlined>
             <v-card-text class="pb-2">
               <div class="d-flex justify-space-between align-center">
                 <div>
-                  <v-chip 
-                    :color="code === 'UN-ALLOCATED' ? 'grey' : 'success'" 
-                    text-color="white"
-                    class="mb-2"
-                  >
+                  <v-chip :color="code === 'UN-ALLOCATED' ? 'grey' : 'success'" text-color="white" class="mb-2">
                     {{ code }}
                   </v-chip>
-                  <div class="text-subtitle-2">{{ item.description }}</div>
+                  <div class="">{{ item.description }}</div>
                   <div class=" grey--text">{{ item.count }} ລາຍການ</div>
                 </div>
                 <div class="text-right">
@@ -612,23 +485,14 @@
           </v-btn>
         </v-card-title>
         <v-card-text>
-          <v-card 
-            v-for="(item, code) in expenseByTransactionCode" 
-            :key="`expense-card-${code}`"
-            class="mb-3"
-            outlined
-          >
+          <v-card v-for="(item, code) in expenseByTransactionCode" :key="`expense-card-${code}`" class="mb-3" outlined>
             <v-card-text class="pb-2">
               <div class="d-flex justify-space-between align-center">
                 <div>
-                  <v-chip 
-                    :color="code === 'UN-ALLOCATED' ? 'grey' : 'error'" 
-                    text-color="white"
-                    class="mb-2"
-                  >
+                  <v-chip :color="code === 'UN-ALLOCATED' ? 'grey' : 'error'" text-color="white" class="mb-2">
                     {{ code }}
                   </v-chip>
-                  <div class="text-subtitle-2">{{ item.description }}</div>
+                  <div class="">{{ item.description }}</div>
                   <div class=" grey--text">{{ item.count }} ລາຍການ</div>
                 </div>
                 <div class="text-right">
@@ -681,20 +545,13 @@
               <span class="text-h6 font-weight-bold">
                 {{ netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ:' : 'ຂາດທຶນສຸດທິ:' }}
               </span>
-              <span 
-                class="text-h6 font-weight-bold"
-                :class="netProfitLoss >= 0 ? 'success--text' : 'error--text'"
-              >
+              <span class="text-h6 font-weight-bold" :class="netProfitLoss >= 0 ? 'success--text' : 'error--text'">
                 {{ netProfitLoss >= 0 ? '+' : '-' }}{{ formatCurrency(Math.abs(netProfitLoss)) }} LAK
               </span>
             </div>
           </div>
           <div class="mt-4">
-            <v-chip
-              :color="netProfitLoss >= 0 ? 'success' : 'error'"
-              text-color="white"
-              small
-            >
+            <v-chip :color="netProfitLoss >= 0 ? 'success' : 'error'" text-color="white" small>
               ອັດຕາກຳໄລ: {{ formatPercentage(profitMargin) }}%
             </v-chip>
           </div>
@@ -703,20 +560,10 @@
     </v-dialog>
 
     <!-- Export Progress Snackbar -->
-    <v-snackbar
-      v-model="showExportProgress"
-      :timeout="-1"
-      color="info"
-      bottom
-      right
-    >
+    <v-snackbar v-model="showExportProgress" :timeout="-1" color="info" bottom right>
       <v-icon left>mdi-download</v-icon>
       ກຳລັງສ້າງລາຍງານ Excel...
-      <v-progress-linear
-        indeterminate
-        color="white"
-        class="mb-0 mt-2"
-      ></v-progress-linear>
+      <v-progress-linear indeterminate color="white" class="mb-0 mt-2"></v-progress-linear>
     </v-snackbar>
   </div>
 </template>
@@ -724,7 +571,7 @@
 <script>
 export default {
   name: 'ProfitLossReport',
-  
+
   data() {
     return {
       loading: false,
@@ -735,18 +582,18 @@ export default {
       showPLBreakdown: false,
       showRevenueCodeBreakdown: false,
       showExpenseCodeBreakdown: false,
-      
+
       // Date filters
       filters: {
         fromDate: '',
         toDate: ''
       },
-      
+
       // Data arrays
       receiveRecords: [],
       expenseRecords: [],
       currencies: [],
-      
+
       // Validation rules
       rules: {
         required: v => !!v || 'ຈຳເປັນຕ້ອງມີ',
@@ -759,7 +606,7 @@ export default {
           return new Date(v) >= new Date(this.filters.fromDate) || 'ວັນທີສິ້ນສຸດຕ້ອງໃຫຍ່ກວ່າວັນທີເລີ່ມຕົ້ນ'
         }
       },
-      
+
       // Table headers
       revenueHeaders: [
         { text: 'ເລກທີໃບຮັບ', value: 'receiptNumber', width: '140px' },
@@ -769,7 +616,7 @@ export default {
         { text: 'ລະຫັດ Txn', value: 'transactionCode', width: '120px' },
         { text: 'ອ້າງອີງ', value: 'referenceNumber', width: '110px' }
       ],
-      
+
       expenseHeaders: [
         { text: 'ລະຫັດ', value: 'id', width: '80px' },
         { text: 'ວັນທີ', value: 'settlementDate', width: '110px' },
@@ -780,24 +627,24 @@ export default {
       ]
     }
   },
-  
+
   computed: {
     /**
      * Check if selected date range is valid
      */
     isValidDateRange() {
-      return this.filters.fromDate && 
-             this.filters.toDate && 
-             new Date(this.filters.fromDate) <= new Date(this.filters.toDate)
+      return this.filters.fromDate &&
+        this.filters.toDate &&
+        new Date(this.filters.fromDate) <= new Date(this.filters.toDate)
     },
-    
+
     /**
      * Check if we have any data to show
      */
     hasData() {
       return this.receiveRecords.length > 0 || this.expenseRecords.length > 0
     },
-    
+
     /**
      * Calculate total revenue in LAK
      * Convert all receive records to LAK using: amount * exchangeRate
@@ -805,14 +652,14 @@ export default {
     totalRevenueLAK() {
       return this.receiveRecords.reduce((total, record) => {
         const lakAmount = this.convertToLAK(
-          record.totalReceivedAmount, 
-          record.exchangeRate, 
+          record.totalReceivedAmount,
+          record.exchangeRate,
           record.currency
         )
         return total + lakAmount
       }, 0)
     },
-    
+
     /**
      * Calculate total expenses in LAK
      * Convert all expense records to LAK using: amount * exchangeRate
@@ -820,14 +667,14 @@ export default {
     totalExpenseLAK() {
       return this.expenseRecords.reduce((total, record) => {
         const lakAmount = this.convertToLAK(
-          record.paymentAmount, 
-          record.exchangeRate, 
+          record.paymentAmount,
+          record.exchangeRate,
           record.currency
         )
         return total + lakAmount
       }, 0)
     },
-    
+
     /**
      * Calculate net profit/loss
      * P&L = Total Revenue - Total Expenses
@@ -835,7 +682,7 @@ export default {
     netProfitLoss() {
       return this.totalRevenueLAK - this.totalExpenseLAK
     },
-    
+
     /**
      * Calculate profit margin percentage
      * Profit Margin = (Net Profit / Total Revenue) * 100
@@ -844,7 +691,7 @@ export default {
       if (this.totalRevenueLAK === 0) return 0
       return (this.netProfitLoss / this.totalRevenueLAK) * 100
     },
-    
+
     /**
      * Calculate revenue percentage for chart display
      */
@@ -852,7 +699,7 @@ export default {
       const total = this.totalRevenueLAK + this.totalExpenseLAK
       return total > 0 ? (this.totalRevenueLAK / total) * 100 : 0
     },
-    
+
     /**
      * Calculate expense percentage for chart display
      */
@@ -860,23 +707,23 @@ export default {
       const total = this.totalRevenueLAK + this.totalExpenseLAK
       return total > 0 ? (this.totalExpenseLAK / total) * 100 : 0
     },
-    
+
     /**
      * Get unique currencies used in the report
      */
     uniqueCurrencies() {
       const currencies = new Set()
-      
+
       this.receiveRecords.forEach(record => {
         const code = record.currency?.code || 'LAK'
         currencies.add(code)
       })
-      
+
       this.expenseRecords.forEach(record => {
         const code = record.currency?.code || 'LAK'
         currencies.add(code)
       })
-      
+
       return Array.from(currencies)
     },
 
@@ -885,7 +732,7 @@ export default {
      */
     revenueByTransactionCode() {
       const grouped = {}
-      
+
       this.receiveRecords.forEach(record => {
         // Process each receive line for transaction details
         if (record.receiveLines && record.receiveLines.length > 0) {
@@ -893,14 +740,14 @@ export default {
             const transaction = line.transaction
             const txnCode = transaction?.code || 'UN-ALLOCATED'
             const txnDescription = transaction?.description || 'ບໍ່ມີການຈັດສັນປະເພດ'
-            
+
             // Calculate LAK amount for this line
             const lineAmount = this.convertToLAK(
               line.allocatedAmount || 0,
               record.exchangeRate,
               record.currency
             )
-            
+
             if (!grouped[txnCode]) {
               grouped[txnCode] = {
                 code: txnCode,
@@ -909,7 +756,7 @@ export default {
                 count: 0
               }
             }
-            
+
             grouped[txnCode].amount += lineAmount
             grouped[txnCode].count += 1
           })
@@ -921,7 +768,7 @@ export default {
             record.exchangeRate,
             record.currency
           )
-          
+
           if (!grouped[txnCode]) {
             grouped[txnCode] = {
               code: txnCode,
@@ -930,12 +777,12 @@ export default {
               count: 0
             }
           }
-          
+
           grouped[txnCode].amount += lakAmount
           grouped[txnCode].count += 1
         }
       })
-      
+
       // Sort by amount descending
       return Object.keys(grouped)
         .sort((a, b) => grouped[b].amount - grouped[a].amount)
@@ -950,7 +797,7 @@ export default {
      */
     expenseByTransactionCode() {
       const grouped = {}
-      
+
       this.expenseRecords.forEach(record => {
         // Process each invoice settlement for transaction details
         if (record.invoiceSettlements && record.invoiceSettlements.length > 0) {
@@ -958,14 +805,14 @@ export default {
             const transaction = settlement.transaction
             const txnCode = transaction?.code || 'UN-ALLOCATED'
             const txnDescription = transaction?.description || 'ບໍ່ມີການຈັດສັນປະເພດ'
-            
+
             // Calculate LAK amount for this settlement
             const settlementAmount = this.convertToLAK(
               settlement.amount || 0,
               record.exchangeRate,
               record.currency
             )
-            
+
             if (!grouped[txnCode]) {
               grouped[txnCode] = {
                 code: txnCode,
@@ -974,7 +821,7 @@ export default {
                 count: 0
               }
             }
-            
+
             grouped[txnCode].amount += settlementAmount
             grouped[txnCode].count += 1
           })
@@ -986,7 +833,7 @@ export default {
             record.exchangeRate,
             record.currency
           )
-          
+
           if (!grouped[txnCode]) {
             grouped[txnCode] = {
               code: txnCode,
@@ -995,12 +842,12 @@ export default {
               count: 0
             }
           }
-          
+
           grouped[txnCode].amount += lakAmount
           grouped[txnCode].count += 1
         }
       })
-      
+
       // Sort by amount descending
       return Object.keys(grouped)
         .sort((a, b) => grouped[b].amount - grouped[a].amount)
@@ -1015,7 +862,7 @@ export default {
      */
     revenueDetailItems() {
       const items = []
-      
+
       this.receiveRecords.forEach(record => {
         if (record.receiveLines && record.receiveLines.length > 0) {
           // Create separate row for each receive line
@@ -1027,7 +874,7 @@ export default {
               record.exchangeRate,
               record.currency
             )
-            
+
             items.push({
               id: `${record.id}-${index}`,
               receiptNumber: record.receiptNumber + (record.receiveLines.length > 1 ? ` (${index + 1})` : ''),
@@ -1048,7 +895,7 @@ export default {
             record.exchangeRate,
             record.currency
           )
-          
+
           items.push({
             id: record.id,
             receiptNumber: record.receiptNumber,
@@ -1063,7 +910,7 @@ export default {
           })
         }
       })
-      
+
       return items
     },
 
@@ -1072,7 +919,7 @@ export default {
      */
     expenseDetailItems() {
       const items = []
-      
+
       this.expenseRecords.forEach(record => {
         if (record.invoiceSettlements && record.invoiceSettlements.length > 0) {
           // Create separate row for each settlement
@@ -1084,7 +931,7 @@ export default {
               record.exchangeRate,
               record.currency
             )
-            
+
             items.push({
               id: `${record.id}-${index}`,
               settlementDate: record.settlementDate,
@@ -1104,7 +951,7 @@ export default {
             record.exchangeRate,
             record.currency
           )
-          
+
           items.push({
             id: record.id,
             settlementDate: record.settlementDate,
@@ -1118,18 +965,18 @@ export default {
           })
         }
       })
-      
+
       return items
     }
   },
-  
+
   mounted() {
     // Set default to current month
     this.setCurrentMonth()
     // Load initial data
     this.fetchCurrencies()
   },
-  
+
   methods: {
     /**
      * CORE CURRENCY CONVERSION LOGIC
@@ -1140,20 +987,20 @@ export default {
     convertToLAK(amount, exchangeRate, currency) {
       // Handle null/undefined values safely
       if (!amount || amount === 0) return 0
-      
+
       // If currency is LAK, no conversion needed
       const currencyCode = currency?.code || currency?.name || 'LAK'
       if (currencyCode === 'LAK') {
         return parseFloat(amount) || 0
       }
-      
+
       // Use provided exchange rate, fallback to 1 if missing
       const rate = parseFloat(exchangeRate) || 1
       const convertedAmount = parseFloat(amount) * rate
-      
+
       return convertedAmount || 0
     },
-    
+
     /**
      * Fetch receive records within date range
      */
@@ -1163,16 +1010,16 @@ export default {
           bookingDateFrom: this.filters.fromDate,
           bookingDateTo: this.filters.toDate
         }
-        
+
         const { data } = await this.$axios.get('/api/ar-receive-headers/pl', { params })
-        
+
         if (data?.success) {
           // Filter records by date range on client side as backup
           this.receiveRecords = (data.data.receiveHeaders || []).filter(record => {
             const recordDate = new Date(record.receivedDate || record.bookingDate)
             const fromDate = new Date(this.filters.fromDate)
             const toDate = new Date(this.filters.toDate)
-            
+
             return recordDate >= fromDate && recordDate <= toDate
           })
         } else {
@@ -1184,7 +1031,7 @@ export default {
         this.receiveRecords = []
       }
     },
-    
+
     /**
      * Fetch expense records within date range
      */
@@ -1194,16 +1041,16 @@ export default {
           startDate: this.filters.fromDate,
           endDate: this.filters.toDate
         }
-        
+
         const { data } = await this.$axios.get('/api/ap-invoices-settlement/pl', { params })
-        
+
         if (data?.success) {
           // Filter records by date range on client side as backup
           this.expenseRecords = (data.data.settlements || []).filter(record => {
             const recordDate = new Date(record.settlementDate)
             const fromDate = new Date(this.filters.fromDate)
             const toDate = new Date(this.filters.toDate)
-            
+
             return recordDate >= fromDate && recordDate <= toDate
           })
         } else {
@@ -1215,7 +1062,7 @@ export default {
         this.expenseRecords = []
       }
     },
-    
+
     /**
      * Fetch currency master data
      */
@@ -1227,7 +1074,7 @@ export default {
         console.error('Error fetching currencies:', error)
       }
     },
-    
+
     /**
      * Main method to fetch all data and generate report
      */
@@ -1236,7 +1083,7 @@ export default {
         this.$toast.warning('ກະລຸນາເລືອກໄລຍະເວລາທີ່ຖືກຕ້ອງ')
         return
       }
-      
+
       this.loading = true
       try {
         // Fetch both revenue and expense data in parallel
@@ -1244,7 +1091,7 @@ export default {
           this.fetchReceiveRecords(),
           this.fetchExpenseRecords()
         ])
-        
+
         this.$toast.success('ໂຫຼດຂໍ້ມູນສຳເລັດ')
       } catch (error) {
         console.error('Error fetching P&L data:', error)
@@ -1253,14 +1100,14 @@ export default {
         this.loading = false
       }
     },
-    
+
     /**
      * Alias for fetchData to maintain semantic clarity
      */
     generateReport() {
       this.fetchData()
     },
-    
+
     /**
      * Set date range to current month
      */
@@ -1268,22 +1115,22 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      
+
       this.filters.fromDate = new Date(year, month, 1).toISOString().split('T')[0]
       this.filters.toDate = new Date(year, month + 1, 0).toISOString().split('T')[0]
     },
-    
+
     /**
      * Set date range to current year
      */
     setCurrentYear() {
       const now = new Date()
       const year = now.getFullYear()
-      
+
       this.filters.fromDate = `${year}-01-01`
       this.filters.toDate = `${year}-12-31`
     },
-    
+
     /**
      * Export P&L report to Excel
      */
@@ -1292,17 +1139,17 @@ export default {
         this.$toast.warning('ບໍ່ມີຂໍ້ມູນສຳລັບການສົ່ງອອກ')
         return
       }
-      
+
       this.exporting = true
       this.showExportProgress = true
-      
+
       try {
         const currentDate = new Date().toISOString().split('T')[0]
         const filename = `P&L_Report_TransactionCode_${this.filters.fromDate}_to_${this.filters.toDate}_${currentDate}.xlsx`
-        
+
         await this.generatePLExcel(filename)
         this.$toast.success('ສົ່ງອອກລາຍງານສຳເລັດ')
-        
+
       } catch (error) {
         console.error('Export error:', error)
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ')
@@ -1311,7 +1158,7 @@ export default {
         this.showExportProgress = false
       }
     },
-    
+
     /**
      * Generate Excel file with P&L data including transaction code breakdown
      */
@@ -1319,7 +1166,7 @@ export default {
       try {
         // Try to use XLSX library
         const XLSX = await import('xlsx')
-        
+
         // Summary sheet data
         const summaryData = [
           ['ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ (P&L Report) - ວິເຄາະຕາມລະຫັດ Transaction', '', '', ''],
@@ -1332,7 +1179,7 @@ export default {
           ['', '', '', ''],
           [this.netProfitLoss >= 0 ? 'ກຳໄລສຸດທິ' : 'ຂາດທຶນສຸດທິ', Math.abs(this.netProfitLoss), this.formatPercentage(this.profitMargin), this.netProfitLoss >= 0 ? 'ກຳໄລ' : 'ຂາດທຶນ']
         ]
-        
+
         // Revenue by transaction code
         const revenueByCodeData = [
           ['ລາຍຮັບຕາມລະຫັດ Transaction', '', '', ''],
@@ -1347,7 +1194,7 @@ export default {
             ]
           })
         ]
-        
+
         // Expense by transaction code
         const expenseByCodeData = [
           ['ລາຍຈ່າຍຕາມລະຫັດ Transaction', '', '', ''],
@@ -1362,7 +1209,7 @@ export default {
             ]
           })
         ]
-        
+
         // Revenue detail data with transaction codes
         const revenueData = [
           ['ລາຍລະອຽດລາຍຮັບ - ແຍກຕາມ Transaction Code', '', '', '', '', '', ''],
@@ -1377,7 +1224,7 @@ export default {
             item.transactionCode
           ])
         ]
-        
+
         // Expense detail data with transaction codes
         const expenseData = [
           ['ລາຍລະອຽດລາຍຈ່າຍ - ແຍກຕາມ Transaction Code', '', '', '', '', '', ''],
@@ -1392,23 +1239,23 @@ export default {
             item.transactionCode
           ])
         ]
-        
+
         // Create workbook
         const workbook = XLSX.utils.book_new()
-        
+
         // Add sheets
         const summarySheet = XLSX.utils.aoa_to_sheet(summaryData)
         const revenueByCodeSheet = XLSX.utils.aoa_to_sheet(revenueByCodeData)
         const expenseByCodeSheet = XLSX.utils.aoa_to_sheet(expenseByCodeData)
         const revenueSheet = XLSX.utils.aoa_to_sheet(revenueData)
         const expenseSheet = XLSX.utils.aoa_to_sheet(expenseData)
-        
+
         XLSX.utils.book_append_sheet(workbook, summarySheet, 'ສະຫຼຸບ P&L')
         XLSX.utils.book_append_sheet(workbook, revenueByCodeSheet, 'ລາຍຮັບຕາມລະຫັດ')
         XLSX.utils.book_append_sheet(workbook, expenseByCodeSheet, 'ລາຍຈ່າຍຕາມລະຫັດ')
         XLSX.utils.book_append_sheet(workbook, revenueSheet, 'ລາຍຮັບລະອຽດ')
         XLSX.utils.book_append_sheet(workbook, expenseSheet, 'ລາຍຈ່າຍລະອຽດ')
-        
+
         // Set column widths
         const wscols = [
           { wch: 20 }, { wch: 25 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }, { wch: 15 }
@@ -1418,10 +1265,10 @@ export default {
         expenseByCodeSheet['!cols'] = wscols
         revenueSheet['!cols'] = wscols
         expenseSheet['!cols'] = wscols
-        
+
         // Save file
         XLSX.writeFile(workbook, filename)
-        
+
       } catch (xlsxError) {
         // Fallback to CSV
         console.log('XLSX not available, generating CSV')
@@ -1429,7 +1276,7 @@ export default {
         this.downloadBlob(csvData, filename.replace('.xlsx', '.csv'))
       }
     },
-    
+
     /**
      * Generate CSV fallback
      */
@@ -1447,10 +1294,10 @@ export default {
           return `${code},${item.description},${item.amount},${((item.amount / this.totalRevenueLAK) * 100).toFixed(2)}%`
         })
       ]
-      
+
       return new Blob([csvLines.join('\n')], { type: 'text/csv;charset=utf-8;' })
     },
-    
+
     /**
      * Download blob helper
      */
@@ -1464,7 +1311,7 @@ export default {
       document.body.removeChild(link)
       window.URL.revokeObjectURL(url)
     },
-    
+
     // Utility formatting methods
     formatCurrency(amount) {
       return new Intl.NumberFormat('en-US', {
@@ -1472,16 +1319,16 @@ export default {
         maximumFractionDigits: 2,
       }).format(amount || 0)
     },
-    
+
     formatPercentage(percentage) {
       return parseFloat(percentage || 0).toFixed(2)
     },
-    
+
     formatDate(date) {
       if (!date) return '-'
       return new Date(date).toLocaleDateString('en-GB')
     },
-    
+
     formatDateRange() {
       return `${this.formatDate(this.filters.fromDate)} - ${this.formatDate(this.filters.toDate)}`
     }
@@ -1605,11 +1452,11 @@ export default {
   .pl-report-container {
     padding: 10px;
   }
-  
+
   .text-h5 {
     font-size: 1.3rem !important;
   }
-  
+
   .text-subtitle-1 {
     font-size: 1rem !important;
   }
@@ -1619,11 +1466,11 @@ export default {
   .text-h5 {
     font-size: 1.1rem !important;
   }
-  
+
   .text-subtitle-1 {
     font-size: 0.9rem !important;
   }
-  
+
   /* Stack cards on mobile */
   .v-col.md-2 {
     flex: 0 0 50% !important;

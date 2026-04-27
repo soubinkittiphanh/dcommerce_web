@@ -25,7 +25,7 @@
 
           <v-card-text class="pa-4">
             <v-form ref="formLocal" v-model="validLocal" lazy-validation>
-              <div class="text-subtitle-2 primary--text mb-2">
+              <div class=" primary--text mb-2">
                 ຂໍ້ມູນພື້ນຖານ (General Information)
               </div>
               <v-row dense class="mb-4">
@@ -55,7 +55,7 @@
 
               <v-divider class="mb-4"></v-divider>
 
-              <div class="text-subtitle-2 orange--text text--darken-3 mb-2">
+              <div class=" orange--text text--darken-3 mb-2">
                 ການກຳນົດລາຄາ ແລະ ພາສີ (Pricing & Tax)
               </div>
               <v-row dense>
@@ -81,15 +81,15 @@
                       <span>Base:
                         <strong>{{
                           formatNumber(formData.pro_price)
-                        }}</strong></span>
+                          }}</strong></span>
                       <span>Tax ({{ selectedTaxRate?.displayRate }}):
                         <strong>{{
                           formatNumber(calculateTaxAmount())
-                        }}</strong></span>
+                          }}</strong></span>
                       <span class="primary--text">Total:
                         <strong>{{
                           formatNumber(calculateTotalWithTax())
-                        }}</strong></span>
+                          }}</strong></span>
                     </div>
                   </v-alert>
                 </v-col>
@@ -104,7 +104,7 @@
 
               <v-divider class="mb-4"></v-divider>
 
-              <div class="text-subtitle-2 green--text text--darken-3 mb-2">
+              <div class=" green--text text--darken-3 mb-2">
                 ສາງ ແລະ ການຈັດຊື້ (Inventory)
               </div>
               <v-row dense class="mb-4">
@@ -153,7 +153,7 @@
                       </v-avatar>
                       <span class="ml-2 flex-grow-1 text-truncate">{{
                         img.name
-                      }}</span>
+                        }}</span>
                       <v-btn icon x-small color="error" @click="deleteFileFrServ(idx)"><v-icon
                           x-small>mdi-delete</v-icon></v-btn>
                     </div>
@@ -165,7 +165,7 @@
                       </v-avatar>
                       <span class="ml-2 flex-grow-1 text-truncate">{{
                         item.NAME
-                      }}</span>
+                        }}</span>
                       <v-btn icon x-small color="error" @click="deleteFile(index)"><v-icon
                           x-small>mdi-close-circle</v-icon></v-btn>
                     </div>
@@ -395,10 +395,10 @@ export default {
       console.log('Found barcode printer config:', barcodePrinter)
 
       // Handle both property name variations: printerName and printer_name
-      const printerName = barcodePrinter 
-        ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+      const printerName = barcodePrinter
+        ? barcodePrinter.printerName || barcodePrinter.printer_name || ''
         : ''
-      
+
       console.log('Final Printer Name string:', `"${printerName}"`)
 
       let windowContent = this.threeColPaper
@@ -620,7 +620,7 @@ export default {
 .enhanced-dialog ::v-deep .v-label,
 .enhanced-dialog ::v-deep .v-input,
 .enhanced-dialog ::v-deep .v-btn__content,
-.enhanced-dialog ::v-deep .text-subtitle-2 {
+.enhanced-dialog ::v-deep . {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }
 

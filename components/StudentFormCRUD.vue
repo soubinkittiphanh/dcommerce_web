@@ -13,48 +13,22 @@
         <h3 class="text-h6 mb-3 primary--text">ຂໍ້ມູນພື້ນຖານ (Basic Info)</h3>
         <v-row>
           <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.studentId"
-              :rules="[v => !!v || 'ກະລຸນາປ້ອນລະຫັດນັກຮຽນ']"
-              label="ລະຫັດນັກຮຽນ (Student ID) *"
-              outlined
-              dense
-              :disabled="isUpdate"
-            ></v-text-field>
+            <v-text-field v-model="form.studentId" :rules="[v => !!v || 'ກະລຸນາປ້ອນລະຫັດນັກຮຽນ']"
+              label="ລະຫັດນັກຮຽນ (Student ID) *" outlined dense :disabled="isUpdate"></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.grade"
-              label="ຊັ້ນຮຽນ (Grade)"
-              outlined
-              dense
-            ></v-text-field>
+            <v-text-field v-model="form.grade" label="ຊັ້ນຮຽນ (Grade)" outlined dense></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.firstName"
-              :rules="[v => !!v || 'ກະລຸນາປ້ອນຊື່']"
-              label="ຊື່ (First Name) *"
-              outlined
-              dense
-            ></v-text-field>
+            <v-text-field v-model="form.firstName" :rules="[v => !!v || 'ກະລຸນາປ້ອນຊື່']" label="ຊື່ (First Name) *"
+              outlined dense></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.lastName"
-              :rules="[v => !!v || 'ກະລຸນາປ້ອນນາມສະກຸນ']"
-              label="ນາມສະກຸນ (Last Name) *"
-              outlined
-              dense
-            ></v-text-field>
+            <v-text-field v-model="form.lastName" :rules="[v => !!v || 'ກະລຸນາປ້ອນນາມສະກຸນ']"
+              label="ນາມສະກຸນ (Last Name) *" outlined dense></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.phoneNumber"
-              label="ເບີໂທຕິດຕໍ່ (Phone Number)"
-              outlined
-              dense
-            ></v-text-field>
+            <v-text-field v-model="form.phoneNumber" label="ເບີໂທຕິດຕໍ່ (Phone Number)" outlined dense></v-text-field>
           </v-col>
         </v-row>
 
@@ -76,23 +50,16 @@
         <!-- NFC Card Management Section -->
         <div v-if="isUpdate">
           <h3 class="text-h6 mb-3 primary--text">ບັດ NFC (NFC Card)</h3>
-          
+
           <v-card outlined class="pa-3 mb-3 bg-grey-lighten-4">
             <div class="d-flex justify-space-between align-center">
               <div>
-                <div class="text-subtitle-2 grey--text">ບັດປັດຈຸບັນ (Current Card UID)</div>
+                <div class=" grey--text">ບັດປັດຈຸບັນ (Current Card UID)</div>
                 <div class="text-h6" :class="activeCardUid ? 'primary--text' : 'grey--text'">
                   {{ activeCardUid || 'ບໍ່ມີບັດ (No active card)' }}
                 </div>
               </div>
-              <v-btn 
-                color="error" 
-                outlined 
-                small 
-                v-if="activeCardUid"
-                @click="reportLost"
-                :loading="cardLoading"
-              >
+              <v-btn color="error" outlined small v-if="activeCardUid" @click="reportLost" :loading="cardLoading">
                 ແຈ້ງບັດເສຍ (Report Lost)
               </v-btn>
             </div>
@@ -100,28 +67,13 @@
 
           <v-row align="center">
             <v-col cols="12" md="8">
-              <v-text-field
-                v-model="newCardUid"
-                label="ລະຫັດບັດໃໝ່ (New Card UID)"
-                hint="Click here and tap card on reader"
-                persistent-hint
-                outlined
-                dense
-                hide-details
-                append-icon="mdi-contactless-payment"
-                @keydown.enter="assignCard"
-                @input="logScanInput"
-                id="nfc-input"
-              ></v-text-field>
+              <v-text-field v-model="newCardUid" label="ລະຫັດບັດໃໝ່ (New Card UID)"
+                hint="Click here and tap card on reader" persistent-hint outlined dense hide-details
+                append-icon="mdi-contactless-payment" @keyup.enter="assignCard" @input="logScanInput"
+                id="nfc-input"></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
-              <v-btn 
-                color="primary" 
-                block 
-                @click="assignCard"
-                :disabled="!newCardUid"
-                :loading="cardLoading"
-              >
+              <v-btn color="primary" block @click="assignCard" :disabled="!newCardUid" :loading="cardLoading">
                 ລົງທະບຽນບັດ (Assign Card)
               </v-btn>
             </v-col>
@@ -175,7 +127,7 @@ export default {
     if (this.isUpdate && this.studentId) {
       this.loadStudent();
     }
-    
+
     // Listen for native Electron hardware NFC scans (Automatically overrides any background zombie listener)
     if (typeof window !== 'undefined' && window.posApi && window.posApi.onNfcScan) {
       window.posApi.onNfcScan((uid) => {
@@ -198,7 +150,7 @@ export default {
       try {
         const res = await this.$axios.get(`/api/student/${this.studentId}`);
         const data = res.data;
-        
+
         this.form = {
           studentId: data.studentId,
           firstName: data.firstName,
@@ -206,11 +158,11 @@ export default {
           grade: data.grade,
           phoneNumber: data.phoneNumber
         };
-        
+
         if (data.bankAccount) {
           this.balance = data.bankAccount.balance;
         }
-        
+
         if (data.nfcCards && data.nfcCards.length > 0) {
           this.activeCardUid = data.nfcCards[0].cardUid;
         } else {
@@ -223,10 +175,10 @@ export default {
         this.saving = false;
       }
     },
-    
+
     async save() {
       if (!this.$refs.form.validate()) return;
-      
+
       this.saving = true;
       try {
         if (this.isUpdate) {
@@ -253,12 +205,12 @@ export default {
     async assignCard() {
       console.log('=== NFC ASSIGN CARD ENTER EVENT FIRED ===');
       console.log('Current value of newCardUid:', this.newCardUid);
-      
+
       if (!this.newCardUid.trim()) {
         console.log('Assign aborted: newCardUid is empty.');
         return;
       }
-      
+
       this.cardLoading = true;
       try {
         console.log('Sending API request to /api/nfc-cards/register...');
@@ -266,7 +218,7 @@ export default {
           cardUid: this.newCardUid.trim(),
           studentId: this.studentId
         });
-        
+
         this.$toast.success('NFC Card registered successfully!');
         this.newCardUid = '';
         await this.loadStudent(); // Reload to show new active card
@@ -286,15 +238,15 @@ export default {
 
     async reportLost() {
       if (!this.activeCardUid) return;
-      
+
       if (!confirm('Are you sure you want to deactivate this card? They will not be able to use it.')) return;
-      
+
       this.cardLoading = true;
       try {
         await this.$axios.put('/api/nfc-cards/report-lost', {
           cardUid: this.activeCardUid
         });
-        
+
         this.$toast.success('Card deactivated (reported lost)');
         await this.loadStudent();
         this.$emit('reload'); // Reload list in parent

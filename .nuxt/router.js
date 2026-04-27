@@ -39,6 +39,7 @@ const _79315f00 = () => interopDefault(import('../pages/admin/company/index.vue'
 const _10ce75c4 = () => interopDefault(import('../pages/admin/currency/index.vue' /* webpackChunkName: "pages/admin/currency/index" */))
 const _f13f2d5e = () => interopDefault(import('../pages/admin/customer/index.vue' /* webpackChunkName: "pages/admin/customer/index" */))
 const _4dd908a1 = () => interopDefault(import('../pages/admin/customer_request/index.vue' /* webpackChunkName: "pages/admin/customer_request/index" */))
+const _6aa85aae = () => interopDefault(import('../pages/admin/database/index.vue' /* webpackChunkName: "pages/admin/database/index" */))
 const _09aa8974 = () => interopDefault(import('../pages/admin/generalLedger/index.vue' /* webpackChunkName: "pages/admin/generalLedger/index" */))
 const _975dcbfc = () => interopDefault(import('../pages/admin/group/index.vue' /* webpackChunkName: "pages/admin/group/index" */))
 const _df94d8de = () => interopDefault(import('../pages/admin/inventory_value/index.vue' /* webpackChunkName: "pages/admin/inventory_value/index" */))
@@ -148,7 +149,11 @@ const _4031d773 = () => interopDefault(import('../pages/admin/job_fair/login/ind
 const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
+const _7ab6275b = () => interopDefault(import('../pages/admin/report/loyalty.vue' /* webpackChunkName: "pages/admin/report/loyalty" */))
+const _1665b085 = () => interopDefault(import('../pages/admin/reports/accountStatement/index.vue' /* webpackChunkName: "pages/admin/reports/accountStatement/index" */))
+const _6dba86ed = () => interopDefault(import('../pages/admin/reports/endOfDay/index.vue' /* webpackChunkName: "pages/admin/reports/endOfDay/index" */))
 const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/reports/moneyAdvance/index" */))
+const _2f47d942 = () => interopDefault(import('../pages/admin/reports/staffActivity/index.vue' /* webpackChunkName: "pages/admin/reports/staffActivity/index" */))
 const _2d13abf8 = () => interopDefault(import('../pages/admin/reports/stockActivity/index.vue' /* webpackChunkName: "pages/admin/reports/stockActivity/index" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
@@ -337,6 +342,10 @@ export const routerOptions = {
     path: "/admin/customer_request",
     component: _4dd908a1,
     name: "admin-customer_request"
+  }, {
+    path: "/admin/database",
+    component: _6aa85aae,
+    name: "admin-database"
   }, {
     path: "/admin/generalLedger",
     component: _09aa8974,
@@ -774,9 +783,25 @@ export const routerOptions = {
     component: _38fd842d,
     name: "admin-product-productlist"
   }, {
+    path: "/admin/report/loyalty",
+    component: _7ab6275b,
+    name: "admin-report-loyalty"
+  }, {
+    path: "/admin/reports/accountStatement",
+    component: _1665b085,
+    name: "admin-reports-accountStatement"
+  }, {
+    path: "/admin/reports/endOfDay",
+    component: _6dba86ed,
+    name: "admin-reports-endOfDay"
+  }, {
     path: "/admin/reports/moneyAdvance",
     component: _cf45db36,
     name: "admin-reports-moneyAdvance"
+  }, {
+    path: "/admin/reports/staffActivity",
+    component: _2f47d942,
+    name: "admin-reports-staffActivity"
   }, {
     path: "/admin/reports/stockActivity",
     component: _2d13abf8,

@@ -8,13 +8,7 @@
         </h1>
       </v-col>
       <v-col cols="12" md="6" class="text-right">
-        <v-btn
-          color="primary"
-          x-large
-          elevation="2"
-          rounded
-          @click="openCreateDialog"
-        >
+        <v-btn color="primary" x-large elevation="2" rounded @click="openCreateDialog">
           <v-icon left>mdi-plus</v-icon>
           ເພີ່ມທະນາຄານໃໝ່
         </v-btn>
@@ -23,27 +17,14 @@
 
     <v-card elevation="2" border-radius="lg">
       <v-card-title class="pa-4">
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="ຊອກຫາທະນາຄານ..."
-          outlined
-          dense
-          hide-details
-          class="max-width-300"
-        ></v-text-field>
+        <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາທະນາຄານ..." outlined dense hide-details
+          class="max-width-300"></v-text-field>
         <v-spacer></v-spacer>
-        <span class="text-subtitle-2 grey--text">ທັງໝົດ: {{ loadData.length }} ລາຍການ</span>
+        <span class=" grey--text">ທັງໝົດ: {{ loadData.length }} ລາຍການ</span>
       </v-card-title>
 
-      <v-data-table
-        :headers="headers"
-        :items="loadData"
-        :search="search"
-        :loading="isloading"
-        class="elevation-0"
-        :footer-props="{ 'items-per-page-options': [5, 10, 15] }"
-      >
+      <v-data-table :headers="headers" :items="loadData" :search="search" :loading="isloading" class="elevation-0"
+        :footer-props="{ 'items-per-page-options': [5, 10, 15] }">
         <template v-slot:[`item.bank_function`]="{ item }">
           <v-tooltip bottom>
             <template v-slot:activator="{ on, attrs }">
@@ -69,32 +50,16 @@
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" sm="4">
-                <v-text-field
-                  v-model="form_data.bank_code"
-                  label="ລະຫັດ (Code)"
-                  outlined
-                  dense
-                  :rules="rule.cat_id"
-                  placeholder="ເຊັ່ນ: BCEL"
-                ></v-text-field>
+                <v-text-field v-model="form_data.bank_code" label="ລະຫັດ (Code)" outlined dense :rules="rule.cat_id"
+                  placeholder="ເຊັ່ນ: BCEL"></v-text-field>
               </v-col>
               <v-col cols="12" sm="8">
-                <v-text-field
-                  v-model="form_data.bank_name"
-                  label="ຊື່ທະນາຄານ"
-                  outlined
-                  dense
-                  :rules="rule.cat_name"
-                ></v-text-field>
+                <v-text-field v-model="form_data.bank_name" label="ຊື່ທະນາຄານ" outlined dense
+                  :rules="rule.cat_name"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea
-                  v-model="form_data.bank_remark"
-                  label="ໝາຍເຫດ"
-                  outlined
-                  rows="3"
-                  placeholder="ເພີ່ມຂໍ້ມູນເພີ່ມເຕີມ..."
-                ></v-textarea>
+                <v-textarea v-model="form_data.bank_remark" label="ໝາຍເຫດ" outlined rows="3"
+                  placeholder="ເພີ່ມຂໍ້ມູນເພີ່ມເຕີມ..."></v-textarea>
               </v-col>
             </v-row>
           </v-form>
@@ -173,7 +138,7 @@ export default {
     },
     async submitDatas() {
       if (!this.$refs.form.validate()) return;
-      
+
       this.isloading = true;
       const submitData = {
         bnk_id: this.form_data.bank_id,
@@ -184,7 +149,7 @@ export default {
 
       // Updated to use your /api/bank prefix
       const url = this.isedit ? '/api/bank/update' : '/api/bank/create';
-      
+
       try {
         const res = await this.$axios.post(url, submitData);
         // Checking for your custom success response from the controller
@@ -235,8 +200,9 @@ export default {
 .max-width-300 {
   max-width: 300px;
 }
+
 /* Optional: improve table row hover effect */
-.v-data-table >>> tbody tr:hover {
+.v-data-table>>>tbody tr:hover {
   background-color: #f5f5f5 !important;
 }
 </style>

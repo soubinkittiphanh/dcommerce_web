@@ -155,6 +155,9 @@
         </v-card>
       </v-dialog>
 
+      <!-- Terms And Conditions Dialog -->
+      <TermsAndConditionsDialog v-model="termsDialog" :finalLogoUrl="finalLogoUrl" />
+
       <v-container fluid class="pb-16">
         <Nuxt />
       </v-container>
@@ -170,6 +173,11 @@
         &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R{{ appVersion }}
       </span>
 
+      <v-chip v-if="businessDate" small color="info" outlined class="ma-1 font-weight-bold">
+        <v-icon small left>mdi-calendar-clock</v-icon>
+        ວັນທີເຮັດວຽກ: {{ businessDate }}
+      </v-chip>
+
       <!-- Refresh Button -->
       <v-btn small text color="primary" class="ma-1" @click="refreshStoreData" :loading="isRefreshing">
         <v-icon small left>mdi-refresh</v-icon>
@@ -182,6 +190,12 @@
         ປ່ຽນລະຫັດຜ່ານ
       </v-btn>
 
+      <!-- Terms and Conditions Button -->
+      <v-btn small text color="primary" class="ma-1" @click="termsDialog = true">
+        <v-icon small left>mdi-file-document-check-outline</v-icon>
+        ເງື່ອນໄຂການນຳໃຊ້
+      </v-btn>
+
       <v-chip v-if="currentTerminal" class="ma-0" color="warning" variant="outlined" @click="terminalDialog = true">
         {{ currentTerminal.name }}
       </v-chip>
@@ -192,6 +206,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { mainCompanyInfo } from '~/common/api'
+import TermsAndConditionsDialog from '~/components/TermsAndConditionsDialog.vue'
 
 export default {
   data() {
@@ -200,6 +215,7 @@ export default {
       spfList: [],
       intervalId: null,
       terminalDialog: false,
+      termsDialog: false,
       terminalSelected: 1,
       clipped: false,
       drawer: true,
@@ -212,6 +228,7 @@ export default {
       rightDrawer: false,
       title: 'Vuetify.js',
       dataLoaded: false,
+      businessDate: null,
       // Company logo management
       companyLogo: {
         url: null,
@@ -246,6 +263,10 @@ export default {
     }
   },
 
+  components: {
+    TermsAndConditionsDialog
+  },
+
   async created() {
     // Initialize data and handle potential errors
     try {
@@ -266,6 +287,7 @@ export default {
       await this.loadMenu()
       await this.fetchSPFItems()
       await this.loadCompanyLogo() // Load company logo
+      await this.fetchBusinessDate()
       this.dataLoaded = true
     } catch (error) {
       console.error('Error in mounted:', error)
@@ -404,6 +426,7 @@ export default {
       this.isRefreshing = true;
       try {
         await this.initData();
+        await this.fetchBusinessDate();
         if (this.$toast) {
           this.$toast.success('ໂຫຼດຂໍ້ມູນໃໝ່ສຳເລັດແລ້ວ (Data refreshed successfully)');
         }
@@ -500,6 +523,17 @@ export default {
         }
       } finally {
         this.passwordLoading = false
+      }
+    },
+
+    async fetchBusinessDate() {
+      try {
+        const response = await this.$axios.get('/api/businessDate/current')
+        if (response.data && response.data.success && response.data.data) {
+          this.businessDate = response.data.data.currentDate
+        }
+      } catch (error) {
+        console.error('Error fetching business date:', error)
       }
     },
 

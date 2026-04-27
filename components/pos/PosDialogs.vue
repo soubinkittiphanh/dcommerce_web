@@ -170,7 +170,7 @@ import CustomerList from '~/components/customer/CustomerList.vue'
 import Quotation from '~/components/quotation'
 import PricingOption from '~/components/PricingOption.vue'
 import LoadingIndicator from '~/components/LoadingIndicator.vue'
-import DeliveryForm from '~/components/DeliveryForm.vue'
+import DeliveryForm from '~/components/deliveryForm.vue'
 import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue'
 
 export default {

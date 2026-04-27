@@ -7,7 +7,7 @@
           <v-icon color="primary" class="mr-2">mdi-history</v-icon>
           ລາຍງານການຮັບເຂົ້າສະຕັອກ (Stock Activity Create)
         </h1>
-        <div class="text-subtitle-2 grey--text">
+        <div class=" grey--text">
           Stock Receiving Activity Report
         </div>
       </div>
@@ -27,26 +27,18 @@
         <v-row align="center">
           <!-- Date Range -->
           <v-col cols="12" md="2">
-            <v-text-field v-model="filters.dateFrom" type="date" label="ຈາກວັນທີ (From Date)" outlined dense hide-details clearable @change="fetchData"></v-text-field>
+            <v-text-field v-model="filters.dateFrom" type="date" label="ຈາກວັນທີ (From Date)" outlined dense
+              hide-details clearable @change="fetchData"></v-text-field>
           </v-col>
           <v-col cols="12" md="2">
-            <v-text-field v-model="filters.dateTo" type="date" label="ເຖິງວັນທີ (To Date)" outlined dense hide-details clearable @change="fetchData"></v-text-field>
+            <v-text-field v-model="filters.dateTo" type="date" label="ເຖິງວັນທີ (To Date)" outlined dense hide-details
+              clearable @change="fetchData"></v-text-field>
           </v-col>
-          
+
           <!-- Product Autocomplete -->
           <v-col cols="12" md="3">
-            <v-autocomplete
-              v-model="filters.productId"
-              :items="products"
-              item-text="pro_name"
-              item-value="id"
-              label="ສິນຄ້າ (Product)"
-              outlined
-              dense
-              hide-details
-              clearable
-              @change="fetchData"
-            >
+            <v-autocomplete v-model="filters.productId" :items="products" item-text="pro_name" item-value="id"
+              label="ສິນຄ້າ (Product)" outlined dense hide-details clearable @change="fetchData">
               <template v-slot:item="{ item }">
                 <v-list-item-content>
                   <v-list-item-title>{{ item.pro_name }}</v-list-item-title>
@@ -58,35 +50,22 @@
 
           <!-- Lot Number Text Field -->
           <v-col cols="12" md="2">
-            <v-text-field v-model="filters.lotNumber" label="ເລກລ໋ອດ (Lot Number)" outlined dense hide-details clearable @change="fetchData"></v-text-field>
+            <v-text-field v-model="filters.lotNumber" label="ເລກລ໋ອດ (Lot Number)" outlined dense hide-details clearable
+              @change="fetchData"></v-text-field>
           </v-col>
 
           <!-- User Autocomplete -->
           <v-col cols="12" md="2">
-            <v-autocomplete
-              v-model="filters.inputter"
-              :items="users"
-              item-text="cus_name"
-              item-value="id"
-              label="ຜູ້ບັນທຶກ (User Create)"
-              outlined
-              dense
-              hide-details
-              clearable
-              @change="fetchData"
-            ></v-autocomplete>
+            <v-autocomplete v-model="filters.inputter" :items="users" item-text="cus_name" item-value="id"
+              label="ຜູ້ບັນທຶກ (User Create)" outlined dense hide-details clearable
+              @change="fetchData"></v-autocomplete>
           </v-col>
 
           <!-- View Mode Toggle -->
           <v-col cols="12" md="2">
-            <v-select
-              v-model="filters.viewMode"
-              :items="[ {text: 'ສະຫຼຸບ (Summary)', value: 'summary'}, {text: 'ລາຍລະອຽດ (Detail)', value: 'detail'} ]"
-              label="ຮູບແບບ (View)"
-              outlined
-              dense
-              hide-details
-            ></v-select>
+            <v-select v-model="filters.viewMode"
+              :items="[{ text: 'ສະຫຼຸບ (Summary)', value: 'summary' }, { text: 'ລາຍລະອຽດ (Detail)', value: 'detail' }]"
+              label="ຮູບແບບ (View)" outlined dense hide-details></v-select>
           </v-col>
 
           <v-col cols="12" md="1">
@@ -126,16 +105,9 @@
 
     <!-- Table -->
     <v-card elevation="1">
-      <v-data-table
-        :headers="headers"
-        :items="displayedData"
-        :loading="loading"
-        loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-        no-data-text="ບໍ່ພົບຂໍ້ມູນ"
-        :items-per-page="50"
-        :footer-props="{'items-per-page-options': [25, 50, 100, -1]}"
-        class="elevation-0"
-      >
+      <v-data-table :headers="headers" :items="displayedData" :loading="loading" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+        no-data-text="ບໍ່ພົບຂໍ້ມູນ" :items-per-page="50" :footer-props="{ 'items-per-page-options': [25, 50, 100, -1] }"
+        class="elevation-0">
         <template v-slot:item.index="{ item }">
           {{ reportData.indexOf(item) + 1 }}
         </template>
@@ -153,7 +125,7 @@
 
         <template v-slot:item.product="{ item }">
           <div class="font-weight-medium">{{ item.product ? item.product.pro_name : 'Unknown' }}</div>
-          <div class="text-caption grey--text">{{ item.product ? item.product.pro_id : '' }}</div>
+          <div class=" grey--text">{{ item.product ? item.product.pro_id : '' }}</div>
         </template>
 
         <template v-slot:item.stockCardQty="{ item }">
@@ -167,14 +139,14 @@
         <template v-slot:item.totalCost="{ item }">
           <div class="font-weight-bold">{{ formatCurrency(item.totalCost || item.cost) }}</div>
         </template>
-        
+
         <template v-slot:item.currency="{ item }">
           <v-chip x-small>{{ item.currency ? item.currency.code : 'LAK' }}</v-chip>
         </template>
 
         <template v-slot:item.creator="{ item }">
           <v-avatar size="24" color="grey lighten-2" class="mr-2" v-if="item.creator">
-            <span class="text-caption">{{ item.creator.cus_name ? item.creator.cus_name.charAt(0).toUpperCase() : 'U' }}</span>
+            <span class="">{{ item.creator.cus_name ? item.creator.cus_name.charAt(0).toUpperCase() : 'U' }}</span>
           </v-avatar>
           <span>{{ item.creator ? item.creator.cus_name : 'Unknown User' }}</span>
         </template>
@@ -223,7 +195,7 @@ export default {
       if (this.filters.viewMode === 'detail') {
         return this.reportData
       }
-      
+
       const groups = {}
       this.reportData.forEach(item => {
         let key = item.locking_session_id
@@ -239,7 +211,7 @@ export default {
             aggregatedTotalCost: 0
           }
         }
-        
+
         groups[key].stockCardQty += (item.stockCardQty || 1)
         groups[key].aggregatedTotalCost += (item.costPerUnit || item.cost || 0)
       })
@@ -290,7 +262,7 @@ export default {
           lotNumber: this.filters.lotNumber || undefined,
           inputter: this.filters.inputter || undefined
         }
-        
+
         // Remove empty strings
         Object.keys(params).forEach(key => {
           if (params[key] === '') {
@@ -364,7 +336,7 @@ export default {
           link.click()
           document.body.removeChild(link)
           URL.revokeObjectURL(url)
-          
+
           this.$toast.success('Exported to CSV')
         }
       } catch (err) {
@@ -390,12 +362,14 @@ export default {
   .v-card {
     box-shadow: none !important;
   }
+
   .v-btn,
   .v-input,
   header,
   .v-navigation-drawer {
     display: none !important;
   }
+
   .stock-activity-report {
     padding: 0;
   }

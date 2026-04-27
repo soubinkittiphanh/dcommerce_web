@@ -6,7 +6,7 @@
           <v-icon color="primary" class="mr-2">mdi-wallet-plus</v-icon>
           ສະຖານີຕື່ມເງິນ (Top-Up Station)
         </h1>
-        <div class="text-subtitle-2 grey--text">
+        <div class=" grey--text">
           Scan NFC cards or search students to process top-ups and withdrawals
         </div>
       </div>
@@ -24,7 +24,7 @@
           <v-card-text class="text-center py-6 bg-grey-lighten-4">
             <v-icon size="64" color="primary" class="mb-4">mdi-contactless-payment</v-icon>
             <h3 class="text-h6 mb-2">ແຕະບັດລູກຄ້າ (Scan Card)</h3>
-            <p class="text-caption grey--text mb-4">Click below and tap the card on the NFC Reader</p>
+            <p class=" grey--text mb-4">Click below and tap the card on the NFC Reader</p>
 
             <v-text-field v-model="scanInput" label="ລະຫັດບັດ (Card UID)" outlined dense autofocus id="nfc-scan-input"
               @keyup.enter="identifyStudentByCard" :loading="isSearching" append-icon="mdi-magnify"
@@ -33,7 +33,7 @@
         </v-card>
 
         <v-divider class="my-4"></v-divider>
-        <div class="text-center text-caption grey--text mb-4">- ຫຼືຄົ້ນຫາດ້ວຍຊື່ (Or search manually) -</div>
+        <div class="text-center  grey--text mb-4">- ຫຼືຄົ້ນຫາດ້ວຍຊື່ (Or search manually) -</div>
 
         <v-autocomplete v-model="selectedStudentId" :items="students" item-text="fullName" item-value="id"
           label="ເລືອກນັກຮຽນ (Select Student)" outlined dense clearable @change="loadStudentById">
@@ -92,7 +92,10 @@
                 <v-col cols="12" md="6">
                   <v-autocomplete v-model="selectedCashAccountId" :items="bankAccounts" item-text="accountName"
                     item-value="id" label="ເລືອກບັນຊີຮັບເງິນ / ຈ່າຍເງິນ (Cash/Drawer Account)" outlined dense
-                    :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີ (Required)']" prepend-inner-icon="mdi-cash-register">
+                    :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີ (Required)']" prepend-inner-icon="mdi-cash-register"
+                    readonly
+                    :hint="!currentTerminal || !currentTerminal.bankAccountId ? '⚠ ບໍ່ມີການຕັ້ງຄ່າບັນຊີສຳລັບ Terminal ນີ້ (No terminal mapping found!)' : 'ລັອກບັນຊີອັດຕະໂນມັດຕາມ Terminal (Locked to terminal mapping)'"
+                    persistent-hint>
                     <template v-slot:item="{ item }">
                       <v-list-item-content>
                         <v-list-item-title class="font-weight-medium">{{ item.accountName }}</v-list-item-title>
@@ -125,7 +128,7 @@
 
               <div class="d-flex justify-end mt-4">
                 <v-btn large :color="transactionType === 'topup' ? 'success' : 'error'" @click="processTransaction"
-                  :loading="isProcessing" :disabled="!valid || !amount || amount <= 0" class="px-8 font-weight-bold">
+                  :loading="isProcessing" :disabled="!valid || !amount || amount <= 0 || !selectedCashAccountId" class="px-8 font-weight-bold">
                   <v-icon left>{{ transactionType === 'topup' ? 'mdi-cash-plus' : 'mdi-cash-minus' }}</v-icon>
                   ຍືນຍັນ (Confirm)
                 </v-btn>
@@ -147,6 +150,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'WalletTopUpStation',
   data() {
@@ -170,6 +175,21 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['findAllTerminal', 'findSelectedTerminal']),
+    safeTerminals() {
+      return Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+    },
+    currentTerminal() {
+      if (!this.safeTerminals.length || !this.findSelectedTerminal) {
+        return null
+      }
+
+      return (
+        this.safeTerminals.find(
+          (el) => el && el.id == this.findSelectedTerminal
+        ) || null
+      )
+    },
     currentBalance() {
       if (this.currentStudent && this.currentStudent.bankAccount) {
         return this.currentStudent.bankAccount.balance;
@@ -185,6 +205,17 @@ export default {
         rules.push(v => v <= this.currentBalance || 'ຍອດເງິນບໍ່ພຽງພໍ (Insufficient balance)');
       }
       return rules;
+    }
+  },
+  watch: {
+    currentTerminal: {
+      immediate: true,
+      handler(newVal) {
+        if (newVal && newVal.bankAccountId) {
+          console.log('Terminal mapping detected, setting account:', newVal.bankAccountId);
+          this.selectedCashAccountId = newVal.bankAccountId;
+        }
+      }
     }
   },
   mounted() {
@@ -214,7 +245,22 @@ export default {
     async fetchBankAccounts() {
       try {
         const res = await this.$axios.get('/api/bank_account/find');
-        this.bankAccounts = res.data.data || res.data || [];
+        const allAccounts = res.data.data || res.data || [];
+
+        // Filter out student wallets (they usually have a studentId or start with WLT)
+        // We only want the Merchant's offset accounts in this dropdown
+        this.bankAccounts = allAccounts.filter(acc => !acc.studentId);
+
+        // Auto-select the first available bank account if none is selected and no terminal mapping
+        if (this.bankAccounts.length > 0 && !this.selectedCashAccountId) {
+          if (this.currentTerminal && this.currentTerminal.bankAccountId) {
+            this.selectedCashAccountId = this.currentTerminal.bankAccountId;
+          } else {
+            // Prefer cash accounts if possible, otherwise use the first merchant account
+            const defaultAcc = this.bankAccounts.find(acc => acc.accountType && acc.accountType.toLowerCase().includes('cash')) || this.bankAccounts[0];
+            this.selectedCashAccountId = defaultAcc.id;
+          }
+        }
       } catch (error) {
         console.error("Failed to load bank accounts", error);
       }
@@ -243,8 +289,15 @@ export default {
       try {
         console.log('Identifying student with card:', uid);
         const res = await this.$axios.get(`/api/student/identify/${uid}`);
-        console.log('Student identified:', res.data);
-        this.setStudent(res.data);
+        console.log('Student identified 123123:', res.data);
+
+        let studentData = res.data;
+        if (Array.isArray(studentData)) {
+          if (studentData.length === 0) throw new Error('Student array empty');
+          studentData = studentData[0];
+        }
+        console.log(`Student data: ${JSON.stringify(studentData)}`);
+        this.setStudent(studentData);
       } catch (error) {
         this.$toast.error('ເຂົ້າລະຫັດບັດບໍ່ສຳເລັດ (Card not registered)');
         this.clearSelection();
@@ -263,13 +316,16 @@ export default {
       if (student) {
         // We might want to fetch full profile just in case it's stale
         this.$axios.get(`/api/student/${student.id}`).then(res => {
-          this.setStudent(res.data);
+          let studentData = res.data;
+          if (Array.isArray(studentData) && studentData.length > 0) studentData = studentData[0];
+          this.setStudent(studentData);
         }).catch(() => {
           this.setStudent(student); // fallback
         });
       }
     },
     setStudent(studentData) {
+      console.info(`STUDENT DATA SETTER ${JSON.stringify(studentData)}`)
       if (!studentData.bankAccount) {
         this.$toast.error("Student has no wallet account associated!");
         return;
@@ -278,6 +334,15 @@ export default {
       this.amount = null;
       this.description = '';
       this.transactionType = 'topup';
+
+      // Ensure the merchant offset account is explicitly locked in when the form opens
+      if (this.currentTerminal && this.currentTerminal.bankAccountId) {
+        this.selectedCashAccountId = this.currentTerminal.bankAccountId;
+      } else if (!this.selectedCashAccountId && this.bankAccounts.length > 0) {
+        const defaultAcc = this.bankAccounts.find(acc => acc.accountType && acc.accountType.toLowerCase().includes('Merchant')) || this.bankAccounts[0];
+        this.selectedCashAccountId = defaultAcc.id;
+      }
+
       if (this.$refs.transactionForm) {
         this.$refs.transactionForm.resetValidation();
       }
@@ -306,7 +371,9 @@ export default {
 
         // Refresh balance
         const res = await this.$axios.get(`/api/student/${this.currentStudent.id}`);
-        this.currentStudent = res.data;
+        let freshData = res.data;
+        if (Array.isArray(freshData) && freshData.length > 0) freshData = freshData[0];
+        this.currentStudent = freshData;
 
         // Reset form keeping the student
         this.amount = null;

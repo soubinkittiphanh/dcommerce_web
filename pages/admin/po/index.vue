@@ -5,13 +5,7 @@
         <v-icon start>mdi-shopping</v-icon>
         <h3>ລາຍການບິນສັ່ງຊື້</h3>
       </v-chip>
-      <v-chip
-        class="pa-5"
-        color="primary"
-        label
-        text-color="white"
-        @click="guidelineDialog = true"
-      >
+      <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
         <v-icon start>mdi-lifebuoy</v-icon>
         <h3>ຄູ່ມືການນຳໃຊ້</h3>
       </v-chip>
@@ -21,45 +15,25 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <v-card class="loading-card" color="primary" dark>
         <v-card-text class="text-center">
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="white"
-            indeterminate
-            class="mb-4"
-          />
+          <v-progress-circular :size="70" :width="7" color="white" indeterminate class="mb-4" />
           <div class="text-h6">Loading...</div>
         </v-card-text>
       </v-card>
     </v-dialog>
-    
+
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
-      <youtube-player
-        @close-dialog="guidelineDialog = false"
-        youtube-link="W6KiQWtiqBM"
-      >
+      <youtube-player @close-dialog="guidelineDialog = false" youtube-link="W6KiQWtiqBM">
       </youtube-player>
     </v-dialog>
-    
+
     <v-dialog v-model="dialog" fullscreen>
-      <PurchasingFormCRUD
-        @reload="loadTxn(); dialog = false"
-        :key="apFormKey"
-        :is-update="isEdit"
-        :headerId="selectedId"
-        @close-dialog="dialog = false"
-      />
+      <PurchasingFormCRUD @reload="loadTxn(); dialog = false" :key="apFormKey" :is-update="isEdit"
+        :headerId="selectedId" @close-dialog="dialog = false" />
     </v-dialog>
 
     <v-dialog v-model="receivingDialog" width="90%">
-      <ReceivingFormCRUD 
-        :POTransaction="currentPO" 
-        sourceAPLID="PO" 
-        @close="triggerDialog" 
-        :key="apFormKey"
-        @close-dialog="receivingDialog = false" 
-        @reload="loadTxn"
-      />
+      <ReceivingFormCRUD :POTransaction="currentPO" sourceAPLID="PO" @close="triggerDialog" :key="apFormKey"
+        @close-dialog="receivingDialog = false" @reload="loadTxn" />
     </v-dialog>
 
     <!-- Main Content -->
@@ -95,52 +69,41 @@
             <v-card-text>
               <v-row>
                 <v-col cols="12" md="3">
-                  <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false"
-                      transition="scale-transition" offset-y max-width="290px" min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                          <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ: / From Date" 
-                              hint="MM/DD/YYYY format"
-                              persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                              @blur="date = parseDate(dateFormatted)" v-on="on" outlined dense></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+                  <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition"
+                    offset-y max-width="290px" min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ: / From Date" hint="MM/DD/YYYY format"
+                        persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
+                        @blur="date = parseDate(dateFormatted)" v-on="on" outlined dense></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
-                
+
                 <v-col cols="12" md="3">
-                  <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false"
-                      transition="scale-transition" offset-y max-width="290px" min-width="auto">
-                      <template v-slot:activator="{ on, attrs }">
-                          <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ: / To Date" 
-                              hint="MM/DD/YYYY format"
-                              persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                              @blur="date2 = parseDate(dateFormatted2)" v-on="on" outlined dense></v-text-field>
-                      </template>
-                      <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
+                  <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false" transition="scale-transition"
+                    offset-y max-width="290px" min-width="auto">
+                    <template v-slot:activator="{ on, attrs }">
+                      <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ: / To Date" hint="MM/DD/YYYY format"
+                        persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
+                        @blur="date2 = parseDate(dateFormatted2)" v-on="on" outlined dense></v-text-field>
+                    </template>
+                    <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
                   </v-menu>
                 </v-col>
-                
+
                 <v-col cols="12" md="3">
-                  <v-text-field v-model="search" append-icon="mdi-magnify" label="Search / ຊອກຫາ" 
-                      single-line hide-details outlined dense />
+                  <v-text-field v-model="search" append-icon="mdi-magnify" label="Search / ຊອກຫາ" single-line
+                    hide-details outlined dense />
                 </v-col>
-                
+
                 <v-col cols="12" md="3">
-                  <v-select
-                    v-model="selectedStatusFilter"
-                    :items="statusFilterOptions"
-                    item-text="label"
-                    item-value="value"
-                    label="ກັ່ນຕອງຕາມສະຖານະ"
-                    clearable
-                    prepend-icon="mdi-filter"
-                    outlined
-                    dense
-                    @change="applyStatusFilter"
-                  />
+                  <v-select v-model="selectedStatusFilter" :items="statusFilterOptions" item-text="label"
+                    item-value="value" label="ກັ່ນຕອງຕາມສະຖານະ" clearable prepend-icon="mdi-filter" outlined dense
+                    @change="applyStatusFilter" />
                 </v-col>
               </v-row>
-              
+
               <v-row class="mt-3">
                 <v-col cols="12" class="text-center">
                   <v-btn @click="loadTxn" color="primary" large rounded>
@@ -181,52 +144,29 @@
             <!-- Status Summary Cards -->
             <v-col cols="6" lg="9">
               <v-row>
-                <v-col 
-                  v-for="statusStat in statusStatistics" 
-                  :key="statusStat.status"
-                  cols="6" 
-                  md="4" 
-                  lg="3"
-                >
-                  <v-card 
-                    outlined 
-                    class="status-summary-card pa-3 text-center elevation-2"
+                <v-col v-for="statusStat in statusStatistics" :key="statusStat.status" cols="6" md="4" lg="3">
+                  <v-card outlined class="status-summary-card pa-3 text-center elevation-2"
                     :class="{ 'selected-status': selectedStatusFilter === statusStat.status }"
-                    @click="filterByStatus(statusStat.status)"
-                    style="cursor: pointer; transition: all 0.2s ease;"
-                  >
-                    <v-icon 
-                      :color="statusStat.color" 
-                      size="32" 
-                      class="mb-2"
-                    >
+                    @click="filterByStatus(statusStat.status)" style="cursor: pointer; transition: all 0.2s ease;">
+                    <v-icon :color="statusStat.color" size="32" class="mb-2">
                       {{ statusStat.icon }}
                     </v-icon>
-                    
+
                     <h3 :class="`${statusStat.color}--text mb-1`">
                       {{ formatNumber(statusStat.amount) }} LAK
                     </h3>
-                    
+
                     <div class="text--secondary mb-1">
                       {{ statusStat.label }}
                     </div>
-                    
-                    <v-chip 
-                      :color="statusStat.color" 
-                      small 
-                      outlined
-                      class="font-weight-bold"
-                    >
+
+                    <v-chip :color="statusStat.color" small outlined class="font-weight-bold">
                       {{ statusStat.count }} ລາຍການ
                     </v-chip>
-                    
+
                     <div class="mt-2">
-                      <v-progress-linear
-                        :value="statusStat.percentage"
-                        :color="statusStat.color"
-                        height="4"
-                        rounded
-                      ></v-progress-linear>
+                      <v-progress-linear :value="statusStat.percentage" :color="statusStat.color" height="4"
+                        rounded></v-progress-linear>
                       <div class=" mt-1">
                         {{ statusStat.percentage.toFixed(1) }}% ຂອງຍອດລວມ
                       </div>
@@ -271,12 +211,8 @@
                           {{ numberWithCommas(currency.amount) }}
                         </td>
                         <td class="text-center">
-                          <v-progress-circular
-                            :value="currency.percentage"
-                            :color="getCurrencyColor(currency.code)"
-                            size="40"
-                            width="4"
-                          >
+                          <v-progress-circular :value="currency.percentage" :color="getCurrencyColor(currency.code)"
+                            size="40" width="4">
                             <small>{{ currency.percentage.toFixed(0) }}%</small>
                           </v-progress-circular>
                         </td>
@@ -300,28 +236,18 @@
                   <v-col cols="6" md="3">
                     <div class="text-center">
                       <h2 class="success--text">{{ pendingOrdersCount }}</h2>
-                      <div class="text-subtitle-2">ລໍຖ້າອະນຸມັດ</div>
-                      <v-progress-circular
-                        :value="pendingOrdersPercentage"
-                        color="orange"
-                        size="60"
-                        width="4"
-                      >
+                      <div class="">ລໍຖ້າອະນຸມັດ</div>
+                      <v-progress-circular :value="pendingOrdersPercentage" color="orange" size="60" width="4">
                         <small>{{ pendingOrdersPercentage.toFixed(0) }}%</small>
                       </v-progress-circular>
                     </div>
                   </v-col>
-                  
+
                   <v-col cols="6" md="3">
                     <div class="text-center">
                       <h2 class="primary--text">{{ approvedOrdersCount }}</h2>
-                      <div class="text-subtitle-2">ໄດ້ຮັບອະນຸມັດ</div>
-                      <v-progress-circular
-                        :value="approvedOrdersPercentage"
-                        color="green"
-                        size="60"
-                        width="4"
-                      >
+                      <div class="">ໄດ້ຮັບອະນຸມັດ</div>
+                      <v-progress-circular :value="approvedOrdersPercentage" color="green" size="60" width="4">
                         <small>{{ approvedOrdersPercentage.toFixed(0) }}%</small>
                       </v-progress-circular>
                     </div>
@@ -330,13 +256,8 @@
                   <v-col cols="6" md="3">
                     <div class="text-center">
                       <h2 class="info--text">{{ receivedOrdersCount }}</h2>
-                      <div class="text-subtitle-2">ຮັບເຄື່ອງແລ້ວ</div>
-                      <v-progress-circular
-                        :value="receivedOrdersPercentage"
-                        color="success"
-                        size="60"
-                        width="4"
-                      >
+                      <div class="">ຮັບເຄື່ອງແລ້ວ</div>
+                      <v-progress-circular :value="receivedOrdersPercentage" color="success" size="60" width="4">
                         <small>{{ receivedOrdersPercentage.toFixed(0) }}%</small>
                       </v-progress-circular>
                     </div>
@@ -344,37 +265,18 @@
 
                   <v-col cols="6" md="3">
                     <div class="text-center">
-                      <v-btn
-                        outlined
-                        color="primary"
-                        @click="filterByStatus('Pending Approval')"
-                        class="mb-2"
-                        block
-                        small
-                      >
+                      <v-btn outlined color="primary" @click="filterByStatus('Pending Approval')" class="mb-2" block
+                        small>
                         <v-icon left small>mdi-clock-alert</v-icon>
                         ສະແດງລໍຖ້າອະນຸມັດ
                       </v-btn>
-                      
-                      <v-btn
-                        outlined
-                        color="success"
-                        @click="filterByStatus('Approved')"
-                        class="mb-2"
-                        block
-                        small
-                      >
+
+                      <v-btn outlined color="success" @click="filterByStatus('Approved')" class="mb-2" block small>
                         <v-icon left small>mdi-check-circle</v-icon>
                         ສະແດງອະນຸມັດແລ້ວ
                       </v-btn>
 
-                      <v-btn
-                        outlined
-                        color="grey"
-                        @click="clearStatusFilter"
-                        block
-                        small
-                      >
+                      <v-btn outlined color="grey" @click="clearStatusFilter" block small>
                         <v-icon left small>mdi-filter-off</v-icon>
                         ສະແດງທັງໝົດ
                       </v-btn>
@@ -387,25 +289,11 @@
         </v-card-text>
 
         <!-- Enhanced Purchase Orders Table -->
-        <v-data-table 
-          v-if="txnList" 
-          :headers="enhancedHeaders" 
-          :search="search" 
-          :items="filteredPurchaseOrders"
-          :loading="isloading"
-          loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-          class="elevation-1"
-          :items-per-page="10"
-        >
+        <v-data-table v-if="txnList" :headers="enhancedHeaders" :search="search" :items="filteredPurchaseOrders"
+          :loading="isloading" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." class="elevation-1" :items-per-page="10">
           <template v-slot:top>
             <div class="pa-3" v-if="selectedStatusFilter">
-              <v-alert 
-                type="info"
-                dense 
-                text 
-                dismissible
-                @input="clearStatusFilter"
-              >
+              <v-alert type="info" dense text dismissible @input="clearStatusFilter">
                 <v-icon left>mdi-filter</v-icon>
                 ກຳລັງສະແດງ: {{ getFilterDisplayName(selectedStatusFilter) }}
                 ({{ filteredPurchaseOrders.length }} ລາຍການ)
@@ -415,11 +303,7 @@
 
           <!-- Status Column -->
           <template v-slot:[`item.status`]="{ item }">
-            <v-chip 
-              small 
-              :color="getStatusColor(item.status)"
-              :outlined="item.status === 'Draft'"
-            >
+            <v-chip small :color="getStatusColor(item.status)" :outlined="item.status === 'Draft'">
               <v-icon left small>{{ getStatusIcon(item.status) }}</v-icon>
               {{ item.status }}
             </v-chip>
@@ -427,11 +311,7 @@
 
           <!-- Date Column -->
           <template v-slot:[`item.bookingDate`]="{ item }">
-            <v-chip 
-              color="info" 
-              small 
-              dark 
-            >
+            <v-chip color="info" small dark>
               <v-icon left small>mdi-calendar</v-icon>
               {{ item.bookingDate }}
             </v-chip>
@@ -465,47 +345,26 @@
             <div class="action-buttons">
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
-                    color="primary" 
-                    icon 
-                    small
-                    @click="editItem(item)"
-                    v-bind="attrs" 
-                    v-on="on"
-                  >
+                  <v-btn color="primary" icon small @click="editItem(item)" v-bind="attrs" v-on="on">
                     <v-icon small>mdi-pencil</v-icon>
                   </v-btn>
                 </template>
                 <span>Edit Purchase Order</span>
               </v-tooltip>
-              
+
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
-                    color="info" 
-                    icon 
-                    small
-                    @click="printPurchaseOrder(item)"
-                    v-bind="attrs" 
-                    v-on="on"
-                    :loading="printingId === item.id"
-                  >
+                  <v-btn color="info" icon small @click="printPurchaseOrder(item)" v-bind="attrs" v-on="on"
+                    :loading="printingId === item.id">
                     <v-icon small>mdi-printer</v-icon>
                   </v-btn>
                 </template>
                 <span>Print Purchase Order</span>
               </v-tooltip>
-              
+
               <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn 
-                    color="orange" 
-                    icon 
-                    small
-                    @click="viewItem(item)"
-                    v-bind="attrs" 
-                    v-on="on"
-                  >
+                  <v-btn color="orange" icon small @click="viewItem(item)" v-bind="attrs" v-on="on">
                     <v-icon small>mdi-eye</v-icon>
                   </v-btn>
                 </template>
@@ -518,15 +377,8 @@
           <template v-slot:[`item.postReceiving`]="{ item }">
             <v-tooltip bottom>
               <template v-slot:activator="{ on, attrs }">
-                <v-btn 
-                  color="success" 
-                  icon 
-                  small
-                  @click="receive(item)"
-                  :disabled="!canReceiveGoods(item)"
-                  v-bind="attrs" 
-                  v-on="on"
-                >
+                <v-btn color="success" icon small @click="receive(item)" :disabled="!canReceiveGoods(item)"
+                  v-bind="attrs" v-on="on">
                   <v-icon small>mdi-check</v-icon>
                 </v-btn>
               </template>
@@ -558,343 +410,343 @@ import ReceivingFormCRUD from '~/components/ReceivingFormCRUD.vue'
 import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
 
 export default {
-    name: 'EnhancedPurchasingDashboard',
-    components: { 
-        PurchasingFormCRUD,
-        ReceivingFormCRUD 
+  name: 'EnhancedPurchasingDashboard',
+  components: {
+    PurchasingFormCRUD,
+    ReceivingFormCRUD
+  },
+  mounted() {
+    this.loadTxn()
+  },
+  data() {
+    return {
+      userId: "",
+      search: "",
+      isEdit: false,
+      dialog: false,
+      receivingDialog: false,
+      guidelineDialog: false,
+      apFormKey: 1,
+      isloading: false,
+      printingId: null,
+      menu1: false,
+      menu2: false,
+      txnList: [],
+      selectedId: '',
+      selectedStatusFilter: null,
+      enhancedHeaders: [
+        {
+          text: 'PO ID',
+          align: 'center',
+          value: 'id',
+          sortable: true,
+          width: 100
+        },
+        {
+          text: 'Date / ວັນທີ',
+          align: 'center',
+          value: 'bookingDate',
+          sortable: true,
+          width: 120
+        },
+        {
+          text: 'Notes / ເນື້ອໃນ',
+          align: 'left',
+          value: 'notes',
+          width: 200
+        },
+        {
+          text: 'Supplier / ຜູ້ຂາຍ',
+          align: 'left',
+          value: 'supplier.company',
+          width: 200
+        },
+        {
+          text: 'Currency / ສະກຸນ',
+          align: 'center',
+          value: 'currency.code',
+          width: 100
+        },
+        {
+          text: 'Rate / ອັດຕາແລກປ່ຽນ',
+          align: 'right',
+          value: 'exchangeRate',
+          width: 120
+        },
+        {
+          text: 'Total / ຍອດລວມ',
+          align: 'right',
+          value: 'total',
+          width: 150
+        },
+        {
+          text: 'Status / ສະຖານະ',
+          align: 'center',
+          value: 'status',
+          width: 120
+        },
+        {
+          text: 'Created / ເວລາສ້າງ',
+          align: 'center',
+          value: 'createdAt',
+          width: 150
+        },
+        {
+          text: 'Actions / ຈັດການ',
+          align: 'center',
+          value: 'function',
+          sortable: false,
+          width: 150
+        },
+        {
+          text: 'Receive / ຮັບເຄື່ອງ',
+          align: 'center',
+          value: 'postReceiving',
+          sortable: false,
+          width: 100
+        },
+      ],
+      date: getFirstDayOfMonth(),
+      date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        .toISOString()
+        .substr(0, 10),
+      dateFormatted: this.formatDate(
+        getFirstDayOfMonth()
+      ),
+      dateFormatted2: this.formatDate(
+        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+          .toISOString()
+          .substr(0, 10)
+      ),
+    }
+  },
+  computed: {
+    currentPO() {
+      return this.txnList.find(el => el.id == this.selectedId)
     },
-    mounted() {
-        this.loadTxn()
+
+    filteredPurchaseOrders() {
+      if (!this.selectedStatusFilter) {
+        return this.txnList
+      }
+      return this.txnList.filter(item => item.status === this.selectedStatusFilter)
     },
-    data() {
-        return {
-            userId: "",
-            search: "",
-            isEdit: false,
-            dialog: false,
-            receivingDialog: false,
-            guidelineDialog: false,
-            apFormKey: 1,
-            isloading: false,
-            printingId: null,
-            menu1: false,
-            menu2: false,
-            txnList: [],
-            selectedId: '',
-            selectedStatusFilter: null,
-            enhancedHeaders: [
-                {
-                    text: 'PO ID',
-                    align: 'center',
-                    value: 'id',
-                    sortable: true,
-                    width: 100
-                },
-                {
-                    text: 'Date / ວັນທີ',
-                    align: 'center',
-                    value: 'bookingDate',
-                    sortable: true,
-                    width: 120
-                },
-                { 
-                    text: 'Notes / ເນື້ອໃນ', 
-                    align: 'left', 
-                    value: 'notes',
-                    width: 200
-                },
-                { 
-                    text: 'Supplier / ຜູ້ຂາຍ', 
-                    align: 'left', 
-                    value: 'supplier.company',
-                    width: 200
-                },
-                { 
-                    text: 'Currency / ສະກຸນ', 
-                    align: 'center', 
-                    value: 'currency.code',
-                    width: 100
-                },
-                { 
-                    text: 'Rate / ອັດຕາແລກປ່ຽນ', 
-                    align: 'right', 
-                    value: 'exchangeRate',
-                    width: 120
-                },
-                { 
-                    text: 'Total / ຍອດລວມ', 
-                    align: 'right', 
-                    value: 'total',
-                    width: 150
-                },
-                { 
-                    text: 'Status / ສະຖານະ', 
-                    align: 'center', 
-                    value: 'status',
-                    width: 120
-                },
-                { 
-                    text: 'Created / ເວລາສ້າງ', 
-                    align: 'center', 
-                    value: 'createdAt',
-                    width: 150
-                },
-                {
-                    text: 'Actions / ຈັດການ',
-                    align: 'center',
-                    value: 'function',
-                    sortable: false,
-                    width: 150
-                },
-                {
-                    text: 'Receive / ຮັບເຄື່ອງ',
-                    align: 'center',
-                    value: 'postReceiving',
-                    sortable: false,
-                    width: 100
-                },
-            ],
-            date: getFirstDayOfMonth(),
-            date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-                .toISOString()
-                .substr(0, 10),
-            dateFormatted: this.formatDate(
-                getFirstDayOfMonth()
-            ),
-            dateFormatted2: this.formatDate(
-                new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-                    .toISOString()
-                    .substr(0, 10)
-            ),
+
+    totalOrders() {
+      return this.txnList.length
+    },
+
+    totalOrderValue() {
+      return this.txnList.reduce((sum, order) => sum + (order.total || 0), 0)
+    },
+
+    statusStatistics() {
+      const stats = {}
+      let totalAmount = 0
+
+      this.txnList.forEach(item => {
+        const status = item.status || 'Draft'
+        const amount = item.total || 0
+
+        if (!stats[status]) {
+          stats[status] = {
+            status: status,
+            label: this.getStatusLabel(status),
+            amount: 0,
+            count: 0,
+            color: this.getStatusColor(status),
+            icon: this.getStatusIcon(status)
+          }
         }
+        stats[status].amount += amount
+        stats[status].count += 1
+        totalAmount += amount
+      })
+
+      Object.values(stats).forEach(stat => {
+        stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
+      })
+
+      return Object.values(stats).sort((a, b) => b.amount - a.amount)
     },
-    computed: {
-        currentPO() {
-            return this.txnList.find(el => el.id == this.selectedId)
-        },
 
-        filteredPurchaseOrders() {
-            if (!this.selectedStatusFilter) {
-                return this.txnList
-            }
-            return this.txnList.filter(item => item.status === this.selectedStatusFilter)
-        },
+    statusFilterOptions() {
+      const options = [{ label: 'ທັງໝົດ', value: null }]
 
-        totalOrders() {
-            return this.txnList.length
-        },
+      // Add unique statuses from data
+      const statuses = [...new Set(this.txnList.map(item => item.status).filter(Boolean))]
+      statuses.forEach(status => {
+        options.push({
+          label: this.getStatusLabel(status),
+          value: status
+        })
+      })
 
-        totalOrderValue() {
-            return this.txnList.reduce((sum, order) => sum + (order.total || 0), 0)
-        },
+      return options
+    },
 
-        statusStatistics() {
-            const stats = {}
-            let totalAmount = 0
+    purchaseCurrencyGrouping() {
+      const sumByCurrency = {}
+      let totalAmount = 0
 
-            this.txnList.forEach(item => {
-                const status = item.status || 'Draft'
-                const amount = item.total || 0
+      this.txnList.forEach(transaction => {
+        const { total, currency } = transaction
+        const currencyCode = currency?.code || 'LAK'
 
-                if (!stats[status]) {
-                    stats[status] = {
-                        status: status,
-                        label: this.getStatusLabel(status),
-                        amount: 0,
-                        count: 0,
-                        color: this.getStatusColor(status),
-                        icon: this.getStatusIcon(status)
-                    }
-                }
-                stats[status].amount += amount
-                stats[status].count += 1
-                totalAmount += amount
-            })
-
-            Object.values(stats).forEach(stat => {
-                stat.percentage = totalAmount > 0 ? (stat.amount / totalAmount) * 100 : 0
-            })
-
-            return Object.values(stats).sort((a, b) => b.amount - a.amount)
-        },
-
-        statusFilterOptions() {
-            const options = [{ label: 'ທັງໝົດ', value: null }]
-            
-            // Add unique statuses from data
-            const statuses = [...new Set(this.txnList.map(item => item.status).filter(Boolean))]
-            statuses.forEach(status => {
-                options.push({
-                    label: this.getStatusLabel(status),
-                    value: status
-                })
-            })
-            
-            return options
-        },
-
-        purchaseCurrencyGrouping() {
-            const sumByCurrency = {}
-            let totalAmount = 0
-
-            this.txnList.forEach(transaction => {
-                const { total, currency } = transaction
-                const currencyCode = currency?.code || 'LAK'
-                
-                if (!sumByCurrency[currencyCode]) {
-                    sumByCurrency[currencyCode] = {
-                        code: currencyCode,
-                        amount: 0,
-                        count: 0
-                    }
-                }
-                sumByCurrency[currencyCode].amount += total || 0
-                sumByCurrency[currencyCode].count += 1
-                totalAmount += total || 0
-            })
-
-            Object.values(sumByCurrency).forEach(currency => {
-                currency.percentage = totalAmount > 0 ? (currency.amount / totalAmount) * 100 : 0
-            })
-
-            return Object.values(sumByCurrency).sort((a, b) => b.amount - a.amount)
-        },
-
-        pendingOrdersCount() {
-            return this.txnList.filter(item => item.status === 'Pending Approval').length
-        },
-
-        approvedOrdersCount() {
-            return this.txnList.filter(item => item.status === 'Approved').length
-        },
-
-        receivedOrdersCount() {
-            return this.txnList.filter(item => 
-                item.status === 'Fully Received' || item.status === 'Partially Received'
-            ).length
-        },
-
-        pendingOrdersPercentage() {
-            return this.totalOrders > 0 ? (this.pendingOrdersCount / this.totalOrders) * 100 : 0
-        },
-
-        approvedOrdersPercentage() {
-            return this.totalOrders > 0 ? (this.approvedOrdersCount / this.totalOrders) * 100 : 0
-        },
-
-        receivedOrdersPercentage() {
-            return this.totalOrders > 0 ? (this.receivedOrdersCount / this.totalOrders) * 100 : 0
+        if (!sumByCurrency[currencyCode]) {
+          sumByCurrency[currencyCode] = {
+            code: currencyCode,
+            amount: 0,
+            count: 0
+          }
         }
+        sumByCurrency[currencyCode].amount += total || 0
+        sumByCurrency[currencyCode].count += 1
+        totalAmount += total || 0
+      })
+
+      Object.values(sumByCurrency).forEach(currency => {
+        currency.percentage = totalAmount > 0 ? (currency.amount / totalAmount) * 100 : 0
+      })
+
+      return Object.values(sumByCurrency).sort((a, b) => b.amount - a.amount)
     },
-    watch: {
-        date(val) {
-            this.dateFormatted = this.formatDate(this.date)
-            this.loadTxn()
-        },
-        date2(val) {
-            this.dateFormatted2 = this.formatDate(this.date2)
-            this.loadTxn()
-        },
+
+    pendingOrdersCount() {
+      return this.txnList.filter(item => item.status === 'Pending Approval').length
     },
-    methods: {
-        numberWithCommas(value) {
-            return getFormatNum(value)
-        },
 
-        formatNumber(val) {
-            return new Intl.NumberFormat().format(val || 0)
-        },
+    approvedOrdersCount() {
+      return this.txnList.filter(item => item.status === 'Approved').length
+    },
 
-        formatCurrency(amount) {
-            return new Intl.NumberFormat('en-US', {
-                style: 'currency',
-                currency: 'LAK',
-                minimumFractionDigits: 0,
-            }).format(amount || 0)
-        },
+    receivedOrdersCount() {
+      return this.txnList.filter(item =>
+        item.status === 'Fully Received' || item.status === 'Partially Received'
+      ).length
+    },
 
-        triggerDialog() {
-            this.apFormKey += 1
-            this.selectedId = null
-            this.isEdit = false
-            this.dialog = true
-        },
+    pendingOrdersPercentage() {
+      return this.totalOrders > 0 ? (this.pendingOrdersCount / this.totalOrders) * 100 : 0
+    },
 
-        editItem(item) {
-            console.log(`PO HEADER ID ${item.id}`)
-            this.selectedId = item.id
-            this.isEdit = true
-            this.apFormKey += 1
-            this.dialog = true
-        },
+    approvedOrdersPercentage() {
+      return this.totalOrders > 0 ? (this.approvedOrdersCount / this.totalOrders) * 100 : 0
+    },
 
-        viewItem(item) {
-            console.log(`Viewing PO HEADER ID ${item.id}`)
-            this.selectedId = item.id
-            this.isEdit = true
-            this.apFormKey += 1
-            this.dialog = true
-        },
+    receivedOrdersPercentage() {
+      return this.totalOrders > 0 ? (this.receivedOrdersCount / this.totalOrders) * 100 : 0
+    }
+  },
+  watch: {
+    date(val) {
+      this.dateFormatted = this.formatDate(this.date)
+      this.loadTxn()
+    },
+    date2(val) {
+      this.dateFormatted2 = this.formatDate(this.date2)
+      this.loadTxn()
+    },
+  },
+  methods: {
+    numberWithCommas(value) {
+      return getFormatNum(value)
+    },
 
-        receive(item) {
-            console.log(`PO HEADER ID ${item.id}`)
-            this.selectedId = item.id
-            this.isEdit = true
-            this.apFormKey += 1
-            this.receivingDialog = true
-        },
+    formatNumber(val) {
+      return new Intl.NumberFormat().format(val || 0)
+    },
 
-        // Print functionality
-        async printPurchaseOrder(item) {
-            console.log(`Printing PO HEADER ID ${item.id}`)
-            this.printingId = item.id
-            
+    formatCurrency(amount) {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'LAK',
+        minimumFractionDigits: 0,
+      }).format(amount || 0)
+    },
+
+    triggerDialog() {
+      this.apFormKey += 1
+      this.selectedId = null
+      this.isEdit = false
+      this.dialog = true
+    },
+
+    editItem(item) {
+      console.log(`PO HEADER ID ${item.id}`)
+      this.selectedId = item.id
+      this.isEdit = true
+      this.apFormKey += 1
+      this.dialog = true
+    },
+
+    viewItem(item) {
+      console.log(`Viewing PO HEADER ID ${item.id}`)
+      this.selectedId = item.id
+      this.isEdit = true
+      this.apFormKey += 1
+      this.dialog = true
+    },
+
+    receive(item) {
+      console.log(`PO HEADER ID ${item.id}`)
+      this.selectedId = item.id
+      this.isEdit = true
+      this.apFormKey += 1
+      this.receivingDialog = true
+    },
+
+    // Print functionality
+    async printPurchaseOrder(item) {
+      console.log(`Printing PO HEADER ID ${item.id}`)
+      this.printingId = item.id
+
+      try {
+        const response = await this.$axios.get(`/api/purchasing/find/${item.id}`)
+        const poData = response.data
+        this.createAndPrintPurchaseOrder(poData)
+      } catch (error) {
+        console.error('Error printing purchase order:', error)
+        swalError2(this.$swal, 'Error', 'Failed to print purchase order')
+      } finally {
+        this.printingId = null
+      }
+    },
+
+    createAndPrintPurchaseOrder(poData) {
+      try {
+        const poHTML = this.generatePurchaseOrderHTML(poData)
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+
+        if (!printWindow) {
+          swalError2(this.$swal, 'Error', 'Unable to open print window.')
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(poHTML)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
             try {
-                const response = await this.$axios.get(`/api/purchasing/find/${item.id}`)
-                const poData = response.data
-                this.createAndPrintPurchaseOrder(poData)
-            } catch (error) {
-                console.error('Error printing purchase order:', error)
-                swalError2(this.$swal, 'Error', 'Failed to print purchase order')
-            } finally {
-                this.printingId = null
+              printWindow.print()
+              setTimeout(() => printWindow.close(), 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
             }
-        },
+          }, 500)
+        }
+      } catch (error) {
+        console.error('Error creating print PO:', error)
+        swalError2(this.$swal, 'Error', 'Failed to generate purchase order for printing')
+      }
+    },
 
-        createAndPrintPurchaseOrder(poData) {
-            try {
-                const poHTML = this.generatePurchaseOrderHTML(poData)
-                const printWindow = window.open('', '_blank', 'width=800,height=600')
-                
-                if (!printWindow) {
-                    swalError2(this.$swal, 'Error', 'Unable to open print window.')
-                    return
-                }
-                
-                printWindow.document.open()
-                printWindow.document.write(poHTML)
-                printWindow.document.close()
-                
-                printWindow.onload = function() {
-                    setTimeout(() => {
-                        try {
-                            printWindow.print()
-                            setTimeout(() => printWindow.close(), 100)
-                        } catch (e) {
-                            console.error('Print error:', e)
-                            printWindow.close()
-                        }
-                    }, 500)
-                }
-            } catch (error) {
-                console.error('Error creating print PO:', error)
-                swalError2(this.$swal, 'Error', 'Failed to generate purchase order for printing')
-            }
-        },
-
-        generatePurchaseOrderHTML(header) {
-            const formatNumber = (val) => new Intl.NumberFormat().format(val || 0)
-            const linesHTML = header.lines?.map((line, index) => `
+    generatePurchaseOrderHTML(header) {
+      const formatNumber = (val) => new Intl.NumberFormat().format(val || 0)
+      const linesHTML = header.lines?.map((line, index) => `
                 <tr>
                     <td>${index + 1}</td>
                     <td>${line.product?.pro_name || 'Unknown Product'}</td>
@@ -904,8 +756,8 @@ export default {
                     <td>${formatNumber(line.total)}</td>
                 </tr>
             `).join('') || '<tr><td colspan="6">No items</td></tr>'
-            
-            return `
+
+      return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -955,43 +807,43 @@ export default {
 </body>
 </html>
             `
-        },
+    },
 
-        printPurchaseReport() {
+    printPurchaseReport() {
+      try {
+        const reportHTML = this.generatePurchaseReportHTML()
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+
+        if (!printWindow) {
+          swalError2(this.$swal, 'Error', 'Unable to open print window.')
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(reportHTML)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
             try {
-                const reportHTML = this.generatePurchaseReportHTML()
-                const printWindow = window.open('', '_blank', 'width=800,height=600')
-                
-                if (!printWindow) {
-                    swalError2(this.$swal, 'Error', 'Unable to open print window.')
-                    return
-                }
-                
-                printWindow.document.open()
-                printWindow.document.write(reportHTML)
-                printWindow.document.close()
-                
-                printWindow.onload = function() {
-                    setTimeout(() => {
-                        try {
-                            printWindow.print()
-                            setTimeout(() => printWindow.close(), 100)
-                        } catch (e) {
-                            console.error('Print error:', e)
-                            printWindow.close()
-                        }
-                    }, 500)
-                }
-            } catch (error) {
-                console.error('Error printing report:', error)
-                swalError2(this.$swal, 'Error', 'Failed to print report')
+              printWindow.print()
+              setTimeout(() => printWindow.close(), 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
             }
-        },
+          }, 500)
+        }
+      } catch (error) {
+        console.error('Error printing report:', error)
+        swalError2(this.$swal, 'Error', 'Failed to print report')
+      }
+    },
 
-        generatePurchaseReportHTML() {
-            const formatNumber = (val) => new Intl.NumberFormat().format(val || 0)
-            
-            const statusSummaryHTML = this.statusStatistics.map(stat => `
+    generatePurchaseReportHTML() {
+      const formatNumber = (val) => new Intl.NumberFormat().format(val || 0)
+
+      const statusSummaryHTML = this.statusStatistics.map(stat => `
                 <tr>
                     <td>${stat.label}</td>
                     <td style="text-align: center;">${stat.count}</td>
@@ -1000,7 +852,7 @@ export default {
                 </tr>
             `).join('')
 
-            const currencySummaryHTML = this.purchaseCurrencyGrouping.map(currency => `
+      const currencySummaryHTML = this.purchaseCurrencyGrouping.map(currency => `
                 <tr>
                     <td>${currency.code}</td>
                     <td style="text-align: center;">${currency.count}</td>
@@ -1008,8 +860,8 @@ export default {
                     <td style="text-align: center;">${currency.percentage.toFixed(1)}%</td>
                 </tr>
             `).join('')
-            
-            return `
+
+      return `
 <!DOCTYPE html>
 <html>
 <head>
@@ -1080,126 +932,126 @@ export default {
 </body>
 </html>
             `
-        },
+    },
 
-        // Filter methods
-        filterByStatus(status) {
-            if (this.selectedStatusFilter === status) {
-                this.clearStatusFilter()
-            } else {
-                this.selectedStatusFilter = status
-                this.applyStatusFilter()
-            }
-        },
+    // Filter methods
+    filterByStatus(status) {
+      if (this.selectedStatusFilter === status) {
+        this.clearStatusFilter()
+      } else {
+        this.selectedStatusFilter = status
+        this.applyStatusFilter()
+      }
+    },
 
-        applyStatusFilter() {
-            console.log('Applied status filter:', this.selectedStatusFilter)
-        },
+    applyStatusFilter() {
+      console.log('Applied status filter:', this.selectedStatusFilter)
+    },
 
-        clearStatusFilter() {
-            this.selectedStatusFilter = null
-        },
+    clearStatusFilter() {
+      this.selectedStatusFilter = null
+    },
 
-        getFilterDisplayName(filterValue) {
-            return this.getStatusLabel(filterValue)
-        },
+    getFilterDisplayName(filterValue) {
+      return this.getStatusLabel(filterValue)
+    },
 
-        // Status and color methods
-        getStatusLabel(status) {
-            const statusLabels = {
-                'Draft': 'ຮ່າງ',
-                'Pending Approval': 'ລໍຖ້າອະນຸມັດ',
-                'Approved': 'ໄດ້ຮັບອະນຸມັດ',
-                'Sent to Supplier': 'ສົ່ງໃຫ້ຜູ້ຂາຍ',
-                'Partially Received': 'ຮັບບາງສ່ວນ',
-                'Fully Received': 'ຮັບຄົບ',
-                'Cancelled': 'ຍົກເລີກ'
-            }
-            return statusLabels[status] || status
-        },
+    // Status and color methods
+    getStatusLabel(status) {
+      const statusLabels = {
+        'Draft': 'ຮ່າງ',
+        'Pending Approval': 'ລໍຖ້າອະນຸມັດ',
+        'Approved': 'ໄດ້ຮັບອະນຸມັດ',
+        'Sent to Supplier': 'ສົ່ງໃຫ້ຜູ້ຂາຍ',
+        'Partially Received': 'ຮັບບາງສ່ວນ',
+        'Fully Received': 'ຮັບຄົບ',
+        'Cancelled': 'ຍົກເລີກ'
+      }
+      return statusLabels[status] || status
+    },
 
-        getStatusColor(status) {
-            const colorMap = {
-                'Draft': 'grey',
-                'Pending Approval': 'orange',
-                'Approved': 'green',
-                'Sent to Supplier': 'blue',
-                'Partially Received': 'purple',
-                'Fully Received': 'success',
-                'Cancelled': 'error'
-            }
-            return colorMap[status] || 'grey'
-        },
+    getStatusColor(status) {
+      const colorMap = {
+        'Draft': 'grey',
+        'Pending Approval': 'orange',
+        'Approved': 'green',
+        'Sent to Supplier': 'blue',
+        'Partially Received': 'purple',
+        'Fully Received': 'success',
+        'Cancelled': 'error'
+      }
+      return colorMap[status] || 'grey'
+    },
 
-        getStatusIcon(status) {
-            const iconMap = {
-                'Draft': 'mdi-file-document-edit',
-                'Pending Approval': 'mdi-clock-alert',
-                'Approved': 'mdi-check-circle',
-                'Sent to Supplier': 'mdi-truck-delivery',
-                'Partially Received': 'mdi-package-down',
-                'Fully Received': 'mdi-package-check',
-                'Cancelled': 'mdi-cancel'
-            }
-            return iconMap[status] || 'mdi-help-circle'
-        },
+    getStatusIcon(status) {
+      const iconMap = {
+        'Draft': 'mdi-file-document-edit',
+        'Pending Approval': 'mdi-clock-alert',
+        'Approved': 'mdi-check-circle',
+        'Sent to Supplier': 'mdi-truck-delivery',
+        'Partially Received': 'mdi-package-down',
+        'Fully Received': 'mdi-package-check',
+        'Cancelled': 'mdi-cancel'
+      }
+      return iconMap[status] || 'mdi-help-circle'
+    },
 
-        getCurrencyColor(currencyCode) {
-            const colors = ['primary', 'success', 'warning', 'error', 'info']
-            const index = currencyCode.charCodeAt(0) % colors.length
-            return colors[index]
-        },
+    getCurrencyColor(currencyCode) {
+      const colors = ['primary', 'success', 'warning', 'error', 'info']
+      const index = currencyCode.charCodeAt(0) % colors.length
+      return colors[index]
+    },
 
-        canReceiveGoods(item) {
-            const receivableStatuses = ['Approved', 'Sent to Supplier', 'Partially Received']
-            return receivableStatuses.includes(item.status)
-        },
+    canReceiveGoods(item) {
+      const receivableStatuses = ['Approved', 'Sent to Supplier', 'Partially Received']
+      return receivableStatuses.includes(item.status)
+    },
 
-        // Date methods
-        formatDate(date) {
-            if (!date) return null
-            const formattedDate = this.formatDateToISO(date)
-            const [year, month, day] = formattedDate.split('-')
-            return `${month}/${day}/${year}`
-        },
+    // Date methods
+    formatDate(date) {
+      if (!date) return null
+      const formattedDate = this.formatDateToISO(date)
+      const [year, month, day] = formattedDate.split('-')
+      return `${month}/${day}/${year}`
+    },
 
-        parseDate(date) {
-            if (!date) return null
-            const [month, day, year] = date.split('/')
-            return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-        },
+    parseDate(date) {
+      if (!date) return null
+      const [month, day, year] = date.split('/')
+      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+    },
 
-        formatDateToISO(date) {
-            if (!(date instanceof Date)) date = new Date(date)
-            const year = date.getFullYear()
-            const month = `${date.getMonth() + 1}`.padStart(2, '0')
-            const day = `${date.getDate()}`.padStart(2, '0')
-            return `${year}-${month}-${day}`
-        },
+    formatDateToISO(date) {
+      if (!(date instanceof Date)) date = new Date(date)
+      const year = date.getFullYear()
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
+      const day = `${date.getDate()}`.padStart(2, '0')
+      return `${year}-${month}-${day}`
+    },
 
-        // Load data
-        async loadTxn() {
-            this.isloading = true
-            try {
-                const date = {
-                    startDate: this.date,
-                    endDate: this.date2,
-                }
-                const response = await this.$axios.get("/api/purchasing/findByDate", { params: { date } })
-                this.txnList = []
-                for (const iterator of response.data) {
-                    iterator['bookingDate'] = iterator['bookingDate'].split('T')[0]
-                    this.txnList.push(iterator)
-                }
-                console.log("====> " + this.txnList.length + " purchase orders loaded")
-            } catch (error) {
-                console.error('Error loading transactions:', error)
-                swalError2(this.$swal, 'Error', 'Failed to load purchase orders')
-            } finally {
-                this.isloading = false
-            }
+    // Load data
+    async loadTxn() {
+      this.isloading = true
+      try {
+        const date = {
+          startDate: this.date,
+          endDate: this.date2,
         }
+        const response = await this.$axios.get("/api/purchasing/findByDate", { params: { date } })
+        this.txnList = []
+        for (const iterator of response.data) {
+          iterator['bookingDate'] = iterator['bookingDate'].split('T')[0]
+          this.txnList.push(iterator)
+        }
+        console.log("====> " + this.txnList.length + " purchase orders loaded")
+      } catch (error) {
+        console.error('Error loading transactions:', error)
+        swalError2(this.$swal, 'Error', 'Failed to load purchase orders')
+      } finally {
+        this.isloading = false
+      }
     }
+  }
 }
 </script>
 
@@ -1262,7 +1114,7 @@ export default {
 
 .summary-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 .currency-summary-card {
@@ -1294,7 +1146,7 @@ export default {
 
 .status-summary-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .status-summary-card.selected-status {
@@ -1331,6 +1183,7 @@ export default {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1392,7 +1245,7 @@ export default {
 .,
 .text-h3,
 .text-subtitle-1,
-.text-subtitle-2,
+.,
 .,
 .text-body-1,
 .text-body-2 {
@@ -1429,7 +1282,7 @@ export default {
 
 /* Timeline analysis section */
 .text-center h2,
-.text-center .text-subtitle-2 {
+.text-center . {
   font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;
 }
 
@@ -1437,12 +1290,12 @@ export default {
   .header-section .v-layout {
     flex-direction: column;
   }
-  
+
   .header-section .text-md-right {
     text-align: center !important;
     margin-top: 16px;
   }
-  
+
   .action-buttons {
     flex-direction: column;
     gap: 8px;
@@ -1451,7 +1304,7 @@ export default {
   .status-summary-card {
     margin-bottom: 16px;
   }
-  
+
   .status-summary-card h3 {
     font-size: 1.2rem;
     font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Lao UI', 'Arial', sans-serif !important;

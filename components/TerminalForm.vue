@@ -22,6 +22,9 @@
                     <v-autocomplete item-text="name" item-value="id" :items="locationList"
                                                 label="Stock take location*"
                                                 v-model="form.locationId"></v-autocomplete>
+                    <v-autocomplete item-text="accountName" item-value="id" :items="bankAccountList"
+                                                label="Bank Account Mapping"
+                                                v-model="form.bankAccountId" clearable></v-autocomplete>
                     <!-- <v-text-field v-model="form.rate" label="* ອັດຕາແລກປ່ຽນ" required></v-text-field> -->
                     <v-checkbox v-model.number="form.isActive" label="Is Active"></v-checkbox>
                 </v-form>
@@ -65,8 +68,10 @@ export default {
                 code: 1001,
                 saleRate: 0,
                 isActive: true,
-                locationId:1
+                locationId:1,
+                bankAccountId: null
             },
+            bankAccountList: [],
             isloading: false,
             nameRules: [
                 value => !!value || 'Name is required',
@@ -80,7 +85,7 @@ export default {
     async created() {
         this.loadEntry();
         this.loadLocation();
-
+        this.loadBankAccounts();
     },
     methods: {
         async loadLocation(item) {
@@ -95,6 +100,18 @@ export default {
                 })
             this.isloading = false
 
+        },
+        async loadBankAccounts() {
+            this.isloading = true
+            await this.$axios
+                .get(`api/bank_account/find`)
+                .then((res) => {
+                    this.bankAccountList = (res.data.data || res.data || []).map(el => el)
+                })
+                .catch((er) => {
+                    console.error("Load bank accounts failed:", er);
+                })
+            this.isloading = false
         },
         async commitRecord() {
             if (this.$refs.form.validate() && !this.isloading) {
@@ -133,6 +150,7 @@ export default {
                     this.form.saleRate = response.data["saleRate"]
                     this.form.locationId = response.data["locationId"]
                     this.form.isActive = response.data["isActive"]
+                    this.form.bankAccountId = response.data["bankAccountId"]
                 }).catch(error => {
                     console.log("Cannot fetch data " + error);
                 })

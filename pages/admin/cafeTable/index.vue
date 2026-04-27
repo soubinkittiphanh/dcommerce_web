@@ -11,12 +11,7 @@
             <v-spacer></v-spacer>
 
             <!-- ADD THIS BUTTON HERE -->
-            <v-btn
-              color="accent"
-              class="mr-3"
-              @click="createTicketWithoutTable"
-              elevation="2"
-            >
+            <v-btn color="accent" class="mr-3" @click="createTicketWithoutTable" elevation="2">
               <v-icon left>mdi-plus-circle</v-icon>
               Create Ticket (No Table)
             </v-btn>
@@ -41,46 +36,24 @@
         </v-card>
 
         <!-- Loading State -->
-        <v-card
-          v-if="loading"
-          class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center"
-        >
+        <v-card v-if="loading" class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center">
           <div class="text-center">
-            <v-progress-circular
-              size="64"
-              color="primary"
-              indeterminate
-            ></v-progress-circular>
+            <v-progress-circular size="64" color="primary" indeterminate></v-progress-circular>
             <p class="mt-4 text-h6">Loading tables...</p>
           </div>
         </v-card>
 
         <!-- Table Layout Grid -->
-        <v-card
-          v-else
-          class="flex-grow-1 ma-0 rounded-0"
-          style="overflow-y: auto"
-        >
+        <v-card v-else class="flex-grow-1 ma-0 rounded-0" style="overflow-y: auto">
           <v-card-text class="pa-4">
             <v-row v-if="tables.length > 0">
-              <v-col
-                v-for="table in tables"
-                :key="table.id"
-                cols="3"
-                class="pa-2"
-              >
-                <v-card
-                  @click="selectTable(table)"
-                  :color="getTableColor(table.status)"
-                  :class="[
-                    'text-center pa-4 cursor-pointer table-card',
-                    selectedTable && selectedTable.id === table.id
-                      ? 'elevation-8'
-                      : 'elevation-2',
-                  ]"
-                  height="150"
-                  hover
-                >
+              <v-col v-for="table in tables" :key="table.id" cols="3" class="pa-2">
+                <v-card @click="selectTable(table)" :color="getTableColor(table.status)" :class="[
+                  'text-center pa-4 cursor-pointer table-card',
+                  selectedTable && selectedTable.id === table.id
+                    ? 'elevation-8'
+                    : 'elevation-2',
+                ]" height="150" hover>
                   <v-card-title class="justify-center white--text  pa-2">
                     {{ table.number }}
                   </v-card-title>
@@ -118,10 +91,7 @@
 
       <!-- Right Panel - Table Details & Actions -->
       <v-col cols="4" class="d-flex flex-column">
-        <v-card
-          class="flex-grow-1 ma-0 rounded-0 d-flex flex-column"
-          elevation="2"
-        >
+        <v-card class="flex-grow-1 ma-0 rounded-0 d-flex flex-column" elevation="2">
           <!-- Table Info Header -->
           <v-card-title v-if="selectedTable" class="secondary white--text">
             <v-icon left color="white">mdi-table-chair</v-icon>
@@ -170,11 +140,7 @@
                 <v-row dense>
                   <v-col cols="6">
                     <div class=" grey--text">Status</div>
-                    <v-chip
-                      :color="getTableColor(selectedTable.status)"
-                      text-color="white"
-                      small
-                    >
+                    <v-chip :color="getTableColor(selectedTable.status)" text-color="white" small>
                       {{ getStatusText(selectedTable.status) }}
                     </v-chip>
                   </v-col>
@@ -192,10 +158,7 @@
                   </v-col>
                   <v-col cols="6">
                     <div class=" grey--text">Current Total</div>
-                    <div
-                      class="font-weight-bold text-h6"
-                      :class="getTotalAmountColor()"
-                    >
+                    <div class="font-weight-bold text-h6" :class="getTotalAmountColor()">
                       {{ formatPrice(selectedTable.currentTotal || 0) }}
                     </div>
                   </v-col>
@@ -219,16 +182,10 @@
                   </v-col>
                   <v-col v-if="selectedTable.currentOrderId" cols="12">
                     <div class=" grey--text">Current Order ID</div>
-                    <div
-                      class="font-weight-medium d-flex justify-space-between align-center"
-                    >
+                    <div class="font-weight-medium d-flex justify-space-between align-center">
                       <span>#{{ selectedTable.currentOrderId }}</span>
-                      <v-chip
-                        :color="getOrderStatusColor(selectedTable.orderStatus)"
-                        text-color="white"
-                        x-small
-                        v-if="selectedTable.orderStatus"
-                      >
+                      <v-chip :color="getOrderStatusColor(selectedTable.orderStatus)" text-color="white" x-small
+                        v-if="selectedTable.orderStatus">
                         {{ selectedTable.orderStatus }}
                       </v-chip>
                     </div>
@@ -238,11 +195,7 @@
             </v-card>
 
             <!-- Current Order -->
-            <v-card
-              v-if="selectedTable.order && selectedTable.order.length > 0"
-              outlined
-              class="mb-3"
-            >
+            <v-card v-if="selectedTable.order && selectedTable.order.length > 0" outlined class="mb-3">
               <v-card-subtitle>
                 Current Order
                 <v-spacer></v-spacer>
@@ -251,11 +204,7 @@
                 </v-chip>
               </v-card-subtitle>
               <v-card-text style="max-height: 200px; overflow-y: auto">
-                <div
-                  v-for="item in selectedTable.order"
-                  :key="item.id"
-                  class="d-flex justify-space-between mb-2"
-                >
+                <div v-for="item in selectedTable.order" :key="item.id" class="d-flex justify-space-between mb-2">
                   <div>
                     <div class="font-weight-medium">{{ item.product.pro_name }}</div>
                     <div class=" grey--text">
@@ -267,41 +216,21 @@
                   </div>
                 </div>
                 <v-divider class="my-2"></v-divider>
-                <div
-                  class="d-flex justify-space-between text-h6 font-weight-bold"
-                >
+                <div class="d-flex justify-space-between font-weight-bold">
                   <span>Total:</span>
-                  <span class="primary--text"
-                    >${{ formatPrice(selectedTable.currentTotal || 0) }}</span
-                  >
+                  <span class="primary--text">${{ formatPrice(selectedTable.currentTotal || 0) }}</span>
                 </div>
               </v-card-text>
             </v-card>
 
             <!-- Customer Input -->
-            <v-card
-              v-if="selectedTable.status === 'available'"
-              outlined
-              class="mb-3"
-            >
+            <v-card v-if="selectedTable.status === 'available'" outlined class="mb-3">
               <v-card-subtitle>Seat Customer</v-card-subtitle>
               <v-card-text>
-                <v-text-field
-                  v-model="customerName"
-                  label="Customer Name"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-account"
-                ></v-text-field>
-                <v-text-field
-                  v-model="partySize"
-                  label="Party Size"
-                  type="number"
-                  outlined
-                  dense
-                  prepend-inner-icon="mdi-account-group"
-                  :max="selectedTable.capacity"
-                ></v-text-field>
+                <v-text-field v-model="customerName" label="Customer Name" outlined dense
+                  prepend-inner-icon="mdi-account"></v-text-field>
+                <v-text-field v-model="partySize" label="Party Size" type="number" outlined dense
+                  prepend-inner-icon="mdi-account-group" :max="selectedTable.capacity"></v-text-field>
               </v-card-text>
             </v-card>
           </v-card-text>
@@ -311,27 +240,13 @@
             <div class="w-100">
               <!-- Available Table Actions -->
               <div v-if="selectedTable.status === 'available'">
-                <v-btn
-                  @click="seatCustomer"
-                  color="primary"
-                  block
-                  large
-                  class="mb-2"
-                  :disabled="!customerName"
-                  :loading="actionLoading"
-                >
+                <v-btn @click="seatCustomer" color="primary" block large class="mb-2" :disabled="!customerName"
+                  :loading="actionLoading">
                   <v-icon left>mdi-account-plus</v-icon>
                   Seat Customer
                 </v-btn>
-                <v-btn
-                  @click="seatCustomer(true)"
-                  color="primary"
-                  block
-                  large
-                  class="mb-2"
-                  :disabled="!customerName"
-                  :loading="actionLoading"
-                >
+                <v-btn @click="seatCustomer(true)" color="primary" block large class="mb-2" :disabled="!customerName"
+                  :loading="actionLoading">
                   <v-icon left>mdi-account-plus</v-icon>
                   Seat Customer & Add item
                 </v-btn>
@@ -339,42 +254,19 @@
 
               <!-- Occupied Table Actions -->
               <div v-else-if="selectedTable.status === 'occupied'">
-                <v-btn
-                  @click="openPOS"
-                  color="primary"
-                  block
-                  large
-                  class="mb-2"
-                >
+                <v-btn @click="openPOS" color="primary" block large class="mb-2">
                   <v-icon left>mdi-cash-register</v-icon>
                   Add Items
                 </v-btn>
-                <v-btn
-                  @click="processPayment"
-                  color="success"
-                  block
-                  large
-                  class="mb-2"
-                  :disabled="
-                    !selectedTable.currentTotal ||
-                    selectedTable.currentTotal === 0
-                  "
-                  :loading="actionLoading"
-                >
+                <v-btn @click="processPayment" color="success" block large class="mb-2" :disabled="!selectedTable.currentTotal ||
+                  selectedTable.currentTotal === 0
+                  " :loading="actionLoading">
                   <v-icon left>mdi-credit-card</v-icon>
                   Process Payment
                 </v-btn>
-                <v-btn
-                  @click="printCustomerReceipt"
-                  color="info"
-                  block
-                  class="mb-2"
-                  :disabled="
-                    !selectedTable.currentTotal ||
-                    selectedTable.currentTotal === 0
-                  "
-                  :loading="actionLoading"
-                >
+                <v-btn @click="printCustomerReceipt" color="info" block class="mb-2" :disabled="!selectedTable.currentTotal ||
+                  selectedTable.currentTotal === 0
+                  " :loading="actionLoading">
                   <v-icon left>mdi-printer</v-icon>
                   Print Receipt
                 </v-btn>
@@ -384,26 +276,14 @@
               <div v-else-if="selectedTable.status === 'cleaning'">
                 <v-row dense>
                   <v-col cols="12" sm="6">
-                    <v-btn
-                      @click="markTableClean"
-                      color="success"
-                      block
-                      large
-                      :loading="actionLoading"
-                    >
+                    <v-btn @click="markTableClean" color="success" block large :loading="actionLoading">
                       <v-icon left>mdi-check-circle</v-icon>
                       Mark Clean
                     </v-btn>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-btn
-                      @click="seatCustomer(true)"
-                      color="primary"
-                      block
-                      large
-                      :disabled="!customerName"
-                      :loading="actionLoading"
-                    >
+                    <v-btn @click="seatCustomer(true)" color="primary" block large :disabled="!customerName"
+                      :loading="actionLoading">
                       <v-icon left>mdi-account-plus</v-icon>
                       Seat Customer
                     </v-btn>
@@ -413,23 +293,11 @@
 
               <!-- Reserved Table Actions -->
               <div v-else-if="selectedTable.status === 'reserved'">
-                <v-btn
-                  @click="seatReservedCustomer"
-                  color="primary"
-                  block
-                  large
-                  class="mb-2"
-                  :loading="actionLoading"
-                >
+                <v-btn @click="seatReservedCustomer" color="primary" block large class="mb-2" :loading="actionLoading">
                   <v-icon left>mdi-account-check</v-icon>
                   Seat Reserved Customer
                 </v-btn>
-                <v-btn
-                  @click="cancelReservation"
-                  color="warning"
-                  block
-                  :loading="actionLoading"
-                >
+                <v-btn @click="cancelReservation" color="warning" block :loading="actionLoading">
                   <v-icon left>mdi-cancel</v-icon>
                   Cancel Reservation
                 </v-btn>
@@ -449,9 +317,7 @@
         </v-card-title>
 
         <v-card-text class="text-center py-4">
-          <v-icon size="64" color="success" class="mb-3"
-            >mdi-credit-card-check</v-icon
-          >
+          <v-icon size="64" color="success" class="mb-3">mdi-credit-card-check</v-icon>
           <div class="text-h6 mb-2">
             Payment has been processed successfully
           </div>
@@ -464,20 +330,11 @@
         </v-card-text>
 
         <v-card-actions class="justify-center pb-4">
-          <v-btn
-            color="grey"
-            text
-            @click="handlePrintConfirmation(false)"
-            class="mr-2"
-          >
+          <v-btn color="grey" text @click="handlePrintConfirmation(false)" class="mr-2">
             <v-icon left>mdi-close</v-icon>
             No, Skip
           </v-btn>
-          <v-btn
-            color="primary"
-            @click="handlePrintConfirmation(true)"
-            class="ml-2"
-          >
+          <v-btn color="primary" @click="handlePrintConfirmation(true)" class="ml-2">
             <v-icon left>mdi-printer</v-icon>
             Yes, Print Receipt
           </v-btn>
@@ -487,28 +344,15 @@
 
     <!-- Payment Dialog -->
 
-    <UnifiedPaymentDialog
-      :show="showPaymentDialog"
-      :table-number="selectedTable ? selectedTable.id : null"
-      :amount="paymentAmount"
-      :payment-methods="paymentList"
-      :payment-loading="paymentLoading"
-      :action-loading="actionLoading"
-      :enable-q-r="false"
-      @close="closePaymentDialog"
-      @confirm-payment="handlePaymentConfirmation"
-      @reload-payment-methods="loadPaymentMethods"
-      @show-message="showMessage"
-    />
+    <UnifiedPaymentDialog :show="showPaymentDialog" :table-number="selectedTable ? selectedTable.id : null"
+      :amount="paymentAmount" :payment-methods="paymentList" :payment-loading="paymentLoading"
+      :action-loading="actionLoading" :enable-q-r="false" @close="closePaymentDialog"
+      @confirm-payment="handlePaymentConfirmation" @reload-payment-methods="loadPaymentMethods"
+      @show-message="showMessage" />
 
     <!-- Print Ticket Dialog -->
-    <PrintTicketDialog
-      :show="showCustomerPrint"
-      :ticket="selectedTicket"
-      :restaurant-info="restaurantConfig"
-      @close="closePrintDialog"
-      @printed="onPrintSuccess"
-    />
+    <PrintTicketDialog :show="showCustomerPrint" :ticket="selectedTicket" :restaurant-info="restaurantConfig"
+      @close="closePrintDialog" @printed="onPrintSuccess" />
     <!-- POS Dialog -->
     <v-dialog v-model="showPOSDialog" fullscreen>
       <v-card>
@@ -525,11 +369,7 @@
             }}
           </v-toolbar-title>
           <v-spacer></v-spacer>
-          <v-chip
-            v-if="selectedTable?.isVirtualTable"
-            color="accent"
-            class="mr-3"
-          >
+          <v-chip v-if="selectedTable?.isVirtualTable" color="accent" class="mr-3">
             <v-icon left small>mdi-walk</v-icon>
             No Table Assignment
           </v-chip>
@@ -538,27 +378,17 @@
           </v-btn>
         </v-toolbar>
         <v-card-text class="pa-0">
-          <CafePOSScreen
-            @reload-data="handlePOSReload"
-            @reload-table="fetchTables"
-            :tableId="selectedTable ? selectedTable.id : null"
-            :ticketId="noTableTicketId"
-            :isWalkIn="selectedTable?.isVirtualTable"
-            :key="`pos-${selectedTable?.id || noTableTicketId}`"
-            v-if="selectedTable && showPOSDialog"
-          />
+          <CafePOSScreen @reload-data="handlePOSReload" @reload-table="fetchTables"
+            :tableId="selectedTable ? selectedTable.id : null" :ticketId="noTableTicketId"
+            :isWalkIn="selectedTable?.isVirtualTable" :key="`pos-${selectedTable?.id || noTableTicketId}`"
+            v-if="selectedTable && showPOSDialog" />
         </v-card-text>
       </v-card>
     </v-dialog>
 
     <!-- Snackbar for Messages -->
-    <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.color"
-      :timeout="snackbar.timeout"
-      location="top right"
-      variant="elevated"
-    >
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="snackbar.timeout" location="top right"
+      variant="elevated">
       <div class="d-flex align-center">
         <v-icon class="mr-2">{{ snackbar.icon }}</v-icon>
         {{ snackbar.message }}
@@ -822,8 +652,8 @@ export default {
             console.warn('Could not fetch customer data:', error)
             customerData = this.selectedTable.customerName
               ? {
-                  name: this.selectedTable.customerName,
-                }
+                name: this.selectedTable.customerName,
+              }
               : null
           }
         }

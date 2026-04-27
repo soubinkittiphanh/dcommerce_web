@@ -10,7 +10,7 @@
             <h4 class="font-weight-bold">
               {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້ (Edit AP Invoice)' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່ (Create New AP Invoice)' }}
             </h4>
-            <div class="text-caption white--text opacity-80">{{ isEdit ? `Invoice #: ${form.invoiceNumber}` : `Drafting
+            <div class=" white--text opacity-80">{{ isEdit ? `Invoice #: ${form.invoiceNumber}` : `Drafting
               new invoice` }}</div>
           </div>
         </div>
@@ -97,7 +97,7 @@
                       <v-text-field v-model="form.exchangeRate" type="number" outlined dense hide-details="auto"
                         step="0.0001" :error-messages="errors.exchangeRate" @blur="calculateExchangeAmounts">
                         <template v-slot:append>
-                          <span class="text-caption grey--text">{{ selectedCurrency?.code || '' }} / LAK</span>
+                          <span class=" grey--text">{{ selectedCurrency?.code || '' }} / LAK</span>
                         </template>
                       </v-text-field>
                     </div>
@@ -254,7 +254,7 @@
                       <div class="d-flex flex-column">
                         <span class="text-h6 font-weight-black white--text mb-0">ລວມທັງໝົດ (Total Amount):</span>
                         <span v-if="selectedCurrency && selectedCurrency.code !== 'LAK'"
-                          class="text-caption white--text opacity-80 font-weight-bold">
+                          class=" white--text opacity-80 font-weight-bold">
                           Converted to LAK: {{ formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1),
                             'LAK')
                           }}
@@ -272,7 +272,7 @@
             <!-- Compact Audit Trail -->
             <v-card v-if="isEdit" outlined class="audit-trail-card mt-6 pa-4 bg-light">
               <div class="d-flex justify-space-between align-center mb-4">
-                <h5 class="text-subtitle-2 font-weight-bold grey--text text--darken-3">
+                <h5 class=" font-weight-bold grey--text text--darken-3">
                   <v-icon small left color="primary">mdi-history</v-icon>
                   ປະຫວັດການດຳເນີນງານ (Operation History)
                 </h5>
@@ -284,13 +284,13 @@
               <v-row dense>
                 <v-col cols="12" md="4" class="d-flex align-center">
                   <v-icon x-small color="grey" class="mr-2">mdi-account-plus</v-icon>
-                  <span class="text-caption">
+                  <span class="">
                     <strong>ສ້າງໂດຍ (Maker):</strong> {{ auditTrail.makerName }}
                   </span>
                 </v-col>
                 <v-col cols="12" md="4" class="d-flex align-center">
                   <v-icon x-small color="grey" class="mr-2">mdi-calendar</v-icon>
-                  <span class="text-caption">
+                  <span class="">
                     <strong>ວັນທີ (Date):</strong> {{ auditTrail.createdDate }}
                   </span>
                 </v-col>
@@ -812,6 +812,19 @@ export default {
         return `₭${new Intl.NumberFormat('en-US').format(amount || 0)}`
       }
       return formatter.format(amount || 0)
+    },
+    getStatusColor(status) {
+      const colors = {
+        draft: 'grey',
+        pending: 'orange',
+        approved: 'green',
+        partially_paid: 'blue',
+        paid: 'teal',
+        overdue: 'red',
+        cancelled: 'grey darken-2',
+        rejected: 'error',
+      }
+      return colors[status] || 'grey'
     },
     getStatusText(status) {
       const statusMap = {

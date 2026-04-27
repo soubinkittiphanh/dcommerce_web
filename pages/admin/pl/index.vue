@@ -103,6 +103,7 @@
 </template>
 <script>
 import * as ECharts from 'echarts'
+import { mapGetters } from 'vuex'
 import {
   swalSuccess,
   swalError2,
@@ -156,6 +157,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['currentSelectedLocation']),
     totalIncome() {
       let total = this.incomeList.reduce((total, item) => {
         return total + item.totalAmount * item.rate
@@ -171,11 +173,15 @@ export default {
     totalCostOfSale() {
       let total = this.yearlySale.reduce((total, item) => {
         let totalCost = 0
-        item.lines.forEach((line) => {
-          line.cards.forEach((card) => {
-            totalCost += card.cost
+        if (item.lines) {
+          item.lines.forEach((line) => {
+            if (line.cards) {
+              line.cards.forEach((card) => {
+                totalCost += card.cost
+              })
+            }
           })
-        })
+        }
 
         return total + totalCost
       }, 0)
@@ -224,18 +230,19 @@ export default {
     async loadTxn() {
       this.isloading = true
       try {
-        this.loadSaleStatistic()
+        await this.loadSaleStatistic()
         const date = {
           startDate: this.date,
           endDate: this.date2,
         }
+        const locationId = this.currentSelectedLocation?.id
         const incomeResponse = await this.$axios.get(
           '/api/finanicial/ar/header/findByDate',
-          { params: { date } }
+          { params: { date, locationId } }
         )
         const expenseResponse = await this.$axios.get(
           '/api/finanicial/ap/header/findByDate',
-          { params: { date } }
+          { params: { date, locationId } }
         )
         this.expenseList = expenseResponse.data
         this.incomeList = incomeResponse.data
@@ -315,9 +322,10 @@ export default {
         endDate: this.date2,
         includeCards: true, // or true when you need cards
       }
+      const locationId = this.currentSelectedLocation?.id
       this.isloading = true
       await this.$axios
-        .get('api/sale/sumsaleYearly', { params: { date } })
+        .get('api/sale/sumsaleYearly', { params: { date, locationId } })
         .then((res) => {
           this.yearlySale = []
           for (const iterator of res.data) {

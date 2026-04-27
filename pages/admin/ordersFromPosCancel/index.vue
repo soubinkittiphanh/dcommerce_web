@@ -101,7 +101,7 @@
         </template>
         <template v-slot:[`item.bookingDate`]="{ item }">
           <div class="d-flex flex-column">
-            <div class="text-subtitle-2">{{ formatBookingDate(item.bookingDate) }}</div>
+            <div class="">{{ formatBookingDate(item.bookingDate) }}</div>
             <v-chip :color="getBookingStatusChip(item).color" small text-color="white">
               <v-icon left small>{{ getBookingStatusChip(item).icon }}</v-icon>
               {{ getBookingStatusChip(item).text }}

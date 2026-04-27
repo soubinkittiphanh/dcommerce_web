@@ -13,25 +13,14 @@
               {{ formatPeriod() }}
             </p>
           </div>
-          
+
           <div class="d-flex gap-3">
-            <v-btn
-              color="white"
-              outlined
-              @click="exportToExcel"
-              :disabled="loading"
-              large
-            >
+            <v-btn color="white" outlined @click="exportToExcel" :disabled="loading" large>
               <v-icon left>mdi-file-excel</v-icon>
               ສົ່ງອອກ Excel
             </v-btn>
-            
-            <v-btn
-              color="white"
-              outlined
-              @click="printReport"
-              large
-            >
+
+            <v-btn color="white" outlined @click="printReport" large>
               <v-icon left>mdi-printer</v-icon>
               ພິມ
             </v-btn>
@@ -46,84 +35,46 @@
         <v-icon left color="white">mdi-filter</v-icon>
         ຕົວກອງ
       </v-card-title>
-      
+
       <v-card-text class="pa-6">
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.month"
-              :items="months"
-              item-text="text"
-              item-value="value"
-              label="ເດືອນ"
-              outlined
-              dense
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.month" :items="months" item-text="text" item-value="value" label="ເດືອນ" outlined
+              dense @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-calendar-month</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.year"
-              :items="years"
-              label="ປີ"
-              outlined
-              dense
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.year" :items="years" label="ປີ" outlined dense @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-calendar</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.ministryId"
-              :items="ministryOptions"
-              item-text="text"
-              item-value="value"
-              label="ກະຊວງ"
-              outlined
-              dense
-              clearable
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.ministryId" :items="ministryOptions" item-text="text" item-value="value"
+              label="ກະຊວງ" outlined dense clearable @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-office-building</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="2">
-            <v-select
-              v-model="filters.currencyId"
-              :items="currencyOptions"
-              item-text="text"
-              item-value="value"
-              label="ສະກຸນເງິນ"
-              outlined
-              dense
-              clearable
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.currencyId" :items="currencyOptions" item-text="text" item-value="value"
+              label="ສະກຸນເງິນ" outlined dense clearable @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-currency-usd</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="1" class="d-flex align-center">
-            <v-btn
-              color="primary"
-              @click="resetFilters"
-              icon
-              large
-            >
+            <v-btn color="primary" @click="resetFilters" icon large>
               <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </v-col>
@@ -138,17 +89,10 @@
           <v-icon left color="white">mdi-chart-pie</v-icon>
           ສະຫຼຸບຕາມສະກຸນເງິນ
         </v-card-title>
-        
+
         <v-card-text class="pa-6">
           <v-row>
-            <v-col
-              v-for="curr in currencySummaries"
-              :key="curr.currencyCode"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
+            <v-col v-for="curr in currencySummaries" :key="curr.currencyCode" cols="12" sm="6" md="4" lg="3">
               <v-card class="summary-card" elevation="4" outlined>
                 <v-card-title class="pb-2">
                   <div class="d-flex justify-space-between align-center w-100">
@@ -160,7 +104,7 @@
                     </span>
                   </div>
                 </v-card-title>
-                
+
                 <v-card-text>
                   <div class="summary-details">
                     <div class="detail-row">
@@ -192,44 +136,21 @@
             <v-icon left color="white">mdi-table</v-icon>
             ລາຍງານລະອຽດ
           </div>
-          
-          <v-text-field
-            v-model="search"
-            label="ຄົ້ນຫາ..."
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            single-line
-            outlined
-            dense
-            dark
-            class="search-field"
-            style="max-width: 300px;"
-          />
+
+          <v-text-field v-model="search" label="ຄົ້ນຫາ..." prepend-inner-icon="mdi-magnify" hide-details single-line
+            outlined dense dark class="search-field" style="max-width: 300px;" />
         </div>
       </v-card-title>
 
       <!-- Loading State -->
       <div v-if="loading" class="text-center pa-12">
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="primary"
-          indeterminate
-          class="mb-4"
-        />
+        <v-progress-circular :size="70" :width="7" color="primary" indeterminate class="mb-4" />
         <h3 class="text-h6 primary--text">ກຳລັງໂຫຼດຂໍ້ມູນ...</h3>
       </div>
 
       <!-- Data Table -->
-      <v-data-table
-        v-else
-        :headers="tableHeaders"
-        :items="filteredData"
-        :search="search"
-        class="elevation-0"
-        hide-default-footer
-        :items-per-page="-1"
-      >
+      <v-data-table v-else :headers="tableHeaders" :items="filteredData" :search="search" class="elevation-0"
+        hide-default-footer :items-per-page="-1">
         <!-- Ministry Column -->
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
@@ -269,11 +190,7 @@
         <!-- Ending Balance Column -->
         <template v-slot:item.endingBalance="{ item }">
           <div class="amount-cell ending" :class="getBalanceClass(item.endingBalance)">
-            <v-chip
-              :color="getBalanceColor(item.endingBalance)"
-              :outlined="item.endingBalance === 0"
-              small
-            >
+            <v-chip :color="getBalanceColor(item.endingBalance)" :outlined="item.endingBalance === 0" small>
               {{ formatAmount(item.endingBalance) }}
             </v-chip>
           </div>
@@ -281,11 +198,7 @@
 
         <!-- Actions Column -->
         <template v-slot:item.actions="{ item }">
-          <v-btn
-            color="primary"
-            icon
-            @click="viewDetails(item)"
-          >
+          <v-btn color="primary" icon @click="viewDetails(item)">
             <v-icon>mdi-eye</v-icon>
           </v-btn>
         </template>
@@ -364,7 +277,7 @@
                   <v-divider class="my-3" />
                   <div class="detail-item ending">
                     <span class="font-weight-bold text-h6">ຍອດເຫຼືອ:</span>
-                    <span class="amount text-h6 font-weight-bold" :class="getBalanceClass(selectedItem.endingBalance)">
+                    <span class="amount font-weight-bold" :class="getBalanceClass(selectedItem.endingBalance)">
                       {{ formatAmount(selectedItem.endingBalance) }}
                     </span>
                   </div>
@@ -373,9 +286,9 @@
                 <v-card flat color="grey lighten-4" class="pa-4">
                   <h4 class="text-h6 primary--text mb-3">ການຄິດໄລ່</h4>
                   <div class="calculation-formula text-body-1 font-weight-medium">
-                    {{ formatAmount(selectedItem.balanceForward) }} + 
-                    {{ formatAmount(selectedItem.newAdvances) }} - 
-                    {{ formatAmount(selectedItem.newSettlements) }} = 
+                    {{ formatAmount(selectedItem.balanceForward) }} +
+                    {{ formatAmount(selectedItem.newAdvances) }} -
+                    {{ formatAmount(selectedItem.newSettlements) }} =
                     <strong class="primary--text">{{ formatAmount(selectedItem.endingBalance) }}</strong>
                   </div>
                 </v-card>
@@ -391,21 +304,21 @@
 <script>
 export default {
   name: 'BalanceReportLao',
-  
+
   data() {
     return {
       loading: false,
       search: '',
       detailsDialog: false,
       selectedItem: null,
-      
+
       filters: {
         month: new Date().getMonth() + 1,
         year: new Date().getFullYear(),
         ministryId: '',
         currencyId: ''
       },
-      
+
       months: [
         { text: 'ມັງກອນ', value: 1 },
         { text: 'ກຸມພາ', value: 2 },
@@ -420,7 +333,7 @@ export default {
         { text: 'ພະຈິກ', value: 11 },
         { text: 'ທັນວາ', value: 12 }
       ],
-      
+
       years: [],
       ministries: [],
       currencies: [],
@@ -428,7 +341,7 @@ export default {
       currencySummaries: []
     }
   },
-  
+
   computed: {
     tableHeaders() {
       return [
@@ -506,22 +419,22 @@ export default {
     reportDataWithBalance() {
       return this.reportData.map(item => ({
         ...item,
-        endingBalance: parseFloat(item.balanceForward || 0) + 
-                      parseFloat(item.newAdvances || 0) - 
-                      parseFloat(item.newSettlements || 0)
+        endingBalance: parseFloat(item.balanceForward || 0) +
+          parseFloat(item.newAdvances || 0) -
+          parseFloat(item.newSettlements || 0)
       }))
     },
 
     filteredData() {
       if (!this.search) return this.reportDataWithBalance
-      
-      return this.reportDataWithBalance.filter(item => 
+
+      return this.reportDataWithBalance.filter(item =>
         item.ministryName?.toLowerCase().includes(this.search.toLowerCase()) ||
         item.ministryCode?.toLowerCase().includes(this.search.toLowerCase()) ||
         item.currencyCode?.toLowerCase().includes(this.search.toLowerCase())
       )
     },
-    
+
     totals() {
       return this.filteredData.reduce((acc, item) => {
         acc.balanceForward += parseFloat(item.balanceForward || 0)
@@ -537,13 +450,13 @@ export default {
       })
     }
   },
-  
+
   async created() {
     this.initializeYears()
     await this.loadInitialData()
     await this.applyFilters()
   },
-  
+
   methods: {
     initializeYears() {
       const currentYear = new Date().getFullYear()
@@ -551,7 +464,7 @@ export default {
         this.years.push(i)
       }
     },
-    
+
     async loadInitialData() {
       try {
         this.loading = true
@@ -559,7 +472,7 @@ export default {
           this.$axios.get('/api/ministries'),
           this.$axios.get('/api/currency/findAll')
         ])
-        
+
         this.ministries = ministriesRes.data.data || ministriesRes.data
         this.currencies = currenciesRes.data.data || currenciesRes.data
       } catch (error) {
@@ -569,24 +482,24 @@ export default {
         this.loading = false
       }
     },
-    
+
     async applyFilters() {
       this.loading = true
       try {
         const monthStart = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-01`
         const lastDay = new Date(this.filters.year, this.filters.month, 0).getDate()
         const monthEnd = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`
-        
+
         const params = new URLSearchParams({
           monthStart,
           monthEnd
         })
-        
+
         if (this.filters.ministryId) params.append('ministryId', this.filters.ministryId)
         if (this.filters.currencyId) params.append('currencyId', this.filters.currencyId)
-        
+
         const response = await this.$axios.get(`/api/money-advances/report/balance-report?${params}`)
-        
+
         if (response.data.success) {
           this.reportData = response.data.data || []
           this.calculateCurrencySummaries()
@@ -598,10 +511,10 @@ export default {
         this.loading = false
       }
     },
-    
+
     calculateCurrencySummaries() {
       const summaryMap = new Map()
-      
+
       this.reportDataWithBalance.forEach(item => {
         const key = item.currencyCode
         if (!summaryMap.has(key)) {
@@ -614,17 +527,17 @@ export default {
             endingBalance: 0
           })
         }
-        
+
         const summary = summaryMap.get(key)
         summary.balanceForward += parseFloat(item.balanceForward || 0)
         summary.newAdvances += parseFloat(item.newAdvances || 0)
         summary.newSettlements += parseFloat(item.newSettlements || 0)
         summary.endingBalance += parseFloat(item.endingBalance || 0)
       })
-      
+
       this.currencySummaries = Array.from(summaryMap.values())
     },
-    
+
     resetFilters() {
       this.filters = {
         month: new Date().getMonth() + 1,
@@ -634,7 +547,7 @@ export default {
       }
       this.applyFilters()
     },
-    
+
     formatAmount(amount) {
       if (!amount && amount !== 0) return '0.00'
       return new Intl.NumberFormat('en-US', {
@@ -642,12 +555,12 @@ export default {
         maximumFractionDigits: 2
       }).format(amount)
     },
-    
+
     formatPeriod() {
       const monthName = this.months.find(m => m.value === this.filters.month)?.text
       return `${monthName} ${this.filters.year}`
     },
-    
+
     getBalanceClass(balance) {
       const amount = parseFloat(balance || 0)
       if (amount > 0) return 'positive'
@@ -661,18 +574,18 @@ export default {
       if (amount < 0) return 'error'
       return 'grey'
     },
-    
+
     viewDetails(item) {
       this.selectedItem = item
       this.detailsDialog = true
     },
-    
+
     exportToExcel() {
       if (!this.reportDataWithBalance.length) {
         this.$toast?.warning('ບໍ່ມີຂໍ້ມູນໃຫ້ສົ່ງອອກ')
         return
       }
-      
+
       const exportData = this.reportDataWithBalance.map((item, index) => ({
         'ລຳດັບ': index + 1,
         'ລະຫັດກະຊວງ': item.ministryCode,
@@ -683,7 +596,7 @@ export default {
         'ການຊຳລະ': item.newSettlements,
         'ຍອດເຫຼືອ': item.endingBalance
       }))
-      
+
       const headers = Object.keys(exportData[0])
       const csvContent = [
         headers.join(','),
@@ -691,7 +604,7 @@ export default {
           headers.map(header => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
         )
       ].join('\n')
-      
+
       const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' })
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
@@ -702,17 +615,17 @@ export default {
       link.click()
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
-      
+
       this.$toast?.success('ສົ່ງອອກສຳເລັດແລ້ວ')
     },
-    
+
     printReport() {
       // Create print content
       const printContent = this.generatePrintContent()
-      
+
       // Create new window for printing
       const printWindow = window.open('', '_blank', 'width=800,height=600')
-      
+
       printWindow.document.write(`
         <!DOCTYPE html>
         <html>
@@ -838,9 +751,9 @@ export default {
         </body>
         </html>
       `)
-      
+
       printWindow.document.close()
-      
+
       // Wait for content to load, then print
       setTimeout(() => {
         printWindow.print()
@@ -850,7 +763,7 @@ export default {
 
     generatePrintContent() {
       const currentDate = new Date().toLocaleDateString('en-GB')
-      
+
       // Generate summary cards HTML
       let summaryHtml = ''
       if (this.currencySummaries.length > 0) {
@@ -873,7 +786,7 @@ export default {
           </div>
         `
       }
-      
+
       // Generate table HTML
       const tableRows = this.filteredData.map(item => `
         <tr>
@@ -894,7 +807,7 @@ export default {
           </td>
         </tr>
       `).join('')
-      
+
       // Generate totals row
       const totalsRow = `
         <tr class="total-row">
@@ -905,7 +818,7 @@ export default {
           <td class="amount-cell"><strong>${this.formatAmount(this.totals.endingBalance)}</strong></td>
         </tr>
       `
-      
+
       return `
         <div class="print-header">
           <h1>ລາຍງານເບີກຈ່າຍ</h1>
@@ -963,7 +876,7 @@ export default {
 
 .summary-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .summary-details {
@@ -975,7 +888,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .detail-row:last-child {
@@ -1030,7 +943,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .detail-grid .detail-item:last-child {
@@ -1047,7 +960,7 @@ export default {
   border-left: 4px solid var(--v-primary-base);
 }
 
-.gap-3 > * + * {
+.gap-3>*+* {
   margin-left: 12px;
 }
 
@@ -1061,6 +974,7 @@ export default {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1073,7 +987,7 @@ export default {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .search-field {
     max-width: 100%;
   }
@@ -1083,7 +997,7 @@ export default {
   .balance-report {
     background: white !important;
   }
-  
+
   .header-card,
   .filters-card {
     box-shadow: none !important;

@@ -1,266 +1,210 @@
 <template>
-  <div class="text-left">
-    <div>
-      <v-chip class="pa-5" color="primary" label text-color="white">
-        <v-icon start>mdi-label</v-icon>
-        <h3>ລາຍການບິນຂາຍ</h3>
-      </v-chip>
-      <!-- <v-spacer></v-spacer> -->
-      <v-chip
-        class="pa-5"
-        color="primary"
-        label
-        text-color="white"
-        @click="guidelineDialog = true"
-      >
-        <v-icon start>mdi mdi-lifebuoy</v-icon>
-        <h3>ຄູ່ມືການນຳໃຊ້</h3>
-      </v-chip>
+  <div class="sales-report-container">
+    <!-- MODERN HEADER SECTION -->
+    <div class="header-section">
+      <div class="d-flex align-center justify-space-between mb-6">
+        <div class="d-flex align-center">
+          <v-btn icon color="primary" class="mr-4 shadow-sm" @click="$router.back()" large>
+            <v-icon>mdi-arrow-left</v-icon>
+          </v-btn>
+          <div>
+            <h1 class=" font-weight-bold primary--text mb-0">ລາຍງານກຳໄລ-ຂາດທຶນຕາມບິນ</h1>
+            <p class="subtitle-2 grey--text mb-0">Invoice Header & Profit Analysis</p>
+          </div>
+        </div>
+        <div class="d-flex align-center gap-2">
+          <v-btn color="secondary" dark class="rounded-lg shadow-sm px-6" @click="guidelineDialog = true">
+            <v-icon left>mdi-lifebuoy</v-icon>
+            ຄູ່ມືການນຳໃຊ້
+          </v-btn>
+        </div>
+      </div>
     </div>
-    <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
+
+    <!-- DIALOGS -->
+    <v-dialog v-model="isloading" hide-overlay persistent width="320">
+      <v-card class="loading-card">
+        <v-card-text class="text-center pa-6">
+          <v-progress-circular size="48" color="primary" indeterminate></v-progress-circular>
+          <div class="mt-4 font-weight-medium">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
+        </v-card-text>
+      </v-card>
     </v-dialog>
+
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
-      <youtube-player
-        @close-dialog="guidelineDialog = false"
-        youtube-link="W6KiQWtiqBM"
-      >
-      </youtube-player>
+      <youtube-player @close-dialog="guidelineDialog = false" youtube-link="W6KiQWtiqBM"></youtube-player>
     </v-dialog>
+
     <v-dialog v-model="dialogOrderDetail" fullscreen>
-      <OrderDetailPosCRUD
-        @reload="
-          loadData()
-          dialogOrderDetail = false
-        "
-        :is-quotation="false"
-        :key="componentKey"
-        :is-update="viewTransaction"
-        :headerId="selectedOrder"
-        @close-dialog="dialogOrderDetail = false"
-      >
+      <OrderDetailPosCRUD @reload="loadData(); dialogOrderDetail = false" :is-quotation="false" :key="componentKey"
+        :is-update="viewTransaction" :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">
       </OrderDetailPosCRUD>
     </v-dialog>
 
     <v-dialog v-model="cancelForm" max-width="1024">
-      <cancel-ticket-form
-        :id="OrderIdSelected"
-        :key="componentCancelFormKey"
-        @close-dialog="cancelForm = false"
-        @reload=";(cancelForm = false), loadData()"
-      ></cancel-ticket-form>
+      <cancel-ticket-form :id="OrderIdSelected" :key="componentCancelFormKey" @close-dialog="cancelForm = false"
+        @reload="cancelForm = false, loadData()"></cancel-ticket-form>
     </v-dialog>
-    <div>
-      <v-card>
-        <v-card-title>
-          <v-layout row wrap>
-            <v-col cols="6">
-              <v-menu
-                ref="menu1"
-                v-model="menu1"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="dateFormatted"
-                    label="ຈາກວັນທີ:"
-                    hint="MM/DD/YYYY format"
-                    persistent-hint
-                    prepend-icon="mdi-calendar"
-                    v-bind="attrs"
-                    @blur="date = parseDate(dateFormatted)"
-                    v-on="on"
-                  ></v-text-field>
-                </template>
-                <v-date-picker
-                  v-model="date"
-                  no-title
-                  @input="menu1 = false"
-                ></v-date-picker>
-              </v-menu>
 
-              <v-menu
-                ref="menu2"
-                v-model="menu2"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="auto"
-              >
+    <!-- COMPACT ACTION BAR (FILTERS) -->
+    <v-card class="filter-strip mb-6 shadow-sm">
+      <v-card-text class="pa-3">
+        <v-row align="center" no-gutters>
+          <!-- Date Pickers -->
+          <v-col cols="12" md="4" class="px-2">
+            <div class="d-flex align-center gap-2">
+              <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
+                min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="dateFormatted2"
-                    label="ຫາວັນທີ:"
-                    hint="MM/DD/YYYY format"
-                    persistent-hint
-                    prepend-icon="mdi-calendar"
-                    v-bind="attrs"
-                    @blur="date2 = parseDate(dateFormatted2)"
-                    v-on="on"
-                  ></v-text-field>
+                  <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ" prepend-inner-icon="mdi-calendar" readonly
+                    outlined dense hide-details class="compact-input" v-bind="attrs" v-on="on"></v-text-field>
                 </template>
-                <v-date-picker
-                  v-model="date2"
-                  no-title
-                  @input="menu2 = false"
-                ></v-date-picker>
+                <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
               </v-menu>
-            </v-col>
-            <v-col cols="6">
-              <v-text-field
-                v-model="search"
-                append-icon="mdi-magnify"
-                label="ຊອກຫາ"
-                single-line
-                hide-detailsx
-              />
-              <v-autocomplete
-                item-text="name"
-                item-value="id"
-                :items="customerList"
-                label="ລູກຄ້າ*"
-                v-model="creteria.clientId"
-              ></v-autocomplete>
-              <!-- payment criteria -->
-              <v-autocomplete
-                item-text="payment_code"
-                item-value="id"
-                :items="paymentList"
-                label="payment*"
-                v-model="creteria.paymentId"
-              ></v-autocomplete>
-            </v-col>
+              <v-icon small class="grey--text">mdi-arrow-right</v-icon>
+              <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
+                min-width="auto">
+                <template v-slot:activator="{ on, attrs }">
+                  <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ" prepend-inner-icon="mdi-calendar" readonly
+                    outlined dense hide-details class="compact-input" v-bind="attrs" v-on="on"></v-text-field>
+                </template>
+                <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
+              </v-menu>
+            </div>
+          </v-col>
 
-            <v-col cols="6" class="text-left">
-              <v-btn
-                size="large"
-                variant="outlined"
-                @click="createSale"
-                class="primary"
-                rounded
-              >
-                <span class="mdi mdi-plus"></span>Create
-              </v-btn>
-              <v-btn
-                size="large"
-                variant="outlined"
-                @click="exportToExcel"
-                class="primary"
-                rounded
-              >
-                <span class="mdi mdi-microsoft-excel"></span>Generate excel file
-              </v-btn>
-            </v-col>
-            <v-col cols="6" class="text-right">
-              <v-btn
-                size="large"
-                variant="outlined"
-                @click="loadData"
-                class="primary"
-                rounded
-              >
-                <span class="mdi mdi-cloud-download"></span>
-                ດຶງລາຍງານ
-              </v-btn>
-            </v-col>
-          </v-layout>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text>
-          <v-layout row wrap>
-            <v-row>
-              <v-col cols="6" lg="6">
-                <order-sumary-card-pos
-                  :showTotal="true"
-                  :gross="
-                    getFormatNum(
-                      totalSaleRaw - +this.unpaidCodOrder.saleRawNumber
-                    )
-                  "
-                  :orderDetail="{
-                    title: 'ຍອດບິນ',
-                    amount: getFormatNum(activeOrderHeaderList.length),
-                    sale: getFormatNum(totalSale - totalDiscount),
-                    // 'discount': getFormatNum(totalDiscount),
-                    // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-                    // 'gross': getFormatNum(totalSale - totalDiscount)
-                  }"
-                >
-                </order-sumary-card-pos>
+          <!-- Search & Customer -->
+          <v-col cols="12" md="5" class="px-2">
+            <v-row no-gutters>
+              <v-col cols="6" class="pr-1">
+                <v-autocomplete v-model="creteria.clientId" :items="customerList" item-text="name" item-value="id"
+                  label="ລູກຄ້າ" prepend-inner-icon="mdi-account" outlined dense hide-details
+                  class="compact-input"></v-autocomplete>
               </v-col>
-              <!-- <v-col cols="6" lg="6">
-              <order-sumary-card i :orderDetail="this.unpaidCodOrder">
-
-              </order-sumary-card>
-            </v-col> -->
+              <v-col cols="6" class="pl-1">
+                <v-autocomplete v-model="creteria.paymentId" :items="paymentList" item-text="payment_code"
+                  item-value="id" label="ຊຳລະ" prepend-inner-icon="mdi-credit-card" outlined dense hide-details
+                  class="compact-input"></v-autocomplete>
+              </v-col>
             </v-row>
-          </v-layout>
-        </v-card-text>
+          </v-col>
 
-        <!-- <v-divider></v-divider> -->
+          <!-- Action Buttons -->
+          <v-col cols="12" md="3" class="px-2 text-right d-flex justify-end gap-2">
+            <v-text-field v-model="search" label="ຊອກຫາ..." prepend-inner-icon="mdi-magnify" outlined dense hide-details
+              clearable class="compact-input mr-2"></v-text-field>
+            <v-btn color="primary" class="rounded-md shadow-sm" icon @click="loadData">
+              <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+            <v-btn color="success" class="rounded-md shadow-sm px-4" @click="exportToExcel">
+              <v-icon left>mdi-microsoft-excel</v-icon>
+              Excel
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
 
-        <v-data-table
-          v-if="orderLineByUser"
-          :headers="headers"
-          :search="search"
-          :items="orderLineByUser"
-        >
-          <!-- <template v-slot:[`item.bookingDate`]="{ item }">
-            {{ item.bookingDate.split('T')[0] }}
-            <h6 :style="{ 'color': countDay(item.bookingDate.split('T')[0]) > item.client.credit ? 'red' : 'green' }">
-              {{ countDay(item.bookingDate.split('T')[0]) }}
-            </h6>
-          </template> -->
-          <!-- <template v-slot:[`item.client.credit`]="{ item }">
-            <v-chip
-              v-if="new Date(dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0]) < new Date()"
-              class="ma-2" color="red" text-color="white">
-              {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
-            </v-chip>
-            <v-chip v-else class="ma-2" color="green" text-color="white">
-              {{ dueDate(item.bookingDate, item.client.credit).toISOString().split('T')[0] }}
-            </v-chip>
-          </template> -->
-          <!-- <template v-slot:[`item.dynamic_customer`]="{ item }">
-            <v-avatar :color="item.dynamic_customer ? 'green' : 'red'" size="10">
+    <!-- SUMMARY DASHBOARD -->
+    <v-row class="mb-6">
+      <v-col cols="12" md="3">
+        <v-card class="metric-card shadow-sm h-100">
+          <v-card-text class="pa-5 text-center">
+            <v-avatar color="blue lighten-5" size="56" class="mb-3">
+              <v-icon color="blue darken-1" size="32">mdi-cash-multiple</v-icon>
             </v-avatar>
-          </template> -->
-          <template v-slot:[`item.discount`]="{ item }">
-            {{ getFormatNum(item.discount) }}
-          </template>
-          <template v-slot:[`item.total`]="{ item }">
-            {{ getFormatNum(item.total) }}
-          </template>
-          <template v-slot:[`item.cards`]="{ item }">
-            {{ getFormatNum(calculateTotalCost(item.cards)) }}
-          </template>
-          <template v-slot:[`item.price`]="{ item }">
-            {{ getFormatNum(item.total) }}
-          </template>
-          <template v-slot:[`item.profit`]="{ item }">
+            <div class="grey--text text-uppercase  font-weight-bold mb-1">ຍອດຂາຍລວມ (LAK)</div>
+            <div class=" font-weight-black blue--text">{{ getFormatNum(totalSale - totalDiscount) }}</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="3">
+        <v-card class="metric-card shadow-sm h-100">
+          <v-card-text class="pa-5 text-center">
+            <v-avatar color="red lighten-5" size="56" class="mb-3">
+              <v-icon color="red darken-1" size="32">mdi-chart-areaspline</v-icon>
+            </v-avatar>
+            <div class="grey--text text-uppercase  font-weight-bold mb-1">ຕົ້ນທຶນລວມ</div>
+            <div class=" font-weight-black red--text">{{ getFormatNum(totalCost) }}</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="3">
+        <v-card class="metric-card shadow-sm h-100">
+          <v-card-text class="pa-5 text-center">
+            <v-avatar color="green lighten-5" size="56" class="mb-3">
+              <v-icon color="green darken-1" size="32">mdi-trending-up</v-icon>
+            </v-avatar>
+            <div class="grey--text text-uppercase  font-weight-bold mb-1">ກຳໄລລວມ</div>
+            <div class=" font-weight-black green--text">{{ getFormatNum(totalProfit) }}</div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <v-col cols="12" md="3">
+        <v-card class="metric-card shadow-sm h-100 border-left-success">
+          <v-card-text class="pa-5">
+            <div class="grey--text  font-weight-bold mb-2">Order Statistics</div>
+            <div class="d-flex align-center justify-space-between mb-2">
+              <span class="body-2">ຈຳນວນບິນ:</span>
+              <span class="font-weight-bold">{{ numberWithCommas(activeOrderHeaderList.length) }} ບິນ</span>
+            </div>
+            <v-divider class="my-2"></v-divider>
+            <div class="d-flex align-center justify-space-between">
+              <span class="body-2">ເປີເຊັນກຳໄລ:</span>
+              <v-chip x-small color="green" dark class="font-weight-bold">{{ profitMargin }}%</v-chip>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- DATA TABLE -->
+    <v-card class="shadow-sm rounded-xl overflow-hidden">
+      <v-data-table :headers="headers" :items="orderLineByUser" :search="search" :loading="isloading"
+        class="compact-table" :items-per-page="15">
+
+        <template v-slot:[`item.header.id`]="{ item }">
+          <span class="font-weight-bold primary--text">#{{ item.header.id }}</span>
+        </template>
+
+        <template v-slot:[`item.header.bookingDate`]="{ item }">
+          <span>{{ item.header.bookingDate.split('T')[0] }}</span>
+        </template>
+
+        <template v-slot:[`item.price`]="{ item }">
+          <span class="font-numeric">{{ numberWithCommas(item.price) }}</span>
+        </template>
+
+        <template v-slot:[`item.discount`]="{ item }">
+          <span class="orange--text font-numeric">{{ numberWithCommas(item.discount) }}</span>
+        </template>
+
+        <template v-slot:[`item.total`]="{ item }">
+          <span class="font-weight-bold font-numeric">{{ numberWithCommas(item.total) }}</span>
+        </template>
+
+        <template v-slot:[`item.cards`]="{ item }">
+          <span class="red--text font-numeric">{{ getFormatNum(calculateTotalCost(item.cards)) }}</span>
+        </template>
+
+        <template v-slot:[`item.profit`]="{ item }">
+          <v-chip x-small :color="(item.total - calculateTotalCost(item.cards)) > 0 ? 'green' : 'red'" dark
+            class="font-weight-bold font-numeric">
             {{ getFormatNum(item.total - calculateTotalCost(item.cards)) }}
-          </template>
-          <!-- <template v-slot:[`item.id`]="{ item }">
-            <v-btn color="primary" text @click="viewItem(item)
-            wallet = true
-              ">
-              <i class="fa-regular fa-pen-to-square"></i>
-            </v-btn>
-          </template> -->
-          <template v-slot:[`item.cusTel`]="{ item }">
-            <v-btn color="blue darken-1" text @click="whatsappLink(item)">
-              {{ item.cusTel }}
-              <a :href="whatsappContactLink" target="_blank">Whatsapp</a>
-            </v-btn>
-          </template>
-        </v-data-table>
-      </v-card>
-    </div>
+          </v-chip>
+        </template>
+
+        <template v-slot:[`item.cusTel`]="{ item }">
+          <v-btn small text color="info" @click="whatsappLink(item)">
+            <v-icon left x-small>mdi-whatsapp</v-icon>
+            {{ item.cusTel }}
+          </v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
   </div>
 </template>
 <script>
@@ -469,20 +413,38 @@ export default {
       ]
     },
     orderLineByUser() {
-      let lines = []
-      for (const iterator of this.activeOrderHeaderList) {
-        console.log(`Header user: ${JSON.stringify(iterator.user)}`)
-        for (const line of iterator['lines']) {
-          //Assign inputter
-          line['user'] = iterator.user
-          line['client'] = iterator.client
-          line['payment'] = iterator['payment']['payment_code']
-        }
-        lines.push(...iterator['lines'])
-      }
-      console.log(`Total line count: ${lines.length}`)
-      console.log(`Total line count: ${JSON.stringify(lines)}`)
-      return lines
+      let lines = [];
+      const searchTerm = this.search?.toLowerCase() || '';
+
+      this.activeOrderHeaderList.forEach((iterator) => {
+        iterator['lines']?.forEach((line) => {
+          line['user'] = iterator.user;
+          line['client'] = iterator.client;
+          line['payment'] = iterator['payment']?.payment_code || 'N/A';
+          line['header'] = iterator;
+
+          const matchesSearch = !searchTerm ||
+            line.product?.pro_name?.toLowerCase().includes(searchTerm) ||
+            iterator.id?.toString().includes(searchTerm) ||
+            iterator.client?.name?.toLowerCase().includes(searchTerm);
+
+          if (matchesSearch) {
+            lines.push(line);
+          }
+        });
+      });
+      return lines;
+    },
+    totalCost() {
+      return this.orderLineByUser.reduce((sum, line) => sum + this.calculateTotalCost(line.cards), 0);
+    },
+    totalProfit() {
+      return (this.totalSale - this.totalDiscount) - this.totalCost;
+    },
+    profitMargin() {
+      const revenue = (this.totalSale - this.totalDiscount);
+      if (revenue <= 0) return 0;
+      return ((this.totalProfit / revenue) * 100).toFixed(1);
     },
     ...mapGetters([
       'findAllProduct',
@@ -735,12 +697,80 @@ export default {
 </script>
 
 <style scoped>
-.text-h5,
-.grey {
-  font-family: 'Noto Sans Lao';
+.sales-report-container {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  padding: 24px;
+  font-family: 'Noto Sans Lao', sans-serif;
 }
 
-table {
-  border: 1px solid black;
+.shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.metric-card {
+  border-radius: 16px !important;
+  border: 1px solid #edf2f7 !important;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08) !important;
+}
+
+.filter-strip {
+  border-radius: 12px !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.compact-input ::v-deep .v-input__control {
+  min-height: 40px !important;
+}
+
+.compact-input ::v-deep .v-input__slot {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.rounded-md {
+  border-radius: 8px !important;
+}
+
+.compact-table {
+  background: white !important;
+}
+
+.compact-table ::v-deep th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  letter-spacing: 0.025em;
+  padding: 12px 16px !important;
+}
+
+.compact-table ::v-deep td {
+  padding: 12px 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.font-numeric {
+  font-family: 'Inter', sans-serif;
+  letter-spacing: -0.011em;
+}
+
+.border-left-success {
+  border-left: 4px solid #4caf50 !important;
+}
+
+.gap-1 {
+  gap: 4px;
 }
 </style>

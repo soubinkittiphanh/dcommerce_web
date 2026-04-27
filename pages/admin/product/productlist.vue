@@ -9,7 +9,7 @@
           </v-avatar>
           <div>
             <h1 class=" font-weight-bold grey--text text--darken-4 mb-0">ລາຍການສິນຄ້າ</h1>
-            <p class="text-caption grey--text mb-0">Manage your product inventory and stock levels</p>
+            <p class=" grey--text mb-0">Manage your product inventory and stock levels</p>
           </div>
         </div>
       </v-col>
@@ -84,8 +84,8 @@
                 <template v-slot:item.pro_name="{ item }">
                   <div class="d-flex flex-column py-2">
                     <span class="font-weight-bold ">{{ item.pro_name }}</span>
-                    <span class="text-caption grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
-                    <span v-if="item.barCode" class="text-caption secondary--text">
+                    <span class=" grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
+                    <span v-if="item.barCode" class=" secondary--text">
                       <v-icon x-small color="secondary">mdi-barcode</v-icon>
                       {{ item.barCode }}
                     </span>
@@ -105,12 +105,12 @@
                   <div class="d-flex align-center justify-center">
                     <div class="text-center mr-2">
                       <div class="text-h6 font-weight-black line-height-1 mb-1">{{ item.pro_card_count }}</div>
-                      <div class="text-caption grey--text text-uppercase line-height-1">Actual</div>
+                      <div class=" grey--text text-uppercase line-height-1">Actual</div>
                     </div>
                     <v-divider vertical class="mx-2 my-2"></v-divider>
                     <div class="text-center ml-2">
                       <div class="text-h6 grey--text line-height-1 mb-1">{{ item.minStock }}</div>
-                      <div class="text-caption grey--text text-uppercase line-height-1">Min</div>
+                      <div class=" grey--text text-uppercase line-height-1">Min</div>
                     </div>
                   </div>
                 </template>
@@ -161,6 +161,14 @@
                       </v-list-item>
 
                       <v-divider v-if="item._category !== 'stock'" class="my-1"></v-divider>
+                      
+                      <v-list-item @click="openProductAudit(item)">
+                        <v-list-item-icon class="mr-2">
+                          <v-icon small color="grey darken-2">mdi-history</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Change History</v-list-item-title>
+                      </v-list-item>
+
                       <v-list-item v-if="item._category !== 'stock'" @click="manageRecipe(item)">
                         <v-list-item-icon class="mr-2">
                           <v-icon small color="purple">mdi-book-open-variant</v-icon>
@@ -281,7 +289,7 @@
                 {{ item.quantity }}
                 <span v-if="item.unit" class="text-grey ml-1">{{
                   item.unit.name
-                  }}</span>
+                }}</span>
               </div>
             </template>
 
@@ -436,6 +444,85 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Audit Trail Dialog -->
+    <v-dialog v-model="auditDialog" max-width="900">
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-history</v-icon>
+          ປະຫວັດການປ່ຽນແປງ (Audit Trail)
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="auditDialog = false" class="white--text">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <v-data-table
+            :headers="auditHeaders"
+            :items="auditLogs"
+            :loading="isAuditLoading"
+            class="elevation-1"
+            show-expand
+            single-expand
+            :expanded.sync="expandedAudit"
+          >
+            <template v-slot:[`item.auditDate`]="{ item }">
+              {{ formatDateTime(item.auditDate) }}
+            </template>
+            <template v-slot:[`item.action`]="{ item }">
+              <v-chip small :color="getActionColor(item.action)" dark label>
+                {{ item.action }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.user`]="{ item }">
+              {{ item.user ? item.user.cus_name : 'Unknown' }}
+            </template>
+
+            <!-- Expansion Slot for Details -->
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length" class="bg-grey-lighten-4 pa-0">
+                <v-card flat color="grey lighten-4">
+                  <v-card-text>
+                    <div class="subtitle-2 font-weight-bold mb-2 primary--text">ລາຍລະອຽດການປ່ຽນແປງ (Change Details)</div>
+                    <v-simple-table dense class="transparent">
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-left">ຟິວ (Field)</th>
+                            <th class="text-left">ກ່ອນ (Before/From)</th>
+                            <th class="text-center" width="50"></th>
+                            <th class="text-left">ຫຼັງ (After/To)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="change in getAuditDiff(item)" :key="change.field">
+                            <td class="font-weight-medium">{{ formatFieldName(change.field) }}</td>
+                            <td>
+                              <v-chip x-small color="red lighten-5" class="red--text text--darken-2" label>{{ change.from }}</v-chip>
+                            </td>
+                            <td class="text-center"><v-icon small>mdi-arrow-right</v-icon></td>
+                            <td>
+                              <v-chip x-small color="green lighten-5" class="green--text text--darken-2" label>{{ change.to }}</v-chip>
+                            </td>
+                          </tr>
+                          <tr v-if="getAuditDiff(item).length === 0">
+                            <td colspan="4" class="text-center grey--text py-2">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງ (No specific field changes detected)</td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </td>
+            </template>
+          </v-data-table>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="auditDialog = false">ປິດ</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 <script>
@@ -544,6 +631,19 @@ export default {
       ],
       barcodeBuffer: '',
       barcodeTimeout: null,
+
+      // Audit Trail
+      auditDialog: false,
+      auditLogs: [],
+      isAuditLoading: false,
+      expandedAudit: [],
+      auditHeaders: [
+        { text: 'ວັນທີ (Date)', value: 'auditDate', sortable: true },
+        { text: 'ການກະທຳ (Action)', value: 'action' },
+        { text: 'ຜູ້ໃຊ້ (User)', value: 'user' },
+        { text: 'ໝາຍເຫດ (Reason)', value: 'reason' },
+        { text: '', value: 'data-table-expand' },
+      ],
     }
   },
 
@@ -776,8 +876,8 @@ export default {
       if (window.posApi) {
         let printerList = this.findAllprinters || []
         const barcodePrinter = printerList.find((p) => p.type === 'barcode')
-        const printerName = barcodePrinter 
-          ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+        const printerName = barcodePrinter
+          ? barcodePrinter.printerName || barcodePrinter.printer_name || ''
           : ''
 
         if (!printerName) {
@@ -798,8 +898,15 @@ export default {
         const printWindow = window.open('', '_blank')
         printWindow.document.write(windowContent)
         printWindow.document.close()
-        
-        // Browser print handled by onload in generateStaticPrintHtml
+
+        // Since we removed onload from the HTML template, 
+        // we trigger print manually for the browser fallback case.
+        setTimeout(() => {
+          if (printWindow) {
+            printWindow.print()
+            printWindow.close()
+          }
+        }, 1000)
       }
     },
 
@@ -812,7 +919,7 @@ export default {
         const barcodeValue = String(product.barCode || product.pro_id || '000000')
         const productName = this.escapeHtml(this.truncateText(product.pro_name, 25))
         const productPrice = this.formatNumber(product.pro_price)
-        
+
         // Generate base64 barcode image
         const barcodeDataUrl = await this.generateBarcodeDataUrl(barcodeValue)
 
@@ -863,7 +970,7 @@ export default {
             }
           </style>
         </head>
-        <body onload="setTimeout(() => { window.print(); window.close(); }, 500)">
+        <body>
           <div class="print-grid">
             ${labelsHtml}
           </div>
@@ -882,7 +989,7 @@ export default {
           large: { width: 1.5, height: 50 },
         }
         const format = formats[this.selectedPrintFormat]
-        
+
         JsBarcode(canvas, value, {
           format: 'CODE128',
           width: format.width,
@@ -1391,6 +1498,108 @@ export default {
         this.isloading = false
       }
     },
+
+    // Audit Trail Methods
+    async fetchProductAudit(productId) {
+      this.isAuditLoading = true
+      try {
+        const res = await this.$axios.get(`api/product/audit/${productId}`)
+        this.auditLogs = res.data.data || []
+      } catch (er) {
+        swalError2(this.$swal, 'Error', 'Could not load audit data: ' + er.message)
+      } finally {
+        this.isAuditLoading = false
+      }
+    },
+    openProductAudit(item) {
+      this.auditLogs = []
+      this.auditDialog = true
+      this.expandedAudit = []
+      this.fetchProductAudit(item.id)
+    },
+    formatDateTime(val) {
+      if (!val) return '-'
+      return new Date(val).toLocaleString('en-GB')
+    },
+    getActionColor(action) {
+      const colors = {
+        'CREATE': 'success',
+        'UPDATE': 'info',
+        'DELETE': 'error'
+      }
+      return colors[action] || 'grey'
+    },
+    getAuditDiff(item) {
+      const currentSnapshot = item.recordData || {};
+      let nextSnapshot = {};
+
+      const actualIndex = this.auditLogs.findIndex(log => log.id === item.id);
+
+      if (actualIndex === 0) {
+        const product = this.loaddata.find(p => p.id === item.productId);
+        nextSnapshot = product || {};
+      } else if (actualIndex > 0) {
+        const nextLog = this.auditLogs[actualIndex - 1];
+        nextSnapshot = nextLog ? (nextLog.recordData || {}) : {};
+      }
+
+      const trackedFields = [
+        'pro_id', 'pro_name', 'pro_price', 'pro_desc', 'pro_status', 
+        'barCode', 'vendorName', 'cost_price', 'stock_count', 'minStock',
+        'isActive', '_category', 'pro_category', 'saleCurrencyId', 'costCurrencyId'
+      ];
+
+      if (item.action === 'CREATE') {
+        return trackedFields
+          .filter(k => currentSnapshot[k] !== undefined)
+          .map(k => ({
+            field: k,
+            from: '-',
+            to: (currentSnapshot[k] === null || currentSnapshot[k] === undefined) ? '-' : currentSnapshot[k]
+          }));
+      }
+
+      const changes = [];
+      trackedFields.forEach(field => {
+        let oldVal = currentSnapshot[field];
+        let newVal = nextSnapshot[field];
+        
+        // Handle potential field name mismatches between model and list projection
+        if (field === 'pro_category' && nextSnapshot.hasOwnProperty('pro_category_desc')) {
+          // Simplification: we compare IDs from recordData
+        }
+
+        if (oldVal != newVal && newVal !== undefined) {
+          changes.push({
+            field,
+            from: (oldVal === null || oldVal === undefined) ? '-' : oldVal,
+            to: (newVal === null || newVal === undefined) ? '-' : newVal
+          });
+        }
+      });
+
+      return changes;
+    },
+    formatFieldName(field) {
+      const mapping = {
+        pro_id: 'ID ສິນຄ້າ',
+        pro_name: 'ຊື່ສິນຄ້າ',
+        pro_price: 'ລາຄາຂາຍ',
+        pro_desc: 'ລາຍລະອຽດ',
+        pro_status: 'ສະຖານະສິນຄ້າ',
+        barCode: 'ບາໂຄດ',
+        vendorName: 'ຊື່ຜູ້ສະໜອງ',
+        cost_price: 'ຕົ້ນທຶນ',
+        stock_count: 'ຈຳນວນໃນສາງ',
+        minStock: 'ຈຳນວນຕ່ຳສຸດ',
+        isActive: 'ເປີດໃຊ້ງານ',
+        _category: 'ປະເພດ (Enum)',
+        pro_category: 'ໝວດໝູ່ (ID)',
+        saleCurrencyId: 'ສະກຸນເງິນຂາຍ',
+        costCurrencyId: 'ສະກຸນເງິນຕົ້ນທຶນ'
+      };
+      return mapping[field] || field;
+    }
   },
 }
 </script>

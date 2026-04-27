@@ -4,13 +4,7 @@
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
       <v-card class="loading-card" color="primary" dark>
         <v-card-text class="text-center">
-          <v-progress-circular
-            :size="70"
-            :width="7"
-            color="white"
-            indeterminate
-            class="mb-4"
-          />
+          <v-progress-circular :size="70" :width="7" color="white" indeterminate class="mb-4" />
           <div class="text-h6">Processing...</div>
         </v-card-text>
       </v-card>
@@ -23,33 +17,17 @@
 
     <!-- Receiving Dialog -->
     <v-dialog v-model="receivingDialog" max-width="1200" persistent>
-      <receiving-form
-        @refresh="$emit('reload')"
-        :po-id="headerId"
-        @close-dialog="receivingDialog = false"
-      />
+      <receiving-form @refresh="$emit('reload')" :po-id="headerId" @close-dialog="receivingDialog = false" />
     </v-dialog>
 
     <!-- Pricing Dialog -->
     <v-dialog v-model="pricingDialog" max-width="800" persistent>
-      <pricing-option
-        :key="pricingDialogKey"
-        :isBackend="true"
-        @new-price-update="updatePricing"
-        @close-dialog="pricingDialog = false"
-        :record-id="productPricingSelected"
-      />
+      <pricing-option :key="pricingDialogKey" :isBackend="true" @new-price-update="updatePricing"
+        @close-dialog="pricingDialog = false" :record-id="productPricingSelected" />
     </v-dialog>
 
     <!-- Error Sheet -->
-    <v-snackbar
-      v-model="errorSnackbar"
-      :timeout="10000"
-      color="error"
-      multi-line
-      top
-      right
-    >
+    <v-snackbar v-model="errorSnackbar" :timeout="10000" color="error" multi-line top right>
       {{ validateErrorMessage }}
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="errorSnackbar = false">
@@ -77,35 +55,20 @@
               </div>
             </div>
           </div>
-          
+
           <div class="d-flex align-center gap-2">
-            <v-btn
-              color="success"
-              outlined
-              @click="postReceiving"
-              :disabled="!canReceive"
-            >
+            <v-btn color="success" outlined @click="postReceiving" :disabled="!canReceive">
               <v-icon left>mdi-check</v-icon>
               Receive Goods
             </v-btn>
-            
-            <v-btn
-              color="warning"
-              outlined
-              @click="cancelOrder"
-              :disabled="!canCancel"
-            >
+
+            <v-btn color="warning" outlined @click="cancelOrder" :disabled="!canCancel">
               <v-icon left>mdi-cancel</v-icon>
               Cancel
             </v-btn>
-            
-            <v-btn
-              color="white"
-              outlined
-              @click="printPurchaseOrderDirectly"
-              :disabled="!headerId"
-              :loading="isPrinting"
-            >
+
+            <v-btn color="white" outlined @click="printPurchaseOrderDirectly" :disabled="!headerId"
+              :loading="isPrinting">
               <v-icon left>mdi-printer</v-icon>
               Print PO
             </v-btn>
@@ -115,15 +78,12 @@
 
       <v-card-text class="form-content">
         <!-- Transaction Header -->
-        <v-card 
-          :class="['transaction-header', { 'header-error': headerError }]"
-          elevation="2"
-        >
+        <v-card :class="['transaction-header', { 'header-error': headerError }]" elevation="2">
           <v-card-title class="text-h6 pb-2">
             <v-icon left color="primary">mdi-information</v-icon>
             Purchase Order Details
           </v-card-title>
-          
+
           <v-card-text>
             <v-row>
               <!-- Left Column -->
@@ -133,50 +93,24 @@
                     <v-icon small color="primary" class="mr-2">mdi-calendar</v-icon>
                     Date & Terms
                   </h4>
-                  
-                  <v-text-field
-                    v-model="transaction.bookingDate"
-                    type="date"
-                    label="Order Date"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                  />
-                  
-                  <v-text-field
-                    v-model="transaction.expectedDeliveryDate"
-                    type="date"
-                    label="Expected Delivery"
-                    outlined
-                    dense
-                  />
-                  
-                  <v-autocomplete
-                    v-model="transaction.termId"
-                    :items="termsList"
-                    item-text="term_name"
-                    item-value="id"
-                    label="Payment Terms"
-                    outlined
-                    dense
-                  >
+
+                  <v-text-field v-model="transaction.bookingDate" type="date" label="Order Date" outlined dense required
+                    :rules="[rules.required]" />
+
+                  <v-text-field v-model="transaction.expectedDeliveryDate" type="date" label="Expected Delivery"
+                    outlined dense />
+
+                  <v-autocomplete v-model="transaction.termId" :items="termsList" item-text="term_name" item-value="id"
+                    label="Payment Terms" outlined dense>
                     <template v-slot:selection="{ item }">
                       <v-chip small color="primary" outlined>
                         {{ item.term_name }}
                       </v-chip>
                     </template>
                   </v-autocomplete>
-                  
-                  <v-text-field
-                    v-model="transaction.discount"
-                    label="Header Discount"
-                    outlined
-                    dense
-                    type="number"
-                    prefix="$"
-                    :rules="[rules.positiveNumber]"
-                  />
+
+                  <v-text-field v-model="transaction.discount" label="Header Discount" outlined dense type="number"
+                    prefix="$" :rules="[rules.positiveNumber]" />
                 </div>
               </v-col>
 
@@ -187,18 +121,9 @@
                     <v-icon small color="primary" class="mr-2">mdi-domain</v-icon>
                     Supplier & Currency
                   </h4>
-                  
-                  <v-autocomplete
-                    v-model="transaction.supplierId"
-                    :items="supplierList"
-                    item-text="name"
-                    item-value="id"
-                    label="Supplier"
-                    outlined
-                    dense
-                    required
-                    :rules="[rules.required]"
-                  >
+
+                  <v-autocomplete v-model="transaction.supplierId" :items="supplierList" item-text="name"
+                    item-value="id" label="Supplier" outlined dense required :rules="[rules.required]">
                     <template v-slot:selection="{ item }">
                       <div class="d-flex align-center">
                         <v-avatar size="24" color="primary" class="mr-2">
@@ -210,28 +135,19 @@
                       </div>
                     </template>
                   </v-autocomplete>
-                  
-                  <v-autocomplete
-                    v-model="transaction.currencyId"
-                    :items="currencyList"
-                    item-text="code"
-                    item-value="id"
-                    label="Currency"
-                    outlined
-                    dense
-                    required
-                    @input="currencyChange"
-                    :rules="[rules.required]"
-                  >
+
+                  <v-autocomplete v-model="transaction.currencyId" :items="currencyList" item-text="code"
+                    item-value="id" label="Currency" outlined dense required @input="currencyChange"
+                    :rules="[rules.required]">
                     <template v-slot:selection="{ item }">
                       <v-chip small color="secondary" outlined>
                         {{ item.code }}
                       </v-chip>
                     </template>
                   </v-autocomplete>
-                  
+
                   <v-card color="grey lighten-4" flat class="pa-3">
-                    <div class="text-subtitle-2">Exchange Rate</div>
+                    <div class="">Exchange Rate</div>
                     <div class="text-h6 primary--text">
                       {{ formatNumber(transaction.exchangeRate) }}
                     </div>
@@ -246,38 +162,21 @@
                     <v-icon small color="primary" class="mr-2">mdi-note-text</v-icon>
                     Notes & Status
                   </h4>
-                  
-                  <v-textarea
-                    v-model="transaction.notes"
-                    label="Order Notes"
-                    outlined
-                    dense
-                    rows="3"
-                    auto-grow
-                  />
-                  
-                  <v-select
-                    v-model="transaction.status"
-                    :items="statusOptions"
-                    label="Status"
-                    outlined
-                    dense
-                  >
+
+                  <v-textarea v-model="transaction.notes" label="Order Notes" outlined dense rows="3" auto-grow />
+
+                  <v-select v-model="transaction.status" :items="statusOptions" label="Status" outlined dense>
                     <template v-slot:selection="{ item }">
-                      <v-chip 
-                        small 
-                        :color="getStatusColor(item)"
-                        outlined
-                      >
+                      <v-chip small :color="getStatusColor(item)" outlined>
                         {{ item }}
                       </v-chip>
                     </template>
                   </v-select>
-                  
+
                   <div v-if="transaction.user" class="user-info">
                     <v-card color="grey lighten-5" flat class="pa-3">
                       <div class="">Created by</div>
-                      <div class="text-subtitle-2">
+                      <div class="">
                         {{ transaction.user.cus_name }}
                       </div>
                       <div class=" text--secondary">
@@ -285,9 +184,9 @@
                       </div>
                     </v-card>
                   </div>
-                  
+
                   <v-card color="success lighten-4" flat class="pa-3 mt-3">
-                    <div class="text-subtitle-2">Total Amount</div>
+                    <div class="">Total Amount</div>
                     <div class=" success--text font-weight-bold">
                       {{ formatCurrency(grandTotal) }}
                     </div>
@@ -308,12 +207,8 @@
                 {{ transaction.lines.length }} items
               </v-chip>
             </div>
-            
-            <v-btn 
-              color="primary" 
-              @click="newRow" 
-              :disabled="!transaction.isActive || !updateAllow"
-            >
+
+            <v-btn color="primary" @click="newRow" :disabled="!transaction.isActive || !updateAllow">
               <v-icon left>mdi-plus</v-icon>
               Add Item
             </v-btn>
@@ -321,21 +216,12 @@
 
           <v-card-text class="pa-0">
             <!-- Enhanced Data Table -->
-            <v-data-table
-              v-if="transaction.lines && transaction.lines.length > 0"
-              :headers="enhancedHeaders"
-              :items="transaction.lines"
-              :search="search"
-              item-key="id"
-              class="elevation-0 line-items-table"
-              hide-default-footer
-              :items-per-page="-1"
-            >
+            <v-data-table v-if="transaction.lines && transaction.lines.length > 0" :headers="enhancedHeaders"
+              :items="transaction.lines" :search="search" item-key="id" class="elevation-0 line-items-table"
+              hide-default-footer :items-per-page="-1">
               <!-- Custom row template -->
               <template v-slot:item="{ item, index }">
-                <tr 
-                  :class="['line-item-row', { 'error-row': errorLineNumber === index }]"
-                >
+                <tr :class="['line-item-row', { 'error-row': errorLineNumber === index }]">
                   <!-- Line Number -->
                   <td class="text-center">
                     <v-chip small color="grey lighten-2">
@@ -345,18 +231,9 @@
 
                   <!-- Product -->
                   <td class="product-cell">
-                    <v-autocomplete
-                      v-model="item.productId"
-                      :items="productList"
-                      item-text="pro_name"
-                      item-value="id"
-                      label="Select Product"
-                      outlined
-                      dense
-                      hide-details
-                      @input="productChange(item)"
-                      :rules="[rules.required]"
-                    >
+                    <v-autocomplete v-model="item.productId" :items="productList" item-text="pro_name" item-value="id"
+                      label="Select Product" outlined dense hide-details @input="productChange(item)"
+                      :rules="[rules.required]">
                       <template v-slot:selection="{ item: product }">
                         <div class="product-selection">
                           <div class="font-weight-medium">{{ product.pro_name }}</div>
@@ -370,31 +247,14 @@
 
                   <!-- Quantity -->
                   <td class="quantity-cell">
-                    <v-text-field
-                      v-model="item.quantity"
-                      type="number"
-                      label="Qty"
-                      outlined
-                      dense
-                      hide-details
-                      @input="quantityChange(item)"
-                      :rules="[rules.required, rules.positiveNumber]"
-                    />
+                    <v-text-field v-model="item.quantity" type="number" label="Qty" outlined dense hide-details
+                      @input="quantityChange(item)" :rules="[rules.required, rules.positiveNumber]" />
                   </td>
 
                   <!-- Unit -->
                   <td class="unit-cell">
-                    <v-autocomplete
-                      v-model="item.unitId"
-                      :items="unitList"
-                      item-text="name"
-                      item-value="id"
-                      label="Unit"
-                      outlined
-                      dense
-                      hide-details
-                      @input="unitChange(item)"
-                    >
+                    <v-autocomplete v-model="item.unitId" :items="unitList" item-text="name" item-value="id"
+                      label="Unit" outlined dense hide-details @input="unitChange(item)">
                       <template v-slot:selection="{ item: unit }">
                         <v-chip small color="info" outlined>
                           {{ unit.name }}
@@ -405,26 +265,13 @@
 
                   <!-- Unit Rate -->
                   <td class="rate-cell">
-                    <v-text-field
-                      v-model="item.unitRate"
-                      type="number"
-                      label="Rate"
-                      outlined
-                      dense
-                      hide-details
-                      @input="unitRateChange(item)"
-                      :rules="[rules.positiveNumber]"
-                    />
+                    <v-text-field v-model="item.unitRate" type="number" label="Rate" outlined dense hide-details
+                      @input="unitRateChange(item)" :rules="[rules.positiveNumber]" />
                   </td>
 
                   <!-- Unit Price -->
                   <td class="price-cell text-right">
-                    <v-chip
-                      color="warning"
-                      outlined
-                      clickable
-                      @click="pricingLogig(item)"
-                    >
+                    <v-chip color="warning" outlined clickable @click="pricingLogig(item)">
                       <v-icon left small>mdi-currency-usd</v-icon>
                       {{ formatCurrency(item.unitPrice) }}
                     </v-chip>
@@ -432,16 +279,8 @@
 
                   <!-- Discount -->
                   <td class="discount-cell">
-                    <v-text-field
-                      v-model="item.discount"
-                      type="number"
-                      label="Discount"
-                      outlined
-                      dense
-                      hide-details
-                      @input="discountChange(item)"
-                      prefix="$"
-                    />
+                    <v-text-field v-model="item.discount" type="number" label="Discount" outlined dense hide-details
+                      @input="discountChange(item)" prefix="$" />
                   </td>
 
                   <!-- Total -->
@@ -455,12 +294,8 @@
 
                   <!-- Actions -->
                   <td class="action-cell text-center">
-                    <v-btn
-                      icon
-                      color="error"
-                      @click="deleteItem(item)"
-                      :disabled="!transaction.isActive || !updateAllow"
-                    >
+                    <v-btn icon color="error" @click="deleteItem(item)"
+                      :disabled="!transaction.isActive || !updateAllow">
                       <v-icon>mdi-delete</v-icon>
                     </v-btn>
                   </td>
@@ -485,12 +320,7 @@
                 <p class="text-body-1 grey--text mb-6">
                   Start by adding your first product to this purchase order
                 </p>
-                <v-btn
-                  color="primary"
-                  large
-                  @click="newRow"
-                  :disabled="!transaction.isActive || !updateAllow"
-                >
+                <v-btn color="primary" large @click="newRow" :disabled="!transaction.isActive || !updateAllow">
                   <v-icon left>mdi-plus</v-icon>
                   Add First Item
                 </v-btn>
@@ -547,23 +377,12 @@
       <!-- Actions Footer -->
       <v-card-actions class="actions-footer pa-6">
         <v-spacer />
-        <v-btn
-          large
-          text
-          color="grey darken-1"
-          @click="toggleDialog"
-        >
+        <v-btn large text color="grey darken-1" @click="toggleDialog">
           <v-icon left>mdi-close</v-icon>
           Cancel
         </v-btn>
-        
-        <v-btn
-          large
-          color="primary"
-          @click="postTransaction"
-          :disabled="!canSave"
-          :loading="isloading"
-        >
+
+        <v-btn large color="primary" @click="postTransaction" :disabled="!canSave" :loading="isloading">
           <v-icon left>mdi-content-save</v-icon>
           {{ isUpdate ? 'Update' : 'Create' }} Purchase Order
         </v-btn>
@@ -588,10 +407,10 @@ import {
 
 export default {
   name: 'EnhancedPurchasingFormWithPrint',
-  components: { 
+  components: {
     PricingOption
   },
-  
+
   props: {
     headerId: {
       type: Number,
@@ -674,7 +493,7 @@ export default {
     },
 
     formattedDate() {
-      return this.transaction.bookingDate 
+      return this.transaction.bookingDate
         ? new Date(this.transaction.bookingDate).toLocaleDateString()
         : 'Today'
     },
@@ -685,10 +504,10 @@ export default {
     },
 
     canSave() {
-      return this.transaction.isActive && 
-             this.updateAllow && 
-             this.transaction.lines?.length > 0 &&
-             !this.isloading
+      return this.transaction.isActive &&
+        this.updateAllow &&
+        this.transaction.lines?.length > 0 &&
+        !this.isloading
     },
 
     canCancel() {
@@ -696,9 +515,9 @@ export default {
     },
 
     canReceive() {
-      return this.isUpdate && 
-             this.transaction.status && 
-             ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status)
+      return this.isUpdate &&
+        this.transaction.status &&
+        ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status)
     },
 
     subtotal() {
@@ -718,67 +537,67 @@ export default {
 
     enhancedHeaders() {
       return [
-        { 
-          text: '#', 
-          value: 'index', 
-          sortable: false, 
+        {
+          text: '#',
+          value: 'index',
+          sortable: false,
           width: 80,
           align: 'center'
         },
-        { 
-          text: 'Product', 
-          value: 'productId', 
-          sortable: false, 
-          width: 250 
+        {
+          text: 'Product',
+          value: 'productId',
+          sortable: false,
+          width: 250
         },
-        { 
-          text: 'Quantity', 
-          value: 'quantity', 
-          sortable: false, 
+        {
+          text: 'Quantity',
+          value: 'quantity',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center'
         },
-        { 
-          text: 'Unit', 
-          value: 'unitId', 
-          sortable: false, 
+        {
+          text: 'Unit',
+          value: 'unitId',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center'
         },
-        { 
-          text: 'Rate', 
-          value: 'unitRate', 
-          sortable: false, 
+        {
+          text: 'Rate',
+          value: 'unitRate',
+          sortable: false,
           width: 100,
-          align: 'center' 
+          align: 'center'
         },
-        { 
-          text: 'Unit Price', 
-          value: 'unitPrice', 
-          sortable: false, 
+        {
+          text: 'Unit Price',
+          value: 'unitPrice',
+          sortable: false,
           width: 120,
-          align: 'right' 
+          align: 'right'
         },
-        { 
-          text: 'Discount', 
-          value: 'discount', 
-          sortable: false, 
+        {
+          text: 'Discount',
+          value: 'discount',
+          sortable: false,
           width: 120,
-          align: 'center' 
+          align: 'center'
         },
-        { 
-          text: 'Total', 
-          value: 'total', 
-          sortable: false, 
+        {
+          text: 'Total',
+          value: 'total',
+          sortable: false,
           width: 150,
-          align: 'right' 
+          align: 'right'
         },
-        { 
-          text: 'Actions', 
-          value: 'actions', 
-          sortable: false, 
+        {
+          text: 'Actions',
+          value: 'actions',
+          sortable: false,
           width: 100,
-          align: 'center' 
+          align: 'center'
         },
       ]
     },
@@ -810,11 +629,11 @@ export default {
       pricingDialogKey: 1,
       isPrinting: false,
       search: '',
-      
+
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
-      
+
       transaction: {
         isActive: true,
         exchangeRate: 1,
@@ -823,7 +642,7 @@ export default {
         discount: 0,
         status: 'Draft',
       },
-      
+
       productPricingSelected: null,
     }
   },
@@ -864,7 +683,7 @@ export default {
       }
 
       this.isPrinting = true
-      
+
       try {
         const response = await this.$axios.get(`api/purchasing/find/${this.headerId}`)
         const poData = response.data
@@ -881,17 +700,17 @@ export default {
       try {
         const poHTML = this.generatePurchaseOrderHTML(poData)
         const printWindow = window.open('', '_blank', 'width=800,height=600')
-        
+
         if (!printWindow) {
           this.showError('Unable to open print window. Please check popup blocker settings.')
           return
         }
-        
+
         printWindow.document.open()
         printWindow.document.write(poHTML)
         printWindow.document.close()
-        
-        printWindow.onload = function() {
+
+        printWindow.onload = function () {
           setTimeout(() => {
             try {
               printWindow.print()
@@ -913,7 +732,7 @@ export default {
     generatePurchaseOrderHTML(header) {
       const totalDiscount = this.calculateTotalDiscount(header)
       const companyDataV1 = this.$store.getters.findAllCompany?.[0] || {}
-      
+
       const formatDate = (dateString) => {
         if (!dateString) return 'N/A'
         try {
@@ -927,11 +746,11 @@ export default {
           return dateString
         }
       }
-      
+
       const formatNumber = (val) => {
         return new Intl.NumberFormat().format(val || 0)
       }
-      
+
       const linesHTML = header.lines?.map((line, index) => `
         <tr>
           <td style="text-align: center;">${index + 1}</td>
@@ -946,7 +765,7 @@ export default {
           <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
         </tr>
       `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>'
-      
+
       return `
 <!DOCTYPE html>
 <html>
@@ -1084,7 +903,7 @@ export default {
 
     calculateTotalDiscount(header) {
       if (!header || !header.lines) return 0
-      
+
       let totalDiscount = 0
       for (const line of header.lines) {
         totalDiscount += line.discount || 0
@@ -1117,7 +936,7 @@ export default {
 
       if (product.stockUnitId) {
         this.$set(item, 'unitId', product.stockUnitId)
-        
+
         const unit = this.unitList.find(el => el.id === product.stockUnitId)
         if (unit?.unitRate) {
           this.$set(item, 'unitRate', unit.unitRate)
@@ -1157,7 +976,7 @@ export default {
       const unitRate = parseFloat(item.unitRate) || 1
       const unitPrice = parseFloat(item.unitPrice) || 0
       const discount = parseFloat(item.discount) || 0
-      
+
       const total = Math.max(0, (qty * unitRate * unitPrice) - discount)
       this.$set(item, 'total', total)
     },
@@ -1179,11 +998,11 @@ export default {
     async deleteItem(item) {
       try {
         this.isloading = true
-        
+
         if (item.id) {
           await this.$axios.delete(`api/purchasingLine/find/${item.id}`)
         }
-        
+
         const index = this.transaction.lines.indexOf(item)
         if (index > -1) {
           this.transaction.lines.splice(index, 1)
@@ -1223,12 +1042,12 @@ export default {
       const index = this.transaction.lines.findIndex(
         line => line.productId === this.productPricingSelected
       )
-      
+
       if (index < 0) return
-      
+
       const line = this.transaction.lines[index]
       const newPrice = parseFloat(priceInfo.amount) || 0
-      
+
       if (priceInfo.type === 'Price') {
         this.$set(line, 'unitPrice', newPrice)
       } else {
@@ -1236,7 +1055,7 @@ export default {
         const updatedPrice = currentPrice * (1 + newPrice / 100)
         this.$set(line, 'unitPrice', updatedPrice)
       }
-      
+
       this.calculateLineTotal(line)
     },
 
@@ -1256,21 +1075,21 @@ export default {
       }
 
       this.isloading = true
-      
+
       try {
         this.prepareTransactionForSubmit()
-        
-        const url = this.isUpdate 
+
+        const url = this.isUpdate
           ? `api/purchasing/update/${this.headerId}`
           : `api/purchasing/create`
-          
+
         const method = this.isUpdate ? 'put' : 'post'
-        
+
         const response = await this.$axios[method](url, this.transaction)
-        
+
         this.$emit('reload')
         swalSuccess(this.$swal, 'Success', 'Purchase order saved successfully')
-        
+
       } catch (error) {
         this.handleSubmitError(error)
       } finally {
@@ -1286,7 +1105,7 @@ export default {
         line.discount = parseFloat(line.discount) || 0
         line.total = parseFloat(line.total) || 0
       })
-      
+
       this.transaction.userId = this.user.id
       this.transaction.total = this.grandTotal
       this.transaction.discount = this.headerDiscount
@@ -1300,48 +1119,48 @@ export default {
 
     validateHeader() {
       this.headerError = false
-      
+
       const errors = []
-      
+
       if (!this.transaction.currencyId) {
         errors.push('Currency is required')
       }
-      
+
       if (!this.transaction.supplierId) {
         errors.push('Supplier is required')
       }
-      
+
       if (!this.transaction.lines || this.transaction.lines.length === 0) {
         errors.push('At least one line item is required')
       }
-      
+
       if (errors.length > 0) {
         this.headerError = true
         this.showError(errors.join(', '))
         return false
       }
-      
+
       return true
     },
 
     validateLine(item, lineNumber) {
       const errors = []
-      
+
       if (!item.productId) {
         errors.push(`Line ${lineNumber}: Product is required`)
       }
-      
+
       const quantity = parseFloat(item.quantity)
       if (!quantity || quantity <= 0) {
         errors.push(`Line ${lineNumber}: Quantity must be greater than 0`)
       }
-      
+
       if (errors.length > 0) {
         this.errorLineNumber = lineNumber - 1
         this.showError(errors.join(', '))
         return false
       }
-      
+
       return true
     },
 
@@ -1546,7 +1365,7 @@ export default {
   margin: 32px 0;
 }
 
-.gap-2 > * + * {
+.gap-2>*+* {
   margin-left: 8px;
 }
 
@@ -1559,6 +1378,7 @@ export default {
     opacity: 0;
     transform: translateX(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1574,6 +1394,7 @@ export default {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1584,24 +1405,24 @@ export default {
   .purchasing-form-container {
     padding: 12px;
   }
-  
+
   .form-content {
     padding: 16px !important;
   }
-  
+
   .header-section {
     padding: 16px !important;
   }
-  
+
   .header-section .d-flex {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .product-cell {
     min-width: 200px;
   }
-  
+
   .quantity-cell,
   .unit-cell,
   .rate-cell,
@@ -1614,7 +1435,7 @@ export default {
   .line-items-table {
     font-size: 0.875rem;
   }
-  
+
   .total-amount {
     font-size: 0.8rem;
     padding: 6px 8px;

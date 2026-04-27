@@ -444,7 +444,7 @@ export default {
 </template>
 
 <script>
-import DeliveryForm from '~/components/DeliveryForm.vue'
+import DeliveryForm from '~/components/deliveryForm.vue'
 
 export default {
   name: 'DeliveryDialog',

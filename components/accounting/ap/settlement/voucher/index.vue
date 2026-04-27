@@ -1,6 +1,7 @@
 <template>
   <v-dialog
-    v-model="visible"
+    :value="visible"
+    @input="(val) => !val && $emit('close')"
     fullscreen
     persistent
     scrollable
@@ -78,7 +79,7 @@
             <div class="info-row">
               <span class="label">Payment Method:</span>
               <span class="value">{{
-                findPayment(safeVoucherData.paymentMethodId).payment_code
+                findPayment(safeVoucherData.paymentMethodId)?.payment_code || '-'
               }}</span>
             </div>
             <div class="info-row">
@@ -92,7 +93,7 @@
           <!-- Payment Details Table -->
           <table class="voucher-table">
             <thead>
-              <tr style="color: primary">
+              <tr style="color: #1976D2">
                 <th width="5%">#</th>
                 <th width="15%">Invoice No</th>
                 <th width="15%">Agency</th>
@@ -125,7 +126,7 @@
                   <strong>Total Amount:</strong>
                 </td>
                 <td class="text-right">
-                  <strong>{{ formatCurrency(totalAmount) }} {{ findCurrency(safeVoucherData.currencyId).code }}</strong>
+                  <strong>{{ formatCurrency(totalAmount) }} {{ findCurrency(safeVoucherData.currencyId)?.code || '' }}</strong>
                 </td>
               </tr>
             </tfoot>
@@ -133,7 +134,7 @@
 
           <!-- Amount in Words -->
           <div class="amount-words">
-            <strong>Amount in Words:</strong> {{ amountInWords }} {{ findCurrency(safeVoucherData.currencyId).code  }}
+            <strong>Amount in Words:</strong> {{ amountInWords }} {{ findCurrency(safeVoucherData.currencyId)?.code || '' }}
           </div>
 
           <!-- Description -->
@@ -277,11 +278,11 @@ export default {
 
     // Company information
     companyName() {
-      return this.companyDataV1.name
+      return this.companyDataV1?.name || ''
     },
 
     companyAddress() {
-      return this.companyDataV1.address
+      return this.companyDataV1?.address || ''
     },
 
     companyContact() {
@@ -388,11 +389,16 @@ export default {
     printVoucher() {
       const printContent = document.getElementById('voucher-print-area')
       if (!printContent) {
-        this.$toast.error('Print content not found')
+        this.$toast?.error('Print content not found')
         return
       }
 
       const printWindow = window.open('', '_blank')
+      if (!printWindow) {
+        this.$toast?.error('ກະລຸນາປົດບລັອກ Popup / Please allow popups for this site.')
+        return
+      }
+      
       printWindow.document.write(`
         <html>
         <head>
@@ -416,7 +422,7 @@ export default {
             }
             .voucher-header {
               margin-bottom: 20px;
-              border-bottom: 3px solid primary;
+              border-bottom: 3px solid #1976D2;
               padding-bottom: 15px;
             }
             .header-flex {
@@ -446,7 +452,7 @@ export default {
               margin: 0 0 5px 0; 
               font-size: 22px; 
               font-weight: bold;
-              color: primary;
+              color: #1976D2;
             }
             .company-address, .company-contact { 
               margin: 3px 0; 
@@ -505,7 +511,7 @@ export default {
               margin: 15px 0; 
               padding: 10px; 
               background-color: #f9f9f9; 
-              border-left: 3px solid primary; 
+              border-left: 3px solid #1976D2; 
             }
             .voucher-description { 
               margin: 15px 0; 
@@ -564,7 +570,7 @@ export default {
 
 .voucher-header {
   margin-bottom: 30px;
-  border-bottom: 3px solid primary;
+  border-bottom: 3px solid #1976D2;
   padding-bottom: 15px;
 }
 
@@ -612,7 +618,7 @@ export default {
   margin: 0 0 8px 0;
   font-size: 24px;
   font-weight: bold;
-  color: primary;
+  color: #1976D2;
 }
 
 .company-address,
@@ -673,8 +679,8 @@ export default {
 }
 
 .voucher-table th {
-  background-color: primary;
-  /* color: white; */
+  background-color: #1976D2;
+  color: white;
   font-weight: 600;
   text-align: left;
 }
@@ -701,7 +707,7 @@ export default {
   margin: 20px 0;
   padding: 15px;
   background-color: #f0f4ff;
-  border-left: 4px solid primary;
+  border-left: 4px solid #1976D2;
   font-size: 14px;
 }
 

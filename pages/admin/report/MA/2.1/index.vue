@@ -13,25 +13,14 @@
               {{ formatPeriod() }}
             </p>
           </div>
-          
+
           <div class="d-flex gap-3">
-            <v-btn
-              color="white"
-              outlined
-              @click="exportToExcel"
-              :disabled="loading"
-              large
-            >
+            <v-btn color="white" outlined @click="exportToExcel" :disabled="loading" large>
               <v-icon left>mdi-file-excel</v-icon>
               ສົ່ງອອກ Excel
             </v-btn>
-            
-            <v-btn
-              color="white"
-              outlined
-              @click="printReport"
-              large
-            >
+
+            <v-btn color="white" outlined @click="printReport" large>
               <v-icon left>mdi-printer</v-icon>
               ພິມ
             </v-btn>
@@ -46,84 +35,46 @@
         <v-icon left color="white">mdi-filter</v-icon>
         ຕົວກອງ
       </v-card-title>
-      
+
       <v-card-text class="pa-6">
         <v-row>
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.month"
-              :items="months"
-              item-text="text"
-              item-value="value"
-              label="ເດືອນ"
-              outlined
-              dense
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.month" :items="months" item-text="text" item-value="value" label="ເດືອນ" outlined
+              dense @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-calendar-month</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.year"
-              :items="years"
-              label="ປີ"
-              outlined
-              dense
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.year" :items="years" label="ປີ" outlined dense @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-calendar</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="3">
-            <v-select
-              v-model="filters.bankAccountId"
-              :items="bankAccountOptions"
-              item-text="text"
-              item-value="value"
-              label="ບັນຊີທະນາຄານ"
-              outlined
-              dense
-              clearable
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.bankAccountId" :items="bankAccountOptions" item-text="text" item-value="value"
+              label="ບັນຊີທະນາຄານ" outlined dense clearable @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-bank-outline</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="2">
-            <v-select
-              v-model="filters.currencyId"
-              :items="currencyOptions"
-              item-text="text"
-              item-value="value"
-              label="ສະກຸນເງິນ"
-              outlined
-              dense
-              clearable
-              @change="applyFilters"
-            >
+            <v-select v-model="filters.currencyId" :items="currencyOptions" item-text="text" item-value="value"
+              label="ສະກຸນເງິນ" outlined dense clearable @change="applyFilters">
               <template v-slot:prepend-inner>
                 <v-icon color="primary">mdi-currency-usd</v-icon>
               </template>
             </v-select>
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="1" class="d-flex align-center">
-            <v-btn
-              color="primary"
-              @click="resetFilters"
-              icon
-              large
-            >
+            <v-btn color="primary" @click="resetFilters" icon large>
               <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </v-col>
@@ -138,17 +89,10 @@
           <v-icon left color="white">mdi-chart-pie</v-icon>
           ສະຫຼຸບຕາມສະກຸນເງິນ
         </v-card-title>
-        
+
         <v-card-text class="pa-6">
           <v-row>
-            <v-col
-              v-for="curr in currencySummaries"
-              :key="curr.currencyCode"
-              cols="12"
-              sm="6"
-              md="4"
-              lg="3"
-            >
+            <v-col v-for="curr in currencySummaries" :key="curr.currencyCode" cols="12" sm="6" md="4" lg="3">
               <v-card class="summary-card" elevation="4" outlined>
                 <v-card-title class="pb-2">
                   <div class="d-flex justify-space-between align-center w-100">
@@ -160,7 +104,7 @@
                     </span>
                   </div>
                 </v-card-title>
-                
+
                 <v-card-text>
                   <div class="summary-details">
                     <div class="detail-row">
@@ -192,44 +136,21 @@
             <v-icon left color="white">mdi-table</v-icon>
             ລາຍງານລະອຽດຕາມບັນຊີທະນາຄານ
           </div>
-          
-          <v-text-field
-            v-model="search"
-            label="ຄົ້ນຫາບັນຊີທະນາຄານ..."
-            prepend-inner-icon="mdi-magnify"
-            hide-details
-            single-line
-            outlined
-            dense
-            dark
-            class="search-field"
-            style="max-width: 300px;"
-          />
+
+          <v-text-field v-model="search" label="ຄົ້ນຫາບັນຊີທະນາຄານ..." prepend-inner-icon="mdi-magnify" hide-details
+            single-line outlined dense dark class="search-field" style="max-width: 300px;" />
         </div>
       </v-card-title>
 
       <!-- Loading State -->
       <div v-if="loading" class="text-center pa-12">
-        <v-progress-circular
-          :size="70"
-          :width="7"
-          color="primary"
-          indeterminate
-          class="mb-4"
-        />
+        <v-progress-circular :size="70" :width="7" color="primary" indeterminate class="mb-4" />
         <h3 class="text-h6 primary--text">ກຳລັງໂຫຼດຂໍ້ມູນ...</h3>
       </div>
 
       <!-- Data Table -->
-      <v-data-table
-        v-else
-        :headers="tableHeaders"
-        :items="filteredData"
-        :search="search"
-        class="elevation-0"
-        hide-default-footer
-        :items-per-page="-1"
-      >
+      <v-data-table v-else :headers="tableHeaders" :items="filteredData" :search="search" class="elevation-0"
+        hide-default-footer :items-per-page="-1">
         <!-- Bank Account Column -->
         <template v-slot:item.bankAccount="{ item }">
           <div class="account-cell">
@@ -280,11 +201,7 @@
         <!-- Ending Balance Column -->
         <template v-slot:item.endingBalance="{ item }">
           <div class="amount-cell ending" :class="getBalanceClass(item.endingBalance)">
-            <v-chip
-              :color="getBalanceColor(item.endingBalance)"
-              :outlined="item.endingBalance === 0"
-              small
-            >
+            <v-chip :color="getBalanceColor(item.endingBalance)" :outlined="item.endingBalance === 0" small>
               {{ formatAmount(item.endingBalance) }}
             </v-chip>
           </div>
@@ -293,20 +210,10 @@
         <!-- Actions Column -->
         <template v-slot:item.actions="{ item }">
           <div class="d-flex gap-1">
-            <v-btn
-              color="primary"
-              icon
-              small
-              @click="viewDetails(item)"
-            >
+            <v-btn color="primary" icon small @click="viewDetails(item)">
               <v-icon small>mdi-eye</v-icon>
             </v-btn>
-            <v-btn
-              color="info"
-              icon
-              small
-              @click="viewTransactions(item)"
-            >
+            <v-btn color="info" icon small @click="viewTransactions(item)">
               <v-icon small>mdi-format-list-bulleted</v-icon>
             </v-btn>
           </div>
@@ -315,7 +222,7 @@
         <!-- Footer Totals -->
         <template v-slot:body.append v-if="filteredData.length">
           <tr class="total-row">
-            <td colspan="3" class="font-weight-bold text-h6 primary--text">
+            <td colspan="3" class="font-weight-bold primary--text">
               ລວມທັງໝົດ
             </td>
             <td class="amount-cell font-weight-bold">{{ formatAmount(totals.balanceForward) }}</td>
@@ -411,7 +318,7 @@
                   <v-divider class="my-3" />
                   <div class="detail-item ending">
                     <span class="font-weight-bold text-h6">ຍອດສຸດທ້າຍ:</span>
-                    <span class="amount text-h6 font-weight-bold" :class="getBalanceClass(selectedItem.endingBalance)">
+                    <span class="amount font-weight-bold" :class="getBalanceClass(selectedItem.endingBalance)">
                       {{ formatAmount(selectedItem.endingBalance) }}
                     </span>
                   </div>
@@ -421,9 +328,9 @@
                 <v-card flat color="grey lighten-4" class="pa-4">
                   <h4 class="text-h6 primary--text mb-3">ການຄິດໄລ່</h4>
                   <div class="calculation-formula text-body-1 font-weight-medium">
-                    {{ formatAmount(selectedItem.balanceForward) }} + 
-                    {{ formatAmount(selectedItem.newAdvances) }} - 
-                    {{ formatAmount(selectedItem.newSettlements) }} = 
+                    {{ formatAmount(selectedItem.balanceForward) }} +
+                    {{ formatAmount(selectedItem.newAdvances) }} -
+                    {{ formatAmount(selectedItem.newSettlements) }} =
                     <strong class="primary--text">{{ formatAmount(selectedItem.endingBalance) }}</strong>
                   </div>
                 </v-card>
@@ -434,11 +341,7 @@
 
         <v-card-actions class="pa-4">
           <v-spacer />
-          <v-btn
-            color="info"
-            @click="viewTransactions(selectedItem)"
-            v-if="selectedItem"
-          >
+          <v-btn color="info" @click="viewTransactions(selectedItem)" v-if="selectedItem">
             <v-icon left>mdi-format-list-bulleted</v-icon>
             ເບິ່ງລາຍການ
           </v-btn>
@@ -447,13 +350,7 @@
     </v-dialog>
 
     <!-- Success/Error Snackbar -->
-    <v-snackbar
-      v-model="snackbar.show"
-      :color="snackbar.color"
-      :timeout="3000"
-      top
-      right
-    >
+    <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="3000" top right>
       {{ snackbar.message }}
       <template v-slot:action="{ attrs }">
         <v-btn text v-bind="attrs" @click="snackbar.show = false">
@@ -467,7 +364,7 @@
 <script>
 export default {
   name: 'BankAccountBalanceReportLao',
-  
+
   data() {
     return {
       loading: false,
@@ -479,14 +376,14 @@ export default {
         message: '',
         color: 'success'
       },
-      
+
       filters: {
         month: new Date().getMonth() + 1,
         year: new Date().getFullYear(),
         bankAccountId: '',
         currencyId: ''
       },
-      
+
       months: [
         { text: 'ມັງກອນ', value: 1 },
         { text: 'ກຸມພາ', value: 2 },
@@ -501,7 +398,7 @@ export default {
         { text: 'ພະຈິກ', value: 11 },
         { text: 'ທັນວາ', value: 12 }
       ],
-      
+
       years: [],
       bankAccounts: [],
       currencies: [],
@@ -509,7 +406,7 @@ export default {
       currencySummaries: []
     }
   },
-  
+
   computed: {
     tableHeaders() {
       return [
@@ -593,23 +490,23 @@ export default {
     reportDataWithBalance() {
       return this.reportData.map(item => ({
         ...item,
-        endingBalance: parseFloat(item.balanceForward || 0) + 
-                      parseFloat(item.newAdvances || 0) - 
-                      parseFloat(item.newSettlements || 0)
+        endingBalance: parseFloat(item.balanceForward || 0) +
+          parseFloat(item.newAdvances || 0) -
+          parseFloat(item.newSettlements || 0)
       }))
     },
 
     filteredData() {
       if (!this.search) return this.reportDataWithBalance
-      
-      return this.reportDataWithBalance.filter(item => 
+
+      return this.reportDataWithBalance.filter(item =>
         item.accountName?.toLowerCase().includes(this.search.toLowerCase()) ||
         item.accountNumber?.toLowerCase().includes(this.search.toLowerCase()) ||
         item.bankName?.toLowerCase().includes(this.search.toLowerCase()) ||
         item.currencyCode?.toLowerCase().includes(this.search.toLowerCase())
       )
     },
-    
+
     totals() {
       return this.filteredData.reduce((acc, item) => {
         acc.balanceForward += parseFloat(item.balanceForward || 0)
@@ -625,13 +522,13 @@ export default {
       })
     }
   },
-  
+
   async created() {
     this.initializeYears()
     await this.loadInitialData()
     await this.applyFilters()
   },
-  
+
   methods: {
     initializeYears() {
       const currentYear = new Date().getFullYear()
@@ -639,7 +536,7 @@ export default {
         this.years.push(i)
       }
     },
-    
+
     async loadInitialData() {
       try {
         this.loading = true
@@ -647,7 +544,7 @@ export default {
           this.$axios.get('/api/bank_account/find'),
           this.$axios.get('/api/currency/findAll')
         ])
-        
+
         this.bankAccounts = bankAccountsRes.data.data || bankAccountsRes.data
         this.currencies = currenciesRes.data.data || currenciesRes.data
       } catch (error) {
@@ -657,24 +554,24 @@ export default {
         this.loading = false
       }
     },
-    
+
     async applyFilters() {
       this.loading = true
       try {
         const monthStart = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-01`
         const lastDay = new Date(this.filters.year, this.filters.month, 0).getDate()
         const monthEnd = `${this.filters.year}-${String(this.filters.month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`
-        
+
         const params = new URLSearchParams({
           monthStart,
           monthEnd
         })
-        
+
         if (this.filters.bankAccountId) params.append('bankAccountId', this.filters.bankAccountId)
         if (this.filters.currencyId) params.append('currencyId', this.filters.currencyId)
-        
+
         const response = await this.$axios.get(`/api/money-advances/report/bank-account-balance-report?${params}`)
-        
+
         if (response.data.success) {
           this.reportData = response.data.data || []
           this.calculateCurrencySummaries()
@@ -686,10 +583,10 @@ export default {
         this.loading = false
       }
     },
-    
+
     calculateCurrencySummaries() {
       const summaryMap = new Map()
-      
+
       this.reportDataWithBalance.forEach(item => {
         const key = item.currencyCode
         if (!summaryMap.has(key)) {
@@ -702,17 +599,17 @@ export default {
             endingBalance: 0
           })
         }
-        
+
         const summary = summaryMap.get(key)
         summary.balanceForward += parseFloat(item.balanceForward || 0)
         summary.newAdvances += parseFloat(item.newAdvances || 0)
         summary.newSettlements += parseFloat(item.newSettlements || 0)
         summary.endingBalance += parseFloat(item.endingBalance || 0)
       })
-      
+
       this.currencySummaries = Array.from(summaryMap.values())
     },
-    
+
     resetFilters() {
       this.filters = {
         month: new Date().getMonth() + 1,
@@ -722,7 +619,7 @@ export default {
       }
       this.applyFilters()
     },
-    
+
     formatAmount(amount) {
       if (!amount && amount !== 0) return '0.00'
       return new Intl.NumberFormat('en-US', {
@@ -730,12 +627,12 @@ export default {
         maximumFractionDigits: 2
       }).format(amount)
     },
-    
+
     formatPeriod() {
       const monthName = this.months.find(m => m.value === this.filters.month)?.text
       return `${monthName} ${this.filters.year}`
     },
-    
+
     getBalanceClass(balance) {
       const amount = parseFloat(balance || 0)
       if (amount > 0) return 'positive'
@@ -749,24 +646,24 @@ export default {
       if (amount < 0) return 'error'
       return 'grey'
     },
-    
+
     viewDetails(item) {
       this.selectedItem = item
       this.detailsDialog = true
     },
-    
+
     viewTransactions(item) {
       // Implement transaction view
       console.log('View transactions for bank account:', item)
       this.showSnackbar('ຟຸງຊັ້ນນີ້ຍັງບໍ່ທັນມີ', 'info')
     },
-    
+
     exportToExcel() {
       if (!this.reportDataWithBalance.length) {
         this.showSnackbar('ບໍ່ມີຂໍ້ມູນໃຫ້ສົ່ງອອກ', 'warning')
         return
       }
-      
+
       const exportData = this.reportDataWithBalance.map((item, index) => ({
         'ລຳດັບ': index + 1,
         'ຊື່ບັນຊີ': item.accountName,
@@ -780,7 +677,7 @@ export default {
         'ການຊຳລະ': item.newSettlements,
         'ຍອດສຸດທ້າຍ': item.endingBalance
       }))
-      
+
       const headers = Object.keys(exportData[0])
       const csvContent = [
         headers.join(','),
@@ -788,7 +685,7 @@ export default {
           headers.map(header => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
         )
       ].join('\n')
-      
+
       const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' })
       const link = document.createElement('a')
       const url = URL.createObjectURL(blob)
@@ -799,10 +696,10 @@ export default {
       link.click()
       document.body.removeChild(link)
       URL.revokeObjectURL(url)
-      
+
       this.showSnackbar('ສົ່ງອອກສຳເລັດແລ້ວ', 'success')
     },
-    
+
     printReport() {
       window.print()
     },
@@ -840,7 +737,7 @@ export default {
 
 .summary-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
 }
 
 .summary-details {
@@ -852,7 +749,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .detail-row:last-child {
@@ -915,7 +812,7 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 12px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .detail-grid .detail-item:last-child {
@@ -932,11 +829,11 @@ export default {
   border-left: 4px solid var(--v-primary-base);
 }
 
-.gap-3 > * + * {
+.gap-3>*+* {
   margin-left: 12px;
 }
 
-.gap-1 > * + * {
+.gap-1>*+* {
   margin-left: 4px;
 }
 
@@ -950,6 +847,7 @@ export default {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -962,11 +860,11 @@ export default {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .search-field {
     max-width: 100%;
   }
-  
+
   .account-cell,
   .bank-cell {
     max-width: 200px;
@@ -977,7 +875,7 @@ export default {
   .bank-balance-report {
     background: white !important;
   }
-  
+
   .header-card,
   .filters-card {
     box-shadow: none !important;

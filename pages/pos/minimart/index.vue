@@ -45,7 +45,7 @@
         <v-col cols="12">
           <div class="text-center pa-8">
             <v-icon size="64" color="grey lighten-2">mdi-package-variant</v-icon>
-            <div class="mt-2 text-h6 grey--text">ບໍ່ພົບຂໍ້ມູນ</div>
+            <div class="mt-2 grey--text">ບໍ່ພົບຂໍ້ມູນ</div>
             <div class="mt-2 text-body-2 grey--text">
               <span v-if="isSearchActive">ລອງຄົ້ນຫາດ້ວຍຄຳອື່ນ</span>
               <span v-else-if="isCategoryFiltered">ບໍ່ມີສິນຄ້າໃນປະເພດນີ້</span>

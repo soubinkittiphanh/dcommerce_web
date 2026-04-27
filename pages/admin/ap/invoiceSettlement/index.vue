@@ -1,74 +1,138 @@
 <template>
   <div>
     <!-- Header Section -->
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="primary">
-            <v-icon color="white" class="mr-2">mdi-cash-multiple</v-icon>
-            <span class="font-weight-bold">ການຊຳລະໜີ້ (AP Settlement)</span>
-            <v-spacer />
-            <!-- Refresh Button -->
-            <v-btn color="white" text @click="refreshData" :loading="loading" class="mr-2">
-              <v-icon left>mdi-refresh</v-icon>
-              ໂຫຼດໃໝ່
-            </v-btn>
-            <!-- Export Excel Button -->
-            <v-btn color="success" @click="exportToExcel" :loading="exporting" class="mr-2">
-              <v-icon left>mdi-file-excel</v-icon>
-              ສົ່ງອອກ Excel
-            </v-btn>
-            <v-btn color="white" text @click="openDialog()">
-              <v-icon left>mdi-plus</v-icon>
-              ເພີ່ມໃໝ່
-            </v-btn>
-          </v-card-title>
+    <div class="primary analysis-header mb-6">
+      <div class="d-flex align-center">
+        <v-icon large color="white" class="mr-4">mdi-cash-multiple</v-icon>
+        <div>
+          <h1 class="font-weight-bold mb-0 white--text">ການຊຳລະໜີ້ (AP Settlement)</h1>
+          <p class="white--text opacity-80 mb-0">AP Settlement & Payment Tracking</p>
+        </div>
+        <v-spacer />
+        <v-btn color="white" text @click="refreshData" :loading="loading" class="mr-2">
+          <v-icon left>mdi-refresh</v-icon>ໂຫຼດໃໝ່
+        </v-btn>
+        <v-btn color="success" outlined dark @click="exportToExcel" :loading="exporting" class="mr-2 white"
+          elevation="0">
+          <v-icon left>mdi-file-excel</v-icon>ສົ່ງອອກ Excel
+        </v-btn>
+        <v-btn color="white" light large depressed @click="openDialog()" class="rounded-lg">
+          <v-icon left color="primary">mdi-plus</v-icon>
+          <span class="primary--text font-weight-bold">ເພີ່ມໃໝ່</span>
+        </v-btn>
+      </div>
+    </div>
 
-          <!-- Filters -->
-          <v-card-text class="pa-3">
-            <v-row dense>
-              <v-col cols="12" md="2">
-                <v-select v-model="statusFilter" :items="statusOptions" label="ສະຖານະ" outlined dense hide-details
-                  clearable prepend-inner-icon="mdi-flag" @change="onFilterChange" />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field v-model="filters.startDate" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense hide-details
-                  prepend-inner-icon="mdi-calendar-start" @change="fetchData" />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field v-model="filters.endDate" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
-                  prepend-inner-icon="mdi-calendar-end" @change="fetchData" />
-              </v-col>
-              <v-col cols="12" md="3">
-                <v-text-field v-model="searchTerm" label="ຄົ້ນຫາອ້າງອີງ" outlined dense hide-details clearable
-                  prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-btn color="info" outlined block @click="getOutstandingInvoices()">
-                  <v-icon left small>mdi-file-invoice</v-icon>
-                  ໃບແຈ້ງໜີ້ຄ້າງ
-                </v-btn>
-              </v-col>
-              <v-col cols="12" md="1">
-                <v-btn color="secondary" outlined block @click="resetFilters">
-                  <v-icon>mdi-refresh</v-icon>
-                </v-btn>
-              </v-col>
-            </v-row>
+    <!-- Summary Cards -->
+    <v-row class="mb-6" dense>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="primary lighten-5" rounded size="48">
+                <v-icon color="primary">mdi-cash-multiple</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">Total Settlement Amount</div>
+                <div class="font-weight-bold uppercase">{{ formatCurrency(summaryTotals.totalAmount) }}</div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="success lighten-5" rounded size="48">
+                <v-icon color="success">mdi-check-circle-outline</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">Completed Settlements</div>
+                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalCompleted) }}
+                </div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="warning lighten-5" rounded size="48">
+                <v-icon color="warning">mdi-clock-outline</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">Pending Approval</div>
+                <div class="font-weight-bold warning--text uppercase">{{ formatCurrency(summaryTotals.totalPending) }}
+                </div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="error lighten-5" rounded size="48">
+                <v-icon color="error">mdi-close-circle-outline</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">Cancelled</div>
+                <div class="font-weight-bold error--text">{{ summaryTotals.cancelledCount }} records</div>
+              </div>
+            </div>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
+    <!-- Filters -->
+    <v-card class="filter-card mb-6" elevation="1">
+      <v-card-text class="pa-4">
+        <v-row dense align="center">
+          <v-col cols="12" md="2">
+            <v-select v-model="statusFilter" :items="statusOptions" label="ສະຖານະ" outlined dense hide-details clearable
+              prepend-inner-icon="mdi-flag" @change="onFilterChange" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.startDate" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense hide-details
+              prepend-inner-icon="mdi-calendar-start" @change="fetchData" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.endDate" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
+              prepend-inner-icon="mdi-calendar-end" @change="fetchData" />
+          </v-col>
+          <v-col cols="12" md="3">
+            <v-text-field v-model="searchTerm" label="ຄົ້ນຫາອ້າງອີງ" outlined dense hide-details clearable
+              prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-btn color="info" outlined block @click="getOutstandingInvoices()">
+              <v-icon left small>mdi-file-invoice</v-icon>
+              ໃບແຈ້ງໜີ້ຄ້າງ
+            </v-btn>
+          </v-col>
+          <v-col cols="12" md="1">
+            <v-btn color="secondary" outlined block @click="resetFilters">
+              <v-icon>mdi-refresh</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+
     <!-- Data Table -->
     <v-row class="mt-3">
       <v-col cols="12">
-        <v-card>
-          <v-card-title class="py-2">
-            <v-icon class="mr-2">mdi-table</v-icon>
-            <span>ລາຍການການຊຳລະ</span>
+        <v-card outlined class="filter-card">
+          <v-card-title class="py-3 px-4">
+            <v-icon class="mr-2" color="primary">mdi-table</v-icon>
+            <span class="font-weight-bold">ລາຍການການຊຳລະ</span>
             <v-spacer />
-            <v-chip color="primary" outlined>
+            <v-chip color="primary" small outlined class="font-weight-bold">
               {{ pagination.totalItems }} ລາຍການ
             </v-chip>
           </v-card-title>
@@ -76,7 +140,8 @@
           <v-data-table :headers="headers" :items="settlements" :loading="loading" :options.sync="tableOptions"
             :server-items-length="pagination.totalItems" :footer-props="{
               'items-per-page-options': [10, 25, 50, 100],
-            }" class="elevation-0" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ມີຂໍ້ມູນ">
+            }" outlined class="elevation-0 modernize-table" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
+            no-data-text="ບໍ່ມີຂໍ້ມູນ">
             <!-- ID -->
             <template v-slot:item.id="{ item }">
               <span class="font-weight-bold">#{{ item.id }}</span>
@@ -86,7 +151,7 @@
             <template v-slot:item.settlementDate="{ item }">
               <span class="">{{
                 formatDate(item.settlementDate)
-                }}</span>
+              }}</span>
             </template>
 
             <!-- Payment Amount -->
@@ -109,7 +174,7 @@
 
             <!-- Status -->
             <template v-slot:item.status="{ item }">
-              <v-chip x-small :color="getStatusColor(item.status)" text-color="white">
+              <v-chip small outlined :color="getStatusColor(item.status)" class="font-weight-medium">
                 {{ getStatusInLao(item.status) }}
               </v-chip>
             </template>
@@ -227,7 +292,7 @@
               <template v-slot:item.vendor="{ item }">
                 <span class="">{{
                   item.vendor?.name || 'N/A'
-                  }}</span>
+                }}</span>
               </template>
 
               <template v-slot:item.dueDate="{ item }">
@@ -487,6 +552,28 @@ export default {
     user() {
       return this.$auth.user || ''
     },
+    summaryTotals() {
+      const summary = {
+        totalAmount: 0,
+        totalCompleted: 0,
+        totalPending: 0,
+        cancelledCount: 0
+      }
+
+      this.settlements.forEach(s => {
+        const amount = parseFloat(s.paymentAmount || 0)
+        summary.totalAmount += amount
+        if (s.status === 'completed' || s.status === 'approved') {
+          summary.totalCompleted += amount
+        } else if (s.status === 'pending') {
+          summary.totalPending += amount
+        } else if (s.status === 'cancelled') {
+          summary.cancelledCount++
+        }
+      })
+
+      return summary
+    }
   },
 
   watch: {
@@ -1034,8 +1121,72 @@ export default {
 </script>
 
 <style scoped>
+.analysis-header {
+  background: var(--v-primary-base);
+  color: white;
+  border-radius: 16px;
+  padding: 32px 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
 .ap-settlement-container {
   padding: 20px;
+}
+
+.filter-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-card {
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.05);
+}
+
+.modernize-table ::v-deep th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.modernize-table ::v-deep td {
+  font-size: 0.875rem !important;
+  padding: 12px 16px !important;
+}
+
+.font-monospace {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+}
+
+.v-chip.font-weight-medium {
+  font-size: 0.7rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.border-left {
+  border-left: 1px solid #e2e8f0;
+}
+
+.bg-light {
+  background-color: #f8fafc !important;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 /* Export button styling */

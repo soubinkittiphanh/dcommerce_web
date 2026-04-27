@@ -167,7 +167,7 @@
 
             <div v-else-if="!balanceForwardData.byMinistry.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No balance forward data
               </div>
             </div>
@@ -249,12 +249,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingPaymentMinistry" class="text-center py-6">
               <v-progress-circular indeterminate color="primary" />
-              <div class="mt-2 text-caption">Loading payment by ministry...</div>
+              <div class="mt-2 ">Loading payment by ministry...</div>
             </div>
 
             <div v-else-if="!paymentMinistryReport.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No payment data available</div>
+              <div class="mt-2  grey--text">No payment data available</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -281,7 +281,7 @@ item, index
                     <td v-for="currency in paymentCurrencyList" :key="'pay-min-amt-' + currency"
                       class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>
@@ -332,12 +332,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingPaymentBank" class="text-center py-6">
               <v-progress-circular indeterminate color="primary" />
-              <div class="mt-2 text-caption">Loading payment by bank account...</div>
+              <div class="mt-2 ">Loading payment by bank account...</div>
             </div>
 
             <div v-else-if="!paymentBankReport.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No payment bank data available</div>
+              <div class="mt-2  grey--text">No payment bank data available</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -366,7 +366,7 @@ item, index
                     <td v-for="currency in paymentCurrencyList" :key="'pay-bank-amt-' + currency"
                       class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>
@@ -425,12 +425,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingSettlementMinistry" class="text-center py-6">
               <v-progress-circular indeterminate color="success" />
-              <div class="mt-2 text-caption">Loading settlement by ministry...</div>
+              <div class="mt-2 ">Loading settlement by ministry...</div>
             </div>
 
             <div v-else-if="!settlementMinistryReport.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No settlement data available</div>
+              <div class="mt-2  grey--text">No settlement data available</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -457,7 +457,7 @@ item, index
                     <td v-for="currency in settlementCurrencyList" :key="'set-min-amt-' + currency"
                       class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>
@@ -508,12 +508,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingSettlementBank" class="text-center py-6">
               <v-progress-circular indeterminate color="success" />
-              <div class="mt-2 text-caption">Loading settlement by bank account...</div>
+              <div class="mt-2 ">Loading settlement by bank account...</div>
             </div>
 
             <div v-else-if="!settlementBankReport.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No settlement bank data available</div>
+              <div class="mt-2  grey--text">No settlement bank data available</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -542,7 +542,7 @@ item, index
                     <td v-for="currency in settlementCurrencyList" :key="'set-bank-amt-' + currency"
                       class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>
@@ -593,12 +593,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingSettlementChart" class="text-center py-6">
               <v-progress-circular indeterminate color="success" />
-              <div class="mt-2 text-caption">Loading settlement by chart account...</div>
+              <div class="mt-2 ">Loading settlement by chart account...</div>
             </div>
 
             <div v-else-if="!settlementChartReport.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No chart account data available</div>
+              <div class="mt-2  grey--text">No chart account data available</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -625,7 +625,7 @@ item, index
                     <td v-for="currency in settlementCurrencyList" :key="'set-chart-amt-' + currency"
                       class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>
@@ -766,7 +766,7 @@ item, index
 
             <div v-else-if="!outstandingBalanceData.byMinistry.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No outstanding balance data
               </div>
             </div>
@@ -869,12 +869,12 @@ item, index
           <v-card-text class="pa-0">
             <div v-if="loadingOutstandingBalance" class="text-center py-6">
               <v-progress-circular indeterminate color="error" />
-              <div class="mt-2 text-caption">Loading outstanding balance...</div>
+              <div class="mt-2 ">Loading outstanding balance...</div>
             </div>
 
             <div v-else-if="!outstandingBalanceData.byBankAccount.length" class="text-center py-6">
               <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
-              <div class="mt-2 text-subtitle-2 grey--text">No outstanding balance data</div>
+              <div class="mt-2  grey--text">No outstanding balance data</div>
             </div>
 
             <v-simple-table v-else class="report-table" dense>
@@ -903,7 +903,7 @@ item, index
                     <td v-for="currency in Object.keys(outstandingBalanceData.totals.currencyTotals)"
                       :key="'out-bank-amt-' + currency" class="text-right font-monospace">
                       <div class="font-weight-medium">{{ formatAmount(item.amounts?.[currency] || 0) }}</div>
-                      <div class="text-caption grey--text" v-if="currency !== 'LAK'">
+                      <div class=" grey--text" v-if="currency !== 'LAK'">
                         ≈ {{ formatAmount(convertToLocal(item.amounts?.[currency] || 0, currency)) }}
                       </div>
                     </td>

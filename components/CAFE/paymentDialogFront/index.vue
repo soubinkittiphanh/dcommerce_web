@@ -432,10 +432,10 @@ export default {
       console.log('Payment dialog opened - updating customer screen')
 
       // Immediately show QR on customer screen
-      this.showQROnCustomerScreen()
+      // this.showQROnCustomerScreen()
 
       // Optional: Set up auto-refresh interval
-      this.startAutoRefresh()
+      // this.startAutoRefresh()
 
       // Emit event for parent component if needed
       this.$emit('dialog-opened')

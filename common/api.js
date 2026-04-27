@@ -6,7 +6,7 @@
  * @returns {string} The base URL for the application
  */
 export const hostName = () => {
-  const defaultURL = 'http://150.95.31.23:8026' // fallback dev demo
+  const defaultURL = 'http://localhost:8888' // Local dev API
   const envURL = process.env.BASE_URL
 
   // Note: process.env.BASE_URL works on server-side (SSR)

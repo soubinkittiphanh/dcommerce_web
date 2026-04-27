@@ -10,11 +10,7 @@
         <p class="page-subtitle">Bank Account Settlement Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn
-          class="custom-btn export-btn"
-          @click="exportToExcel"
-          :loading="exporting"
-        >
+        <v-btn class="custom-btn export-btn" @click="exportToExcel" :loading="exporting">
           <i class="fas fa-file-excel"></i>
           Export Excel
         </v-btn>
@@ -36,41 +32,20 @@
         <v-row>
           <!-- Start Date -->
           <v-col cols="12" md="3">
-            <v-text-field
-              v-model="filters.startDate"
-              type="date"
-              label="ວັນທີເລີ່ມຕົ້ນ (From Date)"
-              outlined
-              dense
-              @change="loadDashboardData"
-            ></v-text-field>
+            <v-text-field v-model="filters.startDate" type="date" label="ວັນທີເລີ່ມຕົ້ນ (From Date)" outlined dense
+              @change="loadDashboardData"></v-text-field>
           </v-col>
 
           <!-- End Date -->
           <v-col cols="12" md="3">
-            <v-text-field
-              v-model="filters.endDate"
-              type="date"
-              label="ວັນທີສິ້ນສຸດ (To Date)"
-              outlined
-              dense
-              @change="loadDashboardData"
-            ></v-text-field>
+            <v-text-field v-model="filters.endDate" type="date" label="ວັນທີສິ້ນສຸດ (To Date)" outlined dense
+              @change="loadDashboardData"></v-text-field>
           </v-col>
 
           <!-- Bank Account -->
           <v-col cols="12" md="4">
-            <v-select
-              v-model="filters.bankAccountId"
-              :items="bankAccounts"
-              item-text="accountName"
-              item-value="id"
-              label="ບັນຊີທະນາຄານ (Bank Account)"
-              clearable
-              outlined
-              dense
-              @change="loadDashboardData"
-            >
+            <v-select v-model="filters.bankAccountId" :items="bankAccounts" item-text="accountName" item-value="id"
+              label="ບັນຊີທະນາຄານ (Bank Account)" clearable outlined dense @change="loadDashboardData">
               <template v-slot:selection="{ item }">
                 <div class="bank-account-selection">
                   <span class="bank-name">{{ item.accountName }}</span>
@@ -92,26 +67,14 @@
         <!-- Buttons Row -->
         <v-row class="mt-2">
           <v-col cols="12" md="3">
-            <v-btn
-              class="custom-primary-bg white--text"
-              block
-              outlined
-              @click="loadDashboardData"
-              :loading="loading"
-            >
+            <v-btn class="custom-primary-bg white--text" block outlined @click="loadDashboardData" :loading="loading">
               <v-icon left color="white">mdi-refresh</v-icon>
               Refresh
             </v-btn>
           </v-col>
 
           <v-col cols="12" md="3">
-            <v-btn
-              class="custom-secondary-btn"
-              block
-              outlined
-              @click="resetFilters"
-              color="grey lighten-1"
-            >
+            <v-btn class="custom-secondary-btn" block outlined @click="resetFilters" color="grey lighten-1">
               <v-icon left>mdi-restore</v-icon>
               Reset
             </v-btn>
@@ -198,10 +161,7 @@
     </v-row>
 
     <!-- Currency Breakdown Cards -->
-    <v-row
-      class="currency-breakdown mb-4"
-      v-if="!loading && currencyBreakdown.length > 0"
-    >
+    <v-row class="currency-breakdown mb-4" v-if="!loading && currencyBreakdown.length > 0">
       <v-col cols="12">
         <v-card elevation="2">
           <v-card-title class="currency-title">
@@ -210,20 +170,11 @@
           </v-card-title>
           <v-card-text>
             <v-row>
-              <v-col
-                v-for="currency in currencyBreakdown"
-                :key="currency.currencyCode || currency.currencyId"
-                cols="12"
-                md="4"
-                lg="3"
-              >
+              <v-col v-for="currency in currencyBreakdown" :key="currency.currencyCode || currency.currencyId" cols="12"
+                md="4" lg="3">
                 <div class="currency-card">
                   <div class="currency-header">
-                    <v-chip
-                      :color="getCurrencyColor(currency.currencyCode)"
-                      text-color="white"
-                      large
-                    >
+                    <v-chip :color="getCurrencyColor(currency.currencyCode)" text-color="white" large>
                       {{ currency.currencyCode || 'LAK' }}
                     </v-chip>
                     <div class="currency-flag">
@@ -263,11 +214,7 @@
 
     <!-- Loading State -->
     <div v-if="loading" class="text-center py-8">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        size="64"
-      ></v-progress-circular>
+      <v-progress-circular indeterminate color="primary" size="64"></v-progress-circular>
       <p class="mt-4 text-gray-600">
         ກຳລັງໂຫລດຂໍ້ມູນ... Loading bank account reports...
       </p>
@@ -277,9 +224,7 @@
     <v-row class="mb-4">
       <v-col cols="12">
         <v-card elevation="2" class="rounded-xl report-card">
-          <v-card-title
-            class="banking-primary--text py-2 px-4 d-flex align-center report-header"
-          >
+          <v-card-title class="banking-primary--text py-2 px-4 d-flex align-center report-header">
             <v-icon color="primary" class="mr-2">mdi-bank</v-icon>
             <span class="text-subtitle-1 font-weight-medium">
               ລາຍງານ ຕາມບັນຊີທະນາຄານ
@@ -287,38 +232,16 @@
             <v-spacer></v-spacer>
 
             <!-- Search Field -->
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ຄົ້ນຫາບັນຊີ..."
-              single-line
-              hide-details
-              class="search-field mr-4"
-              outlined
-              dense
-              style="max-width: 250px"
-            ></v-text-field>
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="ຄົ້ນຫາບັນຊີ..." single-line hide-details
+              class="search-field mr-4" outlined dense style="max-width: 250px"></v-text-field>
 
             <!-- Export Button -->
-            <v-btn
-              color="#059669"
-              small
-              outlined
-              class="mr-2"
-              @click="exportToExcel"
-              :disabled="!filteredBankAccounts.length"
-              :loading="exporting"
-            >
+            <v-btn color="#059669" small outlined class="mr-2" @click="exportToExcel"
+              :disabled="!filteredBankAccounts.length" :loading="exporting">
               <v-icon small left>mdi-file-excel</v-icon>
               Export Excel
             </v-btn>
-            <v-btn
-              icon
-              small
-              @click="loadDashboardData"
-              :loading="loading"
-              color="primary"
-            >
+            <v-btn icon small @click="loadDashboardData" :loading="loading" color="primary">
               <v-icon small>mdi-refresh</v-icon>
             </v-btn>
           </v-card-title>
@@ -334,10 +257,8 @@
             </div>
 
             <div v-else-if="!bankAccountStats.length" class="text-center py-6">
-              <v-icon size="48" color="grey lighten-2"
-                >mdi-information-outline</v-icon
-              >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <v-icon size="48" color="grey lighten-2">mdi-information-outline</v-icon>
+              <div class="mt-2  grey--text">
                 No bank account data available
               </div>
             </div>
@@ -359,78 +280,51 @@
                     <th class="white--text  font-weight-bold">
                       Type
                     </th>
-                    <th
-                      class="white--text  font-weight-bold text-right"
-                    >
+                    <th class="white--text  font-weight-bold text-right">
                       Count
                     </th>
-                    <th
-                      v-for="currency in currencyList"
-                      :key="'head-' + currency.code"
-                      class="white--text  font-weight-bold text-right"
-                    >
+                    <th v-for="currency in currencyList" :key="'head-' + currency.code"
+                      class="white--text  font-weight-bold text-right">
                       {{ currency.code }}
                     </th>
-                    <th
-                      class="white--text  font-weight-bold text-right"
-                    >
+                    <th class="white--text  font-weight-bold text-right">
                       Total (LAK)
                     </th>
-                    <th
-                      class="white--text  font-weight-bold text-center"
-                    >
+                    <th class="white--text  font-weight-bold text-center">
                       Actions
                     </th>
                   </tr>
                 </thead>
 
                 <tbody>
-                  <tr
-                    v-for="(item, index) in filteredBankAccounts"
-                    :key="item.bankAccountId"
-                    :class="{
-                      'banking-row-even': index % 2 === 0,
-                      'banking-row-special':
-                        item.bankAccountId === 'NO_BANK_ACCOUNT',
-                    }"
-                  >
+                  <tr v-for="(item, index) in filteredBankAccounts" :key="item.bankAccountId" :class="{
+                    'banking-row-even': index % 2 === 0,
+                    'banking-row-special':
+                      item.bankAccountId === 'NO_BANK_ACCOUNT',
+                  }">
                     <td class=" text-center">{{ index + 1 }}</td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text': item.bankAccountId === 'NO_BANK_ACCOUNT',
-                      }"
-                    >
+                    <td class="text-body-2" :class="{
+                      'grey--text': item.bankAccountId === 'NO_BANK_ACCOUNT',
+                    }">
                       {{ item.bankAccount?.accountNumber || 'N/A' }}
                     </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.bankAccountId === 'NO_BANK_ACCOUNT',
-                      }"
-                    >
+                    <td class="text-body-2" :class="{
+                      'grey--text font-italic':
+                        item.bankAccountId === 'NO_BANK_ACCOUNT',
+                    }">
                       {{ item.bankAccount?.accountName || 'Unknown Account' }}
                     </td>
-                    <td
-                      class="text-body-2"
-                      :class="{
-                        'grey--text font-italic':
-                          item.bankAccountId === 'NO_BANK_ACCOUNT',
-                      }"
-                    >
+                    <td class="text-body-2" :class="{
+                      'grey--text font-italic':
+                        item.bankAccountId === 'NO_BANK_ACCOUNT',
+                    }">
                       {{ item.bankAccount?.bankName || 'N/A' }}
                     </td>
                     <td class="text-body-2">
-                      <v-chip
-                        x-small
-                        :color="
-                          item.bankAccount?.accountType === 'Cash'
-                            ? '#F59E0B'
-                            : 'primary'
-                        "
-                        text-color="white"
-                      >
+                      <v-chip x-small :color="item.bankAccount?.accountType === 'Cash'
+                          ? '#F59E0B'
+                          : 'primary'
+                        " text-color="white">
                         {{ item.bankAccount?.accountType || 'Bank' }}
                       </v-chip>
                     </td>
@@ -439,25 +333,14 @@
                         {{ item.count }}
                       </v-chip>
                     </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'amt-' + currency.code"
-                      class="text-body-2 text-right"
-                    >
+                    <td v-for="currency in currencyList" :key="'amt-' + currency.code" class="text-body-2 text-right">
                       {{ formatCurrency(item.amounts?.[currency.code] || 0) }}
                     </td>
-                    <td
-                      class="text-right font-weight-bold banking-success--text"
-                    >
+                    <td class="text-right font-weight-bold banking-success--text">
                       {{ formatCurrency(item.totalLak || 0, 'LAK') }}
                     </td>
                     <td class="text-center">
-                      <v-btn
-                        x-small
-                        color="primary"
-                        @click="selectBankAccount(item.bankAccountId)"
-                        class="white--text"
-                      >
+                      <v-btn x-small color="primary" @click="selectBankAccount(item.bankAccountId)" class="white--text">
                         <v-icon x-small>mdi-eye</v-icon>
                         ເບິ່ງ
                       </v-btn>
@@ -474,22 +357,15 @@
                         {{ totalSettlementsCount }}
                       </v-chip>
                     </td>
-                    <td
-                      v-for="currency in currencyList"
-                      :key="'sum-' + currency.code"
-                      class="text-right font-weight-bold text-body-2"
-                    >
+                    <td v-for="currency in currencyList" :key="'sum-' + currency.code"
+                      class="text-right font-weight-bold text-body-2">
                       {{ formatCurrency(getCurrencyTotal(currency.code)) }}
                     </td>
-                    <td
-                      class="text-right font-weight-bold text-body-2 banking-primary--text"
-                    >
+                    <td class="text-right font-weight-bold text-body-2 banking-primary--text">
                       {{ formatCurrency(totalLakAmount, 'LAK') }}
                     </td>
                     <td class="text-center">
-                      <v-chip x-small color="grey"
-                        >{{ filteredBankAccounts.length }} accounts</v-chip
-                      >
+                      <v-chip x-small color="grey">{{ filteredBankAccounts.length }} accounts</v-chip>
                     </td>
                   </tr>
                 </tbody>
@@ -558,7 +434,7 @@
                     ${{
                       formatCurrency(
                         settlementSummary.totalAmount /
-                          settlementSummary.settlementCount
+                        settlementSummary.settlementCount
                       )
                     }}
                   </p>
@@ -581,29 +457,17 @@
           </v-row>
 
           <!-- Settlement Method Distribution -->
-          <v-row
-            class="method-distribution mb-4"
-            v-if="methodDistribution.length > 0"
-          >
+          <v-row class="method-distribution mb-4" v-if="methodDistribution.length > 0">
             <v-col cols="12">
               <h3 class="section-title">
                 ການແຈກຢາຍຕາມວິທີການ (Method Distribution)
               </h3>
               <v-divider class="custom-divider mb-3"></v-divider>
             </v-col>
-            <v-col
-              v-for="method in methodDistribution"
-              :key="method.method"
-              cols="12"
-              md="4"
-            >
+            <v-col v-for="method in methodDistribution" :key="method.method" cols="12" md="4">
               <div class="method-card">
                 <div class="method-header">
-                  <v-chip
-                    :color="getMethodColor(method.method)"
-                    text-color="white"
-                    small
-                  >
+                  <v-chip :color="getMethodColor(method.method)" text-color="white" small>
                     {{ formatMethod(method.method) }}
                   </v-chip>
                 </div>
@@ -625,29 +489,19 @@
               </h3>
               <v-divider class="custom-divider mb-3"></v-divider>
 
-              <v-data-table
-                :headers="settlementHeaders"
-                :items="selectedSettlements"
-                :loading="loadingDetails"
-                class="settlement-table"
-                :items-per-page="10"
-                :footer-props="{
+              <v-data-table :headers="settlementHeaders" :items="selectedSettlements" :loading="loadingDetails"
+                class="settlement-table" :items-per-page="10" :footer-props="{
                   itemsPerPageOptions: [5, 10, 25, 50],
                   itemsPerPageText: 'ແຖວຕໍ່ໜ້າ:',
-                }"
-              >
+                }">
                 <template v-slot:item.bookingDate="{ item }">
                   <span class="date-cell">{{
                     formatDate(item.bookingDate)
-                  }}</span>
+                    }}</span>
                 </template>
 
                 <template v-slot:item.currency="{ item }">
-                  <v-chip
-                    :color="getCurrencyColor(item.currency?.code)"
-                    text-color="white"
-                    small
-                  >
+                  <v-chip :color="getCurrencyColor(item.currency?.code)" text-color="white" small>
                     {{ item.currency?.code || 'LAK' }}
                   </v-chip>
                 </template>
@@ -656,7 +510,7 @@
                   <div class="amount-breakdown">
                     <span class="amount-cell">{{
                       formatCurrency(item.amount, item.currency?.code)
-                    }}</span>
+                      }}</span>
                   </div>
                 </template>
 
@@ -681,11 +535,7 @@
                 </template>
 
                 <template v-slot:item.method="{ item }">
-                  <v-chip
-                    :color="getMethodColor(item.method)"
-                    text-color="white"
-                    small
-                  >
+                  <v-chip :color="getMethodColor(item.method)" text-color="white" small>
                     {{ formatMethod(item.method) }}
                   </v-chip>
                 </template>
@@ -694,7 +544,7 @@
                   <div class="user-info">
                     <span class="user-name">{{
                       item.proceeder?.name || 'N/A'
-                    }}</span>
+                      }}</span>
                   </div>
                 </template>
 
@@ -1113,8 +963,7 @@ export default {
         const summaryData = [
           ['Bank Account Settlement Report'],
           [
-            `Report Period: ${this.filters.startDate || 'All'} to ${
-              this.filters.endDate || 'All'
+            `Report Period: ${this.filters.startDate || 'All'} to ${this.filters.endDate || 'All'
             }`,
           ],
           [`Generated on: ${new Date().toLocaleDateString()}`],
@@ -1250,9 +1099,8 @@ export default {
         }
 
         // Generate filename
-        const filename = `bank-account-settlement-report-${
-          this.filters.startDate || 'all'
-        }-${this.filters.endDate || 'all'}.xlsx`
+        const filename = `bank-account-settlement-report-${this.filters.startDate || 'all'
+          }-${this.filters.endDate || 'all'}.xlsx`
 
         // Generate Excel file and download
         XLSX.writeFile(workbook, filename)
@@ -1633,19 +1481,19 @@ export default {
 }
 
 /* Search field in header */
-.search-field >>> input {
+.search-field>>>input {
   color: white !important;
 }
 
-.search-field >>> .v-icon {
+.search-field>>>.v-icon {
   color: white !important;
 }
 
-.search-field >>> .v-label {
+.search-field>>>.v-label {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
-.search-field >>> .v-input__control {
+.search-field>>>.v-input__control {
   border-color: rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -1665,11 +1513,11 @@ export default {
   max-width: 300px;
 }
 
-.search-field >>> input {
+.search-field>>>input {
   color: white !important;
 }
 
-.search-field >>> .v-icon {
+.search-field>>>.v-icon {
   color: white !important;
 }
 
@@ -1885,14 +1733,14 @@ export default {
   background: white;
 }
 
-.settlement-table >>> thead th {
+.settlement-table>>>thead th {
   background-color: primary !important;
   color: white !important;
   font-weight: 600 !important;
   border-bottom: none !important;
 }
 
-.settlement-table >>> tbody tr:hover {
+.settlement-table>>>tbody tr:hover {
   background-color: rgba(1, 83, 43, 0.1) !important;
 }
 
@@ -1988,6 +1836,7 @@ export default {
 
 /* Print styles */
 @media print {
+
   .action-buttons,
   .filter-card,
   .v-btn {

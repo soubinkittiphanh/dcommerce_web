@@ -13,11 +13,12 @@
           <v-chip v-if="item.isGift" x-small color="pink" text-color="white" class="ml-1 gift-indicator">
             <v-icon x-small left>mdi-gift</v-icon>GIFT
           </v-chip>
-          <v-chip v-else-if="item.giftQuantity > 0" x-small color="purple" text-color="white" class="ml-1 gift-indicator">
+          <v-chip v-else-if="item.giftQuantity > 0" x-small color="purple" text-color="white"
+            class="ml-1 gift-indicator">
             <v-icon x-small left>mdi-gift-outline</v-icon>{{ item.giftQuantity }}/{{ item.qty }} GIFT
           </v-chip>
         </div>
-        <div v-if="item.tax" class="text-caption grey--text">
+        <div v-if="item.tax" class=" grey--text">
           <v-icon x-small>mdi-label-percent-outline</v-icon>
           {{ item.tax.name }} ({{ item.tax.taxType }})
         </div>
@@ -38,7 +39,8 @@
       </v-col>
 
       <v-col cols="1" class="text-center">
-        <v-btn icon small :color="item.isGift || item.giftQuantity > 0 ? 'pink' : 'grey'" @click="handleGiftClick" class="gift-btn">
+        <v-btn icon small :color="item.isGift || item.giftQuantity > 0 ? 'pink' : 'grey'" @click="handleGiftClick"
+          class="gift-btn">
           <v-icon small :class="{ 'gift-active': item.isGift || item.giftQuantity > 0 }">
             {{ getGiftIcon() }}
           </v-icon>
@@ -47,20 +49,15 @@
 
       <v-col cols="4" class="text-right">
         <div class="d-flex flex-column align-end">
-          <v-chip
-            small
-            :color="item.isGift ? 'pink' : 'warning'"
-            outlined
-            @click="$emit('price-click', item)"
-            class="price-chip mb-1"
-            :class="{ 'gift-price': item.isGift }"
-          >
+          <v-chip small :color="item.isGift ? 'pink' : 'warning'" outlined @click="$emit('price-click', item)"
+            class="price-chip mb-1" :class="{ 'gift-price': item.isGift }">
             <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
             {{ getPriceDisplay() }}
           </v-chip>
 
-          <div v-if="item.tax && item.tax.taxType === 'EXC' && !item.isGift" class="success--text" style="font-size: 0.7rem;">
-             (ລວມພາສີແລ້ວ)
+          <div v-if="item.tax && item.tax.taxType === 'EXC' && !item.isGift" class="success--text"
+            style="font-size: 0.7rem;">
+            (ລວມພາສີແລ້ວ)
           </div>
 
           <div v-if="item.giftQuantity > 0 && !item.isGift" class="gift-breakdown">
@@ -68,7 +65,8 @@
               <v-icon x-small>mdi-gift</v-icon> {{ item.giftQuantity }} × {{ getGiftPriceDisplay() }}
             </div>
             <div class="grey--text">
-              <v-icon x-small>mdi-cash</v-icon> {{ item.qty - item.giftQuantity }} × {{ formatNumber(getInclusiveUnitPrice()) }}
+              <v-icon x-small>mdi-cash</v-icon> {{ item.qty - item.giftQuantity }} × {{
+                formatNumber(getInclusiveUnitPrice()) }}
             </div>
           </div>
         </div>
@@ -76,12 +74,7 @@
     </v-row>
 
     <!-- Gift Dialog -->
-    <GiftDialog
-      v-model="giftDialogOpen"
-      :item="item"
-      :format-number="formatNumber"
-      @confirm-gift="handleGiftConfirm"
-    />
+    <GiftDialog v-model="giftDialogOpen" :item="item" :format-number="formatNumber" @confirm-gift="handleGiftConfirm" />
   </v-card>
 </template>
 
@@ -115,7 +108,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct','findAllCurrency']),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency']),
   },
   methods: {
     getInclusiveUnitPrice() {
@@ -254,9 +247,11 @@ export default {
   0% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
+
   100% {
     transform: scale(1);
   }
@@ -266,6 +261,7 @@ export default {
   0% {
     box-shadow: 0 0 5px rgba(233, 30, 99, 0.5);
   }
+
   100% {
     box-shadow: 0 0 20px rgba(233, 30, 99, 0.8);
   }

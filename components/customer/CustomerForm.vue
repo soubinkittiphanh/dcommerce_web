@@ -20,71 +20,38 @@
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                label="ຊື່ລູກຄ້າ*"
-                required
-                v-model="client.name"
-              ></v-text-field>
+              <v-text-field label="ຊື່ລູກຄ້າ*" required v-model="client.name"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                required
-                label="ບໍລິສັດ*"
-                v-model="client.company"
-              ></v-text-field>
+              <v-text-field required label="ບໍລິສັດ*" v-model="client.company"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                label="ອີເມວ*"
-                v-model="client.email"
-                persistent-hint
-                required
-              ></v-text-field>
+              <v-text-field label="ອີເມວ*" v-model="client.email" persistent-hint required></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-text-field
-                label="ທີ່ຢູ່*"
-                required
-                v-model="client.address"
-              ></v-text-field>
+              <v-text-field label="ທີ່ຢູ່*" required v-model="client.address"></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                v-model="client.telephone"
-                label="ເບີໂທປະສານສຳພັນ*"
-                required
-              ></v-text-field>
+              <v-text-field v-model="client.telephone" label="ເບີໂທປະສານສຳພັນ*" required></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                v-model="client.credit"
-                label="Credit *"
-                required
-              ></v-text-field>
+              <v-text-field v-model="client.credit" label="Credit *" required></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                v-model="client.lateChargePercent"
-                label="ອັດຕາເປີເຊັນປັບໃຫມ ການຈ່າຍຊ້າ*"
-                required
-                v-comma-thousand
-              ></v-text-field>
+              <v-text-field v-model="client.lateChargePercent" label="ອັດຕາເປີເຊັນປັບໃຫມ ການຈ່າຍຊ້າ*" required
+                v-comma-thousand></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+               <v-autocomplete :items="grades" label="Grade" v-model="client.grade" clearable
+                placeholder="Select grade (optional)"></v-autocomplete>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field v-model="client.loyaltyPoints" label="Loyalty Points (ຄະແນນ)" type="number" color="primary" 
+                append-icon="mdi-star" persistent-hint hint="Manual adjustment of points"></v-text-field>
             </v-col>
             <v-col cols="12">
-              <v-autocomplete
-                :items="grades"
-                label="Grade"
-                v-model="client.grade"
-                clearable
-                placeholder="Select grade (optional)"
-              ></v-autocomplete>
+              <v-switch v-model="client.isActive" label="Active" :true-value="true" :false-value="false"></v-switch>
             </v-col>
-            <v-switch
-              v-model="client.isActive"
-              label="Active"
-              :true-value="true"
-              :false-value="false"
-            ></v-switch>
             <!-- <v-col cols="12" sm="6">
                             <v-autocomplete item-text="desc" item-value="id" :items="account"
                                 label="ບັນຊີແຍກປະເພດ DR ACCOUNT*" v-model="form.header.drAccount"></v-autocomplete>
@@ -95,12 +62,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn
-          color="warning"
-          rounded
-          variant="text"
-          @click="$emit('close-dialog')"
-        >
+        <v-btn color="warning" rounded variant="text" @click="$emit('close-dialog')">
           Close
         </v-btn>
         <v-btn color="primary" rounded variant="text" @click="submitData">
@@ -142,6 +104,7 @@ export default {
         lateChargePercent: 0,
         grade: null, // Changed from 'C' to null
         isActive: true,
+        loyaltyPoints: 0,
       },
       grades: ['A', 'B', 'C', 'D', 'E', 'F'],
     }

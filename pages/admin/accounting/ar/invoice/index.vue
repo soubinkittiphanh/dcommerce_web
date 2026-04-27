@@ -1,255 +1,249 @@
 <template>
-  <div>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="primary white--text py-3">
+  <div class="ap-settlement-container notosans-lao">
+    <div class="primary analysis-header mb-4">
+      <div class="d-flex justify-space-between align-center">
+        <div>
+          <h1 class=" font-weight-bold mb-1 white--text">
             <v-icon color="white" class="mr-2">mdi-file-invoice-dollar</v-icon>
-            <span>ລະບົບຈັດການໃບທວງໜີ້</span>
-            <v-spacer />
-            <v-btn color="white" text @click="openCreateDialog">
-              <v-icon left>mdi-plus</v-icon>
-              ເພີ່ມໃໝ່
+            ລະບົບຈັດການໃບທວງໜີ້
+          </h1>
+          <p class="text-body-2 opacity-80 mb-0 white--text">ເບິ່ງ ແລະ ຈັດການໃບທວງໜີ້ລູກຄ້າທັງໝົດ</p>
+        </div>
+        <div class="d-flex gap-2 align-center">
+          <v-btn color="white" text small @click="exportData" class="mr-2">
+            <v-icon left small>mdi-download</v-icon>Export
+          </v-btn>
+          <v-btn color="white" light depressed @click="openCreateDialog" class="rounded-lg font-weight-medium">
+            <v-icon left small>mdi-plus</v-icon>ເພີ່ມໃໝ່
+          </v-btn>
+        </div>
+      </div>
+
+      <!-- Quick Summary Cards -->
+      <v-row class="mt-6">
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="info lighten-4" size="48" class="rounded-lg">
+                <v-icon color="info" size="28">mdi-file-document-multiple</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ລວມໃບແຈ້ງໜີ້</div>
+                <div class="font-weight-bold info--text uppercase">{{ formatCurrency(summaryTotals.totalInvoices) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="success lighten-4" size="48" class="rounded-lg">
+                <v-icon color="success" size="28">mdi-cash-check</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ຈ່າຍແລ້ວ (Settled)</div>
+                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalSettled) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="warning lighten-4" size="48" class="rounded-lg">
+                <v-icon color="warning" size="28">mdi-clock-alert</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ຄ້າງຊຳລະ (Outstanding)</div>
+                <div class="font-weight-bold warning--text uppercase">{{ formatCurrency(summaryTotals.totalOutstanding)
+                  }}</div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="error lighten-4" size="48" class="rounded-lg">
+                <v-icon color="error" size="28">mdi-alert-circle</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ເກີນກຳນົດ (Overdue)</div>
+                <div class="font-weight-bold error--text uppercase">{{ formatCurrency(summaryTotals.totalOverdue) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+
+    <!-- Filter Section -->
+    <v-card class="mb-6 filter-card" elevation="0">
+      <v-card-text class="pa-4">
+        <v-row dense align="center">
+          <v-col cols="12" md="3">
+            <v-text-field v-model="filters.search" label="ຄົ້ນຫາ" placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ..." outlined dense
+              hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="3">
+            <v-select v-model="filters.agencyId" :items="agencies" item-text="name" item-value="id" label="ລູກຄ້າ"
+              outlined dense hide-details clearable prepend-inner-icon="mdi-account" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.dateFrom" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense hide-details
+              prepend-inner-icon="mdi-calendar-start" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.dateTo" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
+              prepend-inner-icon="mdi-calendar-end" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-btn color="secondary" outlined block @click="resetFilters">
+              <v-icon left>mdi-refresh</v-icon>
+              Reset
             </v-btn>
-            <v-btn color="white" text @click="exportData">
-              <v-icon left>mdi-download</v-icon>
-              Export
-            </v-btn>
-          </v-card-title>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
 
-          <v-card-text class="pa-3">
-            <v-row dense>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="filters.search"
-                  label="ຄົ້ນຫາ"
-                  placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ..."
-                  outlined
-                  dense
-                  hide-details
-                  clearable
-                  prepend-inner-icon="mdi-magnify"
-                  @input="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="3">
-                <v-select
-                  v-model="filters.agencyId"
-                  :items="agencies"
-                  item-text="name"
-                  item-value="id"
-                  label="ລູກຄ້າ"
-                  outlined
-                  dense
-                  hide-details
-                  clearable
-                  prepend-inner-icon="mdi-account"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  v-model="filters.dateFrom"
-                  label="ວັນທີເລີ່ມຕົ້ນ"
-                  type="date"
-                  outlined
-                  dense
-                  hide-details
-                  prepend-inner-icon="mdi-calendar-start"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  v-model="filters.dateTo"
-                  label="ວັນທີສິ້ນສຸດ"
-                  type="date"
-                  outlined
-                  dense
-                  hide-details
-                  prepend-inner-icon="mdi-calendar-end"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-btn color="secondary" outlined block @click="resetFilters">
-                  <v-icon left>mdi-refresh</v-icon>
-                  Reset
-                </v-btn>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+    <!-- Table Section -->
+    <v-card class="dashboard-card" elevation="0" outlined>
+      <v-card-title class="py-3 bg-light border-bottom">
+        <v-icon color="primary" class="mr-2">mdi-table</v-icon>
+        <span class="font-weight-bold ">ລາຍການໃບແຈ້ງໜີ້</span>
+        <v-spacer />
+        <v-chip color="primary" class="font-weight-medium" small>
+          {{ filteredInvoices.length }} ລາຍການ
+        </v-chip>
+      </v-card-title>
 
-    <v-row class="mt-3">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="py-2">
-            <v-icon class="mr-2">mdi-table</v-icon>
-            <span>ລາຍການໃບແຈ້ງໜີ້</span>
-            <v-spacer />
-            <v-chip color="primary" outlined>
-              {{ filteredInvoices.length }} ລາຍການ
-            </v-chip>
-          </v-card-title>
+      <v-data-table :headers="headers" :items="paginatedInvoices" :loading="loading" :items-per-page="10"
+        class="elevation-0 modernize-table notosans-lao" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ມີຂໍ້ມູນ">
+        <template v-slot:item.invoiceNumber="{ item }">
+          <div>
+            <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
+            <div v-if="item.description" class=" grey--text text-truncate" style="max-width: 200px">
+              {{ item.description }}
+            </div>
+          </div>
+        </template>
 
-          <v-data-table
-            :headers="headers"
-            :items="paginatedInvoices"
-            :loading="loading"
-            :items-per-page="10"
-            class="elevation-0"
-            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-            no-data-text="ບໍ່ມີຂໍ້ມູນ"
-          >
-            <template v-slot:item.invoiceNumber="{ item }">
-              <div>
-                <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
-                <div
-                  v-if="item.description"
-                  class=" grey--text text-truncate"
-                  style="max-width: 200px"
-                >
-                  {{ item.description }}
-                </div>
-              </div>
+        <template v-slot:item.invoiceDate="{ item }">
+          <span class="">{{
+            formatDate(item.invoiceDate)
+          }}</span>
+        </template>
+
+        <template v-slot:item.customer="{ item }">
+          <div v-if="item.agency">
+            <div class="font-weight-medium">
+              <v-icon x-small class="mr-1">mdi-account</v-icon>
+              {{ item.agency.agencyName }}
+            </div>
+            <div v-if="item.agency.email" class=" grey--text">
+              {{ item.agency.email }}
+            </div>
+          </div>
+          <span v-else class="grey--text ">N/A</span>
+        </template>
+
+        <template v-slot:item.dueDate="{ item }">
+          <span class="" :class="{
+            'error--text font-weight-bold':
+              getDueDateClass(item.dueDate, item.status) ===
+              'overdue-date',
+            'warning--text font-weight-medium':
+              getDueDateClass(item.dueDate, item.status) === 'due-soon',
+          }">
+            {{ formatDate(item.dueDate) }}
+          </span>
+        </template>
+
+        <template v-slot:item.totalAmount="{ item }">
+          <div class="text-right">
+            <div class="font-weight-bold">
+              {{ formatCurrency(item.totalAmount) }}
+            </div>
+            <div class=" grey--text">
+              Net: {{ formatCurrency(item.netAmount) }}
+              <span v-if="item.taxAmount > 0">
+                | Tax: {{ formatCurrency(item.taxAmount) }}</span>
+            </div>
+          </div>
+        </template>
+
+        <template v-slot:item.settledAmount="{ item }">
+          <div class="text-right font-weight-bold success--text">
+            {{ formatCurrency(item.settledAmount) }}
+          </div>
+        </template>
+
+        <template v-slot:item.outstandingAmount="{ item }">
+          <div class="text-right font-weight-bold" :class="{
+            'error--text': item.outstandingAmount > 0 && item.status !== 'paid',
+          }">
+            {{ formatCurrency(item.outstandingAmount) }}
+          </div>
+        </template>
+
+        <template v-slot:item.status="{ item }">
+          <v-chip x-small :color="getStatusColor(item.status)" text-color="white">
+            {{ formatStatus(item.status) }}
+          </v-chip>
+        </template>
+
+        <template v-slot:item.maker="{ item }">
+          <div class="">
+            <div>{{ item.maker ? item.maker.cus_name : 'N/A' }}</div>
+            <div v-if="item.createdAt" class="grey--text">
+              {{ formatDate(item.createdAt) }}
+            </div>
+          </div>
+        </template>
+
+        <template v-slot:item.actions="{ item }">
+          <v-menu bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon small v-bind="attrs" v-on="on">
+                <v-icon small>mdi-dots-vertical</v-icon>
+              </v-btn>
             </template>
+            <v-list dense>
+              <v-list-item @click="viewInvoice(item)">
+                <v-list-item-icon>
+                  <v-icon small color="info">mdi-eye</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+              </v-list-item>
 
-            <template v-slot:item.invoiceDate="{ item }">
-              <span class="">{{
-                formatDate(item.invoiceDate)
-              }}</span>
-            </template>
+              <v-list-item @click="editInvoice(item)">
+                <v-list-item-icon>
+                  <v-icon small color="warning">mdi-pencil</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </v-data-table>
+    </v-card>
 
-            <template v-slot:item.customer="{ item }">
-              <div v-if="item.agency">
-                <div class="font-weight-medium">
-                  <v-icon x-small class="mr-1">mdi-account</v-icon>
-                  {{ item.agency.agencyName }}
-                </div>
-                <div v-if="item.agency.email" class=" grey--text">
-                  {{ item.agency.email }}
-                </div>
-              </div>
-              <span v-else class="grey--text ">N/A</span>
-            </template>
-
-            <template v-slot:item.dueDate="{ item }">
-              <span
-                class=""
-                :class="{
-                  'error--text font-weight-bold':
-                    getDueDateClass(item.dueDate, item.status) ===
-                    'overdue-date',
-                  'warning--text font-weight-medium':
-                    getDueDateClass(item.dueDate, item.status) === 'due-soon',
-                }"
-              >
-                {{ formatDate(item.dueDate) }}
-              </span>
-            </template>
-
-            <template v-slot:item.totalAmount="{ item }">
-              <div class="text-right">
-                <div class="font-weight-bold">
-                  {{ formatCurrency(item.totalAmount) }}
-                </div>
-                <div class=" grey--text">
-                  Net: {{ formatCurrency(item.netAmount) }}
-                  <span v-if="item.taxAmount > 0">
-                    | Tax: {{ formatCurrency(item.taxAmount) }}</span
-                  >
-                </div>
-              </div>
-            </template>
-            
-            <template v-slot:item.settledAmount="{ item }">
-              <div class="text-right font-weight-bold success--text">
-                {{ formatCurrency(item.settledAmount) }}
-              </div>
-            </template>
-
-            <template v-slot:item.outstandingAmount="{ item }">
-              <div
-                class="text-right font-weight-bold"
-                :class="{
-                  'error--text': item.outstandingAmount > 0 && item.status !== 'paid',
-                }"
-              >
-                {{ formatCurrency(item.outstandingAmount) }}
-              </div>
-            </template>
-
-            <template v-slot:item.status="{ item }">
-              <v-chip
-                x-small
-                :color="getStatusColor(item.status)"
-                text-color="white"
-              >
-                {{ formatStatus(item.status) }}
-              </v-chip>
-            </template>
-
-            <template v-slot:item.maker="{ item }">
-              <div class="">
-                <div>{{ item.maker ? item.maker.cus_name : 'N/A' }}</div>
-                <div v-if="item.createdAt" class="grey--text">
-                  {{ formatDate(item.createdAt) }}
-                </div>
-              </div>
-            </template>
-
-            <template v-slot:item.actions="{ item }">
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon small v-bind="attrs" v-on="on">
-                    <v-icon small>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense>
-                  <v-list-item @click="viewInvoice(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="info">mdi-eye</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item @click="editInvoice(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="warning">mdi-pencil</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-    </v-row>
-
-    <InvoiceHeaderMaintain
-      :gl-accounts="glAccounts"
-      :visible="showEditDialog"
-      :invoice="selectedInvoice"
-      :agencies="agencies.filter(agency => agency.agencyType != 'Employee')"
-      :jobBatches="jobBatches"
-      :currencies="currencies"
-      @close="closeEditDialog"
-      @save="onInvoiceSave"
-    />
+    <InvoiceHeaderMaintain :gl-accounts="glAccounts" :visible="showEditDialog" :invoice="selectedInvoice"
+      :agencies="agencies.filter(agency => agency.agencyType != 'Employee')" :jobBatches="jobBatches"
+      :currencies="currencies" @close="closeEditDialog" @save="onInvoiceSave" />
 
     <client-only>
-      <InvoiceHeaderView
-        :visible="showViewDialog"
-        :invoice="selectedInvoice"
-        @close="closeViewDialog"
-      />
+      <InvoiceHeaderView :visible="showViewDialog" :invoice="selectedInvoice" @close="closeViewDialog" />
     </client-only>
   </div>
-  </template>
+</template>
 
 <script>
 import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
@@ -381,6 +375,23 @@ export default {
         total: this.filteredInvoices.length,
       }
     },
+
+    summaryTotals() {
+      return this.filteredInvoices.reduce(
+        (acc, invoice) => {
+          acc.totalInvoices += (invoice.totalAmount || 0)
+          acc.totalSettled += (invoice.settledAmount || 0)
+          acc.totalOutstanding += (invoice.outstandingAmount || 0)
+
+          if (this.getDueDateClass(invoice.dueDate, invoice.status) === 'overdue-date') {
+            acc.totalOverdue += (invoice.outstandingAmount || 0)
+          }
+
+          return acc
+        },
+        { totalInvoices: 0, totalSettled: 0, totalOutstanding: 0, totalOverdue: 0 }
+      )
+    },
   },
 
   mounted() {
@@ -450,7 +461,7 @@ export default {
         console.error(error)
       }
     },
-    
+
     async fetchInvoices() {
       this.loading = true
       try {
@@ -482,7 +493,7 @@ export default {
         console.error(error)
       }
     },
-    
+
     async fetchAgencies() {
       this.loadingAgencies = true
       try {
@@ -610,7 +621,7 @@ export default {
       }
 
       // Recalculate amounts on filtered data (although already done in fetch, this is safer for manipulation)
-      this.filteredInvoices = this.calculateAmounts(filtered) 
+      this.filteredInvoices = this.calculateAmounts(filtered)
       this.pagination.currentPage = 1
     },
 
@@ -729,15 +740,83 @@ export default {
 </script>
 
 <style scoped>
-.invoice-summary-container {
-  padding: 20px;
+.analysis-header {
+  background: var(--v-primary-base);
+  color: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.v-card-title.primary {
-  background: linear-gradient(45deg, #1976d2, #1565c0);
+
+.ap-settlement-container {
+  padding: 00px;
 }
 
-. {
-  font-size: 12px !important;
+.filter-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-card-premium {
+  border-radius: 16px !important;
+  background-color: white !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dashboard-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.modernize-table ::v-deep th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.modernize-table ::v-deep td {
+  font-size: 0.875rem !important;
+  padding: 12px 16px !important;
+}
+
+.font-monospace {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+}
+
+.v-chip.font-weight-medium {
+  font-size: 0.7rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.border-left {
+  border-left: 1px solid #e2e8f0;
+}
+
+.bg-light {
+  background-color: #f8fafc !important;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+/* Export button styling */
+.v-btn.success {
+  background-color: #4caf50 !important;
+  color: white !important;
+}
+
+.v-btn.success:hover {
+  background-color: #45a049 !important;
 }
 </style>

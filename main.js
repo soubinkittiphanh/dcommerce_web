@@ -6,7 +6,7 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://150.95.31.23:8014" };
+let configData = { BASE_URL: "http://localhost:8888" };
 // let configData = { BASE_URL: "http://localhost:8888" };
 
 function loadExternalConfig() {
@@ -55,10 +55,19 @@ async function processQueue() {
         const printers = await printWindow.webContents.getPrintersAsync();
         console.log(`Available Printers on System:`, printers.map(p => `"${p.name}"`).join(', '));
 
+        if (!printerName) {
+            console.error(`❌ CRITICAL ERROR: "printerName" was NOT provided in the payload.`);
+            printWindow.destroy();
+            isPrinting = false;
+            processQueue();
+            return;
+        }
+
         const selectedPrinter = printers.find(p => p.name === printerName);
 
         if (!selectedPrinter) {
             console.error(`❌ CRITICAL ERROR: Printer "${printerName}" NOT FOUND in system list.`);
+            // DO NOT fallback to default - stop here so user knows configuration is wrong
             printWindow.destroy();
             isPrinting = false;
             processQueue();
@@ -150,6 +159,7 @@ ipcMain.handle('get-printers', async () => {
 });
 
 ipcMain.on('print-command', (event, payload) => {
+    console.log("Received 'print-command' IPC signal");
     printQueue.push({ ...payload, isBarcode: false });
     processQueue();
 });
@@ -216,7 +226,19 @@ function createWindow() {
             contextIsolation: true
         }
     });
-    if (process.env.NODE_ENV === 'development') { win.loadURL('http://localhost:3000'); }
+    if (process.env.NODE_ENV === 'development') {
+        function loadDevServer(winTarget, url, maxRetries = 60) {
+            winTarget.loadURL(url).catch(err => {
+                if (maxRetries > 0) {
+                    // console.log(`Waiting for Nuxt Dev Server to finish compiling... (${maxRetries} retries left)`);
+                    setTimeout(() => loadDevServer(winTarget, url, maxRetries - 1), 2500);
+                } else {
+                    console.error("Failed to connect to Nuxt Dev Server after multiple attempts.");
+                }
+            });
+        }
+        loadDevServer(win, 'http://localhost:3000');
+    }
     else { loadURL(win); }
 }
 

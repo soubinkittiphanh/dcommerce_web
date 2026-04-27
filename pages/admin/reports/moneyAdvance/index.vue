@@ -7,7 +7,7 @@
           <v-icon color="primary" class="mr-2">mdi-clipboard-text-clock</v-icon>
           ລາຍງານການຈ່າຍເງິນລາຍທຸລະກຳ (Transaction Ledger)
         </h1>
-        <div class="text-subtitle-2 grey--text">
+        <div class=" grey--text">
           Ministry Money Advance & Settlement Ledger
         </div>
       </div>
@@ -26,8 +26,9 @@
       <v-card-text>
         <v-row align="center">
           <v-col cols="12" md="3">
-            <v-select v-model="filters.ministryId" :items="[{id: 'ALL', ministryName: 'ທັງໝົດ (All Ministries)'}, ...ministries]" item-text="ministryName" item-value="id"
-              label="ເລືອກກະຊວງ (Ministry)" outlined dense hide-details clearable></v-select>
+            <v-select v-model="filters.ministryId"
+              :items="[{ id: 'ALL', ministryName: 'ທັງໝົດ (All Ministries)' }, ...ministries]" item-text="ministryName"
+              item-value="id" label="ເລືອກກະຊວງ (Ministry)" outlined dense hide-details clearable></v-select>
           </v-col>
           <v-col cols="12" md="3">
             <v-text-field v-model="filters.fromDate" type="date" label="ຕັ້ງແຕ່ວັນທີ (From Date)" outlined dense
@@ -51,7 +52,7 @@
       <v-col cols="12" md="3">
         <v-card color="grey lighten-4" elevation="0">
           <v-card-text>
-            <div class="text-subtitle-2 grey--text text--darken-2">ຍອດຍົກມາ (Brought Forward)</div>
+            <div class=" grey--text text--darken-2">ຍອດຍົກມາ (Brought Forward)</div>
             <div class="text-h6 font-weight-bold">{{ formatCurrency(broughtForward) }}</div>
           </v-card-text>
         </v-card>
@@ -59,7 +60,7 @@
       <v-col cols="12" md="3">
         <v-card color="blue lighten-5" elevation="0">
           <v-card-text>
-            <div class="text-subtitle-2 primary--text">ລາຍຈ່າຍທັງໝົດ (Total Advances)</div>
+            <div class=" primary--text">ລາຍຈ່າຍທັງໝົດ (Total Advances)</div>
             <div class="text-h6 font-weight-bold primary--text">{{ formatCurrency(totalAdvances) }}</div>
           </v-card-text>
         </v-card>
@@ -67,7 +68,7 @@
       <v-col cols="12" md="3">
         <v-card color="green lighten-5" elevation="0">
           <v-card-text>
-            <div class="text-subtitle-2 success--text">ຮັບຊຳລະທັງໝົດ (Total Settlements)</div>
+            <div class=" success--text">ຮັບຊຳລະທັງໝົດ (Total Settlements)</div>
             <div class="text-h6 font-weight-bold success--text">{{ formatCurrency(totalSettlements) }}</div>
           </v-card-text>
         </v-card>
@@ -75,7 +76,7 @@
       <v-col cols="12" md="3">
         <v-card color="orange lighten-5" elevation="0">
           <v-card-text>
-            <div class="text-subtitle-2 warning--text text--darken-2">ຍອດຄົງເຫຼືອປັດຈຸບັນ (Outstanding)</div>
+            <div class=" warning--text text--darken-2">ຍອດຄົງເຫຼືອປັດຈຸບັນ (Outstanding)</div>
             <div class="text-h6 font-weight-bold warning--text text--darken-2">{{ formatCurrency(currentOutstanding) }}
             </div>
           </v-card-text>
@@ -106,7 +107,7 @@
 
         <template v-slot:item.description="{ item }">
           <div class="font-weight-medium">{{ item.description }}</div>
-          <div class="text-caption grey--text">{{ item.referenceNo }}</div>
+          <div class=" grey--text">{{ item.referenceNo }}</div>
         </template>
 
         <template v-slot:item.advanceAmount="{ item }">

@@ -328,18 +328,44 @@ export default {
       const windowContent = threeColPaper
         ? this.barcode3by2cm
         : this.barcodeNormal
-      const printWin = window.open(
-        '',
-        '',
-        'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
-      )
-      printWin.document.open()
-      printWin.document.write(windowContent)
 
-      setTimeout(() => {
-        printWin.print()
-        printWin.close()
-      }, 1000)
+      // Bridge for Electron
+      if (window.posApi) {
+        const printerList = this.findAllprinters || []
+        const barcodePrinter = printerList.find((p) => p.type === 'barcode')
+        const printerName = barcodePrinter 
+          ? barcodePrinter.printerName || barcodePrinter.printer_name || '' 
+          : ''
+
+        if (!printerName) {
+          const msg = "Error: No printer name found for 'barcode' type in settings!"
+          this.$toast.error(msg)
+          return
+        }
+
+        const payload = {
+          html: windowContent,
+          printerName: printerName,
+          copies: 1,
+        }
+
+        window.posApi.printBarcode(payload)
+        this.$toast.success(`Printing barcodes to ${printerName}`)
+      } else {
+        // Fallback for browser
+        const printWin = window.open(
+          '',
+          '',
+          'left=0,top=0,width=2480,height=3508,toolbar=0,scrollbars=0,status=0'
+        )
+        printWin.document.open()
+        printWin.document.write(windowContent)
+
+        setTimeout(() => {
+          printWin.print()
+          printWin.close()
+        }, 1000)
+      }
     },
   },
 }

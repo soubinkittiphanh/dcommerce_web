@@ -5,6 +5,14 @@
         <span class="text-h5">SPF Management</span>
         <v-spacer></v-spacer>
         <v-btn
+          color="secondary"
+          @click="loyaltyGuideDialog = true"
+          class="mr-2"
+        >
+          <v-icon left>mdi-settings-transfer</v-icon>
+          System Guide / ຄູ່ມືລະບົບ
+        </v-btn>
+        <v-btn
           color="primary"
           @click="openDialog()"
         >
@@ -12,6 +20,7 @@
           Add SPF
         </v-btn>
       </v-card-title>
+    <SystemGuideDialog v-model="loyaltyGuideDialog" />
 
       <!-- Search and Filter -->
       <v-card-text>
@@ -120,7 +129,8 @@
 export default {
   name: 'SPFIndex',
   components: {
-    SpfDialog: () => import('~/components/SpfDialog.vue')
+    SpfDialog: () => import('~/components/SpfDialog.vue'),
+    SystemGuideDialog: () => import('~/components/common/SystemGuideDialog.vue')
   },
   
   data() {
@@ -129,6 +139,7 @@ export default {
       search: '',
       statusFilter: null,
       dialog: false,
+      loyaltyGuideDialog: false,
       deleteDialog: false,
       selectedItem: null,
       itemToDelete: null,

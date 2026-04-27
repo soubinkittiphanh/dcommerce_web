@@ -108,6 +108,8 @@
                     <option value="Saving">Saving Account</option>
                     <option value="Current">Current Account</option>
                     <option value="Fixed Deposit">Fixed Deposit</option>
+                    <option value="Wallet">Wallet (ກະເປົາເງິນ)</option>
+                    <option value="Merchant">Merchant (ບັນຊີຮ້ານຄ້າ)</option>
                   </select>
                 </div>
               </div>

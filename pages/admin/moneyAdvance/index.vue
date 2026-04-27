@@ -10,13 +10,7 @@
               <v-icon left small>mdi-plus</v-icon>
               ລົງລາຍຈ່າຍ
             </v-btn>
-            <v-btn
-              color="secondary"
-              small
-              outlined
-              @click="exportData"
-              :disabled="loading || advances.length === 0"
-            >
+            <v-btn color="secondary" small outlined @click="exportData" :disabled="loading || advances.length === 0">
               <v-icon left small>mdi-download</v-icon>
               Export
             </v-btn>
@@ -78,121 +72,50 @@
         <v-row no-gutters align="center" class="filter-row">
           <!-- Date Range Filters -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-menu
-              ref="fromDateMenu"
-              v-model="fromDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
+            <v-menu ref="fromDateMenu" v-model="fromDateMenu" :close-on-content-click="false"
+              transition="scale-transition" offset-y max-width="290px" min-width="auto">
               <template #activator="{ on, attrs }">
-                <v-text-field
-                  v-model="formattedFromDate"
-                  label="ວັນທີ່ເລີ່ມຕົ້ນ"
-                  hint="DD/MM/YYYY"
-                  dense
-                  outlined
-                  clearable
-                  hide-details="auto"
-                  prepend-inner-icon="mdi-calendar"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click:clear="clearFromDate"
-                />
+                <v-text-field v-model="formattedFromDate" label="ວັນທີ່ເລີ່ມຕົ້ນ" hint="DD/MM/YYYY" dense outlined
+                  clearable hide-details="auto" prepend-inner-icon="mdi-calendar" v-bind="attrs" v-on="on"
+                  @click:clear="clearFromDate" />
               </template>
-              <v-date-picker
-                v-model="pickerFromDate"
-                no-title
-                @input="setFromDate"
-              />
+              <v-date-picker v-model="pickerFromDate" no-title @input="setFromDate" />
             </v-menu>
           </v-col>
 
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-menu
-              ref="toDateMenu"
-              v-model="toDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
+            <v-menu ref="toDateMenu" v-model="toDateMenu" :close-on-content-click="false" transition="scale-transition"
+              offset-y max-width="290px" min-width="auto">
               <template #activator="{ on, attrs }">
-                <v-text-field
-                  v-model="formattedToDate"
-                  label="ວັນທີ່ສິ້ນສຸດ"
-                  hint="DD/MM/YYYY"
-                  dense
-                  outlined
-                  clearable
-                  hide-details="auto"
-                  prepend-inner-icon="mdi-calendar"
-                  v-bind="attrs"
-                  v-on="on"
-                  @click:clear="clearToDate"
-                />
+                <v-text-field v-model="formattedToDate" label="ວັນທີ່ສິ້ນສຸດ" hint="DD/MM/YYYY" dense outlined clearable
+                  hide-details="auto" prepend-inner-icon="mdi-calendar" v-bind="attrs" v-on="on"
+                  @click:clear="clearToDate" />
               </template>
-              <v-date-picker
-                v-model="pickerToDate"
-                no-title
-                @input="setToDate"
-              />
+              <v-date-picker v-model="pickerToDate" no-title @input="setToDate" />
             </v-menu>
           </v-col>
 
           <!-- User Filter -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-select
-              v-model="filters.makerId"
-              :items="userOptions"
-              label="ຜູ້ໃຊ້"
-              dense
-              outlined
-              clearable
-              hide-details="auto"
-              @change="fetchData"
-            />
+            <v-select v-model="filters.makerId" :items="userOptions" label="ຜູ້ໃຊ້" dense outlined clearable
+              hide-details="auto" @change="fetchData" />
           </v-col>
 
           <!-- Ministry Filter -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-select
-              v-model="filters.ministryId"
-              :items="ministryOptions"
-              label="ກະຊວງ"
-              dense
-              outlined
-              clearable
-              hide-details="auto"
-              @change="fetchData"
-            />
+            <v-select v-model="filters.ministryId" :items="ministryOptions" label="ກະຊວງ" dense outlined clearable
+              hide-details="auto" @change="fetchData" />
           </v-col>
 
           <!-- Search and Actions -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-text-field
-              v-model="searchTerm"
-              label="ຄົ້ນຫາ"
-              dense
-              outlined
-              clearable
-              hide-details="auto"
-              prepend-inner-icon="mdi-magnify"
-              @input="debounceSearch"
-            />
+            <v-text-field v-model="searchTerm" label="ຄົ້ນຫາ" dense outlined clearable hide-details="auto"
+              prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
           </v-col>
-          
+
           <v-col cols="12" sm="6" md="2" class="px-1">
             <div class="action-buttons">
-              <v-btn
-                color="primary"
-                x-small
-                @click="applyFilters"
-                :loading="loading"
-              >
+              <v-btn color="primary" x-small @click="applyFilters" :loading="loading">
                 <v-icon small>mdi-filter</v-icon>
               </v-btn>
               <v-btn x-small outlined @click="resetFilters" :disabled="loading">
@@ -211,15 +134,8 @@
         <v-spacer />
       </v-card-title>
 
-      <v-data-table
-        :headers="compactHeaders"
-        :items="advances"
-        :items-per-page="25"
-        class="compact-table"
-        dense
-        :loading="loading"
-        loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-      >
+      <v-data-table :headers="compactHeaders" :items="advances" :items-per-page="25" class="compact-table" dense
+        :loading="loading" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ...">
         <!-- ID Column -->
         <template #item.id="{ item }">
           <span class="id-text">{{ formatVoucherNumber(item.id) }}</span>
@@ -290,44 +206,21 @@
         <!-- Actions Column -->
         <template #item.actions="{ item }">
           <div class="action-buttons-table">
-            <v-btn
-              icon
-              x-small
-              @click="viewDetails(item)"
-              title="ເບິ່ງລາຍລະອຽດ"
-            >
+            <v-btn icon x-small @click="viewDetails(item)" title="ເບິ່ງລາຍລະອຽດ">
               <v-icon small>mdi-eye</v-icon>
             </v-btn>
             <v-btn icon x-small @click="openDialog(item)" title="ແກ້ໄຂ">
               <v-icon small>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn
-              v-if="item.status === 'pending'"
-              icon
-              x-small
-              color="success"
-              @click="approveAdvance(item)"
-              title="ອະນຸມັດ"
-            >
+            <v-btn v-if="item.status === 'pending'" icon x-small color="success" @click="approveAdvance(item)"
+              title="ອະນຸມັດ">
               <v-icon small>mdi-check</v-icon>
             </v-btn>
-            <v-btn
-              v-if="item.status === 'approved'"
-              icon
-              x-small
-              color="success"
-              @click="createSettlement(item)"
-              title="ສ້າງການຊຳລະ"
-            >
+            <v-btn v-if="item.status === 'approved'" icon x-small color="success" @click="createSettlement(item)"
+              title="ສ້າງການຊຳລະ">
               <v-icon small>mdi-cash-register</v-icon>
             </v-btn>
-            <v-btn
-              icon
-              x-small
-              color="error"
-              @click="printAdvanceDetails(item)"
-              title="ພິມ"
-            >
+            <v-btn icon x-small color="error" @click="printAdvanceDetails(item)" title="ພິມ">
               <v-icon small>mdi-printer</v-icon>
             </v-btn>
           </div>
@@ -339,63 +232,29 @@
     <v-card v-if="!loading && advances.length === 0" class="no-data-card" flat>
       <v-card-text class="text-center py-8">
         <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
-        <div class="mt-3 text-h6 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
+        <div class="mt-3 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
         <div class="grey--text">ບໍ່ພົບລາຍການລາຍຈ່າຍທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
       </v-card-text>
     </v-card>
 
     <!-- Dialog Components -->
-    <money-advance-dialog
-      :key="dialogKey"
-      :show="showDialog"
-      :is-edit="isEdit"
-      :form-data="form"
-      :users="users"
-      :currencies="currencies"
-      :bank-accounts="bankAccounts"
-      :ministries="ministries"
-      :form-loading="formLoading"
-      :saving="saving"
-      @close="closeDialog"
-      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))"
-      @save="saveAdvance"
-      @currency-changed="updateSelectedCurrency"
-      @bank-account-changed="updateSelectedBankAccount"
-      @ministry-changed="updateSelectedMinistry"
-      @validation-error="showToast"
-    />
+    <money-advance-dialog :key="dialogKey" :show="showDialog" :is-edit="isEdit" :form-data="form" :users="users"
+      :currencies="currencies" :bank-accounts="bankAccounts" :ministries="ministries" :form-loading="formLoading"
+      :saving="saving" @close="closeDialog"
+      @print="printAdvanceDetails(advances.find((advance) => advance.id == form.id))" @save="saveAdvance"
+      @currency-changed="updateSelectedCurrency" @bank-account-changed="updateSelectedBankAccount"
+      @ministry-changed="updateSelectedMinistry" @validation-error="showToast" />
 
-    <money-advance-detail-dialog
-      :show="showDetailDialog"
-      :details="advanceDetails"
-      :loading="detailLoading"
-      :status-labels="statusLabels"
-      @close="closeDetailDialog"
-      @print="printAdvanceDetails"
-      @edit="handleEditFromDetail"
-      @approve="handleApproveFromDetail"
-      @create-settlement="handleCreateSettlement"
-    />
+    <money-advance-detail-dialog :show="showDetailDialog" :details="advanceDetails" :loading="detailLoading"
+      :status-labels="statusLabels" @close="closeDetailDialog" @print="printAdvanceDetails" @edit="handleEditFromDetail"
+      @approve="handleApproveFromDetail" @create-settlement="handleCreateSettlement" />
 
-    <VoucherPrintComponent
-      v-if="showPrintVoucher && advanceDetails"
-      :key="advanceDetails.id"
-      :voucher-data="advanceDetails"
-      @close="closePrintVoucher"
-    />
+    <VoucherPrintComponent v-if="showPrintVoucher && advanceDetails" :key="advanceDetails.id"
+      :voucher-data="advanceDetails" @close="closePrintVoucher" />
 
-    <SettlementDialog
-      :visible="showSettlementDialog"
-      :settlement="settlementData"
-      :outstanding-invoices="[]"
-      :currencies="currencies"
-      :bank-accounts="bankAccounts"
-      :ministries="ministries"
-      :chart-accounts="chartAccounts"
-      :users="users"
-      @close="closeSettlementDialog"
-      @save="saveSettlement"
-    />
+    <SettlementDialog :visible="showSettlementDialog" :settlement="settlementData" :outstanding-invoices="[]"
+      :currencies="currencies" :bank-accounts="bankAccounts" :ministries="ministries" :chart-accounts="chartAccounts"
+      :users="users" @close="closeSettlementDialog" @save="saveSettlement" />
 
     <!-- Loading Overlay -->
     <v-overlay :value="loading">
@@ -802,7 +661,7 @@ export default {
       try {
         const response = await this.$axios.get('/api/currency/findAll')
         const { data } = response
-        this.currencies = data || [] 
+        this.currencies = data || []
       } catch (error) {
         console.error('Error fetching currencies:', error)
         this.currencies = []
@@ -1421,7 +1280,7 @@ export default {
   font-size: 12px;
 }
 
-.compact-table >>> th {
+.compact-table>>>th {
   font-size: 11px !important;
   font-weight: 600 !important;
   padding: 6px 8px !important;
@@ -1429,7 +1288,7 @@ export default {
   background: #f8fafc !important;
 }
 
-.compact-table >>> td {
+.compact-table>>>td {
   padding: 4px 8px !important;
   height: 40px !important;
   border-bottom: 1px solid #f1f5f9 !important;

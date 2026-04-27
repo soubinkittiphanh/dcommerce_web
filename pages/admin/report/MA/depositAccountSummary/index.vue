@@ -44,9 +44,9 @@
 
                     <!-- Bank -->
                     <v-col cols="12" md="3">
-                        <v-select v-model="filters.bankId" :items="[{id: 'ALL', bank_name: 'ທັງໝົດ (All Banks)'}, ...banks]"
-                            item-text="bank_name" item-value="id" label="ທະນາຄານ (Bank)"
-                            outlined dense @change="onBankChange"></v-select>
+                        <v-select v-model="filters.bankId"
+                            :items="[{ id: 'ALL', bank_name: 'ທັງໝົດ (All Banks)' }, ...banks]" item-text="bank_name"
+                            item-value="id" label="ທະນາຄານ (Bank)" outlined dense @change="onBankChange"></v-select>
                     </v-col>
 
                     <!-- Bank Account -->
@@ -58,7 +58,7 @@
                                 <v-chip v-if="index === 0" small>
                                     <span>{{ item.accountName }}</span>
                                 </v-chip>
-                                <span v-if="index === 1" class="grey--text text-caption">
+                                <span v-if="index === 1" class="grey--text ">
                                     (+{{ filters.bankAccountIds.length - 1 }} others)
                                 </span>
                             </template>
@@ -97,7 +97,7 @@
                     <div class="amount-cell">
                         <div class="ccy-amount">{{ formatAmount(item.broughtForward) }} {{ item.currency }}</div>
                         <div class="lcy-amount" v-if="item.currency !== 'LAK'">({{ formatAmount(item.broughtForwardLcy)
-                            }} LAK)</div>
+                        }} LAK)</div>
                     </div>
                 </template>
 
@@ -121,7 +121,7 @@
                     <div class="amount-cell font-weight-bold">
                         <div class="ccy-amount">{{ formatAmount(item.endingBalance) }} {{ item.currency }}</div>
                         <div class="lcy-amount" v-if="item.currency !== 'LAK'">({{ formatAmount(item.endingBalanceLcy)
-                            }} LAK)</div>
+                        }} LAK)</div>
                     </div>
                 </template>
 

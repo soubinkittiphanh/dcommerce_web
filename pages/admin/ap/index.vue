@@ -11,85 +11,95 @@
             <loading-indicator> </loading-indicator>
         </v-dialog>
 
-        <v-card>
-            <v-card-title>
-                <v-layout row wrap>
-                    <v-col cols="6">
+        <v-card outlined class="rounded-lg shadow-sm">
+            <v-card-title class="pa-4 d-flex align-center grey lighten-5 border-bottom">
+                <v-icon color="primary" class="mr-3">mdi-account-cash</v-icon>
+                <div class="d-flex flex-column">
+                    <span class="text-h6 font-weight-bold grey--text text--darken-3">Accounts Payable</span>
+                    <span class=" grey--text">Manage and track vendor payments</span>
+                </div>
+                <v-spacer></v-spacer>
+                <v-btn color="primary" @click="triggerDialog" depressed small class="mr-2">
+                    <v-icon left small>mdi-plus</v-icon>
+                    New Expense
+                </v-btn>
+                <v-btn color="secondary" @click="loadTxn" outlined small :loading="isloading">
+                    <v-icon left small>mdi-refresh</v-icon>
+                    Sync Data
+                </v-btn>
+            </v-card-title>
+
+            <v-card-text class="pa-4 grey lighten-4">
+                <v-row dense class="align-center">
+                    <v-col cols="12" md="2">
                         <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false"
-                            transition="scale-transition" offset-y max-width="290px" min-width="auto">
+                            transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ:" hint="MM/DD/YYYY format"
-                                    persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                                    @blur="date = parseDate(dateFormatted)" v-on="on"></v-text-field>
+                                <v-text-field v-model="dateFormatted" label="From" prepend-inner-icon="mdi-calendar"
+                                    v-bind="attrs" v-on="on" outlined dense hide-details readonly></v-text-field>
                             </template>
                             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
                         </v-menu>
-
+                    </v-col>
+                    <v-col cols="12" md="2">
                         <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false"
-                            transition="scale-transition" offset-y max-width="290px" min-width="auto">
+                            transition="scale-transition" offset-y min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
-                                <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ:" hint="MM/DD/YYYY format"
-                                    persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                                    @blur="date2 = parseDate(dateFormatted2)" v-on="on"></v-text-field>
+                                <v-text-field v-model="dateFormatted2" label="To" prepend-inner-icon="mdi-calendar"
+                                    v-bind="attrs" v-on="on" outlined dense hide-details readonly></v-text-field>
                             </template>
                             <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
                         </v-menu>
-                        <v-btn @click="triggerDialog" class="primary" size="large" variant="outlined" rounded>
-                            ສ້າງລາຍຈ່າຍ </v-btn>
                     </v-col>
-                    <v-col cols="6">
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line
-                            hide-detailsx />
-                        <v-text-field v-model="userId" append-icon="mdi-magnify" label="ລະຫັດຜູ້ຂາຍ" single-line
-                            hide-detailsx />
-                        <v-btn @click="loadTxn" class="primary" size="large" variant="outlined" rounded> ດຶງລາຍງານ
-                        </v-btn>
+                    <v-col cols="12" md="2">
+                        <v-text-field v-model="userId" label="Vendor ID" prepend-inner-icon="mdi-account" outlined dense
+                            hide-details clearable />
                     </v-col>
-                </v-layout>
-            </v-card-title>
-            <!-- <v-data-table v-if="orderHeaderList" :headers="headers" :search="search" :items="orderHeaderList"> -->
-            <v-card-text>
-                <table border="1" v-if="paymentCurrencyGrouping.length > 0">
-                    <thead>
-                        <tr>
-                            <th>ສະກຸນເງິນ</th>
-                            <th>ລວມຍອດ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="txn in paymentCurrencyGrouping" :key="txn['currency']">
-                            <td>{{ txn.currency }}</td>
-                            <td style="text-align: right;">{{ numberWithFormat(txn.amount) }}</td>
-                        </tr>
-                        <!-- <tr>
-                            <td>February</td>
-                            <td>$1500</td>
-                        </tr> -->
-                        <!-- Add more rows for other months -->
-                        <!-- <tr>
-                            <td><strong>Total</strong></td>
-                            <td><strong>$2500</strong></td>
-                        </tr> -->
-                    </tbody>
-                </table>
-
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="search" label="Search transactions..." prepend-inner-icon="mdi-magnify"
+                            outlined dense hide-details clearable />
+                    </v-col>
+                </v-row>
             </v-card-text>
-            <v-data-table v-if="txnList" :headers="headers" :search="search" :items="txnList">
-                <template v-slot:[`item.function`]="{ item }">
+            <!-- <v-data-table v-if="orderHeaderList" :headers="headers" :search="search" :items="orderHeaderList"> -->
+            <v-divider></v-divider>
 
-                    <v-btn color="primary" text @click="editItem(item)
-            wallet = true
-                ">
-                        <i class="fa-regular fa-pen-to-square"></i>
+            <v-card-text class="pa-4">
+                <v-row dense v-if="paymentCurrencyGrouping.length > 0">
+                    <v-col v-for="txn in paymentCurrencyGrouping" :key="txn['currency']" cols="12" sm="6" md="3">
+                        <v-card outlined class="metric-card pa-3 d-flex align-center">
+                            <v-avatar color="primary lighten-5" size="40" class="mr-3">
+                                <v-icon color="primary" small>mdi-currency-{{ txn.currency.toLowerCase() }}</v-icon>
+                            </v-avatar>
+                            <div>
+                                <div class=" grey--text font-weight-bold">{{ txn.currency }} Total</div>
+                                <div class="text-h6 font-weight-black">{{ numberWithFormat(txn.amount) }}</div>
+                            </div>
+                        </v-card>
+                    </v-col>
+                </v-row>
+            </v-card-text>
+            <v-data-table v-if="txnList" :headers="headers" :search="search" :items="txnList" dense
+                class="compact-table">
+                <template v-slot:[`item.paymentNumber`]="{ item }">
+                    <span class="font-weight-bold primary--text">{{ item.paymentNumber }}</span>
+                </template>
+
+                <template v-slot:[`item.totalAmount`]="{ item }">
+                    <div class="text-right font-weight-bold">
+                        {{ numberWithFormat(item.totalAmount) }}
+                    </div>
+                </template>
+
+                <template v-slot:[`item.currency.code`]="{ item }">
+                    <v-chip x-small outlined color="secondary" label>{{ item.currency.code }}</v-chip>
+                </template>
+
+                <template v-slot:[`item.function`]="{ item }">
+                    <v-btn icon small color="primary" @click="editItem(item)">
+                        <v-icon small>mdi-pencil</v-icon>
                     </v-btn>
                 </template>
-                <template v-slot:[`item.totalAmount`]="{ item }">
-
-                    {{ numberWithFormat(item.totalAmount) }}
-
-
-                </template>
-
             </v-data-table>
         </v-card>
     </div>
@@ -230,7 +240,7 @@ export default {
 
             // Loop through each transaction
             this.txnList.forEach(transaction => {
-                const { totalAmount, currency,currencyId } = transaction;
+                const { totalAmount, currency, currencyId } = transaction;
                 // If the currency code doesn't exist in the sumByCurrency object, initialize it to 0
                 if (!sumByCurrency[currency.code]) {
                     sumByCurrency[currency.code] = 0;
@@ -252,4 +262,41 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+.border-bottom {
+    border-bottom: 1px solid #e0e0e0 !important;
+}
+
+.metric-card {
+    background-color: white !important;
+    border: 1px solid #e0e0e0 !important;
+    transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    border-color: var(--v-primary-base) !important;
+}
+
+.shadow-sm {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05) !important;
+}
+
+.compact-table :deep(th) {
+    height: 44px !important;
+    font-size: 0.7rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #757575 !important;
+    background-color: #f8f9fa !important;
+}
+
+.compact-table :deep(td) {
+    height: 44px !important;
+    font-size: 0.875rem !important;
+}
+
+.v-text-field--outlined :deep(fieldset) {
+    border-color: #e0e0e0;
+}
+</style>

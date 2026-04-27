@@ -25,7 +25,7 @@
           <v-row dense>
             <!-- Basic Information -->
             <v-col cols="12">
-              <div class="text-subtitle-2 mb-2">Basic Information</div>
+              <div class=" mb-2">Basic Information</div>
             </v-col>
 
             <!-- Batch Name -->
@@ -70,7 +70,7 @@
 
             <!-- Batch Configuration -->
             <v-col cols="12">
-              <div class="text-subtitle-2 mb-2 mt-2">Batch Configuration</div>
+              <div class=" mb-2 mt-2">Batch Configuration</div>
             </v-col>
 
             <!-- Total Positions -->
@@ -139,7 +139,7 @@
 
             <!-- Dates -->
             <v-col cols="12">
-              <div class="text-subtitle-2 mb-2 mt-2">Important Dates</div>
+              <div class=" mb-2 mt-2">Important Dates</div>
             </v-col>
 
             <!-- Batch Start Date -->

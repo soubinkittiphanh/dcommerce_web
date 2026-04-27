@@ -1,330 +1,289 @@
 <template>
-  <div class="notosans-lao">
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="primary white--text py-3">
+  <div class="ap-settlement-container notosans-lao">
+    <div class="primary analysis-header mb-4">
+      <div class="d-flex justify-space-between align-center">
+        <div>
+          <h1 class="text-h5 font-weight-bold mb-1 white--text">
             <v-icon color="white" class="mr-2">mdi-cash-register</v-icon>
-            <span>ລະບົບຈັດການການຮັບຊຳລະ</span>
-            <v-spacer />
-            <!-- Refresh Button -->
-            <v-btn 
-              color="white" 
-              text 
-              @click="refreshData"
-              :loading="loading"
-              class="mr-2"
-            >
-              <v-icon left>mdi-refresh</v-icon>
-              ໂຫຼດໃໝ່
-            </v-btn>
-            <!-- Enhanced Export Button -->
-            <v-btn 
-              color="success" 
-              @click="exportToExcel"
-              :loading="exporting"
-              class="mr-2"
-            >
-              <v-icon left>mdi-file-excel</v-icon>
-              ສົ່ງອອກ Excel
-            </v-btn>
-            <v-btn color="white" text @click="openCreateDialog">
-              <v-icon left>mdi-plus</v-icon>
-              ເພີ່ມໃໝ່
-            </v-btn>
-          </v-card-title>
+            ລະບົບຈັດການການຮັບຊຳລະ
+          </h1>
+          <p class="text-body-2 opacity-80 mb-0 white--text">ເບິ່ງ ແລະ ຈັດການການຮັບຊຳລະເງິນທັງໝົດ</p>
+        </div>
+        <div class="d-flex gap-2 align-center">
+          <!-- Refresh Button -->
+          <v-btn color="white" text small @click="refreshData" :loading="loading" class="mr-2">
+            <v-icon left small>mdi-refresh</v-icon>
+            ໂຫຼດໃໝ່
+          </v-btn>
+          <!-- Enhanced Export Button -->
+          <v-btn color="white" text small @click="exportToExcel" :loading="exporting" class="mr-2">
+            <v-icon left small>mdi-file-excel</v-icon>
+            ສົ່ງອອກ Excel
+          </v-btn>
+          <v-btn color="white" light depressed @click="openCreateDialog" class="rounded-lg font-weight-medium">
+            <v-icon left small>mdi-plus</v-icon>ເພີ່ມໃໝ່
+          </v-btn>
+        </div>
+      </div>
 
-          <!-- Filters -->
-          <v-card-text class="pa-3">
-            <v-row dense>
-              <v-col cols="12" md="3">
-                <v-text-field
-                  v-model="filters.search"
-                  label="ຄົ້ນຫາ"
-                  placeholder="ເລກທີໃບຮັບ, ເລກອ້າງອີງ..."
-                  outlined
-                  dense
-                  hide-details
-                  clearable
-                  prepend-inner-icon="mdi-magnify"
-                  @input="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-select
-                  v-model="filters.paymentMethod"
-                  :items="paymentMethodOptions"
-                  label="ວິທີຈ່າຍ"
-                  outlined
-                  dense
-                  hide-details
-                  clearable
-                  prepend-inner-icon="mdi-cash"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  v-model="filters.bookingDateFrom"
-                  label="ວັນທີບັນທຶກຈາກ"
-                  type="date"
-                  outlined
-                  dense
-                  hide-details
-                  prepend-inner-icon="mdi-calendar-start"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-text-field
-                  v-model="filters.bookingDateTo"
-                  label="ວັນທີບັນທຶກເຖິງ"
-                  type="date"
-                  outlined
-                  dense
-                  hide-details
-                  prepend-inner-icon="mdi-calendar-end"
-                  @change="applyFilters"
-                />
-              </v-col>
-              <v-col cols="12" md="2">
-                <v-btn color="secondary" outlined block @click="resetFilters">
-                  <v-icon left>mdi-refresh</v-icon>
-                  Reset
-                </v-btn>
-              </v-col>
-              <v-col cols="12" md="1">
-                <v-chip color="info" outlined>
-                  {{ filteredReceipts.length }}
-                </v-chip>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+      <!-- Quick Summary Cards -->
+      <v-row class="mt-6">
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="info lighten-4" size="48" class="rounded-lg">
+                <v-icon color="info" size="28">mdi-wallet-plus</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ຮັບຊຳລະທັງໝົດ</div>
+                <div class="font-weight-bold info--text uppercase">{{ formatCurrency(summaryTotals.totalReceived) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="success lighten-4" size="48" class="rounded-lg">
+                <v-icon color="success" size="28">mdi-cash</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ເງິນສົດ (Cash)</div>
+                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalCash) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="primary lighten-4" size="48" class="rounded-lg">
+                <v-icon color="primary" size="28">mdi-bank-transfer</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ໂອນ (Transfer)</div>
+                <div class="font-weight-bold primary--text uppercase">{{ formatCurrency(summaryTotals.totalBankTransfer)
+                }}</div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+
+        <v-col cols="12" sm="6" md="3">
+          <v-card class="summary-card-premium" elevation="0">
+            <v-card-text class="d-flex align-center pa-4">
+              <v-avatar color="purple lighten-4" size="48" class="rounded-lg">
+                <v-icon color="purple" size="28">mdi-credit-card</v-icon>
+              </v-avatar>
+              <div class="ml-4">
+                <div class="grey--text font-weight-bold text-uppercase">ອື່ນໆ (Other)</div>
+                <div class="font-weight-bold purple--text uppercase">{{ formatCurrency(summaryTotals.totalOther) }}
+                </div>
+              </div>
+            </v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </div>
+
+    <!-- Filter Section -->
+    <v-card class="mb-6 filter-card" elevation="0">
+      <v-card-text class="pa-4">
+        <v-row dense align="center">
+          <v-col cols="12" md="3">
+            <v-text-field v-model="filters.search" label="ຄົ້ນຫາ" placeholder="ເລກທີໃບຮັບ, ເລກອ້າງອີງ..." outlined dense
+              hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-select v-model="filters.paymentMethod" :items="paymentMethodOptions" label="ວິທີຈ່າຍ" outlined dense
+              hide-details clearable prepend-inner-icon="mdi-cash" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.bookingDateFrom" label="ວັນທີບັນທຶກຈາກ" type="date" outlined dense
+              hide-details prepend-inner-icon="mdi-calendar-start" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-text-field v-model="filters.bookingDateTo" label="ວັນທີບັນທຶກເຖິງ" type="date" outlined dense
+              hide-details prepend-inner-icon="mdi-calendar-end" @change="applyFilters" />
+          </v-col>
+          <v-col cols="12" md="2">
+            <v-btn color="secondary" outlined block @click="resetFilters">
+              <v-icon left>mdi-refresh</v-icon>
+              Reset
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
 
     <!-- Data Table -->
-    <v-row class="mt-3">
-      <v-col cols="12">
-        <v-card>
-          <v-card-title class="py-2">
-            <v-icon class="mr-2">mdi-table</v-icon>
-            <span>ລາຍການການຮັບຊຳລະ</span>
-            <v-spacer />
-            <v-chip color="primary" outlined>
-              {{ filteredReceipts.length }} ລາຍການ
-            </v-chip>
-          </v-card-title>
+    <v-card class="dashboard-card" elevation="0" outlined>
+      <v-card-title class="py-3 bg-light border-bottom">
+        <v-icon color="primary" class="mr-2">mdi-table</v-icon>
+        <span class="font-weight-bold text-subtitle-1">ລາຍການການຮັບຊຳລະ</span>
+        <v-spacer />
+        <v-chip color="primary" class="font-weight-medium" small>
+          {{ filteredReceipts.length }} ລາຍການ
+        </v-chip>
+      </v-card-title>
 
-          <v-data-table
-            :headers="headers"
-            :items="filteredReceipts"
-            :loading="loading"
-            :items-per-page="10"
-            class="elevation-0 notosans-lao"
-            loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-            no-data-text="ບໍ່ມີຂໍ້ມູນ"
-          >
-            <!-- Receipt Number -->
-            <template v-slot:item.receiptNumber="{ item }">
-              <div>
-                <div class="font-weight-bold">{{ item.receiptNumber }}</div>
-                <div
-                  v-if="item.notes"
-                  class=" grey--text text-truncate"
-                  style="max-width: 150px"
-                >
-                  {{ item.notes }}
-                </div>
-              </div>
+      <v-data-table :headers="headers" :items="filteredReceipts" :loading="loading" :items-per-page="10"
+        class="elevation-0 notosans-lao modernize-table" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ມີຂໍ້ມູນ">
+        <!-- Receipt Number -->
+        <template v-slot:item.receiptNumber="{ item }">
+          <div>
+            <div class="font-weight-bold">{{ item.receiptNumber }}</div>
+            <div v-if="item.notes" class=" grey--text text-truncate" style="max-width: 150px">
+              {{ item.notes }}
+            </div>
+          </div>
+        </template>
+
+        <!-- Booking Date -->
+        <template v-slot:item.bookingDate="{ item }">
+          <span class="">{{
+            formatDate(item.bookingDate)
+            }}</span>
+        </template>
+
+        <!-- Received Date -->
+        <template v-slot:item.receivedDate="{ item }">
+          <span class="">{{
+            formatDate(item.receivedDate)
+            }}</span>
+        </template>
+
+        <!-- Invoice -->
+        <template v-slot:item.invoice="{ item }">
+          <div v-if="item.invoiceHeader">
+            <div class="font-weight-medium">
+              <v-icon x-small class="mr-1">mdi-file-invoice</v-icon>
+              {{ item.invoiceHeader.invoiceNumber }}
+            </div>
+            <div v-if="item.invoiceHeader.customer" class=" grey--text">
+              {{ item.invoiceHeader.customer.name }}
+            </div>
+          </div>
+          <span v-else class="grey--text ">N/A</span>
+        </template>
+
+        <!-- Total Received Amount -->
+        <template v-slot:item.totalReceivedAmount="{ item }">
+          <div class="text-right">
+            <div class="font-weight-bold">
+              {{ formatCurrency(item.totalReceivedAmount) }}
+            </div>
+            <div class=" grey--text">
+              {{ getCurrencyCode(item) }}
+            </div>
+            <div v-if="item.receiveLines?.length > 0" class=" grey--text">
+              {{ item.receiveLines.length }} ການແບ່ງປັນ
+            </div>
+          </div>
+        </template>
+
+        <!-- Payment Method -->
+        <template v-slot:item.paymentMethod="{ item }">
+          <v-chip x-small :color="getPaymentMethodColor(item.paymentMethod)" text-color="white">
+            {{ formatPaymentMethod(item.paymentMethod) }}
+          </v-chip>
+        </template>
+
+        <!-- Reference Number -->
+        <template v-slot:item.referenceNumber="{ item }">
+          <span class=" font-weight-medium" style="font-family: monospace">
+            {{ item.referenceNumber || '-' }}
+          </span>
+        </template>
+
+        <template v-slot:item.batch="{ item }">
+          <div class="">
+            <div class="font-weight-medium">
+              {{ item.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '-' }}
+            </div>
+            <div class="grey--text">
+              {{ item.invoiceHeader?.jobbatch?.mou?.jobCode || '-' }}
+            </div>
+            <div class="grey--text">
+              {{ item.invoiceHeader?.jobbatch?.mou?.jobTitle || '-' }}
+            </div>
+          </div>
+        </template>
+
+        <!-- Inputter -->
+        <template v-slot:item.inputter="{ item }">
+          <div class="">
+            <div>
+              {{ item.inputter?.username || item.maker?.username || 'N/A' }}
+            </div>
+            <div v-if="item.createdAt" class="grey--text">
+              {{ formatDate(item.createdAt) }}
+            </div>
+          </div>
+        </template>
+
+        <!-- Actions -->
+        <template v-slot:item.actions="{ item }">
+          <v-menu bottom left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn icon small v-bind="attrs" v-on="on">
+                <v-icon small>mdi-dots-vertical</v-icon>
+              </v-btn>
             </template>
+            <v-list dense>
+              <v-list-item @click="viewReceipt(item)">
+                <v-list-item-icon>
+                  <v-icon small color="info">mdi-eye</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+              </v-list-item>
 
-            <!-- Booking Date -->
-            <template v-slot:item.bookingDate="{ item }">
-              <span class="">{{
-                formatDate(item.bookingDate)
-              }}</span>
-            </template>
+              <v-list-item @click="editReceipt(item)">
+                <v-list-item-icon>
+                  <v-icon small color="warning">mdi-pencil</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+              </v-list-item>
 
-            <!-- Received Date -->
-            <template v-slot:item.receivedDate="{ item }">
-              <span class="">{{
-                formatDate(item.receivedDate)
-              }}</span>
-            </template>
-
-            <!-- Invoice -->
-            <template v-slot:item.invoice="{ item }">
-              <div v-if="item.invoiceHeader">
-                <div class="font-weight-medium">
-                  <v-icon x-small class="mr-1">mdi-file-invoice</v-icon>
-                  {{ item.invoiceHeader.invoiceNumber }}
-                </div>
-                <div
-                  v-if="item.invoiceHeader.customer"
-                  class=" grey--text"
-                >
-                  {{ item.invoiceHeader.customer.name }}
-                </div>
-              </div>
-              <span v-else class="grey--text ">N/A</span>
-            </template>
-
-            <!-- Total Received Amount -->
-            <template v-slot:item.totalReceivedAmount="{ item }">
-              <div class="text-right">
-                <div class="font-weight-bold">
-                  {{ formatCurrency(item.totalReceivedAmount) }}
-                </div>
-                <div class=" grey--text">
-                  {{ getCurrencyCode(item) }}
-                </div>
-                <div
-                  v-if="item.receiveLines?.length > 0"
-                  class=" grey--text"
-                >
-                  {{ item.receiveLines.length }} ການແບ່ງປັນ
-                </div>
-              </div>
-            </template>
-
-            <!-- Payment Method -->
-            <template v-slot:item.paymentMethod="{ item }">
-              <v-chip
-                x-small
-                :color="getPaymentMethodColor(item.paymentMethod)"
-                text-color="white"
-              >
-                {{ formatPaymentMethod(item.paymentMethod) }}
-              </v-chip>
-            </template>
-
-            <!-- Reference Number -->
-            <template v-slot:item.referenceNumber="{ item }">
-              <span
-                class=" font-weight-medium"
-                style="font-family: monospace"
-              >
-                {{ item.referenceNumber || '-' }}
-              </span>
-            </template>
-
-            <template v-slot:item.batch="{ item }">
-              <div class="">
-                <div class="font-weight-medium">
-                  {{ item.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '-' }}
-                </div>
-                <div class="grey--text">
-                  {{ item.invoiceHeader?.jobbatch?.mou?.jobCode || '-' }}
-                </div>
-                <div class="grey--text">
-                  {{ item.invoiceHeader?.jobbatch?.mou?.jobTitle || '-' }}
-                </div>
-              </div>
-            </template>
-
-            <!-- Inputter -->
-            <template v-slot:item.inputter="{ item }">
-              <div class="">
-                <div>
-                  {{ item.inputter?.username || item.maker?.username || 'N/A' }}
-                </div>
-                <div v-if="item.createdAt" class="grey--text">
-                  {{ formatDate(item.createdAt) }}
-                </div>
-              </div>
-            </template>
-
-            <!-- Actions -->
-            <template v-slot:item.actions="{ item }">
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon small v-bind="attrs" v-on="on">
-                    <v-icon small>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense>
-                  <v-list-item @click="viewReceipt(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="info">mdi-eye</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item @click="editReceipt(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="warning">mdi-pencil</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-                  </v-list-item>
-
-                  <v-list-item @click="printReceipt(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="success">mdi-printer</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ພິມໃບຮັບ</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-col>
-    </v-row>
+              <v-list-item @click="printReceipt(item)">
+                <v-list-item-icon>
+                  <v-icon small color="success">mdi-printer</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>ພິມໃບຮັບ</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </template>
+      </v-data-table>
+    </v-card>
 
     <!-- Receive Header Maintain Dialog -->
     <client-only>
-      <ReceiveHeaderMaintain
-        :visible="showEditDialog"
-        :receipt="selectedReceipt"
-        :gl-accounts="glAccounts"
-        :invoices="invoices"
-        :currencies="currencies"
-        :users="users"
-        @close="closeEditDialog"
-        @save="onReceiptSave"
-      />
+      <ReceiveHeaderMaintain :visible="showEditDialog" :receipt="selectedReceipt" :gl-accounts="glAccounts"
+        :invoices="invoices" :currencies="currencies" :users="users" @close="closeEditDialog" @save="onReceiptSave" />
     </client-only>
 
     <!-- Receipt View Dialog -->
     <client-only>
-      <ReceiveHeaderView
-        :visible="showViewDialog"
-        :receipt="selectedReceipt"
-        @close="closeViewDialog"
-      />
+      <ReceiveHeaderView :visible="showViewDialog" :receipt="selectedReceipt" @close="closeViewDialog" />
     </client-only>
-    
+
     <!-- Add this Print Voucher Dialog -->
     <client-only>
-      <ARReceivePrinter
-        :visible="showPrintDialog"
-        :receipt-data="selectedReceiptForPrint"
-        :payment-methods="paymentMethods"
-        :currencies="currencies"
-        :transaction-codes="transactionCodes"
-        :gl-accounts="glAccounts"
-        :invoices="invoices"
-        @close="closePrintDialog"
-      />
+      <ARReceivePrinter :visible="showPrintDialog" :receipt-data="selectedReceiptForPrint"
+        :payment-methods="paymentMethods" :currencies="currencies" :transaction-codes="transactionCodes"
+        :gl-accounts="glAccounts" :invoices="invoices" @close="closePrintDialog" />
     </client-only>
 
     <!-- Export Progress Snackbar -->
-    <v-snackbar
-      v-model="showExportProgress"
-      :timeout="-1"
-      color="info"
-      bottom
-      right
-    >
+    <v-snackbar v-model="showExportProgress" :timeout="-1" color="info" bottom right>
       <v-icon left>mdi-download</v-icon>
       ກຳລັງສ້າງໄຟລ້ Excel...
-      <v-progress-linear
-        indeterminate
-        color="white"
-        class="mb-0 mt-2"
-      ></v-progress-linear>
+      <v-progress-linear indeterminate color="white" class="mb-0 mt-2"></v-progress-linear>
     </v-snackbar>
   </div>
 </template>
@@ -482,6 +441,25 @@ export default {
         total: this.filteredReceipts.length,
       }
     },
+
+    summaryTotals() {
+      return this.filteredReceipts.reduce(
+        (acc, receipt) => {
+          acc.totalReceived += (receipt.totalReceivedAmount || 0)
+
+          if (receipt.paymentMethod === 'cash') {
+            acc.totalCash += (receipt.totalReceivedAmount || 0)
+          } else if (receipt.paymentMethod === 'bank_transfer') {
+            acc.totalBankTransfer += (receipt.totalReceivedAmount || 0)
+          } else {
+            acc.totalOther += (receipt.totalReceivedAmount || 0)
+          }
+
+          return acc
+        },
+        { totalReceived: 0, totalCash: 0, totalBankTransfer: 0, totalOther: 0 }
+      )
+    },
   },
 
   mounted() {
@@ -520,7 +498,7 @@ export default {
     async exportToExcel() {
       this.exporting = true
       this.showExportProgress = true
-      
+
       try {
         const currentDate = new Date().toISOString().split('T')[0]
         const filename = `AR_Receive_Report_${currentDate}.xlsx`
@@ -536,7 +514,7 @@ export default {
             params: exportParams,
             responseType: 'blob'
           })
-          
+
           this.downloadBlob(response.data, filename)
           this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
           return
@@ -547,7 +525,7 @@ export default {
         // Fallback to client-side export
         await this.generateExcelFromData(this.filteredReceipts, filename)
         this.$toast.success('ສົ່ງອອກ Excel ສຳເລັດ')
-        
+
       } catch (error) {
         console.error('Export error:', error)
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກ Excel')
@@ -574,7 +552,7 @@ export default {
       try {
         // Try to use XLSX if available
         const XLSX = await import('xlsx')
-        
+
         const exportData = receipts.map((receipt, index) => ({
           'ລຳດັບ': index + 1,
           'ເລກທີໃບຮັບ': receipt.receiptNumber || '',
@@ -620,17 +598,17 @@ export default {
         })
 
         const workbook = XLSX.utils.book_new()
-        
+
         // Summary sheet
         const summarySheet = XLSX.utils.json_to_sheet(exportData)
         XLSX.utils.book_append_sheet(workbook, summarySheet, 'ສະຫຼຸບການຮັບ')
-        
+
         // Detail sheet (if we have line items)
         if (detailedData.length > 0) {
           const detailSheet = XLSX.utils.json_to_sheet(detailedData)
           XLSX.utils.book_append_sheet(workbook, detailSheet, 'ລາຍລະອຽດການຮັບ')
         }
-        
+
         // Set column widths for better readability
         const wscols = [
           { wch: 8 },  // ລຳດັບ
@@ -655,9 +633,9 @@ export default {
           { wch: 10 }  // ສະຖານະ
         ]
         summarySheet['!cols'] = wscols
-        
+
         XLSX.writeFile(workbook, filename)
-        
+
       } catch (xlsxError) {
         // Fallback to CSV if XLSX not available
         console.log('XLSX not available, generating CSV')
@@ -724,12 +702,12 @@ export default {
           return firstLine.currency.code || firstLine.currency.name || 'LAK'
         }
       }
-      
+
       // Try to get from invoice
       if (receipt.invoiceHeader && receipt.invoiceHeader.currency) {
         return receipt.invoiceHeader.currency.code || receipt.invoiceHeader.currency.name || 'LAK'
       }
-      
+
       // Default to LAK
       return 'LAK'
     },
@@ -770,7 +748,7 @@ export default {
         console.error('Error fetching transaction codes:', error)
       }
     },
-    
+
     async fetchCurrencies() {
       try {
         const { data } = await this.$axios.get('/api/currency/findAll')
@@ -779,7 +757,7 @@ export default {
         console.error(error)
       }
     },
-    
+
     async fetchAccountCharts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -788,7 +766,7 @@ export default {
         console.error(error)
       }
     },
-    
+
     async fetchReceipts() {
       this.loading = true
       try {
@@ -863,7 +841,7 @@ export default {
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນ')
       }
     },
-    
+
     closePrintDialog() {
       this.showPrintDialog = false
       this.selectedReceiptForPrint = null
@@ -1082,16 +1060,73 @@ export default {
   font-family: 'Noto Sans Lao', Arial, sans-serif !important;
 }
 
-.receive-summary-container {
-  padding: 20px;
+.analysis-header {
+  background: var(--v-primary-base);
+  color: white;
+  border-radius: 12px;
+  padding: 16px 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
-.v-card-title.primary {
-  background: linear-gradient(45deg, #1976d2, #1565c0);
+.ap-settlement-container {
+  padding: 00px;
 }
 
-. {
-  font-size: 12px !important;
+.filter-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-card-premium {
+  border-radius: 16px !important;
+  background-color: white !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.dashboard-card {
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.modernize-table ::v-deep th {
+  background-color: #f8fafc !important;
+  color: #64748b !important;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+}
+
+.modernize-table ::v-deep td {
+  font-size: 0.875rem !important;
+  padding: 12px 16px !important;
+}
+
+.font-monospace {
+  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+}
+
+.v-chip.font-weight-medium {
+  font-size: 0.7rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.border-left {
+  border-left: 1px solid #e2e8f0;
+}
+
+.bg-light {
+  background-color: #f8fafc !important;
+}
+
+.opacity-80 {
+  opacity: 0.8;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }
 
 /* Export button styling */

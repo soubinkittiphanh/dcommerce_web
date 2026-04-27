@@ -6,9 +6,9 @@
       <div class="d-flex flex-column">
         <span class="text-h6 primary--text font-weight-bold">
           Q{{ getQueNo(ticket.ticketNumber) }}
-          <span class="text-subtitle-2 grey--text ml-1">#{{ ticket.ticketNumber || ticket.id }}</span>
+          <span class=" grey--text ml-1">#{{ ticket.ticketNumber || ticket.id }}</span>
         </span>
-        <span class="text-caption grey--text">
+        <span class=" grey--text">
           <v-icon x-small class="mr-1">mdi-clock-outline</v-icon>
           {{ formatTime(ticket.createdAt) }}
         </span>
@@ -30,8 +30,8 @@
       <v-row dense>
         <v-col cols="6">
           <div class="info-item mb-2">
-            <div class="text-caption grey--text">Customer</div>
-            <div class="text-subtitle-2 font-weight-bold truncate-text">
+            <div class=" grey--text">Customer</div>
+            <div class=" font-weight-bold truncate-text">
               <v-icon small left color="primary">mdi-account</v-icon>
               {{ ticket.client?.name || 'Walk-in' }}
             </div>
@@ -39,8 +39,8 @@
         </v-col>
         <v-col cols="6">
           <div class="info-item mb-2 text-right">
-            <div class="text-caption grey--text">Table / Area</div>
-            <div class="text-subtitle-2 font-weight-bold">
+            <div class=" grey--text">Table / Area</div>
+            <div class=" font-weight-bold">
               <v-icon small left color="primary">mdi-table-furniture</v-icon>
               {{ ticket.table?.number || ticket.table?.name || 'N/A' }}
             </div>
@@ -52,7 +52,7 @@
       <div class="users-info mt-1">
         <v-tooltip bottom v-if="ticket.createUser">
           <template v-slot:activator="{ on, attrs }">
-            <span v-bind="attrs" v-on="on" class="text-caption grey--text mr-2">
+            <span v-bind="attrs" v-on="on" class=" grey--text mr-2">
               <v-icon x-small>mdi-plus-circle-outline</v-icon>
               {{ ticket.createUser?.cus_name || ticket.createUser?.name }}
             </span>
@@ -62,7 +62,7 @@
 
         <v-tooltip bottom v-if="ticket.cancelUser">
           <template v-slot:activator="{ on, attrs }">
-            <span v-bind="attrs" v-on="on" class="text-caption error--text mr-2">
+            <span v-bind="attrs" v-on="on" class=" error--text mr-2">
               <v-icon x-small color="error">mdi-cancel</v-icon>
               {{ ticket.cancelUser?.cus_name || ticket.cancelUser?.name }}
             </span>
@@ -74,7 +74,7 @@
       <!-- Notes Preview -->
       <div v-if="ticket.notes" class="ticket-notes-box mt-2 pa-2 rounded" @click.stop>
         <div class="d-flex justify-space-between align-center">
-          <span class="text-caption font-weight-bold d-flex align-center">
+          <span class=" font-weight-bold d-flex align-center">
             <v-icon x-small color="orange" class="mr-1">mdi-note-text</v-icon>
             Notes
           </span>
@@ -82,7 +82,7 @@
             <v-icon x-small>mdi-pencil</v-icon>
           </v-btn>
         </div>
-        <div class="notes-content text-caption grey--text text--darken-2">
+        <div class="notes-content  grey--text text--darken-2">
           {{ truncateNotes(ticket.notes) }}
         </div>
       </div>
@@ -97,7 +97,7 @@
     <!-- Footer Summary -->
     <v-card-text class="pa-3 pt-2">
       <div class="d-flex justify-space-between align-center py-2 border-top">
-        <span class="text-subtitle-2 grey--text">Total Amount</span>
+        <span class=" grey--text">Total Amount</span>
         <span class="text-h6 font-weight-bold primary--text">
           {{ formatPrice(ticket.total) }}
         </span>
@@ -147,7 +147,7 @@
 
         <v-spacer></v-spacer>
 
-        <v-btn v-if="ticket.status !== 'cancel' && ticket.status !== 'paid'" color="error" small icon text
+        <v-btn v-if="ticket.status !== 'cancel' && canCancelPermission" color="error" small icon text
           @click="$emit('update-status', ticket.id, 'cancel')">
           <v-icon small>mdi-delete-outline</v-icon>
         </v-btn>
@@ -190,6 +190,18 @@ export default {
         return `Ready for ${minutesAgo} minutes`
       }
       return ''
+    },
+    canCancelPermission() {
+      const user = this.$auth.user;
+      const groupPermission = user?.userGroup?.ticketCancel;
+
+      // Regular logic: cannot cancel if already paid unless user has explicit permission
+      if (this.ticket.status === 'paid') {
+        return !!groupPermission;
+      }
+
+      // If not paid, still respect the group permission
+      return !!groupPermission;
     },
   },
   methods: {

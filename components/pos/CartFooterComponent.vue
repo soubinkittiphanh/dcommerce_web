@@ -1,6 +1,36 @@
 <template>
   <div class="cart-footer">
     <div class="payment-inputs pa-3">
+      <v-row no-gutters class="ga-2 mb-2" v-if="currentCustomer && currentCustomer.loyaltyPoints > 0">
+        <v-col cols="12">
+          <v-card outlined class="loyalty-card pa-2" color="blue-grey lighten-5">
+            <div class="d-flex justify-space-between align-center">
+              <div class="d-flex align-center">
+                <v-icon color="primary" small class="mr-1">mdi-star-circle</v-icon>
+                <span class="text-caption font-weight-bold">Points: {{ currentCustomer.loyaltyPoints }}</span>
+              </div>
+              <v-btn x-small color="primary" @click="toggleRedeem" :outlined="!showRedeem">
+                {{ showRedeem ? 'Cancel' : 'Redeem' }}
+              </v-btn>
+            </div>
+            <v-expand-transition>
+              <div v-if="showRedeem" class="mt-2">
+                <v-row no-gutters align="center">
+                  <v-col cols="8">
+                    <v-text-field v-model.number="pointsToRedeem" label="Points to use" type="number" dense
+                      hide-details outlined class="compact-input" :max="currentCustomer.loyaltyPoints" />
+                  </v-col>
+                  <v-col cols="4" class="text-right">
+                    <div class="text-caption success--text font-weight-bold">
+                       -{{ formatNumber(loyaltyDiscountAmount) }}
+                    </div>
+                  </v-col>
+                </v-row>
+              </div>
+            </v-expand-transition>
+          </v-card>
+        </v-col>
+      </v-row>
       <v-row no-gutters class="ga-2">
         <v-col cols="12" md="6">
           <v-text-field v-model="discountRawInput" @input="handleDiscountInput($event)" @blur="handleDiscountBlur()"
@@ -123,7 +153,8 @@ export default {
     formatNumber: { type: Function, required: true },
     selectedPayment: { type: [Number, String], default: null },
     paymentList: { type: Array, default: () => [] },
-    showCheckOut: { type: Boolean, default: true }
+    showCheckOut: { type: Boolean, default: true },
+    currentCustomer: { type: Object, default: null }
   },
 
   data() {
@@ -132,7 +163,9 @@ export default {
       discountRawInput: '',
       cashReceivedRawInput: '',
       isTypingDiscount: false,
-      isTypingCash: false
+      isTypingCash: false,
+      showRedeem: false,
+      pointsToRedeem: 0
     }
   },
 
@@ -171,8 +204,14 @@ export default {
       return this.isTypingCash ? (this.parseInputNumber(this.cashReceivedRawInput) || 0) : Number(this.cashReceived || 0)
     },
 
+    loyaltyDiscountAmount() {
+      if (!this.showRedeem) return 0;
+      const redeemRate = 10; // Default or from setting if possible
+      return this.pointsToRedeem * redeemRate;
+    },
+
     realTimeFinalTotal() {
-      const total = (this.pureSubtotalLAK + this.totalTaxLAK) - this.realTimeDiscountNumber
+      const total = (this.pureSubtotalLAK + this.totalTaxLAK) - this.realTimeDiscountNumber - this.loyaltyDiscountAmount
       return Math.max(0, total)
     },
 
@@ -309,7 +348,23 @@ export default {
       setTimeout(() => { this.processingPayment = false }, 2000)
     },
 
-    openMultiPayment() { this.$emit('open-multi-payment') }
+    openMultiPayment() { this.$emit('open-multi-payment') },
+
+    toggleRedeem() {
+      this.showRedeem = !this.showRedeem;
+      if (!this.showRedeem) {
+        this.pointsToRedeem = 0;
+      }
+      this.$emit('update:redeemed-points', this.pointsToRedeem);
+    }
+  },
+  watch: {
+    pointsToRedeem(val) {
+      const max = this.currentCustomer?.loyaltyPoints || 0;
+      if (val > max) this.pointsToRedeem = max;
+      if (val < 0) this.pointsToRedeem = 0;
+      this.$emit('update:redeemed-points', this.pointsToRedeem);
+    }
   }
 }
 </script>

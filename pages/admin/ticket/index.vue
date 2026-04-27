@@ -10,6 +10,11 @@
           <v-alert type="warning" variant="tonal" class="mb-4">
             ການຍົກເລີກ ticket ນີ້ບໍ່ສາມາດຍົກເລີກການດຳເນີນການໄດ້
             <br />This action cannot be undone
+            <div v-if="cancelDialog.isPaid" class="mt-2 font-weight-bold error--text">
+              <v-icon x-small color="error">mdi-cash-remove</v-icon>
+              ບິນນີ້ໄດ້ຊໍາລະແລ້ວ. ການຍົກເລີກຈະມີຜົນຕໍ່ຍອດເງິນສຳເລັດ.
+              <br />This ticket is PAID. Cancellation will affect total revenue.
+            </div>
           </v-alert>
           <v-form ref="cancelForm" v-model="cancelDialog.valid">
             <v-textarea v-model="cancelDialog.reason" label="ເຫດຜົນໃນການຍົກເລີກ / Cancellation Reason *"
@@ -102,7 +107,7 @@
                 </v-avatar>
                 <div class="text-h4 font-weight-black" :class="`${val.color}--text`">{{ val.value }}</div>
               </div>
-              <div class="text-caption font-weight-bold grey--text text-uppercase letter-spacing-1">{{ val.label }}
+              <div class=" font-weight-bold grey--text text-uppercase letter-spacing-1">{{ val.label }}
               </div>
             </v-card-text>
           </v-card>
@@ -171,6 +176,7 @@ export default {
         reason: '',
         valid: false,
         loading: false,
+        isPaid: false,
         reasonRules: [v => !!v || 'Required', v => (v && v.length >= 5) || 'Too short']
       },
       showNotesDialog: false,
@@ -324,7 +330,15 @@ export default {
 
     async updateTicketStatus(ticketId, newStatus) {
       if (newStatus === 'cancel') {
+        const userPermission = this.user?.userGroup?.ticketCancel;
+        if (!userPermission) {
+          this.$toast.error('You do not have permission to cancel tickets');
+          return;
+        }
+
+        const ticket = this.tickets.find(t => t.id === ticketId);
         this.cancelDialog.ticketId = ticketId
+        this.cancelDialog.isPaid = ticket?.status === 'paid'
         this.cancelDialog.show = true
         return
       }

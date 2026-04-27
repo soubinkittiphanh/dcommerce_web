@@ -2,7 +2,7 @@
   <v-card>
     <v-card-title class="primary white--text py-4">
       <v-icon left size="28" color="white">mdi-contactless-payment-circle</v-icon>
-      <span class="text-h6 font-weight-bold">ຊຳລະຜ່ານບັດນັກຮຽນ (NFC Wallet Payment)</span>
+      <span class=" font-weight-bold">ຊຳລະຜ່ານບັດນັກຮຽນ (NFC Wallet Payment)</span>
       <v-spacer></v-spacer>
       <v-btn icon dark @click="$emit('cancel')">
         <v-icon>mdi-close</v-icon>
@@ -12,22 +12,17 @@
     <v-card-text class="pa-6">
       <v-row>
         <!-- Scanner Input (Hidden) -->
-        <input 
-          type="text" 
-          id="nfc-pos-scanner" 
-          v-model="nfcUid" 
-          @keydown.enter="handleScan"
-          class="nfc-hidden-input"
-          autofocus
-        />
+        <input type="text" id="nfc-pos-scanner" v-model="nfcUid" @keydown.enter="handleScan" class="nfc-hidden-input"
+          autofocus />
 
         <v-col cols="12" class="text-center">
           <div class="mb-4">
-            <v-avatar size="120" :color="scanStateColor" class="mb-3 elevation-4 transition-all" :class="{'pulse-animation': isScanning}">
+            <v-avatar size="120" :color="scanStateColor" class="mb-3 elevation-4 transition-all"
+              :class="{ 'pulse-animation': isScanning }">
               <v-icon size="64" color="white">{{ scanStateIcon }}</v-icon>
             </v-avatar>
-            <h3 class="text-h5 font-weight-bold" :class="`${scanStateColor}--text`">{{ scanStateText }}</h3>
-            <p class="grey--text text-subtitle-1 mt-2">ກະທົບຍອດເງິນ LAK {{ formatNumber(saleTotal) }}</p>
+            <h3 class=" font-weight-bold" :class="`${scanStateColor}--text`">{{ scanStateText }}</h3>
+            <p class="grey--text  mt-2">ກະທົບຍອດເງິນ LAK {{ formatNumber(saleTotal) }}</p>
           </div>
 
           <!-- Student Profile (Shown after successful scan) -->
@@ -39,31 +34,34 @@
               <v-btn color="error" outlined class="mt-3" @click="resetScanner">ສະແກນໃໝ່ (Rescan)</v-btn>
             </v-card>
 
-            <v-card v-else-if="studentProfile" outlined :class="hasEnoughBalance ? 'success-border' : 'error-border'" class="mt-4 text-left">
+            <v-card v-else-if="studentProfile" outlined :class="hasEnoughBalance ? 'success-border' : 'error-border'"
+              class="mt-4 text-left">
               <v-list-item two-line>
                 <v-list-item-avatar size="50" color="primary lighten-4">
                   <v-icon color="primary">mdi-account-school</v-icon>
                 </v-list-item-avatar>
                 <v-list-item-content>
-                  <v-list-item-title class="text-h6 font-weight-bold">{{ studentProfile.firstName }} {{ studentProfile.lastName }}</v-list-item-title>
-                  <v-list-item-subtitle>Student ID: {{ studentProfile.studentId }} | UID: {{ studentProfile.nfcCard ? studentProfile.nfcCard.cardUid : 'N/A' }}</v-list-item-subtitle>
+                  <v-list-item-title class=" font-weight-bold">{{ studentProfile.firstName }} {{
+                    studentProfile.lastName }}</v-list-item-title>
+                  <v-list-item-subtitle>Student ID: {{ studentProfile.studentId }} | UID: {{ studentProfile.nfcCard ?
+                    studentProfile.nfcCard.cardUid : 'N/A' }}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
-              
+
               <v-divider></v-divider>
 
               <v-card-text class="pa-4 bg-light-grey">
                 <v-row align="center">
                   <v-col cols="6">
-                    <div class="grey--text text-caption font-weight-medium">ຍອດເງິນໃນກະເປົາ (Wallet Balance)</div>
-                    <div class="text-h5 font-weight-bold primary--text">{{ formatNumber(studentBalance) }} LAK</div>
+                    <div class="grey--text  font-weight-medium">ຍອດເງິນໃນກະເປົາ (Wallet Balance)</div>
+                    <div class=" font-weight-bold primary--text">{{ formatNumber(studentBalance) }} LAK</div>
                   </v-col>
                   <v-col cols="6" class="text-right">
-                    <div class="grey--text text-caption font-weight-medium">ຍອດຊຳລະ (Pay Amount)</div>
-                    <div class="text-h5 font-weight-bold error--text">-{{ formatNumber(saleTotal) }} LAK</div>
+                    <div class="grey--text  font-weight-medium">ຍອດຊຳລະ (Pay Amount)</div>
+                    <div class=" font-weight-bold error--text">-{{ formatNumber(saleTotal) }} LAK</div>
                   </v-col>
                 </v-row>
-                
+
                 <v-alert v-if="!hasEnoughBalance" type="error" dense outlined class="mt-3 mb-0">
                   ຍອດເງິນບໍ່ພຽງພໍ (Insufficient Balance). ขาดເງິນ: {{ formatNumber(saleTotal - studentBalance) }} LAK
                 </v-alert>
@@ -78,20 +76,14 @@
     </v-card-text>
 
     <v-divider></v-divider>
-    
+
     <v-card-actions class="pa-4 grey lighten-5">
       <v-spacer></v-spacer>
       <v-btn color="grey darken-1" text large @click="$emit('cancel')">
         <v-icon left>mdi-close</v-icon> ຍົກເລີກ (Cancel)
       </v-btn>
-      <v-btn 
-        color="success" 
-        large 
-        class="px-6 rounded-lg elevation-2"
-        :disabled="!isValidToPay" 
-        :loading="isProcessing"
-        @click="confirmPayment"
-      >
+      <v-btn color="success" large class="px-6 rounded-lg elevation-2" :disabled="!isValidToPay" :loading="isProcessing"
+        @click="confirmPayment">
         <v-icon left>mdi-check-circle</v-icon> ຢືນຢັນຊຳລະເງິນ (Confirm)
       </v-btn>
     </v-card-actions>
@@ -103,7 +95,8 @@ export default {
   name: 'NfcPaymentDialog',
   props: {
     saleTotal: { type: Number, required: true },
-    formatNumber: { type: Function, required: true }
+    formatNumber: { type: Function, required: true },
+    initialNfcUid: { type: String, default: '' }
   },
   data() {
     return {
@@ -144,7 +137,13 @@ export default {
   mounted() {
     this.focusScanner();
     this.fetchDefaultShopAccount();
-    
+
+    // If an initial UID was passed (e.g. from global listener), process it immediately
+    if (this.initialNfcUid) {
+      this.nfcUid = this.initialNfcUid;
+      this.handleScan();
+    }
+
     // Listen for native Electron hardware NFC scans (Automatically overrides any background zombie listener)
     if (typeof window !== 'undefined' && window.posApi && window.posApi.onNfcScan) {
       window.posApi.onNfcScan((uid) => {
@@ -175,12 +174,27 @@ export default {
     },
     async fetchDefaultShopAccount() {
       try {
+        // 1. Try to get account from CURRENT TERMINAL mapping
+        const selectedTerminalId = this.$store.getters.findSelectedTerminal;
+        const terminalList = this.$store.getters.findAllTerminal;
+        
+        if (selectedTerminalId && terminalList.length > 0) {
+          const currentTerminal = terminalList.find(t => t.id === selectedTerminalId);
+          if (currentTerminal && currentTerminal.bankAccountId) {
+            console.log(`📍 Using Bank Account mapped to Terminal "${currentTerminal.name}": ID ${currentTerminal.bankAccountId}`);
+            this.shopAccountId = currentTerminal.bankAccountId;
+            return; // EXIT early
+          }
+        }
+
+        // 2. FALLBACK: Find default cash/current account if terminal has no mapping
         const res = await this.$axios.get('/api/bank_account/find');
         const accounts = res.data.data || res.data || [];
         if (accounts.length > 0) {
           // Find first cash account, fallback to first general account
           const cashAcc = accounts.find(a => a.accountType === 'Current' || a.accountName.toLowerCase().includes('cash'));
           this.shopAccountId = cashAcc ? cashAcc.id : accounts[0].id;
+          console.log(`🏦 Terminal has no mapping. Using default Fallback Account: ID ${this.shopAccountId}`);
         }
       } catch (error) {
         console.error("Failed to fetch shop account: ", error);
@@ -188,21 +202,21 @@ export default {
     },
     async handleScan() {
       if (!this.nfcUid || this.nfcUid.trim() === '') return;
-      
+
       this.isScanning = false;
       const scannedUid = this.nfcUid.trim();
       this.nfcUid = ''; // Reset for next scan
-      
+
       try {
         const res = await this.$axios.get(`/api/nfc-cards/find?uid=${scannedUid}`);
         const result = res.data.data || res.data;
-        
+
         // Find the NFC card matching the UID
         const cardMatch = Array.isArray(result) ? result.find(c => c.cardUid === scannedUid && c.cardStatus === 'ACTIVE') : null;
-        
+
         if (!cardMatch || !cardMatch.studentId) {
-           this.studentNotFound = true;
-           return;
+          this.studentNotFound = true;
+          return;
         }
 
         // Fetch student details
@@ -225,17 +239,17 @@ export default {
         this.$toast.error('Cannot process payment. Missing Shop Account Configuration or Insufficient Funds.');
         return;
       }
-      
+
       this.isProcessing = true;
-      
+
       const nfcPaymentData = {
         studentAccountId: this.studentProfile.bankAccount.id,
         shopAccountId: this.shopAccountId,
         amount: this.saleTotal
       };
-      
+
       this.$emit('confirmed', nfcPaymentData);
-      
+
       // We don't reset isProcessing here because the parent dialog will close itself
     }
   }
@@ -258,9 +272,20 @@ export default {
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(25, 118, 210, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(25, 118, 210, 0); }
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px rgba(25, 118, 210, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(25, 118, 210, 0);
+  }
 }
 
 .success-border {

@@ -154,6 +154,21 @@
             <strong>Notes:</strong> {{ safeInvoiceData.description }}
           </div>
 
+          <!-- Bank QR Payment Section -->
+          <div v-if="hasBankQr" class="invoice-qr-section no-print-break">
+            <div class="qr-payment-title">ຊຳລະຜ່ານທະນາຄານ / Bank Payment</div>
+            <div class="qr-grid">
+              <div v-if="companyLogo.bankQrUrl" class="qr-item">
+                <img :src="companyLogo.bankQrUrl" alt="Bank QR" class="bank-qr-img" />
+                <p class="qr-bank-name">{{ companyLogo.company?.bank || 'Bank QR' }}</p>
+              </div>
+              <div v-if="companyLogo.bankQrUrl2" class="qr-item">
+                <img :src="companyLogo.bankQrUrl2" alt="Bank QR 2" class="bank-qr-img" />
+                <p class="qr-bank-name">{{ companyLogo.company?.bank2 || 'Mobile Banking' }}</p>
+              </div>
+            </div>
+          </div>
+
           <!-- Footer Info -->
           <div class="invoice-footer">
             <div class="footer-section">
@@ -421,7 +436,13 @@ export default {
             .invoice-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
             .invoice-table th, .invoice-table td { border: 1px solid #ddd; padding: 8px; font-size: 11px; }
             .invoice-table th { background-color: #f5f5f5; font-weight: bold; text-align: left; }
-            /* Add other necessary print styles here */
+            .invoice-qr-section { margin-top: 30px; border-top: 1px dashed #ddd; text-align: center; padding-top: 20px; }
+            .qr-payment-title { font-weight: bold; margin-bottom: 15px; font-size: 14px; }
+            .qr-grid { display: flex; justify-content: center; gap: 40px; }
+            .qr-item { display: flex; flex-direction: column; align-items: center; }
+            .bank-qr-img { width: 120px; height: 120px; object-fit: contain; }
+            .qr-bank-name { margin-top: 8px; font-size: 11px; color: #666; }
+            .no-print-break { page-break-inside: avoid; }
           </style>
         </head>
         <body>
@@ -509,5 +530,64 @@ export default {
   color: #666;
 }
 
-/* Add rest of your styles here... */
+/* Bank QR Section Styles */
+.invoice-qr-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 1px dashed #e0e0e0;
+  text-align: center;
+}
+
+.qr-payment-title {
+  font-weight: 700;
+  margin-bottom: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.qr-grid {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.qr-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.qr-item:hover {
+  transform: translateY(-5px);
+}
+
+.bank-qr-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  border: 1px solid #f0f0f0;
+  padding: 8px;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.qr-bank-name {
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+}
+
+.no-print-break {
+  page-break-inside: avoid;
+}
+
+@media print {
+  .invoice-qr-section {
+    border-top: 1px dashed #ccc;
+  }
+}
 </style>

@@ -245,6 +245,13 @@
     "_name": "_4dd908a1"
   },
   {
+    "name": "admin-database",
+    "path": "/admin/database",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/database/index.vue",
+    "chunkName": "pages/admin/database/index",
+    "_name": "_6aa85aae"
+  },
+  {
     "name": "admin-generalLedger",
     "path": "/admin/generalLedger",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/index.vue",
@@ -1008,11 +1015,39 @@
     "_name": "_38fd842d"
   },
   {
+    "name": "admin-report-loyalty",
+    "path": "/admin/report/loyalty",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/loyalty.vue",
+    "chunkName": "pages/admin/report/loyalty",
+    "_name": "_7ab6275b"
+  },
+  {
+    "name": "admin-reports-accountStatement",
+    "path": "/admin/reports/accountStatement",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/accountStatement/index.vue",
+    "chunkName": "pages/admin/reports/accountStatement/index",
+    "_name": "_1665b085"
+  },
+  {
+    "name": "admin-reports-endOfDay",
+    "path": "/admin/reports/endOfDay",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/endOfDay/index.vue",
+    "chunkName": "pages/admin/reports/endOfDay/index",
+    "_name": "_6dba86ed"
+  },
+  {
     "name": "admin-reports-moneyAdvance",
     "path": "/admin/reports/moneyAdvance",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/moneyAdvance/index.vue",
     "chunkName": "pages/admin/reports/moneyAdvance/index",
     "_name": "_cf45db36"
+  },
+  {
+    "name": "admin-reports-staffActivity",
+    "path": "/admin/reports/staffActivity",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/staffActivity/index.vue",
+    "chunkName": "pages/admin/reports/staffActivity/index",
+    "_name": "_2f47d942"
   },
   {
     "name": "admin-reports-stockActivity",

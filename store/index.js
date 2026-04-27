@@ -709,7 +709,7 @@ export const getters = {
     cartOfProduct: (state) => state.cartOfproductSelected || [],
     currenctSelectedCategoryId: (state) => state.selectedCategoryId || 9999,
     currentSelectedCustomer: (state) => state.selectedCustomer,
-    currentSelectedPayment: (state) => state.selectedPayment || state.paymentList[0].id,
+    currentSelectedPayment: (state) => state.selectedPayment || (state.paymentList && state.paymentList.length > 0 ? state.paymentList[0].id : null),
     currentSelectedLocation: (state) => state.selectedLocation,
     isLoading: (state) => state.isLoading,
     isDataInitialized: (state) => state.dataInitialized,
@@ -1125,6 +1125,15 @@ export const actions = {
         } catch (error) {
             console.error('Error initializing printers:', error)
             commit('ADD_ERROR', error)
+        }
+    },
+
+    async refreshPrintersAction({ dispatch }) {
+        console.info(`Refreshing printers from API...`)
+        try {
+            await initPrinters(dispatch, this.$axios)
+        } catch (error) {
+            console.error('Error refreshing printers:', error)
         }
     },
 

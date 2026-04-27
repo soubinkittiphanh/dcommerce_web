@@ -1,612 +1,276 @@
 <template>
   <div>
-    <!-- ENHANCED HEADER SECTION -->
-    <div class="header-section">
-      <div class="header-chips-container">
-        <v-chip
-          class="header-chip pa-5"
-          color="primary"
-          label
-          text-color="white"
-          elevation="4"
-        >
-          <v-icon left>mdi-package-variant</v-icon>
-          <h3>ລາຍງານການຂາຍຕາມສິນຄ້າ</h3>
-        </v-chip>
-        <v-chip
-          class="header-chip pa-5"
-          color="secondary"
-          label
-          text-color="white"
-          elevation="4"
-          @click="guidelineDialog = true"
-        >
-          <v-icon left>mdi-help-circle</v-icon>
-          <h3>ຄູ່ມືການນຳໃຊ້</h3>
-        </v-chip>
-      </div>
-    </div>
+    <!-- MODERNIZED HEADER SECTION -->
+    <v-card outlined class="rounded-lg shadow-sm mb-6 header-bar">
+      <v-card-title class="pa-4 d-flex align-center grey lighten-5">
+        <v-avatar color="primary lighten-5" size="48" class="mr-4">
+          <v-icon color="primary">mdi-package-variant</v-icon>
+        </v-avatar>
+        <div class="d-flex flex-column">
+          <span class="text-h6 font-weight-bold grey--text text--darken-3">Product Sales Report</span>
+          <span class=" grey--text">ລາຍງານການຂາຍລະອຽດຕາມສິນຄ້າ</span>
+        </div>
+        <v-spacer></v-spacer>
+        <div class="d-flex align-center">
+          <v-btn color="primary" @click="createSale" depressed small class="mr-2">
+            <v-icon left small>mdi-plus</v-icon>ສ້າງການຂາຍ
+          </v-btn>
+          <v-menu offset-y left>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn color="secondary" outlined small v-bind="attrs" v-on="on">
+                <v-icon left small>mdi-export</v-icon>ສົ່ງອອກລາຍງານ
+              </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item @click="exportToExcel">
+                <v-list-item-icon><v-icon color="success">mdi-microsoft-excel</v-icon></v-list-item-icon>
+                <v-list-item-title>Excel Report</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="exportAuditReport">
+                <v-list-item-icon><v-icon color="warning">mdi-file-chart</v-icon></v-list-item-icon>
+                <v-list-item-title>Audit Excel</v-list-item-title>
+              </v-list-item>
+              <v-list-item @click="exportSimplePDFReport">
+                <v-list-item-icon><v-icon color="info">mdi-file-pdf</v-icon></v-list-item-icon>
+                <v-list-item-title>PDF Summary</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <v-btn icon color="secondary" class="ml-2" @click="guidelineDialog = true">
+            <v-icon>mdi-help-circle-outline</v-icon>
+          </v-btn>
+        </div>
+      </v-card-title>
+    </v-card>
 
     <!-- DIALOGS -->
     <v-dialog v-model="isloading" hide-overlay persistent width="320">
       <v-card class="loading-card">
         <v-card-text class="text-center pa-6">
-          <v-progress-circular
-            size="48"
-            color="primary"
-            indeterminate
-          ></v-progress-circular>
+          <v-progress-circular size="48" color="primary" indeterminate></v-progress-circular>
           <div class="mt-4">ກຳລັງໂຫຼດຂໍ້ມູນ...</div>
         </v-card-text>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
-      <youtube-player
-        @close-dialog="guidelineDialog = false"
-        youtube-link="W6KiQWtiqBM"
-      >
+      <youtube-player @close-dialog="guidelineDialog = false" youtube-link="W6KiQWtiqBM">
       </youtube-player>
     </v-dialog>
 
     <v-dialog v-model="dialogOrderDetail" fullscreen>
-      <OrderDetailPosCRUD
-        @reload="
-          loadData()
-          dialogOrderDetail = false
-        "
-        :is-quotation="false"
-        :key="componentKey"
-        :is-update="viewTransaction"
-        :headerId="selectedOrder"
-        @close-dialog="dialogOrderDetail = false"
-      >
+      <OrderDetailPosCRUD @reload="
+        loadData()
+      dialogOrderDetail = false
+        " :is-quotation="false" :key="componentKey" :is-update="viewTransaction" :headerId="selectedOrder"
+        @close-dialog="dialogOrderDetail = false">
       </OrderDetailPosCRUD>
     </v-dialog>
 
     <v-dialog v-model="cancelForm" max-width="1024">
-      <cancel-ticket-form
-        :id="OrderIdSelected"
-        :key="componentCancelFormKey"
-        @close-dialog="cancelForm = false"
+      <cancel-ticket-form :id="OrderIdSelected" :key="componentCancelFormKey" @close-dialog="cancelForm = false"
         @reload="
           cancelForm = false
-          loadData()
-        "
-      ></cancel-ticket-form>
+        loadData()
+          "></cancel-ticket-form>
     </v-dialog>
 
     <!-- ENHANCED MAIN CONTENT -->
-    <v-card class="main-card">
-      <!-- Enhanced Filters Section -->
-      <v-card-title class="filter-section pa-6">
-        <v-container fluid>
-          <v-row>
-            <!-- Date Range Filters -->
-            <v-col cols="12" md="6">
-              <div class="filter-group">
-                <h4 class="filter-title white--text mb-3">
-                  <v-icon left color="white">mdi-calendar-range</v-icon>
-                  ຊ່ວງເວລາ
-                </h4>
-                <v-row>
-                  <v-col cols="12" sm="6">
-                    <v-menu
-                      ref="menu1"
-                      v-model="menu1"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="dateFormatted"
-                          label="ຈາກວັນທີ"
-                          hint="MM/DD/YYYY"
-                          persistent-hint
-                          prepend-icon="mdi-calendar-start"
-                          outlined
-                          dense
-                          background-color="white"
-                          v-bind="attrs"
-                          @blur="date = parseDate(dateFormatted)"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="date"
-                        no-title
-                        color="primary"
-                        @input="menu1 = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-menu
-                      ref="menu2"
-                      v-model="menu2"
-                      :close-on-content-click="false"
-                      transition="scale-transition"
-                      offset-y
-                      max-width="290px"
-                      min-width="auto"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-text-field
-                          v-model="dateFormatted2"
-                          label="ຫາວັນທີ"
-                          hint="MM/DD/YYYY"
-                          persistent-hint
-                          prepend-icon="mdi-calendar-end"
-                          outlined
-                          dense
-                          background-color="white"
-                          v-bind="attrs"
-                          @blur="date2 = parseDate(dateFormatted2)"
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="date2"
-                        no-title
-                        color="primary"
-                        @input="menu2 = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-col>
-                </v-row>
-              </div>
-            </v-col>
-
-            <!-- Search and Product Filters -->
-            <v-col cols="12" md="6">
-              <div class="filter-group">
-                <h4 class="filter-title white--text mb-3">
-                  <v-icon left color="white">mdi-filter</v-icon>
-                  ຟິລເຕີ
-                </h4>
-                <v-row>
-                  <v-col cols="12" sm="6">
-                    <v-text-field
-                      v-model="search"
-                      prepend-icon="mdi-magnify"
-                      label="ຊອກຫາ"
-                      outlined
-                      dense
-                      clearable
-                      background-color="white"
-                    />
-                  </v-col>
-                  <v-col cols="12" sm="6">
-                    <v-autocomplete
-                      item-text="pro_name"
-                      item-value="id"
-                      :items="productList"
-                      label="ສິນຄ້າ"
-                      v-model="creteria.productId"
-                      prepend-icon="mdi-package"
-                      outlined
-                      dense
-                      clearable
-                      background-color="white"
-                      @change="loadData"
-                    ></v-autocomplete>
-                  </v-col>
-                </v-row>
-              </div>
-            </v-col>
-          </v-row>
-
-          <!-- Action Buttons -->
-          <v-row class="mt-3">
-            <v-col cols="12">
-              <div class="d-flex flex-wrap justify-space-between align-center">
-                <div class="d-flex flex-wrap">
-                  <v-btn
-                    class="ma-2 action-btn"
-                    color="white"
-                    @click="loadData"
-                    rounded
-                    elevation="3"
-                  >
-                    <v-icon left color="primary">mdi-refresh</v-icon>
-                    <span class="primary--text font-weight-bold"
-                      >ດຶງລາຍງານ</span
-                    >
-                  </v-btn>
-                  <v-btn
-                    class="ma-2 action-btn"
-                    color="success"
-                    @click="exportToExcel"
-                    rounded
-                    elevation="3"
-                    dark
-                  >
-                    <v-icon left>mdi-microsoft-excel</v-icon>
-                    <span class="font-weight-bold">Excel ລາຍງານ</span>
-                  </v-btn>
-                </div>
-                <div class="d-flex flex-wrap">
-                  <v-btn
-                    class="ma-2 action-btn"
-                    color="warning"
-                    @click="exportAuditReport"
-                    rounded
-                    elevation="3"
-                    dark
-                  >
-                    <v-icon left>mdi-file-chart</v-icon>
-                    <span class="font-weight-bold">Audit Report</span>
-                  </v-btn>
-                  <v-btn
-                    class="ma-2 action-btn"
-                    color="info"
-                    @click="exportSimplePDFReport"
-                    rounded
-                    elevation="3"
-                    dark
-                  >
-                    <v-icon left>mdi-file-pdf</v-icon>
-                    <span class="font-weight-bold">PDF Summary</span>
-                  </v-btn>
-                  <v-btn
-                    class="ma-2 action-btn"
-                    color="primary"
-                    @click="createSale"
-                    rounded
-                    elevation="3"
-                    dark
-                  >
-                    <v-icon left>mdi-plus</v-icon>
-                    <span class="font-weight-bold">ສ້າງການຂາຍ</span>
-                  </v-btn>
-                </div>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-title>
-
-      <v-divider></v-divider>
-
-      <!-- Enhanced Summary Dashboard -->
-      <v-card-text class="pa-6">
-        <!-- Currency Breakdown Section - NEW -->
-        <v-row class="mb-6">
-          <v-col cols="12">
-            <h3 class="dashboard-title">
-              <v-icon left color="primary">mdi-cash-multiple</v-icon>
-              ສະຫຼຸບຍອດຂາຍຕາມສະກຸນເງິນ
-            </h3>
+    <!-- COMPACT FILTER STRIP -->
+    <v-card outlined class="rounded-lg shadow-sm mb-6">
+      <v-card-text class="pa-4 grey lighten-4">
+        <v-row dense class="align-center">
+          <v-col cols="12" md="2">
+            <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
+              min-width="auto">
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field v-model="dateFormatted" label="From" prepend-inner-icon="mdi-calendar-start"
+                  v-bind="attrs" v-on="on" outlined dense hide-details readonly></v-text-field>
+              </template>
+              <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
+            </v-menu>
           </v-col>
-        </v-row>
-
-        <v-row class="mb-6">
-          <v-col v-for="(item, index) in salesStatistics" :key="index" cols="12" sm="6" md="4">
-            <div class="kpi-card pa-4 elevation-2" style="border-left: 5px solid #4CAF50; border-radius: 12px; background: #fff;">
-              <div class="d-flex justify-space-between align-center mb-2">
-                <span class="grey--text">ຍອດຂາຍລວມ</span>
-                <v-icon color="success">mdi-cash-check</v-icon>
-              </div>
-              <div class="text-h5 font-weight-black success--text mb-2">
-                {{ formatNumber(item.totalLocal) }} <small>{{ localCurrency?.code }}</small>
-              </div>
-              
-              <div class="currency-breakdown-container">
-                <div v-for="(val, code) in item.groupedCurrency" :key="code" class="breakdown-row pa-2 mb-1 rounded">
-                  <div class="d-flex justify-space-between align-center">
-                    <span class="caption font-weight-bold">{{ code }}</span>
-                    <span class="caption font-weight-black">{{ formatNumber(val.original) }}</span>
-                  </div>
-                  <div v-if="code !== localCurrency?.code" class="text-right grey--text" style="font-size: 0.65rem;">
-                    ≈ {{ formatNumber(val.local) }} {{ localCurrency?.code }}
-                  </div>
-                </div>
-              </div>
-            </div>
+          <v-col cols="12" md="2">
+            <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
+              min-width="auto">
+              <template v-slot:activator="{ on, attrs }">
+                <v-text-field v-model="dateFormatted2" label="To" prepend-inner-icon="mdi-calendar-end" v-bind="attrs"
+                  v-on="on" outlined dense hide-details readonly></v-text-field>
+              </template>
+              <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
+            </v-menu>
           </v-col>
-        </v-row>
-
-        <!-- Key Metrics Cards -->
-        <v-row class="mb-6">
-          <v-col cols="12">
-            <h3 class="dashboard-title">
-              <v-icon left color="primary">mdi-chart-box</v-icon>
-              ສະຫຼຸບລາຍງານສິນຄ້າ
-            </h3>
-          </v-col>
-        </v-row>
-
-        <v-row class="mb-6">
           <v-col cols="12" md="3">
-            <v-card class="metric-card" elevation="8" shaped>
-              <v-card-text class="text-center pa-6">
-                <div class="d-flex justify-center mb-3">
-                  <v-avatar size="64" color="primary">
-                    <v-icon size="32" color="white">mdi-package-variant</v-icon>
-                  </v-avatar>
-                </div>
-                <div class="display-1 primary--text font-weight-bold mb-2">
-                  {{ activeOrderHeaderList.length }}
-                </div>
-                <div class="font-weight-medium mb-1">ຈຳນວນສິນຄ້າ</div>
-                <div class=" grey--text">ທີ່ມີການຂາຍ</div>
-              </v-card-text>
-            </v-card>
+            <v-autocomplete v-model="creteria.productId" :items="productList" item-text="pro_name" item-value="id"
+              label="Product" prepend-inner-icon="mdi-package" outlined dense hide-details clearable
+              @change="loadData"></v-autocomplete>
           </v-col>
-
-          <v-col cols="12" md="3">
-            <v-card class="metric-card" elevation="8" shaped>
-              <v-card-text class="text-center pa-6">
-                <div class="d-flex justify-center mb-3">
-                  <v-avatar size="64" color="success">
-                    <v-icon size="32" color="white">mdi-cart</v-icon>
-                  </v-avatar>
-                </div>
-                <div class="display-1 success--text font-weight-bold mb-2">
-                  {{ getTotalQuantity() }}
-                </div>
-                <div class="font-weight-medium mb-1">ຈຳນວນທີ່ຂາຍ</div>
-                <div class=" grey--text">ລວມທັງໝົດ</div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <v-card class="metric-card" elevation="8" shaped>
-              <v-card-text class="text-center pa-6">
-                <div class="d-flex justify-center mb-3">
-                  <v-avatar size="64" color="warning">
-                    <v-icon size="32" color="white">mdi-percent</v-icon>
-                  </v-avatar>
-                </div>
-                <div class="display-1 warning--text font-weight-bold mb-2">
-                  {{ numberWithCommas(totalDiscount) }}
-                </div>
-                <div class="font-weight-medium mb-1">ສ່ວນຫຼຸດລວມ</div>
-                <div class=" grey--text">{{ localCurrency?.code }}</div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-
-          <v-col cols="12" md="3">
-            <v-card class="metric-card" elevation="8" shaped>
-              <v-card-text class="text-center pa-6">
-                <div class="d-flex justify-center mb-3">
-                  <v-avatar size="64" color="secondary">
-                    <v-icon size="32" color="white">mdi-currency-usd</v-icon>
-                  </v-avatar>
-                </div>
-                <div class="display-1 secondary--text font-weight-bold mb-2">
-                  {{ numberWithCommas(totalSale - totalDiscount) }}
-                </div>
-                <div class="font-weight-medium mb-1">ລາຍຮັບສຸດທິ</div>
-                <div class=" grey--text">{{ localCurrency?.code }}</div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-        </v-row>
-
-        <!-- Enhanced Sales Summary with Visual Charts -->
-        <v-row class="mb-6">
-          <v-col cols="12" md="8">
-            <v-card elevation="6" shaped>
-              <v-card-title class="primary white--text">
-                <v-icon left color="white">mdi-chart-pie</v-icon>
-                <span>ສະຫຼຸບຍອດຂາຍ</span>
-                <v-spacer></v-spacer>
-                <v-chip color="white" small label text-color="primary">
-                  <v-icon left small color="primary">mdi-calculator</v-icon>
-                  ລາຍລະອຽດ
-                </v-chip>
-              </v-card-title>
-
-              <v-card-text class="pa-6">
-                <div class="summary-details">
-                  <div class="summary-line">
-                    <div class="d-flex align-center">
-                      <v-icon color="primary" class="mr-3">mdi-cash</v-icon>
-                      <span class="font-weight-medium">ຍອດຂາຍລວມ:</span>
-                    </div>
-                    <span class=" font-weight-bold primary--text">{{
-                      numberWithCommas(totalSaleRaw)
-                    }} {{ localCurrency?.code }}</span>
-                  </div>
-                  <div class="summary-line">
-                    <div class="d-flex align-center">
-                      <v-icon color="warning" class="mr-3"
-                        >mdi-tag-remove</v-icon
-                      >
-                      <span class="font-weight-medium">ສ່ວນຫຼຸດລວມ:</span>
-                    </div>
-                    <span class="font-weight-bold warning--text">{{
-                      numberWithCommas(totalDiscount)
-                    }} {{ localCurrency?.code }}</span>
-                  </div>
-                  <v-divider class="my-4"></v-divider>
-                  <div class="summary-line total-line">
-                    <div class="d-flex align-center">
-                      <v-icon color="success" class="mr-3"
-                        >mdi-check-circle</v-icon
-                      >
-                      <span class=" font-weight-bold">ລວມສຸດທິ:</span>
-                    </div>
-                    <span class=" font-weight-bold success--text">{{
-                      numberWithCommas(totalSale - totalDiscount)
-                    }} {{ localCurrency?.code }}</span>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
-          </v-col>
-
           <v-col cols="12" md="4">
-            <v-card elevation="6" shaped class="performance-card">
-              <v-card-title class="secondary white--text text-center">
-                <v-icon left color="white">mdi-trending-up</v-icon>
-                <span>ປະສິດທິພາບ</span>
-              </v-card-title>
-              <v-card-text class="text-center pa-6">
-                <div class="performance-metrics">
-                  <div class="metric-item mb-4">
-                    <div class="metric-label">ລາຄາສະເລ່ຍຕໍ່ໜ່ວຍ</div>
-                    <div class="metric-value primary--text">
-                      {{ getAveragePrice() }} {{ localCurrency?.code }}
-                    </div>
-                  </div>
-                  <div class="metric-item mb-4">
-                    <div class="metric-label">ສ່ວນຫຼຸດສະເລ່ຍ</div>
-                    <div class="metric-value warning--text">
-                      {{ getAverageDiscount() }}%
-                    </div>
-                  </div>
-                  <div class="metric-item">
-                    <div class="metric-label">ລາຍຮັບສະເລ່ຍຕໍ່ລາຍການ</div>
-                    <div class="metric-value success--text">
-                      {{ getAverageRevenue() }} {{ localCurrency?.code }}
-                    </div>
-                  </div>
-                </div>
-              </v-card-text>
-            </v-card>
+            <v-text-field v-model="search" label="Search report items..." prepend-inner-icon="mdi-magnify" outlined
+              dense hide-details clearable></v-text-field>
+          </v-col>
+          <v-col cols="12" md="1" class="text-right">
+            <v-btn color="primary" icon @click="loadData" :loading="isloading" class="elevation-1 white">
+              <v-icon>mdi-refresh</v-icon>
+            </v-btn>
           </v-col>
         </v-row>
-
-        <!-- Enhanced Product Sales Table -->
-        <div class="mt-8">
-          <v-row>
-            <v-col cols="12">
-              <h3 class="dashboard-title">
-                <v-icon left color="lightprimary">mdi-table</v-icon>
-                ລາຍລະອຽດການຂາຍຕາມສິນຄ້າ
-              </h3>
-            </v-col>
-          </v-row>
-
-          <v-card elevation="6" shaped>
-            <v-card-title class="secondary white--text">
-              <v-icon left color="white">mdi-format-list-bulleted</v-icon>
-              <span>ຕາຕະລາງລາຍການສິນຄ້າ</span>
-              <v-spacer></v-spacer>
-              <v-chip color="white" small label text-color="secondary">
-                <v-icon left small color="secondary">mdi-package</v-icon>
-                {{ activeOrderHeaderList.length }} ລາຍການ
-              </v-chip>
-            </v-card-title>
-
-            <v-card-text class="pa-0">
-              <v-data-table
-                v-if="activeOrderHeaderList"
-                :headers="enhancedHeaders"
-                :search="search"
-                :items="activeOrderHeaderList"
-                :items-per-page="25"
-                class="enhanced-table elevation-0"
-                :loading="isloading"
-                loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
-              >
-                <!-- Enhanced table slots -->
-                <template v-slot:[`item.bookingDate`]="{ item }">
-                  <v-chip color="info" small dark>
-                    <v-icon left small>mdi-clock</v-icon>
-                    {{ getBookingDate(item) }}
-                  </v-chip>
-                </template>
-
-                <template v-slot:[`item.product.pro_name`]="{ item }">
-                  <div class="product-info">
-                    <div
-                      class="font-weight-bold text-truncate"
-                      style="max-width: 200px"
-                    >
-                      {{ item.product.pro_name || '' }}
-                    </div>
-                    <div class=" grey--text">
-                      {{
-                        item.product.category
-                          ? item.product.category.categ_name
-                          : 'ບໍ່ມີໝວດໝູ່'
-                      }}
-                    </div>
-                  </div>
-                </template>
-
-                <template v-slot:[`item.totalQTY`]="{ item }">
-                  <v-chip
-                    :color="getQuantityColor(item.totalQTY)"
-                    small
-                    dark
-                    outlined
-                  >
-                    <v-icon left small>mdi-counter</v-icon>
-                    {{ item.totalQTY }}
-                  </v-chip>
-                </template>
-
-                <template v-slot:[`item.totalPriceLocal`]="{ item }">
-                  <div class="price-info">
-                    <div class="font-weight-bold">
-                      {{ numberWithCommas(item.totalPriceLocal / item.totalQTY) }}
-                    </div>
-                    <div class=" grey--text">{{ localCurrency?.code }}/ໜ່ວຍ</div>
-                  </div>
-                </template>
-
-                <template v-slot:[`item.totalDiscountLocal`]="{ item }">
-                  <div class="discount-info">
-                    <span class="font-weight-bold warning--text">
-                      {{ numberWithCommas(item.totalDiscountLocal) }}
-                    </span>
-                    <div class=" grey--text">
-                      {{
-                        getDiscountPercentage(
-                          item.totalDiscountLocal,
-                          item.totalPriceLocal
-                        )
-                      }}%
-                    </div>
-                  </div>
-                </template>
-
-                <template v-slot:[`item.totalAmountLocal`]="{ item }">
-                  <div class="total-info">
-                    <span class="font-weight-bold success--text ">
-                      {{ numberWithCommas(item.totalAmountLocal) }}
-                    </span>
-                    <div class=" grey--text">{{ localCurrency?.code }}</div>
-                  </div>
-                </template>
-
-                <template v-slot:[`item.actions`]="{ item }">
-                  <div class="action-buttons">
-                    <v-btn
-                      icon
-                      small
-                      color="info"
-                      @click="viewItem(item)"
-                      class="action-btn"
-                    >
-                      <v-icon>mdi-eye</v-icon>
-                    </v-btn>
-                    <v-btn
-                      icon
-                      small
-                      color="primary"
-                      @click="editItem(item)"
-                      class="action-btn"
-                    >
-                      <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                  </div>
-                </template>
-              </v-data-table>
-            </v-card-text>
-          </v-card>
-        </div>
       </v-card-text>
     </v-card>
+
+    <v-divider></v-divider>
+
+    <!-- MODERN SUMMARY DASHBOARD -->
+    <v-row class="mb-4">
+      <!-- Active Sales Breakdown -->
+      <v-col cols="12" md="4">
+        <v-card outlined class="rounded-lg shadow-sm h-100">
+          <v-card-title class="pa-3 grey lighten-5  font-weight-bold d-flex align-center">
+            <v-icon left color="success" small>mdi-cash-check</v-icon>
+            ACTIVE SALES SUMMARY
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text class="pa-4">
+            <div class=" font-weight-black success--text mb-4">{{ formatNumber(salesStatistics[0].totalLocal) }}
+              <small class=" grey--text">{{ localCurrency?.code }}</small>
+            </div>
+            <div class="currency-breakdown-container">
+              <div v-for="(val, code) in salesStatistics[0].groupedCurrency" :key="code"
+                class="breakdown-row pa-2 mb-2 rounded grey lighten-5 border">
+                <div class="d-flex justify-space-between align-center">
+                  <span class=" font-weight-bold">{{ code }}</span>
+                  <span class=" font-weight-black">{{ formatNumber(val.original) }}</span>
+                </div>
+                <div v-if="code !== localCurrency?.code" class="text-right grey--text" style="font-size: 0.65rem;">≈ {{
+                  formatNumber(val.local) }} {{ localCurrency?.code }}</div>
+              </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+
+      <!-- Key Metrics Grid -->
+      <v-col cols="12" md="8">
+        <v-row dense>
+          <v-col cols="6" sm="3">
+            <v-card outlined class="metric-card pa-3 text-center rounded-lg h-100">
+              <v-icon color="primary" class="mb-2">mdi-package-variant</v-icon>
+              <div class="text-h6 font-weight-bold">{{ activeOrderHeaderList.length }}</div>
+              <div class=" grey--text font-weight-bold">Product Lines</div>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="3">
+            <v-card outlined class="metric-card pa-3 text-center rounded-lg h-100">
+              <v-icon color="success" class="mb-2">mdi-cart-arrow-down</v-icon>
+              <div class="text-h6 font-weight-bold">{{ getTotalQuantity() }}</div>
+              <div class=" grey--text font-weight-bold">Total QTY</div>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="3">
+            <v-card outlined class="metric-card pa-3 text-center rounded-lg h-100">
+              <v-icon color="warning" class="mb-2">mdi-sale</v-icon>
+              <div class="text-h6 font-weight-bold">{{ numberWithCommas(totalDiscount) }}</div>
+              <div class=" grey--text font-weight-bold">Total Discount</div>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="3">
+            <v-card outlined class="metric-card pa-3 text-center rounded-lg h-100">
+              <v-icon color="secondary" class="mb-2">mdi-finance</v-icon>
+              <div class="text-h6 font-weight-bold">{{ numberWithCommas(totalSale - totalDiscount) }}</div>
+              <div class=" grey--text font-weight-bold">Net Revenue</div>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" class="mt-2">
+            <v-card outlined class="pa-4 rounded-lg grey lighten-5 d-flex align-center justify-space-around">
+              <div class="text-center">
+                <div class=" grey--text font-weight-bold">Avg Price</div>
+                <div class="text-subtitle-1 font-weight-black primary--text">{{ getAveragePrice() }}</div>
+              </div>
+              <v-divider vertical class="mx-4"></v-divider>
+              <div class="text-center">
+                <div class=" grey--text font-weight-bold">Avg Discount</div>
+                <div class="text-subtitle-1 font-weight-black warning--text">{{ getAverageDiscount() }}%</div>
+              </div>
+              <v-divider vertical class="mx-4"></v-divider>
+              <div class="text-center">
+                <div class=" grey--text font-weight-bold">Avg Rev / Item</div>
+                <div class="text-subtitle-1 font-weight-black success--text">{{ getAverageRevenue() }}</div>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+
+    <!-- SALES DETAILS TABLE -->
+    <v-card outlined class="rounded-lg shadow-sm">
+      <v-card-title class="pa-4 grey lighten-5  font-weight-bold d-flex align-center">
+        <v-icon left color="primary" small>mdi-format-list-bulleted</v-icon>
+        DETAILED PRODUCT SALES
+        <v-spacer></v-spacer>
+        <v-chip color="primary lighten-5" small label text-color="primary" class="font-weight-bold">
+          {{ activeOrderHeaderList.length }} ITEMS FOUND
+        </v-chip>
+      </v-card-title>
+      <v-divider></v-divider>
+      <v-data-table v-if="activeOrderHeaderList" :headers="enhancedHeaders" :search="search"
+        :items="activeOrderHeaderList" :items-per-page="50" dense class="compact-table">
+        <template v-slot:[`item.bookingDate`]="{ item }">
+          <span class=" grey--text font-weight-bold">{{ getBookingDate(item) }}</span>
+        </template>
+        <template v-slot:[`item.product.pro_name`]="{ item }">
+          <div class="d-flex flex-column py-1">
+            <span class="text-body-2 font-weight-bold">{{ item.product.pro_name || '' }}</span>
+            <span class=" grey--text">{{ item.product.category ? item.product.category.categ_name : 'No Category'
+            }}</span>
+          </div>
+        </template>
+        <template v-slot:[`item.totalQTY`]="{ item }">
+          <v-chip x-small :color="getQuantityColor(item.totalQTY)" dark label>{{ item.totalQTY }}</v-chip>
+        </template>
+        <template v-slot:[`item.totalPriceLocal`]="{ item }">
+          <span class="font-weight-bold">{{ numberWithCommas(item.totalPriceLocal / item.totalQTY) }}</span>
+        </template>
+        <template v-slot:[`item.totalDiscountLocal`]="{ item }">
+          <span class="warning--text font-weight-bold">{{ numberWithCommas(item.totalDiscountLocal) }}</span>
+        </template>
+        <template v-slot:[`item.totalAmountLocal`]="{ item }">
+          <span class="success--text font-weight-black">{{ numberWithCommas(item.totalAmountLocal) }}</span>
+        </template>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn icon x-small color="info" @click="viewItem(item)"><v-icon x-small>mdi-eye</v-icon></v-btn>
+          <v-btn icon x-small color="primary" @click="editItem(item)"><v-icon x-small>mdi-pencil</v-icon></v-btn>
+        </template>
+      </v-data-table>
+    </v-card>
+
+    <!-- CANCELED SECTION - COMPACT TOGGLE -->
+    <v-expansion-panels flat class="mt-4">
+      <v-expansion-panel class="rounded-lg border shadow-sm">
+        <v-expansion-panel-header class="grey lighten-5 py-2">
+          <div class="d-flex align-center">
+            <v-icon left color="error" small>mdi-cancel</v-icon>
+            <span class=" font-weight-bold error--text">CANCELED TICKETS ({{
+              canceledOrderHeaderList.length
+            }})</span>
+            <v-spacer></v-spacer>
+            <span class=" grey--text mr-4">Total impact: {{ formatNumber(canceledStatistics[0].totalLocal) }} {{
+              localCurrency?.code }}</span>
+          </div>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content class="pa-0">
+          <v-data-table :headers="enhancedHeaders" :items="canceledOrderHeaderList" dense
+            class="compact-table no-shadow">
+            <!-- Simplified slots for canceled -->
+            <template v-slot:[`item.totalAmountLocal`]="{ item }"><span class="grey--text font-weight-bold">{{
+              numberWithCommas(item.totalAmountLocal) }}</span></template>
+          </v-data-table>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+
+
   </div>
 </template>
 
@@ -727,23 +391,37 @@ export default {
       'findAllTerminal',
       'findSelectedTerminal',
     ]),
-    
+
     localCurrency() {
       return this.findAllCurrency?.find(c => c.isLocalCCY === true || c.isLocalCCY === 1);
     },
-    
+
     activeOrderHeaderList() {
       const productMap = {};
 
       this.orderHeaderList.forEach((order) => {
         if (!order.isActive) return;
+        if (order.status?.toLowerCase() === 'cancel' || order.status?.toLowerCase() === 'canceled') return;
+
+        // Apply global search filter at order level (basic) or line level
+        const searchMatchesOrder = !this.search ||
+          order.orderNumber?.toLowerCase().includes(this.search.toLowerCase()) ||
+          order.customerName?.toLowerCase().includes(this.search.toLowerCase());
 
         order.lines?.forEach((line) => {
           if (!line.product) return;
 
+          // Apply Product Selection Filter (Strict)
+          if (this.creteria.productId && this.creteria.productId !== -1 && line.product.id !== this.creteria.productId) return;
+
+          // Apply Search Filter (Strictly on product name or category)
+          const searchMatchesLine = searchMatchesOrder ||
+            line.product.pro_name?.toLowerCase().includes(this.search.toLowerCase()) ||
+            line.product.category?.categ_name?.toLowerCase().includes(this.search.toLowerCase());
+
+          if (!searchMatchesLine) return;
+
           const productId = line.product.id;
-          
-          // Identify line currency and conversion rate
           const lineCurrency = this.findAllCurrency?.find(c => c.id === line.currencyId);
           const isLocal = lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1;
           const rate = isLocal ? 1 : (line.exchangeRate || 1);
@@ -757,14 +435,84 @@ export default {
               totalDiscountLocal: 0,
               totalAmountLocal: 0,
               header: order,
+              currencySummaries: {} // Track for statistics
             };
           }
 
           const qty = line.quantity || 0;
+          const lineTotal = (line.price * qty);
+          const cCode = lineCurrency?.code || (this.localCurrency?.code || 'LAK');
+
+          if (!productMap[productId].currencySummaries[cCode]) {
+            productMap[productId].currencySummaries[cCode] = { original: 0, local: 0 };
+          }
+
           productMap[productId].totalQTY += qty;
-          productMap[productId].totalPriceLocal += (line.price * qty * rate);
+          productMap[productId].totalPriceLocal += (lineTotal * rate);
           productMap[productId].totalDiscountLocal += (line.discount * rate);
           productMap[productId].totalAmountLocal += (line.total * rate);
+
+          productMap[productId].currencySummaries[cCode].original += lineTotal;
+          productMap[productId].currencySummaries[cCode].local += (lineTotal * rate);
+        });
+      });
+
+      return Object.values(productMap);
+    },
+
+    canceledOrderHeaderList() {
+      const productMap = {};
+
+      this.orderHeaderList.forEach((order) => {
+        if (order.isActive && order.status?.toLowerCase() !== 'cancel' && order.status?.toLowerCase() !== 'canceled') return;
+
+        // Apply basic search filter
+        const searchMatchesOrder = !this.search ||
+          order.orderNumber?.toLowerCase().includes(this.search.toLowerCase());
+
+        order.lines?.forEach((line) => {
+          if (!line.product) return;
+
+          if (this.creteria.productId && this.creteria.productId !== -1 && line.product.id !== this.creteria.productId) return;
+
+          const searchMatchesLine = searchMatchesOrder ||
+            line.product.pro_name?.toLowerCase().includes(this.search.toLowerCase());
+
+          if (!searchMatchesLine) return;
+
+          const productId = line.product.id;
+          const lineCurrency = this.findAllCurrency?.find(c => c.id === line.currencyId);
+          const isLocal = lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1;
+          const rate = isLocal ? 1 : (line.exchangeRate || 1);
+
+          if (!productMap[productId]) {
+            productMap[productId] = {
+              product: line.product,
+              bookingDate: order.bookingDate,
+              totalQTY: 0,
+              totalPriceLocal: 0,
+              totalDiscountLocal: 0,
+              totalAmountLocal: 0,
+              header: order,
+              currencySummaries: {}
+            };
+          }
+
+          const qty = line.quantity || 0;
+          const lineTotal = (line.price * qty);
+          const cCode = lineCurrency?.code || (this.localCurrency?.code || 'LAK');
+
+          if (!productMap[productId].currencySummaries[cCode]) {
+            productMap[productId].currencySummaries[cCode] = { original: 0, local: 0 };
+          }
+
+          productMap[productId].totalQTY += qty;
+          productMap[productId].totalPriceLocal += (lineTotal * rate);
+          productMap[productId].totalDiscountLocal += (line.discount * rate);
+          productMap[productId].totalAmountLocal += (line.total * rate);
+
+          productMap[productId].currencySummaries[cCode].original += lineTotal;
+          productMap[productId].currencySummaries[cCode].local += (lineTotal * rate);
         });
       });
 
@@ -774,27 +522,35 @@ export default {
     // NEW: Sales Statistics with Currency Breakdown
     salesStatistics() {
       const grouped = { totalLocal: 0, count: this.activeOrderHeaderList.length, groupedCurrency: {} };
-      
-      this.orderHeaderList.forEach(order => {
-        if (!order.isActive) return;
-        
-        order.lines?.forEach(line => {
-          const lineCurrency = this.findAllCurrency?.find(c => c.id === line.currencyId);
-          const cCode = lineCurrency?.code || 'UNKNOWN';
-          const isLocal = lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1;
-          const rate = isLocal ? 1 : (line.exchangeRate || 1);
-          
-          if (!grouped.groupedCurrency[cCode]) {
-            grouped.groupedCurrency[cCode] = { original: 0, local: 0 };
+
+      this.activeOrderHeaderList.forEach(item => {
+        for (const [code, val] of Object.entries(item.currencySummaries)) {
+          if (!grouped.groupedCurrency[code]) {
+            grouped.groupedCurrency[code] = { original: 0, local: 0 };
           }
-          
-          const lineTotal = (line.quantity * line.price);
-          grouped.groupedCurrency[cCode].original += lineTotal;
-          grouped.groupedCurrency[cCode].local += (lineTotal * rate);
-          grouped.totalLocal += (lineTotal * rate);
-        });
+          grouped.groupedCurrency[code].original += val.original;
+          grouped.groupedCurrency[code].local += val.local;
+          grouped.totalLocal += val.local;
+        }
       });
-      
+
+      return [grouped];
+    },
+
+    canceledStatistics() {
+      const grouped = { totalLocal: 0, count: this.canceledOrderHeaderList.length, groupedCurrency: {} };
+
+      this.canceledOrderHeaderList.forEach(item => {
+        for (const [code, val] of Object.entries(item.currencySummaries)) {
+          if (!grouped.groupedCurrency[code]) {
+            grouped.groupedCurrency[code] = { original: 0, local: 0 };
+          }
+          grouped.groupedCurrency[code].original += val.original;
+          grouped.groupedCurrency[code].local += val.local;
+          grouped.totalLocal += val.local;
+        }
+      });
+
       return [grouped];
     },
 
@@ -805,7 +561,7 @@ export default {
     currencyList() {
       return this.findAllCurrency
     },
-    
+
     totalSale() {
       return this.activeOrderHeaderList.reduce((sum, item) => sum + (item.totalAmountLocal || 0), 0);
     },
@@ -887,17 +643,13 @@ export default {
     },
 
     getAverageDiscount() {
-      if (this.activeOrderHeaderList.length === 0) return '0'
-      const totalSales = this.totalSaleRaw + this.totalDiscount
-      if (totalSales === 0) return '0'
-      return ((this.totalDiscount / totalSales) * 100).toFixed(1)
+      if (!this.totalSaleRaw || this.totalSaleRaw === 0) return '0'
+      return ((this.totalDiscount / this.totalSaleRaw) * 100).toFixed(1)
     },
 
     getAverageRevenue() {
       if (this.activeOrderHeaderList.length === 0) return '0'
-      const avgRevenue =
-        (this.totalSale - this.totalDiscount) /
-        this.activeOrderHeaderList.length
+      const avgRevenue = this.totalSale / this.activeOrderHeaderList.length
       return this.numberWithCommas(Math.round(avgRevenue))
     },
 
@@ -998,11 +750,10 @@ export default {
             <div class="summary-title">📊 OVERVIEW</div>
             <div class="summary-item">Total Product Lines: ${totalTickets}</div>
             <div class="summary-item">Total Items Sold: ${totalItems}</div>
-            <div class="summary-item">Average Quantity per Product: ${
-              totalTickets > 0
-                ? Math.round((totalItems / totalTickets) * 100) / 100
-                : 0
-            }</div>
+            <div class="summary-item">Average Quantity per Product: ${totalTickets > 0
+            ? Math.round((totalItems / totalTickets) * 100) / 100
+            : 0
+          }</div>
             <div class="summary-item">Average Discount Rate: ${this.getAverageDiscount()}%</div>
           </div>
 
@@ -1011,12 +762,12 @@ export default {
             <table>
               <tr><th>Category</th><th>Quantity Sold</th></tr>
               ${Object.entries(categoryCount)
-                .sort(([, a], [, b]) => b - a)
-                .map(
-                  ([category, count]) =>
-                    `<tr><td>${category}</td><td>${count}</td></tr>`
-                )
-                .join('')}
+            .sort(([, a], [, b]) => b - a)
+            .map(
+              ([category, count]) =>
+                `<tr><td>${category}</td><td>${count}</td></tr>`
+            )
+            .join('')}
             </table>
           </div>
 
@@ -1025,13 +776,13 @@ export default {
             <table>
               <tr><th>Product</th><th>Quantity Sold</th></tr>
               ${Object.entries(productCount)
-                .sort(([, a], [, b]) => b - a)
-                .slice(0, 15)
-                .map(
-                  ([product, count]) =>
-                    `<tr><td>${product}</td><td>${count}</td></tr>`
-                )
-                .join('')}
+            .sort(([, a], [, b]) => b - a)
+            .slice(0, 15)
+            .map(
+              ([product, count]) =>
+                `<tr><td>${product}</td><td>${count}</td></tr>`
+            )
+            .join('')}
             </table>
           </div>
 
@@ -1230,11 +981,12 @@ export default {
 
     async loadData() {
       this.isloading = true
+      const locationId = this.currentSelectedLocation?.id || 1
       const date = {
         startDate: this.date,
         endDate: this.date2,
         productId: this.creteria.productId,
-        locationId: this.currentSelectedLocation['id'] || 1,
+        locationId: locationId,
       }
 
       let apiLine = 'api/sale/findByDate'
@@ -1257,6 +1009,7 @@ export default {
     },
 
     async loadProduct() {
+      if (!this.currentSelectedLocation?.id) return
       this.isloading = true
       try {
         const response = await this.$axios.get(
@@ -1271,7 +1024,7 @@ export default {
           this.$swal,
           'Error',
           'Could not load product data: ' +
-            (error.message || JSON.stringify(error))
+          (error.message || JSON.stringify(error))
         )
         this.productList = [{ id: -1, pro_name: 'ທັງຫມົດ' }]
       }
@@ -1303,380 +1056,64 @@ export default {
 </script>
 
 <style scoped>
-/* Enhanced Typography for Vuetify 2 + Nuxt 2 */
-.product-sales-container {
-  font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  min-height: 100vh;
-  padding: 20px;
+.shadow-sm {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24) !important;
 }
 
-/* Header Section */
-.header-section {
-  margin-bottom: 32px;
-}
-
-.header-chips-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.header-chip {
-  font-size: 16px !important;
-  font-weight: 600 !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  cursor: pointer;
-  border-radius: 12px !important;
-}
-
-.header-chip:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* Main Card */
-.main-card {
-  border-radius: 16px !important;
-  overflow: hidden;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-  background: white;
-}
-
-/* Filter Section */
-.filter-section {
-  background: linear-gradient(
-    135deg,
-    var(--v-primary-base) 0%,
-    var(--v-primary-darken1) 100%
-  ) !important;
-  color: white !important;
-  position: relative;
-}
-
-.filter-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-  pointer-events: none;
-}
-
-.filter-group {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 12px;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-}
-
-.filter-title {
-  font-weight: 700;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-}
-
-/* Action Buttons */
-.action-btn {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  text-transform: none !important;
-  font-weight: 600;
-}
-
-.action-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-}
-
-/* Dashboard Styling */
-.dashboard-title {
-  font-size: 2rem !important;
-  font-weight: 800 !important;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: center;
-  color: var(--v-primary-base);
-  position: relative;
-}
-
-.dashboard-title::after {
-  content: '';
-  position: absolute;
-  bottom: -8px;
-  left: 0;
-  width: 60px;
-  height: 4px;
-  background: linear-gradient(
-    90deg,
-    var(--v-primary-base),
-    var(--v-secondary-base)
-  );
-  border-radius: 2px;
-}
-
-/* Metrics Cards */
 .metric-card {
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 2px solid transparent;
-  border-radius: 20px !important;
-  background: linear-gradient(135deg, white 0%, #f8f9fa 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.metric-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgba(var(--v-primary-rgb), 0.03) 0%,
-    transparent 70%
-  );
-  pointer-events: none;
+  transition: all 0.2s ease-in-out;
+  border-left: 4px solid var(--v-primary-base) !important;
 }
 
 .metric-card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  border-color: var(--v-primary-base);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12) !important;
 }
 
-/* Performance Card */
-.performance-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+.header-bar {
+  border-top: 4px solid var(--v-primary-base) !important;
 }
 
-.performance-metrics {
-  padding: 16px 0;
+.currency-breakdown-container {
+  max-height: 200px;
+  overflow-y: auto;
 }
 
-.metric-item {
-  text-align: center;
-  padding: 8px 0;
+.breakdown-row {
+  transition: background 0.2s;
 }
 
-.metric-label {
-  font-size: 0.875rem;
-  color: #666;
-  margin-bottom: 4px;
+.breakdown-row:hover {
+  background: #f0f4f8 !important;
 }
 
-.metric-value {
-  font-size: 1.5rem;
-  font-weight: 700;
+.compact-table>>>.v-data-table__wrapper {
+  border-radius: 0 0 8px 8px;
 }
 
-/* Summary Details */
-.summary-details {
-  padding: 20px 0;
+.compact-table>>>thead th {
+  background-color: #f8f9fa !important;
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  font-weight: bold !important;
+  color: #5f6368 !important;
 }
 
-.summary-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+.compact-table>>>tbody td {
+  font-size: 0.875rem !important;
 }
 
-.total-line {
-  border-top: 3px solid var(--v-success-base);
-  border-bottom: none;
-  padding-top: 24px;
-  margin-top: 16px;
-  background: rgba(var(--v-success-rgb), 0.05);
-  padding-left: 16px;
-  padding-right: 16px;
-  border-radius: 8px;
+.border {
+  border: 1px solid #e0e0e0 !important;
 }
 
-/* Enhanced Table */
-.enhanced-table {
-  border-radius: 0 !important;
-  background: transparent;
+/* Scrollbar styling */
+.currency-breakdown-container::-webkit-scrollbar {
+  width: 4px;
 }
 
-.enhanced-table >>> .v-data-table__wrapper {
-  border-radius: 0 0 12px 12px;
-  overflow: hidden;
-}
-
-.enhanced-table >>> .v-data-table-header {
-  background: var(--v-secondary-base) !important;
-}
-
-.enhanced-table >>> .v-data-table-header th {
-  color: white !important;
-  font-weight: 600 !important;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
-}
-
-.enhanced-table >>> tbody tr:hover {
-  background-color: rgba(var(--v-primary-rgb), 0.08) !important;
-}
-
-.enhanced-table >>> tbody tr {
-  transition: all 0.2s ease;
-}
-
-/* Table Content Styling */
-.product-info {
-  padding: 8px 0;
-}
-
-.price-info,
-.discount-info,
-.total-info {
-  text-align: right;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 8px;
-  justify-content: center;
-}
-
-.action-btn {
-  transition: all 0.2s ease;
-  border-radius: 8px !important;
-}
-
-.action-btn:hover {
-  transform: scale(1.15);
-}
-
-/* Loading Card */
-.loading-card {
-  border-radius: 16px !important;
-  background: white;
-}
-
-/* Responsive Design */
-@media (max-width: 960px) {
-  .header-chips-container {
-    flex-direction: column;
-  }
-
-  .header-chip {
-    justify-content: center;
-  }
-
-  .filter-group {
-    margin-bottom: 20px;
-  }
-
-  .dashboard-title {
-    font-size: 1.5rem !important;
-  }
-
-  .metric-value {
-    font-size: 1.25rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .product-sales-container {
-    padding: 12px;
-  }
-
-  .main-card {
-    border-radius: 12px !important;
-  }
-
-  .filter-group {
-    padding: 16px;
-  }
-
-  .metric-card {
-    border-radius: 16px !important;
-  }
-
-  .summary-line {
-    flex-direction: column;
-    text-align: center;
-    gap: 8px;
-  }
-}
-
-/* Animation Classes */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slideInRight {
-  from {
-    opacity: 0;
-    transform: translateX(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.metric-card {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.metric-card:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.metric-card:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.metric-card:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.metric-card:nth-child(4) {
-  animation-delay: 0.4s;
-}
-
-.enhanced-table {
-  animation: slideInRight 0.8s ease-out;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
+.currency-breakdown-container::-webkit-scrollbar-thumb {
+  background: #ccc;
   border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--v-primary-base);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--v-primary-darken1);
-}
-
-/* Vuetify 2 Compatibility */
-.text-h5,
-.grey {
-  font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
-}
-
-table {
-  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 </style>

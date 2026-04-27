@@ -122,17 +122,22 @@
           <v-row>
             <v-col cols="2"></v-col>
             <v-col cols="4">Staff salary </v-col>
-            <v-col cols="6">{{ formatNumber(0) }}</v-col>
+            <v-col cols="6">{{ formatNumber(staffSalaryExpense) }}</v-col>
           </v-row>
           <v-row>
             <v-col cols="2"></v-col>
             <v-col cols="4">Advertising</v-col>
-            <v-col cols="6">{{ formatNumber(0) }}</v-col>
+            <v-col cols="6">{{ formatNumber(advertisingExpense) }}</v-col>
           </v-row>
           <v-row>
             <v-col cols="2"></v-col>
             <v-col cols="4">Office expense</v-col>
-            <v-col cols="6">{{ formatNumber(0) }}</v-col>
+            <v-col cols="6">{{ formatNumber(officeExpense) }}</v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="2"></v-col>
+            <v-col cols="4">Other expense</v-col>
+            <v-col cols="6">{{ formatNumber(otherExpense) }}</v-col>
           </v-row>
           <v-row> <v-col cols="2"></v-col> <v-col cols="10">
               <hr style="border-width: 0.1px;">
@@ -140,7 +145,7 @@
           <v-row>
             <v-col cols="2"></v-col>
             <v-col cols="4" style="font-weight: bold; font-style: italic;">Total expense</v-col>
-            <v-col cols="6" style="font-weight: bold; font-style: italic;">{{ formatNumber(0) }}</v-col>
+            <v-col cols="6" style="font-weight: bold; font-style: italic;">{{ formatNumber(totalExpense) }}</v-col>
           </v-row>
         </v-col>
         <!-- Net profit -->
@@ -229,6 +234,7 @@ export default {
       dialogMessage: false,
       message: '',
       loaddata: [],
+      expenseData: [],
       pageLine: 30,
       search: '',
     }
@@ -314,7 +320,52 @@ export default {
       return totalCancellationFee;
     },
     netProfit() {
-      return (this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)) - (this.grandSaleCost + this.grandCODCost + this.grandCancellationCost)
+      return (this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)) - (this.grandSaleCost + this.grandCODCost + this.grandCancellationCost + this.totalExpense)
+    },
+    totalExpense() {
+      return this.expenseData.reduce((total, item) => {
+        const rate = item.rate || 1
+        return total + (item.totalAmount * rate)
+      }, 0)
+    },
+    staffSalaryExpense() {
+      return this.expenseData.filter(item => {
+        const name = item.drAccount?.accountName || ''
+        return name.toLowerCase().includes('salary') || name.toLowerCase().includes('staff')
+      }).reduce((total, item) => {
+        const rate = item.rate || 1
+        return total + (item.totalAmount * rate)
+      }, 0)
+    },
+    advertisingExpense() {
+      return this.expenseData.filter(item => {
+        const name = item.drAccount?.accountName || ''
+        return name.toLowerCase().includes('advertis') || name.toLowerCase().includes('market')
+      }).reduce((total, item) => {
+        const rate = item.rate || 1
+        return total + (item.totalAmount * rate)
+      }, 0)
+    },
+    officeExpense() {
+      return this.expenseData.filter(item => {
+        const name = item.drAccount?.accountName || ''
+        return name.toLowerCase().includes('office')
+      }).reduce((total, item) => {
+        const rate = item.rate || 1
+        return total + (item.totalAmount * rate)
+      }, 0)
+    },
+    otherExpense() {
+      return this.expenseData.filter(item => {
+        const name = item.drAccount?.accountName || ''
+        const isSalary = name.toLowerCase().includes('salary') || name.toLowerCase().includes('staff')
+        const isAds = name.toLowerCase().includes('advertis') || name.toLowerCase().includes('market')
+        const isOffice = name.toLowerCase().includes('office')
+        return !isSalary && !isAds && !isOffice
+      }).reduce((total, item) => {
+        const rate = item.rate || 1
+        return total + (item.totalAmount * rate)
+      }, 0)
     }
 
   },
@@ -349,12 +400,21 @@ export default {
         startDate: this.date,
         endDate: this.date2,
       }
-      await this.$axios
-        .get(`api/sale/findDetailByDate`, { params: { date } })
+      const locationId = this.currentSelectedLocation?.id
+      const expensePromise = this.$axios
+        .get(`api/finanicial/ap/header/findByDate`, { params: { date, locationId } })
         .then((res) => {
-          this.loaddata = res.data;
-          console.log(`Stock entry count ${this.loaddata.length}`);
+          this.expenseData = res.data;
         })
+
+      await Promise.all([
+        this.$axios.get(`api/sale/findDetailByDate`, { params: { date } })
+          .then((res) => {
+            this.loaddata = res.data;
+            console.log(`Stock entry count ${this.loaddata.length}`);
+          }),
+        expensePromise
+      ])
         .catch((er) => {
           this.message = er
           console.log('Error: ' + er)

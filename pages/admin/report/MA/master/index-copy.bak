@@ -209,7 +209,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No balance forward data
               </div>
             </div>
@@ -343,7 +343,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No payment data available
               </div>
             </div>
@@ -490,7 +490,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No payment bank data available
               </div>
             </div>
@@ -648,7 +648,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No settlement data available
               </div>
             </div>
@@ -800,7 +800,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No settlement bank data available
               </div>
             </div>
@@ -955,7 +955,7 @@
               <v-icon size="48" color="grey lighten-2"
                 >mdi-information-outline</v-icon
               >
-              <div class="mt-2 text-subtitle-2 grey--text">
+              <div class="mt-2  grey--text">
                 No chart account data available
               </div>
             </div>

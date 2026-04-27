@@ -26,8 +26,8 @@
                 <v-icon color="primary">mdi-invoice-text-outline</v-icon>
               </v-avatar>
               <div class="ml-4">
-                <div class="text-caption grey--text font-weight-bold text-uppercase">Total AP Amount</div>
-                <div class="text-h6 font-weight-bold uppercase">{{ formatCurrency(summaryTotals.totalAmount) }}</div>
+                <div class=" grey--text font-weight-bold text-uppercase">Total AP Amount</div>
+                <div class=" font-weight-bold uppercase">{{ formatCurrency(summaryTotals.totalAmount) }}</div>
               </div>
             </div>
           </v-card-text>
@@ -41,8 +41,8 @@
                 <v-icon color="success">mdi-check-circle-outline</v-icon>
               </v-avatar>
               <div class="ml-4">
-                <div class="text-caption grey--text font-weight-bold text-uppercase">Total Paid</div>
-                <div class="text-h6 font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalPaid)
+                <div class=" grey--text font-weight-bold text-uppercase">Total Paid</div>
+                <div class=" font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalPaid)
                 }}</div>
               </div>
             </div>
@@ -57,8 +57,8 @@
                 <v-icon color="warning">mdi-clock-outline</v-icon>
               </v-avatar>
               <div class="ml-4">
-                <div class="text-caption grey--text font-weight-bold text-uppercase">Outstanding</div>
-                <div class="text-h6 font-weight-bold warning--text uppercase">{{
+                <div class=" grey--text font-weight-bold text-uppercase">Outstanding</div>
+                <div class=" font-weight-bold warning--text uppercase">{{
                   formatCurrency(summaryTotals.totalOutstanding) }}
                 </div>
               </div>
@@ -74,8 +74,8 @@
                 <v-icon color="error">mdi-alert-circle-outline</v-icon>
               </v-avatar>
               <div class="ml-4">
-                <div class="text-caption grey--text font-weight-bold text-uppercase">Overdue Invoices</div>
-                <div class="text-h6 font-weight-bold error--text">{{ summaryTotals.overdueCount }} Invoices</div>
+                <div class=" grey--text font-weight-bold text-uppercase">Overdue Invoices</div>
+                <div class=" font-weight-bold error--text">{{ summaryTotals.overdueCount }} Invoices</div>
               </div>
             </div>
           </v-card-text>
@@ -158,7 +158,7 @@
                 <div class="font-weight-medium">
                   {{ item.agency.agencyName }}
                 </div>
-                <div class="text-caption grey--text">
+                <div class=" grey--text">
                   Code: {{ item.agency.agencyCode }}
                 </div>
               </div>
@@ -183,7 +183,7 @@
                 <div class="font-weight-bold font-monospace">
                   {{ formatCurrency(item.totalAmount) }}
                 </div>
-                <div v-if="item.currency" class="text-caption grey--text">
+                <div v-if="item.currency" class=" grey--text">
                   {{ item.currency.code }}
                 </div>
               </div>
@@ -217,7 +217,7 @@
                 <v-avatar size="24" color="grey lighten-3" class="mr-2">
                   <v-icon x-small>mdi-account</v-icon>
                 </v-avatar>
-                <span class="text-caption">
+                <span class="">
                   {{ item.maker ? item.maker.cus_name : 'N/A' }}
                 </span>
               </div>
@@ -239,7 +239,7 @@
                     <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
                   </v-list-item>
 
-                  <v-list-item v-if="['draft', 'pending'].includes(item.status)" @click="openDialog(item)" class="px-3">
+                  <v-list-item @click="openDialog(item)" class="px-3">
                     <v-list-item-icon class="mr-3">
                       <v-icon small color="warning">mdi-pencil-outline</v-icon>
                     </v-list-item-icon>
@@ -278,7 +278,7 @@
       <v-card class="rounded-lg overflow-hidden">
         <v-card-title class="primary white--text py-3 px-4">
           <v-icon color="white" class="mr-2">mdi-information-outline</v-icon>
-          <span class="text-h6">ລາຍລະອຽດໃບແຈ້ງໜີ້ (Invoice Details)</span>
+          <span class="">ລາຍລະອຽດໃບແຈ້ງໜີ້ (Invoice Details)</span>
           <v-spacer />
           <v-btn icon dark @click="closeDetailModal" small>
             <v-icon>mdi-close</v-icon>
@@ -291,7 +291,7 @@
           <div v-else-if="invoiceDetails" class="pa-4">
             <v-row>
               <v-col cols="12" md="6">
-                <div class="text-caption grey--text font-weight-bold uppercase mb-1">Invoice Info</div>
+                <div class=" grey--text font-weight-bold uppercase mb-1">Invoice Info</div>
                 <div class="d-flex justify-space-between mb-1">
                   <span class="grey--text text--darken-1">ເລກທີໃບແຈ້ງໜີ້:</span>
                   <span class="font-weight-bold">{{ invoiceDetails.invoiceNumber }}</span>
@@ -312,15 +312,15 @@
                 </div>
               </v-col>
               <v-col cols="12" md="6">
-                <div class="text-caption grey--text font-weight-bold uppercase mb-1">Vendor & Status</div>
+                <div class=" grey--text font-weight-bold uppercase mb-1">Vendor & Status</div>
                 <div class="mb-1">
-                  <div class="grey--text text--darken-1 text-caption">ຜູ້ຂາຍ (Vendor):</div>
+                  <div class="grey--text text--darken-1 ">ຜູ້ຂາຍ (Vendor):</div>
                   <div class="font-weight-bold">
                     {{ invoiceDetails.agency?.agencyCode }} - {{ invoiceDetails.agency?.agencyName || 'N/A' }}
                   </div>
                 </div>
                 <div class="d-flex align-center mt-2">
-                  <span class="grey--text text--darken-1 mr-2 text-caption">ສະຖານະ:</span>
+                  <span class="grey--text text--darken-1 mr-2 ">ສະຖານະ:</span>
                   <v-chip x-small :color="getStatusColor(invoiceDetails.status)" outlined class="font-weight-bold">
                     {{ getStatusInLao(invoiceDetails.status) }}
                   </v-chip>
@@ -330,21 +330,21 @@
 
             <v-divider class="my-4"></v-divider>
 
-            <div class="text-caption grey--text font-weight-bold uppercase mb-2">Financial Summary</div>
+            <div class=" grey--text font-weight-bold uppercase mb-2">Financial Summary</div>
             <v-card outlined class="bg-light pa-3">
               <v-row dense>
                 <v-col cols="4" class="text-center">
-                  <div class="text-caption grey--text">Total Amount</div>
+                  <div class=" grey--text">Total Amount</div>
                   <div class="font-weight-bold font-monospace">{{ formatCurrency(invoiceDetails.totalAmount) }}</div>
                 </v-col>
                 <v-col cols="4" class="text-center border-left">
-                  <div class="text-caption grey--text">Paid Amount</div>
+                  <div class=" grey--text">Paid Amount</div>
                   <div class="font-weight-bold success--text font-monospace">{{
                     formatCurrency(invoiceDetails.paidAmount) }}
                   </div>
                 </v-col>
                 <v-col cols="4" class="text-center border-left">
-                  <div class="text-caption grey--text">Outstanding</div>
+                  <div class=" grey--text">Outstanding</div>
                   <div class="font-weight-bold warning--text font-monospace">{{
                     formatCurrency(getOutstandingAmount(invoiceDetails)) }}</div>
                 </v-col>
@@ -352,7 +352,7 @@
             </v-card>
 
             <div v-if="invoiceDetails.description" class="mt-4">
-              <div class="text-caption grey--text font-weight-bold uppercase mb-1">Description</div>
+              <div class=" grey--text font-weight-bold uppercase mb-1">Description</div>
               <p class="text-body-2 grey--text text--darken-2 pa-2 bg-light rounded border">{{
                 invoiceDetails.description }}
               </p>

@@ -5,25 +5,13 @@
         <v-icon left>mdi-label</v-icon>
         <h3>ລາຍການ ສະກຸນເງິນ</h3>
       </v-chip>
-      <v-chip
-        class="pa-5"
-        color="primary"
-        label
-        text-color="white"
-        @click="guidelineDialog = true"
-      >
+      <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
         <v-icon left>mdi mdi-lifebuoy</v-icon>
         <h3>ຄູ່ມືການນຳໃຊ້</h3>
       </v-chip>
     </div>
 
-    <v-alert
-      v-if="localCurrency"
-      type="success"
-      prominent
-      class="mb-4"
-      icon="mdi-home-currency"
-    >
+    <v-alert v-if="localCurrency" primary prominent class="mb-4" icon="mdi-home-currency">
       <div class="d-flex justify-space-between align-center">
         <div>
           <div class="text-h6">Current Local Currency</div>
@@ -32,12 +20,7 @@
             {{ getFormatNum(localCurrency.rate) }}
           </div>
         </div>
-        <v-btn
-          color="primary"
-          outlined
-          small
-          @click="showSwitchLocalDialog = true"
-        >
+        <v-btn color="primary" outlined small @click="showSwitchLocalDialog = true">
           <v-icon left>mdi-swap-horizontal</v-icon>
           Switch Local
         </v-btn>
@@ -50,15 +33,8 @@
           <span class="text-h5">Switch Local Currency</span>
         </v-card-title>
         <v-card-text>
-          <v-select
-            v-model="selectedNewLocal"
-            :items="nonLocalCurrencies"
-            item-text="displayName"
-            item-value="id"
-            label="Select New Local Currency"
-            outlined
-            :rules="[(v) => !!v || 'Please select a currency']"
-          ></v-select>
+          <v-select v-model="selectedNewLocal" :items="nonLocalCurrencies" item-text="displayName" item-value="id"
+            label="Select New Local Currency" outlined :rules="[(v) => !!v || 'Please select a currency']"></v-select>
           <v-alert type="warning" class="mt-3" dense text>
             <strong>Warning:</strong> This will change your base currency for all exchange rate calculations.
           </v-alert>
@@ -66,23 +42,14 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="grey" text @click="showSwitchLocalDialog = false">Cancel</v-btn>
-          <v-btn
-            color="primary"
-            text
-            @click="switchLocalCurrency"
-            :disabled="!selectedNewLocal"
-            :loading="switchingLocal"
-          >Switch</v-btn>
+          <v-btn color="primary" text @click="switchLocalCurrency" :disabled="!selectedNewLocal"
+            :loading="switchingLocal">Switch</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
-      <youtube-player
-        v-if="guidelineDialog"
-        @close-dialog="guidelineDialog = false"
-        youtube-link="5zESPW16wgY"
-      >
+      <youtube-player v-if="guidelineDialog" @close-dialog="guidelineDialog = false" youtube-link="5zESPW16wgY">
       </youtube-player>
     </v-dialog>
 
@@ -91,14 +58,8 @@
     </v-dialog>
 
     <v-dialog v-model="currencyDialogForm" persistent max-width="700px">
-      <currency-form
-        v-if="currencyDialogForm"
-        @reload-data="handleReloadData"
-        :isCreate="isCreate"
-        :key="componentKey"
-        :recordId="currencySelected"
-        @close-dialog="handleCloseDialog"
-      >
+      <currency-form v-if="currencyDialogForm" @reload-data="handleReloadData" :isCreate="isCreate" :key="componentKey"
+        :recordId="currencySelected" @close-dialog="handleCloseDialog">
       </currency-form>
     </v-dialog>
 
@@ -113,16 +74,8 @@
             </v-chip-group>
           </v-col>
           <v-col cols="12" sm="6">
-            <v-text-field
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ຊອກຫາ"
-              single-line
-              hide-details
-              clearable
-              outlined
-              dense
-            />
+            <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-details clearable
+              outlined dense />
           </v-col>
           <v-col cols="6">
             <v-btn large outlined color="primary" @click="createRecord" rounded>
@@ -139,13 +92,8 @@
 
       <v-divider></v-divider>
 
-      <v-data-table
-        :headers="headers"
-        :items="filteredCurrencyList"
-        :search="search"
-        :loading="isloading"
-        class="elevation-1"
-      >
+      <v-data-table :headers="headers" :items="filteredCurrencyList" :search="search" :loading="isloading"
+        class="elevation-1">
         <template v-slot:[`item.code`]="{ item }">
           <div class="d-flex align-center">
             <span class="font-weight-bold">{{ item.code }}</span>
@@ -180,6 +128,9 @@
             <v-btn icon color="primary" small @click="viewRecord(item)">
               <v-icon small>mdi-pencil</v-icon>
             </v-btn>
+            <v-btn icon color="info" small @click="openAudit(item)">
+              <v-icon small>mdi-history</v-icon>
+            </v-btn>
             <v-btn v-if="!item.isLocalCCY" icon color="success" small @click="quickSetAsLocal(item)">
               <v-icon small>mdi-home-plus</v-icon>
             </v-btn>
@@ -202,6 +153,81 @@
           <v-btn text @click="deleteDialog = false">Cancel</v-btn>
           <v-btn color="error" text @click="deleteCurrency">Delete</v-btn>
         </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Audit Trail Dialog -->
+    <v-dialog v-model="auditDialog" max-width="900">
+      <v-card>
+        <v-card-title class="primary white--text">
+          <v-icon left color="white">mdi-history</v-icon>
+          ປະຫວັດການປ່ຽນແປງ (Audit Trail)
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="auditDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <v-data-table
+            :headers="auditHeaders"
+            :items="auditLogs"
+            :loading="isAuditLoading"
+            class="elevation-1"
+            show-expand
+            single-expand
+            :expanded.sync="expandedAudit"
+          >
+            <template v-slot:[`item.auditDate`]="{ item }">
+              {{ formatDateTime(item.auditDate) }}
+            </template>
+            <template v-slot:[`item.action`]="{ item }">
+              <v-chip small :color="getActionColor(item.action)" dark label>
+                {{ item.action }}
+              </v-chip>
+            </template>
+            <template v-slot:[`item.user`]="{ item }">
+              {{ item.user ? item.user.cus_name : 'Unknown' }}
+            </template>
+
+            <!-- Expansion Slot for Details -->
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length" class="bg-grey-lighten-4 pa-0">
+                <v-card flat color="grey lighten-4">
+                  <v-card-text>
+                    <div class="subtitle-2 font-weight-bold mb-2 primary--text">ລາຍລະອຽດການປ່ຽນແປງ (Change Details)</div>
+                    <v-simple-table dense class="transparent">
+                      <template v-slot:default>
+                        <thead>
+                          <tr>
+                            <th class="text-left">ຟິວ (Field)</th>
+                            <th class="text-left">ກ່ອນ (Before/From)</th>
+                            <th class="text-center" width="50"></th>
+                            <th class="text-left">ຫຼັງ (After/To)</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr v-for="change in getAuditDiff(item)" :key="change.field">
+                            <td class="font-weight-medium">{{ formatFieldName(change.field) }}</td>
+                            <td>
+                              <v-chip x-small color="red lighten-5" class="red--text text--darken-2" label>{{ change.from }}</v-chip>
+                            </td>
+                            <td class="text-center"><v-icon small>mdi-arrow-right</v-icon></td>
+                            <td>
+                              <v-chip x-small color="green lighten-5" class="green--text text--darken-2" label>{{ change.to }}</v-chip>
+                            </td>
+                          </tr>
+                          <tr v-if="getAuditDiff(item).length === 0">
+                            <td colspan="4" class="text-center grey--text py-2">ບໍ່ມີຂໍ້ມູນການປ່ຽນແປງ (No specific field changes detected)</td>
+                          </tr>
+                        </tbody>
+                      </template>
+                    </v-simple-table>
+                  </v-card-text>
+                </v-card>
+              </td>
+            </template>
+          </v-data-table>
+        </v-card-text>
       </v-card>
     </v-dialog>
   </div>
@@ -237,7 +263,19 @@ export default {
         { text: 'ອັດຕາແລກປ່ຽນ', value: 'rate', align: 'center' },
         { text: 'ທິດທາງ', value: 'exchangeDirection', align: 'center' },
         { text: 'ສະຖານະ', value: 'isActive', width: '100px' },
-        { text: 'Actions', value: 'actions', sortable: false, width: '150px' }
+        { text: 'Actions', value: 'actions', sortable: false, width: '180px' }
+      ],
+      // Audit Trail
+      auditDialog: false,
+      auditLogs: [],
+      isAuditLoading: false,
+      expandedAudit: [],
+      auditHeaders: [
+        { text: 'ວັນທີ (Date)', value: 'auditDate', sortable: true },
+        { text: 'ການກະທຳ (Action)', value: 'action' },
+        { text: 'ຜູ້ໃຊ້ (User)', value: 'user' },
+        { text: 'ໝາຍເຫດ (Reason)', value: 'reason' },
+        { text: '', value: 'data-table-expand' },
       ]
     }
   },
@@ -261,7 +299,7 @@ export default {
     getFormatNum(val) { return getFormatNum(val) },
     getRateDirection(item) {
       const localCode = this.localCurrency?.code || 'LOCAL'
-      return item.exchangeDirection === 'local_to_foreign' 
+      return item.exchangeDirection === 'local_to_foreign'
         ? `1 ${localCode} = ${this.getFormatNum(item.rate)} ${item.code}`
         : `1 ${item.code} = ${this.getFormatNum(item.rate)} ${localCode}`
     },
@@ -313,7 +351,93 @@ export default {
     handleReloadData() { this.loadData(); this.loadLocalCurrency() },
     handleCloseDialog() { this.currencyDialogForm = false },
     createRecord() { this.isCreate = true; this.currencySelected = 0; this.componentKey++; this.currencyDialogForm = true },
-    viewRecord(item) { this.isCreate = false; this.currencySelected = item.id; this.componentKey++; this.currencyDialogForm = true }
+    viewRecord(item) { this.isCreate = false; this.currencySelected = item.id; this.componentKey++; this.currencyDialogForm = true },
+    async fetchAuditTrail(currencyId) {
+      this.isAuditLoading = true
+      try {
+        const res = await this.$axios.get(`api/currency/audit/${currencyId}`)
+        this.auditLogs = res.data.data || []
+      } catch (er) {
+        swalError2(this.$swal, 'Error', 'Could not load audit data: ' + er.message)
+      } finally {
+        this.isAuditLoading = false
+      }
+    },
+    openAudit(item) {
+      this.auditLogs = []
+      this.auditDialog = true
+      this.expandedAudit = []
+      this.fetchAuditTrail(item.id)
+    },
+    formatDateTime(val) {
+      if (!val) return '-'
+      return new Date(val).toLocaleString('en-GB')
+    },
+    getActionColor(action) {
+      const colors = {
+        'CREATE': 'success',
+        'UPDATE': 'info',
+        'DELETE': 'error'
+      }
+      return colors[action] || 'grey'
+    },
+    getAuditDiff(item) {
+      const currentSnapshot = item.recordData || {};
+      let nextSnapshot = {};
+
+      // Find the index of this item in the sorted audit logs
+      const actualIndex = this.auditLogs.findIndex(log => log.id === item.id);
+
+      if (actualIndex === 0) {
+        // This is the latest audit record, compare with current state in the list
+        const currency = this.currencyList.find(c => c.id === item.currencyId);
+        nextSnapshot = currency || {};
+      } else if (actualIndex > 0) {
+        // Compare with the one created AFTER this one (which is index - 1 in DESC order)
+        const nextLog = this.auditLogs[actualIndex - 1];
+        nextSnapshot = nextLog ? (nextLog.recordData || {}) : {};
+      }
+
+      if (item.action === 'CREATE') {
+        const trackedFields = ['code', 'name', 'rate', 'isActive', 'isLocalCCY', 'exchangeDirection'];
+        return trackedFields
+          .filter(k => currentSnapshot[k] !== undefined)
+          .map(k => ({
+            field: k,
+            from: '-',
+            to: (currentSnapshot[k] === null || currentSnapshot[k] === undefined) ? '-' : currentSnapshot[k]
+          }));
+      }
+
+      const trackedFields = ['code', 'name', 'rate', 'isActive', 'isLocalCCY', 'exchangeDirection'];
+      const changes = [];
+
+      trackedFields.forEach(field => {
+        const oldVal = currentSnapshot[field];
+        const newVal = nextSnapshot[field];
+
+        if (oldVal != newVal && newVal !== undefined) {
+          changes.push({
+            field,
+            from: (oldVal === null || oldVal === undefined) ? '-' : oldVal,
+            to: (newVal === null || newVal === undefined) ? '-' : newVal
+          });
+        }
+      });
+
+      return changes;
+    },
+    formatFieldName(field) {
+      const mapping = {
+        code: 'ລະຫັດ (Code)',
+        name: 'ຊື່ (Name)',
+        rate: 'ອັດຕາແລກປ່ຽນ (Rate)',
+        isActive: 'ສະຖານະ (Active)',
+        isLocalCCY: 'ສະກຸນເງິນຫຼັກ (Local CCY)',
+        exchangeDirection: 'ທິດທາງແລກປ່ຽນ (Exchange Direction)'
+      };
+      return mapping[field] || field;
+    }
   }
 }
 </script>
@@ -327,7 +451,7 @@ table {
   border: 1px solid black;
 }
 
-.gap-1 > * + * {
+.gap-1>*+* {
   margin-left: 4px;
 }
 
