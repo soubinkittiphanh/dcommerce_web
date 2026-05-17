@@ -4,7 +4,7 @@
         <v-system-bar color="white" height="100">
           <v-spacer />
           <div class="mr-4">
-            <v-img :src="require('~/assets/img/Logo.png')" max-width="230">
+            <v-img :src="require('~/assets/image/Dcommerce-Logo_DC.png')" max-width="230">
             </v-img>
           </div>
           <v-text-field
@@ -94,7 +94,7 @@
           <v-row>
             <v-col cols="12" sm="4" md="4">
               <div class="">
-                <v-img :src="require('~/assets/img/Logo.png')" max-width="300">
+                <v-img :src="require('~/assets/image/Dcommerce-Logo_DC.png')" max-width="300">
                 </v-img>
                 <h5 class="grey--text pa-4">
                   ຊຸດອອກງານ, ຊຸດລາຕີ, ຊຸດກະໂປ່ງ, ຊຸດງາມໆ, ຄຸນນະພາບດີ,

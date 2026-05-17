@@ -145,6 +145,45 @@
                         Discount value per 1 point (e.g., <code>10</code>). / ມູນຄ່າສ່ວນຫຼຸດຕໍ່ 1 ຄະແນນ.
                       </td>
                     </tr>
+                    <!-- Dynamic QR Settings -->
+                    <tr class="teal lighten-5">
+                      <td colspan="2" class="font-weight-bold text-center">Dynamic QR Code / ຄິວອາໂຄດແບບເຄື່ອນໄຫວ</td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">DYN_QR</td>
+                      <td>
+                        <strong>Enable Dynamic QR / ເປີດໃຊ້ງານ QR:</strong><br>
+                        Set to <code>Y</code> to enable Dynamic QR code generation for payments. / ຕັ້ງເປັນ <code>Y</code> ເພື່ອເປີດນຳໃຊ້.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">DYN_MemberId</td>
+                      <td>
+                        <strong>Member ID / ລະຫັດສະມາຊິກ:</strong><br>
+                        Bank API Member ID (e.g., <code>KOKKOKMOV</code>). / ລະຫັດສະມາຊິກຈາກທະນາຄານ.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">DYN_MerchantId</td>
+                      <td>
+                        <strong>Merchant ID / ລະຫັດຮ້ານຄ້າ:</strong><br>
+                        Your Bank Merchant ID. / ລະຫັດຮ້ານຄ້າຂອງທ່ານຈາກທະນາຄານ.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">DYN_Password</td>
+                      <td>
+                        <strong>API Password / ລະຫັດຜ່ານ API:</strong><br>
+                        Password/Secret Key for Bank API authentication. / ລະຫັດຜ່ານສຳລັບເຊື່ອມຕໍ່ລະບົບທະນາຄານ.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">DYN_CallbackUrl</td>
+                      <td>
+                        <strong>Webhook Callback URL (Optional):</strong><br>
+                        Public endpoint for Bank to send payment confirmation. / ລິ້ງສຳລັບຮັບການຢືນຢັນການຈ່າຍເງິນຈາກທະນາຄານ.
+                      </td>
+                    </tr>
                   </tbody>
                 </template>
               </v-simple-table>

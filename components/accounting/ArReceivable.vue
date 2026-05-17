@@ -120,6 +120,14 @@
             </v-col>
           </v-row>
 
+          <!-- Active Status -->
+          <v-row dense>
+            <v-col cols="12">
+              <v-switch v-model="form.header.isActive" label="ສະຖານະການໃຊ້ງານ (Active)" color="success" inset dense
+                hide-details class="mt-0"></v-switch>
+            </v-col>
+          </v-row>
+
           <!-- Summary Card -->
           <v-card outlined class="mt-4" v-if="calculatedTotal || selectedCurrency">
             <v-card-text class="py-3">

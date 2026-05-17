@@ -2,10 +2,10 @@
   <div class="purchasing-form-container">
     <!-- Loading Overlay -->
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <v-card class="loading-card" color="primary" dark>
-        <v-card-text class="text-center">
-          <v-progress-circular :size="70" :width="7" color="white" indeterminate class="mb-4" />
-          <div class="text-h6">Processing...</div>
+      <v-card color="primary" dark rounded="xl">
+        <v-card-text class="text-center pa-6">
+          <v-progress-circular :size="50" :width="5" color="white" indeterminate class="mb-3" />
+          <div class="text-h6 font-weight-bold">ກຳລັງປະມວນຜົນ...</div>
         </v-card-text>
       </v-card>
     </v-dialog>
@@ -27,364 +27,242 @@
     </v-dialog>
 
     <!-- Error Sheet -->
-    <v-snackbar v-model="errorSnackbar" :timeout="10000" color="error" multi-line top right>
+    <v-snackbar v-model="errorSnackbar" :timeout="6000" color="error" rounded="pill" top right>
+      <v-icon left>mdi-alert-circle</v-icon>
       {{ validateErrorMessage }}
       <template v-slot:action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="errorSnackbar = false">
-          <v-icon>mdi-close</v-icon>
+        <v-btn icon v-bind="attrs" @click="errorSnackbar = false">
+          <v-icon small>mdi-close</v-icon>
         </v-btn>
       </template>
     </v-snackbar>
 
     <!-- Main Form Card -->
-    <v-card class="purchasing-form-card" elevation="8">
-      <!-- Header Actions -->
-      <v-card-title class="header-section primary white--text">
+    <v-card class="purchasing-form-card" flat tile min-height="100vh" color="white">
+      <!-- Premium Header Section -->
+      <v-card-title class="primary pa-4 elevation-2">
         <div class="d-flex justify-space-between align-center w-100">
           <div class="d-flex align-center">
-            <v-icon large color="white" class="mr-3">
-              mdi-file-document-outline
-            </v-icon>
+            <v-btn icon color="white" @click="toggleDialog" class="mr-2">
+              <v-icon>mdi-arrow-left</v-icon>
+            </v-btn>
             <div>
-              <h2 class="text-h5 mb-0">
-                Purchase Order
-                <span class="text-h6 opacity-80">#{{ transaction.id || 'New' }}</span>
+              <h2 class="text-h6 font-weight-black white--text mb-0 d-flex align-center">
+                <v-icon left color="white" small>mdi-file-document-edit</v-icon>
+                <span style="color: white !important;">{{ isUpdate ? 'ແກ້ໄຂໃບສັ່ງຊື້' : 'ສ້າງໃບສັ່ງຊື້ໃໝ່' }}</span>
+                <v-chip v-if="transaction.id" x-small color="rgba(255,255,255,0.2)" class="ml-2 white--text font-weight-bold">
+                  #{{ transaction.id }}
+                </v-chip>
               </h2>
-              <div class=" opacity-80">
-                {{ formattedDate }}
+              <div class="text-caption white--text" style="opacity: 0.9; color: white !important;">
+                {{ isUpdate ? 'Update existing purchase order information' : 'Create a new purchase order for suppliers' }}
               </div>
             </div>
           </div>
 
-          <div class="d-flex align-center gap-2">
-            <v-btn color="success" outlined @click="postReceiving" :disabled="!canReceive">
-              <v-icon left>mdi-check</v-icon>
-              Receive Goods
+          <div class="d-flex align-center header-actions">
+            <v-btn v-if="isUpdate" color="success" depressed small class="action-btn mx-1" @click="postReceiving" :disabled="!canReceive">
+              <v-icon left small>mdi-package-variant</v-icon>ຮັບເຄື່ອງ
             </v-btn>
-
-            <v-btn color="warning" outlined @click="cancelOrder" :disabled="!canCancel">
-              <v-icon left>mdi-cancel</v-icon>
-              Cancel
+            <v-btn v-if="isUpdate" color="error" depressed small class="action-btn mx-1" @click="cancelOrder" :disabled="!canCancel">
+              <v-icon left small>mdi-cancel</v-icon>ຍົກເລີກ
             </v-btn>
-
-            <v-btn color="white" outlined @click="printPurchaseOrderDirectly" :disabled="!headerId"
-              :loading="isPrinting">
-              <v-icon left>mdi-printer</v-icon>
-              Print PO
+            <v-btn color="info" depressed small class="action-btn mx-1" @click="printPurchaseOrderDirectly" :disabled="!headerId" :loading="isPrinting">
+              <v-icon left small>mdi-printer</v-icon>ພິມ PO
             </v-btn>
           </div>
         </div>
       </v-card-title>
 
-      <v-card-text class="form-content">
-        <!-- Transaction Header -->
-        <v-card :class="['transaction-header', { 'header-error': headerError }]" elevation="2">
-          <v-card-title class="text-h6 pb-2">
-            <v-icon left color="primary">mdi-information</v-icon>
-            Purchase Order Details
-          </v-card-title>
-
-          <v-card-text>
-            <v-row>
-              <!-- Left Column -->
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-calendar</v-icon>
-                    Date & Terms
-                  </h4>
-
-                  <v-text-field v-model="transaction.bookingDate" type="date" label="Order Date" outlined dense required
-                    :rules="[rules.required]" />
-
-                  <v-text-field v-model="transaction.expectedDeliveryDate" type="date" label="Expected Delivery"
-                    outlined dense />
-
-                  <v-autocomplete v-model="transaction.termId" :items="termsList" item-text="term_name" item-value="id"
-                    label="Payment Terms" outlined dense>
+      <v-card-text class="pa-4 pt-6">
+        <v-row dense>
+          <!-- Left Panel: General Info -->
+          <v-col cols="12" md="4">
+            <v-card outlined class="info-section-card h-100 pa-4" rounded="lg">
+              <div class="d-flex align-center mb-4">
+                <v-avatar color="primary" size="32" class="mr-2">
+                  <v-icon color="white" small>mdi-information-variant</v-icon>
+                </v-avatar>
+                <span class="text-subtitle-2 font-weight-black primary--text">ຂໍ້ມູນພື້ນຖານ</span>
+              </div>
+              
+              <v-row dense>
+                <v-col cols="12" sm="6" md="12">
+                  <v-text-field v-model="transaction.bookingDate" type="date" label="ວັນທີສັ່ງຊື້" outlined dense hide-details class="custom-input mb-3" />
+                </v-col>
+                <v-col cols="12" sm="6" md="12">
+                  <v-autocomplete v-model="transaction.supplierId" :items="supplierList" item-text="name" item-value="id"
+                    label="ຜູ້ຂາຍ / Supplier" outlined dense hide-details class="custom-input mb-3" required :rules="[rules.required]">
                     <template v-slot:selection="{ item }">
-                      <v-chip small color="primary" outlined>
-                        {{ item.term_name }}
-                      </v-chip>
+                      <span class="text-body-2 font-weight-bold">{{ item.name || item.company }}</span>
                     </template>
                   </v-autocomplete>
-
-                  <v-text-field v-model="transaction.discount" label="Header Discount" outlined dense type="number"
-                    prefix="$" :rules="[rules.positiveNumber]" />
-                </div>
-              </v-col>
-
-              <!-- Middle Column -->
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-domain</v-icon>
-                    Supplier & Currency
-                  </h4>
-
-                  <v-autocomplete v-model="transaction.supplierId" :items="supplierList" item-text="name"
-                    item-value="id" label="Supplier" outlined dense required :rules="[rules.required]">
+                </v-col>
+                <v-col cols="12" sm="6" md="12">
+                  <v-autocomplete v-model="transaction.currencyId" :items="currencyList" item-text="code" item-value="id"
+                    label="ສະກຸນເງິນ" outlined dense hide-details class="custom-input mb-3" @input="currencyChange">
                     <template v-slot:selection="{ item }">
-                      <div class="d-flex align-center">
-                        <v-avatar size="24" color="primary" class="mr-2">
-                          <span class=" white--text">
-                            {{ (item.name || item.company || '').charAt(0) }}
-                          </span>
-                        </v-avatar>
-                        {{ item.name || item.company }}
-                      </div>
+                      <v-chip x-small color="primary" label class="font-weight-bold">{{ item.code }}</v-chip>
                     </template>
                   </v-autocomplete>
-
-                  <v-autocomplete v-model="transaction.currencyId" :items="currencyList" item-text="code"
-                    item-value="id" label="Currency" outlined dense required @input="currencyChange"
-                    :rules="[rules.required]">
+                </v-col>
+                <v-col cols="12" sm="6" md="12">
+                  <v-select v-model="transaction.status" :items="statusOptions" label="ສະຖານະ" outlined dense hide-details class="custom-input">
                     <template v-slot:selection="{ item }">
-                      <v-chip small color="secondary" outlined>
-                        {{ item.code }}
-                      </v-chip>
-                    </template>
-                  </v-autocomplete>
-
-                  <v-card color="grey lighten-4" flat class="pa-3">
-                    <div class="">Exchange Rate</div>
-                    <div class="text-h6 primary--text">
-                      {{ formatNumber(transaction.exchangeRate) }}
-                    </div>
-                  </v-card>
-                </div>
-              </v-col>
-
-              <!-- Right Column -->
-              <v-col cols="12" md="4">
-                <div class="form-section">
-                  <h4 class="section-title">
-                    <v-icon small color="primary" class="mr-2">mdi-note-text</v-icon>
-                    Notes & Status
-                  </h4>
-
-                  <v-textarea v-model="transaction.notes" label="Order Notes" outlined dense rows="3" auto-grow />
-
-                  <v-select v-model="transaction.status" :items="statusOptions" label="Status" outlined dense>
-                    <template v-slot:selection="{ item }">
-                      <v-chip small :color="getStatusColor(item)" outlined>
-                        {{ item }}
-                      </v-chip>
+                      <v-chip x-small :color="getStatusColor(item)" dark class="font-weight-black">{{ item }}</v-chip>
                     </template>
                   </v-select>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
 
-                  <div v-if="transaction.user" class="user-info">
-                    <v-card color="grey lighten-5" flat class="pa-3">
-                      <div class="">Created by</div>
-                      <div class="">
-                        {{ transaction.user.cus_name }}
-                      </div>
-                      <div class=" text--secondary">
-                        ID: {{ transaction.user.cus_id }}
-                      </div>
-                    </v-card>
-                  </div>
+          <!-- Center Panel: Additional Details -->
+          <v-col cols="12" md="4">
+            <v-card outlined class="info-section-card h-100 pa-4" rounded="lg">
+              <div class="d-flex align-center mb-4">
+                <v-avatar color="info" size="32" class="mr-2">
+                  <v-icon color="white" small>mdi-truck-delivery-outline</v-icon>
+                </v-avatar>
+                <span class="text-subtitle-2 font-weight-black info--text">ລາຍລະອຽດເພີ່ມເຕີມ</span>
+              </div>
 
-                  <v-card color="success lighten-4" flat class="pa-3 mt-3">
-                    <div class="">Total Amount</div>
-                    <div class=" success--text font-weight-bold">
-                      {{ formatCurrency(grandTotal) }}
-                    </div>
-                  </v-card>
+              <v-row dense>
+                <v-col cols="12" sm="6" md="12">
+                  <v-text-field v-model="transaction.expectedDeliveryDate" type="date" label="ວັນທີຄາດວ່າຈະສົ່ງ" outlined dense hide-details class="custom-input mb-3" />
+                </v-col>
+                <v-col cols="12" sm="6" md="12">
+                  <v-autocomplete v-model="transaction.termId" :items="termsList" item-text="term_name" item-value="id"
+                    label="ເງື່ອນໄຂການຊຳລະ" outlined dense hide-details class="custom-input mb-3" />
+                </v-col>
+                <v-col cols="12">
+                  <v-textarea v-model="transaction.notes" label="ໝາຍເຫດ" outlined dense rows="3" hide-details class="custom-input" />
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+
+          <!-- Right Panel: Financial Summary -->
+          <v-col cols="12" md="4">
+            <v-card outlined class="info-section-card h-100 pa-4 financial-panel" rounded="lg">
+              <div class="d-flex align-center mb-4">
+                <v-avatar color="success" size="32" class="mr-2">
+                  <v-icon color="white" small>mdi-calculator</v-icon>
+                </v-avatar>
+                <span class="text-subtitle-2 font-weight-black success--text">ສະຫຼຸບການເງິນ</span>
+              </div>
+
+              <div class="financial-metrics pa-4 rounded-lg grey lighten-4">
+                <div class="d-flex justify-space-between align-center mb-2">
+                  <span class="text-caption grey--text">ລວມຍ່ອຍ</span>
+                  <span class="text-body-2 font-weight-bold">{{ formatCurrency(subtotal) }}</span>
                 </div>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
+                <div class="d-flex justify-space-between align-center mb-3">
+                  <span class="text-caption grey--text">ສ່ວນຫຼຸດບິນ</span>
+                  <div style="width: 120px">
+                    <v-text-field v-model="transaction.discount" type="number" dense outlined hide-details 
+                      prefix="₭" class="mini-input text-right" dir="rtl" />
+                  </div>
+                </div>
+                <v-divider class="mb-3" />
+                <div class="d-flex justify-space-between align-end">
+                  <span class="text-subtitle-1 font-weight-black primary--text">ລວມທັງໝົດ</span>
+                  <div class="text-right">
+                    <div class="text-h5 font-weight-black primary--text lh-1">{{ formatCurrency(grandTotal) }}</div>
+                    <span class="text-caption grey--text font-weight-bold">({{ selectedCurrencyCode }})</span>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="transaction.user" class="mt-4 d-flex align-center">
+                <v-icon x-small color="grey" class="mr-1">mdi-account-circle</v-icon>
+                <span class="text-tiny grey--text">ສ້າງໂດຍ: {{ transaction.user.cus_name }}</span>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
 
         <!-- Line Items Section -->
-        <v-card class="line-items-card mt-6" elevation="2">
-          <v-card-title class="d-flex justify-space-between align-center">
-            <div class="d-flex align-center">
-              <v-icon left color="primary">mdi-format-list-bulleted</v-icon>
-              <span>Order Items</span>
-              <v-chip class="ml-3" small color="primary" outlined>
-                {{ transaction.lines.length }} items
-              </v-chip>
-            </div>
-
-            <v-btn color="primary" @click="newRow" :disabled="!transaction.isActive || !updateAllow">
-              <v-icon left>mdi-plus</v-icon>
-              Add Item
+        <v-card outlined class="mt-4 rounded-lg overflow-hidden">
+          <v-toolbar flat dense color="grey lighten-4">
+            <v-icon small color="primary" class="mr-2">mdi-format-list-bulleted</v-icon>
+            <span class="text-caption font-weight-black grey--text text--darken-3">ລາຍການສິນຄ້າ ({{ transaction.lines.length }})</span>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" small depressed class="action-btn" @click="newRow" :disabled="!transaction.isActive || !updateAllow">
+              <v-icon left x-small>mdi-plus-circle</v-icon>ເພີ່ມລາຍການ
             </v-btn>
-          </v-card-title>
+          </v-toolbar>
 
-          <v-card-text class="pa-0">
-            <!-- Enhanced Data Table -->
-            <v-data-table v-if="transaction.lines && transaction.lines.length > 0" :headers="enhancedHeaders"
-              :items="transaction.lines" :search="search" item-key="id" class="elevation-0 line-items-table"
-              hide-default-footer :items-per-page="-1">
-              <!-- Custom row template -->
-              <template v-slot:item="{ item, index }">
-                <tr :class="['line-item-row', { 'error-row': errorLineNumber === index }]">
-                  <!-- Line Number -->
-                  <td class="text-center">
-                    <v-chip small color="grey lighten-2">
-                      {{ index + 1 }}
-                    </v-chip>
-                  </td>
+          <v-data-table :headers="enhancedHeaders" :items="transaction.lines" class="modern-form-table" hide-default-footer :items-per-page="-1" dense>
+            <template v-slot:item="{ item, index }">
+              <tr :class="['form-row', { 'error-row': errorLineNumber === index }]">
+                <td class="text-center font-weight-black grey--text text-tiny">{{ index + 1 }}</td>
+                
+                <td class="product-col">
+                  <v-autocomplete v-model="item.productId" :items="productList" item-text="pro_name" item-value="id"
+                    outlined dense hide-details @input="productChange(item)" class="table-input">
+                    <template v-slot:selection="{ item: p }">
+                      <span class="text-tiny font-weight-bold">{{ p.pro_name }}</span>
+                    </template>
+                  </v-autocomplete>
+                </td>
 
-                  <!-- Product -->
-                  <td class="product-cell">
-                    <v-autocomplete v-model="item.productId" :items="productList" item-text="pro_name" item-value="id"
-                      label="Select Product" outlined dense hide-details @input="productChange(item)"
-                      :rules="[rules.required]">
-                      <template v-slot:selection="{ item: product }">
-                        <div class="product-selection">
-                          <div class="font-weight-medium">{{ product.pro_name }}</div>
-                          <div class=" text--secondary">
-                            ID: {{ product.id }}
-                          </div>
-                        </div>
-                      </template>
-                    </v-autocomplete>
-                  </td>
+                <td class="qty-col">
+                  <v-text-field v-model="item.quantity" type="number" outlined dense hide-details 
+                    @input="quantityChange(item)" class="table-input text-center" />
+                </td>
 
-                  <!-- Quantity -->
-                  <td class="quantity-cell">
-                    <v-text-field v-model="item.quantity" type="number" label="Qty" outlined dense hide-details
-                      @input="quantityChange(item)" :rules="[rules.required, rules.positiveNumber]" />
-                  </td>
+                <td class="unit-col">
+                  <v-autocomplete v-model="item.unitId" :items="unitList" item-text="name" item-value="id"
+                    outlined dense hide-details @input="unitChange(item)" class="table-input text-center" />
+                </td>
 
-                  <!-- Unit -->
-                  <td class="unit-cell">
-                    <v-autocomplete v-model="item.unitId" :items="unitList" item-text="name" item-value="id"
-                      label="Unit" outlined dense hide-details @input="unitChange(item)">
-                      <template v-slot:selection="{ item: unit }">
-                        <v-chip small color="info" outlined>
-                          {{ unit.name }}
-                        </v-chip>
-                      </template>
-                    </v-autocomplete>
-                  </td>
+                <td class="price-col text-right">
+                  <v-btn text small block class="price-btn text-right font-weight-black" @click="pricingLogig(item)">
+                    {{ numberWithCommas(item.unitPrice) }}
+                  </v-btn>
+                </td>
 
-                  <!-- Unit Rate -->
-                  <td class="rate-cell">
-                    <v-text-field v-model="item.unitRate" type="number" label="Rate" outlined dense hide-details
-                      @input="unitRateChange(item)" :rules="[rules.positiveNumber]" />
-                  </td>
+                <td class="discount-col">
+                  <v-text-field v-model="item.discount" type="number" outlined dense hide-details 
+                    @input="discountChange(item)" class="table-input" />
+                </td>
 
-                  <!-- Unit Price -->
-                  <td class="price-cell text-right">
-                    <v-chip color="warning" outlined clickable @click="pricingLogig(item)">
-                      <v-icon left small>mdi-currency-usd</v-icon>
-                      {{ formatCurrency(item.unitPrice) }}
-                    </v-chip>
-                  </td>
+                <td class="total-col text-right font-weight-black primary--text">
+                  {{ numberWithCommas(item.total) }}
+                </td>
 
-                  <!-- Discount -->
-                  <td class="discount-cell">
-                    <v-text-field v-model="item.discount" type="number" label="Discount" outlined dense hide-details
-                      @input="discountChange(item)" prefix="$" />
-                  </td>
-
-                  <!-- Total -->
-                  <td class="total-cell text-right">
-                    <div class="total-amount">
-                      <span class="text-h6 font-weight-bold">
-                        {{ formatCurrency(item.total) }}
-                      </span>
-                    </div>
-                  </td>
-
-                  <!-- Actions -->
-                  <td class="action-cell text-center">
-                    <v-btn icon color="error" @click="deleteItem(item)"
-                      :disabled="!transaction.isActive || !updateAllow">
-                      <v-icon>mdi-delete</v-icon>
-                    </v-btn>
-                  </td>
-                </tr>
-              </template>
-
-              <!-- No data state -->
-              <template v-slot:no-data>
-                <div class="text-center pa-8">
-                  <v-icon size="64" color="grey lighten-2">mdi-package-variant</v-icon>
-                  <div class="text-h6 mt-4 grey--text">No items added yet</div>
-                  <div class="text-body-2 grey--text">Click "Add Item" to get started</div>
-                </div>
-              </template>
-            </v-data-table>
-
-            <!-- Empty state when no lines -->
-            <div v-if="!transaction.lines || transaction.lines.length === 0" class="empty-state">
-              <v-card flat color="grey lighten-5" class="text-center pa-12">
-                <v-icon size="80" color="grey lighten-1">mdi-package-variant-closed</v-icon>
-                <h3 class="text-h5 mt-4 grey--text">No Items Added</h3>
-                <p class="text-body-1 grey--text mb-6">
-                  Start by adding your first product to this purchase order
-                </p>
-                <v-btn color="primary" large @click="newRow" :disabled="!transaction.isActive || !updateAllow">
-                  <v-icon left>mdi-plus</v-icon>
-                  Add First Item
-                </v-btn>
-              </v-card>
-            </div>
-          </v-card-text>
-        </v-card>
-
-        <!-- Summary Card -->
-        <v-card v-if="transaction.lines && transaction.lines.length > 0" class="summary-card mt-6" elevation="4">
-          <v-card-title class="secondary white--text">
-            <v-icon left color="white">mdi-calculator</v-icon>
-            Purchase Order Summary
-          </v-card-title>
-          <v-card-text>
-            <v-row>
-              <v-col cols="12" md="8">
-                <div class="summary-details">
-                  <div class="summary-row">
-                    <span>Subtotal ({{ transaction.lines.length }} items)</span>
-                    <span class="font-weight-medium">{{ formatCurrency(subtotal) }}</span>
-                  </div>
-                  <div class="summary-row">
-                    <span>Header Discount</span>
-                    <span class="font-weight-medium text-error">
-                      -{{ formatCurrency(headerDiscount) }}
-                    </span>
-                  </div>
-                  <v-divider class="my-3" />
-                  <div class="summary-row total-row">
-                    <span class="text-h6">Grand Total</span>
-                    <span class="text-h5 font-weight-bold primary--text">
-                      {{ formatCurrency(grandTotal) }}
-                    </span>
-                  </div>
-                </div>
-              </v-col>
-              <v-col cols="12" md="4" class="text-center">
-                <div class="grand-total-display">
-                  <div class=" grey--text">Total Amount</div>
-                  <div class="text-h3 primary--text font-weight-bold">
-                    {{ formatCurrency(grandTotal) }}
-                  </div>
-                  <v-chip color="success" outlined small class="mt-2">
-                    {{ selectedCurrencyCode }}
-                  </v-chip>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card-text>
+                <td class="text-center">
+                  <v-btn icon x-small color="error" @click="deleteItem(item)" :disabled="!transaction.isActive || !updateAllow">
+                    <v-icon x-small>mdi-delete-outline</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </template>
+            
+            <template v-slot:no-data>
+              <div class="text-center pa-10">
+                <v-icon size="48" color="grey lighten-3">mdi-package-variant-closed</v-icon>
+                <div class="text-caption grey--text mt-2">ຍັງບໍ່ມີລາຍການສິນຄ້າ</div>
+                <v-btn text x-small color="primary" @click="newRow" class="mt-2 font-weight-bold">ກົດເພື່ອເພີ່ມ</v-btn>
+              </div>
+            </template>
+          </v-data-table>
         </v-card>
       </v-card-text>
 
-      <!-- Actions Footer -->
-      <v-card-actions class="actions-footer pa-6">
-        <v-spacer />
-        <v-btn large text color="grey darken-1" @click="toggleDialog">
-          <v-icon left>mdi-close</v-icon>
-          Cancel
-        </v-btn>
-
-        <v-btn large color="primary" @click="postTransaction" :disabled="!canSave" :loading="isloading">
-          <v-icon left>mdi-content-save</v-icon>
-          {{ isUpdate ? 'Update' : 'Create' }} Purchase Order
+      <!-- Fixed Actions Footer -->
+      <v-divider></v-divider>
+      <v-card-actions class="pa-4 grey lighten-5">
+        <v-btn depressed color="grey" text @click="toggleDialog" class="px-6 font-weight-bold">ຍົກເລີກ</v-btn>
+        <v-spacer></v-spacer>
+        <div class="d-flex align-center mr-6">
+          <span class="text-caption grey--text mr-2">ຍອດລວມທັງໝົດ:</span>
+          <span class="text-h6 font-weight-black success--text">{{ formatCurrency(grandTotal) }}</span>
+        </div>
+        <v-btn color="primary" depressed large @click="postTransaction" :disabled="!canSave" :loading="isloading" class="px-10 action-btn elevation-2">
+          <v-icon left>mdi-check-circle</v-icon>
+          {{ isUpdate ? 'ບັນທຶກການແກ້ໄຂ' : 'ຢືນຢັນການສ້າງໃບສັ່ງຊື້' }}
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -395,230 +273,17 @@
 import commaThousand from '@/plugins/comma-thousand'
 import { mapActions, mapGetters } from 'vuex'
 import PricingOption from '~/components/PricingOption.vue'
-import {
-  swalSuccess,
-  swalError2,
-  confirmSwal,
-  dayCount,
-  getNextDate,
-  replaceAll,
-  getFormatNum
-} from '~/common'
+import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
 
 export default {
-  name: 'EnhancedPurchasingFormWithPrint',
-  components: {
-    PricingOption
-  },
-
+  name: 'PurchasingFormCRUD',
+  components: { PricingOption },
   props: {
-    headerId: {
-      type: Number,
-      default: 0,
-    },
-    isUpdate: {
-      type: Boolean,
-      default: false,
-    },
-    updateAllow: {
-      type: Boolean,
-      default: true,
-    },
+    headerId: { type: Number, default: 0 },
+    isUpdate: { type: Boolean, default: false },
+    updateAllow: { type: Boolean, default: true },
   },
-
-  directives: {
-    commaThousand,
-  },
-
-  async created() {
-    await this.initializeForm()
-  },
-
-  computed: {
-    ...mapGetters([
-      'findAllProduct',
-      'findAllClient',
-      'findAllPayment',
-      'findAllUnit',
-      'findAllCurrency',
-      'findAllTerminal',
-      'findSelectedTerminal',
-    ]),
-
-    supplierList() {
-      return this.findAllClient || []
-    },
-
-    productList() {
-      return this.findAllProduct || []
-    },
-
-    unitList() {
-      return this.findAllUnit || []
-    },
-
-    currencyList() {
-      return this.findAllCurrency || []
-    },
-
-    termsList() {
-      return [
-        { id: 1, term_name: 'Net 30' },
-        { id: 2, term_name: 'Net 60' },
-        { id: 3, term_name: 'COD' },
-        { id: 4, term_name: 'Prepaid' }
-      ]
-    },
-
-    statusOptions() {
-      return [
-        'Draft',
-        'Pending Approval',
-        'Approved',
-        'Sent to Supplier',
-        'Partially Received',
-        'Fully Received',
-        'Cancelled'
-      ]
-    },
-
-    currentTerminal() {
-      return this.findAllTerminal?.find(
-        (el) => el.id === this.findSelectedTerminal
-      ) || {}
-    },
-
-    user() {
-      return this.$auth.user || {}
-    },
-
-    formattedDate() {
-      return this.transaction.bookingDate
-        ? new Date(this.transaction.bookingDate).toLocaleDateString()
-        : 'Today'
-    },
-
-    selectedCurrencyCode() {
-      const currency = this.currencyList.find(c => c.id === this.transaction.currencyId)
-      return currency?.code || 'USD'
-    },
-
-    canSave() {
-      return this.transaction.isActive &&
-        this.updateAllow &&
-        this.transaction.lines?.length > 0 &&
-        !this.isloading
-    },
-
-    canCancel() {
-      return this.isUpdate && this.transaction.isActive
-    },
-
-    canReceive() {
-      return this.isUpdate &&
-        this.transaction.status &&
-        ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status)
-    },
-
-    subtotal() {
-      return this.transaction.lines?.reduce((total, item) => {
-        return total + (item.total || 0)
-      }, 0) || 0
-    },
-
-    headerDiscount() {
-      const discount = parseFloat(this.transaction.discount || 0)
-      return isNaN(discount) ? 0 : discount
-    },
-
-    grandTotal() {
-      return Math.max(0, this.subtotal - this.headerDiscount)
-    },
-
-    enhancedHeaders() {
-      return [
-        {
-          text: '#',
-          value: 'index',
-          sortable: false,
-          width: 80,
-          align: 'center'
-        },
-        {
-          text: 'Product',
-          value: 'productId',
-          sortable: false,
-          width: 250
-        },
-        {
-          text: 'Quantity',
-          value: 'quantity',
-          sortable: false,
-          width: 120,
-          align: 'center'
-        },
-        {
-          text: 'Unit',
-          value: 'unitId',
-          sortable: false,
-          width: 120,
-          align: 'center'
-        },
-        {
-          text: 'Rate',
-          value: 'unitRate',
-          sortable: false,
-          width: 100,
-          align: 'center'
-        },
-        {
-          text: 'Unit Price',
-          value: 'unitPrice',
-          sortable: false,
-          width: 120,
-          align: 'right'
-        },
-        {
-          text: 'Discount',
-          value: 'discount',
-          sortable: false,
-          width: 120,
-          align: 'center'
-        },
-        {
-          text: 'Total',
-          value: 'total',
-          sortable: false,
-          width: 150,
-          align: 'right'
-        },
-        {
-          text: 'Actions',
-          value: 'actions',
-          sortable: false,
-          width: 100,
-          align: 'center'
-        },
-      ]
-    },
-
-    rules() {
-      return {
-        required: value => !!value || 'This field is required',
-        positiveNumber: value => {
-          if (!value) return true
-          const num = parseFloat(value)
-          return !isNaN(num) && num >= 0 || 'Must be a positive number'
-        },
-        nonZeroNumber: value => {
-          if (!value) return 'This field is required'
-          const num = parseFloat(value)
-          return !isNaN(num) && num > 0 || 'Must be greater than 0'
-        }
-      }
-    },
-  },
-
+  directives: { commaThousand },
   data() {
     return {
       isloading: false,
@@ -628,817 +293,400 @@ export default {
       pricingDialog: false,
       pricingDialogKey: 1,
       isPrinting: false,
-      search: '',
-
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
-
-      transaction: {
-        isActive: true,
-        exchangeRate: 1,
-        lines: [],
-        bookingDate: new Date().toISOString().substr(0, 10),
-        discount: 0,
-        status: 'Draft',
-      },
-
+      transaction: { isActive: true, exchangeRate: 1, lines: [], bookingDate: new Date().toISOString().substr(0, 10), discount: 0, status: 'Draft' },
       productPricingSelected: null,
+      enhancedHeaders: [
+        { text: '#', value: 'index', align: 'center', sortable: false, width: '40px' },
+        { text: 'ສິນຄ້າ / Product', value: 'productId', align: 'left', sortable: false },
+        { text: 'ຈຳນວນ', value: 'quantity', align: 'center', sortable: false, width: '90px' },
+        { text: 'ຫົວໜ່ວຍ', value: 'unitId', align: 'center', sortable: false, width: '100px' },
+        { text: 'ລາຄາ', value: 'unitPrice', align: 'right', sortable: false, width: '120px' },
+        { text: 'ສ່ວນຫຼຸດ', value: 'discount', align: 'center', sortable: false, width: '100px' },
+        { text: 'ລວມ', value: 'total', align: 'right', sortable: false, width: '120px' },
+        { text: '', value: 'actions', align: 'center', sortable: false, width: '50px' },
+      ],
     }
   },
-
+  computed: {
+    ...mapGetters(['findAllProduct', 'findAllClient', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
+    supplierList() { return this.findAllClient || [] },
+    productList() { return this.findAllProduct || [] },
+    unitList() { return this.findAllUnit || [] },
+    currencyList() { return this.findAllCurrency || [] },
+    termsList() { return [{ id: 1, term_name: 'Net 30' }, { id: 2, term_name: 'Net 60' }, { id: 3, term_name: 'COD' }, { id: 4, term_name: 'Prepaid' }] },
+    statusOptions() { return ['Draft', 'Pending Approval', 'Approved', 'Sent to Supplier', 'Partially Received', 'Fully Received', 'Cancelled'] },
+    currentTerminal() { return this.findAllTerminal?.find(el => el.id === this.findSelectedTerminal) || {} },
+    user() { return this.$auth.user || {} },
+    selectedCurrencyCode() { return this.currencyList.find(c => c.id === this.transaction.currencyId)?.code || 'LAK' },
+    canSave() { return this.transaction.isActive && this.updateAllow && this.transaction.lines?.length > 0 && !this.isloading },
+    canCancel() { return this.isUpdate && this.transaction.isActive },
+    canReceive() { return this.isUpdate && this.transaction.status && ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status) },
+    subtotal() { return this.transaction.lines?.reduce((total, item) => total + (item.total || 0), 0) || 0 },
+    headerDiscount() { const d = parseFloat(this.transaction.discount || 0); return isNaN(d) ? 0 : d },
+    grandTotal() { return Math.max(0, this.subtotal - this.headerDiscount) },
+    rules() { return { required: v => !!v || 'Required', positiveNumber: v => !v || (parseFloat(v) >= 0 || '>= 0') } }
+  },
+  async created() { await this.initializeForm() },
   methods: {
+    numberWithCommas(v) { return getFormatNum(v) },
+    formatNumber(v) { return new Intl.NumberFormat().format(v || 0) },
+    formatCurrency(v) { return new Intl.NumberFormat('lo-LA', { style: 'currency', currency: this.selectedCurrencyCode, minimumFractionDigits: 0 }).format(v || 0) },
     async initializeForm() {
       this.isloading = true
-      try {
-        if (this.isUpdate) {
-          await this.loadTransaction()
-        } else {
-          this.initializeNewTransaction()
-        }
-      } catch (error) {
-        this.showError('Failed to initialize form', error)
-      } finally {
-        this.isloading = false
-      }
+      try { if (this.isUpdate) { await this.loadTransaction() } else { this.initializeNewTransaction() } }
+      catch (e) { this.showError('Initialization failed', e) } finally { this.isloading = false }
     },
-
     initializeNewTransaction() {
-      const today = new Date().toISOString().substr(0, 10)
-      this.transaction = {
-        ...this.transaction,
-        bookingDate: today,
-        supplierId: null,
-        currencyId: 1,
-        discount: 0,
-        status: 'Draft'
-      }
+      this.transaction = { ...this.transaction, bookingDate: new Date().toISOString().substr(0, 10), supplierId: null, currencyId: this.currencyList.find(c => c.isLocalCCY)?.id || 1, discount: 0, status: 'Draft' }
       this.newRow()
     },
-
     async printPurchaseOrderDirectly() {
-      if (!this.headerId) {
-        this.showError('Please save the purchase order first before printing')
-        return
-      }
-
       this.isPrinting = true
-
-      try {
-        const response = await this.$axios.get(`api/purchasing/find/${this.headerId}`)
-        const poData = response.data
-        this.createAndPrintPurchaseOrder(poData)
-      } catch (error) {
-        console.error('Error fetching PO data:', error)
-        this.showError('Failed to load purchase order data for printing')
-      } finally {
-        this.isPrinting = false
-      }
+      try { const res = await this.$axios.get(`api/purchasing/find/${this.headerId}`); this.createAndPrintPurchaseOrder(res.data) }
+      catch (e) { this.showError('Print failed') } finally { this.isPrinting = false }
     },
-
     createAndPrintPurchaseOrder(poData) {
-      try {
-        const poHTML = this.generatePurchaseOrderHTML(poData)
-        const printWindow = window.open('', '_blank', 'width=800,height=600')
-
-        if (!printWindow) {
-          this.showError('Unable to open print window. Please check popup blocker settings.')
-          return
-        }
-
-        printWindow.document.open()
-        printWindow.document.write(poHTML)
-        printWindow.document.close()
-
-        printWindow.onload = function () {
-          setTimeout(() => {
-            try {
-              printWindow.print()
-              setTimeout(() => {
-                printWindow.close()
-              }, 100)
-            } catch (e) {
-              console.error('Print error:', e)
-              printWindow.close()
-            }
-          }, 500)
-        }
-      } catch (error) {
-        console.error('Error creating print PO:', error)
-        this.showError('Failed to generate purchase order for printing')
-      }
+      const poHTML = this.generatePurchaseOrderHTML(poData); const win = window.open('', '_blank', 'width=800,height=600')
+      if (!win) return; win.document.open(); win.document.write(poHTML); win.document.close()
+      win.onload = () => { setTimeout(() => { try { win.print(); setTimeout(() => win.close(), 100) } catch (e) { win.close() } }, 500) }
     },
-
     generatePurchaseOrderHTML(header) {
-      const totalDiscount = this.calculateTotalDiscount(header)
-      const companyDataV1 = this.$store.getters.findAllCompany?.[0] || {}
-
-      const formatDate = (dateString) => {
-        if (!dateString) return 'N/A'
-        try {
-          const date = new Date(dateString)
-          return date.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-          })
-        } catch (error) {
-          return dateString
-        }
-      }
-
-      const formatNumber = (val) => {
-        return new Intl.NumberFormat().format(val || 0)
-      }
-
-      const linesHTML = header.lines?.map((line, index) => `
+      const company = this.$store.getters.findAllCompany?.[0] || {}
+      const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+      const lines = header.lines?.map((l, i) => `
         <tr>
-          <td style="text-align: center;">${index + 1}</td>
-          <td>
-            <strong>${line.product?.pro_name || 'Unknown Product'}</strong><br>
-            <small>ID: ${line.product?.pro_id || line.productId}</small>
-          </td>
-          <td style="text-align: center;">${formatNumber(line.quantity)}</td>
-          <td style="text-align: center;">${line.unit?.name || 'ຊີ້ນ'}</td>
-          <td style="text-align: right;">${formatNumber(line.unitPrice || line.price)}</td>
-          <td style="text-align: right;">${formatNumber(line.discount)}</td>
-          <td style="text-align: right;"><strong>${formatNumber(line.total)}</strong></td>
-        </tr>
-      `).join('') || '<tr><td colspan="7" style="text-align: center; padding: 40px;">No items</td></tr>'
+          <td align="center">${i + 1}</td>
+          <td><strong>${l.product?.pro_name || ''}</strong><br><small style="color: #666">PID: ${l.product?.pro_id || ''}</small></td>
+          <td align="center">${fmt(l.quantity)}</td>
+          <td align="center">${l.unit?.name || ''}</td>
+          <td align="right">${fmt(l.unitPrice)}</td>
+          <td align="right">${fmt(l.discount)}</td>
+          <td align="right"><strong>${fmt(l.total)}</strong></td>
+        </tr>`).join('')
 
       return `
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Purchase Order #${header.id}</title>
-    <style>
-        * { font-family: 'Arial', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
-        body { padding: 20px; background: white; color: #333; line-height: 1.4; }
-        .company-header { display: flex; justify-content: space-between; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #1976d2; }
-        .company-info h2 { color: #1976d2; font-size: 24px; margin-bottom: 8px; font-weight: bold; }
-        .company-info p { margin: 4px 0; color: #555; }
-        .po-title { text-align: center; margin: 20px 0 30px 0; }
-        .po-title h1 { color: #1976d2; font-size: 28px; font-weight: bold; }
-        .info-section { display: flex; gap: 30px; margin-bottom: 30px; }
-        .info-card { flex: 1; background: #f8f9fa; padding: 20px; border-radius: 8px; }
-        .info-header { color: #1976d2; font-size: 16px; font-weight: bold; margin-bottom: 15px; border-bottom: 2px solid #1976d2; padding-bottom: 8px; }
-        .info-row { margin-bottom: 8px; }
-        .info-row strong { display: inline-block; min-width: 120px; color: #495057; }
-        .products-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-        .products-table th { background: #1976d2; color: white; padding: 12px 8px; text-align: center; font-weight: bold; border: 1px solid #1976d2; font-size: 11px; }
-        .products-table td { padding: 10px 8px; border: 1px solid #ddd; vertical-align: top; font-size: 12px; }
-        .products-table tr:nth-child(even) { background: #f9f9f9; }
-        .summary-section { float: right; width: 300px; margin-bottom: 30px; }
-        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #ddd; }
-        .total-row { display: flex; justify-content: space-between; padding: 12px 0; margin-top: 10px; border-top: 2px solid #1976d2; font-weight: bold; font-size: 16px; color: #1976d2; }
-        .terms-section { clear: both; margin-top: 40px; padding: 20px; background: #f8f9fa; border-radius: 8px; }
-        .terms-header { color: #1976d2; font-weight: bold; margin-bottom: 10px; }
-        .signature-section { display: flex; justify-content: space-between; margin-top: 50px; }
-        .signature-box { text-align: center; width: 200px; }
-        .signature-line { border-bottom: 1px solid #333; height: 50px; margin-bottom: 10px; }
-        .footer-section { margin-top: 40px; text-align: center; padding-top: 20px; border-top: 1px solid #ddd; }
-        @media print { body { margin: 0; } @page { margin: 1cm; size: A4; } }
-    </style>
-</head>
-<body>
-    <div class="company-header">
-        <div class="company-info">
-            <h2>${companyDataV1.name || 'Company Name'}</h2>
-            <p>${companyDataV1.address || 'Company Address'}</p>
-            <p>Tel: ${companyDataV1.tel || 'Phone Number'}</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+          body { font-family: 'Noto Sans Lao', sans-serif; padding: 0; margin: 0; color: #333; font-size: 12px; line-height: 1.6; }
+          .page { width: 210mm; min-height: 297mm; padding: 15mm; margin: 0 auto; background: white; }
+          .header { display: flex; justify-content: space-between; border-bottom: 3px solid #1976d2; padding-bottom: 20px; margin-bottom: 20px; }
+          .company-info h1 { color: #1976d2; margin: 0; font-size: 24px; text-transform: uppercase; }
+          .company-info p { margin: 2px 0; color: #666; }
+          .po-label { text-align: right; }
+          .po-label h2 { color: #1976d2; margin: 0; font-size: 28px; }
+          .po-label p { margin: 2px 0; font-weight: bold; }
+          
+          .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+          .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
+          .info-box h3 { margin: 0 0 10px 0; font-size: 14px; color: #1976d2; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+          .info-row { display: flex; margin-bottom: 4px; }
+          .info-row span:first-child { width: 100px; font-weight: bold; color: #555; }
+          
+          table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+          th { background: #1976d2; color: white; padding: 12px 8px; font-size: 11px; text-transform: uppercase; border: 1px solid #1976d2; }
+          td { padding: 10px 8px; border: 1px solid #eee; }
+          tr:nth-child(even) { background: #fafafa; }
+          
+          .footer { display: flex; justify-content: space-between; }
+          .terms { width: 60%; font-size: 10px; color: #777; }
+          .totals { width: 35%; }
+          .total-row { display: flex; justify-content: space-between; padding: 5px 0; }
+          .grand-total { border-top: 2px solid #1976d2; margin-top: 10px; padding-top: 10px; font-size: 16px; font-weight: bold; color: #1976d2; }
+          
+          .signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 60px; text-align: center; }
+          .sig-box { border-top: 1px solid #333; padding-top: 10px; }
+          @media print { .page { margin: 0; padding: 10mm; box-shadow: none; } }
+        </style>
+      </head>
+      <body>
+        <div class="page">
+          <div class="header">
+            <div class="company-info">
+              <h1>${company.name || 'D-COMMERCE'}</h1>
+              <p>${company.address || 'Vientiane, Lao PDR'}</p>
+              <p>ໂທ: ${company.tel || '-'}</p>
+              <p>Email: ${company.email || '-'}</p>
+            </div>
+            <div class="po-label">
+              <h2>ໃບສັ່ງຊື້</h2>
+              <p>PURCHASE ORDER</p>
+              <p style="font-size: 16px; color: #666"># ${header.id}</p>
+            </div>
+          </div>
+
+          <div class="info-grid">
+            <div class="info-box">
+              <h3>ຂໍ້ມູນຜູ້ຂາຍ / SUPPLIER</h3>
+              <div class="info-row"><span>ຊື່ບໍລິສັດ:</span> <span>${header.vendor?.company || '-'}</span></div>
+              <div class="info-row"><span>ຜູ້ຕິດຕໍ່:</span> <span>${header.vendor?.contact || '-'}</span></div>
+              <div class="info-row"><span>ເບີໂທ:</span> <span>${header.vendor?.telephone || '-'}</span></div>
+              <div class="info-row"><span>ທີ່ຢູ່:</span> <span>${header.vendor?.address || '-'}</span></div>
+            </div>
+            <div class="info-box">
+              <h3>ລາຍລະອຽດ / DETAILS</h3>
+              <div class="info-row"><span>ວັນທີ:</span> <span>${header.bookingDate}</span></div>
+              <div class="info-row"><span>ກຳນົດສົ່ງ:</span> <span>${header.deliveryDate || '-'}</span></div>
+              <div class="info-row"><span>ສະກຸນເງິນ:</span> <span>${header.currency?.code || 'LAK'}</span></div>
+              <div class="info-row"><span>ສະຖານະ:</span> <span>${header.status}</span></div>
+            </div>
+          </div>
+
+          <table>
+            <thead>
+              <tr>
+                <th width="40">ລຳດັບ</th>
+                <th>ລາຍການສິນຄ້າ / DESCRIPTION</th>
+                <th width="60">ຈຳນວນ</th>
+                <th width="80">ຫົວໜ່ວຍ</th>
+                <th width="100">ລາຄາ</th>
+                <th width="80">ສ່ວນຫຼຸດ</th>
+                <th width="120">ລວມ</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${lines}
+            </tbody>
+          </table>
+
+          <div class="footer">
+            <div class="terms">
+              <h4 style="margin: 0 0 5px 0; color: #333">ເງື່ອນໄຂ / TERMS & CONDITIONS</h4>
+              <p>1. ກະລຸນາສົ່ງສິນຄ້າຕາມກຳນົດເວລາທີ່ລະບຸໄວ້.</p>
+              <p>2. ສິນຄ້າຕ້ອງຢູ່ໃນສະພາບສົມບູນ ແລະ ຖືກຕ້ອງຕາມມາດຕະຖານ.</p>
+              <p>3. ກະລຸນາແນບໃບສັ່ງຊື້ສະບັບນີ້ມານຳໃນເວລາມາສົ່ງສິນຄ້າ.</p>
+              ${header.notes ? `<p><strong>ໝາຍເຫດ:</strong> ${header.notes}</p>` : ''}
+            </div>
+            <div class="totals">
+              <div class="total-row"><span>ລວມຍ່ອຍ (Subtotal):</span> <span>${fmt(header.total + (header.discount || 0))}</span></div>
+              <div class="total-row"><span>ສ່ວນຫຼຸດ (Discount):</span> <span>-${fmt(header.discount || 0)}</span></div>
+              <div class="total-row grand-total">
+                <span>ລວມທັງໝົດ:</span>
+                <span>${fmt(header.total)} ${header.currency?.code || 'LAK'}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="signatures">
+            <div class="sig-box">
+              <p>ຜູ້ຈັດຊື້</p>
+              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+            </div>
+            <div class="sig-box">
+              <p>ຜູ້ກວດກາ</p>
+              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+            </div>
+            <div class="sig-box">
+              <p>ຜູ້ນຳໃຊ້/ຮອງອຳນວຍການ</p>
+              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+            </div>
+          </div>
         </div>
-        <div class="po-info">
-            <p><strong>Date:</strong> ${formatDate(new Date())}</p>
-            <p><strong>PO #:</strong> ${header.id}</p>
-        </div>
-    </div>
-    
-    <div class="po-title">
-        <h1>ໃບສັ່ງຊື້ / PURCHASE ORDER</h1>
-    </div>
-    
-    <div class="info-section">
-        <div class="info-card">
-            <div class="info-header">ຂໍ້ມູນຜູ້ຂາຍ / Supplier Information</div>
-            <div class="info-row"><strong>Supplier ID:</strong> ${header.supplier?.id || ''}</div>
-            <div class="info-row"><strong>Company:</strong> ${header.supplier?.company || ''}</div>
-            <div class="info-row"><strong>Contact:</strong> ${header.supplier?.contact || ''}</div>
-            <div class="info-row"><strong>Phone:</strong> ${header.supplier?.telephone || ''}</div>
-            <div class="info-row"><strong>Address:</strong> ${header.supplier?.address || ''}</div>
-        </div>
-        
-        <div class="info-card">
-            <div class="info-header">ລາຍລະອຽດການສັ່ງຊື້ / Order Details</div>
-            <div class="info-row"><strong>PO Number:</strong> ${header.id}</div>
-            <div class="info-row"><strong>Order Date:</strong> ${formatDate(header.bookingDate)}</div>
-            <div class="info-row"><strong>Prepared By:</strong> ${header.user?.cus_name || 'N/A'}</div>
-            <div class="info-row"><strong>Currency:</strong> ${header.currency?.code || 'LAK'}</div>
-            <div class="info-row"><strong>Status:</strong> ${header.status || 'Draft'}</div>
-        </div>
-    </div>
-    
-    <table class="products-table">
-        <thead>
-            <tr>
-                <th>ລດ / No.</th>
-                <th>ລາຍລະອຽດ / Description</th>
-                <th>ຈຳນວນ / Qty</th>
-                <th>ຫົວໜ່ວຍ / Unit</th>
-                <th>ລາຄາຕໍ່ຫົວໜ່ວຍ / Unit Price</th>
-                <th>ສ່ວນຫຼຸດ / Discount</th>
-                <th>ຈຳນວນເງິນ / Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            ${linesHTML}
-        </tbody>
-    </table>
-    
-    <div class="summary-section">
-        <div class="summary-row">
-            <span>ລວມຍ່ອຍ / Subtotal:</span>
-            <span>${formatNumber(header.total + totalDiscount)}</span>
-        </div>
-        <div class="summary-row">
-            <span>ສ່ວນຫຼຸດລວມ / Total Discount:</span>
-            <span>-${formatNumber(totalDiscount)}</span>
-        </div>
-        <div class="total-row">
-            <span>ລວມທັງໝົດ / TOTAL:</span>
-            <span>${formatNumber(header.total)} ${header.currency?.code || 'LAK'}</span>
-        </div>
-    </div>
-    
-    <div class="terms-section">
-        <div class="terms-header">Terms & Conditions / ເງື່ອນໄຂ</div>
-        <p>1. All prices are in ${header.currency?.code || 'LAK'} and exclude applicable taxes unless stated otherwise.</p>
-        <p>2. Payment terms: Net 30 days from invoice date.</p>
-        <p>3. Goods must be delivered in good condition and according to specifications.</p>
-        ${header.notes ? `<p><strong>Special Instructions:</strong> ${header.notes}</p>` : ''}
-    </div>
-    
-    <div class="signature-section">
-        <div class="signature-box">
-            <div class="signature-line"></div>
-            <p><strong>Prepared By</strong></p>
-            <p>${header.user?.cus_name || 'N/A'}</p>
-            <p>Date: ${formatDate(new Date())}</p>
-        </div>
-        <div class="signature-box">
-            <div class="signature-line"></div>
-            <p><strong>Approved By</strong></p>
-            <p>________________________</p>
-            <p>Date: _______________</p>
-        </div>
-    </div>
-    
-    <div class="footer-section">
-        <p><strong>Thank you for your business / ຂອບໃຈທີ່ໃຫ້ການສະໜັບສະໜູນ</strong></p>
-    </div>
-</body>
-</html>
-      `
+      </body>
+      </html>`
     },
-
-    calculateTotalDiscount(header) {
-      if (!header || !header.lines) return 0
-
-      let totalDiscount = 0
-      for (const line of header.lines) {
-        totalDiscount += line.discount || 0
-      }
-      totalDiscount += header.discount || 0
-      return totalDiscount
-    },
-
-    currencyChange() {
-      const currency = this.currencyList.find(
-        (el) => el.id === this.transaction.currencyId
-      )
-      if (currency) {
-        this.transaction.exchangeRate = currency.rate || 1
-      }
-    },
-
-    findCurrency(currencyId) {
-      return this.findAllCurrency?.find((el) => el.id === currencyId) || {}
-    },
-
+    currencyChange() { const c = this.currencyList.find(el => el.id === this.transaction.currencyId); if (c) this.transaction.exchangeRate = c.rate || 1 },
+    findCurrency(id) { return this.findAllCurrency?.find(el => el.id === id) || {} },
     productChange(item) {
-      const product = this.productList.find(el => el.id === item.productId)
-      if (!product) return
-
-      const currency = this.findCurrency(product.purchaseCurrencyId || product.saleCurrencyId)
-      const localPrice = (product.pro_purchase_price || product.pro_price || 0) * (currency.rate || 1)
-
-      this.$set(item, 'unitPrice', localPrice)
-
-      if (product.stockUnitId) {
-        this.$set(item, 'unitId', product.stockUnitId)
-
-        const unit = this.unitList.find(el => el.id === product.stockUnitId)
-        if (unit?.unitRate) {
-          this.$set(item, 'unitRate', unit.unitRate)
-        } else {
-          this.$set(item, 'unitRate', 1)
-        }
-      } else {
-        this.$set(item, 'unitId', null)
-        this.$set(item, 'unitRate', 1)
-      }
-
+      const p = this.productList.find(el => el.id === item.productId); if (!p) return
+      const c = this.findCurrency(p.purchaseCurrencyId || p.saleCurrencyId)
+      this.$set(item, 'unitPrice', (p.pro_purchase_price || p.pro_price || 0) * (c.rate || 1))
+      if (p.stockUnitId) { this.$set(item, 'unitId', p.stockUnitId); const u = this.unitList.find(el => el.id === p.stockUnitId); this.$set(item, 'unitRate', u?.unitRate || 1) }
+      else { this.$set(item, 'unitId', null); this.$set(item, 'unitRate', 1) }
       this.calculateLineTotal(item)
     },
-
-    unitChange(item) {
-      const unit = this.unitList.find(el => el.id === item.unitId)
-      if (unit) {
-        this.$set(item, 'unitRate', unit.unitRate || 1)
-        this.calculateLineTotal(item)
-      }
-    },
-
-    quantityChange(item) {
-      this.calculateLineTotal(item)
-    },
-
-    unitRateChange(item) {
-      this.calculateLineTotal(item)
-    },
-
-    discountChange(item) {
-      this.calculateLineTotal(item)
-    },
-
+    unitChange(item) { const u = this.unitList.find(el => el.id === item.unitId); if (u) { this.$set(item, 'unitRate', u.unitRate || 1); this.calculateLineTotal(item) } },
+    quantityChange(item) { this.calculateLineTotal(item) },
+    unitRateChange(item) { this.calculateLineTotal(item) },
+    discountChange(item) { this.calculateLineTotal(item) },
     calculateLineTotal(item) {
-      const qty = parseFloat(item.quantity) || 0
-      const unitRate = parseFloat(item.unitRate) || 1
-      const unitPrice = parseFloat(item.unitPrice) || 0
-      const discount = parseFloat(item.discount) || 0
-
-      const total = Math.max(0, (qty * unitRate * unitPrice) - discount)
-      this.$set(item, 'total', total)
+      const q = parseFloat(item.quantity) || 0; const r = parseFloat(item.unitRate) || 1; const p = parseFloat(item.unitPrice) || 0; const d = parseFloat(item.discount) || 0
+      this.$set(item, 'total', Math.max(0, (q * r * p) - d))
     },
-
-    newRow() {
-      const defaultLine = {
-        quantity: 1,
-        unitRate: 1,
-        unitPrice: 0,
-        discount: 0,
-        total: 0,
-        isActive: true,
-        productId: null,
-        unitId: null,
-      }
-      this.transaction.lines.push(defaultLine)
-    },
-
+    newRow() { this.transaction.lines.push({ quantity: 1, unitRate: 1, unitPrice: 0, discount: 0, total: 0, isActive: true, productId: null, unitId: null }) },
     async deleteItem(item) {
-      try {
-        this.isloading = true
-
-        if (item.id) {
-          await this.$axios.delete(`api/purchasingLine/find/${item.id}`)
-        }
-
-        const index = this.transaction.lines.indexOf(item)
-        if (index > -1) {
-          this.transaction.lines.splice(index, 1)
-        }
-      } catch (error) {
-        this.showError('Failed to delete item', error)
-      } finally {
-        this.isloading = false
-      }
+      try { this.isloading = true; if (item.id) await this.$axios.delete(`api/purchasingLine/find/${item.id}`); const i = this.transaction.lines.indexOf(item); if (i > -1) this.transaction.lines.splice(i, 1) }
+      catch (e) { this.showError('Delete failed') } finally { this.isloading = false }
     },
-
-    getStatusColor(status) {
-      const colorMap = {
-        'Draft': 'grey',
-        'Pending Approval': 'orange',
-        'Approved': 'green',
-        'Sent to Supplier': 'blue',
-        'Partially Received': 'purple',
-        'Fully Received': 'success',
-        'Cancelled': 'error'
-      }
-      return colorMap[status] || 'grey'
+    getStatusColor(s) { const colors = { 'Draft': 'grey', 'Pending Approval': 'orange', 'Approved': 'green', 'Sent to Supplier': 'blue', 'Partially Received': 'purple', 'Fully Received': 'success', 'Cancelled': 'error' }; return colors[s] || 'grey' },
+    postReceiving() { this.receivingDialog = true },
+    cancelOrder() { confirmSwal(this.$swal, 'Cancel Order', 'Are you sure?', () => { this.transaction.status = 'Cancelled'; this.postTransaction() }) },
+    updatePricing(info) {
+      const idx = this.transaction.lines.findIndex(l => l.productId === this.productPricingSelected); if (idx < 0) return
+      const l = this.transaction.lines[idx]; const np = parseFloat(info.amount) || 0
+      if (info.type === 'Price') { this.$set(l, 'unitPrice', np) }
+      else { const cp = parseFloat(l.unitPrice) || 0; this.$set(l, 'unitPrice', cp * (1 + np / 100)) }
+      this.calculateLineTotal(l)
     },
-
-    postReceiving() {
-      this.receivingDialog = true
-    },
-
-    cancelOrder() {
-      confirmSwal(this.$swal, 'Cancel Order', 'Are you sure you want to cancel this purchase order?', () => {
-        this.transaction.status = 'Cancelled'
-        this.postTransaction()
-      })
-    },
-
-    updatePricing(priceInfo) {
-      const index = this.transaction.lines.findIndex(
-        line => line.productId === this.productPricingSelected
-      )
-
-      if (index < 0) return
-
-      const line = this.transaction.lines[index]
-      const newPrice = parseFloat(priceInfo.amount) || 0
-
-      if (priceInfo.type === 'Price') {
-        this.$set(line, 'unitPrice', newPrice)
-      } else {
-        const currentPrice = parseFloat(line.unitPrice) || 0
-        const updatedPrice = currentPrice * (1 + newPrice / 100)
-        this.$set(line, 'unitPrice', updatedPrice)
-      }
-
-      this.calculateLineTotal(line)
-    },
-
     async loadTransaction() {
       try {
-        const response = await this.$axios.get(`api/purchasing/find/${this.headerId}`)
-        this.transaction = response.data
-      } catch (error) {
-        this.showError('Failed to load purchase order', error)
-        throw error
-      }
-    },
-
-    async postTransaction() {
-      if (!this.validateHeader() || !this.validateAllLines()) {
-        return
-      }
-
-      this.isloading = true
-
-      try {
-        this.prepareTransactionForSubmit()
-
-        const url = this.isUpdate
-          ? `api/purchasing/update/${this.headerId}`
-          : `api/purchasing/create`
-
-        const method = this.isUpdate ? 'put' : 'post'
-
-        const response = await this.$axios[method](url, this.transaction)
-
-        this.$emit('reload')
-        swalSuccess(this.$swal, 'Success', 'Purchase order saved successfully')
-
-      } catch (error) {
-        this.handleSubmitError(error)
-      } finally {
-        this.isloading = false
-      }
-    },
-
-    prepareTransactionForSubmit() {
-      this.transaction.lines.forEach(line => {
-        line.quantity = parseFloat(line.quantity) || 0
-        line.unitRate = parseFloat(line.unitRate) || 1
-        line.unitPrice = parseFloat(line.unitPrice) || 0
-        line.discount = parseFloat(line.discount) || 0
-        line.total = parseFloat(line.total) || 0
-      })
-
-      this.transaction.userId = this.user.id
-      this.transaction.total = this.grandTotal
-      this.transaction.discount = this.headerDiscount
-      this.transaction.locationId = this.currentTerminal.locationId
-    },
-
-    handleSubmitError(error) {
-      console.error('Submit error:', error)
-      this.showError('Failed to save purchase order', error)
-    },
-
-    validateHeader() {
-      this.headerError = false
-
-      const errors = []
-
-      if (!this.transaction.currencyId) {
-        errors.push('Currency is required')
-      }
-
-      if (!this.transaction.supplierId) {
-        errors.push('Supplier is required')
-      }
-
-      if (!this.transaction.lines || this.transaction.lines.length === 0) {
-        errors.push('At least one line item is required')
-      }
-
-      if (errors.length > 0) {
-        this.headerError = true
-        this.showError(errors.join(', '))
-        return false
-      }
-
-      return true
-    },
-
-    validateLine(item, lineNumber) {
-      const errors = []
-
-      if (!item.productId) {
-        errors.push(`Line ${lineNumber}: Product is required`)
-      }
-
-      const quantity = parseFloat(item.quantity)
-      if (!quantity || quantity <= 0) {
-        errors.push(`Line ${lineNumber}: Quantity must be greater than 0`)
-      }
-
-      if (errors.length > 0) {
-        this.errorLineNumber = lineNumber - 1
-        this.showError(errors.join(', '))
-        return false
-      }
-
-      return true
-    },
-
-    validateAllLines() {
-      for (let i = 0; i < this.transaction.lines.length; i++) {
-        if (!this.validateLine(this.transaction.lines[i], i + 1)) {
-          return false
+        const res = await this.$axios.get(`api/purchasing/find/${this.headerId}`)
+        const data = res.data
+        
+        // Reverse map backend status to frontend label
+        const reverseStatusMap = {
+          'PENDING': 'Pending Approval',
+          'PARTIAL': 'Partially Received',
+          'COMPLETED': 'Fully Received'
         }
-      }
-      this.errorLineNumber = null
-      return true
-    },
 
-    pricingLogig(item) {
-      this.productPricingSelected = item.productId
-      this.pricingDialogKey += 1
-      this.pricingDialog = true
-    },
-
-    toggleDialog() {
-      this.$emit('close-dialog')
-    },
-
-    formatCurrency(amount) {
-      const num = parseFloat(amount) || 0
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: this.selectedCurrencyCode,
-        minimumFractionDigits: 2,
-      }).format(num)
-    },
-
-    getFormatNum(val) {
-      return getFormatNum(val)
-    },
-
-    formatNumber(val) {
-      return new Intl.NumberFormat().format(val || 0)
-    },
-
-    showError(message, error = null) {
-      this.validateErrorMessage = message
-      this.errorSnackbar = true
-      if (error) {
-        console.error('Error details:', error)
+        // Map backend to frontend expectations
+        this.transaction = {
+          ...data,
+          supplierId: data.vendorId,
+          expectedDeliveryDate: data.deliveryDate,
+          status: reverseStatusMap[data.status] || data.status || 'Draft',
+          lines: data.lines?.map(l => ({
+            ...l,
+            quantity: l.qty || 1,
+            unitRate: l.rate || 1,
+            unitPrice: l.price || 0,
+            total: l.total || 0,
+            discount: l.discount || 0
+          })) || []
+        }
+      } catch (e) {
+        this.showError('Failed to load transaction', e)
       }
     },
+    async postTransaction() {
+      if (!this.validateHeader() || !this.validateAllLines()) return
+      this.isloading = true
+      try {
+        // Map frontend fields to backend requirements
+        const payload = {
+          ...this.transaction,
+          vendorId: this.transaction.supplierId,
+          deliveryDate: this.transaction.expectedDeliveryDate || this.transaction.bookingDate,
+          userId: this.user.id,
+          total: this.grandTotal,
+          discount: this.headerDiscount,
+          locationId: this.currentTerminal.locationId,
+          lines: this.transaction.lines.map(l => ({
+            ...l,
+            qty: parseFloat(l.quantity) || 0,
+            rate: parseFloat(l.unitRate) || 1,
+            price: parseFloat(l.unitPrice) || 0,
+            discount: parseFloat(l.discount) || 0,
+            total: parseFloat(l.total) || 0
+          }))
+        }
+
+        // Map frontend status to backend ENUM
+        const statusMap = {
+          'Draft': 'PENDING',
+          'Pending Approval': 'PENDING',
+          'Approved': 'PENDING',
+          'Sent to Supplier': 'PENDING',
+          'Partially Received': 'PARTIAL',
+          'Fully Received': 'COMPLETED',
+          'Cancelled': 'PENDING'
+        }
+        payload.status = statusMap[this.transaction.status] || 'PENDING'
+
+        const url = this.isUpdate ? `api/purchasing/update/${this.headerId}` : `api/purchasing/create`
+        await this.$axios[this.isUpdate ? 'put' : 'post'](url, payload)
+        
+        this.$emit('reload'); swalSuccess(this.$swal, 'Success', 'Saved successfully')
+      } catch (e) { this.showError('Save failed', e) } finally { this.isloading = false }
+    },
+    validateHeader() { if (!this.transaction.currencyId || !this.transaction.supplierId || this.transaction.lines?.length === 0) { this.showError('Please fill required fields'); return false }; return true },
+    validateLine(item, n) { if (!item.productId || parseFloat(item.quantity) <= 0) { this.errorLineNumber = n - 1; this.showError(`Line ${n} invalid`); return false }; return true },
+    validateAllLines() { for (let i = 0; i < this.transaction.lines.length; i++) { if (!this.validateLine(this.transaction.lines[i], i + 1)) return false }; this.errorLineNumber = null; return true },
+    pricingLogig(item) { this.productPricingSelected = item.productId; this.pricingDialogKey += 1; this.pricingDialog = true },
+    toggleDialog() { this.$emit('close-dialog') },
+    showError(m, e = null) { this.validateErrorMessage = m; this.errorSnackbar = true; if (e) console.error(e) }
   },
 }
 </script>
 
 <style scoped>
 .purchasing-form-container {
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: 'noto sans lao', sans-serif !important;
+  background-color: white;
   min-height: 100vh;
-  padding: 20px;
 }
 
-.purchasing-form-card {
-  max-width: 1400px;
-  margin: 0 auto;
-  border-radius: 16px !important;
-  overflow: hidden;
+.purchasing-form-container * {
+  font-family: 'noto sans lao', sans-serif !important;
 }
 
-.header-section {
-  background: linear-gradient(135deg, var(--v-primary-base) 0%, var(--v-primary-darken2) 100%);
-  border-radius: 0 !important;
-  padding: 24px !important;
+.form-header-premium {
+  background-color: var(--v-primary-base) !important;
 }
 
-.loading-card {
-  border-radius: 16px !important;
+.action-btn {
+  text-transform: none;
+  font-weight: 700;
+  border-radius: 6px;
 }
 
-.form-content {
-  padding: 32px !important;
+.info-section-card {
+  background: white;
+  border-color: #eee !important;
 }
 
-.transaction-header {
-  border-radius: 12px !important;
-  transition: all 0.3s ease;
+.custom-input>>>fieldset {
+  border-color: #eee !important;
 }
 
-.transaction-header.header-error {
-  border: 2px solid var(--v-error-base) !important;
-  box-shadow: 0 0 0 3px rgba(var(--v-error-base), 0.1);
+.financial-panel {
+  background: linear-gradient(to bottom, #fff, #f9f9f9);
 }
 
-.section-title {
-  color: var(--v-primary-base);
-  font-weight: 600;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  font-size: 0.95rem;
+.financial-metrics {
+  border: 1px solid #e0e0e0;
 }
 
-.form-section {
-  padding: 8px 0;
+.mini-input>>>.v-input__slot {
+  min-height: 28px !important;
+  font-size: 0.75rem;
 }
 
-.user-info {
-  margin-top: 16px;
+.modern-form-table>>>thead th {
+  background-color: #f5f5f5 !important;
+  font-weight: 700 !important;
+  font-size: 0.7rem;
+  height: 36px !important;
+  color: #666 !important;
 }
 
-.line-items-card {
-  border-radius: 12px !important;
+.modern-form-table>>>tbody td {
+  padding: 4px 8px !important;
+  height: 44px !important;
 }
 
-.line-items-table {
-  border-radius: 0 0 12px 12px !important;
+.table-input>>>.v-input__slot {
+  min-height: 32px !important;
+  font-size: 0.75rem;
 }
 
-.line-item-row {
-  transition: all 0.2s ease;
-}
-
-.line-item-row:hover {
-  background-color: rgba(var(--v-primary-base), 0.04) !important;
+.price-btn {
+  text-transform: none;
+  font-size: 0.75rem !important;
+  color: var(--v-primary-base) !important;
 }
 
 .error-row {
-  background-color: rgba(var(--v-error-base), 0.1) !important;
-  border-left: 4px solid var(--v-error-base) !important;
+  background-color: #fff5f5 !important;
 }
 
-.product-cell {
-  min-width: 250px;
+.lh-1 { line-height: 1; }
+.text-tiny { font-size: 0.65rem; }
+.opacity-70 { opacity: 0.7; }
+
+.financial-metrics .v-text-field--outlined >>> fieldset {
+  border-color: transparent !important;
+  background: rgba(0,0,0,0.03);
 }
 
-.product-selection {
-  max-width: 200px;
-  overflow: hidden;
-}
-
-.quantity-cell,
-.unit-cell,
-.rate-cell,
-.discount-cell {
-  min-width: 120px;
-}
-
-.price-cell,
-.total-cell {
-  min-width: 140px;
-}
-
-.action-cell {
-  min-width: 80px;
-}
-
-.total-amount {
-  font-family: 'Roboto Mono', monospace;
-  background: linear-gradient(135deg, rgba(var(--v-success-base), 0.1) 0%, rgba(var(--v-success-base), 0.05) 100%);
-  padding: 8px 12px;
-  border-radius: 8px;
-  border-left: 4px solid var(--v-success-base);
-}
-
-.summary-card {
-  border-radius: 12px !important;
-  border: 1px solid rgba(var(--v-primary-base), 0.1);
-}
-
-.summary-details {
-  font-family: 'Roboto', sans-serif;
-}
-
-.summary-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.summary-row:last-child {
-  border-bottom: none;
-}
-
-.total-row {
-  background: linear-gradient(135deg, rgba(var(--v-primary-base), 0.08) 0%, rgba(var(--v-primary-base), 0.04) 100%);
-  padding: 16px 20px;
-  margin: 12px -20px;
-  border-radius: 8px;
-}
-
-.grand-total-display {
-  background: linear-gradient(135deg, rgba(var(--v-primary-base), 0.05) 0%, rgba(var(--v-secondary-base), 0.05) 100%);
-  padding: 24px;
-  border-radius: 16px;
-  border: 2px dashed rgba(var(--v-primary-base), 0.2);
-}
-
-.actions-footer {
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-  border-top: 1px solid rgba(0, 0, 0, 0.08);
-}
-
-.empty-state {
-  margin: 32px 0;
-}
-
-.gap-2>*+* {
-  margin-left: 8px;
-}
-
-.line-item-row {
-  animation: slideInFromLeft 0.3s ease-out;
-}
-
-@keyframes slideInFromLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-.purchasing-form-card {
-  animation: fadeInUp 0.5s ease-out;
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (max-width: 768px) {
-  .purchasing-form-container {
-    padding: 12px;
-  }
-
-  .form-content {
-    padding: 16px !important;
-  }
-
-  .header-section {
-    padding: 16px !important;
-  }
-
-  .header-section .d-flex {
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .product-cell {
-    min-width: 200px;
-  }
-
-  .quantity-cell,
-  .unit-cell,
-  .rate-cell,
-  .discount-cell {
-    min-width: 100px;
-  }
-}
-
-@media (max-width: 480px) {
-  .line-items-table {
-    font-size: 0.875rem;
-  }
-
-  .total-amount {
-    font-size: 0.8rem;
-    padding: 6px 8px;
-  }
+.financial-metrics .v-text-field--outlined:hover >>> fieldset {
+  border-color: var(--v-primary-base) !important;
 }
 </style>

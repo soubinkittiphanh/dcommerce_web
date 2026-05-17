@@ -55,13 +55,16 @@
                         <v-text-field v-model="userId" label="Vendor ID" prepend-inner-icon="mdi-account" outlined dense
                             hide-details clearable />
                     </v-col>
-                    <v-col cols="12" md="6">
+                    <v-col cols="12" md="4">
                         <v-text-field v-model="search" label="Search transactions..." prepend-inner-icon="mdi-magnify"
                             outlined dense hide-details clearable />
                     </v-col>
+                    <v-col cols="12" md="2">
+                        <v-switch v-model="showInactive" label="Show Inactive" dense hide-details class="mt-0 ml-2"
+                            color="primary"></v-switch>
+                    </v-col>
                 </v-row>
             </v-card-text>
-            <!-- <v-data-table v-if="orderHeaderList" :headers="headers" :search="search" :items="orderHeaderList"> -->
             <v-divider></v-divider>
 
             <v-card-text class="pa-4">
@@ -79,8 +82,8 @@
                     </v-col>
                 </v-row>
             </v-card-text>
-            <v-data-table v-if="txnList" :headers="headers" :search="search" :items="txnList" dense
-                class="compact-table">
+            <v-data-table v-if="filteredTxnList" :headers="headers" :search="search" :items="filteredTxnList" dense
+                class="compact-table" :item-class="getItemClass">
                 <template v-slot:[`item.paymentNumber`]="{ item }">
                     <span class="font-weight-bold primary--text">{{ item.paymentNumber }}</span>
                 </template>
@@ -93,6 +96,12 @@
 
                 <template v-slot:[`item.currency.code`]="{ item }">
                     <v-chip x-small outlined color="secondary" label>{{ item.currency.code }}</v-chip>
+                </template>
+
+                <template v-slot:[`item.isActive`]="{ item }">
+                    <v-chip x-small :color="item.isActive ? 'success' : 'grey'" outlined label>
+                        {{ item.isActive ? 'Active' : 'Inactive' }}
+                    </v-chip>
                 </template>
 
                 <template v-slot:[`item.function`]="{ item }">
@@ -124,6 +133,7 @@ export default {
             menu2: false,
             txnList: [],
             selectedId: '',
+            showInactive: false,
             headers: [
                 {
                     text: 'ວັນທີ',
@@ -136,9 +146,10 @@ export default {
                 { text: 'ສະກຸນ', align: 'center', value: 'currency.code' },
                 { text: 'ອັດຕາແລກປ່ຽນ', align: 'center', value: 'rate' },
                 { text: 'ຊຳລະດ້ວຍ', align: 'center', value: 'payment.payment_code' },
-                { text: 'ເບື້ອງຫນີ້', align: 'center', value: 'drAccount' },
-                { text: 'ເບື້ອງມີ', align: 'center', value: 'crAccount' },
+                { text: 'ເບື້ອງຫນີ້', align: 'center', value: 'drAccount.accountName' },
+                { text: 'ເບື້ອງມີ', align: 'center', value: 'crAccount.accountName' },
                 { text: 'ເນື້ອໃນ', align: 'center', value: 'notes' },
+                { text: 'ສະຖານະ', align: 'center', value: 'isActive' },
                 { text: 'ເວລາສ້າງ', align: 'center', value: 'createdAt' },
                 {
                     text: 'ແກ້ໄຂ',
@@ -221,25 +232,30 @@ export default {
                     iterator['bookingDate'] = iterator['bookingDate'].split('T')[0]
                     this.txnList.push(iterator)
                 }
-                // for (let element in response.data) {
-                //     element['bookingDate'] = element['bookingDate'].split('T')[0]
-                //     this.txnList.push(response.data[element])
-                // }
                 console.log("====> " + this.txnList[0]);
             }).catch(error => {
 
             })
             this.isloading = false
+        },
+        getItemClass(item) {
+            return item.isActive === false ? 'inactive-row' : ''
         }
 
     },
     computed: {
+        filteredTxnList() {
+            if (this.showInactive) {
+                return this.txnList
+            }
+            return this.txnList.filter(item => item.isActive !== false)
+        },
         paymentCurrencyGrouping() {
             // Object to store the sum of transactions for each currency code
             const sumByCurrency = {};
 
-            // Loop through each transaction
-            this.txnList.forEach(transaction => {
+            // Loop through each transaction from the filtered list
+            this.filteredTxnList.forEach(transaction => {
                 const { totalAmount, currency, currencyId } = transaction;
                 // If the currency code doesn't exist in the sumByCurrency object, initialize it to 0
                 if (!sumByCurrency[currency.code]) {
@@ -298,5 +314,14 @@ export default {
 
 .v-text-field--outlined :deep(fieldset) {
     border-color: #e0e0e0;
+}
+
+.inactive-row {
+    background-color: #fafafa !important;
+    color: #9e9e9e !important;
+}
+
+.inactive-row :deep(td) {
+    opacity: 0.7;
 }
 </style>

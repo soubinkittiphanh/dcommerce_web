@@ -322,14 +322,17 @@ export default {
     netProfit() {
       return (this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)) - (this.grandSaleCost + this.grandCODCost + this.grandCancellationCost + this.totalExpense)
     },
+    activeExpenseData() {
+      return this.expenseData.filter(el => el.isActive == true)
+    },
     totalExpense() {
-      return this.expenseData.reduce((total, item) => {
+      return this.activeExpenseData.reduce((total, item) => {
         const rate = item.rate || 1
         return total + (item.totalAmount * rate)
       }, 0)
     },
     staffSalaryExpense() {
-      return this.expenseData.filter(item => {
+      return this.activeExpenseData.filter(item => {
         const name = item.drAccount?.accountName || ''
         return name.toLowerCase().includes('salary') || name.toLowerCase().includes('staff')
       }).reduce((total, item) => {
@@ -338,7 +341,7 @@ export default {
       }, 0)
     },
     advertisingExpense() {
-      return this.expenseData.filter(item => {
+      return this.activeExpenseData.filter(item => {
         const name = item.drAccount?.accountName || ''
         return name.toLowerCase().includes('advertis') || name.toLowerCase().includes('market')
       }).reduce((total, item) => {
@@ -347,7 +350,7 @@ export default {
       }, 0)
     },
     officeExpense() {
-      return this.expenseData.filter(item => {
+      return this.activeExpenseData.filter(item => {
         const name = item.drAccount?.accountName || ''
         return name.toLowerCase().includes('office')
       }).reduce((total, item) => {
@@ -356,7 +359,7 @@ export default {
       }, 0)
     },
     otherExpense() {
-      return this.expenseData.filter(item => {
+      return this.activeExpenseData.filter(item => {
         const name = item.drAccount?.accountName || ''
         const isSalary = name.toLowerCase().includes('salary') || name.toLowerCase().includes('staff')
         const isAds = name.toLowerCase().includes('advertis') || name.toLowerCase().includes('market')

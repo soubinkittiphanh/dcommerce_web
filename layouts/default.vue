@@ -40,7 +40,7 @@
           </template>
 
           <!-- Group A menu items -->
-          <v-list-item v-for="(item, i) in menu.menuLines.filter(line => line.isActive === true) || []" :key="i"
+          <v-list-item v-for="(item, i) in (menu.menuLines || []).filter(line => !!line.isActive)" :key="i"
             :to="item.path" router exact :style="{ 'background-color': 'secondary' }">
             <v-list-item-action>
               <v-icon color="white">{{ item.icon }}</v-icon>
@@ -308,6 +308,14 @@ export default {
         this.drawer = true
       }
     },
+    user: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadMenu()
+        }
+      },
+      immediate: true
+    },
   },
 
   computed: {
@@ -389,7 +397,7 @@ export default {
     },
 
     safeMenu() {
-      return Array.isArray(this.myMenu) ? this.myMenu.filter(menu => menu.isActive === true) : []
+      return Array.isArray(this.myMenu) ? this.myMenu.filter(menu => !!menu.isActive) : []
     },
     getSPF() {
       return this.findSPF
@@ -637,9 +645,21 @@ export default {
     },
 
     async loadMenu() {
-      if (!this.user || !this.user.userGroup || !this.user.userGroup.id) {
+      if (!this.user || !this.user.userGroup) {
         console.warn('User or userGroup data is not available')
         this.myMenu = []
+        return
+      }
+
+      // Check if menu is already provided in the user object
+      if (this.user && this.user.userGroup && Array.isArray(this.user.userGroup.menuHeaders)) {
+        console.info('Using menu from user object')
+        this.myMenu = JSON.parse(JSON.stringify(this.user.userGroup.menuHeaders))
+        return
+      }
+
+      if (!this.user.userGroup.id) {
+        console.warn('User group ID is missing')
         return
       }
 
@@ -649,7 +669,7 @@ export default {
         )
         this.myMenu =
           response.data && response.data.menuHeaders
-            ? response.data.menuHeaders
+            ? JSON.parse(JSON.stringify(response.data.menuHeaders))
             : []
       } catch (error) {
         console.error('Error loading menu:', error)

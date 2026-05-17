@@ -1,344 +1,299 @@
 <template>
-  <div class="text-center">
+  <div class="pl-report-container">
     <v-dialog v-model="isloading" hide-overlay persistent width="300">
-      <loading-indicator> </loading-indicator>
+      <v-card color="primary" dark rounded="xl">
+        <v-card-text class="text-center pa-6">
+          <v-progress-circular :size="50" :width="5" color="white" indeterminate class="mb-3" />
+          <div class="text-h6 font-weight-bold">ກຳລັງປະມວນຜົນ...</div>
+        </v-card-text>
+      </v-card>
     </v-dialog>
 
-    <v-card>
-      <v-card-title>
-        <v-layout row wrap>
-          <v-col cols="6">
-            <v-menu
-              ref="menu1"
-              v-model="menu1"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="dateFormatted"
-                  label="ຈາກວັນທີ:"
-                  hint="MM/DD/YYYY format"
-                  persistent-hint
-                  prepend-icon="mdi-calendar"
-                  v-bind="attrs"
-                  @blur="date = parseDate(dateFormatted)"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="date"
-                no-title
-                @input="menu1 = false"
-              ></v-date-picker>
-            </v-menu>
+    <v-card class="report-main-card" outlined rounded="lg">
+      <v-card-title class="pa-4 d-flex justify-space-between align-center flex-wrap">
+        <div class="d-flex align-center">
+          <v-icon color="primary" class="mr-2">mdi-chart-box-outline</v-icon>
+          <span class="text-h6 font-weight-black primary--text">ລາຍງານ ກຳໄລ - ຂາດທຶນ (P&L)</span>
+        </div>
+        
+        <div class="d-flex align-center flex-wrap gap-2">
+          <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ" prepend-inner-icon="mdi-calendar" readonly 
+                v-bind="attrs" v-on="on" outlined dense hide-details class="custom-input compact-width"></v-text-field>
+            </template>
+            <v-date-picker v-model="date" no-title @input="menu1 = false" color="primary"></v-date-picker>
+          </v-menu>
 
-            <v-menu
-              ref="menu2"
-              v-model="menu2"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="dateFormatted2"
-                  label="ຫາວັນທີ:"
-                  hint="MM/DD/YYYY format"
-                  persistent-hint
-                  prepend-icon="mdi-calendar"
-                  v-bind="attrs"
-                  @blur="date2 = parseDate(dateFormatted2)"
-                  v-on="on"
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="date2"
-                no-title
-                @input="menu2 = false"
-              ></v-date-picker>
-            </v-menu>
-          </v-col>
-          <v-col cols="6">
-            <v-text-field
-              disabled
-              v-model="search"
-              append-icon="mdi-magnify"
-              label="ຊອກຫາ"
-              single-line
-              hide-detailsx
-            />
-            <v-text-field
-              disabled
-              v-model="userId"
-              append-icon="mdi-magnify"
-              label="ລະຫັດຜູ້ຂາຍ"
-              single-line
-              hide-detailsx
-            />
-            <v-btn
-              @click="loadTxn"
-              class="primary"
-              size="large"
-              variant="outlined"
-              rounded
-            >
-              ດຶງລາຍງານ
-            </v-btn>
-          </v-col>
-        </v-layout>
+          <v-menu v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
+            <template v-slot:activator="{ on, attrs }">
+              <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ" prepend-inner-icon="mdi-calendar" readonly 
+                v-bind="attrs" v-on="on" outlined dense hide-details class="custom-input compact-width"></v-text-field>
+            </template>
+            <v-date-picker v-model="date2" no-title @input="menu2 = false" color="primary"></v-date-picker>
+          </v-menu>
+
+          <v-btn color="primary" depressed class="action-btn px-6" @click="loadTxn" :loading="isloading">
+            <v-icon left small>mdi-refresh</v-icon>ດຶງລາຍງານ
+          </v-btn>
+        </div>
       </v-card-title>
-      <v-card-text>
-        <v-card>
-          <div ref="plchart" style="width: 100%; height: 400px"></div>
-        </v-card>
+
+      <v-divider></v-divider>
+
+      <v-card-text class="pa-6 grey lighten-5">
+        <v-row dense>
+          <!-- Financial Breakdown Summary -->
+          <v-col cols="12" sm="6" md="3">
+            <v-card flat class="stat-box pa-4 rounded-lg h-100" color="white">
+              <div class="d-flex justify-space-between mb-2">
+                <span class="text-caption grey--text font-weight-bold">ລາຍຮັບລວມ (Revenue)</span>
+                <v-icon color="success" small>mdi-arrow-up-bold-circle</v-icon>
+              </div>
+              <div class="text-h6 font-weight-black success--text">{{ formatAmount(totalIncome) }}</div>
+              <div class="text-tiny grey--text mt-1">ລວມຍອດຂາຍ ແລະ ລາຍຮັບອື່ນໆ</div>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="3">
+            <v-card flat class="stat-box pa-4 rounded-lg h-100" color="white">
+              <div class="d-flex justify-space-between mb-2">
+                <span class="text-caption orange--text text--darken-2 font-weight-bold">ຕົ້ນທຶນຂາຍ (COGS)</span>
+                <v-icon color="orange darken-2" small>mdi-package-variant</v-icon>
+              </div>
+              <div class="text-h6 font-weight-black orange--text text--darken-2">{{ formatAmount(totalCostOfSale) }}</div>
+              <div class="text-tiny grey--text mt-1">ຕົ້ນທຶນສິນຄ້າ + ຄ່າທຳນຽມຕ່າງໆ</div>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="3">
+            <v-card flat class="stat-box pa-4 rounded-lg h-100" color="white">
+              <div class="d-flex justify-space-between mb-2">
+                <span class="text-caption error--text font-weight-bold">ລາຍຈ່າຍບໍລິຫານ (OPEX)</span>
+                <v-icon color="error" small>mdi-cash-minus</v-icon>
+              </div>
+              <div class="text-h6 font-weight-black error--text">{{ formatAmount(operatingExpensesOnly) }}</div>
+              <div class="text-tiny grey--text mt-1">ຄ່າໃຊ້ຈ່າຍທົ່ວໄປ ແລະ ບໍລິຫານ</div>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="3">
+            <v-card flat class="stat-box pa-4 rounded-lg h-100" :color="profit >= 0 ? 'primary' : 'warning'" dark>
+              <div class="d-flex justify-space-between mb-2">
+                <span class="text-caption font-weight-bold opacity-80">{{ profit >= 0 ? 'ກຳໄລສຸດທິ (Net Profit)' : 'ຂາດທຶນສຸດທິ (Net Loss)' }}</span>
+                <v-icon color="white" small>{{ profit >= 0 ? 'mdi-trophy' : 'mdi-alert-circle' }}</v-icon>
+              </div>
+              <div class="text-h5 font-weight-black">{{ formatAmount(profit) }}</div>
+              <div class="text-tiny opacity-70 mt-1">ຜົນໄດ້ຮັບຫຼັງຈາກຫັກລາຍຈ່າຍທັງໝົດ</div>
+            </v-card>
+          </v-col>
+        </v-row>
+
+        <v-row class="mt-4">
+          <!-- Main Chart -->
+          <v-col cols="12" md="8">
+            <v-card class="pa-4 chart-container rounded-lg h-100" flat outlined>
+              <div class="d-flex align-center mb-6">
+                <v-icon left color="primary" small>mdi-chart-donut</v-icon>
+                <span class="text-subtitle-1 font-weight-bold primary--text">ວິເຄາະສັດສ່ວນ ລາຍຮັບ - ລາຍຈ່າຍ</span>
+              </div>
+              <div ref="plchart" style="width: 100%; height: 400px"></div>
+            </v-card>
+          </v-col>
+
+          <!-- Quick Analysis Table -->
+          <v-col cols="12" md="4">
+            <v-card class="pa-4 rounded-lg h-100" flat outlined>
+              <div class="d-flex align-center mb-4">
+                <v-icon left color="primary" small>mdi-list-status</v-icon>
+                <span class="text-subtitle-1 font-weight-bold primary--text">ສະຫຼຸບຕົວເລກ</span>
+              </div>
+              
+              <div class="analysis-list">
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
+                  <span class="grey--text">ຍອດຂາຍ (Gross Sales)</span>
+                  <span class="font-weight-bold">{{ formatAmount(totalSale) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
+                  <span class="grey--text">ລາຍຮັບອື່ນໆ (Other Income)</span>
+                  <span class="font-weight-bold">{{ formatAmount(totalIncome - totalSale) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom primary lighten-5 px-2 rounded mt-2">
+                  <span class="primary--text font-weight-bold">ລາຍຮັບລວມ (A)</span>
+                  <span class="primary--text font-weight-bold">{{ formatAmount(totalIncome) }}</span>
+                </div>
+                
+                <div class="mt-4 text-caption font-weight-bold orange--text">ລາຍລະອຽດຕົ້ນທຶນ (COGS Breakdown)</div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ຕົ້ນທຶນສິນຄ້າ (Product Cost)</span>
+                  <span>{{ formatAmount(productCostOnly) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ຄ່າທຳນຽມ COD (COD Fee)</span>
+                  <span>{{ formatAmount(totalCODFee) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ຄ່າທຳນຽມຍົກເລີກ (Cancel Fee)</span>
+                  <span>{{ formatAmount(totalCancelFee) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom orange lighten-5 px-2 rounded mt-1">
+                  <span class="orange--text text--darken-3 font-weight-bold">ຕົ້ນທຶນຂາຍລວມ</span>
+                  <span class="orange--text text--darken-3 font-weight-bold">{{ formatAmount(totalCostOfSale) }}</span>
+                </div>
+
+                <div class="analysis-item d-flex justify-space-between py-2 mt-4 border-bottom">
+                  <span class="grey--text">ລາຍຈ່າຍບໍລິຫານ (OPEX)</span>
+                  <span class="font-weight-bold error--text">{{ formatAmount(operatingExpensesOnly) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom error lighten-5 px-2 rounded mt-1">
+                  <span class="error--text font-weight-bold">ລາຍຈ່າຍລວມ (B)</span>
+                  <span class="error--text font-weight-bold">{{ formatAmount(totalExpense) }}</span>
+                </div>
+
+                <v-divider class="my-4"></v-divider>
+                
+                <div class="d-flex justify-space-between align-center pa-3 rounded-lg" :class="profit >= 0 ? 'success' : 'error'" dark>
+                  <span class="text-subtitle-2 font-weight-bold">ກຳໄລສຸດທິ (A - B)</span>
+                  <span class="text-h6 font-weight-black">{{ formatAmount(profit) }}</span>
+                </div>
+              </div>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
   </div>
 </template>
+
 <script>
 import * as ECharts from 'echarts'
 import { mapGetters } from 'vuex'
-import {
-  swalSuccess,
-  swalError2,
-  dayCount,
-  getNextDate,
-  getFirstDayOfMonth,
-  firstAndLastDateOfCurrentYear,
-  getFormatNum,
-} from '~/common'
+import { swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
+
 export default {
-  mounted() {
-    this.loadTxn()
-  },
+  name: 'ProfitLossReport',
+  mounted() { this.loadTxn() },
   watch: {
-    date(val) {
-      this.dateFormatted = this.formatDate(this.date)
-      this.loadTxn()
-      this.loadSaleStatistic()
-    },
-    date2(val) {
-      this.dateFormatted2 = this.formatDate(this.date2)
-      this.loadTxn()
-      this.loadSaleStatistic()
-    },
+    date() { this.dateFormatted = this.formatDate(this.date); this.loadTxn() },
+    date2() { this.dateFormatted2 = this.formatDate(this.date2); this.loadTxn() },
   },
   data() {
     return {
-      userId: '',
-      search: '',
-      isEdit: false,
-      dialog: false,
-      apFormKey: 1,
       isloading: false,
-      txnList: [],
-      selectedId: '',
       expenseList: [],
       incomeList: [],
       yearlySale: [],
       menu1: false,
       menu2: false,
       date: getFirstDayOfMonth(),
-      date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
+      date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: this.formatDate(getFirstDayOfMonth()),
-      dateFormatted2: this.formatDate(
-        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-          .toISOString()
-          .substr(0, 10)
-      ),
+      dateFormatted2: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
     }
   },
   computed: {
     ...mapGetters(['currentSelectedLocation']),
     totalIncome() {
-      let total = this.incomeList.reduce((total, item) => {
-        return total + item.totalAmount * item.rate
-      }, 0)
-      return total + this.totalSale
+      let otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
+      return otherIncome + this.totalSale
     },
-    totalSale() {
-      let total = this.yearlySale.reduce((total, item) => {
-        return total + (item.total - item.discount)
+    totalSale() { return this.yearlySale.reduce((acc, i) => acc + (i.total - i.discount), 0) },
+    productCostOnly() {
+      return this.yearlySale.reduce((acc, i) => {
+        let cost = 0; if (i.lines) i.lines.forEach(l => l.cards?.forEach(c => { cost += parseFloat(c.cost || 0) }))
+        return acc + cost
       }, 0)
-      return total
+    },
+    totalCODFee() {
+      return this.yearlySale.filter(i => i.isActive === true).reduce((acc, i) => {
+        const fee = (i.dynamic_customer?.cod_fee || 0) * (i.exchangeRate || 1)
+        return acc + fee
+      }, 0)
+    },
+    totalCancelFee() {
+      // Note: yearlySale backend filter usually includes only isActive:true, but if findDetailByDate is used it might include inactive.
+      // Assuming sumsaleYearly returns what we need. If we need inactive, we'd use getSaleHeadersDetailByDate.
+      return this.yearlySale.filter(i => i.isActive === false).reduce((acc, i) => {
+        const fee = (i.dynamic_customer?.cancel_fee || 0) * (i.exchangeRate || 1)
+        return acc + fee
+      }, 0)
     },
     totalCostOfSale() {
-      let total = this.yearlySale.reduce((total, item) => {
-        let totalCost = 0
-        if (item.lines) {
-          item.lines.forEach((line) => {
-            if (line.cards) {
-              line.cards.forEach((card) => {
-                totalCost += card.cost
-              })
-            }
-          })
-        }
-
-        return total + totalCost
-      }, 0)
-      console.info(`total cost of sale: ${total}`)
-      return total
+      return this.productCostOnly + this.totalCODFee + this.totalCancelFee
     },
-    totalExpense() {
-      let total = this.expenseList.reduce((total, item) => {
-        return total + item.totalAmount * item.rate
-      }, 0)
-      return total + this.totalCostOfSale
+    operatingExpensesOnly() {
+      return this.expenseList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
     },
-    profit() {
-      return this.totalIncome - this.totalExpense
-    },
+    totalExpense() { return this.operatingExpensesOnly + this.totalCostOfSale },
+    profit() { return this.totalIncome - this.totalExpense }
   },
   methods: {
-    formatAmount(value) {
-      return getFormatNum(value)
-    },
-
-    formatDate(date) {
-      if (!date) return null
-      console.log('DATE FORMAT METHOD1: ' + date)
-      const formattedDate = this.formatDateToISO(date)
-      const [year, month, day] = formattedDate.split('-')
-      return `${month}/${day}/${year}`
-    },
-    parseDate(date) {
-      console.log('DATE PARSE METHOD1: ' + date)
-      if (!date) return null
-      const [month, day, year] = date.split('/')
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-    },
-    formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date)
-      const year = date.getFullYear()
-      const month = `${date.getMonth() + 1}`.padStart(2, '0') // Months are 0-indexed
-      const day = `${date.getDate()}`.padStart(2, '0')
-      return `${year}-${month}-${day}`
-    },
-    numberWithFormat(val) {
-      return getFormatNum(val)
-    },
-
+    formatAmount(v) { return getFormatNum(v) },
+    formatDate(d) { if (!d) return null; const [y, m, d_] = this.formatDateToISO(d).split('-'); return `${m}/${d_}/${y}` },
+    formatDateToISO(d) { if (!(d instanceof Date)) d = new Date(d); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` },
     async loadTxn() {
       this.isloading = true
       try {
         await this.loadSaleStatistic()
-        const date = {
-          startDate: this.date,
-          endDate: this.date2,
-        }
-        const locationId = this.currentSelectedLocation?.id
-        const incomeResponse = await this.$axios.get(
-          '/api/finanicial/ar/header/findByDate',
-          { params: { date, locationId } }
-        )
-        const expenseResponse = await this.$axios.get(
-          '/api/finanicial/ap/header/findByDate',
-          { params: { date, locationId } }
-        )
-        this.expenseList = expenseResponse.data
-        this.incomeList = incomeResponse.data
-
-        const chart = ECharts.init(this.$refs.plchart)
-        const PLoption = {
-          tooltip: {
-            trigger: 'item',
-          },
-          legend: {
-            top: '5%',
-            left: 'center',
-            // doesn't perfectly work with our tricks, disable it
-            selectedMode: false,
-          },
-          series: [
-            {
-              name: 'Access From',
-              type: 'pie',
-              radius: ['40%', '70%'],
-              center: ['50%', '70%'],
-              // adjust the start angle
-              startAngle: 180,
-              label: {
-                show: true,
-                formatter(param) {
-                  // correct the percentage
-                  return param.name + ' (' + param.percent * 2 + '%)'
-                },
-              },
-              data: [
-                {
-                  value: this.totalIncome,
-                  name: `ລາຍຮັບ \n ${this.formatAmount(this.totalIncome)}`,
-                },
-                {
-                  value: this.totalExpense,
-                  name: `ລາຍຈ່າຍ \n ${this.formatAmount(this.totalExpense)}`,
-                },
-                {
-                  value: Math.abs(this.profit),
-                  name: `ກຳໄລ/ຂາດທຶນ \n ${this.formatAmount(this.profit)}`,
-                },
-                {
-                  // make an record to fill the bottom 50%
-                  value:
-                    this.totalExpense +
-                    this.totalIncome +
-                    Math.abs(this.profit),
-                  itemStyle: {
-                    // stop the chart from rendering this piece
-                    color: 'none',
-                    decal: {
-                      symbol: 'none',
-                    },
-                  },
-                  label: {
-                    show: false,
-                  },
-                },
-              ],
-            },
-          ],
-        }
-
-        chart.setOption(PLoption)
-      } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could no load data ' + error)
-      }
-
-      this.isloading = false
+        const params = { date: { startDate: this.date, endDate: this.date2 }, locationId: this.currentSelectedLocation?.id }
+        const [inc, exp] = await Promise.all([
+          this.$axios.get('/api/finanicial/ar/header/findByDate', { params }),
+          this.$axios.get('/api/finanicial/ap/header/findByDate', { params })
+        ])
+        this.incomeList = inc.data; this.expenseList = exp.data
+        this.$nextTick(() => { this.renderChart() })
+      } catch (e) { swalError2(this.$swal, 'Error', 'Load failed: ' + e) } finally { this.isloading = false }
     },
     async loadSaleStatistic() {
-      //   const date = {startDate:"",endDate:""};//firstAndLastDateOfCurrentYear()
-      const date = {
-        startDate: this.date,
-        endDate: this.date2,
-        includeCards: true, // or true when you need cards
+      // Corrected: includeCards should be a top-level parameter for the API
+      const params = { 
+        date: { startDate: this.date, endDate: this.date2 }, 
+        locationId: this.currentSelectedLocation?.id,
+        includeCards: true 
       }
-      const locationId = this.currentSelectedLocation?.id
-      this.isloading = true
-      await this.$axios
-        .get('api/sale/sumsaleYearly', { params: { date, locationId } })
-        .then((res) => {
-          this.yearlySale = []
-          for (const iterator of res.data) {
-            this.yearlySale.push(iterator)
-          }
-        })
-        .catch((err) => {
-          console.log('error', err)
-        })
-      this.isloading = false
+      try { 
+        // Using findDetailByDate for maximum consistency with the saleCost report
+        const res = await this.$axios.get('api/sale/findDetailByDate', { params })
+        this.yearlySale = res.data 
+      } catch (e) { console.error('Sale stat load error', e) }
     },
-  },
+    renderChart() {
+      const dom = this.$refs.plchart; if (!dom) return
+      const chart = ECharts.init(dom)
+      const opt = {
+        tooltip: { trigger: 'item', backgroundColor: '#fff', textStyle: { color: '#333' } },
+        legend: { bottom: '0%', left: 'center', textStyle: { fontFamily: 'noto sans lao' } },
+        color: ['#4caf50', '#ff9800', '#f44336', '#1976d2'],
+        series: [{
+          name: 'P&L Breakdown', type: 'pie', radius: ['40%', '70%'], center: ['50%', '55%'], startAngle: 180, avoidLabelOverlap: false,
+          itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 2 },
+          label: { show: true, formatter: '{b}\n{d}%', fontFamily: 'noto sans lao', fontWeight: 'bold' },
+          data: [
+            { value: this.totalSale, name: 'ຍອດຂາຍ' },
+            { value: this.totalCostOfSale, name: 'ຕົ້ນທຶນຂາຍ' },
+            { value: this.operatingExpensesOnly, name: 'ລາຍຈ່າຍບໍລິຫານ' },
+            { value: Math.max(0, this.profit), name: 'ກຳໄລ' },
+            { value: this.totalExpense + this.totalIncome + Math.abs(this.profit), itemStyle: { color: 'none', decal: { symbol: 'none' } }, label: { show: false } }
+          ]
+        }]
+      }
+      chart.setOption(opt); window.addEventListener('resize', chart.resize)
+    }
+  }
 }
 </script>
 
-<style></style>
+<style scoped>
+.pl-report-container { font-family: 'noto sans lao', sans-serif !important; background-color: #fafafa; padding: 12px; }
+.pl-report-container * { font-family: 'noto sans lao', sans-serif !important; }
+.report-main-card { border-radius: 12px; background: white; }
+.custom-input>>>fieldset { border-color: #eee !important; }
+.compact-width { max-width: 160px; }
+.stat-box { border: 1px solid #f0f0f0; transition: all 0.2s; }
+.stat-box:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+.action-btn { text-transform: none; font-weight: 700; border-radius: 8px; }
+.border-bottom { border-bottom: 1px solid #f5f5f5; }
+.text-tiny { font-size: 0.65rem; }
+.opacity-80 { opacity: 0.8; }
+.opacity-70 { opacity: 0.7; }
+</style>

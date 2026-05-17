@@ -6,8 +6,8 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://localhost:8888" };
-// let configData = { BASE_URL: "http://localhost:8888" };
+let configData = { BASE_URL: "http://150.95.31.23:8026" };
+// let configData = { BASE_URL: "http://150.95.31.23:8026" };
 
 function loadExternalConfig() {
     let configPath;

@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import bgimg from '~/assets/img/bg-about-us.jpg'
+import bgimg from '~/assets/img/carousel/1.jpg'
 
 export default {
   name: 'IndexPage',

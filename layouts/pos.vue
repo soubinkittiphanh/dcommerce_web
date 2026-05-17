@@ -519,12 +519,15 @@ export default {
     },
     dynamicQRConfigs() {
       const getVal = (code) => this.getSPF.find((s) => s.code === code)?.value
-      let callbackUrl = ''
-
-
-      const baseUrl = this.$axios.defaults.baseURL || ''
-      const cleanBase = baseUrl.replace(/\/+$/, '')
-      callbackUrl = `${cleanBase}/api/v1/direct/callback`
+      
+      // Allow overriding the callback URL via SPF for production/staging environments
+      let callbackUrl = getVal('DYN_CallbackUrl')
+      
+      if (!callbackUrl) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        const cleanBase = baseUrl.replace(/\/+$/, '')
+        callbackUrl = `${cleanBase}/api/v1/direct/callback`
+      }
 
 
       console.info(`CALLBACK URL ${callbackUrl}`)
@@ -1345,7 +1348,7 @@ export default {
               memberId: this.dynamicQRConfigs.memberId,
               merchantId: this.dynamicQRConfigs.merchantId,
               password: this.dynamicQRConfigs.password,
-              requestedCallbackUrl: this.dynamicQRConfigs.callbackUrl,
+              callbackUrl: this.dynamicQRConfigs.callbackUrl,
               storeLabel: this.currentTerminal?.name || 'POS',
               terminalLabel: this.currentTerminal?.name || 'POS'
             })

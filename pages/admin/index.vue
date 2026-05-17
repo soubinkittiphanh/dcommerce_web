@@ -290,6 +290,7 @@ export default {
         { title: 'ສາງສິນຄ້າ', svgIcon: require('~/assets/icons/stock.svg'), path: '/admin/product/productlist' },
         { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), path: '/admin/client' },
         { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
+        { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleReportSummary' },
         { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), path: '/admin/report/loyalty' },
       ],
     }
