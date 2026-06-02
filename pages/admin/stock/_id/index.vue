@@ -1,6 +1,6 @@
 <template>
   <div class="text-center noto-sans-lao">
-    <h1>
+    <h1 v-if="!isEmbedded">
       <v-chip large label class="ma-0 white--text" color="blue">
         ລາຍການ ສະຕັອກສິນຄ້າ {{ pro_name }}
       </v-chip>
@@ -18,223 +18,61 @@
       <loading-indicator> </loading-indicator>
     </v-dialog>
 
-    <!-- Enhanced Summary Cards - Circular Design -->
-    <v-row class="mb-4">
-      <v-col cols="12" class="text-left mb-2">
-        <h3 class="noto-sans-lao">
-          <v-icon left>mdi-chart-pie</v-icon>
-          ສະຫຼຸບສະຖານະສິນຄ້າ
-        </h3>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="success--text mb-2 noto-sans-lao">{{ summaryStats.available }}</h2>
-          <div class="stat-label noto-sans-lao">ພ້ອມໃຊ້</div>
-          <v-progress-circular
-            :value="summaryStats.availablePercent"
-            color="success"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ summaryStats.availablePercent }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="warning--text mb-2 noto-sans-lao">{{ summaryStats.used }}</h2>
-          <div class="stat-label noto-sans-lao">ໃຊ້ງານແລ້ວ</div>
-          <v-progress-circular
-            :value="summaryStats.usedPercent"
-            color="warning"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ summaryStats.usedPercent }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="error--text mb-2 noto-sans-lao">{{ summaryStats.deleted }}</h2>
-          <div class="stat-label noto-sans-lao">ຖືກລົບ</div>
-          <v-progress-circular
-            :value="summaryStats.deletedPercent"
-            color="error"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ summaryStats.deletedPercent }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="orange--text mb-2 noto-sans-lao">{{ summaryStats.expired }}</h2>
-          <div class="stat-label noto-sans-lao">ໝົດອາຍຸ</div>
-          <v-progress-circular
-            :value="summaryStats.expiredPercent"
-            color="orange"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ summaryStats.expiredPercent }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="amber--text mb-2 noto-sans-lao">{{ summaryStats.expiringSoon }}</h2>
-          <div class="stat-label noto-sans-lao">ໃກ້ໝົດອາຍຸ</div>
-          <v-progress-circular
-            :value="getExpiringPercentage()"
-            color="amber"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">30 ວັນ</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="primary--text mb-2 noto-sans-lao">{{ formatNumber(summaryStats.totalCost) }}</h2>
-          <div class="stat-label noto-sans-lao">ມູນຄ່າລວມ (ກີບ)</div>
-          <v-progress-circular
-            :value="100"
-            color="primary"
-            size="80"
-            width="6"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">ລາວ</small>
-          </v-progress-circular>
+    <!-- Compact Summary Section -->
+    <v-row dense class="mb-2">
+      <v-col cols="12">
+        <div class="d-flex align-center flex-wrap justify-space-between py-2 px-3 compact-stats-bar">
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="success" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.available }}</v-avatar>
+            <span class=" font-weight-medium">ພ້ອມໃຊ້</span>
+            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.availableCost) }} ກີບ)</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="warning" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.used }}</v-avatar>
+            <span class=" font-weight-medium">ໃຊ້ງານແລ້ວ</span>
+            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.usedCost) }} ກີບ)</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="error" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.deleted }}</v-avatar>
+            <span class=" font-weight-medium">ຖືກລົບ</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="orange" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.expired }}</v-avatar>
+            <span class=" font-weight-medium">ໝົດອາຍຸ</span>
+            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.expiredCost) }} ກີບ)</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="amber" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.expiringSoon }}</v-avatar>
+            <span class=" font-weight-medium">ໃກ້ໝົດອາຍຸ</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="info" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.withLot }}</v-avatar>
+            <span class=" font-weight-medium">ມີ Lot</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
+            <v-avatar color="purple" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.withSerial }}</v-avatar>
+            <span class=" font-weight-medium">ມີ Serial</span>
+          </div>
+
+          <div class="stat-badge d-flex align-center py-1 px-2 ml-auto my-1">
+            <span class=" font-weight-bold primary--text mr-1">ມູນຄ່າລວມ:</span>
+            <v-chip color="primary" small class="font-weight-bold ">{{ formatNumber(summaryStats.totalCost) }} ກີບ</v-chip>
+          </div>
         </div>
       </v-col>
     </v-row>
 
-    <!-- Enhanced Analysis Cards - Circular Design -->
-    <v-row class="mb-4">
-      <v-col cols="12" class="text-left mb-2">
-        <h3 class="noto-sans-lao">
-          <v-icon left>mdi-chart-donut</v-icon>
-          ການວິເຄາະລາຍລະອຽດ
-        </h3>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="success--text mb-2 noto-sans-lao">{{ formatNumber(summaryStats.availableCost) }}</h2>
-          <div class="stat-label noto-sans-lao">ມູນຄ່າພ້ອມໃຊ້</div>
-          <v-progress-circular
-            :value="getCostPercentage(summaryStats.availableCost)"
-            color="success"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getCostPercentage(summaryStats.availableCost).toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="warning--text mb-2 noto-sans-lao">{{ formatNumber(summaryStats.usedCost) }}</h2>
-          <div class="stat-label noto-sans-lao">ມູນຄ່າໃຊ້ແລ້ວ</div>
-          <v-progress-circular
-            :value="getCostPercentage(summaryStats.usedCost)"
-            color="warning"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getCostPercentage(summaryStats.usedCost).toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="orange--text mb-2 noto-sans-lao">{{ formatNumber(summaryStats.expiredCost) }}</h2>
-          <div class="stat-label noto-sans-lao">ມູນຄ່າໝົດອາຍຸ</div>
-          <v-progress-circular
-            :value="getCostPercentage(summaryStats.expiredCost)"
-            color="orange"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getCostPercentage(summaryStats.expiredCost).toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="info--text mb-2 noto-sans-lao">{{ summaryStats.withLot }}</h2>
-          <div class="stat-label noto-sans-lao">ມີລະຫັດ Lot</div>
-          <v-progress-circular
-            :value="getLotPercentage()"
-            color="info"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getLotPercentage().toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="purple--text mb-2 noto-sans-lao">{{ summaryStats.withSerial }}</h2>
-          <div class="stat-label noto-sans-lao">ມີ Serial No</div>
-          <v-progress-circular
-            :value="getSerialPercentage()"
-            color="purple"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getSerialPercentage().toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-      
-      <v-col cols="6" md="2">
-        <div class="text-center pa-3 circular-stat-card">
-          <h2 class="teal--text mb-2 noto-sans-lao">{{ summaryStats.uniqueVariants }}</h2>
-          <div class="stat-label noto-sans-lao">ສີ/ຂະໜາດແຕກຕ່າງ</div>
-          <v-progress-circular
-            :value="getVariantPercentage()"
-            color="teal"
-            size="60"
-            width="4"
-            class="mt-2"
-          >
-            <small class="noto-sans-lao">{{ getVariantPercentage().toFixed(0) }}%</small>
-          </v-progress-circular>
-        </div>
-      </v-col>
-    </v-row>
-
-    <v-card>
-      <v-card-title>
-        <v-layout row wrap>
-          <v-col cols="6">
-            <!-- Date Range Filters -->
+    <v-card class="compact-filter-card">
+      <v-card-title class="pa-3">
+        <!-- Date Filters, Search & Admin Row (Highly Compact) -->
+        <v-row dense class="ma-0 w-100 align-center">
+          <v-col cols="12" sm="6" md="2" class="py-1">
             <v-menu
               ref="menu1"
               v-model="menu1"
@@ -248,10 +86,11 @@
                 <v-text-field
                   v-model="dateFormatted"
                   label="ຈາກວັນທີ:"
-                  hint="MM/DD/YYYY format"
-                  persistent-hint
-                  prepend-icon="mdi-calendar"
+                  prepend-inner-icon="mdi-calendar"
                   v-bind="attrs"
+                  dense
+                  outlined
+                  hide-details
                   @blur="date = parseDate(dateFormatted)"
                   v-on="on"
                   class="noto-sans-lao"
@@ -263,7 +102,9 @@
                 @input="menu1 = false"
               ></v-date-picker>
             </v-menu>
+          </v-col>
 
+          <v-col cols="12" sm="6" md="2" class="py-1">
             <v-menu
               ref="menu2"
               v-model="menu2"
@@ -277,10 +118,11 @@
                 <v-text-field
                   v-model="dateFormatted2"
                   label="ຫາວັນທີ:"
-                  hint="MM/DD/YYYY format"
-                  persistent-hint
-                  prepend-icon="mdi-calendar"
+                  prepend-inner-icon="mdi-calendar"
                   v-bind="attrs"
+                  dense
+                  outlined
+                  hide-details
                   @blur="date2 = parseDate(dateFormatted2)"
                   v-on="on"
                   class="noto-sans-lao"
@@ -294,138 +136,184 @@
             </v-menu>
           </v-col>
 
-          <v-col cols="6">
-            <!-- Search and Filters -->
+          <v-col cols="12" sm="6" md="3" class="py-1">
             <v-text-field
               v-model="search"
-              append-icon="mdi-magnify"
+              prepend-inner-icon="mdi-magnify"
               label="ຊອກຫາ"
-              single-line
+              dense
+              outlined
               hide-details
               class="noto-sans-lao"
             />
+          </v-col>
+
+          <v-col cols="12" sm="6" md="3" class="py-1">
             <v-text-field
               v-model="userId"
-              append-icon="mdi-account"
+              prepend-inner-icon="mdi-account"
               label="ລະຫັດແອັດມິນ"
-              single-line
+              dense
+              outlined
               hide-details
               class="noto-sans-lao"
             />
-            <v-btn @click="fetchData" class="primary noto-sans-lao" size="large" variant="outlined" rounded>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="2" class="py-1">
+            <v-btn @click="fetchData" class="primary noto-sans-lao font-weight-bold" height="40" rounded block>
+              <v-icon left>mdi-refresh</v-icon>
               ດຶງລາຍງານ
             </v-btn>
           </v-col>
-        </v-layout>
+        </v-row>
 
-        <!-- Enhanced Filters Row -->
-        <v-layout row wrap class="mt-4">
-          <v-col cols="12" md="2">
+        <!-- Dynamic Filter Row (Compact & Modern Outlined Selects) -->
+        <v-row dense class="mt-3 px-2 w-100">
+          <v-col cols="6" sm="3" md="2" class="py-1">
             <v-text-field
               v-model="lotFilter"
-              append-icon="mdi-barcode"
-              label="ຊອກຫາ Lot Number"
-              single-line
+              prepend-inner-icon="mdi-barcode"
+              label="Lot Number"
+              dense
+              outlined
               hide-details
               @input="applyFilters"
               class="noto-sans-lao"
             />
           </v-col>
-          <v-col cols="12" md="2">
+          
+          <v-col cols="6" sm="3" md="2" class="py-1">
             <v-text-field
               v-model="serialFilter"
-              append-icon="mdi-numeric"
-              label="ຊອກຫາ Serial No"
-              single-line
+              prepend-inner-icon="mdi-numeric"
+              label="Serial No"
+              dense
+              outlined
               hide-details
               @input="applyFilters"
               class="noto-sans-lao"
             />
           </v-col>
-          <v-col cols="12" md="2">
+
+          <v-col cols="6" sm="3" md="2" class="py-1">
             <v-select
               v-model="statusFilter"
               :items="statusOptions"
-              label="ກັ່ນຕອງສະຖານະ"
+              label="ສະຖານະ"
+              dense
+              outlined
+              hide-details
               @change="applyFilters"
               clearable
               class="noto-sans-lao"
             ></v-select>
           </v-col>
-          <v-col cols="12" md="2">
+
+          <v-col cols="6" sm="3" md="2" class="py-1">
             <v-select
               v-model="expiryFilter"
               :items="expiryOptions"
-              label="ກັ່ນຕອງອາຍຸການໃຊ້"
+              label="ອາຍຸການໃຊ້"
+              dense
+              outlined
+              hide-details
               @change="applyFilters"
               clearable
               class="noto-sans-lao"
             ></v-select>
           </v-col>
-          <v-col cols="12" md="2">
+
+          <v-col cols="6" sm="3" md="1" class="py-1">
             <v-select
               v-model="colorFilter"
               :items="colorOptions"
               item-text="name"
               item-value="id"
-              label="ກັ່ນຕອງສີ"
+              label="ສີ"
+              dense
+              outlined
+              hide-details
               @change="applyFilters"
               clearable
               class="noto-sans-lao"
             ></v-select>
           </v-col>
-          <v-col cols="12" md="2">
+
+          <v-col cols="6" sm="3" md="1" class="py-1">
             <v-select
               v-model="sizeFilter"
               :items="sizeOptions"
               item-text="name"
               item-value="id"
-              label="ກັ່ນຕອງຂະໜາດ"
+              label="ຂະໜາດ"
+              dense
+              outlined
+              hide-details
               @change="applyFilters"
               clearable
               class="noto-sans-lao"
             ></v-select>
           </v-col>
-        </v-layout>
 
-        <!-- View Toggle and Export Row -->
-        <v-layout row wrap class="mt-2">
-          <v-col cols="12" md="6">
-            <v-btn-toggle v-model="viewMode" exclusive>
-              <v-btn value="detail" class="noto-sans-lao">
-                <v-icon left>mdi-view-list</v-icon>
+          <v-col cols="12" sm="3" md="2" class="py-1">
+            <v-select
+              v-model="locationFilter"
+              :items="locationOptions"
+              item-text="name"
+              item-value="name"
+              label="ສະຖານທີ່"
+              dense
+              outlined
+              hide-details
+              @change="applyFilters"
+              clearable
+              class="noto-sans-lao"
+            ></v-select>
+          </v-col>
+        </v-row>
+
+        <!-- View Toggle and Export Row (Compact Style) -->
+        <v-row dense class="mt-3 px-2 w-100 align-center justify-space-between">
+          <v-col cols="12" sm="6" md="4" class="py-1">
+            <v-btn-toggle v-model="viewMode" exclusive mandatory dense class="rounded-lg">
+              <v-btn value="detail" class="noto-sans-lao" small>
+                <v-icon left small>mdi-view-list</v-icon>
                 ລາຍລະອຽດ
               </v-btn>
-              <v-btn value="summary" class="noto-sans-lao">
-                <v-icon left>mdi-chart-bar</v-icon>
+              <v-btn value="summary" class="noto-sans-lao" small>
+                <v-icon left small>mdi-chart-bar</v-icon>
                 ສະຫຼຸບ
               </v-btn>
             </v-btn-toggle>
           </v-col>
-          <v-col cols="12" md="3" v-if="viewMode === 'summary'">
+          <v-col cols="6" sm="3" md="3" v-if="viewMode === 'summary'" class="py-1">
             <v-select
               v-model="groupBy"
               :items="groupByOptions"
               label="ຈັດກຸ່ມຕາມ"
               @change="generateSummaryData"
               dense
+              outlined
+              hide-details
               class="noto-sans-lao"
             ></v-select>
           </v-col>
-          <v-col cols="12" md="3">
+          <v-col cols="6" sm="3" md="2" class="py-1">
             <v-btn
               @click="exportToExcel"
-              class="success noto-sans-lao"
-              size="large"
-              variant="outlined"
+              class="success noto-sans-lao font-weight-bold"
+              small
+              outlined
+              height="36"
               rounded
               block
             >
-              <v-icon left>mdi-microsoft-excel</v-icon>
+              <v-icon left small>mdi-microsoft-excel</v-icon>
               Export
             </v-btn>
           </v-col>
-        </v-layout>
+        </v-row>
       </v-card-title>
 
       <!-- Detail View Data Table -->
@@ -439,6 +327,18 @@
       >
         <template v-slot:[`item.cost`]="{ item }">
           <span class="font-weight-bold noto-sans-lao">{{ formatNumber(item.cost) }}</span>
+        </template>
+
+        <template v-slot:[`item.currencyCode`]="{ item }">
+          <v-chip color="info" x-small class="noto-sans-lao font-weight-bold">
+            {{ item.currencyCode }}
+          </v-chip>
+        </template>
+
+        <template v-slot:[`item.exchangeRate`]="{ item }">
+          <span class="font-weight-medium text-caption noto-sans-lao">
+            {{ formatNumber(item.exchangeRate) }}
+          </span>
         </template>
 
         <template v-slot:[`item.status`]="{ item }">
@@ -507,6 +407,14 @@
               {{ getExpiryStatus(item.expiryDate) }}
             </div>
           </div>
+          <span v-else class="grey--text noto-sans-lao">-</span>
+        </template>
+
+        <template v-slot:[`item.location`]="{ item }">
+          <v-chip v-if="item.location" color="primary" outlined small class="noto-sans-lao">
+            <v-icon small left>mdi-map-marker</v-icon>
+            {{ item.location }}
+          </v-chip>
           <span v-else class="grey--text noto-sans-lao">-</span>
         </template>
 
@@ -633,12 +541,37 @@ import { getFormatNum, getLocalDate } from '~/common'
 
 export default {
   middleware: 'auths',
+  props: {
+    isEmbedded: {
+      type: Boolean,
+      default: false,
+    },
+    embeddedProductId: {
+      type: [String, Number],
+      default: null,
+    },
+    embeddedProductName: {
+      type: String,
+      default: '',
+    },
+    embeddedCategory: {
+      type: String,
+      default: '',
+    },
+  },
   validate(data) {
     console.log('MIXIN ID: ' + data.params.id)
     return /^\d+$/.test(data.params.id)
   },
 
   watch: {
+    embeddedProductId(newVal) {
+      if (this.isEmbedded && newVal) {
+        this.pro_name = this.embeddedProductName || 'Unknown Product'
+        this.fetchLocations()
+        this.fetchData()
+      }
+    },
     message(val) {
       if (val != null) {
         this.dialogMessage = true
@@ -655,7 +588,6 @@ export default {
       this.fetchData()
     },
     loaddata() {
-      this.calculateSummaryStats()
       this.applyFilters()
       this.loadColorSizeOptions()
     },
@@ -691,8 +623,10 @@ export default {
       serialFilter: '',
       colorFilter: null,
       sizeFilter: null,
+      locationFilter: null,
       colorOptions: [],
       sizeOptions: [],
+      locations: [],
       viewMode: 'detail', // 'detail' or 'summary'
       groupBy: 'date',
       groupByOptions: [
@@ -734,6 +668,8 @@ export default {
         { text: 'ID', align: 'center', value: 'card_id', width: '80px' },
         { text: 'ລະຫັດສິນຄ້າ', align: 'center', value: 'pro_id' },
         { text: 'ຕົ້ນທຶນ', align: 'center', value: 'cost' },
+        { text: 'ສະກຸນເງິນ', align: 'center', value: 'currencyCode' },
+        { text: 'ອັດຕາແລກປ່ຽນ', align: 'right', value: 'exchangeRate' },
         { text: 'ສີ', align: 'center', value: 'colorInfo' },
         { text: 'ຂະໜາດ', align: 'center', value: 'sizeInfo' },
         { text: 'Lot Number', align: 'center', value: 'lotNumber' },
@@ -773,13 +709,14 @@ export default {
   },
 
   mounted() {
-    const productId = this.$route.params.id
-    const productName = this.$route.query.name
-    const category = this.$route.query.category
+    const productId = this.isEmbedded ? this.embeddedProductId : this.$route.params.id
+    const productName = this.isEmbedded ? this.embeddedProductName : this.$route.query.name
+    const category = this.isEmbedded ? this.embeddedCategory : this.$route.query.category
     this.pro_name = productName || 'Unknown Product'
     console.log('Product Name:', productName)
     console.log('Product ID:', productId)
     console.log('Category:', category)
+    this.fetchLocations()
     this.fetchData()
   },
 
@@ -792,11 +729,55 @@ export default {
     },
     hasActiveFilters() {
       return this.statusFilter || this.expiryFilter || this.lotFilter || 
-             this.serialFilter || this.colorFilter || this.sizeFilter
+             this.serialFilter || this.colorFilter || this.sizeFilter || this.locationFilter
+    },
+    locationOptions() {
+      return this.locations.map(loc => ({
+        name: loc.name,
+        id: loc.id
+      }))
     },
   },
 
   methods: {
+    defaultLocationName() {
+      // 1. Try store's currentSelectedLocation
+      const currentLoc = this.$store.getters.currentSelectedLocation || this.$store.state.selectedLocation
+      if (currentLoc && currentLoc.name) {
+        return currentLoc.name
+      }
+      
+      // 2. Fall back to looking up the current selected terminal's location
+      const selectedTerminalId = this.$store.state.selectedTerminal || this.$store.getters.findSelectedTerminal
+      const terminals = this.$store.state.terminalList || this.$store.getters.findAllTerminal || []
+      if (selectedTerminalId && terminals.length) {
+        const currentTerminal = terminals.find(t => t.id == selectedTerminalId)
+        if (currentTerminal && currentTerminal.locationId) {
+          const location = this.locations.find(l => l.id == currentTerminal.locationId)
+          if (location) {
+            return location.name
+          }
+        }
+      }
+      
+      return null
+    },
+
+    async fetchLocations() {
+      try {
+        const response = await this.$axios.get('api/location/find')
+        this.locations = response.data || []
+        
+        // Set default location filter based on store selectedTerminal / location
+        const defaultLoc = this.defaultLocationName()
+        if (defaultLoc) {
+          this.locationFilter = defaultLoc
+          this.applyFilters()
+        }
+      } catch (error) {
+        console.error('Error fetching locations:', error)
+      }
+    },
     getLocalDate,
     formatNumber(value) {
       return getFormatNum(value)
@@ -804,7 +785,7 @@ export default {
 
     // New percentage calculation methods for circular progress
     getExpiringPercentage() {
-      const total = this.loaddata.length
+      const total = this.filteredData ? this.filteredData.length : 0
       return total > 0 ? (this.summaryStats.expiringSoon / total) * 100 : 0
     },
 
@@ -813,12 +794,12 @@ export default {
     },
 
     getLotPercentage() {
-      const total = this.loaddata.length
+      const total = this.filteredData ? this.filteredData.length : 0
       return total > 0 ? (this.summaryStats.withLot / total) * 100 : 0
     },
 
     getSerialPercentage() {
-      const total = this.loaddata.length
+      const total = this.filteredData ? this.filteredData.length : 0
       return total > 0 ? (this.summaryStats.withSerial / total) * 100 : 0
     },
 
@@ -916,46 +897,47 @@ export default {
     },
 
     calculateSummaryStats() {
-      const total = this.loaddata.length
-      const available = this.loaddata.filter(item => item.status === 'ພ້ອມໃຊ້').length
-      const used = this.loaddata.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length
-      const deleted = this.loaddata.filter(item => item.status === 'ຖືກລົບ').length
+      const dataset = this.filteredData || []
+      const total = dataset.length
+      const available = dataset.filter(item => item.status === 'ພ້ອມໃຊ້').length
+      const used = dataset.filter(item => item.status === 'ໃຊ້ງານແລ້ວ').length
+      const deleted = dataset.filter(item => item.status === 'ຖືກລົບ').length
 
       const today = new Date()
       const thirtyDaysFromNow = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
 
-      const expired = this.loaddata.filter(item => 
+      const expired = dataset.filter(item => 
         item.expiryDate && new Date(item.expiryDate) < today
       ).length
 
-      const expiringSoon = this.loaddata.filter(item => {
+      const expiringSoon = dataset.filter(item => {
         if (!item.expiryDate) return false
         const expiry = new Date(item.expiryDate)
         return expiry >= today && expiry <= thirtyDaysFromNow
       }).length
 
-      const withLot = this.loaddata.filter(item => item.lotNumber).length
-      const withSerial = this.loaddata.filter(item => item.serialNo).length
+      const withLot = dataset.filter(item => item.lotNumber).length
+      const withSerial = dataset.filter(item => item.serialNo).length
 
       // Calculate unique variants (color + size combinations)
       const variants = new Set()
-      this.loaddata.forEach(item => {
+      dataset.forEach(item => {
         const variant = `${item.colorId || 'none'}_${item.sizeId || 'none'}`
         variants.add(variant)
       })
 
       // Calculate costs
-      const totalCost = this.loaddata.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
-      const availableCost = this.loaddata
+      const totalCost = dataset.reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
+      const availableCost = dataset
         .filter(item => item.status === 'ພ້ອມໃຊ້')
         .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
-      const usedCost = this.loaddata
+      const usedCost = dataset
         .filter(item => item.status === 'ໃຊ້ງານແລ້ວ')
         .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
-      const deletedCost = this.loaddata
+      const deletedCost = dataset
         .filter(item => item.status === 'ຖືກລົບ')
         .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
-      const expiredCost = this.loaddata
+      const expiredCost = dataset
         .filter(item => item.expiryDate && new Date(item.expiryDate) < today)
         .reduce((sum, item) => sum + parseFloat(item.cost || 0), 0)
 
@@ -1014,7 +996,12 @@ export default {
         filtered = filtered.filter(item => item.sizeId === this.sizeFilter)
       }
 
+      if (this.locationFilter) {
+        filtered = filtered.filter(item => item.location === this.locationFilter)
+      }
+
       this.filteredData = filtered
+      this.calculateSummaryStats()
     },
 
     setQuickFilter(filterType) {
@@ -1112,7 +1099,7 @@ export default {
 
     async fetchData() {
       this.isloading = true
-      const prodId = this.$route.params.id
+      const prodId = this.isEmbedded ? this.embeddedProductId : this.$route.params.id
       console.log('Fetching enhanced data for product_id:', prodId)
       console.log('Date range:', this.date, 'to', this.date2)
 
@@ -1139,6 +1126,9 @@ export default {
           colorInfo: el.color ? { name: el.color.color_name, hex_code: el.color.hex_code } : null,
           sizeInfo: el.size ? { name: el.size.size_name } : null,
           srcLocationName: el.location?.name || '',
+          location: el.location?.name || '',
+          currencyCode: el.currency ? el.currency.code : 'LAK',
+          exchangeRate: el.exchangeRate || 1,
           inputter: el.inputter + ' ' + (el.cus_name || ''),
           status: el.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : el.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້',
           input_date_time: this.getLocalDate(el.card_input_date),
@@ -1147,7 +1137,6 @@ export default {
           function: el.id,
         }))
 
-        this.calculateSummaryStats()
         this.applyFilters()
         
         console.log('Enhanced data loaded successfully:', this.loaddata.length, 'items')
@@ -1167,6 +1156,8 @@ export default {
             ID: item.card_id,
             ລະຫັດສິນຄ້າ: item.pro_id,
             ຕົ້ນທຶນ: item.cost,
+            ສະກຸນເງິນ: item.currencyCode || 'LAK',
+            ອັດຕາແລກປ່ຽນ: item.exchangeRate || 1,
             ສີ: item.colorInfo?.name || '',
             ຂະໜາດ: item.sizeInfo?.name || '',
             'Lot Number': item.lotNumber || '',
@@ -1257,7 +1248,6 @@ export default {
 }
 
 /* Text styling overrides */
-.,
 .text-h5,
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Noto Sans Lao', sans-serif !important;
@@ -1325,5 +1315,35 @@ h1, h2, h3, h4, h5, h6 {
 .v-card-title {
   font-family: 'Noto Sans Lao', sans-serif;
   word-break: break-word;
+}
+
+/* Compact Layout Styling Override */
+.compact-stats-bar {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stat-badge {
+  background: #f8f9fa;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+.stat-badge:hover {
+  background: #f1f3f5;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.compact-filter-card {
+  border-radius: 8px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+}
+
+.w-100 {
+  width: 100%;
 }
 </style>

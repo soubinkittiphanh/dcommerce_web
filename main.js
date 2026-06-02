@@ -6,26 +6,38 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://150.95.31.23:8026" };
-// let configData = { BASE_URL: "http://150.95.31.23:8026" };
+let configData = { BASE_URL: "http://150.95.31.23:8033" };
+// let configData = { BASE_URL: "http://150.95.31.23:8033" };
 
 function loadExternalConfig() {
     let configPath;
     if (process.env.NODE_ENV === 'development') {
         configPath = path.join(__dirname, 'config.json');
     } else {
-        const isMac = process.platform === 'darwin';
-        configPath = isMac
-            ? path.join(process.resourcesPath, 'config.json')
-            : path.join(path.dirname(app.getPath('exe')), 'config.json');
+        // In production, check both the Resources folder and next to the executable
+        const resourcesPath = path.join(process.resourcesPath, 'config.json');
+        const exePath = path.join(path.dirname(app.getPath('exe')), 'config.json');
+
+        if (fs.existsSync(resourcesPath)) {
+            configPath = resourcesPath;
+        } else if (fs.existsSync(exePath)) {
+            configPath = exePath;
+        } else {
+            configPath = resourcesPath; // default fallback
+        }
     }
 
     if (fs.existsSync(configPath)) {
         try {
             const raw = fs.readFileSync(configPath);
             const parsed = JSON.parse(raw);
-            if (parsed.BASE_URL) configData.BASE_URL = parsed.BASE_URL;
+            if (parsed.BASE_URL) {
+                configData.BASE_URL = parsed.BASE_URL;
+                console.log(`ℹ️ External config loaded from: ${configPath}. BASE_URL = ${configData.BASE_URL}`);
+            }
         } catch (e) { console.error("❌ JSON Parse Error:", e); }
+    } else {
+        console.warn(`⚠️ External config.json not found at: ${configPath}`);
     }
 }
 
@@ -84,17 +96,30 @@ async function processQueue() {
 
         const escapedHtml = (barcodeStyle + html).replace(/`/g, '\\`').replace(/\${/g, '\\${');
 
-        const contentHeight = await printWindow.webContents.executeJavaScript(`
+        // Step B: Load HTML and wait for custom web fonts (like Noto Sans Lao) to be fully loaded
+        await printWindow.webContents.executeJavaScript(`
             document.open();
             document.write(\`${escapedHtml}\`);
             document.close();
+        `);
+
+        // Wait for all fonts to load (timeout after 1500ms to avoid blocking forever if offline)
+        await printWindow.webContents.executeJavaScript(`
+            Promise.race([
+                document.fonts.ready,
+                new Promise(resolve => setTimeout(resolve, 1500))
+            ])
+        `);
+
+        // Measure accurate scroll height after rendering with the correct loaded fonts
+        const contentHeight = await printWindow.webContents.executeJavaScript(`
             Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
         `);
 
-        console.log(`Content Rendered. Height: ${contentHeight}px`);
+        console.log(`Content Rendered. True Height: ${contentHeight}px`);
 
-        // Step C: Wait for rendering
-        await new Promise(resolve => setTimeout(resolve, isBarcode ? 500 : 800));
+        // Step C: Wait for rendering layouts to settle
+        await new Promise(resolve => setTimeout(resolve, isBarcode ? 300 : 500));
 
         // Step D: Configure Options
         let printOptions = {
@@ -111,9 +136,10 @@ async function processQueue() {
         } else if (width === 'A4' || width === 'A5') {
             printOptions.pageSize = width;
         } else {
+            // Added 35mm (35000 microns) bottom padding to ensure paper feeds past the cutter head on generic models
             printOptions.pageSize = {
                 width: (width === '58mm' ? 58000 : 80000),
-                height: (contentHeight * 264) + 15000
+                height: (contentHeight * 264) + 35000
             };
         }
 

@@ -111,7 +111,19 @@
               
               <div class="analysis-list">
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
-                  <span class="grey--text">ຍອດຂາຍ (Gross Sales)</span>
+                  <span class="grey--text">ຍອດຂາຍລວມ (Gross Sales)</span>
+                  <span class="font-weight-bold">{{ formatAmount(grandSaleTotal) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ສ່ວນຫຼຸດ (Discount)</span>
+                  <span>{{ formatAmount(grandSaleDiscountTotal) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ຍົກເລີກ/ສົ່ງຄືນ (Return/Cancel)</span>
+                  <span>{{ formatAmount(grandSaleCancelTotal) }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
+                  <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
                   <span class="font-weight-bold">{{ formatAmount(totalSale) }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
@@ -176,6 +188,12 @@ export default {
   watch: {
     date() { this.dateFormatted = this.formatDate(this.date); this.loadTxn() },
     date2() { this.dateFormatted2 = this.formatDate(this.date2); this.loadTxn() },
+    currentSelectedLocation: {
+      handler() {
+        this.loadTxn()
+      },
+      deep: true
+    }
   },
   data() {
     return {
@@ -193,16 +211,91 @@ export default {
   },
   computed: {
     ...mapGetters(['currentSelectedLocation']),
+    grandSaleTotal() {
+      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
+      return this.yearlySale.reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        const itemTotal = parseFloat(item.total || 0)
+        const itemDiscount = parseFloat(item.discount || 0)
+        
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
+        return total + (grossAmount * rate)
+      }, 0)
+    },
+    grandSaleDiscountTotal() {
+      // ✅ Normalize to LAK: discount * exchangeRate
+      return this.yearlySale.filter(el => el.isActive === true).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        const itemDiscount = parseFloat(item.discount || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        return total + (itemDiscount * rate)
+      }, 0)
+    },
+    grandSaleCancelTotal() {
+      // ✅ Normalize to LAK: total * exchangeRate
+      return this.yearlySale.filter(el => el.isActive === false).reduce((total, item) => {
+        const rate = item.exchangeRate || 1
+        const itemTotal = parseFloat(item.total || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12) {
+          return total;
+        }
+
+        // Cancelled/returned sales should be represented as positive amounts in the summary list
+        return total + (Math.abs(itemTotal) * rate)
+      }, 0)
+    },
+    totalSale() {
+      return this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)
+    },
     totalIncome() {
-      let otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
+      const otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
       return otherIncome + this.totalSale
     },
-    totalSale() { return this.yearlySale.reduce((acc, i) => acc + (i.total - i.discount), 0) },
     productCostOnly() {
-      return this.yearlySale.reduce((acc, i) => {
-        let cost = 0; if (i.lines) i.lines.forEach(l => l.cards?.forEach(c => { cost += parseFloat(c.cost || 0) }))
-        return acc + cost
-      }, 0)
+      let totalCost = 0;
+      this.yearlySale.filter(sale => sale.isActive === true).forEach(sale => {
+        let saleCost = 0;
+        const saleRate = sale.exchangeRate || 1;
+        
+        sale.lines?.forEach(line => {
+          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
+          
+          line.cards?.forEach(card => {
+            let cardCost = 0;
+            const cardRate = card.exchangeRate || 1;
+            
+            if (card.costLCY !== undefined && card.costLCY !== null) {
+              cardCost = parseFloat(card.costLCY);
+            } else {
+              cardCost = parseFloat(card.cost || 0) * cardRate;
+            }
+            
+            // ✅ Smart Currency Correction
+            if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
+              cardCost = parseFloat(card.cost || 0);
+            }
+            
+            // Guard against corrupted cost values
+            if (Math.abs(cardCost) < 1e12) {
+              saleCost += cardCost;
+            }
+          });
+        });
+        totalCost += saleCost;
+      });
+      return totalCost;
     },
     totalCODFee() {
       return this.yearlySale.filter(i => i.isActive === true).reduce((acc, i) => {
@@ -211,8 +304,6 @@ export default {
       }, 0)
     },
     totalCancelFee() {
-      // Note: yearlySale backend filter usually includes only isActive:true, but if findDetailByDate is used it might include inactive.
-      // Assuming sumsaleYearly returns what we need. If we need inactive, we'd use getSaleHeadersDetailByDate.
       return this.yearlySale.filter(i => i.isActive === false).reduce((acc, i) => {
         const fee = (i.dynamic_customer?.cancel_fee || 0) * (i.exchangeRate || 1)
         return acc + fee

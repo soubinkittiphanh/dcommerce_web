@@ -18,151 +18,325 @@
             </v-sheet>
         </v-bottom-sheet>
 
-        <v-card>
-            <v-card-subtitle>
-                <v-row>
-                    <v-col cols="6">
-                    </v-col>
-                    <v-col cols="6" style="text-align: right;">
-                        <!-- <v-btn v-if="isQuotation" size="large" variant="outlined" @click="postToInvoice" class="primary" rounded>
-                            <span class="mdi mdi-transfer-right"></span>Make to invoice
-                        </v-btn> -->
-                        <v-btn size="large" variant="outlined" @click="preview" class="primary" rounded>
-                            <span class="mdi mdi-printer-outline"></span>Print
-                        </v-btn>
-                    </v-col>
-                </v-row>
+        <v-card class="transfer-card">
+            <!-- Sheet Drag Handle Indicator -->
+            <div class="sheet-drag-handle"></div>
 
-            </v-card-subtitle>
-            <v-divider></v-divider>
-            <v-card-text>
+            <!-- Sticky Header Bar -->
+            <div class="sheet-header px-6 pt-4 pb-2 d-flex align-center justify-space-between border-b">
+                <div class="d-flex align-center">
+                    <div class="sheet-icon-wrapper mr-3">
+                        <v-icon color="white">mdi-swap-horizontal</v-icon>
+                    </div>
+                    <div>
+                        <h2 class="sheet-title font-weight-bold text-left">
+                            {{ isUpdate ? 'ລາຍລະອຽດການໂອນສິນຄ້າ' : 'ສ້າງລາຍການໂອນສິນຄ້າ' }}
+                        </h2>
+                        <span class="sheet-subtitle text-left d-block grey--text text--darken-1 text-caption">
+                            {{ isUpdate ? `Transaction ID: #${transaction.id}` : 'Create a new stock transfer across locations' }}
+                        </span>
+                    </div>
+                </div>
+                <div class="d-flex align-center">
+                    <!-- Print Button (Only if it has an ID/Update mode) -->
+                    <v-btn
+                        v-if="isUpdate"
+                        color="secondary"
+                        outlined
+                        rounded
+                        class="mr-2 font-weight-bold px-4"
+                        @click="preview"
+                    >
+                        <v-icon left>mdi-printer</v-icon>
+                        ພິມ (Print)
+                    </v-btn>
+                    <v-btn
+                        icon
+                        color="grey darken-2"
+                        class="close-icon-btn"
+                        @click="toggleDialog"
+                    >
+                        <v-icon>mdi-close</v-icon>
+                    </v-btn>
+                </div>
+            </div>
+
+            <!-- Scrollable Content Area -->
+            <v-card-text class="sheet-body px-6 py-4">
                 <!-- ******* Header Card OPEN *******-->
-                <v-card :style="headerError ? `outline:1px solid red` : ``">
-                    {{ isQuotation ? `Quotation #` : `Invoice #` }}
-                    {{ transaction.id }}
-                    <v-card-text>
-
-                        <div>
-                            <v-row>
-                                <v-col cols="4">
-                                    <v-row>
-                                        <v-col cols="12">
-                                            <v-text-field type="date" label="ວັນທີ*" v-model="transaction.bookingDate"
-                                                hint="ເດຶອນ/ວັນ/ປີ 12/31/2023"></v-text-field>
-                                        </v-col>
-
-                                        <v-col cols="12">
-                                            <v-text-field v-model="transaction.referenceNo"
-                                                label="ReferenceNo"></v-text-field>
-                                        </v-col>
-
-                                    </v-row>
+                <div class="glass-card mb-6" :class="{ 'error-border': headerError }">
+                    <v-row dense>
+                        <!-- Column 1: Booking Details & Reference -->
+                        <v-col cols="12" md="4" class="px-3">
+                            <div class="section-card-title mb-2">ຂໍ້ມູນທຸລະກຳ (Transaction Info)</div>
+                            <v-row dense>
+                                <v-col cols="12" class="mb-2">
+                                    <v-text-field
+                                        type="date"
+                                        label="ວັນທີ (Date)*"
+                                        v-model="transaction.bookingDate"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        prepend-inner-icon="mdi-calendar"
+                                        :disabled="isUpdate"
+                                    ></v-text-field>
                                 </v-col>
-                                <v-col cols="4">
-                                    <v-row>
-                                        <v-col cols="12">
-                                            <v-autocomplete item-text="name" item-value="id" :items="locationList"
-                                                label="Source location*"
-                                                v-model="transaction.srcLocationId"></v-autocomplete>
-                                        </v-col>
-                                        <v-col cols="12">
-                                            <v-autocomplete item-text="name" item-value="id" :items="locationList"
-                                                label="Dest location*" v-model="transaction.desLocationId"></v-autocomplete>
-                                        </v-col>
-                                    </v-row>
+                                <v-col cols="12" class="mb-2">
+                                    <v-text-field
+                                        v-model="transaction.referenceNo"
+                                        label="Reference No"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        prepend-inner-icon="mdi-file-document-outline"
+                                        :disabled="isUpdate"
+                                    ></v-text-field>
                                 </v-col>
-                                <v-col cols="4" style="text-align: end;">
-                                    <v-row>
-                                        <v-col cols="12"><v-textarea label="Notes"
-                                                v-model="transaction.remark"></v-textarea></v-col>
-                                        <v-col cols="12" v-if="transaction.user">ຜູ້ລົງ: {{ transaction.user.cus_id }}
-                                        </v-col>
-                                        <v-col cols="12" v-if="transaction.user">ຊື່: {{ transaction.user.cus_name
-                                        }}</v-col>
-                                        <v-col cols="12">
-                                            <v-text-field disabled>
-                                                <template v-slot:label>
-                                                    <span style="color: black; font-weight: bold;">{{ `Total Amount:
-                                                        ${getFormatNum(grandTotal)}` }}</span>
-                                                </template>
-                                            </v-text-field>
-                                        </v-col>
-                                    </v-row>
+                                <v-col cols="12">
+                                    <v-textarea
+                                        label="ໝາຍເຫດ (Notes)"
+                                        v-model="transaction.remark"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        rows="2"
+                                        prepend-inner-icon="mdi-comment-text-outline"
+                                        :disabled="isUpdate"
+                                    ></v-textarea>
                                 </v-col>
-
                             </v-row>
+                        </v-col>
 
-                        </div>
+                        <!-- Column 2: Locations & Direction Indicator -->
+                        <v-col cols="12" md="5" class="px-3 border-l-divider">
+                            <div class="section-card-title mb-2">ສາງສິນຄ້າ ຕົ້ນທາງ-ປາຍທາງ (Locations)</div>
+                            <div class="d-flex flex-column justify-center fill-height pb-4">
+                                <div class="mb-3">
+                                    <v-autocomplete
+                                        item-text="name"
+                                        item-value="id"
+                                        :items="locationList"
+                                        label="Source location*"
+                                        v-model="transaction.srcLocationId"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        prepend-inner-icon="mdi-export"
+                                        :disabled="isUpdate"
+                                    ></v-autocomplete>
+                                </div>
+                                
+                                <div class="d-flex align-center justify-center my-1">
+                                    <div class="direction-line flex-grow-1"></div>
+                                    <v-avatar color="primary lighten-5" size="32" class="mx-3 direction-badge">
+                                        <v-icon color="primary" size="20">mdi-arrow-down-bold-circle</v-icon>
+                                    </v-avatar>
+                                    <div class="direction-line flex-grow-1"></div>
+                                </div>
 
-                    </v-card-text>
-                </v-card>
-                <!-- ******* Header Card CLOSE *******-->
-                <v-divider></v-divider>
+                                <div class="mt-3">
+                                    <v-autocomplete
+                                        item-text="name"
+                                        item-value="id"
+                                        :items="locationList"
+                                        label="Dest location*"
+                                        v-model="transaction.desLocationId"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        prepend-inner-icon="mdi-import"
+                                        :disabled="isUpdate"
+                                    ></v-autocomplete>
+                                </div>
+                            </div>
+                        </v-col>
+
+                        <!-- Column 3: Grand KPI Widget & Operator Info -->
+                        <v-col cols="12" md="3" class="px-3 d-flex flex-column justify-space-between">
+                            <div class="kpi-card">
+                                <div class="kpi-label">ຍອດໂອນລວມ (Total Amount)</div>
+                                <div class="kpi-value">
+                                    {{ getFormatNum(grandTotal) }}
+                                    <span class="kpi-currency">LAK</span>
+                                </div>
+                                <div class="kpi-details" v-if="transaction.user">
+                                    <div class="d-flex justify-space-between mt-1">
+                                        <span>ຜູ້ລົງບັນຊີ:</span>
+                                        <strong>{{ transaction.user.cus_name || transaction.user.cus_id }}</strong>
+                                    </div>
+                                    <div class="d-flex justify-space-between">
+                                        <span>ລະຫັດ:</span>
+                                        <code>{{ transaction.user.cus_id }}</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </div>
+                  <div class="table-action-header d-flex align-center justify-space-between mt-6 mb-3 px-1">
+                    <div class="d-flex align-center">
+                        <v-icon color="primary" class="mr-2">mdi-format-list-bulleted</v-icon>
+                        <span class="table-title font-weight-bold">ລາຍການສິນຄ້າໂອນ (Transfer Items)</span>
+                        <v-chip class="ml-3 pa-2 font-weight-medium" color="primary lighten-5" text-color="primary" small label>
+                            {{ transaction.lines ? transaction.lines.length : 0 }} ລາຍການ (Items)
+                        </v-chip>
+                    </div>
+                    <v-btn
+                        v-if="!isUpdate"
+                        color="primary"
+                        rounded
+                        elevation="1"
+                        class="add-item-btn font-weight-bold"
+                        @click="newRow"
+                    >
+                        <v-icon left>mdi-plus-circle</v-icon>
+                        ເພີ່ມສິນຄ້າ (Add Product)
+                    </v-btn>
+                </div>
+
                 <!-- ******* Line Card OPEN *******-->
-
-                <v-data-table v-if="transaction.lines" :headers="headers" :search="search" :items="transaction.lines">
-                    <template v-slot:item="{ item }">
-                        <tr :style="errorLineNumber == transaction.lines.indexOf(item) ? `outline: 1px solid red` : ``">
-                            <td :class="errorLineNumber == transaction.lines.indexOf(item) ? `error` : ``">
-                                {{ transaction.lines.indexOf(item) + 1 }}
-                            </td>
-                            <td>
-                                <v-autocomplete @input="productChange(item)" item-text="pro_name" item-value="id"
-                                    :items="productList" label="ສິນຄ້າ*" v-model="item.productId"></v-autocomplete>
-                            </td>
-                            <td> <v-text-field @input="quantityChange(item)" v-model="item.quantity" label="ຈຳນວນ"
-                                    v-comma-thousand :rules="[numberCommaRule]"></v-text-field>
-                            </td>
-                            <td>
-                                <v-autocomplete @input="unitChange(item)" item-text="name" item-value="id" :items="unitList"
-                                    label="ຫົວຫນ່ວຍ*" v-model="item.unitId"></v-autocomplete>
-                            </td>
-                            <td> <v-text-field @input="unitRateChange(item)" v-model="item.unitRate" label="ຈນ ຕໍ່ ຫົວຫນ່ວຍ"
-                                    v-comma-thousand :rules="[numberCommaRule]"></v-text-field>
-                            </td>
-                            <td style="text-align: right;">
-                                {{ getFormatNum(item.price) }}
-                            </td>
-                            <td>
-                                <v-text-field @input="discountChange(item)" :rules="[numberCommaRule]" v-comma-thousand
-                                    v-model="item.discount" label="ສ່ວນຫລຸດ"></v-text-field>
-                            </td>
-                            <td style="text-align: right;">
-                                {{ getFormatNum(item.total) }}
-                            </td>
-                            <td>
-                                <v-btn color="error" text @click="deleteItem(item)" v-on:keydown="handleKeyDown">
-
-                                    <i class="fas fa-trash"></i>
-                                </v-btn>
-                            </td>
-
-                        </tr>
-
-                    </template>
-                </v-data-table>
-
+                <div class="table-container mb-6">
+                    <v-data-table
+                        v-if="transaction.lines"
+                        :headers="headers"
+                        :search="search"
+                        :items="transaction.lines"
+                        hide-default-footer
+                        disable-pagination
+                        class="transfer-table"
+                    >
+                        <template v-slot:item="{ item }">
+                            <tr :class="{ 'validation-error-row': errorLineNumber === transaction.lines.indexOf(item) }">
+                                <td class="text-center font-weight-bold item-number-cell">
+                                    <span v-if="errorLineNumber === transaction.lines.indexOf(item)" class="error-indicator">
+                                        <v-icon color="error" small>mdi-alert-circle</v-icon>
+                                    </span>
+                                    <span v-else>
+                                        {{ transaction.lines.indexOf(item) + 1 }}
+                                    </span>
+                                </td>
+                                <td class="product-select-cell">
+                                    <v-autocomplete
+                                        @input="productChange(item)"
+                                        item-text="pro_name"
+                                        item-value="id"
+                                        :items="productList"
+                                        label="ເລືອກສິນຄ້າ (Select Product)*"
+                                        v-model="item.productId"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        :disabled="isUpdate"
+                                        class="table-input"
+                                    ></v-autocomplete>
+                                </td>
+                                <td class="qty-cell">
+                                    <v-text-field
+                                        @input="quantityChange(item)"
+                                        v-model="item.quantity"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        v-comma-thousand
+                                        :rules="[numberCommaRule]"
+                                        :disabled="isUpdate"
+                                        class="table-input text-right-input"
+                                    ></v-text-field>
+                                </td>
+                                <td class="unit-select-cell">
+                                    <v-autocomplete
+                                        @input="unitChange(item)"
+                                        item-text="name"
+                                        item-value="id"
+                                        :items="unitList"
+                                        label="ຫົວໜ່ວຍ*"
+                                        v-model="item.unitId"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        :disabled="isUpdate"
+                                        class="table-input"
+                                    ></v-autocomplete>
+                                </td>
+                                <td class="unit-rate-cell">
+                                    <v-text-field
+                                        @input="unitRateChange(item)"
+                                        v-model="item.unitRate"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        v-comma-thousand
+                                        :rules="[numberCommaRule]"
+                                        :disabled="isUpdate"
+                                        class="table-input text-right-input"
+                                    ></v-text-field>
+                                </td>
+                                <td class="text-right font-weight-medium price-display-cell">
+                                    {{ getFormatNum(item.price) }}
+                                </td>
+                                <td class="discount-cell">
+                                    <v-text-field
+                                        @input="discountChange(item)"
+                                        :rules="[numberCommaRule]"
+                                        v-comma-thousand
+                                        v-model="item.discount"
+                                        outlined
+                                        dense
+                                        hide-details
+                                        :disabled="isUpdate"
+                                        class="table-input text-right-input"
+                                    ></v-text-field>
+                                </td>
+                                <td class="text-right font-weight-bold total-display-cell primary--text">
+                                    {{ getFormatNum(item.total) }}
+                                </td>
+                                <td class="text-center action-delete-cell">
+                                    <v-btn
+                                        color="error"
+                                        icon
+                                        small
+                                        :disabled="isUpdate"
+                                        @click="deleteItem(item)"
+                                        v-on:keydown="handleKeyDown"
+                                        class="delete-row-btn"
+                                    >
+                                        <v-icon>mdi-trash-can-outline</v-icon>
+                                    </v-btn>
+                                </td>
+                            </tr>
+                        </template>
+                    </v-data-table>
+                </div>
                 <!-- ******* Line Card CLOSE *******-->
-                <tr v-if="transaction.lines.length == 0">
-                    <td>
-                        <v-btn size="large" variant="outlined" @click="newRow" class="primary" rounded>
-                            <span class="mdi mdi-plus"></span>
-                        </v-btn>
-                    </td>
-                </tr>
-                <!-- <v-row>
-                    <v-col cols="12" style="text-align: right;">
-                       ຍອດລວມທັງໝົດ: {{ getFormatNum(grandTotal) }}
-                    </v-col>
-                </v-row> -->
+
             </v-card-text>
-            <v-card-actions>
+
+            <v-divider></v-divider>
+
+            <!-- Action Buttons Footer -->
+            <v-card-actions class="px-6 py-4 action-footer border-t bg-light">
                 <v-spacer></v-spacer>
-                <v-btn color="warning" rounded variant="text" @click="toggleDialog">
-                    Close
+                <v-btn
+                    color="grey darken-2"
+                    outlined
+                    rounded
+                    class="px-6 font-weight-bold"
+                    @click="toggleDialog"
+                >
+                    <v-icon left>mdi-close</v-icon>
+                    ປິດ (Close)
                 </v-btn>
-                <v-btn v-if="!isUpdate" color="primary" rounded variant="text" @click="postTransaction">
-                    Save
+                <v-btn
+                    v-if="!isUpdate"
+                    color="primary"
+                    depressed
+                    rounded
+                    class="px-6 ml-3 font-weight-bold save-btn"
+                    @click="postTransaction"
+                >
+                    <v-icon left>mdi-content-save</v-icon>
+                    ບັນທຶກ (Save Transfer)
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -208,7 +382,99 @@ export default {
 
 
     },
+    mounted() {
+        window.addEventListener('keydown', this.handleBarcodeKeyDown);
+    },
+    beforeDestroy() {
+        window.removeEventListener('keydown', this.handleBarcodeKeyDown);
+    },
     methods: {
+        handleBarcodeKeyDown(event) {
+            if (this.isUpdate) return;
+            
+            if (this.barcodeTimer) {
+                clearTimeout(this.barcodeTimer);
+            }
+            
+            if (event.key === 'Enter') {
+                if (this.barcode) {
+                    console.log(`SCANNED BARCODE: ${this.barcode}`);
+                    this.findProductFromBarcode(this.barcode);
+                }
+                this.barcode = '';
+                return;
+            }
+            
+            if (event.key !== 'Shift') {
+                this.barcode += event.key;
+            }
+            
+            this.barcodeTimer = setTimeout(() => {
+                this.barcode = '';
+            }, 50);
+        },
+        findProductFromBarcode(barcode) {
+            if (this.isUpdate) return;
+            const product = this.productList.find(el => el.barCode === barcode);
+            if (!product) {
+                swalError2(this.$swal, 'Error', `ບໍ່ພົບສິນຄ້າທີ່ມີບາໂຄດ: ${barcode}`);
+                return;
+            }
+
+            // Check if product already exists in transfer lines
+            const existingLineIndex = this.transaction.lines.findIndex(el => el.productId === product.id);
+            
+            if (existingLineIndex > -1) {
+                const line = this.transaction.lines[existingLineIndex];
+                let currentQty = parseFloat(replaceAll(String(line.quantity), ',', ''));
+                if (isNaN(currentQty)) currentQty = 0;
+                
+                line.quantity = currentQty + 1;
+                
+                // Recalculate totals safely
+                const unitRate = parseFloat(replaceAll(String(line.unitRate || 1), ',', '')) || 1;
+                const price = parseFloat(replaceAll(String(line.price || 0), ',', '')) || 0;
+                const discount = parseFloat(replaceAll(String(line.discount || 0), ',', '')) || 0;
+                line.total = ((unitRate * line.quantity) * price) - discount;
+            } else {
+                // Check if the only line is empty (productId: 0/null and quantity <= 0) to reuse it
+                const emptyLineIndex = this.transaction.lines.findIndex(el => (el.productId === 0 || !el.productId) && (parseFloat(replaceAll(String(el.quantity), ',', '')) <= 0));
+                
+                let targetLine;
+                if (emptyLineIndex > -1) {
+                    targetLine = this.transaction.lines[emptyLineIndex];
+                } else {
+                    targetLine = {
+                        "quantity": 0,
+                        "unitRate": 1,
+                        "price": 0,
+                        "discount": 0,
+                        "total": 0,
+                        "isActive": true,
+                        "productId": 0,
+                        "unitId": 1
+                    };
+                    this.transaction.lines.push(targetLine);
+                }
+                
+                targetLine.productId = product.id;
+                targetLine.price = parseFloat(product.pro_price) || 0;
+                targetLine.quantity = 1;
+                targetLine.unitRate = 1;
+                targetLine.discount = 0;
+                targetLine.total = targetLine.price;
+            }
+            
+            // Show toast notification
+            this.$swal({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 1500,
+                icon: 'success',
+                title: `ເພີ່ມສິນຄ້າ: ${product.pro_name}`
+            });
+        },
         preview() {
             const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice'
             window.open(`/admin/PDFTransfer/${this.headerId}`, '_blank');
@@ -560,16 +826,20 @@ export default {
         },
         grandTotal() {
             let total = this.transaction.lines.reduce((total, item) => {
-                return total + item.total;
+                const itemTotal = parseFloat(replaceAll(String(item.total || 0), ',', '')) || 0;
+                return total + itemTotal;
             }, 0);
-            const discount = replaceAll(this.transaction.discount, ',', '')
-            return total - discount
+            const discount = this.transaction.discount ? parseFloat(replaceAll(String(this.transaction.discount), ',', '')) : 0;
+            const discountVal = isNaN(discount) ? 0 : discount;
+            return total - discountVal;
         },
 
 
     },
     data() {
         return {
+            barcode: '',
+            barcodeTimer: null,
             search: '',
             numberCommaRule: (value) => {
                 const regex = /^[0-9,]*$/;
@@ -638,4 +908,419 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+/* Main bottom sheet container card styling */
+.transfer-card {
+  border-radius: 24px 24px 0 0 !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #f8fafc !important; /* Soft gray background */
+}
+
+/* Drag indicator bar at top of sheet */
+.sheet-drag-handle {
+  width: 48px;
+  height: 5px;
+  background-color: #cbd5e1;
+  border-radius: 9999px;
+  margin: 10px auto 4px auto;
+  flex-shrink: 0;
+}
+
+/* Header style with a clean backdrop filter */
+.sheet-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e2e8f0 !important;
+  flex-shrink: 0;
+}
+
+.sheet-icon-wrapper {
+  background: linear-gradient(135deg, #01532B, #337555);
+  border-radius: 12px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(1, 83, 43, 0.15);
+}
+
+.sheet-title {
+  font-size: 1.25rem;
+  color: #0f172a;
+  margin: 0;
+  font-family: 'Noto Sans Lao', sans-serif;
+  line-height: 1.2;
+}
+
+.sheet-subtitle {
+  font-family: 'Noto Sans Lao', sans-serif;
+  font-size: 0.8rem;
+}
+
+.close-icon-btn {
+  background-color: #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.close-icon-btn:hover {
+  background-color: #e2e8f0;
+  transform: rotate(90deg);
+}
+
+/* Scrollable form body content */
+.sheet-body {
+  overflow-y: auto;
+  flex-grow: 1;
+  max-height: calc(100vh - 150px);
+}
+
+/* Custom Scrollbar for premium feel */
+.sheet-body::-webkit-scrollbar {
+  width: 6px;
+}
+.sheet-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.sheet-body::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 3px;
+}
+.sheet-body::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* Modern Glassmorphism Card Container */
+.glass-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(1, 83, 43, 0.08);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  box-shadow: 0 8px 30px rgba(1, 83, 43, 0.04);
+  border-color: rgba(1, 83, 43, 0.15);
+}
+
+.error-border {
+  border: 1.5px solid #D00505 !important;
+  box-shadow: 0 4px 20px rgba(208, 5, 5, 0.1) !important;
+}
+
+.section-card-title {
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #337555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans Lao', sans-serif;
+  border-left: 3px solid #01532B;
+  padding-left: 8px;
+}
+
+/* Location transfer direction lines and indicator */
+.direction-line {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #80a995, transparent);
+  opacity: 0.5;
+}
+
+.direction-badge {
+  box-shadow: 0 2px 8px rgba(1, 83, 43, 0.1);
+  background-color: #e6f2ec !important;
+  animation: bounce-slow 3s infinite ease-in-out;
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.border-l-divider {
+  border-left: 1px dashed #e2e8f0;
+}
+
+@media (max-width: 959px) {
+  .border-l-divider {
+    border-left: none;
+    border-top: 1px dashed #e2e8f0;
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+}
+
+/* KPI Card style */
+.kpi-card {
+  background: linear-gradient(135deg, #01532B, #337555);
+  color: #ffffff;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.2);
+  text-align: right;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(1, 83, 43, 0.3);
+}
+
+.kpi-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0.85;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+.kpi-value {
+  font-size: 1.85rem;
+  font-weight: 800;
+  margin-top: 6px;
+  line-height: 1.1;
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+.kpi-currency {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-weight: 600;
+  margin-left: 2px;
+}
+
+.kpi-details {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 8px;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+/* Lines Table Container and Elements */
+.table-action-header {
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+
+.table-title {
+  font-size: 1rem;
+  color: #1e293b;
+}
+
+.add-item-btn {
+  background: linear-gradient(135deg, #01532B, #337555) !important;
+  color: white !important;
+  font-family: 'Noto Sans Lao', sans-serif;
+  text-transform: none;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.15) !important;
+  transition: all 0.2s ease;
+}
+
+.add-item-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(1, 83, 43, 0.25) !important;
+}
+
+.table-container {
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
+  background-color: #ffffff;
+}
+
+.transfer-table {
+  background-color: transparent !important;
+}
+
+.transfer-table >>> th {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+  font-size: 0.85rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px;
+  font-family: 'Noto Sans Lao', sans-serif !important;
+  border-bottom: 1.5px solid #cbd5e1 !important;
+  height: 48px !important;
+}
+
+.transfer-table >>> td {
+  height: 60px !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.item-number-cell {
+  font-size: 0.9rem;
+  color: #64748b;
+  width: 50px;
+}
+
+.product-select-cell {
+  min-width: 250px;
+}
+
+.qty-cell, .unit-rate-cell, .discount-cell {
+  width: 120px;
+}
+
+.unit-select-cell {
+  width: 140px;
+}
+
+.price-display-cell, .total-display-cell {
+  font-size: 0.95rem;
+  font-family: 'Outfit', sans-serif;
+  color: #1e293b;
+  padding-right: 16px !important;
+}
+
+.total-display-cell {
+  font-weight: 700 !important;
+  color: #01532B !important;
+}
+
+.action-delete-cell {
+  width: 60px;
+}
+
+/* Premium input grid design */
+.table-input {
+  font-size: 0.85rem !important;
+}
+
+.table-input >>> .v-input__control {
+  min-height: 38px !important;
+}
+
+.table-input >>> .v-input__slot {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.table-input >>> .v-input__slot:hover {
+  background-color: #ffffff !important;
+  border-color: #cbd5e1 !important;
+}
+
+.table-input.v-input--is-focused >>> .v-input__slot {
+  background-color: #ffffff !important;
+  border-color: #01532B !important;
+  box-shadow: 0 0 0 3px rgba(1, 83, 43, 0.08) !important;
+}
+
+.text-right-input >>> input {
+  text-align: right !important;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.delete-row-btn {
+  background-color: #fff1f2;
+  transition: all 0.2s ease;
+}
+
+.delete-row-btn:hover {
+  background-color: #ffe4e6 !important;
+  transform: scale(1.08);
+}
+
+.delete-row-btn:disabled {
+  background-color: #f1f5f9 !important;
+  opacity: 0.5;
+}
+
+/* Pulsing Red wash for Validation Failure rows */
+.validation-error-row {
+  background-color: rgba(208, 5, 5, 0.05) !important;
+  animation: pulse-danger 2s infinite ease-in-out;
+  transition: all 0.3s ease;
+}
+
+.validation-error-row td {
+  border-top: 1px solid rgba(208, 5, 5, 0.2) !important;
+  border-bottom: 1px solid rgba(208, 5, 5, 0.2) !important;
+}
+
+.validation-error-row .table-input >>> .v-input__slot {
+  border-color: rgba(208, 5, 5, 0.4) !important;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+@keyframes pulse-danger {
+  0% { background-color: rgba(208, 5, 5, 0.03); }
+  50% { background-color: rgba(208, 5, 5, 0.09); }
+  100% { background-color: rgba(208, 5, 5, 0.03); }
+}
+
+.error-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
+}
+
+/* Action footer buttons */
+.action-footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0 !important;
+  flex-shrink: 0;
+}
+
+.action-footer .v-btn {
+  font-family: 'Noto Sans Lao', sans-serif !important;
+  text-transform: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.2px;
+  height: 44px !important;
+  transition: all 0.2s ease;
+}
+
+.save-btn {
+  background: linear-gradient(135deg, #01532B, #337555) !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.2) !important;
+}
+
+.save-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(1, 83, 43, 0.3) !important;
+}
+</style>

@@ -1,32 +1,34 @@
 <template>
-  <div class="customer-display-container">
-    <WelcomeScreen v-if="!showQR" :parsed-company-info="parsedCompanyInfo" :promotions="promotions"
-      :special-offers="specialOffers" :wifi-credentials="wifiCredentials" :logo-url="logoUrl"
-      :company-logo="companyLogo" :store-name="storeName" :bcel-qr-image="bcelQrImage" :bcel-qr-image2="bcelQrImage2"
-      :company-q-r-image-url="companyQRImageUrl" :company-q-r-image-url2="companyQRImageUrl2" />
+  <v-app class="customer-display-container">
+    <v-main>
+      <WelcomeScreen v-if="!showQR" :parsed-company-info="parsedCompanyInfo" :promotions="promotions"
+        :special-offers="specialOffers" :wifi-credentials="wifiCredentials" :logo-url="logoUrl"
+        :company-logo="companyLogo" :store-name="storeName" :bcel-qr-image="bcelQrImage" :bcel-qr-image2="bcelQrImage2"
+        :company-q-r-image-url="companyQRImageUrl" :company-q-r-image-url2="companyQRImageUrl2" />
 
-    <div v-if="showQR" class="qr-payment-screen">
-      <div class="payment-layout">
-        <OrderSection :items="orderItems" :summary="orderSummary" :qr-data="qrData" :display-discount="displayDiscount"
-          :display-change="displayChange" />
+      <div v-if="showQR" class="qr-payment-screen">
+        <div class="payment-layout">
+          <OrderSection :items="orderItems" :summary="orderSummary" :qr-data="qrData" :display-discount="displayDiscount"
+            :display-change="displayChange" />
 
-        <PaymentSection :qr-data="qrData" :parsed-company-info="parsedCompanyInfo" :converted-amounts="convertedAmounts"
-          :time-remaining="timeRemaining" :company-q-r-image-url="companyQRImageUrl" :bcel-qr-image="bcelQrImage"
-          :payment-complete="paymentComplete" />
-      </div>
+          <PaymentSection :qr-data="qrData" :parsed-company-info="parsedCompanyInfo" :converted-amounts="convertedAmounts"
+            :time-remaining="timeRemaining" :company-q-r-image-url="companyQRImageUrl" :bcel-qr-image="bcelQrImage"
+            :payment-complete="paymentComplete" />
+        </div>
 
-      <div class="powered-by-qr">
-        <div class="powered-by-container-qr">
-          <span class="powered-by-text-qr">Powered by</span>
-          <img :src="dcommerceLogoUrl" alt="DCOMMERCE" class="dcommerce-logo-qr" />
-          <span class="dcommerce-text-qr">DCOMMERCE</span>
+        <div class="powered-by-qr">
+          <div class="powered-by-container-qr">
+            <span class="powered-by-text-qr">Powered by</span>
+            <img :src="dcommerceLogoUrl" alt="DCOMMERCE" class="dcommerce-logo-qr" />
+            <span class="dcommerce-text-qr">DCOMMERCE</span>
+          </div>
         </div>
       </div>
-    </div>
 
-    <SuccessOverlay v-if="paymentComplete" :amount="qrData.amount" :progress="successProgress"
-      :success-time-remaining="successTimeRemaining" />
-  </div>
+      <SuccessOverlay v-if="paymentComplete" :amount="qrData.amount" :progress="successProgress"
+        :success-time-remaining="successTimeRemaining" />
+    </v-main>
+  </v-app>
 </template>
 
 <script>
@@ -385,15 +387,17 @@ export default {
 
 <style scoped>
 .customer-display-container {
+  width: 100% !important;
   min-height: 100vh;
   height: 100vh;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%) !important;
   font-family: 'noto sans lao', sans-serif;
   overflow: hidden;
   position: relative;
 }
 
 .qr-payment-screen {
+  width: 100%;
   height: 100vh;
   padding: 1rem;
   overflow: hidden;
@@ -402,6 +406,7 @@ export default {
 .payment-layout {
   display: flex;
   height: 100%;
+  width: 100%;
   gap: 1rem;
 }
 

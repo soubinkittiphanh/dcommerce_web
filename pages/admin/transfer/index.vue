@@ -13,12 +13,17 @@
         :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">
       </transfer-view-form>
     </v-dialog> -->
-    <v-dialog v-model="dialogOrderDetail" max-width="1024">
+    <v-bottom-sheet
+      v-model="dialogOrderDetail"
+      persistent
+      fullscreen
+      content-class="transfer-bottom-sheet-content"
+    >
       <transfer-form @reload="loadData()
     dialogOrderDetail = false" :is-quotation="false" :key="componentKey" :is-update="viewTransaction"
         :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">
       </transfer-form>
-    </v-dialog>
+    </v-bottom-sheet>
 
 
     <v-dialog v-model="cancelForm" max-width="1024">
@@ -409,5 +414,14 @@ export default {
 
 table {
   border: 1px solid black;
+}
+</style>
+
+<style>
+.transfer-bottom-sheet-content {
+  border-radius: 24px 24px 0 0 !important;
+  overflow: hidden;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15) !important;
+  background: transparent !important;
 }
 </style>

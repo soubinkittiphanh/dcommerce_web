@@ -94,10 +94,20 @@
 
                 <!-- Cost / Price Slots -->
                 <template v-slot:item.pro_cost_price="{ item }">
-                  <span class="grey--text font-weight-medium">{{ formatNumber(item.pro_cost_price) }}</span>
+                  <div class="text-right">
+                    <span class="grey--text font-weight-medium">{{ formatNumber(item.pro_cost_price) }}</span>
+                    <v-chip v-if="getCurrencyCode(item.costCurrencyId)" x-small outlined label class="ml-1 px-1 py-0 height-auto font-weight-bold" color="grey darken-1">
+                      {{ getCurrencyCode(item.costCurrencyId) }}
+                    </v-chip>
+                  </div>
                 </template>
                 <template v-slot:item.pro_price="{ item }">
-                  <span class="primary--text font-weight-black">{{ formatNumber(item.pro_price) }}</span>
+                  <div class="text-right">
+                    <span class="primary--text font-weight-black">{{ formatNumber(item.pro_price) }}</span>
+                    <v-chip v-if="getCurrencyCode(item.saleCurrencyId)" x-small label class="ml-1 px-1 py-0 height-auto font-weight-bold" color="primary" outlined>
+                      {{ getCurrencyCode(item.saleCurrencyId) }}
+                    </v-chip>
+                  </div>
                 </template>
 
                 <!-- Stock Level Slot -->
@@ -226,14 +236,14 @@
                   <div class="text-right">
                     <div>
                       <strong>ລາຄາ:</strong>
-                      {{ formatNumber(selectedProductForRecipe.pro_price) }} LAK
+                      {{ formatNumber(selectedProductForRecipe.pro_price) }} {{ getCurrencyCode(selectedProductForRecipe.saleCurrencyId) || 'LAK' }}
                     </div>
                     <div>
                       <strong>ຕົ້ນທຶນ:</strong>
                       {{
                         formatNumber(selectedProductForRecipe.pro_cost_price)
                       }}
-                      LAK
+                      {{ getCurrencyCode(selectedProductForRecipe.costCurrencyId) || 'LAK' }}
                     </div>
                   </div>
                 </div>
@@ -295,7 +305,7 @@
 
             <template v-slot:item.unitCost="{ item }">
               <div class="cost-display">
-                {{ formatNumber(item.ingredient?.pro_price || 0) }} LAK
+                {{ formatNumber(item.ingredient?.pro_price || 0) }} {{ getCurrencyCode(item.ingredient?.saleCurrencyId) || 'LAK' }}
               </div>
             </template>
 
@@ -306,7 +316,7 @@
                     (item.ingredient?.pro_price || 0) * item.quantity
                   )
                 }}
-                  LAK</strong>
+                  {{ getCurrencyCode(item.ingredient?.saleCurrencyId) || 'LAK' }}</strong>
               </div>
             </template>
 
@@ -388,6 +398,36 @@
       </price-list-form>
     </v-dialog>
 
+    <!-- Dialog for Stock Details (Fullscreen) -->
+    <v-dialog
+      v-model="showStockBottomSheet"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable
+    >
+      <v-card class="noto-sans-lao">
+        <v-card-title class="primary white--text d-flex justify-space-between align-center py-3 px-4">
+          <div class="d-flex align-center">
+            <v-icon color="white" class="mr-2">mdi-chart-line</v-icon>
+            <span class="font-weight-medium">ລາຍລະອຽດສະຕັອກສິນຄ້າ (Stock Details)</span>
+          </div>
+          <v-btn icon dark @click="showStockBottomSheet = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="pa-4" style="background-color: #f5f5f5;">
+          <stock-details
+            v-if="showStockBottomSheet"
+            :is-embedded="true"
+            :embedded-product-id="selectedEmbeddedProductId"
+            :embedded-product-name="selectedEmbeddedProductName"
+            :embedded-category="selectedEmbeddedCategory"
+          />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-dialog v-model="printDialog" max-width="900px" scrollable>
       <v-card>
         <v-card-title class="primary white--text">
@@ -428,7 +468,7 @@
                   {{ truncateText(product.pro_name, 25) }}
                 </div>
                 <div class="product-price">
-                  {{ formatNumber(product.pro_price) }} LAK
+                  {{ formatNumber(product.pro_price) }} {{ getCurrencyCode(product.saleCurrencyId) || 'LAK' }}
                 </div>
               </div>
             </div>
@@ -534,6 +574,7 @@ import { swalSuccess, swalError2 } from '~/util/myUtil'
 import { mapActions, mapGetters } from 'vuex'
 import RecipeManagement from '~/components/pos/recipe'
 import JsBarcode from 'jsbarcode'
+import StockDetails from '~/pages/admin/stock/_id/index.vue'
 
 export default {
   components: {
@@ -541,6 +582,7 @@ export default {
     ProductFormCreate,
     PriceListForm,
     RecipeManagement,
+    StockDetails,
   },
   middleware: 'auths',
 
@@ -601,6 +643,10 @@ export default {
       productFormCreate: false,
       productFormKey: 1,
       isstock: false,
+      showStockBottomSheet: false,
+      selectedEmbeddedProductId: null,
+      selectedEmbeddedProductName: '',
+      selectedEmbeddedCategory: '',
       selectedId: 0,
       selectedProductCost: 0,
       selectedProductName: '',
@@ -684,6 +730,19 @@ export default {
     // Load barcode library first
     // this.loadBarcodeLibrary() // Removed in favor of static import
 
+    // Ensure currency list is loaded
+    if (!this.findAllCurrency || this.findAllCurrency.length === 0) {
+      this.$axios.get('api/currency/findAll').then(res => {
+        let data = res.data?.data ?? res.data
+        if (Array.isArray(data)) {
+          data = data.filter(c => c.isActive === true || c.isActive === 1)
+        }
+        this.$store.commit('SetCurrencyList', data)
+      }).catch(err => {
+        console.error('Error fetching currency:', err)
+      })
+    }
+
     await this.loadCardCategory()
     await this.fetchData()
     window.addEventListener('keydown', this.handleBarcodeScanner)
@@ -694,7 +753,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters', 'findAllCurrency']),
 
     filteredProducts() {
       // 1. Safety check: ensure loaddata exists
@@ -732,7 +791,7 @@ export default {
       }
 
       // Ignore scanner if any dialog or loading indicator is open
-      if (this.productFormCreate || this.editProductForm || this.isstock || this.printDialog || this.priceListDialog || this.recipeManagementDialog || this.productRecipeDialog || this.isloading) {
+      if (this.productFormCreate || this.editProductForm || this.isstock || this.printDialog || this.priceListDialog || this.recipeManagementDialog || this.productRecipeDialog || this.isloading || this.showStockBottomSheet) {
         return
       }
 
@@ -1297,13 +1356,16 @@ export default {
         pro_name: 'Product Name',
         barCode: 'Barcode',
         pro_cost_price: 'Cost Price',
+        costCurrency: 'Cost Currency',
         pro_price: 'Base Price',
+        saleCurrency: 'Sale Currency',
         effectivePrice: 'Current Price',
         pro_desc: 'Product Description',
         categ_name: 'Category',
         card_count: 'Stock',
         minStock: 'Minimum Stock',
         pro_card_count: 'Stock',
+        stockStatus: 'Stock Status',
       }
 
       // Add dynamic price list columns
@@ -1313,7 +1375,7 @@ export default {
 
       // Transform data with dynamic price list fields
       const transformedData = this.loaddata.map((item) => {
-        let newItem = {}
+        const newItem = {}
 
         // Map base fields
         Object.keys(headerMap).forEach((key) => {
@@ -1322,7 +1384,14 @@ export default {
             const grade = key.replace('price_', '')
             const priceList = item.priceLists?.find((pl) => pl.grade === grade)
             newItem[headerMap[key]] = priceList ? priceList.amount : ''
-          } else if (item.hasOwnProperty(key)) {
+          } else if (key === 'stockStatus') {
+            // Calculate stock status dynamically
+            newItem[headerMap[key]] = this.verifyStockStatus(item.minStock, item.pro_card_count)
+          } else if (key === 'costCurrency') {
+            newItem[headerMap[key]] = this.getCurrencyCode(item.costCurrencyId)
+          } else if (key === 'saleCurrency') {
+            newItem[headerMap[key]] = this.getCurrencyCode(item.saleCurrencyId)
+          } else if (Object.prototype.hasOwnProperty.call(item, key)) {
             newItem[headerMap[key]] = item[key]
           }
         })
@@ -1361,6 +1430,12 @@ export default {
 
     formatNumber(value) {
       return getFormatNum(value)
+    },
+
+    getCurrencyCode(currencyId) {
+      if (!currencyId) return ''
+      const currency = this.findAllCurrency.find((c) => c.id === currencyId)
+      return currency ? currency.code : ''
     },
 
     getStatusChipColor(minStock, curStock) {
@@ -1410,6 +1485,8 @@ export default {
               pro_id: el.pro_id,
               pro_name: el.pro_name,
               pro_price: el.pro_price,
+              saleCurrencyId: el.saleCurrencyId,
+              costCurrencyId: el.costCurrencyId,
               img_path: el.img_path, // ✅ Corrected from pro_image_path
               img_name: el.img_name,
               _category: el._category,
@@ -1447,18 +1524,10 @@ export default {
     editStock(idx) {
       console.log('ID ' + idx.pro_id)
       console.log('NAME ' + idx.pro_name)
-      console.log('OBJ ' + Object.keys(idx))
-      // this.$router.push(`/admin/stock/${idx.pro_id}`)
-      // this.$router.push(`/admin/stock/${idx.pro_id}/${encodeURIComponent(idx.pro_name)}`)
-      this.$router.push({
-        path: `/admin/stock/${idx.pro_id}`,
-        query: {
-          name: idx.pro_name,
-          // You can add more query params
-          category: idx.category || '',
-          price: idx.price || '',
-        },
-      })
+      this.selectedEmbeddedProductId = idx.pro_id
+      this.selectedEmbeddedProductName = idx.pro_name
+      this.selectedEmbeddedCategory = idx.pro_category_desc || ''
+      this.showStockBottomSheet = true
     },
 
     loadCardCategory() {

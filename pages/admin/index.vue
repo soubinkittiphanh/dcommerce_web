@@ -108,7 +108,15 @@
             </div>
             <div class="kpi-content">
               <h3 class="kpi-title">{{ item.title }}</h3>
-              <div class="kpi-value">{{ item.total }}</div>
+              <div class="kpi-value mb-1">{{ item.total }}</div>
+
+              <!-- Total Discount Display -->
+              <div v-if="item.discount && item.discount !== '0.00' && item.discount !== '0'" class="kpi-discount-badge mb-3 d-flex align-center">
+                <v-icon small color="orange" class="mr-1">mdi-tag-outline</v-icon>
+                <span class=" grey--text text--darken-1 font-weight-medium">
+                  ສ່ວນຫຼຸດລວມ: <strong class="orange--text font-weight-bold">{{ item.discount }} ₭</strong>
+                </span>
+              </div>
 
               <div v-if="item.groupedCurrency" class="currency-summary mb-4">
                 <v-chip
@@ -195,7 +203,7 @@
 
           <div class="chart-card full-width" v-if="monthlyState">
             <div class="chart-header">
-              <h3>ທ່າອ່ຽງການຂາຍລາຍເດືອນ (6 ເດືອນຍ້ອນຫຼັງ)</h3>
+              <h3>ທ່າອ່ຽງການຂາຍລາຍເດືອນ (3 ເດືອນຍ້ອນຫຼັງ)</h3>
             </div>
             <div class="chart-container">
               <apexchart
@@ -278,9 +286,9 @@ export default {
       },
 
       menusOverview: [
-        { title: 'ຍອດຂາຍມື້ນີ້ (ລວມເງິນກີບ)', icon: 'mdi-calendar-today', total: '0', groupedSales: {}, groupedCurrency: {} },
-        { title: 'ຍອດຂາຍເດືອນນີ້', icon: 'mdi-calendar-month', total: '0', groupedSales: {}, groupedCurrency: {} },
-        { title: 'ຍອດຂາຍ 6 ເດືອນຫຼັງ', icon: 'mdi-calendar-range', total: '0', groupedSales: {}, groupedCurrency: {} },
+        { title: 'ຍອດຂາຍມື້ນີ້ (ລວມເງິນກີບ)', icon: 'mdi-calendar-today', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
+        { title: 'ຍອດຂາຍເດືອນນີ້', icon: 'mdi-calendar-month', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
+        { title: 'ຍອດຂາຍ 3 ເດືອນຫຼັງ', icon: 'mdi-calendar-range', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
       ],
 
       menus: [
@@ -362,11 +370,43 @@ export default {
       return ccy.exchangeDirection === 'foreign_to_local' ? lineTotal * rate : lineTotal / rate
     },
 
+    firstAndLastDateOfLast3Months() {
+      const today = new Date();
+      const threeMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 3, 1);
+      
+      const startYear = threeMonthsAgo.getFullYear();
+      const startMonth = String(threeMonthsAgo.getMonth() + 1).padStart(2, '0');
+      const startDate = `${startYear}-${startMonth}-01`;
+      
+      const endYear = today.getFullYear();
+      const endMonth = String(today.getMonth() + 1).padStart(2, '0');
+      const endDay = String(today.getDate()).padStart(2, '0');
+      const endDate = `${endYear}-${endMonth}-${endDay}`;
+
+      console.log(`LAST 3 MONTHS RANGE: ${startDate} to ${endDate}`);
+      return { startDate, endDate };
+    },
+
+    getConvertedSaleDiscount(sale) {
+      const discountVal = Number(sale.discount || 0)
+      if (discountVal === 0) return 0
+      const currencies = this.findAllCurrency || []
+      const ccy = currencies.find((c) => Number(c.id) === Number(sale.currencyId))
+      if (!ccy || Number(ccy.isLocalCCY) === 1) return discountVal
+      const rate = Number(sale.exchangeRate || (sale.lines && sale.lines[0]?.exchangeRate) || 1)
+      return ccy.exchangeDirection === 'foreign_to_local' ? discountVal * rate : discountVal / rate
+    },
+
     getConvertedSaleTotal(sale) {
       const currencies = this.findAllCurrency || []
       let total = (sale.lines || []).reduce((sum, line) => 
         sum + this.getLineConvertedAmount(line, currencies, sale.currencyId), 0)
       if (!sale.lines || sale.lines.length === 0) total = Number(sale.total || 0)
+      
+      // Subtract converted discount
+      const convertedDiscount = this.getConvertedSaleDiscount(sale)
+      total = total - convertedDiscount
+
       if (sale.dynamic_customer) {
         total += Number(sale.dynamic_customer.rider_fee) || 0
         total -= Number(sale.dynamic_customer.cod_fee) || 0
@@ -412,15 +452,20 @@ export default {
         } else if (sale.payment) {
           const key = `${sale.payment.id}_${headerCode}`
           if (!acc[key]) acc[key] = { amount: 0, totalSales: 0, paymentName: sale.payment.payment_name || 'ເງິນສົດ', currencyCode: headerCode }
-          acc[key].amount += Number(sale.total || 0)
-          acc[key].totalSales += this.getConvertedSaleTotal(sale)
+          
+          // Exclude/subtract discount from raw total cash payments
+          const netHeaderAmount = Number(sale.total || 0) - Number(sale.discount || 0)
+          const netTotal = this.getConvertedSaleTotal(sale)
+          
+          acc[key].amount += netHeaderAmount
+          acc[key].totalSales += netTotal
         }
         return acc
       }, {})
     },
 
     async loadSaleStatistic() {
-      const dateRange = firstAndLastDateOfLast6Months()
+      const dateRange = this.firstAndLastDateOfLast3Months()
       const todayStr = new Date().toISOString().split('T')[0]
       this.isloading = true
       try {
@@ -439,7 +484,12 @@ export default {
         periods.forEach(p => {
           const grouped = this.saleGroupByPayment(p.list)
           const total = Object.values(grouped).reduce((s, i) => s + i.totalSales, 0)
+          
+          // Sum up discounts in LAK for this period
+          const totalDiscount = p.list.reduce((sum, sale) => sum + this.getConvertedSaleDiscount(sale), 0)
+          
           this.menusOverview[p.key].total = getFormatNum(Math.round(total))
+          this.menusOverview[p.key].discount = getFormatNum(Math.round(totalDiscount))
           this.menusOverview[p.key].groupedSales = grouped
           this.menusOverview[p.key].groupedCurrency = this.getRawCurrencySummary(p.list)
         })

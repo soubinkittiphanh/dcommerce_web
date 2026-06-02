@@ -648,43 +648,85 @@ export default {
 
     // Sales calculations
     grandSaleTotal() {
-      // ✅ Normalize to LAK: total * exchangeRate
+      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
       return this.loaddata.reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.total * rate)
+        const itemTotal = parseFloat(item.total || 0)
+        const itemDiscount = parseFloat(item.discount || 0)
+        
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
+        return total + (grossAmount * rate)
       }, 0)
     },
     grandSaleDiscountTotal() {
       // ✅ Normalize to LAK: discount * exchangeRate
       return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.discount * rate)
+        const itemDiscount = parseFloat(item.discount || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        return total + (itemDiscount * rate)
       }, 0)
     },
     grandSaleCancelTotal() {
       // ✅ Normalize to LAK: total * exchangeRate
       return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.total * rate)
+        const itemTotal = parseFloat(item.total || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12) {
+          return total;
+        }
+
+        // Cancelled/returned sales should be represented as positive amounts in the summary list
+        return total + (Math.abs(itemTotal) * rate)
       }, 0)
     },
     grandSaleCost() {
       let totalSaleValue = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
+        const saleRate = sale.exchangeRate || 1;
         for (const line of sale.lines) {
+          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
           for (const card of line.cards) {
-            // ✅ Use costLCY (LAK) if available, otherwise calculate from cost * exchangeRate
+            let cardCost = 0;
+            const cardRate = card.exchangeRate || 1;
+            
             if (card.costLCY !== undefined && card.costLCY !== null) {
-              totalSaleValue += parseFloat(card.costLCY);
+              cardCost = parseFloat(card.costLCY);
             } else {
-              const rate = card.exchangeRate || 1;
-              totalSaleValue += (parseFloat(card.cost || 0) * rate);
+              cardCost = parseFloat(card.cost || 0) * cardRate;
+            }
+            
+            // ✅ Smart Currency Correction:
+            // If the calculated cost in LAK is > 1.5x the retail selling price of the item, 
+            // and a non-LAK exchange rate (> 10) was applied, it means a LAK cost (e.g. 185,000 Kip) 
+            // was entered under a foreign currency product settings and incorrectly multiplied by the rate (e.g. 687).
+            // We fall back to the raw cost value (which is the actual LAK cost entered by the user).
+            if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
+              cardCost = parseFloat(card.cost || 0);
+            }
+            
+            // Guard against corrupted cost values
+            if (Math.abs(cardCost) < 1e12) {
+              totalSaleValue += cardCost;
             }
           }
         }
       }
       return totalSaleValue;
     },
+
     grandCODCost() {
       let totalCOD = 0;
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {

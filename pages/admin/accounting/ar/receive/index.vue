@@ -1,94 +1,89 @@
 <template>
   <div class="ap-settlement-container notosans-lao">
-    <div class="primary analysis-header mb-4">
-      <div class="d-flex justify-space-between align-center">
-        <div>
-          <h1 class="text-h5 font-weight-bold mb-1 white--text">
-            <v-icon color="white" class="mr-2">mdi-cash-register</v-icon>
-            ລະບົບຈັດການການຮັບຊຳລະ
-          </h1>
-          <p class="text-body-2 opacity-80 mb-0 white--text">ເບິ່ງ ແລະ ຈັດການການຮັບຊຳລະເງິນທັງໝົດ</p>
-        </div>
-        <div class="d-flex gap-2 align-center">
-          <!-- Refresh Button -->
-          <v-btn color="white" text small @click="refreshData" :loading="loading" class="mr-2">
-            <v-icon left small>mdi-refresh</v-icon>
-            ໂຫຼດໃໝ່
-          </v-btn>
-          <!-- Enhanced Export Button -->
-          <v-btn color="white" text small @click="exportToExcel" :loading="exporting" class="mr-2">
-            <v-icon left small>mdi-file-excel</v-icon>
-            ສົ່ງອອກ Excel
-          </v-btn>
-          <v-btn color="white" light depressed @click="openCreateDialog" class="rounded-lg font-weight-medium">
-            <v-icon left small>mdi-plus</v-icon>ເພີ່ມໃໝ່
-          </v-btn>
-        </div>
+    <!-- Header Section -->
+    <div class="d-flex align-center mb-6">
+      <v-avatar color="primary lighten-5" rounded size="48" class="mr-4">
+        <v-icon color="primary" large>mdi-cash-register</v-icon>
+      </v-avatar>
+      <div>
+        <h1 class="text-h5 font-weight-bold mb-1 primary--text">ລະບົບຈັດການການຮັບຊຳລະ</h1>
+        <p class="text-caption grey--text text--darken-1 mb-0">AR Receipt Settlement & Payment Management</p>
       </div>
+      <v-spacer />
+      <v-btn color="grey lighten-4" text @click="refreshData" :loading="loading" class="mr-2 rounded-lg text--secondary font-weight-bold">
+        <v-icon left>mdi-refresh</v-icon>ໂຫຼດໃໝ່
+      </v-btn>
+      <v-btn color="success" outlined @click="exportToExcel" :loading="exporting" class="mr-2 rounded-lg font-weight-bold">
+        <v-icon left>mdi-file-excel</v-icon>ສົ່ງອອກ Excel
+      </v-btn>
+      <v-btn color="primary" depressed large @click="openCreateDialog" class="rounded-lg font-weight-bold">
+        <v-icon left>mdi-plus</v-icon>ເພີ່ມໃໝ່
+      </v-btn>
+    </div>
 
-      <!-- Quick Summary Cards -->
-      <v-row class="mt-6">
-        <v-col cols="12" sm="6" md="3">
-          <v-card class="summary-card-premium" elevation="0">
-            <v-card-text class="d-flex align-center pa-4">
-              <v-avatar color="info lighten-4" size="48" class="rounded-lg">
-                <v-icon color="info" size="28">mdi-wallet-plus</v-icon>
+    <!-- Summary Cards -->
+    <v-row class="mb-6" dense>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card total-ap" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="primary lighten-5" rounded size="48">
+                <v-icon color="primary">mdi-wallet-plus</v-icon>
               </v-avatar>
               <div class="ml-4">
                 <div class="grey--text font-weight-bold text-uppercase">ຮັບຊຳລະທັງໝົດ</div>
-                <div class="font-weight-bold info--text uppercase">{{ formatCurrency(summaryTotals.totalReceived) }}
-                </div>
+                <div class="font-weight-bold uppercase">{{ formatCurrency(summaryTotals.totalReceived) }}</div>
               </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12" sm="6" md="3">
-          <v-card class="summary-card-premium" elevation="0">
-            <v-card-text class="d-flex align-center pa-4">
-              <v-avatar color="success lighten-4" size="48" class="rounded-lg">
-                <v-icon color="success" size="28">mdi-cash</v-icon>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card total-paid" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="success lighten-5" rounded size="48">
+                <v-icon color="success">mdi-cash</v-icon>
               </v-avatar>
               <div class="ml-4">
                 <div class="grey--text font-weight-bold text-uppercase">ເງິນສົດ (Cash)</div>
-                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalCash) }}
-                </div>
+                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalCash) }}</div>
               </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12" sm="6" md="3">
-          <v-card class="summary-card-premium" elevation="0">
-            <v-card-text class="d-flex align-center pa-4">
-              <v-avatar color="primary lighten-4" size="48" class="rounded-lg">
-                <v-icon color="primary" size="28">mdi-bank-transfer</v-icon>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card outstanding" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="warning lighten-5" rounded size="48">
+                <v-icon color="warning">mdi-bank-transfer</v-icon>
               </v-avatar>
               <div class="ml-4">
                 <div class="grey--text font-weight-bold text-uppercase">ໂອນ (Transfer)</div>
-                <div class="font-weight-bold primary--text uppercase">{{ formatCurrency(summaryTotals.totalBankTransfer)
-                }}</div>
+                <div class="font-weight-bold warning--text uppercase">{{ formatCurrency(summaryTotals.totalBankTransfer) }}</div>
               </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12" sm="6" md="3">
-          <v-card class="summary-card-premium" elevation="0">
-            <v-card-text class="d-flex align-center pa-4">
-              <v-avatar color="purple lighten-4" size="48" class="rounded-lg">
-                <v-icon color="purple" size="28">mdi-credit-card</v-icon>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="12" md="3">
+        <v-card class="summary-card overdue" elevation="1">
+          <v-card-text class="pa-4">
+            <div class="d-flex align-center">
+              <v-avatar color="error lighten-5" rounded size="48">
+                <v-icon color="error">mdi-credit-card</v-icon>
               </v-avatar>
               <div class="ml-4">
                 <div class="grey--text font-weight-bold text-uppercase">ອື່ນໆ (Other)</div>
-                <div class="font-weight-bold purple--text uppercase">{{ formatCurrency(summaryTotals.totalOther) }}
-                </div>
+                <div class="font-weight-bold error--text uppercase">{{ formatCurrency(summaryTotals.totalOther) }}</div>
               </div>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </div>
+            </div>
+          </v-card-text>
+        </v-card>
+      </v-col>
+    </v-row>
 
     <!-- Filter Section -->
     <v-card class="mb-6 filter-card" elevation="0">
@@ -200,6 +195,14 @@
           </span>
         </template>
 
+        <!-- Status -->
+        <template v-slot:item.status="{ item }">
+          <v-chip small outlined :color="getStatusColor(item.status)" class="font-weight-medium">
+            <v-icon x-small left>{{ getStatusIcon(item.status) }}</v-icon>
+            {{ getStatusInLao(item.status) }}
+          </v-chip>
+        </template>
+
         <template v-slot:item.batch="{ item }">
           <div class="">
             <div class="font-weight-medium">
@@ -228,32 +231,55 @@
 
         <!-- Actions -->
         <template v-slot:item.actions="{ item }">
-          <v-menu bottom left>
+          <v-menu bottom left offset-y transition="slide-y-transition">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon small v-bind="attrs" v-on="on">
-                <v-icon small>mdi-dots-vertical</v-icon>
+              <v-btn icon small v-bind="attrs" v-on="on" color="grey darken-1">
+                <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
-            <v-list dense>
-              <v-list-item @click="viewReceipt(item)">
-                <v-list-item-icon>
-                  <v-icon small color="info">mdi-eye</v-icon>
+            <v-list dense class="py-0">
+              <v-list-item @click="viewReceipt(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="info">mdi-eye-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
               </v-list-item>
 
-              <v-list-item @click="editReceipt(item)">
-                <v-list-item-icon>
-                  <v-icon small color="warning">mdi-pencil</v-icon>
+              <v-list-item v-if="!item.status || item.status === 'active'" @click="editReceipt(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="warning">mdi-pencil-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
               </v-list-item>
 
-              <v-list-item @click="printReceipt(item)">
-                <v-list-item-icon>
-                  <v-icon small color="success">mdi-printer</v-icon>
+              <v-list-item @click="printReceipt(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="success">mdi-printer-outline</v-icon>
                 </v-list-item-icon>
                 <v-list-item-title>ພິມໃບຮັບ</v-list-item-title>
+              </v-list-item>
+
+              <v-divider v-if="!item.status || item.status === 'active'" />
+
+              <v-list-item v-if="!item.status || item.status === 'active'" @click="voidReceiptAction(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="error">mdi-alert-circle-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="error--text">ໂມຄະ (Void)</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item v-if="!item.status || item.status === 'active'" @click="cancelReceiptAction(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="grey darken-2">mdi-close-circle-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="grey--text text--darken-3">ຍົກເລີກ (Cancel)</v-list-item-title>
+              </v-list-item>
+
+              <v-list-item v-if="item.status === 'voided' || item.status === 'cancelled'" @click="reactivateReceiptAction(item)" class="px-3">
+                <v-list-item-icon class="mr-3">
+                  <v-icon small color="success">mdi-play-circle-outline</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="success--text">ເປີດໃຊ້ຄືນ (Reactivate)</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -292,6 +318,7 @@
 import ReceiveHeaderMaintain from '~/components/accounting/ar/receive/maintain'
 import ReceiveHeaderView from '~/components/accounting/ar/receive/view'
 import ARReceivePrinter from '~/components/accounting/ar/receive/voucher'
+import { swalConfirm } from '~/common'
 
 export default {
   name: 'ReceiveHeaderSummary',
@@ -389,6 +416,13 @@ export default {
           value: 'referenceNumber',
           sortable: false,
           width: '120px',
+        },
+        {
+          text: 'ສະຖານະ',
+          value: 'status',
+          sortable: true,
+          width: '120px',
+          align: 'center',
         },
         {
           text: 'Batch info',
@@ -1028,89 +1062,221 @@ export default {
       }
       return colors[method] || 'grey'
     },
+
+    getStatusInLao(status) {
+      const labels = {
+        active: 'ໃຊ້ງານຢູ່',
+        voided: 'ຖືກໂມຄະ',
+        cancelled: 'ຍົກເລີກແລ້ວ',
+      }
+      return labels[status] || (status ? status.toUpperCase() : 'ACTIVE')
+    },
+
+    getStatusColor(status) {
+      const colors = {
+        active: 'success',
+        voided: 'error',
+        cancelled: 'grey darken-2',
+      }
+      return colors[status] || 'success'
+    },
+
+    getStatusIcon(status) {
+      const icons = {
+        active: 'mdi-check-circle-outline',
+        voided: 'mdi-alert-circle-outline',
+        cancelled: 'mdi-close-circle-outline',
+      }
+      return icons[status] || 'mdi-help-circle-outline'
+    },
+
+    async voidReceiptAction(receipt) {
+      try {
+        const { value: reason } = await this.$swal.fire({
+          title: 'ຢືນຢັນການໂມຄະ (Void Receipt)',
+          text: `ທ່ານຕ້ອງການປ່ຽນສະຖານະໃບຮັບ ${receipt.receiptNumber} ເປັນ ໂມຄະ ແມ່ນບໍ່?`,
+          icon: 'warning',
+          input: 'text',
+          inputPlaceholder: 'ກະລຸນາລະບຸເຫດຜົນ...',
+          showCancelButton: true,
+          confirmButtonColor: '#ef4444',
+          cancelButtonColor: '#3b82f6',
+          confirmButtonText: 'ຢືນຢັນ',
+          cancelButtonText: 'ຍົກເລີກ',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'ກະລຸນາປ້ອນເຫດຜົນກ່ອນ!'
+            }
+          }
+        })
+
+        if (reason) {
+          this.loading = true
+          await this.$axios.post(`/api/ar-receive-headers/${receipt.id}/void`, {
+            reason: reason,
+            userId: this.user?.id
+          })
+          this.$toast.success('ປ່ຽນສະຖານະເປັນ ໂມຄະ ສຳເລັດ')
+          await this.fetchReceipts()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async cancelReceiptAction(receipt) {
+      try {
+        const { value: reason } = await this.$swal.fire({
+          title: 'ຢືນຢັນການຍົກເລີກ (Cancel Receipt)',
+          text: `ທ່ານຕ້ອງການປ່ຽນສະຖານະໃບຮັບ ${receipt.receiptNumber} ເປັນ ຍົກເລີກ ແມ່ນບໍ່?`,
+          icon: 'warning',
+          input: 'text',
+          inputPlaceholder: 'ກະລຸນາລະບຸເຫດຜົນ...',
+          showCancelButton: true,
+          confirmButtonColor: '#ef4444',
+          cancelButtonColor: '#3b82f6',
+          confirmButtonText: 'ຢືນຢັນ',
+          cancelButtonText: 'ຍົກເລີກ',
+          inputValidator: (value) => {
+            if (!value) {
+              return 'ກະລຸນາປ້ອນເຫດຜົນກ່ອນ!'
+            }
+          }
+        })
+
+        if (reason) {
+          this.loading = true
+          await this.$axios.post(`/api/ar-receive-headers/${receipt.id}/cancel`, {
+            reason: reason,
+            userId: this.user?.id
+          })
+          this.$toast.success('ປ່ຽນສະຖານະເປັນ ຍົກເລີກ ສຳເລັດ')
+          await this.fetchReceipts()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async reactivateReceiptAction(receipt) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການເປີດໃຊ້ຄືນ',
+          `ທ່ານຕ້ອງການເປີດໃຊ້ງານໃບຮັບ ${receipt.receiptNumber} ຄືນໃໝ່ແມ່ນບໍ່?`,
+          'question'
+        )
+
+        if (result.isConfirmed) {
+          this.loading = true
+          await this.$axios.post(`/api/ar-receive-headers/${receipt.id}/reactivate`, {
+            reason: 'Reactivated from UI',
+            userId: this.user?.id
+          })
+          this.$toast.success('ເປີດໃຊ້ງານໃບຮັບຄືນໃໝ່ສຳເລັດ')
+          await this.fetchReceipts()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      } finally {
+        this.loading = false
+      }
+    },
   },
 }
 </script>
 
 <style scoped>
 /* Noto Sans Lao Font Configuration */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@100;200;300;400;500;600;700;800;900&display=swap');
-
-.notosans-lao {
-  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
-}
-
-/* Apply Noto Sans Lao to all text elements */
-.notosans-lao * {
-  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
-}
-
-/* Specific overrides for Vuetify components */
-.notosans-lao .v-btn,
-.notosans-lao .v-text-field input,
-.notosans-lao .v-text-field label,
-.notosans-lao .v-select .v-select__selections,
-.notosans-lao .v-chip .v-chip__content,
-.notosans-lao .v-data-table th,
-.notosans-lao .v-data-table td,
-.notosans-lao .v-card-title,
-.notosans-lao .v-card-text,
-.notosans-lao .v-list-item-title,
-.notosans-lao .v-menu .v-list-item {
-  font-family: 'Noto Sans Lao', Arial, sans-serif !important;
-}
-
-.analysis-header {
-  background: var(--v-primary-base);
-  color: white;
-  border-radius: 12px;
-  padding: 16px 20px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.ap-settlement-container {
-  padding: 00px;
-}
+/* Typography & Noto Sans Lao */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
 
 .filter-card {
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
 }
 
-.summary-card-premium {
-  border-radius: 16px !important;
-  background-color: white !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+.summary-card {
+  border-radius: 16px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
 }
+
+.summary-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background: transparent;
+  transition: all 0.3s;
+}
+
+.summary-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.summary-card:hover::before {
+  width: 6px;
+}
+
+.summary-card.total-ap::before { background: var(--v-primary-base) !important; }
+.summary-card.total-paid::before { background: var(--v-success-base, #10b981) !important; }
+.summary-card.outstanding::before { background: var(--v-warning-base, #f59e0b) !important; }
+.summary-card.overdue::before { background: var(--v-error-base, #ef4444) !important; }
 
 .dashboard-card {
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  border: 1px solid rgba(226, 232, 240, 0.8);
 }
 
 .modernize-table ::v-deep th {
   background-color: #f8fafc !important;
-  color: #64748b !important;
+  color: #475569 !important;
   font-size: 0.75rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
+  border-bottom: 2px solid #e2e8f0 !important;
+  padding: 16px !important;
 }
 
 .modernize-table ::v-deep td {
   font-size: 0.875rem !important;
-  padding: 12px 16px !important;
+  padding: 16px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.modernize-table ::v-deep tr:hover {
+  background-color: #f8fafc !important;
 }
 
 .font-monospace {
   font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+  font-size: 0.9rem;
 }
 
 .v-chip.font-weight-medium {
   font-size: 0.7rem !important;
   text-transform: uppercase;
   letter-spacing: 0.025em;
+  font-weight: 600;
 }
 
 .border-left {
@@ -1129,16 +1295,6 @@ export default {
   text-transform: uppercase;
 }
 
-/* Export button styling */
-.v-btn.success {
-  background-color: #4caf50 !important;
-  color: white !important;
-}
-
-.v-btn.success:hover {
-  background-color: #45a049 !important;
-}
-
 /* Enhanced font weight for better Lao text readability */
 .font-weight-bold {
   font-weight: 600 !important;
@@ -1146,5 +1302,10 @@ export default {
 
 .font-weight-medium {
   font-weight: 500 !important;
+}
+
+/* Apply professional typography globally in current container */
+div {
+  font-family: 'Inter', 'Noto Sans Lao', sans-serif !important;
 }
 </style>

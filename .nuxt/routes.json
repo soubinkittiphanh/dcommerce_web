@@ -77,25 +77,11 @@
     "_name": "_5a2985aa"
   },
   {
-    "name": "admin-ap",
-    "path": "/admin/ap",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/index.vue",
-    "chunkName": "pages/admin/ap/index",
-    "_name": "_c081733c"
-  },
-  {
     "name": "admin-applicants",
     "path": "/admin/applicants",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/applicants/index.vue",
     "chunkName": "pages/admin/applicants/index",
     "_name": "_0aa72964"
-  },
-  {
-    "name": "admin-ar",
-    "path": "/admin/ar",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ar/index.vue",
-    "chunkName": "pages/admin/ar/index",
-    "_name": "_6ceea838"
   },
   {
     "name": "admin-authority",
@@ -252,6 +238,20 @@
     "_name": "_6aa85aae"
   },
   {
+    "name": "admin-expense",
+    "path": "/admin/expense",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/expense/index.vue",
+    "chunkName": "pages/admin/expense/index",
+    "_name": "_4d28069b"
+  },
+  {
+    "name": "admin-fixed-assets",
+    "path": "/admin/fixed-assets",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/fixed-assets/index.vue",
+    "chunkName": "pages/admin/fixed-assets/index",
+    "_name": "_6ac19bef"
+  },
+  {
     "name": "admin-generalLedger",
     "path": "/admin/generalLedger",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/index.vue",
@@ -264,6 +264,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/group/index.vue",
     "chunkName": "pages/admin/group/index",
     "_name": "_975dcbfc"
+  },
+  {
+    "name": "admin-income",
+    "path": "/admin/income",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/income/index.vue",
+    "chunkName": "pages/admin/income/index",
+    "_name": "_56a9c148"
   },
   {
     "name": "admin-inventory_value",
@@ -903,20 +910,6 @@
     "_name": "_11bf3a86"
   },
   {
-    "name": "admin-ap-invoice",
-    "path": "/admin/ap/invoice",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/invoice/index.vue",
-    "chunkName": "pages/admin/ap/invoice/index",
-    "_name": "_4d058200"
-  },
-  {
-    "name": "admin-ap-invoiceSettlement",
-    "path": "/admin/ap/invoiceSettlement",
-    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/ap/invoiceSettlement/index.vue",
-    "chunkName": "pages/admin/ap/invoiceSettlement/index",
-    "_name": "_1b1605c9"
-  },
-  {
     "name": "admin-applicants-index-1",
     "path": "/admin/applicants/index-1",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/applicants/index-1.vue",
@@ -964,6 +957,34 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/withdraw.vue",
     "chunkName": "pages/admin/customer_request/withdraw",
     "_name": "_e852f9ea"
+  },
+  {
+    "name": "admin-fixed-assets-contracts",
+    "path": "/admin/fixed-assets/contracts",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/fixed-assets/contracts.vue",
+    "chunkName": "pages/admin/fixed-assets/contracts",
+    "_name": "_d85b8a84"
+  },
+  {
+    "name": "admin-fixed-assets-depreciation",
+    "path": "/admin/fixed-assets/depreciation",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/fixed-assets/depreciation.vue",
+    "chunkName": "pages/admin/fixed-assets/depreciation",
+    "_name": "_6e449880"
+  },
+  {
+    "name": "admin-fixed-assets-products",
+    "path": "/admin/fixed-assets/products",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/fixed-assets/products.vue",
+    "chunkName": "pages/admin/fixed-assets/products",
+    "_name": "_f586e352"
+  },
+  {
+    "name": "admin-generalLedger-posting-control-center",
+    "path": "/admin/generalLedger/posting-control-center",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/posting-control-center.vue",
+    "chunkName": "pages/admin/generalLedger/posting-control-center",
+    "_name": "_9f492504"
   },
   {
     "name": "admin-inventory-stock-management",
@@ -1097,6 +1118,20 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/financial/pl/index.vue",
     "chunkName": "pages/reports/financial/pl/index",
     "_name": "_01d70745"
+  },
+  {
+    "name": "admin-accounting-ap-invoice",
+    "path": "/admin/accounting/ap/invoice",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/ap/invoice/index.vue",
+    "chunkName": "pages/admin/accounting/ap/invoice/index",
+    "_name": "_8b3672ec"
+  },
+  {
+    "name": "admin-accounting-ap-invoiceSettlement",
+    "path": "/admin/accounting/ap/invoiceSettlement",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/ap/invoiceSettlement/index.vue",
+    "chunkName": "pages/admin/accounting/ap/invoiceSettlement/index",
+    "_name": "_bf0eb45a"
   },
   {
     "name": "admin-accounting-ar-invoice",

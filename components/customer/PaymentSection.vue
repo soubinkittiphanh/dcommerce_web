@@ -1,10 +1,16 @@
 <template>
   <div class="payment-section">
-    <div class="payment-content">
-      <div class="payment-header">
-        <h2 class="payment-title">Scan to Pay</h2>
+    <!-- Symmetric Top Header mirroring OrderSection -->
+    <div class="payment-header">
+      <h2 class="payment-title">Scan to Pay</h2>
+      <div class="timer-badge" v-if="timeRemaining > 0 && !paymentComplete">
+        <v-icon small color="white" class="mr-1">mdi-timer-outline</v-icon>
+        Expires in: {{ formatTime(timeRemaining) }}
       </div>
+    </div>
 
+    <!-- Symmetric Content Container -->
+    <div class="payment-content">
       <div class="amount-display">
         <div class="amount-label">Total Amount</div>
         <div class="amount-value">{{ formatPrice(qrData.amount) }}</div>
@@ -47,11 +53,6 @@
           <div class="step"><v-icon class="step-icon">mdi-numeric-3-circle</v-icon><span>Confirm</span></div>
         </div>
       </div>
-
-      <div class="timer-display" v-if="timeRemaining > 0 && !paymentComplete">
-        <v-icon small class="timer-icon">mdi-timer-outline</v-icon>
-        <span class="timer-text">Expires in: {{ formatTime(timeRemaining) }}</span>
-      </div>
     </div>
   </div>
 </template>
@@ -89,7 +90,7 @@ export default {
       if (!this.$refs.qrcodeCanvas || !this.qrData.qrString) return
       try {
         await QRCode.toCanvas(this.$refs.qrcodeCanvas, this.qrData.qrString, {
-          width: 250,
+          width: 230,
           margin: 2,
           color: {
             dark: '#01532B',
@@ -122,8 +123,39 @@ export default {
 <style scoped>
 .payment-section {
   flex: 1;
+  background: white;
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
+.payment-header {
+  padding: 1rem 1.5rem;
+  background: #01532B;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.payment-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.timer-badge {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
 }
 
 .payment-content {
@@ -131,38 +163,44 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 1rem;
-}
-
-.payment-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #01532B;
-  margin: 0;
+  justify-content: space-around;
+  padding: 1.5rem;
 }
 
 .amount-display {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.15);
+  background: #f8f9fa;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border: 1px solid #e9ecef;
   width: 100%;
-  max-width: 320px;
+  max-width: 380px;
+  text-align: center;
+}
+
+.amount-label {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+  margin-bottom: 2px;
 }
 
 .amount-value {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #01532B;
+}
+
+.currency-label {
+  font-size: 0.75rem;
+  color: #888;
 }
 
 .qr-wrapper {
   background: white;
-  padding: 2rem;
-  border-radius: 20px;
-  border: 3px solid #01532B;
-  box-shadow: 0 15px 45px rgba(1, 83, 43, 0.2);
+  padding: 1.5rem;
+  border-radius: 16px;
+  border: 2px solid #01532B;
+  box-shadow: 0 8px 24px rgba(1, 83, 43, 0.08);
 }
 
 .qr-payment-methods {
@@ -179,8 +217,8 @@ export default {
 }
 
 .qr-payment-method-logo {
-  width: 250px;
-  height: 250px;
+  width: 230px;
+  height: 230px;
   object-fit: contain;
 }
 
@@ -197,8 +235,8 @@ export default {
 }
 
 .qr-canvas {
-  width: 250px !important;
-  height: 250px !important;
+  width: 230px !important;
+  height: 230px !important;
 }
 
 .dynamic-label {
@@ -211,7 +249,7 @@ export default {
 }
 
 .multi-currency-section {
-  margin-top: 12px;
+  margin-top: 10px;
   padding-top: 8px;
   border-top: 1px dashed rgba(1, 83, 43, 0.2);
 }
@@ -220,14 +258,13 @@ export default {
   display: flex;
   justify-content: center;
   gap: 8px;
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #555;
 }
 
 .instruction-steps {
   display: flex;
   gap: 1rem;
-  margin-top: 1rem;
 }
 
 .step {

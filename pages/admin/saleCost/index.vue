@@ -255,6 +255,12 @@ export default {
       this.dateFormatted2 = this.formatDate(this.date2)
       this.fetchData()
     },
+    currentSelectedLocation: {
+      handler() {
+        this.fetchData()
+      },
+      deep: true
+    }
   },
   async mounted() {
     await this.fetchData()
@@ -263,17 +269,33 @@ export default {
   computed: {
     ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
     grandSaleTotal() {
-      // ✅ Normalize to LAK: total * exchangeRate
+      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
       return this.loaddata.reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.total * rate)
+        const itemTotal = parseFloat(item.total || 0)
+        const itemDiscount = parseFloat(item.discount || 0)
+        
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
+        return total + (grossAmount * rate)
       }, 0)
     },
     grandSaleDiscountTotal() {
       // ✅ Normalize to LAK: discount * exchangeRate
       return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.discount * rate)
+        const itemDiscount = parseFloat(item.discount || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemDiscount) > 1e12) {
+          return total;
+        }
+
+        return total + (itemDiscount * rate)
       }, 0)
     },
     grandSaleCancelTotal() {
@@ -281,17 +303,49 @@ export default {
       // ✅ Normalize to LAK: total * exchangeRate
       return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
         const rate = item.exchangeRate || 1
-        return total + (item.total * rate)
+        const itemTotal = parseFloat(item.total || 0)
+
+        // Guard against corrupted/astronomical values
+        if (Math.abs(itemTotal) > 1e12) {
+          return total;
+        }
+
+        // Cancelled/returned sales should be represented as positive amounts in the summary list
+        return total + (Math.abs(itemTotal) * rate)
       }, 0)
     },
     grandSaleCost() {
       let totalCost = 0;
       this.loaddata.filter(sale => sale.isActive === true).forEach(sale => {
-        // Console log to see which sale is pushing the cost too high
         let saleCost = 0;
+        const saleRate = sale.exchangeRate || 1;
+        
         sale.lines?.forEach(line => {
+          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
+          
           line.cards?.forEach(card => {
-            saleCost += parseFloat(card.cost || 0);
+            let cardCost = 0;
+            const cardRate = card.exchangeRate || 1;
+            
+            if (card.costLCY !== undefined && card.costLCY !== null) {
+              cardCost = parseFloat(card.costLCY);
+            } else {
+              cardCost = parseFloat(card.cost || 0) * cardRate;
+            }
+            
+            // ✅ Smart Currency Correction:
+            // If the calculated cost in LAK is > 1.5x the retail selling price of the item, 
+            // and a non-LAK exchange rate (> 10) was applied, it means a LAK cost (e.g. 185,000 Kip) 
+            // was entered under a foreign currency product settings and incorrectly multiplied by the rate (e.g. 687).
+            // We fall back to the raw cost value (which is the actual LAK cost entered by the user).
+            if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
+              cardCost = parseFloat(card.cost || 0);
+            }
+            
+            // Guard against corrupted cost values
+            if (Math.abs(cardCost) < 1e12) {
+              saleCost += cardCost;
+            }
           });
         });
         console.log(`Sale ID: ${sale.id} | Cost: ${saleCost}`);
@@ -411,7 +465,7 @@ export default {
         })
 
       await Promise.all([
-        this.$axios.get(`api/sale/findDetailByDate`, { params: { date } })
+        this.$axios.get(`api/sale/findDetailByDate`, { params: { date, locationId } })
           .then((res) => {
             this.loaddata = res.data;
             console.log(`Stock entry count ${this.loaddata.length}`);

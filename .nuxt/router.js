@@ -15,9 +15,7 @@ const _6bd6cbe4 = () => interopDefault(import('../pages/product-details.vue' /* 
 const _7ffb8697 = () => interopDefault(import('../pages/products/index.vue' /* webpackChunkName: "pages/products/index" */))
 const _5a38e948 = () => interopDefault(import('../pages/public/index.vue' /* webpackChunkName: "pages/public/index" */))
 const _5a2985aa = () => interopDefault(import('../pages/admin/advertise/index.vue' /* webpackChunkName: "pages/admin/advertise/index" */))
-const _c081733c = () => interopDefault(import('../pages/admin/ap/index.vue' /* webpackChunkName: "pages/admin/ap/index" */))
 const _0aa72964 = () => interopDefault(import('../pages/admin/applicants/index.vue' /* webpackChunkName: "pages/admin/applicants/index" */))
-const _6ceea838 = () => interopDefault(import('../pages/admin/ar/index.vue' /* webpackChunkName: "pages/admin/ar/index" */))
 const _437d31c6 = () => interopDefault(import('../pages/admin/authority/index.vue' /* webpackChunkName: "pages/admin/authority/index" */))
 const _4dc0be2f = () => interopDefault(import('../pages/admin/bank/index.vue' /* webpackChunkName: "pages/admin/bank/index" */))
 const _6ec13158 = () => interopDefault(import('../pages/admin/bankAccount/index.vue' /* webpackChunkName: "pages/admin/bankAccount/index" */))
@@ -40,8 +38,11 @@ const _10ce75c4 = () => interopDefault(import('../pages/admin/currency/index.vue
 const _f13f2d5e = () => interopDefault(import('../pages/admin/customer/index.vue' /* webpackChunkName: "pages/admin/customer/index" */))
 const _4dd908a1 = () => interopDefault(import('../pages/admin/customer_request/index.vue' /* webpackChunkName: "pages/admin/customer_request/index" */))
 const _6aa85aae = () => interopDefault(import('../pages/admin/database/index.vue' /* webpackChunkName: "pages/admin/database/index" */))
+const _4d28069b = () => interopDefault(import('../pages/admin/expense/index.vue' /* webpackChunkName: "pages/admin/expense/index" */))
+const _6ac19bef = () => interopDefault(import('../pages/admin/fixed-assets/index.vue' /* webpackChunkName: "pages/admin/fixed-assets/index" */))
 const _09aa8974 = () => interopDefault(import('../pages/admin/generalLedger/index.vue' /* webpackChunkName: "pages/admin/generalLedger/index" */))
 const _975dcbfc = () => interopDefault(import('../pages/admin/group/index.vue' /* webpackChunkName: "pages/admin/group/index" */))
+const _56a9c148 = () => interopDefault(import('../pages/admin/income/index.vue' /* webpackChunkName: "pages/admin/income/index" */))
 const _df94d8de = () => interopDefault(import('../pages/admin/inventory_value/index.vue' /* webpackChunkName: "pages/admin/inventory_value/index" */))
 const _cdba2146 = () => interopDefault(import('../pages/admin/jobAdvertise/index.vue' /* webpackChunkName: "pages/admin/jobAdvertise/index" */))
 const _38d56420 = () => interopDefault(import('../pages/admin/laundry/index.vue' /* webpackChunkName: "pages/admin/laundry/index" */))
@@ -133,8 +134,6 @@ const _2517700b = () => interopDefault(import('../pages/pos/restaurant/index.vue
 const _4b336acc = () => interopDefault(import('../pages/pos/ticket/index.vue' /* webpackChunkName: "pages/pos/ticket/index" */))
 const _cdde3588 = () => interopDefault(import('../pages/reports/profit-loss.vue' /* webpackChunkName: "pages/reports/profit-loss" */))
 const _11bf3a86 = () => interopDefault(import('../pages/reports/stock-movement.vue' /* webpackChunkName: "pages/reports/stock-movement" */))
-const _4d058200 = () => interopDefault(import('../pages/admin/ap/invoice/index.vue' /* webpackChunkName: "pages/admin/ap/invoice/index" */))
-const _1b1605c9 = () => interopDefault(import('../pages/admin/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/ap/invoiceSettlement/index" */))
 const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1.vue' /* webpackChunkName: "pages/admin/applicants/index-1" */))
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
 const _16e21664 = () => interopDefault(import('../pages/admin/cafe/promotion/index.vue' /* webpackChunkName: "pages/admin/cafe/promotion/index" */))
@@ -142,6 +141,10 @@ const _324d246c = () => interopDefault(import('../pages/admin/cafeTable/customer
 const _4a865867 = () => interopDefault(import('../pages/admin/cafeTable/customerv1.vue' /* webpackChunkName: "pages/admin/cafeTable/customerv1" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
+const _d85b8a84 = () => interopDefault(import('../pages/admin/fixed-assets/contracts.vue' /* webpackChunkName: "pages/admin/fixed-assets/contracts" */))
+const _6e449880 = () => interopDefault(import('../pages/admin/fixed-assets/depreciation.vue' /* webpackChunkName: "pages/admin/fixed-assets/depreciation" */))
+const _f586e352 = () => interopDefault(import('../pages/admin/fixed-assets/products.vue' /* webpackChunkName: "pages/admin/fixed-assets/products" */))
+const _9f492504 = () => interopDefault(import('../pages/admin/generalLedger/posting-control-center.vue' /* webpackChunkName: "pages/admin/generalLedger/posting-control-center" */))
 const _581a3c60 = () => interopDefault(import('../pages/admin/inventory/stock-management/index.vue' /* webpackChunkName: "pages/admin/inventory/stock-management/index" */))
 const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
 const _21eab965 = () => interopDefault(import('../pages/admin/job_fair/broker/index.vue' /* webpackChunkName: "pages/admin/job_fair/broker/index" */))
@@ -161,6 +164,8 @@ const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.
 const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
 const _01d70745 = () => interopDefault(import('../pages/reports/financial/pl/index.vue' /* webpackChunkName: "pages/reports/financial/pl/index" */))
+const _8b3672ec = () => interopDefault(import('../pages/admin/accounting/ap/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ap/invoice/index" */))
+const _bf0eb45a = () => interopDefault(import('../pages/admin/accounting/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/accounting/ap/invoiceSettlement/index" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
@@ -248,17 +253,9 @@ export const routerOptions = {
     component: _5a2985aa,
     name: "admin-advertise"
   }, {
-    path: "/admin/ap",
-    component: _c081733c,
-    name: "admin-ap"
-  }, {
     path: "/admin/applicants",
     component: _0aa72964,
     name: "admin-applicants"
-  }, {
-    path: "/admin/ar",
-    component: _6ceea838,
-    name: "admin-ar"
   }, {
     path: "/admin/authority",
     component: _437d31c6,
@@ -348,6 +345,14 @@ export const routerOptions = {
     component: _6aa85aae,
     name: "admin-database"
   }, {
+    path: "/admin/expense",
+    component: _4d28069b,
+    name: "admin-expense"
+  }, {
+    path: "/admin/fixed-assets",
+    component: _6ac19bef,
+    name: "admin-fixed-assets"
+  }, {
     path: "/admin/generalLedger",
     component: _09aa8974,
     name: "admin-generalLedger"
@@ -355,6 +360,10 @@ export const routerOptions = {
     path: "/admin/group",
     component: _975dcbfc,
     name: "admin-group"
+  }, {
+    path: "/admin/income",
+    component: _56a9c148,
+    name: "admin-income"
   }, {
     path: "/admin/inventory_value",
     component: _df94d8de,
@@ -720,14 +729,6 @@ export const routerOptions = {
     component: _11bf3a86,
     name: "reports-stock-movement"
   }, {
-    path: "/admin/ap/invoice",
-    component: _4d058200,
-    name: "admin-ap-invoice"
-  }, {
-    path: "/admin/ap/invoiceSettlement",
-    component: _1b1605c9,
-    name: "admin-ap-invoiceSettlement"
-  }, {
     path: "/admin/applicants/index-1",
     component: _103d8bf0,
     name: "admin-applicants-index-1"
@@ -755,6 +756,22 @@ export const routerOptions = {
     path: "/admin/customer_request/withdraw",
     component: _e852f9ea,
     name: "admin-customer_request-withdraw"
+  }, {
+    path: "/admin/fixed-assets/contracts",
+    component: _d85b8a84,
+    name: "admin-fixed-assets-contracts"
+  }, {
+    path: "/admin/fixed-assets/depreciation",
+    component: _6e449880,
+    name: "admin-fixed-assets-depreciation"
+  }, {
+    path: "/admin/fixed-assets/products",
+    component: _f586e352,
+    name: "admin-fixed-assets-products"
+  }, {
+    path: "/admin/generalLedger/posting-control-center",
+    component: _9f492504,
+    name: "admin-generalLedger-posting-control-center"
   }, {
     path: "/admin/inventory/stock-management",
     component: _581a3c60,
@@ -831,6 +848,14 @@ export const routerOptions = {
     path: "/reports/financial/pl",
     component: _01d70745,
     name: "reports-financial-pl"
+  }, {
+    path: "/admin/accounting/ap/invoice",
+    component: _8b3672ec,
+    name: "admin-accounting-ap-invoice"
+  }, {
+    path: "/admin/accounting/ap/invoiceSettlement",
+    component: _bf0eb45a,
+    name: "admin-accounting-ap-invoiceSettlement"
   }, {
     path: "/admin/accounting/ar/invoice",
     component: _55b98a0c,

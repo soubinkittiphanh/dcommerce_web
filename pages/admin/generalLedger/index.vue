@@ -11,16 +11,16 @@
             <loading-indicator> </loading-indicator>
         </v-dialog>
 
-        <v-card>
-            <v-card-title>
-                <v-layout row wrap>
-                    <v-col cols="6">
+        <v-card class="elevation-2 rounded-lg">
+            <v-card-title class="pa-4 grey lighten-5">
+                <v-layout row wrap class="align-center">
+                    <v-col cols="12" md="6" class="d-flex flex-wrap align-center">
                         <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false"
                             transition="scale-transition" offset-y max-width="290px" min-width="auto">
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ:" hint="MM/DD/YYYY format"
                                     persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                                    @blur="date = parseDate(dateFormatted)" v-on="on"></v-text-field>
+                                    @blur="date = parseDate(dateFormatted)" v-on="on" outlined dense class="mr-3 mb-2" style="max-width: 180px;"></v-text-field>
                             </template>
                             <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
                         </v-menu>
@@ -30,89 +30,119 @@
                             <template v-slot:activator="{ on, attrs }">
                                 <v-text-field v-model="dateFormatted2" label="ຫາວັນທີ:" hint="MM/DD/YYYY format"
                                     persistent-hint prepend-icon="mdi-calendar" v-bind="attrs"
-                                    @blur="date2 = parseDate(dateFormatted2)" v-on="on"></v-text-field>
+                                    @blur="date2 = parseDate(dateFormatted2)" v-on="on" outlined dense class="mr-3 mb-2" style="max-width: 180px;"></v-text-field>
                             </template>
                             <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
                         </v-menu>
-                        <v-btn @click="triggerDialog" class="primary" rounded> ເພີ່ມລາຍການ GL </v-btn>
+                        <v-btn @click="triggerDialog" class="primary mb-2 rounded-lg" depressed>
+                            <v-icon left>mdi-plus</v-icon>
+                            ເພີ່ມລາຍການ GL (JV)
+                        </v-btn>
                     </v-col>
-                    <v-col cols="6">
+                    <v-col cols="12" md="6" class="d-flex align-center justify-end">
                         <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line
-                            hide-detailsx />
-                        <v-text-field v-model="userId" append-icon="mdi-magnify" label="ລະຫັດຜູ້ຂາຍ" single-line
-                            hide-detailsx />
-                        <v-btn @click="loadTxn" class="primary" size="large" variant="outlined" rounded> ດຶງລາຍງານ
+                            outlined dense hide-details class="mr-3" style="max-width: 250px;" />
+                        <v-btn @click="loadTxn" class="primary rounded-lg" depressed>
+                            <v-icon left>mdi-refresh</v-icon>
+                            ດຶງລາຍງານ
                         </v-btn>
                     </v-col>
                 </v-layout>
             </v-card-title>
-            <!-- <v-data-table v-if="orderHeaderList" :headers="headers" :search="search" :items="orderHeaderList"> -->
-            <v-card-text>
-                <table border="1" v-if="GLCurrencyGrouping.length > 0">
-                    <thead>
-                        <tr>
-                            <th>ສະກຸນເງິນ</th>
-                            <th>ລວມຍອດ</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="txn in GLCurrencyGrouping" :key="txn['currency']">
-                            <td>{{ txn.currency }}</td>
-                            <td style="text-align: right;">{{ numberWithCommas(txn.amount) }}</td>
-                        </tr>
-                        <tr>
-                            <td>ຍອດລວມສະກຸນ LCY</td>
-                            <td style="text-align: right;">{{ numberWithCommas(totalLCYAmount) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
 
+            <v-card-text class="pa-4">
+                <v-row>
+                    <v-col cols="12" md="4" v-if="GLCurrencyGrouping.length > 0">
+                        <v-card outlined class="pa-3 rounded-lg grey lighten-5">
+                            <div class="text-subtitle-2 font-weight-bold mb-2 primary--text">ສະຫຼຸບຍອດຕາມສະກຸນເງິນ</div>
+                            <table class="summary-table w-100">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left font-weight-bold grey--text text--darken-1">ສະກຸນເງິນ</th>
+                                        <th class="text-right font-weight-bold grey--text text--darken-1">ລວມຍອດ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="txn in GLCurrencyGrouping" :key="txn['currency']" class="border-bottom">
+                                        <td class="py-1 font-weight-medium">{{ txn.currency }}</td>
+                                        <td class="py-1 text-right font-weight-bold">{{ numberWithCommas(txn.amount) }}</td>
+                                    </tr>
+                                    <tr class="font-weight-black primary--text">
+                                        <td class="py-2">ຍອດລວມສະກຸນ LCY (Debits)</td>
+                                        <td class="py-2 text-right">{{ numberWithCommas(totalLCYAmount) }} LAK</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </v-card-text>
-            <v-data-table v-if="txnList" :headers="headers" :search="search" :items="txnList">
+
+            <v-data-table v-if="txnList" :headers="headers" :search="search" :items="txnList" class="elevation-1 border-top compact-table">
                 <template v-slot:[`item.function`]="{ item }">
-                    <v-btn color="primary" text @click="editItem(item)">
-                        <i class="fa-regular fa-pen-to-square"></i>
+                    <v-btn color="primary" icon small @click="editItem(item)">
+                        <v-icon small>mdi-pencil</v-icon>
                     </v-btn>
                 </template>
-                <template v-slot:[`item.POST`]="{ item }">
-                    <v-btn color="primary" text @click="postToPayment(item)">
-                        <!-- <i class="fa-regular fa-pen-to-square"></i>
-                         -->
-                        <i class="fa-solid fa-file-invoice-dollar"></i>
-                    </v-btn>
+                <template v-slot:[`item.debit`]="{ item }">
+                    <span v-if="parseFloat(item.debit) > 0" class="success--text font-weight-bold">
+                        {{ numberWithCommas(item.debit) }}
+                    </span>
+                    <span v-else class="grey--text">-</span>
                 </template>
-                <template v-slot:[`item.amount`]="{ item }">
-                    {{ numberWithCommas(item.amount) }}
+                <template v-slot:[`item.credit`]="{ item }">
+                    <span v-if="parseFloat(item.credit) > 0" class="error--text font-weight-bold">
+                        {{ numberWithCommas(item.credit) }}
+                    </span>
+                    <span v-else class="grey--text">-</span>
                 </template>
-                <template v-slot:[`item.localAmount`]="{ item }">
-                    {{ numberWithCommas(item.localAmount) }}
+                <template v-slot:[`item.localDebit`]="{ item }">
+                    <span v-if="parseFloat(item.localDebit) > 0" class="success--text font-weight-medium">
+                        {{ numberWithCommas(item.localDebit) }}
+                    </span>
+                    <span v-else class="grey--text">-</span>
+                </template>
+                <template v-slot:[`item.localCredit`]="{ item }">
+                    <span v-if="parseFloat(item.localCredit) > 0" class="error--text font-weight-medium">
+                        {{ numberWithCommas(item.localCredit) }}
+                    </span>
+                    <span v-else class="grey--text">-</span>
+                </template>
+                <template v-slot:[`item.drAccount.accountNumber`]="{ item }">
+                    <v-chip v-if="item.drAccount" x-small color="success" outlined label class="font-weight-bold">
+                        {{ item.drAccount.accountNumber }}
+                    </v-chip>
+                    <span v-else class="grey--text text-caption">-</span>
+                </template>
+                <template v-slot:[`item.crAccount.accountNumber`]="{ item }">
+                    <v-chip v-if="item.crAccount" x-small color="error" outlined label class="font-weight-bold">
+                        {{ item.crAccount.accountNumber }}
+                    </v-chip>
+                    <span v-else class="grey--text text-caption">-</span>
                 </template>
                 <template v-slot:[`item.rate`]="{ item }">
                     {{ numberWithCommas(item.rate) }}
                 </template>
                 <template v-slot:[`item.createdAt`]="{ item }">
-                    {{ item.createdAt.split('.')[0] }}
+                    {{ item.createdAt ? item.createdAt.split('.')[0].replace('T', ' ') : '-' }}
                 </template>
-
             </v-data-table>
         </v-card>
     </div>
 </template>
+
 <script>
-import PoForm from '~/components/po/PoForm.vue'
-import PurchasingFormCRUD from '~/components/PurchasingFormCRUD.vue'
-import ReceivingFormCRUD from '~/components/ReceivingFormCRUD.vue'
-import { confirmSwal, swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
+import { confirmSwal, swalSuccess, swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
 import GLForm from '~/components/accounting/GLForm.vue'
+
 export default {
-    components: { PoForm, PurchasingFormCRUD, ReceivingFormCRUD, GLForm },
+    components: { GLForm },
     mounted() {
         this.loadTxn()
     },
-      middleware: 'auths',
+    middleware: 'auths',
     data() {
         return {
-            userId: "",
             search: "",
             isEdit: false,
             dialog: false,
@@ -136,17 +166,25 @@ export default {
                     sortable: true,
                 },
                 {
-                    text: 'SRC APP REF.',
+                    text: 'SRC APP',
                     align: 'center',
                     value: 'source',
                     sortable: true,
                 },
-                { text: 'ຈຳນວນ', align: 'center', value: 'amount' },
+                {
+                    text: 'Reference',
+                    align: 'center',
+                    value: 'postingReference',
+                    sortable: true,
+                },
+                { text: 'DR Account', align: 'center', value: 'drAccount.accountNumber' },
+                { text: 'CR Account', align: 'center', value: 'crAccount.accountNumber' },
+                { text: 'Debit', align: 'right', value: 'debit' },
+                { text: 'Credit', align: 'right', value: 'credit' },
                 { text: 'ສະກຸນ', align: 'center', value: 'currency.code' },
-                { text: 'ອັດຕາແລກປ່ຽນ', align: 'right', value: 'rate' },
-                { text: 'DR', align: 'center', value: 'drAccount.accountNumber' },
-                { text: 'CR', align: 'center', value: 'crAccount.accountNumber' },
-                { text: 'Local amount', align: 'right', value: 'localAmount' },
+                { text: 'ອັດຕາ', align: 'right', value: 'rate' },
+                { text: 'Local Debit', align: 'right', value: 'localDebit' },
+                { text: 'Local Credit', align: 'right', value: 'localCredit' },
                 { text: 'ເນື້ອໃນ', align: 'center', value: 'description' },
                 { text: 'ເວລາສ້າງ', align: 'center', value: 'createdAt' },
                 {
@@ -192,7 +230,7 @@ export default {
             this.dialog = true
         },
         editItem(item) {
-            console.log(`PO HEADER ID ${item.id}`);
+            console.log(`GL ITEM ID ${item.id}`);
             this.selectedId = item.id
             this.isEdit = true;
             this.apFormKey += 1;
@@ -200,13 +238,11 @@ export default {
         },
         formatDate(date) {
             if (!date) return null
-            console.log("DATE FORMAT METHOD1: " + date);
             const formattedDate = this.formatDateToISO(date);
             const [year, month, day] = formattedDate.split('-')
             return `${month}/${day}/${year}`
         },
         parseDate(date) {
-            console.log("DATE PARSE METHOD1: " + date);
             if (!date) return null
             const [month, day, year] = date.split('/')
             return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
@@ -214,7 +250,7 @@ export default {
         formatDateToISO(date) {
             if (!(date instanceof Date)) date = new Date(date);
             const year = date.getFullYear();
-            const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
+            const month = `${date.getMonth() + 1}`.padStart(2, '0');
             const day = `${date.getDate()}`.padStart(2, '0');
             return `${year}-${month}-${day}`;
         },
@@ -230,77 +266,68 @@ export default {
             } catch (error) {
                 swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ' + error);
             }
-
             this.isloading = false
-        },
-        async postToPayment(recTxn) {
-            const transaction =
-            {
-                receivingId: recTxn.id,
-                bookingDate: recTxn.bookingDate,
-                paymentNumber: `POST FROM REC: ${recTxn.id}`,
-                payee: recTxn.vendor.name,
-                paymentId: null,
-                currencyId: recTxn.currencyId,
-                rate: recTxn.exchangeRate,
-                totalAmount: recTxn.total,
-                notes: recTxn.notes,
-                update_user: 1,
-                drAccount: null,
-                crAccount: 1,
-                isActive: true
-            }
-            confirmSwal(this.$swal, 'You are posting to Payment ?', async () => {
-                this.isloading = true
-                try {
-                    const response = await this.$axios.post(`/api/finanicial/ap/header/api/create`, transaction)
-                    console.log(`Transaction complete ${JSON.stringify(response.data)}`);
-                    swalSuccess(this.$swal, 'Succeed', 'Your transaction completed');
-                } catch (error) {
-                    console.error(`Something went wrong ${error}`);
-                    swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ' + error);
-                }
-                this.isloading = false
-            })
-
-        },
-
+        }
     },
     computed: {
-
         GLCurrencyGrouping() {
-            // Object to store the sum of transactions for each currency code
             const sumByCurrency = {};
 
-            // Loop through each transaction
             this.txnList.forEach(transaction => {
-                const { amount, currency } = transaction;
-                // If the currency code doesn't exist in the sumByCurrency object, initialize it to 0
-                if (!sumByCurrency[currency['code']]) {
-                    sumByCurrency[currency['code']] = 0;
+                const { debit, credit, currency } = transaction;
+                const code = currency?.code || 'LAK';
+                if (!sumByCurrency[code]) {
+                    sumByCurrency[code] = 0;
                 }
-                // Accumulate the total amount for the currency code
-                sumByCurrency[currency['code']] += amount;
+                const debitVal = parseFloat(debit) || 0;
+                const creditVal = parseFloat(credit) || 0;
+                sumByCurrency[code] += (debitVal || creditVal);
             });
 
-            // Display the sum for each currency code
             const listOfCurrency = []
             for (const currencyCode in sumByCurrency) {
-                console.log(`Total for ${currencyCode}: ${sumByCurrency[currencyCode]}`);
                 listOfCurrency.push({ 'currency': currencyCode, 'amount': sumByCurrency[currencyCode] })
             }
 
             return listOfCurrency;
         },
         totalLCYAmount() {
-            // Loop through each transaction
-            let total = this.txnList.reduce((total, item) => {
-                return total + item.localAmount;
+            let totalDebits = this.txnList.reduce((sum, item) => {
+                return sum + (parseFloat(item.localDebit) || 0);
             }, 0);
-            return total;
+            return totalDebits;
         }
     }
 }
 </script>
 
-<style></style>
+<style scoped>
+.summary-table {
+    border-collapse: collapse;
+}
+.summary-table th, .summary-table td {
+    padding: 6px 4px;
+}
+.border-bottom {
+    border-bottom: 1px solid #e0e0e0;
+}
+.border-top {
+    border-top: 1px solid #e0e0e0;
+}
+.w-100 {
+    width: 100%;
+}
+.compact-table :deep(th) {
+  height: 48px !important;
+  font-size: 0.75rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #546e7a !important;
+  background-color: #f8f9fa !important;
+  font-weight: bold;
+}
+.compact-table :deep(td) {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+}
+</style>

@@ -1,65 +1,102 @@
 <template>
-  <div v-if="visible" class="modal-overlay" @click="handleOverlayClick">
-    <div class="enhanced-dialog" @click.stop>
-      <div class="modal-header primary">
-        <div class="d-flex align-center">
-          <v-avatar color="white" size="32" class="mr-3">
-            <v-icon color="primary" small>mdi-file-document-edit</v-icon>
-          </v-avatar>
-          <div>
-            <h4 class="font-weight-bold">
-              {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້ (Edit AP Invoice)' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່ (Create New AP Invoice)' }}
-            </h4>
-            <div class=" white--text opacity-80">{{ isEdit ? `Invoice #: ${form.invoiceNumber}` : `Drafting
-              new invoice` }}</div>
+  <div>
+    <!-- Main AP Invoice Dialog -->
+    <v-dialog
+      :value="visible"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+      scrollable
+      persistent
+    >
+      <v-card class="d-flex flex-column invoice-modal-card">
+        <!-- Dialog Header -->
+        <v-card-title class="modal-header px-6 py-4 grey lighten-5 border-bottom">
+          <div class="d-flex align-center w-100">
+            <v-avatar color="primary lighten-5" size="40" class="mr-3">
+              <v-icon color="primary">mdi-file-document-edit</v-icon>
+            </v-avatar>
+            <div class="flex-grow-1">
+              <h4 class="text-subtitle-1 font-weight-bold grey--text text--darken-3 mb-0">
+                {{ isEdit ? 'ແກ້ໄຂໃບແຈ້ງໜີ້ (Edit AP Invoice)' : 'ເພີ່ມໃບແຈ້ງໜີ້ໃໝ່ (Create New AP Invoice)' }}
+              </h4>
+              <div class="text-caption grey--text text--darken-1 mt-0">
+                {{ isEdit ? `Invoice #: ${form.invoiceNumber}` : `Drafting new invoice` }}
+              </div>
+            </div>
+            <v-btn icon color="grey darken-2" @click="handleClose">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
           </div>
-        </div>
-        <v-btn icon dark @click="handleClose" class="close-button">
-          <v-icon>mdi-close</v-icon>
-        </v-btn>
-      </div>
+        </v-card-title>
 
-      <div class="modal-body">
-        <!-- Loading State -->
-        <div v-if="formLoading" class="loading-state">
-          <div class="spinner"></div>
-          <p>ກຳລັງໂຫຼດຂໍ້ມູນ...</p>
-        </div>
+        <!-- Dialog Scrollable Body -->
+        <v-card-text class="modal-body pa-6 grey lighten-4" style="flex: 1; overflow-y: auto;">
+          <!-- Loading State -->
+          <div v-if="formLoading" class="d-flex flex-column align-center justify-center py-12">
+            <v-progress-circular indeterminate size="64" color="primary" class="mb-4" />
+            <span class="text-body-1 grey--text text--darken-1">ກຳລັງໂຫຼດຂໍ້ມູນ...</span>
+          </div>
 
-        <!-- Single Form View -->
-        <div v-else class="invoice-content pa-6">
-          <form @submit.prevent="handleSubmit">
-            <!-- Basic Information Section -->
-            <v-card outlined class="form-section-card mb-6">
-              <v-card-title class="section-card-title py-3">
-                <v-icon small color="primary" class="mr-2">mdi-information-outline</v-icon>
-                <span>ຂໍ້ມູນພື້ນຖານ (Basic Information)</span>
-              </v-card-title>
-              <v-divider></v-divider>
-              <v-card-text class="pa-4">
-                <v-row dense>
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label class="required">ວັນທີໃບແຈ້ງໜີ້ (Invoice Date)</label>
-                      <v-text-field v-model="form.invoiceDate" type="date" outlined dense hide-details="auto"
-                        :error-messages="errors.invoiceDate" @change="calculateDueDate" />
-                    </div>
-                  </v-col>
+          <!-- Single Form View -->
+          <div v-else class="invoice-form">
+            <form @submit.prevent="handleSubmit">
+              <!-- Basic Information Section -->
+              <v-card outlined class="rounded-lg mb-6 shadow-sm overflow-hidden white">
+                <v-card-title class="text-subtitle-1 font-weight-bold primary--text pa-4 pb-2">
+                  <v-icon left color="primary">mdi-information-outline</v-icon>
+                  <span>ຂໍ້ມູນພື້ນຖານ (Basic Information)</span>
+                </v-card-title>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label class="required">ເລກທີໃບແຈ້ງໜີ້ (Invoice Number)</label>
-                      <v-text-field v-model="form.invoiceNumber" outlined dense hide-details="auto"
-                        placeholder="INV-XXXXX" :readonly="isEdit" :error-messages="errors.invoiceNumber" />
-                    </div>
-                  </v-col>
+                <v-card-text class="pa-4">
+                  <v-row dense>
+                    <!-- Invoice Date -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-text-field
+                        v-model="form.invoiceDate"
+                        type="date"
+                        label="ວັນທີໃບແຈ້ງໜີ້ (Invoice Date) *"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        :error-messages="errors.invoiceDate"
+                        required
+                        @change="calculateDueDate"
+                      />
+                    </v-col>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label class="required">{{ clientLabel }} (Vendor)</label>
-                      <v-autocomplete v-model="form.agencyId" :items="agencies" item-value="id" item-text="agencyName"
-                        outlined dense clearable hide-details="auto" :placeholder="formLabel.vendor"
-                        :error-messages="errors.agencyId" @change="onVendorChange">
+                    <!-- Invoice Number -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-text-field
+                        v-model="form.invoiceNumber"
+                        label="ເລກທີໃບແຈ້ງໜີ້ (Invoice Number) *"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        placeholder="INV-XXXXX"
+                        :readonly="isEdit"
+                        :error-messages="errors.invoiceNumber"
+                        required
+                      />
+                    </v-col>
+
+                    <!-- Vendor (Agency) -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-autocomplete
+                        v-model="form.agencyId"
+                        :items="agencies"
+                        item-value="id"
+                        item-text="agencyName"
+                        :label="`${clientLabel} (Vendor) *`"
+                        outlined
+                        dense
+                        clearable
+                        hide-details="auto"
+                        :placeholder="formLabel.vendor"
+                        :error-messages="errors.agencyId"
+                        required
+                        @change="onVendorChange"
+                      >
                         <template v-slot:item="{ item }">
                           <small>{{ item.agencyCode }} - {{ item.agencyName }}</small>
                         </template>
@@ -67,261 +104,340 @@
                           <small>{{ item.agencyCode }} - {{ item.agencyName }}</small>
                         </template>
                       </v-autocomplete>
-                    </div>
-                  </v-col>
+                    </v-col>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label>ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ (Vendor Ref)</label>
-                      <v-text-field v-model="form.vendorInvoiceNumber" outlined dense hide-details="auto"
-                        placeholder="Vendor's Invoice #" :error-messages="errors.vendorInvoiceNumber" />
-                    </div>
-                  </v-col>
+                    <!-- Vendor Ref (vendorInvoiceNumber) -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-text-field
+                        v-model="form.vendorInvoiceNumber"
+                        label="ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ (Vendor Ref)"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        placeholder="Vendor's Invoice #"
+                        :error-messages="errors.vendorInvoiceNumber"
+                      />
+                    </v-col>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label class="required">ສະກຸນເງິນ (Currency)</label>
-                      <v-autocomplete v-model="form.currencyId" :items="currencies" item-value="id" item-text="name"
-                        outlined dense clearable hide-details="auto" placeholder="Currency"
-                        :error-messages="errors.currencyId" @change="onCurrencyChange">
+                    <!-- Currency -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-autocomplete
+                        v-model="form.currencyId"
+                        :items="currencies"
+                        item-value="id"
+                        item-text="name"
+                        label="ສະກຸນເງິນ (Currency) *"
+                        outlined
+                        dense
+                        clearable
+                        hide-details="auto"
+                        placeholder="Currency"
+                        :error-messages="errors.currencyId"
+                        required
+                        @change="onCurrencyChange"
+                      >
                         <template v-slot:selection="{ item }">
                           {{ item.name }} ({{ item.code }})
                         </template>
                       </v-autocomplete>
-                    </div>
-                  </v-col>
+                    </v-col>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label class="required">ອັດຕາແລກປ່ຽນ (X-Rate)</label>
-                      <v-text-field v-model="form.exchangeRate" type="number" outlined dense hide-details="auto"
-                        step="0.0001" :error-messages="errors.exchangeRate" @blur="calculateExchangeAmounts">
+                    <!-- Exchange Rate (X-Rate) -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-text-field
+                        v-model="form.exchangeRate"
+                        type="number"
+                        step="0.0001"
+                        label="ອັດຕາແລກປ່ຽນ (X-Rate) *"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        :error-messages="errors.exchangeRate"
+                        required
+                        @blur="calculateExchangeAmounts"
+                      >
                         <template v-slot:append>
-                          <span class=" grey--text">{{ selectedCurrency?.code || '' }} / LAK</span>
+                          <span class="grey--text font-weight-medium text-caption">{{ selectedCurrency?.code || '' }} / LAK</span>
                         </template>
                       </v-text-field>
-                    </div>
-                  </v-col>
+                    </v-col>
 
-                  <v-col cols="12" md="3">
-                    <div class="form-group custom-input-group">
-                      <label>ວັນທີຄົບກຳນົດ (Due Date)</label>
-                      <v-text-field v-model="form.dueDate" type="date" outlined dense hide-details="auto"
-                        :error-messages="errors.dueDate" />
-                    </div>
-                  </v-col>
+                    <!-- Due Date -->
+                    <v-col cols="12" sm="6" md="4" lg="3">
+                      <v-text-field
+                        v-model="form.dueDate"
+                        type="date"
+                        label="ວັນທີຄົບກຳນົດ (Due Date)"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        :error-messages="errors.dueDate"
+                      />
+                    </v-col>
 
-                  <v-col cols="12" md="12">
-                    <div class="form-group custom-input-group">
-                      <label>ຄຳອະທິບາຍ (Description)</label>
-                      <v-textarea v-model="form.description" outlined dense rows="2" hide-details="auto"
-                        placeholder="Enter invoice description..." />
-                    </div>
-                  </v-col>
-                </v-row>
+                    <!-- Description -->
+                    <v-col cols="12" :md="isEdit ? 6 : 12">
+                      <v-textarea
+                        v-model="form.description"
+                        label="ຄຳອະທິບາຍ (Description)"
+                        outlined
+                        dense
+                        rows="2"
+                        auto-grow
+                        hide-details="auto"
+                        placeholder="Enter invoice description..."
+                      />
+                    </v-col>
 
-                <!-- Reason field for edit -->
-                <v-row v-if="isEdit" dense class="mt-4">
-                  <v-col cols="12">
-                    <div class="form-group custom-input-group">
-                      <label class="required font-weight-bold error--text">ເຫດຜົນຂອງການແກ້ໄຂ (Reason for Edit)</label>
-                      <v-text-field v-model="form.reason" outlined dense hide-details="auto"
-                        placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..." :error-messages="errors.reason" />
-                    </div>
-                  </v-col>
-                </v-row>
-              </v-card-text>
-            </v-card>
+                    <!-- Edit Reason (conditional) -->
+                    <v-col v-if="isEdit" cols="12" md="6">
+                      <v-text-field
+                        v-model="form.reason"
+                        label="ເຫດຜົນຂອງການແກ້ໄຂ (Reason for Edit) *"
+                        outlined
+                        dense
+                        hide-details="auto"
+                        placeholder="ລະບຸເຫດຜົນຂອງການແກ້ໄຂ..."
+                        :error-messages="errors.reason"
+                        required
+                      />
+                    </v-col>
+                  </v-row>
+                </v-card-text>
+              </v-card>
 
-            <!-- Line Items Section -->
-            <v-card outlined class="form-section-card mb-6">
-              <v-card-title class="section-card-title py-3 d-flex justify-space-between align-center">
-                <div class="d-flex align-center">
-                  <v-icon small color="primary" class="mr-2">mdi-format-list-bulleted</v-icon>
-                  <span>ລາຍການສິນຄ້າ (Line Items)</span>
-                  <v-chip v-if="lineItems.length > 0" x-small color="primary" class="ml-2 px-2">
-                    {{ lineItems.length }}
-                  </v-chip>
-                </div>
-                <div class="d-flex align-center">
-                  <v-btn small color="primary" depressed @click="addNewLine" class="mr-2">
-                    <v-icon left small>mdi-plus</v-icon>
-                    ເພີ່ມລາຍການ
+              <!-- Line Items Section Card -->
+              <v-card outlined class="rounded-lg mb-6 shadow-sm overflow-hidden white">
+                <v-card-title class="pa-4 d-flex justify-space-between align-center border-bottom grey lighten-5">
+                  <div class="d-flex align-center">
+                    <v-icon left color="success">mdi-format-list-bulleted</v-icon>
+                    <span class="text-subtitle-1 font-weight-bold grey--text text--darken-3">
+                      ລາຍການສິນຄ້າ (Line Items)
+                    </span>
+                    <v-chip v-if="lineItems.length > 0" color="success" x-small class="ml-2 font-weight-bold white--text">
+                      {{ lineItems.length }} ລາຍການ
+                    </v-chip>
+                  </div>
+
+                  <div class="d-flex align-center">
+                    <v-btn
+                      color="primary"
+                      small
+                      depressed
+                      class="mr-2 px-3 rounded-lg"
+                      @click="addNewLine"
+                    >
+                      <v-icon left small>mdi-plus</v-icon>
+                      ເພີ່ມລາຍການ
+                    </v-btn>
+                    <v-btn-toggle v-model="multipleLinesCount" mandatory dense h="28px" class="rounded-lg">
+                      <v-btn x-small outlined color="grey darken-1" @click="addMultipleLines(3)">+3</v-btn>
+                      <v-btn x-small outlined color="grey darken-1" @click="addMultipleLines(5)">+5</v-btn>
+                    </v-btn-toggle>
+                  </div>
+                </v-card-title>
+
+                <!-- Empty State -->
+                <div v-if="lineItems.length === 0" class="d-flex flex-column align-center justify-center py-10 grey lighten-5 border-dashed rounded-b-lg m-4">
+                  <v-icon size="64" color="grey lighten-1" class="mb-3">mdi-playlist-remove</v-icon>
+                  <h4 class="text-subtitle-1 font-weight-bold grey--text text--darken-2 mb-1">
+                    ຍັງບໍ່ມີລາຍການສິນຄ້າ (No Line Items)
+                  </h4>
+                  <p class="text-body-2 grey--text text--darken-1 mb-4 text-center">
+                    ກະລຸນາເພີ່ມລາຍການສິນຄ້າຢ່າງໜ້ອຍ 1 ລາຍການ
+                  </p>
+                  <v-btn color="primary" outlined class="rounded-lg" @click="addNewLine">
+                    <v-icon left>mdi-plus-circle</v-icon>
+                    ເພີ່ມລາຍການທຳອິດ
                   </v-btn>
-                  <v-btn-toggle v-model="multipleLinesCount" mandatory dense h="28px">
-                    <v-btn x-small @click="addMultipleLines(3)">+3</v-btn>
-                    <v-btn x-small @click="addMultipleLines(5)">+5</v-btn>
-                  </v-btn-toggle>
                 </div>
-              </v-card-title>
-              <v-divider></v-divider>
 
-              <!-- Empty State -->
-              <v-card-text v-if="lineItems.length === 0" class="pa-10 text-center">
-                <v-icon size="64" color="grey lighten-2">mdi-cart-outline</v-icon>
-                <h4 class="grey--text text--darken-1 mt-4">ຍັງບໍ່ມີລາຍການສິນຄ້າ</h4>
-                <v-btn color="primary" outlined class="mt-4" @click="addNewLine">
-                  <v-icon left>mdi-plus-circle</v-icon>
-                  ເພີ່ມລາຍການທຳອິດ
-                </v-btn>
-              </v-card-text>
+                <!-- Line Items Table -->
+                <div v-else class="line-items-container">
+                  <div class="table-compact-vuetify">
+                    <v-simple-table dense class="modern-line-table">
+                      <thead>
+                        <tr>
+                          <th class="text-center" style="width: 50px">#</th>
+                          <th class="text-left">ລາຍລະອຽດ (Description) *</th>
+                          <th class="text-left" style="width: 220px">ລະຫັດການເງິນ (Account)</th>
+                          <th class="text-center" style="width: 100px">ຈຳນວນ (Qty) *</th>
+                          <th class="text-right" style="width: 150px">ລາຄາ (Price) *</th>
+                          <th class="text-right" style="width: 150px">ລວມ (Total)</th>
+                          <th class="text-center" style="width: 60px"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(line, index) in lineItems" :key="line.tempId || line.id" class="line-item-row">
+                          <td class="text-center grey--text text--darken-1">{{ index + 1 }}</td>
+                          <td>
+                            <v-text-field
+                              v-model="line.description"
+                              dense
+                              hide-details="auto"
+                              outlined
+                              placeholder="Description..."
+                              class="compact-input rounded-md"
+                              @blur="calculateLineTotal(line)"
+                            />
+                          </td>
+                          <td>
+                            <v-autocomplete
+                              v-model="line.txnId"
+                              :items="transactionCodes.filter(t => t.type !== 'ALL' && t.isActive)"
+                              item-value="id"
+                              item-text="code"
+                              dense
+                              outlined
+                              hide-details="auto"
+                              class="compact-input rounded-md"
+                              placeholder="Select Account"
+                            >
+                              <template v-slot:item="{ item }">
+                                <small>{{ item.code }} - {{ item.description }}</small>
+                              </template>
+                              <template v-slot:selection="{ item }">
+                                <small>{{ item.code }}</small>
+                              </template>
+                            </v-autocomplete>
+                          </td>
+                          <td>
+                            <v-text-field
+                              v-model="line.quantity"
+                              type="number"
+                              dense
+                              hide-details="auto"
+                              outlined
+                              class="compact-input text-center-input font-monospace rounded-md"
+                              @blur="calculateLineTotal(line)"
+                            />
+                          </td>
+                          <td>
+                            <v-text-field
+                              v-model="line.unitPrice"
+                              type="number"
+                              dense
+                              hide-details="auto"
+                              outlined
+                              class="compact-input text-right-input font-monospace rounded-md"
+                              @blur="calculateLineTotal(line)"
+                            />
+                          </td>
+                          <td class="text-right font-weight-bold font-monospace pr-4 total-amount-cell">
+                            {{ formatCurrency(line.lineTotal || 0, selectedCurrency?.code) }}
+                          </td>
+                          <td class="text-center">
+                            <v-btn icon color="error" class="hover-shadow" small @click="removeLine(index)">
+                              <v-icon small>mdi-trash-can-outline</v-icon>
+                            </v-btn>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </v-simple-table>
+                  </div>
+                </div>
+              </v-card>
 
-              <!-- Line Items Table -->
-              <div v-else class="line-items-container">
-                <v-simple-table dense class="modern-line-table">
-                  <thead>
-                    <tr>
-                      <th class="text-center" width="50">#</th>
-                      <th class="text-left">ລາຍລະອຽດ (Description) *</th>
-                      <th class="text-left" width="220">ລະຫັດການເງິນ (Account)</th>
-                      <th class="text-center" width="100">ຈຳນວນ (Qty) *</th>
-                      <th class="text-right" width="150">ລາຄາ (Price) *</th>
-                      <th class="text-right" width="150">ລວມ (Total)</th>
-                      <th class="text-center" width="60"></th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="(line, index) in lineItems" :key="line.tempId || line.id" class="line-item-row">
-                      <td class="text-center grey--text text--darken-1">{{ index + 1 }}</td>
-                      <td>
-                        <v-text-field v-model="line.description" dense hide-details outlined
-                          placeholder="Description..." class="compact-input rounded-md"
-                          @blur="calculateLineTotal(line)" />
-                      </td>
-                      <td>
-                        <v-autocomplete v-model="line.txnId"
-                          :items="transactionCodes.filter(t => t.type !== 'ALL' && t.isActive)" item-value="id"
-                          item-text="code" dense outlined hide-details class="compact-input rounded-md"
-                          placeholder="Select Account">
-                          <template v-slot:item="{ item }">
-                            <small>{{ item.code }} - {{ item.description }}</small>
-                          </template>
-                          <template v-slot:selection="{ item }">
-                            <small>{{ item.code }}</small>
-                          </template>
-                        </v-autocomplete>
-                      </td>
-                      <td>
-                        <v-text-field v-model="line.quantity" type="number" dense hide-details outlined
-                          class="compact-input text-center font-monospace rounded-md"
-                          @blur="calculateLineTotal(line)" />
-                      </td>
-                      <td>
-                        <v-text-field v-model="line.unitPrice" type="number" dense hide-details outlined
-                          class="compact-input text-right font-monospace rounded-md" @blur="calculateLineTotal(line)" />
-                      </td>
-                      <td class="text-right font-weight-bold font-monospace pr-4">
-                        {{ formatCurrency(line.lineTotal || 0, selectedCurrency?.code) }}
-                      </td>
-                      <td class="text-center">
-                        <v-btn icon x-small color="error" class="hover-shadow" @click="removeLine(index)">
-                          <v-icon small>mdi-delete-outline</v-icon>
-                        </v-btn>
-                      </td>
-                    </tr>
-                  </tbody>
-                </v-simple-table>
+              <!-- Total Amount Summary Card -->
+              <div class="modern-amount-summary mt-6">
+                <v-row no-gutters justify="end">
+                  <v-col cols="12" md="6" lg="5">
+                    <v-card outlined class="summary-card-premium overflow-hidden rounded-xl bg-white shadow-lg">
+                      <div class="pa-5">
+                        <div class="d-flex justify-space-between mb-3 text-body-2">
+                          <span class="grey--text text--darken-1 font-weight-medium">ລວມຍ່ອຍ (Subtotal):</span>
+                          <span class="font-weight-bold font-monospace text-subtitle-2 grey--text text--darken-3">
+                            {{ formatCurrency(calculatedSubtotal, selectedCurrency?.code) }}
+                          </span>
+                        </div>
+                        <div class="d-flex justify-space-between mb-3 text-body-2 text-warning">
+                          <span class="font-weight-medium">ສ່ວນຫຼຸດ (Discount):</span>
+                          <span class="font-weight-bold font-monospace text-subtitle-2">
+                            -{{ formatCurrency(calculatedDiscount, selectedCurrency?.code) }}
+                          </span>
+                        </div>
+                        <div class="d-flex justify-space-between mb-0 text-body-2">
+                          <span class="grey--text text--darken-1 font-weight-medium">ພາສີ (Tax):</span>
+                          <span class="font-weight-bold font-monospace text-subtitle-2 grey--text text--darken-3">
+                            +{{ formatCurrency(calculatedTax, selectedCurrency?.code) }}
+                          </span>
+                        </div>
+                      </div>
+                      <v-divider></v-divider>
+                      <div class="total-row-highlight px-5 py-4 d-flex justify-space-between align-center">
+                        <div class="d-flex flex-column">
+                          <span class="text-subtitle-1 font-weight-black white--text mb-0">ລວມທັງໝົດ (Total Amount):</span>
+                          <span v-if="selectedCurrency && selectedCurrency.code !== 'LAK'" class="white--text opacity-80 font-weight-bold text-caption mt-1">
+                            Converted to LAK: {{ formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1), 'LAK') }}
+                          </span>
+                        </div>
+                        <div class="text-h5 font-weight-black white--text font-monospace">
+                          {{ formatCurrency(calculatedTotal, selectedCurrency?.code) }}
+                        </div>
+                      </div>
+                    </v-card>
+                  </v-col>
+                </v-row>
               </div>
-            </v-card>
 
-            <!-- Total Amount Display -->
-            <div class="modern-amount-summary mt-8">
-              <v-row no-gutters justify="end">
-                <v-col cols="12" md="5">
-                  <v-card outlined class="summary-card-premium overflow-hidden">
-                    <div class="pa-5">
-                      <div class="d-flex justify-space-between mb-3">
-                        <span class="grey--text text--darken-1 font-weight-medium">ລວມຍ່ອຍ (Subtotal):</span>
-                        <span class="font-weight-bold font-monospace">{{ formatCurrency(calculatedSubtotal,
-                          selectedCurrency?.code)
-                          }}</span>
-                      </div>
-                      <div class="d-flex justify-space-between mb-3 text-warning">
-                        <span class="font-weight-medium">ສ່ວນຫຼຸດ (Discount):</span>
-                        <span class="font-weight-bold font-monospace">-{{ formatCurrency(calculatedDiscount,
-                          selectedCurrency?.code)
-                          }}</span>
-                      </div>
-                      <div class="d-flex justify-space-between mb-0">
-                        <span class="grey--text text--darken-1 font-weight-medium">ພາສີ (Tax):</span>
-                        <span class="font-weight-bold font-monospace">+{{ formatCurrency(calculatedTax,
-                          selectedCurrency?.code)
-                          }}</span>
-                      </div>
-                    </div>
-                    <v-divider></v-divider>
-                    <div class="total-row-highlight px-5 py-4 d-flex justify-space-between align-center">
-                      <div class="d-flex flex-column">
-                        <span class="text-h6 font-weight-black white--text mb-0">ລວມທັງໝົດ (Total Amount):</span>
-                        <span v-if="selectedCurrency && selectedCurrency.code !== 'LAK'"
-                          class=" white--text opacity-80 font-weight-bold">
-                          Converted to LAK: {{ formatCurrency(calculatedTotal * parseFloat(form.exchangeRate || 1),
-                            'LAK')
-                          }}
-                        </span>
-                      </div>
-                      <div class="text-h5 font-weight-black white--text font-monospace">
-                        {{ formatCurrency(calculatedTotal, selectedCurrency?.code) }}
-                      </div>
-                    </div>
-                  </v-card>
-                </v-col>
-              </v-row>
-            </div>
+              <!-- Audit Trail Section -->
+              <v-card v-if="isEdit" outlined class="audit-trail-card mt-6 pa-4 grey lighten-5">
+                <div class="d-flex justify-space-between align-center mb-3">
+                  <h5 class="subtitle-2 font-weight-bold grey--text text--darken-3 mb-0">
+                    <v-icon small left color="primary">mdi-history</v-icon>
+                    ປະຫວັດການດຳເນີນງານ (Operation History)
+                  </h5>
+                  <v-btn small text color="primary" class="rounded-lg px-2" @click="openAuditDialog">
+                    <v-icon small left>mdi-open-in-new</v-icon>
+                    ເບິ່ງລະອຽດ
+                  </v-btn>
+                </div>
+                <v-row dense class="text-body-2">
+                  <v-col cols="12" sm="4" class="d-flex align-center">
+                    <v-icon x-small color="grey" class="mr-2">mdi-account-plus</v-icon>
+                    <span>
+                      <strong>ສ້າງໂດຍ (Maker):</strong> {{ auditTrail.makerName }}
+                    </span>
+                  </v-col>
+                  <v-col cols="12" sm="4" class="d-flex align-center">
+                    <v-icon x-small color="grey" class="mr-2">mdi-calendar</v-icon>
+                    <span>
+                      <strong>ວັນທີ (Date):</strong> {{ auditTrail.createdDate }}
+                    </span>
+                  </v-col>
+                  <v-col cols="12" sm="4" class="text-right">
+                    <v-chip x-small outlined :color="getStatusColor(auditTrail.status)" class="font-weight-bold uppercase">
+                      {{ getStatusText(auditTrail.status) }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
+              </v-card>
+            </form>
+          </div>
+        </v-card-text>
 
-            <!-- Compact Audit Trail -->
-            <v-card v-if="isEdit" outlined class="audit-trail-card mt-6 pa-4 bg-light">
-              <div class="d-flex justify-space-between align-center mb-4">
-                <h5 class=" font-weight-bold grey--text text--darken-3">
-                  <v-icon small left color="primary">mdi-history</v-icon>
-                  ປະຫວັດການດຳເນີນງານ (Operation History)
-                </h5>
-                <v-btn small text color="primary" @click="openAuditDialog">
-                  <v-icon small left>mdi-open-in-new</v-icon>
-                  ເບິ່ງລະອຽດ
-                </v-btn>
-              </div>
-              <v-row dense>
-                <v-col cols="12" md="4" class="d-flex align-center">
-                  <v-icon x-small color="grey" class="mr-2">mdi-account-plus</v-icon>
-                  <span class="">
-                    <strong>ສ້າງໂດຍ (Maker):</strong> {{ auditTrail.makerName }}
-                  </span>
-                </v-col>
-                <v-col cols="12" md="4" class="d-flex align-center">
-                  <v-icon x-small color="grey" class="mr-2">mdi-calendar</v-icon>
-                  <span class="">
-                    <strong>ວັນທີ (Date):</strong> {{ auditTrail.createdDate }}
-                  </span>
-                </v-col>
-                <v-col cols="12" md="4" class="text-right">
-                  <v-chip x-small outlined :color="getStatusColor(auditTrail.status)"
-                    class="font-weight-bold uppercase">
-                    {{ getStatusText(auditTrail.status) }}
-                  </v-chip>
-                </v-col>
-              </v-row>
-            </v-card>
-          </form>
-        </div>
-      </div>
-
-      <div class="modal-footer pa-4">
-        <v-spacer></v-spacer>
-        <v-btn text color="grey darken-1" @click="handleClose" :disabled="saving" class="mr-2">
-          <v-icon left>mdi-close</v-icon>
-          ຍົກເລີກ (Cancel)
-        </v-btn>
-        <v-btn color="primary" @click="handleSubmit" :disabled="saving || !isFormValid" :loading="saving" elevation="2">
-          <v-icon left>mdi-content-save</v-icon>
-          {{ isEdit ? 'ອັບເດດ (Update)' : 'ບັນທຶກ (Save)' }}
-        </v-btn>
-      </div>
-    </div>
+        <!-- Dialog Action Buttons -->
+        <v-card-actions class="modal-footer px-6 py-4 grey lighten-5 border-top">
+          <v-spacer></v-spacer>
+          <v-btn text color="grey darken-1" class="px-4 rounded-lg font-weight-bold" @click="handleClose" :disabled="saving">
+            <v-icon left>mdi-close</v-icon>
+            ຍົກເລີກ (Cancel)
+          </v-btn>
+          <v-btn color="primary" class="px-5 rounded-lg font-weight-bold elevation-1" @click="handleSubmit" :disabled="saving || !isFormValid" :loading="saving">
+            <v-icon left>mdi-content-save</v-icon>
+            {{ isEdit ? 'ອັບເດດ (Update)' : 'ບັນທຶກ (Save)' }}
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 
     <!-- Audit Log Dialog -->
-    <audit-log-dialog :visible="auditDialogVisible" :invoice-id="form.id" :invoice-info="getInvoiceInfo()"
-      @close="closeAuditDialog" />
+    <audit-log-dialog
+      :visible="auditDialogVisible"
+      :invoice-id="form.id"
+      :invoice-info="getInvoiceInfo()"
+      @close="closeAuditDialog"
+    />
   </div>
 </template>
 
@@ -386,7 +502,7 @@ export default {
       }
     },
     clientLabel() {
-      const item = this.getSPF.find((spf) => spf.code == 'LABEL_AC_CUS')
+      const item = this.getSPF.find((spf) => spf.code === 'LABEL_AC_CUS')
       return item?.value || 'ກະຊວງ'
     },
     getSPF() {
@@ -841,142 +957,149 @@ export default {
 }
 </script>
 <style scoped>
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.45);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 2000;
-  backdrop-filter: blur(4px);
-}
-
-.enhanced-dialog {
-  background: white;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  border-radius: 0;
-  box-shadow: none;
+.invoice-modal-card {
+  border-radius: 0 !important;
+  background-color: #f8fafc !important;
 }
 
 .modal-header {
-  padding: 12px 24px;
-  background-color: var(--v-primary-base);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  min-height: 64px;
+  background-color: #ffffff !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  min-height: 72px;
 }
 
 .modal-body {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
-  background-color: #f8fafc;
+  background-color: #f8fafc !important;
 }
 
-.invoice-content {
+.invoice-form {
   max-width: 1400px;
   margin: 0 auto;
 }
 
-.form-section-card {
-  border-radius: 12px !important;
-  background-color: white !important;
-  border: 1px solid #e2e8f0 !important;
+.border-bottom {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.border-top {
+  border-top: 1px solid #e2e8f0 !important;
+}
+
+.shadow-sm {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
 }
 
-.section-card-title {
-  font-size: 0.95rem !important;
-  font-weight: 700 !important;
-  color: #2d3748 !important;
-  background-color: #f1f5f9;
+.rounded-lg {
+  border-radius: 12px !important;
 }
 
-.custom-input-group label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #4a5568;
-  margin-bottom: 8px;
-  display: block;
+.rounded-xl {
+  border-radius: 16px !important;
 }
 
-.custom-input-group label.required::after {
-  content: ' *';
-  color: var(--v-error-base);
+.border-dashed {
+  border: 2px dashed #cbd5e1 !important;
 }
 
-.line-items-container {
-  overflow: hidden;
+/* Ultra compact table overrides */
+.table-compact-vuetify ::v-deep .v-data-table__wrapper {
+  overflow-x: auto;
 }
 
-.modern-line-table {
-  background: white !important;
+.table-compact-vuetify ::v-deep table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.modern-line-table th {
-  background-color: #f8fafc !important;
-  color: #64748b !important;
+.table-compact-vuetify ::v-deep table th {
+  background-color: #f1f5f9 !important;
+  color: #475569 !important;
   font-size: 0.75rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  height: 52px !important;
-  border-bottom: 2px solid #e2e8f0 !important;
+  height: 40px !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+  padding: 0 8px !important;
+}
+
+.table-compact-vuetify ::v-deep table td {
+  height: 48px !important;
+  padding: 4px 8px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
 }
 
 .line-item-row:hover {
-  background-color: #fdfdfd !important;
+  background-color: #f8fafc !important;
 }
 
+/* Precise 32px height inline inputs for lines table */
 .compact-input ::v-deep .v-input__control {
-  min-height: 40px !important;
+  min-height: 32px !important;
 }
 
 .compact-input ::v-deep .v-input__slot {
-  min-height: 40px !important;
-  padding: 0 12px !important;
-  background-color: #fff !important;
+  min-height: 32px !important;
+  padding: 0 8px !important;
+  background-color: #ffffff !important;
+}
+
+.compact-input ::v-deep input {
+  height: 32px !important;
+  font-size: 0.825rem !important;
+}
+
+.compact-input ::v-deep .v-autocomplete__content {
+  font-size: 0.825rem !important;
+}
+
+.compact-input ::v-deep .v-input__append-inner {
+  margin-top: 4px !important;
 }
 
 .rounded-md {
-  border-radius: 8px !important;
+  border-radius: 6px !important;
+}
+
+/* Table Input Alignments */
+.text-center-input ::v-deep input {
+  text-align: center !important;
+}
+
+.text-right-input ::v-deep input {
+  text-align: right !important;
+  color: #059669 !important;
+  font-weight: 700 !important;
 }
 
 .font-monospace {
-  font-family: 'JetBrains Mono', 'Roboto Mono', monospace !important;
+  font-family: 'JetBrains Mono', 'Fira Code', 'Roboto Mono', monospace !important;
+  font-size: 0.85rem !important;
   letter-spacing: -0.5px;
 }
 
+.total-amount-cell {
+  color: #059669 !important;
+  font-size: 0.9rem !important;
+}
+
+/* Premium summary dashboard card */
 .summary-card-premium {
-  border-radius: 16px !important;
-  background-color: white !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1) !important;
+  border-left: 5px solid #10b981 !important;
+  border: 1px solid #e2e8f0;
 }
 
 .total-row-highlight {
-  background-color: var(--v-primary-base);
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
 }
 
 .audit-trail-card {
   border-radius: 12px !important;
-  background-color: #f1f5f9 !important;
   border: 1px solid #e2e8f0 !important;
 }
 
 .modal-footer {
-  background-color: white;
-  border-top: 1px solid #e2e8f0;
-  display: flex;
+  background-color: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
 }
 
 .opacity-80 {
@@ -984,12 +1107,13 @@ export default {
 }
 
 .hover-shadow:hover {
-  background-color: rgba(229, 62, 62, 0.05) !important;
+  background-color: rgba(239, 68, 68, 0.08) !important;
 }
 
-/* Scrollbar styling */
+/* Scrollbar styles */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -997,7 +1121,7 @@ export default {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e0;
+  background: #cbd5e1;
   border-radius: 4px;
 }
 

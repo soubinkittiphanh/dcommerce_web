@@ -75,12 +75,12 @@ npx electron-builder --win --x64
 
 tar -cvf nuxt.tar .nuxt
 scp -r nuxt.tar administrator@155.117.44.133:/home/administrator
- BASE_URL="http://150.95.31.23:8026" npm run dev
- BASE_URL="http://150.95.31.23:8026" npm run dev
- BASE_URL="http://150.95.31.23:8026" npm run dev
+ BASE_URL="http://150.95.31.23:8033" npm run dev
+ BASE_URL="http://150.95.31.23:8033" npm run dev
+ BASE_URL="http://150.95.31.23:8033" npm run dev
 
- NUXT_TARGET=server PORT=8026 BASE_URL="http://150.95.31.23:8023" API_URL_BROWSER="http://150.95.31.23:8026" npm run start
+ NUXT_TARGET=server PORT=8026 BASE_URL="http://150.95.31.23:8023" API_URL_BROWSER="http://150.95.31.23:8033" npm run start
 
-NUXT_TARGET=server BASE_URL="http://150.95.31.23:8026" npm run start
+NUXT_TARGET=server BASE_URL="http://150.95.31.23:8027" npm run start
 
 npm run electron:dev
