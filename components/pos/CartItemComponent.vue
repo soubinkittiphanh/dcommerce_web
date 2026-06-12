@@ -17,6 +17,23 @@
             class="ml-1 gift-indicator">
             <v-icon x-small left>mdi-gift-outline</v-icon>{{ item.giftQuantity }}/{{ item.qty }} GIFT
           </v-chip>
+          
+          <!-- Variant tags -->
+          <div v-if="item.color || item.size" class="mt-1 d-flex flex-wrap align-center">
+            <v-chip v-if="item.color" x-small outlined class="mr-1 py-0 px-1" style="height: 18px;">
+              <div 
+                v-if="item.color.hex_code" 
+                class="color-preview-tiny mr-1"
+                :style="`background-color: ${item.color.hex_code};`"
+              ></div>
+              <v-icon v-else x-small left class="mr-1">mdi-palette</v-icon>
+              {{ item.color.name || item.color.color_name }}
+            </v-chip>
+            <v-chip v-if="item.size" x-small outlined class="py-0 px-1" style="height: 18px;">
+              <v-icon x-small left class="mr-1">mdi-ruler</v-icon>
+              {{ item.size.name || item.size.size_name }}
+            </v-chip>
+          </div>
         </div>
         <div v-if="item.tax" class=" grey--text">
           <v-icon x-small>mdi-label-percent-outline</v-icon>
@@ -270,5 +287,15 @@ export default {
 /* Enhanced hover effects */
 .cart-item-hover:hover .gift-btn {
   background-color: rgba(233, 30, 99, 0.1) !important;
+}
+
+/* Color preview styles */
+.color-preview-tiny {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    vertical-align: middle;
 }
 </style>

@@ -903,6 +903,13 @@
     "_name": "_cdde3588"
   },
   {
+    "name": "reports-stock-backdate",
+    "path": "/reports/stock-backdate",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/stock-backdate.vue",
+    "chunkName": "pages/reports/stock-backdate",
+    "_name": "_7fa8bfec"
+  },
+  {
     "name": "reports-stock-movement",
     "path": "/reports/stock-movement",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/stock-movement.vue",

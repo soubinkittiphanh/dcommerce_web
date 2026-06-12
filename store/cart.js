@@ -53,14 +53,26 @@ export const mutations = {
             const originalProductLocalPrice = product.localPrice
             product.localPrice = customerPrice ?? product.localPrice
 
-            const existingProductIndex = state.cartOfproductSelected.findIndex(
-                item => item.id === product.id
-            )
+            const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
+                if (product.colorId || product.sizeId) {
+                    return item.id === product.id && 
+                           item.colorId === product.colorId && 
+                           item.sizeId === product.sizeId &&
+                           item.isGift === product.isGift
+                }
+                return item.id === product.id && !item.colorId && !item.sizeId && item.isGift === product.isGift
+            })
+
+            const addQty = product.qty || 1
 
             if (existingProductIndex !== -1) {
-                state.cartOfproductSelected[existingProductIndex].qty++
+                state.cartOfproductSelected[existingProductIndex].qty += addQty
             } else {
-                state.cartOfproductSelected.push({ ...product, qty: 1 })
+                state.cartOfproductSelected.push({
+                    ...product,
+                    qty: addQty,
+                    lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
+                })
             }
 
             // Restore original price
@@ -100,14 +112,22 @@ export const mutations = {
         try {
             if (!product || !product.id) return
 
-            const existingProduct = state.cartOfproductSelected.find(item => item.id === product.id)
+            const existingProduct = state.cartOfproductSelected.find(item => {
+                if (product.lineUUID && item.lineUUID) {
+                    return item.lineUUID === product.lineUUID
+                }
+                return item.id === product.id && item.colorId === product.colorId && item.sizeId === product.sizeId
+            })
             if (existingProduct) {
                 if (existingProduct.qty > 1) {
                     existingProduct.qty--
                 } else {
-                    state.cartOfproductSelected = state.cartOfproductSelected.filter(
-                        item => item.id !== product.id
-                    )
+                    state.cartOfproductSelected = state.cartOfproductSelected.filter(item => {
+                        if (product.lineUUID && item.lineUUID) {
+                            return item.lineUUID !== product.lineUUID
+                        }
+                        return !(item.id === product.id && item.colorId === product.colorId && item.sizeId === product.sizeId)
+                    })
                 }
             }
         } catch (error) {
@@ -116,10 +136,13 @@ export const mutations = {
     },
 
     clearProductFromCart(state, product) {
-        if (product && product.id) {
-            state.cartOfproductSelected = state.cartOfproductSelected.filter(
-                item => item.id !== product.id
-            )
+        if (product) {
+            state.cartOfproductSelected = state.cartOfproductSelected.filter(item => {
+                if (product.lineUUID && item.lineUUID) {
+                    return item.lineUUID !== product.lineUUID
+                }
+                return !(item.id === product.id && item.colorId === product.colorId && item.sizeId === product.sizeId)
+            })
         }
     },
 

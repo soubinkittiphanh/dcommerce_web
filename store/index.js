@@ -68,6 +68,11 @@ export const state = () => ({
         enableProductCaching: true,
         debugPerformance: process.env.NODE_ENV === 'development',
     },
+
+    // Stock variant parameters
+    variantProduct: null,
+    variantCards: [],
+    variantDialogOpen: false,
 })
 
 // Enhanced mutations with performance optimizations
@@ -381,19 +386,33 @@ export const mutations = {
             }
 
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
+                // If it's a variant, match product ID and specific color and size (and gift status)
+                if (product.colorId || product.sizeId) {
+                    return item.id === product.id &&
+                           item.colorId === product.colorId &&
+                           item.sizeId === product.sizeId &&
+                           item.isGift === product.isGift
+                }
                 if (!product.lineUUIDCheck) {
-                    return item.id === product.id
+                    return item.id === product.id && !item.colorId && !item.sizeId && item.isGift === product.isGift
                 } else {
                     return item.id === product.id && item.lineUUID === product.lineUUID
                 }
             })
 
+            const addQty = product.qty || 1
+
             if (existingProductIndex !== -1) {
-                state.cartOfproductSelected[existingProductIndex].qty++
-                console.info(`➕ [CART_UPDATE] Increased quantity for existing product`)
+                state.cartOfproductSelected[existingProductIndex].qty += addQty
+                console.info(`➕ [CART_UPDATE] Increased quantity by ${addQty} for existing product`)
             } else {
-                state.cartOfproductSelected.push({ ...product, qty: 1 })
-                console.info(`🆕 [CART_ADD] Added new product to cart`)
+                const cartItem = {
+                    ...product,
+                    qty: addQty,
+                    lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
+                }
+                state.cartOfproductSelected.push(cartItem)
+                console.info(`🆕 [CART_ADD] Added new product to cart with quantity ${addQty}`)
             }
 
         } catch (error) {
@@ -681,6 +700,21 @@ export const mutations = {
     setCompanyList(state, payload) {
         state.companyList = Array.isArray(payload) ? payload : []
     },
+
+    SET_VARIANT_DATA(state, { product, cards }) {
+        state.variantProduct = product
+        state.variantCards = cards
+    },
+
+    SET_VARIANT_DIALOG(state, isOpen) {
+        state.variantDialogOpen = isOpen
+    },
+
+    CLEAR_VARIANT_DATA(state) {
+        state.variantProduct = null
+        state.variantCards = []
+        state.variantDialogOpen = false
+    },
 }
 
 // Enhanced getters with performance optimizations
@@ -714,6 +748,11 @@ export const getters = {
     isLoading: (state) => state.isLoading,
     isDataInitialized: (state) => state.dataInitialized,
     getErrors: (state) => state.errors || [],
+
+    // Variant Getters
+    variantProduct: (state) => state.variantProduct,
+    variantCards: (state) => state.variantCards,
+    variantDialogOpen: (state) => state.variantDialogOpen,
 
     // Enhanced performance getters
     getProductByBarcode: (state) => (barcode) => {
@@ -939,9 +978,92 @@ export const actions = {
         }
     },
 
-    addProduct({ commit }, product) {
+    async addProduct({ state, commit, dispatch }, product) {
         try {
-            commit("addProductToCart", product)
+            // Check if STOCK.VAR is enabled
+            const stockVarSpf = state.SPF.find(spf => spf.code === 'STOCK.VAR')
+            const isStockVarEnabled = stockVarSpf?.value === 'Y'
+
+            // If STOCK.VAR is not enabled, or the product has bypass flag, add directly.
+            if (!isStockVarEnabled || product.hasVariantSelected) {
+                commit("addProductToCart", product)
+                return
+            }
+
+            // Fetch cards for this product to check if it has variants in stock
+            const locationId = state.selectedLocation?.id || 
+                             (state.selectedTerminal && state.terminalList?.find(t => t.id == state.selectedTerminal)?.locationId) || 
+                             1;
+
+            commit('SET_LOADING', true)
+            try {
+                const response = await this.$axios.get(`api/card_f?pro_id=${product.pro_id}&includeColorSize=true`)
+                commit('SET_LOADING', false)
+
+                const cards = response.data?.data || response.data || []
+                // Filter for available cards (card_isused === 0) at the selected location
+                const availableCards = cards.filter(c => c.card_isused === 0 && c.locationId === locationId)
+
+                // If specific variant details are already provided (e.g. from cart adjustment)
+                if (product.colorId || product.sizeId) {
+                    const variantCards = availableCards.filter(c => 
+                        (!product.colorId || c.colorId === product.colorId) &&
+                        (!product.sizeId || c.sizeId === product.sizeId)
+                    )
+                    const stockLimit = variantCards.length
+                    
+                    const existingInCart = state.cartOfproductSelected.find(item => 
+                        item.id === product.id && 
+                        item.colorId === product.colorId && 
+                        item.sizeId === product.sizeId &&
+                        item.isGift === product.isGift
+                    )
+                    const currentQty = existingInCart ? existingInCart.qty : 0
+                    const addQty = product.qty || 1
+
+                    if (currentQty + addQty > stockLimit && product.validateStockOnSale == 1) {
+                        const errorMsg = `ຈຳນວນໃນກະຕ່າ (${currentQty + addQty}) ເກີນຈຳນວນສິນຄ້າໃນສາງ (${stockLimit})`
+                        const toast = this.$toast || (this._vm && this._vm.$toast)
+                        if (toast) {
+                            toast.error(errorMsg)
+                        }
+                        return
+                    }
+
+                    commit("addProductToCart", product)
+                    return
+                }
+
+                // Check if any of the available cards have colorId or sizeId
+                const hasVariants = availableCards.some(c => c.colorId || c.sizeId)
+
+                if (hasVariants) {
+                    // It has variants! Open the dialog
+                    commit('SET_VARIANT_DATA', { product, cards: availableCards })
+                    commit('SET_VARIANT_DIALOG', true)
+                } else {
+                    // Check generic stock limit
+                    const stockLimit = availableCards.length
+                    const existingInCart = state.cartOfproductSelected.filter(item => item.id === product.id)
+                    const currentQty = existingInCart.reduce((sum, item) => sum + item.qty, 0)
+                    const addQty = product.qty || 1
+
+                    if (currentQty + addQty > stockLimit && product.validateStockOnSale == 1) {
+                        const errorMsg = `ຈຳນວນໃນກະຕ່າ (${currentQty + addQty}) ເກີນຈຳນວນສິນຄ້າໃນສາງ (${stockLimit})`
+                        const toast = this.$toast || (this._vm && this._vm.$toast)
+                        if (toast) {
+                            toast.error(errorMsg)
+                        }
+                        return
+                    }
+
+                    commit("addProductToCart", product)
+                }
+            } catch (apiError) {
+                console.error('API call failed during variant check, falling back to direct add:', apiError)
+                commit('SET_LOADING', false)
+                commit("addProductToCart", product)
+            }
         } catch (error) {
             console.error('Error adding product:', error)
             commit('ADD_ERROR', error)

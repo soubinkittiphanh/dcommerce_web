@@ -115,6 +115,136 @@
       <customer-list @close-dialog="customerDialog = false"></customer-list>
     </v-dialog>
 
+    <!-- Variant Selection Dialog - NEW -->
+    <v-dialog v-model="variantDialogOpenLocal" max-width="500px" persistent>
+      <v-card class="elevation-12 rounded-lg">
+        <v-toolbar dark color="primary">
+          <v-icon left>mdi-palette-swatch</v-icon>
+          <v-toolbar-title class="font-weight-medium">ເລືອກລາຍລະອຽດສິນຄ້າ (Select Variant)</v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="closeVariantDialog">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <v-card-text class="pa-6">
+          <div v-if="variantProduct">
+            <div class="text-h6 font-weight-bold primary--text mb-2">
+              {{ variantProduct.pro_name }}
+            </div>
+            <div class="grey--text text-caption mb-4">
+              SKU: {{ variantProduct.barCode || variantProduct.pro_id }}
+            </div>
+
+            <!-- Color Variants Selection -->
+            <div v-if="hasColorVariants" class="mb-5">
+              <div class="font-weight-bold mb-2 subtitle-1 d-flex align-center">
+                <v-icon small class="mr-1" color="primary">mdi-palette</v-icon>
+                ເລືອກສີ (Select Color)
+              </div>
+              <div class="color-swatch-container">
+                <div 
+                  v-for="color in uniqueColors" 
+                  :key="color.id" 
+                  class="color-swatch-item"
+                  :class="{ 'selected': selectedColorId === color.id }"
+                  @click="selectColor(color.id)"
+                >
+                  <div 
+                    class="color-circle" 
+                    :style="color.hex_code ? `background-color: ${color.hex_code};` : 'background-color: #e0e0e0;'"
+                  >
+                    <v-icon v-if="selectedColorId === color.id" color="white" small class="swatch-check">
+                      mdi-check
+                    </v-icon>
+                  </div>
+                  <div class="color-name">{{ color.color_name }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Size Variants Selection -->
+            <div v-if="hasSizeVariants" class="mb-5">
+              <div class="font-weight-bold mb-2 subtitle-1 d-flex align-center">
+                <v-icon small class="mr-1" color="primary">mdi-ruler</v-icon>
+                ເລືອກຂະໜາດ (Select Size)
+              </div>
+              <div class="size-chips-container">
+                <v-chip
+                  v-for="size in uniqueSizes"
+                  :key="size.id"
+                  filter
+                  outlined
+                  :color="selectedSizeId === size.id ? 'primary' : 'grey darken-1'"
+                  :input-value="selectedSizeId === size.id"
+                  @click="selectSize(size.id)"
+                  class="font-weight-medium"
+                >
+                  {{ size.size_name }}
+                </v-chip>
+              </div>
+            </div>
+
+            <v-divider class="my-4"></v-divider>
+
+            <!-- Stock status & Qty adjuster -->
+            <v-row align="center" no-gutters>
+              <v-col cols="6">
+                <!-- Stock Status -->
+                <div class="subtitle-2 grey--text">ສະຖານະສິນຄ້າ (Stock Status):</div>
+                <div class="mt-1">
+                  <v-chip 
+                    v-if="selectedColorId || selectedSizeId" 
+                    :color="getStockColor(selectedVariantStock)" 
+                    text-color="white" 
+                    small
+                    class="font-weight-bold"
+                  >
+                    ຍັງເຫຼືອ (Available): {{ selectedVariantStock }}
+                  </v-chip>
+                  <span v-else class="grey--text text-caption font-italic">
+                    ກະລຸນາເລືອກຕົວເລືອກດ້ານເທິງ
+                  </span>
+                </div>
+              </v-col>
+              <v-col cols="6" class="d-flex flex-column align-end">
+                <div class="subtitle-2 grey--text mb-1">ຈຳນວນ (Quantity):</div>
+                <div class="qty-adjuster">
+                  <button @click="adjustQty(-1)" :disabled="variantQty <= 1">
+                    <v-icon small>mdi-minus</v-icon>
+                  </button>
+                  <input type="number" v-model.number="variantQty" min="1" :max="selectedVariantStock" readonly />
+                  <button @click="adjustQty(1)" :disabled="variantQty >= selectedVariantStock">
+                    <v-icon small>mdi-plus</v-icon>
+                  </button>
+                </div>
+              </v-col>
+            </v-row>
+          </div>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="pa-4">
+          <v-btn text large color="grey darken-1" @click="closeVariantDialog" class="px-6">
+            ຍົກເລີກ (Cancel)
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn 
+            color="primary" 
+            large 
+            :disabled="!isVariantSelectionValid" 
+            @click="confirmVariantSelection" 
+            class="px-6"
+            elevation="2"
+          >
+            <v-icon left>mdi-cart-plus</v-icon>
+            ເພີ່ມໃສ່ກະຕ່າ (Add to Cart)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Pricing Options Dialog -->
     <!-- TODO: New price update selected always call update opencustomer screen, need to resolve this. -->
     <v-dialog v-model="pricingDialog" max-width="1200">
@@ -502,10 +632,71 @@ export default {
       lastQRTotal: 0,
       redeemedPoints: 0,
       loyaltyGuideDialog: false,
+      selectedColorId: null,
+      selectedSizeId: null,
+      variantQty: 1,
     }
   },
 
   computed: {
+    variantDialogOpenLocal: {
+      get() {
+        return this.$store.getters.variantDialogOpen
+      },
+      set(val) {
+        this.$store.commit('SET_VARIANT_DIALOG', val)
+      }
+    },
+    variantProduct() {
+      return this.$store.getters.variantProduct
+    },
+    variantCards() {
+      return this.$store.getters.variantCards || []
+    },
+    uniqueColors() {
+      const colorsMap = new Map()
+      this.variantCards.forEach(card => {
+        if (card.color) {
+          colorsMap.set(card.color.id, card.color)
+        }
+      })
+      return Array.from(colorsMap.values())
+    },
+    uniqueSizes() {
+      const sizesMap = new Map()
+      this.variantCards.forEach(card => {
+        if (this.selectedColorId && card.colorId !== this.selectedColorId) {
+          return
+        }
+        if (card.size) {
+          sizesMap.set(card.size.id, card.size)
+        }
+      })
+      return Array.from(sizesMap.values()).sort((a, b) => (a.size_order || 0) - (b.size_order || 0))
+    },
+    hasColorVariants() {
+      return this.uniqueColors.length > 0
+    },
+    hasSizeVariants() {
+      return this.uniqueSizes.length > 0
+    },
+    selectedVariantStock() {
+      if (!this.variantProduct) return 0
+      let filtered = this.variantCards
+      if (this.hasColorVariants && this.selectedColorId) {
+        filtered = filtered.filter(c => c.colorId === this.selectedColorId)
+      }
+      if (this.hasSizeVariants && this.selectedSizeId) {
+        filtered = filtered.filter(c => c.sizeId === this.selectedSizeId)
+      }
+      return filtered.length
+    },
+    isVariantSelectionValid() {
+      if (!this.variantProduct) return false
+      if (this.hasColorVariants && !this.selectedColorId) return false
+      if (this.hasSizeVariants && !this.selectedSizeId) return false
+      return this.variantQty > 0 && this.variantQty <= this.selectedVariantStock
+    },
     getSPF() {
       return this.$store.getters.findSPF
     },
@@ -699,6 +890,8 @@ export default {
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.stockUnitId,
+          colorId: iterator.colorId || null,
+          sizeId: iterator.sizeId || null,
           // Calculate total including tax if exclusive
           total: taxType === 'EXC' ? lineSubtotal + taxAmount : lineSubtotal,
           taxRate: iterator.tax?.rate || 0,
@@ -791,6 +984,13 @@ export default {
   },
 
   watch: {
+    variantDialogOpenLocal(newVal) {
+      if (newVal) {
+        this.selectedColorId = null
+        this.selectedSizeId = null
+        this.variantQty = 1
+      }
+    },
     // PERFORMANCE OPTIMIZATION: Debounced watchers
     cartOfProduct: {
       handler: _.debounce(function (newVal, oldVal) {
@@ -878,6 +1078,57 @@ export default {
   },
 
   methods: {
+    selectColor(colorId) {
+      this.selectedColorId = colorId
+      this.selectedSizeId = null // Reset size when color changes
+      this.variantQty = 1
+    },
+    selectSize(sizeId) {
+      this.selectedSizeId = sizeId
+      this.variantQty = 1
+    },
+    adjustQty(amount) {
+      const newQty = this.variantQty + amount
+      if (newQty >= 1 && newQty <= this.selectedVariantStock) {
+        this.variantQty = newQty
+      }
+    },
+    closeVariantDialog() {
+      this.$store.commit('CLEAR_VARIANT_DATA')
+    },
+    confirmVariantSelection() {
+      if (!this.isVariantSelectionValid) return
+
+      const colorInfo = this.uniqueColors.find(c => c.id === this.selectedColorId)
+      const sizeInfo = this.uniqueSizes.find(s => s.id === this.selectedSizeId)
+      const productName = this.variantProduct.pro_name
+      
+      const productToAdd = {
+        ...this.variantProduct,
+        colorId: this.selectedColorId,
+        sizeId: this.selectedSizeId,
+        color: colorInfo ? { name: colorInfo.color_name, hex_code: colorInfo.hex_code } : null,
+        size: sizeInfo ? { name: sizeInfo.size_name, size_code: sizeInfo.size_code } : null,
+        qty: this.variantQty,
+        hasVariantSelected: true
+      }
+      
+      this.$store.dispatch('addProduct', productToAdd)
+      this.closeVariantDialog()
+
+      // Show success message
+      this.$toast.success(`${productName} added to cart`, {
+        position: 'bottom-center',
+        duration: 800,
+        dismissible: true,
+      })
+    },
+    getStockColor(stockCount) {
+      if (stockCount <= 0) return 'error'
+      if (stockCount <= 5) return 'warning'
+      if (stockCount <= 20) return 'orange'
+      return 'success'
+    },
     findCurrency(currencyId) {
       return this.findAllCurrency.find((el) => el.id == currencyId) || { code: '', rate: 1 }
     },
@@ -2634,5 +2885,134 @@ export default {
 .v-text-field--outlined.v-input--is-focused .v-input__control .v-input__slot {
   border: 2px solid var(--v-primary-base) !important;
   border-color: var(--v-primary-base) !important;
+}
+
+/* Variant Dialog Styles */
+.color-swatch-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding: 8px 4px;
+}
+
+.color-swatch-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  width: 64px;
+}
+
+.color-swatch-item:hover {
+  transform: translateY(-2px);
+}
+
+.color-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.color-swatch-item.selected .color-circle {
+  transform: scale(1.08);
+  border-color: var(--v-primary-base);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15), 0 0 0 3px rgba(var(--v-primary-base-rgb), 0.3);
+}
+
+.swatch-check {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+  background-color: rgba(0,0,0,0.25);
+  border-radius: 50%;
+  padding: 2px;
+}
+
+.color-name {
+  font-size: 11px;
+  margin-top: 6px;
+  color: #555;
+  font-weight: 500;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.size-chips-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 8px 4px;
+}
+
+.qty-adjuster {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  overflow: hidden;
+  max-width: 150px;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.qty-adjuster button {
+  width: 42px;
+  height: 40px;
+  background: #f8f9fa;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qty-adjuster button:hover:not(:disabled) {
+  background-color: #e9ecef;
+}
+
+.qty-adjuster button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.qty-adjuster input {
+  width: 50px;
+  height: 40px;
+  text-align: center;
+  border: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: white;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.qty-adjuster input::-webkit-outer-spin-button,
+.qty-adjuster input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.qty-adjuster input[type=number] {
+  -moz-appearance: textfield;
+}
+
+/* Stock status color-code indicator preview inside checkout */
+.color-preview-tiny {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: inline-block;
+    vertical-align: middle;
 }
 </style>

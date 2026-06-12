@@ -27,6 +27,16 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!-- Stock Backdate Report (Static menu item for easy access) -->
+        <v-list-item to="/reports/stock-backdate" router exact>
+          <v-list-item-action>
+            <v-icon color="white">mdi-history</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'ສະຕັອກຍ້ອນຫຼັງ (Backdate)'" :style="{ color: 'white' }" />
+          </v-list-item-content>
+        </v-list-item>
+
         <!-- Fixed Assets Group -->
         <v-list-group prepend-icon="mdi-domain-plus" color="white" active-class="white--text">
           <template v-slot:activator>

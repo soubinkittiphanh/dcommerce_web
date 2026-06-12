@@ -133,6 +133,7 @@ const _33c53d8a = () => interopDefault(import('../pages/pos/minimart/index.vue' 
 const _2517700b = () => interopDefault(import('../pages/pos/restaurant/index.vue' /* webpackChunkName: "pages/pos/restaurant/index" */))
 const _4b336acc = () => interopDefault(import('../pages/pos/ticket/index.vue' /* webpackChunkName: "pages/pos/ticket/index" */))
 const _cdde3588 = () => interopDefault(import('../pages/reports/profit-loss.vue' /* webpackChunkName: "pages/reports/profit-loss" */))
+const _7fa8bfec = () => interopDefault(import('../pages/reports/stock-backdate.vue' /* webpackChunkName: "pages/reports/stock-backdate" */))
 const _11bf3a86 = () => interopDefault(import('../pages/reports/stock-movement.vue' /* webpackChunkName: "pages/reports/stock-movement" */))
 const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1.vue' /* webpackChunkName: "pages/admin/applicants/index-1" */))
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
@@ -724,6 +725,10 @@ export const routerOptions = {
     path: "/reports/profit-loss",
     component: _cdde3588,
     name: "reports-profit-loss"
+  }, {
+    path: "/reports/stock-backdate",
+    component: _7fa8bfec,
+    name: "reports-stock-backdate"
   }, {
     path: "/reports/stock-movement",
     component: _11bf3a86,

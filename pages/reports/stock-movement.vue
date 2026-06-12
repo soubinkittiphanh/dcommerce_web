@@ -137,12 +137,11 @@
               
               <v-btn
                 v-if="!loading && filteredStockMovements.length > 0"
-                color="secondary"
-                outlined
-                @click="exportToCSV"
+                color="success"
+                @click="exportToExcel"
               >
-                <v-icon left>mdi-download</v-icon>
-                Export CSV
+                <v-icon left>mdi-microsoft-excel</v-icon>
+                Export Excel
               </v-btn>
             </div>
           </v-col>
@@ -656,49 +655,56 @@ export default {
       this.filteredStockMovements = filtered
     },
 
-    exportToCSV() {
-      const headers = [
-        'Product Name',
-        'Product ID',
-        'Location',
-        'Location ID',
-        ...this.reportDates.flatMap((date) => [
-          `${this.formatDate(date)} - Stock In`,
-          `${this.formatDate(date)} - Sold`,
-          `${this.formatDate(date)} - Start Balance`,
-          `${this.formatDate(date)} - End Balance`,
-        ]),
-      ]
+    exportToExcel() {
+      if (!this.$xlsx) {
+        this.$toast.error('ລະບົບ Excel plugin ບໍ່ພ້ອມໃຊ້ງານ')
+        return
+      }
 
-      const rows = []
-      this.filteredStockMovements.forEach((product) => {
-        product.locations.forEach((location) => {
-          rows.push([
-            product.pro_name,
-            product.id,
-            location.locationName,
-            location.locationId || 'N/A',
-            ...this.reportDates.flatMap((date) => [
-              this.getLocationStockIn(location, date),
-              this.getLocationSold(location, date),
-              this.getLocationStartBalance(location, date),
-              this.getLocationEndBalance(location, date),
-            ]),
-          ])
+      try {
+        const headers = [
+          'Product Name',
+          'Product ID',
+          'Location',
+          'Location ID',
+          ...this.reportDates.flatMap((date) => [
+            `${this.formatDate(date)} - Stock In`,
+            `${this.formatDate(date)} - Sold`,
+            `${this.formatDate(date)} - Start Balance`,
+            `${this.formatDate(date)} - End Balance`,
+          ]),
+        ]
+
+        const rows = []
+        this.filteredStockMovements.forEach((product) => {
+          product.locations.forEach((location) => {
+            rows.push([
+              product.pro_name,
+              product.id,
+              location.locationName,
+              location.locationId || 'N/A',
+              ...this.reportDates.flatMap((date) => [
+                Number(this.getLocationStockIn(location, date) || 0),
+                Number(this.getLocationSold(location, date) || 0),
+                Number(this.getLocationStartBalance(location, date) || 0),
+                Number(this.getLocationEndBalance(location, date) || 0),
+              ]),
+            ])
+          })
         })
-      })
 
-      const csvContent = [headers, ...rows]
-        .map((row) => row.map((cell) => `"${cell}"`).join(','))
-        .join('\n')
+        const worksheetData = [headers, ...rows]
+        const worksheet = this.$xlsx.utils.aoa_to_sheet(worksheetData)
+        const workbook = this.$xlsx.utils.book_new()
+        this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Stock Movements')
 
-      const blob = new Blob([csvContent], { type: 'text/csv' })
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `stock-movement-${this.dateFrom}-to-${this.dateTo}.csv`
-      a.click()
-      window.URL.revokeObjectURL(url)
+        const filename = `stock-movement-${this.dateFrom}-to-${this.dateTo}.xlsx`
+        this.$xlsx.writeFile(workbook, filename)
+        this.$toast.success('ດາວໂຫຼດໄຟລ໌ Excel ສຳເລັດແລ້ວ!')
+      } catch (err) {
+        console.error('Error exporting to Excel:', err)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການດາວໂຫຼດ Excel: ' + err.message)
+      }
     },
 
     // Helper methods for backward compatibility
