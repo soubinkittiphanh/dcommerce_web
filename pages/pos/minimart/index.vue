@@ -312,12 +312,17 @@ export default {
     findProductFromBarcode(barcode, isGift = false) {
       const startTime = performance.now()
 
-      console.log(`🔍 Searching for barcode: ${barcode}`)
+      const cleanedBarcode = (barcode || '').trim()
+      console.log(`🔍 Searching for barcode: ${cleanedBarcode}`)
       console.log(`📦 Total products to search: ${this.findAllProduct.length}`)
 
-      const foundProduct = this.findAllProduct.find(
-        (product) => product.barCode === barcode
-      )
+      const foundProduct = this.findAllProduct.find((product) => {
+        const productBarcode = (product.barCode || '').trim()
+        return (
+          productBarcode === cleanedBarcode ||
+          productBarcode.toLowerCase() === cleanedBarcode.toLowerCase()
+        )
+      })
 
       const searchTime = performance.now() - startTime
       console.log(`⏱️ Barcode search took ${searchTime.toFixed(2)}ms`)
@@ -339,9 +344,10 @@ export default {
 
         const cartItem = {
           ...foundProduct,
+          qty: 1,
           localPrice:
             customerPrice || foundProduct.localPrice || foundProduct.pro_price,
-          isGift: isGift,
+          isGift,
           lineUUIDCheck: false,
           priceListId: null,
           lineUUID: Date.now() + Math.random().toString(16),
@@ -351,10 +357,30 @@ export default {
         this.addProduct(cartItem)
 
         if (this.$toast) {
-          this.$toast.success(`${foundProduct.pro_name} added to cart`, {
-            position: 'top-center',
-            duration: 1000,
-          })
+          const cart = this.$store.getters.cartOfProduct || []
+          const existingItem = cart.find(
+            (item) => item.pro_id === foundProduct.pro_id
+          )
+          const newQty = existingItem ? existingItem.qty : 1
+          const limit = foundProduct.card_count
+
+          if (limit && limit > 0) {
+            const remaining = limit - newQty
+            this.$toast.success(
+              `${foundProduct.pro_name} added to cart. ${
+                remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
+              }`,
+              {
+                position: 'bottom-center',
+                duration: 1000,
+              }
+            )
+          } else {
+            this.$toast.success(`${foundProduct.pro_name} added to cart`, {
+              position: 'bottom-center',
+              duration: 1000,
+            })
+          }
         }
       } else {
         console.warn(`❌ Product not found for barcode: ${barcode}`)
@@ -381,7 +407,8 @@ export default {
         return
       }
 
-      if (event.key !== 'Shift') {
+      // Only capture single character keypresses to ignore control/function keys (e.g. Shift, Backspace, ArrowDown)
+      if (event.key.length === 1) {
         this.barcode += event.key
       }
 

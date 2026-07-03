@@ -9,11 +9,11 @@
       <div v-if="showQR" class="qr-payment-screen">
         <div class="payment-layout">
           <OrderSection :items="orderItems" :summary="orderSummary" :qr-data="qrData" :display-discount="displayDiscount"
-            :display-change="displayChange" />
+            :display-change="displayChange" :local-currency-code="localCurrency.code" />
 
           <PaymentSection :qr-data="qrData" :parsed-company-info="parsedCompanyInfo" :converted-amounts="convertedAmounts"
             :time-remaining="timeRemaining" :company-q-r-image-url="companyQRImageUrl" :bcel-qr-image="bcelQrImage"
-            :payment-complete="paymentComplete" />
+            :payment-complete="paymentComplete" :local-currency-code="localCurrency.code" />
         </div>
 
         <div class="powered-by-qr">
@@ -26,7 +26,7 @@
       </div>
 
       <SuccessOverlay v-if="paymentComplete" :amount="qrData.amount" :progress="successProgress"
-        :success-time-remaining="successTimeRemaining" />
+        :success-time-remaining="successTimeRemaining" :local-currency-code="localCurrency.code" />
     </v-main>
   </v-app>
 </template>
@@ -117,6 +117,13 @@ export default {
     }
   },
   computed: {
+    localCurrency() {
+      if (this.currencyList && this.currencyList.length > 0) {
+        const local = this.currencyList.find((c) => c.isLocalCCY)
+        if (local) return local
+      }
+      return { code: 'LAK', symbol: '₭' }
+    },
     convertedAmounts() {
       if (!this.qrData.amount || !this.currencyList) return []
 

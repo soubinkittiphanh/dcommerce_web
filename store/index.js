@@ -41,6 +41,7 @@ export const state = () => ({
         discount: 0,
     },
     SPF: [],
+    language: 'lo',
 
     // Performance optimization additions
     productBarcodeMap: new Map(),
@@ -99,6 +100,13 @@ export const mutations = {
 
     CLEAR_ERRORS(state) {
         state.errors = []
+    },
+
+    SET_LANGUAGE(state, lang) {
+        state.language = lang
+        if (process.client) {
+            localStorage.setItem('language', lang)
+        }
     },
 
     // Enhanced product list mutation with performance optimization

@@ -16,9 +16,19 @@
 
 <script>
 export default {
-  props: ['amount', 'progress', 'successTimeRemaining'],
+  props: ['amount', 'progress', 'successTimeRemaining', 'localCurrencyCode'],
   methods: {
-    formatPrice(amt) { return new Intl.NumberFormat('en-US').format(amt || 0) + ' ₭' }
+    formatPrice(amt) {
+      const code = this.localCurrencyCode || 'LAK';
+      const symbols = {
+        'LAK': '₭',
+        'THB': '฿',
+        'USD': '$',
+      };
+      const symbol = symbols[code] || code;
+      const formatted = new Intl.NumberFormat('en-US').format(amt || 0);
+      return `${formatted} ${symbol}`;
+    }
   }
 }
 </script>

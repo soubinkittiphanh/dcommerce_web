@@ -56,7 +56,7 @@
 
 <script>
 export default {
-  props: ['items', 'summary', 'qrData', 'displayDiscount', 'displayChange'],
+  props: ['items', 'summary', 'qrData', 'displayDiscount', 'displayChange', 'localCurrencyCode'],
   methods: {
     // ✅ ALIGNED: Logic to show tax-inclusive total per line, including partial gifts
     calculateInclusiveTotal(item) {
@@ -96,13 +96,14 @@ export default {
       if (!this.isGiftItem(item)) return 'regular-item'
       return this.isFreeGift(item) ? 'gift-item gift-item-free' : 'gift-item gift-item-special'
     },
-    formatPrice(amt, currencyCode = 'LAK') {
+    formatPrice(amt, currencyCode) {
+      const code = currencyCode || this.localCurrencyCode || 'LAK';
       const symbols = {
         'LAK': '₭',
         'THB': '฿',
         'USD': '$',
       };
-      const symbol = symbols[currencyCode] || currencyCode;
+      const symbol = symbols[code] || code;
       const formatted = new Intl.NumberFormat('en-US').format(Math.round(amt || 0));
       return `${formatted} ${symbol}`;
     }

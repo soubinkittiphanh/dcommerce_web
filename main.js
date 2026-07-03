@@ -59,7 +59,11 @@ async function processQueue() {
 
     let printWindow = new BrowserWindow({
         show: false, // Keep hidden but set to true if you want to see the "phantom" window for debugging
-        webPreferences: { nodeIntegration: false, contextIsolation: true }
+        webPreferences: {
+            nodeIntegration: false,
+            contextIsolation: true,
+            webSecurity: false
+        }
     });
 
     try {
@@ -67,19 +71,18 @@ async function processQueue() {
         const printers = await printWindow.webContents.getPrintersAsync();
         console.log(`Available Printers on System:`, printers.map(p => `"${p.name}"`).join(', '));
 
-        if (!printerName) {
-            console.error(`❌ CRITICAL ERROR: "printerName" was NOT provided in the payload.`);
-            printWindow.destroy();
-            isPrinting = false;
-            processQueue();
-            return;
+        let selectedPrinter = null;
+        if (printerName) {
+            selectedPrinter = printers.find(p => p.name === printerName);
         }
 
-        const selectedPrinter = printers.find(p => p.name === printerName);
+        if (!selectedPrinter) {
+            console.warn(`⚠️ Printer "${printerName || 'none'}" not found or not provided. Falling back to default system printer.`);
+            selectedPrinter = printers.find(p => p.isDefault) || printers[0];
+        }
 
         if (!selectedPrinter) {
-            console.error(`❌ CRITICAL ERROR: Printer "${printerName}" NOT FOUND in system list.`);
-            // DO NOT fallback to default - stop here so user knows configuration is wrong
+            console.error(`❌ CRITICAL ERROR: No printers installed on the system.`);
             printWindow.destroy();
             isPrinting = false;
             processQueue();
@@ -103,15 +106,33 @@ async function processQueue() {
             document.close();
         `);
 
-        // Wait for all fonts to load (timeout after 1500ms to avoid blocking forever if offline)
+        // Wait for both fonts and images to load (timeout after 2000ms, fully guarded against DOM exceptions)
         await printWindow.webContents.executeJavaScript(`
-            Promise.race([
-                document.fonts.ready,
-                new Promise(resolve => setTimeout(resolve, 1500))
-            ])
+            new Promise(resolve => {
+                try {
+                    Promise.all([
+                        Promise.race([
+                            (document.fonts && typeof document.fonts.ready !== 'undefined') ? document.fonts.ready : Promise.resolve(),
+                            new Promise(r => setTimeout(r, 2000))
+                        ]),
+                        Promise.race([
+                            Promise.all(
+                                Array.from(document.images || [])
+                                    .filter(img => !img.complete)
+                                    .map(img => new Promise(r => {
+                                        img.onload = img.onerror = r;
+                                    }))
+                            ),
+                            new Promise(r => setTimeout(r, 2000))
+                        ])
+                    ]).then(() => resolve('ready')).catch(() => resolve('error'));
+                } catch (e) {
+                    resolve('exception');
+                }
+            })
         `);
 
-        // Measure accurate scroll height after rendering with the correct loaded fonts
+        // Measure accurate scroll height after rendering with the correct loaded fonts and images
         const contentHeight = await printWindow.webContents.executeJavaScript(`
             Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
         `);
@@ -249,7 +270,8 @@ function createWindow() {
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            webSecurity: false
         }
     });
     if (process.env.NODE_ENV === 'development') {

@@ -243,9 +243,12 @@ const generateFlexibleTotalSection = (params, config) => {
 
     currencyList.filter(curr => curr.isActive && !curr.isLocalCCY).forEach(curr => {
         let convertedAmount = (curr.exchangeDirection === 'foreign_to_local') ? finalTotalLAK / curr.rate : finalTotalLAK * curr.rate;
+        const formattedVal = curr.code === 'LAK' 
+            ? formatNumber(Math.round(convertedAmount))
+            : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedAmount)
         html += `<div class="item" style="font-weight: normal; margin-bottom: 1px;">
                 <span>ເປັນເງິນ (${curr.code}):</span>
-                <span>${formatNumber(convertedAmount, 2)} ${curr.code}</span>
+                <span>${formattedVal} ${curr.code}</span>
             </div>`;
     });
     html += `</div>`;

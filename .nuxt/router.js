@@ -102,6 +102,7 @@ const _09851be1 = () => interopDefault(import('../pages/admin/saleReportDetailBy
 const _4ffb7b4e = () => interopDefault(import('../pages/admin/saleReportSummary/index.vue' /* webpackChunkName: "pages/admin/saleReportSummary/index" */))
 const _a9d4e97a = () => interopDefault(import('../pages/admin/saleTicketReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleTicketReportDetailByProduct/index" */))
 const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue' /* webpackChunkName: "pages/admin/shipping/index" */))
+const _699b36bc = () => interopDefault(import('../pages/admin/shipping-order/index.vue' /* webpackChunkName: "pages/admin/shipping-order/index" */))
 const _beea3498 = () => interopDefault(import('../pages/admin/size/index.vue' /* webpackChunkName: "pages/admin/size/index" */))
 const _cc17c2a8 = () => interopDefault(import('../pages/admin/spf/index.vue' /* webpackChunkName: "pages/admin/spf/index" */))
 const _3fe900be = () => interopDefault(import('../pages/admin/student/index.vue' /* webpackChunkName: "pages/admin/student/index" */))
@@ -135,6 +136,7 @@ const _4b336acc = () => interopDefault(import('../pages/pos/ticket/index.vue' /*
 const _cdde3588 = () => interopDefault(import('../pages/reports/profit-loss.vue' /* webpackChunkName: "pages/reports/profit-loss" */))
 const _7fa8bfec = () => interopDefault(import('../pages/reports/stock-backdate.vue' /* webpackChunkName: "pages/reports/stock-backdate" */))
 const _11bf3a86 = () => interopDefault(import('../pages/reports/stock-movement.vue' /* webpackChunkName: "pages/reports/stock-movement" */))
+const _6ac8385c = () => interopDefault(import('../pages/admin/accounting/project/index.vue' /* webpackChunkName: "pages/admin/accounting/project/index" */))
 const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1.vue' /* webpackChunkName: "pages/admin/applicants/index-1" */))
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
 const _16e21664 = () => interopDefault(import('../pages/admin/cafe/promotion/index.vue' /* webpackChunkName: "pages/admin/cafe/promotion/index" */))
@@ -169,6 +171,9 @@ const _8b3672ec = () => interopDefault(import('../pages/admin/accounting/ap/invo
 const _bf0eb45a = () => interopDefault(import('../pages/admin/accounting/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/accounting/ap/invoiceSettlement/index" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
+const _6bafd921 = () => interopDefault(import('../pages/admin/accounting/project/contracts.vue' /* webpackChunkName: "pages/admin/accounting/project/contracts" */))
+const _e9a44fd4 = () => interopDefault(import('../pages/admin/accounting/project/invoices.vue' /* webpackChunkName: "pages/admin/accounting/project/invoices" */))
+const _3d7d43fa = () => interopDefault(import('../pages/admin/accounting/project/wa.vue' /* webpackChunkName: "pages/admin/accounting/project/wa" */))
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
 const _290960d1 = () => interopDefault(import('../pages/admin/moneyAdvance/report/ministryReport.vue' /* webpackChunkName: "pages/admin/moneyAdvance/report/ministryReport" */))
 const _78a0b872 = () => interopDefault(import('../pages/admin/product/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/product/mixins/ImagePreviewMixin" */))
@@ -602,6 +607,10 @@ export const routerOptions = {
     component: _f00a79be,
     name: "admin-shipping"
   }, {
+    path: "/admin/shipping-order",
+    component: _699b36bc,
+    name: "admin-shipping-order"
+  }, {
     path: "/admin/size",
     component: _beea3498,
     name: "admin-size"
@@ -733,6 +742,10 @@ export const routerOptions = {
     path: "/reports/stock-movement",
     component: _11bf3a86,
     name: "reports-stock-movement"
+  }, {
+    path: "/admin/accounting/project",
+    component: _6ac8385c,
+    name: "admin-accounting-project"
   }, {
     path: "/admin/applicants/index-1",
     component: _103d8bf0,
@@ -869,6 +882,18 @@ export const routerOptions = {
     path: "/admin/accounting/ar/receive",
     component: _51ce0e42,
     name: "admin-accounting-ar-receive"
+  }, {
+    path: "/admin/accounting/project/contracts",
+    component: _6bafd921,
+    name: "admin-accounting-project-contracts"
+  }, {
+    path: "/admin/accounting/project/invoices",
+    component: _e9a44fd4,
+    name: "admin-accounting-project-invoices"
+  }, {
+    path: "/admin/accounting/project/wa",
+    component: _3d7d43fa,
+    name: "admin-accounting-project-wa"
   }, {
     path: "/admin/advertise/mixins/ImagePreviewMixin",
     component: _0d56c4e2,

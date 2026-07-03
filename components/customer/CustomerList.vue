@@ -5,13 +5,18 @@
         </v-dialog>
         <v-card>
             <v-card-title>
-                <v-row>
-                    <v-col cols="6" sm="6" md="6">
+                <v-row align="center">
+                    <v-col cols="12" sm="4" md="4" class="text-left py-0">
                         ເລືອກລູກຄ້າ
                     </v-col>
-                    <v-col cols="6" sm="6" md="6">
-                        <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
-
+                    <v-col cols="12" sm="4" md="4" class="text-center py-0">
+                        <v-btn color="success" small dark @click="showCustomerForm = true">
+                            <v-icon left>mdi-account-plus</v-icon>
+                            ເພີ່ມລູກຄ້າໃໝ່
+                        </v-btn>
+                    </v-col>
+                    <v-col cols="12" sm="4" md="4" class="py-0">
+                        <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-details />
                     </v-col>
                 </v-row>
             </v-card-title>
@@ -37,13 +42,23 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
+
+        <!-- Create Customer Dialog -->
+        <v-dialog v-model="showCustomerForm" max-width="800px" persistent>
+            <customer-form @close-dialog="showCustomerForm = false" @reload-data="onCustomerCreated" />
+        </v-dialog>
     </div>
 </template>
   
 <script>
-import { swalSuccess, swalError2 } from '~/util/myUtil'
 import { mapActions, mapGetters } from 'vuex'
+import CustomerForm from './CustomerForm.vue'
+import { swalError2 } from '~/util/myUtil'
+
 export default {
+    components: {
+        CustomerForm,
+    },
     //   There are several types available for Vue.js props:
 
     // 1. `String`: Expects a string value.
@@ -81,6 +96,7 @@ export default {
             customerList: [],
             isloading: false,
             search: '',
+            showCustomerForm: false,
             headers: [
                 { text: "ຊື່ລູກຄ້າ", value: "name" },
                 { text: "Grade", value: "grade" },
@@ -124,7 +140,10 @@ export default {
                 })
             this.isloading = false
         },
-
+        async onCustomerCreated() {
+            this.showCustomerForm = false
+            await this.loadCustomer()
+        },
     },
 }
 </script>

@@ -18,6 +18,7 @@ import nuxt_plugin_plugin_51d09eb8 from 'nuxt_plugin_plugin_51d09eb8' // Source:
 import nuxt_plugin_toast_48781c8a from 'nuxt_plugin_toast_48781c8a' // Source: ./toast.js (mode: 'client')
 import nuxt_plugin_axios_0f93a50c from 'nuxt_plugin_axios_0f93a50c' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_electroninit_18228172 from 'nuxt_plugin_electroninit_18228172' // Source: ../plugins/electron-init.js (mode: 'client')
+import nuxt_plugin_i18n_1fba523a from 'nuxt_plugin_i18n_1fba523a' // Source: ../plugins/i18n.js (mode: 'all')
 import nuxt_plugin_vuetifytheme_33c34d63 from 'nuxt_plugin_vuetifytheme_33c34d63' // Source: ../plugins/vuetify-theme.js (mode: 'all')
 import nuxt_plugin_jspdfinvoice_24aa2464 from 'nuxt_plugin_jspdfinvoice_24aa2464' // Source: ../plugins/jspdf-invoice.js (mode: 'client')
 import nuxt_plugin_vuesweetalert2_1def2d6e from 'nuxt_plugin_vuesweetalert2_1def2d6e' // Source: ../plugins/vue-sweetalert2 (mode: 'client')
@@ -101,7 +102,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"DCOMMERCE","title":" DC","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fdc.jpeg"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"script":[{"src":"https:\u002F\u002Funpkg.com\u002Fjspdf-invoice-template@1.4.3\u002Fdist\u002Findex.js"}],"style":[]},
+    head: {"titleTemplate":"DCOMMERCE","title":" DC","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fdc.jpeg"}],"script":[{"src":"https:\u002F\u002Funpkg.com\u002Fjspdf-invoice-template@1.4.3\u002Fdist\u002Findex.js"}],"style":[]},
 
     store,
     router,
@@ -251,6 +252,10 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.client && typeof nuxt_plugin_electroninit_18228172 === 'function') {
     await nuxt_plugin_electroninit_18228172(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_i18n_1fba523a === 'function') {
+    await nuxt_plugin_i18n_1fba523a(app.context, inject)
   }
 
   if (typeof nuxt_plugin_vuetifytheme_33c34d63 === 'function') {

@@ -375,6 +375,7 @@ import {
 import CancelTicketForm from './CancelTicketForm.vue'
 // UPDATED: Imported both template functions
 import { generateInvoiceHTML, generateReceiptHTML } from '~/common/printTemplates'
+import CurrencyHelper from '~/utils/currency-helper'
 
 export default {
   name: 'EnhancedSalesFormWithPrint',
@@ -494,22 +495,15 @@ export default {
     subtotal() {
       if (!this.transaction.lines) return 0
 
-      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId)
-      if (!headerCurrency) return 0
+      const localCurrency = this.currencyList.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId) || localCurrency
 
       return this.transaction.lines.reduce((total, item) => {
-        const lineCurrency = this.currencyList.find(c => c.id === item.currencyId)
+        const lineCurrency = this.currencyList.find(c => c.id === item.currencyId) || localCurrency
         const lineTotal = item.total || 0
 
-        if (!lineCurrency || lineCurrency.id === headerCurrency.id) {
-          return total + lineTotal
-        }
-
-        // Convert line total (in line currency) to header currency
-        // 1. Line currency amount -> Local amount
-        const localAmount = lineTotal * (lineCurrency.rate || 1)
-        // 2. Local amount -> Header currency amount
-        const headerAmount = localAmount / (headerCurrency.rate || 1)
+        const localAmount = CurrencyHelper.convertToLocal(lineTotal, lineCurrency, localCurrency)
+        const headerAmount = CurrencyHelper.convertFromLocal(localAmount, headerCurrency, localCurrency)
 
         return total + headerAmount
       }, 0)
@@ -603,6 +597,30 @@ export default {
     async initializeForm() {
       this.isloading = true
       try {
+        // Eagerly load currencies if not already loaded, to prevent print crashes
+        if (!this.findAllCurrency || this.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in Order Detail:', error)
+          }
+        }
+        // Eagerly load company data if not already loaded
+        if (!this.$store.getters.findAllCompany || this.$store.getters.findAllCompany.length === 0) {
+          try {
+            const response = await this.$axios.get('api/public/company/findAll')
+            let data = response.data?.data ?? response.data
+            await this.$store.dispatch('initCompany', data)
+          } catch (error) {
+            console.error('Failed to load company data in Order Detail:', error)
+          }
+        }
+
         if (this.isUpdate) {
           console.log('Loading existing record')
           await this.loadTransaction()
@@ -664,7 +682,7 @@ export default {
         }
 
         // Print
-        this.openPrintWindow(htmlContent)
+        this.openPrintWindow(htmlContent, type)
       } catch (error) {
         console.error('Error fetching data:', error)
         this.showError('Failed to load data for printing')
@@ -673,7 +691,19 @@ export default {
       }
     },
 
-    openPrintWindow(htmlContent) {
+    openPrintWindow(htmlContent, type) {
+      if (type === 'receipt' && window.posApi && typeof window.posApi.printReceipt === 'function') {
+        const printers = this.$store.state.printers || [];
+        const printer = printers.find(p => p.type === 'ticket' && p.is_active) || printers.find(p => p.is_active);
+        const printerName = printer?.printer_name || '';
+        window.posApi.printReceipt({
+          printerName,
+          html: htmlContent,
+          width: '80mm'
+        });
+        return;
+      }
+
       try {
         const printWindow = window.open('', '_blank', 'width=800,height=600')
 
@@ -789,9 +819,9 @@ export default {
       if (!product) return
 
       const currency = this.findCurrency(product.saleCurrencyId)
-      const localPrice = (product.pro_price || 0) * (currency.rate || 1)
-
-      this.$set(item, 'price', localPrice)
+      this.$set(item, 'price', product.pro_price || 0)
+      this.$set(item, 'currencyId', product.saleCurrencyId || 1)
+      this.$set(item, 'exchangeRate', currency?.rate || 1)
 
       if (product.stockUnitId) {
         this.$set(item, 'unitId', product.stockUnitId)
@@ -963,6 +993,14 @@ export default {
 
     prepareTransactionForSubmit() {
       this.transaction.lines.forEach((line) => {
+        const product = this.productList.find((el) => el.id === line.productId)
+        if (product) {
+          if (!line.currencyId) {
+            const currency = this.findCurrency(product.saleCurrencyId)
+            this.$set(line, 'currencyId', product.saleCurrencyId || 1)
+            this.$set(line, 'exchangeRate', currency?.rate || 1)
+          }
+        }
         line.quantity = parseFloat(line.quantity) || 0
         line.unitRate = parseFloat(line.unitRate) || 1
         line.price = parseFloat(line.price) || 0

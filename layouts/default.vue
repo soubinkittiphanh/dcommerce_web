@@ -37,6 +37,16 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!-- Shipping Orders -->
+        <v-list-item to="/admin/shipping-order" router exact>
+          <v-list-item-action>
+            <v-icon color="white">mdi-truck-delivery-outline</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'ຂົນສົ່ງຂ້າມແດນ (Shipping Orders)'" :style="{ color: 'white' }" />
+          </v-list-item-content>
+        </v-list-item>
+
         <!-- Fixed Assets Group -->
         <v-list-group prepend-icon="mdi-domain-plus" color="white" active-class="white--text">
           <template v-slot:activator>
@@ -89,7 +99,7 @@
           <template v-slot:activator>
             <v-list-item-content>
               <v-list-item-title style="color: white">{{
-                menu.llname
+                $store.state.language === 'en' ? menu.name : menu.llname
               }}</v-list-item-title>
             </v-list-item-content>
           </template>
@@ -101,7 +111,7 @@
               <v-icon color="white">{{ item.icon }}</v-icon>
             </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title v-text="item.llname" :style="{ color: 'white' }" />
+              <v-list-item-title v-text="$store.state.language === 'en' ? item.name : item.llname" :style="{ color: 'white' }" />
             </v-list-item-content>
           </v-list-item>
           <v-divider></v-divider>
@@ -213,6 +223,9 @@
       <!-- Terms And Conditions Dialog -->
       <TermsAndConditionsDialog v-model="termsDialog" :finalLogoUrl="finalLogoUrl" />
 
+      <!-- System Details Dialog -->
+      <SystemDetailsDialog v-model="systemDetailsDialog" :finalLogoUrl="finalLogoUrl" />
+
       <v-container fluid class="pb-16">
         <Nuxt />
       </v-container>
@@ -233,6 +246,24 @@
         ວັນທີເຮັດວຽກ: {{ businessDate }}
       </v-chip>
 
+      <!-- Language Switcher -->
+      <v-menu offset-y top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-chip small color="primary" outlined class="ma-1 font-weight-bold" v-bind="attrs" v-on="on">
+            <v-icon small left>mdi-translate</v-icon>
+            {{ currentLanguageName }}
+          </v-chip>
+        </template>
+        <v-list dense>
+          <v-list-item @click="changeLanguage('lo')">
+            <v-list-item-title>ພາສາລາວ (Lao)</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="changeLanguage('en')">
+            <v-list-item-title>English (US)</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
       <!-- Refresh Button -->
       <v-btn small text color="primary" class="ma-1" @click="refreshStoreData" :loading="isRefreshing">
         <v-icon small left>mdi-refresh</v-icon>
@@ -251,6 +282,18 @@
         ເງື່ອນໄຂການນຳໃຊ້
       </v-btn>
 
+      <!-- System Functionality / Tutorial Button -->
+      <!-- <v-btn small text color="primary" class="ma-1" to="/admin/tutorial">
+        <v-icon small left>mdi-lifebuoy</v-icon>
+        ສາທິດການນຳໃຊ້ (Tutorial)
+      </v-btn> -->
+
+      <!-- System Details Button -->
+      <v-btn small text color="primary" class="ma-1" @click="systemDetailsDialog = true">
+        <v-icon small left>mdi-file-document-outline</v-icon>
+        (System Details)
+      </v-btn>
+
       <v-chip v-if="currentTerminal" class="ma-0" color="warning" variant="outlined" @click="terminalDialog = true">
         {{ currentTerminal.name }}
       </v-chip>
@@ -262,6 +305,7 @@
 import { mapGetters, mapActions } from 'vuex'
 import { mainCompanyInfo } from '~/common/api'
 import TermsAndConditionsDialog from '~/components/TermsAndConditionsDialog.vue'
+import SystemDetailsDialog from '~/components/SystemDetailsDialog.vue'
 
 export default {
   data() {
@@ -271,6 +315,7 @@ export default {
       intervalId: null,
       terminalDialog: false,
       termsDialog: false,
+      systemDetailsDialog: false,
       terminalSelected: 1,
       clipped: false,
       drawer: true,
@@ -319,7 +364,8 @@ export default {
   },
 
   components: {
-    TermsAndConditionsDialog
+    TermsAndConditionsDialog,
+    SystemDetailsDialog
   },
 
   async created() {
@@ -336,6 +382,12 @@ export default {
       const url = await window.posApi.getBaseUrl()
       this.$axios.setBaseURL(url)
       console.log('Frontend connected to Electron Dynamic IP:', url)
+    }
+    if (process.client) {
+      const savedLang = localStorage.getItem('language')
+      if (savedLang) {
+        this.$store.commit('SET_LANGUAGE', savedLang)
+      }
     }
     try {
       await this.checkAllInitData()
@@ -378,6 +430,13 @@ export default {
       return this.$vuetify.breakpoint.mdAndDown
     },
     homePage() {
+      const spfList = this.spfList && this.spfList.length ? this.spfList : (this.findSPF || [])
+      const homePageSpf = spfList.find((spf) => spf.code === 'HOME' && spf.isActive)
+      
+      if (homePageSpf?.value) {
+        return homePageSpf.value
+      }
+
       const userGroup = this.$auth.user?.userGroup;
 
       if (userGroup && userGroup.homePage) {
@@ -395,6 +454,10 @@ export default {
       'findAllLocation',
       'currentSelectedLocation',
     ]),
+
+    currentLanguageName() {
+      return this.$store.state.language === 'en' ? 'English' : 'ພາສາລາວ'
+    },
 
     user() {
       return this.$auth && this.$auth.user ? this.$auth.user : null
@@ -758,6 +821,9 @@ export default {
       } catch (error) {
         console.error('Error switching terminal:', error)
       }
+    },
+    changeLanguage(lang) {
+      this.$store.commit('SET_LANGUAGE', lang)
     },
   },
 }

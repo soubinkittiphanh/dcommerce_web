@@ -131,7 +131,8 @@ export function useCartManagement() {
 
       const cartItem = {
         ...productWithPricing, // Use product with applied pricing
-        isGift: isGift,
+        qty: 1,
+        isGift,
         lineUUIDCheck: true,
         lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
       }

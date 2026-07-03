@@ -67,6 +67,9 @@
             <v-btn v-if="isUpdate" color="error" depressed small class="action-btn mx-1" @click="cancelOrder" :disabled="!canCancel">
               <v-icon left small>mdi-cancel</v-icon>ຍົກເລີກ
             </v-btn>
+            <v-btn v-if="isUpdate" color="primary" depressed small class="action-btn mx-1" @click="triggerCreateSaleDirectly" :disabled="!headerId" :loading="isCreatingSale">
+              <v-icon left small>mdi-cart-outline</v-icon>ສ້າງໃບຂາຍ
+            </v-btn>
             <v-btn color="info" depressed small class="action-btn mx-1" @click="printPurchaseOrderDirectly" :disabled="!headerId" :loading="isPrinting">
               <v-icon left small>mdi-printer</v-icon>ພິມ PO
             </v-btn>
@@ -161,7 +164,7 @@
                   <span class="text-caption grey--text">ສ່ວນຫຼຸດບິນ</span>
                   <div style="width: 120px">
                     <v-text-field v-model="transaction.discount" type="number" dense outlined hide-details 
-                      prefix="₭" class="mini-input text-right" dir="rtl" />
+                      :prefix="selectedCurrencyCode" class="mini-input text-right" dir="rtl" />
                   </div>
                 </div>
                 <v-divider class="mb-3" />
@@ -218,9 +221,12 @@
                 </td>
 
                 <td class="price-col text-right">
-                  <v-btn text small block class="price-btn text-right font-weight-black" @click="pricingLogig(item)">
-                    {{ numberWithCommas(item.unitPrice) }}
+                  <v-btn text small block class="price-btn text-right font-weight-black mb-0 pb-0" @click="pricingLogig(item)">
+                    {{ numberWithCommas(getLineConvertedPrice(item)) }}
                   </v-btn>
+                  <div class="text-caption grey--text text-right mt-n1 pr-4" style="font-size: 0.7rem !important;">
+                    ({{ formatNumber(getLineOriginalPrice(item)) }} {{ getLineCurrency(item).code }})
+                  </div>
                 </td>
 
                 <td class="discount-col">
@@ -229,7 +235,10 @@
                 </td>
 
                 <td class="total-col text-right font-weight-black primary--text">
-                  {{ numberWithCommas(item.total) }}
+                  <div>{{ numberWithCommas(getLineConvertedTotal(item)) }}</div>
+                  <div class="text-caption grey--text text-right font-weight-regular mt-n1" style="font-size: 0.7rem !important;">
+                    {{ formatNumber(getLineOriginalTotal(item)) }} {{ getLineCurrency(item).code }}
+                  </div>
                 </td>
 
                 <td class="text-center">
@@ -256,6 +265,11 @@
       <v-card-actions class="pa-4 grey lighten-5">
         <v-btn depressed color="grey" text @click="toggleDialog" class="px-6 font-weight-bold">ຍົກເລີກ</v-btn>
         <v-spacer></v-spacer>
+        <div class="d-flex align-center flex-wrap mr-4" v-if="totalsByCurrency.length > 1">
+          <v-chip v-for="c in totalsByCurrency" :key="c.code" small label outlined color="primary" class="mr-2 font-weight-bold">
+            {{ formatNumber(c.total) }} {{ c.code }}
+          </v-chip>
+        </div>
         <div class="d-flex align-center mr-6">
           <span class="text-caption grey--text mr-2">ຍອດລວມທັງໝົດ:</span>
           <span class="text-h6 font-weight-black success--text">{{ formatCurrency(grandTotal) }}</span>
@@ -266,14 +280,72 @@
         </v-btn>
       </v-card-actions>
     </v-card>
+
+    <!-- Create Sale Dialog -->
+    <v-dialog v-model="saleDialog" width="500px" persistent>
+      <v-card class="po-container">
+        <v-toolbar color="primary" dark dense flat>
+          <v-toolbar-title class="text-body-1 font-weight-bold">
+            <v-icon left>mdi-cart-outline</v-icon>ສ້າງໃບຂາຍຈາກ PO #${selectedPOForSale ? selectedPOForSale.id : ''}
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon small @click="saleDialog = false"><v-icon small>mdi-close</v-icon></v-btn>
+        </v-toolbar>
+        <v-card-text class="pa-4">
+          <div class="mb-4 text-subtitle-2 font-weight-bold">ກະລຸນາເລືອກລູກຄ້າສຳລັບໃບຂາຍນີ້:</div>
+          <v-autocomplete
+            v-model="saleClientId"
+            :items="supplierList"
+            item-text="company"
+            item-value="id"
+            label="ເລືອກລູກຄ້າ / Customer"
+            outlined
+            dense
+            placeholder="ຄົ້ນຫາລູກຄ້າ..."
+            class="compact-input"
+          ></v-autocomplete>
+          <v-textarea
+            v-model="saleRemark"
+            label="ໝາຍເຫດ / Remark"
+            outlined
+            dense
+            rows="2"
+            class="compact-input mt-2"
+          ></v-textarea>
+          <v-divider class="my-3"></v-divider>
+          <div class="d-flex justify-space-between mb-2">
+            <span>ຈຳນວນລາຍການ:</span>
+            <strong>{{ selectedPOForSale && selectedPOForSale.lines ? selectedPOForSale.lines.length : 0 }} ລາຍການ</strong>
+          </div>
+          <div class="d-flex justify-space-between mb-2">
+            <span>ຍອດລວມ PO:</span>
+            <strong class="primary--text">{{ formatNumber(selectedPOForSale ? selectedPOForSale.total : 0) }} {{ selectedPOForSale && selectedPOForSale.currency ? selectedPOForSale.currency.code : 'LAK' }}</strong>
+          </div>
+          <v-divider class="my-2"></v-divider>
+          <div class="mb-2 text-caption font-weight-bold grey--text">ລາຍລະອຽດສະກຸນເງິນ / Currency Breakdown:</div>
+          <div v-for="c in getSalePOBreakdown(selectedPOForSale)" :key="c.code" class="d-flex justify-space-between mb-1 text-caption font-weight-bold">
+            <span class="grey--text text--darken-2">{{ c.code }}:</span>
+            <strong class="primary--text">{{ formatNumber(c.total) }} {{ c.code }}</strong>
+          </div>
+        </v-card-text>
+        <v-card-actions class="pa-4 justify-end border-top">
+          <v-btn depressed color="grey" text @click="saleDialog = false" class="px-4 font-weight-bold">ຍົກເລີກ</v-btn>
+          <v-btn depressed color="primary" @click="submitSaleFromPO" :loading="isCreatingSale" class="px-6 font-weight-bold action-btn">
+            ຢືນຢັນສ້າງໃບຂາຍ
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import commaThousand from '@/plugins/comma-thousand'
-import { mapActions, mapGetters } from 'vuex'
 import PricingOption from '~/components/PricingOption.vue'
 import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
+import { generatePurchaseOrderHTML } from '~/common/printTemplates'
+import CurrencyHelper from '~/utils/currency-helper'
 
 export default {
   name: 'PurchasingFormCRUD',
@@ -287,12 +359,18 @@ export default {
   data() {
     return {
       isloading: false,
+      vendorList: [],
       errorSnackbar: false,
       supplierDialog: false,
       receivingDialog: false,
       pricingDialog: false,
       pricingDialogKey: 1,
       isPrinting: false,
+      isCreatingSale: false,
+      saleDialog: false,
+      selectedPOForSale: null,
+      saleClientId: 1,
+      saleRemark: '',
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
@@ -312,7 +390,7 @@ export default {
   },
   computed: {
     ...mapGetters(['findAllProduct', 'findAllClient', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
-    supplierList() { return this.findAllClient || [] },
+    supplierList() { return this.vendorList || [] },
     productList() { return this.findAllProduct || [] },
     unitList() { return this.findAllUnit || [] },
     currencyList() { return this.findAllCurrency || [] },
@@ -324,9 +402,34 @@ export default {
     canSave() { return this.transaction.isActive && this.updateAllow && this.transaction.lines?.length > 0 && !this.isloading },
     canCancel() { return this.isUpdate && this.transaction.isActive },
     canReceive() { return this.isUpdate && this.transaction.status && ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status) },
-    subtotal() { return this.transaction.lines?.reduce((total, item) => total + (item.total || 0), 0) || 0 },
+    subtotal() {
+      const localCurrency = this.currencyList.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId) || localCurrency
+      return this.transaction.lines?.reduce((total, item) => {
+        const lineCurrency = this.getLineCurrency(item)
+        const lineTotal = parseFloat(item.total) || 0
+        const lineTotalLAK = CurrencyHelper.convertToLocal(lineTotal, lineCurrency, localCurrency)
+        const lineTotalHeader = CurrencyHelper.convertFromLocal(lineTotalLAK, headerCurrency, localCurrency)
+        return total + lineTotalHeader
+      }, 0) || 0
+    },
     headerDiscount() { const d = parseFloat(this.transaction.discount || 0); return isNaN(d) ? 0 : d },
     grandTotal() { return Math.max(0, this.subtotal - this.headerDiscount) },
+    totalsByCurrency() {
+      const breakdown = {}
+      this.transaction.lines?.forEach(item => {
+        const currency = this.getLineCurrency(item)
+        const code = currency.code || 'LAK'
+        if (!breakdown[code]) {
+          breakdown[code] = {
+            code,
+            total: 0
+          }
+        }
+        breakdown[code].total += parseFloat(item.total) || 0
+      })
+      return Object.values(breakdown).filter(b => b.total > 0)
+    },
     rules() { return { required: v => !!v || 'Required', positiveNumber: v => !v || (parseFloat(v) >= 0 || '>= 0') } }
   },
   async created() { await this.initializeForm() },
@@ -336,8 +439,19 @@ export default {
     formatCurrency(v) { return new Intl.NumberFormat('lo-LA', { style: 'currency', currency: this.selectedCurrencyCode, minimumFractionDigits: 0 }).format(v || 0) },
     async initializeForm() {
       this.isloading = true
-      try { if (this.isUpdate) { await this.loadTransaction() } else { this.initializeNewTransaction() } }
+      try {
+        await this.fetchVendors()
+        if (this.isUpdate) { await this.loadTransaction() } else { this.initializeNewTransaction() }
+      }
       catch (e) { this.showError('Initialization failed', e) } finally { this.isloading = false }
+    },
+    async fetchVendors() {
+      try {
+        const response = await this.$axios.get('api/vendor/find')
+        this.vendorList = response.data?.data || response.data || []
+      } catch (e) {
+        console.error('Failed to fetch vendors:', e)
+      }
     },
     initializeNewTransaction() {
       this.transaction = { ...this.transaction, bookingDate: new Date().toISOString().substr(0, 10), supplierId: null, currencyId: this.currencyList.find(c => c.isLocalCCY)?.id || 1, discount: 0, status: 'Draft' }
@@ -355,151 +469,131 @@ export default {
     },
     generatePurchaseOrderHTML(header) {
       const company = this.$store.getters.findAllCompany?.[0] || {}
-      const fmt = (v) => new Intl.NumberFormat().format(v || 0)
-      const lines = header.lines?.map((l, i) => `
-        <tr>
-          <td align="center">${i + 1}</td>
-          <td><strong>${l.product?.pro_name || ''}</strong><br><small style="color: #666">PID: ${l.product?.pro_id || ''}</small></td>
-          <td align="center">${fmt(l.quantity)}</td>
-          <td align="center">${l.unit?.name || ''}</td>
-          <td align="right">${fmt(l.unitPrice)}</td>
-          <td align="right">${fmt(l.discount)}</td>
-          <td align="right"><strong>${fmt(l.total)}</strong></td>
-        </tr>`).join('')
+      return generatePurchaseOrderHTML(header, company, this.currencyList)
+    },
+    triggerCreateSaleDirectly() {
+      this.selectedPOForSale = this.transaction
+      this.saleClientId = 1
+      this.saleRemark = `ສ້າງຈາກໃບສັ່ງຊື້ PO #${this.headerId}`
+      this.saleDialog = true
+    },
+    async submitSaleFromPO() {
+      if (!this.selectedPOForSale || !this.selectedPOForSale.lines || this.selectedPOForSale.lines.length === 0) {
+        swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າໃນ PO ນີ້')
+        return
+      }
 
-      return `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="UTF-8">
-        <style>
-          @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
-          body { font-family: 'Noto Sans Lao', sans-serif; padding: 0; margin: 0; color: #333; font-size: 12px; line-height: 1.6; }
-          .page { width: 210mm; min-height: 297mm; padding: 15mm; margin: 0 auto; background: white; }
-          .header { display: flex; justify-content: space-between; border-bottom: 3px solid #1976d2; padding-bottom: 20px; margin-bottom: 20px; }
-          .company-info h1 { color: #1976d2; margin: 0; font-size: 24px; text-transform: uppercase; }
-          .company-info p { margin: 2px 0; color: #666; }
-          .po-label { text-align: right; }
-          .po-label h2 { color: #1976d2; margin: 0; font-size: 28px; }
-          .po-label p { margin: 2px 0; font-weight: bold; }
+      this.isCreatingSale = true
+      try {
+        const terminal = this.$store.getters.findAllTerminal?.find(el => el.id === this.$store.getters.findSelectedTerminal) || {}
+        const localCurrency = this.$store.getters.findAllCurrency?.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+        const paymentList = this.$store.getters.findAllPayment || []
+        const defaultPayment = paymentList.find(p => p.payment_code === 'CASH' || p.name === 'Cash' || p.name === 'ເງິນສົດ') || paymentList[0]
+
+        const saleLines = this.selectedPOForSale.lines.map(line => {
+          const qty = parseFloat(line.qty || line.quantity || 1)
+          const rate = parseFloat(line.rate || line.unitRate || 1)
+          const price = parseFloat(line.price || line.unitPrice || 0)
+          const discount = parseFloat(line.discount || 0)
+          const total = parseFloat(line.total || 0)
           
-          .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
-          .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
-          .info-box h3 { margin: 0 0 10px 0; font-size: 14px; color: #1976d2; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
-          .info-row { display: flex; margin-bottom: 4px; }
-          .info-row span:first-child { width: 100px; font-weight: bold; color: #555; }
-          
-          table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
-          th { background: #1976d2; color: white; padding: 12px 8px; font-size: 11px; text-transform: uppercase; border: 1px solid #1976d2; }
-          td { padding: 10px 8px; border: 1px solid #eee; }
-          tr:nth-child(even) { background: #fafafa; }
-          
-          .footer { display: flex; justify-content: space-between; }
-          .terms { width: 60%; font-size: 10px; color: #777; }
-          .totals { width: 35%; }
-          .total-row { display: flex; justify-content: space-between; padding: 5px 0; }
-          .grand-total { border-top: 2px solid #1976d2; margin-top: 10px; padding-top: 10px; font-size: 16px; font-weight: bold; color: #1976d2; }
-          
-          .signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 60px; text-align: center; }
-          .sig-box { border-top: 1px solid #333; padding-top: 10px; }
-          @media print { .page { margin: 0; padding: 10mm; box-shadow: none; } }
-        </style>
-      </head>
-      <body>
-        <div class="page">
-          <div class="header">
-            <div class="company-info">
-              <h1>${company.name || 'D-COMMERCE'}</h1>
-              <p>${company.address || 'Vientiane, Lao PDR'}</p>
-              <p>ໂທ: ${company.tel || '-'}</p>
-              <p>Email: ${company.email || '-'}</p>
-            </div>
-            <div class="po-label">
-              <h2>ໃບສັ່ງຊື້</h2>
-              <p>PURCHASE ORDER</p>
-              <p style="font-size: 16px; color: #666"># ${header.id}</p>
-            </div>
-          </div>
+          return {
+            productId: line.productId,
+            unitId: line.unitId,
+            quantity: qty,
+            unitRate: rate,
+            price,
+            discount,
+            total,
+            currencyId: line.currencyId || line.product?.costCurrencyId || line.product?.purchaseCurrencyId || line.product?.saleCurrencyId || this.selectedPOForSale.currencyId || 1,
+            exchangeRate: line.exchangeRate || this.selectedPOForSale.exchangeRate || 1,
+            isActive: true
+          }
+        })
 
-          <div class="info-grid">
-            <div class="info-box">
-              <h3>ຂໍ້ມູນຜູ້ຂາຍ / SUPPLIER</h3>
-              <div class="info-row"><span>ຊື່ບໍລິສັດ:</span> <span>${header.vendor?.company || '-'}</span></div>
-              <div class="info-row"><span>ຜູ້ຕິດຕໍ່:</span> <span>${header.vendor?.contact || '-'}</span></div>
-              <div class="info-row"><span>ເບີໂທ:</span> <span>${header.vendor?.telephone || '-'}</span></div>
-              <div class="info-row"><span>ທີ່ຢູ່:</span> <span>${header.vendor?.address || '-'}</span></div>
-            </div>
-            <div class="info-box">
-              <h3>ລາຍລະອຽດ / DETAILS</h3>
-              <div class="info-row"><span>ວັນທີ:</span> <span>${header.bookingDate}</span></div>
-              <div class="info-row"><span>ກຳນົດສົ່ງ:</span> <span>${header.deliveryDate || '-'}</span></div>
-              <div class="info-row"><span>ສະກຸນເງິນ:</span> <span>${header.currency?.code || 'LAK'}</span></div>
-              <div class="info-row"><span>ສະຖານະ:</span> <span>${header.status}</span></div>
-            </div>
-          </div>
+        const salePayload = {
+          bookingDate: new Date().toISOString().substr(0, 10),
+          remark: this.saleRemark || `ສ້າງຈາກໃບສັ່ງຊື້ PO #${this.selectedPOForSale.id}`,
+          referenceNo: String(this.selectedPOForSale.id),
+          discount: this.selectedPOForSale.discount || 0,
+          total: this.selectedPOForSale.total || 0,
+          exchangeRate: this.selectedPOForSale.exchangeRate || 1,
+          isActive: true,
+          clientId: this.saleClientId || 1,
+          paymentId: defaultPayment ? defaultPayment.id : null,
+          currencyId: this.selectedPOForSale.currencyId || localCurrency.id || 1,
+          userId: this.$auth.user?.id || 1,
+          locationId: terminal.locationId || 1,
+          lines: saleLines
+        }
 
-          <table>
-            <thead>
-              <tr>
-                <th width="40">ລຳດັບ</th>
-                <th>ລາຍການສິນຄ້າ / DESCRIPTION</th>
-                <th width="60">ຈຳນວນ</th>
-                <th width="80">ຫົວໜ່ວຍ</th>
-                <th width="100">ລາຄາ</th>
-                <th width="80">ສ່ວນຫຼຸດ</th>
-                <th width="120">ລວມ</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${lines}
-            </tbody>
-          </table>
-
-          <div class="footer">
-            <div class="terms">
-              <h4 style="margin: 0 0 5px 0; color: #333">ເງື່ອນໄຂ / TERMS & CONDITIONS</h4>
-              <p>1. ກະລຸນາສົ່ງສິນຄ້າຕາມກຳນົດເວລາທີ່ລະບຸໄວ້.</p>
-              <p>2. ສິນຄ້າຕ້ອງຢູ່ໃນສະພາບສົມບູນ ແລະ ຖືກຕ້ອງຕາມມາດຕະຖານ.</p>
-              <p>3. ກະລຸນາແນບໃບສັ່ງຊື້ສະບັບນີ້ມານຳໃນເວລາມາສົ່ງສິນຄ້າ.</p>
-              ${header.notes ? `<p><strong>ໝາຍເຫດ:</strong> ${header.notes}</p>` : ''}
-            </div>
-            <div class="totals">
-              <div class="total-row"><span>ລວມຍ່ອຍ (Subtotal):</span> <span>${fmt(header.total + (header.discount || 0))}</span></div>
-              <div class="total-row"><span>ສ່ວນຫຼຸດ (Discount):</span> <span>-${fmt(header.discount || 0)}</span></div>
-              <div class="total-row grand-total">
-                <span>ລວມທັງໝົດ:</span>
-                <span>${fmt(header.total)} ${header.currency?.code || 'LAK'}</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="signatures">
-            <div class="sig-box">
-              <p>ຜູ້ຈັດຊື້</p>
-              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
-            </div>
-            <div class="sig-box">
-              <p>ຜູ້ກວດກາ</p>
-              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
-            </div>
-            <div class="sig-box">
-              <p>ຜູ້ນຳໃຊ້/ຮອງອຳນວຍການ</p>
-              <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
-            </div>
-          </div>
-        </div>
-      </body>
-      </html>`
+        await this.$axios.post('/api/sale/create', salePayload)
+        
+        swalSuccess(this.$swal, 'Succeed', 'ສ້າງໃບຂາຍສຳເລັດແລ້ວ')
+        this.saleDialog = false
+        this.$emit('reload')
+      } catch (error) {
+        console.error(error)
+        const errorMsg = error.response?.data || 'Failed to create sale'
+        swalError2(this.$swal, 'Error', errorMsg)
+      } finally {
+        this.isCreatingSale = false
+      }
     },
     currencyChange() { const c = this.currencyList.find(el => el.id === this.transaction.currencyId); if (c) this.transaction.exchangeRate = c.rate || 1 },
     findCurrency(id) { return this.findAllCurrency?.find(el => el.id === id) || {} },
     productChange(item) {
       const p = this.productList.find(el => el.id === item.productId); if (!p) return
-      const c = this.findCurrency(p.purchaseCurrencyId || p.saleCurrencyId)
-      this.$set(item, 'unitPrice', (p.pro_purchase_price || p.pro_price || 0) * (c.rate || 1))
+      this.$set(item, 'product', p)
+      this.$set(item, 'unitPrice', p.pro_purchase_price || p.pro_price || 0)
       if (p.stockUnitId) { this.$set(item, 'unitId', p.stockUnitId); const u = this.unitList.find(el => el.id === p.stockUnitId); this.$set(item, 'unitRate', u?.unitRate || 1) }
       else { this.$set(item, 'unitId', null); this.$set(item, 'unitRate', 1) }
       this.calculateLineTotal(item)
+    },
+    getLineCurrency(item) {
+      const p = item.product || this.productList.find(el => el.id === item.productId)
+      if (!p) return { code: 'LAK', rate: 1 }
+      return this.findCurrency(p.costCurrencyId || p.purchaseCurrencyId || p.saleCurrencyId)
+    },
+    getLineOriginalPrice(item) {
+      return parseFloat(item.unitPrice || 0)
+    },
+    getLineOriginalTotal(item) {
+      return parseFloat(item.total || 0)
+    },
+    getLineConvertedPrice(item) {
+      const lineCurrency = this.getLineCurrency(item)
+      const localCurrency = this.currencyList.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId) || localCurrency
+      const priceOriginal = parseFloat(item.unitPrice) || 0
+      const priceLAK = CurrencyHelper.convertToLocal(priceOriginal, lineCurrency, localCurrency)
+      return CurrencyHelper.convertFromLocal(priceLAK, headerCurrency, localCurrency)
+    },
+    getLineConvertedTotal(item) {
+      const lineCurrency = this.getLineCurrency(item)
+      const localCurrency = this.currencyList.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+      const headerCurrency = this.currencyList.find(c => c.id === this.transaction.currencyId) || localCurrency
+      const totalOriginal = parseFloat(item.total) || 0
+      const totalLAK = CurrencyHelper.convertToLocal(totalOriginal, lineCurrency, localCurrency)
+      return CurrencyHelper.convertFromLocal(totalLAK, headerCurrency, localCurrency)
+    },
+    getSalePOBreakdown(po) {
+      if (!po || !po.lines) return []
+      const breakdown = {}
+      po.lines.forEach(item => {
+        const p = item.product || this.productList.find(el => el.id === item.productId)
+        const currencyId = item.currencyId || p?.costCurrencyId || p?.purchaseCurrencyId || p?.saleCurrencyId || po.currencyId || 1
+        const currency = this.findAllCurrency?.find(c => c.id === currencyId) || { code: 'LAK', rate: 1 }
+        const code = currency.code || 'LAK'
+        if (!breakdown[code]) {
+          breakdown[code] = {
+            code,
+            total: 0
+          }
+        }
+        breakdown[code].total += parseFloat(item.total || (item.price || item.unitPrice || 0) * (item.qty || item.quantity || 1) - (item.discount || 0)) || 0
+      })
+      return Object.values(breakdown).filter(b => b.total > 0)
     },
     unitChange(item) { const u = this.unitList.find(el => el.id === item.unitId); if (u) { this.$set(item, 'unitRate', u.unitRate || 1); this.calculateLineTotal(item) } },
     quantityChange(item) { this.calculateLineTotal(item) },
@@ -568,14 +662,19 @@ export default {
           total: this.grandTotal,
           discount: this.headerDiscount,
           locationId: this.currentTerminal.locationId,
-          lines: this.transaction.lines.map(l => ({
-            ...l,
-            qty: parseFloat(l.quantity) || 0,
-            rate: parseFloat(l.unitRate) || 1,
-            price: parseFloat(l.unitPrice) || 0,
-            discount: parseFloat(l.discount) || 0,
-            total: parseFloat(l.total) || 0
-          }))
+          lines: this.transaction.lines.map(l => {
+            const lineCurrency = this.getLineCurrency(l)
+            return {
+              ...l,
+              qty: parseFloat(l.quantity) || 0,
+              rate: parseFloat(l.unitRate) || 1,
+              price: parseFloat(l.unitPrice) || 0,
+              discount: parseFloat(l.discount) || 0,
+              total: parseFloat(l.total) || 0,
+              currencyId: lineCurrency ? lineCurrency.id : null,
+              exchangeRate: lineCurrency ? lineCurrency.rate : 1
+            }
+          })
         }
 
         // Map frontend status to backend ENUM
@@ -591,9 +690,27 @@ export default {
         payload.status = statusMap[this.transaction.status] || 'PENDING'
 
         const url = this.isUpdate ? `api/purchasing/update/${this.headerId}` : `api/purchasing/create`
-        await this.$axios[this.isUpdate ? 'put' : 'post'](url, payload)
+        const res = await this.$axios[this.isUpdate ? 'put' : 'post'](url, payload)
         
-        this.$emit('reload'); swalSuccess(this.$swal, 'Success', 'Saved successfully')
+        this.$emit('reload')
+        swalSuccess(this.$swal, 'Success', 'Saved successfully')
+
+        const poData = res.data?.newPoHeader || res.data || {}
+        const printableId = poData.id || this.headerId
+
+        if (printableId) {
+          confirmSwal(this.$swal, 'ທ່ານຕ້ອງການພິມໃບ PO ນີ້ບໍ່? / Do you want to print this PO?', async () => {
+            this.isPrinting = true
+            try {
+              const printRes = await this.$axios.get(`api/purchasing/find/${printableId}`)
+              this.createAndPrintPurchaseOrder(printRes.data)
+            } catch (e) {
+              this.showError('Print failed')
+            } finally {
+              this.isPrinting = false
+            }
+          })
+        }
       } catch (e) { this.showError('Save failed', e) } finally { this.isloading = false }
     },
     validateHeader() { if (!this.transaction.currencyId || !this.transaction.supplierId || this.transaction.lines?.length === 0) { this.showError('Please fill required fields'); return false }; return true },

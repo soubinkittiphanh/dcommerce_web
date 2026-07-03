@@ -124,6 +124,32 @@
           </div>
         </div>
 
+        <!-- Signatures and Stamps Section -->
+        <div class="signature-section mt-8">
+          <div class="d-flex justify-space-between align-end">
+            <!-- Left Side: Provider Signature & Stamp -->
+            <div class="signature-box text-center" style="width: 250px;">
+              <p class="mb-2"><strong>ຜູ້ສະໜອງ / Provider</strong></p>
+              <div class="stamp-container" style="position: relative; height: 130px; display: flex; justify-content: center; align-items: center;">
+                <img :src="signatureImg" class="signature-img" alt="Signature" style="max-height: 60px; position: absolute; z-index: 2;" />
+                <img :src="stampImg" class="stamp-img" alt="Stamp" style="max-height: 120px; opacity: 0.85; position: absolute; z-index: 1; transform: translate(20px, -10px);" />
+              </div>
+              <v-divider class="my-2"></v-divider>
+              <p class="text-caption grey--text">D-Commerce Sole Co., Ltd</p>
+            </div>
+            
+            <!-- Right Side: User Signature & Stamp placeholder -->
+            <div class="signature-box text-center" style="width: 250px;">
+              <p class="mb-2"><strong>ຜູ້ຊົມໃຊ້ / User</strong></p>
+              <div style="height: 130px; display: flex; justify-content: center; align-items: center;">
+                <span class="grey--text lighten-2" style="font-size: 0.85rem;">(ລາຍເຊັນ ແລະ ປະທັບກາ)</span>
+              </div>
+              <v-divider class="my-2"></v-divider>
+              <p class="text-caption grey--text">Customer Representative</p>
+            </div>
+          </div>
+        </div>
+
         <div class="print-footer-only mt-8 text-center grey--text text--darken-1">
           <v-divider class="mb-4"></v-divider>
           <p>© {{ new Date().getFullYear() }} D-Commerce POS. All rights reserved.</p>
@@ -135,6 +161,10 @@
       <v-card-actions class="pa-4">
         <v-spacer></v-spacer>
         <v-btn color="grey darken-1" text @click="close">ປິດ (Close)</v-btn>
+        <v-btn color="success" outlined to="/admin/tutorial" @click="close">
+          <v-icon left>mdi-lifebuoy</v-icon>
+          ສາທິດການນຳໃຊ້ (Tutorial)
+        </v-btn>
         <v-btn color="primary" @click="printTerms">
           <v-icon left>mdi-printer</v-icon>
           ພິມ (Print / PDF)
@@ -175,6 +205,20 @@ export default {
     },
     currentDateTime() {
       return new Date().toLocaleString('lo-LA');
+    },
+    signatureImg() {
+      try {
+        return require('~/assets/image/dc_stamp/signature.png')
+      } catch {
+        return ''
+      }
+    },
+    stampImg() {
+      try {
+        return require('~/assets/image/dc_stamp/stamp.png')
+      } catch {
+        return ''
+      }
     }
   },
   methods: {
@@ -232,8 +276,12 @@ export default {
                 .text-center { text-align: center; }
                 .d-flex { display: flex; }
                 .align-center { align-items: center; }
+                .align-end { align-items: flex-end; }
                 .justify-space-between { justify-content: space-between; }
                 .grey--text { color: #757575; }
+                .mb-2 { margin-bottom: 8px; }
+                .my-2 { margin-top: 8px; margin-bottom: 8px; }
+                .text-caption { font-size: 0.75rem; }
                 hr, .v-divider { 
                   border-top: 1px solid #e0e0e0;
                   margin: 20px 0;
@@ -242,6 +290,12 @@ export default {
                   border-bottom: none;
                 }
                 img { max-height: 80px; }
+                .signature-section { margin-top: 32px; page-break-inside: avoid; }
+                .signature-box { text-align: center; width: 250px; }
+                .stamp-container { position: relative; height: 130px; display: flex; justify-content: center; align-items: center; }
+                .stamp-container img { position: absolute; }
+                .stamp-img { max-height: 120px !important; z-index: 1; }
+                .signature-img { max-height: 60px !important; z-index: 2; }
                 @page {
                   margin: 2cm;
                 }
@@ -259,7 +313,7 @@ export default {
                     window.close();
                   };
                 }
-              <\/script>
+              </' + 'script>
             </body>
           </html>
         `);
@@ -299,6 +353,33 @@ export default {
 
 .print-header-only, .print-footer-only {
   display: none;
+}
+
+.signature-section {
+  margin-top: 32px;
+}
+
+.signature-box {
+  text-align: center;
+  width: 250px;
+}
+
+.stamp-container {
+  position: relative;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.stamp-img {
+  max-height: 120px !important;
+  z-index: 1;
+}
+
+.signature-img {
+  max-height: 60px !important;
+  z-index: 2;
 }
 
 @media print {

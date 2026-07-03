@@ -7,6 +7,7 @@ export default async function ({ $axios }) {
       
       if (dynamicUrl) {
         $axios.setBaseURL(dynamicUrl);
+        localStorage.setItem('api_base_url', dynamicUrl);
         
         // Log this so you can see it in the App's DevTools
         console.log("✅ POS successfully connected to dynamic API:", dynamicUrl);
@@ -14,5 +15,8 @@ export default async function ({ $axios }) {
     } catch (error) {
       console.error("❌ Failed to fetch dynamic URL from Electron:", error);
     }
+  } else if (process.client) {
+    const currentBase = $axios.defaults.baseURL || window.location.origin;
+    localStorage.setItem('api_base_url', currentBase);
   }
 }

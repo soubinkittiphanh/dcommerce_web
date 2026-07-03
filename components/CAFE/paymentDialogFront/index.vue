@@ -581,6 +581,7 @@ export default {
         ticketId: this.ticketId,
         qrString: this.generateQRString(),
         timestamp: Date.now(),
+        currencyList: this.findAllCurrency,
       }
 
       // Try to open customer display window on second monitor
@@ -766,10 +767,11 @@ export default {
       const baseUrl = window.location.origin
       const customerDisplayPath = '/admin/cafeTable/customer'
 
-      // Serialize company info
+      // Serialize company info and currencies
       const companyData = encodeURIComponent(JSON.stringify(this.companyInfo))
+      const currencyParam = encodeURIComponent(JSON.stringify(this.findAllCurrency))
 
-      return `${baseUrl}${customerDisplayPath}?company=${companyData}`
+      return `${baseUrl}${customerDisplayPath}?company=${companyData}&currencies=${currencyParam}`
     },
     updateExistingCustomerWindow(qrData) {
       try {

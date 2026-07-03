@@ -121,8 +121,7 @@ export default {
                 .get(`product_f/${this.currentSelectedLocation['id']}`)
                 .then((res) => {
                     for (const iterator of res.data.data) {
-                        const currency = this.findCurrency(iterator['saleCurrencyId'])
-                        iterator['localPrice'] = iterator['pro_price'] * currency['rate']
+                        iterator['localPrice'] = iterator['pro_price']
                         this.productList.push(iterator)
                     }
                 })

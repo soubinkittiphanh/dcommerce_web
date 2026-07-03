@@ -686,6 +686,13 @@
     "_name": "_f00a79be"
   },
   {
+    "name": "admin-shipping-order",
+    "path": "/admin/shipping-order",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/shipping-order/index.vue",
+    "chunkName": "pages/admin/shipping-order/index",
+    "_name": "_699b36bc"
+  },
+  {
     "name": "admin-size",
     "path": "/admin/size",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/size/index.vue",
@@ -915,6 +922,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/stock-movement.vue",
     "chunkName": "pages/reports/stock-movement",
     "_name": "_11bf3a86"
+  },
+  {
+    "name": "admin-accounting-project",
+    "path": "/admin/accounting/project",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/index.vue",
+    "chunkName": "pages/admin/accounting/project/index",
+    "_name": "_6ac8385c"
   },
   {
     "name": "admin-applicants-index-1",
@@ -1153,6 +1167,27 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/ar/receive/index.vue",
     "chunkName": "pages/admin/accounting/ar/receive/index",
     "_name": "_51ce0e42"
+  },
+  {
+    "name": "admin-accounting-project-contracts",
+    "path": "/admin/accounting/project/contracts",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/contracts.vue",
+    "chunkName": "pages/admin/accounting/project/contracts",
+    "_name": "_6bafd921"
+  },
+  {
+    "name": "admin-accounting-project-invoices",
+    "path": "/admin/accounting/project/invoices",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/invoices.vue",
+    "chunkName": "pages/admin/accounting/project/invoices",
+    "_name": "_e9a44fd4"
+  },
+  {
+    "name": "admin-accounting-project-wa",
+    "path": "/admin/accounting/project/wa",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/wa.vue",
+    "chunkName": "pages/admin/accounting/project/wa",
+    "_name": "_3d7d43fa"
   },
   {
     "name": "admin-advertise-mixins-ImagePreviewMixin",

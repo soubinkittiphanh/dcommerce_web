@@ -170,7 +170,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['findAllCurrency']),
+    ...mapGetters(['findAllCurrency', 'findSPF']),
 
     localCurrency() {
       return this.findAllCurrency.find((c) => c.isLocalCCY)
@@ -206,7 +206,10 @@ export default {
 
     loyaltyDiscountAmount() {
       if (!this.showRedeem) return 0;
-      const redeemRate = 10; // Default or from setting if possible
+      const spfRate = (this.findSPF || []).find(
+        (spf) => spf.code === 'LOYALTY_REDEEM_RATE' && spf.isActive
+      )
+      const redeemRate = spfRate ? parseFloat(spfRate.value) || 10 : 10;
       return this.pointsToRedeem * redeemRate;
     },
 

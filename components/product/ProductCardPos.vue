@@ -219,7 +219,7 @@ export default {
         const existingItem = this.cartOfProduct.find(
           (item) => item.pro_id === this.product.pro_id
         )
-        const newQty = existingItem ? existingItem.qty + 1 : 1
+        const newQty = existingItem ? existingItem.qty : 1
         const limit = this.product.card_count
 
         if (limit && limit > 0) {

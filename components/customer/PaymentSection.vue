@@ -13,8 +13,8 @@
     <div class="payment-content">
       <div class="amount-display">
         <div class="amount-label">Total Amount</div>
-        <div class="amount-value">{{ formatPrice(qrData.amount) }}</div>
-        <div class="currency-label">Lao Kip (LAK)</div>
+        <div class="amount-value">{{ formatPrice(qrData.amount, localCurrencyCode) }}</div>
+        <div class="currency-label">{{ currencyName }}</div>
 
         <div v-if="convertedAmounts.length" class="multi-currency-section">
           <div v-for="alt in convertedAmounts" :key="alt.code" class="alt-currency-row">
@@ -61,7 +61,7 @@
 import QRCode from 'qrcode'
 
 export default {
-  props: ['qrData', 'parsedCompanyInfo', 'convertedAmounts', 'timeRemaining', 'companyQRImageUrl', 'companyQRImageUrl2', 'bcelQrImage', 'bcelQrImage2', 'paymentComplete'],
+  props: ['qrData', 'parsedCompanyInfo', 'convertedAmounts', 'timeRemaining', 'companyQRImageUrl', 'companyQRImageUrl2', 'bcelQrImage', 'bcelQrImage2', 'paymentComplete', 'localCurrencyCode'],
   computed: {
     qr1() {
       return this.companyQRImageUrl || this.bcelQrImage
@@ -71,6 +71,15 @@ export default {
     },
     hasTwoQrs() {
       return !!(this.qr1 && this.qr2)
+    },
+    currencyName() {
+      const names = {
+        'LAK': 'Lao Kip (LAK)',
+        'THB': 'Thai Baht (THB)',
+        'USD': 'US Dollar (USD)',
+      };
+      const code = this.localCurrencyCode || 'LAK';
+      return names[code] || code;
     }
   },
   watch: {
@@ -101,13 +110,14 @@ export default {
         console.error('QR rendering failed', err)
       }
     },
-    formatPrice(amt, currencyCode = 'LAK') {
+    formatPrice(amt, currencyCode) {
+      const code = currencyCode || this.localCurrencyCode || 'LAK';
       const symbols = {
         'LAK': '₭',
         'THB': '฿',
         'USD': '$',
       };
-      const symbol = symbols[currencyCode] || currencyCode;
+      const symbol = symbols[code] || code;
       const formatted = new Intl.NumberFormat('en-US').format(amt || 0);
       return `${formatted} ${symbol}`;
     },

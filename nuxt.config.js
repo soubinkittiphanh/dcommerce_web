@@ -47,6 +47,7 @@ export default {
   css: [
     '@/assets/css/mycss.css',
     '@/assets/css/style.css',
+    '@mdi/font/css/materialdesignicons.css',
     '@fortawesome/fontawesome-free/css/all.css',
     'vue2-datepicker/index.css',
     'vue-virtual-scroller/dist/vue-virtual-scroller.css'
@@ -54,6 +55,7 @@ export default {
 
   plugins: [
     { src: '~/plugins/electron-init.js', mode: 'client' }, // Add this at the TOP
+    '~/plugins/i18n.js',
     '~/plugins/vuetify-theme.js',
     { src: '~/plugins/jspdf-invoice.js', mode: 'client' },
     { src: '~/plugins/vue-sweetalert2', ssr: false },
@@ -115,6 +117,7 @@ export default {
   },
 
   vuetify: {
+    defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
     theme: {
       themes: {

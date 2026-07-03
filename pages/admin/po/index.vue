@@ -30,6 +30,62 @@
         @close-dialog="receivingDialog = false" @reload="loadTxn" />
     </v-dialog>
 
+    <!-- Create Sale Dialog -->
+    <v-dialog v-model="saleDialog" width="500px" persistent>
+      <v-card class="po-container">
+        <v-toolbar color="primary" dark dense flat>
+          <v-toolbar-title class="text-body-1 font-weight-bold">
+            <v-icon left>mdi-cart-outline</v-icon>ສ້າງໃບຂາຍຈາກ PO #${selectedPOForSale ? selectedPOForSale.id : ''}
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon small @click="saleDialog = false"><v-icon small>mdi-close</v-icon></v-btn>
+        </v-toolbar>
+        <v-card-text class="pa-4">
+          <div class="mb-4 text-subtitle-2 font-weight-bold">ກະລຸນາເລືອກລູກຄ້າສຳລັບໃບຂາຍນີ້:</div>
+          <v-autocomplete
+            v-model="saleClientId"
+            :items="clientOptions"
+            item-text="company"
+            item-value="id"
+            label="ເລືອກລູກຄ້າ / Customer"
+            outlined
+            dense
+            placeholder="ຄົ້ນຫາລູກຄ້າ..."
+            class="compact-input"
+          ></v-autocomplete>
+          <v-textarea
+            v-model="saleRemark"
+            label="ໝາຍເຫດ / Remark"
+            outlined
+            dense
+            rows="2"
+            class="compact-input mt-2"
+          ></v-textarea>
+          <v-divider class="my-3"></v-divider>
+          <div class="d-flex justify-space-between mb-2">
+            <span>ຈຳນວນລາຍການ:</span>
+            <strong>{{ selectedPOForSale && selectedPOForSale.lines ? selectedPOForSale.lines.length : 0 }} ລາຍການ</strong>
+          </div>
+          <div class="d-flex justify-space-between mb-2">
+            <span>ຍອດລວມ PO:</span>
+            <strong class="primary--text">{{ formatNumber(selectedPOForSale ? selectedPOForSale.total : 0) }} {{ selectedPOForSale && selectedPOForSale.currency ? selectedPOForSale.currency.code : 'LAK' }}</strong>
+          </div>
+          <v-divider class="my-2"></v-divider>
+          <div class="mb-2 text-caption font-weight-bold grey--text">ລາຍລະອຽດສະກຸນເງິນ / Currency Breakdown:</div>
+          <div v-for="c in getSalePOBreakdown(selectedPOForSale)" :key="c.code" class="d-flex justify-space-between mb-1 text-caption font-weight-bold">
+            <span class="grey--text text--darken-2">{{ c.code }}:</span>
+            <strong class="primary--text">{{ formatNumber(c.total) }} {{ c.code }}</strong>
+          </div>
+        </v-card-text>
+        <v-card-actions class="pa-4 justify-end border-top">
+          <v-btn depressed color="grey" text @click="saleDialog = false" class="px-4 font-weight-bold">ຍົກເລີກ</v-btn>
+          <v-btn depressed color="primary" @click="submitSaleFromPO" :loading="isCreatingSale" class="px-6 font-weight-bold action-btn">
+            ຢືນຢັນສ້າງໃບຂາຍ
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Header Section -->
     <header class="report-header pb-2">
       <div class="d-flex justify-space-between align-center flex-wrap">
@@ -219,6 +275,7 @@
             <v-btn icon x-small color="primary" @click="editItem(item)"><v-icon x-small>mdi-pencil</v-icon></v-btn>
             <v-btn icon x-small color="info" @click="printPurchaseOrder(item)" :loading="printingId === item.id"><v-icon x-small>mdi-printer</v-icon></v-btn>
             <v-btn icon x-small color="orange" @click="viewItem(item)"><v-icon x-small>mdi-eye</v-icon></v-btn>
+            <v-btn icon x-small color="success" @click="triggerCreateSale(item)" title="ສ້າງໃບຂາຍ"><v-icon x-small>mdi-cart-outline</v-icon></v-btn>
           </div>
         </template>
 
@@ -242,7 +299,8 @@
 <script>
 import PurchasingFormCRUD from '~/components/PurchasingFormCRUD.vue'
 import ReceivingFormCRUD from '~/components/ReceivingFormCRUD.vue'
-import { swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
+import { swalSuccess, swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
+import { generatePurchaseOrderHTML } from '~/common/printTemplates'
 
 export default {
   name: 'PurchaseOrdersDashboard',
@@ -261,6 +319,11 @@ export default {
       apFormKey: 1,
       isloading: false,
       printingId: null,
+      isCreatingSale: false,
+      saleDialog: false,
+      selectedPOForSale: null,
+      saleClientId: 1,
+      saleRemark: '',
       menu1: false,
       menu2: false,
       txnList: [],
@@ -284,7 +347,7 @@ export default {
     }
   },
   computed: {
-    currentPO() { return this.txnList.find(el => el.id == this.selectedId) },
+    currentPO() { return this.txnList.find(el => el.id === this.selectedId) },
     filteredPurchaseOrders() {
       if (!this.selectedStatusFilter) return this.txnList
       return this.txnList.filter(item => item.status === this.selectedStatusFilter)
@@ -323,13 +386,39 @@ export default {
     pendingOrdersPercentage() { return this.totalOrders > 0 ? (this.pendingOrdersCount / this.totalOrders) * 100 : 0 },
     approvedOrdersPercentage() { return this.totalOrders > 0 ? (this.approvedOrdersCount / this.totalOrders) * 100 : 0 },
     receivedOrdersPercentage() { return this.totalOrders > 0 ? (this.receivedOrdersCount / this.totalOrders) * 100 : 0 },
-    localCurrencyCode() { return this.$store.getters.findAllCurrency?.find(c => c.isLocalCCY)?.code || 'LAK' }
+    localCurrencyCode() { return this.$store.getters.findAllCurrency?.find(c => c.isLocalCCY)?.code || 'LAK' },
+    clientOptions() { return this.$store.getters.findAllClient || [] }
   },
   watch: {
     date() { this.dateFormatted = this.formatDate(this.date); this.loadTxn() },
     date2() { this.dateFormatted2 = this.formatDate(this.date2); this.loadTxn() },
   },
-  mounted() { this.loadTxn() },
+  async mounted() {
+    this.loadTxn()
+    // Eagerly load currencies if not already loaded, to prevent print crashes
+    if (!this.$store.getters.findAllCurrency || this.$store.getters.findAllCurrency.length === 0) {
+      try {
+        const response = await this.$axios.get('api/currency/findAll')
+        let data = response.data?.data ?? response.data
+        if (Array.isArray(data)) {
+            data = data.filter(c => c.isActive === true || c.isActive === 1)
+        }
+        await this.$store.dispatch('initCurrency', data)
+      } catch (error) {
+        console.error('Failed to load currencies in PO summary screen:', error)
+      }
+    }
+    // Eagerly load company data if not already loaded
+    if (!this.$store.getters.findAllCompany || this.$store.getters.findAllCompany.length === 0) {
+      try {
+        const response = await this.$axios.get('api/public/company/findAll')
+        let data = response.data?.data ?? response.data
+        await this.$store.dispatch('initCompany', data)
+      } catch (error) {
+        console.error('Failed to load company data in PO summary screen:', error)
+      }
+    }
+  },
   methods: {
     numberWithCommas(value) { return getFormatNum(value) },
     formatNumber(val) { return new Intl.NumberFormat().format(val || 0) },
@@ -346,17 +435,116 @@ export default {
       } catch (error) { swalError2(this.$swal, 'Error', 'Failed to print') } finally { this.printingId = null }
     },
     createAndPrintPurchaseOrder(poData) {
-      const poHTML = this.generatePurchaseOrderHTML(poData); const printWindow = window.open('', '_blank', 'width=800,height=600')
+      const poHTML = this.generatePurchaseOrderHTML(poData);
+      const printWindow = window.open('', '_blank', 'width=800,height=600')
       if (!printWindow) return; printWindow.document.open(); printWindow.document.write(poHTML); printWindow.document.close()
       printWindow.onload = () => { setTimeout(() => { try { printWindow.print(); setTimeout(() => printWindow.close(), 100) } catch (e) { printWindow.close() } }, 500) }
     },
     generatePurchaseOrderHTML(header) {
-      const fmt = (val) => new Intl.NumberFormat().format(val || 0)
-      const linesHTML = header.lines?.map((line, index) => `<tr><td>${index + 1}</td><td>${line.product?.pro_name || ''}</td><td>${fmt(line.quantity)}</td><td>${line.unit?.name || ''}</td><td>${fmt(line.unitPrice)}</td><td>${fmt(line.total)}</td></tr>`).join('') || ''
-      return `<html><head><style>body{font-family:'noto sans lao',sans-serif;margin:20px}table{width:100%;border-collapse:collapse}th,td{border:1px solid #ddd;padding:8px;font-size:12px}th{background:#f5f5f5}.header{text-align:center}</style></head><body><div class="header"><h1>PO #${header.id}</h1></div><table><thead><tr><th>No.</th><th>Product</th><th>Qty</th><th>Unit</th><th>Price</th><th>Total</th></tr></thead><tbody>${linesHTML}</tbody></table><div style="text-align:right"><h3>Total: ${fmt(header.total)} ${header.currency?.code || 'LAK'}</h3></div></body></html>`
+      const company = this.$store.getters.findAllCompany?.[0] || {}
+      const currencyList = this.$store.getters.findAllCurrency || []
+      return generatePurchaseOrderHTML(header, company, currencyList)
+    },
+    getSalePOBreakdown(po) {
+      if (!po || !po.lines) return []
+      const breakdown = {}
+      const productList = this.$store.getters.findAllProduct || []
+      const currencyList = this.$store.getters.findAllCurrency || []
+      po.lines.forEach(item => {
+        const p = item.product || productList.find(el => el.id === item.productId)
+        const currencyId = item.currencyId || p?.costCurrencyId || p?.purchaseCurrencyId || p?.saleCurrencyId || po.currencyId || 1
+        const currency = currencyList.find(c => c.id === currencyId) || { code: 'LAK', rate: 1 }
+        const code = currency.code || 'LAK'
+        if (!breakdown[code]) {
+          breakdown[code] = {
+            code,
+            total: 0
+          }
+        }
+        breakdown[code].total += parseFloat(item.total || (item.price || item.unitPrice || 0) * (item.qty || item.quantity || 1) - (item.discount || 0)) || 0
+      })
+      return Object.values(breakdown).filter(b => b.total > 0)
+    },
+    async triggerCreateSale(item) {
+      this.isCreatingSale = true
+      try {
+        const response = await this.$axios.get(`/api/purchasing/find/${item.id}`)
+        this.selectedPOForSale = response.data
+        this.saleClientId = 1
+        this.saleRemark = `ສ້າງຈາກໃບສັ່ງຊື້ PO #${item.id}`
+        this.saleDialog = true
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Failed to fetch PO details')
+      } finally {
+        this.isCreatingSale = false
+      }
+    },
+    async submitSaleFromPO() {
+      if (!this.selectedPOForSale || !this.selectedPOForSale.lines || this.selectedPOForSale.lines.length === 0) {
+        swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າໃນ PO ນີ້')
+        return
+      }
+
+      this.isCreatingSale = true
+      try {
+        const terminal = this.$store.getters.findAllTerminal?.find(el => el.id === this.$store.getters.findSelectedTerminal) || {}
+        const localCurrency = this.$store.getters.findAllCurrency?.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
+        const paymentList = this.$store.getters.findAllPayment || []
+        const defaultPayment = paymentList.find(p => p.payment_code === 'CASH' || p.name === 'Cash' || p.name === 'ເງິນສົດ') || paymentList[0]
+
+        const saleLines = this.selectedPOForSale.lines.map(line => {
+          const qty = parseFloat(line.qty || line.quantity || 1)
+          const rate = parseFloat(line.rate || line.unitRate || 1)
+          const price = parseFloat(line.price || line.unitPrice || 0)
+          const discount = parseFloat(line.discount || 0)
+          const total = parseFloat(line.total || 0)
+          
+          return {
+            productId: line.productId,
+            unitId: line.unitId,
+            quantity: qty,
+            unitRate: rate,
+            price,
+            discount,
+            total,
+            currencyId: line.currencyId || line.product?.costCurrencyId || line.product?.purchaseCurrencyId || line.product?.saleCurrencyId || this.selectedPOForSale.currencyId || 1,
+            exchangeRate: line.exchangeRate || this.selectedPOForSale.exchangeRate || 1,
+            isActive: true
+          }
+        })
+
+        const salePayload = {
+          bookingDate: new Date().toISOString().substr(0, 10),
+          remark: this.saleRemark || `ສ້າງຈາກໃບສັ່ງຊື້ PO #${this.selectedPOForSale.id}`,
+          referenceNo: String(this.selectedPOForSale.id),
+          discount: this.selectedPOForSale.discount || 0,
+          total: this.selectedPOForSale.total || 0,
+          exchangeRate: this.selectedPOForSale.exchangeRate || 1,
+          isActive: true,
+          clientId: this.saleClientId || 1,
+          paymentId: defaultPayment ? defaultPayment.id : null,
+          currencyId: this.selectedPOForSale.currencyId || localCurrency.id || 1,
+          userId: this.$auth.user?.id || 1,
+          locationId: terminal.locationId || 1,
+          lines: saleLines
+        }
+
+        await this.$axios.post('/api/sale/create', salePayload)
+        
+        swalSuccess(this.$swal, 'Succeed', 'ສ້າງໃບຂາຍສຳເລັດແລ້ວ')
+        this.saleDialog = false
+        this.loadTxn()
+      } catch (error) {
+        console.error(error)
+        const errorMsg = error.response?.data || 'Failed to create sale'
+        swalError2(this.$swal, 'Error', errorMsg)
+      } finally {
+        this.isCreatingSale = false
+      }
     },
     printPurchaseReport() {
-      const reportHTML = this.generatePurchaseReportHTML(); const printWindow = window.open('', '_blank', 'width=800,height=600')
+      const reportHTML = this.generatePurchaseReportHTML();
+      const printWindow = window.open('', '_blank', 'width=800,height=600')
       if (!printWindow) return; printWindow.document.open(); printWindow.document.write(reportHTML); printWindow.document.close()
       printWindow.onload = () => { setTimeout(() => { try { printWindow.print(); setTimeout(() => printWindow.close(), 100) } catch (e) { printWindow.close() } }, 500) }
     },

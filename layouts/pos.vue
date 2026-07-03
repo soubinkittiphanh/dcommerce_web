@@ -3,7 +3,7 @@
     <!-- MINIMART POS.VUE - OPTIMIZED VERSION -->
     <!-- Multi-Payment Dialog - ENHANCED -->
     <v-dialog v-model="multiPaymentDialog" max-width="900" persistent>
-      <multi-payment-dialog v-model="multiPaymentDialog" :sale-total="grandTotal - discount"
+      <multi-payment-dialog v-model="multiPaymentDialog" :sale-total="grandTotal - discount - loyaltyDiscountAmount"
         :payment-methods="findAllPayment" :sale-header-id="pendingSaleHeaderId" :format-number="formatNumber"
         @confirm-payment="handleMultiPaymentConfirm" @cancel="handleMultiPaymentCancel"
         @payment-error="handleMultiPaymentError" />
@@ -11,7 +11,7 @@
 
     <!-- NFC Payment Dialog - NEW -->
     <v-dialog v-model="nfcPaymentDialog" max-width="650" persistent>
-      <nfc-payment-dialog v-if="nfcPaymentDialog" :sale-total="grandTotal - discount" :format-number="formatNumber"
+      <nfc-payment-dialog v-if="nfcPaymentDialog" :sale-total="grandTotal - discount - loyaltyDiscountAmount" :format-number="formatNumber"
         :initial-nfc-uid="initialNfcUid" @cancel="nfcPaymentDialog = false" @confirmed="processNfcSettlement" />
     </v-dialog>
 
@@ -768,7 +768,7 @@ export default {
       const changeValue =
         this.cashReceived == 0
           ? 0
-          : this.cashReceived - (this.grandTotal - this.discount)
+          : this.cashReceived - (this.grandTotal - this.discount - this.loyaltyDiscountAmount)
       return this.formatNumber(changeValue)
     },
     ticketCommon() {
@@ -779,20 +779,19 @@ export default {
         return 'Walk-in Customer'
       }
 
-      if (this.currenctCustomer.company) {
-        return `${this.currenctCustomer.company} ${this.currenctCustomer.grade ?? 'NO GRADE'
-          }`.trim()
-      } else {
-        return `${this.currenctCustomer.name} ${this.currenctCustomer.grade ?? 'NO GRADE'
-          }`.trim()
-      }
+      const name = this.currenctCustomer.name || ''
+      const company = this.currenctCustomer.company ? ` (${this.currenctCustomer.company})` : ''
+      const grade = this.currenctCustomer.grade ?? 'NO GRADE'
+
+      return `${name}${company} ${grade}`.trim()
     },
     user() {
       return this.$auth.user || ''
     },
     headerMenu() {
-      // Determine the dynamic home path based on the user's group configuration
-      const homePath = this.user?.userGroup?.homePage || '/admin';
+      // Determine the dynamic home path based on the SPF HOME configuration or user's group configuration
+      const homePageSpf = (this.findSPF || []).find((spf) => spf.code === 'HOME' && spf.isActive)
+      const homePath = homePageSpf?.value || this.user?.userGroup?.homePage || '/admin';
 
       return [
         {
@@ -875,16 +874,21 @@ export default {
       for (const iterator of this.productCart) {
         const currency = this.findCurrency(iterator.saleCurrencyId)
         console.info(`currency model ${JSON.stringify(currency)}`)
-        const taxAmount = this.calculateLineTaxAmount(iterator)
-        const lineSubtotal = iterator.qty * iterator.localPrice
+
+        const originalPrice = iterator.localPrice || 0
+        const lineSubtotalOriginal = iterator.qty * originalPrice
+
+        const taxAmountOriginal = this.calculateLineTaxAmount(iterator)
         const taxType = iterator.tax?.taxType || 'INC'
+
+        const totalOriginal = taxType === 'EXC' ? lineSubtotalOriginal + taxAmountOriginal : lineSubtotalOriginal
 
         lines.push({
           quantity: iterator.qty,
           unitRate: 1,
           currencyId: iterator.saleCurrencyId,
           exchangeRate: currency.rate || 1,
-          price: iterator.localPrice,
+          price: originalPrice,
           discount: 0,
           validateStockOnSale: iterator.validateStockOnSale,
           productId: iterator.id,
@@ -892,16 +896,41 @@ export default {
           unitId: iterator.stockUnitId,
           colorId: iterator.colorId || null,
           sizeId: iterator.sizeId || null,
-          // Calculate total including tax if exclusive
-          total: taxType === 'EXC' ? lineSubtotal + taxAmount : lineSubtotal,
+          total: totalOriginal,
           taxRate: iterator.tax?.rate || 0,
-          taxAmount: taxAmount,
+          taxAmount: taxAmountOriginal,
           taxType: taxType,
           isGift: iterator.isGift,
           priceListId: iterator.priceListId,
           isActive: true,
         })
       }
+
+      if (this.loyaltyDiscountAmount > 0) {
+        const redeemProduct = (this.findAllProduct || []).find((p) => p.id === 999)
+        lines.push({
+          quantity: 1,
+          unitRate: 1,
+          currencyId: this.findLocalCurrency.id,
+          exchangeRate: this.findLocalCurrency.rate || 1,
+          price: -this.loyaltyDiscountAmount,
+          discount: 0,
+          validateStockOnSale: false,
+          productId: 999,
+          productKey: 999,
+          unitId: redeemProduct ? redeemProduct.stockUnitId : 1,
+          colorId: null,
+          sizeId: null,
+          total: -this.loyaltyDiscountAmount,
+          taxRate: 0,
+          taxAmount: 0,
+          taxType: 'INC',
+          isGift: false,
+          priceListId: null,
+          isActive: true,
+        })
+      }
+
       return lines
     },
     selectedCategoryId() {
@@ -922,13 +951,29 @@ export default {
       return payment['payment_code']
     },
     grandTotal() {
+      const localCurrency = this.findAllCurrency.find(c => c.isLocalCCY) || { id: 6, rate: 1 }
       const totalPrice = this.cartOfProduct.reduce((total, item) => {
-        const lineSubtotal = item.qty * item.localPrice
-        const taxAmount = this.calculateLineTaxAmount(item)
+        const currency = this.findCurrency(item.saleCurrencyId)
+        const lineSubtotalOriginal = item.qty * item.localPrice
+        const lineSubtotalLocal = CurrencyHelper.convertToLocal(lineSubtotalOriginal, currency, localCurrency)
+
+        const taxAmountOriginal = this.calculateLineTaxAmount(item)
+        const taxAmountLocal = CurrencyHelper.convertToLocal(taxAmountOriginal, currency, localCurrency)
+
         const taxType = item.tax?.taxType || 'INC'
-        return total + (taxType === 'EXC' ? lineSubtotal + taxAmount : lineSubtotal)
+        const lineTotalLocal = taxType === 'EXC' ? lineSubtotalLocal + taxAmountLocal : lineSubtotalLocal
+
+        return total + lineTotalLocal
       }, 0)
       return totalPrice
+    },
+    loyaltyDiscountAmount() {
+      if (!this.redeemedPoints) return 0
+      const spfRate = (this.findSPF || []).find(
+        (spf) => spf.code === 'LOYALTY_REDEEM_RATE' && spf.isActive
+      )
+      const redeemRate = spfRate ? parseFloat(spfRate.value) || 10 : 10
+      return this.redeemedPoints * redeemRate
     },
   },
 
@@ -1229,7 +1274,8 @@ export default {
         }
         const cartItem = {
           ...product,
-          isGift: isGift,
+          qty: 1,
+          isGift,
           lineUUIDCheck: true,
           lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
         }
@@ -1540,11 +1586,11 @@ export default {
       const message = {
         type: 'SHOW_QR_PAYMENT',
         data: {
-          amount: this.grandTotal - this.discount,
+          amount: this.grandTotal - this.discount - this.loyaltyDiscountAmount,
           storeName: this.companyData.name,
           timestamp: Date.now(),
           orderItems: formattedOrderItems,
-          discount: this.discount,
+          discount: this.discount + this.loyaltyDiscountAmount,
           change: this.changes,
           orderSummary: formattedOrderSummary,
           currencyList: this.findAllCurrency, // Added for dynamic currency sync
@@ -1664,13 +1710,13 @@ export default {
           : CurrencyHelper.convertToLocal(itemTax, currency, this.findLocalCurrency)
       })
 
-      const total = totalPriceWithTax - discount
+      const total = Math.max(0, totalPriceWithTax - discount - this.loyaltyDiscountAmount)
       const changeValue = this.cashReceived == 0 ? 0 : this.cashReceived - total
 
       return {
         subtotal: totalPriceWithTax - totalTaxLAK, // Subtotal (EXC Tax)
         tax: totalTaxLAK,
-        discount: discount,
+        discount: discount + this.loyaltyDiscountAmount,
         total: total,
         change: changeValue,
       }
@@ -1680,7 +1726,7 @@ export default {
       const message = {
         type: 'PAYMENT_SUCCESS',
         data: {
-          amount: this.grandTotal - this.discount,
+          amount: this.grandTotal - this.discount - this.loyaltyDiscountAmount,
           tableNumber: this.currentTerminal?.name || 'POS',
         },
         timestamp: Date.now(),
@@ -1843,7 +1889,7 @@ export default {
         const saleHeaderData = {
           isActive: true,
           discount: this.discount,
-          total: this.grandTotal - this.discount,
+          total: this.grandTotal - this.discount - this.loyaltyDiscountAmount,
           clientId: this.currenctCustomer.id,
           paymentId: null,
           currencyId: this.findLocalCurrency.id, //TODO: update currency DYNAMICALLY
@@ -1911,7 +1957,7 @@ export default {
           (sum, payment) => sum + (payment.amount || 0),
           0
         )
-        const expectedTotal = this.grandTotal - this.discount
+        const expectedTotal = this.grandTotal - this.discount - this.loyaltyDiscountAmount
 
         if (Math.abs(totalPaid - expectedTotal) > 0.01) {
           throw new Error(
@@ -2146,7 +2192,7 @@ export default {
         productCart: this.productCart,
         findAllProduct: this.findAllProduct,
         formatNumber: this.formatNumber,
-        discount: this.discount,
+        discount: Number(this.discount) + Number(this.loyaltyDiscountAmount),
         currencyList: this.findAllCurrency,
         grandTotal: this.grandTotal,
         lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
@@ -2170,7 +2216,7 @@ export default {
       const today = new Date()
       this.saleHeader.isActive = true
       this.saleHeader.discount = this.discount
-      this.saleHeader.total = this.grandTotal - this.discount
+      this.saleHeader.total = this.grandTotal - this.discount - this.loyaltyDiscountAmount
       this.saleHeader.redeemedPoints = this.redeemedPoints
       this.saleHeader.clientId = this.currenctCustomer.id
       this.saleHeader.paymentId = this.currentPayment
@@ -2484,6 +2530,19 @@ export default {
       this.isloading = false
     },
     openPrintWindow(htmlContent) {
+      if (window.posApi && typeof window.posApi.printReceipt === 'function') {
+        const printers = this.findAllprinters || this.$store.state.printers || [];
+        const printer = printers.find(p => p.type === 'ticket' && p.is_active) || printers.find(p => p.is_active);
+        const printerName = printer?.printer_name || '';
+        const paperWidth = this.paperSize || '80mm';
+        window.posApi.printReceipt({
+          printerName,
+          html: htmlContent,
+          width: paperWidth
+        });
+        return;
+      }
+
       try {
         const printWindow = window.open('', '_blank', 'width=800,height=600')
 

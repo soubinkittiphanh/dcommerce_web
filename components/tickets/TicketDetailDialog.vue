@@ -219,31 +219,31 @@
         </v-btn>
 
         <v-btn v-if="ticket?.status === 'pending'" color="info" large depressed
-          @click="$emit('update-status', 'preparing')" class="px-6 rounded-lg">
+          @click="$emit('update-status', ticket.id, 'preparing')" class="px-6 rounded-lg">
           <v-icon left>mdi-play</v-icon>
           Start Preparing
         </v-btn>
 
         <v-btn v-if="ticket?.status === 'preparing'" color="success" large depressed
-          @click="$emit('update-status', 'ready')" class="px-6 rounded-lg">
+          @click="$emit('update-status', ticket.id, 'ready')" class="px-6 rounded-lg">
           <v-icon left>mdi-check-all</v-icon>
           Mark Ready
         </v-btn>
 
         <v-btn v-if="ticket?.status === 'ready'" color="purple text-white" large depressed
-          @click="$emit('update-status', 'served')" class="px-6 rounded-lg">
+          @click="$emit('update-status', ticket.id, 'served')" class="px-6 rounded-lg">
           <v-icon left>mdi-room-service-outline</v-icon>
           Mark Served
         </v-btn>
 
         <v-btn v-if="ticket?.status === 'served' && ticket?.paymentStatus === 'pending'" color="primary" large depressed
-          @click="$emit('process-payment')" class="px-6 rounded-lg mr-2">
+          @click="$emit('process-payment', ticket.id)" class="px-6 rounded-lg mr-2">
           <v-icon left>mdi-cash-multiple</v-icon>
           Process Payment
         </v-btn>
 
         <v-btn v-if="ticket?.status !== 'cancel' && canCancelPermission" color="error" large outlined
-          @click="$emit('update-status', 'cancel')" class="px-6 rounded-lg">
+          @click="$emit('update-status', ticket.id, 'cancel')" class="px-6 rounded-lg">
           <v-icon left>mdi-cancel</v-icon>
           Cancel Ticket
         </v-btn>
