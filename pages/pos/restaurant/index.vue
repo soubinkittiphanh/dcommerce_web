@@ -78,9 +78,18 @@ export default {
             }
             // element.age > 25 || element.name.includes("a")
             if (this.currenctSelectedCategoryId == 9999) {
-                return this.productList.filter(item => item.pro_name.toLowerCase().includes(this.searchKeyword));
+                return this.productList.filter(item => {
+                    const nameMatch = (item.pro_name || '').toLowerCase().includes(this.searchKeyword)
+                    const codeMatch = (item.product_code || '').toLowerCase().includes(this.searchKeyword)
+                    return nameMatch || codeMatch
+                });
             }
-            return this.productList.filter(item => item.pro_category === this.currenctSelectedCategoryId && item.pro_name.toLowerCase().includes(this.searchKeyword));
+            return this.productList.filter(item => {
+                const categoryMatch = item.pro_category === this.currenctSelectedCategoryId
+                const nameMatch = (item.pro_name || '').toLowerCase().includes(this.searchKeyword)
+                const codeMatch = (item.product_code || '').toLowerCase().includes(this.searchKeyword)
+                return categoryMatch && (nameMatch || codeMatch)
+            });
 
         },
 

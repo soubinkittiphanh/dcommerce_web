@@ -903,6 +903,13 @@
     "_name": "_4b336acc"
   },
   {
+    "name": "reports-expiring-soon",
+    "path": "/reports/expiring-soon",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/expiring-soon.vue",
+    "chunkName": "pages/reports/expiring-soon",
+    "_name": "_3c8ff708"
+  },
+  {
     "name": "reports-profit-loss",
     "path": "/reports/profit-loss",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/profit-loss.vue",
@@ -1090,6 +1097,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/moneyAdvance/index.vue",
     "chunkName": "pages/admin/reports/moneyAdvance/index",
     "_name": "_cf45db36"
+  },
+  {
+    "name": "admin-reports-qr-reconciliation",
+    "path": "/admin/reports/qr-reconciliation",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/qr-reconciliation.vue",
+    "chunkName": "pages/admin/reports/qr-reconciliation",
+    "_name": "_c9a41802"
   },
   {
     "name": "admin-reports-staffActivity",
@@ -1335,6 +1349,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFQuotation/_id/index.vue",
     "chunkName": "pages/admin/PDFQuotation/_id/index",
     "_name": "_a3d2a890"
+  },
+  {
+    "name": "admin-PDFReceiving-id",
+    "path": "/admin/PDFReceiving/:id",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/PDFReceiving/_id/index.vue",
+    "chunkName": "pages/admin/PDFReceiving/_id/index",
+    "_name": "_062a960c"
   },
   {
     "name": "admin-PDFTicket-id",

@@ -264,7 +264,7 @@
                               :items="transactionCodes.filter((t) => (t.type === 'EXPENSE' || t.type != '1') && t.isActive)"
                               item-value="id" item-text="code" :loading="loadingTransactionCodes"
                               :disabled="!canModifyAllocations || loadingTransactionCodes"
-                              :error="!line.txnId && errors.settlementLines" dense outlined clearable hide-details
+                              dense outlined clearable hide-details
                               placeholder="ລະຫັດການເງິນ" class="compact-input rounded-md">
                               <template v-slot:item="{ item }">
                                 <small>{{ item.code }} - {{ item.description }}</small>
@@ -407,6 +407,10 @@
 
         <v-btn v-if="isEditMode" color="info" outlined class="ml-2 rounded-lg px-4 font-weight-bold" @click="printSettlement(settlement)">
           <v-icon left>mdi-printer</v-icon>Print Voucher
+        </v-btn>
+
+        <v-btn v-if="form.status === 'draft'" color="warning" class="ml-2 rounded-lg px-4 font-weight-bold white--text" :loading="isSubmitting" @click="submitForApproval">
+          <v-icon left>mdi-send</v-icon>ສົ່ງຂໍອະນຸມັດ
         </v-btn>
 
         <v-btn color="primary" class="ml-2 rounded-lg px-4 font-weight-bold" :loading="isSubmitting" :disabled="!canModify" @click="submitForm">
@@ -1330,10 +1334,6 @@ export default {
       // Validate settlement lines
       let hasLineErrors = false
       this.settlementLines.forEach((line, index) => {
-        if (!line.txnId) {
-          hasLineErrors = true
-          this.$toast?.error(`ລາຍການທີ ${index + 1}: ກະລຸນາເລືອກລະຫັດການເງິນ`)
-        }
 
         if (!line.amount || line.amount <= 0) {
           hasLineErrors = true
@@ -1394,6 +1394,10 @@ export default {
       } finally {
         this.isSubmitting = false
       }
+    },
+    submitForApproval() {
+      this.form.status = 'pending'
+      this.submitForm()
     },
 
     // =====================================================

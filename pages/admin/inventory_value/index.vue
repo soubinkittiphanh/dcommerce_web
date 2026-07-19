@@ -82,16 +82,16 @@
           </v-btn>
         </template> -->
         <template v-slot:[`item.product.pro_price`]="{ item }">
-          {{ formatNumber(item.product.pro_price) }}
+          {{ formatCurrency(item.product?.pro_price) }}
         </template>
         <template v-slot:[`item.pro_price`]="{ item }">
-          {{ formatNumber(item.pro_price) }}
+          {{ formatCurrency(item.pro_price) }}
         </template>
         <template v-slot:[`item.cost`]="{ item }">
-          {{ formatNumber(item.totalCardValue / item.cardCount) }}
+          {{ formatCurrency(item.totalCardValue / item.cardCount) }}
         </template>
         <template v-slot:[`item.totalCardValue`]="{ item }">
-          {{ formatNumber(item.totalCardValue) }}
+          {{ formatCurrency(item.totalCardValue) }}
         </template>
       </v-data-table>
     </v-card>
@@ -191,7 +191,16 @@ export default {
   methods: {
 
     formatNumber(value) {
-      return getFormatNum(value)
+      if (value === undefined || value === null) return '0'
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+      }).format(value)
+    },
+
+    formatCurrency(value) {
+      if (value === undefined || value === null) return '0 ₭'
+      return this.formatNumber(value) + ' ₭'
     },
 
     async fetchData() {
@@ -209,8 +218,9 @@ export default {
           console.log('Error: ' + er)
         })
       this.isloading = false
-      const simpleHead = { age: this.formatNumber(this.grandTotalStockValue), };
-      this.simpleItems.push(simpleHead)
+      this.simpleItems = [
+        { age: this.formatCurrency(this.grandTotalStockValue) }
+      ]
     },
 
     // NEW METHOD: Export to Excel with Advanced Styling
@@ -278,7 +288,13 @@ export default {
 
         const numberStyle = {
           ...dataStyle,
-          numFmt: "#,##0.00", // Number format with thousand separators
+          numFmt: "#,##0", // Number format with thousand separators, no decimals for LAK/₭
+          alignment: { horizontal: "right", vertical: "center" }
+        }
+
+        const summaryNumberStyle = {
+          ...summaryStyle,
+          numFmt: "#,##0",
           alignment: { horizontal: "right", vertical: "center" }
         }
 
@@ -338,7 +354,13 @@ export default {
         for (let col = 0; col < summaryData.length; col++) {
           const cellRef = XLSX.utils.encode_cell({ r: summaryRowIndex, c: col })
           if (!ws[cellRef]) continue
-          ws[cellRef].s = summaryStyle
+          if (col === 6) { // Grand total column
+            ws[cellRef].s = summaryNumberStyle
+          } else if (col === 4) { // Total quantity column (integer)
+            ws[cellRef].s = { ...summaryStyle, numFmt: "#,##0", alignment: { horizontal: "right", vertical: "center" } }
+          } else {
+            ws[cellRef].s = summaryStyle
+          }
         }
 
         // Set column widths

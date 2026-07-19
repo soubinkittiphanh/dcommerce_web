@@ -232,9 +232,10 @@ export default {
       if (this.searchTerm.trim()) {
         const search = this.searchTerm.toLowerCase()
         filtered = filtered.filter(p => 
-          p.pro_name.toLowerCase().includes(search) ||
+          (p.pro_name && p.pro_name.toLowerCase().includes(search)) ||
           (p.pro_desc && p.pro_desc.toLowerCase().includes(search)) ||
           (p.barCode && p.barCode.toLowerCase().includes(search)) ||
+          (p.product_code && p.product_code.toLowerCase().includes(search)) ||
           (p.location && p.location.toLowerCase().includes(search))
         )
       }

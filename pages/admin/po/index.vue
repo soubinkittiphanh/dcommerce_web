@@ -25,7 +25,7 @@
         :headerId="selectedId" @close-dialog="dialog = false" />
     </v-dialog>
 
-    <v-dialog v-model="receivingDialog" width="90%" scrollable>
+    <v-dialog v-model="receivingDialog" fullscreen transition="dialog-bottom-transition">
       <ReceivingFormCRUD :POTransaction="currentPO" sourceAPLID="PO" @close="triggerDialog" :key="apFormKey"
         @close-dialog="receivingDialog = false" @reload="loadTxn" />
     </v-dialog>
@@ -227,11 +227,21 @@
           <v-select v-model="selectedStatusFilter" :items="statusFilterOptions" item-text="label" item-value="value"
             label="ສະຖານະ" clearable outlined dense hide-details class="compact-input"></v-select>
         </v-col>
-        <v-col cols="12" md="3">
+        <v-col cols="12" md="2">
           <v-text-field v-model="search" label="ຄົ້ນຫາບິນ, ຜູ້ຂາຍ..." prepend-inner-icon="mdi-magnify" 
             clearable outlined dense hide-details class="compact-input"></v-text-field>
         </v-col>
-        <v-col cols="12" md="3" class="d-flex">
+        <v-col cols="12" md="2" class="d-flex align-center">
+          <v-checkbox
+            v-model="showCancelled"
+            label="ສະແດງໃບຍົກເລີກ"
+            hide-details
+            dense
+            color="error"
+            class="mt-0 pt-0"
+          ></v-checkbox>
+        </v-col>
+        <v-col cols="12" md="2" class="d-flex">
           <v-btn color="success" outlined @click="printPurchaseReport" class="mr-1 px-2" small height="40">
             <v-icon small>mdi-printer</v-icon>
           </v-btn>
@@ -332,7 +342,7 @@ export default {
       enhancedHeaders: [
         { text: 'ເລກບິນ', value: 'id', align: 'center', sortable: true, width: '80px' },
         { text: 'ວັນທີ', value: 'bookingDate', align: 'center', sortable: true, width: '100px' },
-        { text: 'ຜູ້ຂາຍ', value: 'vendor.company', align: 'left', width: '150px' },
+        { text: 'ຜູ້ຂາຍ', value: 'vendor.name', align: 'left', width: '150px' },
         { text: 'ເນື້ອໃນ', value: 'notes', align: 'left', width: '120px' },
         { text: 'ສະກຸນ', value: 'currency.code', align: 'center', width: '70px' },
         { text: 'ຍອດລວມ', value: 'total', align: 'right', sortable: true, width: '100px' },
@@ -344,19 +354,26 @@ export default {
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
       dateFormatted: this.formatDate(getFirstDayOfMonth()),
       dateFormatted2: this.formatDate(new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)),
+      showCancelled: false,
     }
   },
   computed: {
     currentPO() { return this.txnList.find(el => el.id === this.selectedId) },
-    filteredPurchaseOrders() {
-      if (!this.selectedStatusFilter) return this.txnList
-      return this.txnList.filter(item => item.status === this.selectedStatusFilter)
+    basePurchaseOrders() {
+      if (this.showCancelled) {
+        return this.txnList
+      }
+      return this.txnList.filter(item => item.status !== 'Cancelled' && item.status !== 'CANCELLED')
     },
-    totalOrders() { return this.txnList.length },
-    totalOrderValue() { return this.txnList.reduce((sum, order) => sum + (order.total || 0), 0) },
+    filteredPurchaseOrders() {
+      if (!this.selectedStatusFilter) return this.basePurchaseOrders
+      return this.basePurchaseOrders.filter(item => item.status === this.selectedStatusFilter)
+    },
+    totalOrders() { return this.basePurchaseOrders.length },
+    totalOrderValue() { return this.basePurchaseOrders.reduce((sum, order) => sum + (order.total || 0), 0) },
     statusStatistics() {
       const stats = {}; let totalAmount = 0
-      this.txnList.forEach(item => {
+      this.basePurchaseOrders.forEach(item => {
         const status = item.status || 'Draft'; const amount = item.total || 0
         if (!stats[status]) { stats[status] = { status, label: this.getStatusLabel(status), amount: 0, count: 0, color: this.getStatusColor(status), icon: this.getStatusIcon(status) } }
         stats[status].amount += amount; stats[status].count += 1; totalAmount += amount
@@ -372,7 +389,7 @@ export default {
     },
     purchaseCurrencyGrouping() {
       const sumByCurrency = {}; let totalAmount = 0
-      this.txnList.forEach(transaction => {
+      this.basePurchaseOrders.forEach(transaction => {
         const { total, currency } = transaction; const currencyCode = currency?.code || 'LAK'
         if (!sumByCurrency[currencyCode]) { sumByCurrency[currencyCode] = { code: currencyCode, amount: 0, count: 0 } }
         sumByCurrency[currencyCode].amount += total || 0; sumByCurrency[currencyCode].count += 1; totalAmount += total || 0
@@ -380,9 +397,9 @@ export default {
       Object.values(sumByCurrency).forEach(currency => { currency.percentage = totalAmount > 0 ? (currency.amount / totalAmount) * 100 : 0 })
       return Object.values(sumByCurrency).sort((a, b) => b.amount - a.amount)
     },
-    pendingOrdersCount() { return this.txnList.filter(item => item.status === 'Pending Approval').length },
-    approvedOrdersCount() { return this.txnList.filter(item => item.status === 'Approved').length },
-    receivedOrdersCount() { return this.txnList.filter(item => item.status === 'Fully Received' || item.status === 'Partially Received').length },
+    pendingOrdersCount() { return this.basePurchaseOrders.filter(item => item.status === 'Pending Approval' || item.status === 'PENDING').length },
+    approvedOrdersCount() { return this.basePurchaseOrders.filter(item => item.status === 'Approved' || item.status === 'APPROVED').length },
+    receivedOrdersCount() { return this.basePurchaseOrders.filter(item => item.status === 'Fully Received' || item.status === 'COMPLETED' || item.status === 'Partially Received' || item.status === 'PARTIAL').length },
     pendingOrdersPercentage() { return this.totalOrders > 0 ? (this.pendingOrdersCount / this.totalOrders) * 100 : 0 },
     approvedOrdersPercentage() { return this.totalOrders > 0 ? (this.approvedOrdersCount / this.totalOrders) * 100 : 0 },
     receivedOrdersPercentage() { return this.totalOrders > 0 ? (this.receivedOrdersCount / this.totalOrders) * 100 : 0 },
@@ -392,6 +409,11 @@ export default {
   watch: {
     date() { this.dateFormatted = this.formatDate(this.date); this.loadTxn() },
     date2() { this.dateFormatted2 = this.formatDate(this.date2); this.loadTxn() },
+    selectedStatusFilter(newVal) {
+      if (newVal === 'Cancelled' || newVal === 'CANCELLED') {
+        this.showCancelled = true
+      }
+    }
   },
   async mounted() {
     this.loadTxn()
@@ -412,7 +434,7 @@ export default {
     if (!this.$store.getters.findAllCompany || this.$store.getters.findAllCompany.length === 0) {
       try {
         const response = await this.$axios.get('api/public/company/findAll')
-        let data = response.data?.data ?? response.data
+        const data = response.data?.data ?? response.data
         await this.$store.dispatch('initCompany', data)
       } catch (error) {
         console.error('Failed to load company data in PO summary screen:', error)
@@ -556,18 +578,27 @@ export default {
     filterByStatus(status) { this.selectedStatusFilter = (this.selectedStatusFilter === status) ? null : status },
     clearStatusFilter() { this.selectedStatusFilter = null },
     getStatusLabel(status) {
-      const labels = { 'Draft': 'ຮ່າງ', 'Pending Approval': 'ລໍອະນຸມັດ', 'Approved': 'ອະນຸມັດ', 'Sent to Supplier': 'ສົ່ງຜູ້ຂາຍ', 'Partially Received': 'ຮັບບາງສ່ວນ', 'Fully Received': 'ຮັບຄົບ', 'Cancelled': 'ຍົກເລີກ' }
+      const labels = { 
+        'Draft': 'ຮ່າງ', 'Pending Approval': 'ລໍອະນຸມັດ', 'Approved': 'ອະນຸມັດ', 'Sent to Supplier': 'ສົ່ງຜູ້ຂາຍ', 'Partially Received': 'ຮັບບາງສ່ວນ', 'Fully Received': 'ຮັບຄົບ', 'Cancelled': 'ຍົກເລີກ',
+        'DRAFT': 'ຮ່າງ', 'PENDING': 'ລໍອະນຸມັດ', 'APPROVED': 'ອະນຸມັດ', 'SENT_TO_SUPPLIER': 'ສົ່ງຜູ້ຂາຍ', 'PARTIAL': 'ຮັບບາງສ່ວນ', 'COMPLETED': 'ຮັບຄົບ', 'CANCELLED': 'ຍົກເລີກ'
+      }
       return labels[status] || status
     },
     getStatusColor(status) {
-      const colors = { 'Draft': 'grey', 'Pending Approval': 'orange', 'Approved': 'green', 'Sent to Supplier': 'blue', 'Partially Received': 'purple', 'Fully Received': 'success', 'Cancelled': 'error' }
+      const colors = { 
+        'Draft': 'grey', 'Pending Approval': 'orange', 'Approved': 'green', 'Sent to Supplier': 'blue', 'Partially Received': 'purple', 'Fully Received': 'success', 'Cancelled': 'error',
+        'DRAFT': 'grey', 'PENDING': 'orange', 'APPROVED': 'green', 'SENT_TO_SUPPLIER': 'blue', 'PARTIAL': 'purple', 'COMPLETED': 'success', 'CANCELLED': 'error'
+      }
       return colors[status] || 'grey'
     },
     getStatusIcon(status) {
-      const icons = { 'Draft': 'mdi-file-edit', 'Pending Approval': 'mdi-clock', 'Approved': 'mdi-check-circle', 'Sent to Supplier': 'mdi-truck', 'Partially Received': 'mdi-package-down', 'Fully Received': 'mdi-package-check', 'Cancelled': 'mdi-cancel' }
+      const icons = { 
+        'Draft': 'mdi-file-edit', 'Pending Approval': 'mdi-clock', 'Approved': 'mdi-check-circle', 'Sent to Supplier': 'mdi-truck', 'Partially Received': 'mdi-package-down', 'Fully Received': 'mdi-package-check', 'Cancelled': 'mdi-cancel',
+        'DRAFT': 'mdi-file-edit', 'PENDING': 'mdi-clock', 'APPROVED': 'mdi-check-circle', 'SENT_TO_SUPPLIER': 'mdi-truck', 'PARTIAL': 'mdi-package-down', 'COMPLETED': 'mdi-package-check', 'CANCELLED': 'mdi-cancel'
+      }
       return icons[status] || 'mdi-help'
     },
-    canReceiveGoods(item) { return ['Approved', 'Sent to Supplier', 'Partially Received'].includes(item.status) },
+    canReceiveGoods(item) { return ['Approved', 'APPROVED', 'Sent to Supplier', 'SENT_TO_SUPPLIER', 'Partially Received', 'PARTIAL'].includes(item.status) },
     formatDate(date) { if (!date) return null; const [y, m, d] = this.formatDateToISO(date).split('-'); return `${m}/${d}/${y}` },
     parseDate(date) { if (!date) return null; const [m, d, y] = date.split('/'); return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}` },
     formatDateToISO(date) { if (!(date instanceof Date)) date = new Date(date); return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` },

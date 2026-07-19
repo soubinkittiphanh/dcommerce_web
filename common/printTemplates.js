@@ -3,119 +3,146 @@
 
 // Helper to format numbers
 const formatNumber = (val) => {
-    return new Intl.NumberFormat().format(val || 0)
+  return new Intl.NumberFormat().format(val || 0)
 }
 
 // Helper to get product image path safely
 const getProductImage = (product) => {
-    if (!product) return ''
-    if (product.pro_image_path) return product.pro_image_path
-    if (product.images && product.images.length > 0) {
-        return product.images[0].img_path || (product.images[0].img_name ? 'uploads/' + product.images[0].img_name : '')
-    }
-    return ''
+  if (!product) return ''
+  if (product.pro_image_path) return product.pro_image_path
+  if (product.images && product.images.length > 0) {
+    return product.images[0].img_path || (product.images[0].img_name ? 'uploads/' + product.images[0].img_name : '')
+  }
+  return ''
 }
 
 // Helper to format dates
 const formatDate = (dateString) => {
-    if (!dateString) return 'N/A'
-    try {
-        const date = new Date(dateString)
-        return date.toLocaleDateString('en-GB', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric'
-        })
-    } catch (error) {
-        return dateString
-    }
+  if (!dateString) return 'N/A'
+  try {
+    const date = new Date(dateString)
+    return date.toLocaleDateString('en-GB', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+  } catch (error) {
+    return dateString
+  }
 }
 
 // Enhanced currency helper functions
 const getCurrency = (currencyId, currencyList = []) => {
-    return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
+  return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
+}
+
+const getCompanyLogoUrl = (companyData) => {
+  if (!companyData) return ''
+  const baseUrl = getBaseUrl()
+
+  // 1. Try profile_image_path from API data
+  const profilePath = companyData.profile_image_path || companyData.apiData?.profile_image_path || companyData.imageUrl
+  if (profilePath) {
+    return `${baseUrl}/${profilePath.replace(/^\//, '')}`
+  }
+
+  // 2. Try ticketLogo or companyLogo if they exist
+  const logoName = companyData.companyLogo || companyData.ticketLogo || companyData.logo
+  if (logoName) {
+    if (logoName.startsWith('http') || logoName.startsWith('blob:') || logoName.includes('/')) {
+      return logoName
+    }
+    return `${baseUrl}/uploads/${logoName}`
+  }
+
+  // 3. Fallback to dcLogo
+  if (companyData.dcLogo) {
+    return `${baseUrl}/uploads/${companyData.dcLogo}`
+  }
+
+  return ''
 }
 
 // Convert amount to local currency for totals summary
 const convertToLocalCurrency = (amount, fromCurrency, localCurrency) => {
-    if (!fromCurrency || !localCurrency || fromCurrency.isLocalCCY) {
-        return amount // Already local currency
-    }
+  if (!fromCurrency || !localCurrency || fromCurrency.isLocalCCY) {
+    return amount // Already local currency
+  }
 
-    if (fromCurrency.exchangeDirection === 'local_to_foreign') {
-        // Rate: 1 local = rate foreign
-        // Convert foreign to local: amount / rate
-        return amount / fromCurrency.rate
-    } else {
-        // Rate: 1 foreign = rate local
-        // Convert foreign to local: amount * rate
-        return amount * fromCurrency.rate
-    }
+  if (fromCurrency.exchangeDirection === 'local_to_foreign') {
+    // Rate: 1 local = rate foreign
+    // Convert foreign to local: amount / rate
+    return amount / fromCurrency.rate
+  } else {
+    // Rate: 1 foreign = rate local
+    // Convert foreign to local: amount * rate
+    return amount * fromCurrency.rate
+  }
 }
 
 const generateMultiCurrencyTotalsHTML = (grandTotalInLocal, localCurrency, currencyList = []) => {
-    if (!currencyList || currencyList.length === 0) return ''
-    const activeOtherCurrencies = currencyList.filter(c => (c.isActive === true || c.isActive === 1) && c.code !== localCurrency.code)
-    if (activeOtherCurrencies.length === 0) return ''
+  if (!currencyList || currencyList.length === 0) return ''
+  const activeOtherCurrencies = currencyList.filter(c => (c.isActive === true || c.isActive === 1) && c.code !== localCurrency.code)
+  if (activeOtherCurrencies.length === 0) return ''
 
-    return activeOtherCurrencies.map(curr => {
-        let convertedVal = 0
-        if (curr.exchangeDirection === 'local_to_foreign') {
-            convertedVal = grandTotalInLocal * curr.rate
-        } else {
-            convertedVal = grandTotalInLocal / curr.rate
-        }
+  return activeOtherCurrencies.map(curr => {
+    let convertedVal = 0
+    if (curr.exchangeDirection === 'local_to_foreign') {
+      convertedVal = grandTotalInLocal * curr.rate
+    } else {
+      convertedVal = grandTotalInLocal / curr.rate
+    }
 
-        const formattedVal = curr.code === 'LAK'
-            ? new Intl.NumberFormat().format(Math.round(convertedVal))
-            : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedVal)
+    const formattedVal = curr.code === 'LAK'
+      ? new Intl.NumberFormat().format(Math.round(convertedVal))
+      : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedVal)
 
-        return `
+    return `
             <div class="total-row" style="font-size: 0.95em; color: #555; border-top: 1px dashed #eee; padding-top: 4px;">
                 <span>Equivalent in / ເປັນເງິນ (${curr.code}):</span>
                 <span><strong>${formattedVal} ${curr.code}</strong></span>
             </div>
         `
-    }).join('')
+  }).join('')
 }
 
 const getBaseUrl = () => {
-    if (typeof window !== 'undefined') {
-        const savedUrl = window.localStorage.getItem('api_base_url')
-        if (savedUrl) {
-            return savedUrl.replace(/\/$/, '')
-        }
-        if (window.$nuxt && window.$nuxt.$axios) {
-            return (window.$nuxt.$axios.defaults.baseURL || '').replace(/\/$/, '')
-        }
-        if (window.location.origin && window.location.origin.startsWith('http')) {
-            return window.location.origin.replace(/\/$/, '')
-        }
+  if (typeof window !== 'undefined') {
+    const savedUrl = window.localStorage.getItem('api_base_url')
+    if (savedUrl) {
+      return savedUrl.replace(/\/$/, '')
     }
-    return 'http://localhost:8888'
+    if (window.$nuxt && window.$nuxt.$axios) {
+      return (window.$nuxt.$axios.defaults.baseURL || '').replace(/\/$/, '')
+    }
+    if (window.location.origin && window.location.origin.startsWith('http')) {
+      return window.location.origin.replace(/\/$/, '')
+    }
+  }
+  return 'http://150.95.31.23:8046'
 }
 
 // ==========================================
 // RECEIPT TEMPLATE - ORIGINAL CURRENCY PER LINE
 // ==========================================
 export const generateReceiptHTML = (header, companyData, currencyList = []) => {
-    console.log('🧾 GENERATING RECEIPT - ORIGINAL CURRENCY VERSION')
-    console.log('================================================')
+  console.log('🧾 GENERATING RECEIPT - ORIGINAL CURRENCY VERSION')
+  console.log('================================================')
 
-    // Get local currency
-    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
-    console.log(`🏠 Local Currency: ${localCurrency.code}`)
+  // Get local currency
+  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+  console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
-    const baseUrl = getBaseUrl()
+  const baseUrl = getBaseUrl()
 
-    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-    const linesHTML = header.lines?.map((line, index) => {
-        const lineCurrency = getCurrency(line.currencyId, currencyList)
+  // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
+  const linesHTML = header.lines?.map((line, index) => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-        console.log(`📦 Line ${index + 1}: ${line.product?.pro_name}`)
-        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+    console.log(`📦 Line ${index + 1}: ${line.product?.pro_name}`)
+    console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
 
-        return `
+    return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="text-align: center;">${line.product?.id}</td>
@@ -142,50 +169,50 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
         </td>
       </tr>
     `
-    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-    // Calculate totals BY CURRENCY
-    const totalsByCurrency = {}
-    let totalInLocalCurrency = 0
+  // Calculate totals BY CURRENCY
+  const totalsByCurrency = {}
+  let totalInLocalCurrency = 0
 
-    header.lines?.forEach(line => {
-        const lineCurrency = getCurrency(line.currencyId, currencyList)
+  header.lines?.forEach(line => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-        // Group by currency
-        if (!totalsByCurrency[lineCurrency.code]) {
-            totalsByCurrency[lineCurrency.code] = {
-                currency: lineCurrency,
-                subtotal: 0,
-                discount: 0,
-                total: 0
-            }
-        }
+    // Group by currency
+    if (!totalsByCurrency[lineCurrency.code]) {
+      totalsByCurrency[lineCurrency.code] = {
+        currency: lineCurrency,
+        subtotal: 0,
+        discount: 0,
+        total: 0
+      }
+    }
 
-        totalsByCurrency[lineCurrency.code].subtotal += line.total
-        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+    totalsByCurrency[lineCurrency.code].subtotal += line.total
+    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-        // Convert to local currency for grand total
-        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-        totalInLocalCurrency += localAmount
-    })
+    // Convert to local currency for grand total
+    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+    totalInLocalCurrency += localAmount
+  })
 
-    // Add header discount to local currency
-    const headerDiscount = header.discount || 0
-    totalInLocalCurrency -= headerDiscount
+  // Add header discount to local currency
+  const headerDiscount = header.discount || 0
+  totalInLocalCurrency -= headerDiscount
 
-    console.log('💰 Totals by Currency:', totalsByCurrency)
-    console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+  console.log('💰 Totals by Currency:', totalsByCurrency)
+  console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
-    // Generate totals HTML - SUMMARY BY CURRENCY
-    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+  // Generate totals HTML - SUMMARY BY CURRENCY
+  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}):</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-    return `
+  return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -448,8 +475,8 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
             <strong>ໝາຍເຫດ:</strong> ລາຍການສິນຄ້າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົ້ນຕໍ. 
             ຍອດລວມຍ່ອຍສະແດງຈຳນວນເງິນຕາມປະເພດສະກຸນເງິນ. ຍອດລວມສຸດທ້າຍແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}) ສຳລັບການຊຳລະ.
             ${Object.keys(totalsByCurrency).length > 1 ?
-            `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
-        }
+      `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
+    }
         </div>
     </div>
     
@@ -473,23 +500,23 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
 // COMPLETE INVOICE TEMPLATE WITH MULTI-CURRENCY SUPPORT
 // ==========================================
 export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
-    console.log('📋 GENERATING INVOICE - ORIGINAL CURRENCY VERSION')
-    console.log('===============================================')
+  console.log('📋 GENERATING INVOICE - ORIGINAL CURRENCY VERSION')
+  console.log('===============================================')
 
-    // Get local currency
-    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
-    console.log(`🏠 Local Currency: ${localCurrency.code}`)
+  // Get local currency
+  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+  console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
-    const baseUrl = getBaseUrl()
+  const baseUrl = getBaseUrl()
 
-    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-    const linesHTML = header.lines?.map((line, index) => {
-        const lineCurrency = getCurrency(line.currencyId, currencyList)
+  // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
+  const linesHTML = header.lines?.map((line, index) => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-        console.log(`📦 Invoice Line ${index + 1}: ${line.product?.pro_name}`)
-        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+    console.log(`📦 Invoice Line ${index + 1}: ${line.product?.pro_name}`)
+    console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
 
-        return `
+    return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>
@@ -521,50 +548,50 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
         </td>
       </tr>
     `
-    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-    // Calculate totals BY CURRENCY (same logic as receipt)
-    const totalsByCurrency = {}
-    let totalInLocalCurrency = 0
+  // Calculate totals BY CURRENCY (same logic as receipt)
+  const totalsByCurrency = {}
+  let totalInLocalCurrency = 0
 
-    header.lines?.forEach(line => {
-        const lineCurrency = getCurrency(line.currencyId, currencyList)
+  header.lines?.forEach(line => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-        // Group by currency
-        if (!totalsByCurrency[lineCurrency.code]) {
-            totalsByCurrency[lineCurrency.code] = {
-                currency: lineCurrency,
-                subtotal: 0,
-                discount: 0,
-                total: 0
-            }
-        }
+    // Group by currency
+    if (!totalsByCurrency[lineCurrency.code]) {
+      totalsByCurrency[lineCurrency.code] = {
+        currency: lineCurrency,
+        subtotal: 0,
+        discount: 0,
+        total: 0
+      }
+    }
 
-        totalsByCurrency[lineCurrency.code].subtotal += line.total
-        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+    totalsByCurrency[lineCurrency.code].subtotal += line.total
+    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-        // Convert to local currency for grand total
-        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-        totalInLocalCurrency += localAmount
-    })
+    // Convert to local currency for grand total
+    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+    totalInLocalCurrency += localAmount
+  })
 
-    // Add header discount to local currency
-    const headerDiscount = header.discount || 0
-    totalInLocalCurrency -= headerDiscount
+  // Add header discount to local currency
+  const headerDiscount = header.discount || 0
+  totalInLocalCurrency -= headerDiscount
 
-    console.log('💰 Invoice Totals by Currency:', totalsByCurrency)
-    console.log(`🎯 Invoice Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+  console.log('💰 Invoice Totals by Currency:', totalsByCurrency)
+  console.log(`🎯 Invoice Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
-    // Generate totals HTML - SUMMARY BY CURRENCY
-    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+  // Generate totals HTML - SUMMARY BY CURRENCY
+  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-    return `
+  return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -826,8 +853,8 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
             <strong>ໝາຍເຫດ:</strong> ລາຍການສິນຄ້າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົວຈິງ. 
             ຍອດລວມຍ່ອຍສະແດງຈຳນວນເງິນຕາມປະເພດສະກຸນເງິນ. ຍອດລວມສຸດທ້າຍແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}) ສຳລັບການຊຳລະ.
             ${Object.keys(totalsByCurrency).length > 1 ?
-            `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
-        }
+      `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
+    }
         </div>
     </div>
     
@@ -843,54 +870,54 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
 }
 
 export const generatePurchaseOrderHTML = (header, companyData, currencyList = []) => {
-    const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
 
-    const baseUrl = getBaseUrl()
-    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', rate: 1 }
+  const baseUrl = getBaseUrl()
+  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', rate: 1 }
 
-    // Group and calculate totals by currency
-    const totalsByCurrency = {}
-    let grandTotalInLocal = 0
+  // Group and calculate totals by currency
+  const totalsByCurrency = {}
+  let grandTotalInLocal = 0
 
-    const lines = header.lines?.map((l, i) => {
-        const lineCurrency = currencyList.find(c => c.id === (l.currencyId || l.product?.costCurrencyId || l.product?.purchaseCurrencyId || l.product?.saleCurrencyId)) || header.currency || localCurrency
-        const currencyCode = lineCurrency.code || 'LAK'
-        const rate = l.exchangeRate || lineCurrency.rate || 1
+  const lines = header.lines?.map((l, i) => {
+    const lineCurrency = currencyList.find(c => c.id === (l.currencyId || l.product?.costCurrencyId || l.product?.purchaseCurrencyId || l.product?.saleCurrencyId)) || header.currency || localCurrency
+    const currencyCode = lineCurrency.code || 'LAK'
+    const rate = l.exchangeRate || lineCurrency.rate || 1
 
-        let unitPriceOriginal = l.price || l.unitPrice || 0
-        let discountOriginal = l.discount || 0
-        let totalOriginal = l.total || 0
+    let unitPriceOriginal = l.price || l.unitPrice || 0
+    let discountOriginal = l.discount || 0
+    let totalOriginal = l.total || 0
 
-        // If it's a legacy line (no currencyId column saved), convert back to original currency from LAK
-        if (l.currencyId === null || l.currencyId === undefined) {
-            unitPriceOriginal = unitPriceOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-            discountOriginal = discountOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-            totalOriginal = totalOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-        }
+    // If it's a legacy line (no currencyId column saved), convert back to original currency from LAK
+    if (l.currencyId === null || l.currencyId === undefined) {
+      unitPriceOriginal = unitPriceOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+      discountOriginal = discountOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+      totalOriginal = totalOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+    }
 
-        if (!totalsByCurrency[currencyCode]) {
-            totalsByCurrency[currencyCode] = {
-                currency: lineCurrency,
-                subtotal: 0,
-                discount: 0,
-                total: 0
-            }
-        }
+    if (!totalsByCurrency[currencyCode]) {
+      totalsByCurrency[currencyCode] = {
+        currency: lineCurrency,
+        subtotal: 0,
+        discount: 0,
+        total: 0
+      }
+    }
 
-        totalsByCurrency[currencyCode].subtotal += totalOriginal + discountOriginal
-        totalsByCurrency[currencyCode].discount += discountOriginal
-        totalsByCurrency[currencyCode].total += totalOriginal
+    totalsByCurrency[currencyCode].subtotal += totalOriginal + discountOriginal
+    totalsByCurrency[currencyCode].discount += discountOriginal
+    totalsByCurrency[currencyCode].total += totalOriginal
 
-        // Add to local grand total
-        let lineTotalLAK = 0
-        if (l.currencyId === null || l.currencyId === undefined) {
-            lineTotalLAK = l.total || 0
-        } else {
-            lineTotalLAK = convertToLocalCurrency(l.total || 0, lineCurrency, localCurrency)
-        }
-        grandTotalInLocal += lineTotalLAK
+    // Add to local grand total
+    let lineTotalLAK = 0
+    if (l.currencyId === null || l.currencyId === undefined) {
+      lineTotalLAK = l.total || 0
+    } else {
+      lineTotalLAK = convertToLocalCurrency(l.total || 0, lineCurrency, localCurrency)
+    }
+    grandTotalInLocal += lineTotalLAK
 
-        return `
+    return `
       <tr>
         <td align="center">${i + 1}</td>
         <td>
@@ -912,20 +939,20 @@ export const generatePurchaseOrderHTML = (header, companyData, currencyList = []
         <td align="right">${fmt(discountOriginal)} ${currencyCode}</td>
         <td align="right"><strong>${fmt(totalOriginal)} ${currencyCode}</strong></td>
       </tr>`
-    }).join('')
+  }).join('')
 
-    // Generate totals HTML for each currency
-    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+  // Generate totals HTML for each currency
+  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row">
       <span>Subtotal (${currencyCode}):</span>
       <span><strong>${fmt(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-    const headerDiscount = header.discount || 0
-    const localGrandTotal = Math.max(0, grandTotalInLocal - headerDiscount)
+  const headerDiscount = header.discount || 0
+  const localGrandTotal = Math.max(0, grandTotalInLocal - headerDiscount)
 
-    return `
+  return `
   <!DOCTYPE html>
   <html>
   <head>
@@ -966,26 +993,31 @@ export const generatePurchaseOrderHTML = (header, companyData, currencyList = []
   </head>
   <body>
     <div class="page">
-      <div class="header">
-        <div class="company-info">
-          <h1>${companyData.name || 'D-COMMERCE'}</h1>
-          <p>${companyData.address || 'Vientiane, Lao PDR'}</p>
-          <p>ໂທ: ${companyData.tel || '-'}</p>
-          <p>Email: ${companyData.email || '-'}</p>
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #1976d2; padding-bottom: 20px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          ${getCompanyLogoUrl(companyData) ? `
+            <img src="${getCompanyLogoUrl(companyData)}" alt="Logo" style="max-height: 70px; max-width: 120px; object-fit: contain; border-radius: 4px;" />
+          ` : ''}
+          <div class="company-info">
+            <h1 style="color: #1976d2; margin: 0; font-size: 24px; text-transform: uppercase;">${companyData.name || 'D-COMMERCE'}</h1>
+            <p style="margin: 2px 0; color: #666;">${companyData.address || 'Vientiane, Lao PDR'}</p>
+            <p style="margin: 2px 0; color: #666;">ໂທ: ${companyData.tel || '-'}</p>
+            <p style="margin: 2px 0; color: #666;">Email: ${companyData.email || '-'}</p>
+          </div>
         </div>
-        <div class="po-label">
-          <h2>ໃບສັ່ງຊື້</h2>
-          <p>PURCHASE ORDER</p>
-          <p style="font-size: 16px; color: #666"># ${header.id}</p>
+        <div class="po-label" style="text-align: right;">
+          <h2 style="color: #1976d2; margin: 0; font-size: 28px;">ໃບສັ່ງຊື້</h2>
+          <p style="margin: 2px 0; font-weight: bold;">PURCHASE ORDER</p>
+          <p style="font-size: 16px; color: #666; margin: 2px 0;"># ${header.id}</p>
         </div>
       </div>
       
       <div class="info-grid">
         <div class="info-box">
           <h3>ຂໍ້ມູນຜູ້ຂາຍ / SUPPLIER</h3>
-          <div class="info-row"><span>ຊື່ບໍລິສັດ:</span> <span>${header.vendor?.company || '-'}</span></div>
+          <div class="info-row"><span>ຊື່ບໍລິສັດ:</span> <span>${header.vendor?.name || '-'}</span></div>
           <div class="info-row"><span>ຜູ້ຕິດຕໍ່:</span> <span>${header.vendor?.contact || '-'}</span></div>
-          <div class="info-row"><span>ເບີໂທ:</span> <span>${header.vendor?.telephone || '-'}</span></div>
+          <div class="info-row"><span>ເບີໂທ:</span> <span>${header.vendor?.tel || '-'}</span></div>
           <div class="info-row"><span>ທີ່ຢູ່:</span> <span>${header.vendor?.address || '-'}</span></div>
         </div>
         <div class="info-box">
@@ -1049,6 +1081,357 @@ export const generatePurchaseOrderHTML = (header, companyData, currencyList = []
         </div>
         <div class="sig-box">
           <p>ຜూ້ນຳໃຊ້/ຮອງອຳນວຍການ</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>`
+}
+
+export const generateTransferHTML = (header, companyData, currencyList = []) => {
+  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+  const baseUrl = getBaseUrl()
+
+  const lines = (header.lines || []).map((l, i) => {
+    const productCode = l.product?.pro_id || ''
+    const productName = l.product?.pro_name || 'Unknown Product'
+    const unitName = l.unit?.name || 'N/A'
+    const unitRate = l.unitRate || 1
+    const price = l.price || 0
+    const total = l.total || 0
+
+    return `
+      <tr>
+        <td align="center">${i + 1}</td>
+        <td align="center">${productCode}</td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            ${getProductImage(l.product) ? `
+              <img src="${baseUrl}/${getProductImage(l.product).replace(/^\//, '')}" 
+                   style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;" 
+                   onerror="this.style.display='none';" />
+            ` : ''}
+            <strong>${productName}</strong>
+          </div>
+        </td>
+        <td align="right"><strong>${fmt(l.quantity)}</strong></td>
+        <td align="center">${unitName}</td>
+        <td align="right">${fmt(unitRate)}</td>
+        <td align="right">${fmt(price)}</td>
+        <td align="right"><strong>${fmt(total)}</strong></td>
+      </tr>`
+  }).join('')
+
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+      * { box-sizing: border-box; }
+      body { font-family: 'Noto Sans Lao', sans-serif; padding: 0; margin: 0; color: #333; font-size: 12px; line-height: 1.6; }
+      .page { width: 100%; max-width: 210mm; min-height: 297mm; padding: 15mm; margin: 0 auto; background: white; }
+      .header { display: flex; justify-content: space-between; border-bottom: 3px solid #2563eb; padding-bottom: 20px; margin-bottom: 20px; }
+      .company-info h1 { color: #2563eb; margin: 0; font-size: 24px; text-transform: uppercase; }
+      .company-info p { margin: 2px 0; color: #666; }
+      .po-label { text-align: right; }
+      .po-label h2 { color: #2563eb; margin: 0; font-size: 28px; }
+      .po-label p { margin: 2px 0; font-weight: bold; }
+      
+      .info-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 30px; margin-bottom: 30px; }
+      .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
+      .info-box h3 { margin: 0 0 10px 0; font-size: 14px; color: #2563eb; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+      .info-row { display: flex; margin-bottom: 4px; }
+      .info-row span:first-child { width: 140px; font-weight: bold; color: #555; }
+      
+      table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+      th { background: #2563eb; color: white; padding: 12px 8px; font-size: 11px; text-transform: uppercase; border: 1px solid #2563eb; }
+      td { padding: 10px 8px; border: 1px solid #eee; }
+      tr:nth-child(even) { background: #fafafa; }
+      
+      .footer { display: flex; justify-content: space-between; }
+      .terms { width: calc(100% - 350px); font-size: 10px; color: #777; }
+      .totals { width: 320px; }
+      .total-row { display: flex; justify-content: space-between; padding: 5px 0; }
+      .grand-total { border-top: 2px solid #2563eb; margin-top: 10px; padding-top: 10px; font-size: 16px; font-weight: bold; color: #2563eb; }
+      
+      .signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 60px; text-align: center; }
+      .sig-box { border-top: 1px solid #333; padding-top: 10px; }
+      @media print { body { margin: 0; padding: 0; } .page { width: 100% !important; min-height: auto !important; margin: 0 !important; padding: 10mm !important; box-shadow: none !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #2563eb; padding-bottom: 20px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          ${getCompanyLogoUrl(companyData) ? `
+            <img src="${getCompanyLogoUrl(companyData)}" alt="Logo" style="max-height: 70px; max-width: 120px; object-fit: contain; border-radius: 4px;" />
+          ` : ''}
+          <div class="company-info">
+            <h1 style="color: #2563eb; margin: 0; font-size: 24px; text-transform: uppercase;">${companyData.name || 'D-COMMERCE'}</h1>
+            <p style="margin: 2px 0; color: #666;">${companyData.address || 'Vientiane, Lao PDR'}</p>
+            <p style="margin: 2px 0; color: #666;">ໂທ: ${companyData.tel || '-'}</p>
+            <p style="margin: 2px 0; color: #666;">Email: ${companyData.email || '-'}</p>
+          </div>
+        </div>
+        <div class="po-label" style="text-align: right;">
+          <h2 style="color: #2563eb; margin: 0; font-size: 28px;">ໃບໂອນສິນຄ້າຂ້າມສາງ</h2>
+          <p style="margin: 2px 0; font-weight: bold;">STOCK TRANSFER VOUCHER</p>
+          <p style="font-size: 16px; color: #666; margin: 2px 0;"># ${header.id}</p>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-box">
+          <h3>ເສັ້ນທາງການໂອນ / TRANSFER ROUTE</h3>
+          <div class="info-row"><span>ຈາກສາງ (From):</span> <span><strong>${header.srcLocation?.name || '-'}</strong></span></div>
+          <div class="info-row"><span>ຫາສາງ (To):</span> <span><strong>${header.desLocation?.name || '-'}</strong></span></div>
+        </div>
+        <div class="info-box">
+          <h3>ລາຍລະອຽດ / DETAILS</h3>
+          <div class="info-row"><span>ວັນທີ (Date):</span> <span>${formatDate(header.bookingDate)}</span></div>
+          <div class="info-row"><span>ຜູ້ລົງ (Prepared By):</span> <span>${header.user?.cus_name || header.user?.cus_id || '-'}</span></div>
+        </div>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th width="5%">ລຳດັບ</th>
+            <th width="15%">ລະຫັດ</th>
+            <th width="35%">ລາຍການສິນຄ້າ / DESCRIPTION</th>
+            <th width="8%">ຈຳນວນ</th>
+            <th width="8%">ຫົວໜ່ວຍ</th>
+            <th width="8%">ອັດຕາ</th>
+            <th width="11%">ລາຄາ</th>
+            <th width="12%">ລວມ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lines}
+        </tbody>
+      </table>
+      
+      <div class="footer">
+        <div class="terms">
+          ${header.remark ? `<p><strong>ໝາຍເຫດ / Remarks:</strong> ${header.remark}</p>` : ''}
+        </div>
+        <div class="totals">
+          <div class="total-row grand-total">
+            <span>ມູນຄ່າລວມ (Grand Total):</span>
+            <span>${fmt(header.total)} LAK</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="signatures">
+        <div class="sig-box">
+          <p>ຜູ້ອະນຸມັດ / Approver</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+        <div class="sig-box">
+          <p>ຜູ້ຮັບເຄື່ອງ / Receiver</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+        <div class="sig-box">
+          <p>ຜູ້ໂອນເຄື່ອງ / Transferor</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+      </div>
+    </div>
+  </body>
+  </html>`
+}
+
+export const generateReceivingHTML = (header, companyData, currencyList = []) => {
+  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+  const baseUrl = getBaseUrl()
+
+  // Group and calculate totals by currency
+  const totalsByCurrency = {}
+
+  const lines = (header.lines || []).map((l, i) => {
+    const productCode = l.product?.pro_id || ''
+    const productName = l.product?.pro_name || 'Unknown Product'
+    const unitName = l.unit?.name || 'N/A'
+    const qty = l.qty || l.quantity || 0
+    const price = l.price || 0
+    const total = l.total || 0
+
+    // Get currency for the line item
+    let lineCurrency = currencyList.find(c => c.id === l.currencyId)
+    if (!lineCurrency && l.product) {
+      const currencyId = l.product.costCurrencyId || l.product.purchaseCurrencyId || l.product.saleCurrencyId
+      lineCurrency = currencyList.find(c => c.id === currencyId)
+    }
+    if (!lineCurrency) {
+      lineCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
+    }
+    const currencyCode = lineCurrency.code || 'LAK'
+
+    if (!totalsByCurrency[currencyCode]) {
+      totalsByCurrency[currencyCode] = {
+        code: currencyCode,
+        total: 0
+      }
+    }
+    totalsByCurrency[currencyCode].total += total
+
+    return `
+      <tr>
+        <td align="center">${i + 1}</td>
+        <td align="center">${productCode}</td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            ${getProductImage(l.product) ? `
+              <img src="${baseUrl}/${getProductImage(l.product).replace(/^\//, '')}" 
+                   style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;" 
+                   onerror="this.style.display='none';" />
+            ` : ''}
+            <strong>${productName}</strong>
+          </div>
+        </td>
+        <td align="right"><strong>${fmt(qty)}</strong></td>
+        <td align="center">${unitName}</td>
+        <td align="right">${fmt(price)}</td>
+        <td align="right"><strong>${fmt(total)}</strong></td>
+      </tr>`
+  }).join('')
+
+  const totalsHTML = Object.values(totalsByCurrency).map(d => `
+    <div class="total-row">
+      <span>Total (${d.code}):</span>
+      <span><strong>${fmt(d.total)} ${d.code}</strong></span>
+    </div>
+  `).join('')
+
+  // Header currency
+  const headerCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
+
+  return `
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <meta charset="UTF-8">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap');
+      * { box-sizing: border-box; }
+      body { font-family: 'Noto Sans Lao', sans-serif; padding: 0; margin: 0; color: #333; font-size: 12px; line-height: 1.6; }
+      .page { width: 100%; max-width: 210mm; min-height: 297mm; padding: 15mm; margin: 0 auto; background: white; }
+      .header { display: flex; justify-content: space-between; border-bottom: 3px solid #0284c7; padding-bottom: 20px; margin-bottom: 20px; }
+      .company-info h1 { color: #0284c7; margin: 0; font-size: 24px; text-transform: uppercase; }
+      .company-info p { margin: 2px 0; color: #666; }
+      .po-label { text-align: right; }
+      .po-label h2 { color: #0284c7; margin: 0; font-size: 28px; }
+      .po-label p { margin: 2px 0; font-weight: bold; }
+      
+      .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 30px; }
+      .info-box { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #eee; }
+      .info-box h3 { margin: 0 0 10px 0; font-size: 14px; color: #0284c7; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+      .info-row { display: flex; margin-bottom: 4px; }
+      .info-row span:first-child { width: 120px; font-weight: bold; color: #555; }
+      
+      table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+      th { background: #0284c7; color: white; padding: 12px 8px; font-size: 11px; text-transform: uppercase; border: 1px solid #0284c7; }
+      td { padding: 10px 8px; border: 1px solid #eee; }
+      tr:nth-child(even) { background: #fafafa; }
+      
+      .footer { display: flex; justify-content: space-between; }
+      .terms { width: calc(100% - 350px); font-size: 10px; color: #777; }
+      .totals { width: 320px; }
+      .total-row { display: flex; justify-content: space-between; padding: 5px 0; }
+      .grand-total { border-top: 2px solid #0284c7; margin-top: 10px; padding-top: 10px; font-size: 16px; font-weight: bold; color: #0284c7; }
+      
+      .signatures { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-top: 60px; text-align: center; }
+      .sig-box { border-top: 1px solid #333; padding-top: 10px; }
+      @media print { body { margin: 0; padding: 0; } .page { width: 100% !important; min-height: auto !important; margin: 0 !important; padding: 10mm !important; box-shadow: none !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0284c7; padding-bottom: 20px; margin-bottom: 20px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+          ${getCompanyLogoUrl(companyData) ? `
+            <img src="${getCompanyLogoUrl(companyData)}" alt="Logo" style="max-height: 70px; max-width: 120px; object-fit: contain; border-radius: 4px;" />
+          ` : ''}
+          <div class="company-info">
+            <h1 style="color: #0284c7; margin: 0; font-size: 24px; text-transform: uppercase;">${companyData.name || 'D-COMMERCE'}</h1>
+            <p style="margin: 2px 0; color: #666;">${companyData.address || 'Vientiane, Lao PDR'}</p>
+            <p style="margin: 2px 0; color: #666;">ໂທ: ${companyData.tel || '-'}</p>
+            <p style="margin: 2px 0; color: #666;">Email: ${companyData.email || '-'}</p>
+          </div>
+        </div>
+        <div class="po-label" style="text-align: right;">
+          <h2 style="color: #0284c7; margin: 0; font-size: 28px;">ໃບຮັບສິນຄ້າເຂົ້າສາງ</h2>
+          <p style="margin: 2px 0; font-weight: bold;">GOODS RECEIPT NOTE (GRN)</p>
+          <p style="font-size: 16px; color: #666; margin: 2px 0;"># ${header.id}</p>
+        </div>
+      </div>
+      
+      <div class="info-grid">
+        <div class="info-box">
+          <h3>ຜູ້ສະໜອງ / SUPPLIER</h3>
+          <div class="info-row"><span>ຊື່ບໍລິສັດ:</span> <span>${header.vendor?.name || '-'}</span></div>
+          <div class="info-row"><span>ເບີໂທ:</span> <span>${header.vendor?.tel || '-'}</span></div>
+          <div class="info-row"><span>ທີ່ຢູ່:</span> <span>${header.vendor?.address || '-'}</span></div>
+        </div>
+        <div class="info-box">
+          <h3>ລາຍລະອຽດ / DETAILS</h3>
+          <div class="info-row"><span>ວັນທີຮັບ:</span> <span>${formatDate(header.bookingDate)}</span></div>
+          <div class="info-row"><span>PO Ref:</span> <span>${header.poHeaderId ? '#' + header.poHeaderId : '-'}</span></div>
+          <div class="info-row"><span>ຜູ້ຮັບເຄື່ອງ:</span> <span>${header.user?.cus_name || header.user?.cus_id || '-'}</span></div>
+        </div>
+      </div>
+      
+      <table>
+        <thead>
+          <tr>
+            <th width="5%">%ລຳດັບ</th>
+            <th width="15%">ລະຫັດ</th>
+            <th width="40%">ລາຍການສິນຄ້າ / DESCRIPTION</th>
+            <th width="10%">ຈຳນວນ</th>
+            <th width="10%">ຫົວໜ່ວຍ</th>
+            <th width="10%">ລາຄາ</th>
+            <th width="10%">ລວມ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${lines}
+        </tbody>
+      </table>
+      
+      <div class="footer">
+        <div class="terms">
+          ${header.notes ? `<p><strong>ໝາຍເຫດ / Notes:</strong> ${header.notes}</p>` : ''}
+        </div>
+        <div class="totals">
+          ${totalsHTML}
+          <div class="total-row grand-total">
+            <span>ລວມທັງໝົດ (Grand Total):</span>
+            <span>${fmt(header.total)} ${headerCurrency.code}</span>
+          </div>
+          ${header.exchangeRate && header.exchangeRate !== 1 ? `
+            <div class="total-row" style="color: #666; font-size: 10px;">
+              <span>Exchange Rate:</span>
+              <span>1 ${headerCurrency.code} = ${fmt(header.exchangeRate)} LAK</span>
+            </div>
+          ` : ''}
+        </div>
+      </div>
+      
+      <div class="signatures">
+        <div class="sig-box">
+          <p>ຜູ້ອະນຸມັດ / Approver</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+        <div class="sig-box">
+          <p>ຜູ້ກວດຮັບ / Inspector</p>
+          <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
+        </div>
+        <div class="sig-box">
+          <p>ຜູ້ມອບເຄື່ອງ / Deliverer</p>
           <p style="margin-top: 40px; font-size: 10px; color: #999">(ລາຍເຊັນ ແລະ ຊື່ແຈ້ງ)</p>
         </div>
       </div>

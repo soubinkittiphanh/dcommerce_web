@@ -212,6 +212,13 @@
                     <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
                   </v-list-item>
 
+                  <v-list-item v-if="item.status === 'draft'" @click="submitSettlement(item)">
+                    <v-list-item-icon>
+                      <v-icon small color="primary">mdi-send</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-title>ສົ່ງຂໍອະນຸມັດ</v-list-item-title>
+                  </v-list-item>
+
                   <v-list-item v-if="item.status === 'pending'" @click="approveSettlement(item)">
                     <v-list-item-icon>
                       <v-icon small color="success">mdi-check</v-icon>
@@ -739,7 +746,7 @@ export default {
     },
 
     // Fallback CSV generation
-    async generateCSVFromData(settlements, filename) {
+    generateCSVFromData(settlements, filename) {
       const csvHeaders = [
         'ລຳດັບ',
         'ID ການຊຳລະ',
@@ -780,7 +787,7 @@ export default {
         .map(row => row.map(cell => `"${cell}"`).join(','))
         .join('\n')
 
-      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' })
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' })
       this.downloadBlob(blob, filename)
     },
 
@@ -1016,6 +1023,49 @@ export default {
             `/api/ap-invoices-settlement/${settlement.id}/approve`
           )
           this.$toast.success('ອະນຸມັດສຳເລັດ')
+          await this.fetchData()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error('ເກີດຂໍ້ຜິດພາດ')
+      }
+    },
+
+    async submitSettlement(settlement) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການສົ່ງຂໍອະນຸມັດ',
+          `ທ່ານຕ້ອງການສົ່ງຂໍອະນຸມັດການຊຳລະ #${settlement.id} ແມ່ນບໍ່?`,
+          'question'
+        )
+
+        if (result.isConfirmed) {
+          const { data } = await this.$axios.get(`/api/ap-invoices-settlement/${settlement.id}`)
+          const fullData = data?.data || data
+          
+          const settlementLines = (fullData.invoiceSettlements || []).map(line => ({
+            type: line.type || 'invoice',
+            invoiceId: line.invoiceLineItem?.invoiceId || line.invoiceId,
+            amount: parseFloat(line.amount || 0),
+            DRglAccountId: line.DRglAccountId,
+            CRglAccountId: line.CRglAccountId,
+            txnId: line.txnId,
+            agencyId: line.agencyId,
+            description: line.description,
+            applicantId: line.applicantId
+          }))
+
+          await this.$axios.put(
+            `/api/ap-invoices-settlement/${settlement.id}`,
+            {
+              ...fullData,
+              status: 'pending',
+              reason: 'Submitted for approval',
+              settlementLines
+            }
+          )
+          this.$toast.success('ສົ່ງຂໍອະນຸມັດສຳເລັດ')
           await this.fetchData()
         }
       } catch (error) {

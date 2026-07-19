@@ -47,12 +47,25 @@
           </v-row>
 
           <v-row dense class="mt-2">
+            <v-col cols="12">
+              <v-textarea v-model="form.term_condition" label="ເງື່ອນໄຂ ແລະ ຂໍ້ກຳນົດ (Terms & Conditions)" dense outlined
+                hide-details="auto" prepend-inner-icon="mdi-text-box-check-outline" rows="3"></v-textarea>
+            </v-col>
+          </v-row>
+
+          <v-row dense class="mt-2">
             <v-col cols="12" sm="4">
               <v-text-field v-model="form.province" label="ແຂວງ" dense outlined hide-details="auto"></v-text-field>
             </v-col>
             <v-col cols="12" sm="4">
               <v-text-field v-model="form.district" label="ເມືອງ" dense outlined hide-details="auto"></v-text-field>
             </v-col>
+            <v-col cols="12" sm="4">
+              <v-text-field v-model="form.village" label="ບ້ານ" dense outlined hide-details="auto"></v-text-field>
+            </v-col>
+          </v-row>
+
+          <v-row dense class="mt-2">
             <v-col cols="12" sm="3" class="d-flex align-center">
               <v-switch v-model="form.isActive" label="ເປີດໃຊ້ງານ" color="primary" dense hide-details
                 class="mt-0 pt-0"></v-switch>
@@ -318,6 +331,7 @@ export default {
         ticketQRcode: false,
         showLogoOnTicket: false,
         ticketLayout: 'classic',
+        term_condition: '',
       },
       isloading: false,
       // Profile image related

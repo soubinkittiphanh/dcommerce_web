@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <div>
-            <v-dialog v-model="dialog" width="90%">
+            <v-dialog v-model="dialog" fullscreen transition="dialog-bottom-transition">
                 <ReceivingFormCRUD :is-update="isEdit" :headerId="selectedId" :key="apFormKey"
                     @close-dialog="dialog = false" @reload="loadTxn">
                 </ReceivingFormCRUD>
@@ -237,31 +237,72 @@ export default {
             this.isloading = false
         },
         async postToPayment(recTxn) {
-            const transaction =
-            {
-                receivingId: recTxn.id,
-                bookingDate: recTxn.bookingDate,
-                paymentNumber: `POST FROM REC: ${recTxn.id}`,
-                payee: recTxn.vendor.name,
-                paymentId: null,
-                currencyId: recTxn.currencyId,
-                rate: recTxn.exchangeRate,
-                totalAmount: recTxn.total,
-                notes: recTxn.notes,
-                update_user: 1,
-                drAccount: null,
-                crAccount: 1,
-                isActive: true
+            this.isloading = true
+            let fullRecTxn = null
+            try {
+                const response = await this.$axios.get(`/api/receiving/find/${recTxn.id}`)
+                fullRecTxn = response.data
+            } catch (error) {
+                console.error(`Failed to load full receiving transaction details: ${error}`);
+                swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດໃນການດຶງຂໍ້ມູນລາຍການສິນຄ້າ ' + error);
+                this.isloading = false
+                return
             }
-            confirmSwal(this.$swal, 'You are posting to Payment ?', async () => {
+            this.isloading = false
+
+            const lineItems = (fullRecTxn.lines || []).map(line => ({
+                description: line.product?.pro_name || `Product ID: ${line.productId}`,
+                quantity: parseFloat(line.qty) || 1,
+                unitPrice: parseFloat(line.price) || 0,
+                discountRate: 0,
+                taxRate: 0,
+                DRglAccountId: null,
+                CRglAccountId: null,
+                txnId: null,
+                note: null
+            }))
+
+            confirmSwal(this.$swal, 'You are posting to AP Invoice ?', async () => {
                 this.isloading = true
                 try {
-                    const response = await this.$axios.post(`/api/finanicial/ap/header/api/create`, transaction)
+                    let nextInvoiceNumber = `AP-INV-${fullRecTxn.id}`
+                    try {
+                        const seqRes = await this.$axios.get('/api/ap-invoices/sequence', { params: { prefix: 'AP-INV' } })
+                        if (seqRes.data && seqRes.data.success) {
+                            nextInvoiceNumber = seqRes.data.data.invoiceNumber || seqRes.data.data
+                        }
+                    } catch (e) {
+                        console.warn('Failed to fetch next invoice sequence number, using fallback')
+                    }
+
+                    const invoicePayload = {
+                        invoiceNumber: nextInvoiceNumber,
+                        vendorInvoiceNumber: `REC-${fullRecTxn.id}`,
+                        invoiceDate: fullRecTxn.bookingDate,
+                        dueDate: fullRecTxn.bookingDate,
+                        description: fullRecTxn.notes || `Post from Receiving #${fullRecTxn.id}`,
+                        totalAmount: parseFloat(fullRecTxn.total) || 0,
+                        exchangeRate: parseFloat(fullRecTxn.exchangeRate) || 1.0,
+                        vendorId: fullRecTxn.vendorId,
+                        currencyId: fullRecTxn.currencyId,
+                        makerId: this.$auth.user?.id || 1,
+                        note: fullRecTxn.notes || '',
+                        lineItems: lineItems
+                    }
+
+                    const response = await this.$axios.post(`/api/ap-invoices`, invoicePayload)
                     console.log(`Transaction complete ${JSON.stringify(response.data)}`);
                     swalSuccess(this.$swal, 'Succeed', 'Your transaction completed');
+                    const invoiceId = response.data?.data?.id;
+                    if (invoiceId) {
+                        this.$router.push({ path: '/admin/accounting/ap/invoice', query: { id: invoiceId } });
+                    } else {
+                        this.$router.push('/admin/accounting/ap/invoice');
+                    }
                 } catch (error) {
                     console.error(`Something went wrong ${error}`);
-                    swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ ' + error);
+                    const errorMsg = error.response?.data?.message || error;
+                    swalError2(this.$swal, "Error", 'ເກີດຂໍ້ຜິດພາດ ກະລຸນາລອງໃຫມ່ ພາຍຫລັງ: ' + errorMsg);
                 }
                 this.isloading = false
             })

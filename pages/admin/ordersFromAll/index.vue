@@ -3,7 +3,7 @@
     <div>
       <v-chip class="pa-5" color="primary" label text-color="white">
         <v-icon start>mdi-label</v-icon>
-        <h3>ລາຍການບິນຂາຍ</h3>
+        <h3>ລາຍການບິນຂາຍ ALL</h3>
       </v-chip>
       <!-- <v-spacer></v-spacer> -->
       <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">

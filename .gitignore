@@ -1,6 +1,9 @@
 node_modules/
 dist_electron/
+pwt_project/
+scratch/
 dist/
+third_party_intregration/
 *.zip
 *.dmg
 *.exe

@@ -127,6 +127,7 @@ export const mutations = {
             const processedProducts = products.map((product, index) => {
                 const productName = product.pro_name || ''
                 const barCode = product.barCode || ''
+                const productCode = product.product_code || ''
 
                 return {
                     ...product,
@@ -139,7 +140,8 @@ export const mutations = {
                     // Pre-computed search fields
                     pro_name_lower: productName.toLowerCase(),
                     barCode_lower: barCode.toLowerCase(),
-                    searchString: `${productName} ${barCode}`.toLowerCase(),
+                    product_code_lower: productCode.toLowerCase(),
+                    searchString: `${productName} ${barCode} ${productCode}`.toLowerCase(),
 
                     // Price-related
                     priceLists: Array.isArray(product.priceLists) ? product.priceLists : [],
@@ -794,7 +796,8 @@ export const getters = {
             results = results.filter(product =>
                 product.searchString.includes(searchTerm) ||
                 product.pro_name_lower.includes(searchTerm) ||
-                product.barCode_lower.includes(searchTerm)
+                product.barCode_lower.includes(searchTerm) ||
+                (product.product_code_lower && product.product_code_lower.includes(searchTerm))
             )
         }
 

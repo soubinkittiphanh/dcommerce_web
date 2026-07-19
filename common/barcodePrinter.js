@@ -3,7 +3,8 @@
 /**
  * Generates HTML for 2x2cm barcode
  */
-export const getBarcode2by2cmHtml = (formattedPrice, barcodeImage) => {
+export const getBarcode2by2cmHtml = (formattedPrice, barcodeImage, currency = '') => {
+  const priceDisplay = currency ? `${formattedPrice} ${currency}` : formattedPrice
   return `
   <!DOCTYPE html>
   <html>
@@ -27,11 +28,11 @@ export const getBarcode2by2cmHtml = (formattedPrice, barcodeImage) => {
         <table style="width: 200px; text-align: center;">
           <tr>
             <td style="width: 100px; height: 20px; font-size: 9px;">
-              ລາຄາ: ${formattedPrice}
+              Price: ${priceDisplay}
               <img src="${barcodeImage}">
             </td>
             <td style="width: 100px; height: 20px; font-size: 9px;">
-              ລາຄາ: ${formattedPrice}
+              Price: ${priceDisplay}
               <img src="${barcodeImage}">
             </td>
           </tr>
@@ -47,7 +48,8 @@ export const getBarcode2by2cmHtml = (formattedPrice, barcodeImage) => {
  * (Note: Your original code defined this but didn't use it in the print function, 
  * but I have included it here just in case)
  */
-export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage) => {
+export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage, currency = '') => {
+  const priceDisplay = currency ? `${formattedPrice} ${currency}` : formattedPrice
   return `
       <!DOCTYPE html>
           <html>
@@ -71,15 +73,15 @@ export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage) => {
       <table style="width: 200px; text-align: center;" >
   <tr>
     <td style="width: 50px; height: 20px;font-size:9px;">
-        ລາຄາ:${formattedPrice}
+        Price:${priceDisplay}
       <img src="${barcodeImage}">
     </td>
     <td style="width: 50px; height: 20px;font-size:9px;">
-        ລາຄາ:${formattedPrice}
+        Price:${priceDisplay}
         <img src="${barcodeImage}">
     </td>
     <td style="width: 50px; height: 20px;font-size:9px;">
-        ລາຄາ:${formattedPrice}
+        Price:${priceDisplay}
         <img src="${barcodeImage}">
     </td>
   </tr>
@@ -94,7 +96,8 @@ export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage) => {
  * Generates HTML for Normal barcode optimized for 20mm * 40mm
  * Fixed horizontal centering and minimized vertical gap.
  */
-export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '') => {
+export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '', currency = '') => {
+  const priceDisplay = currency ? `${formattedPrice} ${currency}` : formattedPrice
   return `
   <!DOCTYPE html>
 <html>
@@ -149,7 +152,7 @@ export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '') =>
 </head>
 <body>
   <div class="container">
-    <div class="price">ລາຄາ: ${formattedPrice}</div>
+    <div class="price">Price: ${priceDisplay}</div>
     <div class="name">${name}</div>
     <img src="${barcodeImage}" class="barcode-img">
   </div>

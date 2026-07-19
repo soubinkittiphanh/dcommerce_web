@@ -133,6 +133,7 @@ const _cdf0e3de = () => interopDefault(import('../pages/pos/lottery/index.vue' /
 const _33c53d8a = () => interopDefault(import('../pages/pos/minimart/index.vue' /* webpackChunkName: "pages/pos/minimart/index" */))
 const _2517700b = () => interopDefault(import('../pages/pos/restaurant/index.vue' /* webpackChunkName: "pages/pos/restaurant/index" */))
 const _4b336acc = () => interopDefault(import('../pages/pos/ticket/index.vue' /* webpackChunkName: "pages/pos/ticket/index" */))
+const _3c8ff708 = () => interopDefault(import('../pages/reports/expiring-soon.vue' /* webpackChunkName: "pages/reports/expiring-soon" */))
 const _cdde3588 = () => interopDefault(import('../pages/reports/profit-loss.vue' /* webpackChunkName: "pages/reports/profit-loss" */))
 const _7fa8bfec = () => interopDefault(import('../pages/reports/stock-backdate.vue' /* webpackChunkName: "pages/reports/stock-backdate" */))
 const _11bf3a86 = () => interopDefault(import('../pages/reports/stock-movement.vue' /* webpackChunkName: "pages/reports/stock-movement" */))
@@ -160,6 +161,7 @@ const _7ab6275b = () => interopDefault(import('../pages/admin/report/loyalty.vue
 const _1665b085 = () => interopDefault(import('../pages/admin/reports/accountStatement/index.vue' /* webpackChunkName: "pages/admin/reports/accountStatement/index" */))
 const _6dba86ed = () => interopDefault(import('../pages/admin/reports/endOfDay/index.vue' /* webpackChunkName: "pages/admin/reports/endOfDay/index" */))
 const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/reports/moneyAdvance/index" */))
+const _c9a41802 = () => interopDefault(import('../pages/admin/reports/qr-reconciliation.vue' /* webpackChunkName: "pages/admin/reports/qr-reconciliation" */))
 const _2f47d942 = () => interopDefault(import('../pages/admin/reports/staffActivity/index.vue' /* webpackChunkName: "pages/admin/reports/staffActivity/index" */))
 const _2d13abf8 = () => interopDefault(import('../pages/admin/reports/stockActivity/index.vue' /* webpackChunkName: "pages/admin/reports/stockActivity/index" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
@@ -195,6 +197,7 @@ const _4600e75c = () => interopDefault(import('../pages/index.vue' /* webpackChu
 const _30dc45ce = () => interopDefault(import('../pages/admin/PDFInvoice/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoice/_id/index" */))
 const _70237d99 = () => interopDefault(import('../pages/admin/PDFInvoiceSummary/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoiceSummary/_id/index" */))
 const _a3d2a890 = () => interopDefault(import('../pages/admin/PDFQuotation/_id/index.vue' /* webpackChunkName: "pages/admin/PDFQuotation/_id/index" */))
+const _062a960c = () => interopDefault(import('../pages/admin/PDFReceiving/_id/index.vue' /* webpackChunkName: "pages/admin/PDFReceiving/_id/index" */))
 const _8ba954a8 = () => interopDefault(import('../pages/admin/PDFTicket/_id/index.vue' /* webpackChunkName: "pages/admin/PDFTicket/_id/index" */))
 const _2987d1cb = () => interopDefault(import('../pages/admin/PDFTransfer/_id/index.vue' /* webpackChunkName: "pages/admin/PDFTransfer/_id/index" */))
 const _37040c5d = () => interopDefault(import('../pages/admin/product/_id/index.vue' /* webpackChunkName: "pages/admin/product/_id/index" */))
@@ -731,6 +734,10 @@ export const routerOptions = {
     component: _4b336acc,
     name: "pos-ticket"
   }, {
+    path: "/reports/expiring-soon",
+    component: _3c8ff708,
+    name: "reports-expiring-soon"
+  }, {
     path: "/reports/profit-loss",
     component: _cdde3588,
     name: "reports-profit-loss"
@@ -838,6 +845,10 @@ export const routerOptions = {
     path: "/admin/reports/moneyAdvance",
     component: _cf45db36,
     name: "admin-reports-moneyAdvance"
+  }, {
+    path: "/admin/reports/qr-reconciliation",
+    component: _c9a41802,
+    name: "admin-reports-qr-reconciliation"
   }, {
     path: "/admin/reports/staffActivity",
     component: _2f47d942,
@@ -978,6 +989,10 @@ export const routerOptions = {
     path: "/admin/PDFQuotation/:id",
     component: _a3d2a890,
     name: "admin-PDFQuotation-id"
+  }, {
+    path: "/admin/PDFReceiving/:id",
+    component: _062a960c,
+    name: "admin-PDFReceiving-id"
   }, {
     path: "/admin/PDFTicket/:id",
     component: _8ba954a8,

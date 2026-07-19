@@ -1663,6 +1663,7 @@ export default {
           singlePaymentCount: this.singlePaymentCount,
           multiPaymentCount: this.multiPaymentCount,
           availableGrades: this.availableGrades, // Pass available grades to printer
+          currencyCode: this.$store.getters.findLocalCurrency?.code || 'LAK',
         })
 
         if (this.$toast) {

@@ -656,6 +656,8 @@ export default {
       await this.printDocument('receipt')
     },
 
+
+
     async printDocument(type) {
       if (!this.headerId) {
         this.showError('Please save the transaction first before printing')
@@ -694,8 +696,8 @@ export default {
     openPrintWindow(htmlContent, type) {
       if (type === 'receipt' && window.posApi && typeof window.posApi.printReceipt === 'function') {
         const printers = this.$store.state.printers || [];
-        const printer = printers.find(p => p.type === 'ticket' && p.is_active) || printers.find(p => p.is_active);
-        const printerName = printer?.printer_name || '';
+        const printer = printers.find(p => p.type === 'ticket' && (p.is_active || p.isActive)) || printers.find(p => p.is_active || p.isActive);
+        const printerName = printer?.printerName || printer?.printer_name || '';
         window.posApi.printReceipt({
           printerName,
           html: htmlContent,

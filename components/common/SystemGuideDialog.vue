@@ -157,6 +157,13 @@
                       </td>
                     </tr>
                     <tr>
+                      <td class="font-weight-medium">DYN_QR_BankCode</td>
+                      <td>
+                        <strong>Active Bank Code / ລະຫັດທະນາຄານທີ່ໃຊ້ງານ:</strong><br>
+                        Set to <code>IB</code> for Indochina Bank, or <code>LVB</code> for LaoVietBank. / ຕັ້ງເປັນ <code>IB</code> ຫຼື <code>LVB</code>.
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="font-weight-medium">DYN_MemberId</td>
                       <td>
                         <strong>Member ID / ລະຫັດສະມາຊິກ:</strong><br>
@@ -237,6 +244,17 @@
                   <v-list-item-title class="text-wrap body-2">
                     Register customers with phone numbers for easy tracking.<br>
                     ລົງທະບຽນລູກຄ້າດ້ວຍເບີໂທ ເພື່ອຄວາມສະດວກໃນການຕິດຕາມຄະແນນ.
+                  </v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item class="px-0">
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="success" small>mdi-check</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="text-wrap body-2">
+                    Configure secure Bank API JSON credentials dynamically in <strong>Admin > Bank Management</strong> instead of hardcoding credentials in parameters.<br>
+                    ຕັ້ງຄ່າ API JSON ຂອງແຕ່ລະທະນາຄານໄດ້ໂດຍກົງຢູ່ໜ້າ <strong>Admin > ຈັດການທະນາຄານ</strong> ເພື່ອຄວາມປອດໄພ.
                   </v-list-item-title>
                 </v-list-item-content>
               </v-list-item>

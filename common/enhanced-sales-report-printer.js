@@ -96,7 +96,7 @@ const generateDateRangeSection = (fromDate, toDate, terminalInfo) => {
 /**
  * Generate summary statistics section
  */
-const generateSummarySection = (summaryData, formatNumber) => {
+const generateSummarySection = (summaryData, formatNumber, currencyCode = 'LAK') => {
   const {
     totalTransactions,
     totalSales,
@@ -123,15 +123,15 @@ const generateSummarySection = (summaryData, formatNumber) => {
       </div>
       <div class="summary-item">
         <span class="label">ຍອດຂາຍລວມ:</span>
-        <span class="value">${formatNumber(totalSales)} LAK</span>
+        <span class="value">${formatNumber(totalSales)} ${currencyCode}</span>
       </div>
       <div class="summary-item">
         <span class="label">ສ່ວນຫຼຸດລວມ:</span>
-        <span class="value">${formatNumber(totalDiscount)} LAK</span>
+        <span class="value">${formatNumber(totalDiscount)} ${currencyCode}</span>
       </div>
       <div class="summary-item total">
         <span class="label">ຍອດຂາຍສຸດທິ:</span>
-        <span class="value">${formatNumber(netSales)} LAK</span>
+        <span class="value">${formatNumber(netSales)} ${currencyCode}</span>
       </div>
       <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
       <div class="summary-item">
@@ -140,11 +140,11 @@ const generateSummarySection = (summaryData, formatNumber) => {
       </div>
       <div class="summary-item">
         <span class="label">ມູນຄ່າຂອງຂວັນ:</span>
-        <span class="value">${formatNumber(totalGiftValue)} LAK</span>
+        <span class="value">${formatNumber(totalGiftValue)} ${currencyCode}</span>
       </div>
       <div class="summary-item">
         <span class="label">ລູກຄ້າປະຫຍັດ:</span>
-        <span class="value">${formatNumber(totalGiftSavings)} LAK</span>
+        <span class="value">${formatNumber(totalGiftSavings)} ${currencyCode}</span>
       </div>
     </div>
   `;
@@ -167,7 +167,7 @@ const getGradeColor = (grade) => {
 /**
  * Generate grade breakdown section with detailed statistics for ALL grades A-Z
  */
-const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades = null) => {
+const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades = null, currencyCode = 'LAK') => {
   if (!gradeData) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນເກຣດ</div>';
   }
@@ -191,7 +191,7 @@ const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades 
             <span class="grade-count">${formatNumber(gradeInfo.qty)} ຊິ້ນ</span>
           </div>
           <div class="grade-details">
-            <span class="revenue">${formatNumber(gradeInfo.revenue)} LAK</span>
+            <span class="revenue">${formatNumber(gradeInfo.revenue)} ${currencyCode}</span>
             <span class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</span>
             <span class="order-count">${gradeInfo.orderCount} ບິນ</span>
           </div>
@@ -210,7 +210,7 @@ const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades 
           <span class="grade-count">${formatNumber(gradeData.basePriceSales.qty)} ຊິ້ນ</span>
         </div>
         <div class="grade-details">
-          <span class="revenue">${formatNumber(gradeData.basePriceSales.revenue)} LAK</span>
+          <span class="revenue">${formatNumber(gradeData.basePriceSales.revenue)} ${currencyCode}</span>
           <span class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</span>
           <span class="order-count">${gradeData.basePriceSales.orderCount} ບິນ</span>
         </div>
@@ -228,9 +228,9 @@ const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades 
           <span class="grade-count">${formatNumber(gradeData.gifts.qty)} ຊິ້ນ</span>
         </div>
         <div class="grade-details">
-          <span class="revenue">${formatNumber(gradeData.gifts.revenue)} LAK</span>
-          <span class="original-value">ມູນຄ່າເຕັມ: ${formatNumber(gradeData.gifts.originalValue)} LAK</span>
-          <span class="savings">ປະຫຍັດ: ${formatNumber(savings)} LAK</span>
+          <span class="revenue">${formatNumber(gradeData.gifts.revenue)} ${currencyCode}</span>
+          <span class="original-value">ມູນຄ່າເຕັມ: ${formatNumber(gradeData.gifts.originalValue)} ${currencyCode}</span>
+          <span class="savings">ປະຫຍັດ: ${formatNumber(savings)} ${currencyCode}</span>
         </div>
       </div>
     `;
@@ -252,7 +252,7 @@ const generateGradeBreakdownSection = (gradeData, formatNumber, availableGrades 
 /**
  * Generate ALL products section with detailed breakdown - FIXED: Show all products instead of top 15
  */
-const generateAllProductsSection = (productSummary, formatNumber, availableGrades = null) => {
+const generateAllProductsSection = (productSummary, formatNumber, availableGrades = null, currencyCode = 'LAK') => {
   if (!productSummary || productSummary.length === 0) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນສິນຄ້າ</div>';
   }
@@ -298,7 +298,7 @@ const generateAllProductsSection = (productSummary, formatNumber, availableGrade
         </div>
         <div class="product-stats">
           <div class="total-qty">${formatNumber(product.totalQty)} ຊິ້ນ</div>
-          <div class="total-revenue">${formatNumber(product.totalRevenue)} LAK</div>
+          <div class="total-revenue">${formatNumber(product.totalRevenue)} ${currencyCode}</div>
           <div class="avg-price">@ ${formatNumber(avgPrice)}/ຊິ້ນ</div>
         </div>
       </div>
@@ -316,7 +316,7 @@ const generateAllProductsSection = (productSummary, formatNumber, availableGrade
 /**
  * Generate payment breakdown section
  */
-const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
+const generatePaymentBreakdownSection = (paymentStats, formatNumber, currencyCode = 'LAK') => {
   if (!paymentStats || paymentStats.length === 0) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນການຊຳລະ</div>';
   }
@@ -334,7 +334,7 @@ const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
       <div class="payment-item">
         <div class="payment-method">${name} (${code})</div>
         <div class="payment-details">
-          <span class="amount">${formatNumber(amount)} LAK</span>
+          <span class="amount">${formatNumber(amount)} ${currencyCode}</span>
           <span class="count">(${count} ລາຍການ)</span>
           <span class="percentage">${percentage.toFixed(1)}%</span>
         </div>
@@ -384,7 +384,8 @@ const generateEnhancedSalesReportHTML = (reportData) => {
     paymentStats,
     formatNumber,
     user,
-    availableGrades
+    availableGrades,
+    currencyCode = 'LAK'
   } = reportData;
 
   return `
@@ -713,10 +714,10 @@ const generateEnhancedSalesReportHTML = (reportData) => {
     <body>
       ${generateCompanyHeader(companyData, companyLogo)}
       ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
-      ${generateSummarySection(summaryData, formatNumber)}
-      ${generateGradeBreakdownSection(gradeData, formatNumber, availableGrades)}
-      ${generateAllProductsSection(productSummary, formatNumber, availableGrades)}
-      ${generatePaymentBreakdownSection(paymentStats, formatNumber)}
+      ${generateSummarySection(summaryData, formatNumber, currencyCode)}
+      ${generateGradeBreakdownSection(gradeData, formatNumber, availableGrades, currencyCode)}
+      ${generateAllProductsSection(productSummary, formatNumber, availableGrades, currencyCode)}
+      ${generatePaymentBreakdownSection(paymentStats, formatNumber, currencyCode)}
       ${generateFooterSection(user)}
     </body>
     </html>
@@ -846,7 +847,8 @@ export const printEnhancedSalesReportSummary = (params) => {
       paymentStats: paymentStatistics,
       formatNumber,
       user,
-      availableGrades // Pass grades to report generator
+      availableGrades, // Pass grades to report generator
+      currencyCode: params.currencyCode || 'LAK'
     };
 
     console.log('📄 Report data prepared:', {

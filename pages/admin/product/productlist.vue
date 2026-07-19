@@ -51,6 +51,14 @@
                         <v-icon left small>mdi-microsoft-excel</v-icon>
                         Export
                       </v-btn>
+                      <v-btn outlined color="indigo" class="rounded-lg" @click="importDialog = true">
+                        <v-icon left small>mdi-file-upload</v-icon>
+                        Import Excel
+                      </v-btn>
+                      <v-btn outlined color="orange darken-2" class="rounded-lg" @click="stockImportDialog = true">
+                        <v-icon left small>mdi-clipboard-arrow-down</v-icon>
+                        Import Stock Adjust
+                      </v-btn>
                       <v-btn outlined color="primary" class="rounded-lg" @click="printBarcodeList">
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
@@ -84,7 +92,10 @@
                 <template v-slot:item.pro_name="{ item }">
                   <div class="d-flex flex-column py-2">
                     <span class="font-weight-bold ">{{ item.pro_name }}</span>
-                    <span class=" grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
+                    <div class="d-flex align-center flex-wrap gap-1">
+                      <span v-if="item.product_code" class="caption font-weight-bold orange--text text--darken-3 mr-1">[{{ item.product_code }}]</span>
+                      <span class=" grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
+                    </div>
                     <span v-if="item.barCode" class=" secondary--text">
                       <v-icon x-small color="secondary">mdi-barcode</v-icon>
                       {{ item.barCode }}
@@ -398,6 +409,10 @@
       </price-list-form>
     </v-dialog>
 
+    <!-- Import Dialog -->
+    <product-import-dialog v-model="importDialog" @imported="fetchData" />
+    <stock-import-dialog v-model="stockImportDialog" :location-id="currentSelectedLocation ? currentSelectedLocation.id : null" @imported="fetchData" />
+
     <!-- Dialog for Stock Details (Fullscreen) -->
     <v-dialog
       v-model="showStockBottomSheet"
@@ -566,15 +581,17 @@
   </div>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import JsBarcode from 'jsbarcode'
 import ProductForm from '~/components/product/ProductForm.vue'
 import PriceListForm from '~/components/PriceListForm.vue'
 import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
-import { mapActions, mapGetters } from 'vuex'
 import RecipeManagement from '~/components/pos/recipe'
-import JsBarcode from 'jsbarcode'
 import StockDetails from '~/pages/admin/stock/_id/index.vue'
+import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
+import StockImportDialog from '~/components/product/StockImportDialog.vue'
 
 export default {
   components: {
@@ -583,6 +600,8 @@ export default {
     PriceListForm,
     RecipeManagement,
     StockDetails,
+    ProductImportDialog,
+    StockImportDialog,
   },
   middleware: 'auths',
 
@@ -690,6 +709,8 @@ export default {
         { text: 'ໝາຍເຫດ (Reason)', value: 'reason' },
         { text: '', value: 'data-table-expand' },
       ],
+      importDialog: false,
+      stockImportDialog: false,
     }
   },
 
@@ -770,12 +791,14 @@ export default {
           const name = String(product.pro_name || '').toLowerCase()
           const barcode = String(product.barCode || '').toLowerCase()
           const proId = String(product.pro_id || '').toLowerCase()
+          const productCode = String(product.product_code || '').toLowerCase()
 
           // 4. Return true if any field matches
           return (
             name.includes(searchTerm) ||
             barcode.includes(searchTerm) ||
-            proId.includes(searchTerm)
+            proId.includes(searchTerm) ||
+            productCode.includes(searchTerm)
           )
         })
       }
@@ -1352,7 +1375,8 @@ export default {
       const headerMap = {
         id: 'ID',
         co_name: 'Company Name',
-        pro_id: 'Product Code',
+        pro_id: 'Product ID (Seq)',
+        product_code: 'Product Code',
         pro_name: 'Product Name',
         barCode: 'Barcode',
         pro_cost_price: 'Cost Price',
@@ -1483,6 +1507,7 @@ export default {
               id: el.id,
               co_name: el.co_name,
               pro_id: el.pro_id,
+              product_code: el.product_code,
               pro_name: el.pro_name,
               pro_price: el.pro_price,
               saleCurrencyId: el.saleCurrencyId,

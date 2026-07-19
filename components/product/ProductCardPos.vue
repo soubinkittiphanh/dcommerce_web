@@ -62,6 +62,9 @@
 
             <!-- Product Name with enhanced visibility -->
             <div class="product-name-enhanced">
+              <div v-if="product.product_code" class="product-code-badge mb-1">
+                {{ product.product_code }}
+              </div>
               <div class="product-name-text enhanced-text">
                 <!-- {{ productName }} -->
                 {{ productName }}
@@ -561,6 +564,23 @@ export default {
   display: inline-block;
   max-width: 100%;
   word-wrap: break-word;
+  backdrop-filter: blur(2px);
+}
+
+.product-code-badge {
+  font-size: 0.65rem !important;
+  line-height: 1.1;
+  padding: 2px 6px;
+  background: rgba(230, 81, 0, 0.85); /* Deep orange accent */
+  color: white !important;
+  font-weight: bold;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  max-width: 95%;
+  word-wrap: break-word;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(2px);
 }
 

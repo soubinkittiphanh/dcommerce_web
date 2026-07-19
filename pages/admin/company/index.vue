@@ -16,7 +16,15 @@
     <v-card>
       <v-card-title>
         <v-layout row wrap>
-          <v-col cols="6">
+          <v-col cols="6" class="d-flex align-center">
+            <v-switch
+              v-model="showInactive"
+              label="ສະແດງສາຂາທີ່ປິດໃຊ້ງານ"
+              color="primary"
+              dense
+              hide-details
+              class="mt-0 pt-0"
+            ></v-switch>
           </v-col>
           <v-col cols="6">
             <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
@@ -35,9 +43,27 @@
         </v-layout>
       </v-card-title>
       <v-divider></v-divider>
-      <v-data-table v-if="entries" :headers="headers" :search="search" :items="entries">
+      <v-data-table v-if="entries" :headers="headers" :search="search" :items="filteredEntries">
         <template v-slot:[`item.rate`]="{ item }">
           {{ getFormatNum(item.rate) }}
+        </template>
+        <template v-slot:[`item.isActive`]="{ item }">
+          <v-chip
+            v-if="item.isActive"
+            color="success"
+            small
+            label
+          >
+            ເປີດໃຊ້ງານ
+          </v-chip>
+          <v-chip
+            v-else
+            color="error"
+            small
+            label
+          >
+            ປິດໃຊ້ງານ
+          </v-chip>
         </template>
         <template v-slot:[`item.id`]="{ item }">
           <v-btn color="primary" text @click="viewRecord(item)
@@ -68,6 +94,7 @@ export default {
       dialog: false,
       isloading: false,
       search: '',
+      showInactive: false,
       entries: [],
       entrySelected: '',
       headers: [
@@ -108,6 +135,12 @@ export default {
           sortable: true,
         },
         {
+          text: 'ສະຖານະ',
+          align: 'center',
+          value: 'isActive',
+          sortable: true,
+        },
+        {
           text: 'View/Update',
           align: 'end',
           value: 'id',
@@ -120,6 +153,12 @@ export default {
     await this.loadData()
   },
   computed: {
+    filteredEntries() {
+      if (this.showInactive) {
+        return this.entries
+      }
+      return this.entries.filter(item => item.isActive)
+    }
   },
 
   methods: {

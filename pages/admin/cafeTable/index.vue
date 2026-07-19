@@ -258,6 +258,20 @@
                   <v-icon left>mdi-cash-register</v-icon>
                   Add Items
                 </v-btn>
+                <v-row dense class="mb-2">
+                  <v-col cols="6">
+                    <v-btn @click="openTransferDialog" color="warning" block :disabled="!selectedTable.currentOrderId" :loading="actionLoading">
+                      <v-icon left>mdi-swap-horizontal</v-icon>
+                      Transfer Order
+                    </v-btn>
+                  </v-col>
+                  <v-col cols="6">
+                    <v-btn @click="openSplitDialog" color="indigo" dark block :disabled="!selectedTable.currentOrderId || !selectedTable.order || selectedTable.order.length === 0" :loading="actionLoading">
+                      <v-icon left>mdi-call-split</v-icon>
+                      Split Bill
+                    </v-btn>
+                  </v-col>
+                </v-row>
                 <v-btn @click="processPayment" color="success" block large class="mb-2" :disabled="!selectedTable.currentTotal ||
                   selectedTable.currentTotal === 0
                   " :loading="actionLoading">
@@ -386,6 +400,130 @@
       </v-card>
     </v-dialog>
 
+    <!-- Transfer Table Dialog -->
+    <v-dialog v-model="showTransferDialog" max-width="500">
+      <v-card>
+        <v-card-title class="headline primary white--text">
+          <v-icon left color="white">mdi-swap-horizontal</v-icon>
+          Transfer Order
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <div class="mb-4">
+            Transfer order of <strong>Table {{ selectedTable ? selectedTable.number : '' }}</strong> to:
+          </div>
+          <v-select
+            v-model="transferTargetTable"
+            :items="availableTablesList"
+            item-text="number"
+            item-value="id"
+            label="Select Destination Table"
+            prepend-inner-icon="mdi-table-furniture"
+            outlined
+          >
+            <template v-slot:item="{ item }">
+              Table {{ item.number }} ({{ item.capacity }} seats)
+            </template>
+          </v-select>
+        </v-card-text>
+        <v-card-actions class="pb-4 pr-4">
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="closeTransferDialog">Cancel</v-btn>
+          <v-btn
+            color="primary"
+            :disabled="!transferTargetTable"
+            :loading="actionLoading"
+            @click="confirmTransferTable"
+          >
+            Transfer Order
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Split Bill Dialog -->
+    <v-dialog v-model="showSplitDialog" max-width="700">
+      <v-card>
+        <v-card-title class="headline primary white--text">
+          <v-icon left color="white">mdi-call-split</v-icon>
+          Split Bill (Table {{ selectedTable ? selectedTable.number : '' }})
+        </v-card-title>
+        
+        <v-card-text class="pt-4">
+          <div class="text-subtitle-1 mb-2">Select items and quantities to split into a separate payment:</div>
+          
+          <v-simple-table dense>
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left">Item Name</th>
+                  <th class="text-center" style="width: 100px;">Price</th>
+                  <th class="text-center" style="width: 120px;">Qty on Table</th>
+                  <th class="text-center" style="width: 150px;">Qty to Split</th>
+                  <th class="text-right" style="width: 120px;">Split Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="item in splitItemsList" :key="item.id">
+                  <td>{{ item.product?.pro_name || item.pro_name }}</td>
+                  <td class="text-center">{{ formatPrice(item.unitPrice || item.pro_price) }}</td>
+                  <td class="text-center">{{ item.quantity }}</td>
+                  <td class="text-center">
+                    <div class="d-flex align-center justify-center">
+                      <v-btn icon x-small @click="adjustSplitQty(item.id, -1)" :disabled="item.splitQty <= 0">
+                        <v-icon small>mdi-minus</v-icon>
+                      </v-btn>
+                      <span class="mx-2 font-weight-bold" style="min-width: 20px;">{{ item.splitQty }}</span>
+                      <v-btn icon x-small @click="adjustSplitQty(item.id, 1)" :disabled="item.splitQty >= item.quantity">
+                        <v-icon small>mdi-plus</v-icon>
+                      </v-btn>
+                    </div>
+                  </td>
+                  <td class="text-right primary--text font-weight-bold">
+                    {{ formatPrice((item.unitPrice || item.pro_price) * item.splitQty) }}
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <v-divider class="my-4"></v-divider>
+
+          <v-row>
+            <v-col cols="6">
+              <v-card outlined color="grey lighten-4" class="pa-3">
+                <div class="text-subtitle-2 grey--text">Remaining on Table</div>
+                <div class="text-h6 font-weight-bold">
+                  {{ formatPrice(remainingBillTotal) }}
+                </div>
+              </v-card>
+            </v-col>
+            <v-col cols="6">
+              <v-card outlined color="primary lighten-5" class="pa-3">
+                <div class="text-subtitle-2 primary--text">Split Bill Amount</div>
+                <div class="text-h6 font-weight-bold primary--text">
+                  {{ formatPrice(splitBillTotal) }}
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions class="pb-4 pr-4">
+          <v-spacer></v-spacer>
+          <v-btn color="grey" text @click="closeSplitDialog">Cancel</v-btn>
+          <v-btn
+            color="success"
+            :disabled="splitBillTotal <= 0"
+            :loading="actionLoading"
+            @click="paySplitBill"
+          >
+            <v-icon left>mdi-credit-card</v-icon>
+            Pay Split Bill
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Snackbar for Messages -->
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="snackbar.timeout" location="top right"
       variant="elevated">
@@ -420,6 +558,13 @@ export default {
       // Print related
       showCustomerPrint: false,
       selectedTicket: null,
+
+      // Table transfer & split state
+      showTransferDialog: false,
+      transferTargetTable: null,
+      showSplitDialog: false,
+      splitItemsList: [],
+      isSplitPayment: false,
 
       // Restaurant configuration
       restaurantConfig: {
@@ -461,6 +606,24 @@ export default {
     },
     reservedTables() {
       return this.tables.filter((table) => table.status === 'reserved').length
+    },
+    availableTablesList() {
+      return this.tables.filter(t => t.status === 'available' && t.id !== this.selectedTable?.id)
+    },
+    splitBillTotal() {
+      return this.splitItemsList.reduce((sum, item) => {
+        const price = item.unitPrice || item.pro_price || 0
+        return sum + (price * item.splitQty)
+      }, 0)
+    },
+    remainingBillTotal() {
+      return this.splitItemsList.reduce((sum, item) => {
+        const price = item.unitPrice || item.pro_price || 0
+        return sum + (price * (item.quantity - item.splitQty))
+      }, 0)
+    },
+    user() {
+      return this.$auth?.user || null
     },
   },
   mounted() {
@@ -1002,6 +1165,11 @@ export default {
       this.actionLoading = true
 
       try {
+        if (this.isSplitPayment) {
+          await this.processSplitPayment(selectedPaymentMethod)
+          return
+        }
+
         if (this.selectedTable.currentOrderId) {
           await this.$axios.patch(
             `/api/ticket/${this.selectedTable.currentOrderId}/payment-status`,
@@ -1029,7 +1197,7 @@ export default {
     },
 
     // Legacy method - keep for backward compatibility but simplified
-    async confirmPayment() {
+    confirmPayment() {
       // This method is now handled by PaymentDialog component
       // Kept for any legacy calls that might still exist
       console.warn(
@@ -1040,6 +1208,253 @@ export default {
     closePaymentDialog() {
       this.showPaymentDialog = false
       this.paymentAmount = 0
+      this.isSplitPayment = false
+    },
+
+    // Table Transfer dialog methods
+    openTransferDialog() {
+      if (!this.selectedTable?.currentOrderId) {
+        this.showMessage('No active order to transfer', 'warning', 'mdi-alert')
+        return
+      }
+      this.transferTargetTable = null
+      this.showTransferDialog = true
+    },
+
+    closeTransferDialog() {
+      this.showTransferDialog = false
+      this.transferTargetTable = null
+    },
+
+    async confirmTransferTable() {
+      if (!this.selectedTable || !this.transferTargetTable) return
+      
+      this.actionLoading = true
+      try {
+        const ticketId = this.selectedTable.currentOrderId
+        const targetTable = this.tables.find(t => t.id === this.transferTargetTable)
+        
+        if (!ticketId) {
+          this.showMessage('No active order to transfer', 'warning', 'mdi-alert')
+          return
+        }
+
+        // 1. Update ticket's tableId to destination table
+        await this.$axios.put(`api/ticket/${ticketId}`, {
+          tableId: targetTable.id,
+          notes: this.selectedTable.customerName ? `Transferred from Table ${this.selectedTable.number}. Customer: ${this.selectedTable.customerName}` : `Transferred from Table ${this.selectedTable.number}`,
+          updateUserId: this.user?.id || null
+        })
+
+        // 2. Mark source table as available
+        await this.$axios.patch(`api/tables/${this.selectedTable.id}/status`, {
+          status: 'available',
+          timeOccupied: null,
+          currentOrderId: null
+        })
+
+        // 3. Mark destination table as occupied and link ticketId
+        await this.$axios.patch(`api/tables/${targetTable.id}/status`, {
+          status: 'occupied',
+          timeOccupied: this.selectedTable.timeOccupied || new Date(),
+          currentOrderId: ticketId
+        })
+
+        this.showMessage(`Successfully transferred Table ${this.selectedTable.number} order to Table ${targetTable.number}`)
+        this.closeTransferDialog()
+        
+        // Refresh tables list and select the destination table
+        await this.fetchTables()
+        const updatedTargetTable = this.tables.find(t => t.id === targetTable.id)
+        if (updatedTargetTable) {
+          await this.selectTable(updatedTargetTable)
+        }
+      } catch (error) {
+        console.error('Error transferring table:', error)
+        this.showMessage('Failed to transfer table. Please try again.', 'error', 'mdi-alert')
+      } finally {
+        this.actionLoading = false
+      }
+    },
+
+    // Split Bill dialog methods
+    openSplitDialog() {
+      if (!this.selectedTable?.order || this.selectedTable.order.length === 0) {
+        this.showMessage('No active order items to split', 'warning', 'mdi-alert')
+        return
+      }
+      this.splitItemsList = this.selectedTable.order.map(item => ({
+        ...item,
+        splitQty: 0
+      }))
+      this.showSplitDialog = true
+    },
+
+    closeSplitDialog() {
+      this.showSplitDialog = false
+      this.splitItemsList = []
+    },
+
+    adjustSplitQty(itemId, delta) {
+      const item = this.splitItemsList.find(i => i.id === itemId)
+      if (item) {
+        const newQty = item.splitQty + delta
+        if (newQty >= 0 && newQty <= item.quantity) {
+          item.splitQty = newQty
+        }
+      }
+    },
+
+    async paySplitBill() {
+      if (this.splitBillTotal <= 0) return
+      
+      this.paymentAmount = this.splitBillTotal
+      this.isSplitPayment = true
+      await this.loadPaymentMethods()
+      this.showPaymentDialog = true
+    },
+
+    async processSplitPayment(selectedPaymentMethod) {
+      try {
+        const ticketId = this.selectedTable.currentOrderId
+        if (!ticketId) return
+
+        // 1. Fetch original ticket data
+        const ticketRes = await this.$axios.get(`api/ticket/${ticketId}`)
+        const originalTicket = ticketRes.data.data || ticketRes.data
+
+        const splitLines = []
+        const remainingLines = []
+
+        const getLineTax = (unitPrice, qty, rate, type) => {
+          const lineTotal = unitPrice * qty
+          if (type === 'INC') {
+            return lineTotal - (lineTotal / (1 + parseFloat(rate)))
+          } else {
+            return lineTotal * parseFloat(rate)
+          }
+        }
+
+        this.splitItemsList.forEach(item => {
+          const taxRate = item.taxRate || 0
+          const taxType = item.taxType || 'INC'
+          const taxId = item.taxId || null
+
+          if (item.splitQty > 0) {
+            splitLines.push({
+              productId: item.productId,
+              product: item.product,
+              pro_name: item.pro_name || item.product?.pro_name,
+              quantity: item.splitQty,
+              unitPrice: parseFloat(item.unitPrice || item.pro_price),
+              totalPrice: parseFloat(((item.unitPrice || item.pro_price) * item.splitQty).toFixed(2)),
+              status: 'ordered',
+              taxId,
+              taxRate,
+              taxType
+            })
+          }
+
+          const remQty = item.quantity - item.splitQty
+          if (remQty > 0) {
+            remainingLines.push({
+              id: item.id,
+              productId: item.productId,
+              product: item.product,
+              pro_name: item.pro_name || item.product?.pro_name,
+              quantity: remQty,
+              unitPrice: parseFloat(item.unitPrice || item.pro_price),
+              totalPrice: parseFloat(((item.unitPrice || item.pro_price) * remQty).toFixed(2)),
+              status: 'ordered',
+              taxId,
+              taxRate,
+              taxType
+            })
+          }
+        })
+
+        // Calculations for Split Ticket
+        const splitSubtotal = splitLines.reduce((sum, line) => sum + (line.quantity * line.unitPrice), 0)
+        const splitTax = splitLines.reduce((sum, line) => {
+          return sum + getLineTax(line.unitPrice, line.quantity, line.taxRate, line.taxType)
+        }, 0)
+        const splitTotal = splitSubtotal
+
+        // Calculations for Remaining Ticket
+        const remSubtotal = remainingLines.reduce((sum, line) => sum + (line.quantity * line.unitPrice), 0)
+        const remTax = remainingLines.reduce((sum, line) => {
+          return sum + getLineTax(line.unitPrice, line.quantity, line.taxRate, line.taxType)
+        }, 0)
+        const remTotal = remSubtotal
+
+        // 2. Create the split ticket as PAID
+        const newTicketData = {
+          tableId: this.selectedTable.id,
+          clientId: originalTicket.clientId || null,
+          locationId: originalTicket.locationId || 1,
+          status: 'paid',
+          subtotal: parseFloat((splitSubtotal - splitTax).toFixed(2)),
+          promotionDiscount: 0,
+          tax: parseFloat(splitTax.toFixed(2)),
+          taxType: originalTicket.taxType || 'INC',
+          total: parseFloat(splitTotal.toFixed(2)),
+          paymentStatus: 'paid',
+          paymentId: selectedPaymentMethod.id,
+          createUserId: this.user?.id || null,
+          notes: `Split payment from Table ${this.selectedTable.number}`,
+          ticketLines: splitLines
+        }
+
+        const splitTicketRes = await this.$axios.post('api/ticket/', newTicketData)
+        const createdSplitTicket = splitTicketRes.data.data || splitTicketRes.data
+
+        // 3. Update or settle the original ticket
+        if (remainingLines.length > 0) {
+          const updatedTicketData = {
+            tableId: this.selectedTable.id,
+            clientId: originalTicket.clientId || null,
+            locationId: originalTicket.locationId || 1,
+            status: originalTicket.status || 'pending',
+            subtotal: parseFloat((remSubtotal - remTax).toFixed(2)),
+            promotionDiscount: originalTicket.promotionDiscount || 0,
+            tax: parseFloat(remTax.toFixed(2)),
+            taxType: originalTicket.taxType || 'INC',
+            total: parseFloat(remTotal.toFixed(2)),
+            paymentStatus: 'pending',
+            updateUserId: this.user?.id || null,
+            notes: originalTicket.notes || `Pending items for Table ${this.selectedTable.number}`,
+            ticketLines: remainingLines
+          }
+          await this.$axios.put(`api/ticket/${ticketId}`, updatedTicketData)
+        } else {
+          // If no items remain, settle original ticket
+          await this.$axios.patch(`/api/ticket/${ticketId}/payment-status`, {
+            paymentStatus: 'paid',
+            paymentId: selectedPaymentMethod.id,
+          })
+          await this.changeTableStatusSilent('cleaning')
+        }
+
+        // 4. Close dialogs & trigger printing of the split ticket
+        this.closePaymentDialog()
+        this.closeSplitDialog()
+
+        this.selectedTicket = createdSplitTicket
+        this.showCustomerPrint = true
+
+        this.showMessage('Split payment processed successfully!', 'success', 'mdi-credit-card-check')
+
+        // Refresh tables list
+        await this.fetchTables()
+        if (remainingLines.length > 0) {
+          await this.loadTableTicketData(this.selectedTable.id)
+        }
+      } catch (error) {
+        console.error('Error processing split payment:', error)
+        this.showMessage('Failed to process split payment', 'error', 'mdi-alert')
+      } finally {
+        this.isSplitPayment = false
+      }
     },
 
     // POS methods

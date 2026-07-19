@@ -27,59 +27,63 @@
 
         <!-- Document Title -->
         <div class="document-title-container">
-          <h1 class="document-title">ໃບໂອນສິນຄ້າຂ້າມສາງ</h1>
-          <h2 class="document-title-en">STOCK TRANSFER VOUCHER</h2>
+          <h1 class="document-title">ໃບຮັບສິນຄ້າເຂົ້າສາງ</h1>
+          <h2 class="document-title-en">GOODS RECEIPT NOTE (GRN)</h2>
         </div>
 
         <!-- Document Info Metadata -->
         <div v-if="header" class="info-section">
           <v-row>
-            <!-- Locations card -->
-            <v-col cols="7">
-              <div class="info-card location-card">
+            <!-- Vendor Info Card -->
+            <v-col cols="6">
+              <div class="info-card vendor-card">
                 <div class="card-header">
-                  <v-icon small class="mr-1 white--text">mdi-map-marker-distance</v-icon>
-                  ເສັ້ນທາງການໂອນ / Transfer Route
+                  <v-icon small class="mr-1 white--text">mdi-truck-delivery-outline</v-icon>
+                  ຜູ້ສະໜອງ / Supplier Details
                 </div>
-                <div class="card-body py-4 px-6 d-flex align-center justify-space-between">
-                  <div class="route-node source-node text-center">
-                    <span class="node-label">ຈາກສາງ (From Location)</span>
-                    <h3 class="node-value">{{ header.srcLocation ? header.srcLocation.name : 'N/A' }}</h3>
+                <div class="card-body px-4 py-3">
+                  <div class="vendor-name-row mb-1">
+                    <strong>{{ header.vendor ? header.vendor.name : 'N/A' }}</strong>
                   </div>
-                  <div class="route-arrow text-center px-4">
-                    <v-icon color="primary" large>mdi-swap-horizontal-bold</v-icon>
+                  <div class="vendor-detail-row" v-if="header.vendor && header.vendor.address">
+                    <span class="detail-label">ທີ່ຢູ່ / Address:</span>
+                    <span class="detail-value">{{ header.vendor.address }}</span>
                   </div>
-                  <div class="route-node dest-node text-center">
-                    <span class="node-label">ຫາສາງ (To Location)</span>
-                    <h3 class="node-value">{{ header.desLocation ? header.desLocation.name : 'N/A' }}</h3>
+                  <div class="vendor-detail-row" v-if="header.vendor && header.vendor.tel">
+                    <span class="detail-label">ເບີໂທ / Tel:</span>
+                    <span class="detail-value">{{ header.vendor.tel }}</span>
                   </div>
                 </div>
               </div>
             </v-col>
 
-            <!-- Metadata info card -->
-            <v-col cols="5">
+            <!-- Metadata Info Card -->
+            <v-col cols="6">
               <div class="info-card meta-card">
                 <div class="card-header">
                   <v-icon small class="mr-1 white--text">mdi-file-document-info-outline</v-icon>
-                  ລາຍລະອຽດເອກະສານ / Document Details
+                  ລາຍລະອຽດເອກະສານ / Voucher Details
                 </div>
                 <div class="card-body px-4 py-2">
                   <div class="meta-row">
-                    <span class="meta-label">ເລກທີ / Transfer No:</span>
-                    <strong class="meta-value">{{ header.id }}</strong>
+                    <span class="meta-label">ເລກທີ / Rec ID:</span>
+                    <strong class="meta-value">#{{ header.id }}</strong>
+                  </div>
+                  <div class="meta-row" v-if="header.poHeaderId">
+                    <span class="meta-label">ເລກບິນ PO Ref:</span>
+                    <span class="meta-value">#{{ header.poHeaderId }}</span>
                   </div>
                   <div class="meta-row">
-                    <span class="meta-label">ວັນທີ / Date:</span>
+                    <span class="meta-label">ວັນທີຮັບ / Date:</span>
                     <span class="meta-value">{{ formatDate(header.bookingDate) }}</span>
                   </div>
                   <div class="meta-row">
-                    <span class="meta-label">ຜູ້ລົງບັນຊີ / Prepared By:</span>
-                    <span class="meta-value">{{ header.user ? (header.user.cus_name || header.user.cus_id) : 'N/A' }}</span>
+                    <span class="meta-label">ສາງ / Warehouse:</span>
+                    <span class="meta-value">{{ getLocationName(header.locationId) }}</span>
                   </div>
-                  <div class="meta-row" v-if="header.remark">
-                    <span class="meta-label">ໝາຍເຫດ / Remarks:</span>
-                    <span class="meta-value remarks-text">{{ header.remark }}</span>
+                  <div class="meta-row">
+                    <span class="meta-label">ຜູ້ຮັບເຄື່ອງ / Prepared By:</span>
+                    <span class="meta-value">{{ getPreparedByName() }}</span>
                   </div>
                 </div>
               </div>
@@ -89,15 +93,15 @@
 
         <!-- Table of Products -->
         <div v-if="header" class="table-section">
-          <table class="transfer-table">
+          <table class="receipt-table">
             <thead>
               <tr>
                 <th class="col-idx">ລຳດັບ<br>No.</th>
+                <th class="col-code">ລະຫັດ<br>Code</th>
                 <th class="col-desc">ລາຍລະອຽດສິນຄ້າ<br>Description</th>
                 <th class="col-qty">ຈຳນວນ<br>Qty</th>
                 <th class="col-unit">ຫົວໜ່ວຍ<br>Unit</th>
-                <th class="col-rate">ອັດຕາ<br>Rate</th>
-                <th class="col-price">ລາຄາ<br>Price</th>
+                <th class="col-price">ລາຄາຕໍ່ໜ່ວຍ<br>Unit Price</th>
                 <th class="col-amt">ມູນຄ່າ<br>Amount</th>
               </tr>
             </thead>
@@ -105,32 +109,65 @@
               <template v-if="header.lines && header.lines.length > 0">
                 <tr v-for="(line, i) in header.lines" :key="line.id" class="item-row page-break">
                   <td class="text-center">{{ i + 1 }}</td>
+                  <td class="text-center">{{ getProductCode(line) }}</td>
                   <td class="product-info">
                     <div class="product-name">{{ getProductName(line) }}</div>
-                    <div class="product-id" v-if="getProductCode(line)">Code: {{ getProductCode(line) }}</div>
                   </td>
-                  <td class="text-right font-weight-bold">{{ formatNumber(line.quantity) }}</td>
+                  <td class="text-right font-weight-bold">{{ formatNumber(line.qty || line.quantity) }}</td>
                   <td class="text-center">{{ getUnitName(line) }}</td>
-                  <td class="text-right">{{ formatNumber(getUnitRate(line)) }}</td>
-                  <td class="text-right">{{ formatNumber(line.price) }}</td>
-                  <td class="text-right font-weight-bold amount-cell">{{ formatNumber(line.total) }}</td>
+                  <td class="text-right">{{ formatNumber(getLineOriginalPrice(line)) }}</td>
+                  <td class="text-right font-weight-bold amount-cell">{{ formatNumber(getLineOriginalTotal(line)) }}</td>
                 </tr>
               </template>
               <template v-else>
                 <tr>
                   <td colspan="7" class="text-center py-6 text-grey">
-                    ບໍ່ມີຂໍ້ມູນສິນຄ້າ / No transfer items available
+                    ບໍ່ມີຂໍ້ມູນສິນຄ້າ / No receiving items available
                   </td>
                 </tr>
               </template>
 
-              <!-- Total row -->
+              <!-- Spacing/Divider Row -->
+              <tr class="spacer-row">
+                <td colspan="7"></td>
+              </tr>
+
+              <!-- Grand Total Row -->
               <tr class="total-row page-break">
-                <td colspan="6" class="text-right font-weight-bold">ມູນຄ່າລວມທັງໝົດ / Grand Total (LAK):</td>
-                <td class="text-right font-weight-bold grand-total-value">{{ formatNumber(header.total) }}</td>
+                <td colspan="6" class="text-right font-weight-bold">ຍອດລວມທັງໝົດ / Grand Total:</td>
+                <td class="text-right font-weight-bold grand-total-value">
+                  {{ formatNumber(header.total) }} {{ (findCurrency(header.currencyId) || {}).code }}
+                </td>
               </tr>
             </tbody>
           </table>
+        </div>
+
+        <!-- Currency Breakdown / Remarks -->
+        <div v-if="header" class="footer-details-section">
+          <v-row>
+            <v-col cols="7">
+              <div v-if="header.notes" class="notes-box">
+                <strong>ໝາຍເຫດ / Notes:</strong>
+                <p class="notes-content mt-1">{{ header.notes }}</p>
+              </div>
+            </v-col>
+            <v-col cols="5">
+              <div v-if="totalsByCurrency.length > 0" class="currency-breakdown-box">
+                <div class="box-title">ລາຍລະອຽດສະກຸນເງິນ / Currency Breakdown</div>
+                <div class="breakdown-list">
+                  <div v-for="c in totalsByCurrency" :key="c.code" class="breakdown-row">
+                    <span class="ccy-code">{{ c.code }}:</span>
+                    <strong class="ccy-val">{{ formatNumber(c.total) }}</strong>
+                  </div>
+                  <div class="breakdown-row exchange-rate-row" v-if="header.exchangeRate && header.exchangeRate !== 1">
+                    <span class="ccy-code text-caption">Exchange Rate:</span>
+                    <span class="ccy-val text-caption">1 {{ (findCurrency(header.currencyId) || {}).code }} = {{ formatNumber(header.exchangeRate) }} LAK</span>
+                  </div>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
         </div>
 
         <!-- Signature Boxes -->
@@ -146,7 +183,7 @@
             </v-col>
             <v-col cols="4" class="px-2">
               <div class="signature-box text-center">
-                <p class="signature-title">ຜູ້ຮັບເຄື່ອງ / Receiver</p>
+                <p class="signature-title">ຜູ້ກວດຮັບ / Inspector</p>
                 <div class="signature-space"></div>
                 <p class="signature-name">...................................................</p>
                 <p class="signature-date">ວັນທີ (Date): ......./......./.......</p>
@@ -154,7 +191,7 @@
             </v-col>
             <v-col cols="4" class="px-2">
               <div class="signature-box text-center">
-                <p class="signature-title">ຜູ້ໂອນເຄື່ອງ / Transferor</p>
+                <p class="signature-title">ຜູ້ມອບເຄື່ອງ / Deliverer</p>
                 <div class="signature-space"></div>
                 <p class="signature-name">...................................................</p>
                 <p class="signature-date">ວັນທີ (Date): ......./......./.......</p>
@@ -174,22 +211,20 @@ import { getFormatNum } from '~/common'
 import { mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
 
 export default {
-  name: 'PDFTransfer',
+  name: 'PDFReceiving',
   layout: 'login',
 
   data() {
     return {
       id: null,
       header: null,
-      logoLoadError: false,
     }
   },
 
   computed: {
-    ...mapGetters(['cartOfProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findAllProduct', 'findAllCompany', 'currentSelectedLocation', 'findAllUnit']),
+    ...mapGetters(['findAllProduct', 'findAllUnit', 'findAllCurrency', 'findAllLocation', 'findAllCompany']),
 
     companyData() {
-      console.log(`**********COMPANY DATA ${mainCompanyInfo}**********`)
       try {
         return mainCompanyInfo() || {}
       } catch (e) {
@@ -208,73 +243,78 @@ export default {
     
     companyLogo() {
       try {
-        // 1. Try to get from current selected location company data
-        if (this.currentSelectedLocation?.company?.profile_image_path) {
-          const imagePath = this.currentSelectedLocation.company.profile_image_path
-          return this.buildImageUrl(imagePath)
-        }
-
-        // 2. Fallback to companyDataV1
         if (this.companyDataV1?.profile_image_path) {
           const imagePath = this.companyDataV1.profile_image_path
           return this.buildImageUrl(imagePath)
         }
-
-        // 3. Fallback to static logo from companyData
         const logoName = this.companyData?.companyLogo
         if (logoName) {
           return require(`~/assets/image/${logoName}`)
         }
-
         return null
       } catch (error) {
         console.error('Error loading company logo:', error)
         return null
       }
     },
+
+    totalsByCurrency() {
+      if (!this.header || !this.header.lines) return []
+      const breakdown = {}
+      this.header.lines.forEach(item => {
+        const currency = this.getLineCurrency(item)
+        const code = currency.code || 'LAK'
+        if (!breakdown[code]) {
+          breakdown[code] = {
+            code,
+            total: 0
+          }
+        }
+        breakdown[code].total += parseFloat(item.total || 0)
+      })
+      return Object.values(breakdown).filter(b => b.total > 0)
+    }
   },
   
   async created() {
     this.id = this.$route.params.id
     
-    // First attempt: read transfer data from localStorage
-    const cachedData = localStorage.getItem(`transfer_print_${this.id}`)
+    // First attempt: read receiving data from localStorage
+    const cachedData = localStorage.getItem(`receiving_print_${this.id}`)
     if (cachedData) {
       try {
         this.header = JSON.parse(cachedData)
-        console.log('Loaded transfer print data from cache:', this.header)
+        console.log('Loaded receiving print data from cache:', this.header)
       } catch (e) {
-        console.error('Failed to parse cached transfer print data:', e)
+        console.error('Failed to parse cached receiving print data:', e)
       }
     }
 
     // Fallback: If not in cache, fetch from API
     if (!this.header && this.id) {
       try {
-        const res = await this.$axios.get(`api/transfer/find/${this.id}`)
-        console.log('Loaded transfer print data from API:', res.data)
+        const res = await this.$axios.get(`api/receiving/find/${this.id}`)
+        console.log('Loaded receiving print data from API:', res.data)
         this.header = res.data
       } catch (er) {
-        console.error('Error loading transfer print from API:', er)
+        console.error('Error loading receiving print from API:', er)
       }
     }
 
-    // Load Vuex background metadata asynchronously (do not await to prevent blocking rendering)
+    // Load Vuex background metadata asynchronously
     this.initiateData(this.$axios).catch((err) => {
       console.error('Error in initiateData background load:', err)
     })
   },
 
   methods: {
-    ...mapActions(['initiateData', 'setSelectedTerminal', 'setSelectedLocation']),
+    ...mapActions(['initiateData']),
     
     buildImageUrl(imagePath) {
       if (!imagePath) return null
-      
       const cleanPath = imagePath.replace(/^\/+/, '')
       const baseUrl = process.env.API_BASE_URL || this.$axios.defaults.baseURL || ''
       const fileBaseUrl = baseUrl.replace('/api', '')
-      
       return `${fileBaseUrl}/${cleanPath}`
     },
 
@@ -310,19 +350,42 @@ export default {
       }
       return 'N/A'
     },
-    
-    getUnitRate(line) {
-      if (line.unit && line.unit.unitRate !== undefined) {
-        return line.unit.unitRate
+
+    getLocationName(locationId) {
+      if (!locationId) return 'N/A'
+      if (this.findAllLocation && this.findAllLocation.length > 0) {
+        const loc = this.findAllLocation.find(l => String(l.id) === String(locationId))
+        return loc ? loc.name : 'N/A'
       }
-      if (line.unitRate !== undefined) {
-        return line.unitRate
+      return 'N/A'
+    },
+
+    getPreparedByName() {
+      if (this.header?.user) {
+        return this.header.user.cus_name || this.header.user.cus_id || 'N/A'
       }
-      if (this.findAllUnit && this.findAllUnit.length > 0) {
-        const unit = this.findAllUnit.find(u => String(u.id) === String(line.unitId))
-        return unit ? unit.unitRate : 1
+      return this.$auth?.user?.cus_name || 'N/A'
+    },
+
+    getLineCurrency(item) {
+      if (item.currencyId) {
+        return this.findCurrency(item.currencyId);
       }
-      return 1
+      const p = item.product || this.findAllProduct.find(el => String(el.id) === String(item.productId))
+      if (!p) return { code: 'LAK', rate: 1 }
+      return this.findCurrency(p.costCurrencyId || p.purchaseCurrencyId || p.saleCurrencyId)
+    },
+
+    findCurrency(currencyId) {
+      return this.findAllCurrency.find(el => String(el.id) === String(currencyId)) || { code: 'LAK', rate: 1 };
+    },
+
+    getLineOriginalPrice(item) {
+      return parseFloat(item.price || 0)
+    },
+
+    getLineOriginalTotal(item) {
+      return parseFloat(item.total || 0)
     },
 
     formatNumber(val) {
@@ -334,7 +397,7 @@ export default {
       if (!dateString) return 'N/A'
       try {
         const date = new Date(dateString)
-        return date.toLocaleDateString('en-GB') // DD/MM/YYYY format
+        return date.toLocaleDateString('en-GB') // DD/MM/YYYY
       } catch (error) {
         console.error('Error formatting date:', error)
         return dateString
@@ -414,7 +477,7 @@ export default {
 
 .divider-bar {
   height: 3px;
-  background: linear-gradient(90deg, #2563eb, #3b82f6);
+  background: linear-gradient(90deg, #0284c7, #38bdf8);
   margin: 15px 0;
   border-radius: 2px;
 }
@@ -428,7 +491,7 @@ export default {
 .document-title {
   font-size: 20pt;
   font-weight: 800;
-  color: #1e3a8a;
+  color: #0369a1;
   margin: 0;
 }
 
@@ -450,7 +513,7 @@ export default {
 }
 
 .card-header {
-  background-color: #1e3a8a;
+  background-color: #0369a1;
   color: white;
   padding: 6px 12px;
   font-size: 9.5pt;
@@ -459,27 +522,31 @@ export default {
   align-items: center;
 }
 
-.route-node {
-  flex: 1;
-}
-
-.node-label {
-  display: block;
-  font-size: 8pt;
-  color: #64748b;
-  margin-bottom: 4px;
-}
-
-.node-value {
+.vendor-name-row {
   font-size: 11pt;
   color: #1e293b;
-  margin: 0;
+}
+
+.vendor-detail-row {
+  font-size: 9pt;
+  margin-top: 4px;
+  display: flex;
+}
+
+.detail-label {
+  color: #64748b;
+  width: 90px;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: #334155;
 }
 
 .meta-row {
   display: flex;
   justify-content: space-between;
-  padding: 6px 0;
+  padding: 5px 0;
   border-bottom: 1px dashed #e2e8f0;
   font-size: 9pt;
 }
@@ -497,25 +564,19 @@ export default {
   font-weight: 600;
 }
 
-.remarks-text {
-  max-width: 150px;
-  text-align: right;
-  word-break: break-all;
-}
-
 /* Table styling */
 .table-section {
   margin-top: 25px;
 }
 
-.transfer-table {
+.receipt-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 9pt;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
-.transfer-table th {
+.receipt-table th {
   background-color: #f1f5f9;
   color: #1e293b;
   border: 1px solid #cbd5e1;
@@ -525,7 +586,7 @@ export default {
   vertical-align: middle;
 }
 
-.transfer-table td {
+.receipt-table td {
   border: 1px solid #e2e8f0;
   padding: 8px;
   color: #334155;
@@ -533,22 +594,16 @@ export default {
 }
 
 .col-idx { width: 5%; }
-.col-desc { width: 45%; }
+.col-code { width: 12%; }
+.col-desc { width: 38%; }
 .col-qty { width: 10%; }
 .col-unit { width: 10%; }
-.col-rate { width: 8%; }
-.col-price { width: 11%; }
-.col-amt { width: 11%; }
+.col-price { width: 12%; }
+.col-amt { width: 13%; }
 
 .product-name {
   font-weight: 700;
   color: #1e293b;
-}
-
-.product-id {
-  font-size: 7.5pt;
-  color: #64748b;
-  margin-top: 2px;
 }
 
 .item-row:nth-child(even) {
@@ -559,6 +614,11 @@ export default {
   color: #0f172a;
 }
 
+.spacer-row td {
+  border: none;
+  height: 10px;
+}
+
 .total-row td {
   background-color: #f8fafc;
   border: 1px solid #cbd5e1;
@@ -567,8 +627,62 @@ export default {
 }
 
 .grand-total-value {
-  color: #1e3a8a;
+  color: #0369a1;
   font-size: 11pt;
+}
+
+/* Footer details block */
+.footer-details-section {
+  margin-top: 15px;
+}
+
+.notes-box {
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+  background-color: #fafafa;
+  min-height: 80px;
+  font-size: 9pt;
+}
+
+.notes-content {
+  color: #475569;
+  white-space: pre-wrap;
+}
+
+.currency-breakdown-box {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  overflow: hidden;
+}
+
+.currency-breakdown-box .box-title {
+  background-color: #f1f5f9;
+  border-bottom: 1px solid #cbd5e1;
+  padding: 6px 12px;
+  font-size: 8.5pt;
+  font-weight: 700;
+  color: #475569;
+}
+
+.breakdown-list {
+  padding: 8px 12px;
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  font-size: 9pt;
+  color: #334155;
+}
+
+.exchange-rate-row {
+  border-top: 1px dashed #cbd5e1;
+  margin-top: 4px;
+  padding-top: 6px;
+  color: #64748b;
 }
 
 /* Signature boxes */
@@ -625,20 +739,38 @@ export default {
     min-height: 100%;
   }
 
-  .transfer-table th {
+  .receipt-table th {
     background-color: #f1f5f9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   .card-header {
-    background-color: #1e3a8a !important;
+    background-color: #0369a1 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 
   .signature-box {
     background-color: #f8fafc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .notes-box {
+    background-color: #fafafa !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .currency-breakdown-box {
+    background-color: #f8fafc !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .currency-breakdown-box .box-title {
+    background-color: #f1f5f9 !important;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

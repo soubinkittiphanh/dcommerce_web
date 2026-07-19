@@ -209,7 +209,8 @@ export default {
         name: company?.name || 'Restaurant Name',
         address: company?.address || 'Vientiane, Laos',
         tel: company?.tel || '',
-        email: company?.email || ''
+        email: company?.email || '',
+        term_condition: company?.term_condition || ''
       };
     },
     user() { return this.$auth.user || null },

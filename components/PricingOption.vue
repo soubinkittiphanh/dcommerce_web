@@ -9,6 +9,10 @@
                     <v-icon start>mdi-label</v-icon>
                     ລາຍການລາຄາ
                 </v-chip>
+                <v-spacer></v-spacer>
+                <v-btn icon @click="$emit('close-dialog')">
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
             </v-card-title>
             <v-card-text>
                 <v-data-table :headers="headers" :search="search" :items="entries">

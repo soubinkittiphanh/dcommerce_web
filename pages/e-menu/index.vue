@@ -195,6 +195,7 @@ export default {
         filtered = filtered.filter(p => 
           p.pro_name?.toLowerCase().includes(query) ||
           p.pro_desc?.toLowerCase().includes(query) ||
+          p.product_code?.toLowerCase().includes(query) ||
           p.categ_name?.toLowerCase().includes(query)
         )
       }

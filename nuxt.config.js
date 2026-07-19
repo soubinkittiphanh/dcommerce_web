@@ -7,12 +7,12 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BASE_URL || 'http://localhost:8888'
+      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8046'
     }
   },
   privateRuntimeConfig: {
     axios: {
-      baseURL: process.env.BASE_URL || 'http://localhost:8888'
+      baseURL: process.env.BASE_URL || 'http://150.95.31.23:8046'
     }
   },
   // 1. CONDITIONAL SSR: Defaults to 'server' for VPS deployment. Uses 'static' only if explicitly requested.
@@ -172,5 +172,7 @@ export default {
     }
   }
 }
+// Force Nuxt reload for new expiring-soon report page route config.
+
 
 

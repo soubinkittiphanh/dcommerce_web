@@ -6,7 +6,7 @@
  * @returns {string} The base URL for the application
  */
 export const hostName = () => {
-  const defaultURL = 'http://localhost:8888' // Local dev API
+  const defaultURL = 'http://150.95.31.23:8046' // Local dev API
   const envURL = process.env.BASE_URL
 
   // Note: process.env.BASE_URL works on server-side (SSR)
@@ -130,7 +130,8 @@ export const getStaticCompanyInfo = () => {
     ticketLogo: 'TTP_AUTO.jpeg',
     companyLogo: 'TTP_AUTO.jpeg',
     dcLogo: 'Dcommerce-Logo_DC.png',
-    env: ''
+    env: '',
+    term_condition: ''
   }
 
   return info;
@@ -161,6 +162,7 @@ export const mainCompanyInfo = (options) => {
         apiData: apiCompanyCache.data,
         mnemonic: apiCompanyCache.data.mnemonic || '',
         id: apiCompanyCache.data.id || null,
+        term_condition: apiCompanyCache.data.term_condition || '',
       }
     }
 
@@ -198,6 +200,7 @@ export const mainCompanyInfo = (options) => {
           apiData: apiData,
           mnemonic: apiData.mnemonic || '',
           id: apiData.id || null,
+          term_condition: apiData.term_condition || '',
         }
       } else {
         // Fallback to static info if API fails
@@ -248,6 +251,7 @@ export const mainCompanyInfoAsync = async (options = {}) => {
           apiData: apiData,
           mnemonic: apiData.mnemonic || '',
           id: apiData.id || null,
+          term_condition: apiData.term_condition || '',
         }
       }
     } catch (error) {

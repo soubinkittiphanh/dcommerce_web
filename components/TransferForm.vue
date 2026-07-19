@@ -347,6 +347,7 @@
 import commaThousand from "@/plugins/comma-thousand";
 import { mapActions, mapGetters } from 'vuex'
 import { swalSuccess, swalError2, confirmSwal, dayCount, getNextDate, replaceAll } from '~/common'
+import { generateTransferHTML } from '~/common/printTemplates'
 export default {
     props: {
         headerId: {
@@ -458,7 +459,7 @@ export default {
                 }
                 
                 targetLine.productId = product.id;
-                targetLine.price = parseFloat(product.pro_price) || 0;
+                targetLine.price = parseFloat(product.cost_price || product.pro_cost_price || product.pro_price || 0);
                 targetLine.quantity = 1;
                 targetLine.unitRate = 1;
                 targetLine.discount = 0;
@@ -475,9 +476,32 @@ export default {
                 title: `ເພີ່ມສິນຄ້າ: ${product.pro_name}`
             });
         },
-        preview() {
-            const path = this.isQuotation ? 'PDFQuotation' : 'PDFInvoice'
-            window.open(`/admin/PDFTransfer/${this.headerId}`, '_blank');
+        async preview() {
+            this.isloading = true;
+            try {
+                const res = await this.$axios.get(`api/${this.apiLine}/find/${this.headerId}`);
+                const html = generateTransferHTML(res.data, this.$store.getters.findAllCompany?.[0] || {}, this.$store.getters.findAllCurrency || []);
+                const win = window.open('', '_blank', 'width=800,height=600');
+                if (!win) return;
+                win.document.open();
+                win.document.write(html);
+                win.document.close();
+                win.onload = () => {
+                    setTimeout(() => {
+                        try {
+                            win.print();
+                            setTimeout(() => win.close(), 100);
+                        } catch (e) {
+                            win.close();
+                        }
+                    }, 500);
+                };
+            } catch (e) {
+                console.error(e);
+                swalError2(this.$swal, 'Error', 'Print failed');
+            } finally {
+                this.isloading = false;
+            }
         },
         handleKeyDown(event) {
             if (event.key === 'Tab') {
@@ -552,6 +576,7 @@ export default {
             const unit = this.unitList.find(el => el['id'] == data['unitId']);
             if (unit == undefined) return
             let index = this.transaction.lines.indexOf(data);
+            this.transaction.lines[index]['unit'] = unit;
             this.transaction.lines[index]['unitRate'] = unit['unitRate']
             const qty = replaceAll(this.transaction.lines[index]['quantity'], ',', '');
             const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
@@ -566,7 +591,8 @@ export default {
                 return
             }
             let index = this.transaction.lines.indexOf(data);
-            this.transaction.lines[index]['price'] = product['pro_price']
+            this.transaction.lines[index]['product'] = product;
+            this.transaction.lines[index]['price'] = product['cost_price'] || product['pro_cost_price'] || product['pro_price'] || 0;
             const qty = replaceAll(this.transaction.lines[index]['quantity'], ',', '');
             const discount = replaceAll(this.transaction.lines[index]['discount'], ',', '');
             const price = replaceAll(this.transaction.lines[index]['price'], ',', '');

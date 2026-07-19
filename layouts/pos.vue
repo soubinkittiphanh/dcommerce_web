@@ -579,6 +579,7 @@ export default {
       initialNfcUid: '',
       pendingSaleHeaderId: null,
       isCreatingSale: false,
+      isGeneratingQR: false,
       qtyDialog: false,
       newQty: 0,
       selectedProductId: null,
@@ -724,6 +725,7 @@ export default {
       console.info(`CALLBACK URL ${callbackUrl}`)
 
       return {
+        bankCode: getVal('DYN_QR_BankCode') || 'IB',
         memberId: getVal('DYN_MemberId') || 'KOKKOKMOV',
         merchantId: getVal('DYN_MerchantId'),
         password: getVal('DYN_Password'),
@@ -750,6 +752,7 @@ export default {
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
+        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
         showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
         ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
@@ -791,7 +794,7 @@ export default {
     headerMenu() {
       // Determine the dynamic home path based on the SPF HOME configuration or user's group configuration
       const homePageSpf = (this.findSPF || []).find((spf) => spf.code === 'HOME' && spf.isActive)
-      const homePath = homePageSpf?.value || this.user?.userGroup?.homePage || '/admin';
+      const homePath = this.user?.userGroup?.homePage || homePageSpf?.value || '/admin';
 
       return [
         {
@@ -1627,12 +1630,13 @@ export default {
       let qrString = this.generateQRForCustomerScreen(totalWithTax)
       let dynamicQRData = this.currentDynamicQR
 
-      // Handle Dynamic QR if enabled
+       // Handle Dynamic QR if enabled
       if (this.isDynamicQREnabled) {
         // ONLY GENERATE IF TOTAL CHANGED OR COOLDOWN EXPIRED OR NO QR YET
         const shouldRegenerate = !this.currentDynamicQR || this.lastQRTotal !== totalWithTax
 
-        if (shouldRegenerate) {
+        if (shouldRegenerate && !this.isGeneratingQR) {
+          this.isGeneratingQR = true
           try {
             const timestamp = Date.now()
             const random = Math.floor(Math.random() * 1000)
@@ -1642,6 +1646,7 @@ export default {
               txnAmount: totalWithTax,
               billNumber: billNumber,
               purposeOfTxn: `POS Order ${this.currentTerminal?.name || ''}`,
+              bankCode: this.dynamicQRConfigs.bankCode,
               memberId: this.dynamicQRConfigs.memberId,
               merchantId: this.dynamicQRConfigs.merchantId,
               password: this.dynamicQRConfigs.password,
@@ -1660,7 +1665,8 @@ export default {
             }
           } catch (error) {
             console.error('Failed to generate dynamic QR:', error)
-            // Fallback to static QR if dynamic fails
+          } finally {
+            this.isGeneratingQR = false
           }
         } else {
           // Use cached values
@@ -1770,11 +1776,92 @@ export default {
           this.showPaymentSuccessOnCustomerScreen()
           this.$toast.success('Payment Received Successfully!')
 
-          // You might want to auto-process the payment here if appropriate
-          // For now, we just update the customer screen
+          // Sound chimes & voice announcement
+          const amount = response.data.data.amount || 0
+          this.playSuccessBeep()
+          this.speakPaymentAmount(amount)
+
+          // Auto-select LAO_QR payment method and post transaction
+          const laoQrPayment = this.findAllPayment.find(p => p.payment_code === 'LAO_QR')
+          if (laoQrPayment) {
+            this.addSelectedPayment(laoQrPayment.id)
+            console.log(`Auto-selected dynamic QR payment method: ${laoQrPayment.payment_name}`)
+          } else {
+            console.warn('Payment method LAO_QR not found in systems. Posting with current selection.')
+          }
+
+          // Complete the transaction automatically
+          await this.postTransactionOriginal(false)
         }
       } catch (error) {
         console.error('Error checking QR payment status:', error)
+      }
+    },
+
+    playSuccessBeep() {
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext
+        if (!AudioContextClass) return
+        const audioCtx = new AudioContextClass()
+        
+        const playTone = (freq, startTime, duration) => {
+          const osc = audioCtx.createOscillator()
+          const gainNode = audioCtx.createGain()
+          
+          osc.connect(gainNode)
+          gainNode.connect(audioCtx.destination)
+          
+          osc.type = 'sine'
+          osc.frequency.setValueAtTime(freq, startTime)
+          
+          gainNode.gain.setValueAtTime(0.3, startTime)
+          gainNode.gain.exponentialRampToValueAtTime(0.01, startTime + duration)
+          
+          osc.start(startTime)
+          osc.stop(startTime + duration)
+        }
+        
+        const now = audioCtx.currentTime
+        playTone(880, now, 0.3)
+        playTone(1320, now + 0.1, 0.45)
+      } catch (e) {
+        console.warn('Failed to play AudioContext chime:', e)
+      }
+    },
+
+    speakPaymentAmount(amount) {
+      try {
+        if (!('speechSynthesis' in window)) return
+        window.speechSynthesis.cancel()
+
+        const formatNumber = new Intl.NumberFormat('en-US').format(amount)
+        const isThaiSupported = window.speechSynthesis.getVoices().some(v => v.lang.startsWith('th') || v.lang.startsWith('lo'))
+        
+        let text = ''
+        let lang = 'en-US'
+        
+        if (isThaiSupported) {
+          // Speak in Lao/Thai syntax (using Thai voice as standard fallback for Laotian numerals)
+          text = `ໄດ້ຮັບເງິນ ${formatNumber} ກີບ`
+          lang = 'th-TH' // Thai voice correctly pronounces Laotian script and numbers
+        } else {
+          // Speak in English
+          text = `Payment received, amount ${formatNumber} Kip`
+          lang = 'en-US'
+        }
+
+        const utterance = new SpeechSynthesisUtterance(text)
+        utterance.lang = lang
+        utterance.volume = 1.0
+        utterance.rate = 0.95
+        
+        const voices = window.speechSynthesis.getVoices()
+        const selectedVoice = voices.find(v => v.lang.startsWith(lang))
+        if (selectedVoice) utterance.voice = selectedVoice
+
+        window.speechSynthesis.speak(utterance)
+      } catch (e) {
+        console.warn('Speech synthesis error:', e)
       }
     },
 
@@ -2209,6 +2296,7 @@ export default {
         companyData: this.companyData,
         paperWidth: this.paperSize,
         printers: this.findAllprinters,
+        client: this.currenctCustomer,
       })
     },
 
@@ -2396,6 +2484,22 @@ export default {
 
         this.lastTransactionSaleHeaderId = saleHeaderId
 
+        // Map single payment in salePayment model
+        try {
+          const paymentRecord = {
+            saleHeaderId: parseInt(saleHeaderId),
+            paymentId: this.currentPayment,
+            amount: parseFloat(this.grandTotal - this.discount - this.loyaltyDiscountAmount) || 0,
+            referenceNo: this.currentDynamicQR ? `QR-BILL-${this.currentDynamicQR.billNumber}` : 'Legacy Single Payment',
+            qrRequestId: this.saleHeader.qrRequestId || null,
+            isActive: true
+          }
+          await this.$axios.post('/api/sale-payment/bulk', [paymentRecord])
+          console.log('Single payment mapped in salePayment successfully')
+        } catch (paymentErr) {
+          console.error('Failed to map payment in salePayment model:', paymentErr)
+        }
+
         // Handle NFC Double Entry BEFORE asking to print
         if (nfcData) {
           try {
@@ -2532,8 +2636,8 @@ export default {
     openPrintWindow(htmlContent) {
       if (window.posApi && typeof window.posApi.printReceipt === 'function') {
         const printers = this.findAllprinters || this.$store.state.printers || [];
-        const printer = printers.find(p => p.type === 'ticket' && p.is_active) || printers.find(p => p.is_active);
-        const printerName = printer?.printer_name || '';
+        const printer = printers.find(p => p.type === 'ticket' && (p.is_active || p.isActive)) || printers.find(p => p.is_active || p.isActive);
+        const printerName = printer?.printerName || printer?.printer_name || '';
         const paperWidth = this.paperSize || '80mm';
         window.posApi.printReceipt({
           printerName,

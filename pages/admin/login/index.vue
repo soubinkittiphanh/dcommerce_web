@@ -282,10 +282,10 @@ export default {
       const userGroup = this.$auth.user?.userGroup
       const homePageSpf = (this.spfList || []).find((spf) => spf.code === 'HOME' && spf.isActive)
 
-      if (homePageSpf?.value) {
-        this.$router.push(homePageSpf.value)
-      } else if (userGroup && userGroup.homePage) {
+      if (userGroup && userGroup.homePage) {
         this.$router.push(userGroup.homePage)
+      } else if (homePageSpf?.value) {
+        this.$router.push(homePageSpf.value)
       } else {
         // Fallback route
         this.$router.push('/admin')

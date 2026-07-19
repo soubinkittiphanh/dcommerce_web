@@ -72,6 +72,7 @@ export function useCustomerScreen() {
       accountName: terminalCompany?.accountName || baseCompany?.accountName || '',
       accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
       remark: terminalCompany?.remark || baseCompany?.remark || '',
+      term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
       ticketLogo: `${baseUrl}/${terminalCompany?.profile_image_path}` || 'default-logo.png',
     }
   }

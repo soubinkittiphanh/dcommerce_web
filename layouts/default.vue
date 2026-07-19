@@ -37,6 +37,16 @@
           </v-list-item-content>
         </v-list-item>
 
+        <!-- Expiring Soon Report (Static menu item for easy access) -->
+        <v-list-item to="/reports/expiring-soon" router exact>
+          <v-list-item-action>
+            <v-icon color="white">mdi-calendar-alert</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title v-text="'ລາຍງານສິນຄ້າໃກ້ໝົດອາຍຸ'" :style="{ color: 'white' }" />
+          </v-list-item-content>
+        </v-list-item>
+
         <!-- Shipping Orders -->
         <v-list-item to="/admin/shipping-order" router exact>
           <v-list-item-action>
@@ -430,6 +440,12 @@ export default {
       return this.$vuetify.breakpoint.mdAndDown
     },
     homePage() {
+      const userGroup = this.$auth.user?.userGroup;
+
+      if (userGroup && userGroup.homePage) {
+        return userGroup.homePage;
+      }
+
       const spfList = this.spfList && this.spfList.length ? this.spfList : (this.findSPF || [])
       const homePageSpf = spfList.find((spf) => spf.code === 'HOME' && spf.isActive)
       
@@ -437,14 +453,8 @@ export default {
         return homePageSpf.value
       }
 
-      const userGroup = this.$auth.user?.userGroup;
-
-      if (userGroup && userGroup.homePage) {
-        return userGroup.homePage;
-      } else {
-        // Fallback route
-        return '/admin';
-      }
+      // Fallback route
+      return '/admin';
     },
 
     ...mapGetters([

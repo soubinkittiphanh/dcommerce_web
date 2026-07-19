@@ -107,14 +107,14 @@
               </div>
             </div>
             <div class="kpi-content">
-              <h3 class="kpi-title">{{ item.title }}</h3>
+              <h3 class="kpi-title">{{ item.title }} (ລວມ {{ localCurrencyCode }})</h3>
               <div class="kpi-value mb-1">{{ item.total }}</div>
 
               <!-- Total Discount Display -->
               <div v-if="item.discount && item.discount !== '0.00' && item.discount !== '0'" class="kpi-discount-badge mb-3 d-flex align-center">
                 <v-icon small color="orange" class="mr-1">mdi-tag-outline</v-icon>
                 <span class=" grey--text text--darken-1 font-weight-medium">
-                  ສ່ວນຫຼຸດລວມ: <strong class="orange--text font-weight-bold">{{ item.discount }} ₭</strong>
+                  ສ່ວນຫຼຸດລວມ: <strong class="orange--text font-weight-bold">{{ item.discount }} {{ localCurrencyCode }}</strong>
                 </span>
               </div>
 
@@ -189,7 +189,7 @@
 
           <div class="chart-card full-width" v-if="dailyState">
             <div class="chart-header">
-              <h3>ທ່າອ່ຽງການຂາຍລາຍວັນ (ສະກຸນເງິນກີບ)</h3>
+              <h3>ທ່າອ່ຽງການຂາຍລາຍວັນ (ສະກຸນເງິນ {{ localCurrencyCode }})</h3>
             </div>
             <div class="chart-container">
               <apexchart
@@ -286,7 +286,7 @@ export default {
       },
 
       menusOverview: [
-        { title: 'ຍອດຂາຍມື້ນີ້ (ລວມເງິນກີບ)', icon: 'mdi-calendar-today', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
+        { title: 'ຍອດຂາຍມື້ນີ້', icon: 'mdi-calendar-today', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
         { title: 'ຍອດຂາຍເດືອນນີ້', icon: 'mdi-calendar-month', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
         { title: 'ຍອດຂາຍ 3 ເດືອນຫຼັງ', icon: 'mdi-calendar-range', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
       ],
@@ -311,7 +311,12 @@ export default {
       'findAllPayment',
       'findAllCurrency',
       'currentSelectedLocation',
+      'findLocalCurrency',
     ]),
+
+    localCurrencyCode() {
+      return this.findLocalCurrency?.code || 'LAK'
+    },
 
     primaryGradient() {
       const theme = this.$vuetify.theme.dark ? this.$vuetify.theme.themes.dark : this.$vuetify.theme.themes.light
@@ -506,7 +511,7 @@ export default {
         dailyMap[sale.bookingDate] = (dailyMap[sale.bookingDate] || 0) + this.getConvertedSaleTotal(sale)
       })
       const dates = Object.keys(dailyMap).sort()
-      this.barSeriesForDailyStat = [{ name: 'ຍອດລວມ (ກີບ)', data: dates.map(d => Math.round(dailyMap[d])) }]
+      this.barSeriesForDailyStat = [{ name: `ຍອດລວມ (${this.localCurrencyCode})`, data: dates.map(d => Math.round(dailyMap[d])) }]
       this.barOptionsForDailyStat = { ...this.barOptionsForDailyStat, xaxis: { categories: dates } }
       this.dailyState = dates.length > 0
     },
@@ -522,7 +527,7 @@ export default {
       const keys = Object.keys(grouped).sort()
       const values = keys.map(k => Math.round(grouped[k]))
       
-      this.barSeriesForMonthlyStat = [{ name: 'ຍອດຂາຍ (ກີບ)', data: values }]
+      this.barSeriesForMonthlyStat = [{ name: `ຍອດຂາຍ (${this.localCurrencyCode})`, data: values }]
       this.barOptionsForMonthlyStat = {
         ...this.barOptionsForMonthlyStat,
         xaxis: { ...this.barOptionsForMonthlyStat.xaxis, categories: keys }

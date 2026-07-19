@@ -41,7 +41,7 @@ const formatDate = (dateInput) => {
 
 const getPaperConfig = (paperWidth = '80mm') => {
     const configs = {
-        '58mm': { width: '200px', fontSize: '10px', logoSize: '50px' },
+        '58mm': { width: '175px', fontSize: '10.5px', logoSize: '45px' },
         '80mm': { width: '280px', fontSize: '11px', logoSize: '65px' },
         'A5': { width: '540px', fontSize: '14px', logoSize: '80px' },
         'A4': { width: '750px', fontSize: '16px', logoSize: '100px' }
@@ -84,7 +84,7 @@ const getBaseStyles = (config, isThermal) => `
   * { box-sizing: border-box; }
   html, body { margin: 0 !important; padding: 0 !important; width: ${config.width} !important; }
   body { font-family: 'Noto Sans Lao', sans-serif; font-size: ${config.fontSize}; line-height: 1.3; overflow-x: hidden; }
-  .receipt-container { width: ${config.width} !important; margin: 0 auto !important; padding: ${isThermal ? '0 10px 30px 5px' : '20px'}; overflow: hidden; }
+  .receipt-container { width: ${config.width} !important; margin: 0 auto !important; padding: ${isThermal ? '0 10px 75px 5px' : '20px'}; overflow: hidden; }
   
   .header-section { text-align: center; margin-bottom: 10px; }
   .logo-wrapper { margin-bottom: 8px; display: block; }
@@ -99,12 +99,12 @@ const getBaseStyles = (config, isThermal) => `
 
   .dual-qr-container { display: flex; justify-content: space-around; align-items: flex-start; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #eee; }
   .qr-tag { text-align: center; flex: 1; }
-  .qr-tag img { width: 100px; height: 100px; object-fit: contain; border: 1px solid #eee; padding: 2px; }
+  .qr-tag img { width: ${config.width === '175px' ? '70px' : '100px'}; height: ${config.width === '175px' ? '70px' : '100px'}; object-fit: contain; border: 1px solid #eee; padding: 2px; }
   .qr-tag-label { font-size: 0.75em; margin-bottom: 4px; font-weight: 700; color: #333; }
 
   .item { display: flex; justify-content: space-between; width: 100%; margin-bottom: 4px; }
   .item-desc { flex: 1; text-align: left; padding-right: 5px; word-wrap: break-word; max-width: 70%; }
-  .item-total { text-align: right; font-weight: 700; white-space: nowrap; min-width: 85px; }
+  .item-total { text-align: right; font-weight: 700; white-space: nowrap; min-width: ${config.width === '175px' ? '55px' : '85px'}; }
   
   .total-line { display: flex; justify-content: space-between; width: 100%; }
   .divider { border-top: 1px dashed #000; margin: 6px 0; }
@@ -195,7 +195,7 @@ const calculateTotalInLocalCurrency = (productCart, currencyList) => {
 };
 
 const generateFlexibleTotalSection = (params, config) => {
-    const { productCart, currencyList, discount, formatNumber, companyData, cashReceived, changes } = params;
+    const { productCart, currencyList, discount, formatNumber, companyData, cashReceived, changes, paperWidth = '80mm' } = params;
     const { totalInLocal, localCurrency, totalTax } = calculateTotalInLocalCurrency(productCart, currencyList);
     if (!localCurrency) return '';
     console.info(`company data iss ${JSON.stringify(companyData)}`);
@@ -242,7 +242,7 @@ const generateFlexibleTotalSection = (params, config) => {
     `;
 
     currencyList.filter(curr => curr.isActive && !curr.isLocalCCY).forEach(curr => {
-        let convertedAmount = (curr.exchangeDirection === 'foreign_to_local') ? finalTotalLAK / curr.rate : finalTotalLAK * curr.rate;
+        const convertedAmount = (curr.exchangeDirection === 'foreign_to_local') ? finalTotalLAK / curr.rate : finalTotalLAK * curr.rate;
         const formattedVal = curr.code === 'LAK' 
             ? formatNumber(Math.round(convertedAmount))
             : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedAmount)
@@ -278,9 +278,10 @@ const generateFlexibleTotalSection = (params, config) => {
             }
             html += `</div>`;
         } else if (qrPath) {
+            const qrWidth = paperWidth === '58mm' ? '100px' : '140px';
             html += `<div class="qr-section" style="text-align: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
                     <div style="font-size: 0.8em; margin-bottom: 5px; color: #333;">ສະແກນເພື່ອຊຳລະເງິນ</div>
-                    <img src="${qrPath}" style="width:140px; height:auto;">
+                    <img src="${qrPath}" style="width:${qrWidth}; height:auto;">
                 </div>`;
         }
     }
@@ -291,11 +292,11 @@ const generateFlexibleTotalSection = (params, config) => {
 // 4. PRINT BRIDGE
 // ============================================================================
 
-const printTicketElectron = async (windowContent, paperWidth = '80mm', printers) => {
+const printTicketElectron = (windowContent, paperWidth = '80mm', printers) => {
     const bridge = typeof window !== 'undefined' ? window.posApi : null;
     if (bridge && typeof bridge.printReceipt === 'function') {
-        const p = printers?.find(p => p.type === 'ticket');
-        const target = p?.printerName || '';
+        const p = printers?.find(p => p.type === 'ticket' && (p.is_active || p.isActive)) || printers?.find(p => p.is_active || p.isActive);
+        const target = p?.printer_name || p?.printerName || '';
         bridge.printReceipt({ printerName: target, html: windowContent, width: paperWidth });
     } else {
         const win = window.open('', '', 'width=450,height=800');
@@ -312,7 +313,20 @@ const printTicketElectron = async (windowContent, paperWidth = '80mm', printers)
 // ============================================================================
 
 export const executeTicketPrint = async (params, dateValue) => {
-    const { productCart, findAllProduct, formatNumber, discount, currencyList, paperWidth, printers, companyData } = params;
+    const { productCart, findAllProduct, formatNumber, discount, currencyList, printers, companyData } = params;
+    let paperWidth = params.paperWidth;
+    if (!paperWidth) {
+        try {
+            if (typeof window !== 'undefined' && window.$nuxt) {
+                const spf = window.$nuxt.$store.getters.findSPF;
+                const item = spf?.find(s => s.code === 'PAPER_SIZE');
+                if (item && item.value) paperWidth = item.value;
+            }
+        } catch (e) {
+            console.warn('Failed to retrieve PAPER_SIZE:', e);
+        }
+    }
+    if (!paperWidth) paperWidth = '80mm';
     try {
         const config = getPaperConfig(paperWidth);
         const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
@@ -330,6 +344,7 @@ export const executeTicketPrint = async (params, dateValue) => {
                 ${showLogo ? logoHtml : ''}
                 <div class="company-details">
                     <div class="company-name">${companyData.name}</div>
+                    <div class="company-info">ທີ່ຢູ່: ${companyData.address}</div>
                     <div class="company-info">ໂທ: ${companyData.tel}</div>
                     <div class="company-info" style="margin-top:2px;">ເລກທີ: ${params.lastTransactionSaleHeaderId}</div>
                     <div class="company-info">${formatDate(dateValue)}</div>
@@ -340,13 +355,29 @@ export const executeTicketPrint = async (params, dateValue) => {
             <div class="header-section">
                 ${showLogo ? logoHtml : ''}
                 <div style="font-weight:700; font-size:1.5em;">${companyData.name}</div>
+                <div style="font-size:0.9em;font-weight:700;">ທີ່ຢູ່: ${companyData.address}</div>
                 <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
                 <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
             </div>`;
         }
 
+        const client = params.client;
+        let customerHtml = '';
+        if (client) {
+            const customerName = client.name || 'N/A';
+            const phone = client.telephone ? ` | ໂທ: ${client.telephone}` : '';
+            const points = client.loyaltyPoints !== undefined ? client.loyaltyPoints : 0;
+            const isWalkIn = client.id === 1 || client.name === 'POS' || client.company === 'Walkin customer';
+            customerHtml = `
+            <div class="customer-section" style="font-size: 0.9em; margin-top: 4px; padding-top: 4px; border-top: 1px dashed #eee; text-align: left;">
+                <div>ລູກຄ້າ: ${customerName}${phone}</div>
+                ${(client.loyaltyPoints !== undefined && !isWalkIn) ? `<div>ຄະແນນສະສົມ (Loyalty Points): ${formatNumber(points)}</div>` : ''}
+            </div>`;
+        }
+
         const contentData = {
-            headerHtml: headerHtml,
+            headerHtml,
+            customerHtml,
             transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList),
             currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber),
             discountHtml: discount > 0 ? `<div class="divider"></div><div class="item"><div>ສ່ວນຫຼຸດ:</div><div class="item-total">-${formatNumber(discount)}</div></div>` : '',
@@ -357,10 +388,13 @@ export const executeTicketPrint = async (params, dateValue) => {
         const windowContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${getBaseStyles(config, isThermal)}</style></head>
           <body><div class="receipt-container">
             <div style="text-align:center; font-weight:700; font-size:1.3em; margin-bottom:12px;">ໃບຮັບເງິນ</div>
-            ${contentData.headerHtml}<div class="divider"></div>
+            ${contentData.headerHtml}
+            ${contentData.customerHtml ? `${contentData.customerHtml}<div class="divider"></div>` : '<div class="divider"></div>'}
             ${contentData.transactionListHtml}${contentData.currencyBreakdownHtml}${contentData.discountHtml}
             ${contentData.totalHtml}${contentData.paymentSectionHtml}
+            ${companyData?.term_condition ? `<div style="text-align:center; font-size:10px; margin-top:10px; border-top:1px dashed #ccc; padding-top:5px; white-space: pre-line;">${companyData.term_condition}</div>` : ''}
             <div style="text-align:center; margin-top:15px; font-weight:700;">ຂອບໃຈທີ່ມາອຸດໜູນ</div>
+            <div style="height: 45px;"></div>
           </div></body></html>`;
 
         await printTicketElectron(windowContent, paperWidth, printers);
@@ -371,13 +405,26 @@ export const defaultTicket = (params) => executeTicketPrint(params, new Date());
 export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
 
 export const generateDeliveryCustomerHTML = (params) => {
-    const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList, paperWidth = '80mm' } = params;
+    const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList } = params;
+    let paperWidth = params.paperWidth;
+    if (!paperWidth) {
+        try {
+            if (typeof window !== 'undefined' && window.$nuxt) {
+                const spf = window.$nuxt.$store.getters.findSPF;
+                const item = spf?.find(s => s.code === 'PAPER_SIZE');
+                if (item && item.value) paperWidth = item.value;
+            }
+        } catch (e) {
+            console.warn('Failed to retrieve PAPER_SIZE:', e);
+        }
+    }
+    if (!paperWidth) paperWidth = '80mm';
     const config = getPaperConfig(paperWidth);
     const today = new Date();
     console.log(`onlineCustomerInfo ${JSON.stringify(onlineCustomerInfo)}`);
     const isCOD = onlineCustomerInfo.payment === 'COD';
     const itemsHtml = (productCart.lines || productCart).map(item => {
-        const productName = findAllProduct.find(el => el.id == item.id)?.pro_name || item.pro_name || 'ສິນຄ້າ';
+        const productName = findAllProduct.find(el => el.id === item.id)?.pro_name || item.pro_name || 'ສິນຄ້າ';
         return `<div class="item">
                   <div class="item-desc"><div class="item-name">${productName}</div></div>
                   <div class="item-total">${item.qty} ${isCOD ? 'x ' + formatNumber(item.qty * item.localPrice) : ''}</div>

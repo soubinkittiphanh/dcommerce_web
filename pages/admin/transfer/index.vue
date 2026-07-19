@@ -77,15 +77,10 @@
         <v-layout row wrap>
           <v-row>
             <v-col cols="6" lg="6">
-              <order-sumary-card-pos :showTotal="true"
-                :gross="getFormatNum(totalSaleRaw - (+this.unpaidCodOrder.saleRawNumber))" :orderDetail="{
-      'title': 'ຍອດບິນ',
+              <order-sumary-card-pos suffix="ລາຍການ" :orderDetail="{
+      'title': 'ສະຫຼຸບການໂອນສິນຄ້າ (Transfer Summary)',
       'amount': getFormatNum(activeheaderList.length),
-      'sale': getFormatNum(totalSale),
-      'discount': getFormatNum(totalDiscount),
-      // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-      'gross': getFormatNum(totalSale - totalDiscount)
-
+      'sale': getFormatNum(totalSale)
     }">
 
               </order-sumary-card-pos>
@@ -109,7 +104,7 @@
         </template>
 
         <template v-slot:[`item.total`]="{ item }">
-          {{ numberWithCommas(item.total) }}
+          {{ numberWithCommas(calculateTransferTotal(item)) }}
         </template>
         <template v-slot:[`item.createdAt`]="{ item }">
           {{ item.createdAt.split('.')[0] }}
@@ -142,12 +137,10 @@
   </div>
 </template>
 <script>
-import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
-import OrderDetailPos from '~/components/OrderDetailPos.vue'
-import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
+import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
 export default {
-  components: { OrderDetailPos, OrderSumaryCardPos, OrderDetailPosCRUD },
+  components: { OrderSumaryCardPos },
   middleware: 'auths',
   data() {
     return {
@@ -198,7 +191,12 @@ export default {
           value: 'desLocation.name',
           sortable: true,
         },
-
+        {
+          text: 'ມູນຄ່າລວມ (Total Cost)',
+          align: 'end',
+          value: 'total',
+          sortable: true,
+        },
         {
           text: 'ຜູ້ລົງທຸລະກຳ',
           align: 'end',
@@ -258,7 +256,7 @@ export default {
   },
   computed: {
     activeheaderList() {
-      return this.headerList.filter(el => el['isActive'] == true && el['paymentId'] != 2)
+      return this.headerList.filter(el => el.isActive === true && el.paymentId !== 2)
     },
     computedDateFormatted() {
       return this.formatDate(this.date)
@@ -266,46 +264,46 @@ export default {
     totalSale() {
       let total = 0
       this.activeheaderList.forEach((el) => {
-        total += el.total
+        total += this.calculateTransferTotal(el)
       })
       return total
-      // return total
     },
     totalSaleRaw() {
       let total = 0
       this.activeheaderList.forEach((el) => {
-        console.log("====>", el.cartTotal);
-        total += parseInt(el.cartTotal)
+        total += this.calculateTransferTotal(el)
       })
-      console.log('Price total: ' + total)
-      // return previousValue.cartTotal + currentValue.cartTotal
       return total
-      // return total
     },
 
     totalDiscount() {
       let total = 0
       this.activeheaderList.forEach((el) => {
-        total += parseInt(el.discount)
+        const val = parseFloat(String(el.discount || 0).replace(/,/g, '')) || 0
+        total += val
       })
       return total
-      // return total
     },
 
     unpaidCodOrder() {
-      let txnList = []
-      let orderDetail = {}
+      const txnList = []
+      const orderDetail = {}
       this.headerList.forEach(element => {
-        if (element.paymentStatus === 'PENDING' && element.payment.includes('COD')) {
+        const paymentStr = element.payment 
+          ? (typeof element.payment === 'object' ? element.payment.payment_code : String(element.payment))
+          : '';
+        if (element.paymentStatus === 'PENDING' && paymentStr && paymentStr.includes('COD')) {
           console.log("Concept applied");
           txnList.push(element)
         }
       });
       const totalPrice = txnList.reduce((total, item) => {
-        return total + item.cartTotal;
+        const val = parseFloat(String(item.total || 0).replace(/,/g, '')) || 0
+        return total + val;
       }, 0);
       const totalDiscount = txnList.reduce((total, item) => {
-        return total + item.discount;
+        const val = parseFloat(String(item.discount || 0).replace(/,/g, '')) || 0
+        return total + val;
       }, 0);
 
       orderDetail.amount = txnList.length
@@ -333,11 +331,21 @@ export default {
       return getNextDate(startDate, day)
     },
     numberWithCommas(value) {
+      if (value === undefined || value === null) return '0';
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     },
 
     getFormatNum(val) {
       return new Intl.NumberFormat().format(val)
+    },
+    calculateTransferTotal(item) {
+      if (!item || !item.lines || !Array.isArray(item.lines)) return 0
+      return item.lines
+        .filter(line => line.isActive !== false)
+        .reduce((sum, line) => {
+          const lineTotal = parseFloat(String(line.total || 0).replace(/,/g, '')) || 0
+          return sum + lineTotal
+        }, 0)
     },
     editItem(item) {
       this.componentKey += 1;

@@ -10,7 +10,7 @@
       </v-dialog>
 
       <v-dialog v-model="priceListDialog" max-width="800px">
-        <price-list-form :key="priceListFormKey" @close-dialog="priceListDialog = false" :record-id="pricingRecordId"
+        <price-list-form :key="priceListFormKey" :record-id="pricingRecordId" @close-dialog="priceListDialog = false"
           @refresh="fetchData"></price-list-form>
       </v-dialog>
 
@@ -44,6 +44,9 @@
                 <v-col cols="12" sm="3">
                   <v-text-field v-model="formData.pro_id" disabled label="ໄອດີສິນຄ້າ" dense outlined />
                 </v-col>
+                <v-col cols="12" sm="6">
+                  <v-text-field v-model="formData.product_code" label="ລະຫັດສິນຄ້າ (Product Code)" dense outlined />
+                </v-col>
                 <v-col cols="12" sm="8">
                   <v-text-field v-model="formData.pro_name" :rules="rules.nameRule" label="ຊື້ສິນຄ້າ*" dense outlined />
                 </v-col>
@@ -75,7 +78,7 @@
                     item-value="id" label="ອາກອນ (Tax)" dense outlined />
                 </v-col>
 
-                <v-col cols="12" v-if="formData.taxId && formData.pro_price">
+                <v-col v-if="formData.taxId && formData.pro_price" cols="12">
                   <v-alert dense color="blue-grey lighten-5" class="pa-2">
                     <div class="d-flex justify-space-around blue-grey--text text--darken-3">
                       <span>Base:
@@ -140,8 +143,8 @@
               <v-row dense>
                 <v-col cols="12" md="6">
                   <v-textarea v-model="formData.pro_desc" label="ຄຳອະທິບາຍ" rows="3" dense outlined no-resize />
-                  <v-file-input multiple accept="image/*" label="ເພີ່ມຮູບພາບສິນຄ້າ" @change="onFilesChange" dense
-                    outlined prepend-icon="" prepend-inner-icon="mdi-camera" />
+                  <v-file-input multiple accept="image/*" label="ເພີ່ມຮູບພາບສິນຄ້າ" dense outlined
+                    prepend-icon="" prepend-inner-icon="mdi-camera" @change="onFilesChange" />
 
                   <v-card outlined class="pa-2 mt-2" style="max-height: 200px; overflow-y: auto">
                     <div class="font-weight-bold mb-2">Image Management</div>
@@ -185,7 +188,7 @@
 
                     <div class="mt-2">
                       <v-btn small color="primary" class="mr-2" @click="generateBarcode">Generate</v-btn>
-                      <v-btn small color="success" @click="printBarcode" :disabled="!formData.barCode">
+                      <v-btn small color="success" :disabled="!formData.barCode" @click="printBarcode">
                         <v-icon left small>mdi-printer</v-icon> Print ({{
                           printQty
                         }})
@@ -201,8 +204,8 @@
 
       <div class="modal-footer">
         <div class="footer-actions">
-          <v-btn color="secondary" @click="$emit('close-dialog')" depressed>Close</v-btn>
-          <v-btn color="primary" @click="uploadFilesLocal" :disabled="!validLocal" depressed>Update Product</v-btn>
+          <v-btn color="secondary" depressed @click="$emit('close-dialog')">Close</v-btn>
+          <v-btn color="primary" :disabled="!validLocal" depressed @click="uploadFilesLocal">Update Product</v-btn>
         </div>
       </div>
     </div>
@@ -210,11 +213,11 @@
 </template>
 
 <script>
-import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
-import ImagePreviewMixin from '../../pages/product/index.vue'
-import { hostName } from '~/common/api'
 import { mapActions, mapGetters } from 'vuex'
 import JsBarcode from 'jsbarcode'
+import ImagePreviewMixin from '../../pages/product/index.vue'
+import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
+import { hostName } from '~/common/api'
 
 import {
   getBarcode2by2cmHtml,
@@ -223,12 +226,12 @@ import {
 } from '~/common/barcodePrinter'
 
 export default {
+  mixins: [ImagePreviewMixin],
+  middleware: 'auths',
   props: {
     isEdit: { type: Boolean, default: false },
     headerId: { type: Number, default: null },
   },
-  middleware: 'auths',
-  mixins: [ImagePreviewMixin],
 
   data() {
     return {
@@ -257,6 +260,7 @@ export default {
         productId: null,
         pro_category: null,
         pro_id: null,
+        product_code: '',
         pro_name: '',
         _category: 'product',
         pro_price: 0,
@@ -374,7 +378,7 @@ export default {
     async printBarcode() {
       console.log('--- 🏁 Starting printBarcode Function ---')
 
-      let rawPrice = parseFloat(this.formData.pro_price || 0)
+      const rawPrice = parseFloat(this.formData.pro_price || 0)
       let finalPrice = rawPrice
 
       if (this.selectedTaxRate) {
@@ -388,7 +392,7 @@ export default {
       const formattedPrice = this.formatNumber(finalPrice)
       console.log('Price to print:', formattedPrice)
 
-      let printerList = this.findAllprinters || []
+      const printerList = this.findAllprinters || []
       console.log('Available printer settings:', printerList)
 
       const barcodePrinter = printerList.find((p) => p.type === 'barcode')
@@ -401,9 +405,14 @@ export default {
 
       console.log('Final Printer Name string:', `"${printerName}"`)
 
-      let windowContent = this.threeColPaper
-        ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage)
-        : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name)
+      const productCurrency = this.findAllCurrency?.find((c) => c.id == this.formData.saleCurrencyId)
+      const localCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+      const selectedCcy = productCurrency || localCcy
+      const currencyStr = selectedCcy ? selectedCcy.symbol || selectedCcy.code : 'LAK'
+
+      const windowContent = this.threeColPaper
+        ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage, currencyStr)
+        : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name, currencyStr)
 
       if (window.posApi) {
         console.log('Bridge window.posApi found. Checking for printer name...')
@@ -418,7 +427,7 @@ export default {
 
         const payload = {
           html: windowContent,
-          printerName: printerName,
+          printerName,
           copies: this.printQty,
         }
 
@@ -495,6 +504,7 @@ export default {
           productId: el.id,
           pro_category: el.pro_category,
           pro_id: el.pro_id,
+          product_code: el.product_code || '',
           pro_name: el.pro_name,
           _category: el._category || 'product',
           pro_price: el.pro_price,

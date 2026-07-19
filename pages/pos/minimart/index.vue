@@ -223,11 +223,13 @@ export default {
         filteredProducts = filteredProducts.filter((product) => {
           const productName = (product.pro_name || '').toLowerCase()
           const barcode = (product.barCode || '').toLowerCase()
+          const productCode = (product.product_code || '').toLowerCase()
 
           const nameMatch = productName.includes(searchTerm)
           const barcodeMatch = barcode.includes(searchTerm)
+          const productCodeMatch = productCode.includes(searchTerm)
 
-          return nameMatch || barcodeMatch
+          return nameMatch || barcodeMatch || productCodeMatch
         })
         console.log(
           `  - After search filter: ${filteredProducts.length} products`

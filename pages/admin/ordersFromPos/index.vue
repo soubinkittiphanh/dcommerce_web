@@ -345,11 +345,11 @@
               </v-chip>
             </div>
             <div v-else>
-              <v-chip :color="getPaymentMethodColor(item.payment?.payment_code)" small dark>
+              <v-chip :color="getPaymentMethodColor(getPaymentCode(item))" small dark>
                 <v-icon left small>{{
-                  getPaymentMethodIcon(item.payment?.payment_code)
+                  getPaymentMethodIcon(getPaymentCode(item))
                   }}</v-icon>
-                {{ item.payment?.payment_name || 'N/A' }}
+                {{ getPaymentName(item) }}
               </v-chip>
             </div>
           </template>
@@ -669,6 +669,7 @@ export default {
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
+        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
         showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
         ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
@@ -774,7 +775,8 @@ export default {
                   this.selectedPaymentFilter
               )
             } else {
-              return item.payment?.payment_code === this.selectedPaymentFilter
+              const paymentCode = item.payment?.payment_code || item.payments?.[0]?.paymentMethod?.payment_code
+              return paymentCode === this.selectedPaymentFilter
             }
           default:
             return true
@@ -839,18 +841,35 @@ export default {
 
         if (this.isMultiPayment(header)) {
           header.payments.forEach((p) => {
+            const pCcy = this.findAllCurrency?.find(
+              (c) => Number(c.id) === Number(p.currencyId || header.currencyId)
+            )
+            const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
+            const rate = isLocal ? 1 : p.exchangeRate || header.exchangeRate || 1
+            const pAmountLocal = Number(p.amount || 0) * rate
+
             processPayment(
               p.paymentMethod?.payment_code,
               p.paymentMethod?.payment_name,
-              p.amount,
+              pAmountLocal,
               header.lines
             )
           })
         } else {
+          const pMethod = header.payment || header.payments?.[0]?.paymentMethod
+          const pCcy = this.findAllCurrency?.find(
+            (c) => Number(c.id) === Number(header.payments?.[0]?.currencyId || header.currencyId)
+          )
+          const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
+          const rate = isLocal ? 1 : header.payments?.[0]?.exchangeRate || header.exchangeRate || 1
+          const pAmountLocal = header.payments?.[0]?.amount !== undefined 
+            ? Number(header.payments[0].amount) * rate 
+            : headerTotalLocal
+
           processPayment(
-            header.payment?.payment_code,
-            header.payment?.payment_name,
-            headerTotalLocal,
+            pMethod?.payment_code,
+            pMethod?.payment_name,
+            pAmountLocal,
             header.lines
           )
         }
@@ -963,7 +982,9 @@ export default {
       this.orderHeaderList.forEach((element) => {
         if (
           element.paymentStatus === 'PENDING' &&
-          element.payment.includes('COD')
+          (element.payment?.payment_code?.includes('COD') ||
+           element.payments?.some((p) => p.paymentMethod?.payment_code?.includes('COD')) ||
+           (typeof element.payment === 'string' && element.payment.includes('COD')))
         ) {
           console.log('Concept applied')
           txnList.push(element)
@@ -992,7 +1013,17 @@ export default {
 
   methods: {
     calculateHeaderTotalLocal(header) {
-      if (!header.lines) return header.total
+      const headerCcy = this.findAllCurrency?.find(
+        (c) => Number(c.id) === Number(header.currencyId)
+      )
+      const isHeaderLocal =
+        headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+      const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+
+      if (!header.lines || header.lines.length === 0) {
+        return (header.total || 0) * headerRate
+      }
+
       const total = header.lines.reduce((sum, line) => {
         const lineCurrency = this.findAllCurrency?.find(
           (c) => c.id === line.currencyId
@@ -1004,7 +1035,9 @@ export default {
         const rate = isLocal ? 1 : line.exchangeRate || 1
         return sum + line.quantity * line.price * rate
       }, 0)
-      return total - (header.discount || 0)
+
+      const convertedDiscount = (header.discount || 0) * headerRate
+      return total - convertedDiscount
     },
     formatCompanyAddress(company) {
       if (!company) return ''
@@ -1040,12 +1073,13 @@ export default {
           fromDate: this.fromDate,
           toDate: this.toDate,
           terminalInfo: terminalInfo,
-          companyData: companyData.ticketLogo,
+          companyData: companyData,
           companyLogo: this.companyData.ticketLogo,
           formatNumber: this.formatNumber,
           user: this.user,
           singlePaymentCount: this.singlePaymentCount,
           multiPaymentCount: this.multiPaymentCount,
+          currencyCode: this.localCurrency?.code || this.findLocalCurrency?.code || 'LAK',
         })
 
         // Optional: Show success message
@@ -1094,6 +1128,20 @@ export default {
       return (
         this.findAllPayment.find((p) => p.payment_code === paymentCode) || null
       )
+    },
+
+    getPaymentCode(item) {
+      if (this.isMultiPayment(item)) {
+        return 'MULTI'
+      }
+      return item.payment?.payment_code || item.payments?.[0]?.paymentMethod?.payment_code || 'N/A'
+    },
+
+    getPaymentName(item) {
+      if (this.isMultiPayment(item)) {
+        return 'ຫຼາຍວິທີ'
+      }
+      return item.payment?.payment_name || item.payments?.[0]?.paymentMethod?.payment_name || 'N/A'
     },
 
     // Payment Filter Methods (remain the same)
@@ -1339,6 +1387,7 @@ export default {
         axios: this.$axios,
         companyData: this.companyData,
         paperWidth: this.paperSize,
+        client: data.client,
       })
     },
 

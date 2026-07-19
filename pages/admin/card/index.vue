@@ -12,7 +12,7 @@
         >
         </PurchasingFormCRUD>
       </v-dialog>
-      <v-dialog v-model="receivingDialog" width="90%">
+      <v-dialog v-model="receivingDialog" fullscreen transition="dialog-bottom-transition">
         <ReceivingFormCRUD
           :POTransaction="currentPO"
           sourceAPLID="PO"

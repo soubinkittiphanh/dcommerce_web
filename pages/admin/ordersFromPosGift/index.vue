@@ -943,6 +943,7 @@ export default {
         axios: this.$axios,
         companyData: this.companyData,
         isGiftTicket: true, // Special flag for gift tickets
+        client: data.client,
       })
     },
 

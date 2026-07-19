@@ -58,8 +58,12 @@
                   :rules="rule.cat_name"></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-textarea v-model="form_data.bank_remark" label="ໝາຍເຫດ" outlined rows="3"
+                <v-textarea v-model="form_data.bank_remark" label="ໝາຍເຫດ" outlined rows="2"
                   placeholder="ເພີ່ມຂໍ້ມູນເພີ່ມເຕີມ..."></v-textarea>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea v-model="form_data.bank_config" label="ການຕັ້ງຄ່າ API Configuration (JSON)" outlined rows="4"
+                  placeholder='ຕົວຢ່າງ: { "apiUrl": "...", "merchantId": "..." }'></v-textarea>
               </v-col>
             </v-row>
           </v-form>
@@ -104,6 +108,7 @@ export default {
       bank_code: '',
       bank_name: '',
       bank_remark: '',
+      bank_config: '',
     },
     headers: [
       { text: 'ລະຫັດ', align: 'start', value: 'bank_code', class: 'grey lighten-4 font-weight-bold' },
@@ -134,6 +139,7 @@ export default {
         bank_code: '',
         bank_name: '',
         bank_remark: '',
+        bank_config: '',
       };
     },
     async submitDatas() {
@@ -145,6 +151,7 @@ export default {
         bnk_code: this.form_data.bank_code,
         bnk_name: this.form_data.bank_name,
         bnk_remark: this.form_data.bank_remark,
+        bnk_config: this.form_data.bank_config,
       };
 
       // Updated to use your /api/bank prefix
@@ -177,6 +184,7 @@ export default {
           bank_code: el.code,
           bank_name: el.bank_name,
           bank_remark: el.bank_remark,
+          bank_config: el.config ? (typeof el.config === 'object' ? JSON.stringify(el.config, null, 2) : el.config) : '',
           bank_function: el.id,
         }));
       } catch (er) {

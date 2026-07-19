@@ -3,8 +3,6 @@
  * Generates and prints sales summary reports with payment breakdown
  */
 
-import { formatDate } from '~/common'
-import { hostName, mainCompanyInfo } from '~/common/api'
 
 /**
  * Safe number parsing to prevent NaN issues
@@ -96,7 +94,7 @@ const generateDateRangeSection = (fromDate, toDate, terminalInfo) => {
 /**
  * Generate summary statistics section
  */
-const generateSummarySection = (summaryData, formatNumber) => {
+const generateSummarySection = (summaryData, formatNumber, currencyCode = 'LAK') => {
   const {
     totalTransactions,
     totalSales,
@@ -115,15 +113,15 @@ const generateSummarySection = (summaryData, formatNumber) => {
       </div>
       <div class="summary-item">
         <span class="label">ຍອດຂາຍລວມ:</span>
-        <span class="value">${formatNumber(totalSales)} LAK</span>
+        <span class="value">${formatNumber(totalSales)} ${currencyCode}</span>
       </div>
       <div class="summary-item">
         <span class="label">ສ່ວນຫຼຸດລວມ:</span>
-        <span class="value">${formatNumber(totalDiscount)} LAK</span>
+        <span class="value">${formatNumber(totalDiscount)} ${currencyCode}</span>
       </div>
       <div class="summary-item total">
         <span class="label">ຍອດຂາຍສຸດທິ:</span>
-        <span class="value">${formatNumber(netSales)} LAK</span>
+        <span class="value">${formatNumber(netSales)} ${currencyCode}</span>
       </div>
       <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
       <div class="summary-item">
@@ -141,26 +139,67 @@ const generateSummarySection = (summaryData, formatNumber) => {
 /**
  * Generate payment breakdown section
  */
-const generatePaymentBreakdownSection = (paymentStats, formatNumber) => {
+const generatePaymentBreakdownSection = (paymentStats, formatNumber, currencyCode = 'LAK') => {
   if (!paymentStats || paymentStats.length === 0) {
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນການຊຳລະ</div>';
   }
 
-  const paymentItems = paymentStats.map(stat => `
-    <div class="payment-item">
-      <div class="payment-method">${stat.name}</div>
-      <div class="payment-details">
-        <span class="amount">${formatNumber(stat.amount)} LAK</span>
-        <span class="count">(${stat.count} ລາຍການ)</span>
-        <span class="percentage">${stat.percentage.toFixed(1)}%</span>
+  const paymentItems = paymentStats.map(stat => {
+    const name = stat.name || stat.title || 'Unknown';
+    const amount = stat.amount !== undefined ? stat.amount : (stat.total || 0);
+    const count = stat.count || 0;
+    const percentage = stat.percentage !== undefined ? stat.percentage : 0;
+    return `
+      <div class="payment-item">
+        <div class="payment-method">${name}</div>
+        <div class="payment-details">
+          <span class="amount">${formatNumber(amount)} ${currencyCode}</span>
+          <span class="count">(${count} ລາຍການ)</span>
+          <span class="percentage">${(parseFloat(percentage) || 0).toFixed(1)}%</span>
+        </div>
       </div>
-    </div>
-  `).join('');
+    `;
+  }).join('');
 
   return `
     <div class="payment-section">
       <div class="payment-title">ແຍກຕາມວິທີການຊຳລະ</div>
       ${paymentItems}
+    </div>
+  `;
+};
+
+/**
+ * Generate product sales section
+ */
+const generateProductSummarySection = (productStats, formatNumber, currencyCode = 'LAK') => {
+  if (!productStats || productStats.length === 0) {
+    return '<div class="no-data">ບໍ່ມີຂໍ້ມູນສິນຄ້າ</div>';
+  }
+
+  const productRows = productStats.map(stat => `
+    <tr class="product-row">
+      <td class="prod-name">${stat.name}</td>
+      <td class="prod-qty">${formatNumber(stat.qty)}</td>
+      <td class="prod-amt">${formatNumber(stat.amount)} ${currencyCode}</td>
+    </tr>
+  `).join('');
+
+  return `
+    <div class="product-section">
+      <div class="product-title">ລາຍງານຍອດຂາຍສິນຄ້າ</div>
+      <table class="product-table">
+        <thead>
+          <tr>
+            <th class="text-left">ຊື່ສິນຄ້າ</th>
+            <th class="text-right" style="width: 40px;">ຈຳນວນ</th>
+            <th class="text-right" style="width: 80px;">ຍອດລວມ</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${productRows}
+        </tbody>
+      </table>
     </div>
   `;
 };
@@ -195,8 +234,10 @@ const generateSalesReportHTML = (reportData) => {
     terminalInfo,
     summaryData,
     paymentStats,
+    productStats,
     formatNumber,
-    user
+    user,
+    currencyCode = 'LAK'
   } = reportData;
 
   return `
@@ -360,6 +401,59 @@ const generateSalesReportHTML = (reportData) => {
           font-weight: 500;
         }
         
+        .product-section {
+          margin-bottom: 8px;
+        }
+        
+        .product-title {
+          font-size: 12px;
+          font-weight: 600;
+          margin-bottom: 4px;
+          text-align: center;
+        }
+        
+        .product-table {
+          width: 100%;
+          border-collapse: collapse;
+          font-size: 10px;
+        }
+        
+        .product-table th, .product-table td {
+          padding: 3px 2px;
+          border-bottom: 1px dashed #ddd;
+        }
+        
+        .product-table th {
+          font-weight: 600;
+          border-bottom: 1px solid #000;
+        }
+        
+        .prod-name {
+          text-align: left;
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+        
+        .prod-qty {
+          text-align: right;
+          font-weight: 500;
+        }
+        
+        .prod-amt {
+          text-align: right;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        
+        .text-left {
+          text-align: left;
+        }
+        
+        .text-right {
+          text-align: right;
+        }
+        
         .divider {
           text-align: center;
           margin: 6px 0;
@@ -409,8 +503,10 @@ const generateSalesReportHTML = (reportData) => {
     <body>
       ${generateCompanyHeader(companyData, companyLogo)}
       ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
-      ${generateSummarySection(summaryData, formatNumber)}
-      ${generatePaymentBreakdownSection(paymentStats, formatNumber)}
+      ${generateSummarySection(summaryData, formatNumber, currencyCode)}
+      ${generatePaymentBreakdownSection(paymentStats, formatNumber, currencyCode)}
+      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      ${generateProductSummarySection(productStats, formatNumber, currencyCode)}
       ${generateFooterSection(user)}
     </body>
     </html>
@@ -464,7 +560,6 @@ const printSalesReport = (windowContent) => {
  */
 export const printSalesReportSummary = (params) => {
   const {
-    orderHeaderList = [],
     paymentStatistics = [],
     filteredOrderHeaderList = [],
     fromDate,
@@ -494,6 +589,34 @@ export const printSalesReportSummary = (params) => {
     
     const netSales = totalSales - totalDiscount;
 
+    // Calculate product sales statistics
+    const productStatsMap = {};
+    filteredOrderHeaderList.forEach((header) => {
+      if (header.lines && Array.isArray(header.lines)) {
+        header.lines.forEach((line) => {
+          const productId = line.product?.id || line.productId || 'unknown';
+          const productName = line.product?.pro_name || line.proName || 'Unknown Product';
+          const qty = safeParseNumber(line.quantity || line.qty, 0);
+          
+          // Currency conversion rate
+          const rate = line.exchangeRate || 1;
+          const lineAmount = qty * safeParseNumber(line.price || line.pro_price, 0) * rate;
+
+          if (!productStatsMap[productId]) {
+            productStatsMap[productId] = {
+              name: productName,
+              qty: 0,
+              amount: 0
+            };
+          }
+          productStatsMap[productId].qty += qty;
+          productStatsMap[productId].amount += lineAmount;
+        });
+      }
+    });
+
+    const productStats = Object.values(productStatsMap).sort((a, b) => b.qty - a.qty);
+
     const summaryData = {
       totalTransactions,
       totalSales,
@@ -511,8 +634,10 @@ export const printSalesReportSummary = (params) => {
       terminalInfo,
       summaryData,
       paymentStats: paymentStatistics,
+      productStats,
       formatNumber,
-      user
+      user,
+      currencyCode: params.currencyCode || 'LAK'
     };
 
     const salesReportHTML = generateSalesReportHTML(reportData);

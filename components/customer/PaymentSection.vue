@@ -83,16 +83,31 @@ export default {
     }
   },
   watch: {
-    'qrData.qrString': {
+    qrData: {
       handler(newVal) {
-        if (newVal && this.qrData.isDynamic) {
+        if (newVal && newVal.qrString && newVal.isDynamic) {
           this.$nextTick(() => {
             this.renderQR()
           })
         }
       },
+      deep: true,
       immediate: true
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      if (this.qrData && this.qrData.qrString && this.qrData.isDynamic) {
+        this.renderQR()
+      }
+    })
+  },
+  updated() {
+    this.$nextTick(() => {
+      if (this.qrData && this.qrData.qrString && this.qrData.isDynamic) {
+        this.renderQR()
+      }
+    })
   },
   methods: {
     async renderQR() {

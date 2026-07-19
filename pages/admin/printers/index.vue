@@ -11,7 +11,7 @@
 
       <v-card-text>
         <v-row>
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
             <v-card outlined>
               <v-card-text>
                 <div class="text-overline mb-2">Counter Receipt</div>
@@ -38,7 +38,7 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
             <v-card outlined>
               <v-card-text>
                 <div class="text-overline mb-2">Kitchen Orders</div>
@@ -65,7 +65,34 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="3">
+            <v-card outlined>
+              <v-card-text>
+                <div class="text-overline mb-2">Bar Orders</div>
+                <v-select
+                  v-model="settings.barPrinter"
+                  :items="printerList"
+                  item-text="name"
+                  item-value="name"
+                  label="Select Bar Printer"
+                  prepend-inner-icon="mdi-glass-cocktail"
+                  outlined
+                  @change="saveToDb('bar', settings.barPrinter)"
+                ></v-select>
+                <v-btn
+                  block
+                  color="secondary"
+                  outlined
+                  :disabled="!settings.barPrinter"
+                  @click="testPrint('bar', settings.barPrinter)"
+                >
+                  <v-icon left>mdi-test-tube</v-icon> Test Bar Print
+                </v-btn>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" md="3">
             <v-card outlined border color="blue lighten-5">
               <v-card-text>
                 <div class="text-overline mb-2 blue--text">
@@ -94,6 +121,50 @@
             </v-card>
           </v-col>
         </v-row>
+
+        <!-- Category-Specific Kitchen/Bar Routing -->
+        <v-row class="mt-4" v-if="mainCategories.length > 0">
+          <v-col cols="12">
+            <v-card-title class="pl-0 pb-2">
+              <v-icon left color="primary">mdi-router-wireless</v-icon>
+              Category-Specific Kitchen/Bar Routing
+            </v-card-title>
+            <p class="text-subtitle-2 grey--text">
+              Assign specific printers to main categories. Orders will automatically split and route to the respective printers.
+            </p>
+          </v-col>
+        </v-row>
+        <v-row v-if="mainCategories.length > 0">
+          <v-col cols="12" md="4" v-for="mainCat in mainCategories" :key="mainCat.id">
+            <v-card outlined>
+              <v-card-text>
+                <div class="text-overline mb-2">
+                  {{ mainCat.categoryName }} Printer
+                </div>
+                <v-select
+                  v-model="categoryPrinters[mainCat.id]"
+                  :items="printerList"
+                  item-text="name"
+                  item-value="name"
+                  :label="'Select Printer for ' + mainCat.categoryName"
+                  prepend-inner-icon="mdi-printer"
+                  outlined
+                  clearable
+                  @change="saveCategoryPrinter(mainCat.id, categoryPrinters[mainCat.id])"
+                ></v-select>
+                <v-btn
+                  block
+                  color="secondary"
+                  outlined
+                  :disabled="!categoryPrinters[mainCat.id]"
+                  @click="testPrint(`main-cat-${mainCat.id}`, categoryPrinters[mainCat.id])"
+                >
+                  <v-icon left>mdi-test-tube</v-icon> Test Print
+                </v-btn>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card-text>
     </v-card>
   </v-container>
@@ -105,15 +176,19 @@ export default {
   data() {
     return {
       printerList: [],
+      mainCategories: [],
+      categoryPrinters: {},
       settings: {
         ticketPrinter: '',
         kitchenPrinter: '',
-        barcodePrinter: '', // Added barcodePrinter
+        barcodePrinter: '',
+        barPrinter: '',
       },
     }
   },
   async mounted() {
     await this.fetchPrinters()
+    await this.loadMainCategories()
     await this.loadFromDb()
   },
   methods: {
@@ -125,13 +200,28 @@ export default {
       }
     },
 
+    async loadMainCategories() {
+      try {
+        const res = await this.$axios.$get('/api/mainCategory/findAll')
+        this.mainCategories = res || []
+      } catch (e) {
+        console.error('Failed to load main categories:', e)
+      }
+    },
+
     async loadFromDb() {
       try {
         const data = await this.$axios.$get('/api/printers')
         data.forEach((p) => {
           if (p.type === 'ticket') this.settings.ticketPrinter = p.printerName
           if (p.type === 'kitchen') this.settings.kitchenPrinter = p.printerName
-          if (p.type === 'barcode') this.settings.barcodePrinter = p.printerName // Added mapping
+          if (p.type === 'barcode') this.settings.barcodePrinter = p.printerName
+          if (p.type === 'bar') this.settings.barPrinter = p.printerName
+          
+          if (p.type.startsWith('main-cat-')) {
+            const catId = p.type.replace('main-cat-', '')
+            this.$set(this.categoryPrinters, catId, p.printerName)
+          }
         })
       } catch (e) {
         this.$toast.error('Failed to load printer settings from server')
@@ -141,12 +231,24 @@ export default {
     async saveToDb(type, name) {
       try {
         await this.$axios.$post('/api/printers/upsert', {
-          type: type,
+          type,
           printerName: name,
         })
         this.$toast.success(`${type} printer saved successfully`)
-        
-        // Refresh the global Vuex store so all other screens see the new printer immediately
+        await this.refreshPrintersAction()
+      } catch (e) {
+        this.$toast.error('Error saving to database')
+      }
+    },
+
+    async saveCategoryPrinter(mainCatId, name) {
+      const type = `main-cat-${mainCatId}`
+      try {
+        await this.$axios.$post('/api/printers/upsert', {
+          type,
+          printerName: name || '',
+        })
+        this.$toast.success(`Printer configuration updated`)
         await this.refreshPrintersAction()
       } catch (e) {
         this.$toast.error('Error saving to database')

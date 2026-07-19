@@ -409,6 +409,7 @@ export default {
         address: company?.address || 'Vientiane, Laos',
         tel: company?.tel || '',
         email: company?.email || '',
+        term_condition: company?.term_condition || ''
       }
     },
     user() {

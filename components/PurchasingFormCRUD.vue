@@ -16,8 +16,8 @@
     </v-dialog>
 
     <!-- Receiving Dialog -->
-    <v-dialog v-model="receivingDialog" max-width="1200" persistent>
-      <receiving-form @refresh="$emit('reload')" :po-id="headerId" @close-dialog="receivingDialog = false" />
+    <v-dialog v-model="receivingDialog" fullscreen transition="dialog-bottom-transition" persistent>
+      <receiving-form :POTransaction="transaction" sourceAPLID="PO" @refresh="$emit('reload')" :po-id="headerId" @close-dialog="receivingDialog = false" />
     </v-dialog>
 
     <!-- Pricing Dialog -->
@@ -203,7 +203,7 @@
                 
                 <td class="product-col">
                   <v-autocomplete v-model="item.productId" :items="productList" item-text="pro_name" item-value="id"
-                    outlined dense hide-details @input="productChange(item)" class="table-input">
+                    outlined dense hide-details @change="productChange(item)" class="table-input">
                     <template v-slot:selection="{ item: p }">
                       <span class="text-tiny font-weight-bold">{{ p.pro_name }}</span>
                     </template>
@@ -217,15 +217,17 @@
 
                 <td class="unit-col">
                   <v-autocomplete v-model="item.unitId" :items="unitList" item-text="name" item-value="id"
-                    outlined dense hide-details @input="unitChange(item)" class="table-input text-center" />
+                    outlined dense hide-details @change="unitChange(item)" class="table-input text-center" />
                 </td>
 
                 <td class="price-col text-right">
-                  <v-btn text small block class="price-btn text-right font-weight-black mb-0 pb-0" @click="pricingLogig(item)">
-                    {{ numberWithCommas(getLineConvertedPrice(item)) }}
-                  </v-btn>
-                  <div class="text-caption grey--text text-right mt-n1 pr-4" style="font-size: 0.7rem !important;">
-                    ({{ formatNumber(getLineOriginalPrice(item)) }} {{ getLineCurrency(item).code }})
+                  <v-text-field v-model="item.unitPrice" type="number" outlined dense hide-details 
+                    @input="unitPriceChange(item)" class="table-input text-right font-weight-black" />
+                  <div class="text-caption grey--text text-right mt-1 pr-1" style="font-size: 0.7rem !important; line-height: 1;">
+                    {{ getLineCurrency(item).code }}
+                    <span v-if="transaction.currencyId !== getLineCurrency(item).id" class="ml-1">
+                      ({{ numberWithCommas(getLineConvertedPrice(item)) }} {{ selectedCurrencyCode }})
+                    </span>
                   </div>
                 </td>
 
@@ -343,13 +345,14 @@
 import { mapGetters } from 'vuex'
 import commaThousand from '@/plugins/comma-thousand'
 import PricingOption from '~/components/PricingOption.vue'
+import ReceivingForm from '~/components/ReceivingFormCRUD.vue'
 import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
 import { generatePurchaseOrderHTML } from '~/common/printTemplates'
 import CurrencyHelper from '~/utils/currency-helper'
 
 export default {
   name: 'PurchasingFormCRUD',
-  components: { PricingOption },
+  components: { PricingOption, ReceivingForm },
   props: {
     headerId: { type: Number, default: 0 },
     isUpdate: { type: Boolean, default: false },
@@ -374,14 +377,14 @@ export default {
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
-      transaction: { isActive: true, exchangeRate: 1, lines: [], bookingDate: new Date().toISOString().substr(0, 10), discount: 0, status: 'Draft' },
+      transaction: { isActive: true, exchangeRate: 1, lines: [], bookingDate: new Date().toISOString().substr(0, 10), discount: 0, status: 'Approved' },
       productPricingSelected: null,
       enhancedHeaders: [
         { text: '#', value: 'index', align: 'center', sortable: false, width: '40px' },
         { text: 'ສິນຄ້າ / Product', value: 'productId', align: 'left', sortable: false },
         { text: 'ຈຳນວນ', value: 'quantity', align: 'center', sortable: false, width: '90px' },
         { text: 'ຫົວໜ່ວຍ', value: 'unitId', align: 'center', sortable: false, width: '100px' },
-        { text: 'ລາຄາ', value: 'unitPrice', align: 'right', sortable: false, width: '120px' },
+        { text: 'ລາຄາ', value: 'unitPrice', align: 'right', sortable: false, width: '130px' },
         { text: 'ສ່ວນຫຼຸດ', value: 'discount', align: 'center', sortable: false, width: '100px' },
         { text: 'ລວມ', value: 'total', align: 'right', sortable: false, width: '120px' },
         { text: '', value: 'actions', align: 'center', sortable: false, width: '50px' },
@@ -400,7 +403,12 @@ export default {
     user() { return this.$auth.user || {} },
     selectedCurrencyCode() { return this.currencyList.find(c => c.id === this.transaction.currencyId)?.code || 'LAK' },
     canSave() { return this.transaction.isActive && this.updateAllow && this.transaction.lines?.length > 0 && !this.isloading },
-    canCancel() { return this.isUpdate && this.transaction.isActive },
+    canCancel() {
+      return this.isUpdate &&
+             this.transaction.isActive &&
+             this.transaction.status !== 'Cancelled' &&
+             this.transaction.status !== 'CANCELLED'
+    },
     canReceive() { return this.isUpdate && this.transaction.status && ['Approved', 'Sent to Supplier', 'Partially Received'].includes(this.transaction.status) },
     subtotal() {
       const localCurrency = this.currencyList.find(c => c.isLocalCCY) || { id: 1, rate: 1 }
@@ -454,7 +462,7 @@ export default {
       }
     },
     initializeNewTransaction() {
-      this.transaction = { ...this.transaction, bookingDate: new Date().toISOString().substr(0, 10), supplierId: null, currencyId: this.currencyList.find(c => c.isLocalCCY)?.id || 1, discount: 0, status: 'Draft' }
+      this.transaction = { ...this.transaction, bookingDate: new Date().toISOString().substr(0, 10), supplierId: null, currencyId: this.currencyList.find(c => c.isLocalCCY)?.id || 1, discount: 0, status: 'Approved' }
       this.newRow()
     },
     async printPurchaseOrderDirectly() {
@@ -545,15 +553,28 @@ export default {
     productChange(item) {
       const p = this.productList.find(el => el.id === item.productId); if (!p) return
       this.$set(item, 'product', p)
-      this.$set(item, 'unitPrice', p.pro_purchase_price || p.pro_price || 0)
-      if (p.stockUnitId) { this.$set(item, 'unitId', p.stockUnitId); const u = this.unitList.find(el => el.id === p.stockUnitId); this.$set(item, 'unitRate', u?.unitRate || 1) }
-      else { this.$set(item, 'unitId', null); this.$set(item, 'unitRate', 1) }
+      this.$set(item, 'unitPrice', p.cost_price || p.pro_purchase_price || 0)
+      this.$set(item, 'currencyId', p.costCurrencyId || p.purchaseCurrencyId || 1)
+
+      const unitId = p.stockUnitId || p.baseUnitId || p.receiveUnitId || null
+      if (unitId) {
+        this.$set(item, 'unitId', unitId)
+        const u = this.unitList.find(el => el.id === unitId)
+        this.$set(item, 'unitRate', u?.unitRate || u?.conversionRate || u?.rate || 1)
+      } else {
+        this.$set(item, 'unitId', null)
+        this.$set(item, 'unitRate', 1)
+      }
       this.calculateLineTotal(item)
     },
     getLineCurrency(item) {
+      const currencyId = item.currencyId || item.product?.costCurrencyId || item.product?.purchaseCurrencyId;
+      if (currencyId) {
+        return this.findCurrency(currencyId);
+      }
       const p = item.product || this.productList.find(el => el.id === item.productId)
       if (!p) return { code: 'LAK', rate: 1 }
-      return this.findCurrency(p.costCurrencyId || p.purchaseCurrencyId || p.saleCurrencyId)
+      return this.findCurrency(p.costCurrencyId || p.purchaseCurrencyId || 1)
     },
     getLineOriginalPrice(item) {
       return parseFloat(item.unitPrice || 0)
@@ -595,8 +616,9 @@ export default {
       })
       return Object.values(breakdown).filter(b => b.total > 0)
     },
-    unitChange(item) { const u = this.unitList.find(el => el.id === item.unitId); if (u) { this.$set(item, 'unitRate', u.unitRate || 1); this.calculateLineTotal(item) } },
+    unitChange(item) { const u = this.unitList.find(el => el.id === item.unitId); const rate = u ? (u.unitRate || u.conversionRate || u.rate || 1) : 1; this.$set(item, 'unitRate', rate); this.calculateLineTotal(item) },
     quantityChange(item) { this.calculateLineTotal(item) },
+    unitPriceChange(item) { this.calculateLineTotal(item) },
     unitRateChange(item) { this.calculateLineTotal(item) },
     discountChange(item) { this.calculateLineTotal(item) },
     calculateLineTotal(item) {
@@ -610,7 +632,16 @@ export default {
     },
     getStatusColor(s) { const colors = { 'Draft': 'grey', 'Pending Approval': 'orange', 'Approved': 'green', 'Sent to Supplier': 'blue', 'Partially Received': 'purple', 'Fully Received': 'success', 'Cancelled': 'error' }; return colors[s] || 'grey' },
     postReceiving() { this.receivingDialog = true },
-    cancelOrder() { confirmSwal(this.$swal, 'Cancel Order', 'Are you sure?', () => { this.transaction.status = 'Cancelled'; this.postTransaction() }) },
+    cancelOrder() {
+      confirmSwal(
+        this.$swal,
+        'ທ່ານຕ້ອງການຍົກເລີກໃບສັ່ງຊື້ນີ້ແທ້ບໍ່? / Are you sure you want to cancel this purchase order?',
+        () => {
+          this.transaction.status = 'Cancelled'
+          this.postTransaction()
+        }
+      )
+    },
     updatePricing(info) {
       const idx = this.transaction.lines.findIndex(l => l.productId === this.productPricingSelected); if (idx < 0) return
       const l = this.transaction.lines[idx]; const np = parseFloat(info.amount) || 0
@@ -625,9 +656,13 @@ export default {
         
         // Reverse map backend status to frontend label
         const reverseStatusMap = {
+          'DRAFT': 'Draft',
           'PENDING': 'Pending Approval',
+          'APPROVED': 'Approved',
+          'SENT_TO_SUPPLIER': 'Sent to Supplier',
           'PARTIAL': 'Partially Received',
-          'COMPLETED': 'Fully Received'
+          'COMPLETED': 'Fully Received',
+          'CANCELLED': 'Cancelled'
         }
 
         // Map backend to frontend expectations
@@ -679,13 +714,13 @@ export default {
 
         // Map frontend status to backend ENUM
         const statusMap = {
-          'Draft': 'PENDING',
+          'Draft': 'DRAFT',
           'Pending Approval': 'PENDING',
-          'Approved': 'PENDING',
-          'Sent to Supplier': 'PENDING',
+          'Approved': 'APPROVED',
+          'Sent to Supplier': 'SENT_TO_SUPPLIER',
           'Partially Received': 'PARTIAL',
           'Fully Received': 'COMPLETED',
-          'Cancelled': 'PENDING'
+          'Cancelled': 'CANCELLED'
         }
         payload.status = statusMap[this.transaction.status] || 'PENDING'
 

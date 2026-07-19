@@ -31,10 +31,13 @@
                 <v-col cols="12" sm="3">
                   <v-text-field :value="formData.pro_id || 'AUTO'" label="ໄອດີສິນຄ້າ" disabled dense outlined />
                 </v-col>
-                <v-col cols="12" sm="8">
+                <v-col cols="12" sm="6">
                   <v-text-field v-model="formData.pro_name" :rules="rules.nameRule" label="ຊື້ສິນຄ້າ*" dense outlined />
                 </v-col>
-                <v-col cols="12" sm="4">
+                <v-col cols="12" sm="3">
+                  <v-text-field v-model="formData.product_code" label="ລະຫັດສິນຄ້າ (Product Code)" dense outlined />
+                </v-col>
+                <v-col cols="12" sm="3">
                   <v-text-field v-model="formData.barCode" label="Barcode" dense outlined
                     append-icon="mdi-barcode-scan" />
                 </v-col>
@@ -62,7 +65,7 @@
                     item-value="id" label="ອາກອນ (Tax)" dense outlined />
                 </v-col>
 
-                <v-col cols="12" v-if="formData.taxId && formData.pro_price">
+                <v-col v-if="formData.taxId && formData.pro_price" cols="12">
                   <v-alert dense color="blue-grey lighten-5" class="pa-2">
                     <div class="d-flex justify-space-around blue-grey--text text--darken-3">
                       <span>Base:
@@ -128,8 +131,8 @@
                 <v-col cols="12" md="6">
                   <v-textarea v-model="formData.pro_desc" label="ຄຳອະທິບາຍ (Description)" rows="3" dense outlined
                     no-resize />
-                  <v-file-input multiple accept="image/*" label="ຮູບພາບສິນຄ້າ" @change="onFilesChange" dense outlined
-                    prepend-icon="" prepend-inner-icon="mdi-camera" />
+                  <v-file-input multiple accept="image/*" label="ຮູບພາບສິນຄ້າ" dense outlined prepend-icon=""
+                    prepend-inner-icon="mdi-camera" @change="onFilesChange" />
                 </v-col>
 
                 <v-col cols="12" md="6">
@@ -138,7 +141,7 @@
                     <v-checkbox v-model="threeColPaper" label="3 Column (Small Paper)" dense hide-details />
                     <div class="mt-2">
                       <v-btn small color="primary" class="mr-2" @click="generateBarcode">ສ້າງ Barcode</v-btn>
-                      <v-btn small color="success" @click="printBarcode" :disabled="!formData.barCode">ພິມ</v-btn>
+                      <v-btn small color="success" :disabled="!formData.barCode" @click="printBarcode">ພິມ</v-btn>
                     </div>
                   </v-card>
                 </v-col>
@@ -150,8 +153,8 @@
 
       <div class="modal-footer">
         <div class="footer-actions">
-          <v-btn color="secondary" @click="$emit('close-dialog')" depressed>ຍົກເລີກ</v-btn>
-          <v-btn color="primary" @click="uploadFiles" :disabled="!valid" depressed>ບັນທຶກສິນຄ້າ</v-btn>
+          <v-btn color="secondary" depressed @click="$emit('close-dialog')">ຍົກເລີກ</v-btn>
+          <v-btn color="primary" :disabled="!valid" depressed @click="uploadFiles">ບັນທຶກສິນຄ້າ</v-btn>
         </div>
       </div>
     </div>
@@ -182,7 +185,7 @@ const swalSuccess = (swal, title, message) => {
   if (swal) {
     swal.fire({
       icon: 'success',
-      title: title,
+      title,
       text: message,
       timer: 2000,
     })
@@ -195,7 +198,7 @@ const swalError2 = (swal, title, error) => {
   if (swal) {
     swal.fire({
       icon: 'error',
-      title: title,
+      title,
       text: error.toString(),
     })
   } else {
@@ -230,6 +233,7 @@ export default {
         companyId: null,
         pro_category: null,
         pro_id: null,
+        product_code: '',
         pro_name: '',
         _category: 'product',
         pro_price: 0,
@@ -453,7 +457,7 @@ export default {
     printBarcode() {
       console.log('--- 🏁 Starting printBarcode Function ---')
 
-      let rawPrice = parseFloat(this.formData.pro_price || 0)
+      const rawPrice = parseFloat(this.formData.pro_price || 0)
       let finalPrice = rawPrice
 
       if (this.selectedTaxRate) {
@@ -467,7 +471,7 @@ export default {
       const formattedPrice = this.formatNumber(finalPrice)
       console.log('Price to print:', formattedPrice)
 
-      let printerList = this.findAllprinters || []
+      const printerList = this.findAllprinters || []
       console.log('Available printer settings:', printerList)
 
       const barcodePrinter = printerList.find((p) => p.type === 'barcode')
@@ -480,9 +484,14 @@ export default {
 
       console.log('Final Printer Name string:', `"${printerName}"`)
 
-      let windowContent = this.threeColPaper
-        ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage)
-        : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name)
+      const productCurrency = this.findAllCurrency?.find((c) => c.id == this.formData.saleCurrencyId)
+      const localCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+      const selectedCcy = productCurrency || localCcy
+      const currencyStr = selectedCcy ? selectedCcy.symbol || selectedCcy.code : 'LAK'
+
+      const windowContent = this.threeColPaper
+        ? getBarcode2by2cmHtml(formattedPrice, this.barcodeImage, currencyStr)
+        : getBarcodeNormalHtml(formattedPrice, this.barcodeImage, this.formData.pro_name, currencyStr)
 
       if (window.posApi) {
         console.log('Bridge window.posApi found. Checking for printer name...')
@@ -495,7 +504,7 @@ export default {
 
         const payload = {
           html: windowContent,
-          printerName: printerName,
+          printerName,
           copies: 1,
         }
 
@@ -530,7 +539,7 @@ export default {
             }
           })
         if (this.category.length > 0) {
-          this.formData.pro_category = this.category[0]['categ_id']
+          this.formData.pro_category = this.category[0].categ_id
         }
       } catch (er) {
         console.log('error: ' + er.response?.data || er.message)
@@ -549,7 +558,7 @@ export default {
           }
         })
         if (this.companyList.length > 0) {
-          this.formData.companyId = this.companyList[0]['id']
+          this.formData.companyId = this.companyList[0].id
         }
       } catch (er) {
         console.log('error: ' + er.response?.data || er.message)
@@ -639,7 +648,7 @@ export default {
 
     async commitPriceListRecord(productId) {
       this.isloading = true
-      let api = 'api/priceList/create'
+      const api = 'api/priceList/create'
 
       try {
         const requests = this.findAllProductPriceListToCreate.map((item) => {

@@ -551,6 +551,20 @@ export default {
     // Set default dates before loading data
     this.setDefaultDates()
     await this.loadInitialData()
+
+    if (this.$route.query.id) {
+      try {
+        const { data } = await this.$axios.get(`/api/ap-invoices/${this.$route.query.id}`)
+        if (data && data.success && data.data) {
+          this.selectedInvoice = data.data
+          this.showDetailModal = true
+          this.detailLoading = false
+          this.invoiceDetails = data.data
+        }
+      } catch (error) {
+        console.error('Error auto-loading invoice detail:', error)
+      }
+    }
   },
 
   methods: {
