@@ -42,6 +42,13 @@
     "_name": "_6b23df6a"
   },
   {
+    "name": "microfinance",
+    "path": "/microfinance",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/index.vue",
+    "chunkName": "pages/microfinance/index",
+    "_name": "_ab0d816e"
+  },
+  {
     "name": "product",
     "path": "/product",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/product/index.vue",
@@ -875,6 +882,48 @@
     "_name": "_caaad3b2"
   },
   {
+    "name": "microfinance-accounts",
+    "path": "/microfinance/accounts",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/accounts/index.vue",
+    "chunkName": "pages/microfinance/accounts/index",
+    "_name": "_4e432cfc"
+  },
+  {
+    "name": "microfinance-cif",
+    "path": "/microfinance/cif",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/cif/index.vue",
+    "chunkName": "pages/microfinance/cif/index",
+    "_name": "_c715e58c"
+  },
+  {
+    "name": "microfinance-collateral",
+    "path": "/microfinance/collateral",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/collateral/index.vue",
+    "chunkName": "pages/microfinance/collateral/index",
+    "_name": "_80192b5a"
+  },
+  {
+    "name": "microfinance-collections",
+    "path": "/microfinance/collections",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/collections/index.vue",
+    "chunkName": "pages/microfinance/collections/index",
+    "_name": "_003f9ccf"
+  },
+  {
+    "name": "microfinance-groups",
+    "path": "/microfinance/groups",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/groups/index.vue",
+    "chunkName": "pages/microfinance/groups/index",
+    "_name": "_6bdbfba0"
+  },
+  {
+    "name": "microfinance-products",
+    "path": "/microfinance/products",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/microfinance/products/index.vue",
+    "chunkName": "pages/microfinance/products/index",
+    "_name": "_e3b38d00"
+  },
+  {
     "name": "pos-lottery",
     "path": "/pos/lottery",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/pos/lottery/index.vue",
@@ -1197,6 +1246,13 @@
     "_name": "_e9a44fd4"
   },
   {
+    "name": "admin-accounting-project-reports",
+    "path": "/admin/accounting/project/reports",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/index.vue",
+    "chunkName": "pages/admin/accounting/project/reports/index",
+    "_name": "_eefba0fc"
+  },
+  {
     "name": "admin-accounting-project-wa",
     "path": "/admin/accounting/project/wa",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/wa.vue",
@@ -1293,6 +1349,48 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/web_product/mixins/ImagePreviewMixin.vue",
     "chunkName": "pages/admin/web_product/mixins/ImagePreviewMixin",
     "_name": "_e23a245c"
+  },
+  {
+    "name": "admin-accounting-project-reports-advance-aging",
+    "path": "/admin/accounting/project/reports/advance-aging",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/advance-aging.vue",
+    "chunkName": "pages/admin/accounting/project/reports/advance-aging",
+    "_name": "_585327be"
+  },
+  {
+    "name": "admin-accounting-project-reports-budget-vs-actual",
+    "path": "/admin/accounting/project/reports/budget-vs-actual",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/budget-vs-actual.vue",
+    "chunkName": "pages/admin/accounting/project/reports/budget-vs-actual",
+    "_name": "_b2551cd4"
+  },
+  {
+    "name": "admin-accounting-project-reports-fixed-assets",
+    "path": "/admin/accounting/project/reports/fixed-assets",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/fixed-assets.vue",
+    "chunkName": "pages/admin/accounting/project/reports/fixed-assets",
+    "_name": "_df516f08"
+  },
+  {
+    "name": "admin-accounting-project-reports-receipts-payments",
+    "path": "/admin/accounting/project/reports/receipts-payments",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/receipts-payments.vue",
+    "chunkName": "pages/admin/accounting/project/reports/receipts-payments",
+    "_name": "_2e2973af"
+  },
+  {
+    "name": "admin-accounting-project-reports-soe",
+    "path": "/admin/accounting/project/reports/soe",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/soe.vue",
+    "chunkName": "pages/admin/accounting/project/reports/soe",
+    "_name": "_3ac1f6b9"
+  },
+  {
+    "name": "admin-accounting-project-reports-wa-report",
+    "path": "/admin/accounting/project/reports/wa-report",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/accounting/project/reports/wa-report.vue",
+    "chunkName": "pages/admin/accounting/project/reports/wa-report",
+    "_name": "_773129c7"
   },
   {
     "name": "admin-report-MA-mixin-excel",

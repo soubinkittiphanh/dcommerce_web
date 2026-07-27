@@ -341,15 +341,21 @@ export default {
 
   async mounted() {
     this.isLoading = true
-    await Promise.all([
-      this.fetchCategory(),
-      this.fetchCompany(),
-      this.fetchTaxRates(),
-    ])
-    if (this.headerId) {
-      await this.fetchProId(this.headerId)
+    try {
+      await Promise.all([
+        this.fetchCategory(),
+        this.fetchCompany(),
+        this.fetchTaxRates(),
+      ])
+      if (this.headerId) {
+        await this.fetchProId(this.headerId)
+      }
+    } catch (error) {
+      console.error('Error loading product details:', error)
+      swalError2(this.$swal, 'Error loading product details', error.message || error)
+    } finally {
+      this.isLoading = false
     }
-    this.isLoading = false
   },
 
   methods: {
@@ -495,9 +501,16 @@ export default {
     },
 
     async fetchProId(id) {
-      await this.$axios.post('/product_f_id', { proid: id }).then((res) => {
+      try {
+        const res = await this.$axios.post('/product_f_id', { proid: id })
+        if (typeof res.data === 'string' && res.data.startsWith('SQL')) {
+          throw new Error(res.data)
+        }
+        if (!res.data || res.data.length === 0) {
+          throw new Error('Product details not found in database.')
+        }
         const el = res.data[0]
-        const images = el.img_name
+        const images = (el && el.img_name)
           ? res.data.map((i) => ({ name: i.img_name, path: i.img_path }))
           : []
         this.formData = {
@@ -527,7 +540,10 @@ export default {
           baseUnitId: el.baseUnitId,
         }
         this.generateBarcodeImage(this.formData.barCode)
-      })
+      } catch (error) {
+        console.error('Error inside fetchProId:', error)
+        throw error
+      }
     },
 
     calculateTaxAmount() {
@@ -566,21 +582,53 @@ export default {
       return price
     },
     async fetchTaxRates() {
-      const res = await this.$axios.get('/api/tax/active')
-      this.taxRates = res.data.data || []
+      try {
+        const res = await this.$axios.get('/api/tax/active')
+        this.taxRates = res.data.data || []
+      } catch (error) {
+        console.error('Error fetching tax rates:', error)
+        this.taxRates = []
+        throw error
+      }
     },
     async fetchCategory() {
-      const res = await this.$axios.get('category_f')
-      this.category = res.data
-        .filter((el) => el.isActive === true || el.isActive === 1)
-        .map((el) => ({
-          categ_id: el.categ_id,
-          categ_name: el.categ_name,
-        }))
+      try {
+        const res = await this.$axios.get('/category_f')
+        if (typeof res.data === 'string' && res.data.startsWith('Error')) {
+          throw new Error(res.data)
+        }
+        if (Array.isArray(res.data)) {
+          this.category = res.data
+            .filter((el) => el.isActive === true || el.isActive === 1)
+            .map((el) => ({
+              categ_id: el.categ_id,
+              categ_name: el.categ_name,
+            }))
+        } else {
+          this.category = []
+        }
+      } catch (error) {
+        console.error('Error fetching category:', error)
+        this.category = []
+        throw error
+      }
     },
     async fetchCompany() {
-      const res = await this.$axios.get('api/company/find')
-      this.companyList = res.data.map((el) => ({ id: el.id, name: el.name }))
+      try {
+        let res = await this.$axios.get('/api/company/find')
+        if (!Array.isArray(res.data) || res.data.length === 0) {
+          res = await this.$axios.get('/api/company/findAll')
+        }
+        if (Array.isArray(res.data)) {
+          this.companyList = res.data.map((el) => ({ id: el.id, name: el.name }))
+        } else {
+          this.companyList = []
+        }
+      } catch (error) {
+        console.error('Error fetching company list:', error)
+        this.companyList = []
+        throw error
+      }
     },
     onFilesChange(payload) {
       this.files = payload

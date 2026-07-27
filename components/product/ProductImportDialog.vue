@@ -75,8 +75,25 @@
       </v-card-text>
 
       <v-card-actions class="pb-6 px-6">
-        <v-spacer />
-        <v-btn text @click="close">ຍົກເລີກ (Cancel)</v-btn>
+        <div v-if="loading && totalCount > 0" class="flex-grow-1 mr-4">
+          <div class="d-flex justify-space-between mb-1">
+            <span class="caption grey--text text--darken-1">
+              ກຳລັງນຳເຂົ້າ... (Importing...)
+            </span>
+            <span class="caption font-weight-bold primary--text">
+              {{ importedCount }} / {{ totalCount }} ({{ Math.round(importProgress) }}%)
+            </span>
+          </div>
+          <v-progress-linear
+            color="primary"
+            height="8"
+            reactive
+            rounded
+            :value="importProgress"
+          ></v-progress-linear>
+        </div>
+        <v-spacer v-else />
+        <v-btn text :disabled="loading" @click="close">ຍົກເລີກ (Cancel)</v-btn>
         <v-btn color="primary" :disabled="!isValidToImport || loading" :loading="loading" min-width="150"
           depressed @click="startImport">
           <v-icon left>mdi-upload</v-icon>
@@ -96,7 +113,8 @@ import { getFormatNum } from '~/common'
 export default {
   name: 'ProductImportDialog',
   props: {
-    value: { type: Boolean, default: false }
+    value: { type: Boolean, default: false },
+    products: { type: Array, default: () => [] }
   },
   data() {
     return {
@@ -108,6 +126,9 @@ export default {
       categories: [],
       currencies: [],
       units: [],
+      importedCount: 0,
+      totalCount: 0,
+      totalChunks: 0,
       previewHeaders: [
         { text: 'ກວດສອບ', value: 'status_valid', width: '80', sortable: false, align: 'center' },
         { text: 'ຊື່ສິນຄ້າ (Product Name)', value: 'pro_name' },
@@ -138,6 +159,10 @@ export default {
     },
     isValidToImport() {
       return this.importData.length > 0 && this.invalidCount === 0
+    },
+    importProgress() {
+      if (!this.totalCount) return 0
+      return (this.importedCount / this.totalCount) * 100
     }
   },
   watch: {
@@ -155,6 +180,9 @@ export default {
     reset() {
       this.excelFile = null
       this.importData = []
+      this.importedCount = 0
+      this.totalCount = 0
+      this.totalChunks = 0
     },
     formatNumber(val) {
       return getFormatNum(val)
@@ -261,44 +289,39 @@ export default {
 
         // Apply dropdown validations (first 500 rows)
         for (let i = 2; i <= 500; i++) {
-          // Cost Currency dropdown
+          // Cost Currency dropdown (E)
           if (currencyList.length > 0) {
-            worksheet.getCell(`D${i}`).dataValidation = {
+            worksheet.getCell(`E${i}`).dataValidation = {
               type: 'list',
               allowBlank: true,
               formulae: [`CurrenciesData!$A$1:$A$${currencyList.length}`]
             }
-            // Sale Currency dropdown
-            worksheet.getCell(`F${i}`).dataValidation = {
+            // Sale Currency dropdown (G)
+            worksheet.getCell(`G${i}`).dataValidation = {
               type: 'list',
               allowBlank: true,
               formulae: [`CurrenciesData!$A$1:$A$${currencyList.length}`]
             }
           }
 
-          // Category dropdown
+          // Category dropdown (H)
           if (categoryList.length > 0) {
-            worksheet.getCell(`G${i}`).dataValidation = {
+            worksheet.getCell(`H${i}`).dataValidation = {
               type: 'list',
               allowBlank: true,
               formulae: [`CategoriesData!$A$1:$A$${categoryList.length}`]
             }
           }
 
-          // Product Type dropdown (product/service/stock)
-          worksheet.getCell(`H${i}`).dataValidation = {
+          // Product Type dropdown (I)
+          worksheet.getCell(`I${i}`).dataValidation = {
             type: 'list',
             allowBlank: true,
             formulae: ['"product,service,stock"']
           }
 
-          // Units dropdowns (Receive, Stock, Base)
+          // Units dropdowns (Receive, Stock, Base) (J, K, L)
           if (unitList.length > 0) {
-            worksheet.getCell(`I${i}`).dataValidation = {
-              type: 'list',
-              allowBlank: true,
-              formulae: [`UnitsData!$A$1:$A$${unitList.length}`]
-            }
             worksheet.getCell(`J${i}`).dataValidation = {
               type: 'list',
               allowBlank: true,
@@ -309,16 +332,86 @@ export default {
               allowBlank: true,
               formulae: [`UnitsData!$A$1:$A$${unitList.length}`]
             }
+            worksheet.getCell(`L${i}`).dataValidation = {
+              type: 'list',
+              allowBlank: true,
+              formulae: [`UnitsData!$A$1:$A$${unitList.length}`]
+            }
           }
 
-          // Company dropdown
+          // Company dropdown (M)
           if (companyList.length > 0) {
-            worksheet.getCell(`L${i}`).dataValidation = {
+            worksheet.getCell(`M${i}`).dataValidation = {
               type: 'list',
               allowBlank: true,
               formulae: [`CompaniesData!$A$1:$A$${companyList.length}`]
             }
           }
+        }
+
+        // Create reference worksheet for existing products
+        const currentProductsWorksheet = workbook.addWorksheet('ລາຍການສິນຄ້າປັດຈຸບັນ')
+
+        // Define columns exactly matching template sheet
+        currentProductsWorksheet.columns = [
+          { header: 'ຊື່ສິນຄ້າ (Product Name)', key: 'pro_name', width: 25 },
+          { header: 'ລະຫັດສິນຄ້າ (Product Code)', key: 'product_code', width: 20 },
+          { header: 'ບາໂຄດ (Barcode)', key: 'barCode', width: 20 },
+          { header: 'ຕົ້ນທຶນ (Cost Price)', key: 'cost_price', width: 15 },
+          { header: 'ສະກຸນເງິນຕົ້ນທຶນ (Cost Currency)', key: 'costCurrency', width: 18 },
+          { header: 'ລາຄາຂາຍ (Sale Price)', key: 'pro_price', width: 15 },
+          { header: 'ສະກຸນເງິນຂາຍ (Sale Currency)', key: 'saleCurrency', width: 18 },
+          { header: 'ໝວດໝູ່ສິນຄ້າ (Category)', key: 'pro_category', width: 22 },
+          { header: 'ປະເພດສິນຄ້າ (Product Type)', key: '_category', width: 22 },
+          { header: 'ຫົວໜ່ວຍຮັບ (Receive Unit)', key: 'receiveUnit', width: 18 },
+          { header: 'ຫົວໜ່ວຍສາງ (Stock Unit)', key: 'stockUnit', width: 18 },
+          { header: 'ຫົວໜ່ວຍພື້ນຖານ (Base Unit)', key: 'baseUnit', width: 18 },
+          { header: 'ຮ້ານ/ສາຂາ (Company)', key: 'company', width: 25 },
+          { header: 'ລາຍລະອຽດ (Description)', key: 'pro_desc', width: 30 },
+          { header: 'ສຕັອກຂັ້ນຕ່ຳ (Min Stock)', key: 'minStock', width: 15 },
+          { header: 'ຊື່ຜູ້ສະໜອງ (Vendor Name)', key: 'vendorName', width: 20 }
+        ]
+
+        // Format header row
+        const currentHeaderRow = currentProductsWorksheet.getRow(1)
+        currentHeaderRow.font = { bold: true, color: { argb: 'FFFFFFFF' } }
+        currentHeaderRow.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: 'FF2E7D32' } // premium dark green color
+        }
+        currentHeaderRow.alignment = { vertical: 'middle', horizontal: 'center' }
+
+        // Populate current product list
+        if (Array.isArray(this.products) && this.products.length > 0) {
+          this.products.forEach(item => {
+            const companyName = item.co_name || this.companies.find(c => c.id === item.companyId)?.name || ''
+            const categoryName = this.categories.find(c => c.id === item.pro_category)?.name || ''
+            const costCurrencyCode = this.currencies.find(c => c.id === item.costCurrencyId)?.code || ''
+            const saleCurrencyCode = this.currencies.find(c => c.id === item.saleCurrencyId)?.code || ''
+            const receiveUnitName = this.units.find(u => u.id === item.receiveUnitId)?.name || ''
+            const stockUnitName = this.units.find(u => u.id === item.stockUnitId)?.name || ''
+            const baseUnitName = this.units.find(u => u.id === item.baseUnitId)?.name || ''
+
+            currentProductsWorksheet.addRow({
+              pro_name: item.pro_name || '',
+              product_code: item.product_code || '',
+              barCode: item.barCode || '',
+              cost_price: item.pro_cost_price || 0,
+              costCurrency: costCurrencyCode,
+              pro_price: item.pro_price || 0,
+              saleCurrency: saleCurrencyCode,
+              pro_category: categoryName,
+              _category: item._category || 'product',
+              receiveUnit: receiveUnitName,
+              stockUnit: stockUnitName,
+              baseUnit: baseUnitName,
+              company: companyName,
+              pro_desc: item.pro_desc || '',
+              minStock: item.minStock || 0,
+              vendorName: item.vendorName || ''
+            })
+          })
         }
 
         // Generate buffer & trigger download
@@ -542,19 +635,36 @@ export default {
           pro_status: 1
         }))
 
-        const response = await this.$axios.$post('/api/product/bulk', { products: payload })
+        const chunkSize = 200
+        this.totalCount = payload.length
+        this.importedCount = 0
+        this.totalChunks = Math.ceil(this.totalCount / chunkSize)
 
-        if (response.success) {
-          this.$toast.success(response.message || `ນຳເຂົ້າສິນຄ້າສຳເລັດ ${payload.length} ລາຍການ`)
-          this.$emit('imported')
-          this.close()
-        } else {
-          this.$toast.error(response.message || 'ນຳເຂົ້າຂໍ້ມູນບໍ່ສຳເລັດ')
+        let succeededCount = 0
+        let lastMessage = ''
+
+        for (let i = 0; i < payload.length; i += chunkSize) {
+          const chunk = payload.slice(i, i + chunkSize)
+          const response = await this.$axios.$post('/api/product/bulk', { products: chunk })
+          if (response.success) {
+            succeededCount += chunk.length
+            this.importedCount = succeededCount
+            lastMessage = response.message
+          } else {
+            throw new Error(response.message || 'ນຳເຂົ້າຂໍ້ມູນບໍ່ສຳເລັດ (Failed to import some products)')
+          }
         }
+
+        this.$toast.success(lastMessage || `ນຳເຂົ້າສິນຄ້າສຳເລັດ ${payload.length} ລາຍການ`)
+        this.$emit('imported')
+        this.close()
       } catch (error) {
         console.error('Import products error:', error)
         const errorMsg = error.response?.data?.message || error.message
-        this.$toast.error('ຜິດພາດ (Error): ' + errorMsg)
+        const partialSuccessMsg = this.importedCount > 0
+          ? ` (ນຳເຂົ້າສຳເລັດແລ້ວ ${this.importedCount} ລາຍການ)`
+          : ''
+        this.$toast.error('ຜິດພາດ (Error): ' + errorMsg + partialSuccessMsg)
       } finally {
         this.loading = false
       }

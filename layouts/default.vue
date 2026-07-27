@@ -27,81 +27,6 @@
           </v-list-item-content>
         </v-list-item>
 
-        <!-- Stock Backdate Report (Static menu item for easy access) -->
-        <v-list-item to="/reports/stock-backdate" router exact>
-          <v-list-item-action>
-            <v-icon color="white">mdi-history</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="'ສະຕັອກຍ້ອນຫຼັງ (Backdate)'" :style="{ color: 'white' }" />
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Expiring Soon Report (Static menu item for easy access) -->
-        <v-list-item to="/reports/expiring-soon" router exact>
-          <v-list-item-action>
-            <v-icon color="white">mdi-calendar-alert</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="'ລາຍງານສິນຄ້າໃກ້ໝົດອາຍຸ'" :style="{ color: 'white' }" />
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Shipping Orders -->
-        <v-list-item to="/admin/shipping-order" router exact>
-          <v-list-item-action>
-            <v-icon color="white">mdi-truck-delivery-outline</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="'ຂົນສົ່ງຂ້າມແດນ (Shipping Orders)'" :style="{ color: 'white' }" />
-          </v-list-item-content>
-        </v-list-item>
-
-        <!-- Fixed Assets Group -->
-        <v-list-group prepend-icon="mdi-domain-plus" color="white" active-class="white--text">
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title style="color: white">ຊັບສິນຄົງທີ່ (Fixed Assets)</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item to="/admin/fixed-assets" router exact>
-            <v-list-item-action>
-              <v-icon color="white" small>mdi-view-dashboard-outline</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="'Dashboard Hub'" :style="{ color: 'white', 'font-size': '0.85rem' }" />
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item to="/admin/fixed-assets/products" router exact>
-            <v-list-item-action>
-              <v-icon color="white" small>mdi-file-tree</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="'ປະເພດຊັບສິນ (Products)'" :style="{ color: 'white', 'font-size': '0.85rem' }" />
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item to="/admin/fixed-assets/contracts" router exact>
-            <v-list-item-action>
-              <v-icon color="white" small>mdi-card-text-outline</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="'ທະບຽນຊັບສິນ (Contracts)'" :style="{ color: 'white', 'font-size': '0.85rem' }" />
-            </v-list-item-content>
-          </v-list-item>
-
-          <v-list-item to="/admin/fixed-assets/depreciation" router exact>
-            <v-list-item-action>
-              <v-icon color="white" small>mdi-clock-check-outline</v-icon>
-            </v-list-item-action>
-            <v-list-item-content>
-              <v-list-item-title v-text="'ຄິດໄລ່ງວດ (Depreciation)'" :style="{ color: 'white', 'font-size': '0.85rem' }" />
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-group>
-
         <!-- Group A -->
         <v-divider></v-divider>
         <v-list-group v-for="(menu, i) in safeMenu" :key="i" :prepend-icon="menu.icon" color="white"
@@ -521,7 +446,8 @@ export default {
     },
 
     safeTerminals() {
-      return Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+      const terminals = Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+      return terminals.filter(terminal => terminal && terminal.isActive)
     },
 
     safeMenu() {

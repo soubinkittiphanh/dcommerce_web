@@ -486,6 +486,69 @@
                 </v-card-text>
               </v-card>
 
+              <!-- Related Documents Section Card -->
+              <v-card outlined class="rounded-lg mb-6 shadow-sm overflow-hidden white">
+                <v-card-title class="text-subtitle-1 font-weight-bold primary--text pa-4 pb-2">
+                  <v-icon left color="primary">mdi-attachment-outline</v-icon>
+                  ເອກະສານຂັດຕິດ (Related Documents)
+                </v-card-title>
+                
+                <v-card-text class="pa-4">
+                  <!-- File input field for new uploads -->
+                  <v-file-input
+                    multiple
+                    outlined
+                    dense
+                    label="ເລືອກໄຟລ໌ເພື່ອອັບໂຫຼດ (Select files to upload)"
+                    prepend-icon="mdi-paperclip"
+                    append-icon="mdi-cloud-upload-outline"
+                    class="mb-4"
+                    accept=".pdf,.doc,.docx,.xls,.xlsx,.png,.jpg,.jpeg,.txt"
+                    @change="handleFileUploads"
+                    hide-details="auto"
+                  />
+
+                  <!-- List of current files -->
+                  <div v-if="form.documents && form.documents.length > 0" class="mt-4">
+                    <h5 class="text-subtitle-2 grey--text text--darken-3 mb-2 font-weight-bold">
+                      ລາຍການເອກະສານ (Uploaded Documents):
+                    </h5>
+                    <v-row dense>
+                      <v-col
+                        v-for="(doc, idx) in form.documents"
+                        :key="idx"
+                        cols="12"
+                        sm="6"
+                        md="4"
+                      >
+                        <v-card outlined class="pa-3 rounded-lg d-flex align-center justify-space-between grey lighten-5">
+                          <div class="d-flex align-center overflow-hidden">
+                            <v-icon color="primary" class="mr-2">
+                              {{ getFileIcon(doc.name || doc.filename) }}
+                            </v-icon>
+                            <div class="d-flex flex-column text-left overflow-hidden">
+                              <span class="text-body-2 font-weight-medium text-truncate">
+                                {{ doc.name || doc.filename }}
+                              </span>
+                              <span class="text-caption grey--text" v-if="doc.size">
+                                {{ formatFileSize(doc.size) }}
+                              </span>
+                            </div>
+                          </div>
+                          <v-btn icon color="error" small @click="removeDocument(idx)">
+                            <v-icon small>mdi-delete-outline</v-icon>
+                          </v-btn>
+                        </v-card>
+                      </v-col>
+                    </v-row>
+                  </div>
+                  <div v-else class="text-center py-4 grey--text">
+                    <v-icon large color="grey lighten-1" class="mb-2">mdi-file-document-outline</v-icon>
+                    <div class="text-caption">ບໍ່ມີເອກະສານຂັດຕິດ (No attached documents)</div>
+                  </div>
+                </v-card-text>
+              </v-card>
+
               <!-- Total Amount Dashboard Card Summary -->
               <v-card outlined class="rounded-lg mb-6 shadow-sm overflow-hidden white" style="border-left: 5px solid #10b981 !important;">
                 <v-card-text class="pa-4 grey lighten-5">
@@ -776,6 +839,47 @@ export default {
   },
 
   methods: {
+    handleFileUploads(files) {
+      if (!files) return
+      const fileList = Array.isArray(files) ? files : [files]
+      
+      fileList.forEach(file => {
+        // Limit to 10MB
+        if (file.size > 10 * 1024 * 1024) {
+          this.$toast?.error(`ໄຟລ໌ ${file.name} ມີຂະໜາດໃຫຍ່ເກີນ 10MB`)
+          return
+        }
+        
+        // Add to form.documents
+        if (!this.form.documents) {
+          this.$set(this.form, 'documents', [])
+        }
+        this.form.documents.push({
+          name: file.name,
+          size: file.size,
+          rawFile: file
+        })
+      })
+    },
+    removeDocument(index) {
+      this.form.documents.splice(index, 1)
+    },
+    getFileIcon(filename) {
+      if (!filename) return 'mdi-file-document-outline'
+      const ext = filename.split('.').pop().toLowerCase()
+      if (ext === 'pdf') return 'mdi-file-pdf-box'
+      if (['doc', 'docx'].includes(ext)) return 'mdi-file-word'
+      if (['xls', 'xlsx'].includes(ext)) return 'mdi-file-excel'
+      if (['png', 'jpg', 'jpeg'].includes(ext)) return 'mdi-file-image'
+      return 'mdi-file-document-outline'
+    },
+    formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes'
+      const k = 1024
+      const sizes = ['Bytes', 'KB', 'MB', 'GB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    },
     // Print Invoice Method
     async loadTransactionCodes() {
       this.loadingTransactionCodes = true
@@ -907,6 +1011,7 @@ export default {
           status: this.invoice.status || 'draft',
           description: this.invoice.description || '',
           reason: '',
+          documents: this.invoice.documents ? JSON.parse(JSON.stringify(this.invoice.documents)) : [],
         }
 
         await this.loadLineItems(this.invoice.id)
@@ -1096,8 +1201,8 @@ export default {
         lineNumber: 1,
         description: `ຄ່າບໍລິການຮັບສະໝັກງານ - ${mou.jobTitle || 'N/A'} (${selectedBatch.runningNo
           }) - ${mou.employerCompany || ''}`,
-        quantity: quantity,
-        unitPrice: unitPrice,
+        quantity,
+        unitPrice,
         DRglAccountId: null,
         CRglAccountId: null,
         txnId: null,
@@ -1250,6 +1355,7 @@ export default {
         status: 'draft',
         description: '',
         reason: '',
+        documents: [],
       }
     },
 
@@ -1264,11 +1370,9 @@ export default {
       console.log(`${type}: ${message}`)
       if (this.$toast) {
         this.$toast[type](message)
-      } else {
-        if (type === 'error') {
+      } else if (type === 'error') {
           alert(`Error: ${message}`)
         }
-      }
     },
 
     // Add missing filter methods if not present

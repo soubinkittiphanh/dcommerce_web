@@ -208,6 +208,51 @@
           </div>
         </div>
 
+        <!-- Related Documents -->
+        <div class="info-section" v-if="receipt.documents && receipt.documents.length > 0">
+          <div class="section-header">
+            <h3>
+              <i class="fas fa-paperclip"></i>
+              ເອກະສານຂັດຕິດ (Attached Documents)
+            </h3>
+            <span class="item-count">{{ receipt.documents.length }} ໄຟລ໌</span>
+          </div>
+          
+          <div style="display: flex; flex-wrap: wrap; gap: 12px; padding: 8px 0;">
+            <div
+              v-for="(doc, idx) in receipt.documents"
+              :key="idx"
+              style="display: flex; align-items: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px 14px; min-width: 200px; max-width: 320px; box-shadow: 0 1px 2px rgba(0,0,0,0.05);"
+            >
+              <i
+                :class="['fas', getFileAwesomeIcon(doc.name || doc.filename)]"
+                style="font-size: 1.5rem; color: #3b82f6; margin-right: 12px;"
+              ></i>
+              <div style="display: flex; flex-direction: column; overflow: hidden; text-align: left; flex-grow: 1; margin-right: 8px;">
+                <a
+                  :href="getDocumentUrl(doc.filename)"
+                  target="_blank"
+                  style="font-size: 0.875rem; font-weight: 600; color: #1e293b; text-decoration: none; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;"
+                  :title="doc.name || doc.filename"
+                >
+                  {{ doc.name || doc.filename }}
+                </a>
+                <span style="font-size: 0.75rem; color: #64748b;" v-if="doc.size">
+                  {{ formatFileSize(doc.size) }}
+                </span>
+              </div>
+              <a
+                :href="getDocumentUrl(doc.filename)"
+                target="_blank"
+                download
+                style="color: #64748b; text-decoration: none; display: flex; align-items: center;"
+              >
+                <i class="fas fa-download"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
         <!-- System Information -->
         <div class="info-section">
           <div class="section-header">
@@ -279,6 +324,26 @@ export default {
   },
 
   methods: {
+    getDocumentUrl(filename) {
+      const baseUrl = this.$axios.defaults.baseURL || ''
+      return `${baseUrl}/uploads/documents/${filename}`
+    },
+    getFileAwesomeIcon(filename) {
+      if (!filename) return 'fa-file'
+      const ext = filename.split('.').pop().toLowerCase()
+      if (ext === 'pdf') return 'fa-file-pdf'
+      if (['doc', 'docx'].includes(ext)) return 'fa-file-word'
+      if (['xls', 'xlsx'].includes(ext)) return 'fa-file-excel'
+      if (['png', 'jpg', 'jpeg'].includes(ext)) return 'fa-file-image'
+      return 'fa-file'
+    },
+    formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes'
+      const k = 1024
+      const sizes = ['Bytes', 'KB', 'MB', 'GB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    },
     closeDialog() {
       this.$emit('close')
     },

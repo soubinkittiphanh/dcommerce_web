@@ -559,14 +559,40 @@ export default {
       try {
         this.loading = true
 
+        let payload = invoiceData
+        const newFiles = invoiceData.documents ? invoiceData.documents.filter(doc => doc instanceof File || (doc && doc.rawFile instanceof File)) : []
+
+        if (newFiles.length > 0) {
+          const formData = new FormData()
+          Object.keys(invoiceData).forEach(key => {
+            if (key === 'lineItems') {
+              formData.append(key, JSON.stringify(invoiceData[key]))
+            } else if (key === 'documents') {
+              const existingDocs = invoiceData.documents.filter(doc => !(doc instanceof File || (doc && doc.rawFile instanceof File)))
+              formData.append(key, JSON.stringify(existingDocs))
+            } else {
+              if (invoiceData[key] !== null && invoiceData[key] !== undefined) {
+                formData.append(key, invoiceData[key])
+              }
+            }
+          })
+
+          newFiles.forEach(fileDoc => {
+            const rawFile = fileDoc instanceof File ? fileDoc : fileDoc.rawFile
+            formData.append('documents', rawFile)
+          })
+
+          payload = formData
+        }
+
         let response
         if (this.selectedInvoice?.id) {
           response = await this.$axios.put(
             `/api/ar-invoices/${this.selectedInvoice.id}`,
-            invoiceData
+            payload
           )
         } else {
-          response = await this.$axios.post('/api/ar-invoices', invoiceData)
+          response = await this.$axios.post('/api/ar-invoices', payload)
         }
 
         if (response.data?.success) {

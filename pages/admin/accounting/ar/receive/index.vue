@@ -895,16 +895,42 @@ export default {
       try {
         this.loading = true
 
+        let payload = receiptData
+        const newFiles = receiptData.documents ? receiptData.documents.filter(doc => doc instanceof File || (doc && doc.rawFile instanceof File)) : []
+
+        if (newFiles.length > 0) {
+          const formData = new FormData()
+          Object.keys(receiptData).forEach(key => {
+            if (key === 'allocationLines') {
+              formData.append(key, JSON.stringify(receiptData[key]))
+            } else if (key === 'documents') {
+              const existingDocs = receiptData.documents.filter(doc => !(doc instanceof File || (doc && doc.rawFile instanceof File)))
+              formData.append(key, JSON.stringify(existingDocs))
+            } else {
+              if (receiptData[key] !== null && receiptData[key] !== undefined) {
+                formData.append(key, receiptData[key])
+              }
+            }
+          })
+
+          newFiles.forEach(fileDoc => {
+            const rawFile = fileDoc instanceof File ? fileDoc : fileDoc.rawFile
+            formData.append('documents', rawFile)
+          })
+
+          payload = formData
+        }
+
         let response
         if (this.selectedReceipt?.id) {
           response = await this.$axios.put(
             `/api/ar-receive-headers/${this.selectedReceipt.id}`,
-            receiptData
+            payload
           )
         } else {
           response = await this.$axios.post(
             '/api/ar-receive-headers',
-            receiptData
+            payload
           )
         }
 

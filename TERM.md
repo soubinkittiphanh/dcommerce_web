@@ -80,3 +80,23 @@ POS System Terms and Conditions (Updated)
     ການຮັກສາບັດ: ຜູ້ໃຊ້ບໍ່ຄວນຫັກງໍບັດ, ເຈາະຮູ ຫຼື ວາງບັດໄວ້ບ່ອນທີ່ມີຄວາມຮ້ອນສູງ/ແມ່ເຫຼັກ ເພາະອາດເຮັດໃຫ້ຊິບ (Chip) ພາຍໃນເສຍຫາຍ.
 
     ການນຳໃຊ້ໂດຍບໍ່ໄດ້ຮັບອະນຸຍາດ: ຜູ້ໃຊ້ (ຮ້ານຄ້າ) ມີໜ້າທີ່ກວດສອບຕົວຕົນຂອງຜູ້ຖືບັດ. ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ທຸລະກຳທີ່ເກີດຂຶ້ນຈາກບັດທີ່ຖືກລັກ ຫຼື ນຳໃຊ້ໂດຍບຸກຄົນອື່ນ.
+
+======================= DYNAMIC QR & BANK INTEGRATION ===================
+
+1. English Version
+5. Dynamic QR & Bank API Disclaimer
+
+    Integration & Connection: The Provider may integrate the POS/software services with bank APIs for dynamic QR code payment generation and transaction verification.
+
+    Service Outages & Liability: Since these services depend on third-party networks, internet connectivity, and the bank's own API infrastructure, the Provider is not liable for payment processing delays, failed QR generation, timeout errors, or unsuccessful transactions due to the bank's API or server issues.
+
+    Exclusion of Claims: The User (including Banks and partner Merchants) agrees not to submit complaints, claims, or disputes to the Provider, nor hold the Provider liable for financial loss, missed sales, or transaction discrepancies caused by bank API issues or downtime.
+
+2. Lao Version (ສະບັບພາສາລາວ)
+5. ຂໍ້ກຳນົດ ແລະ ຂໍ້ຈຳກັດຄວາມຮັບຜິດຊອບກ່ຽວກັບ API ຂອງທະນາຄານ (Dynamic QR)
+
+    ການເຊື່ອມຕໍ່ລະບົບ: ຜູ້ສະໜອງອາດຈະມີການເຊື່ອມຕໍ່ກັບ API ຂອງທະນາຄານ ເພື່ອສ້າງ Dynamic QR code ແລະ ກວດສອບທຸລະກຳການຊຳລະເງິນ.
+
+    ຄວາມຮັບຜິດຊອບ ແລະ ລະບົບຂັດຂ້ອງ: ເນື່ອງຈາກການບໍລິການເຫຼົ່ານີ້ຂຶ້ນກັບເຄືອຂ່າຍພາຍນອກ ແລະ ໂຄງສ້າງລະບົບ API ຂອງທະນາຄານເອງ, ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ຄວາມຊັກຊ້າໃນການຊຳລະເງິນ, ຄວາມຫຼົ້ມເຫຼວໃນການສ້າງ QR code, ບັນຫາເຄືອຂ່າຍ (timeout) ຫຼື ທຸລະກຳທີ່ບໍ່ສຳເລັດ ທີ່ເກີດຈາກລະບົບ API ຫຼື Server ຂອງທະນາຄານຂັດຂ້ອງ.
+
+    ການຍົກເວັ້ນການຮ້ອງຮຽນ: ຜູ້ໃຊ້ (ລວມທັງ ທະນາຄານ ແລະ ຮ້ານຄ້າຮ່ວມລາຍການ) ຕົກລົງທີ່ຈະບໍ່ຮ້ອງຮຽນ, ຟ້ອງຮ້ອງ ຫຼື ຂໍ້ຂັດແຍ່ງໃດໆ ມາຍັງຜູ້ສະໜອງ, ແລະ ຈະບໍ່ໃຫ້ຜູ້ສະໜອງຮັບຜິດຊອບຕໍ່ຄວາມເສຍຫາຍທາງການເງິນ, ການເສຍໂອກາດທາງການຄ້າ ຫຼື ຄວາມຜິດພາດຂອງທຸລະກຳ ທີ່ເກີດຈາກບັນຫາ API ຂອງທະນາຄານເອງ.

@@ -119,7 +119,7 @@ const getBaseUrl = () => {
       return window.location.origin.replace(/\/$/, '')
     }
   }
-  return 'http://150.95.31.23:8046'
+  return 'http://150.95.31.23:8011'
 }
 
 // ==========================================

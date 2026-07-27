@@ -16,9 +16,15 @@
     <v-card>
       <v-card-title>
         <v-layout row wrap>
-          <v-col cols="6">
-
-
+          <v-col cols="6" class="d-flex align-center">
+            <v-switch
+              v-model="showInactive"
+              label="ສະແດງ Terminal ທີ່ປິດໃຊ້ງານ (Show Inactive)"
+              color="primary"
+              dense
+              hide-details
+              class="mt-0 pt-0"
+            ></v-switch>
           </v-col>
           <v-col cols="6">
             <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
@@ -37,7 +43,7 @@
         </v-layout>
       </v-card-title>
       <v-divider></v-divider>
-      <v-data-table v-if="terminalList" :headers="headers" :search="search" :items="terminalList">
+      <v-data-table v-if="terminalList" :headers="headers" :search="search" :items="filteredTerminalList">
         <template v-slot:[`item.rate`]="{ item }">
           {{ getFormatNum(item.rate) }}
         </template>
@@ -47,6 +53,14 @@
             {{ item.bankAccount.accountName }}
           </v-chip>
           <span v-else class="grey--text">No mapping</span>
+        </template>
+        <template v-slot:[`item.isActive`]="{ item }">
+          <v-chip v-if="item.isActive" color="success" small label>
+            ເປີດໃຊ້ງານ
+          </v-chip>
+          <v-chip v-else color="error" small label>
+            ປິດໃຊ້ງານ
+          </v-chip>
         </template>
         <template v-slot:[`item.id`]="{ item }">
           <v-btn color="primary" text @click="viewRecord(item)">
@@ -148,12 +162,14 @@ export default {
       isloading: false,
       search: '',
       terminalList: [],
+      showInactive: false,
       entrySelected: '',
       headers: [
         { text: '#', align: 'center', value: 'pk', sortable: true },
         { text: 'ລະຫັດ', align: 'center', value: 'code', sortable: true },
         { text: 'ຊື່', align: 'center', value: 'name', sortable: true },
         { text: 'ບັນຊີທະນາຄານ (Bank Account)', align: 'center', value: 'bankAccount', sortable: true },
+        { text: 'ສະຖານະ (Status)', align: 'center', value: 'isActive', sortable: true },
         { text: 'Actions', align: 'end', value: 'id', sortable: false },
       ],
       // Audit Trail
@@ -174,6 +190,12 @@ export default {
     await this.loadData()
   },
   computed: {
+    filteredTerminalList() {
+      if (this.showInactive) {
+        return this.terminalList
+      }
+      return this.terminalList.filter((item) => item.isActive)
+    },
   },
 
   methods: {

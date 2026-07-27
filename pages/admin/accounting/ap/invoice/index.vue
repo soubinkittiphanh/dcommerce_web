@@ -357,6 +357,49 @@
                 invoiceDetails.description }}
               </p>
             </div>
+
+            <!-- Documents Section -->
+            <div v-if="invoiceDetails.documents && invoiceDetails.documents.length > 0" class="mt-4">
+              <div class="grey--text font-weight-bold uppercase mb-1">ເອກະສານຂັດຕິດ (Attached Documents)</div>
+              <v-row dense class="pa-1">
+                <v-col
+                  v-for="(doc, idx) in invoiceDetails.documents"
+                  :key="idx"
+                  cols="12"
+                  sm="6"
+                >
+                  <v-card outlined class="pa-2 d-flex align-center justify-space-between grey lighten-5 rounded-lg">
+                    <div class="d-flex align-center overflow-hidden">
+                      <v-icon color="primary" class="mr-2" small>
+                        {{ getFileIcon(doc.name || doc.filename) }}
+                      </v-icon>
+                      <div class="d-flex flex-column text-left overflow-hidden">
+                        <a
+                          :href="getDocumentUrl(doc.filename)"
+                          target="_blank"
+                          class="text-caption font-weight-medium text-truncate primary--text text-decoration-none"
+                          :title="doc.name || doc.filename"
+                        >
+                          {{ doc.name || doc.filename }}
+                        </a>
+                        <span class="text-caption grey--text" v-if="doc.size">
+                          {{ formatFileSize(doc.size) }}
+                        </span>
+                      </div>
+                    </div>
+                    <a
+                      :href="getDocumentUrl(doc.filename)"
+                      target="_blank"
+                      download
+                      class="text-decoration-none"
+                      style="color: inherit;"
+                    >
+                      <v-icon small color="grey darken-1">mdi-download</v-icon>
+                    </a>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </div>
           </div>
         </v-card-text>
 
@@ -568,6 +611,26 @@ export default {
   },
 
   methods: {
+    getDocumentUrl(filename) {
+      const baseUrl = this.$axios.defaults.baseURL || ''
+      return `${baseUrl}/uploads/documents/${filename}`
+    },
+    getFileIcon(filename) {
+      if (!filename) return 'mdi-file-document-outline'
+      const ext = filename.split('.').pop().toLowerCase()
+      if (ext === 'pdf') return 'mdi-file-pdf-box'
+      if (['doc', 'docx'].includes(ext)) return 'mdi-file-word'
+      if (['xls', 'xlsx'].includes(ext)) return 'mdi-file-excel'
+      if (['png', 'jpg', 'jpeg'].includes(ext)) return 'mdi-file-image'
+      return 'mdi-file-document-outline'
+    },
+    formatFileSize(bytes) {
+      if (bytes === 0) return '0 Bytes'
+      const k = 1024
+      const sizes = ['Bytes', 'KB', 'MB', 'GB']
+      const i = Math.floor(Math.log(bytes) / Math.log(k))
+      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    },
     getCurrentMonthStart() {
       const now = new Date()
       const year = now.getFullYear()
@@ -735,17 +798,40 @@ export default {
           userId: this.user?.id,
         }
 
-        if (formData.id) {
-          await this.$axios.put(`/api/ap-invoices/${formData.id}`, {
-            ...formData,
-            ...auditContext,
+        const dataToSave = {
+          ...formData,
+          ...auditContext,
+        }
+
+        let payload = dataToSave
+        const newFiles = dataToSave.documents ? dataToSave.documents.filter(doc => doc instanceof File || (doc && doc.rawFile instanceof File)) : []
+
+        if (newFiles.length > 0) {
+          const formPayload = new FormData()
+          Object.keys(dataToSave).forEach(key => {
+            if (key === 'lineItems') {
+              formPayload.append(key, JSON.stringify(dataToSave[key]))
+            } else if (key === 'documents') {
+              const existingDocs = dataToSave.documents.filter(doc => !(doc instanceof File || (doc && doc.rawFile instanceof File)))
+              formPayload.append(key, JSON.stringify(existingDocs))
+            } else if (dataToSave[key] !== null && dataToSave[key] !== undefined) {
+                formPayload.append(key, dataToSave[key])
+              }
           })
+
+          newFiles.forEach(fileDoc => {
+            const rawFile = fileDoc instanceof File ? fileDoc : fileDoc.rawFile
+            formPayload.append('documents', rawFile)
+          })
+
+          payload = formPayload
+        }
+
+        if (formData.id) {
+          await this.$axios.put(`/api/ap-invoices/${formData.id}`, payload)
           this.$toast.success('ອັບເດດສຳເລັດ')
         } else {
-          await this.$axios.post('/api/ap-invoices', {
-            ...formData,
-            ...auditContext,
-          })
+          await this.$axios.post('/api/ap-invoices', payload)
           this.$toast.success('ສ້າງສຳເລັດ')
         }
 

@@ -10,6 +10,7 @@ const _98a37e8a = () => interopDefault(import('../pages/fashion/index.vue' /* we
 const _1447cf5c = () => interopDefault(import('../pages/home/index.vue' /* webpackChunkName: "pages/home/index" */))
 const _a8b5a7d6 = () => interopDefault(import('../pages/index.bk.vue' /* webpackChunkName: "pages/index.bk" */))
 const _6b23df6a = () => interopDefault(import('../pages/lion72/index.vue' /* webpackChunkName: "pages/lion72/index" */))
+const _ab0d816e = () => interopDefault(import('../pages/microfinance/index.vue' /* webpackChunkName: "pages/microfinance/index" */))
 const _35489732 = () => interopDefault(import('../pages/product/index.vue' /* webpackChunkName: "pages/product/index" */))
 const _6bd6cbe4 = () => interopDefault(import('../pages/product-details.vue' /* webpackChunkName: "pages/product-details" */))
 const _7ffb8697 = () => interopDefault(import('../pages/products/index.vue' /* webpackChunkName: "pages/products/index" */))
@@ -129,6 +130,12 @@ const _2e01612c = () => interopDefault(import('../pages/fashion/index copy.vue' 
 const _927d6c7a = () => interopDefault(import('../pages/fashion/product-category.vue' /* webpackChunkName: "pages/fashion/product-category" */))
 const _f5e1aa54 = () => interopDefault(import('../pages/fashion/product-detail.vue' /* webpackChunkName: "pages/fashion/product-detail" */))
 const _caaad3b2 = () => interopDefault(import('../pages/lion72/ticket/index.vue' /* webpackChunkName: "pages/lion72/ticket/index" */))
+const _4e432cfc = () => interopDefault(import('../pages/microfinance/accounts/index.vue' /* webpackChunkName: "pages/microfinance/accounts/index" */))
+const _c715e58c = () => interopDefault(import('../pages/microfinance/cif/index.vue' /* webpackChunkName: "pages/microfinance/cif/index" */))
+const _80192b5a = () => interopDefault(import('../pages/microfinance/collateral/index.vue' /* webpackChunkName: "pages/microfinance/collateral/index" */))
+const _003f9ccf = () => interopDefault(import('../pages/microfinance/collections/index.vue' /* webpackChunkName: "pages/microfinance/collections/index" */))
+const _6bdbfba0 = () => interopDefault(import('../pages/microfinance/groups/index.vue' /* webpackChunkName: "pages/microfinance/groups/index" */))
+const _e3b38d00 = () => interopDefault(import('../pages/microfinance/products/index.vue' /* webpackChunkName: "pages/microfinance/products/index" */))
 const _cdf0e3de = () => interopDefault(import('../pages/pos/lottery/index.vue' /* webpackChunkName: "pages/pos/lottery/index" */))
 const _33c53d8a = () => interopDefault(import('../pages/pos/minimart/index.vue' /* webpackChunkName: "pages/pos/minimart/index" */))
 const _2517700b = () => interopDefault(import('../pages/pos/restaurant/index.vue' /* webpackChunkName: "pages/pos/restaurant/index" */))
@@ -175,6 +182,7 @@ const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invo
 const _51ce0e42 = () => interopDefault(import('../pages/admin/accounting/ar/receive/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/receive/index" */))
 const _6bafd921 = () => interopDefault(import('../pages/admin/accounting/project/contracts.vue' /* webpackChunkName: "pages/admin/accounting/project/contracts" */))
 const _e9a44fd4 = () => interopDefault(import('../pages/admin/accounting/project/invoices.vue' /* webpackChunkName: "pages/admin/accounting/project/invoices" */))
+const _eefba0fc = () => interopDefault(import('../pages/admin/accounting/project/reports/index.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/index" */))
 const _3d7d43fa = () => interopDefault(import('../pages/admin/accounting/project/wa.vue' /* webpackChunkName: "pages/admin/accounting/project/wa" */))
 const _0d56c4e2 = () => interopDefault(import('../pages/admin/advertise/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/advertise/mixins/ImagePreviewMixin" */))
 const _290960d1 = () => interopDefault(import('../pages/admin/moneyAdvance/report/ministryReport.vue' /* webpackChunkName: "pages/admin/moneyAdvance/report/ministryReport" */))
@@ -189,6 +197,12 @@ const _4c95f309 = () => interopDefault(import('../pages/admin/report/MA/payment/
 const _2c804e9c = () => interopDefault(import('../pages/admin/report/MA/settlement/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/index" */))
 const _499294bc = () => interopDefault(import('../pages/admin/report/MA/targetAmount/index.vue' /* webpackChunkName: "pages/admin/report/MA/targetAmount/index" */))
 const _e23a245c = () => interopDefault(import('../pages/admin/web_product/mixins/ImagePreviewMixin.vue' /* webpackChunkName: "pages/admin/web_product/mixins/ImagePreviewMixin" */))
+const _585327be = () => interopDefault(import('../pages/admin/accounting/project/reports/advance-aging.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/advance-aging" */))
+const _b2551cd4 = () => interopDefault(import('../pages/admin/accounting/project/reports/budget-vs-actual.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/budget-vs-actual" */))
+const _df516f08 = () => interopDefault(import('../pages/admin/accounting/project/reports/fixed-assets.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/fixed-assets" */))
+const _2e2973af = () => interopDefault(import('../pages/admin/accounting/project/reports/receipts-payments.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/receipts-payments" */))
+const _3ac1f6b9 = () => interopDefault(import('../pages/admin/accounting/project/reports/soe.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/soe" */))
+const _773129c7 = () => interopDefault(import('../pages/admin/accounting/project/reports/wa-report.vue' /* webpackChunkName: "pages/admin/accounting/project/reports/wa-report" */))
 const _614d3d46 = () => interopDefault(import('../pages/admin/report/MA/mixin/excel.js' /* webpackChunkName: "pages/admin/report/MA/mixin/excel" */))
 const _0eb07144 = () => interopDefault(import('../pages/admin/report/MA/settlement/bankAccount/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/bankAccount/index" */))
 const _7e071c50 = () => interopDefault(import('../pages/admin/report/MA/settlement/chartAccount/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/chartAccount/index" */))
@@ -241,6 +255,10 @@ export const routerOptions = {
     path: "/lion72",
     component: _6b23df6a,
     name: "lion72"
+  }, {
+    path: "/microfinance",
+    component: _ab0d816e,
+    name: "microfinance"
   }, {
     path: "/product",
     component: _35489732,
@@ -718,6 +736,30 @@ export const routerOptions = {
     component: _caaad3b2,
     name: "lion72-ticket"
   }, {
+    path: "/microfinance/accounts",
+    component: _4e432cfc,
+    name: "microfinance-accounts"
+  }, {
+    path: "/microfinance/cif",
+    component: _c715e58c,
+    name: "microfinance-cif"
+  }, {
+    path: "/microfinance/collateral",
+    component: _80192b5a,
+    name: "microfinance-collateral"
+  }, {
+    path: "/microfinance/collections",
+    component: _003f9ccf,
+    name: "microfinance-collections"
+  }, {
+    path: "/microfinance/groups",
+    component: _6bdbfba0,
+    name: "microfinance-groups"
+  }, {
+    path: "/microfinance/products",
+    component: _e3b38d00,
+    name: "microfinance-products"
+  }, {
     path: "/pos/lottery",
     component: _cdf0e3de,
     name: "pos-lottery"
@@ -902,6 +944,10 @@ export const routerOptions = {
     component: _e9a44fd4,
     name: "admin-accounting-project-invoices"
   }, {
+    path: "/admin/accounting/project/reports",
+    component: _eefba0fc,
+    name: "admin-accounting-project-reports"
+  }, {
     path: "/admin/accounting/project/wa",
     component: _3d7d43fa,
     name: "admin-accounting-project-wa"
@@ -957,6 +1003,30 @@ export const routerOptions = {
     path: "/admin/web_product/mixins/ImagePreviewMixin",
     component: _e23a245c,
     name: "admin-web_product-mixins-ImagePreviewMixin"
+  }, {
+    path: "/admin/accounting/project/reports/advance-aging",
+    component: _585327be,
+    name: "admin-accounting-project-reports-advance-aging"
+  }, {
+    path: "/admin/accounting/project/reports/budget-vs-actual",
+    component: _b2551cd4,
+    name: "admin-accounting-project-reports-budget-vs-actual"
+  }, {
+    path: "/admin/accounting/project/reports/fixed-assets",
+    component: _df516f08,
+    name: "admin-accounting-project-reports-fixed-assets"
+  }, {
+    path: "/admin/accounting/project/reports/receipts-payments",
+    component: _2e2973af,
+    name: "admin-accounting-project-reports-receipts-payments"
+  }, {
+    path: "/admin/accounting/project/reports/soe",
+    component: _3ac1f6b9,
+    name: "admin-accounting-project-reports-soe"
+  }, {
+    path: "/admin/accounting/project/reports/wa-report",
+    component: _773129c7,
+    name: "admin-accounting-project-reports-wa-report"
   }, {
     path: "/admin/report/MA/mixin/excel",
     component: _614d3d46,

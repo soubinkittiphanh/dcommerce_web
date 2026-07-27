@@ -75,6 +75,15 @@
               <p><strong>Unauthorized Use:</strong> The User is responsible for verifying the identity of the cardholder. The Provider is not liable for unauthorized transactions made with a lost or stolen card.</p>
             </div>
           </div>
+
+          <div class="term-item mb-4">
+            <h4>5. Dynamic QR & Bank API Disclaimer</h4>
+            <div class="ml-4">
+              <p><strong>Integration & Connection:</strong> The Provider may integrate the POS/software services with bank APIs for dynamic QR code payment generation and transaction verification.</p>
+              <p><strong>Service Outages & Liability:</strong> Since these services depend on third-party networks, internet connectivity, and the bank's own API infrastructure, the Provider is not liable for payment processing delays, failed QR generation, timeout errors, or unsuccessful transactions due to the bank's API or server issues.</p>
+              <p><strong>Exclusion of Claims:</strong> The User (including Banks and partner Merchants) agrees not to submit complaints, claims, or disputes to the Provider, nor hold the Provider liable for financial loss, missed sales, or transaction discrepancies caused by bank API issues or downtime.</p>
+            </div>
+          </div>
         </div>
 
         <v-divider class="my-8"></v-divider>
@@ -120,6 +129,15 @@
               <p><strong>ກໍລະນີບັດເສຍ:</strong> ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ຍອດເງິນທີ່ເຫຼືອ ຫຼື ຂໍ້ມູນທີ່ສູນເສຍ ຍ້ອນບັດເສຍ, ຖືກລັກ ຫຼື ບັດຊຳລຸດ.</p>
               <p><strong>ການຮັກສາບັດ:</strong> ຜູ້ໃຊ້ບໍ່ຄວນຫັກງໍບັດ, ເຈາະຮູ ຫຼື ວາງບັດໄວ້ບ່ອນທີ່ມີຄວາມຮ້ອນສູງ/ແມ່ເຫຼັກ ເພາະອາດເຮັດໃຫ້ຊິບ (Chip) ພາຍໃນເສຍຫາຍ.</p>
               <p><strong>ການນຳໃຊ້ໂດຍບໍ່ໄດ້ຮັບອະນຸຍາດ:</strong> ຜູ້ໃຊ້ (ຮ້ານຄ້າ) ມີໜ້າທີ່ກວດສອບຕົວຕົນຂອງຜູ້ຖືບັດ. ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ທຸລະກຳທີ່ເກີດຂຶ້ນຈາກບັດທີ່ຖືກລັກ ຫຼື ນຳໃຊ້ໂດຍບຸກຄົນອື່ນ.</p>
+            </div>
+          </div>
+
+          <div class="term-item mb-4">
+            <h4>5. ຂໍ້ກຳນົດ ແລະ ຂໍ້ຈຳກັດຄວາມຮັບຜິດຊອບກ່ຽວກັບ API ຂອງທະນາຄານ (Dynamic QR)</h4>
+            <div class="ml-4">
+              <p><strong>ການເຊື່ອມຕໍ່ລະບົບ:</strong> ຜູ້ສະໜອງອາດຈະມີການເຊື່ອມຕໍ່ກັບ API ຂອງທະນາຄານ ເພື່ອສ້າງ Dynamic QR code ແລະ ກວດສອບທຸລະກຳການຊຳລະເງິນ.</p>
+              <p><strong>ຄວາມຮັບຜິດຊອບ ແລະ ລະບົບຂັດຂ້ອງ:</strong> ເນື່ອງຈາກການບໍລິການເຫຼົ່ານີ້ຂຶ້ນກັບເຄືອຂ່າຍພາຍນອກ ແລະ ໂຄງສ້າງລະບົບ API ຂອງທະນາຄານເອງ, ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ຄວາມຊັກຊ້າໃນການຊຳລະເງິນ, ຄວາມຫຼົ້ມເຫຼວໃນການສ້າງ QR code, ບັນຫາເຄືອຂ່າຍ (timeout) ຫຼື ທຸລະກຳທີ່ບໍ່ສຳເລັດ ທີ່ເກີດຈາກລະບົບ API ຫຼື Server ຂອງທະນາຄານຂັດຂ້ອງ.</p>
+              <p><strong>ການຍົກເວັ້ນການຮ້ອງຮຽນ:</strong> ຜູ້ໃຊ້ (ລວມທັງ ທະນາຄານ ແລະ ຮ້ານຄ້າຮ່ວມລາຍການ) ຕົກລົງທີ່ຈະບໍ່ຮ້ອງຮຽນ, ຟ້ອງຮ້ອງ ຫຼື ຂໍ້ຂັດແຍ່ງໃດໆ ມາຍັງຜູ້ສະໜອງ, ແລະ ຈະບໍ່ໃຫ້ຜູ້ສະໜອງຮັບຜິດຊອບຕໍ່ຄວາມເສຍຫາຍທາງການເງິນ, ການເສຍໂອກາດທາງການຄ້າ ຫຼື ຄວາມຜິດພາດຂອງທຸລະກຳ ທີ່ເກີດຈາກບັນຫາ API ຂອງທະນາຄານເອງ.</p>
             </div>
           </div>
         </div>

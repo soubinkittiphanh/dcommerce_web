@@ -492,11 +492,11 @@ export default {
         },
 
         selectedColor() {
-            return this.colorList.find(color => color.id === this.colorId)
+            return Array.isArray(this.colorList) ? this.colorList.find(color => color.id === this.colorId) : null
         },
 
         selectedSize() {
-            return this.sizeList.find(size => size.id === this.sizeId)
+            return Array.isArray(this.sizeList) ? this.sizeList.find(size => size.id === this.sizeId) : null
         },
 
         costPerUnit() {
@@ -644,7 +644,15 @@ export default {
             this.loadingColors = true
             try {
                 const res = await this.$axios.get(`api/color`)
-                this.colorList = res.data.data || res.data || []
+                let colors = []
+                if (res.data) {
+                    if (Array.isArray(res.data.data)) {
+                        colors = res.data.data
+                    } else if (Array.isArray(res.data)) {
+                        colors = res.data
+                    }
+                }
+                this.colorList = colors
                 console.log('Colors loaded:', this.colorList.length)
             } catch (error) {
                 console.error('Failed to load colors:', error)
@@ -658,7 +666,15 @@ export default {
             this.loadingSizes = true
             try {
                 const res = await this.$axios.get(`api/size`)
-                this.sizeList = res.data.data || res.data || []
+                let sizes = []
+                if (res.data) {
+                    if (Array.isArray(res.data.data)) {
+                        sizes = res.data.data
+                    } else if (Array.isArray(res.data)) {
+                        sizes = res.data
+                    }
+                }
+                this.sizeList = sizes
                 console.log('Sizes loaded:', this.sizeList.length)
             } catch (error) {
                 console.error('Failed to load sizes:', error)

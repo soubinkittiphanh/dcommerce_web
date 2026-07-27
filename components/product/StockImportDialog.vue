@@ -99,8 +99,25 @@
       </v-card-text>
 
       <v-card-actions class="pb-6 px-6">
-        <v-spacer />
-        <v-btn text class="rounded-lg font-weight-bold" @click="close">ຍົກເລີກ (Cancel)</v-btn>
+        <div v-if="loading && totalCount > 0" class="flex-grow-1 mr-4">
+          <div class="d-flex justify-space-between mb-1">
+            <span class="caption grey--text text--darken-1">
+              ກຳລັງນຳເຂົ້າ... (Importing...)
+            </span>
+            <span class="caption font-weight-bold orange--text text--darken-4">
+              {{ importedCount }} / {{ totalCount }} ({{ Math.round(importProgress) }}%)
+            </span>
+          </div>
+          <v-progress-linear
+            color="orange darken-3"
+            height="8"
+            reactive
+            rounded
+            :value="importProgress"
+          ></v-progress-linear>
+        </div>
+        <v-spacer v-else />
+        <v-btn text :disabled="loading" class="rounded-lg font-weight-bold" @click="close">ຍົກເລີກ (Cancel)</v-btn>
         <v-btn color="orange darken-3" class="white--text hover-scale rounded-lg font-weight-bold px-6" :disabled="!isValidToImport || loading" 
           :loading="loading" min-width="150" depressed @click="startImport">
           <v-icon left>mdi-check-all</v-icon>
@@ -130,6 +147,9 @@ export default {
       loading: false,
       downloading: false,
       productList: [],
+      importedCount: 0,
+      totalCount: 0,
+      totalChunks: 0,
       previewHeaders: [
         { text: 'ກວດສອບ', value: 'status_valid', width: '80', sortable: false, align: 'center' },
         { text: 'ລະຫັດລະບົບ (Internal ID)', value: 'productId', align: 'center', width: '120' },
@@ -162,6 +182,10 @@ export default {
     },
     isValidToImport() {
       return this.importData.length > 0 && this.invalidCount === 0 && (this.increaseCount > 0 || this.decreaseCount > 0)
+    },
+    importProgress() {
+      if (!this.totalCount) return 0
+      return (this.importedCount / this.totalCount) * 100
     }
   },
   watch: {
@@ -179,6 +203,9 @@ export default {
     reset() {
       this.excelFile = null
       this.importData = []
+      this.importedCount = 0
+      this.totalCount = 0
+      this.totalChunks = 0
     },
     formatNumber(val) {
       return getFormatNum(val)
@@ -437,25 +464,41 @@ export default {
             actualQty: item.actualQty
           }))
 
-        const payload = {
-          inputter: this.$auth.user.id,
-          locationId: this.locationId,
-          adjustments
+        const chunkSize = 200
+        this.totalCount = adjustments.length
+        this.importedCount = 0
+        this.totalChunks = Math.ceil(this.totalCount / chunkSize)
+
+        let succeededCount = 0
+        let lastMessage = ''
+
+        for (let i = 0; i < adjustments.length; i += chunkSize) {
+          const chunk = adjustments.slice(i, i + chunkSize)
+          const payload = {
+            inputter: this.$auth.user.id,
+            locationId: this.locationId,
+            adjustments: chunk
+          }
+          const response = await this.$axios.$post('/api/card/adjustStockBulk', payload)
+          if (response.success) {
+            succeededCount += chunk.length
+            this.importedCount = succeededCount
+            lastMessage = response.message
+          } else {
+            throw new Error(response.message || 'ປັບປຸງສະຕັອກບໍ່ສຳເລັດ (Failed to adjust stock for some products)')
+          }
         }
 
-        const response = await this.$axios.$post('/api/card/adjustStockBulk', payload)
-
-        if (response.success) {
-          this.$toast.success(response.message || `ປັບປຸງສະຕັອກສຳເລັດ ${adjustments.length} ລາຍການ`)
-          this.$emit('imported')
-          this.close()
-        } else {
-          this.$toast.error(response.message || 'ປັບປຸງສະຕັອກບໍ່ສຳເລັດ')
-        }
+        this.$toast.success(lastMessage || `ປັບປຸງສະຕັອກສຳເລັດ ${adjustments.length} ລາຍການ`)
+        this.$emit('imported')
+        this.close()
       } catch (error) {
         console.error('Import stock adjust error:', error)
         const errorMsg = error.response?.data?.message || error.message
-        this.$toast.error('ຜິດພາດ (Error): ' + errorMsg)
+        const partialSuccessMsg = this.importedCount > 0
+          ? ` (ນຳເຂົ້າສຳເລັດແລ້ວ ${this.importedCount} ລາຍການ)`
+          : ''
+        this.$toast.error('ຜິດພາດ (Error): ' + errorMsg + partialSuccessMsg)
       } finally {
         this.loading = false
       }

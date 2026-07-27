@@ -40,25 +40,49 @@
             <v-card flat class="transparent">
               <v-card-title class="px-0 pb-6 pt-0">
                 <v-row align="center">
-                  <v-col cols="12" sm="5">
+                  <v-col cols="12" sm="4">
                     <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Search products..." outlined
                       dense hide-details class="rounded-lg bg-white" />
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="auto">
-                    <div class="d-flex gap-2">
+                    <div class="d-flex align-center gap-2 flex-wrap">
                       <v-btn outlined color="success" class="rounded-lg" @click="exportToExcel">
                         <v-icon left small>mdi-microsoft-excel</v-icon>
                         Export
                       </v-btn>
-                      <v-btn outlined color="indigo" class="rounded-lg" @click="importDialog = true">
-                        <v-icon left small>mdi-file-upload</v-icon>
-                        Import Excel
-                      </v-btn>
-                      <v-btn outlined color="orange darken-2" class="rounded-lg" @click="stockImportDialog = true">
-                        <v-icon left small>mdi-clipboard-arrow-down</v-icon>
-                        Import Stock Adjust
-                      </v-btn>
+
+                      <!-- Import Actions Dropdown Menu -->
+                      <v-menu offset-y transition="slide-y-transition" rounded="lg">
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn outlined color="indigo" class="rounded-lg" v-bind="attrs" v-on="on">
+                            <v-icon left small>mdi-file-upload</v-icon>
+                            Imports
+                            <v-icon right small>mdi-chevron-down</v-icon>
+                          </v-btn>
+                        </template>
+                        <v-list dense class="py-2">
+                          <v-list-item @click="importDialog = true">
+                            <v-list-item-icon class="mr-2">
+                              <v-icon small color="indigo">mdi-file-upload</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Import Excel</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="priceImportDialog = true">
+                            <v-list-item-icon class="mr-2">
+                              <v-icon small color="purple">mdi-currency-usd</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Import Price Update</v-list-item-title>
+                          </v-list-item>
+                          <v-list-item @click="stockImportDialog = true">
+                            <v-list-item-icon class="mr-2">
+                              <v-icon small color="orange darken-2">mdi-clipboard-arrow-down</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-title>Import Stock Adjust</v-list-item-title>
+                          </v-list-item>
+                        </v-list>
+                      </v-menu>
+
                       <v-btn outlined color="primary" class="rounded-lg" @click="printBarcodeList">
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
@@ -67,7 +91,7 @@
                         <v-icon left small>mdi-refresh</v-icon>
                         Fix Stock
                       </v-btn>
-                      <v-checkbox v-model.number="showActive" label="ສະແດງລາຍການ inActive"></v-checkbox>
+                      <v-checkbox v-model.number="showActive" label="ສະແດງລາຍການຖືກປິດ" dense hide-details class="mt-0 pt-0 ml-2"></v-checkbox>
                     </div>
                   </v-col>
                 </v-row>
@@ -410,7 +434,8 @@
     </v-dialog>
 
     <!-- Import Dialog -->
-    <product-import-dialog v-model="importDialog" @imported="fetchData" />
+    <product-import-dialog v-model="importDialog" :products="loaddata" @imported="fetchData" />
+    <price-import-dialog v-model="priceImportDialog" :products="loaddata" @imported="fetchData" />
     <stock-import-dialog v-model="stockImportDialog" :location-id="currentSelectedLocation ? currentSelectedLocation.id : null" @imported="fetchData" />
 
     <!-- Dialog for Stock Details (Fullscreen) -->
@@ -592,6 +617,7 @@ import RecipeManagement from '~/components/pos/recipe'
 import StockDetails from '~/pages/admin/stock/_id/index.vue'
 import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
 import StockImportDialog from '~/components/product/StockImportDialog.vue'
+import PriceImportDialog from '~/components/product/PriceImportDialog.vue'
 
 export default {
   components: {
@@ -602,6 +628,7 @@ export default {
     StockDetails,
     ProductImportDialog,
     StockImportDialog,
+    PriceImportDialog,
   },
   middleware: 'auths',
 
@@ -711,6 +738,7 @@ export default {
       ],
       importDialog: false,
       stockImportDialog: false,
+      priceImportDialog: false,
     }
   },
 
@@ -1527,6 +1555,9 @@ export default {
               barCode: el.barCode,
               minStock: el.minStock,
               priceLists: el.priceLists,
+              receiveUnitId: el.receiveUnitId,
+              stockUnitId: el.stockUnitId,
+              baseUnitId: el.baseUnitId,
               actions: el.pro_id, // ✅ Unified actions
               status: el.pro_id,
               isActive: el.isActive,

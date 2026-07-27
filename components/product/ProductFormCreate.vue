@@ -527,7 +527,7 @@ export default {
     async fetchCategory() {
       this.isloading = true
       try {
-        const res = await this.$axios.get('category_f')
+        const res = await this.$axios.get('/category_f')
         // Filter only active categories and map the required fields
         this.category = res.data
           .filter((el) => el.isActive === true || el.isActive === 1)
@@ -550,7 +550,10 @@ export default {
     async fetchCompany() {
       this.isloading = true
       try {
-        const res = await this.$axios.get('api/company/find')
+        let res = await this.$axios.get('/api/company/find')
+        if (!res.data || !Array.isArray(res.data) || res.data.length === 0) {
+          res = await this.$axios.get('/api/company/findAll')
+        }
         this.companyList = res.data.map((el) => {
           return {
             id: el.id,

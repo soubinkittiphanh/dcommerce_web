@@ -389,7 +389,7 @@
     </v-navigation-drawer>
 
     <!-- ENHANCED Main Content -->
-    <v-main class="main-content" v-if="showProductList">
+    <v-main class="main-content" v-show="showProductList">
       <div class="main-content-wrapper">
         <v-container fluid class="pa-0 main-container">
           <!-- TODO: customer update screen seems there is a bug -->
