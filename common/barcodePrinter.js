@@ -1,4 +1,39 @@
-// ~/util/barcodePrinter.js
+import JsBarcode from 'jsbarcode'
+
+/**
+ * Parses barcode size string (e.g. '60x30' or '40x20')
+ * Returns width, height in mm and scale factor relative to 40x20
+ */
+export const parseBarcodeSize = (spfValue) => {
+  const defaultSize = { width: 40, height: 20, scale: 1 }
+  if (!spfValue) return defaultSize
+
+  // Clean value: remove all spaces, convert to lowercase
+  const cleanVal = String(spfValue).replace(/\s+/g, '').toLowerCase()
+  const parts = cleanVal.split(/[x*]/)
+  const width = parseFloat(parts[0]) || 40
+  const height = parseFloat(parts[1]) || 20
+  const scale = Math.min(width / 40, height / 20)
+
+  return { width, height, scale }
+}
+
+/**
+ * Generates base64 barcode image URL synchronously using canvas
+ */
+export const generateBarcodeDataUrl = (value, width = 40, height = 20) => {
+  const scale = Math.min(width / 40, height / 20)
+  const canvas = document.createElement('canvas')
+  JsBarcode(canvas, String(value), {
+    format: 'CODE128',
+    displayValue: true,
+    fontSize: Math.round(12 * scale),
+    width: scale >= 1.5 ? 2 : 1,
+    height: Math.round(13 * scale),
+    margin: 5
+  })
+  return canvas.toDataURL()
+}
 
 /**
  * Generates HTML for 2x2cm barcode
@@ -45,8 +80,6 @@ export const getBarcode2by2cmHtml = (formattedPrice, barcodeImage, currency = ''
 
 /**
  * Generates HTML for 3x2cm barcode
- * (Note: Your original code defined this but didn't use it in the print function, 
- * but I have included it here just in case)
  */
 export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage, currency = '') => {
   const priceDisplay = currency ? `${formattedPrice} ${currency}` : formattedPrice
@@ -93,72 +126,122 @@ export const getBarcode3by2cmHtml = (formattedPrice, barcodeImage, currency = ''
 }
 
 /**
- * Generates HTML for Normal barcode optimized for 20mm * 40mm
- * Fixed horizontal centering and minimized vertical gap.
+ * Generates HTML for a batch of barcodes (roll-printer friendly with page breaks)
  */
-export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '', currency = '') => {
-  const priceDisplay = currency ? `${formattedPrice} ${currency}` : formattedPrice
+export const getBarcodeBatchHtml = (items, sizeStr = '') => {
+  let spfValue = sizeStr
+  if (typeof window !== 'undefined' && window.$nuxt && window.$nuxt.$store) {
+    try {
+      const spfList = window.$nuxt.$store.getters.findSPF || []
+      console.log('[BarcodePrint] SPF List from Vuex:', JSON.stringify(spfList))
+      if (!spfValue) {
+        const found = spfList.find(
+          s =>
+            s.code &&
+            s.code.toUpperCase() === 'BARCODE.SIZE' &&
+            (s.isActive === true || s.isActive === 1 || String(s.isActive).toUpperCase() === 'Y')
+        )
+        console.log('[BarcodePrint] Found BARCODE.SIZE record:', JSON.stringify(found))
+        if (found && found.value) {
+          spfValue = found.value
+        }
+      }
+    } catch (e) {
+      console.error('[BarcodePrint] Error fetching BARCODE.SIZE from SPF:', e)
+    }
+  }
+
+  const { width, height, scale } = parseBarcodeSize(spfValue)
+  console.log('[BarcodePrint] Parsed dimensions:', { width, height, scale, finalSpfValue: spfValue })
+
+  const labelsHtml = items.map(item => {
+    const priceDisplay = item.currency ? `${item.formattedPrice} ${item.currency}` : item.formattedPrice
+    return `
+      <div class="label-page">
+        <div class="price">Price: ${priceDisplay}</div>
+        <div class="name">${item.name || ''}</div>
+        <img src="${item.barcodeImage}" class="barcode-img">
+      </div>
+    `
+  }).join('')
+
   return `
   <!DOCTYPE html>
-<html>
-<head>
-<style>
-  @font-face {
-    font-family: 'DM Sans';
-    src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-  }
+  <html>
+  <head>
+  <meta charset="utf-8">
+  <title>Barcode Print</title>
+  <style>
+    @font-face {
+      font-family: 'DM Sans';
+      src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+    }
 
-  @page {
-    size: 40mm 20mm;
-    margin: 0;
-  }
+    @page {
+      size: ${width}mm ${height}mm;
+      margin: 0;
+    }
 
-  body {
-    margin: 0;
-    width: 40mm;
-    height: 20mm;
-    font-family: 'DM Sans', sans-serif;
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: ${width}mm;
+      height: ${height}mm;
+      font-family: 'DM Sans', sans-serif;
+    }
 
-    display: flex;
-    justify-content: center;  /* horizontal center */
-    align-items: center;      /* vertical center */
-  }
+    .label-page {
+      width: ${width}mm;
+      height: ${height}mm;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      page-break-after: always;
+      break-after: page;
+      overflow: hidden;
+    }
 
-  .container {
-    width: 100%;
-    text-align: center;
-  }
+    .label-page:last-child {
+      page-break-after: avoid;
+      break-after: avoid;
+    }
 
-  .price {
-    font-size: 7pt;
-    font-weight: bold;
-    line-height: 1;
-    margin: 0;
-  }
+    .price {
+      font-size: ${7 * scale}pt;
+      font-weight: bold;
+      line-height: 1.1;
+      margin: 0;
+    }
 
-  .name {
-    font-size: 7pt;
-    line-height: 1;
-    margin: 0;
-  }
+    .name {
+      font-size: ${7 * scale}pt;
+      line-height: 1.1;
+      margin: 0;
+    }
 
-  .barcode-img {
-    width: 40mm;
-    height: 11mm;
-    display: block;
-    margin: 1px auto 0 auto; /* small gap from text */
-  }
-</style>
-</head>
-<body>
-  <div class="container">
-    <div class="price">Price: ${priceDisplay}</div>
-    <div class="name">${name}</div>
-    <img src="${barcodeImage}" class="barcode-img">
-  </div>
-</body>
-</html>
-        `
+    .barcode-img {
+      width: ${width}mm;
+      height: ${11 * scale}mm;
+      display: block;
+      margin: 1px auto 0 auto;
+    }
+  </style>
+  </head>
+  <body>
+    ${labelsHtml}
+  </body>
+  </html>
+  `
+}
+
+/**
+ * Generates HTML for Normal barcode optimized for dynamic sizes configured via SPF.
+ */
+export const getBarcodeNormalHtml = (formattedPrice, barcodeImage, name = '', currency = '') => {
+  return getBarcodeBatchHtml([{ formattedPrice, barcodeImage, name, currency }])
 }
 
 export const executePrintWindow = (htmlContent) => {

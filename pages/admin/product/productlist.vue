@@ -191,6 +191,13 @@
                         <v-list-item-title>Add Stock</v-list-item-title>
                       </v-list-item>
 
+                      <v-list-item @click="openStockAdjustDialog(item)">
+                        <v-list-item-icon class="mr-2">
+                          <v-icon small color="warning">mdi-scale-balance</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>Adjust Stock</v-list-item-title>
+                      </v-list-item>
+
                       <v-list-item @click="editStock(item)">
                         <v-list-item-icon class="mr-2">
                           <v-icon small color="info">mdi-eye-outline</v-icon>
@@ -417,6 +424,15 @@
         :product-name="selectedProductName" @close-dialog="isstock = false" @reload="rebuildStock"></card-form>
     </v-dialog>
 
+    <!-- Stock Adjustment Dialog -->
+    <stock-adjustment-dialog
+      :dialog.sync="stockAdjustDialog"
+      :selected-product="selectedProductForAdjust"
+      :saving="isSavingAdjust"
+      @save="saveStockAdjustment"
+      @close="closeStockAdjustDialog"
+    />
+
     <v-dialog v-model="editProductForm" fullscreen persistent scrollable transition="dialog-bottom-transition">
       <product-form :key="productFormKey" @close-dialog="editProductForm = false" :header-id="selectedProductId"
         @refresh="fetchData" :isEdit="editProductForm"></product-form>
@@ -618,6 +634,7 @@ import StockDetails from '~/pages/admin/stock/_id/index.vue'
 import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
 import StockImportDialog from '~/components/product/StockImportDialog.vue'
 import PriceImportDialog from '~/components/product/PriceImportDialog.vue'
+import StockAdjustmentDialog from '~/components/card/stockAdjustMent.vue'
 
 export default {
   components: {
@@ -629,6 +646,7 @@ export default {
     ProductImportDialog,
     StockImportDialog,
     PriceImportDialog,
+    StockAdjustmentDialog,
   },
   middleware: 'auths',
 
@@ -739,6 +757,9 @@ export default {
       importDialog: false,
       stockImportDialog: false,
       priceImportDialog: false,
+      stockAdjustDialog: false,
+      selectedProductForAdjust: null,
+      isSavingAdjust: false,
     }
   },
 
@@ -1621,6 +1642,48 @@ export default {
             swalError2(this.$swal, 'Error', error.response.data)
           })
         this.isloading = false
+      }
+    },
+
+    openStockAdjustDialog(item) {
+      this.selectedProductForAdjust = {
+        ...item,
+        stock_count: item.pro_card_count
+      }
+      this.stockAdjustDialog = true
+    },
+
+    closeStockAdjustDialog() {
+      this.stockAdjustDialog = false
+      this.selectedProductForAdjust = null
+    },
+
+    async saveStockAdjustment(data) {
+      this.isSavingAdjust = true
+      try {
+        const payload = {
+          inputter: this.$auth.user?.id || '',
+          locationId: this.currentSelectedLocation ? this.currentSelectedLocation.id : null,
+          adjustments: [
+            {
+              productId: data.productId,
+              actualQty: data.newQuantity
+            }
+          ]
+        }
+        const response = await this.$axios.post('/api/card/adjustStockBulk', payload)
+        if (response.data.success) {
+          swalSuccess(this.$swal, 'Succeed', `Stock adjusted successfully for ${this.selectedProductForAdjust.pro_name}`)
+          await this.fetchData()
+          this.closeStockAdjustDialog()
+        } else {
+          throw new Error(response.data.message || 'Failed to adjust stock')
+        }
+      } catch (error) {
+        const msg = error.response?.data?.message || error.message || 'Error adjusting stock'
+        swalError2(this.$swal, 'Error', msg)
+      } finally {
+        this.isSavingAdjust = false
       }
     },
 

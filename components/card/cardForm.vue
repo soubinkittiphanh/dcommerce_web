@@ -311,6 +311,35 @@
                                         </v-row>
                                     </v-alert>
 
+                                    <!-- Cost Warning Alert -->
+                                    <v-alert 
+                                        v-if="isCostHigherThanSale" 
+                                        color="warning" 
+                                        dense 
+                                        outlined 
+                                        class="mt-2"
+                                        icon="mdi-alert"
+                                    >
+                                        <v-row align="center">
+                                            <v-col>
+                                                <div class="font-weight-bold">
+                                                    Warning: Cost price is higher than sale price!
+                                                </div>
+                                                <div class="caption mt-1">
+                                                    Cost per unit: {{ formatPrice(costPerUnit) }} {{ selectedCurrencyCode }}
+                                                    <span v-if="currencyExchangeRate !== 1">
+                                                        (≈ {{ formatPrice(costPerUnit * currencyExchangeRate) }} Base)
+                                                    </span>
+                                                    <br>
+                                                    Sale price: {{ formatPrice(salePrice) }} {{ saleCurrencyCode }}
+                                                    <span v-if="saleCurrencyRate !== 1">
+                                                        (≈ {{ formatPrice(salePrice * saleCurrencyRate) }} Base)
+                                                    </span>
+                                                </div>
+                                            </v-col>
+                                        </v-row>
+                                    </v-alert>
+
                                     <!-- Stock Info Summary -->
                                     <v-alert 
                                         v-if="lotNumber || serialNo || expiryDate || colorId || sizeId" 
@@ -409,8 +438,8 @@
 </template>
 
 <script>
-import { swalSuccess, swalError2 } from '~/common/index'
 import { mapGetters } from 'vuex'
+import { swalSuccess, swalError2 } from '~/common/index'
 
 export default {
     props: {
@@ -420,7 +449,7 @@ export default {
         },
         productId: {
             type: Number,
-            default: '',
+            default: 0,
         },
         productName: {
             type: String,
@@ -456,6 +485,7 @@ export default {
             sizeList: [],
             loadingColors: false,
             loadingSizes: false,
+            product: null,
         }
     },
     computed: {
@@ -482,12 +512,12 @@ export default {
         },
         
         currencyExchangeRate() {
-            const currency = this.findAllCurrency.find(el => el.id == this.currencyId)
+            const currency = this.findAllCurrency.find(el => el.id === this.currencyId)
             return currency ? currency.rate : 1
         },
 
         selectedCurrencyCode() {
-            const currency = this.findAllCurrency.find(el => el.id == this.currencyId)
+            const currency = this.findAllCurrency.find(el => el.id === this.currencyId)
             return currency ? currency.code : ''
         },
 
@@ -559,6 +589,35 @@ export default {
             } else {
                 return { color: 'success', message: `Expires in ${diffDays} days` }
             }
+        },
+
+        salePrice() {
+            return this.product ? parseFloat(this.product.pro_price) || 0 : 0
+        },
+
+        saleCurrencyCode() {
+            if (!this.product) return ''
+            const currency = this.findAllCurrency.find(el => el.id === this.product.saleCurrencyId)
+            return currency ? currency.code : ''
+        },
+
+        saleCurrencyRate() {
+            if (!this.product) return 1
+            const currency = this.findAllCurrency.find(el => el.id === this.product.saleCurrencyId)
+            return currency ? currency.rate : 1
+        },
+
+        isCostHigherThanSale() {
+            if (!this.product || !this.costInput || !this.stockQty) return false
+            
+            // Convert cost per unit to base currency
+            const costInBase = this.costPerUnit * this.currencyExchangeRate
+            
+            // Convert sale price to base currency
+            const saleInBase = this.salePrice * this.saleCurrencyRate
+            
+            // Compare
+            return costInBase > saleInBase
         }
     },
     
@@ -579,9 +638,9 @@ export default {
     
     created() {
         console.log(`Location in terminal ${this.findSelectedTerminal}`)
-        const terminal = this.findAllTerminal.find(el => el['id'] == this.findSelectedTerminal)
+        const terminal = this.findAllTerminal.find(el => el.id === this.findSelectedTerminal)
         if (terminal) {
-            this.srcLocationId = terminal['locationId']
+            this.srcLocationId = terminal.locationId
         }
 
         this.loadLocation()
@@ -688,6 +747,7 @@ export default {
             this.isSubmitting = true
             try {
                 const res = await this.$axios.get(`api/product/find/${this.id}`)
+                this.product = res.data
                 if (res.data.costCurrency) {
                     console.log(`Cost info available`)
                     this.currencyId = res.data.costCurrency.id
@@ -705,6 +765,26 @@ export default {
                 // Validate expiry date
                 this.validateExpiryDate()
                 
+                if (this.isCostHigherThanSale) {
+                    const confirm = await this.$swal.fire({
+                        title: 'Are you sure?',
+                        text: `The cost price per unit (${this.formatPrice(this.costPerUnit)} ${this.selectedCurrencyCode}) is higher than the sale price (${this.formatPrice(this.salePrice)} ${this.saleCurrencyCode}). Do you want to proceed?`,
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#fb8c00',
+                        cancelButtonColor: '#757575',
+                        confirmButtonText: 'Yes, proceed',
+                        cancelButtonText: 'Cancel',
+                        customClass: {
+                            popup: 'rounded-xl border'
+                        }
+                    })
+                    
+                    if (!confirm.isConfirmed) {
+                        return
+                    }
+                }
+
                 this.isSubmitting = true
                 
                 const stockData = {

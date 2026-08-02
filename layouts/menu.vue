@@ -1,50 +1,31 @@
 <template>
   <v-app light>
-    <v-main class="menu-layout">
-      <!-- Top Navigation Bar -->
-      <div class="top-nav">
-        <div class="nav-content">
-          <div class="logo-section">
-            <span class="logo-icon">🍽️</span>
-            <span class="restaurant-name">{{ restaurantName }}</span>
-          </div>
-          <div class="nav-actions">
-            <button class="nav-btn" @click="scrollToTop">
-              <span>⬆️</span>
-            </button>
-            <button class="nav-btn cart-btn" @click="openCart" v-if="cartItemCount > 0">
-              <span>🛒</span>
-              <span class="cart-badge">{{ cartItemCount }}</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
+    <v-main class="menu-layout" :style="themeStyles">
       <!-- Main Content -->
-      <v-container fluid class="menu-content">
+      <div class="menu-content">
         <Nuxt />
-      </v-container>
+      </div>
 
       <!-- Bottom Navigation -->
       <div class="bottom-nav">
         <button class="bottom-nav-btn" @click="goToHome">
-          <span class="nav-icon">🏠</span>
+          <span class="nav-icon"><i class="mdi mdi-storefront-outline"></i></span>
           <span class="nav-label">Home</span>
         </button>
         <button class="bottom-nav-btn" @click="goToMenu">
-          <span class="nav-icon">📋</span>
+          <span class="nav-icon"><i class="mdi mdi-silverware-fork-knife"></i></span>
           <span class="nav-label">Menu</span>
         </button>
-        <button class="bottom-nav-btn fab-btn" @click="callWaiter">
-          <span class="nav-icon">🔔</span>
+        <button class="bottom-nav-btn fab-btn" @click="callWaiter" title="Call Waiter">
+          <span class="nav-icon"><i class="mdi mdi-bell-ring-outline"></i></span>
         </button>
-        <button class="bottom-nav-btn" @click="goToOrders">
-          <span class="nav-icon">📦</span>
-          <span class="nav-label">Orders</span>
+        <button class="bottom-nav-btn" @click="goToCart">
+          <span class="nav-icon"><i class="mdi mdi-shopping-outline"></i></span>
+          <span class="nav-label">Cart</span>
         </button>
-        <button class="bottom-nav-btn" @click="goToProfile">
-          <span class="nav-icon">👤</span>
-          <span class="nav-label">Profile</span>
+        <button class="bottom-nav-btn" @click="goToInfo">
+          <span class="nav-icon"><i class="mdi mdi-receipt-text-outline"></i></span>
+          <span class="nav-label">Bill</span>
         </button>
       </div>
     </v-main>
@@ -56,33 +37,75 @@ export default {
   name: 'MenuLayout',
   data() {
     return {
-      restaurantName: 'Your Restaurant',
+      restaurantName: 'Cafe & Restaurant',
       cartItemCount: 0,
+    }
+  },
+  computed: {
+    themeStyles() {
+      const primary = this.$vuetify?.theme?.themes?.light?.primary || 
+                      this.$store?.state?.theme?.primary_color || 
+                      '#01532B'
+      const secondary = this.$vuetify?.theme?.themes?.light?.secondary || 
+                        this.$store?.state?.theme?.secondary_color || 
+                        '#337555'
+      return {
+        '--primary-color': primary,
+        '--secondary-color': secondary
+      }
     }
   },
   methods: {
     scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' })
     },
-    openCart() {
-      // Navigate to cart page or open cart modal
-      this.$router.push('/cart')
+    getCurrentTableNumber() {
+      if (this.$route.query.table) return this.$route.query.table
+      const local = typeof window !== 'undefined' ? localStorage.getItem('dc_current_table') : null
+      return local || '01'
     },
     goToHome() {
-      this.$router.push('/')
+      if (typeof window !== 'undefined') {
+        const table = this.getCurrentTableNumber()
+        if (this.$route.path.includes('/e-menu')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        } else {
+          window.location.hash = `#/e-menu?table=${encodeURIComponent(table)}`
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      }
     },
     goToMenu() {
-      this.$router.push('/menu')
+      if (typeof window !== 'undefined') {
+        const table = this.getCurrentTableNumber()
+        if (this.$route.path.includes('/e-menu')) {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        } else {
+          window.location.hash = `#/e-menu?table=${encodeURIComponent(table)}`
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }
+      }
+    },
+    openCart() {
+      if (this.$nuxt) {
+        this.$nuxt.$emit('open-cart')
+      }
     },
     callWaiter() {
-      // Your call waiter logic
+      if (this.$nuxt) {
+        this.$nuxt.$emit('call-waiter')
+      }
       this.$emit('call-waiter')
     },
-    goToOrders() {
-      this.$router.push('/orders')
+    goToCart() {
+      if (this.$nuxt) {
+        this.$nuxt.$emit('open-cart')
+      }
     },
-    goToProfile() {
-      this.$router.push('/profile')
+    goToInfo() {
+      if (this.$nuxt) {
+        this.$nuxt.$emit('open-info')
+      }
     }
   }
 }
@@ -284,11 +307,11 @@ export default {
 .fab-btn {
   position: relative;
   top: -20px;
-  background: linear-gradient(135deg, #10b981, #059669);
+  background: linear-gradient(135deg, var(--primary-color, #01532B), var(--secondary-color, #337555));
   border-radius: 50%;
   width: 60px;
   height: 60px;
-  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
   flex: initial;
   max-width: none;
 }

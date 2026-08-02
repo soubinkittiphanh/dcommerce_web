@@ -309,43 +309,43 @@ export default {
     confirmCallWaiter() {
       if (!this.selectedTable) return;
       
-      const table = this.tables.find(t => t.number === this.selectedTable);
+      const table = this.tables.find(t => t.number === this.selectedTable) || { name: this.selectedTable, zone: 'Main' };
       const productName = this.selectedProduct ? this.selectedProduct.pro_name : '';
+      const tableName = table.name || this.selectedTable;
       
       this.isCallingWaiter = true;
       this.waiterCallCount++;
       this.showTableDialog = false;
       
-      // Show notification with table info
-      let message = `🔔 Waiter called to ${table.name} (${table.zone})!`;
+      let message = `🔔 Waiter called to ${tableName}!`;
       if (productName) {
         message += ` For "${productName}".`;
       }
       
       this.showNotification(message, 'success');
       
-      // Simulate waiter response time
+      const payload = {
+        table: tableName,
+        product: productName,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        timestamp: new Date().toISOString()
+      };
+
+      const existingCalls = JSON.parse(localStorage.getItem('dc_waiter_calls') || '[]');
+      if (!existingCalls.some(c => c.table === tableName)) {
+        existingCalls.push(payload);
+        localStorage.setItem('dc_waiter_calls', JSON.stringify(existingCalls));
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('storage'));
+        }
+      }
+
       setTimeout(() => {
         this.isCallingWaiter = false;
-        this.showNotification(`👨‍🍳 Waiter is heading to ${table.name}!`, 'info');
-      }, 3000);
+      }, 10000);
       
-      // Reset selections
       this.selectedTable = '';
       this.selectedProduct = null;
-      
-      // Here you would make an API call to notify the restaurant system
-      // await this.$axios.post('/call-waiter', { 
-      //   tableNumber: this.selectedTable,
-      //   productId: this.selectedProduct?.productId,
-      //   timestamp: new Date().toISOString()
-      // });
-      
-      console.log('Waiter called:', {
-        table: table,
-        product: this.selectedProduct,
-        timestamp: new Date().toISOString()
-      });
     },
     showNotification(message, type = 'info') {
       // Create a simple notification system

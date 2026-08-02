@@ -406,30 +406,33 @@
         <div class="customer-bar pa-4">
           <v-row align="center" no-gutters class="ga-2">
             <v-col>
-              <v-card color="success" outlined @click="openCustomerDialog" class="customer-chip elevation-2" hover>
-                <v-card-text class="pa-3">
-                  <v-row align="center" no-gutters>
-                    <v-col cols="auto" class="mr-3">
-                      <v-icon color="success" size="20">mdi-account-circle</v-icon>
-                    </v-col>
-                    <v-col>
-                      <div class="font-weight-bold text-truncate">
-                        {{ customerDisplayName }}
-                      </div>
-                      <div v-if="currenctCustomer && currenctCustomer.loyaltyPoints !== undefined" class="text-caption">
-                        Points: {{ currenctCustomer.loyaltyPoints }}
-                      </div>
-                    </v-col>
-                    <v-col cols="auto">
-                      <v-icon color="success" small>mdi-pencil</v-icon>
-                    </v-col>
-                  </v-row>
-                </v-card-text>
+              <v-card
+                flat
+                outlined
+                color="success lighten-5"
+                @click="openCustomerDialog"
+                class="customer-pill d-flex align-center px-3 rounded-pill success--text"
+                style="cursor: pointer; height: 38px; border-color: currentColor !important;"
+              >
+                <v-icon color="success" size="18" class="mr-2">mdi-account-circle</v-icon>
+                <div class="d-flex flex-column text-truncate" style="line-height: 1.1;">
+                  <span class="font-weight-bold text-caption text-truncate" style="max-width: 120px;">
+                    {{ customerDisplayName }}
+                  </span>
+                  <span v-if="currenctCustomer && currenctCustomer.loyaltyPoints !== undefined" class="text-caption font-weight-medium" style="font-size: 10px !important; opacity: 0.85;">
+                    {{ currenctCustomer.loyaltyPoints }} pts
+                  </span>
+                </div>
+                <v-icon color="success" x-small class="ml-auto pl-1">mdi-pencil</v-icon>
               </v-card>
             </v-col>
 
             <v-col cols="auto">
               <div class="d-flex ga-2">
+                <v-btn v-if="isDynamicQREnabled" icon color="warning" @click="sendQRToCustomerScreen(true)" title="ສ້າງ QR ຮັບເງິນ" class="action-btn">
+                  <v-icon>mdi-qrcode</v-icon>
+                </v-btn>
+
                 <v-btn icon color="primary" @click="openDeliveryBox" title="ຈັດສົ່ງ" class="action-btn">
                   <v-icon>mdi-truck-delivery</v-icon>
                 </v-btn>
@@ -1616,7 +1619,7 @@ export default {
       }
     },
 
-    async sendQRToCustomerScreen() {
+    async sendQRToCustomerScreen(manualGenerate = false) {
       if (!this.productCart.length) {
         this.hideQRPaymentFromCustomerScreen()
         return
@@ -1630,47 +1633,66 @@ export default {
       let qrString = this.generateQRForCustomerScreen(totalWithTax)
       let dynamicQRData = this.currentDynamicQR
 
+      // If cart total changed from the generated dynamic QR, clear it
+      if (this.currentDynamicQR && this.lastQRTotal !== totalWithTax) {
+        this.stopDynamicQRPolling()
+        this.currentDynamicQR = null
+        dynamicQRData = null
+      }
+
        // Handle Dynamic QR if enabled
       if (this.isDynamicQREnabled) {
-        // ONLY GENERATE IF TOTAL CHANGED OR COOLDOWN EXPIRED OR NO QR YET
-        const shouldRegenerate = !this.currentDynamicQR || this.lastQRTotal !== totalWithTax
+        if (manualGenerate) {
+          if (!this.isGeneratingQR) {
+            this.isGeneratingQR = true
+            try {
+              const timestamp = Date.now()
+              const random = Math.floor(Math.random() * 1000)
+              const billNumber = `POS-${timestamp}-${random}`
 
-        if (shouldRegenerate && !this.isGeneratingQR) {
-          this.isGeneratingQR = true
-          try {
-            const timestamp = Date.now()
-            const random = Math.floor(Math.random() * 1000)
-            const billNumber = `POS-${timestamp}-${random}`
+              const response = await this.$axios.post(`api/qr/generate`, {
+                txnAmount: totalWithTax,
+                billNumber: billNumber,
+                purposeOfTxn: `POS Order ${this.currentTerminal?.name || ''}`,
+                bankCode: this.dynamicQRConfigs.bankCode,
+                memberId: this.dynamicQRConfigs.memberId,
+                merchantId: this.dynamicQRConfigs.merchantId,
+                password: this.dynamicQRConfigs.password,
+                callbackUrl: this.dynamicQRConfigs.callbackUrl,
+                storeLabel: this.currentTerminal?.name || 'POS',
+                terminalLabel: this.currentTerminal?.name || 'POS'
+              })
 
-            const response = await this.$axios.post(`api/qr/generate`, {
-              txnAmount: totalWithTax,
-              billNumber: billNumber,
-              purposeOfTxn: `POS Order ${this.currentTerminal?.name || ''}`,
-              bankCode: this.dynamicQRConfigs.bankCode,
-              memberId: this.dynamicQRConfigs.memberId,
-              merchantId: this.dynamicQRConfigs.merchantId,
-              password: this.dynamicQRConfigs.password,
-              callbackUrl: this.dynamicQRConfigs.callbackUrl,
-              storeLabel: this.currentTerminal?.name || 'POS',
-              terminalLabel: this.currentTerminal?.name || 'POS'
-            })
-
-            if (response.data.success) {
-              this.currentDynamicQR = response.data.data
-              this.lastQRTotal = totalWithTax
-              this.saleHeader.qrRequestId = response.data.data.requestId
-              qrString = response.data.data.qrString
-              dynamicQRData = response.data.data
-              this.startDynamicQRPolling(billNumber)
+              if (response.data.success) {
+                this.currentDynamicQR = response.data.data
+                this.lastQRTotal = totalWithTax
+                this.saleHeader.qrRequestId = response.data.data.requestId
+                qrString = response.data.data.qrString
+                dynamicQRData = response.data.data
+                this.startDynamicQRPolling(billNumber)
+                if (this.$toast) {
+                  this.$toast.success('ສ້າງ QR Code ສຳເລັດ', { duration: 2000 })
+                }
+              } else {
+                if (this.$toast) {
+                  this.$toast.error('ບໍ່ສາມາດສ້າງ QR Code: ' + (response.data.message || 'Error'), { duration: 3000 })
+                }
+              }
+            } catch (error) {
+              console.error('Failed to generate dynamic QR:', error)
+              if (this.$toast) {
+                this.$toast.error('Failed to generate dynamic QR: ' + error.message, { duration: 3000 })
+              }
+            } finally {
+              this.isGeneratingQR = false
             }
-          } catch (error) {
-            console.error('Failed to generate dynamic QR:', error)
-          } finally {
-            this.isGeneratingQR = false
           }
-        } else {
-          // Use cached values
+        } else if (this.currentDynamicQR) {
+          // Use cached values if they exist
           qrString = this.currentDynamicQR.qrString
+        } else {
+          // Dynamic QR is enabled but not generated yet, show empty/placeholder on customer display
+          qrString = ''
         }
       }
 

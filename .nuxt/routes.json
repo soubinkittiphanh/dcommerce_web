@@ -217,6 +217,13 @@
     "_name": "_79315f00"
   },
   {
+    "name": "admin-contracts",
+    "path": "/admin/contracts",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/contracts/index.vue",
+    "chunkName": "pages/admin/contracts/index",
+    "_name": "_28a942b8"
+  },
+  {
     "name": "admin-currency",
     "path": "/admin/currency",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/currency/index.vue",
@@ -719,6 +726,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/student/index.vue",
     "chunkName": "pages/admin/student/index",
     "_name": "_3fe900be"
+  },
+  {
+    "name": "admin-system-details",
+    "path": "/admin/system-details",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/system-details/index.vue",
+    "chunkName": "pages/admin/system-details/index",
+    "_name": "_208e9097"
   },
   {
     "name": "admin-tax",

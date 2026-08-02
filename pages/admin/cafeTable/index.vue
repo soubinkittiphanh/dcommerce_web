@@ -10,12 +10,24 @@
             Table Management
             <v-spacer></v-spacer>
 
-            <!-- ADD THIS BUTTON HERE -->
+            <!-- QR CODE SETUP BUTTON & ALERT BADGES -->
+            <v-btn color="teal darken-1" dark class="mr-3" @click="openQrSetupDialog" elevation="2">
+              <v-icon left>mdi-qrcode-scan</v-icon>
+              Table QR & Print
+            </v-btn>
+
             <v-btn color="accent" class="mr-3" @click="createTicketWithoutTable" elevation="2">
               <v-icon left>mdi-plus-circle</v-icon>
               Create Ticket (No Table)
             </v-btn>
-            <!-- END OF NEW BUTTON -->
+
+            <v-chip v-if="activeWaiterCalls.length > 0" color="red" text-color="white" class="mr-2 animate-pulse">
+              🔔 Waiter Calls: {{ activeWaiterCalls.length }}
+            </v-chip>
+            <v-chip v-if="activeDraftOrders.length > 0" color="amber darken-3" text-color="white" class="mr-2 animate-pulse">
+              📝 Draft Orders: {{ activeDraftOrders.length }}
+            </v-chip>
+
             <v-chip color="success" text-color="white" class="mr-2">
               <v-icon left small>mdi-check-circle</v-icon>
               ໂຕະວ່າງ: {{ availableTables }}
@@ -35,6 +47,21 @@
           </v-card-title>
         </v-card>
 
+        <!-- Active Waiter Call & Draft Order Banner Alerts -->
+        <v-alert v-if="activeWaiterCalls.length > 0" type="error" dismissible class="ma-2 mb-0">
+          <strong>🔔 Active Waiter Calls:</strong>
+          <span v-for="call in activeWaiterCalls" :key="call.table" class="ml-2 px-2 py-1 bg-rgba rounded">
+            {{ call.table }} ({{ call.time || 'Just now' }})
+          </span>
+        </v-alert>
+
+        <v-alert v-if="activeDraftOrders.length > 0" type="warning" dismissible class="ma-2 mb-0">
+          <strong>📝 Customer Draft Orders:</strong>
+          <span v-for="order in activeDraftOrders" :key="order.table" class="ml-2 px-2 py-1 bg-rgba rounded">
+            {{ order.table }} ({{ order.items ? order.items.length : 0 }} items)
+          </span>
+        </v-alert>
+
         <!-- Loading State -->
         <v-card v-if="loading" class="flex-grow-1 ma-0 rounded-0 d-flex align-center justify-center">
           <div class="text-center">
@@ -49,16 +76,33 @@
             <v-row v-if="tables.length > 0">
               <v-col v-for="table in tables" :key="table.id" cols="3" class="pa-2">
                 <v-card @click="selectTable(table)" :color="getTableColor(table.status)" :class="[
-                  'text-center pa-4 cursor-pointer table-card',
-                  selectedTable && selectedTable.id === table.id
-                    ? 'elevation-8'
-                    : 'elevation-2',
-                ]" height="150" hover>
-                  <v-card-title class="justify-center white--text  pa-2">
-                    {{ table.number }}
+                  'text-center pa-2 cursor-pointer table-card',
+                  selectedTable && selectedTable.id === table.id ? 'elevation-8' : 'elevation-2',
+                  hasWaiterCall(table.number || table.name) ? 'has-waiter-call' : '',
+                  hasDraftOrder(table.number || table.name) ? 'has-draft-order' : ''
+                ]" height="175" hover>
+                  <v-card-title class="justify-space-between white--text pa-2 text-subtitle-1">
+                    <span>{{ table.number }}</span>
+                    <v-icon x-small color="white" title="QR Code" @click.stop="showSingleTableQr(table)">mdi-qrcode</v-icon>
                   </v-card-title>
-                  <v-card-text class="pa-2 white--text">
-                    <div class="text-h6 font-weight-bold mb-1">
+                  <v-card-text class="pa-1 white--text">
+                    <!-- Waiter Call Alert Badge -->
+                    <div v-if="hasWaiterCall(table.number || table.name)" class="red darken-2 rounded py-1 my-1">
+                      <span class="bell-ring">🔔</span> Waiter Requested!
+                      <div>
+                        <v-btn x-small color="white" text @click.stop="dismissWaiterCall(table.number || table.name)">Clear</v-btn>
+                      </div>
+                    </div>
+
+                    <!-- Draft Order Alert Badge -->
+                    <div v-else-if="hasDraftOrder(table.number || table.name)" class="amber darken-3 rounded py-1 my-1">
+                      <span>📝 Draft Order!</span>
+                      <div>
+                        <v-btn x-small color="white" text @click.stop="openDraftOrderModal(table.number || table.name)">View</v-btn>
+                      </div>
+                    </div>
+
+                    <div v-else class="text-subtitle-2 font-weight-bold mb-1">
                       {{ getStatusText(table.status) }}
                     </div>
                     <div v-if="table.capacity" class="caption">
@@ -67,11 +111,7 @@
                     </div>
                     <div v-if="table.orderTotal" class="caption mt-1">
                       <v-icon small color="white">mdi-currency-usd</v-icon>
-                      ${{ table.orderTotal.toFixed(2) }}
-                    </div>
-                    <div v-if="table.timeOccupied" class="caption">
-                      <v-icon small color="white">mdi-clock-outline</v-icon>
-                      {{ formatTime(table.timeOccupied) }}
+                      ₭{{ formatPrice(table.orderTotal) }}
                     </div>
                   </v-card-text>
                 </v-card>
@@ -524,6 +564,91 @@
       </v-card>
     </v-dialog>
 
+    <!-- QR SETUP & GENERATOR DIALOG -->
+    <v-dialog v-model="qrSetupDialog" max-width="700">
+      <v-card>
+        <v-card-title class="headline primary white--text">
+          <v-icon left dark>mdi-qrcode</v-icon> Table QR Code Generator & Printer
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <v-row>
+            <v-col cols="12">
+              <v-text-field
+                v-model="baseUrl"
+                label="E-Menu Base URL (IP + Port)"
+                placeholder="http://192.168.1.5:3000/#/e-menu"
+                hint="Customers will scan QR codes pointing to this URL on their phones."
+                persistent-hint
+                outlined
+                dense
+                @input="generateQrCode"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-select
+                v-model="selectedQrTable"
+                :items="tables"
+                item-text="number"
+                item-value="number"
+                label="Select Table"
+                outlined
+                dense
+                @change="generateQrCode"
+              ></v-select>
+            </v-col>
+            <v-col cols="12" md="6" class="text-center">
+              <div v-if="qrDataUrl" class="qr-preview-box pa-2 border rounded">
+                <img :src="qrDataUrl" alt="Table QR Code" style="max-width: 160px;" />
+                <div class="font-weight-bold text-caption mt-1">Table: {{ selectedQrTable }}</div>
+                <div class="text-caption text-truncate grey--text">{{ getFullQrUrl(selectedQrTable) }}</div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-card-actions class="pa-4">
+          <v-btn color="grey" text @click="qrSetupDialog = false">Close</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="success" dark @click="printCurrentQr">
+            <v-icon left>mdi-printer</v-icon> Print QR Sticker
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- DRAFT ORDER DETAILS DIALOG -->
+    <v-dialog v-model="draftOrderDialog" max-width="600">
+      <v-card v-if="selectedDraftOrder">
+        <v-card-title class="amber darken-2 white--text">
+          📝 Customer Draft Order - {{ selectedDraftOrder.table }}
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <div class="text-subtitle-2 mb-2">Order Items:</div>
+          <v-list dense class="border rounded">
+            <v-list-item v-for="(item, idx) in selectedDraftOrder.items" :key="idx">
+              <v-list-item-content>
+                <v-list-item-title class="font-weight-bold">{{ item.pro_name }}</v-list-item-title>
+                <v-list-item-subtitle v-if="item.notes" class="orange--text">Note: {{ item.notes }}</v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action-text class="font-weight-bold">
+                x{{ item.quantity }} = ₭{{ ((item.pro_price || 0) * item.quantity).toLocaleString() }}
+              </v-list-item-action-text>
+            </v-list-item>
+          </v-list>
+          <div class="d-flex justify-space-between mt-3 font-weight-bold text-subtitle-1 pa-2 grey lighten-4 rounded">
+            <span>Total Estimated Amount:</span>
+            <span class="green--text text--darken-2">₭{{ calculateDraftTotal(selectedDraftOrder).toLocaleString() }}</span>
+          </div>
+        </v-card-text>
+        <v-card-actions class="pa-4">
+          <v-btn color="red" text @click="rejectDraftOrder(selectedDraftOrder.table)">Reject</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="success" dark @click="acceptDraftOrder(selectedDraftOrder)">
+            <v-icon left>mdi-check-circle</v-icon> Accept & Add to Table
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Snackbar for Messages -->
     <v-snackbar v-model="snackbar.show" :color="snackbar.color" :timeout="snackbar.timeout" location="top right"
       variant="elevated">
@@ -541,6 +666,7 @@
 </template>
 
 <script>
+import QRCode from 'qrcode'
 import PrintTicketDialog from '@/components/CAFE/printdialog'
 import UnifiedPaymentDialog from '@/components/CAFE/paymentDialogFront'
 
@@ -566,6 +692,17 @@ export default {
       splitItemsList: [],
       isSplitPayment: false,
 
+      // E-Menu & Call Waiter State
+      baseUrl: '',
+      qrSetupDialog: false,
+      selectedQrTable: 'TB 1',
+      qrDataUrl: '',
+      activeWaiterCalls: [],
+      activeDraftOrders: [],
+      draftOrderDialog: false,
+      selectedDraftOrder: null,
+      pollTimer: null,
+
       // Restaurant configuration
       restaurantConfig: {
         name: 'Your Restaurant Name',
@@ -582,7 +719,6 @@ export default {
       // Payment dialog data
       showPaymentDialog: false,
       paymentList: [],
-      // Removed selectedPaymentMethod since it's now handled in PaymentDialog component
       paymentLoading: false,
       paymentAmount: 0,
       snackbar: {
@@ -625,11 +761,346 @@ export default {
     user() {
       return this.$auth?.user || null
     },
+    currentLocationId() {
+      return this.$store?.state?.selectedLocation?.id || 
+             (this.$store?.state?.selectedTerminal && this.$store?.state?.terminalList?.find(t => t.id === this.$store?.state?.selectedTerminal)?.locationId) || 
+             1
+    },
   },
   mounted() {
     this.fetchTables()
+
+    if (typeof window !== 'undefined') {
+      this.baseUrl = window.location.origin + '/e-menu'
+      window.addEventListener('storage', this.handleStorageChange)
+    }
+
+    this.pollActiveRequests()
+    this.pollTimer = setInterval(this.pollActiveRequests, 4000)
+  },
+  beforeDestroy() {
+    if (this.pollTimer) clearInterval(this.pollTimer)
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('storage', this.handleStorageChange)
+    }
   },
   methods: {
+    calculateTicketTotals(lines) {
+      const totalAmount = (lines || []).reduce((sum, item) => {
+        const price = parseFloat(item.unitPrice || item.pro_price || 0)
+        const qty = parseInt(item.quantity || 1)
+        return sum + (price * qty)
+      }, 0)
+
+      const taxRate = 0.085
+      const tax = totalAmount - (totalAmount / (1 + taxRate))
+      const subtotal = totalAmount - tax
+
+      return {
+        subtotal: parseFloat(subtotal.toFixed(2)),
+        tax: parseFloat(tax.toFixed(2)),
+        total: parseFloat(totalAmount.toFixed(2)),
+        promotionDiscount: 0,
+        taxType: 'INC'
+      }
+    },
+
+    playAudioNotification() {
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext
+        if (!AudioCtx) return
+        const ctx = new AudioCtx()
+
+        const osc1 = ctx.createOscillator()
+        const gain1 = ctx.createGain()
+        osc1.type = 'sine'
+        osc1.frequency.setValueAtTime(880, ctx.currentTime)
+        gain1.gain.setValueAtTime(0.15, ctx.currentTime)
+        osc1.connect(gain1)
+        gain1.connect(ctx.destination)
+        osc1.start()
+        osc1.stop(ctx.currentTime + 0.15)
+
+        setTimeout(() => {
+          const osc2 = ctx.createOscillator()
+          const gain2 = ctx.createGain()
+          osc2.type = 'sine'
+          osc2.frequency.setValueAtTime(1200, ctx.currentTime)
+          gain2.gain.setValueAtTime(0.2, ctx.currentTime)
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start();
+          osc2.stop(ctx.currentTime + 0.25);
+        }, 150);
+      } catch (err) {
+        console.log('Audio playback prevented or unsupported:', err);
+      }
+    },
+
+    async pollActiveRequests() {
+      try {
+        const callsRes = await this.$axios.get('api/tables/waiter-calls')
+        const draftsRes = await this.$axios.get('api/order/draft/list')
+
+        const calls = callsRes.data || []
+        const draftOrders = draftsRes.data || []
+
+        const prevCallCount = this.activeWaiterCalls.length
+        const prevOrderCount = this.activeDraftOrders.length
+
+        this.activeWaiterCalls = calls
+        this.activeDraftOrders = draftOrders
+
+        if (calls.length > prevCallCount || draftOrders.length > prevOrderCount) {
+          this.playAudioNotification()
+        }
+      } catch (err) {
+        console.error('Error polling active requests:', err)
+      }
+    },
+
+    handleStorageChange(event) {
+      if (event.key === 'dc_waiter_calls' || event.key === 'dc_draft_orders') {
+        this.pollActiveRequests()
+      }
+    },
+
+    normalizeTable(name) {
+      if (!name) return ''
+      const str = String(name).trim()
+      const digits = str.replace(/\D/g, '')
+      if (digits) {
+        return digits.padStart(2, '0')
+      }
+      return str.toLowerCase()
+    },
+
+    hasWaiterCall(tableName) {
+      if (!tableName) return false
+      const normTarget = this.normalizeTable(tableName)
+      return this.activeWaiterCalls.some(c => this.normalizeTable(c.table) === normTarget || c.table === tableName)
+    },
+
+    hasDraftOrder(tableName) {
+      if (!tableName) return false
+      const normTarget = this.normalizeTable(tableName)
+      return this.activeDraftOrders.some(o => this.normalizeTable(o.table) === normTarget || o.table === tableName)
+    },
+
+    async dismissWaiterCall(tableName) {
+      try {
+        await this.$axios.post('api/tables/waiter-call/clear', { table: tableName })
+      } catch (err) {
+        console.error('Error clearing waiter call:', err)
+      }
+      this.pollActiveRequests()
+    },
+
+    openDraftOrderModal(tableName) {
+      const normTarget = this.normalizeTable(tableName)
+      this.selectedDraftOrder = this.activeDraftOrders.find(o => this.normalizeTable(o.table) === normTarget || o.table === tableName)
+      if (this.selectedDraftOrder) {
+        this.draftOrderDialog = true
+      }
+    },
+
+    calculateDraftTotal(order) {
+      if (!order || !order.items) return 0
+      return order.items.reduce((sum, i) => sum + ((i.pro_price || 0) * (i.quantity || 1)), 0)
+    },
+
+    async acceptDraftOrder(order) {
+      if (!order || !order.items || order.items.length === 0) return
+
+      try {
+        const normTarget = this.normalizeTable(order.table)
+        const targetTable = (this.tables || []).find(t => 
+          this.normalizeTable(t.number || t.name) === normTarget || 
+          String(t.number) === String(order.table) || 
+          String(t.name) === String(order.table)
+        )
+
+        const newLines = order.items.map(item => {
+          const unitPrice = parseFloat(item.pro_price || 0)
+          const qty = parseInt(item.quantity || 1)
+          return {
+            productId: item.productId || item.id,
+            quantity: qty,
+            unitPrice,
+            totalPrice: parseFloat((unitPrice * qty).toFixed(2)),
+            status: 'ordered',
+            notes: item.notes || ''
+          }
+        })
+
+        if (targetTable) {
+          // 1. Seat customer if table is currently available
+          if (targetTable.status === 'available') {
+            try {
+              await this.$axios.post(`api/tables/${targetTable.id}/seat-customer`, {
+                customerName: `E-Menu Table ${order.table}`,
+                partySize: 1
+              })
+              targetTable.status = 'occupied'
+            } catch (err) {}
+          }
+
+          // 2. Check for existing pending ticket on this table
+          let existingTicket = null
+          let existingLines = []
+          try {
+            const pendingRes = await this.$axios.get(`api/ticket/table/${targetTable.id}/pending`)
+            const pendingTickets = pendingRes.data || []
+            if (pendingTickets.length > 0) {
+              existingTicket = pendingTickets[0]
+              const linesRes = await this.$axios.get(`api/ticketLine/ticket/${existingTicket.id}`)
+              existingLines = linesRes.data?.data || linesRes.data || []
+            }
+          } catch (err) {}
+
+          if (existingTicket) {
+            // Combine existing ticket lines with new lines
+            const combinedLines = [
+              ...existingLines.map(l => ({
+                id: l.id,
+                productId: l.productId,
+                quantity: l.quantity,
+                unitPrice: parseFloat(l.unitPrice || l.price || 0),
+                totalPrice: parseFloat(l.totalPrice || (l.unitPrice * l.quantity) || 0),
+                status: l.status || 'ordered',
+                notes: l.notes || ''
+              })),
+              ...newLines
+            ]
+
+            const totals = this.calculateTicketTotals(combinedLines)
+            const updatePayload = {
+              tableId: targetTable.id,
+              clientId: existingTicket.clientId || null,
+              paymentId: existingTicket.paymentId || null,
+              status: 'pending',
+              paymentStatus: 'pending',
+              notes: existingTicket.notes || `Customer E-Menu Order (Table ${order.table})`,
+              ticketLines: combinedLines,
+              ...totals,
+              locationId: this.currentLocationId
+            }
+
+            await this.$axios.put(`api/ticket/${existingTicket.id}`, updatePayload)
+          } else {
+            // Create a new pending ticket
+            const totals = this.calculateTicketTotals(newLines)
+            const createPayload = {
+              tableId: targetTable.id,
+              clientId: null,
+              paymentId: null,
+              status: 'pending',
+              paymentStatus: 'pending',
+              notes: `Customer E-Menu Order (Table ${order.table})`,
+              ticketLines: newLines,
+              ...totals,
+              locationId: this.currentLocationId
+            }
+
+            await this.$axios.post('api/ticket/', createPayload)
+          }
+
+          // 3. Refresh tables and open POS table drawer
+          await this.fetchTables()
+          await this.selectTable(targetTable)
+        }
+
+        this.rejectDraftOrder(order.table)
+        this.draftOrderDialog = false
+
+        this.showMessage(`✅ Draft order accepted and created for Table ${order.table}!`, 'success', 'mdi-check-circle')
+      } catch (err) {
+        console.error('Error creating table order from draft:', err)
+        const errMsg = err.response?.data?.message || err.message || 'Failed to accept draft order'
+        this.showMessage(`❌ ${errMsg}`, 'error', 'mdi-alert')
+        this.draftOrderDialog = false
+      }
+    },
+
+    async rejectDraftOrder(tableName) {
+      try {
+        await this.$axios.post('api/order/draft/clear', { table: tableName })
+      } catch (err) {
+        console.error('Error clearing draft order:', err)
+      }
+      this.draftOrderDialog = false
+      this.pollActiveRequests()
+    },
+
+    openQrSetupDialog() {
+      this.qrSetupDialog = true
+      if (this.tables && this.tables.length > 0 && !this.selectedQrTable) {
+        this.selectedQrTable = this.tables[0].number || this.tables[0].name
+      }
+      this.generateQrCode()
+    },
+
+    showSingleTableQr(table) {
+      this.selectedQrTable = table.number || table.name
+      this.openQrSetupDialog()
+    },
+
+    getFullQrUrl(tableName) {
+      const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'http://192.168.1.5:3000'
+      const tableCode = this.normalizeTable(tableName) || '01'
+      return `${origin}/#/e-menu?table=${encodeURIComponent(tableCode)}`
+    },
+
+    async generateQrCode() {
+      try {
+        const targetUrl = this.getFullQrUrl(this.selectedQrTable)
+        this.qrDataUrl = await QRCode.toDataURL(targetUrl, {
+          width: 300,
+          margin: 2,
+          color: {
+            dark: '#01532B',
+            light: '#FFFFFF'
+          }
+        })
+      } catch (err) {
+        console.error('QR code generation failed:', err)
+      }
+    },
+
+    printCurrentQr() {
+      const printWindow = window.open('', '_blank')
+      const targetUrl = this.getFullQrUrl(this.selectedQrTable)
+      
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Table QR Code - ${this.selectedQrTable}</title>
+          <style>
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 40px; }
+            .qr-card { border: 3px solid #01532B; border-radius: 20px; padding: 30px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+            h1 { color: #01532B; margin-bottom: 5px; font-size: 28px; }
+            h2 { color: #333; margin-top: 0; font-size: 22px; }
+            img { margin: 20px 0; width: 220px; height: 220px; }
+            p { color: #666; font-size: 14px; margin-top: 10px; }
+          </style>
+        </head>
+        <body>
+          <div class="qr-card">
+            <h1>🍽️ SCAN TO VIEW MENU</h1>
+            <h2>Table: ${this.selectedQrTable}</h2>
+            <img src="${this.qrDataUrl}" alt="QR Code" />
+            <p>Scan with your mobile camera to see menu & call waiter</p>
+            <p style="font-size: 11px; color: #999;">${targetUrl}</p>
+          </div>
+          <script>
+            window.onload = function() { window.print(); window.close(); };
+          </${'script'}>
+        </body>
+        </html>
+      `)
+      printWindow.document.close()
+    },
     /**
      * Handle reload from POS - works for both table and no-table tickets
      */
@@ -689,6 +1160,11 @@ export default {
           paymentStatus: 'pending',
           notes: 'Walk-in customer - No table assigned',
           ticketLines: [],
+          subtotal: 0,
+          promotionDiscount: 0,
+          tax: 0,
+          total: 0,
+          locationId: this.currentLocationId,
         }
 
         const response = await this.$axios.post('api/ticket', ticketPayload)

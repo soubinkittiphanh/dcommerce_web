@@ -1583,7 +1583,7 @@
 {"level":"info","message":"Model name accountDailyBalance","timestamp":"2026-07-14T07:10:56.593Z"}
 {"level":"info","message":"Model name businessDate","timestamp":"2026-07-14T07:10:56.594Z"}
 {"level":"info","message":"Model name tuturial","timestamp":"2026-07-14T07:10:56.594Z"}
-{"level":"info","message":"Using callback URL for bankCode LVB: http://localhost:8921/api/qr/callback","timestamp":"2026-07-14T07:10:56.692Z"}
+{"level":"info","message":"Using callback URL for bankCode LVB: http://localhost:8030/api/qr/callback","timestamp":"2026-07-14T07:10:56.692Z"}
 {"level":"info","message":"tutorial_db Connection established","timestamp":"2026-07-14T07:10:56.941Z"}
 {"level":"info","message":"client_db Connection established","timestamp":"2026-07-14T07:10:56.972Z"}
 {"level":"info","message":"Loaded secure configuration for bank: LVB","timestamp":"2026-07-14T07:10:56.988Z"}

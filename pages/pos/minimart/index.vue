@@ -85,6 +85,10 @@ export default {
       pageLine: 30,
       search: '',
       productSelectedFromBarcode: null,
+      lastKeyTime: 0,
+      isScanning: false,
+      preScanTarget: null,
+      preScanValue: '',
 
       // Performance optimization properties
       debouncedKeyword: '',
@@ -397,6 +401,48 @@ export default {
     },
 
     handleKeyDown(event) {
+      // 1. Detect barcode scanning vs manual typing based on character frequency speed
+      const now = performance.now()
+      const diff = now - (this.lastKeyTime || 0)
+      this.lastKeyTime = now
+
+      // Most hardware scanners send keys in intervals of 2ms to 20ms.
+      // A threshold of 35ms is very safe to separate manual typing from scanner.
+      const isFast = diff < 35
+
+      const target = event.target
+      const isInputFocused = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')
+
+      if (isFast) {
+        this.isScanning = true
+      } else {
+        this.isScanning = false
+      }
+
+      if (this.isScanning) {
+        // Prevent typing into the focused input element
+        if (isInputFocused) {
+          event.preventDefault()
+          
+          // Revert the first character that might have been typed before we realized we are scanning
+          if (this.preScanTarget === target) {
+            target.value = this.preScanValue
+            const inputEvent = new Event('input', { bubbles: true })
+            target.dispatchEvent(inputEvent)
+            this.preScanTarget = null
+          }
+        }
+      } else if (isInputFocused) {
+        // Human typing or first character of scan sequence:
+        // Save the current input state BEFORE this key takes effect.
+        this.preScanTarget = target
+        this.preScanValue = target.value
+      } else {
+        this.preScanTarget = null
+        this.preScanValue = ''
+      }
+
+      // 2. Normal barcode scanner routing
       if (this.timer) {
         clearTimeout(this.timer)
       }
@@ -406,6 +452,8 @@ export default {
           this.findProductFromBarcode(this.barcode)
         }
         this.barcode = ''
+        this.isScanning = false
+        this.preScanTarget = null
         return
       }
 
@@ -415,7 +463,11 @@ export default {
       }
 
       // 100ms is a safe buffer for hardware scanners to send all characters
-      this.timer = setTimeout(() => (this.barcode = ''), 100)
+      this.timer = setTimeout(() => {
+        this.barcode = ''
+        this.isScanning = false
+        this.preScanTarget = null
+      }, 100)
     },
 
     async loadProduct() {

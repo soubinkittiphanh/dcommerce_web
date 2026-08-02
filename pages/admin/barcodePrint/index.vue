@@ -157,13 +157,13 @@
   </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 import ProductForm from '~/components/product/ProductForm.vue'
 import PriceListForm from '~/components/PriceListForm.vue'
-import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
-import { swalSuccess, swalError2 } from '~/util/myUtil'
-import { mapActions, mapGetters } from 'vuex'
-import JsBarcode from 'jsbarcode'
+import { getFormatNum } from '~/common'
+import { swalError2 } from '~/util/myUtil'
+import { getBarcodeBatchHtml, generateBarcodeDataUrl, parseBarcodeSize } from '~/common/barcodePrinter'
 export default {
   components: { ProductForm, ProductFormCreate, PriceListForm },
   middleware: 'auths',
@@ -288,115 +288,60 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters', 'findSPF', 'findAllCurrency']),
     barcodeNormal() {
-      let labelsHTML = ''
+      // Get SPF settings
+      let barcodeSize = '40x20'
+      const spfList = this.findSPF || []
+      const found = spfList.find(
+        (s) =>
+          s.code &&
+          s.code.toUpperCase() === 'BARCODE.SIZE' &&
+          (s.isActive === true || s.isActive === 1 || String(s.isActive).toUpperCase() === 'Y')
+      )
+      if (found && found.value) {
+        barcodeSize = found.value
+      }
+      
+      const { width, height } = parseBarcodeSize(barcodeSize)
 
+      // Get currency details
+      const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+      const currencyStr = defaultCcy ? defaultCcy.symbol || defaultCcy.code : 'LAK'
+
+      // Prepare label items list
+      const items = []
       for (const product of this.productSelectedList) {
+        const barcodeImage = generateBarcodeDataUrl(product.barCode, width, height)
+        const formattedPrice = this.formatNumber(product.pro_price)
+        
         for (let i = 0; i < product.printCount; i++) {
-          this.generateBarcode(product.barCode)
-          labelsHTML += `
-        <tr>
-                          <td style="width: 500px; height: 15px;font-size:8px;">
-                            ລາຄາ:${this.formatNumber(product.pro_price)}
-                            </br>
-                            <img src="${this.barcodeImage}">
-                          </td>               
-                        </tr>
-    `
+          items.push({
+            formattedPrice,
+            barcodeImage,
+            name: product.pro_name,
+            currency: currencyStr
+          })
         }
       }
 
-      const html = `
-    <!DOCTYPE html>
-    <html>
-    <head>
-      <title>Barcode Label</title>
-      <style>
-        @font-face {
-          font-family: 'DM Sans';
-          font-style: normal;
-          font-weight: 400;
-          font-display: swap;
-          src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
-        }
-        * {
-          font-family: 'DM Sans', sans-serif; /* Ensure fallback font is specified */
-        }
-      </style>
-    </head>
-    <body>
-
-      <div style="text-align: center;">
-                    <table style="width: 200px; text-align: center;" >
-                      ${labelsHTML}
-       
-                      </table>
-                </div>
-
-    </body>
-    </html>
-  `
-
-      return html
+      return getBarcodeBatchHtml(items, barcodeSize)
     },
     productSelectedList() {
-      return this.loaddata.filter((el) => el['isSelect'] == true) || []
+      return this.loaddata.filter((el) => el.isSelect === true) || []
     },
   },
   methods: {
     verifyStockStatus(minStock, CurStock) {
       let statusStock = ''
-      CurStock == 0
+      CurStock === 0
         ? (statusStock = 'Out of stock')
         : minStock < CurStock
         ? (statusStock = 'In stock')
         : (statusStock = 'Low stock')
       return statusStock
     },
-    generateBarcode(barcodeValue) {
-      // Generate a random 12-digit number as the barcode value
-      // const barcodeValue = Math.floor(Math.random() * 900000000000) + 1000000000
-      // Use jsbarcode library to generate the barcode SVG image
-      // Get the canvas element
-      let canvas = document.createElement('canvas')
-      // canvas.width = 20 // Approximation for 3cm at 96dpi
-      // canvas.height = 20 // Approximation for 2cm at 96dpi
-      JsBarcode(canvas, barcodeValue.toString(), {
-        format: 'code128',
-        displayValue: true,
-        fontSize: 10,
-        margin: 5,
-        // width: 30, // Match canvas width
-        // height: 20, // Match canvas height
-      })
-      // this.formData.barCode = barcodeValue.toString()
-      this.generateBarcodeImage(barcodeValue)
-    },
-    generateBarcodeImage(barcodeValue) {
-      // Get the canvas element using the ref attribute
-      if (!barcodeValue) return
-      let canvas = this.$refs.barcodeCanvas
-      console.log(`.....Canvas logger.....`)
-      console.log(canvas)
-      console.log(canvas.width, canvas.height)
-      // Set the canvas width and height to match the paper size
-      // canvas.width = 20
-      // canvas.height = 10
-      // Generate the barcode image using JsBarcode
-      JsBarcode(canvas, barcodeValue, {
-        format: 'code128',
-        displayValue: true,
-        fontSize: 12,
-        // margin: 10
-        width: 1, // Match canvas width
-        height: 13, // Match canvas height 35
-      })
-
-      // Convert the canvas to a data URL and set it as the barcodeImage data property
-      this.barcodeImage = canvas.toDataURL()
-      // this.printBarcode()
-    },
+    // Obsolete manual generateBarcode and generateBarcodeImage methods have been removed in favor of common/barcodePrinter helper.
     formatNumber(value) {
       return getFormatNum(value)
     },
@@ -405,7 +350,7 @@ export default {
       this.isloading = true
       // https://nodejsclusters-124154-0.cloudclusters.net/product_f
       await this.$axios
-        .get(`product_f/${this.currentSelectedLocation['id']}`)
+        .get(`product_f/${this.currentSelectedLocation.id}`)
         .then((res) => {
           this.loaddata = res.data.data.map((el) => {
             return {
@@ -482,10 +427,27 @@ export default {
           return
         }
 
+        // Get barcode size from SPF
+        let barcodeSize = '40x20'
+        const spfList = this.findSPF || []
+        const found = spfList.find(
+          (s) =>
+            s.code &&
+            s.code.toUpperCase() === 'BARCODE.SIZE' &&
+            (s.isActive === true || s.isActive === 1 || String(s.isActive).toUpperCase() === 'Y')
+        )
+        if (found && found.value) {
+          barcodeSize = found.value
+        }
+        const { width, height } = parseBarcodeSize(barcodeSize)
+        console.log('[BarcodePrint UI index.vue] printing barcode with width:', width, 'height:', height, 'spfValue:', barcodeSize)
+
         const payload = {
           html: windowContent,
-          printerName: printerName,
+          printerName,
           copies: 1, // Full HTML already contains all labels
+          width,
+          height,
         }
 
         window.posApi.printBarcode(payload)

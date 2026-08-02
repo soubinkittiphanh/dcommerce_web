@@ -12,13 +12,13 @@
 
       <v-toolbar flat dense color="grey lighten-4">
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="printTerms" :loading="printing">
+        <v-btn color="primary" :loading="printing" @click="printTerms">
           <v-icon left>mdi-printer</v-icon>
           ພິມ (Print / PDF)
         </v-btn>
       </v-toolbar>
 
-      <v-card-text class="pa-6 terms-content" id="printable-terms">
+      <v-card-text id="printable-terms" class="pa-6 terms-content">
         <div class="print-header-only mb-6">
           <div class="d-flex align-center justify-space-between mb-4">
             <div>
@@ -30,6 +30,30 @@
             </div>
           </div>
           <v-divider class="mb-4" style="border-width: 2px; border-color: #2196F3 !important"></v-divider>
+        </div>
+
+        <!-- Agreement Service Model Selection (Visible on both Screen and Print) -->
+        <div class="service-model-selection mb-6 pa-4 rounded-lg">
+          <div class="d-flex align-center justify-space-between flex-wrap">
+            <div class="selection-title-group mb-3 mb-sm-0">
+              <h3 class="subtitle-1 font-weight-bold primary--text mb-1">
+                ເລືອກຮູບແບບການບໍລິການ / Agreement Version
+              </h3>
+              <p class="text-caption grey--text text--darken-1 mb-0">
+                ກະລຸນາເລືອກຮູບແບບການບໍລິການທີ່ທ່ານຕົກລົງນຳໃຊ້ / Please select the service model you agree to use
+              </p>
+            </div>
+            <div class="d-flex align-center flex-wrap">
+              <div class="checkbox-item d-flex align-center mr-6" style="cursor: pointer;" @click="toggleVersion('online')">
+                <span class="custom-checkbox mr-2" :class="{ 'checked': isOnlineVersion }"></span>
+                <span class="font-weight-medium">Cloud-Based (Online) / ແບບລະບົບ Cloud</span>
+              </div>
+              <div class="checkbox-item d-flex align-center" style="cursor: pointer;" @click="toggleVersion('offline')">
+                <span class="custom-checkbox mr-2" :class="{ 'checked': isOfflineVersion }"></span>
+                <span class="font-weight-medium">Offline Version / ແບບລະບົບ Offline</span>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="terms-section mb-8">
@@ -82,6 +106,13 @@
               <p><strong>Integration & Connection:</strong> The Provider may integrate the POS/software services with bank APIs for dynamic QR code payment generation and transaction verification.</p>
               <p><strong>Service Outages & Liability:</strong> Since these services depend on third-party networks, internet connectivity, and the bank's own API infrastructure, the Provider is not liable for payment processing delays, failed QR generation, timeout errors, or unsuccessful transactions due to the bank's API or server issues.</p>
               <p><strong>Exclusion of Claims:</strong> The User (including Banks and partner Merchants) agrees not to submit complaints, claims, or disputes to the Provider, nor hold the Provider liable for financial loss, missed sales, or transaction discrepancies caused by bank API issues or downtime.</p>
+            </div>
+          </div>
+
+          <div class="term-item mb-4">
+            <h4>6. System Functionality & Customizations</h4>
+            <div class="ml-4">
+              <p>The User agrees that they have reviewed and accepted the standard system functionality details for MINIMART POS and RESTAURANT POS (available on the <nuxt-link to="/admin/system-details">System Functionality Details Page</nuxt-link>). Any additional requirements, customizations, or modifications requested by the User that fall outside these standard specifications may incur additional development, integration, or support charges.</p>
             </div>
           </div>
         </div>
@@ -140,6 +171,13 @@
               <p><strong>ການຍົກເວັ້ນການຮ້ອງຮຽນ:</strong> ຜູ້ໃຊ້ (ລວມທັງ ທະນາຄານ ແລະ ຮ້ານຄ້າຮ່ວມລາຍການ) ຕົກລົງທີ່ຈະບໍ່ຮ້ອງຮຽນ, ຟ້ອງຮ້ອງ ຫຼື ຂໍ້ຂັດແຍ່ງໃດໆ ມາຍັງຜູ້ສະໜອງ, ແລະ ຈະບໍ່ໃຫ້ຜູ້ສະໜອງຮັບຜິດຊອບຕໍ່ຄວາມເສຍຫາຍທາງການເງິນ, ການເສຍໂອກາດທາງການຄ້າ ຫຼື ຄວາມຜິດພາດຂອງທຸລະກຳ ທີ່ເກີດຈາກບັນຫາ API ຂອງທະນາຄານເອງ.</p>
             </div>
           </div>
+
+          <div class="term-item mb-4">
+            <h4>6. ການເຮັດວຽກຂອງລະບົບ ແລະ ການປັບແຕ່ງເພີ່ມເຕີມ</h4>
+            <div class="ml-4">
+              <p>ຜູ້ໃຊ້ງານຕົກລົງວ່າໄດ້ກວດກາ ແລະ ຍອມຮັບຄຸນສົມບັດການເຮັດວຽກມາດຕະຖານຂອງລະບົບ (System Functionality) ສໍາລັບ Minimart POS ແລະ Restaurant POS (ທີ່ລະບຸໄວ້ໃນ <nuxt-link to="/admin/system-details">ໜ້າລາຍລະອຽດການເຮັດວຽກຂອງລະບົບ</nuxt-link>) ແລ້ວ. ຫາກຜູ້ໃຊ້ງານມີຄວາມຕ້ອງການເພີ່ມເຕີມ, ດັດແກ້ ຫຼື ປັບແຕ່ງນອກເໜືອຈາກຄຸນສົມບັດມາດຕະຖານເຫຼົ່ານີ້, ຈະມີການຄິດໄລ່ຄ່າບໍລິການເພີ່ມເຕີມໃນການພັດທະນາ ຫຼື ການຕິດຕັ້ງ.</p>
+            </div>
+          </div>
         </div>
 
         <!-- Signatures and Stamps Section -->
@@ -179,6 +217,10 @@
       <v-card-actions class="pa-4">
         <v-spacer></v-spacer>
         <v-btn color="grey darken-1" text @click="close">ປິດ (Close)</v-btn>
+        <v-btn color="info" outlined to="/admin/system-details" @click="close">
+          <v-icon left>mdi-information-outline</v-icon>
+          ຄຸນສົມບັດລະບົບ (System Details)
+        </v-btn>
         <v-btn color="success" outlined to="/admin/tutorial" @click="close">
           <v-icon left>mdi-lifebuoy</v-icon>
           ສາທິດການນຳໃຊ້ (Tutorial)
@@ -207,6 +249,8 @@ export default {
   data() {
     return {
       printing: false,
+      isOnlineVersion: false,
+      isOfflineVersion: false,
     }
   },
   computed: {
@@ -242,6 +286,19 @@ export default {
   methods: {
     close() {
       this.visible = false
+    },
+    toggleVersion(type) {
+      if (type === 'online') {
+        this.isOnlineVersion = !this.isOnlineVersion
+        if (this.isOnlineVersion) {
+          this.isOfflineVersion = false
+        }
+      } else if (type === 'offline') {
+        this.isOfflineVersion = !this.isOfflineVersion
+        if (this.isOfflineVersion) {
+          this.isOnlineVersion = false
+        }
+      }
     },
     printTerms() {
       this.printing = true
@@ -317,6 +374,58 @@ export default {
                 @page {
                   margin: 2cm;
                 }
+                .service-model-selection {
+                  background-color: #f5f5f5;
+                  border: 1px solid #ddd;
+                  border-radius: 6px;
+                  padding: 12px;
+                  margin-bottom: 20px;
+                }
+                .selection-title-group h3 {
+                  margin: 0 0 4px 0;
+                  color: #1976D2;
+                  font-size: 16px;
+                }
+                .selection-title-group p {
+                  margin: 0;
+                  color: #666;
+                  font-size: 12px;
+                }
+                .custom-checkbox {
+                  display: inline-block;
+                  width: 18px;
+                  height: 18px;
+                  border: 2px solid #1976D2;
+                  border-radius: 3px;
+                  position: relative;
+                  background-color: white;
+                  vertical-align: middle;
+                }
+                .custom-checkbox.checked {
+                  background-color: #1976D2;
+                }
+                .custom-checkbox.checked::after {
+                  content: "";
+                  position: absolute;
+                  left: 5px;
+                  top: 1px;
+                  width: 4px;
+                  height: 8px;
+                  border: solid white;
+                  border-width: 0 2px 2px 0;
+                  transform: rotate(45deg);
+                }
+                .checkbox-item {
+                  display: inline-flex;
+                  align-items: center;
+                  cursor: pointer;
+                }
+                .checkbox-item span {
+                  font-size: 14px;
+                }
+                .mr-2 { margin-right: 8px; }
+                .mr-6 { margin-right: 24px; }
+                .mb-1 { margin-bottom: 4px; }
                 @media print {
                   body { padding: 0; }
                 }
@@ -404,5 +513,43 @@ export default {
   .print-header-only, .print-footer-only {
     display: block !important;
   }
+}
+
+.service-model-selection {
+  background-color: #E3F2FD;
+  border: 1px solid #90CAF9;
+  padding: 16px;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1976D2;
+  border-radius: 4px;
+  position: relative;
+  background-color: white;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+}
+
+.custom-checkbox.checked {
+  background-color: #1976D2;
+}
+
+.custom-checkbox.checked::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-item {
+  user-select: none;
 }
 </style>

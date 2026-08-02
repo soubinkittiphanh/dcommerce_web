@@ -35,6 +35,7 @@ const _da94a204 = () => interopDefault(import('../pages/admin/client/index.vue' 
 const _1c6f474a = () => interopDefault(import('../pages/admin/cod_order/index.vue' /* webpackChunkName: "pages/admin/cod_order/index" */))
 const _513ef434 = () => interopDefault(import('../pages/admin/color/index.vue' /* webpackChunkName: "pages/admin/color/index" */))
 const _79315f00 = () => interopDefault(import('../pages/admin/company/index.vue' /* webpackChunkName: "pages/admin/company/index" */))
+const _28a942b8 = () => interopDefault(import('../pages/admin/contracts/index.vue' /* webpackChunkName: "pages/admin/contracts/index" */))
 const _10ce75c4 = () => interopDefault(import('../pages/admin/currency/index.vue' /* webpackChunkName: "pages/admin/currency/index" */))
 const _f13f2d5e = () => interopDefault(import('../pages/admin/customer/index.vue' /* webpackChunkName: "pages/admin/customer/index" */))
 const _4dd908a1 = () => interopDefault(import('../pages/admin/customer_request/index.vue' /* webpackChunkName: "pages/admin/customer_request/index" */))
@@ -107,6 +108,7 @@ const _699b36bc = () => interopDefault(import('../pages/admin/shipping-order/ind
 const _beea3498 = () => interopDefault(import('../pages/admin/size/index.vue' /* webpackChunkName: "pages/admin/size/index" */))
 const _cc17c2a8 = () => interopDefault(import('../pages/admin/spf/index.vue' /* webpackChunkName: "pages/admin/spf/index" */))
 const _3fe900be = () => interopDefault(import('../pages/admin/student/index.vue' /* webpackChunkName: "pages/admin/student/index" */))
+const _208e9097 = () => interopDefault(import('../pages/admin/system-details/index.vue' /* webpackChunkName: "pages/admin/system-details/index" */))
 const _e5b9f3a4 = () => interopDefault(import('../pages/admin/tax/index.vue' /* webpackChunkName: "pages/admin/tax/index" */))
 const _3b0e4e6f = () => interopDefault(import('../pages/admin/terminal/index.vue' /* webpackChunkName: "pages/admin/terminal/index" */))
 const _f3186e02 = () => interopDefault(import('../pages/admin/ticket/index.vue' /* webpackChunkName: "pages/admin/ticket/index" */))
@@ -355,6 +357,10 @@ export const routerOptions = {
     path: "/admin/company",
     component: _79315f00,
     name: "admin-company"
+  }, {
+    path: "/admin/contracts",
+    component: _28a942b8,
+    name: "admin-contracts"
   }, {
     path: "/admin/currency",
     component: _10ce75c4,
@@ -643,6 +649,10 @@ export const routerOptions = {
     path: "/admin/student",
     component: _3fe900be,
     name: "admin-student"
+  }, {
+    path: "/admin/system-details",
+    component: _208e9097,
+    name: "admin-system-details"
   }, {
     path: "/admin/tax",
     component: _e5b9f3a4,

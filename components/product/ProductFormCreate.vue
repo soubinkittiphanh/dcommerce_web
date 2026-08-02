@@ -170,6 +170,7 @@ import {
   getBarcode2by2cmHtml,
   getBarcodeNormalHtml,
   executePrintWindow,
+  parseBarcodeSize,
 } from '~/common/barcodePrinter'
 
 // Utils definition (kept from your original code)
@@ -442,12 +443,25 @@ export default {
     generateBarcodeImage(barcode) {
       const canvas = this.$refs.barcodeCanvas
       if (canvas) {
+        let barcodeSize = '40x20'
+        const spfList = this.$store.getters.findSPF || []
+        const found = spfList.find(
+          (s) =>
+            s.code &&
+            s.code.toUpperCase() === 'BARCODE.SIZE' &&
+            (s.isActive === true || s.isActive === 1 || String(s.isActive).toUpperCase() === 'Y')
+        )
+        if (found && found.value) {
+          barcodeSize = found.value
+        }
+        const { scale } = parseBarcodeSize(barcodeSize)
+
         JsBarcode(canvas, barcode, {
           format: 'code128',
           displayValue: true,
-          fontSize: 12,
-          width: 1,
-          height: 13,
+          fontSize: Math.round(12 * scale),
+          width: scale >= 1.5 ? 2 : 1,
+          height: Math.round(13 * scale),
         })
         this.barcodeImage = canvas.toDataURL()
       }
@@ -484,7 +498,7 @@ export default {
 
       console.log('Final Printer Name string:', `"${printerName}"`)
 
-      const productCurrency = this.findAllCurrency?.find((c) => c.id == this.formData.saleCurrencyId)
+      const productCurrency = this.findAllCurrency?.find((c) => c.id === this.formData.saleCurrencyId)
       const localCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
       const selectedCcy = productCurrency || localCcy
       const currencyStr = selectedCcy ? selectedCcy.symbol || selectedCcy.code : 'LAK'
@@ -502,10 +516,27 @@ export default {
           return
         }
 
+        // Get barcode size from SPF
+        let barcodeSize = '40x20'
+        const spfList = this.$store.getters.findSPF || []
+        const found = spfList.find(
+          (s) =>
+            s.code &&
+            s.code.toUpperCase() === 'BARCODE.SIZE' &&
+            (s.isActive === true || s.isActive === 1 || String(s.isActive).toUpperCase() === 'Y')
+        )
+        if (found && found.value) {
+          barcodeSize = found.value
+        }
+        const { width, height } = parseBarcodeSize(barcodeSize)
+        console.log('[BarcodePrint UI ProductFormCreate] printing barcode with width:', width, 'height:', height, 'spfValue:', barcodeSize)
+
         const payload = {
           html: windowContent,
           printerName,
           copies: 1,
+          width,
+          height,
         }
 
         window.posApi.printBarcode(payload)

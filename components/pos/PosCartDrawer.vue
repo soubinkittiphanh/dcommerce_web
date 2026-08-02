@@ -15,32 +15,39 @@
         <v-row align="center" no-gutters class="ga-2">
           <v-col>
             <v-card
-              color="success"
+              flat
               outlined
+              color="success lighten-5"
               @click="$emit('open-customer-dialog')"
-              class="customer-chip elevation-2"
-              hover
+              class="customer-pill d-flex align-center px-3 rounded-pill success--text"
+              style="cursor: pointer; height: 38px; border-color: currentColor !important;"
             >
-              <v-card-text class="pa-3">
-                <v-row align="center" no-gutters>
-                  <v-col cols="auto" class="mr-3">
-                    <v-icon color="success" size="20">mdi-account-circle</v-icon>
-                  </v-col>
-                  <v-col>
-                    <div class="font-weight-bold text-truncate">
-                      {{ customerDisplayName }}
-                    </div>
-                  </v-col>
-                  <v-col cols="auto">
-                    <v-icon color="success" small>mdi-pencil</v-icon>
-                  </v-col>
-                </v-row>
-              </v-card-text>
+              <v-icon color="success" size="18" class="mr-2">mdi-account-circle</v-icon>
+              <div class="d-flex flex-column text-truncate" style="line-height: 1.1;">
+                <span class="font-weight-bold text-caption text-truncate" style="max-width: 120px;">
+                  {{ customerDisplayName }}
+                </span>
+                <span v-if="currentCustomer && currentCustomer.loyaltyPoints !== undefined" class="text-caption font-weight-medium" style="font-size: 10px !important; opacity: 0.85;">
+                  {{ currentCustomer.loyaltyPoints }} pts
+                </span>
+              </div>
+              <v-icon color="success" x-small class="ml-auto pl-1">mdi-pencil</v-icon>
             </v-card>
           </v-col>
 
           <v-col cols="auto">
             <div class="d-flex ga-2">
+              <v-btn
+                v-if="isDynamicQREnabled"
+                icon
+                color="warning"
+                @click="$emit('generate-dynamic-qr')"
+                title="ສ້າງ QR ຮັບເງິນ"
+                class="action-btn"
+              >
+                <v-icon>mdi-qrcode</v-icon>
+              </v-btn>
+
               <v-btn
                 icon
                 color="primary"
@@ -135,8 +142,10 @@
         :svg-icon="svgIcon"
         :enablePredefinedPayments="true"
         :defaultPaymentMethods="[14, 15]"
+        :current-customer="currentCustomer"
         @update:discount="$emit('update:discount', $event)"
         @update:cash-received="$emit('update:cash-received', $event)"
+        @update:redeemed-points="$emit('update:redeemed-points', $event)"
         @toggle-checkout="$emit('toggle-checkout')"
         @process-single-payment="$emit('process-single-payment')"
         @select-payment="$emit('select-payment', $event)"
@@ -168,6 +177,10 @@ export default {
     customerDisplayName: {
       type: String,
       default: 'Walk-in Customer'
+    },
+    currentCustomer: {
+      type: Object,
+      default: null
     },
     discount: {
       type: Number,
@@ -219,7 +232,9 @@ export default {
     'process-single-payment',
     'select-payment',
     'open-multi-payment',
-    'show-error'
+    'show-error',
+    'update:redeemed-points',
+    'generate-dynamic-qr'
   ],
 
   computed: {
@@ -260,6 +275,12 @@ export default {
 
     hasItemsInCart() {
       return this.productCart.length > 0
+    },
+
+    isDynamicQREnabled() {
+      const spf = this.$store.getters.findSPF || []
+      const item = spf.find((s) => s.code === 'DYN_QR')
+      return item?.value === 'Y'
     }
   }
 }

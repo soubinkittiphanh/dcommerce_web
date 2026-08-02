@@ -1,6 +1,10 @@
 1. English Version
 POS System Terms and Conditions (Updated)
 
+Agreement Version Selection:
+- [ ] **Cloud-Based (Online) Version**
+- [ ] **Offline Version**
+
 1. Service Models & Data Responsibility
 
     Cloud-Based Version: The Provider manages the server infrastructure and performs regular data backups. The Provider is responsible for data security and hosting availability.
@@ -29,6 +33,10 @@ POS System Terms and Conditions (Updated)
 
 2. Lao Version (ສະບັບພາສາລາວ)
 ເງື່ອນໄຂ ແລະ ຂໍ້ກຳນົດການນຳໃຊ້ລະບົບ POS (ສະບັບປັບປຸງ)
+
+ເລືອກຮູບແບບການບໍລິການ / Agreement Version:
+- [ ] **Cloud-Based (Online) / ແບບລະບົບ Cloud**
+- [ ] **Offline Version / ແບບລະບົບ Offline**
 
 1. ຮູບແບບການບໍລິການ ແລະ ຄວາມຮັບຜິດຊອບດ້ານຂໍ້ມູນ
 
@@ -99,4 +107,16 @@ POS System Terms and Conditions (Updated)
 
     ຄວາມຮັບຜິດຊອບ ແລະ ລະບົບຂັດຂ້ອງ: ເນື່ອງຈາກການບໍລິການເຫຼົ່ານີ້ຂຶ້ນກັບເຄືອຂ່າຍພາຍນອກ ແລະ ໂຄງສ້າງລະບົບ API ຂອງທະນາຄານເອງ, ຜູ້ສະໜອງຈະບໍ່ຮັບຜິດຊອບຕໍ່ຄວາມຊັກຊ້າໃນການຊຳລະເງິນ, ຄວາມຫຼົ້ມເຫຼວໃນການສ້າງ QR code, ບັນຫາເຄືອຂ່າຍ (timeout) ຫຼື ທຸລະກຳທີ່ບໍ່ສຳເລັດ ທີ່ເກີດຈາກລະບົບ API ຫຼື Server ຂອງທະນາຄານຂັດຂ້ອງ.
 
-    ການຍົກເວັ້ນການຮ້ອງຮຽນ: ຜູ້ໃຊ້ (ລວມທັງ ທະນາຄານ ແລະ ຮ້ານຄ້າຮ່ວມລາຍການ) ຕົກລົງທີ່ຈະບໍ່ຮ້ອງຮຽນ, ຟ້ອງຮ້ອງ ຫຼື ຂໍ້ຂັດແຍ່ງໃດໆ ມາຍັງຜູ້ສະໜອງ, ແລະ ຈະບໍ່ໃຫ້ຜູ້ສະໜອງຮັບຜິດຊອບຕໍ່ຄວາມເສຍຫາຍທາງການເງິນ, ການເສຍໂອກາດທາງການຄ້າ ຫຼື ຄວາມຜິດພາດຂອງທຸລະກຳ ທີ່ເກີດຈາກບັນຫາ API ຂອງທະນາຄານເອງ.
+    ການຍົກເວັ້ນການຮ້ອງຮຽນ: ຜູ້ໃຊ້ (ລວມທັງ ທະນາຄານ ແລະ ຮ້ານຄ້າຮ່ວມລາຍການ) ຕົກລົງທີ່ຈະບໍ່ຮ້ອງຮຽນ, ຟ້ອງຮ້ອງ ຫຼື ຂໍ້ຂັດແຍ່ງໃໆ ມາຍັງຜູ້ສະໜອງ, ແລະ ຈະບໍ່ໃຫ້ຜູ້ສະໜອງຮັບຜິດຊອບຕໍ່ຄວາມເສຍຫາຍທາງການເງິນ, ການເສຍໂອກາດທາງການຄ້າ ຫຼື ຄວາມຜິດພາດຂອງທຸລະກຳ ທີ່ເກີດຈາກບັນຫາ API ຂອງທະນາຄານເອງ.
+
+======================= SYSTEM FUNCTIONALITY & CUSTOMIZATIONS ===================
+
+1. English Version
+6. System Functionality & Customizations
+
+    The User agrees that they have reviewed and accepted the standard system functionality details for MINIMART POS and RESTAURANT POS (available on the System Functionality Details Page at /admin/system-details). Any additional requirements, customizations, or modifications requested by the User that fall outside these standard specifications may incur additional development, integration, or support charges.
+
+2. Lao Version (ສະບັບພາສາລາວ)
+6. ການເຮັດວຽກຂອງລະບົບ ແລະ ການປັບແຕ່ງເພີ່ມເຕີມ
+
+    ຜູ້ໃຊ້ງານຕົກລົງວ່າໄດ້ກວດກາ ແລະ ຍອມຮັບຄຸນສົມບັດການເຮັດວຽກມາດຕະຖານຂອງລະບົບ (System Functionality) ສໍາລັບ Minimart POS ແລະ Restaurant POS (ທີ່ລະບຸໄວ້ໃນ ໜ້າລາຍລະອຽດການເຮັດວຽກຂອງລະບົບ ທີ່ /admin/system-details) ແລ້ວ. ຫາກຜູ້ໃຊ້ງານມີຄວາມຕ້ອງການເພີ່ມເຕີມ, ດັດແກ້ ຫຼື ປັບແຕ່ງນອກເໜືອຈາກຄຸນສົມບັດມາດຕະຖານເຫຼົ່ານີ້, ຈະມີການຄິດໄລ່ຄ່າບໍລິການເພີ່ມເຕີມໃນການພັດທະນາ ຫຼື ການຕິດຕັ້ງ.

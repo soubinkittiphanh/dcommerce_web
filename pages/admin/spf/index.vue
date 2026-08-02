@@ -185,6 +185,7 @@ export default {
         const response = await this.$axios.get('/api/spf/find')
         console.info(`SPF RES ${JSON.stringify(response)}`)
         this.items = response.data.data
+        this.$store.dispatch('initSPF', this.items)
       } catch (error) {
         this.$toast.error('Error fetching SPF data: ' + error.message)
       } finally {

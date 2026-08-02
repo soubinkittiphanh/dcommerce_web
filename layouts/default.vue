@@ -224,9 +224,15 @@
       </v-btn> -->
 
       <!-- System Details Button -->
-      <v-btn small text color="primary" class="ma-1" @click="systemDetailsDialog = true">
+      <v-btn small text color="primary" class="ma-1" to="/admin/system-details">
         <v-icon small left>mdi-file-document-outline</v-icon>
         (System Details)
+      </v-btn>
+
+      <!-- Contracts Button -->
+      <v-btn small text color="primary" class="ma-1" to="/admin/contracts">
+        <v-icon small left>mdi-file-signature</v-icon>
+        ເອກະສານສັນຍາ (Contracts)
       </v-btn>
 
       <v-chip v-if="currentTerminal" class="ma-0" color="warning" variant="outlined" @click="terminalDialog = true">

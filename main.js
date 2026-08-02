@@ -6,8 +6,8 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://150.95.31.23:8011" };
-// let configData = { BASE_URL: "http://150.95.31.23:8011" };
+let configData = { BASE_URL: "http://localhost:8888" };
+// let configData = { BASE_URL: "http://localhost:8888" };
 
 function loadExternalConfig() {
     let configPath;
@@ -93,8 +93,10 @@ async function processQueue() {
         await printWindow.loadURL('about:blank');
 
         // Barcodes usually need a specific CSS to fit the small label
+        const labelWidth = task.width ? parseFloat(task.width) : 40;
+        const labelHeight = task.height ? parseFloat(task.height) : 20;
         const barcodeStyle = isBarcode
-            ? `<style>body { margin: 0; padding: 0; width: 40mm; height: 20mm; overflow: hidden; display: flex; justify-content: center; align-items: center; }</style>`
+            ? `<style>body { margin: 0; padding: 0; width: ${labelWidth}mm; height: ${labelHeight}mm; overflow: hidden; display: flex; justify-content: center; align-items: center; }</style>`
             : `<style>body { margin: 0; padding: 0; width: ${width}; overflow: hidden; font-family: sans-serif; }</style>`;
 
         const escapedHtml = (barcodeStyle + html).replace(/`/g, '\\`').replace(/\${/g, '\\${');
@@ -152,8 +154,10 @@ async function processQueue() {
         };
 
         if (isBarcode) {
-            console.log("Applying Barcode PageSize: 40mm x 20mm");
-            printOptions.pageSize = { width: 40000, height: 20000 };
+            const wMicrons = Math.round(labelWidth * 1000);
+            const hMicrons = Math.round(labelHeight * 1000);
+            console.log(`Applying Barcode PageSize: ${labelWidth}mm x ${labelHeight}mm (Microns: ${wMicrons} x ${hMicrons})`);
+            printOptions.pageSize = { width: wMicrons, height: hMicrons };
         } else if (width === 'A4' || width === 'A5') {
             printOptions.pageSize = width;
         } else {

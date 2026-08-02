@@ -17,8 +17,13 @@
             <div class="cta-buttons slide-up-animation">
               <v-btn x-large color="white"
                 class="primary--text font-weight-bold mr-0 mr-md-4 mb-4 rounded-lg elevation-4 px-10 hover-lift"
+                to="/e-menu?table=01">
+                🍽️ ເບິ່ງ E-Menu (Customer View)
+              </v-btn>
+              <v-btn x-large color="white" outlined
+                class="font-weight-bold mr-0 mr-md-4 mb-4 rounded-lg elevation-2 px-10 hover-lift"
                 to="/admin/login">
-                ເຂົ້າສູ່ລະບົບ
+                ເຂົ້າສູ່ລະບົບ POS
               </v-btn>
               <v-btn x-large outlined color="white" class="font-weight-bold mr-0 mr-md-4 mb-4 rounded-lg px-10 hover-lift"
                 @click="$vuetify.goTo('#hardware')">
@@ -27,10 +32,6 @@
               <v-btn x-large outlined color="white" class="font-weight-bold mr-0 mr-md-4 mb-4 rounded-lg px-10 hover-lift"
                 @click="$vuetify.goTo('#pricing')">
                 ເບິ່ງລາຄາຊອບແວຣ໌
-              </v-btn>
-              <v-btn x-large outlined color="white" class="font-weight-bold mb-4 rounded-lg px-10 hover-lift"
-                href="tel:+8562098422420">
-                ຕິດຕໍ່ພະນັກງານຂາຍ
               </v-btn>
             </div>
           </v-col>
@@ -478,6 +479,23 @@
 <script>
 export default {
   layout: 'landing',
+  mounted() {
+    if (typeof window !== 'undefined') {
+      const fullUrl = window.location.href
+      const userAgent = navigator.userAgent || ''
+      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
+      
+      // Auto-redirect mobile devices or QR scans to E-Menu
+      if (fullUrl.includes('table=') || fullUrl.includes('e-menu') || isMobile) {
+        let table = localStorage.getItem('dc_current_table') || '01'
+        const match = fullUrl.match(/table=([^&/#]+)/)
+        if (match && match[1]) {
+          table = match[1]
+        }
+        this.$router.replace({ path: '/e-menu', query: { table } }).catch(() => {})
+      }
+    }
+  },
   middleware({ redirect }) {
     if (process.client && window.posApi) {
       return redirect('/admin/login')

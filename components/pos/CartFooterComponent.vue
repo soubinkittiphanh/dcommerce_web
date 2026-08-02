@@ -88,6 +88,12 @@
             {{ formatNumber(realTimeFinalTotal) }}
             <span class="currency-label">{{ localCurrency?.code }}</span>
           </div>
+          <!-- Other Currency Grand Totals -->
+          <div v-if="otherCurrenciesGrandTotals.length > 0" class="other-currencies-total mt-1" style="font-size: 11px; line-height: 1;">
+            <span v-for="curr in otherCurrenciesGrandTotals" :key="curr.code" class="grey--text text--darken-1 ml-2 font-weight-bold">
+              ≈ {{ formatNumber(curr.amount) }} {{ curr.code }}
+            </span>
+          </div>
         </div>
       </div>
     </div>
@@ -272,6 +278,23 @@ export default {
       })
 
       return Object.values(breakdown)
+    },
+
+    otherCurrenciesGrandTotals() {
+      if (!this.localCurrency) return []
+      const others = this.findAllCurrency.filter((c) => !c.isLocalCCY && c.isActive !== false)
+      return others.map((curr) => {
+        const converted = CurrencyHelper.convertFromLocal(
+          this.realTimeFinalTotal,
+          curr,
+          this.localCurrency
+        )
+        return {
+          code: curr.code,
+          symbol: curr.symbol,
+          amount: converted
+        }
+      })
     }
   },
 

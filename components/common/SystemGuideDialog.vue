@@ -88,6 +88,14 @@
                         <code>CLASSIC</code> = 80mm receipt, <code>FORMAL</code> = A4 document.
                       </td>
                     </tr>
+                    <tr>
+                      <td class="font-weight-medium">BARCODE.SIZE</td>
+                      <td>
+                        <strong>Barcode Label Size / ຂະໜາດສະຕິກເກີບາໂຄດ:</strong><br>
+                        Defines the size of the barcode sticker (e.g. <code>40x20</code> or <code>60x30</code> in mm). Adjusts layouts dynamically.<br>
+                        ກຳນົດຂະໜາດສະຕິກເກີບາໂຄດ (ເຊັ່ນ: <code>40x20</code> ຫຼື <code>60x30</code> ເປັນ ມມ). ລະບົບຈະປັບປຸງຂະໜາດ ແລະ ຕົວໜັງສືໃຫ້ເອງ.
+                      </td>
+                    </tr>
                     <!-- Accounting Settings -->
                     <tr class="orange lighten-5">
                       <td colspan="2" class="font-weight-bold text-center">Accounting Settings / ການຕັ້ງຄ່າບັນຊີ</td>
