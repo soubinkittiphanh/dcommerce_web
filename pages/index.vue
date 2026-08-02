@@ -478,24 +478,7 @@
 
 <script>
 export default {
-  layout: 'landing',
-  mounted() {
-    if (typeof window !== 'undefined') {
-      const fullUrl = window.location.href
-      const userAgent = navigator.userAgent || ''
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent)
-      
-      // Auto-redirect mobile devices or QR scans to E-Menu
-      if (fullUrl.includes('table=') || fullUrl.includes('e-menu') || isMobile) {
-        let table = localStorage.getItem('dc_current_table') || '01'
-        const match = fullUrl.match(/table=([^&/#]+)/)
-        if (match && match[1]) {
-          table = match[1]
-        }
-        this.$router.replace({ path: '/e-menu', query: { table } }).catch(() => {})
-      }
-    }
-  },
+  layout: 'menu',
   middleware({ redirect }) {
     if (process.client && window.posApi) {
       return redirect('/admin/login')
@@ -546,8 +529,19 @@ export default {
     }
   },
   mounted() {
-    if (window.posApi) {
-      this.$router.replace('/admin/login')
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash || ''
+      const search = window.location.search || ''
+      const fullUrl = window.location.href || ''
+
+      if (hash.includes('e-menu') || search.includes('table=') || fullUrl.includes('table=') || hash.includes('table=')) {
+        let table = '01'
+        const match = fullUrl.match(/table=([^&/#]+)/)
+        if (match && match[1]) {
+          table = match[1]
+        }
+        this.$router.replace({ path: '/e-menu', query: { table } }).catch(() => {})
+      }
     }
   },
 }

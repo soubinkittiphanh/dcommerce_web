@@ -433,8 +433,8 @@
 
         <!-- Action Footer -->
         <div class="mt-6 text-center">
-          <button class="pay-qr-btn w-100 py-3 d-flex align-center justify-center" @click="showBillModal = false; showBankQrModal = true">
-            <i class="mdi mdi-qrcode-scan mr-2 text-h6"></i>
+          <button class="pay-qr-btn" @click="showBillModal = false; showBankQrModal = true">
+            <i class="mdi mdi-qrcode-scan text-h5"></i>
             <span>Pay Bill via Bank QR Code</span>
           </button>
         </div>
@@ -1746,13 +1746,32 @@ export default {
 .col-subtotal { flex: 1.4; }
 
 .pay-qr-btn {
-  background: #10b981;
-  color: white;
+  background: linear-gradient(135deg, var(--primary-color, #01532B) 0%, #059669 100%);
+  color: #ffffff;
   border: none;
-  border-radius: 14px;
+  padding: 1rem 1.6rem;
+  border-radius: 50px;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.3px;
   cursor: pointer;
+  box-shadow: 0 8px 25px rgba(1, 83, 43, 0.35);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.pay-qr-btn:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 12px 30px rgba(1, 83, 43, 0.45);
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+}
+
+.pay-qr-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .qr-icon-header-badge {

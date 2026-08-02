@@ -4,47 +4,92 @@
       <!-- Left Panel - Table Layout -->
       <v-col cols="8" class="d-flex flex-column">
         <!-- Header -->
-        <v-card class="ma-0 rounded-0" elevation="1">
-          <v-card-title class="primary white--text">
-            <v-icon left color="white">mdi-table-furniture</v-icon>
-            Table Management
-            <v-spacer></v-spacer>
+        <v-card class="ma-0 rounded-0" elevation="2">
+          <!-- Main Header Bar -->
+          <div class="primary white--text px-4 py-3 d-flex align-center justify-space-between flex-wrap">
+            <div class="d-flex align-center my-1">
+              <v-icon left color="white" large class="mr-3">mdi-table-furniture</v-icon>
+              <div>
+                <h1 class="text-h6 font-weight-bold mb-0 white--text line-height-1">Table Management</h1>
+                <span class="caption white--text text--lighten-2">Real-time status, QR setup & quick ticketing</span>
+              </div>
+            </div>
 
-            <!-- QR CODE SETUP BUTTON & ALERT BADGES -->
-            <v-btn color="teal darken-1" dark class="mr-3" @click="openQrSetupDialog" elevation="2">
-              <v-icon left>mdi-qrcode-scan</v-icon>
-              Table QR & Print
-            </v-btn>
+            <!-- Action Buttons -->
+            <div class="d-flex align-center my-1 flex-wrap">
+              <v-btn
+                color="teal darken-1"
+                dark
+                class="mr-2 px-3 text-capitalize font-weight-medium"
+                @click="openQrSetupDialog"
+                elevation="1"
+                small
+              >
+                <v-icon left small>mdi-qrcode-scan</v-icon>
+                Table QR & Print
+              </v-btn>
 
-            <v-btn color="accent" class="mr-3" @click="createTicketWithoutTable" elevation="2">
-              <v-icon left>mdi-plus-circle</v-icon>
-              Create Ticket (No Table)
-            </v-btn>
+              <v-btn
+                color="accent"
+                class="px-3 text-capitalize font-weight-medium"
+                @click="createTicketWithoutTable"
+                elevation="1"
+                small
+              >
+                <v-icon left small>mdi-plus-circle</v-icon>
+                Create Ticket (No Table)
+              </v-btn>
+            </div>
+          </div>
 
-            <v-chip v-if="activeWaiterCalls.length > 0" color="red" text-color="white" class="mr-2 animate-pulse">
-              🔔 Waiter Calls: {{ activeWaiterCalls.length }}
-            </v-chip>
-            <v-chip v-if="activeDraftOrders.length > 0" color="amber darken-3" text-color="white" class="mr-2 animate-pulse">
-              📝 Draft Orders: {{ activeDraftOrders.length }}
-            </v-chip>
+          <!-- Status & Alerts Sub-Header Bar -->
+          <div class="grey lighten-4 px-4 py-2 d-flex align-center justify-space-between flex-wrap border-bottom">
+            <!-- Active Alerts (if any) -->
+            <div class="d-flex align-center flex-wrap my-1">
+              <v-chip
+                v-if="activeWaiterCalls.length > 0"
+                color="red"
+                text-color="white"
+                small
+                class="mr-2 font-weight-medium animate-pulse"
+              >
+                🔔 Waiter Calls: {{ activeWaiterCalls.length }}
+              </v-chip>
 
-            <v-chip color="success" text-color="white" class="mr-2">
-              <v-icon left small>mdi-check-circle</v-icon>
-              ໂຕະວ່າງ: {{ availableTables }}
-            </v-chip>
-            <v-chip color="warning" text-color="white" class="mr-2">
-              <v-icon left small>mdi-clock</v-icon>
-              ມີແຂກ: {{ occupiedTables }}
-            </v-chip>
-            <v-chip color="error" text-color="white" class="mr-2">
-              <v-icon left small>mdi-silverware-clean</v-icon>
-              ອະນາໄມ: {{ cleaningTables }}
-            </v-chip>
-            <v-chip color="info" text-color="white">
-              <v-icon left small>mdi-bookmark</v-icon>
-              ຈອງແລ້ວ: {{ reservedTables }}
-            </v-chip>
-          </v-card-title>
+              <v-chip
+                v-if="activeDraftOrders.length > 0"
+                color="amber darken-3"
+                text-color="white"
+                small
+                class="mr-2 font-weight-medium animate-pulse"
+              >
+                📝 Draft Orders: {{ activeDraftOrders.length }}
+              </v-chip>
+            </div>
+
+            <!-- Table Status Summary Chips -->
+            <div class="d-flex align-center flex-wrap my-1">
+              <v-chip color="success" text-color="white" small class="mr-2 font-weight-medium" elevation="1">
+                <v-icon left x-small>mdi-check-circle</v-icon>
+                ໂຕະວ່າງ: {{ availableTables }}
+              </v-chip>
+
+              <v-chip color="warning" text-color="white" small class="mr-2 font-weight-medium" elevation="1">
+                <v-icon left x-small>mdi-clock</v-icon>
+                ມີແຂກ: {{ occupiedTables }}
+              </v-chip>
+
+              <v-chip color="error" text-color="white" small class="mr-2 font-weight-medium" elevation="1">
+                <v-icon left x-small>mdi-silverware-clean</v-icon>
+                ອະນາໄມ: {{ cleaningTables }}
+              </v-chip>
+
+              <v-chip color="info" text-color="white" small class="font-weight-medium" elevation="1">
+                <v-icon left x-small>mdi-bookmark</v-icon>
+                ຈອງແລ້ວ: {{ reservedTables }}
+              </v-chip>
+            </div>
+          </div>
         </v-card>
 
         <!-- Active Waiter Call & Draft Order Banner Alerts -->
@@ -2086,5 +2131,13 @@ export default {
 
 .payment-method-card.elevation-4 {
   border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.border-bottom {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+.line-height-1 {
+  line-height: 1.2 !important;
 }
 </style>
