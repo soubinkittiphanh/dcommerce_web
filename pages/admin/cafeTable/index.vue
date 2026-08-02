@@ -610,51 +610,117 @@
     </v-dialog>
 
     <!-- QR SETUP & GENERATOR DIALOG -->
-    <v-dialog v-model="qrSetupDialog" max-width="700">
+    <v-dialog v-model="qrSetupDialog" max-width="750">
       <v-card>
-        <v-card-title class="headline primary white--text">
-          <v-icon left dark>mdi-qrcode</v-icon> Table QR Code Generator & Printer
+        <v-card-title class="headline primary white--text d-flex align-center">
+          <v-icon left dark>mdi-qrcode-scan</v-icon>
+          Table QR Code Generator & Receipt Printer
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="qrSetupDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
         </v-card-title>
+        
         <v-card-text class="pt-4">
           <v-row>
-            <v-col cols="12">
+            <!-- Left Column: Settings & Configuration -->
+            <v-col cols="12" md="7">
               <v-text-field
                 v-model="baseUrl"
                 label="E-Menu Base URL (IP + Port)"
                 placeholder="http://192.168.1.5:3000/#/e-menu"
-                hint="Customers will scan QR codes pointing to this URL on their phones."
+                hint="Customers scan QR codes pointing to this URL on their phones."
                 persistent-hint
                 outlined
                 dense
+                prepend-inner-icon="mdi-link-variant"
                 @input="generateQrCode"
+                class="mb-2"
               ></v-text-field>
-            </v-col>
-            <v-col cols="12" md="6">
+
               <v-select
                 v-model="selectedQrTable"
                 :items="tables"
                 item-text="number"
                 item-value="number"
-                label="Select Table"
+                label="Select Target Table"
                 outlined
                 dense
+                prepend-inner-icon="mdi-table-furniture"
                 @change="generateQrCode"
+                class="mb-2"
               ></v-select>
+
+              <v-select
+                v-model="selectedQrPrinter"
+                :items="printerList"
+                item-text="name"
+                item-value="name"
+                label="Target Thermal Receipt Printer"
+                hint="Mapped printer for printing thermal receipts"
+                persistent-hint
+                outlined
+                dense
+                prepend-inner-icon="mdi-printer-pos"
+                clearable
+                class="mb-2"
+              >
+                <template v-slot:no-data>
+                  <div class="pa-2 caption grey--text text-center">
+                    Web Mode / Default System Printer
+                  </div>
+                </template>
+              </v-select>
+
+              <div class="d-flex align-center justify-space-between mt-2">
+                <span class="text-caption font-weight-bold grey--text text--darken-2">Receipt Paper Size:</span>
+                <v-btn-toggle v-model="paperWidth" mandatory dense color="teal darken-1">
+                  <v-btn value="80mm" small>
+                    <v-icon left x-small>mdi-receipt</v-icon> 80mm Standard
+                  </v-btn>
+                  <v-btn value="58mm" small>
+                    <v-icon left x-small>mdi-cellphone-link</v-icon> 58mm Mini
+                  </v-btn>
+                </v-btn-toggle>
+              </div>
             </v-col>
-            <v-col cols="12" md="6" class="text-center">
-              <div v-if="qrDataUrl" class="qr-preview-box pa-2 border rounded">
-                <img :src="qrDataUrl" alt="Table QR Code" style="max-width: 160px;" />
-                <div class="font-weight-bold text-caption mt-1">Table: {{ selectedQrTable }}</div>
-                <div class="text-caption text-truncate grey--text">{{ getFullQrUrl(selectedQrTable) }}</div>
+
+            <!-- Right Column: Live Thermal Receipt Preview -->
+            <v-col cols="12" md="5" class="d-flex flex-column align-center justify-center">
+              <div class="text-caption font-weight-bold grey--text text--darken-2 mb-1">
+                Thermal Receipt Preview
+              </div>
+              <div v-if="qrDataUrl" class="qr-receipt-preview pa-3 text-center border rounded elevation-1 fill-width" style="background: #fff; border: 2px dashed #01532B !important; width: 100%; max-width: 260px;">
+                <div class="font-weight-black text-subtitle-2 text-uppercase mb-1 primary--text">
+                  {{ restaurantConfig.name || 'D-COMMERCE CAFE' }}
+                </div>
+                <div class="caption font-weight-bold px-2 py-1 teal lighten-5 teal--text text--darken-3 rounded mb-2">
+                  TABLE #{{ selectedQrTable }}
+                </div>
+                <img :src="qrDataUrl" alt="Table QR Code" style="width: 140px; height: 140px; image-rendering: pixelated;" class="my-1" />
+                <div class="caption font-weight-bold text-truncate mt-1">
+                  📲 SCAN TO ORDER
+                </div>
+                <div class="caption grey--text text-truncate" style="font-size: 10px !important;">
+                  {{ getFullQrUrl(selectedQrTable) }}
+                </div>
               </div>
             </v-col>
           </v-row>
         </v-card-text>
-        <v-card-actions class="pa-4">
-          <v-btn color="grey" text @click="qrSetupDialog = false">Close</v-btn>
+
+        <v-card-actions class="pa-4 grey lighten-5 border-top">
+          <v-btn color="grey darken-1" text @click="qrSetupDialog = false">Close</v-btn>
           <v-spacer></v-spacer>
-          <v-btn color="success" dark @click="printCurrentQr">
-            <v-icon left>mdi-printer</v-icon> Print QR Sticker
+          <v-btn
+            color="teal darken-1"
+            dark
+            class="px-4 font-weight-bold"
+            elevation="2"
+            :loading="isPrintingQr"
+            @click="printCurrentQr"
+          >
+            <v-icon left>mdi-printer-pos</v-icon> Print to Receipt Printer
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -747,6 +813,14 @@ export default {
       draftOrderDialog: false,
       selectedDraftOrder: null,
       pollTimer: null,
+
+      // Printer & Thermal Receipt Mapping
+      printerList: [],
+      selectedQrPrinter: '',
+      emenuPrinter: '',
+      ticketPrinter: '',
+      paperWidth: '80mm',
+      isPrintingQr: false,
 
       // Restaurant configuration
       restaurantConfig: {
@@ -1077,12 +1151,33 @@ export default {
       this.pollActiveRequests()
     },
 
-    openQrSetupDialog() {
+    async openQrSetupDialog() {
       this.qrSetupDialog = true
       if (this.tables && this.tables.length > 0 && !this.selectedQrTable) {
         this.selectedQrTable = this.tables[0].number || this.tables[0].name
       }
+      await this.fetchPrinterConfigs()
       this.generateQrCode()
+    },
+
+    async fetchPrinterConfigs() {
+      try {
+        if (typeof window !== 'undefined' && window.posApi && typeof window.posApi.getPrinters === 'function') {
+          this.printerList = await window.posApi.getPrinters()
+        }
+        const data = await this.$axios.$get('/api/printers')
+        if (Array.isArray(data)) {
+          data.forEach((p) => {
+            if (p.type === 'emenu' || p.type === 'tableQr') this.emenuPrinter = p.printerName
+            if (p.type === 'ticket') this.ticketPrinter = p.printerName
+          })
+        }
+        if (!this.selectedQrPrinter) {
+          this.selectedQrPrinter = this.emenuPrinter || this.ticketPrinter || (this.printerList[0]?.name || '')
+        }
+      } catch (err) {
+        console.warn('Printer config fetch warning:', err)
+      }
     },
 
     showSingleTableQr(table) {
@@ -1101,9 +1196,9 @@ export default {
         const targetUrl = this.getFullQrUrl(this.selectedQrTable)
         this.qrDataUrl = await QRCode.toDataURL(targetUrl, {
           width: 300,
-          margin: 2,
+          margin: 1,
           color: {
-            dark: '#01532B',
+            dark: '#000000',
             light: '#FFFFFF'
           }
         })
@@ -1112,39 +1207,105 @@ export default {
       }
     },
 
-    printCurrentQr() {
-      const printWindow = window.open('', '_blank')
-      const targetUrl = this.getFullQrUrl(this.selectedQrTable)
-      
-      printWindow.document.write(`
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <title>Table QR Code - ${this.selectedQrTable}</title>
-          <style>
-            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; padding: 40px; }
-            .qr-card { border: 3px solid #01532B; border-radius: 20px; padding: 30px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-            h1 { color: #01532B; margin-bottom: 5px; font-size: 28px; }
-            h2 { color: #333; margin-top: 0; font-size: 22px; }
-            img { margin: 20px 0; width: 220px; height: 220px; }
-            p { color: #666; font-size: 14px; margin-top: 10px; }
-          </style>
-        </head>
-        <body>
-          <div class="qr-card">
-            <h1>🍽️ SCAN TO VIEW MENU</h1>
-            <h2>Table: ${this.selectedQrTable}</h2>
-            <img src="${this.qrDataUrl}" alt="QR Code" />
-            <p>Scan with your mobile camera to see menu & call waiter</p>
-            <p style="font-size: 11px; color: #999;">${targetUrl}</p>
+    async printCurrentQr() {
+      if (this.isPrintingQr) return
+      this.isPrintingQr = true
+
+      try {
+        const targetUrl = this.getFullQrUrl(this.selectedQrTable)
+        const thermalQrDataUrl = await QRCode.toDataURL(targetUrl, {
+          width: 280,
+          margin: 1,
+          color: { dark: '#000000', light: '#FFFFFF' }
+        })
+
+        const companyName = this.restaurantConfig?.name || 'D-COMMERCE CAFE'
+        const is58 = this.paperWidth === '58mm'
+        const containerWidth = is58 ? '52mm' : '76mm'
+        const qrSize = is58 ? '140px' : '180px'
+        const titleSize = is58 ? '14px' : '18px'
+        const tableNumSize = is58 ? '20px' : '26px'
+
+        const thermalHtml = `
+          <div style="width: ${containerWidth}; margin: 0 auto; text-align: center; font-family: 'Courier New', Courier, monospace, sans-serif; color: #000; padding: 4px;">
+            <div style="font-size: ${titleSize}; font-weight: bold; text-transform: uppercase; line-height: 1.2;">
+              ${companyName}
+            </div>
+            <div style="font-size: 10px; font-style: italic; margin-bottom: 6px;">
+              DIGITAL E-MENU & SELF-ORDERING
+            </div>
+
+            <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin: 6px 0;">
+              <div style="font-size: 11px; font-weight: bold; text-transform: uppercase;">TABLE NUMBER</div>
+              <div style="font-size: ${tableNumSize}; font-weight: 900; letter-spacing: 1px; margin: 2px 0;">
+                TABLE #${this.selectedQrTable}
+              </div>
+            </div>
+
+            <div style="margin: 8px 0;">
+              <img src="${thermalQrDataUrl}" style="width: ${qrSize}; height: ${qrSize}; display: block; margin: 0 auto; image-rendering: pixelated;" />
+            </div>
+
+            <div style="font-size: 11px; font-weight: bold; margin-bottom: 4px;">
+              📲 SCAN TO VIEW MENU & ORDER / ສະແກນສັ່ງອາຫານ
+            </div>
+            <div style="font-size: 9px; line-height: 1.3; text-align: left; background: #f9f9f9; padding: 5px; border: 1px solid #ddd; margin-bottom: 6px; border-radius: 4px;">
+              1. Open smartphone camera<br>
+              2. Scan QR code to view menu<br>
+              3. Order food & call waiter directly
+            </div>
+
+            <div style="font-size: 8px; word-break: break-all; color: #444; margin-bottom: 6px;">
+              ${targetUrl}
+            </div>
+
+            <div style="border-top: 1px dashed #000; padding-top: 4px; font-size: 9px;">
+              Printed: ${new Date().toLocaleString()}
+            </div>
+            <div style="font-size: 10px; font-weight: bold; margin-top: 2px;">
+              *** SCAN WITH MOBILE PHONE ***
+            </div>
           </div>
-          <script>
-            window.onload = function() { window.print(); window.close(); };
-          </${'script'}>
-        </body>
-        </html>
-      `)
-      printWindow.document.close()
+        `
+
+        const targetPrinter = this.selectedQrPrinter || this.emenuPrinter || this.ticketPrinter || ''
+
+        if (typeof window !== 'undefined' && window.posApi && typeof window.posApi.printReceipt === 'function') {
+          window.posApi.printReceipt({
+            printerName: targetPrinter,
+            html: thermalHtml,
+            width: this.paperWidth
+          })
+          if (this.showMessage) {
+            this.showMessage(`✅ E-Menu QR printed to: ${targetPrinter || 'Default Receipt Printer'}`, 'success', 'mdi-printer-check')
+          }
+        } else {
+          const printWindow = window.open('', '_blank')
+          printWindow.document.write(`
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>Table QR Receipt - ${this.selectedQrTable}</title>
+              <style>
+                @page { margin: 0; size: ${this.paperWidth} auto; }
+                body { margin: 0; padding: 10px; background: #fff; }
+              </style>
+            </head>
+            <body onload="setTimeout(() => { window.print(); window.close(); }, 300);">
+              ${thermalHtml}
+            </body>
+            </html>
+          `)
+          printWindow.document.close()
+        }
+      } catch (err) {
+        console.error('Error printing QR receipt:', err)
+        if (this.showMessage) {
+          this.showMessage('❌ Failed to print QR receipt', 'error', 'mdi-alert')
+        }
+      } finally {
+        this.isPrintingQr = false
+      }
     },
     /**
      * Handle reload from POS - works for both table and no-table tickets

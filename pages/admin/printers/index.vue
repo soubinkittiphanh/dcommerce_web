@@ -11,8 +11,8 @@
 
       <v-card-text>
         <v-row>
-          <v-col cols="12" md="3">
-            <v-card outlined>
+          <v-col cols="12" sm="6" md="4" lg="2-4">
+            <v-card outlined height="100%">
               <v-card-text>
                 <div class="text-overline mb-2">Counter Receipt</div>
                 <v-select
@@ -23,6 +23,7 @@
                   label="Select Ticket Printer"
                   prepend-inner-icon="mdi-printer"
                   outlined
+                  dense
                   @change="saveToDb('ticket', settings.ticketPrinter)"
                 ></v-select>
                 <v-btn
@@ -38,8 +39,8 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
-            <v-card outlined>
+          <v-col cols="12" sm="6" md="4" lg="2-4">
+            <v-card outlined height="100%">
               <v-card-text>
                 <div class="text-overline mb-2">Kitchen Orders</div>
                 <v-select
@@ -50,6 +51,7 @@
                   label="Select Kitchen Printer"
                   prepend-inner-icon="mdi-stove"
                   outlined
+                  dense
                   @change="saveToDb('kitchen', settings.kitchenPrinter)"
                 ></v-select>
                 <v-btn
@@ -65,8 +67,8 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
-            <v-card outlined>
+          <v-col cols="12" sm="6" md="4" lg="2-4">
+            <v-card outlined height="100%">
               <v-card-text>
                 <div class="text-overline mb-2">Bar Orders</div>
                 <v-select
@@ -77,6 +79,7 @@
                   label="Select Bar Printer"
                   prepend-inner-icon="mdi-glass-cocktail"
                   outlined
+                  dense
                   @change="saveToDb('bar', settings.barPrinter)"
                 ></v-select>
                 <v-btn
@@ -92,8 +95,39 @@
             </v-card>
           </v-col>
 
-          <v-col cols="12" md="3">
-            <v-card outlined border color="blue lighten-5">
+          <v-col cols="12" sm="6" md="4" lg="2-4">
+            <v-card outlined height="100%" color="teal lighten-5">
+              <v-card-text>
+                <div class="text-overline mb-2 teal--text text--darken-2 font-weight-bold">
+                  Table QR & E-Menu
+                </div>
+                <v-select
+                  v-model="settings.emenuPrinter"
+                  :items="printerList"
+                  item-text="name"
+                  item-value="name"
+                  label="Select E-Menu QR Printer"
+                  prepend-inner-icon="mdi-qrcode-scan"
+                  outlined
+                  dense
+                  @change="saveToDb('emenu', settings.emenuPrinter)"
+                ></v-select>
+                <v-btn
+                  block
+                  color="teal darken-1"
+                  dark
+                  outlined
+                  :disabled="!settings.emenuPrinter"
+                  @click="testEmenuPrint(settings.emenuPrinter)"
+                >
+                  <v-icon left>mdi-qrcode-scan</v-icon> Test E-Menu QR Print
+                </v-btn>
+              </v-card-text>
+            </v-card>
+          </v-col>
+
+          <v-col cols="12" sm="6" md="4" lg="2-4">
+            <v-card outlined height="100%" color="blue lighten-5">
               <v-card-text>
                 <div class="text-overline mb-2 blue--text">
                   Barcode Labels (40x20mm)
@@ -106,6 +140,7 @@
                   label="Select Barcode Printer"
                   prepend-inner-icon="mdi-barcode"
                   outlined
+                  dense
                   @change="saveToDb('barcode', settings.barcodePrinter)"
                 ></v-select>
                 <v-btn
@@ -172,6 +207,8 @@
 
 <script>
 import { mapActions } from 'vuex'
+import QRCode from 'qrcode'
+
 export default {
   data() {
     return {
@@ -183,6 +220,7 @@ export default {
         kitchenPrinter: '',
         barcodePrinter: '',
         barPrinter: '',
+        emenuPrinter: '',
       },
     }
   },
@@ -217,7 +255,8 @@ export default {
           if (p.type === 'kitchen') this.settings.kitchenPrinter = p.printerName
           if (p.type === 'barcode') this.settings.barcodePrinter = p.printerName
           if (p.type === 'bar') this.settings.barPrinter = p.printerName
-          
+          if (p.type === 'emenu' || p.type === 'tableQr') this.settings.emenuPrinter = p.printerName
+
           if (p.type.startsWith('main-cat-')) {
             const catId = p.type.replace('main-cat-', '')
             this.$set(this.categoryPrinters, catId, p.printerName)
@@ -280,6 +319,75 @@ export default {
       })
 
       this.$toast.info(`Test signal sent to ${name}`)
+    },
+
+    // Specific test for E-Menu QR Receipts
+    async testEmenuPrint(name) {
+      const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'http://localhost:3000'
+      const testUrl = `${origin}/#/e-menu?table=TEST-01`
+
+      try {
+        const qrDataUrl = await QRCode.toDataURL(testUrl, {
+          width: 260,
+          margin: 1,
+          color: { dark: '#000000', light: '#FFFFFF' }
+        })
+
+        const receiptHtml = `
+          <div style="width: 76mm; margin: 0 auto; text-align: center; font-family: 'Courier New', Courier, monospace, sans-serif; color: #000; padding: 4px;">
+            <div style="font-size: 16px; font-weight: bold; text-transform: uppercase;">D-COMMERCE CAFE</div>
+            <div style="font-size: 11px; margin-bottom: 6px;">DIGITAL E-MENU & SELF-ORDERING</div>
+            
+            <div style="border-top: 1px dashed #000; border-bottom: 1px dashed #000; padding: 6px 0; margin: 6px 0;">
+              <div style="font-size: 12px; font-weight: bold;">TEST TABLE QR RECEIPT</div>
+              <div style="font-size: 24px; font-weight: 900; letter-spacing: 1px;">TABLE #TEST-01</div>
+            </div>
+
+            <div style="margin: 8px 0;">
+              <img src="${qrDataUrl}" style="width: 170px; height: 170px; display: block; margin: 0 auto; image-rendering: pixelated;" />
+            </div>
+
+            <div style="font-size: 11px; font-weight: bold; margin-bottom: 4px;">📲 SCAN TO VIEW MENU & ORDER</div>
+            <div style="font-size: 9px; line-height: 1.3; text-align: left; background: #f9f9f9; padding: 5px; border: 1px solid #ddd; margin-bottom: 6px;">
+              1. Open smartphone camera<br>
+              2. Scan QR code to view menu<br>
+              3. Order food & beverages directly
+            </div>
+
+            <div style="font-size: 8px; word-break: break-all; color: #444; margin-bottom: 6px;">${testUrl}</div>
+
+            <div style="border-top: 1px dashed #000; padding-top: 4px; font-size: 9px;">
+              Printed: ${new Date().toLocaleString()}
+            </div>
+            <div style="font-size: 10px; font-weight: bold; margin-top: 2px;">*** READY FOR RECEIPT PRINTER ***</div>
+          </div>
+        `
+
+        if (window.posApi && typeof window.posApi.printReceipt === 'function') {
+          window.posApi.printReceipt({
+            printerName: name,
+            html: receiptHtml,
+            width: '80mm',
+          })
+          this.$toast.success(`E-Menu test QR sent to printer: ${name}`)
+        } else {
+          const printWin = window.open('', '_blank')
+          printWin.document.write(`
+            <html>
+              <head>
+                <title>Test E-Menu Print</title>
+                <style>@page { margin: 0; size: 80mm auto; } body { margin: 0; padding: 10px; }</style>
+              </head>
+              <body onload="window.print(); window.close();">${receiptHtml}</body>
+            </html>
+          `)
+          printWin.document.close()
+          this.$toast.info('Opened web preview print dialog')
+        }
+      } catch (err) {
+        console.error('Failed to generate test E-Menu QR print:', err)
+        this.$toast.error('Failed to generate QR code for printer test')
+      }
     },
 
     // New specific test for Barcode labels
