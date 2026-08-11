@@ -41,6 +41,27 @@
 
         <template v-slot:item.name="{ item }">
           <div class="font-weight-medium">{{ item.firstName }} {{ item.lastName }}</div>
+          <div v-if="item.parentName" class="caption grey--text">
+            ຜູ້ປົກຄອງ: {{ item.parentName }}
+          </div>
+        </template>
+
+        <template v-slot:item.grade="{ item }">
+          <div v-if="item.schoolClass" class="font-weight-medium primary--text">
+            {{ item.schoolClass.name }}
+          </div>
+          <div v-else-if="item.grade">
+            {{ item.grade }}
+          </div>
+          <div v-else class="grey--text">-</div>
+        </template>
+
+        <template v-slot:item.phoneNumber="{ item }">
+          <div v-if="item.phoneNumber">{{ item.phoneNumber }}</div>
+          <div v-if="item.parentPhone" class="caption info--text">
+            ຜູ້ປົກຄອງ: {{ item.parentPhone }}
+          </div>
+          <div v-if="!item.phoneNumber && !item.parentPhone" class="grey--text">-</div>
         </template>
 
         <template v-slot:item.bankAccount="{ item }">

@@ -234,6 +234,7 @@ export default {
     paymentMethods: { type: Array, default: () => [] },
     paymentLoading: { type: Boolean, default: false },
     actionLoading: { type: Boolean, default: false },
+    orderItems: { type: Array, default: () => [] },
   },
 
   data() {
@@ -259,6 +260,13 @@ export default {
 
       // Customer display window reference
       customerDisplayWindow: null,
+
+      // Dynamic QR states
+      isGeneratingQR: false,
+      currentDynamicQR: null,
+      qrPolling: null,
+      lastQRTotal: 0,
+      generatedBillNumber: '',
     }
   },
 
@@ -325,7 +333,33 @@ export default {
       return `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodedString}&format=png&margin=10&color=01532B&bgcolor=ffffff`
     },
 
+    getSPF() {
+      return this.$store.getters.findSPF || []
+    },
+    isDynamicQREnabled() {
+      const item = this.getSPF.find((spf) => spf.code == 'DYN_QR')
+      return item?.value === 'Y'
+    },
+    dynamicQRConfigs() {
+      const getVal = (code) => this.getSPF.find((s) => s.code === code)?.value
+      let callbackUrl = getVal('DYN_CallbackUrl')
+      if (!callbackUrl) {
+        const baseUrl = this.$axios.defaults.baseURL || ''
+        const cleanBase = baseUrl.replace(/\/+$/, '')
+        callbackUrl = `${cleanBase}/api/v1/direct/callback`
+      }
+      return {
+        bankCode: getVal('DYN_QR_BankCode') || 'IB',
+        memberId: getVal('DYN_MemberId') || 'KOKKOKMOV',
+        merchantId: getVal('DYN_MerchantId'),
+        password: getVal('DYN_Password'),
+        callbackUrl: callbackUrl,
+      }
+    },
     currentQRString() {
+      if (this.isDynamicQREnabled && this.qrString) {
+        return this.qrString
+      }
       return this.generateQRString()
     },
 
@@ -397,6 +431,16 @@ export default {
       },
     },
 
+    orderItems: {
+      handler(newVal) {
+        if (this.show && newVal) {
+          this.updateCustomerScreen()
+        }
+      },
+      deep: true,
+      immediate: true
+    },
+
     // Watch for payment method changes
     selectedPaymentMethod: {
       handler(newVal, oldVal) {
@@ -416,6 +460,7 @@ export default {
   },
 
   mounted() {
+    window.addEventListener('message', this.handleParentMessage)
     // Only update customer screen if dialog is already open when component mounts
     if (this.show) {
       this.onDialogOpened()
@@ -423,19 +468,34 @@ export default {
   },
 
   beforeDestroy() {
+    window.removeEventListener('message', this.handleParentMessage)
     // Clean up intervals and hide QR from customer screen
     this.cleanup()
   },
 
   methods: {
+    handleParentMessage(event) {
+      if (event.data && event.data.type === 'CUSTOMER_SCREEN_READY') {
+        console.log('Customer screen reported ready, sending current QR data')
+        if (this.show) {
+          this.showQROnCustomerScreen()
+        }
+      }
+    },
+
     onDialogOpened() {
       console.log('Payment dialog opened - updating customer screen')
 
-      // Immediately show QR on customer screen
-      // this.showQROnCustomerScreen()
+      if (this.isDynamicQREnabled) {
+        this.generateDynamicQR()
+      } else {
+        // Fallback to static/hardcoded QR
+        this.qrString = this.generateQRString()
+        this.showQROnCustomerScreen()
+      }
 
       // Optional: Set up auto-refresh interval
-      // this.startAutoRefresh()
+      this.startAutoRefresh()
 
       // Emit event for parent component if needed
       this.$emit('dialog-opened')
@@ -457,12 +517,103 @@ export default {
       this.qrRefreshInterval = setInterval(() => {
         if (this.show) {
           console.log('Auto-refreshing customer screen QR')
-          this.showQROnCustomerScreen()
+          if (!this.isDynamicQREnabled) {
+            this.showQROnCustomerScreen()
+          }
         }
       }, 30000) // 30 seconds
     },
 
+    async generateDynamicQR() {
+      if (!this.amount) return
+      
+      const totalAmount = this.amount
+      this.isGeneratingQR = true
+      
+      try {
+        const timestamp = Date.now()
+        const random = Math.floor(Math.random() * 1000)
+        const billNumber = `REST-${timestamp}-${random}`
+        this.generatedBillNumber = billNumber
+
+        const response = await this.$axios.post(`api/qr/generate`, {
+          txnAmount: totalAmount,
+          billNumber: billNumber,
+          purposeOfTxn: `Restaurant Table ${this.tableNumber || ''}`,
+          bankCode: this.dynamicQRConfigs.bankCode,
+          memberId: this.dynamicQRConfigs.memberId,
+          merchantId: this.dynamicQRConfigs.merchantId,
+          password: this.dynamicQRConfigs.password,
+          callbackUrl: this.dynamicQRConfigs.callbackUrl,
+          storeLabel: this.currentTerminal?.name || 'Restaurant',
+          terminalLabel: this.currentTerminal?.name || 'Restaurant'
+        })
+
+        if (response.data.success) {
+          this.currentDynamicQR = response.data.data
+          this.lastQRTotal = totalAmount
+          this.qrString = response.data.data.qrString
+          
+          this.showQROnCustomerScreen()
+          this.startDynamicQRPolling(billNumber)
+          
+          if (this.$toast) {
+            this.$toast.success('ສ້າງ Dynamic QR Code ສຳເລັດ', { duration: 2000 })
+          }
+        }
+      } catch (error) {
+        console.error('Failed to generate dynamic QR:', error)
+      } finally {
+        this.isGeneratingQR = false
+      }
+    },
+
+    startDynamicQRPolling(billNumber) {
+      this.stopDynamicQRPolling()
+      this.qrPolling = setInterval(() => {
+        this.checkDynamicQRPaymentStatus(billNumber)
+      }, 3000)
+    },
+
+    stopDynamicQRPolling() {
+      if (this.qrPolling) {
+        clearInterval(this.qrPolling)
+        this.qrPolling = null
+      }
+    },
+
+    async checkDynamicQRPaymentStatus(billNumber) {
+      try {
+        const response = await this.$axios.get(`api/qr/payment-status/${billNumber}`)
+        if (response.data.success && response.data.data.isPaid) {
+          this.stopDynamicQRPolling()
+          this.showPaymentSuccessOnCustomerScreen()
+          
+          if (this.$toast) {
+            this.$toast.success('Payment Received Successfully!')
+          }
+
+          // Find LAO_QR payment method
+          const laoQrPayment = this.paymentMethods.find(p => p.payment_code === 'LAO_QR')
+          if (laoQrPayment) {
+            this.selectedPaymentMethod = laoQrPayment
+          } else {
+            // Fallback: use first method if LAO_QR is not found
+            this.selectedPaymentMethod = this.paymentMethods[0]
+          }
+
+          // Auto-commit payment
+          this.confirmPayment()
+        }
+      } catch (error) {
+        console.error('Error checking QR payment status:', error)
+      }
+    },
+
     cleanup() {
+      // Clear dynamic QR polling
+      this.stopDynamicQRPolling()
+
       // Clear auto-refresh interval
       if (this.qrRefreshInterval) {
         clearInterval(this.qrRefreshInterval)
@@ -488,7 +639,11 @@ export default {
       this.updateTimeout = setTimeout(() => {
         if (this.show) {
           console.log('Updating customer screen due to data change')
-          this.showQROnCustomerScreen()
+          if (this.isDynamicQREnabled) {
+            this.generateDynamicQR()
+          } else {
+            this.showQROnCustomerScreen()
+          }
         }
       }, 500) // 500ms debounce
     },
@@ -582,6 +737,7 @@ export default {
         qrString: this.generateQRString(),
         timestamp: Date.now(),
         currencyList: this.findAllCurrency,
+        orderItems: this.orderItems,
       }
 
       // Try to open customer display window on second monitor
@@ -765,7 +921,7 @@ export default {
     //   },
     getCustomerDisplayURL() {
       const baseUrl = window.location.origin
-      const customerDisplayPath = '/admin/cafeTable/customer'
+      const customerDisplayPath = '/#/admin/cafeTable/customer-restaurant'
 
       // Serialize company info and currencies
       const companyData = encodeURIComponent(JSON.stringify(this.companyInfo))
@@ -790,11 +946,6 @@ export default {
 
     sendDataToCustomerWindow(qrData) {
       console.info(`sendDataToCustomerWindow==> ${JSON.stringify(qrData)}`)
-      console.info(
-        `sendDataToCustomerWindow AAA==> ${JSON.stringify(
-          this.customerDisplayWindow
-        )}`
-      )
       if (this.customerDisplayWindow && !this.customerDisplayWindow.closed) {
         // Send data via postMessage
         this.customerDisplayWindow.postMessage(

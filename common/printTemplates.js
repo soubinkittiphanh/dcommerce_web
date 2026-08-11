@@ -63,6 +63,32 @@ const getCompanyLogoUrl = (companyData) => {
   return ''
 }
 
+const getCompanyQR1Url = (companyData) => {
+  if (!companyData) return ''
+  const baseUrl = getBaseUrl()
+  const qrPath = companyData.bank_qr_image_path || companyData.qrCode
+  if (qrPath) {
+    if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+      return qrPath
+    }
+    return `${baseUrl}/${qrPath.replace(/^\//, '')}`
+  }
+  return ''
+}
+
+const getCompanyQR2Url = (companyData) => {
+  if (!companyData) return ''
+  const baseUrl = getBaseUrl()
+  const qrPath = companyData.bank_qr_image_path_2 || companyData.qrCode2
+  if (qrPath) {
+    if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+      return qrPath
+    }
+    return `${baseUrl}/${qrPath.replace(/^\//, '')}`
+  }
+  return ''
+}
+
 // Convert amount to local currency for totals summary
 const convertToLocalCurrency = (amount, fromCurrency, localCurrency) => {
   if (!fromCurrency || !localCurrency || fromCurrency.isLocalCCY) {
@@ -145,7 +171,7 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
     return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
-        <td style="text-align: center;">${line.product?.id}</td>
+        <td style="text-align: center;">${line.product?.barCode || line.product?.pro_code || line.product?.id}</td>
         <td>
           <div style="display: flex; align-items: center; gap: 8px;">
             ${getProductImage(line.product) ? `
@@ -401,11 +427,12 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
     <body>
     <div class="content">
         <div class="header-container">
-            <div class="company-info">
+            <div class="company-info" style="flex: 1; text-align: left;">
                 <h1>${companyData.name || 'COMPANY NAME'}</h1>
                 <p>${companyData.address || ''}</p>
-                <p>Tel: ${companyData.tel || ''}</p>
-                <p>Email: ${companyData.email || ''}</p>
+                <p>Tel: ${companyData.tel || ''} | Email: ${companyData.email || ''}</p>
+                ${companyData.taxId ? `<p><strong>Tax ID:</strong> ${companyData.taxId}</p>` : ''}
+                ${companyData.bank ? `<p><strong>Bank:</strong> ${companyData.bank} ${companyData.accountName ? `- ${companyData.accountName}` : ''} ${companyData.accounts ? `(${companyData.accounts})` : ''}</p>` : ''}
             </div>
             <div class="receipt-title">
                 <h2>RECEIVE NOTE</h2>
@@ -508,6 +535,8 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
   console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
   const baseUrl = getBaseUrl()
+  const qr1Url = getCompanyQR1Url(companyData)
+  const qr2Url = getCompanyQR2Url(companyData)
 
   // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
   const linesHTML = header.lines?.map((line, index) => {
@@ -529,7 +558,8 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
             <div>
               <span class="pro-name" style="font-weight: bold; display: block;">${line.product?.pro_name || 'Unknown Product'}</span>
               <span style="display: block; margin-top: 2px;">
-                ${line.product?.pro_id ? `<span class="pro-id" style="color: #666; font-size: 9px;">ID: ${line.product?.pro_id}</span>` : ''}
+                ${line.product?.pro_id ? `<span class="pro-id" style="color: #666; font-size: 9px; margin-right: 8px;">ID: ${line.product?.pro_id}</span>` : ''}
+                ${line.product?.barCode ? `<span class="pro-barcode" style="color: #666; font-size: 9px;">Barcode: ${line.product?.barCode}</span>` : ''}
                 ${line.isGift ? '<small style="color: #28a745; font-weight: bold;"> [Gift]</small>' : ''}
               </span>
             </div>
@@ -632,7 +662,7 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
             color: #444; 
         }
         .invoice-title { 
-            text-align: right; 
+            text-align: center; 
             border: 2px solid #000; 
             padding: 8px 15px; 
             background: #fff3cd; 
@@ -779,16 +809,33 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
     </head>
     <body>
     <div class="content">
-        <div class="header-container">
-            <div class="company-info">
+        <div class="header-container" style="display: flex; align-items: center; justify-content: space-between;">
+            <div class="company-info" style="flex: 1.2; text-align: left;">
                 <h1>${companyData.name || 'COMPANY NAME'}</h1>
                 <p>${companyData.address || ''}</p>
-                <p>Tel: ${companyData.tel || ''}</p>
-                <p>Email: ${companyData.email || ''}</p>
+                <p>Tel: ${companyData.tel || ''} | Email: ${companyData.email || ''}</p>
+                ${companyData.taxId ? `<p><strong>Tax ID:</strong> ${companyData.taxId}</p>` : ''}
+                ${companyData.bank ? `<p><strong>Bank:</strong> ${companyData.bank} ${companyData.accountName ? `- ${companyData.accountName}` : ''} ${companyData.accounts ? `(${companyData.accounts})` : ''}</p>` : ''}
             </div>
-            <div class="invoice-title">
-                <h2>INVOICE</h2>
-                <span>ໃບແຈ້ງໜີ້</span>
+            <div style="flex: 0.8; display: flex; justify-content: center; align-self: flex-start; margin-top: 5px;">
+                <div class="invoice-title">
+                    <h2>INVOICE</h2>
+                    <span>ໃບແຈ້ງໜີ້</span>
+                </div>
+            </div>
+            <div class="header-qrs" style="flex: 1.5; display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
+                ${qr1Url ? `
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                        <img src="${qr1Url}" style="width: 150px; height: 150px; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" />
+                        <span style="font-size: 11px; margin-top: 2px; color: #555; font-weight: bold;">ກີບ</span>
+                    </div>
+                ` : ''}
+                ${qr2Url ? `
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                        <img src="${qr2Url}" style="width: 150px; height: 150px; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" />
+                        <span style="font-size: 11px; margin-top: 2px; color: #555; font-weight: bold;">ບາດ</span>
+                    </div>
+                ` : ''}
             </div>
         </div>
         
@@ -859,9 +906,11 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
     </div>
     
     <div class="footer">
-        <div class="footer-row">
-            <div class="sign-box">Customer Signature<br>ລາຍເຊັນລູກຄ້າ</div>
-            <div class="sign-box">Authorized By<br>ຜູ້ອະນຸມັດ</div>
+        <div class="footer-row" style="margin-top: 50px; margin-bottom: 10px;">
+            <div class="sign-box" style="width: 22%;">ລາຍເຊັນລູກຄ້າ<br>Customer Signature</div>
+            <div class="sign-box" style="width: 22%;">ພະນັກງານສົ່ງສິນຄ້າ<br>Delivery Officer</div>
+            <div class="sign-box" style="width: 22%;">ຜູ້ຮັບເງິນ<br>Recipient</div>
+            <div class="sign-box" style="width: 22%;">ຜູ້ອະນຸມັດ<br>Approver</div>
         </div>
     </div>
     </body>
@@ -1438,4 +1487,385 @@ export const generateReceivingHTML = (header, companyData, currencyList = []) =>
     </div>
   </body>
   </html>`
+}
+
+// ==========================================
+// PROFESSIONAL QUOTATION PRINT TEMPLATE
+// ==========================================
+export const generateQuotationHTML = (header, companyData, currencyList = []) => {
+  console.log('📄 GENERATING QUOTATION PRINT TEMPLATE')
+
+  // Get local currency
+  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', symbol: '₭' }
+  const baseUrl = getBaseUrl()
+
+  // Generate lines HTML
+  const linesHTML = header.lines?.map((line, index) => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    return `
+      <tr>
+        <td style="text-align: center;">${index + 1}</td>
+        <td>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            ${getProductImage(line.product) ? `
+              <img src="${baseUrl}/${getProductImage(line.product).replace(/^\//, '')}" 
+                   style="width: 40px; height: 40px; object-fit: cover; border-radius: 4px; border: 1px solid #ddd;" 
+                   onerror="this.style.display='none';" />
+            ` : ''}
+            <div>
+              <span class="pro-name" style="font-weight: bold; display: block;">${line.product?.pro_name || 'Unknown Product'}</span>
+              ${line.product?.barCode ? `<small style="color: #666; display: block; margin-top: 2px;">Barcode: ${line.product?.barCode}</small>` : ''}
+            </div>
+          </div>
+        </td>
+        <td style="text-align: center;">${formatNumber(line.quantity)}</td>
+        <td style="text-align: center;">${line.unit?.name || ''}</td>
+        <td style="text-align: right;">
+          <strong>${formatNumber(line.price)} ${lineCurrency.code}</strong>
+        </td>
+        <td style="text-align: right;">
+          <span style="color: #dc3545;">${formatNumber(line.discount || 0)} ${lineCurrency.code}</span>
+        </td>
+        <td style="text-align: right;">
+          <strong>${formatNumber(line.total)} ${lineCurrency.code}</strong>
+        </td>
+      </tr>
+    `
+  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+
+  // Calculate totals by currency
+  const totalsByCurrency = {}
+  let totalInLocalCurrency = 0
+
+  header.lines?.forEach(line => {
+    const lineCurrency = getCurrency(line.currencyId, currencyList)
+
+    if (!totalsByCurrency[lineCurrency.code]) {
+      totalsByCurrency[lineCurrency.code] = {
+        currency: lineCurrency,
+        subtotal: 0,
+        discount: 0,
+        total: 0
+      }
+    }
+
+    totalsByCurrency[lineCurrency.code].subtotal += line.total
+    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+
+    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+    totalInLocalCurrency += localAmount
+  })
+
+  const headerDiscount = header.discount || 0
+  totalInLocalCurrency -= headerDiscount
+
+  const vatAmount = totalInLocalCurrency * 0.1
+  const grandTotalWithVat = totalInLocalCurrency + vatAmount
+
+  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    <div class="total-row currency-subtotal">
+      <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
+      <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
+    </div>
+  `).join('')
+
+  return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Quotation #${header.id}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        html, body { height: 100%; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Noto Sans Lao', Arial, sans-serif; 
+            font-size: 11px; 
+            line-height: 1.3; 
+            padding: 15px; 
+            display: flex; 
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+        }
+        .content { flex: 1; }
+        
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            border-bottom: 2px solid #246ab2; 
+            padding-bottom: 10px; 
+            margin-bottom: 15px; 
+        }
+        .company-info h1 { 
+            font-size: 18px; 
+            margin: 0 0 5px 0; 
+            text-transform: uppercase; 
+            color: #246ab2;
+        }
+        .company-info p { 
+            margin: 2px 0; 
+            font-size: 10px; 
+            color: #555; 
+        }
+        .quotation-title { 
+            text-align: center; 
+            border: 2px solid #246ab2; 
+            padding: 8px 20px; 
+            background: #ebf8ff; 
+            border-radius: 6px;
+        }
+        .quotation-title h2 { 
+            margin: 0; 
+            font-size: 20px; 
+            line-height: 1.1; 
+            color: #246ab2;
+            font-weight: bold;
+        }
+        .quotation-title span { 
+            font-size: 11px; 
+            color: #4a5568; 
+            font-weight: bold;
+        }
+        
+        .info-box { 
+            width: 100%; 
+            border: 1px solid #cbd5e0; 
+            margin-bottom: 15px; 
+            padding: 10px; 
+            display: flex; 
+            background: #f7fafc;
+            border-radius: 6px;
+        }
+        .info-col { flex: 1; font-size: 10px; }
+        .info-col.right { 
+            border-left: 1px solid #e2e8f0; 
+            padding-left: 15px; 
+            flex: 0 0 260px; 
+        }
+        .field-label { 
+            font-weight: bold; 
+            margin-right: 5px; 
+            color: #2d3748;
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            border: 1px solid #cbd5e0;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        th { 
+            border: 1px solid #cbd5e0; 
+            background-color: #edf2f7; 
+            padding: 8px 6px; 
+            font-size: 10px; 
+            font-weight: bold; 
+            text-align: center;
+            color: #2d3748;
+        }
+        td { 
+            border: 1px solid #cbd5e0; 
+            padding: 8px 6px; 
+            font-size: 10px;
+            vertical-align: middle;
+        }
+        
+        .totals-container { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-bottom: 20px; 
+            align-items: flex-start;
+        }
+        .terms-box {
+            width: 55%;
+            border: 1px solid #cbd5e0;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 6px;
+            font-size: 10px;
+        }
+        .terms-title {
+            font-weight: bold;
+            color: #246ab2;
+            margin-bottom: 6px;
+            font-size: 11px;
+        }
+        .totals-box { 
+            width: 40%; 
+            border: 1px solid #cbd5e0; 
+            background: #f7fafc;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+        .total-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 6px 10px; 
+            border-bottom: 1px solid #edf2f7; 
+            font-size: 11px;
+        }
+        .currency-subtotal {
+            background-color: #edf2f7;
+            color: #2d3748;
+            font-weight: 600;
+        }
+        .total-row.final { 
+            border-bottom: none; 
+            background-color: #ebf8ff; 
+            font-weight: bold; 
+            border-top: 2px solid #246ab2; 
+            font-size: 14px;
+            color: #246ab2;
+        }
+        .discount-row { 
+            color: #c53030; 
+            background-color: #fff5f5;
+        }
+        
+        .footer { 
+            margin-top: auto; 
+            padding-top: 20px;
+        }
+        .footer-row { 
+            display: flex; 
+            justify-content: space-between; 
+            text-align: center; 
+            margin-bottom: 45px;
+        }
+        .sign-box { 
+            border-top: 1px solid #718096; 
+            width: 220px; 
+            padding-top: 8px; 
+            font-size: 10px; 
+            font-weight: bold;
+            color: #4a5568;
+        }
+        
+        .currency-note {
+            font-size: 9px;
+            color: #718096;
+            font-style: italic;
+            margin-top: 10px;
+            padding: 8px;
+            background: #f7fafc;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+        
+        @media print { 
+            body { margin: 0; padding: 10mm; } 
+            @page { size: A4; margin: 10mm; } 
+            .footer { page-break-inside: avoid; }
+            .quotation-title { background: #ebf8ff !important; }
+            .totals-box { background: #f7fafc !important; }
+            .total-row.final { background: #ebf8ff !important; }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="header-container">
+            <div style="display: flex; align-items: center; gap: 15px; flex: 1;">
+                ${getCompanyLogoUrl(companyData) ? `
+                  <img src="${getCompanyLogoUrl(companyData)}" style="max-height: 60px; max-width: 120px; object-fit: contain;" onerror="this.style.display='none';" />
+                ` : ''}
+                <div class="company-info" style="text-align: left;">
+                    <h1>${companyData.name || 'COMPANY NAME'}</h1>
+                    <p>${companyData.address || ''}</p>
+                    <p>Tel: ${companyData.tel || ''} | Email: ${companyData.email || ''}</p>
+                    ${companyData.taxId ? `<p><strong>Tax ID:</strong> ${companyData.taxId}</p>` : ''}
+                </div>
+            </div>
+            <div class="quotation-title">
+                <h2>QUOTATION</h2>
+                <span>ໃບສະເໜີລາຄາ</span>
+            </div>
+        </div>
+        
+        <div class="info-box">
+            <div class="info-col">
+                <div><span class="field-label">ລູກຄ້າ / Customer:</span> <b>${header.client?.company || '-'}</b></div>
+                <div><span class="field-label">ຊື່ / Contact:</span> ${header.client?.name || '-'}</div>
+                <div><span class="field-label">ເບີໂທ / Telephone:</span> ${header.client?.telephone || '-'}</div>
+            </div>
+            <div class="info-col right">
+                <div><span class="field-label">ເລກທີ / Quotation No:</span> <b>QT-${header.id}</b></div>
+                <div><span class="field-label">ວັນທີ / Date:</span> ${formatDate(header.bookingDate)}</div>
+                <div><span class="field-label">ຜູ້ສະເໜີ / Prepared By:</span> ${header.user?.cus_name || '-'}</div>
+            </div>
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th width="5%">#</th>
+                    <th width="45%">Description / ລາຍການ</th>
+                    <th width="8%">Qty / ຈຳນວນ</th>
+                    <th width="10%">Unit / ໜ່ວຍ</th>
+                    <th width="14%">Price / ລາຄາ</th>
+                    <th width="14%">Discount / ສ່ວນຫຼຸດ</th>
+                    <th width="14%">Total / ລວມ</th>
+                </tr>
+            </thead>
+            <tbody>${linesHTML}</tbody>
+        </table>
+        
+        <div class="totals-container">
+            <div class="terms-box">
+                <div class="terms-title">Terms & Conditions / ເງື່ອນໄຂ:</div>
+                <div style="line-height: 1.5;">
+                  1. This quotation is valid for 30 days from the date of issue.<br>
+                  2. Delivery within 15 days after confirmation of order.<br>
+                  3. Prices are exclusive of VAT (10%) / ລາຄານີ້ແມ່ນບໍ່ລວມອາກອນມູນຄ່າເພີ່ມ (10% VAT).<br>
+                  4. Please review and sign below to confirm acceptance.<br>
+                  ${header.remark ? `<br><strong>Remark / ໝາຍເຫດ:</strong> ${header.remark}` : ''}
+                </div>
+            </div>
+            <div class="totals-box">
+                ${totalsHTML}
+                ${headerDiscount > 0 ? `
+                    <div class="total-row discount-row">
+                        <span>Header Discount:</span>
+                        <span><strong>-${formatNumber(headerDiscount)} ${localCurrency.code}</strong></span>
+                    </div>
+                ` : ''}
+                <div class="total-row">
+                    <span>VAT (10%) / ອາກອນ (10%):</span>
+                    <span><strong>${formatNumber(vatAmount)} ${localCurrency.code}</strong></span>
+                </div>
+                <div class="total-row final">
+                    <span>GRAND TOTAL (Incl. VAT):</span>
+                    <span><strong>${formatNumber(grandTotalWithVat)} ${localCurrency.code}</strong></span>
+                </div>
+                ${generateMultiCurrencyTotalsHTML(grandTotalWithVat, localCurrency, currencyList)}
+            </div>
+        </div>
+        
+        <div class="currency-note">
+            <strong>Note / ໝາຍເຫດ:</strong> ມູນຄ່າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົ້ນຕໍ. ຍອດລວມສຸດທ້າຍຖືກແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}).
+        </div>
+    </div>
+    
+    <div class="footer">
+        <div class="footer-row" style="justify-content: space-around; margin-top: 30px;">
+            <div class="sign-box">
+              <br><br><br>
+              Confirmed and Accepted by Customer<br>
+              (ລູກຄ້າຢືນຢັນ ແລະ ຕົກລົງ)
+            </div>
+            <div class="sign-box">
+              <br><br><br>
+              Prepared By / Authorized Signature<br>
+              (ຜູ້ສະເໜີລາຄາ)
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>
+  `
 }

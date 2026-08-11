@@ -530,6 +530,10 @@ export default {
   },
   mounted() {
     if (typeof window !== 'undefined') {
+      if (window.posApi) {
+        this.$router.replace('/admin/login').catch(() => {})
+        return
+      }
       const hash = window.location.hash || ''
       const search = window.location.search || ''
       const fullUrl = window.location.href || ''

@@ -46,6 +46,10 @@
           <v-icon left>mdi-bank</v-icon>
           ສັນຍາກັບທະນາຄານ (Bank LVB Agreement)
         </v-tab>
+        <v-tab class="font-weight-bold">
+          <v-icon left>mdi-truck-delivery-outline</v-icon>
+          ເອກະສານສົ່ງມອບຊອບແວ (Software Handover)
+        </v-tab>
       </v-tabs>
 
       <!-- Printable Documents wrapper with soft grey background -->
@@ -572,6 +576,272 @@
               </div>
             </div>
           </v-tab-item>
+
+          <!-- SOFTWARE DELIVERY & HANDOVER NOTE TAB -->
+          <v-tab-item class="grey lighten-4">
+            <div class="delivery-document-print-container document-card">
+              <!-- Print header only visible on export -->
+              <div class="print-header-only">
+                <div class="d-flex align-center justify-space-between mb-4">
+                  <div>
+                    <h1 class="primary--text font-weight-bold mb-1">DCOM POS</h1>
+                    <p v-if="lang === 'la'" class="text-caption grey--text text--darken-2">ໃບບັນທຶກການສົ່ງມອບ - ຮັບມອບ ລະບົບຊອບແວ ແລະ ການເຊື່ອມຕໍ່ API</p>
+                    <p v-else class="text-caption grey--text text--darken-2">Software Delivery, Handover & Acceptance Note</p>
+                  </div>
+                </div>
+                <v-divider class="mb-4" style="border-width: 2px; border-color: #1976D2 !important"></v-divider>
+              </div>
+
+              <!-- Main Document Content -->
+              <div class="contract-body">
+                <!-- LAO VERSION -->
+                <div v-if="lang === 'la'">
+                  <h1>ໃບບັນທຶກການສົ່ງມອບ - ຮັບມອບ ລະບົບຊອບແວ ແລະ ການເຊື່ອມຕໍ່ API</h1>
+                  
+                  <p>
+                    ໃບບັນທຶກການສົ່ງມອບ-ຮັບມອບສະບັບນີ້ ຖືກເຮັດຂຶ້ນໃນວັນທີ _____ ເດືອນ ____________, 2026 ລະຫວ່າງ:
+                  </p>
+                  
+                  <ol class="mb-6 pl-4">
+                    <li class="mb-2"><strong>ບໍລິສັດ ດີຄອມ ວິສາຫະກິດສ່ວນບຸກຄົນ (DCOM SHOP)</strong> (ຕໍ່ໄປນີ້ເອີ້ນວ່າ <strong>"ຜູ້ສົ່ງມອບ"</strong>);</li>
+                    <li class="mb-2"><strong>ທະນາຄານ ຮ່ວມທຸລະກິດ ລາວ-ຫວຽດ (LAO-VIET JOINT VENTURE BANK - LVB)</strong> (ຕໍ່ໄປນີ້ເອີ້ນວ່າ <strong>"ທະນາຄານ"</strong> ຫຼື <strong>"LVB"</strong>); ແລະ</li>
+                    <li class="mb-2"><strong>ໂຮງຮຽນສະຖາພອນ (SATHAPHONE SCHOOL)</strong>, ຜູ້ຮັບມອບລະບົບເພື່ອຕິດຕັ້ງ ແລະ ນຳໃຊ້ (ຕໍ່ໄປນີ້ເອີ້ນວ່າ <strong>"ຜູ້ຮັບມອບ"</strong> ຫຼື <strong>"ຮ້ານຄ້າ"</strong>).</li>
+                  </ol>
+
+                  <p>
+                    ຄູ່ສັນຍາທັງສາມຝ່າຍໄດ້ຕົກລົງ ແລະ ຢືນຢັນການສົ່ງມອບ-ຮັບມອບ ລະບົບຊອບແວ DCOM POS ທີ່ໄດ້ເຊື່ອມຕໍ່ລະບົບ LVB Open API (Dynamic QR Code, Webhook Callbacks) ພ້ອມທັງອຸປະກອນ ແລະ ການບໍລິການ ໂດຍມີລາຍລະອຽດດັ່ງລຸ່ມນີ້:
+                  </p>
+
+                  <h3 class="section-title">1. ລາຍລະອຽດຂອງລະບົບຊອບແວ ແລະ ການເຊື່ອມຕໍ່ (Software & Integration Specifications)</h3>
+                  <p>
+                    ຜູ້ສົ່ງມອບໄດ້ດຳເນີນການຕິດຕັ້ງ, ຕັ້ງຄ່າ ແລະ ທົດສອບການເຊື່ອມຕໍ່ລະບົບຊອບແວ DCOM POS ຮ່ວມກັບ LVB API ສໍາເລັດເປັນທີ່ຮຽບຮ້ອຍ ເຊິ່ງມີລາຍລະອຽດດັ່ງນີ້:
+                  </p>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>ຊອບແວທີ່ສົ່ງມອບ:</strong> ລະບົບ DCOM POS (ລວມມີ Module: Minimart POS, Inventories, P&L Reports).</li>
+                    <li><strong>ລະບົບເຊື່ອມຕໍ່ API ທະນາຄານ:</strong> ລະບົບເຊື່ອມຕໍ່ LVB Payment Gateway (Init API, Login API, Verify Transaction API, Webhook Callback Listener).</li>
+                    <li><strong>ການສະແດງຜົນ Dynamic QR:</strong> ລະບົບສະແດງ QR Code ໃນການຊຳລະເງິນຜ່ານໜ້າຈໍທີສອງຂອງລູກຄ້າ (Customer Screen) ແລະ ໜ້າຈໍຫຼັກ POS ຂອງແຄັດເຊຍ.</li>
+                  </ul>
+
+                  <h3 class="section-title">2. ອຸປະກອນຮາດແວທີ່ສົ່ງມອບ (Hardware & Terminals Delivered)</h3>
+                  <p>
+                    ຜູ້ສົ່ງມອບໄດ້ດຳເນີນການຈັດສົ່ງ ແລະ ຕິດຕັ້ງອຸປະກອນຮາດແວໃຫ້ແກ່ຜູ້ຮັບມອບ (ຫຼື ຮ້ານຄ້າຕົວແທນທີ່ໄດ້ຮັບອະນຸມັດ) ຕາມລາຍການດັ່ງນີ້:
+                  </p>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>ເຄື່ອງ POS Dual-Screen Terminal:</strong> ຈຳນວນ ________ ເຄື່ອງ .</li>
+                    <li><strong>ເຄື່ອງພິມໃບບິນຄວາມຮ້ອນ (Thermal Receipt Printer - 80mm):</strong> ຈຳນວນ ________ ເຄື່ອງ.</li>
+                    <li><strong>ກ່ອງໃສ່ເງິນອັດຕະໂນມັດ (Cash Drawer):</strong> ຈຳນວນ ________ ເຄື່ອງ.</li>
+                    <li><strong>ເຄື່ອງພິມສະຕິກເກີ/ບາໂຄດ (LABEL printer 365B):</strong> ຈຳນວນ 1 ເຄື່ອງ.</li>
+                    <li><strong>ເຄື່ອງສຳຮອງໄຟ (UPS):</strong> ຈຳນວນ 1 ເຄື່ອງ.</li>
+                    <li><strong>ເຄື່ອງສະແກນບາໂຄດ (Barcode scanner):</strong> ຈຳນວນ 1 ເຄື່ອງ.</li>
+                    <li><strong>ເຄື່ອງອ່ານ-ຂຽນບັດ NFC (NFC Reader/Writer - ຖ້າມີ):</strong> ຈຳນວນ ________ ເຄື່ອງ.</li>
+                  </ul>
+
+                  <h3 class="section-title">3. ການເຝິກອົບຮົມການນຳໃຊ້ລະບົບ (Staff Training)</h3>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>ການເຝິກອົບຮົມ:</strong> ຜູ້ສົ່ງມອບໄດ້ຈັດຕັ້ງການເຝິກອົບຮົມ ແລະ ສອນວິທີການນຳໃຊ້ລະບົບ POS ໃຫ້ແກ່ພະນັກງານເຕັກນິກຂອງທະນາຄານ ແລະ ພະນັກງານຮ້ານຄ້າຮ່ວມລາຍການ ເປັນເວລາ ________ ຊົ່ວໂມງ.</li>
+                  </ul>
+
+                  <h3 class="section-title">4. ຜົນການທົດສອບ ແລະ ກວດຮັບ UAT (Testing & Acceptance Checklist)</h3>
+                  <p>
+                    ທັງສາມຝ່າຍໄດ້ຮ່ວມກັນກວດກາ UAT ແລະ ທົດສອບລະບົບການຊຳລະເງິນຕົວຈິງ ໂດຍໄດ້ຮັບຜົນດັ່ງນີ້:
+                  </p>
+                  <table class="sig-table mb-4" style="text-align: left !important; margin-top: 10px !important;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                      <th style="padding: 8px; width: 70%;"><strong>ລາຍການທົດສອບ (Testing Scenario)</strong></th>
+                      <th style="padding: 8px; width: 30%; text-align: center;"><strong>ຜົນການທົດສອບ (Result)</strong></th>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">1. API Dynamic QR Code Generation via POS checkout</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] ຜ່ານ (Pass)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">2. Webhook Callback notification reception on successful payment scan</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] ຜ່ານ (Pass)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">3. Automatic billing settlement and POS invoice status change</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] ຜ່ານ (Pass)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">4. Receipt printing automatically triggered upon POS checkout resolution</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] ຜ່ານ (Pass)</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">5. Security checking and MD5 Secure Code verification</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] ຜ່ານ (Pass)</td>
+                    </tr>
+                  </table>
+
+                  <h3 class="section-title">5. ຂໍ້ຕົກລົງ ແລະ ການຢືນຢັນການຮັບມອບ (Acceptance Confirmation)</h3>
+                  <p>
+                    ຜູ້ຮັບມອບ (ໂຮງຮຽນສະຖາພອນ) ແລະ ທະນາຄານ LVB ຢືນຢັນວ່າ ລະບົບຊອບແວ DCOM POS ແລະ ການເຊື່ອມຕໍ່ LVB API ໄດ້ຮັບການຕິດຕັ້ງ, ທົດສອບ UAT ແລະ ສົ່ງມອບຢ່າງສົມບູນ. ລະບົບທັງໝົດເຮັດວຽກໄດ້ຢ່າງຖືກຕ້ອງ, ປອດໄພ, ສະຖຽນ ແລະ ພ້ອມທີ່ຈະນຳໃຊ້ງານຢ່າງເປັນທາງການໃນສະພາບແວດລ້ອມການເຮັດວຽກຕົວຈິງ (Production). ຜູ້ຮັບມອບ ຕົກລົງຮັບມອບລະບົບ ແລະ ທະນາຄານ LVB ຈະດຳເນີນຂັ້ນຕອນການເບີກຈ່າຍຄ່າລະບົບໃຫ້ແກ່ ຜູ້ສົ່ງມອບ ຕາມເງື່ອນໄຂຂອງສັນຍາຮ່ວມມື.
+                  </p>
+                  <p class="mb-8">
+                    ໃບບັນທຶກການສົ່ງມອບ-ຮັບມອບສະບັບນີ້ ຖືກເຮັດຂຶ້ນເປັນ 3 ສະບັບ ທີ່ມີຄຸນຄ່າທາງກົດໝາຍເທົ່າກັນ, ແຕ່ລະຝ່າຍເກັບຮັກສາໄວ້ຝ່າຍລະ 1 ສະບັບ ເພື່ອເປັນຫຼັກຖານ.
+                  </p>
+
+                  <!-- Signatures Table -->
+                  <table class="sig-table">
+                    <tr>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>ຕາງໜ້າ ຜູ້ສົ່ງມອບ: DCOM SHOP</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(ລາຍເຊັນ ແລະ ປະທັບກາ)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">ຊື່ແຈ້ງ: ທ່ານ ສຸບິນ ກິດຕິພັນ</p>
+                        <p class="text-caption grey--text">ວັນທີ: ____/____/2026</p>
+                      </td>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>ຕາງໜ້າ ທະນາຄານ LVB</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(ລາຍເຊັນ ແລະ ປະທັບກາ)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">ຕົວແທນຜູ້ມີສິດອຳນາດ</p>
+                        <p class="text-caption grey--text">ວັນທີ: ____/____/2026</p>
+                      </td>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>ຕາງໜ້າ ຜູ້ຮັບມອບ: ໂຮງຮຽນສະຖາພອນ</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(ລາຍເຊັນ ແລະ ປະທັບກາ)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">ຕົວແທນຜູ້ມີສິດອຳນາດ</p>
+                        <p class="text-caption grey--text">ວັນທີ: ____/____/2026</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <!-- ENGLISH VERSION -->
+                <div v-else>
+                  <h1>SOFTWARE DELIVERY, HANDOVER & ACCEPTANCE NOTE</h1>
+                  
+                  <p>
+                    This <strong>Software Handover and Acceptance Note</strong> is executed on this _____ day of ____________, 2026, by and between:
+                  </p>
+                  
+                  <ol class="mb-6 pl-4">
+                    <li class="mb-2"><strong>DCOM SHOP (Sole Co., Ltd.)</strong> (hereinafter referred to as the <strong>"Deliverer"</strong>);</li>
+                    <li class="mb-2"><strong>LAO-VIET JOINT VENTURE BANK (LVB)</strong> (hereinafter referred to as the <strong>"Bank" or "LVB"</strong>); and</li>
+                    <li class="mb-2"><strong>SATHAPHONE SCHOOL</strong>, the ultimate merchant recipient of the system (hereinafter referred to as the <strong>"Recipient" or "Merchant"</strong>).</li>
+                  </ol>
+
+                  <p>
+                    The three Parties hereby confirm the successful delivery, configuration, testing, and acceptance of the DCOM POS software system integrated with the LVB Open API (Dynamic QR Code, Webhook Callbacks), along with related hardware and technical services, as detailed below:
+                  </p>
+
+                  <h3 class="section-title">1. Software System & API Integration Deliverables</h3>
+                  <p>
+                    The Deliverer has successfully installed, configured, and completed the technical integration of the DCOM POS system with the Bank's payment gateway, including:
+                  </p>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>Software Licensing & Deployments:</strong> DCOM POS (including Restaurant POS, Minimart POS, Inventories, and P&L Reports).</li>
+                    <li><strong>Bank API Integration:</strong> Complete integration with LVB Payment Gateway (including Payment Initialization API, Authentication API, Transaction Verification API, and Webhook Callback Listener).</li>
+                    <li><strong>Dual-Screen Dynamics:</strong> Customer-facing secondary display support and cashier main console dynamic QR code rendering.</li>
+                  </ul>
+
+                  <h3 class="section-title">2. Hardware Deliverables</h3>
+                  <p>
+                    The Deliverer has delivered and installed physical POS hardware at designated merchant sites:
+                  </p>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>Dual-Screen POS Terminal:</strong> ________ Unit(s) (including stand, cables, power supply).</li>
+                    <li><strong>Thermal Receipt Printer (80mm):</strong> ________ Unit(s).</li>
+                    <li><strong>Automatic Cash Drawer:</strong> ________ Unit(s).</li>
+                    <li><strong>LABEL printer 365B:</strong> 1 Unit.</li>
+                    <li><strong>UPS (Uninterruptible Power Supply):</strong> 1 Unit.</li>
+                    <li><strong>Barcode scanner:</strong> 1 Unit.</li>
+                    <li><strong>NFC Card Reader/Writer (where applicable):</strong> ________ Unit(s).</li>
+                  </ul>
+
+                  <h3 class="section-title">3. User Training Deliverables</h3>
+                  <ul class="mb-4 pl-6">
+                    <li><strong>User Training:</strong> The Deliverer conducted training sessions for the Bank's staff and partner merchants, totaling ________ hours of training.</li>
+                  </ul>
+
+                  <h3 class="section-title">4. Testing & User Acceptance Testing (UAT) Checklist</h3>
+                  <p>
+                    The integration UAT and payment simulation have been fully performed by all parties, with results as follows:
+                  </p>
+                  <table class="sig-table mb-4" style="text-align: left !important; margin-top: 10px !important;">
+                    <tr style="border-bottom: 1px solid #ddd;">
+                      <th style="padding: 8px; width: 70%;"><strong>Testing Scenario</strong></th>
+                      <th style="padding: 8px; width: 30%; text-align: center;"><strong>UAT Result</strong></th>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">1. API Dynamic QR Code Generation via POS checkout</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] Pass</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">2. Webhook Callback notification reception on successful payment scan</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] Pass</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">3. Automatic billing settlement and POS invoice status change</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] Pass</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">4. Receipt printing automatically triggered upon POS checkout resolution</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] Pass</td>
+                    </tr>
+                    <tr>
+                      <td style="padding: 8px;">5. Security checking and MD5 Secure Code verification</td>
+                      <td style="padding: 8px; text-align: center; color: #4CAF50; font-weight: bold;">[✓] Pass</td>
+                    </tr>
+                  </table>
+
+                  <h3 class="section-title">5. Acceptance Confirmation</h3>
+                  <p>
+                    The Recipient (Sathaphone School) and Lao-Viet Bank hereby confirm that the DCOM POS software system and LVB API integration have been fully installed, successfully tested through UAT, and delivered. The integrated system works normally, securely, and stably in all test scenarios. It is approved for production deployment and school rollout. The Recipient formally accepts the system delivery, and Lao-Viet Bank will initiate billing approval processes in accordance with the terms of the cooperation agreement.
+                  </p>
+                  <p class="mb-8">
+                    This Handover Note is signed in three (3) duplicate copies of equal legal value, with each party retaining one (1) copy for reference.
+                  </p>
+
+                  <!-- Signatures Table -->
+                  <table class="sig-table">
+                    <tr>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>For Deliverer: DCOM SHOP</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(Stamp & Signature)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">Print Name: Mr. Soubin Kittiphanh</p>
+                        <p class="text-caption grey--text">Date: ____/____/2026</p>
+                      </td>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>For Lao-Viet Bank (LVB)</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(Stamp & Signature)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">Authorized Representative</p>
+                        <p class="text-caption grey--text">Date: ____/____/2026</p>
+                      </td>
+                      <td style="width: 33.3% !important; padding: 10px 15px !important;">
+                        <p class="mb-2"><strong>For Recipient: Sathaphone School</strong></p>
+                        <div class="stamp-placeholder">
+                          <span class="grey--text lighten-2" style="font-size: 0.8rem;">(Stamp & Signature)</span>
+                        </div>
+                        <div class="sig-line"></div>
+                        <p class="text-caption grey--text">Authorized Representative</p>
+                        <p class="text-caption grey--text">Date: ____/____/2026</p>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+
+                <div class="print-footer-only mt-8 text-center grey--text text--darken-1">
+                  <v-divider class="mb-4"></v-divider>
+                  <p v-if="lang === 'la'">© {{ new Date().getFullYear() }} DCOM POS. ໃບບັນທຶກການສົ່ງມອບ-ຮັບມອບຊອບແວ LVB</p>
+                  <p v-else>© {{ new Date().getFullYear() }} DCOM POS. LVB Software Handover and Delivery Note</p>
+                </div>
+              </div>
+            </div>
+          </v-tab-item>
         </v-tabs-items>
       </v-card-text>
     </v-card>
@@ -607,7 +877,13 @@ export default {
       try {
         const html2pdf = await this.loadHtml2Pdf();
         
-        const selectorClass = this.tab === 0 ? '.hotel-agreement-print-container' : '.bank-agreement-print-container';
+        let selectorClass = '.hotel-agreement-print-container';
+        if (this.tab === 1) {
+          selectorClass = '.bank-agreement-print-container';
+        } else if (this.tab === 2) {
+          selectorClass = '.delivery-document-print-container';
+        }
+        
         const element = document.querySelector(selectorClass);
         if (!element) return;
 
@@ -617,7 +893,12 @@ export default {
           header.style.setProperty('display', 'block', 'important');
         }
 
-        const title = this.tab === 0 ? 'Hotel_POS_Agreement' : 'Bank_LVB_Agreement';
+        let title = 'Hotel_POS_Agreement';
+        if (this.tab === 1) {
+          title = 'Bank_LVB_Agreement';
+        } else if (this.tab === 2) {
+          title = 'LVB_Software_Delivery_Document';
+        }
         const langSuffix = this.lang === 'la' ? 'LA' : 'EN';
         
         const opt = {
@@ -649,12 +930,24 @@ export default {
     },
 
     downloadWord() {
-      const selectorClass = this.tab === 0 ? '.hotel-agreement-print-container' : '.bank-agreement-print-container';
+      let selectorClass = '.hotel-agreement-print-container';
+      if (this.tab === 1) {
+        selectorClass = '.bank-agreement-print-container';
+      } else if (this.tab === 2) {
+        selectorClass = '.delivery-document-print-container';
+      }
+      
       const element = document.querySelector(selectorClass);
       if (!element) return;
 
       const mainHTML = element.querySelector('.contract-body').innerHTML;
-      const title = this.tab === 0 ? 'Hotel_POS_Agreement' : 'Bank_LVB_Agreement';
+      
+      let title = 'Hotel_POS_Agreement';
+      if (this.tab === 1) {
+        title = 'Bank_LVB_Agreement';
+      } else if (this.tab === 2) {
+        title = 'LVB_Software_Delivery_Document';
+      }
       const langSuffix = this.lang === 'la' ? 'LA' : 'EN';
       const fileName = `${title}_${langSuffix}.doc`;
 
@@ -754,7 +1047,12 @@ export default {
       this.$nextTick(() => {
         const printWindow = window.open('', '_blank');
         
-        const selectorClass = this.tab === 0 ? '.hotel-agreement-print-container' : '.bank-agreement-print-container';
+        let selectorClass = '.hotel-agreement-print-container';
+        if (this.tab === 1) {
+          selectorClass = '.bank-agreement-print-container';
+        } else if (this.tab === 2) {
+          selectorClass = '.delivery-document-print-container';
+        }
         const activeContentElement = document.querySelector(selectorClass);
         
         const headerHTML = activeContentElement.querySelector('.print-header-only').outerHTML;

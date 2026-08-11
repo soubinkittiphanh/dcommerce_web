@@ -1,4 +1,4 @@
-export default async function ({ $axios }) {
+export default async function ({ $axios, redirect, route }) {
   // Only run this in the desktop app (client-side)
   if (process.client && window.posApi) {
     try {
@@ -15,8 +15,16 @@ export default async function ({ $axios }) {
     } catch (error) {
       console.error("❌ Failed to fetch dynamic URL from Electron:", error);
     }
+
+    // Redirect to login if on the landing page in Electron
+    if (route.path === '/' || route.path === '/index.html') {
+      console.log("🔄 Electron detected on root path, redirecting to login page");
+      redirect('/admin/login');
+    }
   } else if (process.client) {
-    const currentBase = $axios.defaults.baseURL || window.location.origin;
-    localStorage.setItem('api_base_url', currentBase);
+    if (!localStorage.getItem('api_base_url')) {
+      const currentBase = $axios.defaults.baseURL || window.location.origin;
+      localStorage.setItem('api_base_url', currentBase);
+    }
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="cart-footer">
     <div class="payment-inputs pa-3">
-      <v-row no-gutters class="ga-2 mb-2" v-if="currentCustomer && currentCustomer.loyaltyPoints > 0">
+      <v-row v-if="currentCustomer && currentCustomer.loyaltyPoints > 0" no-gutters class="ga-2 mb-2">
         <v-col cols="12">
           <v-card outlined class="loyalty-card pa-2" color="blue-grey lighten-5">
             <div class="d-flex justify-space-between align-center">
@@ -9,7 +9,7 @@
                 <v-icon color="primary" small class="mr-1">mdi-star-circle</v-icon>
                 <span class="text-caption font-weight-bold">Points: {{ currentCustomer.loyaltyPoints }}</span>
               </div>
-              <v-btn x-small color="primary" @click="toggleRedeem" :outlined="!showRedeem">
+              <v-btn x-small color="primary" :outlined="!showRedeem" @click="toggleRedeem">
                 {{ showRedeem ? 'Cancel' : 'Redeem' }}
               </v-btn>
             </div>
@@ -33,16 +33,16 @@
       </v-row>
       <v-row no-gutters class="ga-2">
         <v-col cols="12" md="6">
-          <v-text-field v-model="discountRawInput" @input="handleDiscountInput($event)" @blur="handleDiscountBlur()"
-            @focus="handleDiscountFocus()" label="ສ່ວນຫລຸດ" outlined dense hide-details prepend-inner-icon="mdi-percent"
-            :suffix="localCurrency?.code || 'LAK'" class="compact-input" />
+          <v-text-field ref="discountField" v-model="discountRawInput" readonly inputmode="none" label="ສ່ວນຫລຸດ"
+            outlined dense hide-details prepend-inner-icon="mdi-percent" :suffix="localCurrency?.code || 'LAK'" class="compact-input" @input="handleDiscountInput($event)"
+            @blur="handleDiscountBlur()" @focus="handleDiscountFocus()" @click="openKeypad('discount')" />
         </v-col>
         <v-col cols="12" md="6">
-          <v-text-field v-model="cashReceivedRawInput" @input="handleCashReceivedInput($event)"
-            @blur="handleCashReceivedBlur()" @focus="handleCashReceivedFocus()"
-            :label="`ຮັບເງິນ (${localCurrency?.code || 'LAK'})`" outlined dense hide-details
-            prepend-inner-icon="mdi-cash" :suffix="localCurrency?.code || 'LAK'" class="compact-input"
-            :disabled="!isTraditionalCashPayment" />
+          <v-text-field ref="cashReceivedField" v-model="cashReceivedRawInput" readonly inputmode="none"
+            :label="`ຮັບເງິນ (${localCurrency?.code || 'LAK'})`" outlined dense
+            hide-details prepend-inner-icon="mdi-cash" :suffix="localCurrency?.code || 'LAK'" class="compact-input"
+            :disabled="!isTraditionalCashPayment" @input="handleCashReceivedInput($event)" @blur="handleCashReceivedBlur()"
+            @focus="handleCashReceivedFocus()" @click="openKeypad('cashReceived')" />
         </v-col>
       </v-row>
     </div>
@@ -98,10 +98,10 @@
       </div>
     </div>
 
-    <div class="payment-methods pa-3" v-if="showCheckOut">
+    <div v-if="showCheckOut" class="payment-methods pa-3">
       <div class="d-flex align-center justify-space-between mb-2">
         <h4 class="payment-title grey--text text--darken-2">ວິທີການຊຳລະ</h4>
-        <v-btn color="primary" x-small outlined @click="openMultiPayment" :disabled="productCart.length === 0">
+        <v-btn color="primary" x-small outlined :disabled="productCart.length === 0" @click="openMultiPayment">
           <v-icon left x-small>mdi-credit-card-multiple</v-icon>ຫຼາຍວິທີ
         </v-btn>
       </div>
@@ -126,32 +126,47 @@
     <div class="footer-actions pa-3 pt-0">
       <v-row no-gutters class="ga-2">
         <v-col cols="4">
-          <v-btn color="grey lighten-1" outlined block small @click="$emit('toggle-checkout')" class="rounded-lg">
+          <v-btn color="grey lighten-1" outlined block small class="rounded-lg" @click="$emit('toggle-checkout')">
             <v-icon small>{{ showCheckOut ? 'mdi-chevron-down' : 'mdi-chevron-up' }}</v-icon>
           </v-btn>
         </v-col>
         <v-col cols="8">
-          <v-btn color="success" block small @click="handleSinglePayment" :disabled="!canPaySingleRealTime"
-            :loading="processingPayment" class="pay-btn rounded-lg elevation-2">
+          <v-btn color="success" block small :disabled="!canPaySingleRealTime" :loading="processingPayment"
+            class="pay-btn rounded-lg elevation-2" @click="handleSinglePayment">
             <strong>{{ getPaymentButtonTextRealTime }}</strong>
           </v-btn>
         </v-col>
       </v-row>
 
-      <v-btn v-if="!showCheckOut" color="primary" block small outlined @click="openMultiPayment"
-        :disabled="productCart.length === 0" class="mt-2 rounded-lg">
+      <v-btn v-if="!showCheckOut" color="primary" block small outlined :disabled="productCart.length === 0"
+        class="mt-2 rounded-lg" @click="openMultiPayment">
         <v-icon left small>mdi-credit-card-multiple</v-icon>ຈ່າຍເງິນຫຼາຍວິທີ
       </v-btn>
     </div>
+
+    <!-- Custom Virtual Keypad Dialog -->
+    <numeric-keypad-dialog
+      v-model="keypadOpen"
+      :title="keypadTitle"
+      :initial-value="keypadInitialValue"
+      :suffix="keypadSuffix"
+      :presets="keypadPresets"
+      @confirm="handleKeypadConfirm"
+      @cancel="handleKeypadCancel"
+    />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import NumericKeypadDialog from './dialogs/NumericKeypadDialog.vue'
 import CurrencyHelper from '@/utils/currency-helper'
 
 export default {
   name: 'CartFooterComponent',
+  components: {
+    NumericKeypadDialog
+  },
   props: {
     productCart: { type: Array, default: () => [] },
     discount: { type: [Number, String], default: 0 },
@@ -171,7 +186,15 @@ export default {
       isTypingDiscount: false,
       isTypingCash: false,
       showRedeem: false,
-      pointsToRedeem: 0
+      pointsToRedeem: 0,
+      
+      // Keypad settings
+      keypadOpen: false,
+      keypadTarget: '',
+      keypadTitle: '',
+      keypadInitialValue: 0,
+      keypadSuffix: '',
+      keypadPresets: []
     }
   },
 
@@ -295,7 +318,72 @@ export default {
           amount: converted
         }
       })
+    },
+
+    discountPresets() {
+      return [
+        { label: '1,000', value: 1000, action: 'set' },
+        { label: '5,000', value: 5000, action: 'set' },
+        { label: '10,000', value: 10000, action: 'set' },
+        { label: '20,000', value: 20000, action: 'set' },
+        { label: '50,000', value: 50000, action: 'set' },
+        { label: '100,000', value: 100000, action: 'set' }
+      ]
+    },
+
+    cashReceivedPresets() {
+      const finalTotal = this.realTimeFinalTotal || 0
+      const list = []
+      
+      if (finalTotal > 0) {
+        list.push({
+          label: 'ພໍດີ (Exact)',
+          value: finalTotal,
+          action: 'set'
+        })
+      }
+      
+      const notes = [10000, 20000, 50000, 100000, 200000, 500000]
+      notes.forEach(note => {
+        if (note >= finalTotal || note === 50000 || note === 100000 || note === 500000) {
+          list.push({
+            label: note.toLocaleString(),
+            value: note,
+            action: 'set'
+          })
+        }
+      })
+      
+      list.push({ label: '+10,000', value: 10000, action: 'add' })
+      list.push({ label: '+50,000', value: 50000, action: 'add' })
+      list.push({ label: '+100,000', value: 100000, action: 'add' })
+      
+      return list
     }
+  },
+
+  watch: {
+    discount(newVal) {
+      if (!this.isTypingDiscount) {
+        this.discountRawInput = newVal > 0 ? this.formatNumber(Number(newVal)) : ''
+      }
+    },
+    cashReceived(newVal) {
+      if (!this.isTypingCash) {
+        this.cashReceivedRawInput = newVal > 0 ? this.formatNumber(Number(newVal)) : ''
+      }
+    },
+    pointsToRedeem(val) {
+      const max = this.currentCustomer?.loyaltyPoints || 0;
+      if (val > max) this.pointsToRedeem = max;
+      if (val < 0) this.pointsToRedeem = 0;
+      this.$emit('update:redeemed-points', this.pointsToRedeem);
+    }
+  },
+
+  mounted() {
+    this.discountRawInput = this.discount > 0 ? this.formatNumber(Number(this.discount)) : ''
+    this.cashReceivedRawInput = this.cashReceived > 0 ? this.formatNumber(Number(this.cashReceived)) : ''
   },
 
   methods: {
@@ -308,7 +396,7 @@ export default {
       if (value === null || value === undefined || value === '') return ''
 
       // Remove all characters except digits and the first decimal point
-      let cleanValue = value.toString().replace(/,/g, '')
+      const cleanValue = value.toString().replace(/,/g, '')
 
       // If it's just a minus sign or empty, return as is
       if (cleanValue === '-' || cleanValue === '') return cleanValue
@@ -382,14 +470,64 @@ export default {
         this.pointsToRedeem = 0;
       }
       this.$emit('update:redeemed-points', this.pointsToRedeem);
-    }
-  },
-  watch: {
-    pointsToRedeem(val) {
-      const max = this.currentCustomer?.loyaltyPoints || 0;
-      if (val > max) this.pointsToRedeem = max;
-      if (val < 0) this.pointsToRedeem = 0;
-      this.$emit('update:redeemed-points', this.pointsToRedeem);
+    },
+
+    // Custom Keypad Logic
+    openKeypad(target) {
+      if (this.keypadOpen && this.keypadTarget === target) return
+      this.keypadTarget = target
+      if (target === 'discount') {
+        this.keypadTitle = 'ສ່ວນຫລຸດ (Discount)'
+        this.keypadInitialValue = this.discount
+        this.keypadSuffix = this.localCurrency?.code || 'LAK'
+        this.keypadPresets = this.discountPresets
+      } else if (target === 'cashReceived') {
+        this.keypadTitle = 'ຮັບເງິນ (Cash Received)'
+        this.keypadInitialValue = this.cashReceived || this.realTimeFinalTotal
+        this.keypadSuffix = this.localCurrency?.code || 'LAK'
+        this.keypadPresets = this.cashReceivedPresets
+      }
+      this.keypadOpen = true
+      // Blur fields on next tick so they can be clicked again
+      this.$nextTick(() => {
+        this.blurFields()
+      })
+    },
+
+    handleKeypadConfirm(value) {
+      if (this.keypadTarget === 'discount') {
+        this.isTypingDiscount = true
+        this.$emit('update:discount', value || 0)
+        this.discountRawInput = this.formatInputNumber(value)
+        this.$nextTick(() => {
+          this.isTypingDiscount = false
+          this.discountRawInput = value > 0 ? this.formatNumber(Number(value)) : ''
+        })
+      } else if (this.keypadTarget === 'cashReceived') {
+        this.isTypingCash = true
+        this.$emit('update:cash-received', value || 0)
+        this.cashReceivedRawInput = this.formatInputNumber(value)
+        this.$nextTick(() => {
+          this.isTypingCash = false
+          this.cashReceivedRawInput = value > 0 ? this.formatNumber(Number(value)) : ''
+        })
+      }
+      this.blurFields()
+      this.keypadOpen = false
+    },
+
+    handleKeypadCancel() {
+      this.blurFields()
+      this.keypadOpen = false
+    },
+
+    blurFields() {
+      if (this.$refs.discountField) {
+        this.$refs.discountField.blur()
+      }
+      if (this.$refs.cashReceivedField) {
+        this.$refs.cashReceivedField.blur()
+      }
     }
   }
 }

@@ -8,8 +8,10 @@ export default async function ({ $axios }) {
         console.log("POS API Connected to:", dynamicUrl);
     } else {
         if (typeof window !== 'undefined' && window.localStorage) {
-            const currentBase = $axios.defaults.baseURL || window.location.origin;
-            window.localStorage.setItem('api_base_url', currentBase);
+            if (!window.localStorage.getItem('api_base_url')) {
+                const currentBase = $axios.defaults.baseURL || window.location.origin;
+                window.localStorage.setItem('api_base_url', currentBase);
+            }
         }
     }
 }

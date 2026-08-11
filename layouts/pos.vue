@@ -754,6 +754,7 @@ export default {
         accountName:
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
+        taxId: terminalCompany?.taxId || baseCompany?.taxId || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
         term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
         showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',

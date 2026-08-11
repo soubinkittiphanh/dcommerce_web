@@ -24,10 +24,10 @@
       </OrderDetailPos>
     </v-dialog> -->
     <v-dialog v-model="dialogOrderDetail" fullscreen>
-      <OrderDetailPosCRUD @reload="loadData()
-      dialogOrderDetail = false" :is-quotation="true" :key="componentKey" :is-update="viewTransaction"
+      <QuotationDetailCRUD @reload="loadData()
+      dialogOrderDetail = false" :key="componentKey" :is-update="viewTransaction"
         :headerId="selectedOrder" @close-dialog="dialogOrderDetail = false">
-      </OrderDetailPosCRUD>
+      </QuotationDetailCRUD>
     </v-dialog>
     <v-dialog v-model="cancelForm" max-width="1024">
       <cancel-ticket-form :id="OrderIdSelected" :key="componentCancelFormKey" @close-dialog="cancelForm = false"
@@ -147,6 +147,9 @@
         ">
             <i class="fa-regular fa-pen-to-square"></i>
           </v-btn>
+          <v-btn color="success" text @click="printItem(item)">
+            <v-icon>mdi-printer</v-icon>
+          </v-btn>
 
 
         </template>
@@ -171,12 +174,12 @@
   </div>
 </template>
 <script>
-import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
-import OrderDetailPos from '~/components/OrderDetailPos.vue'
-import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
+import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
+import QuotationDetailCRUD from '~/components/QuotationDetailCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
+import { generateQuotationHTML } from '~/common/printTemplates'
 export default {
-  components: { OrderDetailPos, OrderSumaryCardPos, OrderDetailPosCRUD },
+  components: { OrderSumaryCardPos, QuotationDetailCRUD },
   middleware: 'auths',
   data() {
     return {
@@ -425,6 +428,53 @@ export default {
       this.viewTransaction = true
       this.selectedOrder = item.id
       this.dialogOrderDetail = true;
+    },
+    async printItem(item) {
+      this.isloading = true;
+      try {
+        // Fetch quotation data
+        const response = await this.$axios.get(`api/quotation/find/${item.id}`)
+        const quotationData = response.data
+
+        // Get company data
+        const companyData = this.$store.getters.findAllCompany[0] || {}
+
+        // Generate HTML quotation template
+        const htmlContent = generateQuotationHTML(quotationData, companyData, this.$store.getters.findAllCurrency)
+
+        // Print
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+        if (!printWindow) {
+          alert('Unable to open print window. Please check popup blocker settings.')
+          return
+        }
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          try {
+            printWindow.print()
+            setTimeout(() => {
+              printWindow.close()
+            }, 100)
+          } catch (e) {
+            console.error('Print error:', e)
+            printWindow.close()
+          }
+        }
+
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try { printWindow.print() } catch (e) { }
+          }
+        }, 1000)
+      } catch (error) {
+        console.error('Error fetching data for printing:', error)
+        alert('Failed to load data for printing')
+      } finally {
+        this.isloading = false;
+      }
     },
     cancelItem(payload) {
       console.log("Order id", payload.orderId);

@@ -29,13 +29,17 @@
           </v-row>
 
           <v-row dense class="mt-2">
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <v-text-field v-model="form.tel" label="ເບີໂທ" dense outlined hide-details="auto"
                 prepend-inner-icon="mdi-phone"></v-text-field>
             </v-col>
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="4">
               <v-text-field v-model="form.email" label="ອີເມວ" dense outlined hide-details="auto"
                 prepend-inner-icon="mdi-email"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="4">
+              <v-text-field v-model="form.taxId" label="ເລກປະຈຳຕົວເສຍພາສີ (Tax ID)" dense outlined hide-details="auto"
+                prepend-inner-icon="mdi-card-text-outline"></v-text-field>
             </v-col>
           </v-row>
 
@@ -324,6 +328,7 @@ export default {
         bank: 'ທະນາຄານ BCEL',
         accounts: '',
         accountName: '',
+        taxId: '',
         profile_image_path: null,
         bank_qr_image_path: null,
         bank_qr_image_path_2: null, // Ensure this is here
@@ -372,22 +377,13 @@ export default {
     },
     currentImageUrl() {
       if (this.form.profile_image_path) {
-        return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path
-          }`
-      }
-      return null
-    },
-    // NEW: QR image computed property
-    currentQRImageUrl() {
-      if (this.form.bank_qr_image_path) {
-        return `${this.$axios.defaults.baseURL || ''}/${this.form.bank_qr_image_path
-          }`
+        return `${this.$axios.defaults.baseURL || ''}/${this.form.profile_image_path}`
       }
       return null
     },
   },
 
-  async created() {
+  created() {
     this.loadEntry()
   },
 
@@ -400,7 +396,7 @@ export default {
     async commitRecord() {
       if (this.$refs.form.validate() && !this.isloading) {
         this.isloading = true
-        let api = this.isCreate
+        const api = this.isCreate
           ? 'api/company/create'
           : `api/company/update/${this.recordId}`
 

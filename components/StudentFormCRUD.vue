@@ -17,7 +17,8 @@
               label="ລະຫັດນັກຮຽນ (Student ID) *" outlined dense :disabled="isUpdate"></v-text-field>
           </v-col>
           <v-col cols="12" md="6">
-            <v-text-field v-model="form.grade" label="ຊັ້ນຮຽນ (Grade)" outlined dense></v-text-field>
+            <v-select v-model="form.classId" :items="classesList" item-text="name" item-value="id"
+              label="ເລືອກຊັ້ນຮຽນ (Select Class)" outlined dense clearable></v-select>
           </v-col>
           <v-col cols="12" md="6">
             <v-text-field v-model="form.firstName" :rules="[v => !!v || 'ກະລຸນາປ້ອນຊື່']" label="ຊື່ (First Name) *"
@@ -30,9 +31,28 @@
           <v-col cols="12" md="6">
             <v-text-field v-model="form.phoneNumber" label="ເບີໂທຕິດຕໍ່ (Phone Number)" outlined dense></v-text-field>
           </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field v-model="form.grade" label="ໝາຍເຫດຊັ້ນຮຽນ/ Grade (ມານູໂນ)" outlined dense></v-text-field>
+          </v-col>
         </v-row>
 
-        <v-divider class="my-4" v-if="isUpdate"></v-divider>
+        <v-divider class="my-4"></v-divider>
+
+        <!-- Parent Info Section -->
+        <h3 class="text-h6 mb-3 primary--text">ຂໍ້ມູນຜູ້ປົກຄອງ (Parent Info)</h3>
+        <v-row>
+          <v-col cols="12" md="4">
+            <v-text-field v-model="form.parentName" label="ຊື່ຜູ້ປົກຄອງ (Parent Name)" outlined dense></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-text-field v-model="form.parentPhone" label="ເບີໂທຜູ້ປົກຄອງ (Parent Phone)" outlined dense></v-text-field>
+          </v-col>
+          <v-col cols="12" md="4">
+            <v-text-field v-model="form.parentEmail" label="ອີເມວຜູ້ປົກຄອງ (Parent Email)" outlined dense></v-text-field>
+          </v-col>
+        </v-row>
+
+        <v-divider class="my-4"></v-divider>
 
         <!-- Wallet Info Section -->
         <div v-if="isUpdate">
@@ -116,14 +136,20 @@ export default {
         firstName: '',
         lastName: '',
         grade: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        classId: null,
+        parentName: '',
+        parentPhone: '',
+        parentEmail: ''
       },
+      classesList: [],
       balance: 0,
       activeCardUid: null,
       newCardUid: ''
     }
   },
   mounted() {
+    this.loadClasses();
     if (this.isUpdate && this.studentId) {
       this.loadStudent();
     }
@@ -145,6 +171,14 @@ export default {
     }
   },
   methods: {
+    async loadClasses() {
+      try {
+        const res = await this.$axios.get('/api/school/classes');
+        this.classesList = res.data || [];
+      } catch (error) {
+        console.error('Error fetching classes:', error);
+      }
+    },
     async loadStudent() {
       this.saving = true;
       try {
@@ -156,7 +190,11 @@ export default {
           firstName: data.firstName,
           lastName: data.lastName,
           grade: data.grade,
-          phoneNumber: data.phoneNumber
+          phoneNumber: data.phoneNumber,
+          classId: data.classId,
+          parentName: data.parentName || '',
+          parentPhone: data.parentPhone || '',
+          parentEmail: data.parentEmail || ''
         };
 
         if (data.bankAccount) {

@@ -14,7 +14,7 @@
     <PaymentDialog :show="showPaymentDialog" :table-number="tableId"
       :ticket-id="existingTicket?.id || currentTicket?.id || null" :amount="paymentAmount"
       :payment-methods="paymentList" :payment-loading="paymentLoading" :action-loading="actionLoading"
-      :enable-q-r="true" :show-q-r-details="false" @close="closePaymentDialog" @confirm-payment="handlePaymentConfirm"
+      :enable-q-r="true" :show-q-r-details="false" :order-items="cart" @close="closePaymentDialog" @confirm-payment="handlePaymentConfirm"
       @reload-payment-methods="loadPaymentMethods" @show-message="showMessage" />
 
     <!-- Price Override Dialog -->
@@ -29,10 +29,10 @@
           <!-- Product Info -->
           <v-alert color="info" text dense class="mb-3">
             <div class="font-weight-bold">{{ selectedProduct?.pro_name }}</div>
-            <div class="caption">
+            <div class="caption-lao">
               Base Price: {{ formatPrice(selectedProduct?.pro_price) }}
             </div>
-            <div v-if="selectedCustomer && selectedCustomer.grade" class="caption">
+            <div v-if="selectedCustomer && selectedCustomer.grade" class="caption-lao">
               Customer Grade: {{ selectedCustomer.grade }}
             </div>
           </v-alert>
@@ -43,7 +43,7 @@
               Grade {{ selectedCustomer.grade }} Price:
               {{ formatPrice(getCustomerGradePrice(selectedProduct)) }}
             </div>
-            <div class="caption">This price will be used automatically</div>
+            <div class="caption-lao">This price will be used automatically</div>
           </v-alert>
 
           <!-- Price List Selection -->
@@ -70,15 +70,15 @@
 
           <!-- Current Effective Price Display -->
           <div class="text-center mb-3 pa-3" style="background: #f5f5f5; border-radius: 8px">
-            <div class="caption grey--text">Current Price</div>
+            <div class="caption-lao grey--text">Current Price</div>
             <div class="text-h5 primary--text font-weight-bold">
               {{ formatPrice(effectivePriceInDialog) }}
             </div>
-            <div v-if="selectedPriceListId" class="caption success--text">
+            <div v-if="selectedPriceListId" class="caption-lao success--text">
               <v-icon x-small color="success">mdi-tag</v-icon>
               Price list applied
             </div>
-            <div v-else-if="getCustomerGradePrice(selectedProduct)" class="caption success--text">
+            <div v-else-if="getCustomerGradePrice(selectedProduct)" class="caption-lao success--text">
               <v-icon x-small color="success">mdi-account</v-icon>
               Customer grade price applied
             </div>
@@ -134,6 +134,108 @@
           <v-btn color="primary" @click="applyPriceSelection" :disabled="!isValidPriceSelection">
             <v-icon left small>mdi-check</v-icon>
             Apply & Add to Cart
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Options & Modifiers Selection Dialog -->
+    <v-dialog v-model="showOptionsDialog" max-width="600" persistent>
+      <v-card class="rounded-lg">
+        <v-card-title class="primary white--text font-weight-bold py-4">
+          <v-icon left color="white" class="mr-2">mdi-playlist-plus</v-icon>
+          ເລືອກຕົວເລືອກພິເສດ (Select Options)
+        </v-card-title>
+
+        <v-card-text class="pt-6 px-6" style="max-height: 450px; overflow-y: auto;">
+          <!-- Product Name Display -->
+          <v-card flat class="pa-4 mb-5 border rounded-lg grey lighten-5 d-flex align-center">
+            <v-icon large color="primary" class="mr-3">mdi-food</v-icon>
+            <div>
+              <div class="caption-lao grey--text">ເມນູອາຫານ:</div>
+              <div class="text-h6 font-weight-bold black--text">{{ selectedProductWithOptions?.pro_name }}</div>
+            </div>
+            <div class="ml-auto text-right">
+              <div class="caption-lao grey--text">ລາຄາເລີ່ມຕົ້ນ:</div>
+              <div class="text-h6 font-weight-bold primary--text">{{ formatPrice(selectedProductWithOptions?.pro_price) }}</div>
+            </div>
+          </v-card>
+
+          <!-- Render Option Groups -->
+          <div v-for="group in optionGroupsForDialog" :key="group.id" class="mb-6">
+            <div class="d-flex align-center mb-2">
+              <span class="text-subtitle-1 font-weight-bold black--text">{{ group.groupName }}</span>
+              <v-chip x-small :color="group.isRequired ? 'red lighten-5 red--text' : 'grey lighten-3'" class="ml-2 font-weight-bold">
+                {{ group.isRequired ? 'ບັງຄັບເລືອກ (Required)' : 'ເລືອກກໍໄດ້ (Optional)' }}
+              </v-chip>
+              <span v-if="group.maxSelections > 1" class="caption-lao grey--text ml-2">
+                (ເລືອກໄດ້ {{(group.minSelections || 0)}} - {{group.maxSelections}} ຢ່າງ)
+              </span>
+            </div>
+
+            <!-- Single selection group (maxSelections = 1) -->
+            <v-radio-group
+              v-if="group.maxSelections === 1"
+              v-model="selectedOptionsInDialog[group.id]"
+              column
+              dense
+              class="mt-0 pt-0"
+              hide-details
+            >
+              <v-radio
+                v-for="opt in group.options"
+                :key="opt.id"
+                :value="opt"
+                color="primary"
+                class="mb-2 border pa-3 rounded-lg option-radio-card"
+              >
+                <template v-slot:label>
+                  <div class="d-flex justify-space-between align-center" style="width: 100%">
+                    <span class="font-weight-medium black--text ml-2">{{ opt.optionName }}</span>
+                    <span class="font-weight-bold text-subtitle-2 success--text">
+                      {{ opt.priceAdjustment > 0 ? '+' + formatPrice(opt.priceAdjustment) : '+0 ₭' }}
+                    </span>
+                  </div>
+                </template>
+              </v-radio>
+            </v-radio-group>
+
+            <!-- Multi selection group (maxSelections > 1) -->
+            <div v-else class="d-flex flex-column">
+              <div
+                v-for="opt in group.options"
+                :key="opt.id"
+                class="d-flex align-center border pa-2 mb-2 rounded-lg"
+              >
+                <v-checkbox
+                  v-model="selectedOptionsInDialog[group.id]"
+                  :value="opt"
+                  dense
+                  color="primary"
+                  hide-details
+                  class="mt-0 pt-0"
+                  :disabled="isOptionCheckboxDisabled(group, opt)"
+                >
+                  <template v-slot:label>
+                    <span class="font-weight-medium black--text ml-2">{{ opt.optionName }}</span>
+                  </template>
+                </v-checkbox>
+                <v-spacer></v-spacer>
+                <span class="font-weight-bold text-subtitle-2 success--text mr-2">
+                  {{ opt.priceAdjustment > 0 ? '+' + formatPrice(opt.priceAdjustment) : '+0 ₭' }}
+                </span>
+              </div>
+            </div>
+            <v-divider class="mt-4"></v-divider>
+          </div>
+        </v-card-text>
+
+        <v-card-actions class="px-6 py-4 grey lighten-5">
+          <v-btn outlined color="grey darken-1" class="rounded-lg" @click="closeOptionsDialog">ຍົກເລີກ</v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" depressed class="rounded-lg px-6" :disabled="!isValidOptionsSelection" @click="confirmOptionsSelection">
+            <v-icon left>mdi-cart-plus</v-icon>
+            ເພີ່ມໃສ່ກະຕ່າ
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -284,7 +386,7 @@
                     }}</v-icon>
                   {{ getSelectedCategoryName() }}
                 </v-chip>
-                <span class="caption grey--text">
+                <span class="caption-lao grey--text">
                   {{ filteredProducts.length }} products
                 </span>
               </div>
@@ -442,7 +544,7 @@
                     <div class=" font-weight-medium">
                       {{ selectedCustomer?.name || 'Walk-in Customer' }}
                     </div>
-                    <div class="caption grey--text">
+                    <div class="caption-lao grey--text">
                       <span v-if="selectedCustomer?.phone">{{
                         selectedCustomer.phone
                         }}</span>
@@ -466,8 +568,8 @@
             <!-- Empty State -->
             <div v-if="cart.length === 0" class="cart-empty-state">
               <v-icon size="48" color="grey lighten-1">mdi-cart-outline</v-icon>
-              <p class="grey--text caption mt-2">No items in cart</p>
-              <p class="grey--text caption">Add items from the menu</p>
+              <p class="grey--text caption-lao mt-2">No items in cart</p>
+              <p class="grey--text caption-lao">Add items from the menu</p>
             </div>
 
             <!-- Cart Items (More Compact) -->
@@ -480,7 +582,11 @@
                     <div class=" font-weight-medium line-clamp-1">
                       {{ getProductName(item.pro_id) }}
                     </div>
-                    <div class="caption grey--text">
+                    <!-- Render options and modifiers if selected -->
+                    <div v-if="item.selectedOptions && item.selectedOptions.length > 0" class="caption-lao primary--text font-weight-bold mt-1">
+                      ຕົວເລືອກ: {{ item.selectedOptions.map(o => o.optionName).join(', ') }}
+                    </div>
+                    <div class="caption-lao grey--text">
                       {{ item.categ_name }} •
                       {{ formatPrice(item.pro_price) }}/each
                       <!-- Show if customer grade price was used -->
@@ -493,7 +599,7 @@
                       </span>
                     </div>
                     <!-- Show indicators for ticket line items -->
-                    <div v-if="item.isFromTicketLine" class="caption info--text">
+                    <div v-if="item.isFromTicketLine" class="caption-lao info--text">
                       <v-icon x-small color="info">mdi-history</v-icon>
                       Saved item
                     </div>
@@ -527,10 +633,10 @@
                 <div v-if="
                   item.quantity >= item.stock_count &&
                   item.validateStockOnSale
-                " class="caption error--text mt-1">
+                " class="caption-lao error--text mt-1">
                   Max stock reached
                 </div>
-                <div v-if="item.isFromTicketLine && !item.isActive" class="caption warning--text mt-1">
+                <div v-if="item.isFromTicketLine && !item.isActive" class="caption-lao warning--text mt-1">
                   <v-icon x-small color="warning">mdi-alert</v-icon>
                   Product is currently inactive
                 </div>
@@ -544,13 +650,13 @@
             <div class="cart-summary">
               <v-card v-if="cart.length > 0" class="pa-2" outlined elevation="0">
                 <!-- Cart summary content -->
-                <div class="d-flex justify-space-between caption mb-1">
+                <div class="d-flex justify-space-between caption-lao mb-1">
                   <span>Total (with tax):</span>
                   <span>{{ formatPrice(getTotalPrice()) }}</span>
                 </div>
 
                 <!-- Show base amount (price without tax) -->
-                <div class="d-flex justify-space-between caption mb-1 text--secondary">
+                <div class="d-flex justify-space-between caption-lao mb-1 text--secondary">
                   <span>Base amount:</span>
                   <span>{{ formatPrice(getBaseAmount) }}</span>
                 </div>
@@ -558,7 +664,7 @@
                 <!-- Promotions (applied to base amount) -->
                 <div v-if="appliedPromotions.length > 0">
                   <div v-for="(applied, index) in appliedPromotions" :key="index"
-                    class="d-flex justify-space-between caption success--text">
+                    class="d-flex justify-space-between caption-lao success--text">
                     <span>{{ applied.promotion.name }}:</span>
                     <span>-{{ formatPrice(applied.discount.amount) }}</span>
                   </div>
@@ -567,7 +673,7 @@
                 <!-- Tax breakdown showing actual tax amounts -->
                 <div v-if="getTaxBreakdown().length > 0">
                   <div v-for="taxItem in getTaxBreakdown()" :key="taxItem.code"
-                    class="d-flex justify-space-between caption mb-1">
+                    class="d-flex justify-space-between caption-lao mb-1">
                     <span>{{ taxItem.name }} ({{
                       (taxItem.rate * 100).toFixed(2)
                     }}% {{ taxItem.type }}):</span>
@@ -682,6 +788,10 @@ export default {
     return {
       printDialogKey: 1,
       showPriceOverrideDialog: false,
+      showOptionsDialog: false,
+      selectedProductWithOptions: null,
+      optionGroupsForDialog: [],
+      selectedOptionsInDialog: {},
       selectedProduct: null,
       selectedPriceListId: null,
       customPriceInput: null,
@@ -842,6 +952,24 @@ export default {
       return false
     },
 
+    isValidOptionsSelection() {
+      for (const group of this.optionGroupsForDialog) {
+        const selection = this.selectedOptionsInDialog[group.id]
+        if (group.isRequired) {
+          if (group.maxSelections === 1) {
+            if (!selection) return false
+          } else {
+            const minSel = group.minSelections || 0
+            if (!selection || selection.length < minSel) return false
+          }
+        }
+        if (group.maxSelections > 1 && selection && selection.length > group.maxSelections) {
+          return false
+        }
+      }
+      return true
+    },
+
     getBaseAmount() {
       if (!this.cart.length || !this.taxes.length) {
         return this.getTotalPrice()
@@ -850,7 +978,7 @@ export default {
       let totalBaseAmount = 0
 
       this.cart.forEach((item) => {
-        const product = this.products.find((p) => p.id === item.id)
+        const product = this.products.find((p) => p.id === item.pro_id)
         const tax = this.getProductTax(product)
         const itemTotal = item.pro_price * item.quantity
 
@@ -876,14 +1004,13 @@ export default {
     calculatedTax() {
       if (!this.cart.length || !this.taxes.length) return 0
 
-      const baseAfterPromotions = this.getBaseAfterPromotions
       let totalTax = 0
 
       // Group items by their tax configuration
       const taxGroups = new Map()
 
       this.cart.forEach((item) => {
-        const product = this.products.find((p) => p.id === item.id)
+        const product = this.products.find((p) => p.id === item.pro_id)
         const tax = this.getProductTax(product)
 
         if (tax && tax.isActive) {
@@ -1085,16 +1212,13 @@ export default {
       this.cart.forEach((item) => {
         // Only update if item wasn't manually overridden
         if (!item.priceOverridden && !item.isFromTicketLine) {
-          const product = this.products.find((p) => p.id === item.id)
+          const product = this.products.find((p) => p.id === item.pro_id)
           if (product) {
             const customerGradePrice = this.getCustomerGradePrice(product)
-            if (customerGradePrice) {
-              item.pro_price = customerGradePrice
-              item.isCustomerGradePrice = true
-            } else {
-              item.pro_price = product.pro_price
-              item.isCustomerGradePrice = false
-            }
+            const optionAdjustment = (item.selectedOptions || []).reduce((sum, opt) => sum + parseFloat(opt.priceAdjustment || 0), 0)
+            const basePrice = customerGradePrice || product.pro_price
+            item.pro_price = parseFloat(basePrice) + optionAdjustment
+            item.isCustomerGradePrice = !!customerGradePrice
           }
         }
       })
@@ -1199,7 +1323,7 @@ export default {
       const discountRatio = promotionDiscount / totalBaseAmount
 
       this.cart.forEach((item) => {
-        const product = this.products.find((p) => p.id === item.id)
+        const product = this.products.find((p) => p.id === item.pro_id)
         const tax = this.getProductTax(product)
         if (tax && tax.isActive) {
           const taxKey = tax.id
@@ -1313,7 +1437,7 @@ export default {
           conditions.applicable_categories &&
           conditions.applicable_categories.length > 0
         ) {
-          const product = this.products.find((p) => p.id === item.id)
+          const product = this.products.find((p) => p.id === item.pro_id)
           if (
             product &&
             conditions.applicable_categories.includes(product.pro_category)
@@ -1325,7 +1449,7 @@ export default {
           conditions.applicable_products &&
           conditions.applicable_products.length > 0
         ) {
-          if (conditions.applicable_products.includes(item.id)) {
+          if (conditions.applicable_products.includes(item.pro_id)) {
             return true
           }
         }
@@ -1341,12 +1465,13 @@ export default {
       })
       if (applicableItems.length === 0) return false
       switch (promotion.type) {
-        case 'buy_x_get_y':
+        case 'buy_x_get_y': {
           const totalQuantity = applicableItems.reduce(
             (sum, item) => sum + item.quantity,
             0
           )
           return totalQuantity >= (conditions.buy_quantity || 0)
+        }
         case 'percentage':
         case 'fixed_amount':
           if (conditions.minimum_order) {
@@ -1397,7 +1522,7 @@ export default {
           conditions.applicable_categories &&
           conditions.applicable_categories.length > 0
         ) {
-          const product = this.products.find((p) => p.id === item.id)
+          const product = this.products.find((p) => p.id === item.pro_id)
           if (
             product &&
             conditions.applicable_categories.includes(product.pro_category)
@@ -1409,7 +1534,7 @@ export default {
           conditions.applicable_products &&
           conditions.applicable_products.length > 0
         ) {
-          if (conditions.applicable_products.includes(item.id)) {
+          if (conditions.applicable_products.includes(item.pro_id)) {
             return true
           }
         }
@@ -1712,8 +1837,11 @@ export default {
         this.cart = ticketLines
           .map((line) => {
             const product = this.products.find((p) => p.id === line.productId)
+            const options = line.selectedOptions || []
+            const optionsKey = options.map(o => o.id).sort().join(',')
+            const cartLineKey = `${line.productId}-${optionsKey}`
             return {
-              id: line.productId,
+              id: cartLineKey,
               pro_id: line.productId,
               pro_name:
                 line.product?.name ||
@@ -1728,6 +1856,8 @@ export default {
               totalPrice: line.totalPrice || line.unitPrice * line.quantity,
               isFromTicketLine: true,
               originalTicketLinePrice: line.unitPrice,
+              selectedOptions: options,
+              cartLineKey: cartLineKey
             }
           })
           .filter((item) => item.pro_name)
@@ -1811,7 +1941,7 @@ export default {
           }
         })
 
-        let ticketData = {
+        const ticketData = {
           tableId:
             this.tableId && this.tableId !== 'walk-in'
               ? parseInt(this.tableId)
@@ -1839,11 +1969,11 @@ export default {
           })),
           ticketLines: this.cart.map((item) => {
             const promotionData = promotionItemsMap.get(item.id)
-            const product = this.products.find((p) => p.id === item.id)
+            const product = this.products.find((p) => p.id === item.pro_id)
             const productTax = this.getProductTax(product)
             return {
               id: item.ticketLineId || undefined,
-              productId: item.id,
+              productId: item.pro_id,
               quantity: item.quantity,
               unitPrice: parseFloat(item.pro_price),
               totalPrice: parseFloat(
@@ -1869,6 +1999,7 @@ export default {
                 (item.isCustomerGradePrice
                   ? `Customer Grade ${this.selectedCustomer?.grade} pricing`
                   : null),
+              selectedOptions: item.selectedOptions || null
             }
           }),
         }
@@ -1934,7 +2065,7 @@ export default {
     },
 
     // ✅ ENHANCED: Add to cart with customer grade pricing
-    addToCart(product) {
+    async addToCart(product) {
       console.log('Adding product to cart:', product)
 
       if (!product.isActive) {
@@ -1947,11 +2078,42 @@ export default {
         return
       }
 
-      // ✅ Get customer grade price if available
-      const customerGradePrice = this.getCustomerGradePrice(product)
-      const priceToUse = customerGradePrice || product.pro_price
+      // Check if product has option groups
+      try {
+        const res = await this.$axios.get(`/api/product-option-groups/product/${product.id}`)
+        if (res.data && res.data.success && res.data.data && res.data.data.length > 0) {
+          this.selectedProductWithOptions = product
+          this.optionGroupsForDialog = res.data.data
+          this.selectedOptionsInDialog = {}
+          
+          this.optionGroupsForDialog.forEach((group) => {
+            if (group.maxSelections === 1) {
+              this.$set(this.selectedOptionsInDialog, group.id, null)
+            } else {
+              this.$set(this.selectedOptionsInDialog, group.id, [])
+            }
+          })
+          
+          this.showOptionsDialog = true
+          return
+        }
+      } catch (err) {
+        console.error('Error checking product option groups:', err)
+      }
 
-      const existingItem = this.cart.find((item) => item.id === product.id)
+      this.addToCartDirectly(product)
+    },
+
+    addToCartDirectly(product, selectedOptions = []) {
+      const customerGradePrice = this.getCustomerGradePrice(product)
+      const optionAdjustment = selectedOptions.reduce((sum, opt) => sum + parseFloat(opt.priceAdjustment || 0), 0)
+      const basePrice = customerGradePrice || product.pro_price
+      const priceToUse = parseFloat(basePrice) + optionAdjustment
+
+      const optionsKey = selectedOptions.map(o => o.id).sort().join(',')
+      const cartLineKey = `${product.id}-${optionsKey}`
+
+      const existingItem = this.cart.find((item) => item.cartLineKey === cartLineKey)
 
       if (existingItem) {
         const canAddMore =
@@ -1960,7 +2122,6 @@ export default {
 
         if (canAddMore) {
           existingItem.quantity += 1
-          // Only update price if not from ticket line and not manually overridden
           if (!existingItem.isFromTicketLine && !existingItem.priceOverridden) {
             existingItem.pro_price = parseFloat(priceToUse)
             existingItem.isCustomerGradePrice = !!customerGradePrice
@@ -1970,7 +2131,7 @@ export default {
         }
       } else {
         this.cart.push({
-          id: product.id,
+          id: cartLineKey,
           pro_id: product.id,
           pro_name: product.pro_name,
           pro_price: parseFloat(priceToUse),
@@ -1983,10 +2144,11 @@ export default {
           priceOverridden: false,
           originalPrice: parseFloat(product.pro_price),
           isCustomerGradePrice: !!customerGradePrice,
+          selectedOptions: selectedOptions,
+          cartLineKey: cartLineKey
         })
       }
 
-      // Show appropriate message
       const priceMessage = customerGradePrice
         ? `with Grade ${this.selectedCustomer.grade} price (${this.formatPrice(
           priceToUse
@@ -1998,6 +2160,38 @@ export default {
         'success',
         'mdi-cart-plus'
       )
+    },
+
+    closeOptionsDialog() {
+      this.showOptionsDialog = false
+      this.selectedProductWithOptions = null
+      this.optionGroupsForDialog = []
+      this.selectedOptionsInDialog = {}
+    },
+
+    confirmOptionsSelection() {
+      const selected = []
+      Object.keys(this.selectedOptionsInDialog).forEach((groupId) => {
+        const val = this.selectedOptionsInDialog[groupId]
+        if (val) {
+          if (Array.isArray(val)) {
+            selected.push(...val)
+          } else {
+            selected.push(val)
+          }
+        }
+      })
+
+      this.addToCartDirectly(this.selectedProductWithOptions, selected)
+      this.closeOptionsDialog()
+    },
+
+    isOptionCheckboxDisabled(group, opt) {
+      const selected = this.selectedOptionsInDialog[group.id] || []
+      if (selected.length >= group.maxSelections) {
+        return !selected.some(o => o.id === opt.id)
+      }
+      return false
     },
 
     // ✅ Enhanced price selection with customer grade consideration
@@ -3020,5 +3214,10 @@ export default {
 .category-content {
   transform: translateZ(0);
   will-change: scroll-position;
+}
+
+.caption-lao {
+  font-size: 0.8rem !important;
+  font-family: 'noto sans lao', 'Outfit', sans-serif !important;
 }
 </style>

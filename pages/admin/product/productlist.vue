@@ -237,173 +237,14 @@
       </v-tabs-items>
     </v-card>
 
-    <!-- Recipe Management Dialog -->
-    <v-dialog v-model="recipeManagementDialog" fullscreen transition="dialog-bottom-transition" persistent>
-      <v-card>
-        <v-toolbar dark color="primary">
-          <v-btn icon dark @click="recipeManagementDialog = false">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-          <v-toolbar-title>ຈັດການສູດ (Recipe Management)</v-toolbar-title>
-          <v-spacer></v-spacer>
-        </v-toolbar>
-        <v-card-text class="pa-0">
-          <RecipeManagement ref="recipeManagement" @close="recipeManagementDialog = false" />
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-
-    <v-dialog v-model="productRecipeDialog" fullscreen scrollable>
-      <v-card v-if="selectedProductForRecipe">
-        <v-card-title class="primary white--text">
-          <v-icon color="white" class="mr-2">mdi-book-open-variant</v-icon>
-          ສູດອາຫານສຳລັບ: {{ selectedProductForRecipe.pro_name }}
-          <v-spacer></v-spacer>
-          <v-btn icon @click="closeProductRecipeDialog" class="white--text">
-            <v-icon>mdi-close</v-icon>
-          </v-btn>
-        </v-card-title>
-
-        <v-card-text>
-          <v-row class="mb-4">
-            <v-col cols="12">
-              <v-alert type="info" outlined>
-                <div class="d-flex align-center">
-                  <div class="flex-grow-1">
-                    <h4>{{ selectedProductForRecipe.pro_name }}</h4>
-                    <p class="mb-0">{{ selectedProductForRecipe.pro_desc }}</p>
-                    <small>Category:
-                      {{ selectedProductForRecipe.pro_category_desc }}</small>
-                  </div>
-                  <div class="text-right">
-                    <div>
-                      <strong>ລາຄາ:</strong>
-                      {{ formatNumber(selectedProductForRecipe.pro_price) }} {{ getCurrencyCode(selectedProductForRecipe.saleCurrencyId) || 'LAK' }}
-                    </div>
-                    <div>
-                      <strong>ຕົ້ນທຶນ:</strong>
-                      {{
-                        formatNumber(selectedProductForRecipe.pro_cost_price)
-                      }}
-                      {{ getCurrencyCode(selectedProductForRecipe.costCurrencyId) || 'LAK' }}
-                    </div>
-                  </div>
-                </div>
-              </v-alert>
-            </v-col>
-          </v-row>
-
-          <v-row class="mb-4" v-if="productRecipes.length > 0">
-            <v-col cols="12" md="4">
-              <v-card color="primary" dark>
-                <v-card-text>
-                  <div class="text-center">
-                    <h3>{{ productRecipes.length }}</h3>
-                    <p>ວັດຖຸດິບທັງໝົດ</p>
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-card color="primary" dark style="opacity: 0.8">
-                <v-card-text>
-                  <div class="text-center">
-                    <h3>{{ formatNumber(totalRecipeCost) }}</h3>
-                    <p>ຕົ້ນທຶນລວມ (LAK)</p>
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-              <v-card color="primary" dark style="opacity: 0.6">
-                <v-card-text>
-                  <div class="text-center">
-                    <h3>{{ formatNumber(profitMargin) }}</h3>
-                    <p>ກຳໄລ (LAK)</p>
-                  </div>
-                </v-card-text>
-              </v-card>
-            </v-col>
-          </v-row>
-
-          <v-data-table :headers="recipeHeaders" :items="productRecipes" :loading="loadingRecipes" class="elevation-1"
-            hide-default-footer v-if="productRecipes.length > 0">
-            <template v-slot:item.ingredient="{ item }">
-              <div class="ingredient-info">
-                <strong>{{ item.ingredient?.pro_name || 'N/A' }}</strong>
-                <br />
-                <small class="text-grey">{{ item.ingredient?.pro_desc }}</small>
-              </div>
-            </template>
-
-            <template v-slot:item.quantity="{ item }">
-              <div class="quantity-display">
-                {{ item.quantity }}
-                <span v-if="item.unit" class="text-grey ml-1">{{
-                  item.unit.name
-                }}</span>
-              </div>
-            </template>
-
-            <template v-slot:item.unitCost="{ item }">
-              <div class="cost-display">
-                {{ formatNumber(item.ingredient?.pro_price || 0) }} {{ getCurrencyCode(item.ingredient?.saleCurrencyId) || 'LAK' }}
-              </div>
-            </template>
-
-            <template v-slot:item.totalCost="{ item }">
-              <div class="total-cost-display">
-                <strong>{{
-                  formatNumber(
-                    (item.ingredient?.pro_price || 0) * item.quantity
-                  )
-                }}
-                  {{ getCurrencyCode(item.ingredient?.saleCurrencyId) || 'LAK' }}</strong>
-              </div>
-            </template>
-
-            <template v-slot:item.actions="{ item }">
-              <v-btn small color="primary" @click="editRecipeFromProduct(item)">
-                <v-icon small>mdi-pencil</v-icon>
-                Edit
-              </v-btn>
-            </template>
-          </v-data-table>
-
-          <v-alert v-else-if="!loadingRecipes" type="info" outlined>
-            <div class="text-center">
-              <v-icon size="48" color="info">mdi-information</v-icon>
-              <h4 class="mt-2">ບໍ່ມີສູດອາຫານ</h4>
-              <p>
-                ສິນຄ້ານີ້ຍັງບໍ່ມີສູດອາຫານ. ກົດປຸ່ມຂ້າງລຸ່ມເພື່ອສ້າງສູດອາຫານໃຫມ່.
-              </p>
-              <v-btn class="primary" @click="createRecipeForProduct">
-                <v-icon left>mdi-plus</v-icon>
-                ສ້າງສູດອາຫານ
-              </v-btn>
-            </div>
-          </v-alert>
-
-          <div v-if="loadingRecipes" class="text-center py-4">
-            <v-progress-circular indeterminate color="primary"></v-progress-circular>
-            <p class="mt-2">ກຳລັງໂຫລດສູດອາຫານ...</p>
-          </div>
-        </v-card-text>
-
-        <v-card-actions v-if="productRecipes.length > 0">
-          <v-btn class="primary" @click="createRecipeForProduct">
-            <v-icon left>mdi-plus</v-icon>
-            ເພີ່ມວັດຖຸດິບ
-          </v-btn>
-          <v-btn class="primary" outlined @click="calculateProductionCost">
-            <v-icon left>mdi-calculator</v-icon>
-            ຄິດໄລ່ຕົ້ນທຶນ
-          </v-btn>
-          <v-spacer></v-spacer>
-          <v-btn text @click="closeProductRecipeDialog">ປິດ</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <!-- Product Recipe Dialog -->
+    <product-recipe-dialog
+      v-model="recipeDialogNew"
+      :product-id="selectedProductId || 0"
+      :product-name="selectedProductName"
+      :product-price="selectedProductPrice || 0"
+      @saved="fetchData"
+    />
 
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
       <youtube-player @close-dialog="guidelineDialog = false" youtube-link="5yMsQ6gRSkI">
@@ -630,6 +471,7 @@ import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
 import RecipeManagement from '~/components/pos/recipe'
+import ProductRecipeDialog from '~/components/product/ProductRecipeDialog.vue'
 import StockDetails from '~/pages/admin/stock/_id/index.vue'
 import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
 import StockImportDialog from '~/components/product/StockImportDialog.vue'
@@ -642,6 +484,7 @@ export default {
     ProductFormCreate,
     PriceListForm,
     RecipeManagement,
+    ProductRecipeDialog,
     StockDetails,
     ProductImportDialog,
     StockImportDialog,
@@ -655,6 +498,8 @@ export default {
       // Tab management
       activeTab: 0,
       recipeManagementDialog: false,
+      recipeDialogNew: false,
+      selectedProductPrice: 0,
       showActive: false,
 
       // Print-related data
@@ -1281,89 +1126,36 @@ export default {
     },
 
     // Recipe-related methods
-    async viewProductRecipes(product) {
-      this.selectedProductForRecipe = product
-      this.productRecipeDialog = true
-      await this.loadProductRecipes(product.id)
+    viewProductRecipes(product) {
+      this.manageRecipe(product)
     },
 
     async loadProductRecipes(productId) {
-      this.loadingRecipes = true
-      try {
-        const response = await this.$axios.get(
-          `/api/recipes/product/${productId}`
-        )
-
-        if (response.data.success) {
-          this.productRecipes = response.data.data.recipes || []
-          this.calculateRecipeTotals()
-        }
-      } catch (error) {
-        console.error('Error loading product recipes:', error)
-        this.$toast.error('Error loading recipes')
-        this.productRecipes = []
-      } finally {
-        this.loadingRecipes = false
-      }
+      // Retained for compatibility
     },
 
     calculateRecipeTotals() {
-      this.totalRecipeCost = this.productRecipes.reduce((total, recipe) => {
-        const ingredientCost =
-          (recipe.ingredient?.pro_price || 0) * recipe.quantity
-        return total + ingredientCost
-      }, 0)
-
-      this.profitMargin =
-        (this.selectedProductForRecipe?.pro_price || 0) - this.totalRecipeCost
+      // Retained for compatibility
     },
 
     createRecipeForProduct() {
-      // Switch to recipe tab and trigger create with pre-selected product
-      this.activeTab = 1
-      this.productRecipeDialog = false
-
-      this.$nextTick(() => {
-        if (this.$refs.recipeManagement) {
-          this.$refs.recipeManagement.openCreateDialogWithProduct(
-            this.selectedProductForRecipe
-          )
-        }
-      })
+      // Retained for compatibility
     },
 
     // NEW: Direct create recipe from product list
     createRecipeFromProductList(product) {
-      // Switch to recipe tab
-      this.activeTab = 1
-
-      // Wait for the RecipeManagement component to be rendered
-      this.$nextTick(() => {
-        if (this.$refs.recipeManagement) {
-          this.$refs.recipeManagement.openCreateDialogWithProduct(product)
-        }
-      })
+      this.manageRecipe(product)
     },
 
     manageRecipe(product) {
-      this.recipeManagementDialog = true
-      this.$nextTick(() => {
-        if (this.$refs.recipeManagement) {
-          this.$refs.recipeManagement.openMaintainDialog(product)
-        }
-      })
+      this.selectedProductId = product.id
+      this.selectedProductName = product.pro_name
+      this.selectedProductPrice = product.pro_price || 0
+      this.recipeDialogNew = true
     },
 
     editRecipeFromProduct(recipe) {
-      // Switch to recipe tab and trigger edit
-      this.activeTab = 1
-      this.productRecipeDialog = false
-
-      this.$nextTick(() => {
-        if (this.$refs.recipeManagement) {
-          this.$refs.recipeManagement.openEditDialog(recipe)
-        }
-      })
+      // Retained for compatibility
     },
 
     async calculateProductionCost() {

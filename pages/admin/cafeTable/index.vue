@@ -890,7 +890,13 @@ export default {
     this.fetchTables()
 
     if (typeof window !== 'undefined') {
-      this.baseUrl = window.location.origin + '/e-menu'
+      const spfList = this.$store.getters.findSPF || []
+      const emenuSpf = spfList.find(s => s.code === 'EMENU' && s.isActive)
+      if (emenuSpf && emenuSpf.value) {
+        this.baseUrl = emenuSpf.value
+      } else {
+        this.baseUrl = window.location.origin + '/e-menu'
+      }
       window.addEventListener('storage', this.handleStorageChange)
     }
 
@@ -1186,9 +1192,13 @@ export default {
     },
 
     getFullQrUrl(tableName) {
-      const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'http://192.168.1.5:3000'
+      let cleanBaseUrl = (this.baseUrl || '').replace(/\/+$/, '')
       const tableCode = this.normalizeTable(tableName) || '01'
-      return `${origin}/#/e-menu?table=${encodeURIComponent(tableCode)}`
+      if (!cleanBaseUrl.includes('/e-menu')) {
+        cleanBaseUrl += '/#/e-menu'
+      }
+      const separator = cleanBaseUrl.includes('?') ? '&' : '?'
+      return `${cleanBaseUrl}${separator}table=${encodeURIComponent(tableCode)}`
     },
 
     async generateQrCode() {

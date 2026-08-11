@@ -167,18 +167,26 @@
     </v-main>
 
     <v-footer app>
+      <div class="caption text--secondary font-weight-light">
+        &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}
+        <span class="mx-1">•</span>
+        v{{ appVersion }}
+        <template v-if="user">
+          <span class="mx-1">•</span>
+          {{ user.cus_name }} (#{{ user.id }})
+        </template>
+      </div>
+
       <v-spacer></v-spacer>
-      <span v-if="user">
-        &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R{{ appVersion }}
-        user: {{ user.cus_name }} id: {{ user.id }}
-      </span>
-      <span v-else>
-        &copy;{{ new Date().getFullYear() }} {{ companyDisplayName }}: V.R{{ appVersion }}
-      </span>
 
       <v-chip v-if="businessDate" small color="info" outlined class="ma-1 font-weight-bold">
         <v-icon small left>mdi-calendar-clock</v-icon>
         ວັນທີເຮັດວຽກ: {{ businessDate }}
+      </v-chip>
+
+      <v-chip v-if="currentTerminal" small class="ma-1 font-weight-bold" color="warning" outlined @click="terminalDialog = true">
+        <v-icon small left>mdi-console</v-icon>
+        {{ currentTerminal.name }}
       </v-chip>
 
       <!-- Language Switcher -->
@@ -199,45 +207,65 @@
         </v-list>
       </v-menu>
 
-      <!-- Refresh Button -->
-      <v-btn small text color="primary" class="ma-1" @click="refreshStoreData" :loading="isRefreshing">
-        <v-icon small left>mdi-refresh</v-icon>
-        ໂຫຼດຂໍ້ມູນໃໝ່ (Refresh)
-      </v-btn>
+      <!-- Refresh Button with Tooltip -->
+      <v-tooltip top>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn small icon color="primary" class="ma-1" @click="refreshStoreData" :loading="isRefreshing" v-bind="attrs" v-on="on">
+            <v-icon small>mdi-refresh</v-icon>
+          </v-btn>
+        </template>
+        <span>ໂຫຼດຂໍ້ມູນໃໝ່ (Refresh)</span>
+      </v-tooltip>
 
-      <!-- Change Password Button -->
-      <v-btn v-if="user" small text color="primary" class="ma-1" @click="openPasswordDialog">
-        <v-icon small left>mdi-lock-reset</v-icon>
-        ປ່ຽນລະຫັດຜ່ານ
-      </v-btn>
+      <!-- Settings cog dropdown menu for compact actions -->
+      <v-menu offset-y top left>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn small icon color="primary" class="ma-1" v-bind="attrs" v-on="on">
+            <v-icon small>mdi-cog</v-icon>
+          </v-btn>
+        </template>
+        <v-list dense>
+          <!-- Change Password -->
+          <v-list-item v-if="user" @click="openPasswordDialog">
+            <v-list-item-action class="mr-3">
+              <v-icon small>mdi-lock-reset</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>ປ່ຽນລະຫັດຜ່ານ (Change Password)</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-      <!-- Terms and Conditions Button -->
-      <v-btn small text color="primary" class="ma-1" @click="termsDialog = true">
-        <v-icon small left>mdi-file-document-check-outline</v-icon>
-        ເງື່ອນໄຂການນຳໃຊ້
-      </v-btn>
+          <!-- Terms and Conditions -->
+          <v-list-item @click="termsDialog = true">
+            <v-list-item-action class="mr-3">
+              <v-icon small>mdi-file-document-check-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>ເງື່ອນໄຂການນຳໃຊ້ (Terms & Conditions)</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-      <!-- System Functionality / Tutorial Button -->
-      <!-- <v-btn small text color="primary" class="ma-1" to="/admin/tutorial">
-        <v-icon small left>mdi-lifebuoy</v-icon>
-        ສາທິດການນຳໃຊ້ (Tutorial)
-      </v-btn> -->
+          <!-- System Details -->
+          <v-list-item to="/admin/system-details">
+            <v-list-item-action class="mr-3">
+              <v-icon small>mdi-file-document-outline</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>ຂໍ້ມູນລະບົບ (System Details)</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
 
-      <!-- System Details Button -->
-      <v-btn small text color="primary" class="ma-1" to="/admin/system-details">
-        <v-icon small left>mdi-file-document-outline</v-icon>
-        (System Details)
-      </v-btn>
-
-      <!-- Contracts Button -->
-      <v-btn small text color="primary" class="ma-1" to="/admin/contracts">
-        <v-icon small left>mdi-file-signature</v-icon>
-        ເອກະສານສັນຍາ (Contracts)
-      </v-btn>
-
-      <v-chip v-if="currentTerminal" class="ma-0" color="warning" variant="outlined" @click="terminalDialog = true">
-        {{ currentTerminal.name }}
-      </v-chip>
+          <!-- Contracts -->
+          <v-list-item to="/admin/contracts">
+            <v-list-item-action class="mr-3">
+              <v-icon small>mdi-file-signature</v-icon>
+            </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>ເອກະສານສັນຍາ (Contracts)</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-footer>
   </v-app>
 </template>

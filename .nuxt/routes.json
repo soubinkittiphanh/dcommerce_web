@@ -693,6 +693,13 @@
     "_name": "_a9d4e97a"
   },
   {
+    "name": "admin-school",
+    "path": "/admin/school",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/index.vue",
+    "chunkName": "pages/admin/school/index",
+    "_name": "_52e95767"
+  },
+  {
     "name": "admin-shipping",
     "path": "/admin/shipping",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/shipping/index.vue",
@@ -1029,6 +1036,13 @@
     "_name": "_324d246c"
   },
   {
+    "name": "admin-cafeTable-customer-restaurant",
+    "path": "/admin/cafeTable/customer-restaurant",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/customer-restaurant.vue",
+    "chunkName": "pages/admin/cafeTable/customer-restaurant",
+    "_name": "_0266a66e"
+  },
+  {
     "name": "admin-cafeTable-customerv1",
     "path": "/admin/cafeTable/customerv1",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/cafeTable/customerv1.vue",
@@ -1181,6 +1195,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/reports/stockActivity/index.vue",
     "chunkName": "pages/admin/reports/stockActivity/index",
     "_name": "_2d13abf8"
+  },
+  {
+    "name": "admin-restaurant-menu",
+    "path": "/admin/restaurant/menu",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/restaurant/menu.vue",
+    "chunkName": "pages/admin/restaurant/menu",
+    "_name": "_278ea631"
   },
   {
     "name": "admin-settings-system",

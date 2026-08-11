@@ -163,6 +163,10 @@ export const mainCompanyInfo = (options) => {
         mnemonic: apiCompanyCache.data.mnemonic || '',
         id: apiCompanyCache.data.id || null,
         term_condition: apiCompanyCache.data.term_condition || '',
+        bank: apiCompanyCache.data.bank || '',
+        accountName: apiCompanyCache.data.accountName || '',
+        accounts: apiCompanyCache.data.accounts || '',
+        taxId: apiCompanyCache.data.taxId || '',
       }
     }
 
@@ -197,10 +201,14 @@ export const mainCompanyInfo = (options) => {
           companyLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
           dcLogo: 'Dcommerce-Logo_DC.png',
           env: '',
-          apiData: apiData,
+          apiData,
           mnemonic: apiData.mnemonic || '',
           id: apiData.id || null,
           term_condition: apiData.term_condition || '',
+          bank: apiData.bank || '',
+          accountName: apiData.accountName || '',
+          accounts: apiData.accounts || '',
+          taxId: apiData.taxId || '',
         }
       } else {
         // Fallback to static info if API fails
@@ -230,7 +238,7 @@ export const mainCompanyInfo = (options) => {
  * @returns {Promise<Object>} Company information
  */
 export const mainCompanyInfoAsync = async (options = {}) => {
-  const { axios, useAPI = true, store } = options;
+  const { axios, useAPI = true } = options;
 
   // If API usage is requested and axios is available
   if (useAPI && axios) {
@@ -248,10 +256,14 @@ export const mainCompanyInfoAsync = async (options = {}) => {
           companyLogo: apiData.profile_image_path ? apiData.profile_image_path.split('/').pop() : 'TTP_AUTO.jpeg',
           dcLogo: 'Dcommerce-Logo_DC.png',
           env: '',
-          apiData: apiData,
+          apiData,
           mnemonic: apiData.mnemonic || '',
           id: apiData.id || null,
           term_condition: apiData.term_condition || '',
+          bank: apiData.bank || '',
+          accountName: apiData.accountName || '',
+          accounts: apiData.accounts || '',
+          taxId: apiData.taxId || '',
         }
       }
     } catch (error) {

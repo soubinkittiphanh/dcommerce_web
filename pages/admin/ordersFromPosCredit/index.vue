@@ -87,60 +87,111 @@
 
       <!-- Enhanced Credit Summary Section -->
       <v-card-text>
-        <v-layout row wrap>
-          <v-row>
-            <!-- Original Summary Card -->
-            <v-col cols="12" lg="6">
-              <order-sumary-card-pos :showTotal="true" :gross="getFormatNum(0)" :orderDetail="{
-                'title': 'ຍອດບິນ ຕິດຫນີ້',
-                'amount': getFormatNum(creditOrder.length),
-                'sale': getFormatNum(totalSale - totalDiscount),
-              }">
-              </order-sumary-card-pos>
-            </v-col>
+        <!-- Grand Summary Cards -->
+        <v-row class="mb-4">
+          <v-col cols="12" md="4">
+            <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+              <v-card-text class="d-flex align-center pa-4">
+                <v-avatar color="blue" size="48" class="elevation-1 mr-3">
+                  <v-icon color="white">mdi-cart-outline</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຂາຍລວມ (Gross Credit)</div>
+                  <div class="text-h6 font-weight-black blue--text text--darken-3">
+                    {{ getFormatNum(totalSale + totalDiscount) }}
+                    <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
 
-            <!-- NEW: Credit Analytics Card -->
-            <v-col cols="12" lg="6">
-              <v-card outlined class="pa-4 mb-4">
-                <h4 class="mb-3">
-                  <v-icon left color="warning">mdi-clock-alert</v-icon>
-                  ສະຖານະໜີ້ສິນ
-                </h4>
-                <v-row class="text-center">
-                  <v-col cols="6">
-                    <div class="text-h5 error--text">{{ getOverdueCount() }}</div>
-                    <div class="">ເກີນກຳນົດ</div>
-                    <v-progress-circular :value="getOverduePercentage()" color="error" size="40" width="4" class="mt-1">
-                      <small>{{ getOverduePercentage().toFixed(0) }}%</small>
-                    </v-progress-circular>
-                  </v-col>
+          <v-col cols="12" md="4">
+            <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);">
+              <v-card-text class="d-flex align-center pa-4">
+                <v-avatar color="red" size="48" class="elevation-1 mr-3">
+                  <v-icon color="white">mdi-tag-outline</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ສ່ວນຫຼຸດລວມ (Discount)</div>
+                  <div class="text-h6 font-weight-black red--text text--darken-3">
+                    {{ getFormatNum(totalDiscount) }}
+                    <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
 
-                  <v-col cols="6">
-                    <div class="text-h5 warning--text">{{ getPendingCount() }}</div>
-                    <div class="">ຍັງຊຳລະໄດ້</div>
-                    <v-progress-circular :value="getPendingPercentage()" color="warning" size="40" width="4"
-                      class="mt-1">
-                      <small>{{ getPendingPercentage().toFixed(0) }}%</small>
-                    </v-progress-circular>
-                  </v-col>
-                </v-row>
+          <v-col cols="12" md="4">
+            <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+              <v-card-text class="d-flex align-center pa-4">
+                <v-avatar color="green" size="48" class="elevation-1 mr-3">
+                  <v-icon color="white">mdi-cash-multiple</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຕິດໜີ້ສຸດທິ (Net Credit)</div>
+                  <div class="text-h6 font-weight-black green--text text--darken-3">
+                    {{ getFormatNum(totalSale) }}
+                    <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                  </div>
+                </div>
+              </v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
 
-                <v-divider class="my-3"></v-divider>
+        <v-row>
+          <!-- Bill Count Card -->
+          <v-col cols="12" lg="4">
+            <v-card outlined class="pa-4 d-flex align-center" style="border-radius: 12px; height: 100%;">
+              <v-avatar color="orange" size="48" class="mr-4">
+                <v-icon color="white">mdi-file-document-outline</v-icon>
+              </v-avatar>
+              <div>
+                <h4 class="grey--text text--darken-1 mb-1">ຈຳນວນບິນຕິດໜີ້</h4>
+                <div class="text-h5 font-weight-black">{{ creditOrder.length }} <small class="caption">ບິນ</small></div>
+              </div>
+            </v-card>
+          </v-col>
 
-                <v-row class="text-center">
-                  <v-col cols="6">
-                    <div class="text-h6 error--text">{{ getFormatNum(getOverdueAmount()) }}</div>
-                    <div class="">ຍອດເກີນກຳນົດ (LAK)</div>
-                  </v-col>
-                  <v-col cols="6">
-                    <div class="text-h6 warning--text">{{ getFormatNum(getPendingAmount()) }}</div>
-                    <div class="">ຍອດຍັງຊຳລະໄດ້ (LAK)</div>
-                  </v-col>
-                </v-row>
-              </v-card>
-            </v-col>
-          </v-row>
-        </v-layout>
+          <!-- Credit Analytics Card -->
+          <v-col cols="12" lg="8">
+            <v-card outlined class="pa-4" style="border-radius: 12px;">
+              <h4 class="mb-3">
+                <v-icon left color="warning">mdi-clock-alert</v-icon>
+                ສະຖານະໜີ້ສິນ
+              </h4>
+              <v-row class="text-center">
+                <v-col cols="6" sm="3">
+                  <div class="text-h6 error--text">{{ getOverdueCount() }}</div>
+                  <div class="caption grey--text">ເກີນກຳນົດ</div>
+                  <v-progress-circular :value="getOverduePercentage()" color="error" size="36" width="3" class="mt-1">
+                    <small>{{ getOverduePercentage().toFixed(0) }}%</small>
+                  </v-progress-circular>
+                </v-col>
+
+                <v-col cols="6" sm="3">
+                  <div class="text-h6 warning--text">{{ getPendingCount() }}</div>
+                  <div class="caption grey--text">ຍັງຊຳລະໄດ້</div>
+                  <v-progress-circular :value="getPendingPercentage()" color="warning" size="36" width="3" class="mt-1">
+                    <small>{{ getPendingPercentage().toFixed(0) }}%</small>
+                  </v-progress-circular>
+                </v-col>
+
+                <v-col cols="12" sm="3" class="pt-4">
+                  <div class="text-subtitle-2 error--text font-weight-bold">{{ getFormatNum(getOverdueAmount()) }}</div>
+                  <div class="caption grey--text">ຍອດເກີນກຳນົດ ({{ localCurrency?.code || 'LAK' }})</div>
+                </v-col>
+                
+                <v-col cols="12" sm="3" class="pt-4">
+                  <div class="text-subtitle-2 warning--text font-weight-bold">{{ getFormatNum(getPendingAmount()) }}</div>
+                  <div class="caption grey--text">ຍອດຍັງຊຳລະໄດ້ ({{ localCurrency?.code || 'LAK' }})</div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <!-- Enhanced Data Table -->
@@ -412,8 +463,13 @@ export default {
 
   computed: {
     ...mapGetters([
-      'findAllPayment'
+      'findAllPayment',
+      'findLocalCurrency'
     ]),
+
+    localCurrency() {
+      return this.findLocalCurrency
+    },
 
     companyLogo() {
       const company = mainCompanyInfo()

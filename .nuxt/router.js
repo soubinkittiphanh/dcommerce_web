@@ -103,6 +103,7 @@ const _6363e6a2 = () => interopDefault(import('../pages/admin/saleReportDetailBy
 const _09851be1 = () => interopDefault(import('../pages/admin/saleReportDetailByUser/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByUser/index" */))
 const _4ffb7b4e = () => interopDefault(import('../pages/admin/saleReportSummary/index.vue' /* webpackChunkName: "pages/admin/saleReportSummary/index" */))
 const _a9d4e97a = () => interopDefault(import('../pages/admin/saleTicketReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleTicketReportDetailByProduct/index" */))
+const _52e95767 = () => interopDefault(import('../pages/admin/school/index.vue' /* webpackChunkName: "pages/admin/school/index" */))
 const _f00a79be = () => interopDefault(import('../pages/admin/shipping/index.vue' /* webpackChunkName: "pages/admin/shipping/index" */))
 const _699b36bc = () => interopDefault(import('../pages/admin/shipping-order/index.vue' /* webpackChunkName: "pages/admin/shipping-order/index" */))
 const _beea3498 = () => interopDefault(import('../pages/admin/size/index.vue' /* webpackChunkName: "pages/admin/size/index" */))
@@ -151,6 +152,7 @@ const _103d8bf0 = () => interopDefault(import('../pages/admin/applicants/index-1
 const _56d2fabe = () => interopDefault(import('../pages/admin/barcodePrint/gianttTime.vue' /* webpackChunkName: "pages/admin/barcodePrint/gianttTime" */))
 const _16e21664 = () => interopDefault(import('../pages/admin/cafe/promotion/index.vue' /* webpackChunkName: "pages/admin/cafe/promotion/index" */))
 const _324d246c = () => interopDefault(import('../pages/admin/cafeTable/customer.vue' /* webpackChunkName: "pages/admin/cafeTable/customer" */))
+const _0266a66e = () => interopDefault(import('../pages/admin/cafeTable/customer-restaurant.vue' /* webpackChunkName: "pages/admin/cafeTable/customer-restaurant" */))
 const _4a865867 = () => interopDefault(import('../pages/admin/cafeTable/customerv1.vue' /* webpackChunkName: "pages/admin/cafeTable/customerv1" */))
 const _ab5ae102 = () => interopDefault(import('../pages/admin/customer_request/topup.vue' /* webpackChunkName: "pages/admin/customer_request/topup" */))
 const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/withdraw.vue' /* webpackChunkName: "pages/admin/customer_request/withdraw" */))
@@ -173,6 +175,7 @@ const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvan
 const _c9a41802 = () => interopDefault(import('../pages/admin/reports/qr-reconciliation.vue' /* webpackChunkName: "pages/admin/reports/qr-reconciliation" */))
 const _2f47d942 = () => interopDefault(import('../pages/admin/reports/staffActivity/index.vue' /* webpackChunkName: "pages/admin/reports/staffActivity/index" */))
 const _2d13abf8 = () => interopDefault(import('../pages/admin/reports/stockActivity/index.vue' /* webpackChunkName: "pages/admin/reports/stockActivity/index" */))
+const _278ea631 = () => interopDefault(import('../pages/admin/restaurant/menu.vue' /* webpackChunkName: "pages/admin/restaurant/menu" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
@@ -630,6 +633,10 @@ export const routerOptions = {
     component: _a9d4e97a,
     name: "admin-saleTicketReportDetailByProduct"
   }, {
+    path: "/admin/school",
+    component: _52e95767,
+    name: "admin-school"
+  }, {
     path: "/admin/shipping",
     component: _f00a79be,
     name: "admin-shipping"
@@ -822,6 +829,10 @@ export const routerOptions = {
     component: _324d246c,
     name: "admin-cafeTable-customer"
   }, {
+    path: "/admin/cafeTable/customer-restaurant",
+    component: _0266a66e,
+    name: "admin-cafeTable-customer-restaurant"
+  }, {
     path: "/admin/cafeTable/customerv1",
     component: _4a865867,
     name: "admin-cafeTable-customerv1"
@@ -909,6 +920,10 @@ export const routerOptions = {
     path: "/admin/reports/stockActivity",
     component: _2d13abf8,
     name: "admin-reports-stockActivity"
+  }, {
+    path: "/admin/restaurant/menu",
+    component: _278ea631,
+    name: "admin-restaurant-menu"
   }, {
     path: "/admin/settings/system",
     component: _228e3c4a,

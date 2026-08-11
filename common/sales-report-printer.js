@@ -177,8 +177,9 @@ const generateProductSummarySection = (productStats, formatNumber, currencyCode 
     return '<div class="no-data">ບໍ່ມີຂໍ້ມູນສິນຄ້າ</div>';
   }
 
-  const productRows = productStats.map(stat => `
+  const productRows = productStats.map((stat, index) => `
     <tr class="product-row">
+      <td style="text-align: center; width: 25px;">${index + 1}</td>
       <td class="prod-name">${stat.name}</td>
       <td class="prod-qty">${formatNumber(stat.qty)}</td>
       <td class="prod-amt">${formatNumber(stat.amount)} ${currencyCode}</td>
@@ -191,6 +192,7 @@ const generateProductSummarySection = (productStats, formatNumber, currencyCode 
       <table class="product-table">
         <thead>
           <tr>
+            <th class="text-center" style="width: 25px;">ລຳດັບ</th>
             <th class="text-left">ຊື່ສິນຄ້າ</th>
             <th class="text-right" style="width: 40px;">ຈຳນວນ</th>
             <th class="text-right" style="width: 80px;">ຍອດລວມ</th>
@@ -237,8 +239,13 @@ const generateSalesReportHTML = (reportData) => {
     productStats,
     formatNumber,
     user,
-    currencyCode = 'LAK'
+    currencyCode = 'LAK',
+    isFormal = false
   } = reportData;
+
+  const dividerHtml = isFormal
+    ? '<hr style="border: 0; border-top: 1px solid #ddd; margin: 15px 0;" />'
+    : '<div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>';
 
   return `
     <!DOCTYPE html>
@@ -251,13 +258,14 @@ const generateSalesReportHTML = (reportData) => {
         
         body {
           font-family: 'Noto Sans Lao', 'Arial', sans-serif;
-          margin: 0;
-          padding: 8px;
-          font-size: 11px;
-          line-height: 1.2;
+          margin: ${isFormal ? '0 auto' : '0'};
+          padding: ${isFormal ? '15mm' : '8px'};
+          font-size: ${isFormal ? '12px' : '11px'};
+          line-height: ${isFormal ? '1.4' : '1.2'};
           color: #000;
-          width: 80mm;
-          max-width: 80mm;
+          width: ${isFormal ? '100%' : '80mm'};
+          max-width: ${isFormal ? '210mm' : '80mm'};
+          box-sizing: border-box;
         }
         
         .header-section {
@@ -415,11 +423,11 @@ const generateSalesReportHTML = (reportData) => {
         .product-table {
           width: 100%;
           border-collapse: collapse;
-          font-size: 10px;
+          font-size: ${isFormal ? '11px' : '10px'};
         }
         
         .product-table th, .product-table td {
-          padding: 3px 2px;
+          padding: ${isFormal ? '5px 6px' : '3px 2px'};
           border-bottom: 1px dashed #ddd;
         }
         
@@ -430,7 +438,7 @@ const generateSalesReportHTML = (reportData) => {
         
         .prod-name {
           text-align: left;
-          max-width: 120px;
+          max-width: ${isFormal ? 'none' : '120px'};
           overflow: hidden;
           text-overflow: ellipsis;
         }
@@ -485,7 +493,7 @@ const generateSalesReportHTML = (reportData) => {
         @media print {
           body { 
             margin: 0; 
-            padding: 4px;
+            padding: ${isFormal ? '0' : '4px'};
             width: auto;
             max-width: none;
           }
@@ -495,8 +503,8 @@ const generateSalesReportHTML = (reportData) => {
         }
         
         @page {
-          margin: 0;
-          size: 80mm auto;
+          margin: ${isFormal ? '15mm' : '0'};
+          size: ${isFormal ? 'A4 portrait' : '80mm auto'};
         }
       </style>
     </head>
@@ -505,7 +513,7 @@ const generateSalesReportHTML = (reportData) => {
       ${generateDateRangeSection(fromDate, toDate, terminalInfo)}
       ${generateSummarySection(summaryData, formatNumber, currencyCode)}
       ${generatePaymentBreakdownSection(paymentStats, formatNumber, currencyCode)}
-      <div class="divider">- - - - - - - - - - - - - - - - - - - - - - - -</div>
+      ${dividerHtml}
       ${generateProductSummarySection(productStats, formatNumber, currencyCode)}
       ${generateFooterSection(user)}
     </body>
@@ -516,10 +524,10 @@ const generateSalesReportHTML = (reportData) => {
 /**
  * Print the sales report
  */
-const printSalesReport = (windowContent) => {
+const printSalesReport = (windowContent, isFormal = false) => {
   try {
-    const windowWidth = 450;
-    const windowHeight = 700;
+    const windowWidth = isFormal ? 850 : 450;
+    const windowHeight = isFormal ? 800 : 700;
     
     const printWin = window.open(
       '',
@@ -626,6 +634,12 @@ export const printSalesReportSummary = (params) => {
       multiPaymentCount
     };
 
+    const spf = (typeof window !== 'undefined' && window.$nuxt) 
+      ? window.$nuxt.$store.getters.findSPF 
+      : [];
+    const ticketFormParam = (spf || []).find(s => s.code === 'TICKET_FORM');
+    const isFormal = !!(ticketFormParam && ticketFormParam.value === 'FORMAL');
+
     const reportData = {
       companyData,
       companyLogo,
@@ -637,11 +651,12 @@ export const printSalesReportSummary = (params) => {
       productStats,
       formatNumber,
       user,
-      currencyCode: params.currencyCode || 'LAK'
+      currencyCode: params.currencyCode || 'LAK',
+      isFormal
     };
 
     const salesReportHTML = generateSalesReportHTML(reportData);
-    printSalesReport(salesReportHTML);
+    printSalesReport(salesReportHTML, isFormal);
 
   } catch (error) {
     console.error('Error generating sales report summary:', error);

@@ -323,8 +323,20 @@ export default {
 
     // Specific test for E-Menu QR Receipts
     async testEmenuPrint(name) {
-      const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'http://localhost:3000'
-      const testUrl = `${origin}/#/e-menu?table=TEST-01`
+      const spfList = this.$store.getters.findSPF || []
+      const emenuSpf = spfList.find(s => s.code === 'EMENU' && s.isActive)
+      let testUrl = ''
+      if (emenuSpf && emenuSpf.value) {
+        let cleanBase = emenuSpf.value.replace(/\/+$/, '')
+        if (!cleanBase.includes('/e-menu')) {
+          cleanBase += '/#/e-menu'
+        }
+        const separator = cleanBase.includes('?') ? '&' : '?'
+        testUrl = `${cleanBase}${separator}table=TEST-01`
+      } else {
+        const origin = (typeof window !== 'undefined' && window.location.origin) ? window.location.origin : 'http://localhost:3000'
+        testUrl = `${origin}/#/e-menu?table=TEST-01`
+      }
 
       try {
         const qrDataUrl = await QRCode.toDataURL(testUrl, {

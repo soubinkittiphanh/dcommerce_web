@@ -111,8 +111,68 @@
         <v-divider></v-divider>
 
         <v-card-text>
+          <!-- Grand Summary Cards -->
+          <section class="grand-summary-section mt-4 mb-6">
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+                  <v-card-text class="d-flex align-center pa-4">
+                    <v-avatar color="blue" size="56" class="elevation-1 mr-4">
+                      <v-icon color="white" large>mdi-cart-outline</v-icon>
+                    </v-avatar>
+                    <div>
+                      <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຂາຍລວມ (Gross Sales)</div>
+                      <div class="text-h5 font-weight-black blue--text text--darken-3">
+                        {{ formatNumber(summaryGrossLocal) }}
+                        <small class="caption">{{ localCurrency?.code }}</small>
+                      </div>
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);">
+                  <v-card-text class="d-flex align-center pa-4">
+                    <v-avatar color="red" size="56" class="elevation-1 mr-4">
+                      <v-icon color="white" large>mdi-tag-outline</v-icon>
+                    </v-avatar>
+                    <div>
+                      <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ສ່ວນຫຼຸດລວມ (Total Discount)</div>
+                      <div class="text-h5 font-weight-black red--text text--darken-3">
+                        {{ formatNumber(summaryDiscountLocal) }}
+                        <small class="caption">{{ localCurrency?.code }}</small>
+                      </div>
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+
+              <v-col cols="12" md="4">
+                <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+                  <v-card-text class="d-flex align-center pa-4">
+                    <v-avatar color="green" size="56" class="elevation-1 mr-4">
+                      <v-icon color="white" large>mdi-cash-multiple</v-icon>
+                    </v-avatar>
+                    <div>
+                      <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຂາຍສຸດທິ (Net Revenue)</div>
+                      <div class="text-h5 font-weight-black green--text text--darken-3">
+                        {{ formatNumber(summaryNetLocal) }}
+                        <small class="caption">{{ localCurrency?.code }}</small>
+                      </div>
+                    </div>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </section>
+
           <!-- Payment Type Summary Cards -->
           <section class="kpi-section mt-5">
+            <h4 class="mb-3">
+              <v-icon left>mdi-view-dashboard-outline</v-icon>
+              ສະຫຼຸບລາຍຮັບຕາມຊ່ອງທາງການຊຳລະ
+            </h4>
             <v-row class="kpi-grid">
               <v-col v-for="(item, index) in paymentStatistics" :key="index" cols="12" md="4" lg="4">
                 <div class="kpi-card elevation-2 pa-4" style="
@@ -131,28 +191,56 @@
                   </div>
 
                   <div class="kpi-content">
-                    <h3 class="kpi-title grey--text mb-1">
+                    <h3 class="kpi-title grey--text mb-2">
                       {{ item.title }}
                     </h3>
-                    <div class="kpi-value text-h5 font-weight-black primary--text mb-3">
-                      {{ formatNumber(item.total) }}
-                      <small class="">{{
-                        localCurrency?.code
-                        }}</small>
+
+                    <!-- Gross, Discount, Net Breakdown for Payment Method in Local Currency -->
+                    <div class="d-flex justify-space-between align-center mb-1">
+                      <span class="grey--text caption font-weight-medium">Gross:</span>
+                      <span class="caption font-weight-bold grey--text text--darken-2">
+                        {{ formatNumber(item.gross) }} {{ localCurrency?.code }}
+                      </span>
+                    </div>
+                    <div class="d-flex justify-space-between align-center mb-1 red--text text--darken-1">
+                      <span class="caption font-weight-medium">Discount:</span>
+                      <span class="caption font-weight-bold">
+                        -{{ formatNumber(item.discount) }} {{ localCurrency?.code }}
+                      </span>
+                    </div>
+                    <div class="d-flex justify-space-between align-center mb-3 primary--text">
+                      <span class="body-2 font-weight-bold">Net Paid:</span>
+                      <span class="font-weight-black text-h6">
+                        {{ formatNumber(item.total) }} <small class="caption">{{ localCurrency?.code }}</small>
+                      </span>
                     </div>
 
-                    <div v-if="item.groupedCurrency" class="currency-breakdown-container">
+                    <!-- Multi-Currency Breakdown inside Card -->
+                    <div v-if="item.groupedCurrency" class="currency-breakdown-container mt-3">
                       <div v-for="(val, code) in item.groupedCurrency" :key="code"
-                        class="d-flex justify-space-between align-center mb-1 pa-1 rounded bg-light"
-                        style="background: #f8fafc; border: 1px dashed #e2e8f0">
-                        <span class="font-weight-bold caption">{{ code }}</span>
-                        <div class="text-right">
-                          <div class="caption font-weight-bold">
-                            {{ formatNumber(val.original) }} {{ code }}
-                          </div>
-                          <div v-if="code !== localCurrency?.code" class="grey--text" style="font-size: 0.65rem">
-                            ≈ {{ formatNumber(val.local) }}
-                            {{ localCurrency?.code }}
+                        class="mb-2 pa-2 rounded"
+                        style="background: #f8fafc; border: 1px dashed #e2e8f0; font-size: 0.75rem;">
+                        <div class="font-weight-bold caption text-uppercase mb-1" style="color: #475569; border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px;">
+                          {{ code }} Breakdown
+                        </div>
+                        <div class="d-flex justify-space-between align-center mb-1">
+                          <span class="grey--text">Gross:</span>
+                          <span class="font-weight-medium">{{ formatNumber(val.originalGross) }} {{ code }}</span>
+                        </div>
+                        <div v-if="val.originalDiscount > 0" class="d-flex justify-space-between align-center red--text text--darken-1 mb-1">
+                          <span>Discount:</span>
+                          <span>-{{ formatNumber(val.originalDiscount) }} {{ code }}</span>
+                        </div>
+                        <div class="d-flex justify-space-between align-center font-weight-bold primary--text">
+                          <span>Net:</span>
+                          <span>{{ formatNumber(val.originalNet) }} {{ code }}</span>
+                        </div>
+                        
+                        <!-- Local conversion for non-local currencies -->
+                        <div v-if="code !== localCurrency?.code" class="mt-1 pt-1 grey--text" style="border-top: 1px dashed #cbd5e1; font-size: 0.65rem">
+                          <div class="d-flex justify-space-between align-center">
+                            <span>≈ Net Local:</span>
+                            <span>{{ formatNumber(val.localNet) }} {{ localCurrency?.code }}</span>
                           </div>
                         </div>
                       </div>
@@ -395,6 +483,7 @@ import { printSalesReportSummary } from '~/common/sales-report-printer.js'
 import { mainCompanyInfo, preloadCompanyData } from '~/common/api'
 
 import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
+import { generateInvoiceHTML, generateReceiptHTML } from '~/common/printTemplates'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -668,6 +757,7 @@ export default {
         accountName:
           terminalCompany?.accountName || baseCompany?.accountName || '',
         accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
+        taxId: terminalCompany?.taxId || baseCompany?.taxId || '',
         remark: terminalCompany?.remark || baseCompany?.remark || '',
         term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
         showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
@@ -789,56 +879,21 @@ export default {
       let grandTotalLocal = 0
 
       this.activeOrderHeaderList.forEach((header) => {
-        const headerTotalLocal = this.calculateHeaderTotalLocal(header)
-        grandTotalLocal += headerTotalLocal
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
 
-        const processPayment = (
-          paymentCode,
-          paymentName,
-          amountLocal,
-          headerLines
-        ) => {
-          if (!stats[paymentCode]) {
-            stats[paymentCode] = {
-              code: paymentCode,
-              title: paymentName,
-              icon: this.getPaymentMethodIcon(paymentCode),
-              color: this.getPaymentMethodColor(paymentCode),
-              total: 0,
-              count: 0,
-              groupedCurrency: {},
-            }
-          }
+        const headerNetLocal = (header.total || 0) * headerRate
+        const headerDiscountLocal = (header.discount || 0) * headerRate
+        const headerGrossLocal = headerNetLocal + headerDiscountLocal
+        
+        grandTotalLocal += headerNetLocal
 
-          stats[paymentCode].total += amountLocal
-          stats[paymentCode].count += 1
-
-          headerLines.forEach((line) => {
-            const lineCurrency = this.findAllCurrency?.find(
-              (c) => c.id === line.currencyId
-            )
-            const cCode = lineCurrency?.code || this.findLocalCurrency.code
-
-            if (!stats[paymentCode].groupedCurrency[cCode]) {
-              stats[paymentCode].groupedCurrency[cCode] = {
-                original: 0,
-                local: 0,
-              }
-            }
-
-            const isLocal =
-              lineCurrency?.isLocalCCY === true ||
-              lineCurrency?.isLocalCCY === 1
-            const rate = isLocal ? 1 : line.exchangeRate || 1
-
-            // Track both values
-            stats[paymentCode].groupedCurrency[cCode].original +=
-              line.quantity * line.price
-            stats[paymentCode].groupedCurrency[cCode].local +=
-              line.quantity * line.price * rate
-          })
-        }
-
+        // Build list of payments for this header
+        const paymentList = []
         if (this.isMultiPayment(header)) {
           header.payments.forEach((p) => {
             const pCcy = this.findAllCurrency?.find(
@@ -848,12 +903,13 @@ export default {
             const rate = isLocal ? 1 : p.exchangeRate || header.exchangeRate || 1
             const pAmountLocal = Number(p.amount || 0) * rate
 
-            processPayment(
-              p.paymentMethod?.payment_code,
-              p.paymentMethod?.payment_name,
-              pAmountLocal,
-              header.lines
-            )
+            paymentList.push({
+              code: p.paymentMethod?.payment_code,
+              name: p.paymentMethod?.payment_name,
+              amountLocal: pAmountLocal,
+              currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
+              exchangeRate: rate
+            })
           })
         } else {
           const pMethod = header.payment || header.payments?.[0]?.paymentMethod
@@ -864,15 +920,82 @@ export default {
           const rate = isLocal ? 1 : header.payments?.[0]?.exchangeRate || header.exchangeRate || 1
           const pAmountLocal = header.payments?.[0]?.amount !== undefined 
             ? Number(header.payments[0].amount) * rate 
-            : headerTotalLocal
+            : headerNetLocal
 
-          processPayment(
-            pMethod?.payment_code,
-            pMethod?.payment_name,
-            pAmountLocal,
-            header.lines
-          )
+          paymentList.push({
+            code: pMethod?.payment_code,
+            name: pMethod?.payment_name,
+            amountLocal: pAmountLocal,
+            currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
+            exchangeRate: rate
+          })
         }
+
+        const totalPaidLocal = paymentList.reduce((sum, p) => sum + p.amountLocal, 0) || 1
+        const scaleRatio = headerNetLocal / totalPaidLocal
+
+        paymentList.forEach((p) => {
+          p.amountLocal = p.amountLocal * scaleRatio
+        })
+
+        paymentList.forEach((p) => {
+          const paymentCode = p.code || 'UNKNOWN'
+          const paymentName = p.name || 'Unknown'
+          const pNetLocal = p.amountLocal
+          const proportion = headerNetLocal > 0 ? (pNetLocal / headerNetLocal) : 1
+
+          const pGrossLocal = headerGrossLocal * proportion
+          const pDiscountLocal = headerDiscountLocal * proportion
+
+          const rate = p.exchangeRate || 1
+          const originalGross = pGrossLocal / rate
+          const originalDiscount = pDiscountLocal / rate
+          const originalNet = pNetLocal / rate
+
+          if (!stats[paymentCode]) {
+            stats[paymentCode] = {
+              code: paymentCode,
+              title: paymentName,
+              icon: this.getPaymentMethodIcon(paymentCode),
+              color: this.getPaymentMethodColor(paymentCode),
+              total: 0,
+              gross: 0,
+              discount: 0,
+              count: 0,
+              groupedCurrency: {},
+            }
+          }
+
+          stats[paymentCode].total += pNetLocal
+          stats[paymentCode].gross += pGrossLocal
+          stats[paymentCode].discount += pDiscountLocal
+          stats[paymentCode].count += 1
+
+          const cCode = p.currencyCode
+          if (!stats[paymentCode].groupedCurrency[cCode]) {
+            stats[paymentCode].groupedCurrency[cCode] = {
+              original: 0,
+              local: 0,
+              originalGross: 0,
+              originalDiscount: 0,
+              originalNet: 0,
+              localGross: 0,
+              localDiscount: 0,
+              localNet: 0,
+            }
+          }
+
+          stats[paymentCode].groupedCurrency[cCode].originalGross += originalGross
+          stats[paymentCode].groupedCurrency[cCode].originalDiscount += originalDiscount
+          stats[paymentCode].groupedCurrency[cCode].originalNet += originalNet
+
+          stats[paymentCode].groupedCurrency[cCode].localGross += pGrossLocal
+          stats[paymentCode].groupedCurrency[cCode].localDiscount += pDiscountLocal
+          stats[paymentCode].groupedCurrency[cCode].localNet += pNetLocal
+
+          stats[paymentCode].groupedCurrency[cCode].original += originalNet
+          stats[paymentCode].groupedCurrency[cCode].local += pNetLocal
+        })
       })
 
       return Object.values(stats).map((stat) => ({
@@ -880,6 +1003,45 @@ export default {
         percentage:
           grandTotalLocal > 0 ? (stat.total / grandTotalLocal) * 100 : 0,
       }))
+    },
+
+    summaryGrossLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        
+        const net = (header.total || 0) * headerRate
+        const discount = (header.discount || 0) * headerRate
+        return sum + net + discount
+      }, 0)
+    },
+
+    summaryDiscountLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        return sum + (header.discount || 0) * headerRate
+      }, 0)
+    },
+
+    summaryNetLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        return sum + (header.total || 0) * headerRate
+      }, 0)
     },
 
     singlePaymentCount() {
@@ -1020,24 +1182,7 @@ export default {
         headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
       const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
 
-      if (!header.lines || header.lines.length === 0) {
-        return (header.total || 0) * headerRate
-      }
-
-      const total = header.lines.reduce((sum, line) => {
-        const lineCurrency = this.findAllCurrency?.find(
-          (c) => c.id === line.currencyId
-        )
-        const isLocal =
-          lineCurrency?.isLocalCCY === true || lineCurrency?.isLocalCCY === 1
-
-        // Use 1 for local, or the exchangeRate for foreign
-        const rate = isLocal ? 1 : line.exchangeRate || 1
-        return sum + line.quantity * line.price * rate
-      }, 0)
-
-      const convertedDiscount = (header.discount || 0) * headerRate
-      return total - convertedDiscount
+      return (header.total || 0) * headerRate
     },
     formatCompanyAddress(company) {
       if (!company) return ''
@@ -1332,8 +1477,33 @@ export default {
       this.isloading = false
     },
 
-    printDefaultTicket(data) {
-      //TODO: PRINTING TICKET ISSUE NO LOGO SHOWING.
+    async printDefaultTicket(data) {
+      // Check if TICKET_FORM = FORMAL
+      const PRINTFORMAT = (this.getSPF || []).find(
+        (spf) => spf.code === 'TICKET_FORM'
+      )
+      if (PRINTFORMAT && PRINTFORMAT.value === 'FORMAL') {
+        this.isloading = true
+        try {
+          const response = await this.$axios.get(`api/sale/find/${data.id}`)
+          const invoiceData = response.data
+          const companyData = this.companyData
+          const htmlContent = generateInvoiceHTML(
+            invoiceData,
+            companyData,
+            this.findAllCurrency
+          )
+          this.openPrintWindow(htmlContent)
+        } catch (error) {
+          console.error('Error printing A4 invoice:', error)
+          swalError2(this.$swal, 'Error', 'Failed to print A4 invoice')
+        } finally {
+          this.isloading = false
+        }
+        return
+      }
+
+      // TODO: PRINTING TICKET ISSUE NO LOGO SHOWING.
       console.info('PRINTING TICKET WITH DATA:', JSON.stringify(data))
 
       let paymentCode = 'UNKNOWN'
@@ -1389,6 +1559,50 @@ export default {
         paperWidth: this.paperSize,
         client: data.client,
       })
+    },
+
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+
+        if (!printWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
+            }
+          }, 500)
+        }
+
+        // Fallback check
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try { printWindow.print() } catch (e) { }
+          }
+        }, 1000)
+
+      } catch (error) {
+        console.error('Error creating print window:', error)
+        swalError2(this.$swal, 'Error', 'Failed to generate print document')
+      }
     },
 
     exportToExcel() {

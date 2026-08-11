@@ -12,7 +12,8 @@
             :display-change="displayChange" :local-currency-code="localCurrency.code" />
 
           <PaymentSection :qr-data="qrData" :parsed-company-info="parsedCompanyInfo" :converted-amounts="convertedAmounts"
-            :time-remaining="timeRemaining" :company-q-r-image-url="companyQRImageUrl" :bcel-qr-image="bcelQrImage"
+            :time-remaining="timeRemaining" :company-q-r-image-url="companyQRImageUrl" :company-q-r-image-url2="companyQRImageUrl2"
+            :bcel-qr-image="bcelQrImage" :bcel-qr-image2="bcelQrImage2"
             :payment-complete="paymentComplete" :local-currency-code="localCurrency.code" />
         </div>
 
@@ -214,6 +215,15 @@ export default {
         return '/static/images/dcommerce-logo.png'
       }
     },
+  },
+  created() {
+    if (process.client) {
+      const savedUrl = localStorage.getItem('api_base_url')
+      if (savedUrl) {
+        this.$axios.setBaseURL(savedUrl)
+        console.log("Customer screen configured axios baseURL to saved URL:", savedUrl)
+      }
+    }
   },
   mounted() {
     window.addEventListener('storage', this.handleStorageChange)

@@ -107,15 +107,28 @@
               </div>
             </div>
             <div class="kpi-content">
-              <h3 class="kpi-title">{{ item.title }} (ລວມ {{ localCurrencyCode }})</h3>
-              <div class="kpi-value mb-1">{{ item.total }}</div>
+              <h3 class="kpi-title mb-2">{{ item.title }}</h3>
 
-              <!-- Total Discount Display -->
-              <div v-if="item.discount && item.discount !== '0.00' && item.discount !== '0'" class="kpi-discount-badge mb-3 d-flex align-center">
-                <v-icon small color="orange" class="mr-1">mdi-tag-outline</v-icon>
-                <span class=" grey--text text--darken-1 font-weight-medium">
-                  ສ່ວນຫຼຸດລວມ: <strong class="orange--text font-weight-bold">{{ item.discount }} {{ localCurrencyCode }}</strong>
-                </span>
+              <!-- Gross, Discount, Net Breakdown for Dashboard KPI Cards -->
+              <div style="font-size: 0.825rem; line-height: 1.5;">
+                <div class="d-flex justify-space-between align-center mb-1">
+                  <span class="grey--text text--darken-1">ຍອດລວມ (Gross):</span>
+                  <span class="font-weight-medium grey--text text--darken-3">
+                    {{ numberFormatter(Number(String(item.total || 0).replace(/,/g, '')) + Number(String(item.discount || 0).replace(/,/g, ''))) }} {{ localCurrencyCode }}
+                  </span>
+                </div>
+                <div class="d-flex justify-space-between align-center mb-1 red--text text--darken-1">
+                  <span>ສ່ວນຫຼຸດ (Discount):</span>
+                  <span class="font-weight-medium">
+                    -{{ item.discount }} {{ localCurrencyCode }}
+                  </span>
+                </div>
+                <div class="d-flex justify-space-between align-center mb-3 primary--text">
+                  <span class="font-weight-bold">ຍອດຂາຍສຸດທິ (Net):</span>
+                  <span class="font-weight-black text-h6">
+                    {{ item.total }} <small style="font-size: 0.75rem;">{{ localCurrencyCode }}</small>
+                  </span>
+                </div>
               </div>
 
               <div v-if="item.groupedCurrency" class="currency-summary mb-4">
@@ -296,10 +309,12 @@ export default {
         { title: 'ໃບບິນ (Invoice)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/ordersFromPos' },
         { title: 'ລູກໜີ້', svgIcon: require('~/assets/icons/pay-card.svg'), path: '/admin/ordersFromPosCredit' },
         { title: 'ສາງສິນຄ້າ', svgIcon: require('~/assets/icons/stock.svg'), path: '/admin/product/productlist' },
+        { title: 'ເມນູອາຫານ (Menu)', svgIcon: require('~/assets/icons/coffee.svg'), path: '/admin/restaurant/menu' },
         { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), path: '/admin/client' },
         { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
         { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleReportSummary' },
         { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), path: '/admin/report/loyalty' },
+        { title: 'ຈັດການຄ່າຮຽນ (School Billing)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/school' },
       ],
     }
   },
@@ -422,12 +437,36 @@ export default {
     getRawCurrencySummary(saleList) {
       const currencies = this.findAllCurrency || []
       return saleList.reduce((acc, sale) => {
-        (sale.lines || []).forEach((line) => {
-          const targetId = line.currencyId || sale.currencyId
-          const ccy = currencies.find((c) => Number(c.id) === Number(targetId))
-          const code = ccy ? ccy.code : '???'
-          acc[code] = (acc[code] || 0) + Number(line.total || 0)
-        })
+        const headerCcy = currencies.find((c) => Number(c.id) === Number(sale.currencyId))
+        const headerCode = headerCcy ? headerCcy.code : '???'
+
+        if (sale.lines && sale.lines.length > 0) {
+          const saleCcyTotals = {}
+          let totalGrossInHeaderCcy = 0
+
+          sale.lines.forEach((line) => {
+            const targetId = line.currencyId || sale.currencyId
+            const ccy = currencies.find((c) => Number(c.id) === Number(targetId))
+            const code = ccy ? ccy.code : headerCode
+            const amt = Number(line.total || line.quantity * line.price || 0)
+
+            saleCcyTotals[code] = (saleCcyTotals[code] || 0) + amt
+            totalGrossInHeaderCcy += amt
+          })
+
+          const discount = Number(sale.discount || 0)
+          
+          Object.keys(saleCcyTotals).forEach((code) => {
+            const gross = saleCcyTotals[code]
+            const proportion = totalGrossInHeaderCcy > 0 ? (gross / totalGrossInHeaderCcy) : 1
+            const netForCurrency = gross - (discount * proportion)
+
+            acc[code] = (acc[code] || 0) + netForCurrency
+          })
+        } else {
+          const netTotal = Number(sale.total || 0) - Number(sale.discount || 0)
+          acc[headerCode] = (acc[headerCode] || 0) + netTotal
+        }
         return acc
       }, {})
     },
@@ -440,26 +479,61 @@ export default {
         const headerCode = headerCcy ? headerCcy.code : '???'
 
         if (sale.payments && sale.payments.length > 0) {
+          const list = []
           sale.payments.forEach((p) => {
             const pmDetails = this.findAllPayment.find((pm) => pm.id === p.paymentId)
             const pCcy = currencies.find((c) => Number(c.id) === Number(p.currencyId || sale.currencyId))
             const pCode = pCcy ? pCcy.code : headerCode
-            const key = `${p.paymentId}_${pCode}`
-            if (!acc[key]) acc[key] = { amount: 0, totalSales: 0, paymentName: pmDetails?.payment_name || 'ອື່ນໆ', currencyCode: pCode }
-            acc[key].amount += Number(p.amount || 0)
-            let conv = Number(p.amount || 0)
+            
+            const rawAmount = Number(p.amount || 0)
+            let conv = rawAmount
             if (pCcy && Number(pCcy.isLocalCCY) !== 1) {
               const r = Number(p.exchangeRate || 1)
               conv = pCcy.exchangeDirection === 'foreign_to_local' ? conv * r : conv / r
             }
-            acc[key].totalSales += conv
+
+            list.push({
+              paymentId: p.paymentId,
+              paymentName: pmDetails?.payment_name || 'ອື່ນໆ',
+              currencyCode: pCode,
+              rawAmount: rawAmount,
+              convAmount: conv
+            })
+          })
+
+          const totalRawSum = list.reduce((s, item) => s + item.rawAmount, 0) || 1
+          const totalConvSum = list.reduce((s, item) => s + item.convAmount, 0) || 1
+
+          const headerNet = Number(sale.total || 0)
+          const headerNetLAK = this.getConvertedSaleTotal(sale)
+
+          const rawRatio = headerNet / totalRawSum
+          const convRatio = headerNetLAK / totalConvSum
+
+          list.forEach((item) => {
+            const key = `${item.paymentId}_${item.currencyCode}`
+            if (!acc[key]) {
+              acc[key] = {
+                amount: 0,
+                totalSales: 0,
+                paymentName: item.paymentName,
+                currencyCode: item.currencyCode
+              }
+            }
+            acc[key].amount += item.rawAmount * rawRatio
+            acc[key].totalSales += item.convAmount * convRatio
           })
         } else if (sale.payment) {
           const key = `${sale.payment.id}_${headerCode}`
-          if (!acc[key]) acc[key] = { amount: 0, totalSales: 0, paymentName: sale.payment.payment_name || 'ເງິນສົດ', currencyCode: headerCode }
-          
-          // Exclude/subtract discount from raw total cash payments
-          const netHeaderAmount = Number(sale.total || 0) - Number(sale.discount || 0)
+          if (!acc[key]) {
+            acc[key] = {
+              amount: 0,
+              totalSales: 0,
+              paymentName: sale.payment.payment_name || 'ເງິນສົດ',
+              currencyCode: headerCode
+            }
+          }
+          const netHeaderAmount = Number(sale.total || 0)
           const netTotal = this.getConvertedSaleTotal(sale)
           
           acc[key].amount += netHeaderAmount

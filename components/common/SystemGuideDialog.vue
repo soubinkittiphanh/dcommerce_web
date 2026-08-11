@@ -168,7 +168,7 @@
                       <td class="font-weight-medium">DYN_QR_BankCode</td>
                       <td>
                         <strong>Active Bank Code / ລະຫັດທະນາຄານທີ່ໃຊ້ງານ:</strong><br>
-                        Set to <code>IB</code> for Indochina Bank, or <code>LVB</code> for LaoVietBank. / ຕັ້ງເປັນ <code>IB</code> ຫຼື <code>LVB</code>.
+                        Set to <code>IB</code> for Indochina Bank, <code>LVB</code> for LaoVietBank, or <code>BCEL</code> for BCEL Onepay. / ຕັ້ງເປັນ <code>IB</code>, <code>LVB</code> ຫຼື <code>BCEL</code>.
                       </td>
                     </tr>
                     <tr>

@@ -154,42 +154,164 @@
       </v-card-title>
       <v-divider></v-divider>
       <v-card-text>
-        <v-layout row wrap>
+        <!-- Grand Summary Cards -->
+        <section class="grand-summary-section mt-2 mb-6">
           <v-row>
-            <v-col cols="6" lg="6">
-              <order-sumary-card-pos :showTotal="true"
-                :gross="getFormatNum(totalSaleRaw - (+this.unpaidCodOrder.saleRawNumber))" :orderDetail="{
-      'title': 'ຍອດບິນ COD',
-      'amount': getFormatNum(activeOrderHeaderList.length),
-      'sale': getFormatNum(totalSale),
-      // 'discount': getFormatNum(totalDiscount),
-      // 'gross': getFormatNum(totalSale.replaceAll(',', '') - totalDiscount.replaceAll(',', ''))
-      // 'gross': getFormatNum(totalSale - totalDiscount)
-
-    }">
-
-              </order-sumary-card-pos>
+            <v-col cols="12" md="4">
+              <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);">
+                <v-card-text class="d-flex align-center pa-4">
+                  <v-avatar color="blue" size="56" class="elevation-1 mr-4">
+                    <v-icon color="white" large>mdi-cart-outline</v-icon>
+                  </v-avatar>
+                  <div>
+                    <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຂາຍລວມ (Gross Sales)</div>
+                    <div class="text-h5 font-weight-black blue--text text--darken-3">
+                      {{ formatNumber(summaryGrossLocal) }}
+                      <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
             </v-col>
 
-            <!-- NEW: Payment Summary Cards -->
-            <v-col cols="6" lg="6">
-              <v-row>
-                <v-col cols="6">
-                  <v-card outlined class="pa-3 text-center">
-                    <h4 class="primary--text">{{ singlePaymentCount }}</h4>
-                    <div class="">ຊຳລະແບບດຽວ</div>
-                  </v-card>
-                </v-col>
-                <v-col cols="6">
-                  <v-card outlined class="pa-3 text-center">
-                    <h4 class="success--text">{{ multiPaymentCount }}</h4>
-                    <div class="">ຊຳລະຫຼາຍວິທີ</div>
-                  </v-card>
-                </v-col>
-              </v-row>
+            <v-col cols="12" md="4">
+              <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);">
+                <v-card-text class="d-flex align-center pa-4">
+                  <v-avatar color="red" size="56" class="elevation-1 mr-4">
+                    <v-icon color="white" large>mdi-tag-outline</v-icon>
+                  </v-avatar>
+                  <div>
+                    <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ສ່ວນຫຼຸດລວມ (Total Discount)</div>
+                    <div class="text-h5 font-weight-black red--text text--darken-3">
+                      {{ formatNumber(summaryDiscountLocal) }}
+                      <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
+            </v-col>
+
+            <v-col cols="12" md="4">
+              <v-card class="mx-auto elevation-2" style="border-radius: 16px; border: 1px solid #e2e8f0; background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);">
+                <v-card-text class="d-flex align-center pa-4">
+                  <v-avatar color="green" size="56" class="elevation-1 mr-4">
+                    <v-icon color="white" large>mdi-cash-multiple</v-icon>
+                  </v-avatar>
+                  <div>
+                    <div class="text-subtitle-2 grey--text text--darken-1 font-weight-medium">ຍອດຂາຍສຸດທິ (Net Revenue)</div>
+                    <div class="text-h5 font-weight-black green--text text--darken-3">
+                      {{ formatNumber(summaryNetLocal) }}
+                      <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                    </div>
+                  </div>
+                </v-card-text>
+              </v-card>
             </v-col>
           </v-row>
-        </v-layout>
+        </section>
+
+        <!-- Payment Type Summary Cards -->
+        <section class="kpi-section mt-5 mb-6">
+          <h4 class="mb-3">
+            <v-icon left>mdi-view-dashboard-outline</v-icon>
+            ສະຫຼຸບລາຍຮັບຕາມຊ່ອງທາງການຊຳລະ
+          </h4>
+          <v-row class="kpi-grid">
+            <v-col v-for="(item, index) in paymentStatistics" :key="index" cols="12" md="4" lg="4">
+              <v-card class="elevation-2 pa-4" style="border-radius: 16px; background: white; border: 1px solid #e2e8f0;">
+                <div class="kpi-header d-flex justify-space-between align-center mb-4">
+                  <v-avatar :color="item.color" size="48">
+                    <v-icon color="white">{{ item.icon }}</v-icon>
+                  </v-avatar>
+                  <v-chip x-small color="success" text-color="white" class="font-weight-bold">
+                    {{ item.percentage.toFixed(1) }}%
+                  </v-chip>
+                </div>
+
+                <div class="kpi-content">
+                  <h3 class="kpi-title grey--text mb-2">
+                    {{ item.title }}
+                  </h3>
+
+                  <div class="d-flex justify-space-between align-center mb-1">
+                    <span class="grey--text caption font-weight-medium">Gross:</span>
+                    <span class="caption font-weight-bold grey--text text--darken-2">
+                      {{ formatNumber(item.gross) }} {{ localCurrency?.code || 'LAK' }}
+                    </span>
+                  </div>
+                  <div class="d-flex justify-space-between align-center mb-1 red--text text--darken-1">
+                    <span class="caption font-weight-medium">Discount:</span>
+                    <span class="caption font-weight-bold">
+                      -{{ formatNumber(item.discount) }} {{ localCurrency?.code || 'LAK' }}
+                    </span>
+                  </div>
+                  <div class="d-flex justify-space-between align-center mb-3 primary--text">
+                    <span class="body-2 font-weight-bold">Net Paid:</span>
+                    <span class="font-weight-black text-h6">
+                      {{ formatNumber(item.total) }} <small class="caption">{{ localCurrency?.code || 'LAK' }}</small>
+                    </span>
+                  </div>
+
+                  <div v-if="item.groupedCurrency" class="currency-breakdown-container mt-3">
+                    <div v-for="(val, code) in item.groupedCurrency" :key="code"
+                      class="mb-2 pa-2 rounded"
+                      style="background: #f8fafc; border: 1px dashed #e2e8f0; font-size: 0.75rem;">
+                      <div class="font-weight-bold caption text-uppercase mb-1" style="color: #475569; border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px;">
+                        {{ code }} Breakdown
+                      </div>
+                      <div class="d-flex justify-space-between align-center mb-1">
+                        <span class="grey--text">Gross:</span>
+                        <span class="font-weight-medium">{{ formatNumber(val.originalGross) }} {{ code }}</span>
+                      </div>
+                      <div v-if="val.originalDiscount > 0" class="d-flex justify-space-between align-center red--text text--darken-1 mb-1">
+                        <span>Discount:</span>
+                        <span>-{{ formatNumber(val.originalDiscount) }} {{ code }}</span>
+                      </div>
+                      <div class="d-flex justify-space-between align-center font-weight-bold primary--text">
+                        <span>Net:</span>
+                        <span>{{ formatNumber(val.originalNet) }} {{ code }}</span>
+                      </div>
+                      
+                      <div v-if="code !== (localCurrency?.code || 'LAK')" class="mt-1 pt-1 grey--text" style="border-top: 1px dashed #cbd5e1; font-size: 0.65rem">
+                        <div class="d-flex justify-space-between align-center">
+                          <span>≈ Net Local:</span>
+                          <span>{{ formatNumber(val.localNet) }} {{ localCurrency?.code || 'LAK' }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <v-progress-linear :value="item.percentage" :color="item.color" height="6" rounded class="mt-3"></v-progress-linear>
+                  <div class="caption text-right mt-1 grey--text">
+                    {{ item.count }} Transactions
+                  </div>
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+        </section>
+
+        <!-- Payment Statistics Analytics -->
+        <v-row class="mt-2">
+          <v-col cols="12" md="6">
+            <v-card outlined class="pa-4">
+              <h4 class="mb-3">
+                <v-icon left>mdi-credit-card-multiple</v-icon>
+                ສະຖິຕິການຊຳລະ
+              </h4>
+              <v-row class="text-center">
+                <v-col cols="6">
+                  <div class="text-h5 primary--text">{{ singlePaymentCount }}</div>
+                  <div class="caption grey--text">ຊຳລະແບບດຽວ</div>
+                </v-col>
+                <v-col cols="6">
+                  <div class="text-h5 success--text">{{ multiPaymentCount }}</div>
+                  <div class="caption grey--text">ຊຳລະຫຼາຍວິທີ</div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-card-text>
 
       <!-- <v-divider></v-divider> -->
@@ -663,8 +785,195 @@ export default {
       return ticketHtml();
     },
 
-    ...mapGetters(['currentSelectedLocation', 'cartOfProduct', 'currenctSelectedCategoryId', 'findAllProduct', 'currentSelectedCustomer', 'currentSelectedPayment', 'findSelectedTerminal', 'findAllTerminal', 'findAllLocation']),
-    
+    ...mapGetters([
+      'currentSelectedLocation',
+      'cartOfProduct',
+      'currenctSelectedCategoryId',
+      'findAllProduct',
+      'currentSelectedCustomer',
+      'currentSelectedPayment',
+      'findSelectedTerminal',
+      'findAllTerminal',
+      'findAllLocation',
+      'findAllCurrency',
+      'findLocalCurrency',
+      'findAllPayment'
+    ]),
+
+    localCurrency() {
+      return this.findLocalCurrency
+    },
+
+    summaryGrossLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        
+        const net = (header.total || 0) * headerRate
+        const discount = (header.discount || 0) * headerRate
+        return sum + net + discount
+      }, 0)
+    },
+
+    summaryDiscountLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        return sum + (header.discount || 0) * headerRate
+      }, 0)
+    },
+
+    summaryNetLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+        return sum + (header.total || 0) * headerRate
+      }, 0)
+    },
+
+    paymentStatistics() {
+      const stats = {}
+      let grandTotalLocal = 0
+
+      this.activeOrderHeaderList.forEach((header) => {
+        const headerCcy = this.findAllCurrency?.find(
+          (c) => Number(c.id) === Number(header.currencyId)
+        )
+        const isHeaderLocal =
+          headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+
+        const headerNetLocal = (header.total || 0) * headerRate
+        const headerDiscountLocal = (header.discount || 0) * headerRate
+        const headerGrossLocal = headerNetLocal + headerDiscountLocal
+        
+        grandTotalLocal += headerNetLocal
+
+        // Build list of payments for this header
+        const paymentList = []
+        if (this.isMultiPayment(header)) {
+          header.payments.forEach((p) => {
+            const pCcy = this.findAllCurrency?.find(
+              (c) => Number(c.id) === Number(p.currencyId || header.currencyId)
+            )
+            const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
+            const rate = isLocal ? 1 : p.exchangeRate || header.exchangeRate || 1
+            const pAmountLocal = Number(p.amount || 0) * rate
+
+            paymentList.push({
+              code: p.paymentMethod?.payment_code,
+              name: p.paymentMethod?.payment_name,
+              amountLocal: pAmountLocal,
+              currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
+              exchangeRate: rate
+            })
+          })
+        } else {
+          const pMethod = header.payment || header.payments?.[0]?.paymentMethod
+          const pCcy = this.findAllCurrency?.find(
+            (c) => Number(c.id) === Number(header.payments?.[0]?.currencyId || header.currencyId)
+          )
+          const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
+          const rate = isLocal ? 1 : header.payments?.[0]?.exchangeRate || header.exchangeRate || 1
+          const pAmountLocal = header.payments?.[0]?.amount !== undefined 
+            ? Number(header.payments[0].amount) * rate 
+            : headerNetLocal
+
+          paymentList.push({
+            code: pMethod?.payment_code,
+            name: pMethod?.payment_name,
+            amountLocal: pAmountLocal,
+            currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
+            exchangeRate: rate
+          })
+        }
+
+        const totalPaidLocal = paymentList.reduce((sum, p) => sum + p.amountLocal, 0) || 1
+        const scaleRatio = headerNetLocal / totalPaidLocal
+
+        paymentList.forEach((p) => {
+          p.amountLocal = p.amountLocal * scaleRatio
+        })
+
+        paymentList.forEach((p) => {
+          const paymentCode = p.code || 'UNKNOWN'
+          const paymentName = p.name || 'Unknown'
+          const pNetLocal = p.amountLocal
+          const proportion = headerNetLocal > 0 ? (pNetLocal / headerNetLocal) : 1
+
+          const pGrossLocal = headerGrossLocal * proportion
+          const pDiscountLocal = headerDiscountLocal * proportion
+
+          const rate = p.exchangeRate || 1
+          const originalGross = pGrossLocal / rate
+          const originalDiscount = pDiscountLocal / rate
+          const originalNet = pNetLocal / rate
+
+          if (!stats[paymentCode]) {
+            stats[paymentCode] = {
+              code: paymentCode,
+              title: paymentName,
+              icon: this.getPaymentMethodIcon(paymentCode),
+              color: this.getPaymentMethodColor(paymentCode),
+              total: 0,
+              gross: 0,
+              discount: 0,
+              count: 0,
+              groupedCurrency: {},
+            }
+          }
+
+          stats[paymentCode].total += pNetLocal
+          stats[paymentCode].gross += pGrossLocal
+          stats[paymentCode].discount += pDiscountLocal
+          stats[paymentCode].count += 1
+
+          const cCode = p.currencyCode
+          if (!stats[paymentCode].groupedCurrency[cCode]) {
+            stats[paymentCode].groupedCurrency[cCode] = {
+              original: 0,
+              local: 0,
+              originalGross: 0,
+              originalDiscount: 0,
+              originalNet: 0,
+              localGross: 0,
+              localDiscount: 0,
+              localNet: 0,
+            }
+          }
+
+          stats[paymentCode].groupedCurrency[cCode].originalGross += originalGross
+          stats[paymentCode].groupedCurrency[cCode].originalDiscount += originalDiscount
+          stats[paymentCode].groupedCurrency[cCode].originalNet += originalNet
+
+          stats[paymentCode].groupedCurrency[cCode].localGross += pGrossLocal
+          stats[paymentCode].groupedCurrency[cCode].localDiscount += pDiscountLocal
+          stats[paymentCode].groupedCurrency[cCode].localNet += pNetLocal
+
+          stats[paymentCode].groupedCurrency[cCode].original += originalNet
+          stats[paymentCode].groupedCurrency[cCode].local += pNetLocal
+        })
+      })
+
+      return Object.values(stats).map((stat) => ({
+        ...stat,
+        percentage:
+          grandTotalLocal > 0 ? (stat.total / grandTotalLocal) * 100 : 0,
+      }))
+    },
+
     activeOrderHeaderList() {
       console.log(`TerminalSelcted ${this.terminalId}`);
       const terminal = this.findAllTerminal.find(el => el['id'] == this.terminalId)
@@ -746,6 +1055,17 @@ export default {
   },
 
   methods: {
+    calculateHeaderTotalLocal(header) {
+      const headerCcy = this.findAllCurrency?.find(
+        (c) => Number(c.id) === Number(header.currencyId)
+      )
+      const isHeaderLocal =
+        headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+      const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+
+      return (header.total || 0) * headerRate
+    },
+
     // NEW: Multi-Payment Detection and Handling Methods
     isMultiPayment(item) {
       return item.payments && Array.isArray(item.payments) && item.payments.length > 1

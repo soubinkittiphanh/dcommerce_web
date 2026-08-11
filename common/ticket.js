@@ -132,7 +132,7 @@ const getGiftDisplayInfo = (item, activePrice) => {
 const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumber, currencyList) => {
     const cartItems = productCart.lines || productCart;
     if (!Array.isArray(cartItems) || cartItems.length === 0) return '<div>ບໍ່ມີສິນຄ້າ</div>';
-    return cartItems.map(item => {
+    return cartItems.map((item, index) => {
         const productName = item.pro_name || findAllProduct.find(el => el.id === item.id)?.pro_name || 'ສິນຄ້າ';
         let activePrice = getItemActivePrice(item);
         const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item))?.code || 'LAK';
@@ -148,7 +148,7 @@ const generateFlexibleTransactionList = (productCart, findAllProduct, formatNumb
         return `
       <div class="item ${giftInfo.cssClass}">
         <div class="item-desc">
-          <div class="item-name">${productName}${giftInfo.labelSuffix}</div>
+          <div class="item-name">${index + 1}. ${productName}${giftInfo.labelSuffix}</div>
           <div class="item-detail">${item.qty} x ${giftInfo.displayPrice === 'FREE' ? 'FREE' : formatNumber(activePrice)}</div>
         </div>
         <div class="item-total">${giftInfo.displayPrice || formatNumber(item.qty * activePrice)} ${currency}</div>

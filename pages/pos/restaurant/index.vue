@@ -240,11 +240,17 @@ export default {
             pollTimer: null,
         }
     },
-    async mounted() {
+    mounted() {
         window.addEventListener('keydown', this.handleKeyDown);
 
         if (typeof window !== 'undefined') {
-            this.baseUrl = window.location.origin + '/e-menu'
+            const spfList = this.$store.getters.findSPF || [];
+            const emenuSpf = spfList.find(s => s.code === 'EMENU' && s.isActive);
+            if (emenuSpf && emenuSpf.value) {
+                this.baseUrl = emenuSpf.value;
+            } else {
+                this.baseUrl = window.location.origin + '/e-menu';
+            }
         }
 
         this.pollActiveRequests();
@@ -438,8 +444,12 @@ export default {
         },
 
         getFullQrUrl(tableName) {
-            const cleanBaseUrl = (this.baseUrl || '').replace(/\/+$/, '');
-            return `${cleanBaseUrl}?table=${encodeURIComponent(tableName)}`;
+            let cleanBaseUrl = (this.baseUrl || '').replace(/\/+$/, '');
+            if (!cleanBaseUrl.includes('/e-menu')) {
+                cleanBaseUrl += '/#/e-menu';
+            }
+            const separator = cleanBaseUrl.includes('?') ? '&' : '?';
+            return `${cleanBaseUrl}${separator}table=${encodeURIComponent(tableName)}`;
         },
 
         async generateQrCode() {
