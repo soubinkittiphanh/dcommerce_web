@@ -520,8 +520,9 @@ export default {
             const isFast = diff < 35
             const target = event.target
             const isInputFocused = target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA')
+            const isSearchFieldFocused = target && target.closest && target.closest('.search-field')
 
-            if (isFast) {
+            if (isFast && !isSearchFieldFocused) {
                 this.isScanning = true
             } else {
                 this.isScanning = false

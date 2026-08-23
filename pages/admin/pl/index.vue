@@ -50,7 +50,7 @@
                 <span class="text-caption grey--text font-weight-bold">ລາຍຮັບລວມ (Revenue)</span>
                 <v-icon color="success" small>mdi-arrow-up-bold-circle</v-icon>
               </div>
-              <div class="text-h6 font-weight-black success--text">{{ formatAmount(totalIncome) }}</div>
+              <div class="text-h6 font-weight-black success--text">{{ formatAmount(totalIncome) }} {{ localCurrencyCode }}</div>
               <div class="text-tiny grey--text mt-1">ລວມຍອດຂາຍ ແລະ ລາຍຮັບອື່ນໆ</div>
             </v-card>
           </v-col>
@@ -61,7 +61,7 @@
                 <span class="text-caption orange--text text--darken-2 font-weight-bold">ຕົ້ນທຶນຂາຍ (COGS)</span>
                 <v-icon color="orange darken-2" small>mdi-package-variant</v-icon>
               </div>
-              <div class="text-h6 font-weight-black orange--text text--darken-2">{{ formatAmount(totalCostOfSale) }}</div>
+              <div class="text-h6 font-weight-black orange--text text--darken-2">{{ formatAmount(totalCostOfSale) }} {{ localCurrencyCode }}</div>
               <div class="text-tiny grey--text mt-1">ຕົ້ນທຶນສິນຄ້າ + ຄ່າທຳນຽມຕ່າງໆ</div>
             </v-card>
           </v-col>
@@ -72,7 +72,7 @@
                 <span class="text-caption error--text font-weight-bold">ລາຍຈ່າຍບໍລິຫານ (OPEX)</span>
                 <v-icon color="error" small>mdi-cash-minus</v-icon>
               </div>
-              <div class="text-h6 font-weight-black error--text">{{ formatAmount(operatingExpensesOnly) }}</div>
+              <div class="text-h6 font-weight-black error--text">{{ formatAmount(operatingExpensesOnly) }} {{ localCurrencyCode }}</div>
               <div class="text-tiny grey--text mt-1">ຄ່າໃຊ້ຈ່າຍທົ່ວໄປ ແລະ ບໍລິຫານ</div>
             </v-card>
           </v-col>
@@ -83,7 +83,7 @@
                 <span class="text-caption font-weight-bold opacity-80">{{ profit >= 0 ? 'ກຳໄລສຸດທິ (Net Profit)' : 'ຂາດທຶນສຸດທິ (Net Loss)' }}</span>
                 <v-icon color="white" small>{{ profit >= 0 ? 'mdi-trophy' : 'mdi-alert-circle' }}</v-icon>
               </div>
-              <div class="text-h5 font-weight-black">{{ formatAmount(profit) }}</div>
+              <div class="text-h5 font-weight-black">{{ formatAmount(profit) }} {{ localCurrencyCode }}</div>
               <div class="text-tiny opacity-70 mt-1">ຜົນໄດ້ຮັບຫຼັງຈາກຫັກລາຍຈ່າຍທັງໝົດ</div>
             </v-card>
           </v-col>
@@ -112,61 +112,61 @@
               <div class="analysis-list">
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
                   <span class="grey--text">ຍອດຂາຍລວມ (Gross Sales)</span>
-                  <span class="font-weight-bold">{{ formatAmount(grandSaleTotal) }}</span>
+                  <span class="font-weight-bold">{{ formatAmount(grandSaleTotal) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ສ່ວນຫຼຸດ (Discount)</span>
-                  <span>{{ formatAmount(grandSaleDiscountTotal) }}</span>
+                  <span>{{ formatAmount(grandSaleDiscountTotal) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ຍົກເລີກ/ສົ່ງຄືນ (Return/Cancel)</span>
-                  <span>{{ formatAmount(grandSaleCancelTotal) }}</span>
+                  <span>{{ formatAmount(grandSaleCancelTotal) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
                   <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
-                  <span class="font-weight-bold">{{ formatAmount(totalSale) }}</span>
+                  <span class="font-weight-bold">{{ formatAmount(totalSale) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
                   <span class="grey--text">ລາຍຮັບອື່ນໆ (Other Income)</span>
-                  <span class="font-weight-bold">{{ formatAmount(totalIncome - totalSale) }}</span>
+                  <span class="font-weight-bold">{{ formatAmount(totalIncome - totalSale) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom primary lighten-5 px-2 rounded mt-2">
                   <span class="primary--text font-weight-bold">ລາຍຮັບລວມ (A)</span>
-                  <span class="primary--text font-weight-bold">{{ formatAmount(totalIncome) }}</span>
+                  <span class="primary--text font-weight-bold">{{ formatAmount(totalIncome) }} {{ localCurrencyCode }}</span>
                 </div>
                 
                 <div class="mt-4 text-caption font-weight-bold orange--text">ລາຍລະອຽດຕົ້ນທຶນ (COGS Breakdown)</div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ຕົ້ນທຶນສິນຄ້າ (Product Cost)</span>
-                  <span>{{ formatAmount(productCostOnly) }}</span>
+                  <span>{{ formatAmount(productCostOnly) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ຄ່າທຳນຽມ COD (COD Fee)</span>
-                  <span>{{ formatAmount(totalCODFee) }}</span>
+                  <span>{{ formatAmount(totalCODFee) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ຄ່າທຳນຽມຍົກເລີກ (Cancel Fee)</span>
-                  <span>{{ formatAmount(totalCancelFee) }}</span>
+                  <span>{{ formatAmount(totalCancelFee) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom orange lighten-5 px-2 rounded mt-1">
                   <span class="orange--text text--darken-3 font-weight-bold">ຕົ້ນທຶນຂາຍລວມ</span>
-                  <span class="orange--text text--darken-3 font-weight-bold">{{ formatAmount(totalCostOfSale) }}</span>
+                  <span class="orange--text text--darken-3 font-weight-bold">{{ formatAmount(totalCostOfSale) }} {{ localCurrencyCode }}</span>
                 </div>
 
                 <div class="analysis-item d-flex justify-space-between py-2 mt-4 border-bottom">
                   <span class="grey--text">ລາຍຈ່າຍບໍລິຫານ (OPEX)</span>
-                  <span class="font-weight-bold error--text">{{ formatAmount(operatingExpensesOnly) }}</span>
+                  <span class="font-weight-bold error--text">{{ formatAmount(operatingExpensesOnly) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom error lighten-5 px-2 rounded mt-1">
                   <span class="error--text font-weight-bold">ລາຍຈ່າຍລວມ (B)</span>
-                  <span class="error--text font-weight-bold">{{ formatAmount(totalExpense) }}</span>
+                  <span class="error--text font-weight-bold">{{ formatAmount(totalExpense) }} {{ localCurrencyCode }}</span>
                 </div>
 
                 <v-divider class="my-4"></v-divider>
                 
                 <div class="d-flex justify-space-between align-center pa-3 rounded-lg" :class="profit >= 0 ? 'success' : 'error'" dark>
                   <span class="text-subtitle-2 font-weight-bold">ກຳໄລສຸດທິ (A - B)</span>
-                  <span class="text-h6 font-weight-black">{{ formatAmount(profit) }}</span>
+                  <span class="text-h6 font-weight-black">{{ formatAmount(profit) }} {{ localCurrencyCode }}</span>
                 </div>
               </div>
             </v-card>
@@ -210,11 +210,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSelectedLocation']),
+    ...mapGetters(['currentSelectedLocation', 'findAllCurrency', 'findLocalCurrency']),
+    localCurrencyCode() {
+      return this.findLocalCurrency?.code || 'LAK'
+    },
     grandSaleTotal() {
-      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
       return this.yearlySale.reduce((total, item) => {
-        const rate = item.exchangeRate || 1
         const itemTotal = parseFloat(item.total || 0)
         const itemDiscount = parseFloat(item.discount || 0)
         
@@ -224,13 +225,12 @@ export default {
         }
 
         const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
-        return total + (grossAmount * rate)
+        const converted = this.convertToHomeCurrency(grossAmount, item.currencyId, item.exchangeRate)
+        return total + converted
       }, 0)
     },
     grandSaleDiscountTotal() {
-      // ✅ Normalize to LAK: discount * exchangeRate
       return this.yearlySale.filter(el => el.isActive === true).reduce((total, item) => {
-        const rate = item.exchangeRate || 1
         const itemDiscount = parseFloat(item.discount || 0)
 
         // Guard against corrupted/astronomical values
@@ -238,13 +238,12 @@ export default {
           return total;
         }
 
-        return total + (itemDiscount * rate)
+        const converted = this.convertToHomeCurrency(itemDiscount, item.currencyId, item.exchangeRate)
+        return total + converted
       }, 0)
     },
     grandSaleCancelTotal() {
-      // ✅ Normalize to LAK: total * exchangeRate
       return this.yearlySale.filter(el => el.isActive === false).reduce((total, item) => {
-        const rate = item.exchangeRate || 1
         const itemTotal = parseFloat(item.total || 0)
 
         // Guard against corrupted/astronomical values
@@ -252,19 +251,19 @@ export default {
           return total;
         }
 
-        // Cancelled/returned sales should be represented as positive amounts in the summary list
-        return total + (Math.abs(itemTotal) * rate)
+        const converted = this.convertToHomeCurrency(Math.abs(itemTotal), item.currencyId, item.exchangeRate)
+        return total + converted
       }, 0)
     },
     totalSale() {
       return this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)
     },
     totalIncome() {
-      const otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
+      const otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
       return otherIncome + this.totalSale
     },
     productCostOnly() {
-      let totalCost = 0;
+      let totalCostLAK = 0;
       this.yearlySale.filter(sale => sale.isActive === true).forEach(sale => {
         let saleCost = 0;
         const saleRate = sale.exchangeRate || 1;
@@ -293,19 +292,25 @@ export default {
             }
           });
         });
-        totalCost += saleCost;
+        totalCostLAK += saleCost;
       });
-      return totalCost;
+
+      // Now convert totalCostLAK to the current home currency
+      const localCurrency = this.findLocalCurrency;
+      if (!localCurrency || localCurrency.code === 'LAK') {
+        return totalCostLAK;
+      }
+      return totalCostLAK / (localCurrency.rate || 1);
     },
     totalCODFee() {
       return this.yearlySale.filter(i => i.isActive === true).reduce((acc, i) => {
-        const fee = (i.dynamic_customer?.cod_fee || 0) * (i.exchangeRate || 1)
+        const fee = this.convertToHomeCurrency(i.dynamic_customer?.cod_fee || 0, i.currencyId, i.exchangeRate)
         return acc + fee
       }, 0)
     },
     totalCancelFee() {
       return this.yearlySale.filter(i => i.isActive === false).reduce((acc, i) => {
-        const fee = (i.dynamic_customer?.cancel_fee || 0) * (i.exchangeRate || 1)
+        const fee = this.convertToHomeCurrency(i.dynamic_customer?.cancel_fee || 0, i.currencyId, i.exchangeRate)
         return acc + fee
       }, 0)
     },
@@ -313,7 +318,7 @@ export default {
       return this.productCostOnly + this.totalCODFee + this.totalCancelFee
     },
     operatingExpensesOnly() {
-      return this.expenseList.filter(i => i.isActive !== false).reduce((acc, i) => acc + i.totalAmount * i.rate, 0)
+      return this.expenseList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
     },
     totalExpense() { return this.operatingExpensesOnly + this.totalCostOfSale },
     profit() { return this.totalIncome - this.totalExpense }
@@ -325,6 +330,18 @@ export default {
     async loadTxn() {
       this.isloading = true
       try {
+        if (!this.findAllCurrency || this.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in PL summary screen:', error)
+          }
+        }
         await this.loadSaleStatistic()
         const params = { date: { startDate: this.date, endDate: this.date2 }, locationId: this.currentSelectedLocation?.id }
         const [inc, exp] = await Promise.all([
@@ -334,6 +351,35 @@ export default {
         this.incomeList = inc.data; this.expenseList = exp.data
         this.$nextTick(() => { this.renderChart() })
       } catch (e) { swalError2(this.$swal, 'Error', 'Load failed: ' + e) } finally { this.isloading = false }
+    },
+    convertToHomeCurrency(amount, currencyId, rateFallback = 1) {
+      const val = parseFloat(amount || 0);
+      if (isNaN(val) || val === 0) return 0;
+      
+      const localCurrency = this.findLocalCurrency;
+      if (!localCurrency) return val * (rateFallback || 1);
+      
+      const fromCurrency = this.findAllCurrency.find(c => c.id === currencyId);
+      
+      // Step 1: Convert amount to LAK (base currency of the DB)
+      let amountInLAK = val;
+      if (fromCurrency) {
+        if (fromCurrency.code !== 'LAK') {
+          if (fromCurrency.exchangeDirection === 'local_to_foreign') {
+            amountInLAK = val / (fromCurrency.rate || 1);
+          } else {
+            amountInLAK = val * (fromCurrency.rate || 1);
+          }
+        }
+      } else {
+        amountInLAK = val * (rateFallback || 1);
+      }
+
+      // Step 2: Convert LAK to localCurrency
+      if (localCurrency.code === 'LAK') {
+        return amountInLAK;
+      }
+      return amountInLAK / (localCurrency.rate || 1);
     },
     async loadSaleStatistic() {
       // Corrected: includeCards should be a top-level parameter for the API

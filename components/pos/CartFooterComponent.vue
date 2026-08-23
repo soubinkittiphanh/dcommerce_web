@@ -33,9 +33,42 @@
       </v-row>
       <v-row no-gutters class="ga-2">
         <v-col cols="12" md="6">
-          <v-text-field ref="discountField" v-model="discountRawInput" readonly inputmode="none" label="ສ່ວນຫລຸດ"
-            outlined dense hide-details prepend-inner-icon="mdi-percent" :suffix="localCurrency?.code || 'LAK'" class="compact-input" @input="handleDiscountInput($event)"
-            @blur="handleDiscountBlur()" @focus="handleDiscountFocus()" @click="openKeypad('discount')" />
+          <v-text-field
+            ref="discountField"
+            v-model="discountRawInput"
+            readonly
+            inputmode="none"
+            label="ສ່ວນຫລຸດ"
+            outlined
+            dense
+            hide-details
+            :prepend-inner-icon="discountType === 'percent' ? 'mdi-percent' : 'mdi-cash'"
+            class="compact-input"
+            @input="handleDiscountInput($event)"
+            @blur="handleDiscountBlur()"
+            @focus="handleDiscountFocus()"
+            @click="openKeypad('discount')"
+          >
+            <template #append>
+              <v-btn-toggle
+                v-model="discountType"
+                mandatory
+                dense
+                active-class="primary white--text"
+                class="discount-toggle-btn-group elevation-0"
+                style="height: 24px; border: none; background: transparent; margin-top: -2px;"
+                @change="onDiscountTypeChange"
+                @click.native.stop
+              >
+                <v-btn x-small value="flat" class="px-2" style="min-width: 28px; height: 24px; font-size: 11px;" @click.stop>
+                  {{ localCurrency?.symbol || '₭' }}
+                </v-btn>
+                <v-btn x-small value="percent" class="px-2" style="min-width: 28px; height: 24px; font-size: 11px;" @click.stop>
+                  %
+                </v-btn>
+              </v-btn-toggle>
+            </template>
+          </v-text-field>
         </v-col>
         <v-col cols="12" md="6">
           <v-text-field ref="cashReceivedField" v-model="cashReceivedRawInput" readonly inputmode="none"
@@ -45,6 +78,9 @@
             @focus="handleCashReceivedFocus()" @click="openKeypad('cashReceived')" />
         </v-col>
       </v-row>
+      <div v-if="discountType === 'percent' && percentValue > 0" style="font-size: 10px; line-height: 1;" class="grey--text mt-1 px-1 text-right">
+        ≈ -{{ formatNumber(realTimeDiscountNumber) }} {{ localCurrency?.code || 'LAK' }}
+      </div>
     </div>
 
     <div class="summary-section pa-3 grey lighten-5">
@@ -62,6 +98,11 @@
       <div v-if="totalTaxLAK > 0" class="d-flex justify-space-between align-center mb-1">
         <div class="stat-label success--text">ອາກອນ (Tax)</div>
         <div class="stat-value success--text font-weight-bold">+{{ formatNumber(totalTaxLAK) }}</div>
+      </div>
+
+      <div v-if="realTimeDiscountNumber > 0" class="d-flex justify-space-between align-center mb-0 breakdown-row">
+        <div class="breakdown-label error--text">ສ່ວນຫລຸດ (Discount) <span v-if="discountType === 'percent'">({{ percentValue }}%)</span></div>
+        <div class="breakdown-value error--text font-weight-medium">-{{ formatNumber(realTimeDiscountNumber) }}</div>
       </div>
 
       <!-- Currency Breakdown -->
@@ -188,6 +229,10 @@ export default {
       showRedeem: false,
       pointsToRedeem: 0,
       
+      discountType: 'flat',
+      percentValue: 0,
+      flatValue: 0,
+
       // Keypad settings
       keypadOpen: false,
       keypadTarget: '',
@@ -226,6 +271,10 @@ export default {
     },
 
     realTimeDiscountNumber() {
+      if (this.discountType === 'percent') {
+        const pct = this.isTypingDiscount ? (this.parseInputNumber(this.discountRawInput) || 0) : this.percentValue
+        return Math.round(this.grandTotalBeforeDiscount * pct / 100)
+      }
       return this.isTypingDiscount ? (this.parseInputNumber(this.discountRawInput) || 0) : Number(this.discount || 0)
     },
 
@@ -242,8 +291,12 @@ export default {
       return this.pointsToRedeem * redeemRate;
     },
 
+    grandTotalBeforeDiscount() {
+      return this.pureSubtotalLAK + this.totalTaxLAK
+    },
+
     realTimeFinalTotal() {
-      const total = (this.pureSubtotalLAK + this.totalTaxLAK) - this.realTimeDiscountNumber - this.loyaltyDiscountAmount
+      const total = this.grandTotalBeforeDiscount - this.realTimeDiscountNumber - this.loyaltyDiscountAmount
       return Math.max(0, total)
     },
 
@@ -321,6 +374,16 @@ export default {
     },
 
     discountPresets() {
+      if (this.discountType === 'percent') {
+        return [
+          { label: '5%', value: 5, action: 'set' },
+          { label: '10%', value: 10, action: 'set' },
+          { label: '15%', value: 15, action: 'set' },
+          { label: '20%', value: 20, action: 'set' },
+          { label: '25%', value: 25, action: 'set' },
+          { label: '50%', value: 50, action: 'set' }
+        ]
+      }
       return [
         { label: '1,000', value: 1000, action: 'set' },
         { label: '5,000', value: 5000, action: 'set' },
@@ -364,8 +427,27 @@ export default {
 
   watch: {
     discount(newVal) {
+      if (newVal === 0) {
+        this.percentValue = 0
+        this.flatValue = 0
+        this.discountType = 'flat'
+      } else {
+        const expectedFlat = Math.round(this.grandTotalBeforeDiscount * this.percentValue / 100)
+        if (this.discountType === 'percent' && Math.abs(newVal - expectedFlat) > 1) {
+          this.discountType = 'flat'
+          this.flatValue = newVal
+        } else if (this.discountType === 'flat') {
+          this.flatValue = newVal
+        }
+      }
       if (!this.isTypingDiscount) {
-        this.discountRawInput = newVal > 0 ? this.formatNumber(Number(newVal)) : ''
+        this.updateDiscountRawInput()
+      }
+    },
+    grandTotalBeforeDiscount(newTotal) {
+      if (this.discountType === 'percent' && this.percentValue > 0) {
+        const calculatedDiscount = Math.round(newTotal * this.percentValue / 100)
+        this.$emit('update:discount', calculatedDiscount)
       }
     },
     cashReceived(newVal) {
@@ -382,7 +464,8 @@ export default {
   },
 
   mounted() {
-    this.discountRawInput = this.discount > 0 ? this.formatNumber(Number(this.discount)) : ''
+    this.flatValue = Number(this.discount || 0)
+    this.updateDiscountRawInput()
     this.cashReceivedRawInput = this.cashReceived > 0 ? this.formatNumber(Number(this.cashReceived)) : ''
   },
 
@@ -411,21 +494,61 @@ export default {
       return parts.length > 1 ? parts.join('.') : parts[0]
     },
 
+    updateDiscountRawInput() {
+      if (this.discountType === 'percent') {
+        this.discountRawInput = this.percentValue > 0 ? `${this.percentValue}%` : ''
+      } else {
+        this.discountRawInput = this.flatValue > 0 ? this.formatNumber(Number(this.flatValue)) : ''
+      }
+    },
+
+    onDiscountTypeChange(type) {
+      this.discountType = type
+      if (type === 'percent') {
+        if (this.grandTotalBeforeDiscount > 0 && this.flatValue > 0) {
+          this.percentValue = Math.min(100, Math.round((this.flatValue / this.grandTotalBeforeDiscount) * 100))
+        } else {
+          this.percentValue = 0
+        }
+        const calculatedDiscount = Math.round(this.grandTotalBeforeDiscount * this.percentValue / 100)
+        this.$emit('update:discount', calculatedDiscount)
+      } else {
+        if (this.grandTotalBeforeDiscount > 0 && this.percentValue > 0) {
+          this.flatValue = Math.round(this.grandTotalBeforeDiscount * this.percentValue / 100)
+        } else {
+          this.flatValue = 0
+        }
+        this.$emit('update:discount', this.flatValue)
+      }
+      this.updateDiscountRawInput()
+    },
+
     handleDiscountInput(val) {
       this.isTypingDiscount = true
       const numericValue = this.parseInputNumber(val)
+      if (this.discountType === 'percent') {
+        this.percentValue = Math.min(100, Math.max(0, numericValue || 0))
+        const calculatedDiscount = Math.round(this.grandTotalBeforeDiscount * this.percentValue / 100)
+        this.$emit('update:discount', calculatedDiscount)
+      } else {
+        this.flatValue = numericValue || 0
+        this.$emit('update:discount', this.flatValue)
+      }
       this.discountRawInput = this.formatInputNumber(val)
-      this.$emit('update:discount', numericValue || 0)
     },
 
     handleDiscountBlur() {
       this.isTypingDiscount = false
-      this.discountRawInput = this.discount > 0 ? this.formatNumber(Number(this.discount)) : ''
+      this.updateDiscountRawInput()
     },
 
     handleDiscountFocus() {
       this.isTypingDiscount = true
-      this.discountRawInput = this.discount > 0 ? this.discount.toString() : ''
+      if (this.discountType === 'percent') {
+        this.discountRawInput = this.percentValue > 0 ? this.percentValue.toString() : ''
+      } else {
+        this.discountRawInput = this.flatValue > 0 ? this.flatValue.toString() : ''
+      }
     },
 
     handleCashReceivedInput(val) {
@@ -477,9 +600,9 @@ export default {
       if (this.keypadOpen && this.keypadTarget === target) return
       this.keypadTarget = target
       if (target === 'discount') {
-        this.keypadTitle = 'ສ່ວນຫລຸດ (Discount)'
-        this.keypadInitialValue = this.discount
-        this.keypadSuffix = this.localCurrency?.code || 'LAK'
+        this.keypadTitle = this.discountType === 'percent' ? 'ສ່ວນຫລຸດ (%)' : 'ສ່ວນຫລຸດ (Discount)'
+        this.keypadInitialValue = this.discountType === 'percent' ? this.percentValue : this.discount
+        this.keypadSuffix = this.discountType === 'percent' ? '%' : (this.localCurrency?.code || 'LAK')
         this.keypadPresets = this.discountPresets
       } else if (target === 'cashReceived') {
         this.keypadTitle = 'ຮັບເງິນ (Cash Received)'
@@ -496,13 +619,16 @@ export default {
 
     handleKeypadConfirm(value) {
       if (this.keypadTarget === 'discount') {
-        this.isTypingDiscount = true
-        this.$emit('update:discount', value || 0)
-        this.discountRawInput = this.formatInputNumber(value)
-        this.$nextTick(() => {
-          this.isTypingDiscount = false
-          this.discountRawInput = value > 0 ? this.formatNumber(Number(value)) : ''
-        })
+        if (this.discountType === 'percent') {
+          this.percentValue = Math.min(100, Math.max(0, value || 0))
+          const calculatedDiscount = Math.round(this.grandTotalBeforeDiscount * this.percentValue / 100)
+          this.$emit('update:discount', calculatedDiscount)
+          this.updateDiscountRawInput()
+        } else {
+          this.flatValue = value || 0
+          this.$emit('update:discount', this.flatValue)
+          this.updateDiscountRawInput()
+        }
       } else if (this.keypadTarget === 'cashReceived') {
         this.isTypingCash = true
         this.$emit('update:cash-received', value || 0)
@@ -661,5 +787,26 @@ export default {
   100% {
     opacity: 1;
   }
+}
+
+.discount-toggle-btn-group {
+  border: 1px solid rgba(0, 0, 0, 0.12) !important;
+  border-radius: 4px;
+  overflow: hidden;
+  background-color: transparent !important;
+}
+
+.discount-toggle-btn-group ::v-deep .v-btn {
+  border: none !important;
+  height: 24px !important;
+  background-color: transparent !important;
+  color: rgba(0, 0, 0, 0.6) !important;
+  transition: all 0.2s ease;
+}
+
+.discount-toggle-btn-group ::v-deep .v-btn--active {
+  background-color: #01532B !important; /* using the app primary green */
+  color: white !important;
+  font-weight: bold;
 }
 </style>

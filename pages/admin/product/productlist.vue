@@ -1,20 +1,20 @@
 <template>
-  <div class="product-list-wrapper pa-4 grey lighten-5">
+  <div>
     <!-- Modern Header Section -->
-    <v-row align="center" class="mb-6">
-      <v-col>
+    <v-row align="center" class="mb-2">
+      <v-col class="py-1">
         <div class="d-flex align-center">
-          <v-avatar color="primary" size="48" class="mr-4 elevation-2">
-            <v-icon color="white">mdi-package-variant</v-icon>
+          <v-avatar color="primary" size="36" class="mr-4 elevation-2">
+            <v-icon color="white" small>mdi-package-variant</v-icon>
           </v-avatar>
           <div>
-            <h1 class=" font-weight-bold grey--text text--darken-4 mb-0">ລາຍການສິນຄ້າ</h1>
-            <p class=" grey--text mb-0">Manage your product inventory and stock levels</p>
+            <h2 class="font-weight-bold grey--text text--darken-4 mb-0 text-h6">ລາຍການສິນຄ້າ</h2>
+            <p class="grey--text mb-0 caption">Manage your product inventory and stock levels</p>
           </div>
         </div>
       </v-col>
-      <v-col cols="auto">
-        <v-btn color="primary" large depressed @click="createProduct" class="px-6 rounded-lg font-weight-bold">
+      <v-col cols="auto" class="py-1">
+        <v-btn color="primary" depressed @click="createProduct" class="px-4 rounded-lg font-weight-bold">
           <v-icon left>mdi-plus</v-icon>
           ສ້າງສິນຄ້າໃຫມ່
         </v-btn>
@@ -25,8 +25,8 @@
     </v-row>
 
     <v-card class="rounded-xl overflow-hidden elevation-3 border-light">
-      <v-tabs v-model="activeTab" background-color="white" color="primary" class="px-4">
-        <v-tab class="text-none font-weight-bold py-4">
+      <v-tabs v-model="activeTab" background-color="white" color="primary" class="px-1">
+        <v-tab class="text-none font-weight-bold py-1">
           <v-icon left>mdi-package-variant-closed</v-icon>
           All Products
         </v-tab>
@@ -36,18 +36,18 @@
 
       <v-tabs-items v-model="activeTab" class="bg-slate-50">
         <v-tab-item>
-          <v-card-text class="pa-6">
+          <v-card-text class="pa-2">
             <v-card flat class="transparent">
-              <v-card-title class="px-0 pb-6 pt-0">
-                <v-row align="center">
-                  <v-col cols="12" sm="4">
+              <v-card-title class="px-0 pb-2 pt-0">
+                <v-row align="center" class="my-0">
+                  <v-col cols="12" sm="4" class="py-1">
                     <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Search products..." outlined
                       dense hide-details class="rounded-lg bg-white" />
                   </v-col>
                   <v-spacer></v-spacer>
-                  <v-col cols="auto">
+                  <v-col cols="auto" class="py-1">
                     <div class="d-flex align-center gap-2 flex-wrap">
-                      <v-btn outlined color="success" class="rounded-lg" @click="exportToExcel">
+                      <v-btn small outlined color="success" class="rounded-lg" @click="exportToExcel">
                         <v-icon left small>mdi-microsoft-excel</v-icon>
                         Export
                       </v-btn>
@@ -55,7 +55,7 @@
                       <!-- Import Actions Dropdown Menu -->
                       <v-menu offset-y transition="slide-y-transition" rounded="lg">
                         <template v-slot:activator="{ on, attrs }">
-                          <v-btn outlined color="indigo" class="rounded-lg" v-bind="attrs" v-on="on">
+                          <v-btn small outlined color="indigo" class="rounded-lg" v-bind="attrs" v-on="on">
                             <v-icon left small>mdi-file-upload</v-icon>
                             Imports
                             <v-icon right small>mdi-chevron-down</v-icon>
@@ -83,11 +83,15 @@
                         </v-list>
                       </v-menu>
 
-                      <v-btn outlined color="primary" class="rounded-lg" @click="printBarcodeList">
+                      <v-btn small outlined color="primary" class="rounded-lg" @click="printBarcodeList">
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
                       </v-btn>
-                      <v-btn outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
+                      <v-btn small outlined color="info" class="rounded-lg" @click="printProductReport">
+                        <v-icon left small>mdi-printer</v-icon>
+                        Print Report
+                      </v-btn>
+                      <v-btn small outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
                         <v-icon left small>mdi-refresh</v-icon>
                         Fix Stock
                       </v-btn>
@@ -101,20 +105,20 @@
                 class="compact-table rounded-xl elevation-0 border-light">
                 <!-- Thumbnail Slot -->
                 <template v-slot:item.thumbnail="{ item }">
-                  <v-avatar size="40" rounded class="border-light elevation-1 bg-white">
+                  <v-avatar size="32" rounded class="border-light elevation-1 bg-white">
                     <v-img v-if="item.img_path && item.img_name !== 'No image'"
                       :src="`${$axios.defaults.baseURL}/${item.img_path}`">
                       <template v-slot:placeholder>
                         <v-icon color="grey lighten-3">mdi-package-variant</v-icon>
                       </template>
                     </v-img>
-                    <v-icon v-else color="primary lighten-3">mdi-image-outline</v-icon>
+                    <v-icon v-else color="primary lighten-3" small>mdi-image-outline</v-icon>
                   </v-avatar>
                 </template>
 
                 <!-- Product Name Slot -->
                 <template v-slot:item.pro_name="{ item }">
-                  <div class="d-flex flex-column py-2">
+                  <div class="d-flex flex-column py-1">
                     <span class="font-weight-bold ">{{ item.pro_name }}</span>
                     <div class="d-flex align-center flex-wrap gap-1">
                       <span v-if="item.product_code" class="caption font-weight-bold orange--text text--darken-3 mr-1">[{{ item.product_code }}]</span>
@@ -149,13 +153,13 @@
                 <template v-slot:item.pro_card_count="{ item }">
                   <div class="d-flex align-center justify-center">
                     <div class="text-center mr-2">
-                      <div class="text-h6 font-weight-black line-height-1 mb-1">{{ item.pro_card_count }}</div>
-                      <div class=" grey--text text-uppercase line-height-1">Actual</div>
+                      <div class="subtitle-2 font-weight-bold line-height-1 mb-0">{{ item.pro_card_count }}</div>
+                      <div class="caption grey--text text-uppercase line-height-1">Actual</div>
                     </div>
-                    <v-divider vertical class="mx-2 my-2"></v-divider>
+                    <v-divider vertical class="mx-2 my-1"></v-divider>
                     <div class="text-center ml-2">
-                      <div class="text-h6 grey--text line-height-1 mb-1">{{ item.minStock }}</div>
-                      <div class=" grey--text text-uppercase line-height-1">Min</div>
+                      <div class="subtitle-2 grey--text line-height-1 mb-0">{{ item.minStock }}</div>
+                      <div class="caption grey--text text-uppercase line-height-1">Min</div>
                     </div>
                   </div>
                 </template>
@@ -166,6 +170,13 @@
                     class="font-weight-bold text-uppercase" style="min-width: 90px; justify-content: center">
                     {{ verifyStockStatus(item.minStock, item.pro_card_count) }}
                   </v-chip>
+                </template>
+
+                <!-- Created At Slot -->
+                <template v-slot:item.createdAt="{ item }">
+                  <span class="grey--text font-weight-medium">
+                    {{ formatDateTime(item.createdAt) }}
+                  </span>
                 </template>
 
                 <!-- Actions Menu Slot -->
@@ -470,7 +481,8 @@ import PriceListForm from '~/components/PriceListForm.vue'
 import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
-import RecipeManagement from '~/components/pos/recipe'
+import { generateProductListReportHTML } from '~/common/printTemplates'
+import { mainCompanyInfo } from '~/common/api'
 import ProductRecipeDialog from '~/components/product/ProductRecipeDialog.vue'
 import StockDetails from '~/pages/admin/stock/_id/index.vue'
 import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
@@ -483,7 +495,6 @@ export default {
     ProductForm,
     ProductFormCreate,
     PriceListForm,
-    RecipeManagement,
     ProductRecipeDialog,
     StockDetails,
     ProductImportDialog,
@@ -582,6 +593,7 @@ export default {
         { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '120px' },
         { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '140px' },
         { text: 'ສະຖານະ', align: 'center', value: 'status', width: '120px' },
+        { text: 'ວັນທີສ້າງ', align: 'center', value: 'createdAt', width: '160px' },
         { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '80px' },
       ],
       barcodeBuffer: '',
@@ -740,6 +752,72 @@ export default {
     // Print-related methods
     printBarcodeList() {
       this.printDialog = true
+    },
+
+    printProductReport() {
+      try {
+        const companyData = mainCompanyInfo() || {}
+        const filters = {
+          search: this.search || '',
+          status: this.showActive ? 'ສະແດງທັງໝົດ (All Included)' : 'ສະແດງສະເພາະທີ່ໃຊ້ງານ (Active Only)',
+          userName: this.$auth?.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateProductListReportHTML(
+          this.filteredProducts,
+          companyData,
+          this.findAllCurrency,
+          filters
+        )
+
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        console.error('Error printing product report:', error)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ')
+      }
+    },
+
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=1024,height=768')
+
+        if (!printWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print error:', e)
+              printWindow.close()
+            }
+          }, 500)
+        }
+
+        // Fallback check
+        setTimeout(() => {
+          if (printWindow && !printWindow.closed) {
+            try { printWindow.print() } catch (e) { }
+          }
+        }, 1000)
+
+      } catch (error) {
+        console.error('Error creating print window:', error)
+      }
     },
 
     generateBarcodes() {
@@ -1374,6 +1452,7 @@ export default {
               actions: el.pro_id, // ✅ Unified actions
               status: el.pro_id,
               isActive: el.isActive,
+              createdAt: el.createdAt,
             }
           })
         })
@@ -1617,10 +1696,15 @@ export default {
   color: #64748b !important;
   letter-spacing: 0.5px;
   background-color: #f1f5f9 !important;
+  height: 38px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }
 
 .compact-table :deep(td) {
-  height: 64px !important;
+  height: 48px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
   border-bottom: 1px solid #f1f5f9 !important;
 }
 

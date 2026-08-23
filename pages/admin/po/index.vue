@@ -266,6 +266,10 @@
           <span class="text-tiny grey--text text--darken-3">{{ item.bookingDate }}</span>
         </template>
 
+        <template v-slot:[`item.createdAt`]="{ item }">
+          <span class="text-tiny grey--text text--darken-3">{{ formatDateTime(item.createdAt) }}</span>
+        </template>
+
         <template v-slot:[`item.status`]="{ item }">
           <v-chip x-small :color="getStatusColor(item.status)" dark class="font-weight-black">
             {{ getStatusLabel(item.status) }}
@@ -342,6 +346,7 @@ export default {
       enhancedHeaders: [
         { text: 'ເລກບິນ', value: 'id', align: 'center', sortable: true, width: '80px' },
         { text: 'ວັນທີ', value: 'bookingDate', align: 'center', sortable: true, width: '100px' },
+        { text: 'ເວລາລົງ', value: 'createdAt', align: 'center', sortable: false, width: '120px' },
         { text: 'ຜູ້ຂາຍ', value: 'vendor.name', align: 'left', width: '150px' },
         { text: 'ເນື້ອໃນ', value: 'notes', align: 'left', width: '120px' },
         { text: 'ສະກຸນ', value: 'currency.code', align: 'center', width: '70px' },
@@ -444,7 +449,10 @@ export default {
   methods: {
     numberWithCommas(value) { return getFormatNum(value) },
     formatNumber(val) { return new Intl.NumberFormat().format(val || 0) },
-    formatCurrency(amount) { return new Intl.NumberFormat('lo-LA', { style: 'currency', currency: 'LAK', minimumFractionDigits: 0 }).format(amount || 0) },
+    formatCurrency(amount) {
+      const currency = this.localCurrencyCode || 'LAK'
+      return new Intl.NumberFormat('lo-LA', { style: 'currency', currency, minimumFractionDigits: 0 }).format(amount || 0)
+    },
     triggerDialog() { this.apFormKey += 1; this.selectedId = null; this.isEdit = false; this.dialog = true },
     editItem(item) { this.selectedId = item.id; this.isEdit = true; this.apFormKey += 1; this.dialog = true },
     viewItem(item) { this.selectedId = item.id; this.isEdit = true; this.apFormKey += 1; this.dialog = true },
@@ -602,6 +610,25 @@ export default {
     formatDate(date) { if (!date) return null; const [y, m, d] = this.formatDateToISO(date).split('-'); return `${m}/${d}/${y}` },
     parseDate(date) { if (!date) return null; const [m, d, y] = date.split('/'); return `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}` },
     formatDateToISO(date) { if (!(date instanceof Date)) date = new Date(date); return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` },
+    formatDateTime(dateTimeStr) {
+      if (!dateTimeStr) return ''
+      const dateObj = new Date(dateTimeStr)
+      if (isNaN(dateObj.getTime())) return dateTimeStr
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Bangkok',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(dateObj).replace(',', '')
+      } catch (error) {
+        return dateTimeStr
+      }
+    },
     async loadTxn() {
       this.isloading = true
       try {

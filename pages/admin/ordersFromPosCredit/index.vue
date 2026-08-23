@@ -75,9 +75,13 @@
           </v-col>
 
           <v-col cols="6" class="text-right">
-            <v-btn size="large" variant="outlined" @click="loadData" class="primary" rounded>
+            <v-btn size="large" variant="outlined" @click="loadData" class="primary mr-2" rounded>
               <span class="mdi mdi-cloud-download"></span>
               ດຶງລາຍງານ
+            </v-btn>
+            <v-btn size="large" variant="outlined" @click="printSummaryA4" class="success" rounded>
+              <span class="mdi mdi-printer"></span>
+              ພິມລາຍງານສະຫຼຸບ A4
             </v-btn>
           </v-col>
         </v-layout>
@@ -211,12 +215,12 @@
 
         <template v-slot:[`item.client.credit`]="{ item }">
           <v-chip
-            :color="new Date(safeSplitDate(dueDate(item.bookingDate, item.client.credit).toISOString())) < new Date() ? 'error' : 'success'"
+            :color="isOverdue(item) ? 'error' : 'success'"
             class="ma-2" text-color="white">
             <v-icon left small>
-              {{ new Date(safeSplitDate(dueDate(item.bookingDate, item.client.credit).toISOString())) < new Date()
-                ? 'mdi-alert-circle' : 'mdi-check-circle' }} </v-icon>
-                {{ safeSplitDate(dueDate(item.bookingDate, item.client.credit).toISOString()) }}
+              {{ isOverdue(item) ? 'mdi-alert-circle' : 'mdi-check-circle' }}
+            </v-icon>
+            {{ getDueDateFormatted(item) }}
           </v-chip>
         </template>
 
@@ -303,6 +307,8 @@
 <script>
 import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getLocalDate, ticketHtml } from '~/common'
 import { mainCompanyInfo } from '~/common/api'
+import { generateInvoiceHTML, generateReceiptSummaryReportHTML } from '~/common/printTemplates'
+import { defaultTicketReprint } from '~/common/ticket.js'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -464,7 +470,12 @@ export default {
   computed: {
     ...mapGetters([
       'findAllPayment',
-      'findLocalCurrency'
+      'findLocalCurrency',
+      'findAllCurrency',
+      'findAllprinters',
+      'findAllProduct',
+      'findSPF',
+      'findAllCompany'
     ]),
 
     localCurrency() {
@@ -502,6 +513,76 @@ export default {
 
     creditOrder() {
       return this.orderHeaderList.filter(el => el['paymentId'] == 2 && el['isActive'] == true)
+    },
+
+    getSPF() {
+      return this.findSPF || []
+    },
+
+    paperSize() {
+      const item = this.getSPF.find((spf) => spf.code == 'PAPER_SIZE')
+      return item?.value || '80mm'
+    },
+
+    companyData() {
+      const baseCompany = mainCompanyInfo()
+      const baseUrl = this.$axios.defaults.baseURL || ''
+      const storeCompany = this.findAllCompany?.[0] || {}
+
+      const resolvedProfileImagePath =
+        baseCompany?.profile_image_path ||
+        baseCompany?.apiData?.profile_image_path ||
+        storeCompany?.profile_image_path ||
+        null
+
+      const resolvedBankQrImagePath =
+        baseCompany?.bank_qr_image_path ||
+        baseCompany?.apiData?.bank_qr_image_path ||
+        storeCompany?.bank_qr_image_path ||
+        null
+
+      const resolvedBankQrImagePath2 =
+        baseCompany?.bank_qr_image_path_2 ||
+        baseCompany?.apiData?.bank_qr_image_path_2 ||
+        storeCompany?.bank_qr_image_path_2 ||
+        null
+
+      const ticketLogo = resolvedProfileImagePath 
+        ? `${baseUrl}/${resolvedProfileImagePath.replace(/^\//, '')}` 
+        : 'default-logo.png'
+
+      const qrCode = resolvedBankQrImagePath 
+        ? `${baseUrl}/${resolvedBankQrImagePath.replace(/^\//, '')}` 
+        : null
+
+      const qrCode2 = resolvedBankQrImagePath2 
+        ? `${baseUrl}/${resolvedBankQrImagePath2.replace(/^\//, '')}` 
+        : null
+
+      return {
+        name: baseCompany?.name || 'DCOMMERCE MART',
+        address:
+          this.formatCompanyAddress(baseCompany) ||
+          baseCompany?.address ||
+          '123 Main Street',
+        tel: baseCompany?.tel || '',
+        email: baseCompany?.email || '',
+        bank: baseCompany?.bank || '',
+        accountName: baseCompany?.accountName || '',
+        accounts: baseCompany?.accounts || '',
+        taxId: baseCompany?.taxId || '',
+        remark: baseCompany?.remark || '',
+        term_condition: baseCompany?.term_condition || '',
+        showLogoOnTicket: baseCompany?.showLogoOnTicket || '',
+        ticketQRcode: baseCompany?.ticketQRcode || false,
+        ticketLayout: baseCompany?.ticketLayout || 'classic',
+        profile_image_path: resolvedProfileImagePath,
+        bank_qr_image_path: resolvedBankQrImagePath,
+        bank_qr_image_path_2: resolvedBankQrImagePath2,
+        ticketLogo,
+        qrCode,
+        qrCode2,
+      }
     }
   },
 
@@ -636,19 +717,20 @@ export default {
     // Enhanced Formatting Methods
     formatDateTime(dateString) {
       if (!dateString) return 'N/A'
-      if (typeof dateString !== 'string') {
-        if (dateString instanceof Date) {
-          const year = dateString.getFullYear()
-          const month = String(dateString.getMonth() + 1).padStart(2, '0')
-          const day = String(dateString.getDate()).padStart(2, '0')
-          const hours = String(dateString.getHours()).padStart(2, '0')
-          const minutes = String(dateString.getMinutes()).padStart(2, '0')
-          const seconds = String(dateString.getSeconds()).padStart(2, '0')
-          return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
-        }
+      try {
+        const d = new Date(dateString)
+        if (isNaN(d.getTime())) return dateString
+        
+        const year = d.getFullYear()
+        const month = String(d.getMonth() + 1).padStart(2, '0')
+        const day = String(d.getDate()).padStart(2, '0')
+        const hours = String(d.getHours()).padStart(2, '0')
+        const minutes = String(d.getMinutes()).padStart(2, '0')
+        const seconds = String(d.getSeconds()).padStart(2, '0')
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`
+      } catch (e) {
         return dateString
       }
-      return dateString.split('.')[0].replace('T', ' ')
     },
 
     safeSplitDate(dateString) {
@@ -662,9 +744,199 @@ export default {
       return dateString.split('T')[0]
     },
 
-    printTicket(item) {
+    isOverdue(item) {
+      if (!item || !item.client) return false
+      try {
+        const due = this.dueDate(item.bookingDate, item.client.credit)
+        const dueStr = this.safeSplitDate(due instanceof Date ? due.toISOString() : String(due))
+        return new Date(dueStr) < new Date()
+      } catch (e) {
+        return false
+      }
+    },
+
+    getDueDateFormatted(item) {
+      if (!item || !item.client) return ''
+      try {
+        const due = this.dueDate(item.bookingDate, item.client.credit)
+        return this.safeSplitDate(due instanceof Date ? due.toISOString() : String(due))
+      } catch (e) {
+        return ''
+      }
+    },
+
+    async printTicket(item) {
       console.log('Printing credit ticket:', item.id)
-      // Add your print logic here
+      const PRINTFORMAT = (this.getSPF || []).find(
+        (spf) => spf.code === 'TICKET_FORM'
+      )
+      if (PRINTFORMAT && PRINTFORMAT.value === 'FORMAL') {
+        this.isloading = true
+        try {
+          const response = await this.$axios.get(`api/sale/find/${item.id}`)
+          const invoiceData = response.data
+          const companyData = this.companyData
+          const htmlContent = generateInvoiceHTML(
+            invoiceData,
+            companyData,
+            this.findAllCurrency
+          )
+          this.openPrintWindow(htmlContent)
+        } catch (error) {
+          console.error('Error printing A4 invoice:', error)
+          swalError2(this.$swal, 'Error', 'Failed to print A4 invoice')
+        } finally {
+          this.isloading = false
+        }
+        return
+      }
+
+      // Fallback POS Thermal printer reprint
+      console.info('PRINTING CREDIT TICKET FOR POS PRINTER:', JSON.stringify(item))
+      let paymentCode = 'UNKNOWN'
+      if (this.isMultiPayment(item)) {
+        paymentCode = 'MULTI-PAYMENT'
+      } else if (item.payment) {
+        paymentCode = item.payment.payment_code
+      }
+
+      const transformedLines = (item.lines || []).map((line) => ({
+        id: line.product?.id || line.productId,
+        pro_name: line.product?.pro_name || 'Unknown Product',
+        qty: line.quantity,
+        localPrice: line.price,
+        pro_price: line.price,
+        isGift: line.isGift || false,
+        saleCurrencyId: line.currencyId,
+        total: line.total,
+        discount: line.discount || 0,
+        exchangeRate: line.exchangeRate || 1,
+        priceListId: line.priceListId || null,
+        priceLists: line.priceLists || [],
+      }))
+
+      defaultTicketReprint({
+        printers: this.findAllprinters || [],
+        productCart: { lines: transformedLines },
+        findAllProduct: this.findAllProduct || [],
+        formatNumber: this.getFormatNum,
+        discount: item.discount,
+        currencyList: this.findAllCurrency || [],
+        grandTotal: item.total,
+        lastTransactionSaleHeaderId: item.id,
+        currentTerminal: {
+          baseURL: this.$axios.defaults.baseURL,
+        },
+        user: this.$store.state.auth?.user || {},
+        ticketCommon: this.ticketCommon,
+        currentPaymentCode: paymentCode,
+        cashReceived: item.total,
+        changes: 0,
+        bookingDate: item.createdAt,
+        axios: this.$axios,
+        companyData: this.companyData,
+        paperWidth: this.paperSize || '80mm',
+        client: item.client,
+      })
+    },
+
+    async printSummaryA4() {
+      try {
+        console.log('🖨️ Printing credit detailed summary report...')
+        this.isloading = true
+
+        // Eagerly load currencies if not already loaded, to prevent print crashes or incorrect currency conversion
+        if (!this.findAllCurrency || this.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in credit summary print:', error)
+          }
+        }
+
+        const companyData = this.companyData
+        const filters = {
+          fromDate: this.dateFormatted,
+          toDate: this.dateFormatted2,
+          terminalName: 'ທັງໝົດ',
+          userName: this.$store.state.auth?.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateReceiptSummaryReportHTML(
+          this.creditOrder,
+          companyData,
+          this.findAllCurrency,
+          filters
+        )
+
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        console.error('Error printing detailed summary report:', error)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ')
+      } finally {
+        this.isloading = false
+      }
+    },
+
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+        if (!printWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print trigger error:', e)
+            }
+          }, 500)
+        }
+      } catch (e) {
+        console.error('Print window error:', e)
+      }
+    },
+
+    isMultiPayment(item) {
+      return (
+        item.payments &&
+        Array.isArray(item.payments) &&
+        item.payments.length > 1
+      )
+    },
+
+    hasPaymentDetails(item) {
+      return (item.payments && item.payments.length > 0) || item.payment
+    },
+
+    formatCompanyAddress(company) {
+      if (!company) return ''
+      let formattedAddress = ''
+      if (company.address) formattedAddress += company.address
+      if (company.village) formattedAddress += `<br>${company.village}`
+      if (company.district) formattedAddress += `, ${company.district}`
+      if (company.province) formattedAddress += `, ${company.province}`
+
+      return formattedAddress || company.address || ''
     },
 
     // Existing Methods

@@ -17,7 +17,7 @@
             prepend-inner-icon="mdi-magnify"
             outlined
             dense
-            label="ຄົ້ນຫາສິນຄ້າ..."
+            label="ຄົ້ນຫາສິນຄ້າ...bbb"
             solo-inverted
             hide-details
             class="search-field elevation-2"

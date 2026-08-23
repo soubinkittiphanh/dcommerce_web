@@ -65,10 +65,26 @@
             </v-btn>
           </v-col>
           <v-col cols="6" class="text-right">
-            <v-btn size="large" variant="outlined" @click="loadData" class="primary" rounded>
+            <v-btn size="large" variant="outlined" @click="loadData" class="primary mr-2" rounded>
               <span class="mdi mdi-cloud-download"></span>
               ດຶງລາຍງານ
             </v-btn>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn size="large" variant="outlined" class="primary" rounded v-bind="attrs" v-on="on">
+                  <span class="mdi mdi-printer"></span>
+                  ພິມລາຍງານ
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item @click="printSummaryReport">
+                  <v-list-item-title>ພິມລາຍງານສະຫຼຸບ (Summary Report)</v-list-item-title>
+                </v-list-item>
+                <v-list-item @click="printDetailedReport">
+                  <v-list-item-title>ພິມລາຍງານລະອຽດ (Detailed Report)</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
           </v-col>
         </v-layout>
       </v-card-title>
@@ -107,7 +123,7 @@
           {{ numberWithCommas(calculateTransferTotal(item)) }}
         </template>
         <template v-slot:[`item.createdAt`]="{ item }">
-          {{ item.createdAt.split('.')[0] }}
+          {{ formatDateTime(item.createdAt) }}
         </template>
         <template v-slot:[`item.id`]="{ item }">
           <v-btn color="primary" text @click="viewItem(item)
@@ -138,6 +154,8 @@
 </template>
 <script>
 import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
+import { generateTransferSummaryReportHTML, generateTransferDetailReportHTML } from '~/common/printTemplates'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
 export default {
   components: { OrderSumaryCardPos },
@@ -409,6 +427,131 @@ export default {
       const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
       const day = `${date.getDate()}`.padStart(2, '0');
       return `${year}-${month}-${day}`;
+    },
+    formatDateTime(dateTimeStr) {
+      if (!dateTimeStr) return ''
+      const dateObj = new Date(dateTimeStr)
+      if (isNaN(dateObj.getTime())) return dateTimeStr
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Bangkok',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(dateObj).replace(',', '')
+      } catch (error) {
+        return dateTimeStr
+      }
+    },
+    async printSummaryReport() {
+      this.isloading = true
+      try {
+        if (!this.$store.getters.findAllCurrency || this.$store.getters.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in transfer summary print:', error)
+          }
+        }
+
+        const companyData = mainCompanyInfo()
+        const currencyList = this.$store.getters.findAllCurrency || []
+        const filters = {
+          fromDate: this.date,
+          toDate: this.date2,
+          userName: this.$store.state.auth?.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateTransferSummaryReportHTML(
+          this.activeheaderList,
+          companyData,
+          currencyList,
+          filters
+        )
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Failed to generate print: ' + error)
+      } finally {
+        this.isloading = false
+      }
+    },
+    async printDetailedReport() {
+      this.isloading = true
+      try {
+        if (!this.$store.getters.findAllCurrency || this.$store.getters.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in transfer detailed print:', error)
+          }
+        }
+
+        const companyData = mainCompanyInfo()
+        const currencyList = this.$store.getters.findAllCurrency || []
+        const filters = {
+          fromDate: this.date,
+          toDate: this.date2,
+          userName: this.$store.state.auth?.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateTransferDetailReportHTML(
+          this.activeheaderList,
+          companyData,
+          currencyList,
+          filters
+        )
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Failed to generate print: ' + error)
+      } finally {
+        this.isloading = false
+      }
+    },
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+        if (!printWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print trigger error:', e)
+            }
+          }, 500)
+        }
+      } catch (e) {
+        console.error('Print window error:', e)
+      }
     },
   },
 }

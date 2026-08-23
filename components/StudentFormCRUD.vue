@@ -34,6 +34,10 @@
           <v-col cols="12" md="6">
             <v-text-field v-model="form.grade" label="ໝາຍເຫດຊັ້ນຮຽນ/ Grade (ມານູໂນ)" outlined dense></v-text-field>
           </v-col>
+          <v-col cols="12" md="6">
+            <v-select v-model="form.roomId" :items="filteredRooms" item-text="name" item-value="id"
+              label="ເລືອກຫ້ອງຮຽນ (Select Room)" outlined dense clearable :disabled="!form.classId"></v-select>
+          </v-col>
         </v-row>
 
         <v-divider class="my-4"></v-divider>
@@ -136,6 +140,8 @@ export default {
         firstName: '',
         lastName: '',
         grade: '',
+        room: '',
+        roomId: null,
         phoneNumber: '',
         classId: null,
         parentName: '',
@@ -143,6 +149,7 @@ export default {
         parentEmail: ''
       },
       classesList: [],
+      roomsList: [],
       balance: 0,
       activeCardUid: null,
       newCardUid: ''
@@ -150,6 +157,7 @@ export default {
   },
   mounted() {
     this.loadClasses();
+    this.loadRooms();
     if (this.isUpdate && this.studentId) {
       this.loadStudent();
     }
@@ -170,7 +178,21 @@ export default {
       window.posApi.removeNfcListener();
     }
   },
+  computed: {
+    filteredRooms() {
+      if (!this.form.classId) return [];
+      return this.roomsList.filter(r => r.classId === this.form.classId);
+    }
+  },
   methods: {
+    async loadRooms() {
+      try {
+        const res = await this.$axios.get('/api/school/rooms');
+        this.roomsList = res.data || [];
+      } catch (error) {
+        console.error('Error fetching rooms:', error);
+      }
+    },
     async loadClasses() {
       try {
         const res = await this.$axios.get('/api/school/classes');
@@ -190,6 +212,8 @@ export default {
           firstName: data.firstName,
           lastName: data.lastName,
           grade: data.grade,
+          room: data.room || '',
+          roomId: data.roomId || null,
           phoneNumber: data.phoneNumber,
           classId: data.classId,
           parentName: data.parentName || '',

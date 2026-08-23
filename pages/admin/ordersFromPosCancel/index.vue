@@ -137,7 +137,7 @@
         </template>
 
         <template v-slot:[`item.createdAt`]="{ item }">
-          {{ item.createdAt.split('.')[0] }}
+          {{ formatDateTime(item.createdAt) }}
         </template>
 
         <template v-slot:[`item.recid`]="{ item }">
@@ -251,6 +251,25 @@ export default {
     getClientName(item) { return item.client ? (item.client.name || 'Unnamed') : 'Walk-in'; },
     getNoClientText(item) { return item.client ? 'No Credit Info' : 'Walk-in'; },
     formatBookingDate(date) { return date ? date.split('T')[0] : 'Invalid'; },
+    formatDateTime(dateTimeStr) {
+      if (!dateTimeStr) return ''
+      const dateObj = new Date(dateTimeStr)
+      if (isNaN(dateObj.getTime())) return dateTimeStr
+      try {
+        return new Intl.DateTimeFormat('en-GB', {
+          timeZone: 'Asia/Bangkok',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: false
+        }).format(dateObj).replace(',', '')
+      } catch (error) {
+        return dateTimeStr
+      }
+    },
     countDay(startDate) { return dayCount(startDate); },
     dueDate(startDate, day) { return getNextDate(startDate, day); },
     numberWithCommas(val) { return (val || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); },

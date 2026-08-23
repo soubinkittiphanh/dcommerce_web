@@ -136,8 +136,8 @@
                 <v-text-field v-model="transaction.discount" label="Header Discount" outlined dense hide-details
                   type="number" prefix="$" :rules="[rules.positiveNumber]" style="max-width: 160px;" />
 
-                <v-text-field v-if="isQuotation && transaction.referenceNo" v-model="transaction.referenceNo"
-                  label="Ref #" outlined dense hide-details readonly style="max-width: 140px;" />
+                <v-text-field v-model="transaction.referenceNo" label="Ref #" outlined dense hide-details
+                  style="max-width: 140px;" />
 
                 <div v-if="transaction.user"
                   class="creator-badge grey lighten-4 px-3 py-1 rounded-pill d-flex align-center">
@@ -585,6 +585,7 @@ export default {
         lines: [],
         bookingDate: new Date().toISOString().substr(0, 10),
         discount: 0,
+        referenceNo: '',
       },
       productPricingSelected: null,
       onlineCustomerId: null,
@@ -643,6 +644,7 @@ export default {
         paymentId: 1,
         currencyId: 1,
         discount: 0,
+        referenceNo: '',
       }
       this.newRow()
     },

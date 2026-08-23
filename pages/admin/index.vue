@@ -314,7 +314,7 @@ export default {
         { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
         { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleReportSummary' },
         { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), path: '/admin/report/loyalty' },
-        { title: 'ຈັດການຄ່າຮຽນ (School Billing)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/school' },
+        // { title: 'ຈັດການຄ່າຮຽນ (School Billing)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/school/invoice' },
       ],
     }
   },

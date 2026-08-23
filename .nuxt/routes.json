@@ -1204,6 +1204,41 @@
     "_name": "_278ea631"
   },
   {
+    "name": "admin-school-class",
+    "path": "/admin/school/class",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/class.vue",
+    "chunkName": "pages/admin/school/class",
+    "_name": "_fb11d5e6"
+  },
+  {
+    "name": "admin-school-fee-structure",
+    "path": "/admin/school/fee-structure",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/fee-structure.vue",
+    "chunkName": "pages/admin/school/fee-structure",
+    "_name": "_51bc3081"
+  },
+  {
+    "name": "admin-school-invoice",
+    "path": "/admin/school/invoice",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/invoice.vue",
+    "chunkName": "pages/admin/school/invoice",
+    "_name": "_0d1efdfc"
+  },
+  {
+    "name": "admin-school-report",
+    "path": "/admin/school/report",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/report.vue",
+    "chunkName": "pages/admin/school/report",
+    "_name": "_5377b86f"
+  },
+  {
+    "name": "admin-school-shift",
+    "path": "/admin/school/shift",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/school/shift.vue",
+    "chunkName": "pages/admin/school/shift",
+    "_name": "_8f6b79d2"
+  },
+  {
     "name": "admin-settings-system",
     "path": "/admin/settings/system",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/settings/system.vue",

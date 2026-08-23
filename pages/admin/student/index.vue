@@ -48,10 +48,16 @@
 
         <template v-slot:item.grade="{ item }">
           <div v-if="item.schoolClass" class="font-weight-medium primary--text">
-            {{ item.schoolClass.name }}
+            {{ item.schoolClass.name }}<span v-if="item.schoolRoom" class="grey--text text--darken-1"> - {{ item.schoolRoom.name }}</span><span v-else-if="item.room" class="grey--text text--darken-1"> - {{ item.room }}</span>
           </div>
           <div v-else-if="item.grade">
-            {{ item.grade }}
+            {{ item.grade }}<span v-if="item.schoolRoom" class="grey--text text--darken-1"> - {{ item.schoolRoom.name }}</span><span v-else-if="item.room" class="grey--text text--darken-1"> - {{ item.room }}</span>
+          </div>
+          <div v-else-if="item.schoolRoom">
+            {{ item.schoolRoom.name }}
+          </div>
+          <div v-else-if="item.room">
+            {{ item.room }}
           </div>
           <div v-else class="grey--text">-</div>
         </template>

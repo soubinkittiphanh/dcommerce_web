@@ -111,6 +111,9 @@ export default {
   },
   methods: {
     async renderQR() {
+      if (!this.$refs.qrcodeCanvas) {
+        await this.$nextTick()
+      }
       if (!this.$refs.qrcodeCanvas || !this.qrData.qrString) return
       try {
         await QRCode.toCanvas(this.$refs.qrcodeCanvas, this.qrData.qrString, {

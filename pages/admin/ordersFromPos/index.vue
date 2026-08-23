@@ -86,23 +86,24 @@
                 v-model="terminalId"></v-autocomplete>
             </v-col>
 
-            <v-col cols="6" class="text-left">
-              <v-btn size="large" variant="outlined" @click="createSale" class="primary" rounded>
-                <span class="mdi mdi-plus"></span>Create
-              </v-btn>
-              <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary" rounded>
-                <span class="mdi mdi-microsoft-excel"></span>Generate excel file
-              </v-btn>
-              <!-- NEW: Print Sales Report Button -->
-              <v-btn size="large" variant="outlined" @click="printSalesReport" class="success" rounded
-                :disabled="isloading || filteredOrderHeaderList.length === 0">
-                <span class="mdi mdi-printer"></span>Print Report
-              </v-btn>
-            </v-col>
-            <v-col cols="6" class="text-right">
-              <v-btn size="large" variant="outlined" @click="loadData" class="primary" rounded>
-                <span class="mdi mdi-cloud-download"></span>
+            <v-col cols="12" class="d-flex flex-wrap align-center mt-2">
+              <v-btn size="large" variant="outlined" @click="loadData" class="primary mr-2 mb-2" rounded>
+                <span class="mdi mdi-cloud-download mr-1"></span>
                 ດຶງລາຍງານ
+              </v-btn>
+              <v-btn size="large" variant="outlined" @click="createSale" class="primary mr-2 mb-2" rounded>
+                <span class="mdi mdi-plus mr-1"></span>Create
+              </v-btn>
+              <v-btn size="large" variant="outlined" @click="exportToExcel" class="primary mr-2 mb-2" rounded>
+                <span class="mdi mdi-microsoft-excel mr-1"></span>Generate excel file
+              </v-btn>
+              <v-btn size="large" variant="outlined" @click="printSalesReport" class="success mr-2 mb-2" rounded
+                :disabled="isloading || filteredOrderHeaderList.length === 0">
+                <span class="mdi mdi-printer mr-1"></span>Print Report
+              </v-btn>
+              <v-btn size="large" variant="outlined" @click="printReceiptSummaryReport" class="success mr-2 mb-2" rounded
+                :disabled="isloading || filteredOrderHeaderList.length === 0">
+                <span class="mdi mdi-file-document-outline mr-1"></span>Print Summary A4
               </v-btn>
             </v-col>
           </v-layout>
@@ -483,7 +484,7 @@ import { printSalesReportSummary } from '~/common/sales-report-printer.js'
 import { mainCompanyInfo, preloadCompanyData } from '~/common/api'
 
 import { defaultTicketReprint, customerTicket } from '~/common/ticket.js'
-import { generateInvoiceHTML, generateReceiptHTML } from '~/common/printTemplates'
+import { generateInvoiceHTML, generateReceiptHTML, generateReceiptSummaryReportHTML } from '~/common/printTemplates'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -745,30 +746,66 @@ export default {
       console.info(`TERMINAL COMPAYMEN ${JSON.stringify(terminalCompany)}`)
 
       const baseUrl = this.$axios.defaults.baseURL || ''
+      const storeCompany = this.$store?.getters?.findAllCompany?.[0] || {}
+
+      const resolvedProfileImagePath =
+        terminalCompany?.profile_image_path ||
+        baseCompany?.profile_image_path ||
+        baseCompany?.apiData?.profile_image_path ||
+        storeCompany?.profile_image_path ||
+        null
+
+      const resolvedBankQrImagePath =
+        terminalCompany?.bank_qr_image_path ||
+        baseCompany?.bank_qr_image_path ||
+        baseCompany?.apiData?.bank_qr_image_path ||
+        storeCompany?.bank_qr_image_path ||
+        null
+
+      const resolvedBankQrImagePath2 =
+        terminalCompany?.bank_qr_image_path_2 ||
+        baseCompany?.bank_qr_image_path_2 ||
+        baseCompany?.apiData?.bank_qr_image_path_2 ||
+        storeCompany?.bank_qr_image_path_2 ||
+        null
+
+      const ticketLogo = resolvedProfileImagePath 
+        ? `${baseUrl}/${resolvedProfileImagePath.replace(/^\//, '')}` 
+        : 'default-logo.png'
+
+      const qrCode = resolvedBankQrImagePath 
+        ? `${baseUrl}/${resolvedBankQrImagePath.replace(/^\//, '')}` 
+        : null
+
+      const qrCode2 = resolvedBankQrImagePath2 
+        ? `${baseUrl}/${resolvedBankQrImagePath2.replace(/^\//, '')}` 
+        : null
+
       return {
-        name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
+        name: terminalCompany?.name || baseCompany?.name || storeCompany?.name || 'DCOMMERCE MART',
         address:
           this.formatCompanyAddress(terminalCompany) ||
           baseCompany?.address ||
+          storeCompany?.address ||
           '123 Main Street',
-        tel: terminalCompany?.tel || baseCompany?.tel || '',
-        email: terminalCompany?.email || baseCompany?.email || '',
-        bank: terminalCompany?.bank || baseCompany?.bank || '',
+        tel: terminalCompany?.tel || baseCompany?.tel || storeCompany?.tel || '',
+        email: terminalCompany?.email || baseCompany?.email || storeCompany?.email || '',
+        bank: terminalCompany?.bank || baseCompany?.bank || storeCompany?.bank || '',
         accountName:
-          terminalCompany?.accountName || baseCompany?.accountName || '',
-        accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
-        taxId: terminalCompany?.taxId || baseCompany?.taxId || '',
-        remark: terminalCompany?.remark || baseCompany?.remark || '',
-        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
-        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
-        ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
-        ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
-        ticketLogo:
-          terminalCompany?.profile_image_path ? `${baseUrl}/${terminalCompany.profile_image_path}` : 'default-logo.png',
-        qrCode:
-          terminalCompany?.bank_qr_image_path ? `${baseUrl}/${terminalCompany.bank_qr_image_path}` : 'default-logo.png',
-        qrCode2:
-          terminalCompany?.bank_qr_image_path_2 ? `${baseUrl}/${terminalCompany.bank_qr_image_path_2}` : null,
+          terminalCompany?.accountName || baseCompany?.accountName || storeCompany?.accountName || '',
+        accounts: terminalCompany?.accounts || baseCompany?.accounts || storeCompany?.accounts || '',
+        taxId: terminalCompany?.taxId || baseCompany?.taxId || storeCompany?.taxId || '',
+        remark: terminalCompany?.remark || baseCompany?.remark || storeCompany?.remark || '',
+        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || storeCompany?.term_condition || '',
+        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || storeCompany?.showLogoOnTicket || '',
+        ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || storeCompany?.ticketQRcode || false,
+        ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || storeCompany?.ticketLayout || 'classic',
+        profile_image_path: resolvedProfileImagePath,
+        bank_qr_image_path: resolvedBankQrImagePath,
+        bank_qr_image_path_2: resolvedBankQrImagePath2,
+        ticketLogo,
+        qrCode,
+        qrCode2,
       }
     },
 
@@ -1248,6 +1285,56 @@ export default {
             icon: 'error',
           })
         }
+      }
+    },
+    async printReceiptSummaryReport() {
+      try {
+        console.log('🖨️ Printing detailed receipt summary report...')
+        this.isloading = true
+
+        // Eagerly load currencies if not already loaded, to prevent print crashes or incorrect currency conversion
+        if (!this.findAllCurrency || this.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in receipt summary print:', error)
+          }
+        }
+
+        const terminalInfo =
+          this.terminalId === 999
+            ? { name: 'ທັງໝົດ', id: 999 }
+            : this.customTerminalList.find(
+              (terminal) => terminal.id === this.terminalId
+            )
+
+        const companyData = this.companyData
+        
+        const filters = {
+          fromDate: this.fromDate,
+          toDate: this.toDate,
+          terminalName: terminalInfo?.name || 'ທັງໝົດ',
+          userName: this.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateReceiptSummaryReportHTML(
+          this.filteredOrderHeaderList,
+          companyData,
+          this.findAllCurrency,
+          filters
+        )
+
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        console.error('Error printing detailed summary report:', error)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ')
+      } finally {
+        this.isloading = false
       }
     },
     getLocalDate,

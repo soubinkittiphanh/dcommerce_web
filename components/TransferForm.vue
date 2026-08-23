@@ -158,7 +158,7 @@
                                 <div class="kpi-label">ຍອດໂອນລວມ (Total Amount)</div>
                                 <div class="kpi-value">
                                     {{ getFormatNum(grandTotal) }}
-                                    <span class="kpi-currency">LAK</span>
+                                    <span class="kpi-currency">{{ homeCurrencyCode }}</span>
                                 </div>
                                 <div class="kpi-details" v-if="transaction.user">
                                     <div class="d-flex justify-space-between mt-1">
@@ -843,6 +843,10 @@ export default {
         },
         currencyList() {
             return this.findAllCurrency
+        },
+        homeCurrencyCode() {
+            const localCcy = this.currencyList?.find(c => c.isLocalCCY === true || c.isLocalCCY === 1 || c.isHome === true || c.isHome === 1)
+            return localCcy ? localCcy.code : 'LAK'
         },
         numberRule() {
             return [

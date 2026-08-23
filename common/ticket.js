@@ -104,6 +104,7 @@ const getBaseStyles = (config, isThermal) => `
 
   .item { display: flex; justify-content: space-between; width: 100%; margin-bottom: 4px; }
   .item-desc { flex: 1; text-align: left; padding-right: 5px; word-wrap: break-word; max-width: 70%; }
+  .item-detail { padding-left: 15px; }
   .item-total { text-align: right; font-weight: 700; white-space: nowrap; min-width: ${config.width === '175px' ? '55px' : '85px'}; }
   
   .total-line { display: flex; justify-content: space-between; width: 100%; }

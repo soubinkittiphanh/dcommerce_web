@@ -248,6 +248,7 @@ export default {
         receiveUnitId: null,
         stockUnitId: null,
         saleCurrencyId: null,
+        costCurrencyId: null,
         vendorName: '',
         taxId: null,
         baseUnitId: null,
@@ -639,6 +640,7 @@ export default {
       const formData = new FormData()
       const formDataWithTax = {
         ...this.formData,
+        costCurrencyId: this.formData.saleCurrencyId,
         selectedTaxRate: this.selectedTaxRate
           ? {
             id: this.selectedTaxRate.id,

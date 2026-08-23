@@ -176,6 +176,11 @@ const _c9a41802 = () => interopDefault(import('../pages/admin/reports/qr-reconci
 const _2f47d942 = () => interopDefault(import('../pages/admin/reports/staffActivity/index.vue' /* webpackChunkName: "pages/admin/reports/staffActivity/index" */))
 const _2d13abf8 = () => interopDefault(import('../pages/admin/reports/stockActivity/index.vue' /* webpackChunkName: "pages/admin/reports/stockActivity/index" */))
 const _278ea631 = () => interopDefault(import('../pages/admin/restaurant/menu.vue' /* webpackChunkName: "pages/admin/restaurant/menu" */))
+const _fb11d5e6 = () => interopDefault(import('../pages/admin/school/class.vue' /* webpackChunkName: "pages/admin/school/class" */))
+const _51bc3081 = () => interopDefault(import('../pages/admin/school/fee-structure.vue' /* webpackChunkName: "pages/admin/school/fee-structure" */))
+const _0d1efdfc = () => interopDefault(import('../pages/admin/school/invoice.vue' /* webpackChunkName: "pages/admin/school/invoice" */))
+const _5377b86f = () => interopDefault(import('../pages/admin/school/report.vue' /* webpackChunkName: "pages/admin/school/report" */))
+const _8f6b79d2 = () => interopDefault(import('../pages/admin/school/shift.vue' /* webpackChunkName: "pages/admin/school/shift" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
@@ -924,6 +929,26 @@ export const routerOptions = {
     path: "/admin/restaurant/menu",
     component: _278ea631,
     name: "admin-restaurant-menu"
+  }, {
+    path: "/admin/school/class",
+    component: _fb11d5e6,
+    name: "admin-school-class"
+  }, {
+    path: "/admin/school/fee-structure",
+    component: _51bc3081,
+    name: "admin-school-fee-structure"
+  }, {
+    path: "/admin/school/invoice",
+    component: _0d1efdfc,
+    name: "admin-school-invoice"
+  }, {
+    path: "/admin/school/report",
+    component: _5377b86f,
+    name: "admin-school-report"
+  }, {
+    path: "/admin/school/shift",
+    component: _8f6b79d2,
+    name: "admin-school-shift"
   }, {
     path: "/admin/settings/system",
     component: _228e3c4a,

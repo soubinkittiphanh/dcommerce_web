@@ -507,6 +507,7 @@ export default {
 
       const payload = {
         ...this.formData,
+        costCurrencyId: this.formData.saleCurrencyId,
         pro_status: this.formData.isActive ? 1 : 0,
         selectedTaxRate: this.selectedTaxRate,
         calculatedTaxAmount: this.calculateTaxAmount(),

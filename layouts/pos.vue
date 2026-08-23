@@ -294,6 +294,20 @@
             </v-btn>
           </v-col>
 
+          <v-col cols="auto" class="d-flex align-center pl-2" v-if="isBusinessDateEnabled && businessDate">
+            <v-chip
+              :color="businessDateStatus === 'OPEN' ? 'teal accent-3' : 'red accent-2'"
+              outlined
+              class="font-weight-bold ml-2 elevation-1"
+              label
+            >
+              <v-icon left small>mdi-calendar-sync</v-icon>
+              ວັນທີເຮັດວຽກ: {{ businessDate }}
+              <v-divider vertical class="mx-2 my-1" style="border-color: currentColor;"></v-divider>
+              {{ businessDateStatus === 'OPEN' ? 'OPEN' : 'CLOSED' }}
+            </v-chip>
+          </v-col>
+
           <v-spacer></v-spacer> <v-col cols="auto" class="d-flex justify-end pr-4">
             <div class="d-flex align-center">
 
@@ -327,7 +341,7 @@
           <v-col cols="auto" class="mr-3">
             <!-- Center Section - Search -->
             <v-text-field v-model="serachModel" clearable clear-icon="mdi-close" prepend-inner-icon="mdi-magnify"
-              outlined dense label="ຄົ້ນຫາສິນຄ້າ..." solo-inverted hide-details class="search-field elevation-2" />
+              outlined dense label="ຄົ້ນຫາສິນຄ້າ...aa" solo-inverted hide-details class="search-field elevation-2" />
           </v-col>
           <!-- <v-btn @click="testSearch" color="error" small class="ml-2">
             🧪 Test Search
@@ -403,7 +417,7 @@
       :permanent="$vuetify.breakpoint.lgAndUp" :temporary="$vuetify.breakpoint.mdAndDown" v-model="drawer_right">
       <div class="cart-container">
         <!-- Enhanced Customer Bar -->
-        <div class="customer-bar pa-4">
+        <div class="customer-bar pa-4 pb-2">
           <v-row align="center" no-gutters class="ga-2">
             <v-col>
               <v-card
@@ -451,6 +465,19 @@
               </div>
             </v-col>
           </v-row>
+
+          <!-- Reference Number Input -->
+          <v-text-field
+            v-model="saleHeader.referenceNo"
+            label="Reference No (ເລກອ້າງອີງ)"
+            outlined
+            dense
+            hide-details
+            class="mt-2"
+            prepend-inner-icon="mdi-file-document-outline"
+            clearable
+            background-color="white"
+          />
         </div>
 
         <!-- Cart Items -->
@@ -479,7 +506,7 @@
                 <v-icon size="80" color="grey lighten-2" class="mb-4">
                   mdi-cart-outline
                 </v-icon>
-                <div class="grey--text mb-2">ກະຕ່າວ່າງເປົ່າ</div>
+                <div class="grey--text mb-2">ກະຕ່າວ່າງເປົ່າ.</div>
                 <div class="grey--text">ເລືອກສິນຄ້າເພື່ອເພີ່ມໃສ່ກະຕ່າ</div>
               </div>
             </div>
@@ -517,6 +544,7 @@ import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
 import {
   generateInvoiceHTML,
   generateReceiptHTML,
+  generateA4ReceiptHTML,
 } from '~/common/printTemplates'
 
 // Import the components
@@ -597,6 +625,8 @@ export default {
       deliveryForm: false,
       productComponentKey: 1,
       terminalDialog: false,
+      businessDate: null,
+      businessDateStatus: null,
       terminalSelected: null,
       search: '',
       svgIcon: require('~/assets/icons/cash.svg'),
@@ -626,6 +656,7 @@ export default {
         exchangeRate: 1,
         isActive: true,
         qrRequestId: null,
+        referenceNo: '',
       },
       stateValue: '',
 
@@ -643,6 +674,12 @@ export default {
   },
 
   computed: {
+    isBusinessDateEnabled() {
+      const param = (this.findSPF || []).find(
+        (spf) => spf.code === 'USE_BUSINESS_DATE' && spf.isActive
+      )
+      return param ? param.value === 'Y' : false
+    },
     variantDialogOpenLocal: {
       get() {
         return this.$store.getters.variantDialogOpen
@@ -742,32 +779,66 @@ export default {
       console.info(`TERMINAL COMPAYMEN ${JSON.stringify(terminalCompany)}`)
 
       const baseUrl = this.$axios.defaults.baseURL || ''
+      const storeCompany = this.$store?.getters?.findAllCompany?.[0] || {}
+
+      const resolvedProfileImagePath =
+        terminalCompany?.profile_image_path ||
+        baseCompany?.profile_image_path ||
+        baseCompany?.apiData?.profile_image_path ||
+        storeCompany?.profile_image_path ||
+        null
+
+      const resolvedBankQrImagePath =
+        terminalCompany?.bank_qr_image_path ||
+        baseCompany?.bank_qr_image_path ||
+        baseCompany?.apiData?.bank_qr_image_path ||
+        storeCompany?.bank_qr_image_path ||
+        null
+
+      const resolvedBankQrImagePath2 =
+        terminalCompany?.bank_qr_image_path_2 ||
+        baseCompany?.bank_qr_image_path_2 ||
+        baseCompany?.apiData?.bank_qr_image_path_2 ||
+        storeCompany?.bank_qr_image_path_2 ||
+        null
+
+      const ticketLogo = resolvedProfileImagePath 
+        ? `${baseUrl}/${resolvedProfileImagePath.replace(/^\//, '')}` 
+        : 'default-logo.png'
+
+      const qrCode = resolvedBankQrImagePath 
+        ? `${baseUrl}/${resolvedBankQrImagePath.replace(/^\//, '')}` 
+        : null
+
+      const qrCode2 = resolvedBankQrImagePath2 
+        ? `${baseUrl}/${resolvedBankQrImagePath2.replace(/^\//, '')}` 
+        : null
+
       return {
-        name: terminalCompany?.name || baseCompany?.name || 'DCOMMERCE MART',
+        name: terminalCompany?.name || baseCompany?.name || storeCompany?.name || 'DCOMMERCE MART',
         address:
           this.formatCompanyAddress(terminalCompany) ||
           baseCompany?.address ||
+          storeCompany?.address ||
           '123 Main Street',
-        tel: terminalCompany?.tel || baseCompany?.tel || '',
-        email: terminalCompany?.email || baseCompany?.email || '',
-        bank: terminalCompany?.bank || baseCompany?.bank || '',
+        tel: terminalCompany?.tel || baseCompany?.tel || storeCompany?.tel || '',
+        email: terminalCompany?.email || baseCompany?.email || storeCompany?.email || '',
+        bank: terminalCompany?.bank || baseCompany?.bank || storeCompany?.bank || '',
         accountName:
-          terminalCompany?.accountName || baseCompany?.accountName || '',
-        accounts: terminalCompany?.accounts || baseCompany?.accounts || '',
-        taxId: terminalCompany?.taxId || baseCompany?.taxId || '',
-        remark: terminalCompany?.remark || baseCompany?.remark || '',
-        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || '',
-        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || '',
-        ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || false,
-        ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || 'classic',
-        ticketLogo:
-          `${baseUrl}/${terminalCompany.profile_image_path}` ||
-          'default-logo.png',
-        qrCode:
-          `${baseUrl}/${terminalCompany.bank_qr_image_path}` ||
-          'default-logo.png',
-        qrCode2:
-          terminalCompany.bank_qr_image_path_2 ? `${baseUrl}/${terminalCompany.bank_qr_image_path_2}` : null,
+          terminalCompany?.accountName || baseCompany?.accountName || storeCompany?.accountName || '',
+        accounts: terminalCompany?.accounts || baseCompany?.accounts || storeCompany?.accounts || '',
+        taxId: terminalCompany?.taxId || baseCompany?.taxId || storeCompany?.taxId || '',
+        remark: terminalCompany?.remark || baseCompany?.remark || storeCompany?.remark || '',
+        term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || storeCompany?.term_condition || '',
+        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || storeCompany?.showLogoOnTicket || '',
+        ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || storeCompany?.ticketQRcode || false,
+        ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || storeCompany?.ticketLayout || 'classic',
+        profile_image_path: resolvedProfileImagePath,
+        bank_qr_image_path: resolvedBankQrImagePath,
+        bank_qr_image_path_2: resolvedBankQrImagePath2,
+        ticketLogo,
+        qrCode,
+        qrCode2,
       }
     },
 
@@ -1002,6 +1073,7 @@ export default {
     this.checkAllInitData()
     this.initializeMultiPayment()
     this.setupGlobalNfcListener()
+    this.fetchBusinessDate()
     // this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
 
     // CUSTOMER SCREEN INTEGRATION
@@ -1036,6 +1108,11 @@ export default {
   },
 
   watch: {
+    isBusinessDateEnabled(newVal) {
+      if (newVal && !this.businessDate) {
+        this.fetchBusinessDate()
+      }
+    },
     variantDialogOpenLocal(newVal) {
       if (newVal) {
         this.selectedColorId = null
@@ -1071,6 +1148,20 @@ export default {
         }
       }, 200),
       immediate: false,
+    },
+
+    currentSelectedPayment(newVal) {
+      if (newVal) {
+        if (this.isCustomerDisplayOpen()) {
+          this.batchUpdateCustomerScreen()
+        }
+        // Auto-generate dynamic QR if dynamic QR is enabled and the payment method is LAO_QR
+        if (this.isDynamicQREnabled && this.currentPaymentCode === 'LAO_QR') {
+          this.sendQRToCustomerScreen(true)
+        }
+      } else {
+        this.hideQRPaymentFromCustomerScreen()
+      }
     },
 
     nfcPaymentDialog(isOpen) {
@@ -1130,6 +1221,18 @@ export default {
   },
 
   methods: {
+    async fetchBusinessDate() {
+      if (!this.isBusinessDateEnabled) return
+      try {
+        const response = await this.$axios.get('/api/businessDate/current')
+        if (response.data && response.data.success && response.data.data) {
+          this.businessDate = response.data.data.currentDate
+          this.businessDateStatus = response.data.data.status
+        }
+      } catch (error) {
+        console.error('Error fetching business date:', error)
+      }
+    },
     selectColor(colorId) {
       this.selectedColorId = colorId
       this.selectedSizeId = null // Reset size when color changes
@@ -1643,7 +1746,10 @@ export default {
 
        // Handle Dynamic QR if enabled
       if (this.isDynamicQREnabled) {
-        if (manualGenerate) {
+        const isLaoQrSelected = this.currentPaymentCode === 'LAO_QR'
+        
+        // Auto-generate if manualGenerate is true OR if LAO_QR payment method is selected and we don't have a cached dynamic QR yet
+        if (manualGenerate || (isLaoQrSelected && !this.currentDynamicQR)) {
           if (!this.isGeneratingQR) {
             this.isGeneratingQR = true
             try {
@@ -1991,6 +2097,11 @@ export default {
     async createSaleHeader() {
       if (this.isCreatingSale || this.pendingSaleHeaderId) return
 
+      if (this.isBusinessDateEnabled && this.businessDateStatus === 'CLOSED') {
+        swalError2(this.$swal, 'Error', 'ວັນທີເຮັດວຽກຖືກປິດແລ້ວ. ກະລຸນາເປີດ/Sync ວັນທີເຮັດວຽກໃໝ່ກ່ອນ!')
+        throw new Error('Business date is CLOSED')
+      }
+
       this.isCreatingSale = true
       this.isloading = true
 
@@ -2006,11 +2117,12 @@ export default {
           exchangeRate: this.findLocalCurrency.rate, //TODO: update currency DYNAMICALLY
           lines: this.generateSaleLine,
           userId: this.user.id,
-          bookingDate: jsDateToMysqlDate(today),
+          bookingDate: (this.isBusinessDateEnabled && this.businessDate) ? this.businessDate : jsDateToMysqlDate(today),
           locationId: this.currentTerminal['locationId'],
           remark: 'Multi-payment transaction',
           qrRequestId: this.saleHeader.qrRequestId,
           redeemedPoints: this.redeemedPoints,
+          referenceNo: this.saleHeader.referenceNo || '',
         }
 
         const response = await this.$axios.post(
@@ -2335,9 +2447,10 @@ export default {
       this.saleHeader.exchangeRate = this.findLocalCurrency.rate
       this.saleHeader.lines = this.generateSaleLine
       this.saleHeader.userId = this.user.id
-      this.saleHeader.bookingDate = jsDateToMysqlDate(today)
+      this.saleHeader.bookingDate = (this.isBusinessDateEnabled && this.businessDate) ? this.businessDate : jsDateToMysqlDate(today)
       this.saleHeader.locationId = this.currentTerminal['locationId']
       this.saleHeader.id = this.pendingSaleHeaderId
+      this.saleHeader.referenceNo = this.saleHeader.referenceNo || ''
       // Ensure qrRequestId is preserved or set if it exists in data
       if (this.saleHeader.qrRequestId === undefined) {
         this.saleHeader.qrRequestId = null
@@ -2348,6 +2461,11 @@ export default {
       // 1. Validation
       if (this.isloading || this.generateSaleLine.length == 0) {
         swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
+        return
+      }
+
+      if (this.isBusinessDateEnabled && this.businessDateStatus === 'CLOSED') {
+        swalError2(this.$swal, 'Error', 'ວັນທີເຮັດວຽກຖືກປິດແລ້ວ. ກະລຸນາເປີດ/Sync ວັນທີເຮັດວຽກໃໝ່ກ່ອນ!')
         return
       }
 
@@ -2467,13 +2585,17 @@ export default {
     },
 
     async postTransactionOriginal(isDeliveryCustomer, nfcData = null) {
-      if (this.isloading || this.generateSaleLine == 0) {
-        if (this.generateSaleLine == 0) {
-          swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
-        }
+      if (this.generateSaleLine == 0) {
+        swalError2(this.$swal, 'Error', 'ກະລຸນາເລືອກສິນຄ້າ 1 ຢ່າງຂື້ນໄປ')
         return
       }
 
+      if (this.isBusinessDateEnabled && this.businessDateStatus === 'CLOSED') {
+        swalError2(this.$swal, 'Error', 'ວັນທີເຮັດວຽກຖືກປິດແລ້ວ. ກະລຸນາເປີດ/Sync ວັນທີເຮັດວຽກໃໝ່ກ່ອນ!')
+        return
+      }
+
+      if (this.isloading) return
       this.isloading = true
       this.formSaleHeader('')
 
@@ -2513,7 +2635,7 @@ export default {
             saleHeaderId: parseInt(saleHeaderId),
             paymentId: this.currentPayment,
             amount: parseFloat(this.grandTotal - this.discount - this.loyaltyDiscountAmount) || 0,
-            referenceNo: this.currentDynamicQR ? `QR-BILL-${this.currentDynamicQR.billNumber}` : 'Legacy Single Payment',
+            referenceNo: this.currentDynamicQR ? `QR-BILL-${this.currentDynamicQR.billNumber}` : (this.saleHeader.referenceNo || 'Legacy Single Payment'),
             qrRequestId: this.saleHeader.qrRequestId || null,
             isActive: true
           }
@@ -2574,12 +2696,12 @@ export default {
                 const invoiceData = saleResponse.data
                 const fixCompanyData = this.currentTerminal?.location?.company
 
-                let htmlContent = generateReceiptHTML(
+                let htmlContent = generateA4ReceiptHTML(
                   invoiceData,
                   fixCompanyData,
                   this.findAllCurrency
                 )
-                this.openPrintWindow(htmlContent)
+                this.openPrintWindow(htmlContent, 'A4')
               } else {
                 this.printDefaultTicket()
               }
@@ -2656,16 +2778,16 @@ export default {
 
       this.isloading = false
     },
-    openPrintWindow(htmlContent) {
-      if (window.posApi && typeof window.posApi.printReceipt === 'function') {
+    openPrintWindow(htmlContent, paperWidth = null) {
+      if (paperWidth !== 'A4' && paperWidth !== 'A5' && window.posApi && typeof window.posApi.printReceipt === 'function') {
         const printers = this.findAllprinters || this.$store.state.printers || [];
         const printer = printers.find(p => p.type === 'ticket' && (p.is_active || p.isActive)) || printers.find(p => p.is_active || p.isActive);
         const printerName = printer?.printerName || printer?.printer_name || '';
-        const paperWidth = this.paperSize || '80mm';
+        const width = paperWidth || this.paperSize || '80mm';
         window.posApi.printReceipt({
           printerName,
           html: htmlContent,
-          width: paperWidth
+          width
         });
         return;
       }
@@ -2808,6 +2930,7 @@ export default {
       this.clearCart()
       this.discount = 0
       this.cashReceived = 0
+      this.saleHeader.referenceNo = ''
 
       // PERFORMANCE OPTIMIZATION: Clear cache and update customer screen
       this.productLookupCache.clear()
