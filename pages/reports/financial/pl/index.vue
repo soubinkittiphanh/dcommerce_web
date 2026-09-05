@@ -2,9 +2,13 @@
   <div class="text-left business-performance-container">
     <!-- Header Section -->
     <div class="header-chips mb-4">
-      <v-chip class="pa-5" color="primary" label text-color="white">
+      <v-chip class="pa-5 mr-2" color="primary" label text-color="white">
         <v-icon start>mdi-chart-line</v-icon>
         <h3>ລາຍງານການປະຕິບັດງານທຸລະກິດ</h3>
+      </v-chip>
+      <v-chip class="pa-5 mr-2" color="primary" outlined label to="/reports/financial/balance-sheet">
+        <v-icon start>mdi-account-balance</v-icon>
+        <h3>ລາຍງານຖານະການເງິນ</h3>
       </v-chip>
       <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
         <v-icon start>mdi-lifebuoy</v-icon>
@@ -196,16 +200,20 @@
                 </div>
                 <v-divider class="my-2"></v-divider>
                 <div class="financial-row">
-                  <span>Net Sale</span>
+                  <span>Net Sale (ຍອດຂາຍສຸດທິ)</span>
                   <span class="font-weight-bold">{{ formatNumber(netSale) }}</span>
                 </div>
                 <div class="financial-row">
-                  <span>Other Income</span>
-                  <span class="font-weight-bold">{{ formatNumber(totalOtherIncome) }}</span>
+                  <span>Other Income (AR ລາຍຮັບອື່ນໆ)</span>
+                  <span class="font-weight-bold">{{ formatNumber(totalFinancialIncome) }}</span>
+                </div>
+                <div class="financial-row">
+                  <span>AR Receive (ໃບຮັບເງິນ)</span>
+                  <span class="font-weight-bold">{{ formatNumber(totalArReceive) }}</span>
                 </div>
                 <v-divider class="my-2"></v-divider>
                 <div class="financial-row total">
-                  <span class="success--text font-weight-bold">Total Revenue</span>
+                  <span class="success--text font-weight-bold">Total Revenue (ລາຍຮັບລວມ)</span>
                   <span class="success--text font-weight-bold">{{ formatNumber(netSale + totalOtherIncome) }}</span>
                 </div>
               </div>
@@ -273,9 +281,13 @@
                   <span>Other Expenses</span>
                   <span class="font-weight-bold">{{ formatNumber(otherExpenses) }}</span>
                 </div>
+                <div class="financial-row">
+                  <span>AP Settlement (ຊຳລະໃບແຈ້ງໜີ້)</span>
+                  <span class="font-weight-bold">{{ formatNumber(totalApSettlement) }}</span>
+                </div>
                 <v-divider class="my-2"></v-divider>
                 <div class="financial-row total">
-                  <span class="orange--text font-weight-bold">Total Expenses</span>
+                  <span class="orange--text font-weight-bold">Total Expenses (ລາຍຈ່າຍບໍລິຫານລວມ)</span>
                   <span class="orange--text font-weight-bold">{{ formatNumber(totalExpenses) }}</span>
                 </div>
               </div>
@@ -614,7 +626,9 @@ export default {
       loaddata: [],
       // Financial data
       incomeData: [],
+      arReceiveData: [],
       expenseData: [],
+      apSettlementData: [],
       staffSalary: 0,
       advertising: 0,
       officeExpense: 0,
@@ -644,7 +658,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency']),
 
     // Sales calculations
     grandSaleTotal() {
@@ -694,34 +708,60 @@ export default {
     },
     grandSaleCost() {
       let totalSaleValue = 0;
+
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
         const saleRate = sale.exchangeRate || 1;
         for (const line of sale.lines) {
           const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
-          for (const card of line.cards) {
-            let cardCost = 0;
-            const cardRate = card.exchangeRate || 1;
-            
-            if (card.costLCY !== undefined && card.costLCY !== null) {
-              cardCost = parseFloat(card.costLCY);
-            } else {
-              cardCost = parseFloat(card.cost || 0) * cardRate;
+          let lineCost = 0;
+          
+          if (line.cards && line.cards.length > 0) {
+            for (const card of line.cards) {
+              let cardCost = 0;
+              const cardRate = card.exchangeRate || 1;
+              
+              const isForeign = card.currencyId && Number(card.currencyId) !== 1;
+              const hasValidLcy = card.costLCY !== undefined && card.costLCY !== null && parseFloat(card.costLCY) > 0 &&
+                                  (!isForeign || parseFloat(card.costLCY) > parseFloat(card.cost || 0));
+
+              if (hasValidLcy) {
+                cardCost = parseFloat(card.costLCY);
+              } else {
+                let effectiveRate = cardRate;
+                let direction = 'foreign_to_local';
+                
+                if (effectiveRate === 1 && isForeign) {
+                  const dbCurr = this.findAllCurrency?.find(c => c.id === card.currencyId);
+                  if (dbCurr && dbCurr.rate) {
+                    effectiveRate = parseFloat(dbCurr.rate);
+                    direction = dbCurr.exchangeDirection || 'foreign_to_local';
+                  }
+                }
+                
+                if (direction === 'local_to_foreign') {
+                  cardCost = parseFloat(card.cost || 0) / (effectiveRate || 1);
+                } else {
+                  cardCost = parseFloat(card.cost || 0) * effectiveRate;
+                }
+              }
+              
+              // ✅ Smart Currency Correction:
+              if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
+                cardCost = parseFloat(card.cost || 0);
+              }
+              
+              // Guard against corrupted cost values
+              if (Math.abs(cardCost) < 1e12) {
+                lineCost += cardCost;
+              }
             }
-            
-            // ✅ Smart Currency Correction:
-            // If the calculated cost in LAK is > 1.5x the retail selling price of the item, 
-            // and a non-LAK exchange rate (> 10) was applied, it means a LAK cost (e.g. 185,000 Kip) 
-            // was entered under a foreign currency product settings and incorrectly multiplied by the rate (e.g. 687).
-            // We fall back to the raw cost value (which is the actual LAK cost entered by the user).
-            if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
-              cardCost = parseFloat(card.cost || 0);
-            }
-            
-            // Guard against corrupted cost values
-            if (Math.abs(cardCost) < 1e12) {
-              totalSaleValue += cardCost;
-            }
+          } else {
+            // Fallback: Use product cost_price if there are no cards
+            const unitCost = parseFloat(line.product?.cost_price || 0);
+            const qty = parseFloat(line.quantity || 0);
+            lineCost = qty * unitCost * saleRate;
           }
+          totalSaleValue += lineCost;
         }
       }
       return totalSaleValue;
@@ -757,20 +797,68 @@ export default {
     },
 
     // Real financial data calculations
-    totalOtherIncome() {
+    totalFinancialIncome() {
       return this.incomeData
-        .filter(income => income.isActive)
+        .filter(income => income.isActive !== false)
         .reduce((total, income) => {
-          return total + (income.totalAmount * income.rate);
+          const rate = income.rate || 1
+          return total + ((parseFloat(income.totalAmount) || 0) * rate);
         }, 0);
     },
+    activeArReceiveData() {
+      const fromDate = this.date ? new Date(this.date) : null
+      const toDate = this.date2 ? new Date(this.date2) : null
 
-    totalExpenses() {
+      return (this.arReceiveData || []).filter(receipt => {
+        if (receipt.status === 'cancelled' || receipt.status === 'voided') return false
+        const dStr = receipt.receivedDate || receipt.bookingDate || receipt.createdAt
+        if (!dStr) return true
+        const d = new Date(dStr.substr(0, 10))
+        if (fromDate && d < fromDate) return false
+        if (toDate && d > toDate) return false
+        return true
+      })
+    },
+    totalArReceive() {
+      return this.activeArReceiveData.reduce((total, item) => {
+        const rate = parseFloat(item.exchangeRate || item.rate || 1)
+        return total + ((parseFloat(item.totalReceivedAmount) || 0) * rate)
+      }, 0)
+    },
+    totalOtherIncome() {
+      return this.totalFinancialIncome + this.totalArReceive;
+    },
+
+    totalFinancialExpense() {
       return this.expenseData
-        .filter(expense => expense.isActive)
+        .filter(expense => expense.isActive !== false)
         .reduce((total, expense) => {
-          return total + (expense.totalAmount * expense.rate);
+          const rate = expense.rate || 1
+          return total + ((parseFloat(expense.totalAmount) || 0) * rate);
         }, 0);
+    },
+    activeApSettlementData() {
+      const fromDate = this.date ? new Date(this.date) : null
+      const toDate = this.date2 ? new Date(this.date2) : null
+
+      return (this.apSettlementData || []).filter(s => {
+        if (s.status === 'cancelled') return false
+        const dStr = s.settlementDate || s.createdAt
+        if (!dStr) return true
+        const d = new Date(dStr.substr(0, 10))
+        if (fromDate && d < fromDate) return false
+        if (toDate && d > toDate) return false
+        return true
+      })
+    },
+    totalApSettlement() {
+      return this.activeApSettlementData.reduce((total, item) => {
+        const rate = parseFloat(item.exchangeRate || 1)
+        return total + ((parseFloat(item.paymentAmount || item.baseAmount) || 0) * rate)
+      }, 0)
+    },
+    totalExpenses() {
+      return this.totalFinancialExpense + this.totalApSettlement;
     },
 
     // Categorized expenses based on notes
@@ -951,30 +1039,51 @@ export default {
         startDate: this.date,
         endDate: this.date2,
       }
+      const locationId = this.currentSelectedLocation?.id
 
       try {
         // Fetch sales data
-        const salesResponse = await this.$axios.get(`api/sale/findDetailByDate`, { params: { date } })
-        this.loaddata = salesResponse.data;
+        const salesResponse = await this.$axios.get(`api/sale/findDetailByDate`, { params: { date, locationId } })
+        this.loaddata = salesResponse.data || [];
 
-        // Fetch income data
+        // Fetch AR income data
         try {
-          const incomeResponse = await this.$axios.get(`api/finanicial/ar/header/findByDate`, { params: { date } })
-          this.incomeData = incomeResponse.data;
+          const incomeResponse = await this.$axios.get(`api/finanicial/ar/header/findByDate`, { params: { date, locationId } })
+          this.incomeData = incomeResponse.data || [];
           console.log('Income data loaded:', this.incomeData.length, 'transactions');
         } catch (incomeError) {
           console.warn('Could not load income data:', incomeError);
           this.incomeData = [];
         }
 
-        // Fetch expense data
+        // Fetch AR receive headers
         try {
-          const expenseResponse = await this.$axios.get(`api/finanicial/ap/header/findByDate`, { params: { date } })
-          this.expenseData = expenseResponse.data;
+          const arReceiveResponse = await this.$axios.get(`/api/ar-receive-headers`, { params: { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 } })
+          this.arReceiveData = arReceiveResponse.data?.data?.receiveHeaders || arReceiveResponse.data?.data || arReceiveResponse.data || [];
+          console.log('AR receive data loaded:', this.arReceiveData.length, 'receipts');
+        } catch (arError) {
+          console.warn('Could not load AR receive data:', arError);
+          this.arReceiveData = [];
+        }
+
+        // Fetch AP expense data
+        try {
+          const expenseResponse = await this.$axios.get(`api/finanicial/ap/header/findByDate`, { params: { date, locationId } })
+          this.expenseData = expenseResponse.data || [];
           console.log('Expense data loaded:', this.expenseData.length, 'transactions');
         } catch (expenseError) {
           console.warn('Could not load expense data:', expenseError);
           this.expenseData = [];
+        }
+
+        // Fetch AP invoice settlements
+        try {
+          const apSettlementResponse = await this.$axios.get(`/api/ap-invoices-settlement`, { params: { startDate: this.date, endDate: this.date2, limit: 1000, page: 1 } })
+          this.apSettlementData = apSettlementResponse.data?.data?.settlements || apSettlementResponse.data?.data || apSettlementResponse.data || [];
+          console.log('AP settlement data loaded:', this.apSettlementData.length, 'settlements');
+        } catch (apError) {
+          console.warn('Could not load AP settlement data:', apError);
+          this.apSettlementData = [];
         }
 
       } catch (error) {

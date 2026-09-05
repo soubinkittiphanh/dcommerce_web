@@ -1,15 +1,73 @@
 <template>
-  <div class="text-left">
-    <div>
-      <v-chip class="pa-5" color="primary" label text-color="white">
-        <v-icon start>mdi-label</v-icon>
-        <h3>ລາຍການສິນຄ້າ ພ້ອມມູນຄ່າສຕັອກ</h3>
-      </v-chip>
-      <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
-        <v-icon start>mdi mdi-lifebuoy</v-icon>
-        <h3>ຄູ່ມືການນຳໃຊ້ </h3>
-      </v-chip>
+  <div class="text-left px-4 py-3">
+    <!-- Page Header Dashboard Style -->
+    <div class="d-flex flex-wrap justify-space-between align-center mb-6">
+      <div class="d-flex align-center">
+        <v-avatar color="primary lighten-5" size="48" class="mr-3">
+          <v-icon color="primary" size="28">mdi-chart-box-outline</v-icon>
+        </v-avatar>
+        <div>
+          <h1 class="text-h5 font-weight-bold primary--text">ລາຍການສິນຄ້າ ພ້ອມມູນຄ່າສຕັອກ</h1>
+          <span class="caption grey--text text--darken-1">ຈັດການ ແລະ ຕິດຕາມມູນຄ່າສະຕັອກສິນຄ້າທັງໝົດແບບ Realtime</span>
+        </div>
+      </div>
+      <div class="d-flex mt-3 mt-sm-0">
+        <v-btn color="primary" class="px-4 font-weight-bold" @click="guidelineDialog = true" rounded outlined>
+          <v-icon left>mdi-lifebuoy</v-icon>
+          ຄູ່ມືການນຳໃຊ້
+        </v-btn>
+      </div>
     </div>
+
+    <!-- Summary Statistics KPI Cards -->
+    <v-row class="mb-6">
+      <!-- Card 1: Total Stock Value -->
+      <v-col cols="12" md="4" class="py-2">
+        <v-card class="elevation-2 rounded-xl pa-4 stat-card-value">
+          <div class="d-flex justify-space-between align-center">
+            <div>
+              <span class="text-subtitle-2 font-weight-bold text-uppercase tracking-wider text-muted">ມູນຄ່າສິນຄ້າຄ້າງສະຕັອກ</span>
+              <h2 class="text-h4 font-weight-bold mt-2 primary--text">{{ formatCurrency(grandTotalStockValue) }}</h2>
+            </div>
+            <v-avatar color="primary" size="48" class="elevation-2">
+              <v-icon color="white">mdi-database-outline</v-icon>
+            </v-avatar>
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- Card 2: Total Items in Stock -->
+      <v-col cols="12" md="4" class="py-2">
+        <v-card class="elevation-2 rounded-xl pa-4 stat-card-items">
+          <div class="d-flex justify-space-between align-center">
+            <div>
+              <span class="text-subtitle-2 font-weight-bold text-uppercase tracking-wider text-muted">ຈຳນວນສິນຄ້າທັງໝົດ</span>
+              <h2 class="text-h4 font-weight-bold mt-2 success--text">{{ formatNumber(totalStockItems) }} ຊິ້ນ</h2>
+            </div>
+            <v-avatar color="success" size="48" class="elevation-2">
+              <v-icon color="white">mdi-package-variant-closed</v-icon>
+            </v-avatar>
+          </div>
+        </v-card>
+      </v-col>
+
+      <!-- Card 3: Total Unique Products -->
+      <v-col cols="12" md="4" class="py-2">
+        <v-card class="elevation-2 rounded-xl pa-4 stat-card-products">
+          <div class="d-flex justify-space-between align-center">
+            <div>
+              <span class="text-subtitle-2 font-weight-bold text-uppercase tracking-wider text-muted">ລາຍການສິນຄ້າທັງໝົດ</span>
+              <h2 class="text-h4 font-weight-bold mt-2 warning--text">{{ formatNumber(totalUniqueProducts) }} ລາຍການ</h2>
+            </div>
+            <v-avatar color="warning" size="48" class="elevation-2">
+              <v-icon color="white">mdi-tag-multiple-outline</v-icon>
+            </v-avatar>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- Dialogs -->
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
       <youtube-player @close-dialog="guidelineDialog = false" youtube-link="5yMsQ6gRSkI">
       </youtube-player>
@@ -40,58 +98,88 @@
       </price-list-form>
     </v-dialog>
 
-    <v-card>
-      <v-card-title>
-        <v-row>
-          <v-col cols="6" sm="6" md="6">
-            <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
+    <!-- Main List Container -->
+    <v-card class="elevation-3 rounded-xl overflow-hidden mt-4">
+      <v-card-title class="py-4 px-6 border-bottom grey lighten-5">
+        <v-row align="center">
+          <v-col cols="12" sm="4" md="4" class="py-1">
+            <v-text-field
+              v-model="search"
+              append-icon="mdi-magnify"
+              label="ຊອກຫາສິນຄ້າ..."
+              single-line
+              hide-details
+              outlined
+              dense
+              class="rounded-lg bg-white"
+            />
           </v-col>
-          <v-col cols="6" class="text-right">
-            <v-btn class="primary mr-3" size="large" variant="outlined" @click="exportToExcel" rounded :loading="exportLoading">
-              <span class="mdi mdi-file-excel"></span>
+          <v-col cols="12" sm="8" md="8" class="text-right py-1">
+            <v-btn
+              color="primary"
+              outlined
+              @click="printReport"
+              rounded
+              height="40"
+              class="mr-2 px-4 font-weight-bold"
+            >
+              <v-icon left>mdi-printer</v-icon>
+              Print Report
+            </v-btn>
+            <v-btn
+              color="success"
+              depressed
+              dark
+              @click="exportToExcel"
+              rounded
+              height="40"
+              class="mr-2 px-4 font-weight-bold"
+              :loading="exportLoading"
+            >
+              <v-icon left>mdi-file-excel</v-icon>
               Export Excel
             </v-btn>
-            <v-btn class="primary" size="large" variant="outlined" @click="rebuildStock" rounded>
-              <span class="mdi mdi-update"></span>
+            <v-btn
+              color="warning"
+              outlined
+              @click="rebuildStock"
+              rounded
+              height="40"
+              class="px-4 font-weight-bold"
+            >
+              <v-icon left>mdi-update</v-icon>
               Rebuild stock
             </v-btn>
           </v-col>
         </v-row>
       </v-card-title>
 
-      <v-data-table v-if="loaddata" :headers="headers" :search="search" :items="stockList" :items-per-page="pageLine">
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-toolbar-title><v-data-table :headers="simpleHeaders" :items="simpleItems"></v-data-table></v-toolbar-title>
-            <!-- <v-toolbar-title>ມູນຄ່າສິນຄ້າຄ້າງສະຕັອກ: {{ formatNumber(grandTotalStockValue) }}</v-toolbar-title> -->
-            <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
-            <v-spacer></v-spacer>
-            <!-- <v-btn size="large" variant="outlined" @click="productFormCreate = true" class="primary" rounded>
-              <span class="mdi mdi-note-plus-outline"></span>
-              ສ້າງສິນຄ້າໃຫມ່
-            </v-btn> -->
-
-
-          </v-toolbar>
+      <!-- Data Table -->
+      <v-data-table
+        v-if="loaddata"
+        :headers="headers"
+        :search="search"
+        :items="stockList"
+        :items-per-page="pageLine"
+        class="custom-table"
+      >
+        <template v-slot:[`item.product_id`]="{ item }">
+          <span class="font-weight-medium grey--text text--darken-2">{{ item.product_id }}</span>
         </template>
-        <!-- <template v-slot:[`item.functionStockView`]="{ item }">
-          <v-btn color="primary" text @click="editStock(item)
-          wallet = true
-            ">
-            <i class="fa fa-eye"></i>
-          </v-btn>
-        </template> -->
         <template v-slot:[`item.product.pro_price`]="{ item }">
           {{ formatCurrency(item.product?.pro_price) }}
         </template>
         <template v-slot:[`item.pro_price`]="{ item }">
           {{ formatCurrency(item.pro_price) }}
         </template>
+        <template v-slot:[`item.cardCount`]="{ item }">
+          <span class="font-weight-medium">{{ formatNumber(item.cardCount) }}</span>
+        </template>
         <template v-slot:[`item.cost`]="{ item }">
-          {{ formatCurrency(item.totalCardValue / item.cardCount) }}
+          {{ formatCurrency(item.cardCount > 0 ? (item.totalCardValue / item.cardCount) : 0) }}
         </template>
         <template v-slot:[`item.totalCardValue`]="{ item }">
-          {{ formatCurrency(item.totalCardValue) }}
+          <span class="font-weight-bold text-subtitle-2">{{ formatCurrency(item.totalCardValue) }}</span>
         </template>
       </v-data-table>
     </v-card>
@@ -104,6 +192,8 @@ import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
 import { mapActions, mapGetters } from 'vuex'
+import { mainCompanyInfo } from '~/common/api'
+import { generateInventoryValueReportHTML } from '~/common/printTemplates'
 export default {
   components: { ProductForm, ProductFormCreate, PriceListForm },
   middleware: 'auths',
@@ -143,25 +233,19 @@ export default {
       timer: null,
       headers: [
         {
-          text: 'recid',
+          text: 'ລະຫັດສິນຄ້າ',
           align: 'center',
           value: 'product_id',
         },
         {
           text: 'ຊື່ສິນຄ້າ',
-          align: 'center',
+          align: 'left',
           value: 'product.pro_name',
         },
-        { text: 'ລາຄາ', align: 'right', value: 'product.pro_price' },
-        { text: 'ຈຳນວນ', align: 'right', value: 'cardCount' },
-        { text: 'ຕົ້ນທຶນ', align: 'right', value: 'cost' },
+        { text: 'ລາຄາຂາຍ', align: 'right', value: 'product.pro_price' },
+        { text: 'ຈຳນວນສະຕັອກ', align: 'right', value: 'cardCount' },
+        { text: 'ຕົ້ນທຶນສະເລ່ຍ', align: 'right', value: 'cost' },
         { text: 'ມູນຄ່າລວມ', align: 'right', value: 'totalCardValue' },
-        // {
-        //   text: 'ເບິ່ງສະຕັອກ',
-        //   align: 'center',
-        //   value: 'functionStockView',
-        //   sortable: false,
-        // },
       ],
     }
   },
@@ -180,12 +264,21 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findLocalCurrency']),
     grandTotalStockValue() {
       const totalStockValue = this.stockList.reduce((total, item) => {
         return total + item.totalCardValue;
       }, 0);
       return totalStockValue;
+    },
+    localCurrencyCode() {
+      return this.findLocalCurrency?.code || 'LAK'
+    },
+    totalStockItems() {
+      return this.stockList.reduce((sum, item) => sum + parseInt(item.cardCount || 0), 0)
+    },
+    totalUniqueProducts() {
+      return this.stockList.length
     }
   },
   methods: {
@@ -199,14 +292,26 @@ export default {
     },
 
     formatCurrency(value) {
-      if (value === undefined || value === null) return '0 ₭'
-      return this.formatNumber(value) + ' ₭'
+      const currencyCode = this.localCurrencyCode
+      if (value === undefined || value === null) {
+        return `0 ${currencyCode === 'LAK' ? '₭' : currencyCode}`
+      }
+      try {
+        return new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: currencyCode,
+          minimumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+          maximumFractionDigits: currencyCode === 'LAK' ? 0 : 2,
+        }).format(value)
+      } catch (error) {
+        const formatted = this.formatNumber(value)
+        return currencyCode === 'LAK' ? `${formatted} ₭` : `${formatted} ${currencyCode}`
+      }
     },
 
     async fetchData() {
       console.log(`PRODUCT LIST ===>`);
       this.isloading = true
-      // https://nodejsclusters-124154-0.cloudclusters.net/product_f
       await this.$axios
         .get(`api/card/find/count/group_by_product`)
         .then((res) => {
@@ -231,13 +336,17 @@ export default {
         const XLSX = await import('xlsx')
 
         // Prepare data for Excel export
+        const currencyCode = this.localCurrencyCode
+        const isLAK = currencyCode === 'LAK'
+        const numFmt = isLAK ? "#,##0" : "#,##0.00"
+
         const exportData = this.stockList.map((item, index) => ({
           'ລຳດັບ': index + 1,
           'Product ID': item.product_id || '',
           'ຊື່ສິນຄ້າ': item.product?.pro_name || '',
           'ລາຄາຂາຍ': parseFloat(item.product?.pro_price || 0),
           'ຈຳນວນສະຕັອກ': parseInt(item.cardCount || 0),
-          'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ': parseFloat(item.totalCardValue / item.cardCount || 0),
+          'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ': item.cardCount > 0 ? parseFloat(item.totalCardValue / item.cardCount) : 0,
           'ມູນຄ່າລວມ': parseFloat(item.totalCardValue || 0),
         }))
 
@@ -288,13 +397,13 @@ export default {
 
         const numberStyle = {
           ...dataStyle,
-          numFmt: "#,##0", // Number format with thousand separators, no decimals for LAK/₭
+          numFmt: numFmt,
           alignment: { horizontal: "right", vertical: "center" }
         }
 
         const summaryNumberStyle = {
           ...summaryStyle,
-          numFmt: "#,##0",
+          numFmt: numFmt,
           alignment: { horizontal: "right", vertical: "center" }
         }
 
@@ -310,7 +419,7 @@ export default {
         // Row 2: Empty row for spacing
         
         // Row 3: Headers
-        const headers = ['ລຳດັບ', 'Product ID', 'ຊື່ສິນຄ້າ', 'ລາຄາຂາຍ', 'ຈຳນວນສະຕັອກ', 'ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ', 'ມູນຄ່າລວມ']
+        const headers = ['ລຳດັບ', 'Product ID', 'ຊື່ສິນຄ້າ', `ລາຄາຂາຍ (${currencyCode})`, 'ຈຳນວນສະຕັອກ', `ຕົ້ນທຶນ (${currencyCode})`, `ມູນຄ່າລວມ (${currencyCode})`]
         XLSX.utils.sheet_add_aoa(ws, [headers], { origin: 'A3' })
         
         // Apply header styles
@@ -368,7 +477,7 @@ export default {
           { wch: 8 },   // ລຳດັບ
           { wch: 12 },  // Product ID
           { wch: 35 },  // ຊື່ສິນຄ້າ
-          { wch: 15 },  // ລາຄາຂາຍ
+          { wch: 18 },  // ລາຄາຂາຍ
           { wch: 15 },  // ຈຳນວນສະຕັອກ
           { wch: 18 },  // ຕົ້ນທຶນ ຕໍ່ ຫນ່ວຍ
           { wch: 18 },  // ມູນຄ່າລວມ
@@ -445,7 +554,116 @@ export default {
         })
         this.isloading = false
       }
+    },
+    async printReport() {
+      this.isloading = true
+      try {
+        if (!this.$store.getters.findAllCurrency || this.$store.getters.findAllCurrency.length === 0) {
+          try {
+            const response = await this.$axios.get('api/currency/findAll')
+            let data = response.data?.data ?? response.data
+            if (Array.isArray(data)) {
+                data = data.filter(c => c.isActive === true || c.isActive === 1)
+            }
+            await this.$store.dispatch('initCurrency', data)
+          } catch (error) {
+            console.error('Failed to load currencies in print:', error)
+          }
+        }
+
+        const companyData = mainCompanyInfo()
+        const currencyList = this.$store.getters.findAllCurrency || []
+        const filters = {
+          search: this.search,
+          userName: this.$store.state.auth?.user?.cus_name || '-'
+        }
+
+        const htmlContent = generateInventoryValueReportHTML(
+          this.stockList,
+          companyData,
+          currencyList,
+          filters
+        )
+        this.openPrintWindow(htmlContent)
+      } catch (error) {
+        swalError2(this.$swal, 'Error', 'Failed to generate print: ' + error)
+      } finally {
+        this.isloading = false
+      }
+    },
+    openPrintWindow(htmlContent) {
+      try {
+        const printWindow = window.open('', '_blank', 'width=800,height=600')
+        if (!printWindow) {
+          swalError2(
+            this.$swal,
+            'Error',
+            'Unable to open print window. Please check popup blocker settings.'
+          )
+          return
+        }
+
+        printWindow.document.open()
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print()
+              setTimeout(() => {
+                printWindow.close()
+              }, 100)
+            } catch (e) {
+              console.error('Print trigger error:', e)
+            }
+          }, 500)
+        }
+      } catch (e) {
+        console.error('Print window error:', e)
+      }
     }
   },
 }
 </script>
+
+<style scoped>
+.stat-card-value {
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  border-left: 6px solid #1976d2;
+  transition: transform 0.2s ease-in-out;
+}
+.stat-card-value:hover {
+  transform: translateY(-4px);
+}
+.stat-card-items {
+  background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+  border-left: 6px solid #4caf50;
+  transition: transform 0.2s ease-in-out;
+}
+.stat-card-items:hover {
+  transform: translateY(-4px);
+}
+.stat-card-products {
+  background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+  border-left: 6px solid #ff9800;
+  transition: transform 0.2s ease-in-out;
+}
+.stat-card-products:hover {
+  transform: translateY(-4px);
+}
+.tracking-wider {
+  letter-spacing: 0.05em;
+}
+.rounded-xl {
+  border-radius: 16px !important;
+}
+.border-bottom {
+  border-bottom: 1px solid #e0e0e0 !important;
+}
+.custom-table ::v-deep th {
+  font-weight: bold !important;
+  color: rgba(0, 0, 0, 0.87) !important;
+  background-color: #f8f9fa !important;
+}
+</style>

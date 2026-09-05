@@ -8,7 +8,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "dev": "nuxt",
+    "dev": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" nuxt",
     "build": "nuxt build",
     "start": "nuxt start --hostname 0.0.0.0 --port ${PORT:-3333}",
     "generate": "nuxt generate",

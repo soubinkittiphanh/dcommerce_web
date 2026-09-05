@@ -424,6 +424,8 @@ export default {
         return {
             loading: false,
             saving: false,
+            originalTheme: null,
+            isSaved: false,
             themeForm: {
                 theme_primary_color: '#01532B',
                 theme_secondary_color: '#337555',
@@ -520,7 +522,48 @@ export default {
         value(newVal) {
             if (newVal) {
                 this.loadTheme()
+            } else {
+                this.handleDialogClose()
             }
+        },
+        themeForm: {
+            handler(newVal) {
+                if (newVal.theme_enabled) {
+                    this.previewColors = {
+                        primary: newVal.theme_primary_color || '#01532B',
+                        secondary: newVal.theme_secondary_color || '#337555',
+                        lightprimary: newVal.theme_lightprimary_color || '#80a995',
+                        danger: newVal.theme_danger_color || '#D00505'
+                    }
+
+                    // Update Vuetify theme dynamically in real-time
+                    this.$vuetify.theme.themes.light.primary = newVal.theme_primary_color || '#01532B'
+                    this.$vuetify.theme.themes.light.secondary = newVal.theme_secondary_color || '#337555'
+                    this.$vuetify.theme.themes.light.lightprimary = newVal.theme_lightprimary_color || '#80a995'
+                    this.$vuetify.theme.themes.light.danger = newVal.theme_danger_color || '#D00505'
+
+                    if (newVal.theme_dark_primary) {
+                        this.$vuetify.theme.themes.dark.primary = newVal.theme_dark_primary
+                    }
+                    if (newVal.theme_dark_secondary) {
+                        this.$vuetify.theme.themes.dark.secondary = newVal.theme_dark_secondary
+                    }
+                } else {
+                    // Reset to default theme colors when theme_enabled is turned off
+                    this.previewColors = {
+                        primary: '#01532B',
+                        secondary: '#337555',
+                        lightprimary: '#80a995',
+                        danger: '#D00505'
+                    }
+
+                    this.$vuetify.theme.themes.light.primary = '#01532B'
+                    this.$vuetify.theme.themes.light.secondary = '#337555'
+                    this.$vuetify.theme.themes.light.lightprimary = '#80a995'
+                    this.$vuetify.theme.themes.light.danger = '#D00505'
+                }
+            },
+            deep: true
         }
     },
     methods: {
@@ -554,6 +597,33 @@ export default {
                 this.$toast.error('ບໍ່ສາມາດໂຫລດຂໍ້ມູນທີມໄດ້')
             } finally {
                 this.loading = false
+                this.originalTheme = JSON.parse(JSON.stringify(this.themeForm))
+                this.isSaved = false
+            }
+        },
+
+        handleDialogClose() {
+            if (!this.isSaved && this.originalTheme) {
+                const orig = this.originalTheme
+                if (orig.theme_enabled) {
+                    this.$vuetify.theme.themes.light.primary = orig.theme_primary_color || '#01532B'
+                    this.$vuetify.theme.themes.light.secondary = orig.theme_secondary_color || '#337555'
+                    this.$vuetify.theme.themes.light.lightprimary = orig.theme_lightprimary_color || '#80a995'
+                    this.$vuetify.theme.themes.light.danger = orig.theme_danger_color || '#D00505'
+
+                    if (orig.theme_dark_primary) {
+                        this.$vuetify.theme.themes.dark.primary = orig.theme_dark_primary
+                    }
+                    if (orig.theme_dark_secondary) {
+                        this.$vuetify.theme.themes.dark.secondary = orig.theme_dark_secondary
+                    }
+                } else {
+                    // Reset to system default colors
+                    this.$vuetify.theme.themes.light.primary = '#01532B'
+                    this.$vuetify.theme.themes.light.secondary = '#337555'
+                    this.$vuetify.theme.themes.light.lightprimary = '#80a995'
+                    this.$vuetify.theme.themes.light.danger = '#D00505'
+                }
             }
         },
 
@@ -568,6 +638,8 @@ export default {
                 await this.$axios.put(`api/company/company-theme/${this.companyId}`, this.themeForm)
 
                 swalSuccess(this.$swal, 'ສຳເລັດ', 'ບັນທຶກສີທີມສຳເລັດແລ້ວ')
+                
+                this.isSaved = true
                 
                 // Apply theme immediately
                 this.applyThemeToVuetify()

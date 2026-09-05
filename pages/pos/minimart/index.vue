@@ -318,28 +318,22 @@ export default {
     findProductFromBarcode(barcode, isGift = false) {
       const startTime = performance.now()
 
-      const cleanedBarcode = (barcode || '').trim()
+      const cleanedBarcode = (barcode || '').trim().toLowerCase()
       console.log(`🔍 Searching for barcode: ${cleanedBarcode}`)
-      console.log(`📦 Total products to search: ${this.findAllProduct.length}`)
 
-      const foundProduct = this.findAllProduct.find((product) => {
-        const productBarcode = (product.barCode || '').trim()
-        return (
-          productBarcode === cleanedBarcode ||
-          productBarcode.toLowerCase() === cleanedBarcode.toLowerCase()
-        )
-      })
+      const mapping = this.$store.state.productBarcodeMap.get(cleanedBarcode)
 
       const searchTime = performance.now() - startTime
       console.log(`⏱️ Barcode search took ${searchTime.toFixed(2)}ms`)
 
-      if (foundProduct) {
-        console.log(`✅ Found product: ${foundProduct.pro_name}`)
+      if (mapping) {
+        const { product, unit, price } = mapping
+        console.log(`✅ Found product: ${product.pro_name} (Unit: ${unit.symbol})`)
 
         let customerPrice = null
 
-        if (this.effectiveCustomer?.grade && foundProduct?.priceLists?.length) {
-          const gradePrice = foundProduct.priceLists.find(
+        if (this.effectiveCustomer?.grade && product?.priceLists?.length) {
+          const gradePrice = product.priceLists.find(
             (priceList) =>
               priceList.grade === this.effectiveCustomer.grade &&
               priceList.isActive !== false &&
@@ -349,31 +343,35 @@ export default {
         }
 
         const cartItem = {
-          ...foundProduct,
+          ...product,
           qty: 1,
+          unitId: unit.id,
+          unitRate: unit.conversionRate || 1.0,
+          unitSymbol: unit.symbol,
+          unitName: unit.name,
           localPrice:
-            customerPrice || foundProduct.localPrice || foundProduct.pro_price,
+            customerPrice || price || product.pro_price,
           isGift,
           lineUUIDCheck: false,
           priceListId: null,
           lineUUID: Date.now() + Math.random().toString(16),
         }
 
-        console.info(`🛒 Adding product to cart: ${foundProduct.pro_name}`)
+        console.info(`🛒 Adding product to cart: ${product.pro_name}`)
         this.addProduct(cartItem)
 
         if (this.$toast) {
           const cart = this.$store.getters.cartOfProduct || []
           const existingItem = cart.find(
-            (item) => item.pro_id === foundProduct.pro_id
+            (item) => item.pro_id === product.pro_id
           )
           const newQty = existingItem ? existingItem.qty : 1
-          const limit = foundProduct.card_count
+          const limit = product.card_count
 
           if (limit && limit > 0) {
             const remaining = limit - newQty
             this.$toast.success(
-              `${foundProduct.pro_name} added to cart. ${
+              `${product.pro_name} added to cart. ${
                 remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
               }`,
               {
@@ -382,7 +380,7 @@ export default {
               }
             )
           } else {
-            this.$toast.success(`${foundProduct.pro_name} added to cart`, {
+            this.$toast.success(`${product.pro_name} added to cart`, {
               position: 'bottom-center',
               duration: 1000,
             })

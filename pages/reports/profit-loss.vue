@@ -4,24 +4,29 @@
     <!-- Page Header -->
     <div class="d-flex justify-space-between align-center mb-6">
       <div>
-        <h1 class="font-weight-bold">
+        <h1 class="font-weight-bold page-title">
           ລາຍງານກຳໄລ ຫຼື ຂາດທຶນ
         </h1>
         <p class=" grey--text mt-2">
           Profit & Loss Report - ວິເຄາະລາຍຮັບ ແລະ ລາຍຈ່າຍ
         </p>
       </div>
-      <v-breadcrumbs :items="breadcrumbs" class="pa-0">
-        <template v-slot:item="{ item }">
-          <v-breadcrumbs-item
-            :href="item.href"
-            :disabled="item.disabled"
-            class="text-decoration-none"
-          >
-            {{ item.text }}
-          </v-breadcrumbs-item>
-        </template>
-      </v-breadcrumbs>
+      <div class="d-flex align-center">
+        <v-btn color="primary" outlined class="mr-4 rounded-lg font-weight-bold" to="/reports/financial/balance-sheet">
+          <v-icon left>mdi-account-balance</v-icon> ລາຍງານຖານະການເງິນ
+        </v-btn>
+        <v-breadcrumbs :items="breadcrumbs" class="pa-0">
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              :href="item.href"
+              :disabled="item.disabled"
+              class="text-decoration-none"
+            >
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
+        </v-breadcrumbs>
+      </div>
     </div>
 
     <!-- Main P&L Component -->
@@ -113,7 +118,7 @@ export default {
 
 <style scoped>
 /* Page-specific styles */
-. {
+.page-title {
   color: #1976d2;
 }
 
@@ -132,7 +137,7 @@ export default {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
-  . {
+  .page-title {
     font-size: 1.5rem !important;
   }
   

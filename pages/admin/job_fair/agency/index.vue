@@ -564,8 +564,6 @@ export default {
 
 .caption {
   font-size: 12px !important;
-}
-. {
   font-family: NotoSansLaoUI-Regular, Roboto-Regular !important;
 }
 </style>

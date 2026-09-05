@@ -27,7 +27,10 @@
       <div class="qr-container">
         <div class="qr-wrapper">
           <div v-if="qrData.isDynamic" class="dynamic-qr-container">
-            <canvas ref="qrcodeCanvas" class="qr-canvas"></canvas>
+            <img v-if="qrDataUrl" :src="qrDataUrl" class="qr-canvas" alt="Dynamic QR" />
+            <div v-else class="qr-canvas d-flex align-center justify-center" style="width: 230px; height: 230px;">
+              <v-progress-circular indeterminate color="#01532B"></v-progress-circular>
+            </div>
             <div class="dynamic-label">
               <v-icon small color="#01532B" class="mr-1">mdi-bank</v-icon>
               <span>Dynamic Bank QR</span>
@@ -62,6 +65,11 @@ import QRCode from 'qrcode'
 
 export default {
   props: ['qrData', 'parsedCompanyInfo', 'convertedAmounts', 'timeRemaining', 'companyQRImageUrl', 'companyQRImageUrl2', 'bcelQrImage', 'bcelQrImage2', 'paymentComplete', 'localCurrencyCode'],
+  data() {
+    return {
+      qrDataUrl: ''
+    }
+  },
   computed: {
     qr1() {
       return this.companyQRImageUrl || this.bcelQrImage
@@ -84,50 +92,30 @@ export default {
   },
   watch: {
     qrData: {
-      handler(newVal) {
+      async handler(newVal) {
         if (newVal && newVal.qrString && newVal.isDynamic) {
-          this.$nextTick(() => {
-            this.renderQR()
-          })
+          try {
+            this.qrDataUrl = await QRCode.toDataURL(newVal.qrString, {
+              width: 230,
+              margin: 2,
+              color: {
+                dark: '#01532B',
+                light: '#FFFFFF'
+              }
+            })
+          } catch (err) {
+            console.error('QR code generation failed', err)
+            this.qrDataUrl = ''
+          }
+        } else {
+          this.qrDataUrl = ''
         }
       },
       deep: true,
       immediate: true
     }
   },
-  mounted() {
-    this.$nextTick(() => {
-      if (this.qrData && this.qrData.qrString && this.qrData.isDynamic) {
-        this.renderQR()
-      }
-    })
-  },
-  updated() {
-    this.$nextTick(() => {
-      if (this.qrData && this.qrData.qrString && this.qrData.isDynamic) {
-        this.renderQR()
-      }
-    })
-  },
   methods: {
-    async renderQR() {
-      if (!this.$refs.qrcodeCanvas) {
-        await this.$nextTick()
-      }
-      if (!this.$refs.qrcodeCanvas || !this.qrData.qrString) return
-      try {
-        await QRCode.toCanvas(this.$refs.qrcodeCanvas, this.qrData.qrString, {
-          width: 230,
-          margin: 2,
-          color: {
-            dark: '#01532B',
-            light: '#FFFFFF'
-          }
-        })
-      } catch (err) {
-        console.error('QR rendering failed', err)
-      }
-    },
     formatPrice(amt, currencyCode) {
       const code = currencyCode || this.localCurrencyCode || 'LAK';
       const symbols = {

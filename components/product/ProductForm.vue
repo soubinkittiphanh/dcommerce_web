@@ -140,6 +140,90 @@
 
               <v-divider class="mb-4"></v-divider>
 
+              <div class="blue-grey--text text--darken-3 mb-2 d-flex align-center justify-space-between">
+                <span>ຫົວໜ່ວຍຂາຍເພີ່ມເຕີມ (Selling Units Mapping)</span>
+                <v-btn small color="success" class="rounded-lg" @click="addSellingUnit">
+                  <v-icon left>mdi-plus</v-icon>
+                  ເພີ່ມຫົວໜ່ວຍຂາຍ
+                </v-btn>
+              </div>
+
+              <v-simple-table dense class="mb-4 border rounded-lg">
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th class="text-left" style="width: 25%">ຫົວໜ່ວຍ (Unit)*</th>
+                      <th class="text-left" style="width: 30%">Barcode*</th>
+                      <th class="text-left" style="width: 20%">ລາຄາຂາຍ*</th>
+                      <th class="text-center" style="width: 10%">ຫົວໜ່ວຍຫຼັກ</th>
+                      <th class="text-center" style="width: 10%">ໃຊ້ງານ</th>
+                      <th class="text-center" style="width: 5%">ລຶບ</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="(item, index) in formData.productUnits" :key="index">
+                      <td>
+                        <v-autocomplete
+                          v-model="item.unitId"
+                          :items="unitList"
+                          item-text="name"
+                          item-value="id"
+                          dense
+                          hide-details
+                          outlined
+                        />
+                      </td>
+                      <td>
+                        <v-text-field
+                          v-model="item.barCode"
+                          dense
+                          hide-details
+                          outlined
+                          placeholder="ບາໂຄດ"
+                        />
+                      </td>
+                      <td>
+                        <v-text-field
+                          :value="formatNumber(item.price)"
+                          @input="val => updateItemPrice(item, val)"
+                          dense
+                          hide-details
+                          outlined
+                          placeholder="ລາຄາ"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <v-checkbox
+                          v-model="item.isBaseUnit"
+                          hide-details
+                          class="mt-0 d-inline-block"
+                          @change="onBaseUnitChange(index)"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <v-checkbox
+                          v-model="item.isActive"
+                          hide-details
+                          class="mt-0 d-inline-block"
+                        />
+                      </td>
+                      <td class="text-center">
+                        <v-btn icon color="error" @click="removeSellingUnit(index)">
+                          <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                      </td>
+                    </tr>
+                    <tr v-if="!formData.productUnits || formData.productUnits.length === 0">
+                      <td colspan="6" class="text-center grey--text py-4">
+                        ບໍ່ມີຫົວໜ່ວຍຂາຍເພີ່ມເຕີມ
+                      </td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+
+              <v-divider class="mb-4"></v-divider>
+
               <v-row dense>
                 <v-col cols="12" md="6">
                   <v-textarea v-model="formData.pro_desc" label="ຄຳອະທິບາຍ" rows="3" dense outlined no-resize />
@@ -282,6 +366,7 @@ export default {
         taxId: null,
         baseUnitId: null,
         pro_image: [],
+        productUnits: [],
       },
 
       rules: {
@@ -372,6 +457,10 @@ export default {
       if (val === undefined || val === null || val === '') return ''
       // Use toLocaleString for the thousand separator
       return Number(val).toLocaleString('en-US')
+    },
+    updateItemPrice(item, val) {
+      const number = val.replace(/,/g, '')
+      item.price = isNaN(parseFloat(number)) ? 0 : parseFloat(number)
     },
 
     // printBarcode() {
@@ -570,6 +659,7 @@ export default {
           vendorName: el.vendorName,
           taxId: el.taxId || null,
           baseUnitId: el.baseUnitId,
+          productUnits: el.productUnits || [],
         }
         this.generateBarcodeImage(this.formData.barCode)
       } catch (error) {
@@ -695,6 +785,31 @@ export default {
     previewImg(url) {
       this.previewSrc = url
       this.preview = true
+    },
+    addSellingUnit() {
+      if (!this.formData.productUnits) {
+        this.$set(this.formData, 'productUnits', [])
+      }
+      this.formData.productUnits.push({
+        id: null,
+        unitId: null,
+        barCode: '',
+        price: 0,
+        isBaseUnit: false,
+        isActive: true
+      })
+    },
+    removeSellingUnit(index) {
+      this.formData.productUnits.splice(index, 1)
+    },
+    onBaseUnitChange(selectedIndex) {
+      if (this.formData.productUnits[selectedIndex].isBaseUnit) {
+        this.formData.productUnits.forEach((item, idx) => {
+          if (idx !== selectedIndex) {
+            item.isBaseUnit = false
+          }
+        })
+      }
     },
   },
 }

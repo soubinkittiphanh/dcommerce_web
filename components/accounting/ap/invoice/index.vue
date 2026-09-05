@@ -81,7 +81,7 @@
                     </v-col>
 
                     <!-- Vendor (Agency) -->
-                    <v-col cols="12" sm="6" md="4" lg="3">
+                    <v-col v-if="isAgencyEnabled" cols="12" sm="6" md="4" lg="3">
                       <v-autocomplete
                         v-model="form.agencyId"
                         :items="agencies"
@@ -102,6 +102,31 @@
                         </template>
                         <template v-slot:selection="{ item }">
                           <small>{{ item.agencyCode }} - {{ item.agencyName }}</small>
+                        </template>
+                      </v-autocomplete>
+                    </v-col>
+
+                    <!-- Vendor/Supplier (vendorId) -->
+                    <v-col v-if="isVendorEnabled" cols="12" sm="6" md="4" lg="3">
+                      <v-autocomplete
+                        v-model="form.vendorId"
+                        :items="vendors"
+                        item-value="id"
+                        item-text="name"
+                        label="ຜູ້ສະໜອງ (Vendor/Supplier) *"
+                        outlined
+                        dense
+                        clearable
+                        hide-details="auto"
+                        placeholder="ເລືອກຜູ້ສະໜອງ (Select Vendor)"
+                        :error-messages="errors.vendorId"
+                        required
+                      >
+                        <template v-slot:item="{ item }">
+                          <small>{{ item.name }} {{ item.tel ? `(${item.tel})` : '' }}</small>
+                        </template>
+                        <template v-slot:selection="{ item }">
+                          <small>{{ item.name }}</small>
                         </template>
                       </v-autocomplete>
                     </v-col>
@@ -539,6 +564,7 @@ export default {
       selectedVendor: null,
       selectedCurrency: null,
       auditDialogVisible: false,
+      vendors: [],
       form: {
         id: null,
         invoiceNumber: '',
@@ -570,6 +596,20 @@ export default {
     },
     getSPF() {
       return this.$store.getters.findSPF
+    },
+    isAgencyEnabled() {
+      const spf = this.getSPF.find((s) => s.code === 'AC_AP_AGENCY_ENABLE')
+      if (spf) {
+        return spf.value === 'Y' || spf.value === '1'
+      }
+      return true // default to true if not defined
+    },
+    isVendorEnabled() {
+      const spf = this.getSPF.find((s) => s.code === 'AC_AP_VENDOR_ENABLE')
+      if (spf) {
+        return spf.value === 'Y' || spf.value === '1'
+      }
+      return true // default to true if not defined
     },
     isEdit() {
       return !!this.invoice
@@ -623,7 +663,8 @@ export default {
     isFormValid() {
       const hasValidHeader =
         this.form.invoiceNumber &&
-        this.form.agencyId &&
+        (!this.isAgencyEnabled || this.form.agencyId) &&
+        (!this.isVendorEnabled || this.form.vendorId) &&
         this.form.invoiceDate &&
         this.form.dueDate &&
         this.form.currencyId &&
@@ -741,6 +782,7 @@ export default {
     },
     async initializeDialog() {
       this.clearErrors()
+      await this.loadVendors()
       if (this.invoice) {
         this.form = {
           id: this.invoice.id,
@@ -925,14 +967,25 @@ export default {
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
     },
+    async loadVendors() {
+      try {
+        const { data } = await this.$axios.get('api/vendor/findAll')
+        this.vendors = data || []
+      } catch (error) {
+        console.error('Error loading vendors:', error)
+        this.vendors = []
+      }
+    },
     validateForm() {
       this.errors = {}
       if (!this.form.invoiceNumber)
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       // if (!this.form.vendorInvoiceNumber)
       //   this.errors.vendorInvoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້ຜູ້ຂາຍ'
-      if (!this.form.agencyId)
+      if (this.isAgencyEnabled && !this.form.agencyId)
         this.errors.agencyId = `ກະລຸນາເລືອກ${this.formLabel.vendor}`
+      if (this.isVendorEnabled && !this.form.vendorId)
+        this.errors.vendorId = 'ກະລຸນາເລືອກຜູ້ສະໜອງ'
       if (!this.form.currencyId) this.errors.currencyId = 'ກະລຸນາເລືອກສະກຸນເງິນ'
       if (!this.form.exchangeRate)
         this.errors.exchangeRate = 'ກະລຸນາໃສ່ອັດຕາແລກປ່ຽນ'

@@ -40,7 +40,7 @@
       <!-- Invoice Filter Toolbar -->
       <v-card outlined class="pa-4 mb-4 bg-light">
         <v-row dense>
-          <v-col cols="12" sm="3">
+          <v-col cols="12" sm="2">
             <v-select v-model="filters.academicYearId" :items="academicYears" item-text="name" item-value="id"
               label="ປີການສຶກສາ (Academic Year)" outlined dense clearable @change="loadInvoices"></v-select>
           </v-col>
@@ -48,9 +48,21 @@
             <v-select v-model="filters.classId" :items="classes" item-text="name" item-value="id"
               label="ຊັ້ນຮຽນ/ຫ້ອງຮຽນ (Class)" outlined dense clearable @change="loadInvoices"></v-select>
           </v-col>
-          <v-col cols="12" sm="3">
+          <v-col cols="12" sm="2">
             <v-select v-model="filters.status" :items="invoiceStatuses" label="ສະຖານະ (Status)" outlined dense
               clearable @change="loadInvoices"></v-select>
+          </v-col>
+          <v-col cols="12" sm="2">
+            <v-text-field
+              v-model="filters.billingMonth"
+              type="month"
+              label="ເດືອນອອກໃບບິນ"
+              outlined
+              dense
+              clearable
+              @change="loadInvoices"
+              @click:clear="filters.billingMonth = ''; loadInvoices()"
+            ></v-text-field>
           </v-col>
           <v-col cols="12" sm="3">
             <v-text-field v-model="filters.search" label="ຄົ້ນຫາ (ເລກໃບບິນ, ລະຫັດນັກຮຽນ...)" outlined dense
@@ -127,6 +139,10 @@
           </span>
           <span v-else class="grey--text">-</span>
         </template>
+        <template v-slot:item.billingMonth="{ item }">
+          <span v-if="item.billingMonth" class="font-weight-bold">{{ item.billingMonth }}</span>
+          <span v-else class="grey--text">-</span>
+        </template>
         <template v-slot:item.totalAmount="{ item }">
           <span class="font-weight-bold">{{ formatCurrency(item.totalAmount) }}</span>
         </template>
@@ -167,6 +183,15 @@
             <v-select v-model="bulkFormFields.classId" :items="classes" item-text="name" item-value="id"
               label="ເລືອກຊັ້ນຮຽນ/ຫ້ອງຮຽນ *" :rules="[v => !!v || 'ກະລຸນາເລືອກຊັ້ນຮຽນ']" outlined dense></v-select>
 
+            <v-text-field
+              v-model="bulkFormFields.billingMonth"
+              type="month"
+              label="ເລືອກເດືອນອອກໃບບິນ (Billing Month) *"
+              outlined
+              dense
+              :rules="[v => !!v || 'ກະລຸນາເລືອກເດືອນອອກໃບບິນ']"
+            ></v-text-field>
+
             <v-text-field v-model="bulkFormFields.dueDate" type="date" label="ວັນຄົບກຳນົດຊຳລະ (Due Date)" outlined dense></v-text-field>
 
             <v-alert type="warning" text outlined icon="mdi-alert" class="mt-2 mb-0">
@@ -202,6 +227,8 @@
                 <div><strong>ລະຫັດນັກຮຽນ:</strong> {{ selectedInvoice.student ? selectedInvoice.student.studentId : '-' }}</div>
                 <div><strong>ຊັ້ນຮຽນ/ Grade:</strong> {{ selectedInvoice.student && selectedInvoice.student.schoolClass ? selectedInvoice.student.schoolClass.name : (selectedInvoice.student ? selectedInvoice.student.grade : '-') }}<span v-if="selectedInvoice.student && selectedInvoice.student.schoolRoom"> - {{ selectedInvoice.student.schoolRoom.name }}</span><span v-else-if="selectedInvoice.student && selectedInvoice.student.room"> - {{ selectedInvoice.student.room }}</span></div>
                 <div><strong>ໂທລະສັບ:</strong> {{ selectedInvoice.student ? selectedInvoice.student.phoneNumber : '-' }}</div>
+                <div v-if="selectedInvoice.student && selectedInvoice.student.parentName"><strong>ຜູ້ປົກຄອງ (Parent):</strong> {{ selectedInvoice.student.parentName }}</div>
+                <div v-if="selectedInvoice.student && selectedInvoice.student.parentPhone"><strong>ເບີໂທຜູ້ປົກຄອງ (Parent Phone):</strong> {{ selectedInvoice.student.parentPhone }}</div>
               </v-card>
             </v-col>
 
@@ -209,6 +236,8 @@
             <v-col cols="12" md="6">
               <h3 class="text-subtitle-1 font-weight-bold primary--text mb-2">ລາຍລະອຽດໃບບິນ (Invoice metadata)</h3>
               <v-card outlined class="pa-3 bg-light">
+                <div><strong>ເລກໃບບິນ:</strong> {{ selectedInvoice.invoiceNumber }}</div>
+                <div><strong>ເດືອນອອກໃບບິນ (Month):</strong> <v-chip x-small color="primary" class="font-weight-bold">{{ selectedInvoice.billingMonth || '-' }}</v-chip></div>
                 <div><strong>ປີການສຶກສາ:</strong> {{ selectedInvoice.academicYear ? selectedInvoice.academicYear.name : '-' }}</div>
                 <div><strong>ວັນທີສ້າງ:</strong> {{ formatDateTime(selectedInvoice.createdAt) }}</div>
                 <div><strong>ວັນຄົບກຳນົດ:</strong> {{ formatDate(selectedInvoice.dueDate) }}</div>
@@ -306,6 +335,10 @@
             <v-icon left>mdi-printer</v-icon>
             ພິມໃບບິນ (Print Invoice)
           </v-btn>
+          <v-btn v-if="selectedInvoice.status === 'PAID' || selectedInvoice.status === 'PARTIAL'" color="success" outlined class="ml-2" @click="printReceipt">
+            <v-icon left>mdi-receipt</v-icon>
+            ພິມໃບບິນຮັບເງິນ (Print Receipt)
+          </v-btn>
           <v-spacer></v-spacer>
           <v-btn color="grey" text @click="invoiceDetailDialog = false">ປິດ</v-btn>
         </v-card-actions>
@@ -326,10 +359,13 @@ export default {
       paymentWarning: null,
 
       // Filters
+      monthMenu: false,
+      filterMonthMenu: false,
       filters: {
         academicYearId: null,
         classId: null,
         status: null,
+        billingMonth: '',
         search: ''
       },
 
@@ -357,7 +393,8 @@ export default {
       bulkFormFields: {
         classId: null,
         academicYearId: null,
-        dueDate: ''
+        dueDate: '',
+        billingMonth: ''
       },
       selectedInvoice: null,
       paymentFormFields: {
@@ -373,6 +410,7 @@ export default {
         { text: 'ນັກຮຽນ (Student)', value: 'student' },
         { text: 'ຊັ້ນຮຽນ (Class)', value: 'class' },
         { text: 'ປີການສຶກສາ', value: 'academicYear.name' },
+        { text: 'ເດືອນອອກໃບບິນ (Month)', value: 'billingMonth', align: 'center' },
         { text: 'ວັນຄົບກຳນົດ', value: 'dueDate', sortable: true },
         { text: 'ຍອດລວມ', value: 'totalAmount', align: 'right' },
         { text: 'ຊຳລະແລ້ວ', value: 'paidAmount', align: 'right' },
@@ -488,6 +526,7 @@ export default {
         if (this.filters.academicYearId) params.academicYearId = this.filters.academicYearId;
         if (this.filters.classId) params.classId = this.filters.classId;
         if (this.filters.status) params.status = this.filters.status;
+        if (this.filters.billingMonth) params.billingMonth = this.filters.billingMonth;
 
         const res = await this.$axios.get('/api/school/invoices', { params });
         let list = res.data || [];
@@ -513,14 +552,19 @@ export default {
       this.bulkFormFields = {
         classId: this.classes[0]?.id || null,
         academicYearId: this.academicYears[0]?.id || null,
-        dueDate: ''
+        dueDate: '',
+        billingMonth: new Date().toISOString().substring(0, 7) // Default to current month, e.g. "2026-08"
       };
       this.bulkDialog = true;
     },
     async generateBulkInvoices() {
       this.generatingBulk = true;
       try {
-        const res = await this.$axios.post('/api/school/invoices/bulk', this.bulkFormFields);
+        const payload = { ...this.bulkFormFields };
+        if (payload.billingMonth) {
+          payload.billingMonth = payload.billingMonth.substring(0, 7);
+        }
+        const res = await this.$axios.post('/api/school/invoices/bulk', payload);
         this.$toast.success(res.data?.message || 'ສ້າງໃບບິນກຸ່ມສຳເລັດ');
         this.loadInvoices();
         this.bulkDialog = false;
@@ -549,7 +593,7 @@ export default {
       if (!this.selectedInvoice) return;
       try {
         const companyData = this.$store.getters.findAllCompany[0] || {};
-        const htmlContent = generateSchoolInvoiceHTML(this.selectedInvoice, companyData);
+        const htmlContent = generateSchoolInvoiceHTML(this.selectedInvoice, companyData, false);
         
         const printWindow = window.open('', '_blank', 'width=800,height=600');
         if (!printWindow) {
@@ -577,6 +621,40 @@ export default {
       } catch (err) {
         console.error(err);
         this.$toast.error('Failed to generate print view');
+      }
+    },
+    printReceipt() {
+      if (!this.selectedInvoice) return;
+      try {
+        const companyData = this.$store.getters.findAllCompany[0] || {};
+        const htmlContent = generateSchoolInvoiceHTML(this.selectedInvoice, companyData, true);
+        
+        const printWindow = window.open('', '_blank', 'width=800,height=600');
+        if (!printWindow) {
+          this.$toast.error('Unable to open print window. Please check popup blocker settings.');
+          return;
+        }
+
+        printWindow.document.open();
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+
+        printWindow.onload = function () {
+          setTimeout(() => {
+            try {
+              printWindow.print();
+              setTimeout(() => {
+                printWindow.close();
+              }, 100);
+            } catch (e) {
+              console.error('Print error:', e);
+              printWindow.close();
+            }
+          }, 500);
+        };
+      } catch (err) {
+        console.error(err);
+        this.$toast.error('Failed to generate receipt print view');
       }
     },
 

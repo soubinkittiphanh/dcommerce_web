@@ -161,9 +161,43 @@ export const mutations = {
             const categoryMap = new Map()
 
             processedProducts.forEach(product => {
-                // Barcode map for instant lookup
+                const baseUnitId = product.baseUnitId || product.stockUnitId;
+                const baseUnitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null;
+                const baseRate = parseFloat(baseUnitModel?.conversionRate || 1.0);
+
+                // Barcode map for instant lookup (with unit metadata wrapper)
                 if (product.barCode) {
-                    barcodeMap.set(product.barCode, product)
+                    const baseUnit = product.baseUnit || product.stockUnit || baseUnitModel;
+                    barcodeMap.set(product.barCode.toLowerCase(), {
+                        product,
+                        unit: {
+                            id: baseUnitId || null,
+                            name: baseUnit?.name || 'Unit',
+                            symbol: baseUnit?.name || baseUnit?.symbol || 'pcs',
+                            conversionRate: 1.0
+                        },
+                        price: product.pro_price
+                    })
+                }
+
+                // Index all nested selling units barcodes
+                if (Array.isArray(product.productUnits)) {
+                    product.productUnits.forEach(pu => {
+                        if (pu.barCode) {
+                            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0);
+                            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate;
+                            barcodeMap.set(pu.barCode.toLowerCase(), {
+                                product,
+                                unit: {
+                                    id: pu.unit?.id || pu.unitId,
+                                    name: pu.unit?.name || 'Unit',
+                                    symbol: pu.unit?.name || pu.unit?.symbol || 'pcs',
+                                    conversionRate: relRate
+                                },
+                                price: Number(pu.price) || product.pro_price
+                            })
+                        }
+                    })
                 }
 
                 // Category map for fast filtering
@@ -416,13 +450,52 @@ export const mutations = {
                 state.cartOfproductSelected[existingProductIndex].qty += addQty
                 console.info(`➕ [CART_UPDATE] Increased quantity by ${addQty} for existing product`)
             } else {
+                // Determine default unit when first adding to cart
+                let defaultUnitId = product.unitId
+                let defaultRate = product.unitRate
+                let defaultSymbol = product.unitSymbol
+                let defaultPrice = product.localPrice || product.pro_price
+
+                if (!defaultUnitId) {
+                    const baseUnitId = product.baseUnitId || product.stockUnitId
+                    const baseUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null
+                    const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+                    const baseSymbol = baseUnit?.name || baseUnit?.symbol || 'pcs'
+
+                    // 1. Look for a mapped unit in productUnits marked as isBaseUnit
+                    let matchedUnit = null
+                    if (Array.isArray(product.productUnits)) {
+                        matchedUnit = product.productUnits.find(pu => pu.isBaseUnit === true || pu.isBaseUnit === 1)
+                    }
+
+                    if (matchedUnit) {
+                        const targetRate = parseFloat(matchedUnit.unit?.conversionRate || 1.0)
+                        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+
+                        defaultUnitId = matchedUnit.unitId
+                        defaultRate = relRate
+                        defaultSymbol = matchedUnit.unit?.name || matchedUnit.unit?.symbol || 'pcs'
+                        defaultPrice = Number(matchedUnit.price) || product.pro_price
+                    } else {
+                        // 2. Fall back to product base unit
+                        defaultUnitId = baseUnitId
+                        defaultRate = 1.0
+                        defaultSymbol = baseSymbol
+                        defaultPrice = product.pro_price
+                    }
+                }
+
                 const cartItem = {
                     ...product,
                     qty: addQty,
+                    unitId: defaultUnitId,
+                    unitRate: defaultRate,
+                    unitSymbol: defaultSymbol,
+                    localPrice: defaultPrice,
                     lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
                 }
                 state.cartOfproductSelected.push(cartItem)
-                console.info(`🆕 [CART_ADD] Added new product to cart with quantity ${addQty}`)
+                console.info(`🆕 [CART_ADD] Added new product to cart with unit ${defaultSymbol} and price ${defaultPrice}`)
             }
 
         } catch (error) {
@@ -481,6 +554,20 @@ export const mutations = {
                 giftNote: giftNote,
                 lineUUID: Date.now() + Math.random().toString(16)
             })
+        }
+    },
+
+    updateCartItemUnit(state, { lineUUID, unitId, unitRate, unitSymbol, localPrice }) {
+        const index = state.cartOfproductSelected.findIndex(i => i.lineUUID === lineUUID)
+        if (index !== -1) {
+            const item = state.cartOfproductSelected[index]
+            item.unitId = unitId
+            item.unitRate = unitRate
+            item.unitSymbol = unitSymbol
+            item.localPrice = localPrice
+            
+            state.cartOfproductSelected.splice(index, 1, { ...item })
+            console.log(`Updated cart item ${item.pro_name} to unit ${unitSymbol} (Rate: ${unitRate}, Price: ${localPrice})`)
         }
     },
 
@@ -766,7 +853,8 @@ export const getters = {
 
     // Enhanced performance getters
     getProductByBarcode: (state) => (barcode) => {
-        return state.productBarcodeMap.get(barcode) || null
+        const mapped = state.productBarcodeMap.get(barcode?.toLowerCase())
+        return mapped ? mapped.product : null
     },
 
     getProductsByCategory: (state) => (categoryId) => {
@@ -1097,6 +1185,10 @@ export const actions = {
             console.error('Error updating product:', error)
             commit('ADD_ERROR', error)
         }
+    },
+
+    changeItemUnit({ commit }, payload) {
+        commit('updateCartItemUnit', payload)
     },
 
     setSelectedTerminal({ commit }, terminalId) {

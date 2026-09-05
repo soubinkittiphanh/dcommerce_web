@@ -91,7 +91,7 @@
               hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
           </v-col>
           <v-col cols="12" md="3">
-            <v-select v-model="filters.agencyId" :items="agencies" item-text="name" item-value="id" label="ລູກຄ້າ"
+            <v-select v-model="filters.agencyId" :items="agencies" item-text="agencyName" item-value="id" label="ລູກຄ້າ"
               outlined dense hide-details clearable prepend-inner-icon="mdi-account" @change="applyFilters" />
           </v-col>
           <v-col cols="12" md="2">
@@ -102,10 +102,12 @@
             <v-text-field v-model="filters.dateTo" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
               prepend-inner-icon="mdi-calendar-end" @change="applyFilters" />
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="2" class="d-flex align-center">
+            <v-checkbox v-model="showCancelled" label="ສະແດງໃບຍົກເລີກ" hide-details dense color="error" class="mt-0 pt-0" @change="onShowCancelledChange" />
+          </v-col>
+          <v-col cols="12" md="1">
             <v-btn color="secondary" outlined block @click="resetFilters">
-              <v-icon left>mdi-refresh</v-icon>
-              Reset
+              <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -208,28 +210,42 @@
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-menu bottom left>
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon small v-bind="attrs" v-on="on">
-                <v-icon small>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-            <v-list dense>
-              <v-list-item @click="viewInvoice(item)">
-                <v-list-item-icon>
-                  <v-icon small color="info">mdi-eye</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-              </v-list-item>
+          <div class="d-flex align-center justify-center">
+            <v-btn icon small color="primary" class="mr-1" @click="printInvoiceVoucher(item)">
+              <v-icon small>mdi-printer</v-icon>
+            </v-btn>
+            <v-menu bottom left>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon small v-bind="attrs" v-on="on">
+                  <v-icon small>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+              <v-list dense>
+                <v-list-item @click="viewInvoice(item)">
+                  <v-list-item-icon>
+                    <v-icon small color="info">mdi-eye</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                </v-list-item>
 
-              <v-list-item @click="editInvoice(item)">
-                <v-list-item-icon>
-                  <v-icon small color="warning">mdi-pencil</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+                <v-list-item @click="editInvoice(item)">
+                  <v-list-item-icon>
+                    <v-icon small color="warning">mdi-pencil</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                </v-list-item>
+
+                <v-divider v-if="!['cancelled', 'paid'].includes(item.status)" />
+
+                <v-list-item v-if="!['cancelled', 'paid'].includes(item.status)" @click="cancelInvoice(item)">
+                  <v-list-item-icon>
+                    <v-icon small color="error">mdi-close-circle-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title class="error--text">ຍົກເລີກ</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </template>
       </v-data-table>
     </v-card>
@@ -239,20 +255,32 @@
       :currencies="currencies" @close="closeEditDialog" @save="onInvoiceSave" />
 
     <client-only>
-      <InvoiceHeaderView :visible="showViewDialog" :invoice="selectedInvoice" @close="closeViewDialog" />
+      <InvoiceHeaderView :visible="showViewDialog" :invoice="selectedInvoice" @close="closeViewDialog" @print="onPrintFromView" />
     </client-only>
+
+    <!-- AR Invoice Printer Dialog -->
+    <ARInvoicePrinter
+      :visible="showPrintDialog"
+      :invoice-data="selectedInvoice"
+      :agencies="agencies"
+      :currencies="currencies"
+      @close="showPrintDialog = false"
+    />
   </div>
 </template>
 
 <script>
 import InvoiceHeaderMaintain from '~/components/accounting/ar/invoice/maintain'
 import InvoiceHeaderView from '~/components/accounting/ar/invoice/view'
+import ARInvoicePrinter from '~/components/accounting/ar/invoice/voucher'
+import { swalConfirm } from '~/common'
 
 export default {
   name: 'InvoiceHeaderSummary',
   components: {
     InvoiceHeaderMaintain,
     InvoiceHeaderView,
+    ARInvoicePrinter,
   },
 
   data() {
@@ -260,9 +288,11 @@ export default {
       glAccounts: [],
       showEditDialog: false,
       showViewDialog: false,
+      showPrintDialog: false,
       selectedInvoice: null,
       invoices: [],
       filteredInvoices: [],
+      showCancelled: false,
       customers: [],
       agencies: [],
       jobBatches: [],
@@ -394,7 +424,6 @@ export default {
   },
 
   mounted() {
-    // Set default dates before loading data
     this.setDefaultDates()
     this.fetchInvoices()
     this.fetchCustomers()
@@ -405,17 +434,10 @@ export default {
   },
 
   methods: {
-    /**
-     * Calculates the settled and outstanding amounts for each invoice.
-     * @param {Array<Object>} invoices - The array of invoice objects from the API.
-     * @returns {Array<Object>} The updated array of invoice objects.
-     */
     calculateAmounts(invoices) {
       return invoices.map((invoice) => {
-        // Calculate total settled amount from receiveHeaders
         const settledAmount = (invoice.receiveHeaders || []).reduce(
           (sum, header) => {
-            // Use totalReceivedAmount from the header, as per the structure
             const totalReceived = header.totalReceivedAmount || 0;
             return sum + totalReceived;
           },
@@ -427,8 +449,8 @@ export default {
 
         return {
           ...invoice,
-          settledAmount: settledAmount,
-          outstandingAmount: outstandingAmount,
+          settledAmount,
+          outstandingAmount,
         }
       })
     },
@@ -437,14 +459,22 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month, 1).toISOString().split('T')[0]
+      const firstDay = new Date(year, month, 1)
+      const yyyy = firstDay.getFullYear()
+      const mm = String(firstDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(firstDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     getCurrentMonthEnd() {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+      const lastDay = new Date(year, month + 1, 0)
+      const yyyy = lastDay.getFullYear()
+      const mm = String(lastDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(lastDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     setDefaultDates() {
@@ -464,12 +494,16 @@ export default {
     async fetchInvoices() {
       this.loading = true
       try {
+        const params = { page: 1, limit: 1000 }
+        if (this.showCancelled) {
+          params.includeCancelled = true
+          params.showCancelled = true
+        }
         const { data } = await this.$axios.get('/api/ar-invoices', {
-          params: { page: 1, limit: 1000 },
+          params,
         })
 
         if (data && data.success) {
-          // Calculate amounts when data is fetched
           this.invoices = this.calculateAmounts(data.data.invoices || [])
         } else {
           this.invoices = []
@@ -570,10 +604,8 @@ export default {
             } else if (key === 'documents') {
               const existingDocs = invoiceData.documents.filter(doc => !(doc instanceof File || (doc && doc.rawFile instanceof File)))
               formData.append(key, JSON.stringify(existingDocs))
-            } else {
-              if (invoiceData[key] !== null && invoiceData[key] !== undefined) {
-                formData.append(key, invoiceData[key])
-              }
+            } else if (invoiceData[key] !== null && invoiceData[key] !== undefined) {
+              formData.append(key, invoiceData[key])
             }
           })
 
@@ -613,6 +645,10 @@ export default {
     applyFilters() {
       let filtered = [...this.invoices]
 
+      if (!this.showCancelled) {
+        filtered = filtered.filter((inv) => inv.status !== 'cancelled')
+      }
+
       if (this.filters.search) {
         const search = this.filters.search.toLowerCase()
         filtered = filtered.filter(
@@ -625,7 +661,7 @@ export default {
 
       if (this.filters.agencyId) {
         filtered = filtered.filter(
-          (inv) => inv.agencyId == this.filters.agencyId // Corrected from customerId to agencyId
+          (inv) => inv.agencyId === this.filters.agencyId // Corrected from customerId to agencyId
         )
       }
 
@@ -651,6 +687,7 @@ export default {
     },
 
     resetFilters() {
+      this.showCancelled = false
       this.filters = {
         search: '',
         agencyId: '',
@@ -707,6 +744,58 @@ export default {
       a.download = filename
       a.click()
       window.URL.revokeObjectURL(url)
+    },
+
+    async printInvoiceVoucher(invoice) {
+      this.loading = true
+      try {
+        const { data } = await this.$axios.get(`/api/ar-invoice-lines/by-header/${invoice.id}`)
+        const lineItems = data.data || []
+        this.selectedInvoice = {
+          ...invoice,
+          lineItems,
+        }
+        this.showPrintDialog = true
+      } catch (error) {
+        console.error('Error loading lines for printing invoice:', error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນລາຍການໃບແຈ້ງໜີ້ເພື່ອພິມໄດ້')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async cancelInvoice(invoice) {
+      try {
+        const result = await swalConfirm(
+          this.$swal,
+          'ຢືນຢັນການຍົກເລີກ',
+          `ທ່ານຕ້ອງການຍົກເລີກໃບແຈ້ງໜີ້ #${invoice.invoiceNumber} ແມ່ນບໍ່?`,
+          'warning'
+        )
+
+        if (result.isConfirmed) {
+          this.loading = true
+          await this.$axios.put(`/api/ar-invoices/${invoice.id}`, {
+            status: 'cancelled',
+          })
+          this.$toast.success('ຍົກເລີກໃບແຈ້ງໜີ້ສຳເລັດ')
+          await this.fetchInvoices()
+        }
+      } catch (error) {
+        console.error(error)
+        this.$toast.error(error.response?.data?.message || 'ເກີດຂໍ້ຜິດພາດ')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    onPrintFromView(invoice) {
+      this.closeViewDialog()
+      this.printInvoiceVoucher(invoice)
+    },
+
+    onShowCancelledChange() {
+      this.fetchInvoices()
     },
 
     formatDate(date) {

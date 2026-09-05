@@ -1,20 +1,20 @@
 <template>
-  <div class="product-list-wrapper pa-4 grey lighten-5">
+  <div class="product-list-wrapper pa-2 grey lighten-5">
     <!-- Modern Header Section -->
-    <v-row align="center" class="mb-6">
-      <v-col>
+    <v-row align="center" class="mb-2">
+      <v-col class="py-1">
         <div class="d-flex align-center">
-          <v-avatar color="primary" size="48" class="mr-4 elevation-2">
-            <v-icon color="white">mdi-food-fork-drink</v-icon>
+          <v-avatar color="primary" size="36" class="mr-4 elevation-2">
+            <v-icon color="white" small>mdi-food-fork-drink</v-icon>
           </v-avatar>
           <div>
-            <h1 class="font-weight-bold grey--text text--darken-4 mb-0">ລາຍການເມນູອາຫານ & ເຄື່ອງດື່ມ</h1>
-            <p class="grey--text mb-0">ຈັດການລາຍການເມນູອາຫານ, ເຄື່ອງດື່ມ ແລະ ລາຄາ</p>
+            <h2 class="font-weight-bold grey--text text--darken-4 mb-0 text-h6">ລາຍການເມນູອາຫານ & ເຄື່ອງດື່ມ</h2>
+            <p class="grey--text mb-0 caption">ຈັດການລາຍການເມນູອາຫານ, ເຄື່ອງດື່ມ ແລະ ລາຄາ</p>
           </div>
         </div>
       </v-col>
-      <v-col cols="auto">
-        <v-btn color="primary" large depressed @click="createMenu" class="px-6 rounded-lg font-weight-bold">
+      <v-col cols="auto" class="py-1">
+        <v-btn color="primary" depressed @click="createMenu" class="px-4 rounded-lg font-weight-bold">
           <v-icon left>mdi-plus</v-icon>
           ເພີ່ມເມນູໃໝ່
         </v-btn>
@@ -25,8 +25,8 @@
     </v-row>
 
     <v-card class="rounded-xl overflow-hidden elevation-3 border-light">
-      <v-tabs v-model="activeTab" background-color="white" color="primary" class="px-4">
-        <v-tab class="text-none font-weight-bold py-4">
+      <v-tabs v-model="activeTab" background-color="white" color="primary" class="px-1">
+        <v-tab class="text-none font-weight-bold py-1">
           <v-icon left>mdi-book-open-page-variant</v-icon>
           ເມນູອາຫານທັງໝົດ
         </v-tab>
@@ -36,18 +36,18 @@
 
       <v-tabs-items v-model="activeTab" class="bg-slate-50">
         <v-tab-item>
-          <v-card-text class="pa-6">
+          <v-card-text class="pa-2">
             <v-card flat class="transparent">
-              <v-card-title class="px-0 pb-6 pt-0">
-                <v-row align="center">
-                  <v-col cols="12" sm="4">
+              <v-card-title class="px-0 pb-2 pt-0">
+                <v-row align="center" class="my-0">
+                  <v-col cols="12" sm="4" class="py-1">
                     <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="ຄົ້ນຫາເມນູ..." outlined
                       dense hide-details class="rounded-lg bg-white" />
                   </v-col>
                   <v-spacer></v-spacer>
-                  <v-col cols="auto">
+                  <v-col cols="auto" class="py-1">
                     <div class="d-flex align-center gap-2 flex-wrap">
-                      <v-btn outlined color="success" class="rounded-lg" @click="exportToExcel">
+                      <v-btn small outlined color="success" class="rounded-lg" @click="exportToExcel">
                         <v-icon left small>mdi-microsoft-excel</v-icon>
                         Export
                       </v-btn>
@@ -55,7 +55,7 @@
                       <!-- Import Actions Dropdown Menu -->
                       <v-menu offset-y transition="slide-y-transition" rounded="lg">
                         <template v-slot:activator="{ on, attrs }">
-                          <v-btn outlined color="indigo" class="rounded-lg" v-bind="attrs" v-on="on">
+                          <v-btn small outlined color="indigo" class="rounded-lg" v-bind="attrs" v-on="on">
                             <v-icon left small>mdi-file-upload</v-icon>
                             Imports
                             <v-icon right small>mdi-chevron-down</v-icon>
@@ -83,11 +83,11 @@
                         </v-list>
                       </v-menu>
 
-                      <v-btn outlined color="primary" class="rounded-lg" @click="printBarcodeList">
+                      <v-btn small outlined color="primary" class="rounded-lg" @click="printBarcodeList">
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
                       </v-btn>
-                      <v-btn outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
+                      <v-btn small outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
                         <v-icon left small>mdi-refresh</v-icon>
                         Fix Stock
                       </v-btn>
@@ -101,24 +101,25 @@
                 class="compact-table rounded-xl elevation-0 border-light">
                 <!-- Thumbnail Slot -->
                 <template v-slot:item.thumbnail="{ item }">
-                  <v-avatar size="40" rounded class="border-light elevation-1 bg-white">
+                  <v-avatar size="32" rounded class="border-light elevation-1 bg-white">
                     <v-img v-if="item.img_path && item.img_name !== 'No image'"
                       :src="`${$axios.defaults.baseURL}/${item.img_path}`">
                       <template v-slot:placeholder>
                         <v-icon color="grey lighten-3">mdi-image-outline</v-icon>
                       </template>
                     </v-img>
-                    <v-icon v-else color="primary lighten-3">mdi-image-outline</v-icon>
+                    <v-icon v-else color="primary lighten-3" small>mdi-image-outline</v-icon>
                   </v-avatar>
                 </template>
 
                 <!-- Product Name Slot -->
                 <template v-slot:item.pro_name="{ item }">
-                  <div class="d-flex flex-column py-2">
+                  <div class="d-flex flex-column py-1">
                     <span class="font-weight-bold ">{{ item.pro_name }}</span>
                     <div class="d-flex align-center flex-wrap gap-1">
                       <span v-if="item.product_code" class="caption font-weight-bold orange--text text--darken-3 mr-1">[{{ item.product_code }}]</span>
                       <span class=" grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
+                      <span class="grey--text caption font-weight-medium ml-1">| {{ formatMinimalDate(item.createdAt) }}</span>
                     </div>
                     <span v-if="item.barCode" class=" secondary--text">
                       <v-icon x-small color="secondary">mdi-barcode</v-icon>
@@ -149,21 +150,21 @@
                 <template v-slot:item.pro_card_count="{ item }">
                   <div class="d-flex align-center justify-center">
                     <div class="text-center mr-2">
-                      <div class="text-h6 font-weight-black line-height-1 mb-1">{{ item.pro_card_count }}</div>
-                      <div class=" grey--text text-uppercase line-height-1">Actual</div>
+                      <div class="subtitle-2 font-weight-bold line-height-1 mb-0">{{ item.pro_card_count }}</div>
+                      <div class="caption grey--text text-uppercase line-height-1">Actual</div>
                     </div>
-                    <v-divider vertical class="mx-2 my-2"></v-divider>
+                    <v-divider vertical class="mx-2 my-1"></v-divider>
                     <div class="text-center ml-2">
-                      <div class="text-h6 grey--text line-height-1 mb-1">{{ item.minStock }}</div>
-                      <div class=" grey--text text-uppercase line-height-1">Min</div>
+                      <div class="subtitle-2 grey--text line-height-1 mb-0">{{ item.minStock }}</div>
+                      <div class="caption grey--text text-uppercase line-height-1">Min</div>
                     </div>
                   </div>
                 </template>
 
                 <!-- Status Slot -->
                 <template v-slot:item.status="{ item }">
-                  <v-chip small :color="getStatusChipColor(item.minStock, item.pro_card_count)" text-color="white"
-                    class="font-weight-bold text-uppercase" style="min-width: 90px; justify-content: center">
+                  <v-chip x-small :color="getStatusChipColor(item.minStock, item.pro_card_count)" text-color="white"
+                    class="font-weight-bold text-uppercase" style="min-width: 80px; justify-content: center">
                     {{ verifyStockStatus(item.minStock, item.pro_card_count) }}
                   </v-chip>
                 </template>
@@ -604,14 +605,14 @@ export default {
       selectedProductPrice: 0,
       timer: null,
       headers: [
-        { text: '', value: 'thumbnail', sortable: false, width: '60px', align: 'center' },
+        { text: '', value: 'thumbnail', sortable: false, width: '50px', align: 'center' },
         { text: 'ຂໍ້ມູນເມນູ', align: 'start', value: 'pro_name' },
         { text: 'ຫມວດເມນູ', align: 'start', value: 'pro_category_desc' },
-        { text: 'ຕົ້ນທຶນ', align: 'end', value: 'pro_cost_price', width: '120px' },
-        { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '120px' },
-        { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '140px' },
-        { text: 'ສະຖານະ', align: 'center', value: 'status', width: '120px' },
-        { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '80px' },
+        { text: 'ຕົ້ນທຶນ', align: 'end', value: 'pro_cost_price', width: '100px' },
+        { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '100px' },
+        { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '120px' },
+        { text: 'ສະຖານະ', align: 'center', value: 'status', width: '100px' },
+        { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '60px' },
       ],
       barcodeBuffer: '',
       barcodeTimeout: null,
@@ -1175,6 +1176,7 @@ export default {
               actions: el.pro_id,
               status: el.pro_id,
               isActive: el.isActive,
+              createdAt: el.createdAt,
             }
           })
         })
@@ -1299,6 +1301,17 @@ export default {
       return new Date(dateStr).toLocaleString('en-US')
     },
 
+    formatMinimalDate(val) {
+      if (!val) return '-'
+      const date = new Date(val)
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const year = String(date.getFullYear()).slice(-2)
+      const hours = String(date.getHours()).padStart(2, '0')
+      const minutes = String(date.getMinutes()).padStart(2, '0')
+      return `${day}/${month}/${year} ${hours}:${minutes}`
+    },
+
     getActionColor(action) {
       if (action === 'CREATE') return 'success'
       if (action === 'UPDATE') return 'primary'
@@ -1337,3 +1350,53 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+/* UI Enhancements */
+.bg-slate-50 {
+  background-color: #f8fafc;
+}
+
+.border-light {
+  border: 1px solid #e2e8f0 !important;
+}
+
+.gap-2 {
+  gap: 8px;
+}
+
+.line-height-1 {
+  line-height: 1;
+}
+
+.font-mono {
+  font-family: monospace;
+}
+
+.compact-table :deep(th) {
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  font-weight: 700 !important;
+  color: #64748b !important;
+  letter-spacing: 0.5px;
+  background-color: #f1f5f9 !important;
+  height: 38px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+
+.compact-table :deep(td) {
+  height: 48px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.compact-table :deep(tr:hover) {
+  background-color: #f8fafc !important;
+}
+.caption {
+  font-size: 0.75rem !important;
+  font-family: 'Noto Sans Lao', sans-serif;
+}
+</style>

@@ -123,11 +123,20 @@
                     <div class="d-flex align-center flex-wrap gap-1">
                       <span v-if="item.product_code" class="caption font-weight-bold orange--text text--darken-3 mr-1">[{{ item.product_code }}]</span>
                       <span class=" grey--text font-mono font-weight-medium">#{{ item.pro_id }}</span>
+                      <span class="grey--text caption font-weight-medium ml-1">| {{ formatMinimalDate(item.createdAt) }}</span>
                     </div>
                     <span v-if="item.barCode" class=" secondary--text">
                       <v-icon x-small color="secondary">mdi-barcode</v-icon>
                       {{ item.barCode }}
                     </span>
+                  </div>
+                </template>
+
+                <!-- Category Slot -->
+                <template v-slot:item.pro_category_desc="{ item }">
+                  <div class="d-flex flex-column py-1">
+                    <span class="font-weight-medium body-2">{{ item.categ_name || 'ບໍ່ມີໝວດໝູ່' }}</span>
+                    <span v-if="item.pro_category" class="caption grey--text">ID: #{{ item.pro_category }}</span>
                   </div>
                 </template>
 
@@ -153,12 +162,17 @@
                 <template v-slot:item.pro_card_count="{ item }">
                   <div class="d-flex align-center justify-center">
                     <div class="text-center mr-2">
-                      <div class="subtitle-2 font-weight-bold line-height-1 mb-0">{{ item.pro_card_count }}</div>
-                      <div class="caption grey--text text-uppercase line-height-1">Actual</div>
+                      <div v-for="(disp, idx) in formatStockUnits(item)" :key="idx" 
+                           :class="idx === 0 ? 'subtitle-2 font-weight-bold primary--text line-height-1' : 'caption font-weight-medium grey--text text--darken-2 line-height-1 mt-1'">
+                        {{ disp }}
+                      </div>
+                      <div class="caption grey--text text-uppercase line-height-1 mt-1">Actual</div>
                     </div>
                     <v-divider vertical class="mx-2 my-1"></v-divider>
                     <div class="text-center ml-2">
-                      <div class="subtitle-2 grey--text line-height-1 mb-0">{{ item.minStock }}</div>
+                      <div class="subtitle-2 grey--text line-height-1 mb-0">
+                        {{ item.minStock }} {{ getBaseUnitSymbol(item) }}
+                      </div>
                       <div class="caption grey--text text-uppercase line-height-1">Min</div>
                     </div>
                   </div>
@@ -166,17 +180,10 @@
 
                 <!-- Status Slot -->
                 <template v-slot:item.status="{ item }">
-                  <v-chip small :color="getStatusChipColor(item.minStock, item.pro_card_count)" text-color="white"
-                    class="font-weight-bold text-uppercase" style="min-width: 90px; justify-content: center">
+                  <v-chip x-small :color="getStatusChipColor(item.minStock, item.pro_card_count)" text-color="white"
+                    class="font-weight-bold text-uppercase" style="min-width: 80px; justify-content: center">
                     {{ verifyStockStatus(item.minStock, item.pro_card_count) }}
                   </v-chip>
-                </template>
-
-                <!-- Created At Slot -->
-                <template v-slot:item.createdAt="{ item }">
-                  <span class="grey--text font-weight-medium">
-                    {{ formatDateTime(item.createdAt) }}
-                  </span>
                 </template>
 
                 <!-- Actions Menu Slot -->
@@ -575,6 +582,7 @@ export default {
       message: '',
       selectedStockProductId: '',
       loaddata: [],
+      categoryList: [],
       carddata: [],
       cardType: [],
       content: null,
@@ -586,15 +594,14 @@ export default {
       stockFormKey: 1,
       timer: null,
       headers: [
-        { text: '', value: 'thumbnail', sortable: false, width: '60px', align: 'center' },
+        { text: '', value: 'thumbnail', sortable: false, width: '50px', align: 'center' },
         { text: 'ຂໍ້ມູນສິນຄ້າ', align: 'start', value: 'pro_name' },
         { text: 'ຫມວດສິນຄ້າ', align: 'start', value: 'pro_category_desc' },
-        { text: 'ຕົ້ນທຶນ', align: 'end', value: 'pro_cost_price', width: '120px' },
-        { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '120px' },
-        { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '140px' },
-        { text: 'ສະຖານະ', align: 'center', value: 'status', width: '120px' },
-        { text: 'ວັນທີສ້າງ', align: 'center', value: 'createdAt', width: '160px' },
-        { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '80px' },
+        { text: 'ຕົ້ນທຶນ', align: 'end', value: 'pro_cost_price', width: '100px' },
+        { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '100px' },
+        { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '120px' },
+        { text: 'ສະຖານະ', align: 'center', value: 'status', width: '100px' },
+        { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '60px' },
       ],
       barcodeBuffer: '',
       barcodeTimeout: null,
@@ -670,7 +677,21 @@ export default {
       })
     }
 
+    // Ensure unit list is loaded
+    if (!this.findAllUnit || this.findAllUnit.length === 0) {
+      this.$axios.get('api/unit/findAll').then(res => {
+        let data = res.data?.data ?? res.data
+        if (Array.isArray(data)) {
+          data = data.filter(u => u.isActive === true || u.isActive === 1)
+        }
+        this.$store.commit('SetUnitList', data)
+      }).catch(err => {
+        console.error('Error fetching units:', err)
+      })
+    }
+
     await this.loadCardCategory()
+    await this.loadCategories()
     await this.fetchData()
     window.addEventListener('keydown', this.handleBarcodeScanner)
   },
@@ -680,7 +701,21 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters', 'findAllCurrency']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllprinters', 'findAllCurrency', 'findAllUnit']),
+
+    categoryLookupMap() {
+      const map = new Map()
+      if (Array.isArray(this.categoryList)) {
+        this.categoryList.forEach(c => {
+          const id = c.categ_id ?? c.id
+          if (id !== undefined && id !== null) {
+            map.set(String(id), c)
+            map.set(Number(id), c)
+          }
+        })
+      }
+      return map
+    },
 
     filteredProducts() {
       // 1. Safety check: ensure loaddata exists
@@ -698,13 +733,17 @@ export default {
           const barcode = String(product.barCode || '').toLowerCase()
           const proId = String(product.pro_id || '').toLowerCase()
           const productCode = String(product.product_code || '').toLowerCase()
+          const categoryDesc = String(product.pro_category_desc || '').toLowerCase()
+          const categName = String(product.categ_name || '').toLowerCase()
 
           // 4. Return true if any field matches
           return (
             name.includes(searchTerm) ||
             barcode.includes(searchTerm) ||
             proId.includes(searchTerm) ||
-            productCode.includes(searchTerm)
+            productCode.includes(searchTerm) ||
+            categoryDesc.includes(searchTerm) ||
+            categName.includes(searchTerm)
           )
         })
       }
@@ -1381,8 +1420,42 @@ export default {
       return currency ? currency.code : ''
     },
 
+    formatStockUnits(item) {
+      const baseQty = item.pro_card_count || 0
+      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
+      const baseName = baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
+      const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+      
+      const displays = [`${this.formatNumber(baseQty)} ${baseName}`]
+      
+      if (item.productUnits && item.productUnits.length > 0) {
+        for (const pu of item.productUnits) {
+          const symbol = pu.unit?.symbol || 'pcs'
+          if (symbol !== baseUnit?.symbol) {
+            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
+            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+            if (relRate > 0) {
+              const val = baseQty / relRate
+              const decimalQty = val.toLocaleString('en-US', { 
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3 
+              })
+              const targetName = pu.unit?.name || symbol
+              displays.push(`${decimalQty} ${targetName}`)
+            }
+          }
+        }
+      }
+      return displays
+    },
+
+    getBaseUnitSymbol(item) {
+      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
+      return baseUnit ? baseUnit.symbol : 'pcs'
+    },
+
     getStatusChipColor(minStock, curStock) {
-      if (curStock == 0) {
+      if (curStock === 0) {
         return 'error' // Out of stock - use error theme color
       } else if (minStock < curStock) {
         return 'primary' // In stock - use primary theme color
@@ -1393,7 +1466,7 @@ export default {
 
     verifyStockStatus(minStock, CurStock) {
       let statusStock = ''
-      CurStock == 0
+      CurStock === 0
         ? (statusStock = 'Out of stock')
         : minStock < CurStock
           ? (statusStock = 'In stock')
@@ -1414,53 +1487,109 @@ export default {
       console.log(`PRODUCT LIST ===>`)
       this.isloading = true
 
-      await this.$axios
-        .get(`product_f/${this.currentSelectedLocation['id']}`, {
-          params: { include: 'priceList', isActive: false },
-        })
-        .then((res) => {
-          this.initProduct(res.data.data)
-          this.loaddata = res.data.data.map((el) => {
-            console.log(el.co_name)
-            return {
-              id: el.id,
-              co_name: el.co_name,
-              pro_id: el.pro_id,
-              product_code: el.product_code,
-              pro_name: el.pro_name,
-              pro_price: el.pro_price,
-              saleCurrencyId: el.saleCurrencyId,
-              costCurrencyId: el.costCurrencyId,
-              img_path: el.img_path, // ✅ Corrected from pro_image_path
-              img_name: el.img_name,
-              _category: el._category,
-              pro_desc: el.pro_desc,
-              pro_status: el.pro_status,
-              pro_category: el.pro_category,
-              pro_category_desc: el.pro_category + ' - ' + el.categ_name,
-              pro_card_count: el.card_count,
-              pro_cost_price: el.cost_price,
-              pro_outlet: el.outlet,
-              vendorName: el.vendorName,
-              pro_outlet_name: el.outlet_name,
-              barCode: el.barCode,
-              minStock: el.minStock,
-              priceLists: el.priceLists,
-              receiveUnitId: el.receiveUnitId,
-              stockUnitId: el.stockUnitId,
-              baseUnitId: el.baseUnitId,
-              actions: el.pro_id, // ✅ Unified actions
-              status: el.pro_id,
-              isActive: el.isActive,
-              createdAt: el.createdAt,
-            }
+      try {
+        const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
+        
+        // Fetch from both endpoints concurrently for optimal performance.
+        // product_f_v1 has priceList and productUnits but is missing minStock,
+        // while product_f has minStock but is missing productUnits.
+        const [resV1, resV0] = await Promise.all([
+          this.$axios.get(`product_f_v1/${locationId}`, {
+            params: { include: 'priceList', isActive: false },
+          }),
+          this.$axios.get(`product_f/${locationId}`).catch(err => {
+            console.error('Error fetching V0 product_f:', err)
+            return { data: { data: [] } }
           })
+        ])
+
+        const productsV1 = resV1.data.data || []
+        const productsV0 = resV0.data.data || []
+
+        // Create a map of pro_id -> minStock from the V0 response
+        const minStockMap = new Map()
+        productsV0.forEach(el => {
+          if (el.pro_id !== undefined && el.minStock !== undefined) {
+            minStockMap.set(el.pro_id, el.minStock)
+          }
         })
-        .catch((er) => {
-          this.message = er
-          console.log('Error: ' + er)
+
+        this.initProduct(productsV1)
+
+        if (!this.categoryList || this.categoryList.length === 0) {
+          await this.loadCategories()
+        }
+        const categoryMap = this.categoryLookupMap
+
+        this.loaddata = productsV1.map((el) => {
+          console.log(el.co_name)
+          const minStock = minStockMap.has(el.pro_id) 
+            ? minStockMap.get(el.pro_id) 
+            : (el.minStock !== undefined ? el.minStock : 0)
+
+          const catId = el.pro_category ?? el.categoryCategId ?? el.categoryId ?? (el.category ? (el.category.categ_id ?? el.category.id) : null)
+          const catObj = catId ? (categoryMap.get(String(catId)) || categoryMap.get(Number(catId))) : null
+          const categName = catObj?.categ_name || el.categ_name || el.category?.categ_name || (catId ? `ໝວດ #${catId}` : 'ບໍ່ມີໝວດໝູ່')
+          const proCategoryDesc = catId ? `${catId} - ${categName}` : 'ບໍ່ມີໝວດໝູ່'
+
+          return {
+            id: el.id,
+            co_name: el.co_name,
+            pro_id: el.pro_id,
+            product_code: el.product_code,
+            pro_name: el.pro_name,
+            pro_price: el.pro_price,
+            saleCurrencyId: el.saleCurrencyId,
+            costCurrencyId: el.costCurrencyId,
+            img_path: el.img_path, // ✅ Corrected from pro_image_path
+            img_name: el.img_name,
+            _category: el._category,
+            pro_desc: el.pro_desc,
+            pro_status: el.pro_status,
+            pro_category: catId,
+            categ_name: categName,
+            pro_category_desc: proCategoryDesc,
+            pro_card_count: el.card_count,
+            pro_cost_price: el.cost_price,
+            pro_outlet: el.outlet,
+            vendorName: el.vendorName,
+            pro_outlet_name: el.outlet_name,
+            barCode: el.barCode,
+            minStock: minStock,
+            priceLists: el.priceLists,
+            receiveUnitId: el.receiveUnitId,
+            stockUnitId: el.stockUnitId,
+            baseUnitId: el.baseUnitId,
+            productUnits: el.productUnits || [],
+            actions: el.pro_id, // ✅ Unified actions
+            status: el.pro_id,
+            isActive: el.isActive,
+            createdAt: el.createdAt,
+          }
         })
-      this.isloading = false
+      } catch (er) {
+        this.message = er
+        console.error('Error fetching data: ', er)
+      } finally {
+        this.isloading = false
+      }
+    },
+
+    async loadCategories() {
+      try {
+        let categories = []
+        try {
+          const response = await this.$axios.get('/api/category/findAll')
+          categories = response.data?.data || response.data || []
+        } catch (e) {
+          const response = await this.$axios.get('api/category/find')
+          categories = response.data?.data || response.data || []
+        }
+        this.categoryList = Array.isArray(categories) ? categories : []
+      } catch (error) {
+        console.error('Error loading categories:', error)
+        this.categoryList = []
+      }
     },
 
     editItem(item) {
@@ -1579,6 +1708,16 @@ export default {
     formatDateTime(val) {
       if (!val) return '-'
       return new Date(val).toLocaleString('en-GB')
+    },
+    formatMinimalDate(val) {
+      if (!val) return '-'
+      const date = new Date(val)
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const year = String(date.getFullYear()).slice(-2)
+      const hours = String(date.getHours()).padStart(2, '0')
+      const minutes = String(date.getMinutes()).padStart(2, '0')
+      return `${day}/${month}/${year} ${hours}:${minutes}`
     },
     getActionColor(action) {
       const colors = {

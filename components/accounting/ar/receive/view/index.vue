@@ -353,8 +353,7 @@ export default {
     },
 
     printReceipt() {
-      // Implement print functionality
-      window.print()
+      this.$emit('print', this.receipt)
     },
 
     calculateTotalAllocations() {

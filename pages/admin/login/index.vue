@@ -172,6 +172,7 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal',
       'findAllLocation',
+      'findAllCompany',
     ]),
 
     // Dynamic logo URL with fallback
@@ -224,10 +225,17 @@ export default {
       this.companyLogo.error = false
 
       try {
-        // Get companies with active status
-        const response = await this.$axios.get('/api/public/company/findAll')
+        let companies = this.findAllCompany || []
 
-        const companies = Array.isArray(response.data) ? response.data : []
+        // Fallback: If companies list is empty, fetch it from the API
+        if (companies.length === 0) {
+          console.log('Company list empty in store, fetching from API...')
+          const response = await this.$axios.get('/api/public/company/findAll')
+          companies = Array.isArray(response.data) ? response.data : []
+          if (companies.length > 0 && this.$store.commit) {
+            this.$store.commit('setCompanyList', companies)
+          }
+        }
 
         // Find first company with profile image
         const companyWithImage = companies.find(company =>

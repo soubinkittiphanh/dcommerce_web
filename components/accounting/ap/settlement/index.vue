@@ -124,7 +124,7 @@
                       v-model="form.bankAccountId"
                       :items="bankAccounts"
                       item-value="id"
-                      item-text="accountNumber"
+                      :item-text="getBankAccountItemText"
                       label="ບັນຊີທະນາຄານ (Bank Account)"
                       outlined
                       dense
@@ -133,8 +133,27 @@
                       placeholder="ເລືອກບັນຊີທະນາຄານ"
                       :error-messages="errors.bankAccountId"
                     >
+                      <template v-slot:item="{ item }">
+                        <v-list-item-content class="py-1">
+                          <v-list-item-title class="d-flex align-center justify-space-between text-body-2 font-weight-medium">
+                            <span class="text-truncate mr-2">
+                              {{ item.accountNumber }} - {{ item.accountName || item.bankName }}
+                            </span>
+                            <v-chip v-if="item.currency" x-small outlined color="primary" class="font-weight-bold ml-1">
+                              {{ item.currency }}
+                            </v-chip>
+                          </v-list-item-title>
+                          <v-list-item-subtitle class="text-caption grey--text" v-if="item.bankName && item.accountName">
+                            {{ item.bankName }}
+                          </v-list-item-subtitle>
+                        </v-list-item-content>
+                      </template>
                       <template v-slot:selection="{ item }">
-                        <small>{{ item.accountNumber }} - {{ item.bankName }}</small>
+                        <small class="text-truncate">
+                          {{ item.accountNumber }} - {{ item.accountName || item.bankName }}
+                          <span v-if="item.bankName && item.accountName" class="grey--text text--darken-1">({{ item.bankName }})</span>
+                          <span v-if="item.currency" class="font-weight-bold primary--text ml-1">[{{ item.currency }}]</span>
+                        </small>
                       </template>
                     </v-autocomplete>
                   </v-col>
@@ -280,10 +299,13 @@
                           </td>
                           <td v-if="enableGL">
                             <v-autocomplete v-model="line.DRglAccountId" :items="glAccounts" item-value="id"
-                              item-text="accountNumber" dense outlined clearable hide-details placeholder="DR"
+                              :item-text="getGLAccountItemText" dense outlined clearable hide-details placeholder="DR"
                               class="compact-input rounded-md">
                               <template v-slot:item="{ item }">
-                                <small>{{ item.accountNumber }}</small>
+                                <v-list-item-content class="py-1">
+                                  <v-list-item-title class="text-caption font-weight-bold">{{ item.accountNumber }}</v-list-item-title>
+                                  <v-list-item-subtitle class="text-caption" v-if="item.accountName">{{ item.accountName }}</v-list-item-subtitle>
+                                </v-list-item-content>
                               </template>
                               <template v-slot:selection="{ item }">
                                 <small class="font-monospace">{{ item.accountNumber }}</small>
@@ -292,10 +314,13 @@
                           </td>
                           <td v-if="enableGL">
                             <v-autocomplete v-model="line.CRglAccountId" :items="glAccounts" item-value="id"
-                              item-text="accountNumber" dense outlined clearable hide-details placeholder="CR"
+                              :item-text="getGLAccountItemText" dense outlined clearable hide-details placeholder="CR"
                               class="compact-input rounded-md">
                               <template v-slot:item="{ item }">
-                                <small>{{ item.accountNumber }}</small>
+                                <v-list-item-content class="py-1">
+                                  <v-list-item-title class="text-caption font-weight-bold">{{ item.accountNumber }}</v-list-item-title>
+                                  <v-list-item-subtitle class="text-caption" v-if="item.accountName">{{ item.accountName }}</v-list-item-subtitle>
+                                </v-list-item-content>
                               </template>
                               <template v-slot:selection="{ item }">
                                 <small class="font-monospace">{{ item.accountNumber }}</small>
@@ -995,6 +1020,7 @@ export default {
             let invoiceId = null
 
             // Check if this is an invoice line item settlement
+            let hasAgency = false
             if (allocation.invoiceLineItem) {
               lineItem = allocation.invoiceLineItem
               if (lineItem.invoice) {
@@ -1002,6 +1028,7 @@ export default {
                 invoiceId = invoice.id
                 invoiceNumber = invoice.invoiceNumber
                 agency = invoice.agency || invoice.vendor
+                hasAgency = !!invoice.agency
               }
             }
 
@@ -1009,6 +1036,7 @@ export default {
             if (allocation.agency) {
               agency = allocation.agency
               agencyName = agency.agencyName || agency.name || ''
+              hasAgency = true
             } else if (allocation.applicant) {
               agencyName = allocation.applicant.name || ''
             } else if (agency) {
@@ -1025,7 +1053,7 @@ export default {
               lineItemId: lineItem?.id || null,
               invoiceNumber,
               lineNumber: lineItem?.lineNumber || null,
-              agencyId: allocation.agencyId || agency?.id || null,
+              agencyId: allocation.agencyId || (hasAgency ? agency?.id : null),
               agencyName,
               applicantId: allocation.applicantId || null,
               DRglAccountId: allocation.DRglAccountId || null,
@@ -1164,6 +1192,7 @@ export default {
         // Process each selected invoice and its line items
         this.tempSelectedInvoices.forEach((invoice) => {
           const agency = invoice.agency || invoice.vendor
+          const hasAgency = !!invoice.agency
 
           // Check if invoice has line items
           if (invoice.lineItems && invoice.lineItems.length > 0) {
@@ -1189,8 +1218,8 @@ export default {
                 lineItemId: lineItem.id,
                 invoiceNumber: invoice.invoiceNumber,
                 lineNumber: lineItem.lineNumber,
-                agencyId: agency?.id || null,
-                agencyName: agency?.name || agency?.agencyName || '',
+                agencyId: hasAgency ? invoice.agency.id : null,
+                agencyName: hasAgency ? invoice.agency.agencyName : (invoice.vendor ? invoice.vendor.name : ''),
                 agency,
                 description: `${invoice.invoiceNumber}-L${lineItem.lineNumber}: ${lineItem.description}`,
                 amount: parseFloat(lineItem.lineTotal || 0),
@@ -1240,8 +1269,8 @@ export default {
               lineItemId: null,
               invoiceNumber: invoice.invoiceNumber,
               lineNumber: null,
-              agencyId: agency?.id || null,
-              agencyName: agency?.name || agency?.agencyName || '',
+              agencyId: hasAgency ? invoice.agency.id : null,
+              agencyName: hasAgency ? invoice.agency.agencyName : (invoice.vendor ? invoice.vendor.name : ''),
               agency,
               description: invoice.description || invoice.invoiceNumber,
               amount: parseFloat(invoice.outstandingAmount || 0),
@@ -1638,6 +1667,21 @@ export default {
         style: 'currency',
         currency: this.selectedCurrency?.code || 'LAK'
       }).format(amount || 0)
+    },
+
+    getBankAccountItemText(item) {
+      if (!item) return ''
+      const parts = []
+      if (item.accountNumber) parts.push(item.accountNumber)
+      if (item.accountName) parts.push(item.accountName)
+      if (item.bankName) parts.push(item.bankName)
+      if (item.currency) parts.push(item.currency)
+      return parts.join(' ')
+    },
+
+    getGLAccountItemText(item) {
+      if (!item) return ''
+      return `${item.accountNumber || ''} ${item.accountName || ''}`.trim()
     },
   },
 }

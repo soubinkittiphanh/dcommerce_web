@@ -93,10 +93,12 @@ const _1b91bdb2 = () => interopDefault(import('../pages/admin/report/index.vue' 
 const _79f169be = () => interopDefault(import('../pages/admin/report_card/index.vue' /* webpackChunkName: "pages/admin/report_card/index" */))
 const _4c7625e2 = () => interopDefault(import('../pages/admin/reservation/index.vue' /* webpackChunkName: "pages/admin/reservation/index" */))
 const _0f005c3d = () => interopDefault(import('../pages/admin/rider/index.vue' /* webpackChunkName: "pages/admin/rider/index" */))
+const _2e2d880f = () => interopDefault(import('../pages/admin/saleByCategory/index.vue' /* webpackChunkName: "pages/admin/saleByCategory/index" */))
 const _490002a8 = () => interopDefault(import('../pages/admin/saleByMainCategory/index.vue' /* webpackChunkName: "pages/admin/saleByMainCategory/index" */))
 const _966e82b2 = () => interopDefault(import('../pages/admin/saleCost/index.vue' /* webpackChunkName: "pages/admin/saleCost/index" */))
 const _50aa43f0 = () => interopDefault(import('../pages/admin/saleDashBoard/index.vue' /* webpackChunkName: "pages/admin/saleDashBoard/index" */))
 const _21cd947f = () => interopDefault(import('../pages/admin/saleReportDetail/index.vue' /* webpackChunkName: "pages/admin/saleReportDetail/index" */))
+const _96b51858 = () => interopDefault(import('../pages/admin/saleReportDetailByCategory/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByCategory/index" */))
 const _1fd61eb4 = () => interopDefault(import('../pages/admin/saleReportDetailByCustomer/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByCustomer/index" */))
 const _512f4563 = () => interopDefault(import('../pages/admin/saleReportDetailByHeader/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByHeader/index" */))
 const _6363e6a2 = () => interopDefault(import('../pages/admin/saleReportDetailByProduct/index.vue' /* webpackChunkName: "pages/admin/saleReportDetailByProduct/index" */))
@@ -159,6 +161,7 @@ const _e852f9ea = () => interopDefault(import('../pages/admin/customer_request/w
 const _d85b8a84 = () => interopDefault(import('../pages/admin/fixed-assets/contracts.vue' /* webpackChunkName: "pages/admin/fixed-assets/contracts" */))
 const _6e449880 = () => interopDefault(import('../pages/admin/fixed-assets/depreciation.vue' /* webpackChunkName: "pages/admin/fixed-assets/depreciation" */))
 const _f586e352 = () => interopDefault(import('../pages/admin/fixed-assets/products.vue' /* webpackChunkName: "pages/admin/fixed-assets/products" */))
+const _47ae3e33 = () => interopDefault(import('../pages/admin/generalLedger/mappings.vue' /* webpackChunkName: "pages/admin/generalLedger/mappings" */))
 const _9f492504 = () => interopDefault(import('../pages/admin/generalLedger/posting-control-center.vue' /* webpackChunkName: "pages/admin/generalLedger/posting-control-center" */))
 const _581a3c60 = () => interopDefault(import('../pages/admin/inventory/stock-management/index.vue' /* webpackChunkName: "pages/admin/inventory/stock-management/index" */))
 const _5fa81691 = () => interopDefault(import('../pages/admin/job_fair/agency/index.vue' /* webpackChunkName: "pages/admin/job_fair/agency/index" */))
@@ -185,7 +188,9 @@ const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vu
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
 const _4183d918 = () => interopDefault(import('../pages/admin/web_category/test.vue' /* webpackChunkName: "pages/admin/web_category/test" */))
+const _598ccadb = () => interopDefault(import('../pages/reports/financial/balance-sheet/index.vue' /* webpackChunkName: "pages/reports/financial/balance-sheet/index" */))
 const _01d70745 = () => interopDefault(import('../pages/reports/financial/pl/index.vue' /* webpackChunkName: "pages/reports/financial/pl/index" */))
+const _1f6a2212 = () => interopDefault(import('../pages/reports/financial/trial-balance/index.vue' /* webpackChunkName: "pages/reports/financial/trial-balance/index" */))
 const _8b3672ec = () => interopDefault(import('../pages/admin/accounting/ap/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ap/invoice/index" */))
 const _bf0eb45a = () => interopDefault(import('../pages/admin/accounting/ap/invoiceSettlement/index.vue' /* webpackChunkName: "pages/admin/accounting/ap/invoiceSettlement/index" */))
 const _55b98a0c = () => interopDefault(import('../pages/admin/accounting/ar/invoice/index.vue' /* webpackChunkName: "pages/admin/accounting/ar/invoice/index" */))
@@ -598,6 +603,10 @@ export const routerOptions = {
     component: _0f005c3d,
     name: "admin-rider"
   }, {
+    path: "/admin/saleByCategory",
+    component: _2e2d880f,
+    name: "admin-saleByCategory"
+  }, {
     path: "/admin/saleByMainCategory",
     component: _490002a8,
     name: "admin-saleByMainCategory"
@@ -613,6 +622,10 @@ export const routerOptions = {
     path: "/admin/saleReportDetail",
     component: _21cd947f,
     name: "admin-saleReportDetail"
+  }, {
+    path: "/admin/saleReportDetailByCategory",
+    component: _96b51858,
+    name: "admin-saleReportDetailByCategory"
   }, {
     path: "/admin/saleReportDetailByCustomer",
     component: _1fd61eb4,
@@ -862,6 +875,10 @@ export const routerOptions = {
     component: _f586e352,
     name: "admin-fixed-assets-products"
   }, {
+    path: "/admin/generalLedger/mappings",
+    component: _47ae3e33,
+    name: "admin-generalLedger-mappings"
+  }, {
     path: "/admin/generalLedger/posting-control-center",
     component: _9f492504,
     name: "admin-generalLedger-posting-control-center"
@@ -966,9 +983,17 @@ export const routerOptions = {
     component: _4183d918,
     name: "admin-web_category-test"
   }, {
+    path: "/reports/financial/balance-sheet",
+    component: _598ccadb,
+    name: "reports-financial-balance-sheet"
+  }, {
     path: "/reports/financial/pl",
     component: _01d70745,
     name: "reports-financial-pl"
+  }, {
+    path: "/reports/financial/trial-balance",
+    component: _1f6a2212,
+    name: "reports-financial-trial-balance"
   }, {
     path: "/admin/accounting/ap/invoice",
     component: _8b3672ec,

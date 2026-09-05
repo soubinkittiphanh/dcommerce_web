@@ -66,6 +66,8 @@
           <v-col cols="6">
             <v-text-field v-model="search" append-icon="mdi-magnify" label="ຊອກຫາ" single-line hide-detailsx />
             <v-text-field v-model="userId" append-icon="mdi-magnify" label="ລະຫັດຜູ້ຂາຍ" single-line hide-detailsx />
+            <v-autocomplete item-text="name" item-value="id" :items="customTerminalList" label="ເລືອກຕາມ ຮ້ານ*"
+              v-model="terminalId"></v-autocomplete>
           </v-col>
 
           <v-col cols="6" class="text-left">
@@ -326,6 +328,7 @@ export default {
 
   data() {
     return {
+      terminalId: 999,
       viewTransaction: false,
       guidelineDialog: false,
       whatsappContactLink: '',
@@ -453,6 +456,10 @@ export default {
     await this.loadData()
   },
 
+  mounted() {
+    this.terminalId = this.findSelectedTerminal
+  },
+
   watch: {
     isedit(v) {
       if (!v) this.form_data.cus_id = '1XXX'
@@ -475,8 +482,24 @@ export default {
       'findAllprinters',
       'findAllProduct',
       'findSPF',
-      'findAllCompany'
+      'findAllCompany',
+      'findSelectedTerminal',
+      'findAllTerminal'
     ]),
+
+    customTerminalList() {
+      let originalTerminalListVanilla = JSON.stringify(this.findAllTerminal)
+      let originalTerminalList = JSON.parse(originalTerminalListVanilla)
+      const extraTerminal = {
+        id: 999,
+        code: 1999,
+        name: 'ທັງໝົດ',
+        description: '',
+        locationId: 1,
+      }
+      originalTerminalList.push(extraTerminal)
+      return originalTerminalList
+    },
 
     localCurrency() {
       return this.findLocalCurrency
@@ -512,7 +535,20 @@ export default {
     },
 
     creditOrder() {
-      return this.orderHeaderList.filter(el => el['paymentId'] == 2 && el['isActive'] == true)
+      const terminal = this.findAllTerminal.find(
+        (el) => el['id'] == this.terminalId
+      )
+      if (!terminal) {
+        return this.orderHeaderList.filter(
+          (el) => el['paymentId'] == 2 && el['isActive'] == true
+        )
+      }
+      return this.orderHeaderList.filter(
+        (el) =>
+          el['paymentId'] == 2 &&
+          el['isActive'] == true &&
+          el['locationId'] == terminal['locationId']
+      )
     },
 
     getSPF() {
@@ -774,7 +810,17 @@ export default {
         this.isloading = true
         try {
           const response = await this.$axios.get(`api/sale/find/${item.id}`)
-          const invoiceData = response.data
+          const invoiceData = {
+            ...item,
+            ...response.data,
+            referenceNo: (response.data?.referenceNo && response.data.referenceNo.trim()) 
+              ? response.data.referenceNo 
+              : (item?.referenceNo || ''),
+            location: response.data?.location || item?.location || null,
+            payments: (response.data?.payments && response.data.payments.length > 0) 
+              ? response.data.payments 
+              : (item?.payments || [])
+          }
           const companyData = this.companyData
           const htmlContent = generateInvoiceHTML(
             invoiceData,
@@ -859,11 +905,18 @@ export default {
           }
         }
 
+        const terminalInfo =
+          this.terminalId === 999
+            ? { name: 'ທັງໝົດ', id: 999 }
+            : this.customTerminalList.find(
+              (terminal) => terminal.id === this.terminalId
+            )
+
         const companyData = this.companyData
         const filters = {
           fromDate: this.dateFormatted,
           toDate: this.dateFormatted2,
-          terminalName: 'ທັງໝົດ',
+          terminalName: terminalInfo?.name || 'ທັງໝົດ',
           userName: this.$store.state.auth?.user?.cus_name || '-'
         }
 
@@ -1084,5 +1137,10 @@ table {
   .d-none.d-md-inline {
     display: none !important;
   }
+}
+
+.caption {
+  font-size: 12px !important;
+  font-family: NotoSansLaoUI-Regular, Roboto-Regular !important;
 }
 </style>

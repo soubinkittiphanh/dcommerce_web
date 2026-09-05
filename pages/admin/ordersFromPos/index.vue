@@ -404,7 +404,7 @@
           <template v-slot:[`item.ticketId`]="{ item }">
             <v-chip color="success" small dark style="cursor: pointer">
               <v-icon left small>mdi-ticket</v-icon>
-              {{ item.id }}
+              {{ item.id }}{{ item.referenceNo ? ` | ${item.referenceNo}` : '' }}
             </v-chip>
           </template>
 
@@ -1366,14 +1366,27 @@ export default {
       if (this.isMultiPayment(item)) {
         return 'MULTI'
       }
-      return item.payment?.payment_code || item.payments?.[0]?.paymentMethod?.payment_code || 'N/A'
+      return (
+        item.payment?.payment_code ||
+        item.payments?.[0]?.paymentMethod?.payment_code ||
+        item.payments?.[0]?.payment_code ||
+        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_code) ||
+        'N/A'
+      )
     },
 
     getPaymentName(item) {
       if (this.isMultiPayment(item)) {
         return 'ຫຼາຍວິທີ'
       }
-      return item.payment?.payment_name || item.payments?.[0]?.paymentMethod?.payment_name || 'N/A'
+      return (
+        item.payment?.payment_name ||
+        item.payments?.[0]?.paymentMethod?.payment_name ||
+        item.payments?.[0]?.payment_name ||
+        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_name) ||
+        item.payment?.payment_code ||
+        'N/A'
+      )
     },
 
     // Payment Filter Methods (remain the same)
@@ -1573,7 +1586,17 @@ export default {
         this.isloading = true
         try {
           const response = await this.$axios.get(`api/sale/find/${data.id}`)
-          const invoiceData = response.data
+          const invoiceData = {
+            ...data,
+            ...response.data,
+            referenceNo: (response.data?.referenceNo && response.data.referenceNo.trim()) 
+              ? response.data.referenceNo 
+              : (data?.referenceNo || ''),
+            location: response.data?.location || data?.location || null,
+            payments: (response.data?.payments && response.data.payments.length > 0) 
+              ? response.data.payments 
+              : (data?.payments || [])
+          }
           const companyData = this.companyData
           const htmlContent = generateInvoiceHTML(
             invoiceData,
@@ -1693,12 +1716,84 @@ export default {
     },
 
     exportToExcel() {
-      const worksheet = this.$xlsx.utils.json_to_sheet(
-        this.filteredOrderHeaderList
-      )
-      const workbook = this.$xlsx.utils.book_new()
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1')
-      this.$xlsx.writeFile(workbook, 'data.xlsx')
+      try {
+        const exportData = this.filteredOrderHeaderList.map((item, index) => {
+          // 1. Resolve Payment Method & Name
+          let paymentDisplay = ''
+          if (this.isMultiPayment(item)) {
+            const payMethods = (item.payments || []).map((p) => {
+              const name =
+                p.paymentMethod?.payment_name ||
+                p.payment_name ||
+                this.findAllPayment?.find((fp) => fp.id === p.paymentId || fp.id === p.payment_id)?.payment_name ||
+                p.paymentMethod?.payment_code ||
+                p.payment_code ||
+                'Payment'
+              return `${name} (${this.numberWithCommas(p.amount)})`
+            }).join(', ')
+            paymentDisplay = `ຫຼາຍວິທີ: ${payMethods}`
+          } else {
+            paymentDisplay =
+              item.payment?.payment_name ||
+              item.payments?.[0]?.paymentMethod?.payment_name ||
+              item.payments?.[0]?.payment_name ||
+              (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_name) ||
+              item.payment?.payment_code ||
+              'N/A'
+          }
+
+          // 2. Resolve Client Name & Phone
+          const clientName = item.client?.name || item.dynamic_customer?.name || 'Walk-in Customer'
+          const clientTel = item.client?.telephone || item.dynamic_customer?.telephone || ''
+
+          // 3. Resolve Cashier / User
+          const cashierName = item.user?.cus_name || item.user?.name || item.userId || '-'
+
+          // 4. Resolve Currency & Rate
+          const currencyCode =
+            item.currency?.code ||
+            this.findAllCurrency?.find((c) => c.id === item.currencyId)?.code ||
+            this.localCurrency?.code ||
+            'LAK'
+          const rate = item.exchangeRate || 1
+
+          // 5. Calculations
+          const subtotal = Number(item.total || 0) + Number(item.discount || 0)
+          const discount = Number(item.discount || 0)
+          const grandTotalLocal = this.calculateHeaderTotalLocal(item)
+
+          return {
+            'ລຳດັບ (No.)': index + 1,
+            'ເລກທີບິນ (Ticket ID)': item.id,
+            'ເລກອ້າງອີງ (Ref No)': item.referenceNo || '-',
+            'ວັນທີ (Date)': item.bookingDate || '',
+            'ເວລາ (Time)': this.getLocalDate(item.createdAt),
+            'ລູກຄ້າ (Customer)': clientName,
+            'ເບີໂທ (Tel)': clientTel || '-',
+            'ວິທີຊຳລະ (Payment Method)': paymentDisplay,
+            'ສະກຸນເງິນ (Currency)': currencyCode,
+            'ອັດຕາແລກປ່ຽນ (Rate)': rate,
+            'ລາຄາເຕັມ (Subtotal)': subtotal,
+            'ສ່ວນຫຼຸດ (Discount)': discount,
+            'ລວມສຸດທິ (Net Local)': grandTotalLocal,
+            'ສະກຸນເງິນທ້ອງຖິ່ນ': this.localCurrency?.code || 'LAK',
+            'ຜູ້ລົງທຸລະກຳ (Cashier)': cashierName,
+            'ໝາຍເຫດ (Remark)': item.remark || '',
+          }
+        })
+
+        const worksheet = this.$xlsx.utils.json_to_sheet(exportData)
+        const workbook = this.$xlsx.utils.book_new()
+        this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'POS Sales Orders')
+        const filename = `pos_orders_${this.fromDate}_to_${this.toDate}.xlsx`
+        this.$xlsx.writeFile(workbook, filename)
+        if (this.$toast) {
+          this.$toast.success('Excel exported successfully!')
+        }
+      } catch (error) {
+        console.error('Export to Excel error:', error)
+        swalError2(this.$swal, 'Error', 'Failed to export to Excel: ' + error.message)
+      }
     },
 
     createSale() {

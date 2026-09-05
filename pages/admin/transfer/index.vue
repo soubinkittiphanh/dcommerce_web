@@ -126,10 +126,11 @@
           {{ formatDateTime(item.createdAt) }}
         </template>
         <template v-slot:[`item.id`]="{ item }">
-          <v-btn color="primary" text @click="viewItem(item)
-    wallet = true
-      ">
+          <v-btn color="primary" text @click="viewItem(item); wallet = true">
             <i class="fa-regular fa-pen-to-square"></i>
+          </v-btn>
+          <v-btn color="info" text @click="printA4Transfer(item)">
+            <i class="fas fa-print"></i>
           </v-btn>
         </template>
         <template v-slot:[`item.cancel`]="{ item }">
@@ -155,7 +156,7 @@
 <script>
 import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
 import { mainCompanyInfo } from '~/common/api'
-import { generateTransferSummaryReportHTML, generateTransferDetailReportHTML } from '~/common/printTemplates'
+import { generateTransferSummaryReportHTML, generateTransferDetailReportHTML, generateTransferHTML } from '~/common/printTemplates'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
 export default {
   components: { OrderSumaryCardPos },
@@ -350,20 +351,31 @@ export default {
     },
     numberWithCommas(value) {
       if (value === undefined || value === null) return '0';
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+      const num = parseFloat(value);
+      if (isNaN(num)) return value;
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+      }).format(num);
     },
 
     getFormatNum(val) {
       return new Intl.NumberFormat().format(val)
     },
     calculateTransferTotal(item) {
-      if (!item || !item.lines || !Array.isArray(item.lines)) return 0
-      return item.lines
+      if (!item) return 0
+      const discount = parseFloat(String(item.discount || 0).replace(/,/g, '')) || 0
+      if (!item.lines || !Array.isArray(item.lines)) {
+        const headerTotal = parseFloat(String(item.total || 0).replace(/,/g, '')) || 0
+        return Math.max(0, headerTotal)
+      }
+      const linesSum = item.lines
         .filter(line => line.isActive !== false)
         .reduce((sum, line) => {
           const lineTotal = parseFloat(String(line.total || 0).replace(/,/g, '')) || 0
           return sum + lineTotal
         }, 0)
+      return Math.max(0, linesSum - discount)
     },
     editItem(item) {
       this.componentKey += 1;
@@ -375,6 +387,38 @@ export default {
       this.viewTransaction = true
       this.selectedOrder = item.id
       this.dialogOrderDetail = true;
+    },
+    async printA4Transfer(item) {
+      this.isloading = true
+      try {
+        const res = await this.$axios.get(`api/transfer/find/${item.id}`)
+        const fullItem = res.data
+        
+        const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        const currencyList = this.$store.getters.findAllCurrency || []
+        
+        const html = generateTransferHTML(fullItem, companyData, currencyList)
+        const win = window.open('', '_blank', 'width=800,height=600')
+        if (!win) return
+        win.document.open()
+        win.document.write(html)
+        win.document.close()
+        win.onload = () => {
+          setTimeout(() => {
+            try {
+              win.print()
+              setTimeout(() => win.close(), 100)
+            } catch (e) {
+              win.close()
+            }
+          }, 500)
+        }
+      } catch (e) {
+        console.error(e)
+        swalError2(this.$swal, 'Error', 'Print failed: ' + e.message)
+      } finally {
+        this.isloading = false
+      }
     },
     cancelItem(payload) {
       console.log("Order id", payload.orderId);

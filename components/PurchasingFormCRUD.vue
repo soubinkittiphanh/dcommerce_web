@@ -501,7 +501,9 @@ export default {
         const saleLines = this.selectedPOForSale.lines.map(line => {
           const qty = parseFloat(line.qty || line.quantity || 1)
           const rate = parseFloat(line.rate || line.unitRate || 1)
-          const price = parseFloat(line.price || line.unitPrice || 0)
+          // Since line.unitPrice in the PO UI is now the price per selected unit,
+          // we convert it back to base unit price by dividing by rate.
+          const price = parseFloat(line.price || (line.unitPrice / rate) || 0)
           const discount = parseFloat(line.discount || 0)
           const total = parseFloat(line.total || 0)
           
@@ -553,18 +555,21 @@ export default {
     productChange(item) {
       const p = this.productList.find(el => el.id === item.productId); if (!p) return
       this.$set(item, 'product', p)
-      this.$set(item, 'unitPrice', p.cost_price || p.pro_purchase_price || 0)
       this.$set(item, 'currencyId', p.costCurrencyId || p.purchaseCurrencyId || 1)
 
       const unitId = p.stockUnitId || p.baseUnitId || p.receiveUnitId || null
+      let rate = 1
       if (unitId) {
         this.$set(item, 'unitId', unitId)
         const u = this.unitList.find(el => el.id === unitId)
-        this.$set(item, 'unitRate', u?.unitRate || u?.conversionRate || u?.rate || 1)
+        rate = u?.unitRate || u?.conversionRate || u?.rate || 1
+        this.$set(item, 'unitRate', rate)
       } else {
         this.$set(item, 'unitId', null)
         this.$set(item, 'unitRate', 1)
       }
+      // Initialize unitPrice as base price multiplied by selected unit rate
+      this.$set(item, 'unitPrice', (p.cost_price || p.pro_purchase_price || 0) * rate)
       this.calculateLineTotal(item)
     },
     getLineCurrency(item) {
@@ -612,18 +617,33 @@ export default {
             total: 0
           }
         }
-        breakdown[code].total += parseFloat(item.total || (item.price || item.unitPrice || 0) * (item.qty || item.quantity || 1) - (item.discount || 0)) || 0
+        // Calculate total robustly handling both price configurations
+        const rate = parseFloat(item.rate || item.unitRate || 1)
+        const unitPrice = parseFloat(item.unitPrice || ((item.price || 0) * rate)) || 0
+        const qty = parseFloat(item.qty || item.quantity || 1)
+        const discount = parseFloat(item.discount || 0)
+        breakdown[code].total += parseFloat(item.total || (unitPrice * qty - discount)) || 0
       })
       return Object.values(breakdown).filter(b => b.total > 0)
     },
-    unitChange(item) { const u = this.unitList.find(el => el.id === item.unitId); const rate = u ? (u.unitRate || u.conversionRate || u.rate || 1) : 1; this.$set(item, 'unitRate', rate); this.calculateLineTotal(item) },
+    unitChange(item) {
+      const u = this.unitList.find(el => el.id === item.unitId)
+      const newRate = u ? (u.unitRate || u.conversionRate || u.rate || 1) : 1
+      const oldRate = parseFloat(item.unitRate) || 1
+      const currentPrice = parseFloat(item.unitPrice) || 0
+      const basePrice = currentPrice / oldRate
+      
+      this.$set(item, 'unitRate', newRate)
+      this.$set(item, 'unitPrice', basePrice * newRate)
+      this.calculateLineTotal(item)
+    },
     quantityChange(item) { this.calculateLineTotal(item) },
     unitPriceChange(item) { this.calculateLineTotal(item) },
     unitRateChange(item) { this.calculateLineTotal(item) },
     discountChange(item) { this.calculateLineTotal(item) },
     calculateLineTotal(item) {
-      const q = parseFloat(item.quantity) || 0; const r = parseFloat(item.unitRate) || 1; const p = parseFloat(item.unitPrice) || 0; const d = parseFloat(item.discount) || 0
-      this.$set(item, 'total', Math.max(0, (q * r * p) - d))
+      const q = parseFloat(item.quantity) || 0; const p = parseFloat(item.unitPrice) || 0; const d = parseFloat(item.discount) || 0
+      this.$set(item, 'total', Math.max(0, (q * p) - d))
     },
     newRow() { this.transaction.lines.push({ quantity: 1, unitRate: 1, unitPrice: 0, discount: 0, total: 0, isActive: true, productId: null, unitId: null }) },
     async deleteItem(item) {
@@ -644,9 +664,11 @@ export default {
     },
     updatePricing(info) {
       const idx = this.transaction.lines.findIndex(l => l.productId === this.productPricingSelected); if (idx < 0) return
-      const l = this.transaction.lines[idx]; const np = parseFloat(info.amount) || 0
+      const l = this.transaction.lines[idx]
+      const rate = parseFloat(l.unitRate) || 1
+      const np = (parseFloat(info.amount) || 0) * rate
       if (info.type === 'Price') { this.$set(l, 'unitPrice', np) }
-      else { const cp = parseFloat(l.unitPrice) || 0; this.$set(l, 'unitPrice', cp * (1 + np / 100)) }
+      else { const cp = parseFloat(l.unitPrice) || 0; this.$set(l, 'unitPrice', cp * (1 + (parseFloat(info.amount) || 0) / 100)) }
       this.calculateLineTotal(l)
     },
     async loadTransaction() {
@@ -675,7 +697,8 @@ export default {
             ...l,
             quantity: l.qty || 1,
             unitRate: l.rate || 1,
-            unitPrice: l.price || 0,
+            // Convert the database base price to selected unit price on load
+            unitPrice: (parseFloat(l.price) || 0) * (parseFloat(l.rate) || 1),
             total: l.total || 0,
             discount: l.discount || 0
           })) || []
@@ -699,11 +722,14 @@ export default {
           locationId: this.currentTerminal.locationId,
           lines: this.transaction.lines.map(l => {
             const lineCurrency = this.getLineCurrency(l)
+            const rate = parseFloat(l.unitRate) || 1
+            const selectedPrice = parseFloat(l.unitPrice) || 0
+            const basePrice = selectedPrice / rate
             return {
               ...l,
               qty: parseFloat(l.quantity) || 0,
-              rate: parseFloat(l.unitRate) || 1,
-              price: parseFloat(l.unitPrice) || 0,
+              rate: rate,
+              price: basePrice,
               discount: parseFloat(l.discount) || 0,
               total: parseFloat(l.total) || 0,
               currencyId: lineCurrency ? lineCurrency.id : null,

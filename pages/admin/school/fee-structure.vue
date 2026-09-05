@@ -74,6 +74,10 @@
               <span v-if="item.feeItem" class="font-weight-bold">{{ item.feeItem.name }}</span>
               <span v-else class="grey--text">-</span>
             </template>
+            <template v-slot:item.isOptional="{ item }">
+              <v-chip v-if="item.isOptional" small color="orange" dark>ສະເພາະ/ບຸກຄົນ (Optional)</v-chip>
+              <v-chip v-else small color="blue" dark>ບັງຄັບ/ທຸກຄົນ (Compulsory)</v-chip>
+            </template>
             <template v-slot:item.amount="{ item }">
               <span class="font-weight-bold text-primary">{{ formatCurrency(item.amount) }} LAK</span>
             </template>
@@ -135,6 +139,8 @@
                 v => !!v || 'ກະລຸນາປ້ອນຈຳນວນເງິນ',
                 v => feeStructureFormFields.amount > 0 || 'ຈຳນວນເງິນຕ້ອງຫຼາຍກວ່າ 0'
               ]" outlined dense suffix="LAK"></v-text-field>
+
+            <v-switch v-model="feeStructureFormFields.isOptional" label="ຄ່າທໍານຽມສະເພາະ/ບຸກຄົນ (Optional Fee)" color="orange" inset dense></v-switch>
           </v-form>
         </v-card-text>
         <v-card-actions class="pa-4">
@@ -180,7 +186,8 @@ export default {
         academicYearId: null,
         classId: null,
         feeItemId: null,
-        amount: 0
+        amount: 0,
+        isOptional: false
       },
 
       // Headers
@@ -193,6 +200,7 @@ export default {
         { text: 'ປີການສຶກສາ', value: 'academicYear.name' },
         { text: 'ຊັ້ນຮຽນ', value: 'class' },
         { text: 'ລາຍການ', value: 'feeItem' },
+        { text: 'ປະເພດ (Type)', value: 'isOptional' },
         { text: 'ຈຳນວນເງິນອັດຕາ', value: 'amount', align: 'right' },
         { text: 'ຈັດການ', value: 'actions', sortable: false, align: 'center' }
       ]
@@ -317,7 +325,8 @@ export default {
         academicYearId: this.academicYears[0]?.id || null,
         classId: null,
         feeItemId: this.feeItems[0]?.id || null,
-        amount: 0
+        amount: 0,
+        isOptional: false
       };
       this.feeStructureDialog = true;
     },
@@ -327,7 +336,8 @@ export default {
         academicYearId: item.academicYearId,
         classId: item.classId,
         feeItemId: item.feeItemId,
-        amount: item.amount
+        amount: item.amount,
+        isOptional: !!item.isOptional
       };
       this.feeStructureDialog = true;
     },

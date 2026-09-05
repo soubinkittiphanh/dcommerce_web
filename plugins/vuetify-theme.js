@@ -8,6 +8,11 @@ export default async function ({ $vuetify, $axios, store }) {
     
     // Check if data is an array and has at least one company
     if (data && Array.isArray(data) && data.length > 0) {
+      // Store company list in Vuex store so pages/components can reuse it without re-fetching
+      if (store.commit) {
+        store.commit('setCompanyList', data);
+      }
+      
       // Get the first company's theme
       const firstCompany = data[0];
       

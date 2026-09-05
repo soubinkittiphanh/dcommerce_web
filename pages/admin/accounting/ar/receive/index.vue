@@ -105,10 +105,12 @@
             <v-text-field v-model="filters.bookingDateTo" label="ວັນທີບັນທຶກເຖິງ" type="date" outlined dense
               hide-details prepend-inner-icon="mdi-calendar-end" @change="applyFilters" />
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" md="2" class="d-flex align-center">
+            <v-checkbox v-model="showCancelled" label="ສະແດງໃບຍົກເລີກ" hide-details dense color="error" class="mt-0 pt-0" @change="onShowCancelledChange" />
+          </v-col>
+          <v-col cols="12" md="1">
             <v-btn color="secondary" outlined block @click="resetFilters">
-              <v-icon left>mdi-refresh</v-icon>
-              Reset
+              <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </v-col>
         </v-row>
@@ -231,58 +233,56 @@
 
         <!-- Actions -->
         <template v-slot:item.actions="{ item }">
-          <v-menu bottom left offset-y transition="slide-y-transition">
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn icon small v-bind="attrs" v-on="on" color="grey darken-1">
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
-            </template>
-            <v-list dense class="py-0">
-              <v-list-item @click="viewReceipt(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="info">mdi-eye-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-              </v-list-item>
+          <div class="d-flex align-center justify-center">
+            <v-btn icon small color="primary" class="mr-1" @click="printReceipt(item)">
+              <v-icon small>mdi-printer</v-icon>
+            </v-btn>
+            <v-menu bottom left offset-y transition="slide-y-transition">
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn icon small v-bind="attrs" v-on="on" color="grey darken-1">
+                  <v-icon>mdi-dots-vertical</v-icon>
+                </v-btn>
+              </template>
+              <v-list dense class="py-0">
+                <v-list-item @click="viewReceipt(item)" class="px-3">
+                  <v-list-item-icon class="mr-3">
+                    <v-icon small color="info">mdi-eye-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                </v-list-item>
 
-              <v-list-item v-if="!item.status || item.status === 'active'" @click="editReceipt(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="warning">mdi-pencil-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-              </v-list-item>
+                <v-list-item v-if="!item.status || item.status === 'active'" @click="editReceipt(item)" class="px-3">
+                  <v-list-item-icon class="mr-3">
+                    <v-icon small color="warning">mdi-pencil-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                </v-list-item>
 
-              <v-list-item @click="printReceipt(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="success">mdi-printer-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title>ພິມໃບຮັບ</v-list-item-title>
-              </v-list-item>
+                <v-divider v-if="!item.status || item.status === 'active'" />
 
-              <v-divider v-if="!item.status || item.status === 'active'" />
+                <v-list-item v-if="!item.status || item.status === 'active'" @click="voidReceiptAction(item)" class="px-3">
+                  <v-list-item-icon class="mr-3">
+                    <v-icon small color="error">mdi-alert-circle-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title class="error--text">ໂມຄະ (Void)</v-list-item-title>
+                </v-list-item>
 
-              <v-list-item v-if="!item.status || item.status === 'active'" @click="voidReceiptAction(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="error">mdi-alert-circle-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="error--text">ໂມຄະ (Void)</v-list-item-title>
-              </v-list-item>
+                <v-list-item v-if="!item.status || item.status === 'active'" @click="cancelReceiptAction(item)" class="px-3">
+                  <v-list-item-icon class="mr-3">
+                    <v-icon small color="grey darken-2">mdi-close-circle-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title class="grey--text text--darken-3">ຍົກເລີກ (Cancel)</v-list-item-title>
+                </v-list-item>
 
-              <v-list-item v-if="!item.status || item.status === 'active'" @click="cancelReceiptAction(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="grey darken-2">mdi-close-circle-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="grey--text text--darken-3">ຍົກເລີກ (Cancel)</v-list-item-title>
-              </v-list-item>
-
-              <v-list-item v-if="item.status === 'voided' || item.status === 'cancelled'" @click="reactivateReceiptAction(item)" class="px-3">
-                <v-list-item-icon class="mr-3">
-                  <v-icon small color="success">mdi-play-circle-outline</v-icon>
-                </v-list-item-icon>
-                <v-list-item-title class="success--text">ເປີດໃຊ້ຄືນ (Reactivate)</v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
+                <v-list-item v-if="item.status === 'voided' || item.status === 'cancelled'" @click="reactivateReceiptAction(item)" class="px-3">
+                  <v-list-item-icon class="mr-3">
+                    <v-icon small color="success">mdi-play-circle-outline</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title class="success--text">ເປີດໃຊ້ຄືນ (Reactivate)</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
         </template>
       </v-data-table>
     </v-card>
@@ -295,7 +295,7 @@
 
     <!-- Receipt View Dialog -->
     <client-only>
-      <ReceiveHeaderView :visible="showViewDialog" :receipt="selectedReceipt" @close="closeViewDialog" />
+      <ReceiveHeaderView :visible="showViewDialog" :receipt="selectedReceipt" @close="closeViewDialog" @print="onPrintFromView" />
     </client-only>
 
     <!-- Add this Print Voucher Dialog -->
@@ -335,6 +335,7 @@ export default {
       showEditDialog: false,
       showViewDialog: false,
       showPrintDialog: false,
+      showCancelled: false,
       selectedReceipt: null,
       selectedReceiptForPrint: null,
       receipts: [],
@@ -678,7 +679,7 @@ export default {
     },
 
     // Enhanced CSV generation
-    async generateCSVFromData(receipts, filename) {
+    generateCSVFromData(receipts, filename) {
       const csvHeaders = [
         'ລຳດັບ',
         'ເລກທີໃບຮັບ',
@@ -723,7 +724,7 @@ export default {
         .map(row => row.map(cell => `"${cell}"`).join(','))
         .join('\n')
 
-      const blob = new Blob(['\ufeff' + csvContent], { type: 'text/csv;charset=utf-8;' })
+      const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' })
       this.downloadBlob(blob, filename)
     },
 
@@ -750,14 +751,22 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month, 1).toISOString().split('T')[0]
+      const firstDay = new Date(year, month, 1)
+      const yyyy = firstDay.getFullYear()
+      const mm = String(firstDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(firstDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     getCurrentMonthEnd() {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+      const lastDay = new Date(year, month + 1, 0)
+      const yyyy = lastDay.getFullYear()
+      const mm = String(lastDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(lastDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     setDefaultDates() {
@@ -767,7 +776,7 @@ export default {
 
     async fetchPaymentMethods() {
       try {
-        const { data } = await this.$axios.get('/api/payment/find')
+        const { data } = await this.$axios.get('/api/paymentMethod/find')
         this.paymentMethods = data || []
       } catch (error) {
         console.error('Error fetching payment methods:', error)
@@ -804,8 +813,13 @@ export default {
     async fetchReceipts() {
       this.loading = true
       try {
+        const params = { page: 1, limit: 1000 }
+        if (this.showCancelled) {
+          params.includeCancelled = true
+          params.showCancelled = true
+        }
         const { data } = await this.$axios.get('/api/ar-receive-headers', {
-          params: { page: 1, limit: 1000 },
+          params,
         })
 
         if (data?.success) {
@@ -876,6 +890,15 @@ export default {
       }
     },
 
+    onPrintFromView(receipt) {
+      this.closeViewDialog()
+      this.printReceipt(receipt)
+    },
+
+    onShowCancelledChange() {
+      this.fetchReceipts()
+    },
+
     closePrintDialog() {
       this.showPrintDialog = false
       this.selectedReceiptForPrint = null
@@ -906,10 +929,8 @@ export default {
             } else if (key === 'documents') {
               const existingDocs = receiptData.documents.filter(doc => !(doc instanceof File || (doc && doc.rawFile instanceof File)))
               formData.append(key, JSON.stringify(existingDocs))
-            } else {
-              if (receiptData[key] !== null && receiptData[key] !== undefined) {
-                formData.append(key, receiptData[key])
-              }
+            } else if (receiptData[key] !== null && receiptData[key] !== undefined) {
+              formData.append(key, receiptData[key])
             }
           })
 
@@ -952,6 +973,10 @@ export default {
     applyFilters() {
       let filtered = [...this.receipts]
 
+      if (!this.showCancelled) {
+        filtered = filtered.filter((r) => r.status !== 'cancelled' && r.status !== 'voided')
+      }
+
       if (this.filters.search) {
         const search = this.filters.search.toLowerCase()
         filtered = filtered.filter(
@@ -989,6 +1014,7 @@ export default {
     },
 
     resetFilters() {
+      this.showCancelled = false
       this.filters = {
         search: '',
         paymentMethod: '',
@@ -1139,7 +1165,7 @@ export default {
         if (reason) {
           this.loading = true
           await this.$axios.post(`/api/ar-receive-headers/${receipt.id}/void`, {
-            reason: reason,
+            reason,
             userId: this.user?.id
           })
           this.$toast.success('ປ່ຽນສະຖານະເປັນ ໂມຄະ ສຳເລັດ')
@@ -1176,7 +1202,7 @@ export default {
         if (reason) {
           this.loading = true
           await this.$axios.post(`/api/ar-receive-headers/${receipt.id}/cancel`, {
-            reason: reason,
+            reason,
             userId: this.user?.id
           })
           this.$toast.success('ປ່ຽນສະຖານະເປັນ ຍົກເລີກ ສຳເລັດ')

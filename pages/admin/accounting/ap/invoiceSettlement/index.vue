@@ -103,18 +103,21 @@
             <v-text-field v-model="filters.endDate" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
               prepend-inner-icon="mdi-calendar-end" @change="fetchData" />
           </v-col>
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="2" class="d-flex align-center">
+            <v-checkbox v-model="showCancelled" label="ສະແດງໃບຍົກເລີກ" hide-details dense color="error" class="mt-0 pt-0" @change="onShowCancelledChange" />
+          </v-col>
+          <v-col cols="12" md="2">
             <v-text-field v-model="searchTerm" label="ຄົ້ນຫາອ້າງອີງ" outlined dense hide-details clearable
               prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
           </v-col>
-          <v-col cols="12" md="2">
-            <v-btn color="info" outlined block @click="getOutstandingInvoices()">
+          <v-col cols="12" md="1">
+            <v-btn color="info" outlined block @click="getOutstandingInvoices()" small height="40" class="px-1 text-caption">
               <v-icon left small>mdi-file-invoice</v-icon>
               ໃບແຈ້ງໜີ້ຄ້າງ
             </v-btn>
           </v-col>
           <v-col cols="12" md="1">
-            <v-btn color="secondary" outlined block @click="resetFilters">
+            <v-btn color="secondary" outlined block @click="resetFilters" height="40">
               <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </v-col>
@@ -131,11 +134,11 @@
             <span class="font-weight-bold">ລາຍການການຊຳລະ</span>
             <v-spacer />
             <v-chip color="primary" small outlined class="font-weight-bold">
-              {{ pagination.totalItems }} ລາຍການ
+              {{ filteredSettlements.length }} ລາຍການ
             </v-chip>
           </v-card-title>
 
-          <v-data-table :headers="headers" :items="settlements" :loading="loading" :options.sync="tableOptions"
+          <v-data-table :headers="headers" :items="filteredSettlements" :loading="loading" :options.sync="tableOptions"
             :server-items-length="pagination.totalItems" :footer-props="{
               'items-per-page-options': [10, 25, 50, 100],
             }" outlined class="elevation-0 modernize-table" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
@@ -191,19 +194,23 @@
 
             <!-- Actions -->
             <template v-slot:item.actions="{ item }">
-              <v-menu bottom left>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon small v-bind="attrs" v-on="on">
-                    <v-icon small>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense>
-                  <v-list-item @click="viewDetails(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="info">mdi-eye</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-                  </v-list-item>
+              <div class="d-flex align-center justify-center">
+                <v-btn icon small color="primary" class="mr-1" @click="printSettlementVoucher(item)">
+                  <v-icon small>mdi-printer</v-icon>
+                </v-btn>
+                <v-menu bottom left>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon small v-bind="attrs" v-on="on">
+                      <v-icon small>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list dense>
+                    <v-list-item @click="viewDetails(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="info">mdi-eye</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                    </v-list-item>
 
                   <v-list-item v-if="['draft', 'pending'].includes(item.status)" @click="openDialog(item)">
                     <v-list-item-icon>
@@ -247,6 +254,7 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+              </div>
             </template>
           </v-data-table>
         </v-card>
@@ -449,8 +457,31 @@
             </div>
           </div>
         </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-3">
+          <v-spacer></v-spacer>
+          <v-btn color="primary" outlined @click="printSettlementVoucher(settlementDetails)" class="rounded-lg mr-2">
+            <v-icon left>mdi-printer</v-icon>
+            ພິມ Voucher
+          </v-btn>
+          <v-btn color="primary" text @click="closeDetailModal">
+            ປິດ (Close)
+          </v-btn>
+        </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Payment Voucher Printer Dialog -->
+    <payment-voucher-printer
+      :visible="showVoucherPrinter"
+      :voucher-data="selectedSettlement"
+      :payment-methods="paymentMethods"
+      :bank-accounts="bankAccounts"
+      :transaction-codes="transactionCodes"
+      :gl-accounts="glAccounts"
+      :currencies="currencies"
+      @close="showVoucherPrinter = false"
+    />
 
     <!-- Export Progress Snackbar -->
     <v-snackbar v-model="showExportProgress" :timeout="-1" color="info" bottom right>
@@ -463,11 +494,12 @@
 
 <script>
 import SettlementDialog from '~/components/accounting/ap/settlement/index.vue'
+import PaymentVoucherPrinter from '~/components/accounting/ap/settlement/voucher'
 import { swalConfirm } from '~/common'
 
 export default {
   name: 'SettlementManagement',
-  components: { SettlementDialog },
+  components: { SettlementDialog, PaymentVoucherPrinter },
 
   data() {
     return {
@@ -525,6 +557,11 @@ export default {
       selectedSettlement: null,
       settlementDetails: null,
       searchTimeout: null,
+      showVoucherPrinter: false,
+      paymentMethods: [],
+      bankAccounts: [],
+      transactionCodes: [],
+      showCancelled: false,
 
       headers: [
         { text: 'ID', value: 'id', sortable: true, width: '80px' },
@@ -609,7 +646,7 @@ export default {
         cancelledCount: 0
       }
 
-      this.settlements.forEach(s => {
+      this.filteredSettlements.forEach(s => {
         const amount = parseFloat(s.paymentAmount || 0)
         summary.totalAmount += amount
         if (s.status === 'completed' || s.status === 'approved') {
@@ -622,7 +659,13 @@ export default {
       })
 
       return summary
-    }
+    },
+    filteredSettlements() {
+      if (this.showCancelled || this.statusFilter === 'cancelled') {
+        return this.settlements
+      }
+      return this.settlements.filter((item) => item.status !== 'cancelled')
+    },
   },
 
   watch: {
@@ -860,7 +903,11 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month, 1).toISOString().split('T')[0]
+      const firstDay = new Date(year, month, 1)
+      const yyyy = firstDay.getFullYear()
+      const mm = String(firstDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(firstDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     // NEW METHOD: Get current month's last day
@@ -868,7 +915,11 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+      const lastDay = new Date(year, month + 1, 0)
+      const yyyy = lastDay.getFullYear()
+      const mm = String(lastDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(lastDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     // NEW METHOD: Set default dates for current month
@@ -906,8 +957,13 @@ export default {
     },
 
     async loadInitialData() {
-      await Promise.all([this.fetchAgencies()])
-      await Promise.all([this.fetchCurrencies()])
+      await Promise.all([
+        this.fetchAgencies(),
+        this.fetchCurrencies(),
+        this.loadPaymentMethods(),
+        this.loadBankAccounts(),
+        this.loadTransactionCodes()
+      ])
     },
 
     async fetchData() {
@@ -921,6 +977,11 @@ export default {
 
         if (this.statusFilter) params.status = this.statusFilter
         if (this.searchTerm) params.search = this.searchTerm
+
+        if (this.showCancelled) {
+          params.includeCancelled = true
+          params.showCancelled = true
+        }
 
         const { data } = await this.$axios.get('/api/ap-invoices-settlement', {
           params,
@@ -1193,8 +1254,9 @@ export default {
         )
 
         if (result.isConfirmed) {
-          await this.$axios.delete(
-            `/api/ap-invoices-settlement/${settlement.id}`
+          await this.$axios.put(
+            `/api/ap-invoices-settlement/${settlement.id}`,
+            { status: 'cancelled' }
           )
           this.$toast.success('ຍົກເລີກສຳເລັດ')
           await this.fetchData()
@@ -1207,6 +1269,11 @@ export default {
 
     onFilterChange() {
       this.filters.status = this.statusFilter
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+
+    onShowCancelledChange() {
       this.tableOptions.page = 1
       this.fetchData()
     },
@@ -1229,6 +1296,62 @@ export default {
         this.currencies = data || []
       } catch (error) {
         console.error(error)
+      }
+    },
+
+    async printSettlementVoucher(settlement) {
+      this.loading = true
+      try {
+        const { data } = await this.$axios.get(`/api/ap-invoices-settlement/${settlement.id}`)
+        const details = data.data || data
+
+        const voucherData = {
+          ...details,
+          settlementLines: (details.invoiceSettlements || []).map((line) => ({
+            invoiceNumber: line.invoiceLineItem?.invoice?.invoiceNumber || line.invoiceNumber || '-',
+            agencyName: line.agency?.agencyName || line.invoiceLineItem?.invoice?.agency?.agencyName || line.agencyName || '-',
+            description: line.description || '',
+            amount: parseFloat(line.amount || 0),
+            txnId: line.txnId,
+            DRglAccountId: line.DRglAccountId,
+            CRglAccountId: line.CRglAccountId,
+          })),
+        }
+
+        this.selectedSettlement = voucherData
+        this.showVoucherPrinter = true
+      } catch (error) {
+        console.error('Error opening print settlement:', error)
+        this.$toast.error('ບໍ່ສາມາດໂຫຼດຂໍ້ມູນການຊຳລະເພື່ອພິມໄດ້')
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async loadPaymentMethods() {
+      try {
+        const { data } = await this.$axios.get('/api/paymentMethod/find')
+        this.paymentMethods = data || []
+      } catch (error) {
+        console.error('Error loading payment methods:', error)
+      }
+    },
+
+    async loadBankAccounts() {
+      try {
+        const { data } = await this.$axios.get('/api/bank_account/find')
+        this.bankAccounts = data || []
+      } catch (error) {
+        console.error('Error loading bank accounts:', error)
+      }
+    },
+
+    async loadTransactionCodes() {
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes')
+        this.transactionCodes = data?.data || []
+      } catch (error) {
+        console.error('Error loading transaction codes:', error)
       }
     },
 

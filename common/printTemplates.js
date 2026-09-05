@@ -3,178 +3,263 @@
 
 // Helper to format numbers
 const formatNumber = (val) => {
-  return new Intl.NumberFormat().format(val || 0)
+    return new Intl.NumberFormat().format(val || 0)
 }
 
 // Helper to get product image path safely
 const getProductImage = (product) => {
-  if (!product) return ''
-  if (product.pro_image_path) return product.pro_image_path
-  if (product.images && product.images.length > 0) {
-    return product.images[0].img_path || (product.images[0].img_name ? 'uploads/' + product.images[0].img_name : '')
-  }
-  return ''
+    if (!product) return ''
+    if (product.pro_image_path) return product.pro_image_path
+    if (product.images && product.images.length > 0) {
+        return product.images[0].img_path || (product.images[0].img_name ? 'uploads/' + product.images[0].img_name : '')
+    }
+    return ''
 }
 
 // Helper to format dates
 const formatDate = (dateString) => {
-  if (!dateString) return 'N/A'
-  try {
-    const date = new Date(dateString)
-    return date.toLocaleDateString('en-GB', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    })
-  } catch (error) {
-    return dateString
-  }
+    if (!dateString) return 'N/A'
+    try {
+        const date = new Date(dateString)
+        return date.toLocaleDateString('en-GB', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        })
+    } catch (error) {
+        return dateString
+    }
 }
 
 // Enhanced currency helper functions
 const getCurrency = (currencyId, currencyList = []) => {
-  return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
+    return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
 }
 
 const getCompanyLogoUrl = (companyData) => {
-  if (!companyData) return ''
-  const baseUrl = getBaseUrl()
+    if (!companyData) return ''
+    const baseUrl = getBaseUrl()
 
-  // 1. Try profile_image_path from API data
-  const profilePath = companyData.profile_image_path || companyData.apiData?.profile_image_path || companyData.imageUrl
-  if (profilePath) {
-    return `${baseUrl}/${profilePath.replace(/^\//, '')}`
-  }
-
-  // 2. Try ticketLogo or companyLogo if they exist
-  const logoName = companyData.companyLogo || companyData.ticketLogo || companyData.logo
-  if (logoName) {
-    if (logoName.startsWith('http') || logoName.startsWith('blob:') || logoName.includes('/')) {
-      return logoName
+    // 1. Try profile_image_path from API data
+    const profilePath = companyData.profile_image_path || companyData.apiData?.profile_image_path || companyData.imageUrl
+    if (profilePath) {
+        return `${baseUrl}/${profilePath.replace(/^\//, '')}`
     }
-    return `${baseUrl}/uploads/${logoName}`
-  }
 
-  // 3. Fallback to dcLogo
-  if (companyData.dcLogo) {
-    return `${baseUrl}/uploads/${companyData.dcLogo}`
-  }
+    // 2. Try ticketLogo or companyLogo if they exist
+    const logoName = companyData.companyLogo || companyData.ticketLogo || companyData.logo
+    if (logoName) {
+        if (logoName.startsWith('http') || logoName.startsWith('blob:') || logoName.includes('/')) {
+            return logoName
+        }
+        return `${baseUrl}/uploads/${logoName}`
+    }
 
-  return ''
+    // 3. Fallback to dcLogo
+    if (companyData.dcLogo) {
+        return `${baseUrl}/uploads/${companyData.dcLogo}`
+    }
+
+    return ''
 }
 
 const getCompanyQR1Url = (companyData) => {
-  if (!companyData) return ''
-  const baseUrl = getBaseUrl()
-  const qrPath = companyData.bank_qr_image_path || companyData.qrCode
-  if (qrPath) {
-    if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
-      return qrPath
+    if (!companyData) return ''
+    const baseUrl = getBaseUrl()
+    const qrPath = companyData.bank_qr_image_path || companyData.qrCode
+    if (qrPath) {
+        if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+            return qrPath
+        }
+        return `${baseUrl}/${qrPath.replace(/^\//, '')}`
     }
-    return `${baseUrl}/${qrPath.replace(/^\//, '')}`
-  }
-  return ''
+    return ''
 }
 
 const getCompanyQR2Url = (companyData) => {
-  if (!companyData) return ''
-  const baseUrl = getBaseUrl()
-  const qrPath = companyData.bank_qr_image_path_2 || companyData.qrCode2
-  if (qrPath) {
-    if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
-      return qrPath
+    if (!companyData) return ''
+    const baseUrl = getBaseUrl()
+    const qrPath = companyData.bank_qr_image_path_2 || companyData.qrCode2
+    if (qrPath) {
+        if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+            return qrPath
+        }
+        return `${baseUrl}/${qrPath.replace(/^\//, '')}`
     }
-    return `${baseUrl}/${qrPath.replace(/^\//, '')}`
-  }
-  return ''
+    return ''
 }
 
 // Convert amount to local currency for totals summary
 const convertToLocalCurrency = (amount, fromCurrency, localCurrency) => {
-  if (!fromCurrency || !localCurrency || fromCurrency.code === localCurrency.code) {
-    return amount
-  }
-
-  // Step 1: Convert fromCurrency to LAK (base currency of the DB)
-  let amountInLAK = amount
-  if (fromCurrency.code !== 'LAK') {
-    if (fromCurrency.exchangeDirection === 'local_to_foreign') {
-      amountInLAK = amount / (fromCurrency.rate || 1)
-    } else {
-      amountInLAK = amount * (fromCurrency.rate || 1)
+    if (!fromCurrency || !localCurrency || fromCurrency.code === localCurrency.code) {
+        return amount
     }
-  }
 
-  // Step 2: Convert LAK to localCurrency
-  if (localCurrency.code === 'LAK') {
-    return amountInLAK
-  }
-  return amountInLAK / (localCurrency.rate || 1)
+    // Step 1: Convert fromCurrency to LAK (base currency of the DB)
+    let amountInLAK = amount
+    if (fromCurrency.code !== 'LAK') {
+        if (fromCurrency.exchangeDirection === 'local_to_foreign') {
+            amountInLAK = amount / (fromCurrency.rate || 1)
+        } else {
+            amountInLAK = amount * (fromCurrency.rate || 1)
+        }
+    }
+
+    // Step 2: Convert LAK to localCurrency
+    if (localCurrency.code === 'LAK') {
+        return amountInLAK
+    }
+    return amountInLAK / (localCurrency.rate || 1)
 }
 
 const generateMultiCurrencyTotalsHTML = (grandTotalInLocal, localCurrency, currencyList = []) => {
-  if (!currencyList || currencyList.length === 0) return ''
-  const activeOtherCurrencies = currencyList.filter(c => (c.isActive === true || c.isActive === 1) && c.code !== localCurrency.code)
-  if (activeOtherCurrencies.length === 0) return ''
+    if (!currencyList || currencyList.length === 0) return ''
+    const activeOtherCurrencies = currencyList.filter(c => (c.isActive === true || c.isActive === 1) && c.code !== localCurrency.code)
+    if (activeOtherCurrencies.length === 0) return ''
 
-  return activeOtherCurrencies.map(curr => {
-    let convertedVal = 0
-    if (curr.exchangeDirection === 'local_to_foreign') {
-      convertedVal = grandTotalInLocal * curr.rate
-    } else {
-      convertedVal = grandTotalInLocal / curr.rate
-    }
+    return activeOtherCurrencies.map(curr => {
+        let convertedVal = 0
+        if (curr.exchangeDirection === 'local_to_foreign') {
+            convertedVal = grandTotalInLocal * curr.rate
+        } else {
+            convertedVal = grandTotalInLocal / curr.rate
+        }
 
-    const formattedVal = curr.code === 'LAK'
-      ? new Intl.NumberFormat().format(Math.round(convertedVal))
-      : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedVal)
+        const formattedVal = curr.code === 'LAK'
+            ? new Intl.NumberFormat().format(Math.round(convertedVal))
+            : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedVal)
 
-    return `
+        return `
             <div class="total-row" style="font-size: 0.95em; color: #555; border-top: 1px dashed #eee; padding-top: 4px;">
                 <span>Equivalent in / ເປັນເງິນ (${curr.code}):</span>
                 <span><strong>${formattedVal} ${curr.code}</strong></span>
             </div>
         `
-  }).join('')
+    }).join('')
 }
 
 const getBaseUrl = () => {
-  if (typeof window !== 'undefined') {
-    const savedUrl = window.localStorage.getItem('api_base_url')
-    if (savedUrl) {
-      return savedUrl.replace(/\/$/, '')
+    if (typeof window !== 'undefined') {
+        const savedUrl = window.localStorage.getItem('api_base_url')
+        if (savedUrl) {
+            return savedUrl.replace(/\/$/, '')
+        }
+        if (window.$nuxt && window.$nuxt.$axios) {
+            return (window.$nuxt.$axios.defaults.baseURL || '').replace(/\/$/, '')
+        }
+        if (window.location.origin && window.location.origin.startsWith('http')) {
+            return window.location.origin.replace(/\/$/, '')
+        }
     }
-    if (window.$nuxt && window.$nuxt.$axios) {
-      return (window.$nuxt.$axios.defaults.baseURL || '').replace(/\/$/, '')
+    return 'http://150.95.31.23:8007'
+}
+
+// Helper to resolve reference / external ref number from various sources
+const resolveReferenceNo = (header) => {
+    if (!header) return '-'
+    if (header.referenceNo !== undefined && header.referenceNo !== null) {
+        const str = String(header.referenceNo).trim()
+        if (str && str !== 'Legacy Single Payment' && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
     }
-    if (window.location.origin && window.location.origin.startsWith('http')) {
-      return window.location.origin.replace(/\/$/, '')
+    if (header.externalRefNo !== undefined && header.externalRefNo !== null) {
+        const str = String(header.externalRefNo).trim()
+        if (str && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
     }
-  }
-  return 'http://localhost:8888'
+    if (header.externalRef !== undefined && header.externalRef !== null) {
+        const str = String(header.externalRef).trim()
+        if (str && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
+    }
+    if (header.external_ref !== undefined && header.external_ref !== null) {
+        const str = String(header.external_ref).trim()
+        if (str && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
+    }
+    if (header.refNo !== undefined && header.refNo !== null) {
+        const str = String(header.refNo).trim()
+        if (str && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
+    }
+    if (Array.isArray(header.payments) && header.payments.length > 0) {
+        const paymentRefs = header.payments
+            .map(p => {
+                const val = p.referenceNo ?? p.externalRef ?? p.externalRefNo ?? p.refNo ?? p.paymentDetails?.txnRefId
+                return val !== undefined && val !== null ? String(val).trim() : ''
+            })
+            .filter(r => r && r !== 'Legacy Single Payment' && r !== 'null' && r !== 'undefined' && r !== '-')
+        if (paymentRefs.length > 0) {
+            return paymentRefs.join(', ')
+        }
+    }
+    if (header.payment?.referenceNo !== undefined && header.payment?.referenceNo !== null) {
+        const str = String(header.payment.referenceNo).trim()
+        if (str && str !== 'Legacy Single Payment' && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
+    }
+    if (header.paymentDetails?.txnRefId !== undefined && header.paymentDetails?.txnRefId !== null) {
+        const str = String(header.paymentDetails.txnRefId).trim()
+        if (str && str !== 'null' && str !== 'undefined' && str !== '-') {
+            return str
+        }
+    }
+    return '-'
+}
+
+// Helper to resolve location name safely
+const resolveLocationName = (header) => {
+    if (!header) return '-'
+    if (header.location && typeof header.location === 'object' && header.location.name) {
+        const str = String(header.location.name).trim()
+        if (str && str !== 'null' && str !== 'undefined') return str
+    }
+    if (header.locationName) {
+        const str = String(header.locationName).trim()
+        if (str && str !== 'null' && str !== 'undefined') return str
+    }
+    if (header.location && typeof header.location === 'string') {
+        const str = header.location.trim()
+        if (str && str !== 'null' && str !== 'undefined') return str
+    }
+    if (header.location && typeof header.location === 'object' && header.location.description) {
+        const str = String(header.location.description).trim()
+        if (str && str !== 'null' && str !== 'undefined') return str
+    }
+    if (header.srcLocation?.name) {
+        const str = String(header.srcLocation.name).trim()
+        if (str && str !== 'null' && str !== 'undefined') return str
+    }
+    return '-'
 }
 
 // ==========================================
 // RECEIPT TEMPLATE - ORIGINAL CURRENCY PER LINE
 // ==========================================
 export const generateReceiptHTML = (header, companyData, currencyList = []) => {
-  console.log('🧾 GENERATING RECEIPT - ORIGINAL CURRENCY VERSION')
-  console.log('================================================')
+    console.log('🧾 GENERATING RECEIPT - ORIGINAL CURRENCY VERSION')
+    console.log('================================================')
 
-  // Get local currency
-  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
-  console.log(`🏠 Local Currency: ${localCurrency.code}`)
+    // Get local currency
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+    console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
-  const baseUrl = getBaseUrl()
+    const baseUrl = getBaseUrl()
 
-  // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-  const linesHTML = header.lines?.map((line, index) => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
+    const linesHTML = header.lines?.map((line, index) => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    console.log(`📦 Line ${index + 1}: ${line.product?.pro_name}`)
-    console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+        console.log(`📦 Line ${index + 1}: ${line.product?.pro_name}`)
+        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="text-align: center;">${line.product?.barCode || line.product?.pro_code || line.product?.id}</td>
@@ -201,50 +286,50 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
         </td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-  // Calculate totals BY CURRENCY
-  const totalsByCurrency = {}
-  let totalInLocalCurrency = 0
+    // Calculate totals BY CURRENCY
+    const totalsByCurrency = {}
+    let totalInLocalCurrency = 0
 
-  header.lines?.forEach(line => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    header.lines?.forEach(line => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    // Group by currency
-    if (!totalsByCurrency[lineCurrency.code]) {
-      totalsByCurrency[lineCurrency.code] = {
-        currency: lineCurrency,
-        subtotal: 0,
-        discount: 0,
-        total: 0
-      }
-    }
+        // Group by currency
+        if (!totalsByCurrency[lineCurrency.code]) {
+            totalsByCurrency[lineCurrency.code] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
 
-    totalsByCurrency[lineCurrency.code].subtotal += line.total
-    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].subtotal += line.total
+        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-    // Convert to local currency for grand total
-    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-    totalInLocalCurrency += localAmount
-  })
+        // Convert to local currency for grand total
+        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+        totalInLocalCurrency += localAmount
+    })
 
-  // Add header discount to local currency
-  const headerDiscount = header.discount || 0
-  totalInLocalCurrency -= headerDiscount
+    // Add header discount to local currency
+    const headerDiscount = header.discount || 0
+    totalInLocalCurrency -= headerDiscount
 
-  console.log('💰 Totals by Currency:', totalsByCurrency)
-  console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+    console.log('💰 Totals by Currency:', totalsByCurrency)
+    console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
-  // Generate totals HTML - SUMMARY BY CURRENCY
-  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    // Generate totals HTML - SUMMARY BY CURRENCY
+    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}):</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -456,11 +541,12 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
                 <div><span class="field-label">ລູກຄ້າ:</span> <b>${header.client?.company || '-'}</b></div>
                 <div><span class="field-label">ຊື່:</span> ${header.client?.name || '-'}</div>
                 <div><span class="field-label">ເບິໂທ:</span> ${header.client?.telephone || '-'}</div>
-                <div><span class="field-label">ເລກອ້າງອີງ:</span> ${header.referenceNo || '-'}</div>
+                <div><span class="field-label">ເລກອ້າງອີງ:</span> <b>${resolveReferenceNo(header)}</b></div>
             </div>
             <div class="info-col right">
-                <div><span class="field-label">ເລກບິນ:</span> <b>RCP-${header.id}</b></div>
+                <div><span class="field-label">ເລກບິນ:</span> <b>RCP-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
+                <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
                 <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
@@ -508,8 +594,8 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
             <strong>ໝາຍເຫດ:</strong> ລາຍການສິນຄ້າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົ້ນຕໍ. 
             ຍອດລວມຍ່ອຍສະແດງຈຳນວນເງິນຕາມປະເພດສະກຸນເງິນ. ຍອດລວມສຸດທ້າຍແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}) ສຳລັບການຊຳລະ.
             ${Object.keys(totalsByCurrency).length > 1 ?
-      `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
-    }
+            `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
+        }
         </div>
     </div>
     
@@ -533,25 +619,25 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
 // COMPLETE INVOICE TEMPLATE WITH MULTI-CURRENCY SUPPORT
 // ==========================================
 export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
-  console.log('📋 GENERATING INVOICE - ORIGINAL CURRENCY VERSION')
-  console.log('===============================================')
+    console.log('📋 GENERATING INVOICE - ORIGINAL CURRENCY VERSION')
+    console.log('===============================================')
 
-  // Get local currency
-  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
-  console.log(`🏠 Local Currency: ${localCurrency.code}`)
+    // Get local currency
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+    console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
-  const baseUrl = getBaseUrl()
-  const qr1Url = getCompanyQR1Url(companyData)
-  const qr2Url = getCompanyQR2Url(companyData)
+    const baseUrl = getBaseUrl()
+    const qr1Url = getCompanyQR1Url(companyData)
+    const qr2Url = getCompanyQR2Url(companyData)
 
-  // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-  const linesHTML = header.lines?.map((line, index) => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
+    const linesHTML = header.lines?.map((line, index) => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    console.log(`📦 Invoice Line ${index + 1}: ${line.product?.pro_name}`)
-    console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+        console.log(`📦 Invoice Line ${index + 1}: ${line.product?.pro_name}`)
+        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>
@@ -584,50 +670,50 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
         </td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-  // Calculate totals BY CURRENCY (same logic as receipt)
-  const totalsByCurrency = {}
-  let totalInLocalCurrency = 0
+    // Calculate totals BY CURRENCY (same logic as receipt)
+    const totalsByCurrency = {}
+    let totalInLocalCurrency = 0
 
-  header.lines?.forEach(line => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    header.lines?.forEach(line => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    // Group by currency
-    if (!totalsByCurrency[lineCurrency.code]) {
-      totalsByCurrency[lineCurrency.code] = {
-        currency: lineCurrency,
-        subtotal: 0,
-        discount: 0,
-        total: 0
-      }
-    }
+        // Group by currency
+        if (!totalsByCurrency[lineCurrency.code]) {
+            totalsByCurrency[lineCurrency.code] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
 
-    totalsByCurrency[lineCurrency.code].subtotal += line.total
-    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].subtotal += line.total
+        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-    // Convert to local currency for grand total
-    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-    totalInLocalCurrency += localAmount
-  })
+        // Convert to local currency for grand total
+        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+        totalInLocalCurrency += localAmount
+    })
 
-  // Add header discount to local currency
-  const headerDiscount = header.discount || 0
-  totalInLocalCurrency -= headerDiscount
+    // Add header discount to local currency
+    const headerDiscount = header.discount || 0
+    totalInLocalCurrency -= headerDiscount
 
-  console.log('💰 Invoice Totals by Currency:', totalsByCurrency)
-  console.log(`🎯 Invoice Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+    console.log('💰 Invoice Totals by Currency:', totalsByCurrency)
+    console.log(`🎯 Invoice Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
-  // Generate totals HTML - SUMMARY BY CURRENCY
-  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    // Generate totals HTML - SUMMARY BY CURRENCY
+    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -855,10 +941,12 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
                 <div><span class="field-label">ລູກຄ້າ:</span> <b>${header.client?.name || header.client?.company || 'Walk-in'}</b></div>
                 <div><span class="field-label">ເບິໂທ:</span> ${header.client?.telephone || '-'}</div>
                 <div><span class="field-label">ທີ່ຢູ່:</span> ${header.client?.address || '-'}</div>
+                <div><span class="field-label">ເລກອ້າງອີງ:</span> <b>${resolveReferenceNo(header)}</b></div>
             </div>
             <div class="info-col right">
-                <div><span class="field-label">ເລກໃບແຈ້ງໜີ້:</span> <b>INV-${header.id}</b></div>
+                <div><span class="field-label">ເລກໃບແຈ້ງໜີ້:</span> <b>INV-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
+                <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
                 <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
@@ -906,8 +994,8 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
             <strong>ໝາຍເຫດ:</strong> ລາຍການສິນຄ້າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົວຈິງ. 
             ຍອດລວມຍ່ອຍສະແດງຈຳນວນເງິນຕາມປະເພດສະກຸນເງິນ. ຍອດລວມສຸດທ້າຍແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}) ສຳລັບການຊຳລະ.
             ${Object.keys(totalsByCurrency).length > 1 ?
-      `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
-    }
+            `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
+        }
         </div>
     </div>
     
@@ -928,25 +1016,25 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
 // A4 RECEIPT TEMPLATE WITH MULTI-CURRENCY SUPPORT
 // ==========================================
 export const generateA4ReceiptHTML = (header, companyData, currencyList = []) => {
-  console.log('🧾 GENERATING A4 RECEIPT - ORIGINAL CURRENCY VERSION')
-  console.log('===================================================')
+    console.log('🧾 GENERATING A4 RECEIPT - ORIGINAL CURRENCY VERSION')
+    console.log('===================================================')
 
-  // Get local currency
-  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
-  console.log(`🏠 Local Currency: ${localCurrency.code}`)
+    // Get local currency
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+    console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
-  const baseUrl = getBaseUrl()
-  const qr1Url = getCompanyQR1Url(companyData)
-  const qr2Url = getCompanyQR2Url(companyData)
+    const baseUrl = getBaseUrl()
+    const qr1Url = getCompanyQR1Url(companyData)
+    const qr2Url = getCompanyQR2Url(companyData)
 
-  // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-  const linesHTML = header.lines?.map((line, index) => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
+    const linesHTML = header.lines?.map((line, index) => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    console.log(`📦 Receipt Line ${index + 1}: ${line.product?.pro_name}`)
-    console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+        console.log(`📦 Receipt Line ${index + 1}: ${line.product?.pro_name}`)
+        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>
@@ -979,50 +1067,50 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
         </td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-  // Calculate totals BY CURRENCY (same logic as receipt)
-  const totalsByCurrency = {}
-  let totalInLocalCurrency = 0
+    // Calculate totals BY CURRENCY (same logic as receipt)
+    const totalsByCurrency = {}
+    let totalInLocalCurrency = 0
 
-  header.lines?.forEach(line => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    header.lines?.forEach(line => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    // Group by currency
-    if (!totalsByCurrency[lineCurrency.code]) {
-      totalsByCurrency[lineCurrency.code] = {
-        currency: lineCurrency,
-        subtotal: 0,
-        discount: 0,
-        total: 0
-      }
-    }
+        // Group by currency
+        if (!totalsByCurrency[lineCurrency.code]) {
+            totalsByCurrency[lineCurrency.code] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
 
-    totalsByCurrency[lineCurrency.code].subtotal += line.total
-    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].subtotal += line.total
+        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-    // Convert to local currency for grand total
-    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-    totalInLocalCurrency += localAmount
-  })
+        // Convert to local currency for grand total
+        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+        totalInLocalCurrency += localAmount
+    })
 
-  // Add header discount to local currency
-  const headerDiscount = header.discount || 0
-  totalInLocalCurrency -= headerDiscount
+    // Add header discount to local currency
+    const headerDiscount = header.discount || 0
+    totalInLocalCurrency -= headerDiscount
 
-  console.log('💰 Receipt Totals by Currency:', totalsByCurrency)
-  console.log(`🎯 Receipt Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+    console.log('💰 Receipt Totals by Currency:', totalsByCurrency)
+    console.log(`🎯 Receipt Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
-  // Generate totals HTML - SUMMARY BY CURRENCY
-  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    // Generate totals HTML - SUMMARY BY CURRENCY
+    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -1250,11 +1338,13 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
                 <div><span class="field-label">ລູກຄ້າ:</span> <b>${header.client?.name || header.client?.company || 'Walk-in'}</b></div>
                 <div><span class="field-label">ເບິໂທ:</span> ${header.client?.telephone || '-'}</div>
                 <div><span class="field-label">ທີ່ຢູ່:</span> ${header.client?.address || '-'}</div>
+                <div><span class="field-label">ເລກອ້າງອີງ:</span> <b>${resolveReferenceNo(header)}</b></div>
             </div>
             <div class="info-col right">
-                <div><span class="field-label">ເລກໃບຮັບເງິນ:</span> <b>REC-${header.id}</b></div>
+                <div><span class="field-label">ເລກໃບຮັບເງິນ:</span> <b>REC-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
-                <div><span class="field-label">การชำระ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
+                <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
+                <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
         </div>
@@ -1301,8 +1391,8 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
             <strong>ໝາຍເຫດ:</strong> ລາຍການສິນຄ້າແຕ່ລະລາຍການສະແດງເປັນສະກຸນເງິນຕົວຈິງ. 
             ຍອດລວມຍ່ອຍສະແດງຈຳນວນເງິນຕາມປະເພດສະກຸນເງິນ. ຍອດລວມສຸດທ້າຍແປງເປັນສະກຸນເງິນທ້ອງຖິ່ນ (${localCurrency.code}) ສຳລັບການຊຳລະ.
             ${Object.keys(totalsByCurrency).length > 1 ?
-      `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
-    }
+            `<br><strong>ສະກຸນເງິນທີ່ໃຊ້:</strong> ${Object.keys(totalsByCurrency).join(', ')}` : ''
+        }
         </div>
     </div>
     
@@ -1320,54 +1410,54 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
 }
 
 export const generatePurchaseOrderHTML = (header, companyData, currencyList = []) => {
-  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+    const fmt = (v) => new Intl.NumberFormat().format(v || 0)
 
-  const baseUrl = getBaseUrl()
-  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', rate: 1 }
+    const baseUrl = getBaseUrl()
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', rate: 1 }
 
-  // Group and calculate totals by currency
-  const totalsByCurrency = {}
-  let grandTotalInLocal = 0
+    // Group and calculate totals by currency
+    const totalsByCurrency = {}
+    let grandTotalInLocal = 0
 
-  const lines = header.lines?.map((l, i) => {
-    const lineCurrency = currencyList.find(c => c.id === (l.currencyId || l.product?.costCurrencyId || l.product?.purchaseCurrencyId || l.product?.saleCurrencyId)) || header.currency || localCurrency
-    const currencyCode = lineCurrency.code || 'LAK'
-    const rate = l.exchangeRate || lineCurrency.rate || 1
+    const lines = header.lines?.map((l, i) => {
+        const lineCurrency = currencyList.find(c => c.id === (l.currencyId || l.product?.costCurrencyId || l.product?.purchaseCurrencyId || l.product?.saleCurrencyId)) || header.currency || localCurrency
+        const currencyCode = lineCurrency.code || 'LAK'
+        const rate = l.exchangeRate || lineCurrency.rate || 1
 
-    let unitPriceOriginal = l.price || l.unitPrice || 0
-    let discountOriginal = l.discount || 0
-    let totalOriginal = l.total || 0
+        let unitPriceOriginal = l.price || l.unitPrice || 0
+        let discountOriginal = l.discount || 0
+        let totalOriginal = l.total || 0
 
-    // If it's a legacy line (no currencyId column saved), convert back to original currency from LAK
-    if (l.currencyId === null || l.currencyId === undefined) {
-      unitPriceOriginal = unitPriceOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-      discountOriginal = discountOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-      totalOriginal = totalOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
-    }
+        // If it's a legacy line (no currencyId column saved), convert back to original currency from LAK
+        if (l.currencyId === null || l.currencyId === undefined) {
+            unitPriceOriginal = unitPriceOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+            discountOriginal = discountOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+            totalOriginal = totalOriginal / (lineCurrency.isLocalCCY ? 1 : rate)
+        }
 
-    if (!totalsByCurrency[currencyCode]) {
-      totalsByCurrency[currencyCode] = {
-        currency: lineCurrency,
-        subtotal: 0,
-        discount: 0,
-        total: 0
-      }
-    }
+        if (!totalsByCurrency[currencyCode]) {
+            totalsByCurrency[currencyCode] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
 
-    totalsByCurrency[currencyCode].subtotal += totalOriginal + discountOriginal
-    totalsByCurrency[currencyCode].discount += discountOriginal
-    totalsByCurrency[currencyCode].total += totalOriginal
+        totalsByCurrency[currencyCode].subtotal += totalOriginal + discountOriginal
+        totalsByCurrency[currencyCode].discount += discountOriginal
+        totalsByCurrency[currencyCode].total += totalOriginal
 
-    // Add to local grand total
-    let lineTotalLAK = 0
-    if (l.currencyId === null || l.currencyId === undefined) {
-      lineTotalLAK = l.total || 0
-    } else {
-      lineTotalLAK = convertToLocalCurrency(l.total || 0, lineCurrency, localCurrency)
-    }
-    grandTotalInLocal += lineTotalLAK
+        // Add to local grand total
+        let lineTotalLAK = 0
+        if (l.currencyId === null || l.currencyId === undefined) {
+            lineTotalLAK = l.total || 0
+        } else {
+            lineTotalLAK = convertToLocalCurrency(l.total || 0, lineCurrency, localCurrency)
+        }
+        grandTotalInLocal += lineTotalLAK
 
-    return `
+        return `
       <tr>
         <td align="center">${i + 1}</td>
         <td>
@@ -1389,20 +1479,20 @@ export const generatePurchaseOrderHTML = (header, companyData, currencyList = []
         <td align="right">${fmt(discountOriginal)} ${currencyCode}</td>
         <td align="right"><strong>${fmt(totalOriginal)} ${currencyCode}</strong></td>
       </tr>`
-  }).join('')
+    }).join('')
 
-  // Generate totals HTML for each currency
-  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    // Generate totals HTML for each currency
+    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row">
       <span>Subtotal (${currencyCode}):</span>
       <span><strong>${fmt(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-  const headerDiscount = header.discount || 0
-  const localGrandTotal = Math.max(0, grandTotalInLocal - headerDiscount)
+    const headerDiscount = header.discount || 0
+    const localGrandTotal = Math.max(0, grandTotalInLocal - headerDiscount)
 
-  return `
+    return `
   <!DOCTYPE html>
   <html>
   <head>
@@ -1540,21 +1630,21 @@ export const generatePurchaseOrderHTML = (header, companyData, currencyList = []
 }
 
 export const generateTransferHTML = (header, companyData, currencyList = []) => {
-  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
-  const baseUrl = getBaseUrl()
+    const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+    const baseUrl = getBaseUrl()
 
-  const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1 || c.isHome === true || c.isHome === 1) || { code: 'LAK' }
-  const homeCurrencyCode = localCurrency.code || 'LAK'
+    const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1 || c.isHome === true || c.isHome === 1) || { code: 'LAK' }
+    const homeCurrencyCode = localCurrency.code || 'LAK'
 
-  const lines = (header.lines || []).map((l, i) => {
-    const productCode = l.product?.pro_id || ''
-    const productName = l.product?.pro_name || 'Unknown Product'
-    const unitName = l.unit?.name || 'N/A'
-    const unitRate = l.unitRate || 1
-    const price = l.price || 0
-    const total = l.total || 0
+    const lines = (header.lines || []).map((l, i) => {
+        const productCode = l.product?.pro_id || ''
+        const productName = l.product?.pro_name || 'Unknown Product'
+        const unitName = l.unit?.name || 'N/A'
+        const unitRate = l.unitRate || 1
+        const price = l.price || 0
+        const total = l.total || 0
 
-    return `
+        return `
       <tr>
         <td align="center">${i + 1}</td>
         <td align="center">${productCode}</td>
@@ -1574,9 +1664,9 @@ export const generateTransferHTML = (header, companyData, currencyList = []) => 
         <td align="right">${fmt(price)}</td>
         <td align="right"><strong>${fmt(total)}</strong></td>
       </tr>`
-  }).join('')
+    }).join('')
 
-  return `
+    return `
   <!DOCTYPE html>
   <html>
   <head>
@@ -1699,40 +1789,40 @@ export const generateTransferHTML = (header, companyData, currencyList = []) => 
 }
 
 export const generateReceivingHTML = (header, companyData, currencyList = []) => {
-  const fmt = (v) => new Intl.NumberFormat().format(v || 0)
-  const baseUrl = getBaseUrl()
+    const fmt = (v) => new Intl.NumberFormat().format(v || 0)
+    const baseUrl = getBaseUrl()
 
-  // Group and calculate totals by currency
-  const totalsByCurrency = {}
+    // Group and calculate totals by currency
+    const totalsByCurrency = {}
 
-  const lines = (header.lines || []).map((l, i) => {
-    const productCode = l.product?.pro_id || ''
-    const productName = l.product?.pro_name || 'Unknown Product'
-    const unitName = l.unit?.name || 'N/A'
-    const qty = l.qty || l.quantity || 0
-    const price = l.price || 0
-    const total = l.total || 0
+    const lines = (header.lines || []).map((l, i) => {
+        const productCode = l.product?.pro_id || ''
+        const productName = l.product?.pro_name || 'Unknown Product'
+        const unitName = l.unit?.name || 'N/A'
+        const qty = l.qty || l.quantity || 0
+        const price = l.price || 0
+        const total = l.total || 0
 
-    // Get currency for the line item
-    let lineCurrency = currencyList.find(c => c.id === l.currencyId)
-    if (!lineCurrency && l.product) {
-      const currencyId = l.product.costCurrencyId || l.product.purchaseCurrencyId || l.product.saleCurrencyId
-      lineCurrency = currencyList.find(c => c.id === currencyId)
-    }
-    if (!lineCurrency) {
-      lineCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
-    }
-    const currencyCode = lineCurrency.code || 'LAK'
+        // Get currency for the line item
+        let lineCurrency = currencyList.find(c => c.id === l.currencyId)
+        if (!lineCurrency && l.product) {
+            const currencyId = l.product.costCurrencyId || l.product.purchaseCurrencyId || l.product.saleCurrencyId
+            lineCurrency = currencyList.find(c => c.id === currencyId)
+        }
+        if (!lineCurrency) {
+            lineCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
+        }
+        const currencyCode = lineCurrency.code || 'LAK'
 
-    if (!totalsByCurrency[currencyCode]) {
-      totalsByCurrency[currencyCode] = {
-        code: currencyCode,
-        total: 0
-      }
-    }
-    totalsByCurrency[currencyCode].total += total
+        if (!totalsByCurrency[currencyCode]) {
+            totalsByCurrency[currencyCode] = {
+                code: currencyCode,
+                total: 0
+            }
+        }
+        totalsByCurrency[currencyCode].total += total
 
-    return `
+        return `
       <tr>
         <td align="center">${i + 1}</td>
         <td align="center">${productCode}</td>
@@ -1751,19 +1841,19 @@ export const generateReceivingHTML = (header, companyData, currencyList = []) =>
         <td align="right">${fmt(price)}</td>
         <td align="right"><strong>${fmt(total)}</strong></td>
       </tr>`
-  }).join('')
+    }).join('')
 
-  const totalsHTML = Object.values(totalsByCurrency).map(d => `
+    const totalsHTML = Object.values(totalsByCurrency).map(d => `
     <div class="total-row">
       <span>Total (${d.code}):</span>
       <span><strong>${fmt(d.total)} ${d.code}</strong></span>
     </div>
   `).join('')
 
-  // Header currency
-  const headerCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
+    // Header currency
+    const headerCurrency = currencyList.find(c => c.id === header.currencyId) || { code: 'LAK', rate: 1 }
 
-  return `
+    return `
   <!DOCTYPE html>
   <html>
   <head>
@@ -1897,16 +1987,16 @@ export const generateReceivingHTML = (header, companyData, currencyList = []) =>
 // PROFESSIONAL QUOTATION PRINT TEMPLATE
 // ==========================================
 export const generateQuotationHTML = (header, companyData, currencyList = []) => {
-  console.log('📄 GENERATING QUOTATION PRINT TEMPLATE')
+    console.log('📄 GENERATING QUOTATION PRINT TEMPLATE')
 
-  // Get local currency
-  const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', symbol: '₭' }
-  const baseUrl = getBaseUrl()
+    // Get local currency
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', symbol: '₭' }
+    const baseUrl = getBaseUrl()
 
-  // Generate lines HTML
-  const linesHTML = header.lines?.map((line, index) => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
-    return `
+    // Generate lines HTML
+    const linesHTML = header.lines?.map((line, index) => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>
@@ -1935,46 +2025,46 @@ export const generateQuotationHTML = (header, companyData, currencyList = []) =>
         </td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
 
-  // Calculate totals by currency
-  const totalsByCurrency = {}
-  let totalInLocalCurrency = 0
+    // Calculate totals by currency
+    const totalsByCurrency = {}
+    let totalInLocalCurrency = 0
 
-  header.lines?.forEach(line => {
-    const lineCurrency = getCurrency(line.currencyId, currencyList)
+    header.lines?.forEach(line => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-    if (!totalsByCurrency[lineCurrency.code]) {
-      totalsByCurrency[lineCurrency.code] = {
-        currency: lineCurrency,
-        subtotal: 0,
-        discount: 0,
-        total: 0
-      }
-    }
+        if (!totalsByCurrency[lineCurrency.code]) {
+            totalsByCurrency[lineCurrency.code] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
 
-    totalsByCurrency[lineCurrency.code].subtotal += line.total
-    totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-    totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].subtotal += line.total
+        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
 
-    const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-    totalInLocalCurrency += localAmount
-  })
+        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
+        totalInLocalCurrency += localAmount
+    })
 
-  const headerDiscount = header.discount || 0
-  totalInLocalCurrency -= headerDiscount
+    const headerDiscount = header.discount || 0
+    totalInLocalCurrency -= headerDiscount
 
-  const vatAmount = totalInLocalCurrency * 0.1
-  const grandTotalWithVat = totalInLocalCurrency + vatAmount
+    const vatAmount = totalInLocalCurrency * 0.1
+    const grandTotalWithVat = totalInLocalCurrency + vatAmount
 
-  const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+    const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
     <div class="total-row currency-subtotal">
       <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
       <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
     </div>
   `).join('')
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -2275,45 +2365,45 @@ export const generateQuotationHTML = (header, companyData, currencyList = []) =>
 }
 
 export const generateSchoolInvoiceHTML = (invoice, companyData) => {
-  console.log('🏫 GENERATING SCHOOL INVOICE PRINT HTML');
-  const baseUrl = getBaseUrl();
-  const logoUrl = getCompanyLogoUrl(companyData);
+    console.log('🏫 GENERATING SCHOOL INVOICE PRINT HTML');
+    const baseUrl = getBaseUrl();
+    const logoUrl = getCompanyLogoUrl(companyData);
 
-  // Generate lines HTML
-  const linesHTML = invoice.lines?.map((line, index) => {
-    const desc = line.description || (line.feeItem ? line.feeItem.name : 'School Fee');
-    return `
+    // Generate lines HTML
+    const linesHTML = invoice.lines?.map((line, index) => {
+        const desc = line.description || (line.feeItem ? line.feeItem.name : 'School Fee');
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>${desc}</td>
         <td style="text-align: right; font-weight: bold;">${formatNumber(line.amount)} LAK</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="3" style="text-align: center;">No items</td></tr>';
+    }).join('') || '<tr><td colspan="3" style="text-align: center;">No items</td></tr>';
 
-  const studentName = invoice.student ? `${invoice.student.firstName} ${invoice.student.lastName}` : '-';
-  const studentId = invoice.student ? invoice.student.studentId : '-';
-  const phone = invoice.student ? invoice.student.phoneNumber : '-';
+    const studentName = invoice.student ? `${invoice.student.firstName} ${invoice.student.lastName}` : '-';
+    const studentId = invoice.student ? invoice.student.studentId : '-';
+    const phone = invoice.student ? invoice.student.phoneNumber : '-';
 
-  let className = '-';
-  if (invoice.student) {
-    if (invoice.student.schoolClass) {
-      className = invoice.student.schoolClass.name;
-    } else if (invoice.student.grade) {
-      className = invoice.student.grade;
+    let className = '-';
+    if (invoice.student) {
+        if (invoice.student.schoolClass) {
+            className = invoice.student.schoolClass.name;
+        } else if (invoice.student.grade) {
+            className = invoice.student.grade;
+        }
+        if (invoice.student.schoolRoom) {
+            className += ` (${invoice.student.schoolRoom.name})`;
+        } else if (invoice.student.room) {
+            className += ` (${invoice.student.room})`;
+        }
     }
-    if (invoice.student.schoolRoom) {
-      className += ` (${invoice.student.schoolRoom.name})`;
-    } else if (invoice.student.room) {
-      className += ` (${invoice.student.room})`;
-    }
-  }
 
-  const statusText = invoice.status === 'PAID' ? 'ຊຳລະແລ້ວ (PAID)' : (invoice.status === 'PARTIAL' ? 'ຊຳລະບາງສ່ວນ (PARTIAL)' : 'ຍັງບໍ່ຊຳລະ (UNPAID)');
-  const statusColor = invoice.status === 'PAID' ? '#2e7d32' : (invoice.status === 'PARTIAL' ? '#f57c00' : '#c62828');
-  const statusBg = invoice.status === 'PAID' ? '#e8f5e9' : (invoice.status === 'PARTIAL' ? '#fff3e0' : '#ffebee');
+    const statusText = invoice.status === 'PAID' ? 'ຊຳລະແລ້ວ (PAID)' : (invoice.status === 'PARTIAL' ? 'ຊຳລະບາງສ່ວນ (PARTIAL)' : 'ຍັງບໍ່ຊຳລະ (UNPAID)');
+    const statusColor = invoice.status === 'PAID' ? '#2e7d32' : (invoice.status === 'PARTIAL' ? '#f57c00' : '#c62828');
+    const statusBg = invoice.status === 'PAID' ? '#e8f5e9' : (invoice.status === 'PARTIAL' ? '#fff3e0' : '#ffebee');
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -2555,12 +2645,12 @@ export const generateSchoolInvoiceHTML = (invoice, companyData) => {
 }
 
 export const generateSchoolShiftReportHTML = (reportData, companyData) => {
-  console.log('🏫 GENERATING SCHOOL SHIFT REPORT PRINT HTML');
-  const logoUrl = getCompanyLogoUrl(companyData);
+    console.log('🏫 GENERATING SCHOOL SHIFT REPORT PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
 
-  // Generate lines HTML
-  const linesHTML = reportData.payments?.map((line, index) => {
-    return `
+    // Generate lines HTML
+    const linesHTML = reportData.payments?.map((line, index) => {
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>${line.methodName} (${line.methodCode})</td>
@@ -2568,17 +2658,17 @@ export const generateSchoolShiftReportHTML = (reportData, companyData) => {
         <td style="text-align: right; font-weight: bold;">${formatNumber(line.totalAmount)} LAK</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="4" style="text-align: center;">No collections recorded</td></tr>';
+    }).join('') || '<tr><td colspan="4" style="text-align: center;">No collections recorded</td></tr>';
 
-  const cashierName = reportData.cashier ? reportData.cashier.name : '-';
-  const shift = reportData.shift || {};
-  const statusColor = shift.status === 'CLOSED' ? '#c62828' : '#2e7d32';
-  const statusBg = shift.status === 'CLOSED' ? '#ffebee' : '#e8f5e9';
+    const cashierName = reportData.cashier ? reportData.cashier.name : '-';
+    const shift = reportData.shift || {};
+    const statusColor = shift.status === 'CLOSED' ? '#c62828' : '#2e7d32';
+    const statusBg = shift.status === 'CLOSED' ? '#ffebee' : '#e8f5e9';
 
-  const difference = shift.status === 'CLOSED' ? (shift.closingCash - shift.expectedClosingCash) : 0;
-  const diffColor = difference === 0 ? '#2e7d32' : (difference > 0 ? '#1565c0' : '#c62828');
+    const difference = shift.status === 'CLOSED' ? (shift.closingCash - shift.expectedClosingCash) : 0;
+    const diffColor = difference === 0 ? '#2e7d32' : (difference > 0 ? '#1565c0' : '#c62828');
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -2826,29 +2916,29 @@ export const generateSchoolShiftReportHTML = (reportData, companyData) => {
 }
 
 export const generateClassRoomSummaryReportHTML = (summaryData, companyData) => {
-  console.log('🏫 GENERATING CLASS ROOM SUMMARY REPORT PRINT HTML');
-  const logoUrl = getCompanyLogoUrl(companyData);
+    console.log('🏫 GENERATING CLASS ROOM SUMMARY REPORT PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
 
-  // Calculate global totals
-  let totalInvoices = 0;
-  let totalPaidInvoices = 0;
-  let totalPendingInvoices = 0;
-  let totalAmount = 0;
-  let totalPaidAmount = 0;
-  let totalBalanceAmount = 0;
+    // Calculate global totals
+    let totalInvoices = 0;
+    let totalPaidInvoices = 0;
+    let totalPendingInvoices = 0;
+    let totalAmount = 0;
+    let totalPaidAmount = 0;
+    let totalBalanceAmount = 0;
 
-  // Generate lines HTML
-  const linesHTML = summaryData?.map((line, index) => {
-    totalInvoices += line.totalInvoices || 0;
-    totalPaidInvoices += line.paidCount || 0;
-    totalPendingInvoices += line.pendingCount || 0;
-    totalAmount += line.totalAmount || 0;
-    totalPaidAmount += line.paidAmount || 0;
-    totalBalanceAmount += line.balanceAmount || 0;
+    // Generate lines HTML
+    const linesHTML = summaryData?.map((line, index) => {
+        totalInvoices += line.totalInvoices || 0;
+        totalPaidInvoices += line.paidCount || 0;
+        totalPendingInvoices += line.pendingCount || 0;
+        totalAmount += line.totalAmount || 0;
+        totalPaidAmount += line.paidAmount || 0;
+        totalBalanceAmount += line.balanceAmount || 0;
 
-    const completion = line.totalAmount ? Math.round((line.paidAmount / line.totalAmount) * 100) : 0;
+        const completion = line.totalAmount ? Math.round((line.paidAmount / line.totalAmount) * 100) : 0;
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="font-weight: bold;">${line.className}</td>
@@ -2862,11 +2952,11 @@ export const generateClassRoomSummaryReportHTML = (summaryData, companyData) => 
         <td style="text-align: center; font-weight: bold;">${completion}%</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="10" style="text-align: center;">No summaries recorded</td></tr>';
+    }).join('') || '<tr><td colspan="10" style="text-align: center;">No summaries recorded</td></tr>';
 
-  const globalCompletion = totalAmount ? Math.round((totalPaidAmount / totalAmount) * 100) : 0;
+    const globalCompletion = totalAmount ? Math.round((totalPaidAmount / totalAmount) * 100) : 0;
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -3098,25 +3188,25 @@ export const generateClassRoomSummaryReportHTML = (summaryData, companyData) => 
 }
 
 export const generateFeeItemSummaryReportHTML = (summaryData, companyData) => {
-  console.log('🏫 GENERATING FEE ITEM SUMMARY REPORT PRINT HTML');
-  const logoUrl = getCompanyLogoUrl(companyData);
+    console.log('🏫 GENERATING FEE ITEM SUMMARY REPORT PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
 
-  // Calculate global totals
-  let totalBilled = 0;
-  let totalPaid = 0;
-  let totalPending = 0;
-  let totalTransactions = 0;
+    // Calculate global totals
+    let totalBilled = 0;
+    let totalPaid = 0;
+    let totalPending = 0;
+    let totalTransactions = 0;
 
-  // Generate lines HTML
-  const linesHTML = summaryData?.map((line, index) => {
-    totalTransactions += line.lineCount || 0;
-    totalBilled += line.totalBilled || 0;
-    totalPaid += line.totalPaid || 0;
-    totalPending += line.totalPending || 0;
+    // Generate lines HTML
+    const linesHTML = summaryData?.map((line, index) => {
+        totalTransactions += line.lineCount || 0;
+        totalBilled += line.totalBilled || 0;
+        totalPaid += line.totalPaid || 0;
+        totalPending += line.totalPending || 0;
 
-    const completion = line.totalBilled ? Math.round((line.totalPaid / line.totalBilled) * 100) : 0;
+        const completion = line.totalBilled ? Math.round((line.totalPaid / line.totalBilled) * 100) : 0;
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="font-weight: bold;">${line.feeItemName}</td>
@@ -3127,11 +3217,11 @@ export const generateFeeItemSummaryReportHTML = (summaryData, companyData) => {
         <td style="text-align: center; font-weight: bold;">${completion}%</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No summaries recorded</td></tr>';
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No summaries recorded</td></tr>';
 
-  const globalCompletion = totalBilled ? Math.round((totalPaid / totalBilled) * 100) : 0;
+    const globalCompletion = totalBilled ? Math.round((totalPaid / totalBilled) * 100) : 0;
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -3358,18 +3448,18 @@ export const generateFeeItemSummaryReportHTML = (summaryData, companyData) => {
 }
 
 export const generateOutstandingBalancesReportHTML = (reportData, companyData, filters = {}) => {
-  console.log('🏫 GENERATING OUTSTANDING BALANCES REPORT PRINT HTML');
-  const logoUrl = getCompanyLogoUrl(companyData);
+    console.log('🏫 GENERATING OUTSTANDING BALANCES REPORT PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
 
-  // Generate lines HTML
-  const linesHTML = reportData?.map((line, index) => {
-    const studentName = line.student ? line.student.name : '-';
-    const studentId = line.student ? line.student.studentId : '-';
-    const parentContact = line.student && line.student.parentName
-      ? `${line.student.parentName} (${line.student.parentPhone})`
-      : (line.parentPhone ? `${line.parentName} (${line.parentPhone})` : '-');
+    // Generate lines HTML
+    const linesHTML = reportData?.map((line, index) => {
+        const studentName = line.student ? line.student.name : '-';
+        const studentId = line.student ? line.student.studentId : '-';
+        const parentContact = line.student && line.student.parentName
+            ? `${line.student.parentName} (${line.student.parentPhone})`
+            : (line.parentPhone ? `${line.parentName} (${line.parentPhone})` : '-');
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td>
@@ -3383,11 +3473,11 @@ export const generateOutstandingBalancesReportHTML = (reportData, companyData, f
         <td style="text-align: right; font-weight: bold; color: #c62828;">${formatNumber(line.balanceAmount)} LAK</td>
       </tr>
     `;
-  }).join('') || '<tr><td colspan="7" style="text-align: center;">No outstanding balances</td></tr>';
+    }).join('') || '<tr><td colspan="7" style="text-align: center;">No outstanding balances</td></tr>';
 
-  const totalOutstanding = reportData?.reduce((sum, item) => sum + Number(item.balanceAmount || 0), 0) || 0;
+    const totalOutstanding = reportData?.reduce((sum, item) => sum + Number(item.balanceAmount || 0), 0) || 0;
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -3617,81 +3707,81 @@ export const generateOutstandingBalancesReportHTML = (reportData, companyData, f
 }
 
 export const generateReceiptSummaryReportHTML = (headers, companyData, currencyList = [], filters = {}) => {
-  const logoUrl = getCompanyLogoUrl(companyData)
-  const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
 
-  let totalSalesLocal = 0
-  let totalDiscountLocal = 0
-  let totalCostLocal = 0
-  let totalGrossProfitLocal = 0
+    let totalSalesLocal = 0
+    let totalDiscountLocal = 0
+    let totalCostLocal = 0
+    let totalGrossProfitLocal = 0
 
-  const linesHTML = headers.map((header, index) => {
-    const headerCcy = currencyList.find(c => Number(c.id) === Number(header.currencyId)) || { code: 'LAK', rate: header.exchangeRate || 1, isLocalCCY: false }
-    const isHeaderLocal = headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
-    const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+    const linesHTML = headers.map((header, index) => {
+        const headerCcy = currencyList.find(c => Number(c.id) === Number(header.currencyId)) || { code: 'LAK', rate: header.exchangeRate || 1, isLocalCCY: false }
+        const isHeaderLocal = headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+        const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
 
-    let saleLineAmountLocalTotal = 0
-    let totalSaleOriginal = 0
-    let saleCostLocal = 0
+        let saleLineAmountLocalTotal = 0
+        let totalSaleOriginal = 0
+        let saleCostLocal = 0
 
-    header.lines?.forEach(line => {
-      const lineCurrency = currencyList.find(c => Number(c.id) === Number(line.currencyId)) || headerCcy
-      const lineRate = line.exchangeRate || headerRate
-      const saleLineAmountLocal = convertToLocalCurrency(line.total || 0, lineCurrency, localCurrency)
-      saleLineAmountLocalTotal += saleLineAmountLocal
-      totalSaleOriginal += (line.total || 0)
+        header.lines?.forEach(line => {
+            const lineCurrency = currencyList.find(c => Number(c.id) === Number(line.currencyId)) || headerCcy
+            const lineRate = line.exchangeRate || headerRate
+            const saleLineAmountLocal = convertToLocalCurrency(line.total || 0, lineCurrency, localCurrency)
+            saleLineAmountLocalTotal += saleLineAmountLocal
+            totalSaleOriginal += (line.total || 0)
 
-      let lineCostLAK = 0
-      if (line.cards && line.cards.length > 0) {
-        line.cards.forEach(card => {
-          let cardCostLAK = 0
-          const cardRate = card.exchangeRate || lineRate
-          if (card.costLCY !== undefined && card.costLCY !== null) {
-            cardCostLAK = parseFloat(card.costLCY)
-          } else {
-            cardCostLAK = parseFloat(card.cost || 0) * cardRate
-          }
+            let lineCostLAK = 0
+            if (line.cards && line.cards.length > 0) {
+                line.cards.forEach(card => {
+                    let cardCostLAK = 0
+                    const cardRate = card.exchangeRate || lineRate
+                    if (card.costLCY !== undefined && card.costLCY !== null) {
+                        cardCostLAK = parseFloat(card.costLCY)
+                    } else {
+                        cardCostLAK = parseFloat(card.cost || 0) * cardRate
+                    }
 
-          // Smart Currency Correction
-          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * lineRate
-          if (sellingPriceLAK > 0 && cardCostLAK > sellingPriceLAK * 1.5 && cardRate > 10) {
-            cardCostLAK = parseFloat(card.cost || 0)
-          }
+                    // Smart Currency Correction
+                    const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * lineRate
+                    if (sellingPriceLAK > 0 && cardCostLAK > sellingPriceLAK * 1.5 && cardRate > 10) {
+                        cardCostLAK = parseFloat(card.cost || 0)
+                    }
 
-          lineCostLAK += cardCostLAK
+                    lineCostLAK += cardCostLAK
+                })
+            } else {
+                // Fallback cost calculation
+                const unitCost = parseFloat(line.product?.cost_price || 0)
+                const qty = parseFloat(line.quantity || 0)
+                lineCostLAK += qty * unitCost * lineRate
+            }
+
+            const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
+            const lineCostLocal = convertToLocalCurrency(lineCostLAK, lakCurrency, localCurrency)
+            saleCostLocal += lineCostLocal
         })
-      } else {
-        // Fallback cost calculation
-        const unitCost = parseFloat(line.product?.cost_price || 0)
-        const qty = parseFloat(line.quantity || 0)
-        lineCostLAK += qty * unitCost * lineRate
-      }
 
-      const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
-      const lineCostLocal = convertToLocalCurrency(lineCostLAK, lakCurrency, localCurrency)
-      saleCostLocal += lineCostLocal
-    })
+        const discountLocal = convertToLocalCurrency(header.discount || 0, headerCcy, localCurrency)
+        const netSaleLocal = saleLineAmountLocalTotal - discountLocal
+        const grossProfitLocal = netSaleLocal - saleCostLocal
 
-    const discountLocal = convertToLocalCurrency(header.discount || 0, headerCcy, localCurrency)
-    const netSaleLocal = saleLineAmountLocalTotal - discountLocal
-    const grossProfitLocal = netSaleLocal - saleCostLocal
+        totalSalesLocal += netSaleLocal
+        totalDiscountLocal += discountLocal
+        totalCostLocal += saleCostLocal
+        totalGrossProfitLocal += grossProfitLocal
 
-    totalSalesLocal += netSaleLocal
-    totalDiscountLocal += discountLocal
-    totalCostLocal += saleCostLocal
-    totalGrossProfitLocal += grossProfitLocal
+        // Get payment type / status description
+        let paymentCode = 'N/A'
+        if (header.payments && Array.isArray(header.payments) && header.payments.length > 1) {
+            paymentCode = 'ຫຼາຍວິທີ (' + header.payments.length + ')'
+        } else {
+            paymentCode = header.payment?.payment_name || header.payments?.[0]?.paymentMethod?.payment_name || header.payment?.payment_code || header.payments?.[0]?.paymentMethod?.payment_code || 'N/A'
+        }
 
-    // Get payment type / status description
-    let paymentCode = 'N/A'
-    if (header.payments && Array.isArray(header.payments) && header.payments.length > 1) {
-      paymentCode = 'ຫຼາຍວິທີ (' + header.payments.length + ')'
-    } else {
-      paymentCode = header.payment?.payment_name || header.payments?.[0]?.paymentMethod?.payment_name || header.payment?.payment_code || header.payments?.[0]?.paymentMethod?.payment_code || 'N/A'
-    }
+        const customerName = header.client?.name || header.client?.company || 'Walk-in Customer'
 
-    const customerName = header.client?.name || header.client?.company || 'Walk-in Customer'
-
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${header.id}</td>
         <td style="text-align: center;">${paymentCode}</td>
@@ -3708,9 +3798,9 @@ export const generateReceiptSummaryReportHTML = (headers, companyData, currencyL
         </td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;">ບໍ່ມີຂໍ້ມູນ (No Data)</td></tr>'
+    }).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;">ບໍ່ມີຂໍ້ມູນ (No Data)</td></tr>'
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -3957,27 +4047,27 @@ export const generateReceiptSummaryReportHTML = (headers, companyData, currencyL
 }
 
 export const generateTransferSummaryReportHTML = (transfers, companyData, currencyList = [], filters = {}) => {
-  const logoUrl = getCompanyLogoUrl(companyData)
-  const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
-  const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
+    const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
 
-  let totalCostLocal = 0
-  const linesHTML = transfers.map((transfer, index) => {
-    const transferTotalLAK = transfer.lines
-      ? transfer.lines
-        .filter(line => line.isActive !== false)
-        .reduce((sum, line) => sum + (parseFloat(String(line.total || 0).replace(/,/g, '')) || 0), 0)
-      : 0
-    const transferTotalLocal = convertToLocalCurrency(transferTotalLAK, lakCurrency, localCurrency)
-    totalCostLocal += transferTotalLocal
+    let totalCostLocal = 0
+    const linesHTML = transfers.map((transfer, index) => {
+        const transferTotalLAK = transfer.lines
+            ? transfer.lines
+                .filter(line => line.isActive !== false)
+                .reduce((sum, line) => sum + (parseFloat(String(line.total || 0).replace(/,/g, '')) || 0), 0)
+            : 0
+        const transferTotalLocal = convertToLocalCurrency(transferTotalLAK, lakCurrency, localCurrency)
+        totalCostLocal += transferTotalLocal
 
-    const bookingDate = transfer.bookingDate ? transfer.bookingDate.split('T')[0] : '-'
-    const fromLoc = transfer.srcLocation?.name || '-'
-    const toLoc = transfer.desLocation?.name || '-'
-    const user = transfer.user?.cus_name || '-'
-    const remark = transfer.remark || '-'
+        const bookingDate = transfer.bookingDate ? transfer.bookingDate.split('T')[0] : '-'
+        const fromLoc = transfer.srcLocation?.name || '-'
+        const toLoc = transfer.desLocation?.name || '-'
+        const user = transfer.user?.cus_name || '-'
+        const remark = transfer.remark || '-'
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="text-align: center;">${bookingDate}</td>
@@ -3989,9 +4079,9 @@ export const generateTransferSummaryReportHTML = (transfers, companyData, curren
         <td>${remark}</td>
       </tr>
     `
-  }).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;">ບໍ່ມີຂໍ້ມູນ (No Data)</td></tr>'
+    }).join('') || '<tr><td colspan="8" style="text-align: center; padding: 20px;">ບໍ່ມີຂໍ້ມູນ (No Data)</td></tr>'
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -4217,34 +4307,34 @@ export const generateTransferSummaryReportHTML = (transfers, companyData, curren
 }
 
 export const generateTransferDetailReportHTML = (transfers, companyData, currencyList = [], filters = {}) => {
-  const logoUrl = getCompanyLogoUrl(companyData)
-  const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
-  const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const localCurrency = currencyList.find(c => c.isLocalCCY === true || c.isLocalCCY === 1) || { code: 'LAK', rate: 1 }
+    const lakCurrency = currencyList.find(c => c.code?.toUpperCase() === 'LAK') || { code: 'LAK', rate: 1, isLocalCCY: localCurrency.code === 'LAK' }
 
-  let grandTotalCostLocal = 0
-  const sectionsHTML = transfers.map((transfer, index) => {
-    let transferTotalLocal = 0
+    let grandTotalCostLocal = 0
+    const sectionsHTML = transfers.map((transfer, index) => {
+        let transferTotalLocal = 0
 
-    const bookingDate = transfer.bookingDate ? transfer.bookingDate.split('T')[0] : '-'
-    const fromLoc = transfer.srcLocation?.name || '-'
-    const toLoc = transfer.desLocation?.name || '-'
-    const user = transfer.user?.cus_name || '-'
-    const remark = transfer.remark || '-'
+        const bookingDate = transfer.bookingDate ? transfer.bookingDate.split('T')[0] : '-'
+        const fromLoc = transfer.srcLocation?.name || '-'
+        const toLoc = transfer.desLocation?.name || '-'
+        const user = transfer.user?.cus_name || '-'
+        const remark = transfer.remark || '-'
 
-    const itemsHTML = transfer.lines?.filter(line => line.isActive !== false).map((line, lIndex) => {
-      const productName = line.product?.pro_name || 'Unknown Product'
-      const qty = parseFloat(line.quantity || 0)
-      const priceLAK = parseFloat(String(line.price || 0).replace(/,/g, '')) || 0
-      const discountLAK = parseFloat(String(line.discount || 0).replace(/,/g, '')) || 0
-      const totalLAK = parseFloat(String(line.total || 0).replace(/,/g, '')) || 0
+        const itemsHTML = transfer.lines?.filter(line => line.isActive !== false).map((line, lIndex) => {
+            const productName = line.product?.pro_name || 'Unknown Product'
+            const qty = parseFloat(line.quantity || 0)
+            const priceLAK = parseFloat(String(line.price || 0).replace(/,/g, '')) || 0
+            const discountLAK = parseFloat(String(line.discount || 0).replace(/,/g, '')) || 0
+            const totalLAK = parseFloat(String(line.total || 0).replace(/,/g, '')) || 0
 
-      const priceLocal = convertToLocalCurrency(priceLAK, lakCurrency, localCurrency)
-      const discountLocal = convertToLocalCurrency(discountLAK, lakCurrency, localCurrency)
-      const totalLocal = convertToLocalCurrency(totalLAK, lakCurrency, localCurrency)
+            const priceLocal = convertToLocalCurrency(priceLAK, lakCurrency, localCurrency)
+            const discountLocal = convertToLocalCurrency(discountLAK, lakCurrency, localCurrency)
+            const totalLocal = convertToLocalCurrency(totalLAK, lakCurrency, localCurrency)
 
-      transferTotalLocal += totalLocal
+            transferTotalLocal += totalLocal
 
-      return `
+            return `
         <tr>
           <td style="text-align: center;">${lIndex + 1}</td>
           <td>${productName}</td>
@@ -4254,11 +4344,11 @@ export const generateTransferDetailReportHTML = (transfers, companyData, currenc
           <td style="text-align: right; font-weight: bold;">${formatNumber(totalLocal)} ${localCurrency.code}</td>
         </tr>
       `
-    }).join('') || '<tr><td colspan="6" style="text-align: center; padding: 10px;">ບໍ່ມີລາຍການສິນຄ້າ (No Line Items)</td></tr>'
+        }).join('') || '<tr><td colspan="6" style="text-align: center; padding: 10px;">ບໍ່ມີລາຍການສິນຄ້າ (No Line Items)</td></tr>'
 
-    grandTotalCostLocal += transferTotalLocal
+        grandTotalCostLocal += transferTotalLocal
 
-    return `
+        return `
       <div class="transfer-section" style="border: 1px solid #ccc; margin-bottom: 20px; padding: 12px; border-radius: 6px; background-color: #fff; page-break-inside: avoid;">
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding-bottom: 8px; margin-bottom: 8px; font-weight: bold; color: #01532B;">
           <div>ບິນໂອນເລກທີ (Transfer ID): #${transfer.id}</div>
@@ -4291,9 +4381,9 @@ export const generateTransferDetailReportHTML = (transfers, companyData, currenc
         </table>
       </div>
     `
-  }).join('') || '<div style="text-align: center; padding: 40px; border: 1px dashed #ccc; border-radius: 6px; background-color: #fafafa;">ບໍ່ມີຂໍ້ມູນ (No Data)</div>'
+    }).join('') || '<div style="text-align: center; padding: 40px; border: 1px dashed #ccc; border-radius: 6px; background-color: #fafafa;">ບໍ່ມີຂໍ້ມູນ (No Data)</div>'
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -4504,35 +4594,35 @@ export const generateTransferDetailReportHTML = (transfers, companyData, currenc
 }
 
 export const generateProductListReportHTML = (products, companyData, currencyList = [], filters = {}) => {
-  const logoUrl = getCompanyLogoUrl(companyData)
+    const logoUrl = getCompanyLogoUrl(companyData)
 
-  let totalStockCount = 0
-  const costTotalsByCurrency = {}
+    let totalStockCount = 0
+    const costTotalsByCurrency = {}
 
-  const linesHTML = products.map((product, index) => {
-    const qty = parseFloat(product.pro_card_count || 0)
-    const cost = parseFloat(product.pro_cost_price || 0)
-    totalStockCount += qty
+    const linesHTML = products.map((product, index) => {
+        const qty = parseFloat(product.pro_card_count || 0)
+        const cost = parseFloat(product.pro_cost_price || 0)
+        totalStockCount += qty
 
-    // Cost and Sale currency
-    const costCcy = currencyList.find(c => c.id === product.costCurrencyId) || { code: 'LAK' }
-    const saleCcy = currencyList.find(c => c.id === product.saleCurrencyId) || { code: 'LAK' }
+        // Cost and Sale currency
+        const costCcy = currencyList.find(c => c.id === product.costCurrencyId) || { code: 'LAK' }
+        const saleCcy = currencyList.find(c => c.id === product.saleCurrencyId) || { code: 'LAK' }
 
-    // Line total cost calculation
-    const lineTotalCost = qty * cost
-    if (qty > 0 && cost > 0) {
-      const ccyCode = costCcy.code || 'LAK'
-      if (!costTotalsByCurrency[ccyCode]) {
-        costTotalsByCurrency[ccyCode] = 0
-      }
-      costTotalsByCurrency[ccyCode] += lineTotalCost
-    }
+        // Line total cost calculation
+        const lineTotalCost = qty * cost
+        if (qty > 0 && cost > 0) {
+            const ccyCode = costCcy.code || 'LAK'
+            if (!costTotalsByCurrency[ccyCode]) {
+                costTotalsByCurrency[ccyCode] = 0
+            }
+            costTotalsByCurrency[ccyCode] += lineTotalCost
+        }
 
-    const proCodeStr = product.product_code ? `[${product.product_code}]` : ''
-    const barcodeStr = product.barCode ? `Barcode: ${product.barCode}` : ''
-    const identifiers = [proCodeStr, barcodeStr].filter(Boolean).join('<br>')
+        const proCodeStr = product.product_code ? `[${product.product_code}]` : ''
+        const barcodeStr = product.barCode ? `Barcode: ${product.barCode}` : ''
+        const identifiers = [proCodeStr, barcodeStr].filter(Boolean).join('<br>')
 
-    return `
+        return `
       <tr>
         <td style="text-align: center;">${index + 1}</td>
         <td style="text-align: left; white-space: nowrap;">
@@ -4550,18 +4640,18 @@ export const generateProductListReportHTML = (products, companyData, currencyLis
         <td style="text-align: center; white-space: nowrap;">${formatDate(product.createdAt)}</td>
       </tr>
     `
-  }).join('')
+    }).join('')
 
-  const totalsHTML = Object.entries(costTotalsByCurrency).map(([ccy, total]) => {
-    return `
+    const totalsHTML = Object.entries(costTotalsByCurrency).map(([ccy, total]) => {
+        return `
       <div class="total-row">
         <span>ຕົ້ນທຶນສະຕັອກລວມ (${ccy}):</span>
         <span><strong>${formatNumber(total)} ${ccy}</strong></span>
       </div>
     `
-  }).join('')
+    }).join('')
 
-  return `
+    return `
     <!DOCTYPE html>
     <html>
     <head>
@@ -4788,4 +4878,562 @@ export const generateProductListReportHTML = (products, companyData, currencyLis
     </body>
     </html>
   `;
+}
+
+// ==========================================
+// CATEGORY SALES REPORT PRINT TEMPLATE
+// ==========================================
+export const generateCategorySalesReportHTML = (categories = [], companyData = {}, fromDate = '', toDate = '', localCurrency = { code: 'LAK' }) => {
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const formattedFromDate = formatDate(fromDate)
+    const formattedToDate = formatDate(toDate)
+    const cCode = localCurrency?.code || 'LAK'
+
+    // Calculations
+    const totalQTY = categories.reduce((sum, c) => sum + (Number(c.totalQTY) || 0), 0)
+    const totalDiscount = categories.reduce((sum, c) => sum + (Number(c.totalDiscountLocal) || 0), 0)
+    const totalRevenue = categories.reduce((sum, c) => sum + (Number(c.totalAmountLocal) || 0), 0)
+    const totalGross = totalRevenue + totalDiscount
+
+    const rowsHTML = categories.map((cat, index) => {
+        // Nested products html list
+        const productsList = cat.products || []
+        const productsHTML = productsList.map(p => `
+      <tr class="product-row" style="background-color: #fafafa; font-size: 9px; color: #555;">
+        <td></td>
+        <td style="padding-left: 20px;">&nbsp;&nbsp;&nbsp;↳ <strong>${p.productName || p.pro_name || 'Unknown Product'}</strong> <span style="color: #888;">(ID: #${p.productId || p.id || '-'})</span></td>
+        <td style="text-align: center;">${formatNumber(p.totalQTY || p.quantity || 0)}</td>
+        <td style="text-align: right;">${formatNumber(Math.round((p.totalPriceLocal || 0) / (p.totalQTY || 1)))} ${cCode}</td>
+        <td style="text-align: right; color: #d97706;">${(p.totalDiscountLocal || 0) > 0 ? `-${formatNumber(Math.round(p.totalDiscountLocal))} ${cCode}` : '-'}</td>
+        <td style="text-align: right; font-weight: 500;">${formatNumber(Math.round(p.totalAmountLocal || 0))} ${cCode}</td>
+      </tr>
+    `).join('')
+
+        return `
+      <!-- Category Summary Row -->
+      <tr style="background-color: #f1f5f9; font-weight: bold; border-top: 1px solid #cbd5e1;">
+        <td style="text-align: center;">${index + 1}</td>
+        <td style="text-align: left;">
+          ${cat.categoryName || 'ບໍ່ມີໝວດໝູ່'} <span style="font-size: 9px; font-weight: normal; color: #64748b;">(ID: #${cat.categoryId || '-'}) - ${cat.productCount || productsList.length} ລາຍການ</span>
+        </td>
+        <td style="text-align: center; font-weight: 700;">${formatNumber(cat.totalQTY || 0)}</td>
+        <td style="text-align: right;">${formatNumber(Math.round((cat.totalPriceLocal || 0) / (cat.totalQTY || 1)))} ${cCode}</td>
+        <td style="text-align: right; color: #d97706;">${(cat.totalDiscountLocal || 0) > 0 ? `-${formatNumber(Math.round(cat.totalDiscountLocal))} ${cCode}` : '-'}</td>
+        <td style="text-align: right; color: #0f766e; font-weight: 800;">${formatNumber(Math.round(cat.totalAmountLocal || 0))} ${cCode}</td>
+      </tr>
+      <!-- Nested Products -->
+      ${productsHTML}
+    `
+    }).join('') || '<tr><td colspan="6" style="text-align: center; padding: 15px;">ບໍ່ມີຂໍ້ມູນການຂາຍ</td></tr>'
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>Category Sales Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body { 
+            font-family: 'Noto Sans Lao', 'Helvetica Neue', Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            color: #333; 
+            background-color: #fff;
+        }
+        .content { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 95vh; 
+        }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #0f766e; 
+            padding-bottom: 15px; 
+            margin-bottom: 15px; 
+        }
+        .logo-box img {
+            max-height: 70px;
+            max-width: 140px;
+            object-fit: contain;
+        }
+        .company-info h1 { 
+            font-size: 16px; 
+            margin: 0 0 5px 0; 
+            color: #0f766e; 
+        }
+        .company-info p { 
+            font-size: 10px; 
+            margin: 0 0 3px 0; 
+            color: #666; 
+        }
+        .report-title-box { 
+            text-align: right; 
+        }
+        .report-title-box h2 { 
+            font-size: 16px; 
+            margin: 0 0 5px 0; 
+            color: #0f766e; 
+            letter-spacing: 0.5px;
+        }
+        .report-title-box span { 
+            font-size: 10px; 
+            color: #666; 
+            display: block; 
+            font-weight: bold; 
+        }
+        
+        .info-box { 
+            margin-bottom: 15px; 
+            padding: 10px; 
+            display: flex; 
+            background: #f8fafc;
+            border: 1px solid #e2e8f0; 
+            border-radius: 6px;
+        }
+        .info-col { flex: 1; font-size: 10px; }
+        .info-col.right { 
+            border-left: 1px solid #e2e8f0; 
+            padding-left: 15px; 
+            flex: 0 0 250px; 
+        }
+        .field-label { 
+            font-weight: bold; 
+            margin-right: 5px; 
+            color: #475569; 
+        }
+        
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            border: 1px solid #cbd5e1;
+        }
+        th { 
+            border: 1px solid #cbd5e1; 
+            background-color: #0f766e; 
+            color: white; 
+            padding: 8px 6px; 
+            font-size: 10px; 
+            font-weight: bold; 
+            text-align: center;
+        }
+        td { 
+            border: 1px solid #e2e8f0; 
+            padding: 7px 6px; 
+            font-size: 10px; 
+            vertical-align: middle;
+        }
+        
+        .totals-container { 
+            display: flex; 
+            justify-content: flex-end; 
+            margin-top: 10px; 
+            margin-bottom: 25px; 
+        }
+        .totals-box { 
+            width: 380px; 
+            border: 1px solid #cbd5e1; 
+            background: #f8fafc; 
+            border-radius: 6px; 
+            overflow: hidden;
+        }
+        .total-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 7px 12px; 
+            font-size: 11px; 
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .total-row:last-child { border-bottom: none; }
+        
+        .signature-section { 
+            display: flex; 
+            justify-content: space-between; 
+            margin-top: 40px; 
+            padding-top: 20px; 
+            page-break-inside: avoid;
+        }
+        .signature-box { 
+            width: 220px; 
+            text-align: center; 
+            border-top: 1px dashed #64748b; 
+            font-size: 10px; 
+            color: #475569; 
+            padding-top: 5px;
+        }
+        .footer-note {
+            text-align: center; 
+            font-size: 9px; 
+            color: #94a3b8; 
+            margin-top: auto; 
+            padding-top: 20px; 
+            border-top: 1px solid #e2e8f0;
+        }
+        @media print {
+            body { padding: 5mm; }
+            @page { size: A4; margin: 5mm; }
+            .content { min-height: 100%; }
+            th { background-color: #0f766e !important; color: white !important; }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="header-container">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                ${logoUrl ? `
+                    <div class="logo-box">
+                        <img src="${logoUrl}" alt="Logo" onerror="this.style.display='none';"/>
+                    </div>
+                ` : ''}
+                <div class="company-info">
+                    <h1>${companyData?.name || 'ບໍລິສັດ ດີຄອມເມີຊ POS'}</h1>
+                    <p><span class="field-label">Tel:</span>${companyData?.tel || '-'}</p>
+                    <p><span class="field-label">Address:</span>${companyData?.address || '-'}</p>
+                </div>
+            </div>
+            <div class="report-title-box">
+                <h2>ລາຍງານຍອດຂາຍ ຕາມປະເພດສິນຄ້າ</h2>
+                <span>Category Sales Report</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-col">
+                <p><span class="field-label">ໄລຍະເວລາລາຍງານ (Period):</span> ${formattedFromDate} - ${formattedToDate}</p>
+                <p><span class="field-label">ສະຖານທີ່ (Location):</span> ${companyData?.location || companyData?.address || 'ສາງຫຼັກ (Main Warehouse)'}</p>
+            </div>
+            <div class="info-col right">
+                <p><span class="field-label">ວັນທີພິມ (Date Printed):</span> ${new Date().toLocaleDateString('en-GB')}</p>
+                <p><span class="field-label">ພິມໂດຍ (Printed By):</span> ${companyData?.user || 'ຜູ້ຈັດການ (Manager)'}</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 45px;">ລຳດັບ<br>(No.)</th>
+                    <th style="text-align: left;">ປະເພດສິນຄ້າ / ລາຍການສິນຄ້າ<br>(Category / Product Name)</th>
+                    <th style="width: 90px;">ຈຳນວນຂາຍ<br>(Qty Sold)</th>
+                    <th style="width: 110px;">ລາຄາສະເລ່ຍ<br>(Avg Price)</th>
+                    <th style="width: 100px;">ສ່ວນຫຼຸດ<br>(Discount)</th>
+                    <th style="width: 130px; text-align: right;">ຍອດຂາຍສຸດທິ<br>(Net Revenue)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHTML}
+            </tbody>
+        </table>
+
+        <div class="totals-container">
+            <div class="totals-box">
+                <div class="total-row">
+                    <span>ຈຳນວນໝວດສິນຄ້າ (Total Categories):</span>
+                    <span><strong>${categories.length} ໝວດ</strong></span>
+                </div>
+                <div class="total-row">
+                    <span>ຈຳນວນຂາຍລວມທັງໝົດ (Total Qty Sold):</span>
+                    <span><strong>${formatNumber(totalQTY)}</strong></span>
+                </div>
+                <div class="total-row">
+                    <span>ຍອດຂາຍລວມກ່ອນຫຼຸດ (Gross Sales):</span>
+                    <span><strong>${formatNumber(Math.round(totalGross))} ${cCode}</strong></span>
+                </div>
+                <div class="total-row" style="color: #d97706;">
+                    <span>ສ່ວນຫຼຸດລວມທັງໝົດ (Total Discount):</span>
+                    <span><strong>-${formatNumber(Math.round(totalDiscount))} ${cCode}</strong></span>
+                </div>
+                <div class="total-row" style="background-color: #ecfdf5; color: #047857; font-size: 12px; font-weight: bold;">
+                    <span>ຍອດຂາຍສຸດທິ (Net Revenue):</span>
+                    <span><strong>${formatNumber(Math.round(totalRevenue))} ${cCode}</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box"><br><br>ຜູ້ຈັດການ (Manager / Approved By)</div>
+            <div class="signature-box"><br><br>ຜູ້ກວດສອບ (Audited / Prepared By)</div>
+        </div>
+        
+        <div class="footer-note">
+            ລາຍງານນີ້ດຶງອອກຈາກລະບົບ DCommerce POS.
+        </div>
+    </div>
+    </body>
+    </html>
+  `
+}
+
+// ==========================================
+// PRODUCT SALES REPORT PRINT TEMPLATE
+// ==========================================
+export const generateProductSalesReportHTML = (products = [], companyData = {}, fromDate = '', toDate = '', localCurrency = { code: 'LAK' }) => {
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const formattedFromDate = formatDate(fromDate)
+    const formattedToDate = formatDate(toDate)
+    const cCode = localCurrency?.code || 'LAK'
+
+    // Calculations
+    const totalQTY = products.reduce((sum, p) => sum + (Number(p.totalQTY) || 0), 0)
+    const totalDiscount = products.reduce((sum, p) => sum + (Number(p.totalDiscountLocal) || 0), 0)
+    const totalRevenue = products.reduce((sum, p) => sum + (Number(p.totalAmountLocal) || 0), 0)
+    const totalGross = totalRevenue + totalDiscount
+
+    const rowsHTML = products.map((item, index) => {
+        const prod = item.product || {}
+        const prodName = prod.pro_name || 'ບໍ່ມີຊື່ສິນຄ້າ'
+        const prodCode = prod.product_code || prod.barCode || ''
+        const catName = prod.category?.categ_name || prod.categ_name || ''
+        const avgPrice = Math.round((item.totalPriceLocal || 0) / (item.totalQTY || 1))
+
+        return `
+      <tr>
+        <td style="text-align: center;">${index + 1}</td>
+        <td style="text-align: left;">
+          <strong>${prodName}</strong>
+          ${prodCode ? `<br><span style="font-size: 8.5px; color: #64748b;">[${prodCode}]</span>` : ''}
+          ${catName ? `<span style="font-size: 8.5px; color: #0284c7; margin-left: 4px;">(${catName})</span>` : ''}
+        </td>
+        <td style="text-align: center; font-weight: 700;">${formatNumber(item.totalQTY || 0)}</td>
+        <td style="text-align: right;">${formatNumber(avgPrice)} ${cCode}</td>
+        <td style="text-align: right; color: #d97706;">${(item.totalDiscountLocal || 0) > 0 ? `-${formatNumber(Math.round(item.totalDiscountLocal))} ${cCode}` : '-'}</td>
+        <td style="text-align: right; color: #0f766e; font-weight: 700;">${formatNumber(Math.round(item.totalAmountLocal || 0))} ${cCode}</td>
+      </tr>
+    `
+    }).join('') || '<tr><td colspan="6" style="text-align: center; padding: 15px;">ບໍ່ມີຂໍ້ມູນການຂາຍ</td></tr>'
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="utf-8">
+    <title>Product Sales Report</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body { 
+            font-family: 'Noto Sans Lao', 'Helvetica Neue', Arial, sans-serif; 
+            margin: 0; 
+            padding: 20px; 
+            color: #333; 
+            background-color: #fff;
+        }
+        .content { 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 95vh; 
+        }
+        .header-container { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 2px solid #0f766e; 
+            padding-bottom: 15px; 
+            margin-bottom: 15px; 
+        }
+        .logo-box img { 
+            max-height: 70px; 
+            max-width: 140px; 
+            object-fit: contain; 
+        }
+        .company-info h1 { 
+            font-size: 16px; 
+            margin: 0 0 5px 0; 
+            color: #0f766e; 
+        }
+        .company-info p { 
+            font-size: 10px; 
+            margin: 0 0 3px 0; 
+            color: #64748b; 
+        }
+        .report-title-box { 
+            text-align: right; 
+        }
+        .report-title-box h2 { 
+            font-size: 18px; 
+            margin: 0 0 4px 0; 
+            color: #0f766e; 
+            text-transform: uppercase; 
+        }
+        .report-title-box span { 
+            font-size: 11px; 
+            color: #64748b; 
+            font-weight: bold; 
+        }
+        .info-box { 
+            display: flex; 
+            justify-content: space-between; 
+            background-color: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 6px; 
+            padding: 10px 15px; 
+            margin-bottom: 15px; 
+            font-size: 11px; 
+        }
+        .info-col p { margin: 3px 0; }
+        .info-col.right { text-align: right; }
+        .field-label { font-weight: bold; color: #475569; margin-right: 5px; }
+
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-bottom: 15px; 
+            font-size: 10px; 
+        }
+        th, td { 
+            border: 1px solid #cbd5e1; 
+            padding: 6px 8px; 
+        }
+        th { 
+            background-color: #0f766e; 
+            color: white; 
+            font-weight: 700; 
+            text-align: center; 
+        }
+        tbody tr:nth-child(even) { 
+            background-color: #f8fafc; 
+        }
+
+        .totals-container { 
+            display: flex; 
+            justify-content: flex-end; 
+            margin-top: 10px; 
+            margin-bottom: 25px; 
+        }
+        .totals-box { 
+            width: 320px; 
+            border: 1px solid #cbd5e1; 
+            border-radius: 6px; 
+            background-color: #f8fafc; 
+            overflow: hidden; 
+        }
+        .total-row { 
+            display: flex; 
+            justify-content: space-between; 
+            padding: 6px 12px; 
+            font-size: 10px; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        .total-row:last-child { border-bottom: none; }
+
+        .signature-section { 
+            display: flex; 
+            justify-content: space-around; 
+            margin-top: 30px; 
+            margin-bottom: 20px; 
+        }
+        .signature-box { 
+            text-align: center; 
+            font-size: 11px; 
+            width: 200px; 
+            border-top: 1px dashed #94a3b8; 
+            padding-top: 8px; 
+            color: #475569; 
+        }
+
+        .footer-note { 
+            text-align: center; 
+            font-size: 9px; 
+            color: #94a3b8; 
+            margin-top: auto; 
+            padding-top: 20px; 
+            border-top: 1px solid #e2e8f0; 
+        }
+        @media print {
+            body { padding: 5mm; }
+            @page { size: A4; margin: 5mm; }
+            .content { min-height: 100%; }
+            th { background-color: #0f766e !important; color: white !important; }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="content">
+        <div class="header-container">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                ${logoUrl ? `
+                    <div class="logo-box">
+                        <img src="${logoUrl}" alt="Logo" onerror="this.style.display='none';"/>
+                    </div>
+                ` : ''}
+                <div class="company-info">
+                    <h1>${companyData?.name || 'ບໍລິສັດ ດີຄອມເມີຊ POS'}</h1>
+                    <p><span class="field-label">Tel:</span>${companyData?.tel || '-'}</p>
+                    <p><span class="field-label">Address:</span>${companyData?.address || '-'}</p>
+                </div>
+            </div>
+            <div class="report-title-box">
+                <h2>ລາຍງານຍອດຂາຍ ຕາມລາຍການສິນຄ້າ</h2>
+                <span>Product Sales Report</span>
+            </div>
+        </div>
+
+        <div class="info-box">
+            <div class="info-col">
+                <p><span class="field-label">ໄລຍະເວລາລາຍງານ (Period):</span> ${formattedFromDate} - ${formattedToDate}</p>
+                <p><span class="field-label">ສະຖານທີ່ (Location):</span> ${companyData?.location || companyData?.address || 'ສາງຫຼັກ (Main Warehouse)'}</p>
+            </div>
+            <div class="info-col right">
+                <p><span class="field-label">ວັນທີພິມ (Date Printed):</span> ${new Date().toLocaleDateString('en-GB')}</p>
+                <p><span class="field-label">ພິມໂດຍ (Printed By):</span> ${companyData?.user || 'ຜູ້ຈັດການ (Manager)'}</p>
+            </div>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 45px;">ລຳດັບ<br>(No.)</th>
+                    <th style="text-align: left;">ລາຍການສິນຄ້າ<br>(Product Name / Code)</th>
+                    <th style="width: 90px;">ຈຳນວນຂາຍ<br>(Qty Sold)</th>
+                    <th style="width: 110px;">ລາຄາສະເລ່ຍ<br>(Avg Price)</th>
+                    <th style="width: 100px;">ສ່ວນຫຼຸດ<br>(Discount)</th>
+                    <th style="width: 130px; text-align: right;">ຍອດຂາຍສຸດທິ<br>(Net Revenue)</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHTML}
+            </tbody>
+        </table>
+
+        <div class="totals-container">
+            <div class="totals-box">
+                <div class="total-row">
+                    <span>ຈຳນວນລາຍການສິນຄ້າ (Product Lines):</span>
+                    <span><strong>${products.length} ລາຍການ</strong></span>
+                </div>
+                <div class="total-row">
+                    <span>ຈຳນວນຂາຍລວມທັງໝົດ (Total Qty Sold):</span>
+                    <span><strong>${formatNumber(totalQTY)}</strong></span>
+                </div>
+                <div class="total-row">
+                    <span>ຍອດຂາຍລວມກ່ອນຫຼຸດ (Gross Sales):</span>
+                    <span><strong>${formatNumber(Math.round(totalGross))} ${cCode}</strong></span>
+                </div>
+                <div class="total-row" style="color: #d97706;">
+                    <span>ສ່ວນຫຼຸດລວມທັງໝົດ (Total Discount):</span>
+                    <span><strong>-${formatNumber(Math.round(totalDiscount))} ${cCode}</strong></span>
+                </div>
+                <div class="total-row" style="background-color: #ecfdf5; color: #047857; font-size: 12px; font-weight: bold;">
+                    <span>ຍອດຂາຍສຸດທິ (Net Revenue):</span>
+                    <span><strong>${formatNumber(Math.round(totalRevenue))} ${cCode}</strong></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="signature-section">
+            <div class="signature-box"><br><br>ຜູ້ຈັດການ (Manager / Approved By)</div>
+            <div class="signature-box"><br><br>ຜູ້ກວດສອບ (Audited / Prepared By)</div>
+        </div>
+        
+        <div class="footer-note">
+            ລາຍງານນີ້ດຶງອອກຈາກລະບົບ DCommerce POS.
+        </div>
+    </div>
+    </body>
+    </html>
+  `
 }

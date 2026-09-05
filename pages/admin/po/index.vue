@@ -25,7 +25,7 @@
         :headerId="selectedId" @close-dialog="dialog = false" />
     </v-dialog>
 
-    <v-dialog v-model="receivingDialog" fullscreen transition="dialog-bottom-transition">
+    <v-dialog v-model="receivingDialog" fullscreen transition="dialog-bottom-transition" persistent>
       <ReceivingFormCRUD :POTransaction="currentPO" sourceAPLID="PO" @close="triggerDialog" :key="apFormKey"
         @close-dialog="receivingDialog = false" @reload="loadTxn" />
     </v-dialog>

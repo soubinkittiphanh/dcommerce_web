@@ -126,9 +126,17 @@
                   <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
                   <span class="font-weight-bold">{{ formatAmount(totalSale) }} {{ localCurrencyCode }}</span>
                 </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ລາຍຮັບອື່ນໆ (AR Income)</span>
+                  <span>{{ formatAmount(totalFinancialIncome) }} {{ localCurrencyCode }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ໃບຮັບເງິນ (AR Receive)</span>
+                  <span>{{ formatAmount(totalArReceiveAmount) }} {{ localCurrencyCode }}</span>
+                </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
-                  <span class="grey--text">ລາຍຮັບອື່ນໆ (Other Income)</span>
-                  <span class="font-weight-bold">{{ formatAmount(totalIncome - totalSale) }} {{ localCurrencyCode }}</span>
+                  <span class="grey--text font-weight-bold">ລາຍຮັບອື່ນໆລວມ (Other Income)</span>
+                  <span class="font-weight-bold success--text">{{ formatAmount(totalOtherIncome) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom primary lighten-5 px-2 rounded mt-2">
                   <span class="primary--text font-weight-bold">ລາຍຮັບລວມ (A)</span>
@@ -153,12 +161,20 @@
                   <span class="orange--text text--darken-3 font-weight-bold">{{ formatAmount(totalCostOfSale) }} {{ localCurrencyCode }}</span>
                 </div>
 
-                <div class="analysis-item d-flex justify-space-between py-2 mt-4 border-bottom">
-                  <span class="grey--text">ລາຍຈ່າຍບໍລິຫານ (OPEX)</span>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom mt-4">
+                  <span class="grey--text pl-2">- ລາຍຈ່າຍທົ່ວໄປ (AP Expense)</span>
+                  <span>{{ formatAmount(totalFinancialExpense) }} {{ localCurrencyCode }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">- ຊຳລະໃບແຈ້ງໜີ້ (AP Settlement)</span>
+                  <span>{{ formatAmount(totalApSettlementAmount) }} {{ localCurrencyCode }}</span>
+                </div>
+                <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
+                  <span class="grey--text font-weight-bold">ລາຍຈ່າຍບໍລິຫານລວມ (OPEX)</span>
                   <span class="font-weight-bold error--text">{{ formatAmount(operatingExpensesOnly) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom error lighten-5 px-2 rounded mt-1">
-                  <span class="error--text font-weight-bold">ລາຍຈ່າຍລວມ (B)</span>
+                  <span class="error--text font-weight-bold">ລາຍຈ່າຍລວມທັງໝົດ (B: COGS + OPEX)</span>
                   <span class="error--text font-weight-bold">{{ formatAmount(totalExpense) }} {{ localCurrencyCode }}</span>
                 </div>
 
@@ -200,6 +216,8 @@ export default {
       isloading: false,
       expenseList: [],
       incomeList: [],
+      arReceiveList: [],
+      apSettlementList: [],
       yearlySale: [],
       menu1: false,
       menu2: false,
@@ -258,49 +276,108 @@ export default {
     totalSale() {
       return this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)
     },
+    totalFinancialIncome() {
+      return this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
+    },
+    activeArReceiveList() {
+      const fromDate = this.date ? new Date(this.date) : null
+      const toDate = this.date2 ? new Date(this.date2) : null
+
+      return (this.arReceiveList || []).filter(receipt => {
+        if (receipt.status === 'cancelled' || receipt.status === 'voided') return false
+        const dStr = receipt.receivedDate || receipt.bookingDate || receipt.createdAt
+        if (!dStr) return true
+        const d = new Date(dStr.substr(0, 10))
+        if (fromDate && d < fromDate) return false
+        if (toDate && d > toDate) return false
+        return true
+      })
+    },
+    totalArReceiveAmount() {
+      return this.activeArReceiveList.reduce((sum, r) => {
+        const amt = parseFloat(r.totalReceivedAmount || 0)
+        const rate = parseFloat(r.exchangeRate || r.rate || 1)
+        return sum + this.convertToHomeCurrency(amt, r.currencyId, rate)
+      }, 0)
+    },
+    totalOtherIncome() {
+      return this.totalFinancialIncome + this.totalArReceiveAmount
+    },
     totalIncome() {
-      const otherIncome = this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
-      return otherIncome + this.totalSale
+      return this.totalSale + this.totalOtherIncome
     },
     productCostOnly() {
       let totalCostLAK = 0;
+      const localCurrency = this.findLocalCurrency;
+
       this.yearlySale.filter(sale => sale.isActive === true).forEach(sale => {
         let saleCost = 0;
         const saleRate = sale.exchangeRate || 1;
         
         sale.lines?.forEach(line => {
           const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
+          let lineCost = 0;
           
-          line.cards?.forEach(card => {
-            let cardCost = 0;
-            const cardRate = card.exchangeRate || 1;
-            
-            if (card.costLCY !== undefined && card.costLCY !== null) {
-              cardCost = parseFloat(card.costLCY);
-            } else {
-              cardCost = parseFloat(card.cost || 0) * cardRate;
-            }
-            
-            // ✅ Smart Currency Correction
-            if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
-              cardCost = parseFloat(card.cost || 0);
-            }
-            
-            // Guard against corrupted cost values
-            if (Math.abs(cardCost) < 1e12) {
-              saleCost += cardCost;
-            }
-          });
+          if (line.cards && line.cards.length > 0) {
+            line.cards.forEach(card => {
+              let cardCost = 0;
+              const cardRate = card.exchangeRate || 1;
+              
+              const isForeign = card.currencyId && Number(card.currencyId) !== 1;
+              const hasValidLcy = card.costLCY !== undefined && card.costLCY !== null && parseFloat(card.costLCY) > 0 &&
+                                  (!isForeign || parseFloat(card.costLCY) > parseFloat(card.cost || 0));
+
+              if (hasValidLcy) {
+                cardCost = parseFloat(card.costLCY);
+              } else {
+                let effectiveRate = cardRate;
+                let direction = 'foreign_to_local';
+                
+                if (effectiveRate === 1 && isForeign) {
+                  const dbCurr = this.findAllCurrency?.find(c => c.id === card.currencyId);
+                  if (dbCurr && dbCurr.rate) {
+                    effectiveRate = parseFloat(dbCurr.rate);
+                    direction = dbCurr.exchangeDirection || 'foreign_to_local';
+                  }
+                }
+                
+                if (direction === 'local_to_foreign') {
+                  cardCost = parseFloat(card.cost || 0) / (effectiveRate || 1);
+                } else {
+                  cardCost = parseFloat(card.cost || 0) * effectiveRate;
+                }
+              }
+              
+              // ✅ Smart Currency Correction
+              if (sellingPriceLAK > 0 && cardCost > sellingPriceLAK * 1.5 && cardRate > 10) {
+                cardCost = parseFloat(card.cost || 0);
+              }
+              
+              // Guard against corrupted cost values
+              if (Math.abs(cardCost) < 1e12) {
+                lineCost += cardCost;
+              }
+            });
+          } else {
+            // Fallback: Use product cost_price if there are no cards
+            const unitCost = parseFloat(line.product?.cost_price || 0);
+            const qty = parseFloat(line.quantity || 0);
+            lineCost = qty * unitCost * saleRate;
+          }
+          saleCost += lineCost;
         });
         totalCostLAK += saleCost;
       });
 
       // Now convert totalCostLAK to the current home currency
-      const localCurrency = this.findLocalCurrency;
       if (!localCurrency || localCurrency.code === 'LAK') {
         return totalCostLAK;
       }
-      return totalCostLAK / (localCurrency.rate || 1);
+      if (localCurrency.exchangeDirection === 'local_to_foreign') {
+        return totalCostLAK * (localCurrency.rate || 1);
+      } else {
+        return totalCostLAK / (localCurrency.rate || 1);
+      }
     },
     totalCODFee() {
       return this.yearlySale.filter(i => i.isActive === true).reduce((acc, i) => {
@@ -317,8 +394,32 @@ export default {
     totalCostOfSale() {
       return this.productCostOnly + this.totalCODFee + this.totalCancelFee
     },
-    operatingExpensesOnly() {
+    totalFinancialExpense() {
       return this.expenseList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
+    },
+    activeApSettlementList() {
+      const fromDate = this.date ? new Date(this.date) : null
+      const toDate = this.date2 ? new Date(this.date2) : null
+
+      return (this.apSettlementList || []).filter(s => {
+        if (s.status === 'cancelled') return false
+        const dStr = s.settlementDate || s.createdAt
+        if (!dStr) return true
+        const d = new Date(dStr.substr(0, 10))
+        if (fromDate && d < fromDate) return false
+        if (toDate && d > toDate) return false
+        return true
+      })
+    },
+    totalApSettlementAmount() {
+      return this.activeApSettlementList.reduce((sum, s) => {
+        const amt = parseFloat(s.paymentAmount || s.baseAmount || 0)
+        const rate = parseFloat(s.exchangeRate || 1)
+        return sum + this.convertToHomeCurrency(amt, s.currencyId, rate)
+      }, 0)
+    },
+    operatingExpensesOnly() {
+      return this.totalFinancialExpense + this.totalApSettlementAmount
     },
     totalExpense() { return this.operatingExpensesOnly + this.totalCostOfSale },
     profit() { return this.totalIncome - this.totalExpense }
@@ -344,11 +445,19 @@ export default {
         }
         await this.loadSaleStatistic()
         const params = { date: { startDate: this.date, endDate: this.date2 }, locationId: this.currentSelectedLocation?.id }
-        const [inc, exp] = await Promise.all([
-          this.$axios.get('/api/finanicial/ar/header/findByDate', { params }),
-          this.$axios.get('/api/finanicial/ap/header/findByDate', { params })
+        const apParams = { startDate: this.date, endDate: this.date2, limit: 1000, page: 1 }
+        const arParams = { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 }
+
+        const [inc, exp, arRec, apSet] = await Promise.all([
+          this.$axios.get('/api/finanicial/ar/header/findByDate', { params }).catch(e => { console.warn('AR financial load error:', e); return { data: [] } }),
+          this.$axios.get('/api/finanicial/ap/header/findByDate', { params }).catch(e => { console.warn('AP financial load error:', e); return { data: [] } }),
+          this.$axios.get('/api/ar-receive-headers', { params: arParams }).catch(e => { console.warn('AR receive load error:', e); return { data: { data: { receiveHeaders: [] } } } }),
+          this.$axios.get('/api/ap-invoices-settlement', { params: apParams }).catch(e => { console.warn('AP settlement load error:', e); return { data: { data: { settlements: [] } } } }),
         ])
-        this.incomeList = inc.data; this.expenseList = exp.data
+        this.incomeList = inc.data || []
+        this.expenseList = exp.data || []
+        this.arReceiveList = arRec.data?.data?.receiveHeaders || arRec.data?.data || arRec.data || []
+        this.apSettlementList = apSet.data?.data?.settlements || apSet.data?.data || apSet.data || []
         this.$nextTick(() => { this.renderChart() })
       } catch (e) { swalError2(this.$swal, 'Error', 'Load failed: ' + e) } finally { this.isloading = false }
     },
@@ -379,7 +488,11 @@ export default {
       if (localCurrency.code === 'LAK') {
         return amountInLAK;
       }
-      return amountInLAK / (localCurrency.rate || 1);
+      if (localCurrency.exchangeDirection === 'local_to_foreign') {
+        return amountInLAK * (localCurrency.rate || 1);
+      } else {
+        return amountInLAK / (localCurrency.rate || 1);
+      }
     },
     async loadSaleStatistic() {
       // Corrected: includeCards should be a top-level parameter for the API

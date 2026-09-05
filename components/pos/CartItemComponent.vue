@@ -17,6 +17,51 @@
             class="ml-1 gift-indicator">
             <v-icon x-small left>mdi-gift-outline</v-icon>{{ item.giftQuantity }}/{{ item.qty }} GIFT
           </v-chip>
+
+          <!-- Unit Selector Dropdown Menu -->
+          <v-menu offset-y v-if="item.productUnits && item.productUnits.length > 0">
+            <template v-slot:activator="{ on, attrs }">
+              <v-chip
+                x-small
+                class="ml-1 px-2 font-weight-bold cursor-pointer"
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+                outlined
+              >
+                {{ item.unitSymbol || item.baseUnit?.name || item.stockUnit?.name || item.baseUnit?.symbol || item.stockUnit?.symbol || 'pcs' }}
+                <v-icon x-small right class="ml-1">mdi-chevron-down</v-icon>
+              </v-chip>
+            </template>
+            <v-list dense>
+              <!-- Base unit option -->
+              <v-list-item @click="selectUnit(null)">
+                <v-list-item-title class="font-weight-bold">
+                  {{ getBaseUnitName(item) }} (Base) - {{ formatNumber(item.pro_price) }}
+                </v-list-item-title>
+              </v-list-item>
+              <!-- Mapped unit options -->
+              <v-list-item
+                v-for="pu in item.productUnits"
+                :key="pu.id"
+                @click="selectUnit(pu)"
+              >
+                <v-list-item-title>
+                  {{ pu.unit?.name || pu.unit?.symbol || 'pcs' }} - {{ formatNumber(pu.price) }}
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+          <!-- Standard static chip if no other units -->
+          <v-chip
+            v-else
+            x-small
+            class="ml-1 px-2 font-weight-bold"
+            color="grey darken-1"
+            outlined
+          >
+            {{ item.unitSymbol || item.baseUnit?.name || item.stockUnit?.name || item.baseUnit?.symbol || item.stockUnit?.symbol || 'pcs' }}
+          </v-chip>
           
           <!-- Variant tags -->
           <div v-if="item.color || item.size" class="mt-1 d-flex flex-wrap align-center">
@@ -35,6 +80,7 @@
             </v-chip>
           </div>
         </div>
+
         <div v-if="item.tax" class=" grey--text">
           <v-icon x-small>mdi-label-percent-outline</v-icon>
           {{ item.tax.name }} ({{ item.tax.taxType }})
@@ -125,7 +171,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency']),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit']),
   },
   methods: {
     getInclusiveUnitPrice() {
@@ -201,6 +247,38 @@ export default {
       if (this.item.giftAmount === 0) return 'FREE';
       return this.formatNumber(this.item.giftAmount);
     },
+    getBaseUnitName(item) {
+      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
+      return baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
+    },
+    selectUnit(pu) {
+      const baseUnit = this.findAllUnit.find(u => u.id === this.item.baseUnitId || u.id === this.item.stockUnitId)
+      const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+      
+      if (!pu) {
+        // Switch back to base unit
+        const baseSymbol = baseUnit ? baseUnit.symbol : (this.item.baseUnit?.symbol || this.item.stockUnit?.symbol || 'pcs')
+        const baseId = this.item.baseUnitId || this.item.stockUnitId
+        this.$emit('change-unit', {
+          lineUUID: this.item.lineUUID,
+          unitId: baseId,
+          unitRate: 1.0,
+          unitSymbol: baseSymbol,
+          localPrice: this.item.pro_price
+        })
+      } else {
+        // Switch to mapped unit
+        const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
+        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+        this.$emit('change-unit', {
+          lineUUID: this.item.lineUUID,
+          unitId: pu.unitId,
+          unitRate: relRate,
+          unitSymbol: pu.unit?.symbol || 'pcs',
+          localPrice: Number(pu.price) || this.item.pro_price
+        })
+      }
+    },
   },
 
   // Emit events: delete, decrease, increase, update-qty, price-click, configure-gift
@@ -256,7 +334,7 @@ export default {
   line-height: 1.2;
 }
 
-.gift-breakdown . {
+.gift-breakdown div {
   margin: 1px 0;
 }
 

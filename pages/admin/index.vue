@@ -312,6 +312,7 @@ export default {
         { title: 'ເມນູອາຫານ (Menu)', svgIcon: require('~/assets/icons/coffee.svg'), path: '/admin/restaurant/menu' },
         { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), path: '/admin/client' },
         { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
+        { title: 'ລາຍງານຕາມປະເພດສິນຄ້າ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByCategory' },
         { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleReportSummary' },
         { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), path: '/admin/report/loyalty' },
         // { title: 'ຈັດການຄ່າຮຽນ (School Billing)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/school/invoice' },

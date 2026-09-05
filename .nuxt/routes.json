@@ -623,6 +623,13 @@
     "_name": "_0f005c3d"
   },
   {
+    "name": "admin-saleByCategory",
+    "path": "/admin/saleByCategory",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleByCategory/index.vue",
+    "chunkName": "pages/admin/saleByCategory/index",
+    "_name": "_2e2d880f"
+  },
+  {
     "name": "admin-saleByMainCategory",
     "path": "/admin/saleByMainCategory",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleByMainCategory/index.vue",
@@ -649,6 +656,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetail/index.vue",
     "chunkName": "pages/admin/saleReportDetail/index",
     "_name": "_21cd947f"
+  },
+  {
+    "name": "admin-saleReportDetailByCategory",
+    "path": "/admin/saleReportDetailByCategory",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportDetailByCategory/index.vue",
+    "chunkName": "pages/admin/saleReportDetailByCategory/index",
+    "_name": "_96b51858"
   },
   {
     "name": "admin-saleReportDetailByCustomer",
@@ -1085,6 +1099,13 @@
     "_name": "_f586e352"
   },
   {
+    "name": "admin-generalLedger-mappings",
+    "path": "/admin/generalLedger/mappings",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/mappings.vue",
+    "chunkName": "pages/admin/generalLedger/mappings",
+    "_name": "_47ae3e33"
+  },
+  {
     "name": "admin-generalLedger-posting-control-center",
     "path": "/admin/generalLedger/posting-control-center",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/generalLedger/posting-control-center.vue",
@@ -1267,11 +1288,25 @@
     "_name": "_4183d918"
   },
   {
+    "name": "reports-financial-balance-sheet",
+    "path": "/reports/financial/balance-sheet",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/financial/balance-sheet/index.vue",
+    "chunkName": "pages/reports/financial/balance-sheet/index",
+    "_name": "_598ccadb"
+  },
+  {
     "name": "reports-financial-pl",
     "path": "/reports/financial/pl",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/financial/pl/index.vue",
     "chunkName": "pages/reports/financial/pl/index",
     "_name": "_01d70745"
+  },
+  {
+    "name": "reports-financial-trial-balance",
+    "path": "/reports/financial/trial-balance",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/reports/financial/trial-balance/index.vue",
+    "chunkName": "pages/reports/financial/trial-balance/index",
+    "_name": "_1f6a2212"
   },
   {
     "name": "admin-accounting-ap-invoice",

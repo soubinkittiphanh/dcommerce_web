@@ -1,6 +1,7 @@
 <template>
   <v-dialog 
-    v-model="visible" 
+    :value="visible" 
+    @input="(val) => !val && $emit('close')"
     fullscreen
     persistent 
     scrollable
@@ -245,10 +246,6 @@ export default {
     invoices: {
       type: Array,
       default: () => []
-    },
-    companyDataV1: {
-      type: Object,
-      default: () => ({})
     }
   },
   
@@ -257,7 +254,7 @@ export default {
       console.log(
         `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
       )
-      let comV1 = mainCompanyInfoV1(this.$store)
+      const comV1 = mainCompanyInfoV1(this.$store)
       console.info(`Company data fetch from api V1 ${comV1}`)
       return comV1
     },

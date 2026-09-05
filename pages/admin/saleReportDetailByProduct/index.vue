@@ -12,6 +12,9 @@
         </div>
         <v-spacer></v-spacer>
         <div class="d-flex align-center">
+          <v-btn color="info" dark @click="printA4" depressed small class="mr-2">
+            <v-icon left small>mdi-printer</v-icon>ພິມ A4 (Print)
+          </v-btn>
           <v-btn color="primary" @click="createSale" depressed small class="mr-2">
             <v-icon left small>mdi-plus</v-icon>ສ້າງການຂາຍ
           </v-btn>
@@ -284,6 +287,8 @@ import {
   getFirstDayOfMonth,
   getFormatNum,
 } from '~/common/index'
+import { mainCompanyInfo } from '~/common/api'
+import { generateProductSalesReportHTML } from '~/common/printTemplates'
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
@@ -663,6 +668,43 @@ export default {
     getDiscountPercentage(discount, totalPrice) {
       if (totalPrice === 0) return '0'
       return ((discount / (totalPrice + discount)) * 100).toFixed(1)
+    },
+
+    printA4() {
+      try {
+        const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        if (this.$auth && this.$auth.user) {
+          companyData.user = this.$auth.user.cus_name || this.$auth.user.name
+        }
+
+        const htmlContent = generateProductSalesReportHTML(
+          this.activeOrderHeaderList,
+          companyData,
+          this.date,
+          this.date2,
+          this.localCurrency
+        )
+
+        const printWindow = window.open('', '_blank')
+        printWindow.document.write(htmlContent)
+        printWindow.document.close()
+
+        printWindow.onload = function () {
+          printWindow.print()
+          printWindow.close()
+        }
+
+        setTimeout(() => {
+          if (!printWindow.closed) {
+            printWindow.print()
+          }
+        }, 800)
+
+        this.$toast.success('ກຳລັງເປີດໜ້າພິມລາຍງານ A4...')
+      } catch (error) {
+        console.error('Print A4 error:', error)
+        this.$toast.error('ບໍ່ສາມາດພິມລາຍງານໄດ້: ' + error.message)
+      }
     },
 
     exportToExcel() {

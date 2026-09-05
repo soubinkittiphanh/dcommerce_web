@@ -49,10 +49,12 @@
               {{ getProductPriceLists(product).length }} prices
             </v-chip>
 
-            <!-- Stock chip in top right -->
-            <v-chip :color="getStockColor(stock)" text-color="white" x-small class="stock-chip-overlay">
-              {{ stock }}
-            </v-chip>
+            <!-- Stock overlay in top right -->
+            <div :class="getStockColor(stock)" class="stock-overlay-box text-right font-weight-black white--text px-2 py-0-5 rounded">
+              <div v-for="(line, idx) in formatStockUnitsList(stock)" :key="idx" class="stock-line">
+                {{ line }}
+              </div>
+            </div>
           </div>
 
           <!-- Bottom Section - Product Info with enhanced readability -->
@@ -157,7 +159,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency']),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit']),
 
     host() {
       return this.$axios.defaults.baseURL
@@ -176,6 +178,50 @@ export default {
     ...mapActions(['addProduct']),
     findCurrency(currencyId) {
       return this.findAllCurrency.find((el) => el.id == currencyId) || { code: '', rate: 1 }
+    },
+    abbreviateUnit(symbol) {
+      if (!symbol) return ''
+      const lower = symbol.toLowerCase().trim()
+      if (lower === 'gram' || lower === 'grams') return 'g'
+      if (lower === 'kilogram' || lower === 'kilograms' || lower === 'kg') return 'kg'
+      if (lower === 'bottle' || lower === 'bottles') return 'btl'
+      if (lower === 'case' || lower === 'cases') return 'cs'
+      if (lower === 'carton' || lower === 'cartons') return 'ctn'
+      if (lower === 'box' || lower === 'boxes') return 'box'
+      if (lower === 'packet' || lower === 'packets' || lower === 'pack' || lower === 'packs') return 'pk'
+      if (lower === 'piece' || lower === 'pieces') return 'pcs'
+      return symbol
+    },
+    formatStockUnitsList(baseQty) {
+      const baseUnit = this.findAllUnit.find(u => u.id === this.product.baseUnitId || u.id === this.product.stockUnitId)
+      const baseName = baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
+      const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+      
+      const displays = [`${this.formatNumber(baseQty)} ${baseName}`]
+      
+      if (this.product.productUnits && this.product.productUnits.length > 0) {
+        for (const pu of this.product.productUnits) {
+          const symbol = pu.unit?.symbol || 'pcs'
+          if (symbol !== baseUnit?.symbol) {
+            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
+            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+            if (relRate > 0) {
+              const val = baseQty / relRate
+              const decimalQty = val.toLocaleString('en-US', { 
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 3 
+              })
+              const targetName = pu.unit?.name || symbol
+              displays.push(`${decimalQty} ${targetName}`)
+            }
+          }
+        }
+      }
+      return displays
+    },
+    getBaseUnitSymbol() {
+      const baseUnit = this.findAllUnit.find(u => u.id === this.product.baseUnitId || u.id === this.product.stockUnitId)
+      return baseUnit ? baseUnit.symbol : 'pcs'
     },
     handleCardClick() {
       // Default card click behavior - could be quick add or open product details
@@ -664,14 +710,20 @@ export default {
   left: 8px;
 }
 
-.stock-chip-overlay {
+.stock-overlay-box {
   position: absolute;
   top: 8px;
   right: 8px;
-  font-size: 0.7rem;
-  height: 20px;
-  min-width: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 0.65rem;
+  line-height: 1.15;
+  max-width: calc(100% - 16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 2;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.stock-line {
+  white-space: nowrap;
 }
 
 /* Grayscale filter ONLY for disabled products */

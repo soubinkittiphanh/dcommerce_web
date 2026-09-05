@@ -203,6 +203,10 @@
               <v-icon left small>mdi-arrow-down</v-icon>
               Sold
             </v-chip>
+            <v-chip color="warning" small outlined dark>
+              <v-icon left small>mdi-delete</v-icon>
+              Deleted
+            </v-chip>
             <v-chip color="info" small outlined dark>
               <v-icon left small>mdi-scale-balance</v-icon>
               Balance
@@ -277,6 +281,14 @@
                 >
                   -{{ getDateData(item, date).sold }}
                 </v-chip>
+                <v-chip
+                  v-if="getDateData(item, date).deleted > 0"
+                  color="warning"
+                  x-small
+                  dark
+                >
+                  -{{ getDateData(item, date).deleted }} (Del)
+                </v-chip>
                 <div class=" text--secondary font-weight-medium">
                   Bal: {{ getDateData(item, date).endBalance }}
                 </div>
@@ -339,6 +351,10 @@
                         <v-chip color="error" x-small>-{{ locationSummary.totalSold }}</v-chip>
                       </div>
                       <div class="d-flex justify-space-between">
+                        <span class="text-body-2 text--secondary">Deleted:</span>
+                        <v-chip color="warning" x-small>-{{ locationSummary.totalDeleted || 0 }}</v-chip>
+                      </div>
+                      <div class="d-flex justify-space-between">
                         <span class="text-body-2 font-weight-medium">Net:</span>
                         <v-chip
                           :color="locationSummary.netMovement >= 0 ? 'success' : 'error'"
@@ -380,6 +396,11 @@
               <div class="d-flex justify-space-between align-center">
                 <span class="text-body-1">Total Sold:</span>
                 <v-chip color="error" small>-{{ totalSold }}</v-chip>
+              </div>
+
+              <div class="d-flex justify-space-between align-center">
+                <span class="text-body-1">Total Deleted:</span>
+                <v-chip color="warning" small>-{{ totalDeleted }}</v-chip>
               </div>
               
               <v-divider />
@@ -500,6 +521,7 @@ export default {
               productCount: 0,
               totalStockIn: 0,
               totalSold: 0,
+              totalDeleted: 0,
               netMovement: 0,
             })
           }
@@ -508,7 +530,8 @@ export default {
           summary.productCount += 1
           summary.totalStockIn += location.totalStockIn || 0
           summary.totalSold += location.totalSold || 0
-          summary.netMovement = summary.totalStockIn - summary.totalSold
+          summary.totalDeleted += location.totalDeleted || 0
+          summary.netMovement = summary.totalStockIn - summary.totalSold - summary.totalDeleted
         })
       })
 
@@ -535,8 +558,16 @@ export default {
       }, 0)
     },
 
+    totalDeleted() {
+      return this.filteredStockMovements.reduce((total, product) => {
+        return total + product.locations.reduce((locationTotal, location) => {
+          return locationTotal + (location.totalDeleted || 0)
+        }, 0)
+      }, 0)
+    },
+
     netMovement() {
-      return this.totalStockIn - this.totalSold
+      return this.totalStockIn - this.totalSold - this.totalDeleted
     },
   },
 
@@ -591,6 +622,7 @@ export default {
       return {
         stockIn: movement ? movement.stockIn : 0,
         sold: movement ? movement.sold : 0,
+        deleted: movement ? (movement.deleted || 0) : 0,
         startBalance: movement ? movement.startBalance : 0,
         endBalance: movement ? movement.endBalance : 0
       }
@@ -670,6 +702,7 @@ export default {
           ...this.reportDates.flatMap((date) => [
             `${this.formatDate(date)} - Stock In`,
             `${this.formatDate(date)} - Sold`,
+            `${this.formatDate(date)} - Deleted`,
             `${this.formatDate(date)} - Start Balance`,
             `${this.formatDate(date)} - End Balance`,
           ]),
@@ -686,6 +719,7 @@ export default {
               ...this.reportDates.flatMap((date) => [
                 Number(this.getLocationStockIn(location, date) || 0),
                 Number(this.getLocationSold(location, date) || 0),
+                Number(this.getLocationDeleted(location, date) || 0),
                 Number(this.getLocationStartBalance(location, date) || 0),
                 Number(this.getLocationEndBalance(location, date) || 0),
               ]),
@@ -716,6 +750,11 @@ export default {
     getLocationSold(location, date) {
       const movement = location.movements.find((m) => m.date === date)
       return movement ? movement.sold : 0
+    },
+
+    getLocationDeleted(location, date) {
+      const movement = location.movements.find((m) => m.date === date)
+      return movement ? (movement.deleted || 0) : 0
     },
 
     getLocationStartBalance(location, date) {

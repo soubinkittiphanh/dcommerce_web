@@ -341,7 +341,7 @@
           <v-col cols="auto" class="mr-3">
             <!-- Center Section - Search -->
             <v-text-field v-model="serachModel" clearable clear-icon="mdi-close" prepend-inner-icon="mdi-magnify"
-              outlined dense label="ຄົ້ນຫາສິນຄ້າ...aa" solo-inverted hide-details class="search-field elevation-2" />
+              outlined dense label="ຄົ້ນຫາສິນຄ້າ..." solo-inverted hide-details class="search-field elevation-2" />
           </v-col>
           <!-- <v-btn @click="testSearch" color="error" small class="ml-2">
             🧪 Test Search
@@ -498,7 +498,7 @@
                 <cart-item-component v-for="item in productCart" :key="item.id" :item="item"
                   :format-number="formatNumber" @delete="deteletProductLocal" @update-qty="openQtyDialog"
                   @decrease="decreaseProductAmount" @increase="addProductValidation" @price-click="pricingLogig"
-                  @configure-gift="handleGiftConfirm" />
+                  @configure-gift="handleGiftConfirm" @change-unit="handleCartItemUnitChange" />
               </template>
 
               <!-- Enhanced Empty Cart -->
@@ -963,7 +963,7 @@ export default {
 
         lines.push({
           quantity: iterator.qty,
-          unitRate: 1,
+          unitRate: iterator.unitRate || 1,
           currencyId: iterator.saleCurrencyId,
           exchangeRate: currency.rate || 1,
           price: originalPrice,
@@ -971,7 +971,7 @@ export default {
           validateStockOnSale: iterator.validateStockOnSale,
           productId: iterator.id,
           productKey: iterator.id,
-          unitId: iterator.stockUnitId,
+          unitId: iterator.unitId || iterator.stockUnitId || iterator.baseUnitId,
           colorId: iterator.colorId || null,
           sizeId: iterator.sizeId || null,
           total: totalOriginal,
@@ -1531,6 +1531,11 @@ export default {
       this.batchUpdateCustomerScreen()
     },
 
+    handleCartItemUnitChange(payload) {
+      this.$store.dispatch('changeItemUnit', payload)
+      this.batchUpdateCustomerScreen()
+    },
+
     // PERFORMANCE OPTIMIZATION: Throttled discount and cash updates
     handleDiscountUpdate: _.throttle(function (value) {
       this.discount = value
@@ -1771,14 +1776,22 @@ export default {
               })
 
               if (response.data.success) {
-                this.currentDynamicQR = response.data.data
-                this.lastQRTotal = totalWithTax
-                this.saleHeader.qrRequestId = response.data.data.requestId
-                qrString = response.data.data.qrString
-                dynamicQRData = response.data.data
-                this.startDynamicQRPolling(billNumber)
-                if (this.$toast) {
-                  this.$toast.success('ສ້າງ QR Code ສຳເລັດ', { duration: 2000 })
+                const currentTotal = this.formatOrderSummaryForCustomerScreen().total
+                if (currentTotal === totalWithTax) {
+                  this.currentDynamicQR = response.data.data
+                  this.lastQRTotal = totalWithTax
+                  this.saleHeader.qrRequestId = response.data.data.requestId
+                  qrString = response.data.data.qrString
+                  dynamicQRData = response.data.data
+                  this.startDynamicQRPolling(billNumber)
+                  if (this.$toast) {
+                    this.$toast.success('ສ້າງ QR Code ສຳເລັດ', { duration: 2000 })
+                  }
+                } else {
+                  console.log('Discarding generated QR because cart total changed during generation from', totalWithTax, 'to', currentTotal)
+                  this.isGeneratingQR = false
+                  this.sendQRToCustomerScreen(manualGenerate)
+                  return
                 }
               } else {
                 if (this.$toast) {
@@ -2694,7 +2707,7 @@ export default {
                   `api/sale/find/${saleHeaderId}`
                 )
                 const invoiceData = saleResponse.data
-                const fixCompanyData = this.currentTerminal?.location?.company
+                const fixCompanyData = this.companyData
 
                 let htmlContent = generateA4ReceiptHTML(
                   invoiceData,

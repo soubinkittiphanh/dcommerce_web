@@ -12,31 +12,53 @@
         <!-- Basic Info Section -->
         <h3 class="text-h6 mb-3 primary--text">ຂໍ້ມູນພື້ນຖານ (Basic Info)</h3>
         <v-row>
-          <v-col cols="12" md="6">
-            <v-text-field v-model="form.studentId" :rules="[v => !!v || 'ກະລຸນາປ້ອນລະຫັດນັກຮຽນ']"
-              label="ລະຫັດນັກຮຽນ (Student ID) *" outlined dense :disabled="isUpdate"></v-text-field>
+          <!-- Photo Column -->
+          <v-col cols="12" md="3" class="d-flex flex-column align-center justify-center">
+            <v-avatar size="150" class="elevation-2 mb-3 grey lighten-3 position-relative" rounded>
+              <v-img v-if="form.photoPath" :src="getPhotoUrl(form.photoPath)" contain></v-img>
+              <v-icon v-else size="80" color="grey lighten-1">mdi-account-circle</v-icon>
+            </v-avatar>
+            <v-btn color="primary" small outlined @click="triggerPhotoUpload" :loading="uploadingPhoto" class="mb-1">
+              <v-icon left small>mdi-camera</v-icon>
+              ເລືອກຮູບພາບ (Photo)
+            </v-btn>
+            <v-btn v-if="form.photoPath" color="error" x-small text @click="form.photoPath = ''">
+              ລຶບຮູບ (Delete)
+            </v-btn>
+            <!-- Hidden input for file upload -->
+            <input type="file" ref="photoInput" accept="image/*" style="display: none;" @change="onPhotoSelected">
           </v-col>
-          <v-col cols="12" md="6">
-            <v-select v-model="form.classId" :items="classesList" item-text="name" item-value="id"
-              label="ເລືອກຊັ້ນຮຽນ (Select Class)" outlined dense clearable></v-select>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field v-model="form.firstName" :rules="[v => !!v || 'ກະລຸນາປ້ອນຊື່']" label="ຊື່ (First Name) *"
-              outlined dense></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field v-model="form.lastName" :rules="[v => !!v || 'ກະລຸນາປ້ອນນາມສະກຸນ']"
-              label="ນາມສະກຸນ (Last Name) *" outlined dense></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field v-model="form.phoneNumber" label="ເບີໂທຕິດຕໍ່ (Phone Number)" outlined dense></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field v-model="form.grade" label="ໝາຍເຫດຊັ້ນຮຽນ/ Grade (ມານູໂນ)" outlined dense></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-select v-model="form.roomId" :items="filteredRooms" item-text="name" item-value="id"
-              label="ເລືອກຫ້ອງຮຽນ (Select Room)" outlined dense clearable :disabled="!form.classId"></v-select>
+
+          <!-- Info Fields Column -->
+          <v-col cols="12" md="9">
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.studentId" :rules="[v => !!v || 'ກະລຸນາປ້ອນລະຫັດນັກຮຽນ']"
+                  label="ລະຫັດນັກຮຽນ (Student ID) *" outlined dense :disabled="isUpdate"></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-select v-model="form.classId" :items="classesList" item-text="name" item-value="id"
+                  label="ເລືອກຊັ້ນຮຽນ (Select Class)" outlined dense clearable></v-select>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.firstName" :rules="[v => !!v || 'ກະລຸນາປ້ອນຊື່']" label="ຊື່ (First Name) *"
+                  outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.lastName" :rules="[v => !!v || 'ກະລຸນາປ້ອນນາມສະກຸນ']"
+                  label="ນາມສະກຸນ (Last Name) *" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.phoneNumber" label="ເບີໂທຕິດຕໍ່ (Phone Number)" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-text-field v-model="form.grade" label="ໝາຍເຫດຊັ້ນຮຽນ/ Grade (ມານູໂນ)" outlined dense></v-text-field>
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-select v-model="form.roomId" :items="filteredRooms" item-text="name" item-value="id"
+                  label="ເລືອກຫ້ອງຮຽນ (Select Room)" outlined dense clearable :disabled="!form.classId"></v-select>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
 
@@ -104,6 +126,31 @@
           </v-row>
         </div>
 
+        <!-- Optional Fees Section -->
+        <div>
+          <v-divider class="my-4"></v-divider>
+          <h3 class="text-h6 mb-3 primary--text">ຄ່າທໍານຽມສະເພາະ/ບຸກຄົນ (Optional Fees Enrolled)</h3>
+          
+          <v-alert v-if="optionalFeesList.length === 0" type="info" text outlined icon="mdi-information-outline">
+            ບໍ່ມີຄ່າທໍານຽມສະເພາະກຳນົດໄວ້ໃນລະບົບ (No optional fees configured)
+          </v-alert>
+          
+          <v-row v-else dense>
+            <v-col cols="12" sm="6" v-for="fee in optionalFeesList" :key="fee.id">
+              <v-checkbox
+                v-model="form.optionalFeeItemIds"
+                :value="fee.id"
+                :label="`${fee.name} - ${formatCurrency(fee.amount)} LAK (${fee.className})`"
+                dense
+                hide-details
+                color="primary"
+                class="mt-1"
+              ></v-checkbox>
+              <div class="caption grey--text pl-8 mt-0">{{ fee.description || 'ບໍ່ມີຄຳອະທິບາຍ' }}</div>
+            </v-col>
+          </v-row>
+        </div>
+
       </v-form>
     </v-card-text>
 
@@ -132,9 +179,8 @@ export default {
   },
   data() {
     return {
-      valid: true,
-      saving: false,
-      cardLoading: false,
+      uploadingPhoto: false,
+      optionalFeesList: [],
       form: {
         studentId: '',
         firstName: '',
@@ -146,7 +192,9 @@ export default {
         classId: null,
         parentName: '',
         parentPhone: '',
-        parentEmail: ''
+        parentEmail: '',
+        photoPath: '',
+        optionalFeeItemIds: []
       },
       classesList: [],
       roomsList: [],
@@ -158,6 +206,7 @@ export default {
   mounted() {
     this.loadClasses();
     this.loadRooms();
+    this.loadOptionalFees();
     if (this.isUpdate && this.studentId) {
       this.loadStudent();
     }
@@ -218,7 +267,9 @@ export default {
           classId: data.classId,
           parentName: data.parentName || '',
           parentPhone: data.parentPhone || '',
-          parentEmail: data.parentEmail || ''
+          parentEmail: data.parentEmail || '',
+          photoPath: data.photoPath || '',
+          optionalFeeItemIds: data.studentFeeItems ? data.studentFeeItems.map(item => item.feeItemId) : []
         };
 
         if (data.bankAccount) {
@@ -317,6 +368,69 @@ export default {
         this.$toast.error('Failed to deactivate card');
       } finally {
         this.cardLoading = false;
+      }
+    },
+
+    triggerPhotoUpload() {
+      this.$refs.photoInput.click();
+    },
+
+    async onPhotoSelected(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        this.$toast.error('Only image files are allowed');
+        return;
+      }
+
+      this.uploadingPhoto = true;
+      const formData = new FormData();
+      formData.append('images', file);
+
+      try {
+        const res = await this.$axios.post('/api/student/upload-photo', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' }
+        });
+        this.form.photoPath = res.data.photoPath;
+        this.$toast.success('Photo uploaded successfully');
+      } catch (error) {
+        console.error(error);
+        this.$toast.error('Failed to upload student photo');
+      } finally {
+        this.uploadingPhoto = false;
+      }
+    },
+
+    getPhotoUrl(photoPath) {
+      if (!photoPath) return '';
+      const baseURL = this.$axios.defaults.baseURL || 'http://150.95.31.23:8007';
+      return `${baseURL.replace(/\/$/, '')}${photoPath}`;
+    },
+
+    async loadOptionalFees() {
+      try {
+        const res = await this.$axios.get('/api/school/fee-structures');
+        const structures = res.data || [];
+        const optionals = structures.filter(s => s.isOptional && s.feeItem);
+        
+        const distinctItems = [];
+        const seenIds = new Set();
+        for (const s of optionals) {
+          if (!seenIds.has(s.feeItem.id)) {
+            seenIds.add(s.feeItem.id);
+            distinctItems.push({
+              id: s.feeItem.id,
+              name: s.feeItem.name,
+              description: s.feeItem.description,
+              amount: s.amount,
+              className: s.schoolClass ? s.schoolClass.name : 'Global'
+            });
+          }
+        }
+        this.optionalFeesList = distinctItems;
+      } catch (error) {
+        console.error('Error fetching optional fees:', error);
       }
     },
 

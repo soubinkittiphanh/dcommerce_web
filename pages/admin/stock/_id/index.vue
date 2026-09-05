@@ -23,41 +23,76 @@
       <v-col cols="12">
         <div class="d-flex align-center flex-wrap justify-space-between py-2 px-3 compact-stats-bar">
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="success" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.available }}</v-avatar>
-            <span class=" font-weight-medium">ພ້ອມໃຊ້</span>
-            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.availableCost) }} ກີບ)</span>
+            <v-chip color="success" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.available) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ພ້ອມໃຊ້</div>
+              <div v-if="availableConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ availableConverted }}</div>
+            </div>
+            <span class=" grey--text text-caption ml-2">({{ formatNumber(summaryStats.availableCost) }} ກີບ)</span>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="warning" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.used }}</v-avatar>
-            <span class=" font-weight-medium">ໃຊ້ງານແລ້ວ</span>
-            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.usedCost) }} ກີບ)</span>
+            <v-chip color="warning" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.used) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ໃຊ້ງານແລ້ວ</div>
+              <div v-if="usedConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ usedConverted }}</div>
+            </div>
+            <span class=" grey--text text-caption ml-2">({{ formatNumber(summaryStats.usedCost) }} ກີບ)</span>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="error" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.deleted }}</v-avatar>
-            <span class=" font-weight-medium">ຖືກລົບ</span>
+            <v-chip color="error" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.deleted) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ຖືກລົບ</div>
+              <div v-if="deletedConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ deletedConverted }}</div>
+            </div>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="orange" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.expired }}</v-avatar>
-            <span class=" font-weight-medium">ໝົດອາຍຸ</span>
-            <span class=" grey--text ml-2">({{ formatNumber(summaryStats.expiredCost) }} ກີບ)</span>
+            <v-chip color="orange" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.expired) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ໝົດອາຍຸ</div>
+              <div v-if="expiredConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ expiredConverted }}</div>
+            </div>
+            <span class=" grey--text text-caption ml-2">({{ formatNumber(summaryStats.expiredCost) }} ກີບ)</span>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="amber" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.expiringSoon }}</v-avatar>
-            <span class=" font-weight-medium">ໃກ້ໝົດອາຍຸ</span>
+            <v-chip color="amber" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.expiringSoon) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ໃກ້ໝົດອາຍຸ</div>
+              <div v-if="expiringSoonConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ expiringSoonConverted }}</div>
+            </div>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="info" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.withLot }}</v-avatar>
-            <span class=" font-weight-medium">ມີ Lot</span>
+            <v-chip color="info" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.withLot) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ມີ Lot</div>
+              <div v-if="withLotConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ withLotConverted }}</div>
+            </div>
           </div>
 
           <div class="stat-badge d-flex align-center mr-3 py-1 px-2 my-1">
-            <v-avatar color="purple" size="24" class="mr-2 white--text font-weight-bold ">{{ summaryStats.withSerial }}</v-avatar>
-            <span class=" font-weight-medium">ມີ Serial</span>
+            <v-chip color="purple" dark class="mr-2 font-weight-bold" label small>
+              {{ formatNumber(summaryStats.withSerial) }}
+            </v-chip>
+            <div>
+              <div class="font-weight-medium text-body-2" style="line-height: 1.1;">ມີ Serial</div>
+              <div v-if="withSerialConverted" class="grey--text text-caption font-weight-bold" style="line-height: 1.1;">{{ withSerialConverted }}</div>
+            </div>
           </div>
 
           <div class="stat-badge d-flex align-center py-1 px-2 ml-auto my-1">
@@ -285,6 +320,10 @@
                 <v-icon left small>mdi-chart-bar</v-icon>
                 ສະຫຼຸບ
               </v-btn>
+              <v-btn value="audit" class="noto-sans-lao" small>
+                <v-icon left small>mdi-history</v-icon>
+                ປະຫວັດການປ່ຽນແປງ
+              </v-btn>
             </v-btn-toggle>
           </v-col>
           <v-col cols="6" sm="3" md="3" v-if="viewMode === 'summary'" class="py-1">
@@ -397,6 +436,13 @@
           <span v-else class="grey--text noto-sans-lao">-</span>
         </template>
 
+        <template v-slot:[`item.unitInfo`]="{ item }">
+          <v-chip v-if="item.unitInfo" color="blue-grey" outlined small class="noto-sans-lao font-weight-medium">
+            {{ item.unitInfo.symbol || item.unitInfo.name }}
+          </v-chip>
+          <span v-else class="grey--text noto-sans-lao">-</span>
+        </template>
+
         <template v-slot:[`item.expiryDate`]="{ item }">
           <div v-if="item.expiryDate">
             <v-chip :color="getExpiryColor(item.expiryDate)" dark x-small class="noto-sans-lao">
@@ -492,7 +538,9 @@
         class="elevation-1 noto-sans-lao"
       >
         <template v-slot:[`item.count`]="{ item }">
-          <v-chip color="primary" dark class="noto-sans-lao">{{ item.count }}</v-chip>
+          <v-chip color="primary" dark class="noto-sans-lao">
+            {{ item.count }} <span v-if="productUnitSymbol" class="text-caption ml-1 font-weight-regular">{{ productUnitSymbol }}</span>
+          </v-chip>
         </template>
 
         <template v-slot:[`item.totalCost`]="{ item }">
@@ -532,7 +580,108 @@
           </v-toolbar>
         </template>
       </v-data-table>
+
+      <!-- Audit Trail Data Table -->
+      <v-data-table
+        v-if="viewMode === 'audit' && auditLogs"
+        :headers="auditHeaders"
+        :items="auditLogs"
+        :items-per-page="15"
+        class="elevation-1 noto-sans-lao"
+      >
+        <template v-slot:[`item.auditDate`]="{ item }">
+          <span>{{ formatDateTime(item.auditDate) }}</span>
+        </template>
+
+        <template v-slot:[`item.username`]="{ item }">
+          <span>{{ item.user ? `${item.user.cus_name} (${item.user.cus_id})` : '-' }}</span>
+        </template>
+
+        <template v-slot:[`item.action`]="{ item }">
+          <v-chip
+            small
+            :color="item.action === 'CREATE' ? 'success' : item.action === 'UPDATE' ? 'warning' : 'error'"
+            dark
+            class="font-weight-bold"
+          >
+            {{ item.action }}
+          </v-chip>
+        </template>
+
+        <template v-slot:[`item.cardNumber`]="{ item }">
+          <span>{{ item.card ? item.card.card_number : (item.recordData ? item.recordData.card_number : '-') }}</span>
+        </template>
+
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn
+            color="primary"
+            x-small
+            outlined
+            rounded
+            @click="showAuditDetails(item)"
+          >
+            <v-icon left x-small>mdi-eye</v-icon>
+            ເບິ່ງຂໍ້ມູນ
+          </v-btn>
+        </template>
+      </v-data-table>
     </v-card>
+
+    <!-- Audit Details Dialog -->
+    <v-dialog v-model="dialogAuditDetails" max-width="600px">
+      <v-card class="noto-sans-lao">
+        <v-card-title class="headline blue white--text py-3 px-4">
+          <v-icon left dark>mdi-history</v-icon>
+          ລາຍລະອຽດຂໍ້ມູນບັດ (Snapshot)
+        </v-card-title>
+        <v-card-text class="pa-4">
+          <div v-if="selectedAuditRecord && selectedAuditRecord.recordData">
+            <v-simple-table dense>
+              <template v-slot:default>
+                <tbody>
+                  <tr>
+                    <td class="font-weight-bold" style="width: 200px;">ໝາຍເລກບັດ/ຊີຣຽວ:</td>
+                    <td>{{ selectedAuditRecord.recordData.card_number || '-' }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Serial No:</td>
+                    <td>{{ selectedAuditRecord.recordData.serialNo || '-' }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">Lot Number:</td>
+                    <td>{{ selectedAuditRecord.recordData.lotNumber || '-' }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">ຕົ້ນທຶນ (Cost):</td>
+                    <td>{{ formatNumber(selectedAuditRecord.recordData.cost) }} ກີບ</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">ສະຖານະ:</td>
+                    <td>
+                      <v-chip small :color="getStatusColor(selectedAuditRecord.recordData.isActive === false ? 'ຖືກລົບ' : selectedAuditRecord.recordData.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : selectedAuditRecord.recordData.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້')">
+                        {{ selectedAuditRecord.recordData.isActive === false ? 'ຖືກລົບ' : selectedAuditRecord.recordData.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : selectedAuditRecord.recordData.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້' }}
+                      </v-chip>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">ວັນໝົດອາຍຸ:</td>
+                    <td>{{ formatDate(selectedAuditRecord.recordData.expiryDate) || '-' }}</td>
+                  </tr>
+                  <tr>
+                    <td class="font-weight-bold">ວັນທີນຳເຂົ້າ:</td>
+                    <td>{{ formatDateTime(selectedAuditRecord.recordData.createdAt || selectedAuditRecord.recordData.card_input_date) || '-' }}</td>
+                  </tr>
+                </tbody>
+              </template>
+            </v-simple-table>
+          </div>
+        </v-card-text>
+        <v-card-actions class="px-4 pb-4">
+          <v-spacer></v-spacer>
+          <v-btn color="blue" class="white--text font-weight-bold" rounded @click="dialogAuditDetails = false">ປິດ</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -594,6 +743,8 @@ export default {
     viewMode() {
       if (this.viewMode === 'summary') {
         this.generateSummaryData()
+      } else if (this.viewMode === 'audit') {
+        this.fetchAuditLogs()
       }
     },
   },
@@ -628,6 +779,17 @@ export default {
       sizeOptions: [],
       locations: [],
       viewMode: 'detail', // 'detail' or 'summary'
+      auditLogs: [],
+      auditHeaders: [
+        { text: 'ວັນທີ/ເວລາ', value: 'auditDate', width: '200px' },
+        { text: 'ຜູ້ດຳເນີນການ', value: 'username' },
+        { text: 'ປະເພດ', value: 'action' },
+        { text: 'ຊີຣຽວ / ໝາຍເລກບັດ', value: 'cardNumber' },
+        { text: 'ໝາຍເຫດ/ເຫດຜົນ', value: 'reason' },
+        { text: 'ລາຍລະອຽດຂໍ້ມູນ', value: 'actions', sortable: false, align: 'center' }
+      ],
+      dialogAuditDetails: false,
+      selectedAuditRecord: null,
       groupBy: 'date',
       groupByOptions: [
         { text: 'ວັນທີ', value: 'date' },
@@ -672,6 +834,7 @@ export default {
         { text: 'ອັດຕາແລກປ່ຽນ', align: 'right', value: 'exchangeRate' },
         { text: 'ສີ', align: 'center', value: 'colorInfo' },
         { text: 'ຂະໜາດ', align: 'center', value: 'sizeInfo' },
+        { text: 'ຫົວໜ່ວຍ', align: 'center', value: 'unitInfo' },
         { text: 'Lot Number', align: 'center', value: 'lotNumber' },
         { text: 'Serial No', align: 'center', value: 'serialNo' },
         { text: 'ວັນໝົດອາຍຸ', align: 'center', value: 'expiryDate' },
@@ -689,14 +852,14 @@ export default {
         { text: 'ມູນຄ່າລວມ', align: 'center', value: 'totalCost', sortable: true },
         { text: 'ມູນຄ່າສະເລ່ຍ', align: 'center', value: 'avgCost', sortable: true },
       ],
-      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      date: new Date(Date.now() - 365 * 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
       dateFormatted: this.formatDate(
-        new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+        new Date(Date.now() - 365 * 24 * 60 * 60 * 1000 - new Date().getTimezoneOffset() * 60000)
           .toISOString()
           .substr(0, 10)
       ),
@@ -716,6 +879,21 @@ export default {
     console.log('Product Name:', productName)
     console.log('Product ID:', productId)
     console.log('Category:', category)
+
+    // Ensure unit list is loaded in Vuex store
+    const storeUnits = this.$store.getters.findAllUnit || this.$store.state.unitList || []
+    if (!storeUnits || storeUnits.length === 0) {
+      this.$axios.get('api/unit/findAll').then(res => {
+        let data = res.data?.data ?? res.data
+        if (Array.isArray(data)) {
+          data = data.filter(u => u.isActive === true || u.isActive === 1)
+        }
+        this.$store.commit('SetUnitList', data)
+      }).catch(err => {
+        console.error('Error fetching units in StockDetails:', err)
+      })
+    }
+
     this.fetchLocations()
     this.fetchData()
   },
@@ -723,6 +901,36 @@ export default {
   computed: {
     computedDateFormatted() {
       return this.formatDate(this.date)
+    },
+    productUnitSymbol() {
+      if (this.loaddata && this.loaddata.length > 0) {
+        const firstWithUnit = this.loaddata.find(el => el.unitInfo)
+        if (firstWithUnit && firstWithUnit.unitInfo) {
+          return firstWithUnit.unitInfo.symbol || firstWithUnit.unitInfo.name
+        }
+      }
+      return ''
+    },
+    availableConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.available)
+    },
+    usedConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.used)
+    },
+    deletedConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.deleted)
+    },
+    expiredConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.expired)
+    },
+    expiringSoonConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.expiringSoon)
+    },
+    withLotConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.withLot)
+    },
+    withSerialConverted() {
+      return this.formatRelatedQuantities(this.summaryStats.withSerial)
     },
     user() {
       return this.$auth.user || ''
@@ -751,9 +959,9 @@ export default {
       const selectedTerminalId = this.$store.state.selectedTerminal || this.$store.getters.findSelectedTerminal
       const terminals = this.$store.state.terminalList || this.$store.getters.findAllTerminal || []
       if (selectedTerminalId && terminals.length) {
-        const currentTerminal = terminals.find(t => t.id == selectedTerminalId)
+        const currentTerminal = terminals.find(t => String(t.id) === String(selectedTerminalId))
         if (currentTerminal && currentTerminal.locationId) {
-          const location = this.locations.find(l => l.id == currentTerminal.locationId)
+          const location = this.locations.find(l => String(l.id) === String(currentTerminal.locationId))
           if (location) {
             return location.name
           }
@@ -781,6 +989,39 @@ export default {
     getLocalDate,
     formatNumber(value) {
       return getFormatNum(value)
+    },
+    formatRelatedQuantities(qty) {
+      const units = this.$store.getters.findAllUnit || this.$store.state.unitList || []
+      if (qty === undefined || qty === null || isNaN(qty) || !this.loaddata || this.loaddata.length === 0 || !units.length) return ''
+      
+      const firstWithUnit = this.loaddata.find(el => el.unitInfo)
+      if (!firstWithUnit || !firstWithUnit.unitId) return ''
+      
+      const activeUnitId = firstWithUnit.unitId
+      const activeUnit = units.find(u => u.id === activeUnitId)
+      if (!activeUnit) return ''
+      
+      // Convert active quantity to base unit quantity
+      const baseUnitId = activeUnit.unitType === 'base' ? activeUnit.id : activeUnit.baseUnitId
+      const baseUnit = units.find(u => u.id === baseUnitId)
+      if (!baseUnit) return ''
+      
+      const activeRate = parseFloat(activeUnit.conversionRate) || 1
+      const baseQty = activeUnit.unitType === 'base' ? qty : qty * activeRate
+      
+      // Find all related units in the family
+      const family = units.filter(u => u.id === baseUnitId || u.baseUnitId === baseUnitId)
+      
+      // Format strings for each unit in the family
+      const parts = family.map(u => {
+        const rate = parseFloat(u.conversionRate) || 1
+        const converted = u.unitType === 'base' ? baseQty : baseQty / rate
+        
+        // Return formatted value (e.g. "1.5 kg" or "1500 g")
+        return `${this.formatNumber(parseFloat(converted.toFixed(u.unitType === 'base' ? 0 : 2)))} ${u.symbol || u.name}`
+      })
+      
+      return parts.join(' / ')
     },
 
     // New percentage calculation methods for circular progress
@@ -1097,7 +1338,43 @@ export default {
       }
     },
 
+    async fetchAuditLogs() {
+      this.isloading = true
+      const prodId = this.isEmbedded ? this.embeddedProductId : this.$route.params.id
+      try {
+        const response = await this.$axios.get(
+          `/api/card/audit-logs?productId=${prodId}&dateFrom=${this.date}&dateTo=${this.date2}`
+        )
+        this.auditLogs = response.data || []
+      } catch (error) {
+        console.error('Error fetching audit logs:', error)
+        this.message = 'ບໍ່ສາມາດດຶງຂໍ້ມູນປະຫວັດການປ່ຽນແປງໄດ້'
+      } finally {
+        this.isloading = false
+      }
+    },
+
+    showAuditDetails(item) {
+      this.selectedAuditRecord = item
+      this.dialogAuditDetails = true
+    },
+
+    formatDateTime(dateString) {
+      if (!dateString) return ''
+      const date = new Date(dateString)
+      const year = date.getFullYear()
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
+      const day = `${date.getDate()}`.padStart(2, '0')
+      const hours = `${date.getHours()}`.padStart(2, '0')
+      const minutes = `${date.getMinutes()}`.padStart(2, '0')
+      const seconds = `${date.getSeconds()}`.padStart(2, '0')
+      return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
+    },
+
     async fetchData() {
+      if (this.viewMode === 'audit') {
+        return this.fetchAuditLogs()
+      }
       this.isloading = true
       const prodId = this.isEmbedded ? this.embeddedProductId : this.$route.params.id
       console.log('Fetching enhanced data for product_id:', prodId)
@@ -1125,16 +1402,18 @@ export default {
           sizeId: el.sizeId,
           colorInfo: el.color ? { name: el.color.color_name, hex_code: el.color.hex_code } : null,
           sizeInfo: el.size ? { name: el.size.size_name } : null,
-          srcLocationName: el.location?.name || '',
-          location: el.location?.name || '',
+          srcLocationName: el.location?.name || el.location_name || '',
+          location: el.location?.name || el.location_name || '',
           currencyCode: el.currency ? el.currency.code : 'LAK',
           exchangeRate: el.exchangeRate || 1,
           inputter: el.inputter + ' ' + (el.cus_name || ''),
-          status: el.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : el.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້',
+          status: el.isActive === 0 ? 'ຖືກລົບ' : el.card_isused === 1 ? 'ໃຊ້ງານແລ້ວ' : el.card_isused === 2 ? 'ຖືກລົບ' : 'ພ້ອມໃຊ້',
           input_date_time: this.getLocalDate(el.card_input_date),
           updater: el.update_user,
           update_time: this.getLocalDate(el.update_time),
           function: el.id,
+          unitId: el.unitId,
+          unitInfo: el.unit ? { name: el.unit.name, symbol: el.unit.symbol } : null,
         }))
 
         this.applyFilters()
@@ -1160,6 +1439,7 @@ export default {
             ອັດຕາແລກປ່ຽນ: item.exchangeRate || 1,
             ສີ: item.colorInfo?.name || '',
             ຂະໜາດ: item.sizeInfo?.name || '',
+            'ຫົວໜ່ວຍ': item.unitInfo?.symbol || item.unitInfo?.name || '',
             'Lot Number': item.lotNumber || '',
             'Serial Number': item.serialNo || '',
             ວັນໝົດອາຍຸ: item.expiryDate || '',

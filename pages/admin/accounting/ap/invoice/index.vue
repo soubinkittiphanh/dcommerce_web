@@ -91,7 +91,7 @@
             <v-select v-model="statusFilter" :items="statusOptions" label="ສະຖານະ Status" outlined dense hide-details
               clearable prepend-inner-icon="mdi-filter-variant" @change="onFilterChange" />
           </v-col>
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="2">
             <v-select v-model="filters.vendorId" :items="agencies" item-text="agencyName" item-value="id"
               label="ຜູ້ຂາຍ Vendor" outlined dense hide-details clearable prepend-inner-icon="mdi-account-outline"
               @change="fetchData">
@@ -108,7 +108,10 @@
             <v-text-field v-model="filters.endDate" label="ວັນທີສິ້ນສຸດ End" type="date" outlined dense hide-details
               prepend-inner-icon="mdi-calendar-range" @change="fetchData" />
           </v-col>
-          <v-col cols="12" md="3">
+          <v-col cols="12" md="2" class="d-flex align-center">
+            <v-checkbox v-model="showCancelled" label="ສະແດງໃບຍົກເລີກ" hide-details dense color="error" class="mt-0 pt-0" @change="onShowCancelledChange" />
+          </v-col>
+          <v-col cols="12" md="2">
             <v-text-field v-model="searchTerm" label="ຄົ້ນຫາ Search..." outlined dense hide-details clearable
               prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
           </v-col>
@@ -125,11 +128,11 @@
             <span class=" font-weight-bold">ລາຍການໃບແຈ້ງໜີ້ (AP Invoice List)</span>
             <v-spacer />
             <v-chip color="primary" small outlined class="font-weight-bold">
-              {{ pagination.totalItems }} ລາຍການ
+              {{ filteredInvoices.length }} ລາຍການ
             </v-chip>
           </v-card-title>
 
-          <v-data-table :headers="headers" :items="invoices" :loading="loading" :options.sync="tableOptions"
+          <v-data-table :headers="headers" :items="filteredInvoices" :loading="loading" :options.sync="tableOptions"
             :server-items-length="pagination.totalItems" :footer-props="{
               'items-per-page-options': [10, 25, 50, 100],
             }" outlined class="elevation-0 modernize-table" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..."
@@ -154,15 +157,24 @@
 
             <!-- Vendor -->
             <template v-slot:item.vendor="{ item }">
-              <div v-if="item.agency" class="py-2">
-                <div class="font-weight-medium">
-                  {{ item.agency.agencyName }}
+              <div class="py-1">
+                <!-- Agency Name -->
+                <div v-if="isAgencyEnabled && item.agency" class="mb-1">
+                  <div class="font-weight-bold text-caption primary--text">Agency:</div>
+                  <div class="font-weight-medium text-body-2">{{ item.agency.agencyName }}</div>
+                  <small class="grey--text">Code: {{ item.agency.agencyCode }}</small>
                 </div>
-                <div class=" grey--text">
-                  Code: {{ item.agency.agencyCode }}
+                
+                <!-- Vendor Name -->
+                <div v-if="isVendorEnabled && item.vendor">
+                  <div class="font-weight-bold text-caption success--text">Vendor:</div>
+                  <div class="font-weight-medium text-body-2">{{ item.vendor.name }}</div>
+                </div>
+
+                <div v-if="(!isAgencyEnabled || !item.agency) && (!isVendorEnabled || !item.vendor)" class="grey--text italic text-caption">
+                  ບໍ່ໄດ້ລະບຸ
                 </div>
               </div>
-              <span v-else class="grey--text italic">ບໍ່ໄດ້ລະບຸ</span>
             </template>
 
             <!-- Invoice Date -->
@@ -225,19 +237,23 @@
 
             <!-- Actions -->
             <template v-slot:item.actions="{ item }">
-              <v-menu bottom left offset-y transition="slide-y-transition">
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn icon small v-bind="attrs" v-on="on" color="grey darken-1">
-                    <v-icon>mdi-dots-vertical</v-icon>
-                  </v-btn>
-                </template>
-                <v-list dense class="py-0">
-                  <v-list-item @click="viewDetails(item)" class="px-3">
-                    <v-list-item-icon class="mr-3">
-                      <v-icon small color="info">mdi-eye-outline</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
-                  </v-list-item>
+              <div class="d-flex align-center justify-center">
+                <v-btn icon small color="primary" class="mr-1" @click="printInvoiceVoucher(item)">
+                  <v-icon small>mdi-printer</v-icon>
+                </v-btn>
+                <v-menu bottom left offset-y transition="slide-y-transition">
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon small v-bind="attrs" v-on="on" color="grey darken-1">
+                      <v-icon>mdi-dots-vertical</v-icon>
+                    </v-btn>
+                  </template>
+                  <v-list dense class="py-0">
+                    <v-list-item @click="viewDetails(item)" class="px-3">
+                      <v-list-item-icon class="mr-3">
+                        <v-icon small color="info">mdi-eye-outline</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                    </v-list-item>
 
                   <v-list-item @click="openDialog(item)" class="px-3">
                     <v-list-item-icon class="mr-3">
@@ -253,9 +269,9 @@
                     <v-list-item-title>ອະນຸມັດ</v-list-item-title>
                   </v-list-item>
 
-                  <v-divider v-if="item.status !== 'cancelled'" />
+                  <v-divider v-if="!['cancelled', 'paid'].includes(item.status)" />
 
-                  <v-list-item v-if="item.status !== 'cancelled'" @click="cancelInvoice(item)" class="px-3">
+                  <v-list-item v-if="!['cancelled', 'paid'].includes(item.status)" @click="cancelInvoice(item)" class="px-3">
                     <v-list-item-icon class="mr-3">
                       <v-icon small color="error">mdi-close-circle-outline</v-icon>
                     </v-list-item-icon>
@@ -263,6 +279,7 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
+              </div>
             </template>
           </v-data-table>
         </v-card>
@@ -313,14 +330,26 @@
               </v-col>
               <v-col cols="12" md="6">
                 <div class=" grey--text font-weight-bold uppercase mb-1">Vendor & Status</div>
-                <div class="mb-1">
-                  <div class="grey--text text--darken-1 ">ຜູ້ຂາຍ (Vendor):</div>
+                
+                <!-- Agency / Ministry -->
+                <div v-if="isAgencyEnabled" class="mb-2">
+                  <div class="grey--text text--darken-1">{{ clientLabel }} (Agency):</div>
                   <div class="font-weight-bold">
                     {{ invoiceDetails.agency?.agencyCode }} - {{ invoiceDetails.agency?.agencyName || 'N/A' }}
                   </div>
                 </div>
+
+                <!-- Supplier / Vendor -->
+                <div v-if="isVendorEnabled" class="mb-2">
+                  <div class="grey--text text--darken-1">ຜູ້ສະໜອງ (Vendor/Supplier):</div>
+                  <div class="font-weight-bold">
+                    {{ invoiceDetails.vendor?.name || 'N/A' }}
+                  </div>
+                </div>
+
+                <!-- Status -->
                 <div class="d-flex align-center mt-2">
-                  <span class="grey--text text--darken-1 mr-2 ">ສະຖານະ:</span>
+                  <span class="grey--text text--darken-1 mr-2">ສະຖານະ:</span>
                   <v-chip x-small :color="getStatusColor(invoiceDetails.status)" outlined class="font-weight-bold">
                     {{ getStatusInLao(invoiceDetails.status) }}
                   </v-chip>
@@ -406,22 +435,36 @@
         <v-divider></v-divider>
         <v-card-actions class="pa-3">
           <v-spacer></v-spacer>
+          <v-btn color="primary" outlined @click="printInvoiceVoucher(invoiceDetails)" class="rounded-lg mr-2">
+            <v-icon left>mdi-printer</v-icon>
+            ພິມ Voucher
+          </v-btn>
           <v-btn color="primary" text @click="closeDetailModal">
             ປິດ (Close)
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Invoice Printer Dialog -->
+    <APInvoicePrinter
+      :visible="showPrinter"
+      :invoice-data="selectedInvoiceForPrint"
+      :currencies="currencies"
+      :transaction-codes="transactionCodes"
+      @close="showPrinter = false"
+    />
   </div>
 </template>
 
 <script>
 import APInvoiceDialog from '~/components/accounting/ap/invoice/index.vue'
+import APInvoicePrinter from '~/components/accounting/ap/invoice/voucher'
 import { swalConfirm } from '~/common'
 
 export default {
   name: 'APInvoiceManagement',
-  components: { APInvoiceDialog },
+  components: { APInvoiceDialog, APInvoicePrinter },
 
   data() {
     return {
@@ -474,8 +517,43 @@ export default {
       selectedInvoice: null,
       invoiceDetails: null,
       searchTimeout: null,
+      showPrinter: false,
+      selectedInvoiceForPrint: null,
+      transactionCodes: [],
+      showCancelled: false,
+    }
+  },
 
-      headers: [
+  computed: {
+    getSPF() {
+      return this.$store.getters.findSPF || []
+    },
+    isAgencyEnabled() {
+      const spf = this.getSPF.find((s) => s.code === 'AC_AP_AGENCY_ENABLE')
+      if (spf) {
+        return spf.value === 'Y' || spf.value === '1'
+      }
+      return true // default to true if not defined
+    },
+    isVendorEnabled() {
+      const spf = this.getSPF.find((s) => s.code === 'AC_AP_VENDOR_ENABLE')
+      if (spf) {
+        return spf.value === 'Y' || spf.value === '1'
+      }
+      return true // default to true if not defined
+    },
+    clientLabel() {
+      const item = this.getSPF.find((spf) => spf.code === 'LABEL_AC_CUS')
+      return item?.value || 'ກະຊວງ'
+    },
+    headers() {
+      const vendorHeaderText = this.isVendorEnabled && this.isAgencyEnabled
+        ? 'ຜູ້ສະໜອງ / Agency'
+        : this.isVendorEnabled
+        ? 'ຜູ້ສະໜອງ (Vendor)'
+        : `${this.clientLabel} (Agency)`
+
+      return [
         {
           text: 'ເລກທີໃບແຈ້ງໜີ້',
           value: 'invoiceNumber',
@@ -489,7 +567,7 @@ export default {
           width: '120px',
         },
         {
-          text: 'ຜູ້ຂາຍ / Agency',
+          text: vendorHeaderText,
           value: 'vendor',
           sortable: false,
           width: '180px',
@@ -547,11 +625,8 @@ export default {
           width: '80px',
           align: 'center',
         },
-      ],
-    }
-  },
-
-  computed: {
+      ]
+    },
     user() {
       return this.$auth.user || null
     },
@@ -563,7 +638,7 @@ export default {
         overdueCount: 0
       }
 
-      this.invoices.forEach(invoice => {
+      this.filteredInvoices.forEach(invoice => {
         const total = parseFloat(invoice.totalAmount || 0)
         const paid = parseFloat(invoice.paidAmount || 0)
         const outstanding = total - paid
@@ -578,7 +653,13 @@ export default {
       })
 
       return summary
-    }
+    },
+    filteredInvoices() {
+      if (this.showCancelled || this.statusFilter === 'cancelled') {
+        return this.invoices
+      }
+      return this.invoices.filter((item) => item.status !== 'cancelled')
+    },
   },
 
   watch: {
@@ -635,14 +716,22 @@ export default {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month, 1).toISOString().split('T')[0]
+      const firstDay = new Date(year, month, 1)
+      const yyyy = firstDay.getFullYear()
+      const mm = String(firstDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(firstDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     getCurrentMonthEnd() {
       const now = new Date()
       const year = now.getFullYear()
       const month = now.getMonth()
-      return new Date(year, month + 1, 0).toISOString().split('T')[0]
+      const lastDay = new Date(year, month + 1, 0)
+      const yyyy = lastDay.getFullYear()
+      const mm = String(lastDay.getMonth() + 1).padStart(2, '0')
+      const dd = String(lastDay.getDate()).padStart(2, '0')
+      return `${yyyy}-${mm}-${dd}`
     },
 
     setDefaultDates() {
@@ -697,6 +786,7 @@ export default {
         this.fetchAgencies(),
         this.fetchCurrencies(),
         this.fetchAccountCharts(),
+        this.fetchTransactionCodes(),
       ])
     },
 
@@ -711,6 +801,11 @@ export default {
 
         if (this.statusFilter) params.status = this.statusFilter
         if (this.searchTerm) params.search = this.searchTerm
+
+        if (this.showCancelled) {
+          params.includeCancelled = true
+          params.showCancelled = true
+        }
 
         const { data } = await this.$axios.get('/api/ap-invoices', { params })
         this.invoices = data.data.invoices
@@ -894,6 +989,11 @@ export default {
       this.fetchData()
     },
 
+    onShowCancelledChange() {
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+
     resetFilters() {
       this.filters = {
         status: '',
@@ -913,6 +1013,21 @@ export default {
         this.tableOptions.page = 1
         this.fetchData()
       }, 500)
+    },
+
+    printInvoiceVoucher(invoice) {
+      if (!invoice || !invoice.id) return
+      this.selectedInvoiceForPrint = invoice
+      this.showPrinter = true
+    },
+
+    async fetchTransactionCodes() {
+      try {
+        const { data } = await this.$axios.get('/api/transaction-codes')
+        this.transactionCodes = data?.data || []
+      } catch (error) {
+        console.error('Error fetching transaction codes:', error)
+      }
     },
 
     formatCurrency(amount) {

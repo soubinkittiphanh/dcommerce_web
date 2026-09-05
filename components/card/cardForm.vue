@@ -137,6 +137,22 @@
                                 </v-autocomplete>
                             </v-col>
 
+                            <!-- Unit Selector -->
+                            <v-col cols="12" md="6" v-if="productUnitsOptions.length > 0">
+                                <v-autocomplete 
+                                    label="Receiving Unit"
+                                    :items="productUnitsOptions"
+                                    item-text="name"
+                                    item-value="unitId"
+                                    v-model="selectedUnitId"
+                                    outlined
+                                    dense
+                                    prepend-inner-icon="mdi-weight"
+                                    :rules="[v => !!v || 'Please select unit']"
+                                    hide-details="auto"
+                                ></v-autocomplete>
+                            </v-col>
+
                             <!-- Quantity -->
                             <v-col cols="12" md="6">
                                 <v-text-field 
@@ -149,8 +165,15 @@
                                     type="number"
                                     min="1"
                                     prepend-inner-icon="mdi-counter"
-                                    suffix="units"
+                                    :suffix="selectedUnit.symbol || 'units'"
                                 ></v-text-field>
+                            </v-col>
+
+                            <!-- Unit Conversion Explanation Alert -->
+                            <v-col cols="12" class="py-0" v-if="conversionRate > 1">
+                                <v-alert type="info" text dense class="mb-2">
+                                    This will add <strong>{{ parseFloat(stockQty || 0) * conversionRate }}</strong> base units to stock. Cost per base unit: <strong>{{ formatPrice(costPerUnit / conversionRate) }} {{ selectedCurrencyCode }}</strong>.
+                                </v-alert>
                             </v-col>
 
                             <!-- Currency -->
@@ -264,7 +287,7 @@
                                         <!-- Cost Input -->
                                         <v-col cols="12" md="6">
                                             <v-text-field 
-                                                :label="costType === 'perUnit' ? 'Cost Per Unit' : 'Total Cost'"
+                                                :label="costType === 'perUnit' ? `Cost Per Unit (${selectedUnit.symbol})` : 'Total Cost'"
                                                 :rules="numberRule"
                                                 hide-details="auto"
                                                 v-model="costInput"
@@ -274,7 +297,7 @@
                                                 min="0"
                                                 step="0.01"
                                                 :prepend-inner-icon="costType === 'perUnit' ? 'mdi-tag' : 'mdi-calculator'"
-                                                :suffix="selectedCurrencyCode"
+                                                :suffix="costType === 'perUnit' ? `${selectedCurrencyCode} / ${selectedUnit.symbol}` : selectedCurrencyCode"
                                                 @input="calculateCosts"
                                             ></v-text-field>
                                         </v-col>
@@ -282,13 +305,13 @@
                                         <!-- Calculated Display -->
                                         <v-col cols="12" md="6">
                                             <v-text-field 
-                                                :label="costType === 'perUnit' ? 'Total Cost' : 'Cost Per Unit'"
+                                                :label="costType === 'perUnit' ? 'Total Cost' : `Cost Per Unit (${selectedUnit.symbol})`"
                                                 :value="calculatedCost"
                                                 outlined
                                                 dense
                                                 readonly
                                                 :prepend-inner-icon="costType === 'perUnit' ? 'mdi-calculator' : 'mdi-tag'"
-                                                :suffix="selectedCurrencyCode"
+                                                :suffix="costType === 'perUnit' ? selectedCurrencyCode : `${selectedCurrencyCode} / ${selectedUnit.symbol}`"
                                                 class="grey--text"
                                             ></v-text-field>
                                         </v-col>
@@ -486,6 +509,7 @@ export default {
             loadingColors: false,
             loadingSizes: false,
             product: null,
+            selectedUnitId: null,
         }
     },
     computed: {
@@ -494,8 +518,8 @@ export default {
         quantityRules() {
             return [
                 v => !!v || 'Please enter quantity',
-                v => /^[0-9]+$/.test(v) || 'Only numbers allowed',
-                v => parseInt(v) > 0 || 'Quantity must be greater than 0'
+                v => /^[0-9.]*$/.test(v) || 'Only numbers and decimals are allowed',
+                v => parseFloat(v) > 0 || 'Quantity must be greater than 0'
             ]
         },
         
@@ -519,6 +543,50 @@ export default {
         selectedCurrencyCode() {
             const currency = this.findAllCurrency.find(el => el.id === this.currencyId)
             return currency ? currency.code : ''
+        },
+
+        productUnitsOptions() {
+            const list = [];
+            const baseUnit = this.product?.stockUnit || this.product?.baseUnit || this.product?.unit;
+            if (baseUnit) {
+                list.push({
+                    unitId: baseUnit.id,
+                    name: `${baseUnit.name} (Base Unit, 1.0)`,
+                    symbol: baseUnit.symbol || 'pcs',
+                    conversionRate: 1.0
+                });
+            }
+            
+            if (this.product && Array.isArray(this.product.productUnits)) {
+                const baseRate = parseFloat(baseUnit?.conversionRate || 1.0);
+                this.product.productUnits.forEach(pu => {
+                    const u = pu.unit;
+                    if (u && u.id !== baseUnit?.id) {
+                        const targetRate = parseFloat(u.conversionRate || 1.0);
+                        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate;
+                        list.push({
+                            unitId: u.id,
+                            name: `${u.name} (Rate: ${relRate})`,
+                            symbol: u.symbol || 'pcs',
+                            conversionRate: relRate
+                        });
+                    }
+                });
+            }
+            return list;
+        },
+
+        selectedUnit() {
+            return this.productUnitsOptions.find(opt => opt.unitId === this.selectedUnitId) || {
+                unitId: null,
+                name: 'Unit',
+                symbol: 'pcs',
+                conversionRate: 1.0
+            };
+        },
+
+        conversionRate() {
+            return this.selectedUnit.conversionRate || 1.0;
         },
 
         selectedColor() {
@@ -595,6 +663,10 @@ export default {
             return this.product ? parseFloat(this.product.pro_price) || 0 : 0
         },
 
+        salePricePerSelectedUnit() {
+            return this.salePrice * this.conversionRate
+        },
+
         saleCurrencyCode() {
             if (!this.product) return ''
             const currency = this.findAllCurrency.find(el => el.id === this.product.saleCurrencyId)
@@ -613,8 +685,8 @@ export default {
             // Convert cost per unit to base currency
             const costInBase = this.costPerUnit * this.currencyExchangeRate
             
-            // Convert sale price to base currency
-            const saleInBase = this.salePrice * this.saleCurrencyRate
+            // Convert sale price per selected unit to base currency
+            const saleInBase = this.salePricePerSelectedUnit * this.saleCurrencyRate
             
             // Compare
             return costInBase > saleInBase
@@ -627,6 +699,18 @@ export default {
             handler(newVal) {
                 if (newVal > 0) {
                     this.costInput = newVal
+                }
+            }
+        },
+
+        selectedUnitId(newId, oldId) {
+            if (newId && oldId && this.costType === 'perUnit') {
+                const oldUnit = this.productUnitsOptions.find(opt => opt.unitId === oldId)
+                const newUnit = this.productUnitsOptions.find(opt => opt.unitId === newId)
+                const oldRate = oldUnit ? oldUnit.conversionRate : 1.0
+                const newRate = newUnit ? newUnit.conversionRate : 1.0
+                if (oldRate > 0 && newRate > 0) {
+                    this.costInput = (parseFloat(this.costInput || 0) / oldRate) * newRate
                 }
             }
         },
@@ -748,6 +832,10 @@ export default {
             try {
                 const res = await this.$axios.get(`api/product/find/${this.id}`)
                 this.product = res.data
+                const baseUnit = res.data.stockUnit || res.data.baseUnit || res.data.unit;
+                if (baseUnit) {
+                    this.selectedUnitId = baseUnit.id
+                }
                 if (res.data.costCurrency) {
                     console.log(`Cost info available`)
                     this.currencyId = res.data.costCurrency.id
@@ -768,7 +856,7 @@ export default {
                 if (this.isCostHigherThanSale) {
                     const confirm = await this.$swal.fire({
                         title: 'Are you sure?',
-                        text: `The cost price per unit (${this.formatPrice(this.costPerUnit)} ${this.selectedCurrencyCode}) is higher than the sale price (${this.formatPrice(this.salePrice)} ${this.saleCurrencyCode}). Do you want to proceed?`,
+                        text: `The cost price per unit (${this.formatPrice(this.costPerUnit)} ${this.selectedCurrencyCode}) is higher than the sale price per unit (${this.formatPrice(this.salePricePerSelectedUnit)} ${this.saleCurrencyCode}). Do you want to proceed?`,
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#fb8c00',
@@ -790,9 +878,9 @@ export default {
                 const stockData = {
                     inputter: this.user.id,
                     product_id: this.productId,
-                    stockCardQty: parseInt(this.stockQty),
+                    stockCardQty: Math.round(parseFloat(this.stockQty) * this.conversionRate),
                     totalCost: this.totalCost,
-                    costPerUnit: this.costPerUnit,
+                    costPerUnit: this.costPerUnit / this.conversionRate,
                     productId: this.id,
                     srcLocationId: this.srcLocationId,
                     currencyId: this.currencyId,
@@ -806,6 +894,7 @@ export default {
                     // New fields for Color and Size
                     colorId: this.colorId || null,
                     sizeId: this.sizeId || null,
+                    unitId: this.selectedUnitId || null,
                 }
                 
                 console.log("Stock data:", stockData)

@@ -50,11 +50,9 @@
         <template v-slot:[`item.rate`]="{ item }">
           {{ getFormatNum(item.rate) }}
         </template>
-        <template v-slot:[`item.id`]="{ item }">
-          <v-btn color="primary" text @click="viewRecord(item)
-          wallet = true
-            ">
-<i class="fa-regular fa-pen-to-square"></i>
+        <template v-slot:[`item.actions`]="{ item }">
+          <v-btn color="primary" text @click="viewRecord(item)">
+            <i class="fa-regular fa-pen-to-square"></i>
           </v-btn>
         </template>
       </v-data-table>
@@ -84,6 +82,12 @@ export default {
       entrySelected: '',
       headers: [
         {
+          text: 'ID',
+          align: 'center',
+          value: 'id',
+          sortable: true,
+        },
+        {
           text: 'ລະຫັດ',
           align: 'center',
           value: 'accountNumber',
@@ -110,7 +114,7 @@ export default {
         {
           text: 'View/Update',
           align: 'end',
-          value: 'id',
+          value: 'actions',
           sortable: false,
         },
       ],

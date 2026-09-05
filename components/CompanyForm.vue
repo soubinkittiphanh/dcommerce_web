@@ -52,6 +52,13 @@
 
           <v-row dense class="mt-2">
             <v-col cols="12">
+              <v-text-field v-model="form.customer_welcome_text" label="ຂໍ້ຄວາມຕ້ອນຮັບລູກຄ້າ (Customer Welcome Message)" dense outlined hide-details="auto"
+                prepend-inner-icon="mdi-message-text-outline"></v-text-field>
+            </v-col>
+          </v-row>
+
+          <v-row dense class="mt-2">
+            <v-col cols="12">
               <v-textarea v-model="form.term_condition" label="ເງື່ອນໄຂ ແລະ ຂໍ້ກຳນົດ (Terms & Conditions)" dense outlined
                 hide-details="auto" prepend-inner-icon="mdi-text-box-check-outline" rows="3"></v-textarea>
             </v-col>
@@ -337,6 +344,7 @@ export default {
         showLogoOnTicket: false,
         ticketLayout: 'classic',
         term_condition: '',
+        customer_welcome_text: '',
       },
       isloading: false,
       // Profile image related

@@ -12,7 +12,7 @@
       <!-- Header -->
       <v-card-title class="primary white--text py-3">
         <v-icon left color="white">mdi-printer</v-icon>
-        <span>ໃບຄຳສັ່ງຈ່າຍ - Payment Voucher</span>
+        <span>ໃບແຈ້ງໜີ້ຄ້າງຈ່າຍ - AP Invoice Voucher</span>
         <v-spacer></v-spacer>
         <v-btn icon dark @click="$emit('close')">
           <v-icon>mdi-close</v-icon>
@@ -21,11 +21,11 @@
 
       <!-- Print Area -->
       <v-card-text class="pa-0">
-        <div id="voucher-print-area" class="voucher-container">
+        <div id="ap-invoice-print-area" class="invoice-container">
           <!-- Company Header -->
-          <div class="voucher-header">
+          <div class="invoice-header">
             <div class="header-flex">
-              <!-- Left Side - Dynamic Company Logo -->
+              <!-- Left Side - Company Logo (Dynamic) -->
               <div class="header-left">
                 <!-- Loading State -->
                 <div v-if="companyLogo.loading" class="logo-placeholder">
@@ -54,85 +54,121 @@
 
               <!-- Right Side - Voucher Title -->
               <div class="header-right">
-                <div class="voucher-title">
-                  <h3>PAYMENT VOUCHER</h3>
-                  <h4>ໃບຄຳສັ່ງຈ່າຍ</h4>
+                <div class="invoice-title">
+                  <h3>AP INVOICE VOUCHER</h3>
+                  <h4>ໃບສະເໜີຈ່າຍ</h4>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Voucher Info -->
-          <div class="voucher-info-grid">
-            <div class="info-row">
-              <span class="label">Voucher No:</span>
-              <span class="value">{{
-                formatVoucherNumber(safeVoucherData.id) || '-'
-              }}</span>
+          <!-- Invoice Info Grid -->
+          <div class="invoice-info-grid">
+            <div class="info-section">
+              <h5>Vendor Info / ຜູ້ສະໜອງ:</h5>
+              <div v-if="safeInvoiceData.vendor">
+                <p class="client-name">{{ safeInvoiceData.vendor.name }}</p>
+                <p class="client-details" v-if="safeInvoiceData.vendor.address">
+                  {{ safeInvoiceData.vendor.address }}
+                </p>
+                <p class="client-details" v-if="safeInvoiceData.vendor.phone">
+                  Tel: {{ safeInvoiceData.vendor.phone }}
+                </p>
+              </div>
+              <div v-else-if="safeInvoiceData.agency">
+                <p class="client-name">{{ safeInvoiceData.agency.agencyName }}</p>
+                <p class="client-details">Code: {{ safeInvoiceData.agency.agencyCode }}</p>
+              </div>
+              <div v-else>
+                <p class="client-name italic grey--text">ບໍ່ໄດ້ລະບຸ</p>
+              </div>
             </div>
-            <div class="info-row">
-              <span class="label">Date:</span>
-              <span class="value">{{
-                formatDate(safeVoucherData.settlementDate)
-              }}</span>
-            </div>
-            <div class="info-row">
-              <span class="label">Payment Method:</span>
-              <span class="value">{{
-                findPayment(safeVoucherData.paymentMethodId)?.payment_code || '-'
-              }}</span>
-            </div>
-            <div class="info-row" v-if="findCurrency(safeVoucherData.currencyId)">
-              <span class="label">Currency:</span>
-              <span class="value">{{
-                findCurrency(safeVoucherData.currencyId)?.code || '-'
-              }}</span>
-            </div>
-            <div class="info-row" v-if="safeVoucherData.bankAccountId || safeVoucherData.bankAccount">
-              <span class="label">Bank Account:</span>
-              <span class="value">{{
-                getBankAccountInfo(safeVoucherData.bankAccountId)
-              }}</span>
+            <div class="info-section">
+              <div class="info-row">
+                <span class="label">Invoice No:</span>
+                <span class="value font-weight-bold">{{
+                  safeInvoiceData.invoiceNumber || '-'
+                }}</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Vendor Inv No:</span>
+                <span class="value">{{
+                  safeInvoiceData.vendorInvoiceNumber || '-'
+                }}</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Invoice Date:</span>
+                <span class="value">{{
+                  formatDate(safeInvoiceData.invoiceDate)
+                }}</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Due Date:</span>
+                <span class="value">{{
+                  formatDate(safeInvoiceData.dueDate)
+                }}</span>
+              </div>
+              <div class="info-row">
+                <span class="label">Status:</span>
+                <span class="value">
+                  <v-chip x-small :color="getStatusColor(safeInvoiceData.status)" dark class="font-weight-bold">
+                    {{ getStatusInLao(safeInvoiceData.status) }}
+                  </v-chip>
+                </span>
+              </div>
             </div>
           </div>
 
-          <!-- Payment Details Table -->
-          <table class="voucher-table">
+          <!-- Line Items Table -->
+          <table class="invoice-table">
             <thead>
-              <tr style="color: #1976D2">
+              <tr style="background-color: #1976D2; color: white;">
                 <th width="5%">#</th>
-                <th width="15%">Invoice No</th>
-                <th width="15%">Agency</th>
-                <th width="10%">Txn Code</th>
-                <th width="30%">Description</th>
-                <th width="10%" class="text-right">DR</th>
-                <th width="10%" class="text-right">CR</th>
+                <th width="20%">Txn Code</th>
+                <th width="40%">Description</th>
+                <th width="10%" class="text-right">Quantity</th>
+                <th width="10%" class="text-right">Unit Price</th>
                 <th width="15%" class="text-right">Amount</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(line, index) in safeSettlementLines" :key="index">
+              <tr v-for="(line, index) in lines" :key="index">
                 <td class="text-center">{{ index + 1 }}</td>
-                <td>{{ line.invoiceNumber || '-' }}</td>
-                <td>{{ line.agencyName || line.agency?.agencyName || '-' }}</td>
                 <td>{{ getTransactionCode(line.txnId) }}</td>
                 <td>{{ line.description || '-' }}</td>
-                <td class="text-right">
-                  {{ getGLAccount(line.DRglAccountId) }}
+                <td class="text-right">{{ formatNumber(line.quantity) }}</td>
+                <td class="text-right">{{ formatCurrency(line.unitPrice) }}</td>
+                <td class="text-right font-weight-bold">{{ formatCurrency(line.lineTotal || (line.quantity * line.unitPrice)) }}</td>
+              </tr>
+              <tr v-if="lines.length === 0">
+                <td colspan="6" class="text-center py-4 grey--text italic">
+                  ບໍ່ມີລາຍການສິນຄ້າ
                 </td>
-                <td class="text-right">
-                  {{ getGLAccount(line.CRglAccountId) }}
-                </td>
-                <td class="text-right">{{ formatCurrency(line.amount) }}</td>
               </tr>
             </tbody>
             <tfoot>
-              <tr class="total-row">
-                <td colspan="7" class="text-right">
-                  <strong>Total Amount:</strong>
+              <tr class="subtotal-row">
+                <td colspan="5" class="text-right">
+                  <strong>Total Amount / ຍອດລວມ:</strong>
                 </td>
-                <td class="text-right">
-                  <strong>{{ formatCurrency(totalAmount) }} {{ findCurrency(safeVoucherData.currencyId)?.code || '' }}</strong>
+                <td class="text-right font-weight-bold">
+                  {{ formatCurrency(safeInvoiceData.totalAmount) }} {{ getCurrencyCode }}
+                </td>
+              </tr>
+              <tr class="tax-row">
+                <td colspan="5" class="text-right">
+                  <strong>Paid Amount / ຈ່າຍແລ້ວ:</strong>
+                </td>
+                <td class="text-right success--text">
+                  {{ formatCurrency(safeInvoiceData.paidAmount) }} {{ getCurrencyCode }}
+                </td>
+              </tr>
+              <tr class="total-row" style="background-color: #ffebee;">
+                <td colspan="5" class="text-right">
+                  <strong class="red--text">Outstanding / ຄ້າງຈ່າຍ:</strong>
+                </td>
+                <td class="text-right red--text font-weight-bold">
+                  {{ formatCurrency(getOutstandingAmount(safeInvoiceData)) }} {{ getCurrencyCode }}
                 </td>
               </tr>
             </tfoot>
@@ -140,39 +176,33 @@
 
           <!-- Amount in Words -->
           <div class="amount-words">
-            <strong>Amount in Words:</strong> {{ amountInWords }} {{ findCurrency(safeVoucherData.currencyId)?.code || '' }}
+            <strong>Amount in Words:</strong> {{ amountInWords }} {{ getCurrencyCode }}
           </div>
 
-          <!-- Description -->
-          <div v-if="safeVoucherData.description" class="voucher-description">
-            <strong>Description:</strong> {{ safeVoucherData.description }}
+          <!-- Notes -->
+          <div v-if="safeInvoiceData.description" class="invoice-notes">
+            <strong>Notes / ໝາຍເຫດ:</strong> {{ safeInvoiceData.description }}
           </div>
 
           <!-- Signatures -->
           <div class="signature-section">
             <div class="signature-box">
               <div class="signature-line"></div>
-              <p class="signature-label">Prepared By</p>
+              <p class="signature-label">Prepared By (ຜູ້ບັນທຶກ)</p>
               <p class="signature-name">{{ makerName }}</p>
               <p class="signature-date">
-                {{ formatDate(safeVoucherData.createdAt) }}
+                Date: {{ formatDate(safeInvoiceData.createdAt) }}
               </p>
             </div>
             <div class="signature-box">
               <div class="signature-line"></div>
-              <p class="signature-label">Approved By</p>
-              <p class="signature-name">{{ checkerName }}</p>
-              <p class="signature-date">
-                {{
-                  safeVoucherData.approvedDate
-                    ? formatDate(safeVoucherData.approvedDate)
-                    : ''
-                }}
-              </p>
+              <p class="signature-label">Approved By (ຜູ້ອະນຸມັດ)</p>
+              <p class="signature-name">_________________</p>
+              <p class="signature-date">Date: ___________</p>
             </div>
             <div class="signature-box">
               <div class="signature-line"></div>
-              <p class="signature-label">Received By</p>
+              <p class="signature-label">Received By (ຜູ້ຮັບເງິນ)</p>
               <p class="signature-name">_________________</p>
               <p class="signature-date">Date: ___________</p>
             </div>
@@ -187,7 +217,7 @@
           <v-icon left>mdi-close</v-icon>
           ປິດ
         </v-btn>
-        <v-btn color="primary" @click="printVoucher">
+        <v-btn color="primary" @click="printInvoice">
           <v-icon left>mdi-printer</v-icon>
           ພິມ
         </v-btn>
@@ -219,12 +249,11 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import {  mainCompanyInfoV1, mainCompanyInfo } from '~/common/api'
+import { mainCompanyInfoV1 } from '~/common/api'
 import companyLogoMixin from '~/mixins/companyLogoMixin'
 
 export default {
-  name: 'PaymentVoucherPrinterWithLogo',
+  name: 'APInvoicePrinter',
 
   mixins: [companyLogoMixin],
 
@@ -233,16 +262,12 @@ export default {
       type: Boolean,
       default: false,
     },
-    voucherData: {
+    invoiceData: {
       type: Object,
       required: false,
       default: null,
     },
-    paymentMethods: {
-      type: Array,
-      default: () => [],
-    },
-    bankAccounts: {
+    currencies: {
       type: Array,
       default: () => [],
     },
@@ -250,43 +275,28 @@ export default {
       type: Array,
       default: () => [],
     },
-    glAccounts: {
-      type: Array,
-      default: () => [],
-    },
-    currencies: {
-      type: Array,
-      default: () => [],
-    },
+  },
+
+  data() {
+    return {
+      lines: [],
+      loadingLines: false,
+    }
   },
 
   computed: {
-    ...mapGetters(['findAllPayment', 'findAllCurrency']),
     companyDataV1() {
-      console.log(
-        `**********COMPANY DATA V1 PDFINVOICE ${mainCompanyInfo}**********`
-      )
-      const comV1 = mainCompanyInfoV1(this.$store)
-      console.info(`Company data fetch from api V1 ${comV1}`)
-      return comV1
+      return mainCompanyInfoV1(this.$store)
     },
 
-    // Check if we have valid data
     hasValidData() {
-      return this.voucherData && this.voucherData.id
+      return this.invoiceData && this.invoiceData.id
     },
 
-    // Safe accessor for voucher data
-    safeVoucherData() {
-      return this.voucherData || {}
+    safeInvoiceData() {
+      return this.invoiceData || {}
     },
 
-    // Safe accessor for settlement lines
-    safeSettlementLines() {
-      return this.safeVoucherData.settlementLines || []
-    },
-
-    // Company information
     companyName() {
       return this.companyDataV1?.name || ''
     },
@@ -301,115 +311,111 @@ export default {
       return `Tel: ${tel} | Email: ${email}`
     },
 
-    // Maker information
     makerName() {
-      return this.safeVoucherData.maker?.cus_name || '-'
+      return this.safeInvoiceData.maker?.cus_name || '-'
     },
 
-    // Checker information
-    checkerName() {
-      return this.safeVoucherData.checker?.cus_name || '-'
+    getCurrencyCode() {
+      const currencyId = this.safeInvoiceData.currencyId
+      if (!currencyId) return 'LAK'
+      const curr = this.currencies.find(c => c.id === currencyId)
+      return curr ? curr.code : 'LAK'
     },
 
-    // Calculate total amount
-    totalAmount() {
-      return this.safeSettlementLines.reduce(
-        (sum, line) => sum + (parseFloat(line.amount) || 0),
-        0
-      )
-    },
-
-    // Amount in words
     amountInWords() {
-      if (this.totalAmount === 0) return 'Zero Only'
-      return `${this.formatCurrency(this.totalAmount)} Only`
+      const amount = parseFloat(this.safeInvoiceData.totalAmount || 0)
+      if (amount === 0) return 'Zero Only'
+      return `${this.formatCurrency(amount)} Only`
     },
   },
 
   watch: {
-    visible(newVal) {
+    async visible(newVal) {
       if (newVal) {
-        // Load the first company logo when dialog opens
         this.loadFirstCompanyLogo()
+        await this.loadInvoiceLines()
       }
     },
   },
 
   methods: {
-    findPayment(paymentId) {
-      return this.findAllPayment.find((el) => String(el.id) === String(paymentId))
-    },
-    findCurrency(currencyId) {
-      if (this.currencies && this.currencies.length > 0) {
-        const currency = this.currencies.find((el) => String(el.id) === String(currencyId))
-        if (currency) return currency
+    async loadInvoiceLines() {
+      if (!this.invoiceData?.id) return
+      this.loadingLines = true
+      try {
+        const { data } = await this.$axios.get(`/api/ap-invoices-lines/invoice/${this.invoiceData.id}`)
+        this.lines = data.data || []
+      } catch (error) {
+        console.error('Error loading AP invoice lines:', error)
+        this.lines = []
+      } finally {
+        this.loadingLines = false
       }
-      if (this.safeVoucherData && this.safeVoucherData.currency) {
-        return this.safeVoucherData.currency
+    },
+
+    getOutstandingAmount(invoice) {
+      return (
+        parseFloat(invoice.totalAmount || 0) -
+        parseFloat(invoice.paidAmount || 0)
+      )
+    },
+
+    getStatusInLao(status) {
+      const statusLabels = {
+        draft: 'ຮ່າງ',
+        pending: 'ຄ້າງອະນຸມັດ',
+        approved: 'ອະນຸມັດແລ້ວ',
+        partially_paid: 'ຊຳລະບາງສ່ວນ',
+        paid: 'ຊຳລະແລ້ວ',
+        overdue: 'ເກີນກຳນົດ',
+        cancelled: 'ຍົກເລີກ',
       }
-      return this.findAllCurrency.find((el) => String(el.id) === String(currencyId))
+      return statusLabels[status] || status || 'N/A'
     },
-    formatVoucherNumber(id) {
-      return String(id).padStart(6, '0')
+
+    getStatusColor(status) {
+      const colors = {
+        draft: 'grey',
+        pending: 'orange',
+        approved: 'green',
+        partially_paid: 'blue',
+        paid: 'teal',
+        overdue: 'red',
+        cancelled: 'grey darken-2',
+      }
+      return colors[status] || 'grey'
     },
-    // Format date
+
+    getTransactionCode(id) {
+      if (!id) return '-'
+      const txn = this.transactionCodes.find((t) => t.id === id)
+      return txn ? `${txn.code} - ${txn.description}` : '-'
+    },
+
     formatDate(date) {
       if (!date) return '-'
       try {
         return new Date(date).toLocaleDateString('en-GB')
-      } catch (e) {
+      } catch {
         return '-'
       }
     },
 
-    // Format currency
-    formatCurrency(amount) {
-      if (!amount && amount !== 0) return '0.00'
-      return new Intl.NumberFormat('en-US', {
+    formatNumber(value) {
+      if (!value && value !== 0) return '0'
+      return parseFloat(value).toLocaleString()
+    },
+
+    formatCurrency(value) {
+      if (!value && value !== 0) return '0.00'
+      return parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
-      }).format(amount)
+      })
     },
 
-    // Get payment method name
-    getPaymentMethodName(id) {
-      if (!id) return '-'
-      const method = this.paymentMethods.find((m) => String(m.id) === String(id))
-      return method?.name || method?.methodName || '-'
-    },
-
-    // Get bank account info
-    getBankAccountInfo(id) {
-      let account = null
-      if (id && this.bankAccounts && this.bankAccounts.length > 0) {
-        account = this.bankAccounts.find((a) => String(a.id) === String(id))
-      }
-      if (!account && this.safeVoucherData && this.safeVoucherData.bankAccount) {
-        account = this.safeVoucherData.bankAccount
-      }
-      if (!account) return '-'
-      const namePart = account.accountName ? ` (${account.accountName})` : ''
-      const currencyPart = account.currency ? ` [${account.currency}]` : ''
-      return `${account.bankName || ''} - ${account.accountNumber || ''}${namePart}${currencyPart}`
-    },
-
-    // Get transaction code
-    getTransactionCode(id) {
-      if (!id) return '-'
-      const txn = this.transactionCodes.find((t) => String(t.id) === String(id))
-      return txn?.code || txn?.transactionCode || '-'
-    },
-
-    // Get GL account
-    getGLAccount(id) {
-      if (!id) return '-'
-      const account = this.glAccounts.find((a) => a.id === id)
-      return account?.code || account?.accountCode || '-'
-    },
-
-    // Print voucher
-    printVoucher() {
-      const printContent = document.getElementById('voucher-print-area')
+    printInvoice() {
+      const printContent = document.getElementById('ap-invoice-print-area')
       if (!printContent) {
         this.$toast?.error('Print content not found')
         return
@@ -417,14 +423,14 @@ export default {
 
       const printWindow = window.open('', '_blank')
       if (!printWindow) {
-        this.$toast?.error('ກະລຸນາປົດບລັອກ Popup / Please allow popups for this site.')
+        this.$toast?.error('Please allow popups for this site.')
         return
       }
-      
+
       printWindow.document.write(`
         <html>
         <head>
-          <title>Payment Voucher - ${this.safeVoucherData.reference}</title>
+          <title>AP Invoice Voucher - ${this.safeInvoiceData.invoiceNumber}</title>
           <style>
             * {
               margin: 0;
@@ -436,13 +442,13 @@ export default {
               line-height: 1.4;
               color: #333;
             }
-            .voucher-container {
+            .invoice-container {
               background: white;
               padding: 20px;
               max-width: 900px;
               margin: 0 auto;
             }
-            .voucher-header {
+            .invoice-header {
               margin-bottom: 20px;
               border-bottom: 3px solid #1976D2;
               padding-bottom: 15px;
@@ -481,64 +487,90 @@ export default {
               font-size: 11px;
               color: #666;
             }
-            .voucher-title h3 { 
+            .invoice-title h3 { 
               margin: 0 0 5px 0; 
               font-size: 18px;
               color: #333;
             }
-            .voucher-title h4 { 
+            .invoice-title h4 { 
               margin: 0; 
               font-size: 14px; 
               color: #666; 
             }
-            .voucher-info-grid { 
+            .invoice-info-grid { 
               display: grid; 
               grid-template-columns: 1fr 1fr; 
-              gap: 10px; 
+              gap: 20px; 
               margin: 20px 0; 
+              padding: 15px;
+              background-color: #f9f9f9;
+              border-radius: 4px;
+            }
+            .info-section h5 {
+              margin: 0 0 10px;
+              font-size: 12px;
+              font-weight: 600;
+              color: #333;
+              border-bottom: 1px solid #ddd;
+              padding-bottom: 5px;
+            }
+            .client-name {
+              font-weight: bold;
+              font-size: 12px;
+            }
+            .client-details {
+              font-size: 11px;
+              color: #666;
             }
             .info-row { 
-              padding: 5px 0; 
+              padding: 3px 0; 
+              font-size: 11px;
             }
             .label { 
               font-weight: bold; 
               margin-right: 10px; 
+              min-width: 120px;
+              display: inline-block;
             }
-            .voucher-table { 
+            .invoice-table { 
               width: 100%; 
               border-collapse: collapse; 
               margin: 20px 0; 
             }
-            .voucher-table th, .voucher-table td { 
+            .invoice-table th, .invoice-table td { 
               border: 1px solid #ddd; 
               padding: 8px; 
               font-size: 11px; 
             }
-            .voucher-table th { 
+            .invoice-table th { 
               background-color: #f5f5f5; 
               font-weight: bold; 
               text-align: left; 
             }
-            .voucher-table .text-center { 
+            .invoice-table .text-center { 
               text-align: center; 
             }
-            .voucher-table .text-right { 
+            .invoice-table .text-right { 
               text-align: right; 
             }
-            .total-row td { 
+            .subtotal-row td, .tax-row td { 
               background-color: #f9f9f9; 
-              font-size: 12px; 
+            }
+            .total-row td {
+              background-color: #ffebee;
             }
             .amount-words { 
               margin: 15px 0; 
               padding: 10px; 
               background-color: #f9f9f9; 
               border-left: 3px solid #1976D2; 
+              font-size: 12px;
             }
-            .voucher-description { 
+            .invoice-notes { 
               margin: 15px 0; 
               padding: 10px; 
-              background-color: #f9f9f9; 
+              background-color: #fff9e6; 
+              font-size: 11px;
             }
             .signature-section { 
               display: flex; 
@@ -557,18 +589,20 @@ export default {
             .signature-label { 
               font-weight: bold; 
               margin: 5px 0; 
+              font-size: 11px;
             }
             .signature-name { 
               margin: 5px 0; 
+              font-size: 11px;
             }
             .signature-date { 
-              font-size: 11px; 
+              font-size: 10px; 
               color: #666; 
             }
-          }
-        </style>
+          </style>
+        </head>
+        <body>
       `)
-      printWindow.document.write('</head><body>')
       printWindow.document.write(printContent.innerHTML)
       printWindow.document.write('</body></html>')
       printWindow.document.close()
@@ -583,14 +617,14 @@ export default {
 </script>
 
 <style scoped>
-.voucher-container {
+.invoice-container {
   background: white;
   padding: 40px;
   max-width: 900px;
   margin: 0 auto;
 }
 
-.voucher-header {
+.invoice-header {
   margin-bottom: 30px;
   border-bottom: 3px solid #1976D2;
   padding-bottom: 15px;
@@ -650,77 +684,105 @@ export default {
   color: #666;
 }
 
-.voucher-title h3 {
+.invoice-title h3 {
   margin: 0 0 5px 0;
   font-size: 20px;
   color: #333;
 }
 
-.voucher-title h4 {
+.invoice-title h4 {
   margin: 0;
   font-size: 16px;
   color: #666;
 }
 
-.voucher-info-grid {
+.invoice-info-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px;
+  gap: 30px;
   margin: 25px 0;
-  padding: 15px;
+  padding: 20px;
   background-color: #f9f9f9;
   border-radius: 4px;
+}
+
+.info-section h5 {
+  margin: 0 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.client-name {
+  font-weight: 600;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.client-details {
+  font-size: 12px;
+  color: #666;
+  margin: 5px 0;
 }
 
 .info-row {
   display: flex;
   padding: 5px 0;
+  font-size: 12px;
 }
 
 .label {
   font-weight: 600;
   color: #333;
-  min-width: 130px;
+  min-width: 120px;
 }
 
 .value {
   color: #666;
 }
 
-.voucher-table {
+.invoice-table {
   width: 100%;
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 13px;
 }
 
-.voucher-table th,
-.voucher-table td {
+.invoice-table th,
+.invoice-table td {
   border: 1px solid #ddd;
   padding: 10px;
 }
 
-.voucher-table th {
+.invoice-table th {
   background-color: #1976D2;
   color: white;
   font-weight: 600;
   text-align: left;
 }
 
-.voucher-table tbody tr:nth-child(even) {
+.invoice-table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
 
-.voucher-table .text-center {
+.invoice-table .text-center {
   text-align: center;
 }
 
-.voucher-table .text-right {
+.invoice-table .text-right {
   text-align: right;
 }
 
+.subtotal-row td,
+.tax-row td {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
 .total-row td {
-  background-color: #e8f5e9;
+  background-color: #ffebee;
   font-weight: bold;
   font-size: 14px;
 }
@@ -733,7 +795,7 @@ export default {
   font-size: 14px;
 }
 
-.voucher-description {
+.invoice-notes {
   margin: 20px 0;
   padding: 15px;
   background-color: #fff9e6;
@@ -777,7 +839,7 @@ export default {
 }
 
 @media print {
-  .voucher-container {
+  .invoice-container {
     padding: 20px;
   }
 
