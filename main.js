@@ -6,8 +6,8 @@ const serve = require('electron-serve');
 const loadURL = serve({ directory: 'dist' });
 
 // --- 1. DYNAMIC CONFIG LOGIC ---
-let configData = { BASE_URL: "http://150.95.31.23:8007" };
-// let configData = { BASE_URL: "http://150.95.31.23:8007" };
+let configData = { BASE_URL: "http://localhost:8888" };
+// let configData = { BASE_URL: "http://localhost:8888" };
 
 function loadExternalConfig() {
     let configPath;
@@ -227,6 +227,19 @@ let nfcObj = null;
 
 function setupNativeNfc() {
     try {
+        // Automatically ensure the native binary matches Electron architecture on Apple Silicon
+        if (process.platform === 'darwin' && process.arch === 'arm64') {
+            const backupPath = path.join(__dirname, 'native/arm64/pcsclite.node');
+            const targetPath = path.join(__dirname, 'node_modules/@pokusew/pcsclite/build/Release/pcsclite.node');
+            if (fs.existsSync(backupPath)) {
+                try {
+                    fs.copyFileSync(backupPath, targetPath);
+                } catch (copyErr) {
+                    console.warn("Could not copy arm64 pcsclite backup:", copyErr.message);
+                }
+            }
+        }
+
         const { NFC } = require('nfc-pcsc');
         nfcObj = new NFC();
 

@@ -87,6 +87,10 @@
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
                       </v-btn>
+                      <v-btn small outlined color="indigo darken-1" class="rounded-lg" @click="printShelfTagsList">
+                        <v-icon left small>mdi-tag-text-outline</v-icon>
+                        Shelf Tags (A4)
+                      </v-btn>
                       <v-btn small outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
                         <v-icon left small>mdi-refresh</v-icon>
                         Fix Stock
@@ -286,7 +290,7 @@
 
     <v-dialog v-model="isstock" fullscreen>
       <card-form :key="stockFormKey" :product-id="selectedProductId" :id="selectedId" :cost="selectedProductCost"
-        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="rebuildStock"></card-form>
+        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="fetchData"></card-form>
     </v-dialog>
 
     <!-- Stock Adjustment Dialog -->
@@ -504,6 +508,8 @@ import PriceImportDialog from '~/components/product/PriceImportDialog.vue'
 import StockAdjustmentDialog from '~/components/card/stockAdjustMent.vue'
 import MenuOptionsDialog from '~/components/product/MenuOptionsDialog.vue'
 import ProductRecipeDialog from '~/components/product/ProductRecipeDialog.vue'
+import { generateShelfPriceTagHTML, executeTraditionalPrint } from '~/common/printTemplates'
+import { mainCompanyInfo } from '~/common/api'
 
 export default {
   components: {
@@ -763,6 +769,46 @@ export default {
 
     printBarcodeList() {
       this.printDialog = true
+    },
+
+    printShelfTagsList() {
+      try {
+        if (!this.filteredProducts || this.filteredProducts.length === 0) {
+          swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າສຳລັບພິມ')
+          return
+        }
+        const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+        const currencyStr = defaultCcy ? defaultCcy.symbol || defaultCcy.code : 'LAK'
+
+        const productsForTags = this.filteredProducts.map((p) => {
+          const productCurrency = this.findAllCurrency?.find((c) => c.id === p.saleCurrencyId)
+          const ccy = productCurrency ? productCurrency.symbol || productCurrency.code : currencyStr
+          return {
+            pro_name: p.pro_name,
+            pro_desc: p.pro_desc || '',
+            pro_price: p.pro_price,
+            formattedPrice: this.formatNumber(p.pro_price),
+            barCode: p.barCode || p.pro_id,
+            pro_category_desc: p.pro_category_desc || '',
+            product_code: p.product_code || '',
+            currency: ccy,
+            printQty: 1,
+          }
+        })
+
+        const htmlContent = generateShelfPriceTagHTML(
+          productsForTags,
+          companyData,
+          currencyStr,
+          1
+        )
+
+        executeTraditionalPrint(htmlContent)
+      } catch (error) {
+        console.error('Error printing shelf tags from restaurant menu:', error)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມປ້າຍລາຄາ')
+      }
     },
 
     generateBarcodes() {

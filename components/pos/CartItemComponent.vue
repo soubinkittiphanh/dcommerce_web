@@ -248,28 +248,32 @@ export default {
       return this.formatNumber(this.item.giftAmount);
     },
     getBaseUnitName(item) {
-      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
+      const baseUnit = this.findAllUnit.find(u => u.id === (item.baseUnitId || item.stockUnitId))
       return baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
     },
     selectUnit(pu) {
-      const baseUnit = this.findAllUnit.find(u => u.id === this.item.baseUnitId || u.id === this.item.stockUnitId)
+      const stockUnit = this.findAllUnit.find(u => u.id === (this.item.stockUnitId || this.item.baseUnitId))
+      const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
+
+      const baseUnit = this.findAllUnit.find(u => u.id === (this.item.baseUnitId || this.item.stockUnitId))
       const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
       
       if (!pu) {
-        // Switch back to base unit
+        // Switch back to base unit (rate relative to stock unit)
         const baseSymbol = baseUnit ? baseUnit.symbol : (this.item.baseUnit?.symbol || this.item.stockUnit?.symbol || 'pcs')
         const baseId = this.item.baseUnitId || this.item.stockUnitId
+        const relRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
         this.$emit('change-unit', {
           lineUUID: this.item.lineUUID,
           unitId: baseId,
-          unitRate: 1.0,
+          unitRate: relRate,
           unitSymbol: baseSymbol,
           localPrice: this.item.pro_price
         })
       } else {
-        // Switch to mapped unit
+        // Switch to mapped unit (rate relative to stock unit)
         const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
-        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
         this.$emit('change-unit', {
           lineUUID: this.item.lineUUID,
           unitId: pu.unitId,

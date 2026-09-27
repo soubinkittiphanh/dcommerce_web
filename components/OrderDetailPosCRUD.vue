@@ -1015,6 +1015,15 @@ export default {
       this.transaction.total = this.grandTotal
       this.transaction.discount = this.headerDiscount
       this.transaction.locationId = this.currentTerminal.locationId
+      if (this.transaction.paymentId) {
+        if (this.transaction.payments && Array.isArray(this.transaction.payments) && this.transaction.payments.length > 0) {
+          this.transaction.payments = [{
+            ...this.transaction.payments[0],
+            paymentId: this.transaction.paymentId,
+            amount: this.grandTotal
+          }]
+        }
+      }
     },
 
     prepareInvoiceFromQuotation() {

@@ -323,7 +323,6 @@ export default {
 
       category: [],
       companyList: [],
-      findAllCurrency: [],
     }
   },
 
@@ -573,19 +572,19 @@ export default {
 
     async fetchCurrency() {
       try {
-        const response = await this.$axios.get('/api/currency/findAll')
-        this.findAllCurrency = response.data
-          .filter((el) => el.isActive === true || el.isActive === 1)
-          .map((el) => ({
-            id: el.id,
-            code: el.code,
-            isLocalCCY: el.isLocalCCY,
-            symbol: el.symbol
-          }))
-        if (this.findAllCurrency.length > 0 && !this.isEdit) {
-          const localCcy = this.findAllCurrency.find((c) => c.isLocalCCY === true)
-          this.formData.saleCurrencyId = localCcy ? localCcy.id : this.findAllCurrency[0].id
-          this.formData.costCurrencyId = localCcy ? localCcy.id : this.findAllCurrency[0].id
+        let data = this.findAllCurrency
+        if (!data || data.length === 0) {
+          const response = await this.$axios.get('/api/currency/findAll')
+          data = response.data?.data ?? response.data
+          if (Array.isArray(data)) {
+            data = data.filter((el) => el.isActive === true || el.isActive === 1)
+          }
+          this.$store.commit('SetCurrencyList', data)
+        }
+        if (data && data.length > 0 && !this.isEdit) {
+          const localCcy = data.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+          this.formData.saleCurrencyId = localCcy ? localCcy.id : data[0].id
+          this.formData.costCurrencyId = localCcy ? localCcy.id : data[0].id
         }
       } catch (error) {
         console.error('Error fetching currencies:', error)

@@ -5,9 +5,12 @@ export const state = () => ({
     isAuth: true,
     productDetail: null,
     productSearchKeyboard: '',
+    isExactMatchSearch: false,
     productPriceList: [],
     productPriceListToCreate: [],
     cartOfproductSelected: [],
+    parkedCarts: [],
+    parkedCartCounter: 0,
     listOfConfirmStockInOrder: [],
     listOfConfirmPaymentOrder: [],
     selectedCategoryId: 9999,
@@ -141,7 +144,7 @@ export const mutations = {
                     pro_name_lower: productName.toLowerCase(),
                     barCode_lower: barCode.toLowerCase(),
                     product_code_lower: productCode.toLowerCase(),
-                    searchString: `${productName} ${barCode} ${productCode}`.toLowerCase(),
+                    searchString: `${productName} ${barCode} ${productCode} ${product.pro_id || ''} ${product.id || ''}`.toLowerCase(),
 
                     // Price-related
                     priceLists: Array.isArray(product.priceLists) ? product.priceLists : [],
@@ -392,6 +395,14 @@ export const mutations = {
         state.productSearchKeyboard = value || ''
     },
 
+    SetExactMatchSearch(state, value) {
+        console.log(`🎯 Setting exact match search: ${value}`)
+        state.isExactMatchSearch = !!value
+        if (state.productSearchCache) {
+            state.productSearchCache.clear()
+        }
+    },
+
     setSelecteCategoryId(state, categoryId) {
         state.selectedCategoryId = categoryId || 9999
     },
@@ -457,6 +468,10 @@ export const mutations = {
                 let defaultPrice = product.localPrice || product.pro_price
 
                 if (!defaultUnitId) {
+                    const stockUnitId = product.stockUnitId || product.baseUnitId
+                    const stockUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === stockUnitId) : null
+                    const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
+
                     const baseUnitId = product.baseUnitId || product.stockUnitId
                     const baseUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null
                     const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
@@ -470,16 +485,16 @@ export const mutations = {
 
                     if (matchedUnit) {
                         const targetRate = parseFloat(matchedUnit.unit?.conversionRate || 1.0)
-                        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
+                        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
 
                         defaultUnitId = matchedUnit.unitId
                         defaultRate = relRate
                         defaultSymbol = matchedUnit.unit?.name || matchedUnit.unit?.symbol || 'pcs'
                         defaultPrice = Number(matchedUnit.price) || product.pro_price
                     } else {
-                        // 2. Fall back to product base unit
+                        // 2. Fall back to product base unit (rate relative to stock unit)
                         defaultUnitId = baseUnitId
-                        defaultRate = 1.0
+                        defaultRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
                         defaultSymbol = baseSymbol
                         defaultPrice = product.pro_price
                     }
@@ -786,6 +801,8 @@ export const mutations = {
         state.user = ''
         state.cartOfproductSelected = []
         state.selectedCustomer = null
+        state.parkedCarts = []
+        state.parkedCartCounter = 0
         // Clear caches on logout
         state.productSearchCache.clear()
     },
@@ -812,6 +829,39 @@ export const mutations = {
         state.variantCards = []
         state.variantDialogOpen = false
     },
+
+    // In-Memory Cart Parking Mutations
+    PARK_CART(state, parkedTicket) {
+        if (!Array.isArray(state.parkedCarts)) {
+            state.parkedCarts = []
+        }
+        if (typeof state.parkedCartCounter !== 'number') {
+            state.parkedCartCounter = 0
+        }
+        state.parkedCartCounter += 1
+        const ticketWithNo = {
+            ...parkedTicket,
+            ticketNo: parkedTicket.ticketNo || state.parkedCartCounter,
+        }
+        state.parkedCarts.push(ticketWithNo)
+        state.cartOfproductSelected = []
+    },
+
+    REMOVE_PARKED_CART(state, ticketId) {
+        if (!Array.isArray(state.parkedCarts)) {
+            state.parkedCarts = []
+        }
+        state.parkedCarts = state.parkedCarts.filter(t => t.id !== ticketId)
+    },
+
+    CLEAR_ALL_PARKED_CARTS(state) {
+        state.parkedCarts = []
+        state.parkedCartCounter = 0
+    },
+
+    RESTORE_CART(state, items) {
+        state.cartOfproductSelected = JSON.parse(JSON.stringify(items || []))
+    },
 }
 
 // Enhanced getters with performance optimizations
@@ -837,7 +887,10 @@ export const getters = {
     findSelectedProductDetail: (state) => state.productDetail,
     findSelectedTerminal: (state) => state.selectedTerminal,
     searchKeyword: (state) => state.productSearchKeyboard || '',
+    isExactMatchSearch: (state) => !!state.isExactMatchSearch,
     cartOfProduct: (state) => state.cartOfproductSelected || [],
+    findAllParkedCarts: (state) => state.parkedCarts || [],
+    parkedCartsCount: (state) => (state.parkedCarts || []).length,
     currenctSelectedCategoryId: (state) => state.selectedCategoryId || 9999,
     currentSelectedCustomer: (state) => state.selectedCustomer,
     currentSelectedPayment: (state) => state.selectedPayment || (state.paymentList && state.paymentList.length > 0 ? state.paymentList[0].id : null),
@@ -862,8 +915,9 @@ export const getters = {
         return state.productCategoryMap.get(categoryId) || []
     },
 
-    searchProducts: (state) => (keyword, categoryId) => {
-        const cacheKey = `${keyword || ''}_${categoryId || 9999}`
+    searchProducts: (state) => (keyword, categoryId, exactMatch = null) => {
+        const isExact = exactMatch !== null ? exactMatch : !!state.isExactMatchSearch
+        const cacheKey = `${keyword || ''}_${categoryId || 9999}_${isExact ? 'exact' : 'fuzzy'}`
 
         // Check cache first
         if (state.productSearchCache.has(cacheKey)) {
@@ -880,13 +934,27 @@ export const getters = {
 
         // Apply search filter
         if (keyword && keyword.length > 0) {
-            const searchTerm = keyword.toLowerCase()
-            results = results.filter(product =>
-                product.searchString.includes(searchTerm) ||
-                product.pro_name_lower.includes(searchTerm) ||
-                product.barCode_lower.includes(searchTerm) ||
-                (product.product_code_lower && product.product_code_lower.includes(searchTerm))
-            )
+            const searchTerm = keyword.trim().toLowerCase()
+            if (isExact) {
+                results = (categoryId && categoryId !== 9999 ? results : (state.productList || [])).filter(product => {
+                    const productCode = product.product_code != null ? String(product.product_code).trim().toLowerCase() : ''
+                    const barcode = product.barCode != null ? String(product.barCode).trim().toLowerCase() : ''
+
+                    return (
+                        (productCode && productCode === searchTerm) ||
+                        (barcode && barcode === searchTerm)
+                    )
+                })
+            } else {
+                results = results.filter(product =>
+                    product.searchString?.includes(searchTerm) ||
+                    product.pro_name_lower?.includes(searchTerm) ||
+                    product.barCode_lower?.includes(searchTerm) ||
+                    (product.product_code_lower && product.product_code_lower.includes(searchTerm)) ||
+                    (product.pro_id != null && String(product.pro_id).toLowerCase().includes(searchTerm)) ||
+                    (product.id != null && String(product.id).toLowerCase().includes(searchTerm))
+                )
+            }
         }
 
         const searchTime = performance.now() - startTime
@@ -1065,6 +1133,85 @@ export const actions = {
         } catch (error) {
             console.error('Error clearing cart:', error)
             commit('ADD_ERROR', error)
+        }
+    },
+
+    parkCurrentCart({ commit, state }, payload = {}) {
+        try {
+            if (!state.cartOfproductSelected || state.cartOfproductSelected.length === 0) {
+                return { success: false, message: 'Cart is empty' }
+            }
+
+            const itemsClone = JSON.parse(JSON.stringify(state.cartOfproductSelected))
+            const ticketId = 'park_' + Date.now() + '_' + Math.floor(Math.random() * 1000)
+            const ticketNo = (state.parkedCartCounter || 0) + 1
+
+            const totalItems = itemsClone.reduce((sum, item) => sum + (Number(item.qty) || 0), 0)
+
+            const parkedTicket = {
+                id: ticketId,
+                ticketNo,
+                parkedAt: new Date().toISOString(),
+                note: payload.note || '',
+                customer: payload.customer || state.selectedCustomer || null,
+                customerForm: payload.customerForm ? JSON.parse(JSON.stringify(payload.customerForm)) : null,
+                items: itemsClone,
+                discount: payload.discount || 0,
+                redeemedPoints: payload.redeemedPoints || 0,
+                referenceNo: payload.referenceNo || '',
+                totalAmount: payload.totalAmount || 0,
+                totalItems,
+            }
+
+            commit('PARK_CART', parkedTicket)
+            return { success: true, ticket: parkedTicket }
+        } catch (error) {
+            console.error('Error parking cart:', error)
+            commit('ADD_ERROR', error)
+            return { success: false, error }
+        }
+    },
+
+    resumeParkedCart({ commit, state }, ticketId) {
+        try {
+            const ticket = (state.parkedCarts || []).find(t => t.id === ticketId)
+            if (!ticket) {
+                return { success: false, message: 'Parked ticket not found' }
+            }
+
+            commit('RESTORE_CART', ticket.items)
+            if (ticket.customer) {
+                commit('setSelectedCustomer', ticket.customer)
+            }
+            commit('REMOVE_PARKED_CART', ticketId)
+
+            return { success: true, ticket }
+        } catch (error) {
+            console.error('Error resuming parked cart:', error)
+            commit('ADD_ERROR', error)
+            return { success: false, error }
+        }
+    },
+
+    deleteParkedCart({ commit }, ticketId) {
+        try {
+            commit('REMOVE_PARKED_CART', ticketId)
+            return { success: true }
+        } catch (error) {
+            console.error('Error deleting parked cart:', error)
+            commit('ADD_ERROR', error)
+            return { success: false, error }
+        }
+    },
+
+    clearAllParkedCartsAction({ commit }) {
+        try {
+            commit('CLEAR_ALL_PARKED_CARTS')
+            return { success: true }
+        } catch (error) {
+            console.error('Error clearing all parked carts:', error)
+            commit('ADD_ERROR', error)
+            return { success: false, error }
         }
     },
 

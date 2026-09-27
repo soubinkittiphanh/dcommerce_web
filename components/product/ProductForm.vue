@@ -140,12 +140,18 @@
 
               <v-divider class="mb-4"></v-divider>
 
-              <div class="blue-grey--text text--darken-3 mb-2 d-flex align-center justify-space-between">
-                <span>ຫົວໜ່ວຍຂາຍເພີ່ມເຕີມ (Selling Units Mapping)</span>
-                <v-btn small color="success" class="rounded-lg" @click="addSellingUnit">
-                  <v-icon left>mdi-plus</v-icon>
-                  ເພີ່ມຫົວໜ່ວຍຂາຍ
-                </v-btn>
+              <div class="blue-grey--text text--darken-3 mb-2 d-flex align-center justify-space-between flex-wrap">
+                <span class="font-weight-medium">ຫົວໜ່ວຍຂາຍເພີ່ມເຕີມ (Selling Units Mapping)</span>
+                <div class="d-flex align-center" style="gap: 8px">
+                  <v-btn small color="primary" class="rounded-lg" outlined @click="autoGenerateUnitPrices">
+                    <v-icon left small>mdi-calculator-variant</v-icon>
+                    ສ້າງລາຄາອັດຕະໂນມັດ (Auto Generate Prices)
+                  </v-btn>
+                  <v-btn small color="success" class="rounded-lg" @click="addSellingUnit">
+                    <v-icon left small>mdi-plus</v-icon>
+                    ເພີ່ມຫົວໜ່ວຍຂາຍ
+                  </v-btn>
+                </div>
               </div>
 
               <v-simple-table dense class="mb-4 border rounded-lg">
@@ -171,6 +177,7 @@
                           dense
                           hide-details
                           outlined
+                          @change="val => onUnitSelect(item, val)"
                         />
                       </td>
                       <td>
@@ -265,13 +272,19 @@
 
                     <v-checkbox v-model="threeColPaper" label="3 Column (Small Paper)" dense hide-details />
 
-                    <div class="d-flex align-center mt-2" style="max-width: 200px">
+                    <div class="d-flex align-center flex-wrap justify-center mt-2" style="gap: 6px;">
                       <v-text-field v-model.number="printQty" type="number" label="ຈຳນວນໃບ" dense outlined hide-details
-                        class="mr-2" min="1" />
+                        style="max-width: 95px;" min="1" />
+                      <v-chip x-small outlined :color="printQty === 1 ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="printQty = 1">1 ໃບ</v-chip>
+                      <v-chip x-small outlined :color="printQty === 6 ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="printQty = 6">6 ໃບ</v-chip>
+                      <v-chip x-small :color="printQty === 12 ? 'indigo' : 'grey lighten-2'" :dark="printQty === 12" class="cursor-pointer font-weight-bold" @click="printQty = 12">12 (ເຕັມ A4)</v-chip>
                     </div>
 
-                    <div class="mt-2">
-                      <v-btn small color="primary" class="mr-2" @click="generateBarcode">Generate</v-btn>
+                    <div class="mt-2 d-flex flex-wrap justify-center align-center" style="gap: 6px;">
+                      <v-btn small color="primary" @click="generateBarcode">Generate</v-btn>
+                      <v-btn small color="indigo darken-1" dark :disabled="!formData.barCode" @click="printShelfPriceTag">
+                        <v-icon left small>mdi-tag-text-outline</v-icon> Shelf Tag (A4)
+                      </v-btn>
                       <v-btn small color="success" :disabled="!formData.barCode" @click="printBarcode">
                         <v-icon left small>mdi-printer</v-icon> Print ({{
                           printQty
@@ -301,7 +314,7 @@ import { mapActions, mapGetters } from 'vuex'
 import JsBarcode from 'jsbarcode'
 import ImagePreviewMixin from '../../pages/product/index.vue'
 import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
-import { hostName } from '~/common/api'
+import { hostName, mainCompanyInfo } from '~/common/api'
 
 import {
   getBarcode2by2cmHtml,
@@ -309,6 +322,10 @@ import {
   executePrintWindow,
   parseBarcodeSize,
 } from '~/common/barcodePrinter'
+import {
+  generateShelfPriceTagHTML,
+  executeTraditionalPrint,
+} from '~/common/printTemplates'
 
 export default {
   mixins: [ImagePreviewMixin],
@@ -553,6 +570,59 @@ export default {
       }
     },
 
+    printShelfPriceTag() {
+      if (!this.formData.barCode) {
+        if (this.$toast) {
+          this.$toast.error('ກະລຸນາສ້າງ ຫຼື ໃສ່ລະຫັດ Barcode ກ່ອນ')
+        } else {
+          swalError2(this.$swal, 'Error', 'ກະລຸນາສ້າງ ຫຼື ໃສ່ລະຫັດ Barcode ກ່ອນ')
+        }
+        return
+      }
+
+      const rawPrice = parseFloat(this.formData.pro_price || 0)
+      let finalPrice = rawPrice
+
+      if (this.selectedTaxRate && this.selectedTaxRate.taxType !== 'INC') {
+        const taxRate = parseFloat(this.selectedTaxRate.rate || 0)
+        finalPrice = rawPrice + rawPrice * taxRate
+      }
+
+      const formattedPrice = this.formatNumber(finalPrice)
+
+      const productCurrency = this.findAllCurrency?.find((c) => c.id === this.formData.saleCurrencyId)
+      const localCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+      const selectedCcy = productCurrency || localCcy
+      const currencyStr = selectedCcy ? selectedCcy.symbol || selectedCcy.code : 'LAK'
+
+      const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+
+      const foundCat = this.category?.find(
+        (c) => c.id === this.formData.pro_category || c.categ_id === this.formData.pro_category
+      )
+      const categoryDesc = foundCat ? foundCat.categ_name : ''
+
+      const productData = {
+        pro_name: this.formData.pro_name || 'Product',
+        pro_desc: this.formData.pro_desc || '',
+        pro_price: finalPrice,
+        formattedPrice,
+        barCode: this.formData.barCode,
+        barcodeImage: this.barcodeImage,
+        pro_category_desc: categoryDesc,
+        product_code: this.formData.product_code || '',
+      }
+
+      const htmlContent = generateShelfPriceTagHTML(
+        productData,
+        companyData,
+        currencyStr,
+        this.printQty || 1
+      )
+
+      executeTraditionalPrint(htmlContent)
+    },
+
     generateBarcode() {
       const barcodeValue = Math.floor(Math.random() * 900000000000) + 1000000000
       this.formData.barCode = barcodeValue.toString()
@@ -612,7 +682,7 @@ export default {
         .post('uploadmulti_update', fData)
         .then(() => {
           this.$emit('close-dialog')
-          this.$emit('refresh')
+          this.$emit('refresh', this.formData.pro_id || this.headerId)
           swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
         })
         .catch((er) => {
@@ -811,6 +881,112 @@ export default {
         })
       }
     },
+    autoGenerateUnitPrices() {
+      const salePrice = parseFloat(this.formData.pro_price || 0)
+      if (salePrice <= 0) {
+        if (this.$toast) {
+          this.$toast.warning('ກະລຸນາໃສ່ລາຄາຂາຍ (Sale Price) ໃຫ້ຖືກຕ້ອງກ່ອນ!')
+        } else {
+          swalError2(this.$swal, 'Warning', 'ກະລຸນາໃສ່ລາຄາຂາຍ (Sale Price) ໃຫ້ຖືກຕ້ອງກ່ອນ!')
+        }
+        return
+      }
+
+      const primaryUnitId = this.formData.baseUnitId || this.formData.stockUnitId || this.formData.receiveUnitId
+      const primaryUnit = this.unitList?.find((u) => u.id === primaryUnitId)
+
+      if (!primaryUnit) {
+        if (this.$toast) {
+          this.$toast.warning('ກະລຸນາເລືອກຫົວໜ່ວຍພື້ນຖານ (Base Unit) ຫຼື ຫົວໜ່ວຍສາງ (Stock Unit) ກ່ອນ!')
+        } else {
+          swalError2(this.$swal, 'Warning', 'ກະລຸນາເລືອກຫົວໜ່ວຍພື້ນຖານ (Base Unit) ຫຼື ຫົວໜ່ວຍສາງ (Stock Unit) ກ່ອນ!')
+        }
+        return
+      }
+
+      const baseRate = parseFloat(primaryUnit.conversionRate || 1.0)
+      if (!this.formData.productUnits) {
+        this.$set(this.formData, 'productUnits', [])
+      }
+
+      // 1. Identify all related units in the unit family
+      const rootBaseId = primaryUnit.baseUnitId || primaryUnit.id
+      const familyUnits = (this.unitList || []).filter(
+        (u) =>
+          u.id === rootBaseId ||
+          u.baseUnitId === rootBaseId ||
+          u.id === primaryUnit.id ||
+          (primaryUnit.baseUnitId && u.id === primaryUnit.baseUnitId) ||
+          u.id === this.formData.baseUnitId ||
+          u.id === this.formData.stockUnitId ||
+          u.id === this.formData.receiveUnitId
+      )
+
+      let generatedCount = 0
+
+      // 2. Process units in family and add/update them
+      familyUnits.forEach((u) => {
+        const targetRate = parseFloat(u.conversionRate || 1.0)
+        const calculatedPrice = baseRate > 0 ? Math.round((salePrice / baseRate) * targetRate) : salePrice
+
+        const existingIndex = this.formData.productUnits.findIndex((pu) => pu.unitId === u.id)
+        if (existingIndex !== -1) {
+          this.formData.productUnits[existingIndex].price = calculatedPrice
+          if (u.id === primaryUnit.id) {
+            this.formData.productUnits[existingIndex].isBaseUnit = true
+          }
+          generatedCount++
+        } else {
+          this.formData.productUnits.push({
+            id: null,
+            unitId: u.id,
+            barCode: this.formData.barCode ? `${this.formData.barCode}-${u.symbol || u.id}` : '',
+            price: calculatedPrice,
+            isBaseUnit: u.id === primaryUnit.id,
+            isActive: true,
+          })
+          generatedCount++
+        }
+      })
+
+      // 3. For any other existing rows that might be outside the family, update their prices too
+      this.formData.productUnits.forEach((item) => {
+        if (item.unitId && !familyUnits.some((fu) => fu.id === item.unitId)) {
+          const u = this.unitList?.find((unit) => unit.id === item.unitId)
+          if (u) {
+            const targetRate = parseFloat(u.conversionRate || 1.0)
+            item.price = baseRate > 0 ? Math.round((salePrice / baseRate) * targetRate) : salePrice
+            generatedCount++
+          }
+        }
+      })
+
+      if (this.$toast) {
+        this.$toast.success(
+          `ສ້າງລາຄາອັດຕະໂນມັດສຳເລັດ (${generatedCount} ຫົວໜ່ວຍ, ອີງຕາມ ${primaryUnit.name})`
+        )
+      } else {
+        swalSuccess(
+          this.$swal,
+          'Succeed',
+          `ສ້າງລາຄາອັດຕະໂນມັດສຳເລັດ (${generatedCount} ຫົວໜ່ວຍ, ອີງຕາມ ${primaryUnit.name})`
+        )
+      }
+    },
+
+    onUnitSelect(item, unitId) {
+      if (!unitId) return
+      const salePrice = parseFloat(this.formData.pro_price || 0)
+      const primaryUnitId = this.formData.baseUnitId || this.formData.stockUnitId || this.formData.receiveUnitId
+      const primaryUnit = this.unitList?.find((u) => u.id === primaryUnitId)
+      const selectedUnit = this.unitList?.find((u) => u.id === unitId)
+
+      if (selectedUnit && (!item.price || item.price === 0) && salePrice > 0 && primaryUnit) {
+        const baseRate = parseFloat(primaryUnit.conversionRate || 1.0)
+        const targetRate = parseFloat(selectedUnit.conversionRate || 1.0)
+        item.price = baseRate > 0 ? Math.round((salePrice / baseRate) * targetRate) : salePrice
+      }
+    },
   },
 }
 </script>
@@ -825,7 +1001,9 @@ export default {
 .enhanced-dialog ::v-deep .v-label,
 .enhanced-dialog ::v-deep .v-input,
 .enhanced-dialog ::v-deep .v-btn__content,
-.enhanced-dialog ::v-deep . {
+.enhanced-dialog ::v-deep .v-chip__content,
+.enhanced-dialog ::v-deep .v-messages,
+.enhanced-dialog ::v-deep .v-alert__content {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }
 

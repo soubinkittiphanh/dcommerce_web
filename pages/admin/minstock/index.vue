@@ -13,7 +13,7 @@
     </v-dialog>
     <v-dialog v-model="isstock" max-width="600px">
       <card-form :key="stockFormKey"  :product-id="selectedProductId" :id="selectedId" :cost="selectedProductCost"
-        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="rebuildStock"></card-form>
+        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="fetchData"></card-form>
     </v-dialog>
     <v-dialog v-model="editProductForm" max-width="1200px">
       <product-form :key="productFormKey" @close-dialog="editProductForm = false" :header-id="selectedProductId"

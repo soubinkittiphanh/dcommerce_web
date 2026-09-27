@@ -1,5 +1,6 @@
 // ~/common/printTemplatesWithOriginalCurrency.js
 // Shows each line in original currency, but summarized totals by currency
+import JsBarcode from 'jsbarcode'
 
 // Helper to format numbers
 const formatNumber = (val) => {
@@ -151,7 +152,7 @@ const getBaseUrl = () => {
             return window.location.origin.replace(/\/$/, '')
         }
     }
-    return 'http://150.95.31.23:8007'
+    return 'http://localhost:8888'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -5437,3 +5438,1129 @@ export const generateProductSalesReportHTML = (products = [], companyData = {}, 
     </html>
   `
 }
+
+export const generateCashPositionReportHTML = (reportData, companyData, filterParams = {}) => {
+    console.log('🏫 GENERATING END-OF-DAY CASH POSITION REPORT PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
+    const summary = reportData.summary || {};
+    const users = (reportData.users || []).filter(u => u.openingCash > 0 || u.totalCashIn > 0 || u.totalCashOut > 0 || u.posNfcSales > 0 || u.shift);
+
+    const userRowsHTML = users.map((u, index) => {
+        const shiftStatus = u.shift ? u.shift.status : 'NO SHIFT';
+        const shiftBadge = shiftStatus === 'OPEN'
+            ? `<span style="background: #e8f5e9; color: #2e7d32; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 10px;">OPEN #${u.shift?.id || ''}</span>`
+            : (shiftStatus === 'CLOSED'
+                ? `<span style="background: #ffebee; color: #c62828; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 10px;">CLOSED #${u.shift?.id || ''}</span>`
+                : `<span style="color: #888; font-size: 10px;">-</span>`);
+
+        const varStyle = u.variance !== null && u.variance !== 0
+            ? (u.variance > 0 ? 'color: #1565c0; font-weight: bold;' : 'color: #c62828; font-weight: bold;')
+            : 'color: #666;';
+
+        return `
+            <tr>
+                <td style="text-align: center;">${index + 1}</td>
+                <td style="font-weight: bold;">${u.userName} <span style="color: #777; font-size: 10px;">(${u.userCode})</span></td>
+                <td style="text-align: center;">${shiftBadge}</td>
+                <td style="text-align: right;">${formatNumber(u.openingCash)}</td>
+                <td style="text-align: right; color: #2e7d32; font-weight: bold;">+${formatNumber(u.topupIn)} <span style="font-size: 9px; color: #888;">(${u.topupCount})</span></td>
+                <td style="text-align: right; color: #c62828; font-weight: bold;">-${formatNumber(u.withdrawOut)} <span style="font-size: 9px; color: #888;">(${u.withdrawCount})</span></td>
+                <td style="text-align: right;">${formatNumber(u.posCashSales)}</td>
+                <td style="text-align: right; font-weight: bold; color: #00796b;">${formatNumber(u.totalCashIn)}</td>
+                <td style="text-align: right; font-weight: bold; color: #d32f2f;">${formatNumber(u.totalCashOut)}</td>
+                <td style="text-align: right; font-weight: bold; background-color: #f1f8e9; color: #1b5e20;">${formatNumber(u.expectedCashInDrawer)}</td>
+                <td style="text-align: right;">${u.actualClosingCash !== null ? formatNumber(u.actualClosingCash) : '-'}</td>
+                <td style="text-align: right; ${varStyle}">${u.variance !== null ? (u.variance > 0 ? '+' : '') + formatNumber(u.variance) : '-'}</td>
+                <td style="text-align: right; color: #0288d1;">${formatNumber(u.posNfcSales)}</td>
+            </tr>
+        `;
+    }).join('') || '<tr><td colspan="13" style="text-align: center; padding: 15px; color: #888;">ບໍ່ມີຂໍ້ມູນການເຄື່ອນໄຫວໃນວັນທີນີ້</td></tr>';
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>ລາຍງານສະຫຼຸບຍອດເງິນສົດ ແລະ ການປິດກະເປົາປະຈຳວັນ (Cash Position & Shift Summary)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        html, body { margin: 0; padding: 0; font-family: 'Noto Sans Lao', Arial, sans-serif; font-size: 11px; color: #333; }
+        body { padding: 15px; }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #004d40; padding-bottom: 10px; margin-bottom: 12px; }
+        .company-info h1 { margin: 0 0 4px 0; font-size: 16px; color: #004d40; font-weight: bold; }
+        .company-info p { margin: 2px 0; font-size: 10px; color: #555; }
+        .title-box { text-align: right; }
+        .title-box h2 { margin: 0 0 4px 0; font-size: 14px; color: #004d40; font-weight: bold; }
+        .title-box p { margin: 2px 0; font-size: 10px; color: #666; }
+
+        .kpi-container { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+        .kpi-card { flex: 1; min-width: 130px; background: #fafafa; border: 1px solid #e0e0e0; border-radius: 6px; padding: 8px 10px; text-align: center; }
+        .kpi-card.highlight { background: #e8f5e9; border-color: #81c784; }
+        .kpi-title { font-size: 9px; color: #666; text-transform: uppercase; margin-bottom: 3px; font-weight: 600; }
+        .kpi-value { font-size: 13px; font-weight: bold; }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; font-size: 10px; }
+        th { background-color: #004d40; color: #ffffff; padding: 6px 4px; text-align: left; font-weight: 600; border: 1px solid #00332c; }
+        td { padding: 5px 4px; border: 1px solid #e0e0e0; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .total-row td { background-color: #e0f2f1; font-weight: bold; border-top: 2px solid #004d40; }
+
+        .signature-section { display: flex; justify-content: space-between; margin-top: 30px; page-break-inside: avoid; }
+        .signature-box { text-align: center; width: 30%; border-top: 1px dashed #777; padding-top: 8px; font-size: 10px; color: #444; }
+        
+        .footer-note { font-size: 9px; color: #888; text-align: center; margin-top: 20px; }
+
+        @media print {
+            body { padding: 5px; }
+            button { display: none; }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="company-info">
+                ${logoUrl ? `<img src="${logoUrl}" style="height: 45px; max-width: 150px; object-fit: contain; margin-bottom: 4px;" alt="Logo" /><br>` : ''}
+                <h1>${companyData.name || 'ລະບົບໂຮງຮຽນ ແລະ ສູນການຄ້າ'}</h1>
+                <p>${companyData.address || ''} | ໂທ: ${companyData.phone || '-'}</p>
+            </div>
+            <div class="title-box">
+                <h2>ລາຍງານສະຫຼຸບຍອດເງິນສົດ & ການປິດກະເປົາປະຈຳວັນ</h2>
+                <p><strong>ວັນທີ (Date):</strong> ${filterParams.startDate || reportData.startDate} ${filterParams.endDate && filterParams.endDate !== filterParams.startDate ? ' ຫາ ' + filterParams.endDate : ''}</p>
+                <p><strong>ເວລາພິມ (Printed At):</strong> ${new Date().toLocaleString('en-GB')}</p>
+            </div>
+        </div>
+
+        <!-- KPI Executive Summary -->
+        <div class="kpi-container">
+            <div class="kpi-card">
+                <div class="kpi-title">ຍອດເປີດກະເປົາລວມ (Float)</div>
+                <div class="kpi-value" style="color: #455a64;">${formatNumber(summary.totalOpeningCash)} LAK</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">ຕື່ມເງິນບັດ (Deposit IN)</div>
+                <div class="kpi-value" style="color: #2e7d32;">+${formatNumber(summary.totalTopupIn)} LAK</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">ຖອນເງິນບັດ (Withdraw OUT)</div>
+                <div class="kpi-value" style="color: #c62828;">-${formatNumber(summary.totalWithdrawOut)} LAK</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">ຂາຍສິນຄ້າເງິນສົດ (POS Cash)</div>
+                <div class="kpi-value" style="color: #0277bd;">+${formatNumber(summary.totalPosCashSales)} LAK</div>
+            </div>
+            <div class="kpi-card highlight">
+                <div class="kpi-title">ເງິນສົດລວມໃນລີ້ນຊັກ (Expected Cash)</div>
+                <div class="kpi-value" style="color: #1b5e20; font-size: 14px;">${formatNumber(summary.grandExpectedCashInDrawers)} LAK</div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-title">ຍອດຂາຍບັດ NFC (Cashless)</div>
+                <div class="kpi-value" style="color: #6a1b9a;">${formatNumber(summary.totalPosNfcSales)} LAK</div>
+            </div>
+        </div>
+
+        <!-- Cashier Details Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 25px; text-align: center;">#</th>
+                    <th>ຊື່ Cashier / User</th>
+                    <th style="width: 70px; text-align: center;">Shift</th>
+                    <th style="width: 75px; text-align: right;">ເງິນເລີ່ມຕົ້ນ</th>
+                    <th style="width: 80px; text-align: right;">ຕື່ມເງິນ (+)</th>
+                    <th style="width: 75px; text-align: right;">ຖອນເງິນ (-)</th>
+                    <th style="width: 75px; text-align: right;">POS ເງິນສົດ</th>
+                    <th style="width: 80px; text-align: right;">ລວມຮັບເຂົ້າ</th>
+                    <th style="width: 75px; text-align: right;">ລວມຈ່າຍອອກ</th>
+                    <th style="width: 90px; text-align: right; background-color: #00332c;">ເງິນສົດຄວນມີ</th>
+                    <th style="width: 75px; text-align: right;">ປິດຕົວຈິງ</th>
+                    <th style="width: 65px; text-align: right;">ຜົນຕ່າງ</th>
+                    <th style="width: 70px; text-align: right;">ຂາຍ NFC</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${userRowsHTML}
+                <tr class="total-row">
+                    <td colspan="3" style="text-align: center; font-weight: bold;">ຍອດສະຫຼຸບລວມທັງໝົດ (Grand Total)</td>
+                    <td style="text-align: right;">${formatNumber(summary.totalOpeningCash)}</td>
+                    <td style="text-align: right; color: #2e7d32;">+${formatNumber(summary.totalTopupIn)}</td>
+                    <td style="text-align: right; color: #c62828;">-${formatNumber(summary.totalWithdrawOut)}</td>
+                    <td style="text-align: right;">${formatNumber(summary.totalPosCashSales)}</td>
+                    <td style="text-align: right; color: #00796b;">${formatNumber(summary.grandTotalCashIn)}</td>
+                    <td style="text-align: right; color: #d32f2f;">${formatNumber(summary.grandTotalCashOut)}</td>
+                    <td style="text-align: right; color: #1b5e20; font-size: 11px;">${formatNumber(summary.grandExpectedCashInDrawers)}</td>
+                    <td style="text-align: right;">${summary.grandActualClosingCash ? formatNumber(summary.grandActualClosingCash) : '-'}</td>
+                    <td style="text-align: right;">-</td>
+                    <td style="text-align: right; color: #0288d1;">${formatNumber(summary.totalPosNfcSales)}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Signatures -->
+        <div class="signature-section">
+            <div class="signature-box">
+                <br><br>
+                <strong>ຜູ້ສະຫຼຸບລາຍງານ (Prepared By)</strong><br>
+                ວັນທີ: ____/____/________
+            </div>
+            <div class="signature-box">
+                <br><br>
+                <strong>ຫົວໜ້າການເງິນ (Finance Supervisor)</strong><br>
+                ວັນທີ: ____/____/________
+            </div>
+            <div class="signature-box">
+                <br><br>
+                <strong>ຜູ້ກວດສອບ / ຜູ້ອຳນວຍການ (Audited / Director)</strong><br>
+                ວັນທີ: ____/____/________
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ລາຍງານສະຫຼຸບຍອດປິດກະເປົາປະຈຳວັນ (End-of-Day Shift & Cash Position Summary) ດຶງອອກຈາກລະບົບ DCommerce School System
+        </div>
+    </body>
+    </html>
+    `;
+};
+
+export const generateUserShiftSummarySlipHTML = (user, companyData) => {
+    console.log('🧾 GENERATING INDIVIDUAL USER SHIFT SLIP PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
+    const shift = user.shift || {};
+    const statusColor = shift.status === 'CLOSED' ? '#c62828' : '#2e7d32';
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Shift Slip - ${user.userName}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        body { font-family: 'Noto Sans Lao', Arial, sans-serif; font-size: 12px; line-height: 1.4; width: 76mm; margin: 0 auto; padding: 10px; color: #111; }
+        .text-center { text-align: center; }
+        .text-right { text-align: right; }
+        .font-bold { font-weight: bold; }
+        .divider { border-top: 1px dashed #444; margin: 8px 0; }
+        .double-divider { border-top: 2px solid #000; margin: 10px 0; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 3px; }
+        .highlight-box { background: #f0f0f0; border: 1px solid #ccc; padding: 6px; border-radius: 4px; margin: 8px 0; }
+    </style>
+    </head>
+    <body>
+        <div class="text-center">
+            ${logoUrl ? `<img src="${logoUrl}" style="height: 35px; max-width: 100px; margin-bottom: 4px;" alt="Logo" /><br>` : ''}
+            <div class="font-bold" style="font-size: 14px;">${companyData.name || 'DCommerce School'}</div>
+            <div style="font-size: 10px; color: #555;">ສະຫຼຸບຍອດປິດກະເປົາ (Cashier Shift Slip)</div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <span>Cashier / ພະນັກງານ:</span>
+            <span class="font-bold">${user.userName} (${user.userCode})</span>
+        </div>
+        <div class="row">
+            <span>Shift ID / ສະຖານະ:</span>
+            <span class="font-bold">#${shift.id || '-'} (${shift.status || 'OPEN'})</span>
+        </div>
+        <div class="row">
+            <span>ເວລາພິມ:</span>
+            <span>${new Date().toLocaleString('en-GB')}</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="font-bold" style="margin-bottom: 4px; color: #004d40;">📊 ລາຍລະອຽດເງິນສົດ (Cash Breakdown):</div>
+        <div class="row">
+            <span>1. ເງິນເປີດກະເປົາ (Opening Float):</span>
+            <span>${formatNumber(user.openingCash)} LAK</span>
+        </div>
+        <div class="row" style="color: #2e7d32;">
+            <span>2. ຕື່ມເງິນບັດ (${user.topupCount} ລາຍການ):</span>
+            <span class="font-bold">+${formatNumber(user.topupIn)} LAK</span>
+        </div>
+        <div class="row" style="color: #c62828;">
+            <span>3. ຖອນເງິນບັດ (${user.withdrawCount} ລາຍການ):</span>
+            <span class="font-bold">-${formatNumber(user.withdrawOut)} LAK</span>
+        </div>
+        <div class="row">
+            <span>4. POS ຂາຍເງິນສົດ (${user.posCashCount} ບິນ):</span>
+            <span>+${formatNumber(user.posCashSales)} LAK</span>
+        </div>
+        <div class="row">
+            <span>5. ຄ່າຮຽນເງິນສົດ (${user.feeCashCount} ບິນ):</span>
+            <span>+${formatNumber(user.feeCashCollected)} LAK</span>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="row">
+            <span>ລວມເງິນສົດຮັບເຂົ້າ (Total Cash IN):</span>
+            <span class="font-bold">+${formatNumber(user.totalCashIn)} LAK</span>
+        </div>
+        <div class="row">
+            <span>ລວມເງິນສົດຈ່າຍອອກ (Total Cash OUT):</span>
+            <span class="font-bold">-${formatNumber(user.totalCashOut)} LAK</span>
+        </div>
+
+        <div class="highlight-box">
+            <div class="row font-bold" style="font-size: 13px; color: #004d40;">
+                <span>ເງິນສົດຄວນມີໃນລີ້ນຊັກ:</span>
+                <span>${formatNumber(user.expectedCashInDrawer)} LAK</span>
+            </div>
+            ${user.actualClosingCash !== null ? `
+            <div class="row font-bold" style="font-size: 12px; margin-top: 4px;">
+                <span>ເງິນສົດປິດຕົວຈິງ:</span>
+                <span>${formatNumber(user.actualClosingCash)} LAK</span>
+            </div>
+            <div class="row" style="font-size: 11px; color: ${user.variance >= 0 ? '#2e7d32' : '#c62828'};">
+                <span>ຜົນຕ່າງ (Over/Short):</span>
+                <span>${user.variance > 0 ? '+' : ''}${formatNumber(user.variance)} LAK</span>
+            </div>
+            ` : ''}
+        </div>
+
+        <div class="font-bold" style="margin-top: 6px; font-size: 11px; color: #455a64;">💳 ທຸລະກຳບໍ່ໃຊ້ເງິນສົດ (Non-Cash):</div>
+        <div class="row">
+            <span>- ຍອດຂາຍບັດ NFC (${user.posNfcCount} ບິນ):</span>
+            <span class="font-bold">${formatNumber(user.posNfcSales)} LAK</span>
+        </div>
+        <div class="row">
+            <span>- ຍອດໂອນ/QR Code:</span>
+            <span>${formatNumber(user.posTransferSales + user.feeTransferCollected)} LAK</span>
+        </div>
+
+        <div class="double-divider"></div>
+
+        <div style="margin-top: 25px; text-align: center;">
+            <div style="border-top: 1px dashed #666; width: 80%; margin: 0 auto 5px auto;"></div>
+            <div style="font-size: 10px;">ລາຍເຊັນພະນັກງານ (Cashier Signature)</div>
+        </div>
+    </body>
+    </html>
+    `;
+};
+
+export const generateCashDropVoucherHTML = (transferData, companyData) => {
+    console.log('🏦 GENERATING CASH DROP VOUCHER PRINT HTML');
+    const logoUrl = getCompanyLogoUrl(companyData);
+    const t = transferData || {};
+    const fromAcc = t.fromAccount || {};
+    const toAcc = t.toAccount || {};
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta charset="UTF-8">
+    <title>ໃບມອບ-ຮັບເງິນສົດປະຈຳວັນ (Cash Drop Voucher)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+        html, body { margin: 0; padding: 0; font-family: 'Noto Sans Lao', Arial, sans-serif; font-size: 12px; color: #222; }
+        body { padding: 25px; max-width: 800px; margin: 0 auto; }
+        
+        .header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #004d40; padding-bottom: 12px; margin-bottom: 20px; }
+        .company-info h1 { margin: 0 0 4px 0; font-size: 18px; color: #004d40; font-weight: bold; }
+        .company-info p { margin: 2px 0; font-size: 11px; color: #555; }
+        
+        .voucher-title { text-align: right; }
+        .voucher-title h2 { margin: 0 0 4px 0; font-size: 16px; color: #004d40; font-weight: bold; }
+        .voucher-title p { margin: 2px 0; font-size: 11px; color: #666; }
+
+        .highlight-card { 
+            background: #f0fdf4; 
+            border: 2px solid #86efac; 
+            border-radius: 8px; 
+            padding: 16px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+        }
+        .highlight-card .label { font-size: 12px; color: #166534; font-weight: 600; margin-bottom: 4px; }
+        .highlight-card .amount { font-size: 26px; color: #14532d; font-weight: bold; }
+
+        .info-grid { display: flex; gap: 20px; margin-bottom: 20px; }
+        .info-box { flex: 1; background: #fafafa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px; font-size: 12px; }
+        .info-box-title { font-weight: bold; color: #004d40; border-bottom: 1px solid #e5e7eb; padding-bottom: 4px; margin-bottom: 8px; }
+        .row { display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+        .signature-section { display: flex; justify-content: space-between; margin-top: 50px; }
+        .signature-box { text-align: center; width: 45%; border-top: 1px dashed #555; padding-top: 10px; font-size: 12px; }
+
+        .footer-note { font-size: 10px; color: #888; text-align: center; margin-top: 30px; }
+    </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="company-info">
+                ${logoUrl ? `<img src="${logoUrl}" style="height: 45px; max-width: 160px; margin-bottom: 4px;" alt="Logo" /><br>` : ''}
+                <h1>${companyData.name || 'ລະບົບໂຮງຮຽນ ແລະ ສູນການຄ້າ'}</h1>
+                <p>${companyData.address || ''} | ໂທ: ${companyData.phone || '-'}</p>
+            </div>
+            <div class="voucher-title">
+                <h2>ໃບມອບ-ຮັບເງິນສົດປະຈຳວັນ</h2>
+                <div style="font-size: 11px; color: #666; font-weight: bold;">(END-OF-DAY CASH REMITTANCE VOUCHER)</div>
+                <p><strong>ເລກທີໃບມອບ (Ref ID):</strong> ${t.referenceId ? t.referenceId.slice(0, 13) : '-'}</p>
+                <p><strong>ວັນທີ & ເວລາ:</strong> ${new Date().toLocaleString('en-GB')}</p>
+            </div>
+        </div>
+
+        <!-- Big Amount Card -->
+        <div class="highlight-card">
+            <div class="label">ຈຳນວນເງິນສົດທີ່ມອບເຂົ້າບັນຊີກາງ (Total Remitted Amount)</div>
+            <div class="amount">${formatNumber(t.amount)} LAK</div>
+        </div>
+
+        <!-- Transfer Information Grid -->
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="info-box-title">📤 ບັນຊີຕົ້ນທາງ / ຜູ້ມອບ (Sender / Source Account)</div>
+                <div class="row">
+                    <span>ຊື່ບັນຊີ / ລີ້ນຊັກ:</span>
+                    <strong>${fromAcc.name || 'Cashier Till'}</strong>
+                </div>
+                <div class="row">
+                    <span>ເລກບັນຊີ:</span>
+                    <span>${fromAcc.number || '-'}</span>
+                </div>
+                <div class="row">
+                    <span>ຜູ້ມອບ (Cashier):</span>
+                    <strong>${t.cashierName || 'Cashier'}</strong>
+                </div>
+                <div class="row" style="color: #666;">
+                    <span>ຍອດເຫຼືອໃນລີ້ນຊັກ (New Float):</span>
+                    <span>${formatNumber(fromAcc.newBalance)} LAK</span>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-box-title">📥 ບັນຊີປາຍທາງ / ຜູ້ຮັບມອບ (Receiver / Destination Account)</div>
+                <div class="row">
+                    <span>ຊື່ບັນຊີກາງ / ຕູ້ເຊບ:</span>
+                    <strong style="color: #004d40;">${toAcc.name || 'Central Vault'}</strong>
+                </div>
+                <div class="row">
+                    <span>ເລກບັນຊີ:</span>
+                    <span>${toAcc.number || '-'}</span>
+                </div>
+                <div class="row">
+                    <span>ຜູ້ຮັບມອບ (Receiver):</span>
+                    <strong>${t.receiverName || 'Finance Officer / Treasurer'}</strong>
+                </div>
+                <div class="row" style="color: #666;">
+                    <span>ຍອດລວມໃໝ່ໃນບັນຊີກາງ:</span>
+                    <span>${formatNumber(toAcc.newBalance)} LAK</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="background: #fafafa; border: 1px solid #e5e7eb; border-radius: 6px; padding: 10px 14px; margin-bottom: 25px; font-size: 11px;">
+            <strong>ໝາຍເຫດ (Remarks):</strong> ${t.description || 'ມອບເງິນສົດປິດກະເປົາປະຈຳວັນ (End-of-Day Cash Sweep)'}
+        </div>
+
+        <!-- Signatures -->
+        <div class="signature-section">
+            <div class="signature-box">
+                <strong>ຜູ້ມອບເງິນສົດ (Cashier / Sender)</strong><br><br><br>
+                ລາຍເຊັນ: ______________________<br>
+                ຊື່ແຈ້ງ: ${t.cashierName || '................................'}<br>
+                ວັນທີ: ____/____/________
+            </div>
+            <div class="signature-box">
+                <strong>ຜູ້ຮັບມອບເງິນສົດ (Treasurer / Receiver)</strong><br><br><br>
+                ລາຍເຊັນ: ______________________<br>
+                ຊື່ແຈ້ງ: ${t.receiverName || '................................'}<br>
+                ວັນທີ: ____/____/________
+            </div>
+        </div>
+
+        <div class="footer-note">
+            ໃບມອບ-ຮັບເງິນສົດປະຈຳວັນນີ້ສ້າງຂຶ້ນໂດຍລະບົບ DCommerce School Cashless System ເພື່ອໃຊ້ເປັນຫຼັກຖານການມອບເງິນສົດທາງບັນຊີ.
+        </div>
+    </body>
+    </html>
+    `;
+};
+
+/**
+ * Escapes HTML characters safely
+ */
+const escapeHtmlTag = (unsafe) => {
+    if (unsafe === null || unsafe === undefined) return '';
+    return String(unsafe)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+};
+
+/**
+ * Generates Base64 barcode data URL synchronously
+ */
+const generateBarcodeDataUrlHelper = (barcodeVal) => {
+    if (!barcodeVal) return '';
+    if (typeof document !== 'undefined') {
+        try {
+            const canvas = document.createElement('canvas');
+            JsBarcode(canvas, String(barcodeVal), {
+                format: 'CODE128',
+                displayValue: false,
+                width: 2,
+                height: 38,
+                margin: 0
+            });
+            return canvas.toDataURL('image/png');
+        } catch (err) {
+            console.error('Error generating barcode in printTemplates:', err);
+        }
+    }
+    return '';
+};
+
+/**
+ * Generates HTML for Shelf Price Tags (40x80 mm) formatted for A4 sheet printing.
+ * Allows traditional printer selection via standard print dialog.
+ * 
+ * @param {Object|Array} productOrList - Product object or array of products
+ * @param {Object} companyData - Company details
+ * @param {string} currencyStr - Currency symbol/code (e.g. 'LAK', '₭', 'THB')
+ * @param {number} copies - Number of tag copies to render (default: 1)
+ * @returns {string} Full HTML document
+ */
+export const generateShelfPriceTagHTML = (productOrList, companyData = {}, currencyStr = 'LAK', copies = 1) => {
+    console.log('🏷️ GENERATING A4 SHELF PRICE TAG HTML (40x80 mm)');
+    const logoUrl = getCompanyLogoUrl(companyData);
+    const companyName = companyData.name || companyData.company_name || companyData.companyName || 'D-COMMERCE';
+
+    // Normalize input
+    const isSingleProduct = !Array.isArray(productOrList);
+    const rawList = Array.isArray(productOrList) ? productOrList : [productOrList];
+
+    // Build template array of processed product objects
+    const processedProducts = rawList.map((product) => {
+        const proName = product.pro_name || product.name || 'Product';
+        const proDesc = product.pro_desc || product.desc || product.pro_desc_lao || (product.product_code ? `SKU: ${product.product_code}` : '') || '';
+        const rawPrice = product.pro_price !== undefined ? product.pro_price : (product.price || 0);
+        const formattedPrice = product.formattedPrice || formatNumber(rawPrice);
+        const barcodeVal = product.barCode || product.barcode || product.pro_id || '';
+        const barcodeImg = product.barcodeImage || generateBarcodeDataUrlHelper(barcodeVal);
+        const categoryDesc = product.pro_category_desc || product.categoryName || product.category || 'SHELF TAG';
+        const ccy = product.currency || currencyStr;
+
+        return {
+            proName,
+            proDesc,
+            rawPrice,
+            formattedPrice,
+            barcodeVal,
+            barcodeImg,
+            categoryDesc,
+            currency: ccy,
+            copies: parseInt(product.printQty || product.copies || copies || 1, 10) || 1
+        };
+    });
+
+    const renderSingleTag = (p) => `
+        <div class="shelf-tag">
+            <!-- Top Header: Company Logo & Category Badge -->
+            <div class="tag-header">
+                <div class="tag-logo-box">
+                    ${logoUrl 
+                        ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />` 
+                        : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
+                    }
+                </div>
+                <div class="tag-badge">
+                    ${escapeHtmlTag(p.categoryDesc)}
+                </div>
+            </div>
+
+            <!-- Product Details: Name & Description -->
+            <div class="tag-body">
+                <div class="tag-product-name" title="${escapeHtmlTag(p.proName)}">
+                    ${escapeHtmlTag(p.proName)}
+                </div>
+                ${p.proDesc ? `<div class="tag-product-desc">${escapeHtmlTag(p.proDesc)}</div>` : ''}
+            </div>
+
+            <!-- Bottom Section: Barcode & Sell Price Box -->
+            <div class="tag-footer">
+                <!-- Barcode Area -->
+                <div class="tag-barcode-box">
+                    ${p.barcodeImg ? `<img src="${p.barcodeImg}" alt="Barcode" class="tag-barcode-img" />` : ''}
+                    <div class="tag-barcode-text">${escapeHtmlTag(p.barcodeVal)}</div>
+                </div>
+
+                <!-- Price Box -->
+                <div class="tag-price-box">
+                    <div class="tag-price-label">ລາຄາ / PRICE</div>
+                    <div class="tag-price-value">
+                        ${p.formattedPrice} <span class="tag-price-currency">${escapeHtmlTag(p.currency)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Generate initial tags HTML
+    const initialTags = [];
+    if (isSingleProduct && processedProducts.length > 0) {
+        const p = processedProducts[0];
+        const qty = parseInt(copies || p.copies || 1, 10) || 1;
+        for (let i = 0; i < qty; i++) {
+            initialTags.push(renderSingleTag(p));
+        }
+    } else {
+        processedProducts.forEach((p) => {
+            const qty = p.copies || 1;
+            for (let i = 0; i < qty; i++) {
+                initialTags.push(renderSingleTag(p));
+            }
+        });
+    }
+
+    const initialTotalCount = initialTags.length;
+    const initialPagesCount = Math.ceil(initialTotalCount / 12) || 1;
+
+    // JSON encoded for client-side dynamic regeneration
+    const encodedProductsJson = JSON.stringify(processedProducts).replace(/</g, '\\u003c');
+
+    return `
+    <!DOCTYPE html>
+    <html lang="lo">
+    <head>
+        <meta charset="utf-8">
+        <title>Shelf Price Tags (40x80 mm)</title>
+        <style>
+            @font-face {
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 400;
+                font-display: swap;
+                src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+            }
+            @font-face {
+                font-family: 'DM Sans';
+                font-style: normal;
+                font-weight: 700;
+                font-display: swap;
+                src: url('/notosan/NotoSansLao-Bold.ttf') format('truetype');
+            }
+            
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+                font-family: 'Noto Sans Lao', 'DM Sans', system-ui, -apple-system, sans-serif;
+            }
+
+            body {
+                background-color: #f1f5f9;
+                color: #0f172a;
+                padding: 15px;
+            }
+
+            /* Floating preview toolbar */
+            .preview-toolbar {
+                max-width: 184mm;
+                margin: 0 auto 15px auto;
+                background: #1e293b;
+                color: #fff;
+                padding: 12px 18px;
+                border-radius: 10px;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+            }
+            .preview-toolbar .toolbar-left {
+                display: flex;
+                flex-direction: column;
+            }
+            .preview-toolbar .toolbar-title {
+                font-size: 14px;
+                font-weight: 800;
+                color: #ffffff;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+            }
+            .preview-toolbar .info-text {
+                font-size: 11.5px;
+                color: #94a3b8;
+                margin-top: 2px;
+            }
+            .preview-toolbar .toolbar-controls {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                flex-wrap: wrap;
+            }
+            .preview-toolbar .btn-chip {
+                background: #334155;
+                color: #e2e8f0;
+                border: 1px solid #475569;
+                padding: 5px 10px;
+                font-size: 11.5px;
+                font-weight: 700;
+                border-radius: 6px;
+                cursor: pointer;
+                transition: all 0.15s ease;
+            }
+            .preview-toolbar .btn-chip:hover {
+                background: #475569;
+                color: #fff;
+                border-color: #64748b;
+            }
+            .preview-toolbar .btn-chip-active {
+                background: #0284c7 !important;
+                color: #ffffff !important;
+                border-color: #38bdf8 !important;
+            }
+            .preview-toolbar .qty-stepper {
+                display: flex;
+                align-items: center;
+                background: #0f172a;
+                border: 1px solid #475569;
+                border-radius: 6px;
+                overflow: hidden;
+            }
+            .preview-toolbar .btn-step {
+                background: transparent;
+                color: #fff;
+                border: none;
+                width: 28px;
+                height: 28px;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            .preview-toolbar .btn-step:hover {
+                background: #334155;
+            }
+            .preview-toolbar .qty-input {
+                width: 44px;
+                height: 28px;
+                text-align: center;
+                background: transparent;
+                border: none;
+                color: #38bdf8;
+                font-size: 13px;
+                font-weight: 800;
+                outline: none;
+            }
+            .preview-toolbar .btn-print {
+                background: #0284c7;
+                color: #fff;
+                border: none;
+                padding: 8px 18px;
+                font-size: 13px;
+                font-weight: 800;
+                border-radius: 6px;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                transition: background 0.2s;
+                box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+            }
+            .preview-toolbar .btn-print:hover {
+                background: #0369a1;
+            }
+            .preview-toolbar .btn-close {
+                background: #475569;
+                color: #fff;
+                border: none;
+                padding: 8px 14px;
+                font-size: 13px;
+                font-weight: 600;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+
+            /* A4 Sheet Container (2 Columns of 80mm tags = fits 12 tags per A4 sheet) */
+            .a4-container {
+                width: 100%;
+                max-width: 180mm;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(2, 80mm);
+                gap: 5mm 6mm;
+                justify-content: center;
+            }
+
+            /* 80mm x 40mm Shelf Tag Card */
+            .shelf-tag {
+                width: 80mm;
+                height: 40mm;
+                max-width: 80mm;
+                max-height: 40mm;
+                background: #ffffff;
+                border: 1px dashed #94a3b8;
+                border-radius: 4px;
+                padding: 2.2mm 3.2mm;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                position: relative;
+                overflow: hidden;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            /* Top Header */
+            .tag-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 6mm;
+                border-bottom: 1px solid #e2e8f0;
+                padding-bottom: 0.8mm;
+            }
+            .tag-logo-box {
+                display: flex;
+                align-items: center;
+                max-width: 44mm;
+                overflow: hidden;
+            }
+            .tag-logo {
+                max-height: 18px;
+                max-width: 42mm;
+                object-fit: contain;
+                display: block;
+            }
+            .tag-company-text {
+                font-size: 8px;
+                font-weight: 800;
+                color: #1e293b;
+                letter-spacing: 0.3px;
+                text-transform: uppercase;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .tag-badge {
+                font-size: 7px;
+                font-weight: 700;
+                color: #475569;
+                background: #f1f5f9;
+                padding: 1px 4px;
+                border-radius: 3px;
+                border: 1px solid #cbd5e1;
+                text-transform: uppercase;
+                white-space: nowrap;
+                max-width: 28mm;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Product Name & Description Body */
+            .tag-body {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+                padding: 1mm 0;
+            }
+            .tag-product-name {
+                font-size: 11.5px;
+                font-weight: 800;
+                line-height: 1.2;
+                color: #0f172a;
+                max-height: 28px;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                word-break: break-word;
+            }
+            .tag-product-desc {
+                font-size: 7.8px;
+                color: #64748b;
+                margin-top: 1px;
+                line-height: 1.1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Bottom Barcode and Price */
+            .tag-footer {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                height: 14mm;
+            }
+            .tag-barcode-box {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                max-width: 42mm;
+                overflow: hidden;
+            }
+            .tag-barcode-img {
+                max-width: 42mm;
+                height: 9.5mm;
+                object-fit: fill;
+                display: block;
+            }
+            .tag-barcode-text {
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 7.5px;
+                font-weight: 700;
+                color: #334155;
+                letter-spacing: 0.5px;
+                line-height: 1;
+                margin-top: 1px;
+            }
+
+            .tag-price-box {
+                background: #f8fafc;
+                border: 1.5px solid #0284c7;
+                border-radius: 4px;
+                padding: 1.5px 3.5px;
+                text-align: right;
+                min-width: 28mm;
+                box-sizing: border-box;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                justify-content: center;
+            }
+            .tag-price-label {
+                font-size: 6.5px;
+                font-weight: 800;
+                color: #0369a1;
+                text-transform: uppercase;
+                letter-spacing: 0.2px;
+                line-height: 1;
+            }
+            .tag-price-value {
+                font-size: 14px;
+                font-weight: 900;
+                color: #0f172a;
+                line-height: 1.1;
+                letter-spacing: -0.2px;
+                white-space: nowrap;
+                margin-top: 1px;
+            }
+            .tag-price-currency {
+                font-size: 8px;
+                font-weight: 800;
+                color: #0284c7;
+            }
+
+            /* Print Media Query */
+            @media print {
+                @page {
+                    size: A4 portrait;
+                    margin: 8mm 6mm;
+                }
+                body {
+                    background: #ffffff !important;
+                    padding: 0 !important;
+                    margin: 0 !important;
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+                .no-print {
+                    display: none !important;
+                }
+                .a4-container {
+                    max-width: 100% !important;
+                    margin: 0 auto !important;
+                    gap: 4mm 6mm !important;
+                }
+                .shelf-tag {
+                    box-shadow: none !important;
+                    border: 1px dashed #94a3b8 !important;
+                    page-break-inside: avoid !important;
+                    break-inside: avoid !important;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="preview-toolbar no-print">
+            <div class="toolbar-left">
+                <div class="toolbar-title">
+                    <span>🏷️ ປ້າຍລາຄາຕິດຊັ້ນ / Shelf Price Tag (40x80 mm)</span>
+                </div>
+                <div class="info-text">
+                    <span id="tag-count-display">${initialTotalCount}</span> ປ້າຍ 
+                    (ປະມານ <span id="page-count-display">${initialPagesCount}</span> ໜ້າ A4 • 12 ປ້າຍ/ໜ້າ)
+                </div>
+            </div>
+
+            <div class="toolbar-controls">
+                <span style="font-size: 11.5px; color: #cbd5e1; margin-right: 2px;">ຕື່ມປ້າຍ (Quantity):</span>
+                <div class="qty-stepper">
+                    <button class="btn-step" onclick="changeQty(-1)" title="Decrease 1">-</button>
+                    <input id="qtyInput" class="qty-input" type="number" value="${initialTotalCount}" min="1" max="120" onchange="setCustomQty(this.value)" />
+                    <button class="btn-step" onclick="changeQty(1)" title="Increase 1">+</button>
+                </div>
+                <button class="btn-chip" onclick="setCustomQty(1)">1 ໃບ</button>
+                <button class="btn-chip" onclick="setCustomQty(6)">6 ໃບ</button>
+                <button class="btn-chip btn-chip-active" onclick="setCustomQty(12)" title="Fill 1 Full A4 Page">12 ໃບ (ເຕັມ 1 ໜ້າ A4)</button>
+                <button class="btn-chip" onclick="setCustomQty(24)" title="Fill 2 Full A4 Pages">24 ໃບ (2 ໜ້າ)</button>
+            </div>
+
+            <div style="display: flex; gap: 8px;">
+                <button class="btn-print" onclick="window.print()">
+                    🖨️ Print / ພິມ
+                </button>
+                <button class="btn-close" onclick="window.close()">
+                    ✕ ປິດ
+                </button>
+            </div>
+        </div>
+
+        <div id="tagsGrid" class="a4-container">
+            ${initialTags.join('')}
+        </div>
+
+        <script>
+            const productsData = ${encodedProductsJson};
+            const isSingle = ${isSingleProduct};
+            const logoUrl = ${JSON.stringify(logoUrl)};
+            const companyName = ${JSON.stringify(companyName)};
+
+            function escapeHtml(str) {
+                if (!str) return '';
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            }
+
+            function createTagHTML(p) {
+                return \`
+                <div class="shelf-tag">
+                    <div class="tag-header">
+                        <div class="tag-logo-box">
+                            \${logoUrl 
+                                ? \`<img src="\${logoUrl}" alt="Logo" class="tag-logo" />\` 
+                                : \`<span class="tag-company-text">\${escapeHtml(companyName)}</span>\`
+                            }
+                        </div>
+                        <div class="tag-badge">
+                            \${escapeHtml(p.categoryDesc)}
+                        </div>
+                    </div>
+                    <div class="tag-body">
+                        <div class="tag-product-name" title="\${escapeHtml(p.proName)}">
+                            \${escapeHtml(p.proName)}
+                        </div>
+                        \${p.proDesc ? \`<div class="tag-product-desc">\${escapeHtml(p.proDesc)}</div>\` : ''}
+                    </div>
+                    <div class="tag-footer">
+                        <div class="tag-barcode-box">
+                            \${p.barcodeImg ? \`<img src="\${p.barcodeImg}" alt="Barcode" class="tag-barcode-img" />\` : ''}
+                            <div class="tag-barcode-text">\${escapeHtml(p.barcodeVal)}</div>
+                        </div>
+                        <div class="tag-price-box">
+                            <div class="tag-price-label">ລາຄາ / PRICE</div>
+                            <div class="tag-price-value">
+                                \${p.formattedPrice} <span class="tag-price-currency">\${escapeHtml(p.currency)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                \`;
+            }
+
+            function setCustomQty(qty) {
+                let targetQty = parseInt(qty, 10);
+                if (isNaN(targetQty) || targetQty < 1) targetQty = 1;
+                if (targetQty > 240) targetQty = 240;
+
+                const input = document.getElementById('qtyInput');
+                if (input) input.value = targetQty;
+
+                // Update active chip styling
+                document.querySelectorAll('.preview-toolbar .btn-chip').forEach(btn => {
+                    const txt = btn.innerText || '';
+                    if (txt.startsWith(targetQty + ' ໃບ')) {
+                        btn.classList.add('btn-chip-active');
+                    } else {
+                        btn.classList.remove('btn-chip-active');
+                    }
+                });
+
+                const grid = document.getElementById('tagsGrid');
+                if (!grid) return;
+
+                let html = '';
+                if (isSingle && productsData.length > 0) {
+                    const p = productsData[0];
+                    for (let i = 0; i < targetQty; i++) {
+                        html += createTagHTML(p);
+                    }
+                } else if (productsData.length > 0) {
+                    // Loop through products list repeatedly until targetQty is reached
+                    for (let i = 0; i < targetQty; i++) {
+                        const p = productsData[i % productsData.length];
+                        html += createTagHTML(p);
+                    }
+                }
+
+                grid.innerHTML = html;
+
+                // Update stats
+                const countElem = document.getElementById('tag-count-display');
+                if (countElem) countElem.innerText = targetQty;
+                const pageElem = document.getElementById('page-count-display');
+                if (pageElem) pageElem.innerText = Math.ceil(targetQty / 12) || 1;
+            }
+
+            function changeQty(diff) {
+                const input = document.getElementById('qtyInput');
+                const cur = parseInt(input ? input.value : 1, 10) || 1;
+                setCustomQty(cur + diff);
+            }
+
+            window.onload = function() {
+                setTimeout(function() {
+                    try {
+                        window.focus();
+                        window.print();
+                    } catch (e) {
+                        console.error('Auto print error:', e);
+                    }
+                }, 400);
+            };
+        </script>
+    </body>
+    </html>
+    `;
+};
+
+/**
+ * Opens a traditional print window for A4 documents / Shelf tags allowing OS printer selection
+ */
+export const executeTraditionalPrint = (htmlContent) => {
+    const printWin = window.open(
+        '',
+        '_blank',
+        'left=50,top=50,width=1050,height=800,toolbar=0,scrollbars=1,status=0'
+    );
+    if (!printWin) {
+        if (typeof alert !== 'undefined') {
+            alert('Pop-up was blocked. Please allow pop-ups for this application.');
+        }
+        return;
+    }
+    printWin.document.open();
+    printWin.document.write(htmlContent);
+    printWin.document.close();
+};

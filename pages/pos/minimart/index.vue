@@ -89,6 +89,9 @@ export default {
       isScanning: false,
       preScanTarget: null,
       preScanValue: '',
+      lastScannedBarcode: '',
+      lastScannedTime: 0,
+      isProcessingBarcode: false,
 
       // Performance optimization properties
       debouncedKeyword: '',
@@ -137,11 +140,21 @@ export default {
         }
       },
     },
+
+    isExactMatchSearch: {
+      handler(newVal) {
+        console.log(`🎯 Exact match mode changed: ${newVal}`)
+        this.resetDisplayLimit()
+      },
+    },
   },
 
   beforeDestroy() {
     window.removeEventListener('storage', this.handleStorageChange)
     window.removeEventListener('keydown', this.handleKeyDown)
+    if (this.$nuxt) {
+      this.$nuxt.$off('reset-pos-scanner', this.resetScannerHandler)
+    }
     if (this.searchTimeout) {
       clearTimeout(this.searchTimeout)
     }
@@ -154,6 +167,9 @@ export default {
 
     window.addEventListener('storage', this.handleStorageChange)
     window.addEventListener('keydown', this.handleKeyDown)
+    if (this.$nuxt) {
+      this.$nuxt.$on('reset-pos-scanner', this.resetScannerHandler)
+    }
 
     const mountTime = performance.now() - startTime
     console.warn(`Component mounted in ${mountTime.toFixed(2)}ms`)
@@ -163,6 +179,7 @@ export default {
   computed: {
     ...mapGetters({
       searchKeyword: 'searchKeyword',
+      isExactMatchSearch: 'isExactMatchSearch',
       currenctSelectedCategoryId: 'currenctSelectedCategoryId',
       currentSelectedLocation: 'currentSelectedLocation',
       findAllCurrency: 'findAllCurrency',
@@ -222,19 +239,45 @@ export default {
       // Apply search filter (only if keyword exists and is not empty)
       if (keyword && keyword.trim().length > 0) {
         const searchTerm = keyword.trim().toLowerCase()
-        console.log(`  - Applying search filter: "${searchTerm}"`)
+        const isExact = this.isExactMatchSearch
+        console.log(
+          `  - Applying search filter: "${searchTerm}" (Exact: ${isExact})`
+        )
 
-        filteredProducts = filteredProducts.filter((product) => {
-          const productName = (product.pro_name || '').toLowerCase()
-          const barcode = (product.barCode || '').toLowerCase()
-          const productCode = (product.product_code || '').toLowerCase()
+        if (isExact) {
+          // In exact match mode, search across all products matching product_code or barCode
+          filteredProducts = allProducts.filter((product) => {
+            const productCode = product.product_code != null ? String(product.product_code).trim().toLowerCase() : ''
+            const barcode = product.barCode != null ? String(product.barCode).trim().toLowerCase() : ''
 
-          const nameMatch = productName.includes(searchTerm)
-          const barcodeMatch = barcode.includes(searchTerm)
-          const productCodeMatch = productCode.includes(searchTerm)
+            return (
+              (productCode && productCode === searchTerm) ||
+              (barcode && barcode === searchTerm)
+            )
+          })
+        } else {
+          filteredProducts = filteredProducts.filter((product) => {
+            const productName = (product.pro_name || '').toLowerCase()
+            const barcode = (product.barCode || '').toLowerCase()
+            const productCode = (product.product_code || '').toLowerCase()
+            const proId = product.pro_id != null ? String(product.pro_id).toLowerCase() : ''
+            const id = product.id != null ? String(product.id).toLowerCase() : ''
 
-          return nameMatch || barcodeMatch || productCodeMatch
-        })
+            const nameMatch = productName.includes(searchTerm)
+            const barcodeMatch = barcode.includes(searchTerm)
+            const productCodeMatch = productCode.includes(searchTerm)
+            const proIdMatch = proId.includes(searchTerm)
+            const idMatch = id.includes(searchTerm)
+
+            return (
+              nameMatch ||
+              barcodeMatch ||
+              productCodeMatch ||
+              proIdMatch ||
+              idMatch
+            )
+          })
+        }
         console.log(
           `  - After search filter: ${filteredProducts.length} products`
         )
@@ -315,86 +358,128 @@ export default {
       }
     },
 
-    findProductFromBarcode(barcode, isGift = false) {
-      const startTime = performance.now()
+    resetScannerHandler() {
+      this.barcode = ''
+      this.isScanning = false
+      this.preScanTarget = null
+      this.preScanValue = ''
+      this.isProcessingBarcode = false
+      this.lastScannedBarcode = ''
+      this.lastScannedTime = 0
+      if (this.timer) {
+        clearTimeout(this.timer)
+        this.timer = null
+      }
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur()
+      }
+      console.log('✅ POS Scanner state reset successfully')
+    },
 
+    async findProductFromBarcode(barcode, isGift = false) {
       const cleanedBarcode = (barcode || '').trim().toLowerCase()
-      console.log(`🔍 Searching for barcode: ${cleanedBarcode}`)
+      if (!cleanedBarcode) return
 
-      const mapping = this.$store.state.productBarcodeMap.get(cleanedBarcode)
+      const now = Date.now()
+      // Prevent rapid duplicate scans of the same barcode (within 600ms threshold)
+      if (this.lastScannedBarcode === cleanedBarcode && (now - this.lastScannedTime) < 600) {
+        console.warn(`⚠️ Duplicate scan ignored for barcode: ${cleanedBarcode}`)
+        return
+      }
+      if (this.isProcessingBarcode) {
+        console.warn(`⚠️ Barcode scanner busy, ignoring scan: ${cleanedBarcode}`)
+        return
+      }
 
-      const searchTime = performance.now() - startTime
-      console.log(`⏱️ Barcode search took ${searchTime.toFixed(2)}ms`)
+      this.isProcessingBarcode = true
+      this.lastScannedBarcode = cleanedBarcode
+      this.lastScannedTime = now
 
-      if (mapping) {
-        const { product, unit, price } = mapping
-        console.log(`✅ Found product: ${product.pro_name} (Unit: ${unit.symbol})`)
+      try {
+        const startTime = performance.now()
+        console.log(`🔍 Searching for barcode: ${cleanedBarcode}`)
 
-        let customerPrice = null
+        const mapping = this.$store.state.productBarcodeMap.get(cleanedBarcode)
 
-        if (this.effectiveCustomer?.grade && product?.priceLists?.length) {
-          const gradePrice = product.priceLists.find(
-            (priceList) =>
-              priceList.grade === this.effectiveCustomer.grade &&
-              priceList.isActive !== false &&
-              priceList.type === 'Price'
-          )
-          customerPrice = gradePrice?.amount || null
-        }
+        const searchTime = performance.now() - startTime
+        console.log(`⏱️ Barcode search took ${searchTime.toFixed(2)}ms`)
 
-        const cartItem = {
-          ...product,
-          qty: 1,
-          unitId: unit.id,
-          unitRate: unit.conversionRate || 1.0,
-          unitSymbol: unit.symbol,
-          unitName: unit.name,
-          localPrice:
-            customerPrice || price || product.pro_price,
-          isGift,
-          lineUUIDCheck: false,
-          priceListId: null,
-          lineUUID: Date.now() + Math.random().toString(16),
-        }
+        if (mapping) {
+          const { product, unit, price } = mapping
+          console.log(`✅ Found product: ${product.pro_name} (Unit: ${unit.symbol})`)
 
-        console.info(`🛒 Adding product to cart: ${product.pro_name}`)
-        this.addProduct(cartItem)
+          let customerPrice = null
 
-        if (this.$toast) {
-          const cart = this.$store.getters.cartOfProduct || []
-          const existingItem = cart.find(
-            (item) => item.pro_id === product.pro_id
-          )
-          const newQty = existingItem ? existingItem.qty : 1
-          const limit = product.card_count
+          if (this.effectiveCustomer?.grade && product?.priceLists?.length) {
+            const gradePrice = product.priceLists.find(
+              (priceList) =>
+                priceList.grade === this.effectiveCustomer.grade &&
+                priceList.isActive !== false &&
+                priceList.type === 'Price'
+            )
+            customerPrice = gradePrice?.amount || null
+          }
 
-          if (limit && limit > 0) {
-            const remaining = limit - newQty
-            this.$toast.success(
-              `${product.pro_name} added to cart. ${
-                remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
-              }`,
-              {
+          const cartItem = {
+            ...product,
+            qty: 1,
+            unitId: unit.id,
+            unitRate: unit.conversionRate || 1.0,
+            unitSymbol: unit.symbol,
+            unitName: unit.name,
+            localPrice:
+              customerPrice || price || product.pro_price,
+            isGift,
+            lineUUIDCheck: false,
+            priceListId: null,
+            lineUUID: Date.now() + Math.random().toString(16),
+          }
+
+          console.info(`🛒 Adding product to cart: ${product.pro_name}`)
+          await this.addProduct(cartItem)
+
+          if (this.$toast) {
+            const cart = this.$store.getters.cartOfProduct || []
+            const existingItem = cart.find(
+              (item) => item.pro_id === product.pro_id
+            )
+            const newQty = existingItem ? existingItem.qty : 1
+            const limit = product.card_count
+
+            if (limit && limit > 0) {
+              const remaining = limit - newQty
+              this.$toast.success(
+                `${product.pro_name} added to cart. ${
+                  remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
+                }`,
+                {
+                  position: 'bottom-center',
+                  duration: 1000,
+                }
+              )
+            } else {
+              this.$toast.success(`${product.pro_name} added to cart`, {
                 position: 'bottom-center',
                 duration: 1000,
-              }
-            )
-          } else {
-            this.$toast.success(`${product.pro_name} added to cart`, {
-              position: 'bottom-center',
-              duration: 1000,
+              })
+            }
+          }
+        } else {
+          console.warn(`❌ Product not found for barcode: ${cleanedBarcode}`)
+
+          if (this.$toast) {
+            this.$toast.error(`Barcode: ${cleanedBarcode} not found`, {
+              position: 'top-center',
+              duration: 2000,
             })
           }
         }
-      } else {
-        console.warn(`❌ Product not found for barcode: ${barcode}`)
-
-        if (this.$toast) {
-          this.$toast.error(`Barcode: ${barcode} not found`, {
-            position: 'top-center',
-            duration: 2000,
-          })
-        }
+      } catch (error) {
+        console.error('Error adding product from barcode:', error)
+      } finally {
+        setTimeout(() => {
+          this.isProcessingBarcode = false
+        }, 300)
       }
     },
 
@@ -416,6 +501,13 @@ export default {
         this.isScanning = true
       } else {
         this.isScanning = false
+      }
+
+      // If scanner input is arriving, aggressively blur any focused button/card so Enter key won't click it
+      if (this.isScanning && !isInputFocused) {
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+          document.activeElement.blur()
+        }
       }
 
       if (this.isScanning) {
@@ -448,7 +540,25 @@ export default {
 
       if (event.key === 'Enter') {
         if (this.barcode) {
-          this.findProductFromBarcode(this.barcode)
+          event.preventDefault()
+          event.stopPropagation()
+          
+          // Blur active element if it is a button/card to avoid accidental Enter click triggers
+          if (
+            document.activeElement &&
+            typeof document.activeElement.blur === 'function' &&
+            document.activeElement.tagName !== 'INPUT' &&
+            document.activeElement.tagName !== 'TEXTAREA'
+          ) {
+            document.activeElement.blur()
+          }
+
+          const barcodeToScan = this.barcode
+          this.barcode = ''
+          this.isScanning = false
+          this.preScanTarget = null
+          this.findProductFromBarcode(barcodeToScan)
+          return
         }
         this.barcode = ''
         this.isScanning = false

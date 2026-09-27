@@ -859,6 +859,10 @@ export default {
         exchangeRate: line.exchangeRate || 1,
         priceListId: line.priceListId || null,
         priceLists: line.priceLists || [],
+        taxRate: line.taxRate || 0,
+        taxAmount: line.taxAmount || 0,
+        taxType: line.taxType || 'INC',
+        tax: line.tax || (line.taxRate ? { rate: line.taxRate, taxType: line.taxType || 'INC' } : null),
       }))
 
       defaultTicketReprint({

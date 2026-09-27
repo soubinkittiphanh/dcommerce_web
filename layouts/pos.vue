@@ -115,6 +115,135 @@
       <customer-list @close-dialog="customerDialog = false"></customer-list>
     </v-dialog>
 
+    <!-- Parked Tickets Management Dialog - NEW -->
+    <v-dialog v-model="parkedTicketsDialog" max-width="700px" scrollable>
+      <v-card class="elevation-12 rounded-lg">
+        <v-toolbar dark color="primary" flat>
+          <v-icon left>mdi-timer-sand</v-icon>
+          <v-toolbar-title class="font-weight-bold">
+            ລາຍການພັກບິນ (Parked Tickets)
+          </v-toolbar-title>
+          <v-chip class="ml-3 font-weight-bold" color="white" text-color="primary" small>
+            {{ parkedCartsCount }} ບິນ
+          </v-chip>
+          <v-spacer></v-spacer>
+          <v-btn icon dark @click="parkedTicketsDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <v-card-text class="pa-4" style="max-height: 520px; background-color: #f8fafc;">
+          <div v-if="findAllParkedCarts.length === 0" class="text-center pa-8">
+            <v-icon size="64" color="grey lighten-1" class="mb-3">mdi-clipboard-text-off-outline</v-icon>
+            <div class="subtitle-1 font-weight-medium grey--text text--darken-1">ບໍ່ມີລາຍການພັກບິນໃນຂະນະນີ້</div>
+            <div class="caption grey--text">ເມື່ອກົດ "ພັກບິນ" ລາຍການຈະມາສະແດງຢູ່ນີ້</div>
+          </div>
+
+          <div v-else>
+            <v-card
+              v-for="ticket in findAllParkedCarts"
+              :key="ticket.id"
+              class="mb-3 rounded-lg elevation-1"
+              outlined
+            >
+              <v-card-text class="pa-4">
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <div class="d-flex align-center">
+                    <v-chip color="primary" dark label small class="font-weight-bold mr-2">
+                      Ticket #{{ ticket.ticketNo }}
+                    </v-chip>
+                    <span class="caption grey--text text--darken-1">
+                      <v-icon x-small class="mr-1">mdi-clock-outline</v-icon>
+                      {{ formatParkedTime(ticket.parkedAt) }}
+                    </span>
+                  </div>
+
+                  <div class="text-right">
+                    <span class="text-h6 font-weight-bold primary--text">
+                      {{ formatNumber(ticket.totalAmount) }} {{ findLocalCurrency ? findLocalCurrency.code : 'LAK' }}
+                    </span>
+                  </div>
+                </div>
+
+                <v-divider class="my-2"></v-divider>
+
+                <!-- Customer & Summary -->
+                <div class="d-flex align-center justify-space-between text-body-2 mb-2">
+                  <div>
+                    <v-icon small color="grey darken-1" class="mr-1">mdi-account</v-icon>
+                    <strong>{{ ticket.customer ? ticket.customer.name || ticket.customer.cus_name || 'Walk-in' : 'Walk-in' }}</strong>
+                    <span v-if="ticket.referenceNo" class="ml-2 grey--text">
+                      (Ref: {{ ticket.referenceNo }})
+                    </span>
+                  </div>
+                  <div class="grey--text text--darken-2 font-weight-medium">
+                    {{ ticket.totalItems }} ລາຍການ ({{ ticket.items ? ticket.items.length : 0 }} ຊະນິດ)
+                  </div>
+                </div>
+
+                <!-- Products Preview chips -->
+                <div class="d-flex flex-wrap" style="gap: 4px; max-height: 60px; overflow-y: auto;">
+                  <v-chip
+                    v-for="(item, idx) in ticket.items"
+                    :key="idx"
+                    x-small
+                    outlined
+                    color="grey darken-2"
+                  >
+                    {{ item.pro_name }} x{{ item.qty }}
+                  </v-chip>
+                </div>
+              </v-card-text>
+
+              <v-divider></v-divider>
+
+              <v-card-actions class="pa-3 grey lighten-5">
+                <v-btn
+                  color="error"
+                  text
+                  small
+                  @click="handleDeleteParkedTicket(ticket.id)"
+                >
+                  <v-icon left small>mdi-delete-outline</v-icon>
+                  ລຶບ (Delete)
+                </v-btn>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  dark
+                  small
+                  depressed
+                  class="px-4 font-weight-bold"
+                  @click="handleResumeParkedTicket(ticket)"
+                >
+                  <v-icon left small>mdi-play-circle-outline</v-icon>
+                  ເອີ້ນຄືນ (Resume)
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </div>
+        </v-card-text>
+
+        <v-divider></v-divider>
+        <v-card-actions class="pa-3">
+          <v-btn
+            v-if="findAllParkedCarts.length > 0"
+            color="error"
+            text
+            small
+            @click="confirmClearAllParkedTickets"
+          >
+            <v-icon left small>mdi-trash-can-outline</v-icon>
+            ລຶບທັງໝົດ (Clear All)
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn color="grey darken-1" text @click="parkedTicketsDialog = false">
+            ປິດ (Close)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Variant Selection Dialog - NEW -->
     <v-dialog v-model="variantDialogOpenLocal" max-width="500px" persistent>
       <v-card class="elevation-12 rounded-lg">
@@ -336,12 +465,25 @@
     <!-- ENHANCED Left Navigation Drawer -->
     <v-navigation-drawer v-if="showProductList" app v-model="drawer" clipped width="300"
       class="drawer-left elevation-8">
-      <div class="drawer-header pa-4 ma-0">
+      <div class="drawer-header pa-4 pb-2 ma-0">
         <v-row align="center" no-gutters>
-          <v-col cols="auto" class="mr-3">
+          <v-col cols="12">
             <!-- Center Section - Search -->
             <v-text-field v-model="serachModel" clearable clear-icon="mdi-close" prepend-inner-icon="mdi-magnify"
               outlined dense label="ຄົ້ນຫາສິນຄ້າ..." solo-inverted hide-details class="search-field elevation-2" />
+          </v-col>
+          <v-col cols="12" class="mt-2">
+            <v-checkbox
+              v-model="isExactMatchSearch"
+              dense
+              hide-details
+              class="ma-0 pa-0"
+              color="primary"
+            >
+              <template #label>
+                <span class="text-caption font-weight-medium">Exact Match (Code / Barcode)</span>
+              </template>
+            </v-checkbox>
           </v-col>
           <!-- <v-btn @click="testSearch" color="error" small class="ml-2">
             🧪 Test Search
@@ -442,17 +584,49 @@
             </v-col>
 
             <v-col cols="auto">
-              <div class="d-flex ga-2">
+              <div class="d-flex ga-2 align-center">
+                <v-btn icon color="teal" @click="resetScannerState" title="ຣີເຊັດສະແກນເນີ / Reset Scanner (ແກ້ໄຂສະແກນເບິ້ນ)" class="action-btn">
+                  <v-icon>mdi-barcode-scan</v-icon>
+                </v-btn>
+
+                <!-- Park Cart (Hold) Button -->
+                <v-btn
+                  icon
+                  color="amber darken-3"
+                  @click="handleParkCart"
+                  title="ພັກບິນ / Hold Cart"
+                  class="action-btn"
+                  :disabled="productCart.length === 0"
+                >
+                  <v-icon>mdi-pause-circle-outline</v-icon>
+                </v-btn>
+
+                <!-- Parked Tickets List Button with Badge -->
+                <v-badge
+                  :content="parkedCartsCount"
+                  :value="parkedCartsCount > 0"
+                  color="error"
+                  overlap
+                  offset-x="10"
+                  offset-y="10"
+                >
+                  <v-btn
+                    icon
+                    color="primary"
+                    @click="openParkedTicketsDialog"
+                    title="ລາຍການພັກບິນ / Parked Tickets"
+                    class="action-btn"
+                  >
+                    <v-icon>mdi-timer-sand</v-icon>
+                  </v-btn>
+                </v-badge>
+
                 <v-btn v-if="isDynamicQREnabled" icon color="warning" @click="sendQRToCustomerScreen(true)" title="ສ້າງ QR ຮັບເງິນ" class="action-btn">
                   <v-icon>mdi-qrcode</v-icon>
                 </v-btn>
 
                 <v-btn icon color="primary" @click="openDeliveryBox" title="ຈັດສົ່ງ" class="action-btn">
                   <v-icon>mdi-truck-delivery</v-icon>
-                </v-btn>
-
-                <v-btn icon color="secondary" @click="loyaltyGuideDialog = true" title="System Guide / ຄູ່ມືລະບົບ" class="action-btn">
-                  <v-icon>mdi-settings-transfer</v-icon>
                 </v-btn>
 
                 <v-btn icon color="primary" @click="newOrder" title="ອໍເດີໃໝ່" class="action-btn">
@@ -606,6 +780,7 @@ export default {
       }),
       customerScreenSyncInterval: null,
       multiPaymentDialog: false,
+      parkedTicketsDialog: false,
       nfcPaymentDialog: false,
       initialNfcUid: '',
       pendingSaleHeaderId: null,
@@ -903,6 +1078,8 @@ export default {
       'findAllprinters',
       'currentSelectedLocation',
       'cartOfProduct',
+      'findAllParkedCarts',
+      'parkedCartsCount',
       'currenctSelectedCategoryId',
       'findAllProduct',
       'currentSelectedCustomer',
@@ -932,6 +1109,14 @@ export default {
 
         // REMOVED: Don't force update the child component
         // this.productComponentKey += 1  // <-- REMOVE THIS LINE
+      },
+    },
+    isExactMatchSearch: {
+      get() {
+        return this.$store.getters.isExactMatchSearch
+      },
+      set(value) {
+        this.SetExactMatchSearch(value)
       },
     },
 
@@ -2354,6 +2539,10 @@ export default {
       'deleteProduct',
       'addProduct',
       'clearCart',
+      'parkCurrentCart',
+      'resumeParkedCart',
+      'deleteParkedCart',
+      'clearAllParkedCartsAction',
       'updateSelectedCategoryId',
       'deleteProductFromCart',
       'addSelectedPayment',
@@ -2524,8 +2713,15 @@ export default {
       if (typeof window !== 'undefined' && window.posApi && window.posApi.onNfcScan) {
         console.log('Setting up Global NFC Listener in POS Layout');
         window.posApi.onNfcScan((uid) => {
-          // Only trigger if cart not empty and no dialog is currently open
-          if (this.productCart.length > 0 && !this.nfcPaymentDialog && !this.multiPaymentDialog) {
+          console.log('POS Layout received hardware NFC scan:', uid, 'Cart items count:', this.productCart ? this.productCart.length : 0);
+
+          // If cart is empty, notify the cashier
+          if (!this.productCart || this.productCart.length === 0) {
+            this.$toast?.info('ກະລຸນາເລືອກສິນຄ້າໃສ່ກະຕ່າກ່ອນແຕະບັດຊຳລະ (Please add items to cart before scanning card)');
+            return;
+          }
+
+          if (!this.nfcPaymentDialog && !this.multiPaymentDialog) {
             this.handleGlobalNfcScan(uid);
           }
         });
@@ -2541,24 +2737,30 @@ export default {
     handleGlobalNfcScan(uid) {
       console.log('Global NFC Scan detected:', uid);
       
-      // 1. Find NFC Payment Method
-      const nfcPayment = this.findAllPayment.find(p => p.payment_code === 'NFC');
+      // 1. Find NFC / WALLET Payment Method
+      const nfcPayment = this.findAllPayment.find(p => 
+        p.payment_code && (
+          p.payment_code.toUpperCase() === 'NFC' || 
+          p.payment_code.toUpperCase() === 'WALLET' ||
+          p.payment_code.toUpperCase().includes('NFC')
+        )
+      );
       
       if (nfcPayment) {
         // 2. Automatically select NFC payment method
         this.selectePaymentMethod(nfcPayment.id);
-        
-        // 3. Store UID and open dialog
-        this.initialNfcUid = uid;
-        this.nfcPaymentDialog = true;
       } else {
-        console.warn('Payment method with code "NFC" not found in the system.');
-        this.$toast?.error('Payment method "NFC" not found. Please check configuration.');
+        console.warn('Payment method with code "NFC" or "WALLET" not found in payment list:', this.findAllPayment);
       }
+      
+      // 3. Store UID and open dialog
+      this.initialNfcUid = uid;
+      this.nfcPaymentDialog = true;
     },
 
     ...mapMutations({
       SetSearchKeyword: 'SetSearchKeyword',
+      SetExactMatchSearch: 'SetExactMatchSearch',
       UPDATE_QTY: 'UPDATE_QTY',
     }),
 
@@ -2623,7 +2825,7 @@ export default {
           )
         } else {
           console.log(`saleHeader ${JSON.stringify(this.saleHeader)}`)
-          response = await this.$axios.post('/api/sale/create', this.saleHeader)
+          response = await this.$axios.post('/api/sale/create-v3', this.saleHeader)
         }
 
         let successMessage = ''
@@ -2949,6 +3151,185 @@ export default {
       this.productLookupCache.clear()
       this.saleHeader.qrRequestId = null
       this.buildProductLookupCache()
+    },
+
+    resetScannerState() {
+      // 1. Blur active element so Enter won't trigger synthetic button clicks
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur()
+      }
+      // 2. Broadcast reset event to all POS views (minimart / restaurant)
+      if (this.$nuxt) {
+        this.$nuxt.$emit('reset-pos-scanner')
+      }
+      // 3. Clear and rebuild product lookup cache
+      this.productLookupCache.clear()
+      this.buildProductLookupCache()
+      // 4. Toast feedback to cashier
+      if (this.$toast) {
+        this.$toast.success('ຣີເຊັດລະບົບສະແກນເນີຮຽບຮ້ອຍແລ້ວ (Scanner Reset)', {
+          position: 'bottom-center',
+          duration: 1500,
+        })
+      }
+    },
+
+    // In-Memory Cart / Ticket Parking Methods
+    async handleParkCart() {
+      if (!this.productCart || this.productCart.length === 0) {
+        if (this.$toast) {
+          this.$toast.warning('ກະຕ່າວ່າງເປົ່າ ບໍ່ສາມາດພັກບິນໄດ້ (Cart is empty)')
+        }
+        return
+      }
+
+      const payload = {
+        customer: this.currenctCustomer,
+        customerForm: this.findCustomerForm,
+        discount: this.discount || 0,
+        redeemedPoints: this.redeemedPoints || 0,
+        referenceNo: (this.saleHeader && this.saleHeader.referenceNo) || '',
+        totalAmount: (this.grandTotal || 0) - (this.discount || 0) - (this.loyaltyDiscountAmount || 0),
+      }
+
+      const res = await this.parkCurrentCart(payload)
+      if (res && res.success) {
+        this.newOrder()
+        this.batchUpdateCustomerScreen()
+        if (this.$toast) {
+          this.$toast.success(`ພັກບິນສຳເລັດແລ້ວ (Parked Ticket #${res.ticket.ticketNo})`, {
+            position: 'bottom-center',
+            duration: 2000,
+          })
+        }
+      } else {
+        if (this.$toast) {
+          this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການພັກບິນ')
+        }
+      }
+    },
+
+    openParkedTicketsDialog() {
+      this.parkedTicketsDialog = true
+    },
+
+    formatParkedTime(dateStr) {
+      if (!dateStr) return ''
+      try {
+        const d = new Date(dateStr)
+        const timePart = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+        const now = new Date()
+        const diffMs = now - d
+        const diffMins = Math.floor(diffMs / 60000)
+
+        if (diffMins < 1) {
+          return `${timePart} (ຫາກໍ່ພັກ / just now)`
+        } else if (diffMins < 60) {
+          return `${timePart} (${diffMins} ນາທີກ່ອນ / ${diffMins}m ago)`
+        }
+        return `${timePart} (${Math.floor(diffMins / 60)} ຊົ່ວໂມງກ່ອນ)`
+      } catch (e) {
+        return dateStr
+      }
+    },
+
+    async handleResumeParkedTicket(ticket) {
+      if (!ticket) return
+
+      if (this.productCart && this.productCart.length > 0) {
+        const promptRes = await this.$swal.fire({
+          title: 'ກະຕ່າປັດຈຸບັນມີສິນຄ້າຢູ່ແລ້ວ',
+          text: `ທ່ານຕ້ອງການພັກບິນປັດຈຸບັນກ່ອນ ຫຼື ຂຽນທັບກະຕ່າປັດຈຸບັນ ເພື່ອເອີ້ນຄືນ Ticket #${ticket.ticketNo}?`,
+          icon: 'question',
+          showCancelButton: true,
+          showDenyButton: true,
+          confirmButtonText: 'ພັກບິນປັດຈຸບັນ & ເອີ້ນຄືນ (Park & Resume)',
+          denyButtonText: 'ຂຽນທັບ (Overwrite)',
+          cancelButtonText: 'ຍົກເລີກ (Cancel)',
+          confirmButtonColor: (this.$vuetify && this.$vuetify.theme && this.$vuetify.theme.currentTheme && this.$vuetify.theme.currentTheme.primary) || '#1976d2',
+          denyButtonColor: '#d32f2f',
+        })
+
+        if (promptRes.isConfirmed) {
+          const currentPayload = {
+            customer: this.currenctCustomer,
+            customerForm: this.findCustomerForm,
+            discount: this.discount || 0,
+            redeemedPoints: this.redeemedPoints || 0,
+            referenceNo: (this.saleHeader && this.saleHeader.referenceNo) || '',
+            totalAmount: (this.grandTotal || 0) - (this.discount || 0) - (this.loyaltyDiscountAmount || 0),
+          }
+          await this.parkCurrentCart(currentPayload)
+        } else if (!promptRes.isDenied) {
+          return
+        }
+      }
+
+      const res = await this.resumeParkedCart(ticket.id)
+      if (res && res.success) {
+        const t = res.ticket
+        this.discount = t.discount || 0
+        this.redeemedPoints = t.redeemedPoints || 0
+        if (this.saleHeader) {
+          this.saleHeader.referenceNo = t.referenceNo || ''
+        }
+        this.cashReceived = 0
+        this.pendingSaleHeaderId = null
+        this.parkedTicketsDialog = false
+
+        this.batchUpdateCustomerScreen()
+
+        if (this.$toast) {
+          this.$toast.success(`ເອີ້ນຄືນ Ticket #${t.ticketNo} ສຳເລັດແລ້ວ`, {
+            position: 'bottom-center',
+            duration: 2000,
+          })
+        }
+      } else {
+        if (this.$toast) {
+          this.$toast.error('ບໍ່ສາມາດເອີ້ນຄືນບິນນີ້ໄດ້')
+        }
+      }
+    },
+
+    async handleDeleteParkedTicket(ticketId) {
+      if (!ticketId) return
+      const confirmRes = await this.$swal.fire({
+        title: 'ຢືນຢັນການລຶບ?',
+        text: 'ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບລາຍການພັກບິນນີ້?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ລຶບ (Delete)',
+        cancelButtonText: 'ຍົກເລີກ (Cancel)',
+        confirmButtonColor: '#d32f2f',
+      })
+
+      if (confirmRes.isConfirmed) {
+        await this.deleteParkedCart(ticketId)
+        if (this.$toast) {
+          this.$toast.info('ລຶບລາຍການພັກບິນຮຽບຮ້ອຍແລ້ວ')
+        }
+      }
+    },
+
+    async confirmClearAllParkedTickets() {
+      const confirmRes = await this.$swal.fire({
+        title: 'ລຶບລາຍການພັກບິນທັງໝົດ?',
+        text: 'ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການລຶບລາຍການພັກບິນທັງໝົດໃນຫນ່ວຍຄວາມຈຳ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'ລຶບທັງໝົດ (Clear All)',
+        cancelButtonText: 'ຍົກເລີກ (Cancel)',
+        confirmButtonColor: '#d32f2f',
+      })
+
+      if (confirmRes.isConfirmed) {
+        await this.clearAllParkedCartsAction()
+        this.parkedTicketsDialog = false
+        if (this.$toast) {
+          this.$toast.info('ລຶບລາຍການພັກບິນທັງໝົດຮຽບຮ້ອຍແລ້ວ')
+        }
+      }
     },
   },
 }

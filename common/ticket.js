@@ -53,16 +53,46 @@ const getLocalCurrency = (currencyList) => Array.isArray(currencyList) ? currenc
 
 const calculateItemTaxAmount = (item) => {
     const price = getItemActivePrice(item);
-    const qty = item.qty || 0;
+    const qty = safeParseNumber(item.qty || item.quantity, 0);
     const total = price * qty;
     const taxInfo = item.tax || {};
-    const rate = safeParseNumber(taxInfo.rate, 0);
+    let rate = safeParseNumber(taxInfo.rate ?? item.taxRate, 0);
+    if (rate > 1) rate = rate / 100;
 
-    if (taxInfo.taxType === 'INC') {
-        return total - (total / (1 + rate));
+    const taxType = taxInfo.taxType || item.taxType || 'INC';
+    if (rate === 0 && item.taxAmount) {
+        return safeParseNumber(item.taxAmount, 0);
+    }
+
+    if (taxType === 'INC') {
+        return rate > 0 ? (total - (total / (1 + rate))) : 0;
     } else {
         return total * rate;
     }
+};
+
+const isShowVATEnabled = (params) => {
+    if (typeof params?.showVAT === 'boolean') return params.showVAT;
+    if (typeof params?.companyData?.showVATOnTicket === 'boolean') return params.companyData.showVATOnTicket;
+
+    try {
+        let spfList = params?.findSPF || params?.spfList;
+        if (!spfList && typeof window !== 'undefined' && window.$nuxt) {
+            spfList = window.$nuxt.$store?.getters?.findSPF || window.$nuxt.$store?.state?.SPF;
+        }
+        if (Array.isArray(spfList)) {
+            const vatSpf = spfList.find(s => (s.code === 'SHOW_VAT_TICKET' || s.code === 'SHOW_VAT' || s.code === 'TICKET_SHOW_VAT') && s.isActive !== false);
+            if (vatSpf) {
+                const val = String(vatSpf.value || '').trim().toUpperCase();
+                return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1' || val === 'ON';
+            }
+        }
+    } catch (e) {
+        console.warn('Failed to retrieve SHOW_VAT SPF:', e);
+    }
+
+    // Default: show VAT if available on receipt
+    return true;
 };
 
 // ============================================================================
@@ -175,32 +205,67 @@ const generateCurrencyBreakdownSection = (productCart, currencyList, formatNumbe
 const calculateTotalInLocalCurrency = (productCart, currencyList) => {
     const cartItems = productCart.lines || productCart;
     const localCurrency = getLocalCurrency(currencyList);
-    if (!localCurrency) return { totalInLocal: 0, totalTax: 0, localCurrency: null };
+    if (!localCurrency) return { totalInLocal: 0, totalTax: 0, totalTaxInclusive: 0, totalTaxExclusive: 0, netSubtotal: 0, subtotalLAK: 0, dominantTaxRate: 0, localCurrency: null };
 
     let subtotalLAK = 0;
     let totalTaxLAK = 0;
+    let totalTaxInclusiveLAK = 0;
+    let totalTaxExclusiveLAK = 0;
+    let foundTaxRate = 0;
 
     cartItems.forEach(item => {
-        const itemTotal = (item.qty || 0) * getItemActivePrice(item);
-        const currency = currencyList.find(c => c.id === getItemActiveCurrencyId(item));
-        const itemTotalLAK = (currency && !currency.isLocalCCY) ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) : itemTotal;
+        const qty = safeParseNumber(item.qty || item.quantity, 0);
+        const price = getItemActivePrice(item);
+        const itemTotal = qty * price;
+        const currency = currencyList?.find(c => c.id === getItemActiveCurrencyId(item));
+        const itemTotalLAK = (currency && !currency.isLocalCCY) 
+            ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) 
+            : itemTotal;
         subtotalLAK += itemTotalLAK;
 
-        if (item.tax?.taxType === 'EXC') {
-            const taxAmount = calculateItemTaxAmount(item);
-            const taxLAK = (currency && !currency.isLocalCCY) ? CurrencyHelper.convertToLocal(taxAmount, currency, localCurrency) : taxAmount;
+        const taxAmount = calculateItemTaxAmount(item);
+        const taxLAK = (currency && !currency.isLocalCCY) 
+            ? CurrencyHelper.convertToLocal(taxAmount, currency, localCurrency) 
+            : taxAmount;
+
+        const taxInfo = item.tax || {};
+        let rate = safeParseNumber(taxInfo.rate ?? item.taxRate, 0);
+        if (rate > 1) rate = rate / 100;
+        if (rate > 0 && !foundTaxRate) foundTaxRate = rate;
+
+        const taxType = taxInfo.taxType || item.taxType || (rate > 0 ? 'INC' : null);
+
+        if (taxType === 'EXC') {
+            totalTaxExclusiveLAK += taxLAK;
+            totalTaxLAK += taxLAK;
+        } else if (taxType === 'INC' && taxLAK > 0) {
+            totalTaxInclusiveLAK += taxLAK;
             totalTaxLAK += taxLAK;
         }
     });
-    return { totalInLocal: subtotalLAK + totalTaxLAK, totalTax: totalTaxLAK, localCurrency };
+
+    const totalInLocal = subtotalLAK + totalTaxExclusiveLAK;
+    const netSubtotal = Math.max(0, totalInLocal - totalTaxLAK);
+
+    return { 
+        totalInLocal, 
+        totalTax: totalTaxLAK, 
+        totalTaxInclusive: totalTaxInclusiveLAK, 
+        totalTaxExclusive: totalTaxExclusiveLAK,
+        netSubtotal,
+        subtotalLAK,
+        dominantTaxRate: foundTaxRate,
+        localCurrency 
+    };
 };
 
 const generateFlexibleTotalSection = (params, config) => {
     const { productCart, currencyList, discount, formatNumber, companyData, cashReceived, changes, paperWidth = '80mm' } = params;
-    const { totalInLocal, localCurrency, totalTax } = calculateTotalInLocalCurrency(productCart, currencyList);
+    const { totalInLocal, localCurrency, totalTax, totalTaxInclusive, totalTaxExclusive, netSubtotal, dominantTaxRate } = calculateTotalInLocalCurrency(productCart, currencyList);
     if (!localCurrency) return '';
     console.info(`company data iss ${JSON.stringify(companyData)}`);
-    const finalTotalLAK = totalInLocal - safeParseNumber(discount, 0);
+    const parsedDiscount = safeParseNumber(discount, 0);
+    const finalTotalLAK = Math.max(0, totalInLocal - parsedDiscount);
     let html = '';
 
     const hasValue = (val) => {
@@ -212,18 +277,69 @@ const generateFlexibleTotalSection = (params, config) => {
         return val > 0;
     };
 
-    if (totalTax > 0) {
-        html += `<div class="item" style="font-size:0.9em; border-top: 1px dashed #eee; margin-top: 5px; padding-top: 5px;">
-            <div class="item-desc">ອາກອນ (Tax):</div>
-            <div class="item-total">${formatNumber(totalTax)} ${localCurrency.code}</div>
+    const showVAT = isShowVATEnabled(params);
+
+    // 1. Discount / Subtotal section if discount exists
+    if (parsedDiscount > 0) {
+        html += `
+        <div class="divider"></div>
+        <div class="item" style="font-size: 0.95em;">
+            <div class="item-desc">ມູນຄ່າລວມ (Subtotal):</div>
+            <div class="item-total">${formatNumber(Math.round(totalInLocal))} ${localCurrency.code}</div>
+        </div>
+        <div class="item" style="font-size: 0.95em; color: #d32f2f;">
+            <div class="item-desc">ສ່ວນຫຼຸດ (Discount):</div>
+            <div class="item-total">-${formatNumber(Math.round(parsedDiscount))} ${localCurrency.code}</div>
         </div>`;
     }
 
+    // 2. VAT / Tax section (controlled by SPF parameter)
+    if (showVAT && totalTax > 0) {
+        const rateLabel = dominantTaxRate > 0 ? ` ${(dominantTaxRate * 100).toFixed(0)}%` : '';
+        html += `<div class="divider"></div>`;
+
+        if (totalTaxInclusive > 0 && totalTaxExclusive === 0) {
+            // Inclusive VAT
+            html += `
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ມູນຄ່າກ່ອນອາກອນ (Excl. VAT):</div>
+                <div class="item-total">${formatNumber(Math.round(netSubtotal))} ${localCurrency.code}</div>
+            </div>
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ອາກອນມູນຄ່າເພີ່ມ (VAT${rateLabel} Included):</div>
+                <div class="item-total">${formatNumber(Math.round(totalTax))} ${localCurrency.code}</div>
+            </div>`;
+        } else if (totalTaxExclusive > 0 && totalTaxInclusive === 0) {
+            // Exclusive Tax
+            html += `
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ມູນຄ່າສິນຄ້າ (Subtotal):</div>
+                <div class="item-total">${formatNumber(Math.round(netSubtotal))} ${localCurrency.code}</div>
+            </div>
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ອາກອນ (Tax/VAT${rateLabel}):</div>
+                <div class="item-total">+${formatNumber(Math.round(totalTax))} ${localCurrency.code}</div>
+            </div>`;
+        } else {
+            // Mixed Tax
+            html += `
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ມູນຄ່າກ່ອນອາກອນ (Excl. VAT):</div>
+                <div class="item-total">${formatNumber(Math.round(netSubtotal))} ${localCurrency.code}</div>
+            </div>
+            <div class="item" style="font-size:0.9em;">
+                <div class="item-desc">ອາກອນມູນຄ່າເພີ່ມ (Total VAT${rateLabel}):</div>
+                <div class="item-total">${formatNumber(Math.round(totalTax))} ${localCurrency.code}</div>
+            </div>`;
+        }
+    }
+
+    // 3. Cash Received and Change
     if (hasValue(cashReceived)) {
         html += `
         <div class="item" style="font-size: 0.9em; margin-top: 4px;">
             <div>ຮັບເງິນສົດ:</div>
-            <div>${formatNumber(safeParseNumber(cashReceived))}</div>
+            <div>${formatNumber(safeParseNumber(cashReceived))} ${localCurrency.code}</div>
         </div>`;
     }
 
@@ -231,13 +347,15 @@ const generateFlexibleTotalSection = (params, config) => {
         html += `
         <div class="item" style="font-size: 0.9em;">
             <div>ເງິນທອນ:</div>
-            <div style="font-weight: 700;">${formatNumber(safeParseNumber(changes))}</div>
+            <div style="font-weight: 700;">${formatNumber(safeParseNumber(changes))} ${localCurrency.code}</div>
         </div>`;
     }
+
+    // 4. Grand Total
     html += `
-        <div class="total-line" style="font-size: 1.2em; border-top: 2px solid #000; padding-top: 8px;">
+        <div class="total-line" style="font-size: 1.2em; border-top: 2px solid #000; padding-top: 8px; margin-top: 4px; font-weight: 700;">
             <span>ລວມທັງໝົດ (Total):</span>
-            <span>${formatNumber(finalTotalLAK)} ${localCurrency.code}</span>
+            <span>${formatNumber(Math.round(finalTotalLAK))} ${localCurrency.code}</span>
         </div>
         <div class="currency-conversions" style="font-size: 0.9em; margin-top: 5px; border-top: 1px dashed #ccc; padding-bottom: 5px;">
     `;
@@ -338,6 +456,9 @@ export const executeTicketPrint = async (params, dateValue) => {
         const logoHtml = logoPath ? `<div class="logo-wrapper"><img src="${logoPath}" class="logo-img"></div>` : '';
         const layout = companyData.ticketLayout || 'classic';
         const showLogo = companyData.showLogoOnTicket;
+        const taxId = companyData.taxId || companyData.tax_id || companyData.tin || '';
+        const taxIdHtml = taxId ? `<div class="company-info">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : '';
+
         let headerHtml = '';
         if (layout === 'modern') {
             headerHtml = `
@@ -347,6 +468,7 @@ export const executeTicketPrint = async (params, dateValue) => {
                     <div class="company-name">${companyData.name}</div>
                     <div class="company-info">ທີ່ຢູ່: ${companyData.address}</div>
                     <div class="company-info">ໂທ: ${companyData.tel}</div>
+                    ${taxIdHtml}
                     <div class="company-info" style="margin-top:2px;">ເລກທີ: ${params.lastTransactionSaleHeaderId}</div>
                     <div class="company-info">${formatDate(dateValue)}</div>
                 </div>
@@ -358,6 +480,7 @@ export const executeTicketPrint = async (params, dateValue) => {
                 <div style="font-weight:700; font-size:1.5em;">${companyData.name}</div>
                 <div style="font-size:0.9em;font-weight:700;">ທີ່ຢູ່: ${companyData.address}</div>
                 <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
+                ${taxIdHtml ? `<div style="font-size:0.9em;font-weight:700;">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : ''}
                 <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
             </div>`;
         }
@@ -381,7 +504,7 @@ export const executeTicketPrint = async (params, dateValue) => {
             customerHtml,
             transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList),
             currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber),
-            discountHtml: discount > 0 ? `<div class="divider"></div><div class="item"><div>ສ່ວນຫຼຸດ:</div><div class="item-total">-${formatNumber(discount)}</div></div>` : '',
+            discountHtml: '',
             totalHtml: generateFlexibleTotalSection(params, config),
             paymentSectionHtml: `<div style="margin-top:10px; font-size:0.85em; border-top:1px solid #eee; padding-top:5px; text-align:center;">ຊຳລະດ້ວຍ: ${params.currentPaymentCode || 'N/A'}<br>ພະນັກງານ: ${params.user?.cus_name || ''}</div>`
         };
@@ -404,6 +527,7 @@ export const executeTicketPrint = async (params, dateValue) => {
 
 export const defaultTicket = (params) => executeTicketPrint(params, new Date());
 export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
+export const customerTicket = (params) => executeTicketPrint(params, new Date());
 
 export const generateDeliveryCustomerHTML = (params) => {
     const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList } = params;

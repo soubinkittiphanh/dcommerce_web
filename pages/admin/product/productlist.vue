@@ -87,13 +87,21 @@
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
                       </v-btn>
+                      <v-btn small outlined color="indigo darken-1" class="rounded-lg" @click="printShelfTagsList">
+                        <v-icon left small>mdi-tag-text-outline</v-icon>
+                        Shelf Tags (A4)
+                      </v-btn>
                       <v-btn small outlined color="info" class="rounded-lg" @click="printProductReport">
                         <v-icon left small>mdi-printer</v-icon>
                         Print Report
                       </v-btn>
                       <v-btn small outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
-                        <v-icon left small>mdi-refresh</v-icon>
+                        <v-icon left small>mdi-wrench</v-icon>
                         Fix Stock
+                      </v-btn>
+                      <v-btn small outlined color="primary" class="rounded-lg" :loading="isloading" @click="fetchData">
+                        <v-icon left small>mdi-refresh</v-icon>
+                        Reload
                       </v-btn>
                       <v-checkbox v-model.number="showActive" label="ສະແດງລາຍການຖືກປິດ" dense hide-details class="mt-0 pt-0 ml-2"></v-checkbox>
                     </div>
@@ -261,7 +269,7 @@
       :product-id="selectedProductId || 0"
       :product-name="selectedProductName"
       :product-price="selectedProductPrice || 0"
-      @saved="fetchData"
+      @saved="handleProductUpdated(selectedProductId)"
     />
 
     <v-dialog v-model="guidelineDialog" hide-overlay max-width="700">
@@ -280,7 +288,7 @@
 
     <v-dialog v-model="isstock" fullscreen>
       <card-form :key="stockFormKey" :product-id="selectedProductId" :id="selectedId" :cost="selectedProductCost"
-        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="rebuildStock"></card-form>
+        :product-name="selectedProductName" @close-dialog="isstock = false" @reload="handleStockAdded"></card-form>
     </v-dialog>
 
     <!-- Stock Adjustment Dialog -->
@@ -294,17 +302,17 @@
 
     <v-dialog v-model="editProductForm" fullscreen persistent scrollable transition="dialog-bottom-transition">
       <product-form :key="productFormKey" @close-dialog="editProductForm = false" :header-id="selectedProductId"
-        @refresh="fetchData" :isEdit="editProductForm"></product-form>
+        @refresh="handleProductUpdated" :isEdit="editProductForm"></product-form>
     </v-dialog>
 
     <v-dialog v-model="productFormCreate" fullscreen persistent scrollable transition="dialog-bottom-transition">
-      <product-form-create :key="productFormKey" @close-dialog="productFormCreate = false" @refresh="fetchData">
+      <product-form-create :key="productFormKey" @close-dialog="productFormCreate = false" @refresh="handleProductCreated">
       </product-form-create>
     </v-dialog>
 
     <v-dialog v-model="priceListDialog" max-width="1200px">
       <price-list-form :key="priceListFormKey" @close-dialog="priceListDialog = false" :record-id="pricingRecordId"
-        @refresh="fetchData">
+        @refresh="handleProductUpdated(pricingRecordId)">
       </price-list-form>
     </v-dialog>
 
@@ -371,8 +379,11 @@
           <v-divider class="mb-4"></v-divider>
 
           <div id="printContent" class="print-content">
+            <v-alert v-if="filteredProducts.length > 100" dense text type="info" class="mb-2 caption">
+              ສະແດງຕົວຢ່າງ 100 ລາຍການທຳອິດ (Previewing first 100 of {{ filteredProducts.length }} items). ການກົດພິມ (Print) ຈະພິມລາຍການທີ່ເລືອກທັງໝົດ.
+            </v-alert>
             <div class="barcode-grid">
-              <div v-for="product in filteredProducts" :key="product.id" class="barcode-label" :style="getLabelStyle()">
+              <div v-for="product in previewBarcodeProducts" :key="product.id" class="barcode-label" :style="getLabelStyle()">
                 <div class="barcode-svg-container">
                   <svg :id="`barcode-${product.id}`" class="barcode-svg"></svg>
                 </div>
@@ -488,7 +499,7 @@ import PriceListForm from '~/components/PriceListForm.vue'
 import { getFormatNum } from '~/common'
 import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { swalSuccess, swalError2 } from '~/util/myUtil'
-import { generateProductListReportHTML } from '~/common/printTemplates'
+import { generateProductListReportHTML, generateShelfPriceTagHTML, executeTraditionalPrint } from '~/common/printTemplates'
 import { mainCompanyInfo } from '~/common/api'
 import ProductRecipeDialog from '~/components/product/ProductRecipeDialog.vue'
 import StockDetails from '~/pages/admin/stock/_id/index.vue'
@@ -589,6 +600,8 @@ export default {
       selectedCardType: '',
       pageLine: 30,
       search: '',
+      searchDebounced: '',
+      searchTimer: null,
       editProductForm: false,
       selectedProductId: null,
       stockFormKey: 1,
@@ -628,6 +641,13 @@ export default {
   },
 
   watch: {
+    search(val) {
+      if (this.searchTimer) clearTimeout(this.searchTimer)
+      this.searchTimer = setTimeout(() => {
+        this.searchDebounced = val ? val.trim().toLowerCase() : ''
+      }, 250)
+    },
+
     message(val) {
       if (val != null) {
         this.dialogMessage = true
@@ -717,18 +737,19 @@ export default {
       return map
     },
 
+    previewBarcodeProducts() {
+      return (this.filteredProducts || []).slice(0, 100)
+    },
+
     filteredProducts() {
-      // 1. Safety check: ensure loaddata exists
-      // let products = this.loaddata.filter((product)=>product.co_name==this.currentSelectedLocation.company.name) || []
       let products = this.loaddata || []
-      console.info(`PRODUCT MODEL ${JSON.stringify(products[0])} current location ${JSON.stringify(this.currentSelectedLocation)}`)
+      const searchTerm = this.searchDebounced
 
-      // 2. Perform filter if search exists
-      if (this.search) {
-        const searchTerm = this.search.toLowerCase().trim()
-
+      if (searchTerm) {
         products = products.filter((product) => {
-          // 3. Safely convert fields to String to avoid "toUpperCase/toLowerCase" errors on Numbers
+          if (product._searchKey) {
+            return product._searchKey.includes(searchTerm)
+          }
           const name = String(product.pro_name || '').toLowerCase()
           const barcode = String(product.barCode || '').toLowerCase()
           const proId = String(product.pro_id || '').toLowerCase()
@@ -736,7 +757,6 @@ export default {
           const categoryDesc = String(product.pro_category_desc || '').toLowerCase()
           const categName = String(product.categ_name || '').toLowerCase()
 
-          // 4. Return true if any field matches
           return (
             name.includes(searchTerm) ||
             barcode.includes(searchTerm) ||
@@ -747,7 +767,11 @@ export default {
           )
         })
       }
-      return products.filter((product) => product.isActive === this.showActive == 0 ? '1' : '0')
+      const showInactiveOnly = this.showActive === true || Number(this.showActive) === 1
+      return products.filter((product) => {
+        const isItemActive = product.isActive === 1 || product.isActive === '1' || product.isActive === true
+        return showInactiveOnly ? !isItemActive : isItemActive
+      })
     },
   },
 
@@ -791,6 +815,46 @@ export default {
     // Print-related methods
     printBarcodeList() {
       this.printDialog = true
+    },
+
+    printShelfTagsList() {
+      try {
+        if (!this.filteredProducts || this.filteredProducts.length === 0) {
+          swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າສຳລັບພິມ')
+          return
+        }
+        const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+        const currencyStr = defaultCcy ? defaultCcy.symbol || defaultCcy.code : 'LAK'
+
+        const productsForTags = this.filteredProducts.map((p) => {
+          const productCurrency = this.findAllCurrency?.find((c) => c.id === p.saleCurrencyId)
+          const ccy = productCurrency ? productCurrency.symbol || productCurrency.code : currencyStr
+          return {
+            pro_name: p.pro_name,
+            pro_desc: p.pro_desc || '',
+            pro_price: p.pro_price,
+            formattedPrice: this.formatNumber(p.pro_price),
+            barCode: p.barCode || p.pro_id,
+            pro_category_desc: p.pro_category_desc || '',
+            product_code: p.product_code || '',
+            currency: ccy,
+            printQty: 1,
+          }
+        })
+
+        const htmlContent = generateShelfPriceTagHTML(
+          productsForTags,
+          companyData,
+          currencyStr,
+          1
+        )
+
+        executeTraditionalPrint(htmlContent)
+      } catch (error) {
+        console.error('Error printing shelf tags from product list:', error)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມປ້າຍລາຄາ')
+      }
     },
 
     printProductReport() {
@@ -862,7 +926,7 @@ export default {
     generateBarcodes() {
       // Wait for DOM elements to be available
       setTimeout(() => {
-        this.filteredProducts.forEach((product) => {
+        this.previewBarcodeProducts.forEach((product) => {
           // FIX: Convert to String() explicitly
           const barcodeValue = String(
             product.barCode || product.pro_id || '000000'
@@ -1422,36 +1486,57 @@ export default {
 
     formatStockUnits(item) {
       const baseQty = item.pro_card_count || 0
-      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
-      const baseName = baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
-      const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+      const stockUnitId = item.stockUnitId || item.baseUnitId
+      const stockUnit = this.findAllUnit.find(u => u.id === stockUnitId)
+      const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
       
-      const displays = [`${this.formatNumber(baseQty)} ${baseName}`]
-      
-      if (item.productUnits && item.productUnits.length > 0) {
-        for (const pu of item.productUnits) {
-          const symbol = pu.unit?.symbol || 'pcs'
-          if (symbol !== baseUnit?.symbol) {
-            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
-            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
-            if (relRate > 0) {
-              const val = baseQty / relRate
-              const decimalQty = val.toLocaleString('en-US', { 
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 3 
-              })
-              const targetName = pu.unit?.name || symbol
-              displays.push(`${decimalQty} ${targetName}`)
-            }
-          }
+      const primaryUnitId = item.baseUnitId || item.stockUnitId
+      const allUnits = []
+      const addedUnitIds = new Set()
+
+      // Helper to add unit amount
+      const addUnit = (u, isPrimary = false) => {
+        if (!u || addedUnitIds.has(u.id)) return
+        const targetRate = parseFloat(u.conversionRate || 1.0)
+        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
+        if (relRate > 0) {
+          const val = baseQty / relRate
+          const formattedVal = val.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3
+          })
+          allUnits.push({
+            unitId: u.id,
+            isPrimary,
+            text: `${formattedVal} ${u.name || u.symbol || 'pcs'}`
+          })
+          addedUnitIds.add(u.id)
         }
       }
-      return displays
+
+      // 1. Add primary unit first (e.g. Base Unit)
+      if (primaryUnitId) {
+        const primaryUnit = this.findAllUnit.find(u => u.id === primaryUnitId)
+        if (primaryUnit) addUnit(primaryUnit, true)
+      }
+
+      // 2. Add stock unit if different
+      if (stockUnit) addUnit(stockUnit)
+
+      // 3. Add all mapped selling units
+      if (item.productUnits && item.productUnits.length > 0) {
+        for (const pu of item.productUnits) {
+          const u = pu.unit || this.findAllUnit.find(unit => unit.id === pu.unitId)
+          if (u) addUnit(u)
+        }
+      }
+
+      return allUnits.length > 0 ? allUnits.map(u => u.text) : [`${this.formatNumber(baseQty)} pcs`]
     },
 
     getBaseUnitSymbol(item) {
-      const baseUnit = this.findAllUnit.find(u => u.id === item.baseUnitId || u.id === item.stockUnitId)
-      return baseUnit ? baseUnit.symbol : 'pcs'
+      const stockUnit = this.findAllUnit.find(u => u.id === (item.stockUnitId || item.baseUnitId))
+      return stockUnit ? (stockUnit.symbol || stockUnit.name) : 'pcs'
     },
 
     getStatusChipColor(minStock, curStock) {
@@ -1483,6 +1568,73 @@ export default {
       this.isstock = true
     },
 
+    mapProductItem(el, minStockMap = null) {
+      const categoryMap = this.categoryLookupMap
+      const catId = el.pro_category ?? el.categoryCategId ?? el.categoryId ?? (el.category ? (el.category.categ_id ?? el.category.id) : null)
+      const catObj = catId ? (categoryMap.get(String(catId)) || categoryMap.get(Number(catId))) : null
+      const categName = catObj?.categ_name || el.categ_name || el.category?.categ_name || (catId ? `ໝວດ #${catId}` : 'ບໍ່ມີໝວດໝູ່')
+      const proCategoryDesc = catId ? `${catId} - ${categName}` : 'ບໍ່ມີໝວດໝູ່'
+
+      let minStock = el.minStock !== undefined ? el.minStock : 0
+      if (minStockMap && minStockMap.has(el.pro_id)) {
+        minStock = minStockMap.get(el.pro_id)
+      }
+
+      const proName = el.pro_name || ''
+      const barcode = el.barCode || ''
+      const proId = el.pro_id !== undefined && el.pro_id !== null ? String(el.pro_id) : ''
+      const productCode = el.product_code || ''
+
+      let isActive = 1
+      if (el.isActive !== undefined && el.isActive !== null) {
+        isActive = (el.isActive === 1 || el.isActive === '1' || el.isActive === true) ? 1 : 0
+      } else if (el.pro_status !== undefined && el.pro_status !== null) {
+        isActive = (el.pro_status === 1 || el.pro_status === '1' || el.pro_status === true) ? 1 : 0
+      }
+
+      const _searchKey = `${proName} ${barcode} ${proId} ${productCode} ${categName} ${proCategoryDesc}`.toLowerCase()
+
+      return {
+        id: el.id,
+        co_name: el.co_name,
+        pro_id: el.pro_id,
+        product_code: el.product_code,
+        pro_name: el.pro_name,
+        pro_price: el.pro_price,
+        saleCurrencyId: el.saleCurrencyId,
+        costCurrencyId: el.costCurrencyId,
+        img_path: el.img_path,
+        img_name: el.img_name,
+        _category: el._category,
+        pro_desc: el.pro_desc,
+        pro_status: el.pro_status !== undefined && el.pro_status !== null ? el.pro_status : isActive,
+        pro_category: catId,
+        categ_name: categName,
+        pro_category_desc: proCategoryDesc,
+        pro_card_count: el.card_count !== undefined && el.card_count !== null 
+          ? el.card_count 
+          : (el.stock_count !== undefined && el.stock_count !== null ? el.stock_count : (el.pro_card_count || 0)),
+        pro_cost_price: el.cost_price !== undefined && el.cost_price !== null 
+          ? el.cost_price 
+          : (el.pro_cost_price !== undefined && el.pro_cost_price !== null ? el.pro_cost_price : 0),
+        pro_outlet: el.outlet,
+        vendorName: el.vendorName,
+        pro_outlet_name: el.outlet_name,
+        barCode: el.barCode,
+        minStock,
+        priceLists: el.priceLists || [],
+        receiveUnitId: el.receiveUnitId,
+        stockUnitId: el.stockUnitId,
+        baseUnitId: el.baseUnitId,
+        productUnits: el.productUnits || [],
+        actions: el.pro_id,
+        status: el.pro_id,
+        isActive,
+        createdAt: el.createdAt,
+        _searchKey,
+      }
+      },
+
     async fetchData() {
       console.log(`PRODUCT LIST ===>`)
       this.isloading = true
@@ -1491,8 +1643,6 @@ export default {
         const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
         
         // Fetch from both endpoints concurrently for optimal performance.
-        // product_f_v1 has priceList and productUnits but is missing minStock,
-        // while product_f has minStock but is missing productUnits.
         const [resV1, resV0] = await Promise.all([
           this.$axios.get(`product_f_v1/${locationId}`, {
             params: { include: 'priceList', isActive: false },
@@ -1519,59 +1669,92 @@ export default {
         if (!this.categoryList || this.categoryList.length === 0) {
           await this.loadCategories()
         }
-        const categoryMap = this.categoryLookupMap
 
-        this.loaddata = productsV1.map((el) => {
-          console.log(el.co_name)
-          const minStock = minStockMap.has(el.pro_id) 
-            ? minStockMap.get(el.pro_id) 
-            : (el.minStock !== undefined ? el.minStock : 0)
-
-          const catId = el.pro_category ?? el.categoryCategId ?? el.categoryId ?? (el.category ? (el.category.categ_id ?? el.category.id) : null)
-          const catObj = catId ? (categoryMap.get(String(catId)) || categoryMap.get(Number(catId))) : null
-          const categName = catObj?.categ_name || el.categ_name || el.category?.categ_name || (catId ? `ໝວດ #${catId}` : 'ບໍ່ມີໝວດໝູ່')
-          const proCategoryDesc = catId ? `${catId} - ${categName}` : 'ບໍ່ມີໝວດໝູ່'
-
-          return {
-            id: el.id,
-            co_name: el.co_name,
-            pro_id: el.pro_id,
-            product_code: el.product_code,
-            pro_name: el.pro_name,
-            pro_price: el.pro_price,
-            saleCurrencyId: el.saleCurrencyId,
-            costCurrencyId: el.costCurrencyId,
-            img_path: el.img_path, // ✅ Corrected from pro_image_path
-            img_name: el.img_name,
-            _category: el._category,
-            pro_desc: el.pro_desc,
-            pro_status: el.pro_status,
-            pro_category: catId,
-            categ_name: categName,
-            pro_category_desc: proCategoryDesc,
-            pro_card_count: el.card_count,
-            pro_cost_price: el.cost_price,
-            pro_outlet: el.outlet,
-            vendorName: el.vendorName,
-            pro_outlet_name: el.outlet_name,
-            barCode: el.barCode,
-            minStock: minStock,
-            priceLists: el.priceLists,
-            receiveUnitId: el.receiveUnitId,
-            stockUnitId: el.stockUnitId,
-            baseUnitId: el.baseUnitId,
-            productUnits: el.productUnits || [],
-            actions: el.pro_id, // ✅ Unified actions
-            status: el.pro_id,
-            isActive: el.isActive,
-            createdAt: el.createdAt,
-          }
-        })
+        this.loaddata = productsV1.map((el) => this.mapProductItem(el, minStockMap))
       } catch (er) {
         this.message = er
         console.error('Error fetching data: ', er)
       } finally {
         this.isloading = false
+      }
+    },
+
+    async refreshSingleProduct(proId) {
+      if (!proId) {
+        return this.fetchData()
+      }
+      try {
+        if (!this.categoryList || this.categoryList.length === 0) {
+          await this.loadCategories()
+        }
+        const res = await this.$axios.post('/product_f_id', { proid: proId })
+        if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+          const rawItem = res.data[0]
+          const mappedItem = this.mapProductItem(rawItem)
+          
+          const existingIdx = this.loaddata.findIndex(p => 
+            (proId !== undefined && proId !== null && String(p.pro_id) === String(proId)) || 
+            (rawItem.pro_id !== undefined && rawItem.pro_id !== null && String(p.pro_id) === String(rawItem.pro_id)) || 
+            (rawItem.id !== undefined && rawItem.id !== null && String(p.id) === String(rawItem.id))
+          )
+
+          if (existingIdx !== -1) {
+            // Retain existing stock count if not present in product_f_id
+            if ((rawItem.card_count === undefined || rawItem.card_count === null) && 
+                (rawItem.stock_count === undefined || rawItem.stock_count === null) &&
+                (rawItem.pro_card_count === undefined || rawItem.pro_card_count === null)) {
+              mappedItem.pro_card_count = this.loaddata[existingIdx].pro_card_count
+            }
+            // Retain minStock if not present in product_f_id
+            if (rawItem.minStock === undefined || rawItem.minStock === null) {
+              mappedItem.minStock = this.loaddata[existingIdx].minStock
+            }
+            // Retain priceLists if not present in product_f_id
+            if (!mappedItem.priceLists || mappedItem.priceLists.length === 0) {
+              mappedItem.priceLists = this.loaddata[existingIdx].priceLists || []
+            }
+            // Retain productUnits if not present in product_f_id
+            if (!mappedItem.productUnits || mappedItem.productUnits.length === 0) {
+              mappedItem.productUnits = this.loaddata[existingIdx].productUnits || []
+            }
+            this.$set(this.loaddata, existingIdx, mappedItem)
+            console.log(`[productlist] In-place updated product #${proId}`, mappedItem)
+          } else {
+            // New item - insert at top
+            this.loaddata.unshift(mappedItem)
+            console.log(`[productlist] In-place prepended new product #${proId}`, mappedItem)
+          }
+        } else {
+          await this.fetchData()
+        }
+      } catch (err) {
+        console.error('Error refreshing single product, falling back to fetchData:', err)
+        await this.fetchData()
+      }
+    },
+
+    async handleStockAdded() {
+      const proId = this.selectedProductId
+      this.isstock = false
+      if (proId) {
+        await this.handleProductUpdated(proId)
+      }
+    },
+
+    async handleProductUpdated(proId) {
+      const targetId = proId || this.selectedProductId
+      if (targetId) {
+        await this.refreshSingleProduct(targetId)
+      } else {
+        await this.fetchData()
+      }
+    },
+
+    async handleProductCreated(newProId) {
+      if (newProId) {
+        await this.refreshSingleProduct(newProId)
+      } else {
+        await this.fetchData()
       }
     },
 
@@ -1673,8 +1856,15 @@ export default {
         }
         const response = await this.$axios.post('/api/card/adjustStockBulk', payload)
         if (response.data.success) {
-          swalSuccess(this.$swal, 'Succeed', `Stock adjusted successfully for ${this.selectedProductForAdjust.pro_name}`)
-          await this.fetchData()
+          swalSuccess(this.$swal, 'Succeed', `Stock adjusted successfully for ${this.selectedProductForAdjust?.pro_name || ''}`)
+          // In-place update the stock count immediately
+          if (this.selectedProductForAdjust) {
+            const proId = this.selectedProductForAdjust.pro_id
+            const idx = this.loaddata.findIndex(p => p.pro_id === proId || p.id === this.selectedProductForAdjust.id)
+            if (idx !== -1) {
+              this.$set(this.loaddata[idx], 'pro_card_count', data.newQuantity)
+            }
+          }
           this.closeStockAdjustDialog()
         } else {
           throw new Error(response.data.message || 'Failed to adjust stock')

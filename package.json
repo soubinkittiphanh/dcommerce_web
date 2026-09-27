@@ -14,6 +14,7 @@
     "generate": "nuxt generate",
     "electron:dev": "concurrently \"npm run dev\" \"cross-env NODE_ENV=development electron .\"",
     "electron:build": "npm run generate && electron-builder",
+    "rebuild:arm64": "electron-rebuild -f -w @pokusew/pcsclite -a arm64",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint": "npm run lint:js"
   },

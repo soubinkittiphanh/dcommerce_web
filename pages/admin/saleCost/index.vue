@@ -158,7 +158,7 @@
             <v-col cols="4">Other expense</v-col>
             <v-col cols="6">{{ formatNumber(otherExpense) }}</v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="showApSettlement">
             <v-col cols="2"></v-col>
             <v-col cols="4">AP Settlement (ຊຳລະໃບແຈ້ງໜີ້)</v-col>
             <v-col cols="6">{{ formatNumber(totalApSettlement) }}</v-col>
@@ -294,7 +294,22 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency', 'findSPF']),
+    getSPF() {
+      return this.findSPF || this.$store.getters.findSPF || []
+    },
+    showApSettlement() {
+      const spf = (this.getSPF || []).find(
+        (s) => s.code === 'AC_AP_SETTLEMENT_PL' || s.code === 'PL_AP_SETTLEMENT' || s.code === 'AC_AP_SETTLEMENT'
+      )
+      if (!spf) return false
+      if (spf.isActive === false || spf.isActive === 0) return false
+      if (spf.value !== undefined && spf.value !== null && String(spf.value).trim() !== '') {
+        const val = String(spf.value).trim().toUpperCase()
+        return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1'
+      }
+      return spf.isActive === true || spf.isActive === 1
+    },
     grandSaleTotal() {
       // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
       return this.loaddata.reduce((total, item) => {
@@ -503,7 +518,7 @@ export default {
       }, 0)
     },
     totalExpense() {
-      return this.totalFinancialExpense + this.totalApSettlement
+      return this.totalFinancialExpense + (this.showApSettlement ? this.totalApSettlement : 0)
     },
     staffSalaryExpense() {
       return this.activeExpenseData.filter(item => {
@@ -573,6 +588,15 @@ export default {
     },
     async fetchData() {
       this.isloading = true
+      if (!this.findSPF || this.findSPF.length === 0) {
+        try {
+          const response = await this.$axios.get('api/SPF/find')
+          const spfData = response.data?.data || response.data || []
+          await this.$store.dispatch('initSPF', spfData)
+        } catch (error) {
+          console.error('Failed to load SPF in saleCost screen:', error)
+        }
+      }
       const date = {
         startDate: this.date,
         endDate: this.date2,
@@ -608,15 +632,17 @@ export default {
           this.arReceiveData = [];
         })
 
-      const apSettlementPromise = this.$axios
-        .get(`/api/ap-invoices-settlement`, { params: { startDate: this.date, endDate: this.date2, limit: 1000, page: 1 } })
-        .then((res) => {
-          this.apSettlementData = res.data?.data?.settlements || res.data?.data || res.data || [];
-        })
-        .catch((err) => {
-          console.warn('Error loading AP settlement in saleCost:', err);
-          this.apSettlementData = [];
-        })
+      const apSettlementPromise = this.showApSettlement
+        ? this.$axios
+            .get(`/api/ap-invoices-settlement`, { params: { startDate: this.date, endDate: this.date2, limit: 1000, page: 1 } })
+            .then((res) => {
+              this.apSettlementData = res.data?.data?.settlements || res.data?.data || res.data || [];
+            })
+            .catch((err) => {
+              console.warn('Error loading AP settlement in saleCost:', err);
+              this.apSettlementData = [];
+            })
+        : Promise.resolve().then(() => { this.apSettlementData = [] });
 
       await Promise.all([
         this.$axios.get(`api/sale/findDetailByDate`, { params: { date, locationId } })

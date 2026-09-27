@@ -82,6 +82,13 @@
                       <td colspan="2" class="font-weight-bold text-center">Printing Settings / ການຕັ້ງຄ່າການພິມ</td>
                     </tr>
                     <tr>
+                      <td class="font-weight-medium">SHOW_VAT_TICKET</td>
+                      <td>
+                        <strong>Show VAT on 80mm Receipt / ສະແດງ VAT ໃນໃບບິນ 80mm:</strong><br>
+                        <code>Y</code> = Show VAT breakdown on receipt (ສະແດງ VAT), <code>N</code> = Hide VAT breakdown (ເຊື່ອງ VAT). Default: <code>Y</code>.
+                      </td>
+                    </tr>
+                    <tr>
                       <td class="font-weight-medium">TICKET_FORM</td>
                       <td>
                         <strong>Print Format / ຮູບແບບການພິມ:</strong><br>
@@ -126,6 +133,14 @@
                       <td>
                         <strong>AR GL Integration / ເປີດໃຊ້ຜັງບັນຊີ AR:</strong><br>
                         Enables General Ledger integration for Accounts Receivable.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="font-weight-medium">AC_AP_SETTLEMENT_PL</td>
+                      <td>
+                        <strong>AP Settlement in P&L / ສະແດງລາຍການຊຳລະ AP ໃນ P&L:</strong><br>
+                        Shows AP Settlement under OPEX in Profit & Loss report when Active or set to <code>Y</code>.<br>
+                        ສະແດງລາຍການຊຳລະໃບແຈ້ງໜີ້ (AP Settlement) ໃນລາຍງານກຳໄລ-ຂາດທຶນ ເມື່ອເປີດ Active ຫຼື ຕັ້ງເປັນ <code>Y</code>.
                       </td>
                     </tr>
                     <!-- Loyalty Settings -->

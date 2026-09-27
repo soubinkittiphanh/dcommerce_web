@@ -193,35 +193,52 @@ export default {
       return symbol
     },
     formatStockUnitsList(baseQty) {
-      const baseUnit = this.findAllUnit.find(u => u.id === this.product.baseUnitId || u.id === this.product.stockUnitId)
-      const baseName = baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
-      const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+      const stockUnitId = this.product.stockUnitId || this.product.baseUnitId
+      const stockUnit = this.findAllUnit.find(u => u.id === stockUnitId)
+      const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
       
-      const displays = [`${this.formatNumber(baseQty)} ${baseName}`]
-      
-      if (this.product.productUnits && this.product.productUnits.length > 0) {
-        for (const pu of this.product.productUnits) {
-          const symbol = pu.unit?.symbol || 'pcs'
-          if (symbol !== baseUnit?.symbol) {
-            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
-            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate
-            if (relRate > 0) {
-              const val = baseQty / relRate
-              const decimalQty = val.toLocaleString('en-US', { 
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 3 
-              })
-              const targetName = pu.unit?.name || symbol
-              displays.push(`${decimalQty} ${targetName}`)
-            }
-          }
+      const primaryUnitId = this.product.baseUnitId || this.product.stockUnitId
+      const allUnits = []
+      const addedUnitIds = new Set()
+
+      const addUnit = (u, isPrimary = false) => {
+        if (!u || addedUnitIds.has(u.id)) return
+        const targetRate = parseFloat(u.conversionRate || 1.0)
+        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
+        if (relRate > 0) {
+          const val = baseQty / relRate
+          const formattedVal = val.toLocaleString('en-US', {
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 3
+          })
+          allUnits.push({
+            unitId: u.id,
+            isPrimary,
+            text: `${formattedVal} ${u.name || u.symbol || 'pcs'}`
+          })
+          addedUnitIds.add(u.id)
         }
       }
-      return displays
+
+      if (primaryUnitId) {
+        const primaryUnit = this.findAllUnit.find(u => u.id === primaryUnitId)
+        if (primaryUnit) addUnit(primaryUnit, true)
+      }
+
+      if (stockUnit) addUnit(stockUnit)
+
+      if (this.product.productUnits && this.product.productUnits.length > 0) {
+        for (const pu of this.product.productUnits) {
+          const u = pu.unit || this.findAllUnit.find(unit => unit.id === pu.unitId)
+          if (u) addUnit(u)
+        }
+      }
+
+      return allUnits.length > 0 ? allUnits.map(u => u.text) : [`${this.formatNumber(baseQty)} pcs`]
     },
     getBaseUnitSymbol() {
-      const baseUnit = this.findAllUnit.find(u => u.id === this.product.baseUnitId || u.id === this.product.stockUnitId)
-      return baseUnit ? baseUnit.symbol : 'pcs'
+      const stockUnit = this.findAllUnit.find(u => u.id === (this.product.stockUnitId || this.product.baseUnitId))
+      return stockUnit ? (stockUnit.symbol || stockUnit.name) : 'pcs'
     },
     handleCardClick() {
       // Default card click behavior - could be quick add or open product details

@@ -23,7 +23,38 @@
               </v-col>
 
               <v-col cols="12">
-                <v-switch v-model="formData.isActive" label="Active" color="success"></v-switch>
+                <v-switch v-model="formData.isActive" label="Active" color="success" hide-details class="mt-0"></v-switch>
+              </v-col>
+
+              <!-- SHOW_VAT_TICKET Quick Guide / Note -->
+              <v-col cols="12" class="pt-2">
+                <v-alert
+                  dense
+                  outlined
+                  color="info"
+                  class="rounded-lg mb-0"
+                  icon="mdi-receipt-text-outline"
+                >
+                  <div class="font-weight-bold subtitle-2 info--text">
+                    Note: SHOW_VAT_TICKET (80mm Receipt VAT)
+                  </div>
+                  <div class="caption grey--text text--darken-3 mt-1">
+                    <div>• <strong>Code:</strong> <code>SHOW_VAT_TICKET</code></div>
+                    <div>• <strong>Value:</strong> <code>Y</code> = ສະແດງ VAT ໃນໃບບິນ (Show), <code>N</code> = ເຊື່ອງ VAT (Hide)</div>
+                    <div>• <strong>Remark:</strong> ຄວບຄຸມການສະແດງ / ເຊື່ອງ ອາກອນ (VAT) ໃນໃບບິນ 80mm (Default: Y)</div>
+                  </div>
+                  <div v-if="!isEdit && formData.code !== 'SHOW_VAT_TICKET'" class="mt-2">
+                    <v-btn
+                      x-small
+                      color="info"
+                      outlined
+                      @click="setVatTicketPreset"
+                    >
+                      <v-icon x-small left>mdi-plus</v-icon>
+                      Use SHOW_VAT_TICKET Preset
+                    </v-btn>
+                  </div>
+                </v-alert>
               </v-col>
             </v-row>
           </v-form>
@@ -127,6 +158,15 @@ export default {
       }
       if (this.$refs.form) {
         this.$refs.form.resetValidation()
+      }
+    },
+
+    setVatTicketPreset() {
+      this.formData = {
+        code: 'SHOW_VAT_TICKET',
+        value: 'Y',
+        remark: 'ຄວບຄຸມການສະແດງ ຫຼື ເຊື່ອງ ອາກອນ (VAT) ໃນໃບບິນ 80mm (Y: ສະແດງ, N: ເຊື່ອງ)',
+        isActive: true
       }
     },
 

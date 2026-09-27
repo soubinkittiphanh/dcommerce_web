@@ -165,7 +165,7 @@
                   <span class="grey--text pl-2">- ລາຍຈ່າຍທົ່ວໄປ (AP Expense)</span>
                   <span>{{ formatAmount(totalFinancialExpense) }} {{ localCurrencyCode }}</span>
                 </div>
-                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                <div v-if="showApSettlement" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ຊຳລະໃບແຈ້ງໜີ້ (AP Settlement)</span>
                   <span>{{ formatAmount(totalApSettlementAmount) }} {{ localCurrencyCode }}</span>
                 </div>
@@ -228,7 +228,22 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllCurrency', 'findLocalCurrency']),
+    ...mapGetters(['currentSelectedLocation', 'findAllCurrency', 'findLocalCurrency', 'findSPF']),
+    getSPF() {
+      return this.findSPF || this.$store.getters.findSPF || []
+    },
+    showApSettlement() {
+      const spf = (this.getSPF || []).find(
+        (s) => s.code === 'AC_AP_SETTLEMENT_PL' || s.code === 'PL_AP_SETTLEMENT' || s.code === 'AC_AP_SETTLEMENT'
+      )
+      if (!spf) return false
+      if (spf.isActive === false || spf.isActive === 0) return false
+      if (spf.value !== undefined && spf.value !== null && String(spf.value).trim() !== '') {
+        const val = String(spf.value).trim().toUpperCase()
+        return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1'
+      }
+      return spf.isActive === true || spf.isActive === 1
+    },
     localCurrencyCode() {
       return this.findLocalCurrency?.code || 'LAK'
     },
@@ -419,7 +434,7 @@ export default {
       }, 0)
     },
     operatingExpensesOnly() {
-      return this.totalFinancialExpense + this.totalApSettlementAmount
+      return this.totalFinancialExpense + (this.showApSettlement ? this.totalApSettlementAmount : 0)
     },
     totalExpense() { return this.operatingExpensesOnly + this.totalCostOfSale },
     profit() { return this.totalIncome - this.totalExpense }
@@ -443,6 +458,15 @@ export default {
             console.error('Failed to load currencies in PL summary screen:', error)
           }
         }
+        if (!this.findSPF || this.findSPF.length === 0) {
+          try {
+            const response = await this.$axios.get('api/SPF/find')
+            const spfData = response.data?.data || response.data || []
+            await this.$store.dispatch('initSPF', spfData)
+          } catch (error) {
+            console.error('Failed to load SPF in PL summary screen:', error)
+          }
+        }
         await this.loadSaleStatistic()
         const params = { date: { startDate: this.date, endDate: this.date2 }, locationId: this.currentSelectedLocation?.id }
         const apParams = { startDate: this.date, endDate: this.date2, limit: 1000, page: 1 }
@@ -452,7 +476,9 @@ export default {
           this.$axios.get('/api/finanicial/ar/header/findByDate', { params }).catch(e => { console.warn('AR financial load error:', e); return { data: [] } }),
           this.$axios.get('/api/finanicial/ap/header/findByDate', { params }).catch(e => { console.warn('AP financial load error:', e); return { data: [] } }),
           this.$axios.get('/api/ar-receive-headers', { params: arParams }).catch(e => { console.warn('AR receive load error:', e); return { data: { data: { receiveHeaders: [] } } } }),
-          this.$axios.get('/api/ap-invoices-settlement', { params: apParams }).catch(e => { console.warn('AP settlement load error:', e); return { data: { data: { settlements: [] } } } }),
+          this.showApSettlement
+            ? this.$axios.get('/api/ap-invoices-settlement', { params: apParams }).catch(e => { console.warn('AP settlement load error:', e); return { data: { data: { settlements: [] } } } })
+            : Promise.resolve({ data: { data: { settlements: [] } } }),
         ])
         this.incomeList = inc.data || []
         this.expenseList = exp.data || []

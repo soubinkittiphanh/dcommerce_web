@@ -104,11 +104,22 @@
       </v-data-table>
     </v-card>
 
-    <!-- Student Form Dialog -->
-    <v-dialog v-model="dialog" max-width="800px" persistent scrollable>
-      <StudentFormCRUD v-if="dialog" :is-update="isEdit" :student-id="selectedId" @close="dialog = false"
-        @reload="fetchData" />
-    </v-dialog>
+    <!-- Student Form Fullscreen Bottom Sheet Dialog -->
+    <v-bottom-sheet
+      v-model="dialog"
+      persistent
+      fullscreen
+      scrollable
+      content-class="student-bottom-sheet-content"
+    >
+      <StudentFormCRUD
+        v-if="dialog"
+        :is-update="isEdit"
+        :student-id="selectedId"
+        @close="dialog = false"
+        @reload="fetchData"
+      />
+    </v-bottom-sheet>
   </div>
 </template>
 
@@ -190,5 +201,14 @@ export default {
 <style scoped>
 .student-summary * {
   font-family: 'Noto Sans Lao', sans-serif !important;
+}
+</style>
+
+<style>
+.student-bottom-sheet-content {
+  border-radius: 16px 16px 0 0 !important;
+  overflow: hidden;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15) !important;
+  background: #ffffff !important;
 }
 </style>

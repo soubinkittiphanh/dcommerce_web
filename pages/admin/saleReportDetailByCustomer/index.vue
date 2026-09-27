@@ -8,7 +8,7 @@
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
           <div>
-            <h1 class=" font-weight-bold primary--text mb-0">ລາຍງານການຂາຍຕາມລູກຄ້າ</h1>
+            <h1 class="font-weight-bold primary--text mb-0">ລາຍງານການຂາຍຕາມລູກຄ້າ</h1>
             <p class="subtitle-2 grey--text mb-0">Customer Sales Performance Analysis</p>
           </div>
         </div>
@@ -51,7 +51,7 @@
       <v-card-text class="pa-3">
         <v-row align="center" no-gutters>
           <!-- Date Pickers -->
-          <v-col cols="12" md="4" class="px-2">
+          <v-col cols="12" md="3" class="px-2">
             <div class="d-flex align-center gap-2">
               <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
                 min-width="auto">
@@ -74,9 +74,16 @@
           </v-col>
 
           <!-- Customer Filter -->
-          <v-col cols="12" md="3" class="px-2">
+          <v-col cols="12" md="2" class="px-2">
             <v-autocomplete v-model="creteria.clientId" :items="customerList" item-text="name" item-value="id"
               label="ເລືອກລູກຄ້າ" prepend-inner-icon="mdi-account" outlined dense hide-details
+              class="compact-input" @change="loadData"></v-autocomplete>
+          </v-col>
+
+          <!-- Location / Terminal Filter -->
+          <v-col cols="12" md="2" class="px-2">
+            <v-autocomplete v-model="terminalId" :items="customTerminalList" item-text="name" item-value="id"
+              label="ເລືອກຕາມ ຮ້ານ*" prepend-inner-icon="mdi-store" outlined dense hide-details
               class="compact-input"></v-autocomplete>
           </v-col>
 
@@ -112,8 +119,8 @@
             <v-avatar color="blue lighten-5" size="56" class="mb-3">
               <v-icon color="blue darken-1" size="32">mdi-receipt-text</v-icon>
             </v-avatar>
-            <div class="grey--text text-uppercase  font-weight-bold mb-1">ຈຳນວນບິນທັງໝົດ</div>
-            <div class=" font-weight-black blue--text">{{ numberWithCommas(activeOrderHeaderList.length) }}</div>
+            <div class="grey--text text-uppercase font-weight-bold mb-1">ຈຳນວນບິນທັງໝົດ</div>
+            <div class="text-h5 font-weight-black blue--text">{{ numberWithCommas(activeOrderHeaderList.length) }}</div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -124,8 +131,9 @@
             <v-avatar color="green lighten-5" size="56" class="mb-3">
               <v-icon color="green darken-1" size="32">mdi-cash-multiple</v-icon>
             </v-avatar>
-            <div class="grey--text text-uppercase  font-weight-bold mb-1">ຍອດຂາຍລວມ (LAK)</div>
-            <div class=" font-weight-black green--text">{{ getFormatNum(totalSale - totalDiscount) }}</div>
+            <div class="grey--text text-uppercase font-weight-bold mb-1">ຍອດຂາຍສຸດທິ ({{ localCurrency?.code || 'LAK' }})</div>
+            <div class="text-h5 font-weight-black green--text">{{ getFormatNum(summaryNetLocal) }}</div>
+            <div class="caption grey--text mt-1">ຍອດເຕັມ: {{ getFormatNum(summaryGrossLocal) }}</div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -136,24 +144,22 @@
             <v-avatar color="orange lighten-5" size="56" class="mb-3">
               <v-icon color="orange darken-1" size="32">mdi-sale</v-icon>
             </v-avatar>
-            <div class="grey--text text-uppercase  font-weight-bold mb-1">ສ່ວນຫຼຸດລວມ</div>
-            <div class=" font-weight-black orange--text">{{ getFormatNum(totalDiscount) }}</div>
+            <div class="grey--text text-uppercase font-weight-bold mb-1">ສ່ວນຫຼຸດລວມ</div>
+            <div class="text-h5 font-weight-black orange--text">{{ getFormatNum(summaryDiscountLocal) }}</div>
+            <div class="caption grey--text mt-1">{{ localCurrency?.code || 'LAK' }}</div>
           </v-card-text>
         </v-card>
       </v-col>
 
       <v-col cols="12" md="3">
         <v-card class="metric-card shadow-sm h-100">
-          <v-card-text class="pa-5">
-            <div class="d-flex align-center justify-space-between mb-2">
-              <div class="grey--text  font-weight-bold">ຍອດບິນ COD ຄ້າງຊຳລະ</div>
-              <v-chip x-small color="orange" dark class="font-weight-bold">PENDING</v-chip>
-            </div>
-            <div class="text-h5 font-weight-bold mb-1">{{ unpaidCodOrder.sale }}</div>
-            <div class=" grey--text d-flex align-center justify-space-between">
-              <span>ຈຳນວນ: {{ unpaidCodOrder.amount }} ບິນ</span>
-              <v-icon x-small color="orange">mdi-truck-delivery</v-icon>
-            </div>
+          <v-card-text class="pa-5 text-center">
+            <v-avatar color="red lighten-5" size="56" class="mb-3">
+              <v-icon color="red darken-1" size="32">mdi-credit-card-outline</v-icon>
+            </v-avatar>
+            <div class="grey--text text-uppercase font-weight-bold mb-1">ຍອດຂາຍຕິດໜີ້ (Credit)</div>
+            <div class="text-h5 font-weight-black red--text">{{ getFormatNum(summaryCreditLocal) }}</div>
+            <div class="caption grey--text mt-1">ຈຳນວນ: {{ creditOrders.length }} ບິນ</div>
           </v-card-text>
         </v-card>
       </v-col>
@@ -165,13 +171,13 @@
         class="compact-table" :items-per-page="15">
 
         <template v-slot:[`item.header.id`]="{ item }">
-          <span class="font-weight-bold primary--text">#{{ item.header.id }}</span>
+          <span class="font-weight-bold primary--text">#{{ item.header ? item.header.id : item.id }}</span>
         </template>
 
         <template v-slot:[`item.header.bookingDate`]="{ item }">
           <div class="d-flex align-center">
             <v-icon small color="grey lighten-1" class="mr-1">mdi-clock-outline</v-icon>
-            <span>{{ item.header.bookingDate.split('T')[0] }}</span>
+            <span>{{ item.header && item.header.bookingDate ? item.header.bookingDate.split('T')[0] : '-' }}</span>
           </div>
         </template>
 
@@ -183,7 +189,7 @@
 
         <template v-slot:[`item.discount`]="{ item }">
           <span class="orange--text font-weight-medium font-numeric">
-            {{ numberWithCommas(item.discount) }}
+            {{ numberWithCommas(item.discount || 0) }}
           </span>
         </template>
 
@@ -193,11 +199,23 @@
           </span>
         </template>
 
+        <template v-slot:[`item.paymentMethod`]="{ item }">
+          <v-chip v-if="isCreditOrder(item.header)" small color="red" text-color="white" class="font-weight-bold">
+            <v-icon left x-small>mdi-credit-card-outline</v-icon>
+            ຕິດໜີ້ (CREDIT)
+          </v-chip>
+          <v-chip v-else small color="primary" outlined class="font-weight-medium">
+            {{ getPaymentDisplayName(item.header) }}
+          </v-chip>
+        </template>
+
         <template v-slot:[`item.cusTel`]="{ item }">
-          <v-btn small text color="info" class="rounded-pill text-none px-2" @click="whatsappLink(item)">
+          <v-btn v-if="item.cusTel || (item.client && item.client.telephone)" small text color="info"
+            class="rounded-pill text-none px-2" @click="whatsappLink(item)">
             <v-icon left x-small>mdi-whatsapp</v-icon>
-            {{ item.cusTel }}
+            {{ item.cusTel || (item.client && item.client.telephone) }}
           </v-btn>
+          <span v-else class="grey--text">N/A</span>
         </template>
 
         <template v-slot:[`item.actions`]="{ item }">
@@ -205,7 +223,7 @@
             <v-btn icon small color="primary" @click="viewItem(item.header)">
               <v-icon small>mdi-eye</v-icon>
             </v-btn>
-            <v-btn icon small color="orange" @click="cancelItem({ orderId: item.header.id })">
+            <v-btn icon small color="orange" @click="cancelItem({ orderId: item.header ? item.header.id : item.id })">
               <v-icon small>mdi-cancel</v-icon>
             </v-btn>
           </div>
@@ -220,11 +238,13 @@ import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth } fr
 import OrderDetailPos from '~/components/OrderDetailPos.vue'
 import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
 import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
+
 export default {
   components: { OrderDetailPos, OrderSumaryCardPos, OrderDetailPosCRUD },
   middleware: 'auths',
   data() {
     return {
+      terminalId: 999,
       guidelineDialog: false,
       viewTransaction: false,
       whatsappContactLink: '',
@@ -257,22 +277,15 @@ export default {
         { text: 'ລາຄາ', align: 'right', value: 'price', sortable: true },
         { text: 'ສ່ວນຫຼຸດ', align: 'right', value: 'discount', sortable: true },
         { text: 'ລວມ', align: 'right', value: 'total', sortable: true },
+        { text: 'ການຊຳລະ', align: 'center', value: 'paymentMethod', sortable: false },
         { text: 'ຜູ້ຂາຍ', align: 'left', value: 'user.cus_name', sortable: true },
         { text: 'ການດຳເນີນການ', align: 'center', value: 'actions', sortable: false },
       ],
-      // date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-      //   .toISOString()
-      //   .substr(0, 10),
       date: getFirstDayOfMonth(),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
         .substr(0, 10),
-      dateFormatted: this.formatDate(
-        // new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        //   .toISOString()
-        //   .substr(0, 10)
-        getFirstDayOfMonth()
-      ),
+      dateFormatted: this.formatDate(getFirstDayOfMonth()),
       dateFormatted2: this.formatDate(
         new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
           .toISOString()
@@ -283,7 +296,7 @@ export default {
     }
   },
   async created() {
-    // this.creteria.userId = this.user['id']
+    this.terminalId = this.findSelectedTerminal || 999
     await this.loadData()
     await this.loadClientData()
   },
@@ -299,227 +312,375 @@ export default {
       this.dateFormatted2 = this.formatDate(this.date2)
       this.loadData()
     },
+    'creteria.clientId'() {
+      this.loadData()
+    },
   },
   computed: {
+    ...mapGetters([
+      'findAllProduct',
+      'findAllClient',
+      'findAllPayment',
+      'findAllUnit',
+      'findAllCurrency',
+      'findLocalCurrency',
+      'findAllTerminal',
+      'findSelectedTerminal'
+    ]),
+
+    localCurrency() {
+      return (
+        this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1) ||
+        this.findLocalCurrency || { code: 'LAK' }
+      )
+    },
+
+    customTerminalList() {
+      let originalTerminalListVanilla = JSON.stringify(this.findAllTerminal || [])
+      let originalTerminalList = JSON.parse(originalTerminalListVanilla)
+      const extraTerminal = {
+        id: 999,
+        code: 1999,
+        name: 'ທັງໝົດ',
+        description: '',
+        locationId: 1,
+      }
+      originalTerminalList.push(extraTerminal)
+      return originalTerminalList
+    },
+
+    // Include ALL active sales, including credit invoices (paymentId == 2), filtered by terminal/location
+    activeOrderHeaderList() {
+      const terminal = this.findAllTerminal?.find(
+        (el) => el['id'] == this.terminalId
+      )
+      if (!terminal || this.terminalId === 999) {
+        return this.orderHeaderList.filter((el) => el && el.isActive === true)
+      }
+      return this.orderHeaderList.filter(
+        (el) =>
+          el &&
+          el.isActive === true &&
+          (el.locationId == terminal.locationId || el.terminalId == this.terminalId)
+      )
+    },
+
     orderLineByUser() {
-      let lines = [];
-      const searchTerm = this.search?.toLowerCase() || '';
+      let lines = []
+      const searchTerm = this.search?.toLowerCase() || ''
 
       this.activeOrderHeaderList.forEach((iterator) => {
-        // Filter lines based on search if needed (already mostly handled by v-data-table)
         iterator['lines']?.forEach((line) => {
-          line['user'] = iterator.user;
-          line['client'] = iterator.client;
-          line['header'] = iterator;
+          line['user'] = iterator.user
+          line['client'] = iterator.client
+          line['header'] = iterator
+          line['cusTel'] = iterator.client?.telephone || iterator.cusTel || ''
 
-          // Search logic for nesting
-          const matchesSearch = !searchTerm ||
+          const matchesSearch =
+            !searchTerm ||
             line.product?.pro_name?.toLowerCase().includes(searchTerm) ||
             iterator.id?.toString().includes(searchTerm) ||
-            iterator.client?.name?.toLowerCase().includes(searchTerm);
+            iterator.client?.name?.toLowerCase().includes(searchTerm) ||
+            iterator.user?.cus_name?.toLowerCase().includes(searchTerm)
 
           if (matchesSearch) {
-            lines.push(line);
+            lines.push(line)
           }
-        });
-      });
-      return lines;
+        })
+      })
+      return lines
     },
-    ...mapGetters(['findAllProduct', 'findAllClient', 'findAllPayment', 'findAllUnit', 'findAllCurrency', 'findAllTerminal', 'findSelectedTerminal']),
-    activeOrderHeaderList() {
-      return this.orderHeaderList.filter(el => el['isActive'] == true && el['paymentId'] != 2)
+
+    // Currency converted totals
+    summaryGrossLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        return sum + this.calculateHeaderTotalLocal(header) + this.calculateHeaderDiscountLocal(header)
+      }, 0)
     },
-    computedDateFormatted() {
-      return this.formatDate(this.date)
+
+    summaryDiscountLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        return sum + this.calculateHeaderDiscountLocal(header)
+      }, 0)
     },
-    currencyList() {
-      return this.findAllCurrency
+
+    summaryNetLocal() {
+      return this.activeOrderHeaderList.reduce((sum, header) => {
+        return sum + this.calculateHeaderTotalLocal(header)
+      }, 0)
     },
+
+    creditOrders() {
+      return this.activeOrderHeaderList.filter((header) => this.isCreditOrder(header))
+    },
+
+    summaryCreditLocal() {
+      return this.creditOrders.reduce((sum, header) => {
+        return sum + this.calculateHeaderTotalLocal(header)
+      }, 0)
+    },
+
     totalSale() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        total += el.total
-      })
-      return total
-      // return total
+      return this.summaryNetLocal
     },
-    totalSaleRaw() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        console.log("====>", el.cartTotal);
-        total += parseInt(el.cartTotal)
-      })
-      console.log('Price total: ' + total)
-      // return previousValue.cartTotal + currentValue.cartTotal
-      return total
-      // return total
+
+    totalDiscount() {
+      return this.summaryDiscountLocal
     },
+
     user() {
       return this.$auth.user || ''
-    },
-    totalDiscount() {
-      let total = 0
-      this.activeOrderHeaderList.forEach((el) => {
-        total += parseInt(el.discount)
-      })
-      return total
-      // return total
     },
 
     unpaidCodOrder() {
       let txnList = []
       let orderDetail = {}
-      this.orderHeaderList.forEach(element => {
-        if (element.paymentStatus === 'PENDING' && element.payment.includes('COD')) {
-          console.log("Concept applied");
+      this.orderHeaderList.forEach((element) => {
+        if (
+          element.paymentStatus === 'PENDING' &&
+          (element.payment?.payment_code?.includes('COD') ||
+            element.payments?.some((p) => p.paymentMethod?.payment_code?.includes('COD')) ||
+            (typeof element.payment === 'string' && element.payment.includes('COD')))
+        ) {
           txnList.push(element)
         }
-      });
+      })
       const totalPrice = txnList.reduce((total, item) => {
-        return total + item.cartTotal;
-      }, 0);
+        return total + (item.cartTotal || item.total || 0)
+      }, 0)
       const totalDiscount = txnList.reduce((total, item) => {
-        return total + item.discount;
-      }, 0);
+        return total + (item.discount || 0)
+      }, 0)
 
       orderDetail.amount = txnList.length
-      orderDetail.saleRawNumber = totalPrice;
+      orderDetail.saleRawNumber = totalPrice
       orderDetail.sale = this.getFormatNum(totalPrice)
       orderDetail.discount = this.getFormatNum(totalDiscount)
       orderDetail.gross = this.getFormatNum(0)
       orderDetail.title = 'ຍອດບິນ COD'
-      return orderDetail;
+      return orderDetail
     },
   },
 
   methods: {
+    calculateHeaderTotalLocal(header) {
+      if (!header) return 0
+      const headerCcy = this.findAllCurrency?.find(
+        (c) => Number(c.id) === Number(header.currencyId)
+      )
+      const isHeaderLocal =
+        headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+      const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+
+      return Number(header.total || 0) * headerRate
+    },
+
+    calculateHeaderDiscountLocal(header) {
+      if (!header) return 0
+      const headerCcy = this.findAllCurrency?.find(
+        (c) => Number(c.id) === Number(header.currencyId)
+      )
+      const isHeaderLocal =
+        headerCcy?.isLocalCCY === true || headerCcy?.isLocalCCY === 1
+      const headerRate = isHeaderLocal ? 1 : header.exchangeRate || 1
+
+      return Number(header.discount || 0) * headerRate
+    },
+
+    isCreditOrder(header) {
+      if (!header) return false
+      return (
+        header.paymentId === 2 ||
+        header.payment?.payment_code === 'CREDIT' ||
+        header.payment === 'CREDIT' ||
+        header.payments?.some(
+          (p) =>
+            p.paymentMethod?.payment_code === 'CREDIT' ||
+            p.paymentId === 2 ||
+            p.payment_id === 2
+        )
+      )
+    },
+
+    getPaymentDisplayName(header) {
+      if (!header) return 'N/A'
+      if (this.isCreditOrder(header)) {
+        return 'ຕິດໜີ້ (CREDIT)'
+      }
+      if (header.payments && header.payments.length > 1) {
+        return `ຫຼາຍວິທີ (${header.payments.length})`
+      }
+      return (
+        header.payment?.payment_name ||
+        header.payments?.[0]?.paymentMethod?.payment_name ||
+        header.payment?.payment_code ||
+        (header.paymentId &&
+          this.findAllPayment?.find((p) => p.id === header.paymentId)?.payment_name) ||
+        header.payment ||
+        'N/A'
+      )
+    },
+
     exportToExcel() {
       let messageLineExport = []
       for (const iterator of this.orderLineByUser) {
-        const user = iterator['user']['cus_name'];
-        const customer = iterator['client']['name'];
-        const product = iterator['product']['pro_name'];
-        iterator['userName'] = user
-        iterator['customer'] = customer
-        iterator['productName'] = product
+        const user = iterator['user']?.['cus_name'] || '-'
+        const customer = iterator['client']?.['name'] || 'Walk-in'
+        const product = iterator['product']?.['pro_name'] || '-'
+        const orderId = iterator['header']?.['id'] || '-'
+        const date = iterator['header']?.['bookingDate']
+          ? iterator['header']['bookingDate'].split('T')[0]
+          : ''
+        const payment = this.getPaymentDisplayName(iterator['header'])
+
         const newRow = {
-          'ສິນຄ້າ': iterator['productName'],
-          'ຈຳນວນ': iterator['quantity'],
-          'ລາຄາ': iterator['price'],
-          'ສ່ວນຫຼຸດ': iterator['discount'],
-          'ລວມ': iterator['total'],
-          'ຜູ້ຂາຍ': iterator['userName'],
-          'ລູກຄ້າ': iterator['customer'],
+          'ເລກອໍເດີ': orderId,
+          'ວັນທີ': date,
+          'ລູກຄ້າ': customer,
+          'ສິນຄ້າ': product,
+          'ຈຳນວນ': iterator['quantity'] || 0,
+          'ລາຄາ': iterator['price'] || 0,
+          'ສ່ວນຫຼຸດ': iterator['discount'] || 0,
+          'ລວມ': iterator['total'] || 0,
+          'ການຊຳລະ': payment,
+          'ຜູ້ຂາຍ': user,
         }
         messageLineExport.push(newRow)
-
       }
-      const worksheet = this.$xlsx.utils.json_to_sheet(messageLineExport);
-      const workbook = this.$xlsx.utils.book_new();
-      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-      this.$xlsx.writeFile(workbook, 'data.xlsx');
+      const worksheet = this.$xlsx.utils.json_to_sheet(messageLineExport)
+      const workbook = this.$xlsx.utils.book_new()
+      this.$xlsx.utils.book_append_sheet(workbook, worksheet, 'Customer Sales')
+      this.$xlsx.writeFile(
+        workbook,
+        `customer_sales_${this.date}_to_${this.date2}.xlsx`
+      )
     },
+
     createSale() {
-      this.componentKey += 1;
+      this.componentKey += 1
       this.selectedOrder = 0
-      this.viewTransaction = false;
-      this.dialogOrderDetail = true;
+      this.viewTransaction = false
+      this.dialogOrderDetail = true
     },
+
     countDay(startDate) {
       return dayCount(startDate)
     },
+
     dueDate(startDate, day) {
-      console.log("DATE ", startDate, " to ", day);
       return getNextDate(startDate, day)
     },
-    numberWithCommas(value) {
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    },
-    whatsappLink(item) {
-      // const completeTel = tel.substring(tel.length-7);
-      const tel = item.cusTel.trim();
 
-      // console.log("Customer tel: ",tel);
-      const completeTel = tel.substring(tel.length - 8);
-      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
-      // return `https://api.whatsapp.com/send?phone=${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`;
+    numberWithCommas(value) {
+      if (value === undefined || value === null) return '0'
+      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
+
+    whatsappLink(item) {
+      const tel = (item.cusTel || item.client?.telephone || '').trim()
+      if (!tel) return
+      const completeTel = tel.substring(tel.length - 8)
+      this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent(
+        'ສະບາຍດີ ລູກຄ້າ '
+      )}`
+      window.open(this.whatsappContactLink, '_blank')
+    },
+
     getFormatNum(val) {
-      return new Intl.NumberFormat().format(val)
+      return new Intl.NumberFormat().format(val || 0)
     },
+
     editItem(item) {
-      this.componentKey += 1;
+      this.componentKey += 1
       this.selectedOrderId = item.orderId.toString()
-      this.dialogOrderDetail = !this.dialogOrderDetail;
+      this.dialogOrderDetail = !this.dialogOrderDetail
     },
+
     viewItem(item) {
-      this.componentKey += 1;
+      if (!item) return
+      this.componentKey += 1
       this.viewTransaction = true
       this.selectedOrder = item.id
-      this.dialogOrderDetail = true;
+      this.dialogOrderDetail = true
     },
+
     cancelItem(payload) {
-      console.log("Order id", payload.orderId);
-      this.componentCancelFormKey += 1;
+      this.componentCancelFormKey += 1
       this.OrderIdSelected = payload.orderId
-      // this.orderLockingSessionId = payload.lockingSessionId;
-      this.cancelForm = true;
+      this.cancelForm = true
     },
+
     handleEvent() {
-      this.dialogOrderDetail = false;
+      this.dialogOrderDetail = false
     },
+
     async loadData() {
       this.isloading = true
       const date = {
         startDate: this.date,
         endDate: this.date2,
-        clientId: this.creteria.clientId
+        clientId: this.creteria.clientId,
       }
       let apiLine = 'api/sale/findByDate'
-      if (date.clientId) {
+      if (
+        date.clientId &&
+        date.clientId !== -1 &&
+        date.clientId !== '-1' &&
+        Number(date.clientId) > 0
+      ) {
         apiLine = 'api/sale/findByDateAndCustomer'
       }
 
       try {
         const response = await this.$axios.get(apiLine, { params: { date } })
-        this.orderHeaderList = response.data
+        this.orderHeaderList = response.data || []
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could no load data ' + JSON.stringify(error))
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load data ' + JSON.stringify(error)
+        )
       }
 
       this.isloading = false
     },
+
     async loadClientData() {
       this.isloading = true
       let apiLine = 'api/client/find'
       try {
-        const response = await this.$axios.get(apiLine);
-        this.customerList = response.data
-        this.customerList.push({ id: -1, 'name': 'ທັງຫມົດ' })
+        const response = await this.$axios.get(apiLine)
+        this.customerList = response.data || []
+        this.customerList.unshift({ id: -1, name: 'ທັງຫມົດ' })
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Could no load data ' + JSON.stringify(error))
+        swalError2(
+          this.$swal,
+          'Error',
+          'Could not load data ' + JSON.stringify(error)
+        )
       }
       this.isloading = false
     },
+
     formatDate(date) {
       if (!date) return null
-      console.log("DATE FORMAT METHOD1: " + date);
-      const formattedDate = this.formatDateToISO(date);
+      const formattedDate = this.formatDateToISO(date)
       const [year, month, day] = formattedDate.split('-')
       return `${month}/${day}/${year}`
     },
+
     parseDate(date) {
-      console.log("DATE PARSE METHOD1: " + date);
       if (!date) return null
       const [month, day, year] = date.split('/')
       return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
     },
+
     formatDateToISO(date) {
-      if (!(date instanceof Date)) date = new Date(date);
-      const year = date.getFullYear();
-      const month = `${date.getMonth() + 1}`.padStart(2, '0'); // Months are 0-indexed
-      const day = `${date.getDate()}`.padStart(2, '0');
-      return `${year}-${month}-${day}`;
+      if (!(date instanceof Date)) date = new Date(date)
+      const year = date.getFullYear()
+      const month = `${date.getMonth() + 1}`.padStart(2, '0')
+      const day = `${date.getDate()}`.padStart(2, '0')
+      return `${year}-${month}-${day}`
     },
   },
 }

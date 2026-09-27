@@ -170,9 +170,9 @@
                             </v-col>
 
                             <!-- Unit Conversion Explanation Alert -->
-                            <v-col cols="12" class="py-0" v-if="conversionRate && conversionRate !== 1">
+                            <v-col cols="12" class="py-0" v-if="conversionRate > 1">
                                 <v-alert type="info" text dense class="mb-2">
-                                    This will add <strong>{{ parseFloat(stockQty || 0) * conversionRate }}</strong> stock units ({{ stockUnitSymbol }}) to inventory. Cost per stock unit: <strong>{{ formatPrice(costPerUnit / conversionRate) }} {{ selectedCurrencyCode }}</strong>.
+                                    This will add <strong>{{ parseFloat(stockQty || 0) * conversionRate }}</strong> base units to stock. Cost per base unit: <strong>{{ formatPrice(costPerUnit / conversionRate) }} {{ selectedCurrencyCode }}</strong>.
                                 </v-alert>
                             </v-col>
 
@@ -545,57 +545,34 @@ export default {
             return currency ? currency.code : ''
         },
 
-        stockUnitSymbol() {
-            const stockUnit = this.product?.stockUnit || this.product?.unit || this.product?.baseUnit;
-            return stockUnit?.symbol || stockUnit?.name || 'units';
-        },
-
         productUnitsOptions() {
             const list = [];
-            const stockUnit = this.product?.stockUnit || this.product?.unit || this.product?.baseUnit;
-            if (!stockUnit) return list;
-
-            const stockRate = parseFloat(stockUnit.conversionRate || 1.0);
-            const addedUnitIds = new Set();
-
-            // Helper to add unit option
-            const addUnitOption = (u, isStockUnit = false) => {
-                if (u && u.id && !addedUnitIds.has(u.id)) {
-                    const targetRate = parseFloat(u.conversionRate || 1.0);
-                    const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate;
-                    list.push({
-                        unitId: u.id,
-                        name: isStockUnit ? `${u.name} (Stock Unit, 1.0)` : `${u.name} (Rate: ${relRate})`,
-                        symbol: u.symbol || 'pcs',
-                        conversionRate: relRate,
-                        rawConversionRate: targetRate
-                    });
-                    addedUnitIds.add(u.id);
-                }
-            };
-
-            // 1. Add receiveUnit first if available
-            if (this.product?.receiveUnit) {
-                addUnitOption(this.product.receiveUnit, this.product.receiveUnit.id === stockUnit.id);
+            const baseUnit = this.product?.stockUnit || this.product?.baseUnit || this.product?.unit;
+            if (baseUnit) {
+                list.push({
+                    unitId: baseUnit.id,
+                    name: `${baseUnit.name} (Base Unit, 1.0)`,
+                    symbol: baseUnit.symbol || 'pcs',
+                    conversionRate: 1.0
+                });
             }
-
-            // 2. Add stockUnit
-            addUnitOption(stockUnit, true);
-
-            // 3. Add baseUnit if available
-            if (this.product?.baseUnit) {
-                addUnitOption(this.product.baseUnit, this.product.baseUnit.id === stockUnit.id);
-            }
-
-            // 4. Add all productUnits
+            
             if (this.product && Array.isArray(this.product.productUnits)) {
+                const baseRate = parseFloat(baseUnit?.conversionRate || 1.0);
                 this.product.productUnits.forEach(pu => {
-                    if (pu.unit) {
-                        addUnitOption(pu.unit, pu.unit.id === stockUnit.id);
+                    const u = pu.unit;
+                    if (u && u.id !== baseUnit?.id) {
+                        const targetRate = parseFloat(u.conversionRate || 1.0);
+                        const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate;
+                        list.push({
+                            unitId: u.id,
+                            name: `${u.name} (Rate: ${relRate})`,
+                            symbol: u.symbol || 'pcs',
+                            conversionRate: relRate
+                        });
                     }
                 });
             }
-
             return list;
         },
 
@@ -604,8 +581,7 @@ export default {
                 unitId: null,
                 name: 'Unit',
                 symbol: 'pcs',
-                conversionRate: 1.0,
-                rawConversionRate: 1.0
+                conversionRate: 1.0
             };
         },
 
@@ -688,13 +664,7 @@ export default {
         },
 
         salePricePerSelectedUnit() {
-            const baseUnit = this.product?.baseUnit || this.product?.unit || this.product?.stockUnit;
-            const baseRate = parseFloat(baseUnit?.conversionRate || 1.0);
-            const selectedRawRate = parseFloat(this.selectedUnit?.rawConversionRate || 1.0);
-            if (baseRate > 0) {
-                return (this.salePrice / baseRate) * selectedRawRate;
-            }
-            return this.salePrice * this.conversionRate;
+            return this.salePrice * this.conversionRate
         },
 
         saleCurrencyCode() {
@@ -727,7 +697,7 @@ export default {
         cost: {
             immediate: true,
             handler(newVal) {
-                if (newVal > 0 && !this.product) {
+                if (newVal > 0) {
                     this.costInput = newVal
                 }
             }
@@ -862,26 +832,10 @@ export default {
             try {
                 const res = await this.$axios.get(`api/product/find/${this.id}`)
                 this.product = res.data
-                const defaultUnit = res.data.receiveUnit || res.data.stockUnit || res.data.baseUnit || res.data.unit;
-                if (defaultUnit) {
-                    this.selectedUnitId = defaultUnit.id
+                const baseUnit = res.data.stockUnit || res.data.baseUnit || res.data.unit;
+                if (baseUnit) {
+                    this.selectedUnitId = baseUnit.id
                 }
-
-                // Initialize costInput properly scaled to the selected unit from product's baseUnit cost
-                const rawCost = parseFloat(this.product.cost_price ?? (this.cost || 0));
-                if (rawCost > 0) {
-                    const baseUnit = this.product.baseUnit || this.product.unit || this.product.stockUnit;
-                    const baseRate = parseFloat(baseUnit?.conversionRate || 1.0);
-                    const selectedUnit = defaultUnit;
-                    const selectedRate = parseFloat(selectedUnit?.conversionRate || 1.0);
-
-                    if (baseRate > 0 && selectedRate > 0) {
-                        this.costInput = (rawCost / baseRate) * selectedRate;
-                    } else {
-                        this.costInput = rawCost;
-                    }
-                }
-
                 if (res.data.costCurrency) {
                     console.log(`Cost info available`)
                     this.currencyId = res.data.costCurrency.id
@@ -924,13 +878,10 @@ export default {
                 const stockData = {
                     inputter: this.user.id,
                     product_id: this.productId,
-                    productId: this.id,
-                    quantity: parseFloat(this.stockQty) || 0,
-                    unitId: this.selectedUnitId || null,
-                    conversionRate: this.conversionRate || 1.0,
+                    stockCardQty: Math.round(parseFloat(this.stockQty) * this.conversionRate),
                     totalCost: this.totalCost,
-                    costInput: parseFloat(this.costInput) || 0,
-                    costPerUnit: this.costPerUnit,
+                    costPerUnit: this.costPerUnit / this.conversionRate,
+                    productId: this.id,
                     srcLocationId: this.srcLocationId,
                     currencyId: this.currencyId,
                     exchangeRate: this.currencyExchangeRate,
@@ -940,18 +891,19 @@ export default {
                     expiryDate: this.expiryDate || null,
                     hasExpiry: !!this.expiryDate,
                     hasLot: !!this.lotNumber,
-                    // Variant fields
+                    // New fields for Color and Size
                     colorId: this.colorId || null,
                     sizeId: this.sizeId || null,
+                    unitId: this.selectedUnitId || null,
                 }
                 
-                console.log("Stock data (V2):", stockData)
+                console.log("Stock data:", stockData)
                 
                 try {
-                    const res = await this.$axios.post('/api/card/bulkCreateV3', stockData)
+                    const res = await this.$axios.post('/api/card/bulkCreate', stockData)
                     console.log(res.data)
                     
-                    let successMessage = res.data?.message || 'Stock added successfully!'
+                    let successMessage = 'Stock added successfully!'
                     const details = []
                     
                     if (this.selectedColor) details.push(`Color: ${this.selectedColor.color_name}`)
@@ -969,7 +921,7 @@ export default {
                     this.$emit('close-dialog')
                 } catch (error) {
                     console.log(error)
-                    swalError2(this.$swal, "Error", error.response?.data?.message || error.response?.data || error.message)
+                    swalError2(this.$swal, "Error", error.response?.data || error.message)
                 }
                 
                 this.isSubmitting = false

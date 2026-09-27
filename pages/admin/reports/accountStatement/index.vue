@@ -20,6 +20,37 @@
             </div>
         </div>
 
+        <!-- NFC Card Scan Banner / Quick Search -->
+        <v-card class="mb-4 pa-3 rounded-lg" color="primary lighten-5" outlined>
+            <v-row align="center" no-gutters>
+                <v-col cols="12" md="7" class="d-flex align-center">
+                    <v-avatar color="primary" size="44" class="mr-3">
+                        <v-icon color="white">mdi-contactless-payment</v-icon>
+                    </v-avatar>
+                    <div>
+                        <div class="font-weight-bold primary--text text-subtitle-1">ແຕະບັດ NFC ເພື່ອດຶງ Statement ອັດຕະໂນມັດ</div>
+                        <div class="caption grey--text text--darken-1">Tap NFC student card to instantly load full statement & transaction history</div>
+                    </div>
+                </v-col>
+                <v-col cols="12" md="5" class="mt-2 mt-md-0">
+                    <v-text-field
+                        v-model="scanInput"
+                        label="ແຕະບັດ ຫຼື ປ້ອນເລກບັດ (Card UID)"
+                        placeholder="Scan or enter Card UID..."
+                        outlined
+                        dense
+                        hide-details
+                        background-color="white"
+                        append-icon="mdi-magnify"
+                        :loading="isScanning"
+                        @keyup.enter="identifyByCard(scanInput)"
+                        @click:append="identifyByCard(scanInput)"
+                        id="nfc-statement-scanner"
+                    ></v-text-field>
+                </v-col>
+            </v-row>
+        </v-card>
+
         <!-- Filters Map -->
         <v-card outlined class="mb-6 rounded-lg">
             <v-card-text>
@@ -27,7 +58,7 @@
                     <v-col cols="12" md="4">
                         <v-autocomplete v-model="selectedBankAccountId" :items="bankAccounts" item-text="accountName"
                             item-value="id" label="ເລືອກທະນາຄານ / ບັນຊີ (Select Account)" outlined dense hide-details
-                            prepend-inner-icon="mdi-bank">
+                            prepend-inner-icon="mdi-bank" @change="fetchStatement">
                             <template v-slot:item="{ item }">
                                 <v-list-item-content>
                                     <v-list-item-title>{{ item.accountName }} ({{ item.accountNumber
@@ -64,6 +95,28 @@
 
         <!-- Content Area -->
         <div v-if="statement" id="printable-statement" class="pdf-container">
+            <!-- Student Profile Badge (If identified via NFC or student wallet) -->
+            <v-card v-if="studentProfile" class="mb-4 pa-4 rounded-lg" color="white" outlined>
+                <div class="d-flex align-center justify-space-between flex-wrap">
+                    <div class="d-flex align-center">
+                        <v-avatar color="primary lighten-4" size="52" class="mr-4">
+                            <v-icon size="32" color="primary">mdi-account-school</v-icon>
+                        </v-avatar>
+                        <div>
+                            <h3 class="font-weight-bold text-h6 primary--text mb-0">{{ studentProfile.firstName }} {{ studentProfile.lastName }}</h3>
+                            <div class="grey--text caption">
+                                <strong>Student ID:</strong> {{ studentProfile.studentId }} | 
+                                <strong>Grade:</strong> {{ studentProfile.grade || '-' }} | 
+                                <strong>Phone:</strong> {{ studentProfile.phoneNumber || '-' }}
+                            </div>
+                        </div>
+                    </div>
+                    <v-chip color="success" outlined class="font-weight-bold mt-2 mt-sm-0">
+                        <v-icon left small>mdi-wallet</v-icon> ຍອດເງິນປັດຈຸບັນ: {{ formatCurrency(statement.closingBalance) }} LAK
+                    </v-chip>
+                </div>
+            </v-card>
+
             <!-- Account Info Header (Visible in print) -->
             <v-card class="mb-6" color="primary lighten-5" flat rounded="lg">
                 <v-card-text>
@@ -206,6 +259,9 @@ export default {
     data() {
         return {
             loading: false,
+            isScanning: false,
+            scanInput: '',
+            studentProfile: null,
             error: null,
             bankAccounts: [],
             selectedBankAccountId: null,
@@ -234,10 +290,68 @@ export default {
             return `${d1} - ${d2}`;
         }
     },
-    async mounted() {
-        await this.loadBankAccounts();
+    mounted() {
+        this.loadBankAccounts();
+
+        // Listen for native Electron hardware NFC scans
+        if (typeof window !== 'undefined' && window.posApi && window.posApi.onNfcScan) {
+            console.log('Registering NFC listener on Account Statement Screen');
+            window.posApi.onNfcScan((uid) => {
+                console.log('Hardware NFC Scan received on Statement Screen:', uid);
+                this.scanInput = uid;
+                this.identifyByCard(uid);
+            });
+        }
+
+        // Auto focus for keyboard wedge readers
+        setTimeout(() => {
+            this.focusScanner();
+        }, 500);
+    },
+    beforeDestroy() {
+        if (typeof window !== 'undefined' && window.posApi && window.posApi.removeNfcListener) {
+            window.posApi.removeNfcListener();
+        }
     },
     methods: {
+        focusScanner() {
+            const el = document.getElementById('nfc-statement-scanner');
+            if (el) el.focus();
+        },
+        async identifyByCard(uid) {
+            const cleanUid = (uid || this.scanInput || '').trim();
+            if (!cleanUid) return;
+
+            this.isScanning = true;
+            this.error = null;
+
+            try {
+                console.log('Identifying student by NFC Card:', cleanUid);
+                const res = await this.$axios.get(`/api/student/identify/${cleanUid}`);
+                let studentData = res.data;
+                if (Array.isArray(studentData) && studentData.length > 0) {
+                    studentData = studentData[0];
+                }
+
+                if (!studentData || !studentData.bankAccount) {
+                    this.$toast.error('ບໍ່ພົບກະເປົາເງິນຂອງນັກຮຽນ (Student wallet not found)');
+                    return;
+                }
+
+                this.studentProfile = studentData;
+                this.selectedBankAccountId = studentData.bankAccount.id;
+                this.$toast.success(`ພົບຂໍ້ມູນ: ${studentData.firstName} ${studentData.lastName}`);
+                await this.fetchStatement();
+            } catch (err) {
+                console.error('Failed to identify student with card:', err);
+                this.$toast.error('ເຂົ້າລະຫັດບັດບໍ່ສຳເລັດ (Card not registered in system)');
+                this.studentProfile = null;
+            } finally {
+                this.isScanning = false;
+                this.scanInput = '';
+                this.focusScanner();
+            }
+        },
         formatCurrency(value) {
             if (value === null || value === undefined) return '0';
             return new Intl.NumberFormat('en-US').format(value);
@@ -262,6 +376,7 @@ export default {
         },
         resetFilters() {
             this.selectedBankAccountId = null;
+            this.studentProfile = null;
             this.dateRange = [];
             this.statement = null;
             this.error = null;
