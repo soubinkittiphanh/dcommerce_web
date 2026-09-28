@@ -152,7 +152,7 @@ const getBaseUrl = () => {
             return window.location.origin.replace(/\/$/, '')
         }
     }
-    return 'http://localhost:8888'
+    return 'http://150.95.31.23:8011'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -5969,10 +5969,10 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             <!-- Top Header: Company Logo & Category Badge -->
             <div class="tag-header">
                 <div class="tag-logo-box">
-                    ${logoUrl 
-                        ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />` 
-                        : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
-                    }
+                    ${logoUrl
+            ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />`
+            : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
+        }
                 </div>
                 <div class="tag-badge">
                     ${escapeHtmlTag(p.categoryDesc)}
