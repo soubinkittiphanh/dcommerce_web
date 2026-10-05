@@ -58,9 +58,14 @@ export const mutations = {
                     return item.id === product.id && 
                            item.colorId === product.colorId && 
                            item.sizeId === product.sizeId &&
+                           (product.unitId ? item.unitId === product.unitId : true) &&
                            item.isGift === product.isGift
                 }
-                return item.id === product.id && !item.colorId && !item.sizeId && item.isGift === product.isGift
+                return item.id === product.id && 
+                       (product.unitId ? item.unitId === product.unitId : true) &&
+                       !item.colorId && 
+                       !item.sizeId && 
+                       item.isGift === product.isGift
             })
 
             const addQty = product.qty || 1

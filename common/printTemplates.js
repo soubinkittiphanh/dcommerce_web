@@ -152,7 +152,7 @@ const getBaseUrl = () => {
             return window.location.origin.replace(/\/$/, '')
         }
     }
-    return 'http://150.95.31.23:8011'
+    return 'http://150.95.31.23:8014'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -238,6 +238,27 @@ const resolveLocationName = (header) => {
         if (str && str !== 'null' && str !== 'undefined') return str
     }
     return '-'
+}
+
+// Helper to resolve payment method name safely (multi-payment aware)
+const resolvePaymentName = (header) => {
+    if (!header) return '-'
+    if (header.payments && Array.isArray(header.payments) && header.payments.length > 0) {
+        if (header.payments.length > 1) {
+            const names = header.payments
+                .map(p => p.paymentMethod?.payment_name || p.paymentMethod?.payment_code || p.payment_code || p.code || '')
+                .filter(Boolean)
+            if (names.length > 0) {
+                return `ຫຼາຍວິທີ (${names.join(' + ')})`
+            }
+            return `ຫຼາຍວິທີ (${header.payments.length})`
+        } else {
+            const single = header.payments[0]
+            const name = single.paymentMethod?.payment_name || single.paymentMethod?.payment_code || single.payment_code || single.paymentName || single.code
+            if (name) return name
+        }
+    }
+    return header.payment?.payment_name || header.payment?.payment_code || '-'
 }
 
 // ==========================================
@@ -548,7 +569,7 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
                 <div><span class="field-label">ເລກບິນ:</span> <b>RCP-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
                 <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
-                <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
+                <div><span class="field-label">ການຊຳລະ:</span> ${resolvePaymentName(header)}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
         </div>
@@ -948,7 +969,7 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
                 <div><span class="field-label">ເລກໃບແຈ້ງໜີ້:</span> <b>INV-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
                 <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
-                <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
+                <div><span class="field-label">ການຊຳລະ:</span> ${resolvePaymentName(header)}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
         </div>
@@ -1345,7 +1366,7 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
                 <div><span class="field-label">ເລກໃບຮັບເງິນ:</span> <b>REC-${header.id}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b></div>
                 <div><span class="field-label">ວັນທີ:</span> ${formatDate(header.bookingDate)}</div>
                 <div><span class="field-label">ສະຖານທີ່:</span> <b>${resolveLocationName(header)}</b></div>
-                <div><span class="field-label">ການຊຳລະ:</span> ${header.payment?.payment_name || header.payment?.payment_code || '-'}</div>
+                <div><span class="field-label">ການຊຳລະ:</span> ${resolvePaymentName(header)}</div>
                 <div><span class="field-label">ພະນັກງານ:</span> ${header.user?.cus_name || '-'}</div>
             </div>
         </div>
@@ -5936,6 +5957,29 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
     const logoUrl = getCompanyLogoUrl(companyData);
     const companyName = companyData.name || companyData.company_name || companyData.companyName || 'D-COMMERCE';
 
+    // Dynamic Primary Color (from companyData or default app primary #01532B)
+    const primaryColor = companyData.primaryColor || companyData.primary_color || companyData.themeColor || companyData.color || '#01532B';
+
+    const hexToRgba = (hex, alpha = 1) => {
+        if (!hex) return `rgba(1, 83, 43, ${alpha})`;
+        let c = String(hex).replace('#', '').trim();
+        if (c.length === 3) {
+            c = c.split('').map((x) => x + x).join('');
+        }
+        if (c.length === 6) {
+            const num = parseInt(c, 16);
+            const r = (num >> 16) & 255;
+            const g = (num >> 8) & 255;
+            const b = num & 255;
+            return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        }
+        return hex;
+    };
+
+    const primaryLightBg = hexToRgba(primaryColor, 0.08);
+    const primaryBadgeBg = hexToRgba(primaryColor, 0.12);
+    const primaryBorder = hexToRgba(primaryColor, 0.35);
+
     // Normalize input
     const isSingleProduct = !Array.isArray(productOrList);
     const rawList = Array.isArray(productOrList) ? productOrList : [productOrList];
@@ -6119,9 +6163,9 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 border-color: #64748b;
             }
             .preview-toolbar .btn-chip-active {
-                background: #0284c7 !important;
+                background: ${primaryColor} !important;
                 color: #ffffff !important;
-                border-color: #38bdf8 !important;
+                border-color: ${primaryColor} !important;
             }
             .preview-toolbar .qty-stepper {
                 display: flex;
@@ -6150,13 +6194,13 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 text-align: center;
                 background: transparent;
                 border: none;
-                color: #38bdf8;
+                color: ${primaryColor};
                 font-size: 13px;
                 font-weight: 800;
                 outline: none;
             }
             .preview-toolbar .btn-print {
-                background: #0284c7;
+                background: ${primaryColor};
                 color: #fff;
                 border: none;
                 padding: 8px 18px;
@@ -6168,10 +6212,10 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 align-items: center;
                 gap: 6px;
                 transition: background 0.2s;
-                box-shadow: 0 2px 6px rgba(2, 132, 199, 0.4);
+                box-shadow: 0 2px 6px ${hexToRgba(primaryColor, 0.4)};
             }
             .preview-toolbar .btn-print:hover {
-                background: #0369a1;
+                filter: brightness(0.9);
             }
             .preview-toolbar .btn-close {
                 background: #475569;
@@ -6221,7 +6265,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 align-items: center;
                 justify-content: space-between;
                 height: 6mm;
-                border-bottom: 1px solid #e2e8f0;
+                border-bottom: 1px solid ${primaryBorder};
                 padding-bottom: 0.8mm;
             }
             .tag-logo-box {
@@ -6249,11 +6293,11 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             .tag-badge {
                 font-size: 7px;
                 font-weight: 700;
-                color: #475569;
-                background: #f1f5f9;
+                color: ${primaryColor};
+                background: ${primaryBadgeBg};
                 padding: 1px 4px;
                 border-radius: 3px;
-                border: 1px solid #cbd5e1;
+                border: 1px solid ${primaryBorder};
                 text-transform: uppercase;
                 white-space: nowrap;
                 max-width: 28mm;
@@ -6323,8 +6367,8 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             }
 
             .tag-price-box {
-                background: #f8fafc;
-                border: 1.5px solid #0284c7;
+                background: ${primaryLightBg};
+                border: 1.5px solid ${primaryColor};
                 border-radius: 4px;
                 padding: 1.5px 3.5px;
                 text-align: right;
@@ -6338,7 +6382,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             .tag-price-label {
                 font-size: 6.5px;
                 font-weight: 800;
-                color: #0369a1;
+                color: ${primaryColor};
                 text-transform: uppercase;
                 letter-spacing: 0.2px;
                 line-height: 1;
@@ -6355,7 +6399,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             .tag-price-currency {
                 font-size: 8px;
                 font-weight: 800;
-                color: #0284c7;
+                color: ${primaryColor};
             }
 
             /* Print Media Query */

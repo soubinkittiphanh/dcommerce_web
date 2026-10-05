@@ -23,6 +23,120 @@
         @close-dialog="pricingDialog = false" :record-id="productPricingSelected" />
     </v-dialog>
 
+    <!-- Multi-Payment Details Dialog -->
+    <v-dialog v-model="multiPaymentDialog" max-width="580" persistent>
+      <v-card class="rounded-xl overflow-hidden">
+        <v-card-title class="teal darken-1 white--text py-3 px-4 d-flex justify-space-between align-center">
+          <div class="d-flex align-center">
+            <v-icon color="white" class="mr-2">mdi-credit-card-multiple</v-icon>
+            <span class="subtitle-1 font-weight-bold">ລາຍລະອຽດການຊຳລະ (Payment Split Details)</span>
+          </div>
+          <v-btn icon dark small @click="multiPaymentDialog = false">
+            <v-icon small>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4">
+          <!-- Total Amount Overview -->
+          <v-alert dense text color="teal" class="mb-3 rounded-lg">
+            <div class="d-flex justify-space-between align-center">
+              <span class="caption grey--text text--darken-2">ຍອດລວມທັງໝົດ (Grand Total):</span>
+              <span class="font-weight-black teal--text text--darken-3 subtitle-1">
+                {{ formatCurrency(grandTotal) }}
+              </span>
+            </div>
+          </v-alert>
+
+          <!-- Split Payment Cards -->
+          <div class="subtitle-2 font-weight-bold grey--text text--darken-2 mb-2 d-flex align-center">
+            <v-icon x-small color="teal" class="mr-1">mdi-format-list-bulleted</v-icon>
+            ລາຍການຊຳລະແຕ່ລະວິທີ ({{ paymentDetailsList.length }} ວິທີ)
+          </div>
+
+          <v-row dense>
+            <v-col v-for="(pay, idx) in paymentDetailsList" :key="idx" cols="12">
+              <v-card outlined class="pa-3 rounded-lg mb-2 grey lighten-5">
+                <div class="d-flex justify-space-between align-center mb-1">
+                  <div class="d-flex align-center">
+                    <v-chip small :color="getPaymentMethodColor(pay.code)" dark class="font-weight-bold mr-2">
+                      <v-icon left x-small>{{ getPaymentMethodIcon(pay.code) }}</v-icon>
+                      {{ pay.code }}
+                    </v-chip>
+                    <span class="font-weight-medium body-2">{{ pay.name }}</span>
+                  </div>
+                  <div class="text-right">
+                    <span class="font-weight-black subtitle-2 primary--text">
+                      {{ numberWithCommas(pay.amount) }} {{ pay.currencyCode }}
+                    </span>
+                  </div>
+                </div>
+
+                <v-progress-linear
+                  :value="pay.percentage"
+                  :color="getPaymentMethodColor(pay.code)"
+                  height="6"
+                  rounded
+                  class="mt-1 mb-1"
+                ></v-progress-linear>
+
+                <div class="d-flex justify-space-between align-center caption grey--text">
+                  <span v-if="pay.exchangeRate && pay.exchangeRate !== 1">Rate: {{ pay.exchangeRate }}</span>
+                  <span v-else>ອັດຕາສ່ວນ: {{ pay.percentage.toFixed(1) }}%</span>
+                  <span v-if="pay.createdAt">{{ pay.createdAt.split('T')[0] }} {{ (pay.createdAt.split('T')[1] || '').split('.')[0] }}</span>
+                </div>
+              </v-card>
+            </v-col>
+          </v-row>
+
+          <!-- Action to switch to single payment -->
+          <div v-if="isUpdate && updateAllow" class="mt-3 pt-3" style="border-top: 1px solid #e0e0e0;">
+            <div v-if="!showSinglePaymentOverride">
+              <v-btn text small color="primary" @click="showSinglePaymentOverride = true">
+                <v-icon left small>mdi-swap-horizontal</v-icon>
+                ປ່ຽນເປັນຊຳລະແບບດຽວ (Switch to Single Payment)
+              </v-btn>
+            </div>
+            <div v-else class="pa-3 rounded-lg blue lighten-5">
+              <div class="caption font-weight-bold primary--text mb-2">
+                ເລືອກວິທີຊຳລະດຽວ (Select Single Payment Method to Override):
+              </div>
+              <v-autocomplete
+                v-model="overrideSinglePaymentId"
+                :items="paymentList"
+                item-text="payment_code"
+                item-value="id"
+                label="Payment Method"
+                outlined
+                dense
+                hide-details
+                class="mb-2 bg-white"
+              >
+                <template v-slot:selection="{ item }">
+                  <div class="d-flex align-center">
+                    <v-icon x-small left :color="getPaymentMethodColor(item.payment_code)">{{ getPaymentMethodIcon(item.payment_code) }}</v-icon>
+                    <span class="font-weight-bold">{{ item.payment_code }}</span>
+                    <span class="caption grey--text ml-1" v-if="item.payment_name">({{ item.payment_name }})</span>
+                  </div>
+                </template>
+              </v-autocomplete>
+              <div class="d-flex justify-end gap-2">
+                <v-btn text x-small @click="showSinglePaymentOverride = false">ຍົກເລີກ</v-btn>
+                <v-btn small color="primary" @click="applySinglePaymentOverride" :disabled="!overrideSinglePaymentId">
+                  ຢືນຢັນປ່ຽນວິທີ
+                </v-btn>
+              </div>
+            </div>
+          </div>
+        </v-card-text>
+
+        <v-card-actions class="pa-3 bg-grey lighten-4 justify-end">
+          <v-btn color="grey darken-1" text @click="multiPaymentDialog = false">
+            ປິດ (Close)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-snackbar v-model="errorSnackbar" :timeout="10000" color="error" multi-line top right>
       {{ validateErrorMessage }}
       <template v-slot:action="{ attrs }">
@@ -95,10 +209,57 @@
               <v-col cols="12" sm="6" md="3">
                 <v-text-field v-model="transaction.bookingDate" type="date" label="Transaction Date" outlined dense
                   hide-details class="mb-2" required :rules="[rules.required]" />
-                <v-autocomplete v-model="transaction.paymentId" :items="paymentList" item-text="payment_code"
-                  item-value="id" label="Payment Method" outlined dense hide-details required :rules="[rules.required]">
+                <!-- Multi-Payment Indicator / Modal Opener -->
+                <div
+                  v-if="isMultiPayment"
+                  class="multi-payment-field pa-1 px-3 rounded-lg d-flex align-center justify-space-between"
+                  style="border: 1.5px solid #00897B; background-color: #E0F2F1; min-height: 40px; cursor: pointer;"
+                  @click="multiPaymentDialog = true"
+                >
+                  <div class="d-flex align-center overflow-hidden mr-1">
+                    <v-icon small color="teal darken-2" class="mr-1">mdi-credit-card-multiple</v-icon>
+                    <div class="d-flex flex-column text-truncate">
+                      <span class="caption font-weight-bold teal--text text--darken-4 text-truncate" style="line-height: 1.2;">
+                        {{ multiPaymentSummaryText }}
+                      </span>
+                      <span class="grey--text text--darken-2" style="font-size: 10px; line-height: 1;">
+                        ຫຼາຍວິທີ ({{ paymentDetailsList.length }} ວິທີ) - ຄລິກເບິ່ງ
+                      </span>
+                    </div>
+                  </div>
+                  <v-btn icon x-small color="teal darken-2" @click.stop="multiPaymentDialog = true">
+                    <v-icon small>mdi-eye-outline</v-icon>
+                  </v-btn>
+                </div>
+                <!-- Single Payment Dropdown -->
+                <v-autocomplete
+                  v-else
+                  v-model="transaction.paymentId"
+                  :items="paymentList"
+                  item-text="payment_code"
+                  item-value="id"
+                  label="Payment Method"
+                  outlined
+                  dense
+                  hide-details
+                  required
+                  :rules="[rules.required]"
+                >
                   <template v-slot:selection="{ item }">
-                    <span class=" font-weight-bold">{{ item.payment_code }}</span>
+                    <div class="d-flex align-center">
+                      <v-icon x-small left :color="getPaymentMethodColor(item.payment_code)">{{ getPaymentMethodIcon(item.payment_code) }}</v-icon>
+                      <span class="font-weight-bold">{{ item.payment_code }}</span>
+                      <span class="caption grey--text ml-1" v-if="item.payment_name">({{ item.payment_name }})</span>
+                    </div>
+                  </template>
+                  <template v-slot:item="{ item }">
+                    <div class="d-flex align-center py-1">
+                      <v-chip x-small :color="getPaymentMethodColor(item.payment_code)" dark class="mr-2 font-weight-bold">
+                        <v-icon left x-small>{{ getPaymentMethodIcon(item.payment_code) }}</v-icon>
+                        {{ item.payment_code }}
+                      </v-chip>
+                      <span>{{ item.payment_name || item.payment_code }}</span>
+                    </div>
                   </template>
                 </v-autocomplete>
               </v-col>
@@ -307,6 +468,31 @@
                       <span class="grey--text text--darken-1">{{ curr.code }} Total:</span>
                       <span class="font-weight-medium">{{formatCurrency(curr.amount, currencyList.find(c => c.code ===
                         curr.code)?.id)}}</span>
+                    </div>
+                  </div>
+
+                  <!-- Multi-Payment Breakdown -->
+                  <div v-if="isMultiPayment" class="breakdown-container mb-4" style="border-left-color: #00897B; background-color: #f0fdfa;">
+                    <div class="d-flex justify-space-between align-center mb-1">
+                      <div class="teal--text text--darken-3 font-weight-bold caption">
+                        <v-icon x-small left color="teal darken-2">mdi-credit-card-multiple</v-icon>
+                        ວິທີການຊຳລະ (Payment Split - {{ paymentDetailsList.length }} ວິທີ)
+                      </div>
+                      <v-btn text x-small color="teal darken-2" class="pa-0" @click="multiPaymentDialog = true">
+                        ລາຍລະອຽດ
+                      </v-btn>
+                    </div>
+                    <div v-for="(pay, pIdx) in paymentDetailsList" :key="pIdx" class="breakdown-item d-flex justify-space-between py-1">
+                      <div class="d-flex align-center">
+                        <v-chip x-small :color="getPaymentMethodColor(pay.code)" dark class="mr-1 font-weight-bold">
+                          <v-icon left x-small>{{ getPaymentMethodIcon(pay.code) }}</v-icon>
+                          {{ pay.code }}
+                        </v-chip>
+                        <span class="caption grey--text text--darken-2">{{ pay.name }}</span>
+                      </div>
+                      <span class="font-weight-bold caption teal--text text--darken-3">
+                        {{ numberWithCommas(pay.amount) }} {{ pay.currencyCode }}
+                      </span>
                     </div>
                   </div>
 
@@ -564,6 +750,42 @@ export default {
         },
       }
     },
+
+    isMultiPayment() {
+      if (this.transaction?.payments && Array.isArray(this.transaction.payments)) {
+        return this.transaction.payments.length > 1
+      }
+      return false
+    },
+
+    paymentDetailsList() {
+      if (!this.transaction?.payments || !Array.isArray(this.transaction.payments)) {
+        return []
+      }
+      const total = this.grandTotal || 1
+      return this.transaction.payments.map((p) => {
+        const payId = p.paymentId || p.payment_id || p.id
+        const payObj = this.paymentList.find((x) => x.id === payId) || {}
+        const currObj = this.currencyList.find((c) => c.id === (p.currencyId || p.currency_id)) || {}
+        const amount = parseFloat(p.amount || p.total || 0)
+        const percentage = total > 0 ? (amount / total) * 100 : 0
+        return {
+          id: payId,
+          code: payObj.payment_code || p.payment_code || p.code || 'SPLIT',
+          name: payObj.payment_name || p.payment_name || '',
+          amount: amount,
+          currencyCode: currObj.code || p.currency_code || this.selectedCurrencyCode,
+          exchangeRate: p.exchangeRate || p.exchange_rate || 1,
+          percentage: Math.min(100, Math.max(0, percentage)),
+          createdAt: p.createdAt || p.created_at || '',
+        }
+      })
+    },
+
+    multiPaymentSummaryText() {
+      if (!this.paymentDetailsList.length) return 'Multi-Payment'
+      return this.paymentDetailsList.map((p) => p.code).join(' + ')
+    },
   },
 
   data() {
@@ -579,6 +801,9 @@ export default {
       headerError: false,
       validateErrorMessage: '',
       errorLineNumber: null,
+      multiPaymentDialog: false,
+      showSinglePaymentOverride: false,
+      overrideSinglePaymentId: null,
       transaction: {
         isActive: true,
         exchangeRate: 1,
@@ -905,7 +1130,9 @@ export default {
       const errors = []
 
       if (!this.transaction.currencyId) errors.push('Currency is required')
-      if (!this.transaction.paymentId) errors.push('Payment method is required')
+      if (!this.transaction.paymentId && !this.isMultiPayment) {
+        errors.push('Payment method is required')
+      }
       if (!this.transaction.clientId) errors.push('Customer is required')
       if (!this.transaction.lines || this.transaction.lines.length === 0) {
         errors.push('At least one line item is required')
@@ -952,6 +1179,10 @@ export default {
           `api/${this.apiLine}/find/${this.headerId}`
         )
         this.transaction = response.data
+        // Auto-resolve paymentId if deprecated on header but present in payments array
+        if (!this.transaction.paymentId && this.transaction.payments && this.transaction.payments.length === 1) {
+          this.transaction.paymentId = this.transaction.payments[0].paymentId || this.transaction.payments[0].payment_id
+        }
       } catch (error) {
         this.showError('Failed to load transaction', error)
         throw error
@@ -1015,7 +1246,8 @@ export default {
       this.transaction.total = this.grandTotal
       this.transaction.discount = this.headerDiscount
       this.transaction.locationId = this.currentTerminal.locationId
-      if (this.transaction.paymentId) {
+      // Only overwrite payments if not multi-payment and paymentId is set
+      if (!this.isMultiPayment && this.transaction.paymentId) {
         if (this.transaction.payments && Array.isArray(this.transaction.payments) && this.transaction.payments.length > 0) {
           this.transaction.payments = [{
             ...this.transaction.payments[0],
@@ -1133,6 +1365,92 @@ export default {
       this.validateErrorMessage = message
       this.errorSnackbar = true
       if (error) console.error('Error details:', error)
+    },
+
+    applySinglePaymentOverride() {
+      if (!this.overrideSinglePaymentId) return
+      this.transaction.paymentId = this.overrideSinglePaymentId
+      this.transaction.payments = [
+        {
+          paymentId: this.overrideSinglePaymentId,
+          amount: this.grandTotal,
+          currencyId: this.transaction.currencyId,
+          exchangeRate: this.transaction.exchangeRate || 1,
+        },
+      ]
+      this.showSinglePaymentOverride = false
+      this.multiPaymentDialog = false
+      swalSuccess(this.$swal, 'Updated', 'Payment method switched to single payment')
+    },
+
+    getPaymentMethodColor(paymentCode) {
+      if (!paymentCode) return 'grey'
+      const colorMap = {
+        CASH: 'green',
+        QR: 'purple',
+        TRANSFER: 'blue',
+        TRANSFER_BCEL: 'blue',
+        BCEL: 'blue',
+        COD: 'orange',
+        CREDIT: 'red',
+        CARD: 'indigo',
+        BANK: 'teal',
+        MOBILE: 'pink',
+        MULTI: 'teal darken-1',
+      }
+
+      if (colorMap[paymentCode]) {
+        return colorMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH') || code.includes('MONEY')) return 'green'
+      if (code.includes('QR') || code.includes('SCAN')) return 'purple'
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'orange'
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink'
+
+      return 'primary'
+    },
+
+    getPaymentMethodIcon(paymentCode) {
+      if (!paymentCode) return 'mdi-help-circle'
+      const iconMap = {
+        CASH: 'mdi-cash',
+        QR: 'mdi-qrcode',
+        TRANSFER: 'mdi-bank-transfer',
+        TRANSFER_BCEL: 'mdi-bank-transfer',
+        BCEL: 'mdi-bank',
+        COD: 'mdi-truck-delivery',
+        CREDIT: 'mdi-credit-card-outline',
+        CARD: 'mdi-credit-card',
+        BANK: 'mdi-bank',
+        MOBILE: 'mdi-cellphone',
+        WALLET: 'mdi-wallet',
+        MULTI: 'mdi-credit-card-multiple',
+      }
+
+      if (iconMap[paymentCode]) {
+        return iconMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash'
+      if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode'
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery'
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone'
+      if (code.includes('WALLET')) return 'mdi-wallet'
+      if (code.includes('MULTI')) return 'mdi-credit-card-multiple'
+
+      return 'mdi-cash-multiple'
+    },
+
+    numberWithCommas(val) {
+      if (val === null || val === undefined || isNaN(val)) return '0'
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
     },
   },
 }

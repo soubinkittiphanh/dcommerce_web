@@ -47,7 +47,7 @@
                 @click="selectUnit(pu)"
               >
                 <v-list-item-title>
-                  {{ pu.unit?.name || pu.unit?.symbol || 'pcs' }} - {{ formatNumber(pu.price) }}
+                  {{ getUnitDisplayName(pu) }} - {{ formatNumber(pu.price) }}
                 </v-list-item-title>
               </v-list-item>
             </v-list>
@@ -251,6 +251,12 @@ export default {
       const baseUnit = this.findAllUnit.find(u => u.id === (item.baseUnitId || item.stockUnitId))
       return baseUnit ? (baseUnit.name || baseUnit.symbol) : 'pcs'
     },
+    getUnitDisplayName(pu) {
+      if (!pu) return 'pcs'
+      const unitModel = Array.isArray(this.findAllUnit) ? this.findAllUnit.find(u => u.id === (pu.unitId || pu.unit?.id)) : null
+      const targetUnit = pu.unit || unitModel
+      return targetUnit?.name || targetUnit?.symbol || 'pcs'
+    },
     selectUnit(pu) {
       const stockUnit = this.findAllUnit.find(u => u.id === (this.item.stockUnitId || this.item.baseUnitId))
       const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
@@ -260,7 +266,7 @@ export default {
       
       if (!pu) {
         // Switch back to base unit (rate relative to stock unit)
-        const baseSymbol = baseUnit ? baseUnit.symbol : (this.item.baseUnit?.symbol || this.item.stockUnit?.symbol || 'pcs')
+        const baseSymbol = baseUnit ? (baseUnit.symbol || baseUnit.name) : (this.item.baseUnit?.symbol || this.item.stockUnit?.symbol || 'pcs')
         const baseId = this.item.baseUnitId || this.item.stockUnitId
         const relRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
         this.$emit('change-unit', {
@@ -272,13 +278,18 @@ export default {
         })
       } else {
         // Switch to mapped unit (rate relative to stock unit)
-        const targetRate = parseFloat(pu.unit?.conversionRate || 1.0)
+        const unitModel = Array.isArray(this.findAllUnit) ? this.findAllUnit.find(u => u.id === (pu.unitId || pu.unit?.id)) : null
+        const targetUnit = pu.unit || unitModel
+        const targetRate = parseFloat(targetUnit?.conversionRate || 1.0)
         const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
+        const unitId = pu.unitId || targetUnit?.id
+        const unitSymbol = targetUnit?.symbol || targetUnit?.name || 'pcs'
+
         this.$emit('change-unit', {
           lineUUID: this.item.lineUUID,
-          unitId: pu.unitId,
+          unitId: unitId,
           unitRate: relRate,
-          unitSymbol: pu.unit?.symbol || 'pcs',
+          unitSymbol: unitSymbol,
           localPrice: Number(pu.price) || this.item.pro_price
         })
       }

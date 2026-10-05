@@ -237,10 +237,18 @@
 
         <!-- NEW: Enhanced Payment Method Display -->
         <template v-slot:[`item.payment.payment_code`]="{ item }">
-          <v-chip :color="getPaymentMethodColor(item.payment?.payment_code)" small dark>
-            <v-icon left small>{{ getPaymentMethodIcon(item.payment?.payment_code) }}</v-icon>
-            {{ item.payment?.payment_name || 'N/A' }}
-          </v-chip>
+          <div v-if="isMultiPayment(item)">
+            <v-chip color="teal darken-1" small dark class="font-weight-medium">
+              <v-icon left small>mdi-credit-card-multiple</v-icon>
+              ຫຼາຍວິທີ ({{ getPaymentMethodsCount(item) }})
+            </v-chip>
+          </div>
+          <div v-else>
+            <v-chip :color="getPaymentMethodColor(getPaymentCode(item))" small dark>
+              <v-icon left small>{{ getPaymentMethodIcon(getPaymentCode(item)) }}</v-icon>
+              {{ getPaymentName(item) }}
+            </v-chip>
+          </div>
         </template>
 
         <template v-slot:[`item.discount`]="{ item }">
@@ -685,69 +693,132 @@ export default {
       return isOverdue ? 'error--text' : 'warning--text'
     },
 
+    // Payment Resolution & Helper Methods
+    isMultiPayment(item) {
+      return item && item.payments && Array.isArray(item.payments) && item.payments.length > 1
+    },
+
+    getPaymentMethodsCount(item) {
+      if (!item) return 0
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        return item.payments.length
+      }
+      return (item.payment || item.paymentId) ? 1 : 0
+    },
+
+    getPaymentCode(item) {
+      if (!item) return 'N/A'
+      if (this.isMultiPayment(item)) {
+        return 'MULTI'
+      }
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        const p0 = item.payments[0]
+        const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+        const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+        if (pMethod?.payment_code) return pMethod.payment_code
+        if (p0.payment_code) return p0.payment_code
+      }
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
+    },
+
+    getPaymentName(item) {
+      if (!item) return 'N/A'
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        if (item.payments.length > 1) {
+          const names = item.payments
+            .map((p) => {
+              const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+              const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+              return pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code
+            })
+            .filter(Boolean)
+          return names.length > 0 ? names.join(' + ') : 'ຫຼາຍວິທີ'
+        } else {
+          const p0 = item.payments[0]
+          const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+          const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+          if (pMethod?.payment_name) return pMethod.payment_name
+          if (p0.payment_name) return p0.payment_name
+          if (pMethod?.payment_code) return pMethod.payment_code
+          if (p0.payment_code) return p0.payment_code
+        }
+      }
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_name) return item.payment.payment_name
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_name) return found.payment_name
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
+    },
+
     // NEW: Enhanced Payment Method Methods
     getPaymentMethodColor(paymentCode) {
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
-
-      if (paymentMethod) {
-        const colorMap = {
-          'CASH': 'green',
-          'QR': 'purple',
-          'TRANSFER': 'blue',
-          'TRANSFER_BCEL': 'blue',
-          'BCEL': 'blue',
-          'COD': 'orange',
-          'CREDIT': 'red',
-          'CARD': 'indigo',
-        }
-
-        if (colorMap[paymentCode]) {
-          return colorMap[paymentCode]
-        }
-
-        const code = paymentCode.toUpperCase()
-        if (code.includes('CASH')) return 'green'
-        if (code.includes('QR')) return 'purple'
-        if (code.includes('TRANSFER') || code.includes('BANK')) return 'blue'
-        if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
-        if (code.includes('COD')) return 'orange'
-
-        return 'primary'
+      if (!paymentCode) return 'grey'
+      const colorMap = {
+        'CASH': 'green',
+        'QR': 'purple',
+        'TRANSFER': 'blue',
+        'TRANSFER_BCEL': 'blue',
+        'BCEL': 'blue',
+        'COD': 'orange',
+        'CREDIT': 'red',
+        'CARD': 'indigo',
+        'MULTI': 'teal darken-1',
       }
 
-      return 'grey'
+      if (colorMap[paymentCode]) {
+        return colorMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH')) return 'green'
+      if (code.includes('QR')) return 'purple'
+      if (code.includes('TRANSFER') || code.includes('BANK')) return 'blue'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
+      if (code.includes('COD')) return 'orange'
+
+      return 'primary'
     },
 
     getPaymentMethodIcon(paymentCode) {
-      const paymentMethod = this.findAllPayment.find(p => p.payment_code === paymentCode)
-
-      if (paymentMethod) {
-        const iconMap = {
-          'CASH': 'mdi-cash',
-          'QR': 'mdi-qrcode',
-          'TRANSFER': 'mdi-bank-transfer',
-          'TRANSFER_BCEL': 'mdi-bank-transfer',
-          'BCEL': 'mdi-bank',
-          'COD': 'mdi-truck-delivery',
-          'CREDIT': 'mdi-credit-card-outline',
-          'CARD': 'mdi-credit-card',
-        }
-
-        if (iconMap[paymentCode]) {
-          return iconMap[paymentCode]
-        }
-
-        const code = paymentCode.toUpperCase()
-        if (code.includes('CASH')) return 'mdi-cash'
-        if (code.includes('QR')) return 'mdi-qrcode'
-        if (code.includes('TRANSFER') || code.includes('BANK')) return 'mdi-bank-transfer'
-        if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
-        if (code.includes('COD')) return 'mdi-truck-delivery'
-
-        return 'mdi-cash-multiple'
+      if (!paymentCode) return 'mdi-help-circle'
+      const iconMap = {
+        'CASH': 'mdi-cash',
+        'QR': 'mdi-qrcode',
+        'TRANSFER': 'mdi-bank-transfer',
+        'TRANSFER_BCEL': 'mdi-bank-transfer',
+        'BCEL': 'mdi-bank',
+        'COD': 'mdi-truck-delivery',
+        'CREDIT': 'mdi-credit-card-outline',
+        'CARD': 'mdi-credit-card',
+        'MULTI': 'mdi-credit-card-multiple',
       }
 
-      return 'mdi-help-circle'
+      if (iconMap[paymentCode]) {
+        return iconMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH')) return 'mdi-cash'
+      if (code.includes('QR')) return 'mdi-qrcode'
+      if (code.includes('TRANSFER') || code.includes('BANK')) return 'mdi-bank-transfer'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
+      if (code.includes('COD')) return 'mdi-truck-delivery'
+
+      return 'mdi-cash-multiple'
     },
 
     // Enhanced Formatting Methods

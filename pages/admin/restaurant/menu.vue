@@ -777,7 +777,11 @@ export default {
           swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າສຳລັບພິມ')
           return
         }
-        const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        const companyBase = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+        const companyData = {
+          ...companyBase,
+          primaryColor: this.$store?.state?.theme?.primary_color || '#01532B',
+        }
         const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
         const currencyStr = defaultCcy ? defaultCcy.symbol || defaultCcy.code : 'LAK'
 

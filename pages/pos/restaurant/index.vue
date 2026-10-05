@@ -244,8 +244,24 @@ export default {
         }
     },
     mounted() {
-        window.addEventListener('keydown', this.handleKeyDown);
+        if (typeof window !== 'undefined') {
+            if (!window.__posGlobalScannerDispatcher) {
+                window.__posGlobalScannerDispatcher = (event) => {
+                    if (
+                        window.__posActiveScannerTarget &&
+                        !window.__posActiveScannerTarget._isDestroyed &&
+                        typeof window.__posActiveScannerTarget.handleKeyDown === 'function'
+                    ) {
+                        window.__posActiveScannerTarget.handleKeyDown(event);
+                    }
+                };
+                window.addEventListener('keydown', window.__posGlobalScannerDispatcher, true);
+            }
+            window.__posActiveScannerTarget = this;
+        }
+
         if (this.$nuxt) {
+            this.$nuxt.$off('reset-pos-scanner', this.resetScannerHandler);
             this.$nuxt.$on('reset-pos-scanner', this.resetScannerHandler);
         }
 
@@ -267,14 +283,19 @@ export default {
         }
     },
     beforeDestroy() {
-        window.removeEventListener('keydown', this.handleKeyDown);
+        if (typeof window !== 'undefined') {
+            if (window.__posActiveScannerTarget === this) {
+                window.__posActiveScannerTarget = null;
+            }
+            window.removeEventListener('storage', this.handleStorageChange);
+        }
         if (this.$nuxt) {
             this.$nuxt.$off('reset-pos-scanner', this.resetScannerHandler);
         }
         if (this.pollTimer) clearInterval(this.pollTimer);
-        if (this.timer) clearTimeout(this.timer);
-        if (typeof window !== 'undefined') {
-            window.removeEventListener('storage', this.handleStorageChange);
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
         }
     },
     computed: {
@@ -517,6 +538,7 @@ export default {
             return this.findAllCurrency.find(el => el.id == currencyId);
         },
         resetScannerHandler() {
+            console.log('🔄 [SCANNER] resetScannerHandler called on Restaurant POS');
             this.barcode = '';
             this.isScanning = false;
             this.preScanTarget = null;
@@ -528,38 +550,67 @@ export default {
                 clearTimeout(this.timer);
                 this.timer = null;
             }
+            if (typeof window !== 'undefined') {
+                window.__posActiveScannerTarget = this;
+                window.__posLastGlobalBarcode = '';
+                window.__posLastGlobalScanTime = 0;
+                window.__posGlobalIsProcessing = false;
+            }
             if (document.activeElement && typeof document.activeElement.blur === 'function') {
+                console.log('🔄 [SCANNER] Blurring activeElement:', document.activeElement.tagName);
                 document.activeElement.blur();
             }
-            console.log('✅ Restaurant POS Scanner state reset successfully');
+            console.log('✅ [SCANNER] Restaurant POS Scanner state reset successfully (Active target refreshed)');
         },
 
         async findProductFromBarcode(barcode) {
             const cleanedBarcode = (barcode || '').trim().toLowerCase();
-            if (!cleanedBarcode) return;
-
-            const now = Date.now();
-            // Prevent rapid duplicate scans of the same barcode (within 600ms threshold)
-            if (this.lastScannedBarcode === cleanedBarcode && (now - this.lastScannedTime) < 600) {
-                console.warn(`⚠️ Duplicate scan ignored for barcode: ${cleanedBarcode}`);
+            console.log(`\n🚀 [SCANNER:START] Restaurant findProductFromBarcode invoked with: "${cleanedBarcode}"`);
+            if (!cleanedBarcode) {
+                console.warn('⚠️ [SCANNER] Empty barcode string, ignoring');
                 return;
             }
-            if (this.isProcessingBarcode) {
-                console.warn(`⚠️ Barcode scanner busy, ignoring scan: ${cleanedBarcode}`);
+
+            const now = Date.now();
+            const lastGlobalBarcode = typeof window !== 'undefined' ? window.__posLastGlobalBarcode : '';
+            const lastGlobalTime = typeof window !== 'undefined' ? (window.__posLastGlobalScanTime || 0) : 0;
+            const isGlobalBusy = typeof window !== 'undefined' ? window.__posGlobalIsProcessing : false;
+
+            const localTimeDiff = now - this.lastScannedTime;
+            const globalTimeDiff = now - lastGlobalTime;
+            console.log(`⏱️ [SCANNER:TIMING] Local diff: ${localTimeDiff}ms (prev: "${this.lastScannedBarcode}"), Global diff: ${globalTimeDiff}ms (prev: "${lastGlobalBarcode}"), LocalBusy: ${this.isProcessingBarcode}, GlobalBusy: ${isGlobalBusy}`);
+
+            // Prevent rapid duplicate scans of the same barcode (within 1000ms threshold)
+            if (
+                (this.lastScannedBarcode === cleanedBarcode && localTimeDiff < 1000) ||
+                (lastGlobalBarcode === cleanedBarcode && globalTimeDiff < 1000)
+            ) {
+                console.warn(`🛑 [SCANNER:BLOCKED] Duplicate scan ignored for barcode: "${cleanedBarcode}" (<1000ms)`);
+                return;
+            }
+            if (this.isProcessingBarcode || isGlobalBusy) {
+                console.warn(`🛑 [SCANNER:BUSY] Barcode scanner busy, ignoring scan: "${cleanedBarcode}"`);
                 return;
             }
 
             this.isProcessingBarcode = true;
             this.lastScannedBarcode = cleanedBarcode;
             this.lastScannedTime = now;
+            if (typeof window !== 'undefined') {
+                window.__posLastGlobalBarcode = cleanedBarcode;
+                window.__posLastGlobalScanTime = now;
+                window.__posGlobalIsProcessing = true;
+            }
 
             try {
                 this.productSelectedFromBarcode = this.productList.find(el => (el.barCode || '').trim().toLowerCase() === cleanedBarcode);
                 if (this.productSelectedFromBarcode) {
+                    console.info(`🛒 [SCANNER:DISPATCH] Dispatching addProduct action for: "${this.productSelectedFromBarcode.pro_name}"`);
                     await this.addProduct(this.productSelectedFromBarcode);
+                    console.info(`✅ [SCANNER:DISPATCH_DONE] addProduct completed for: "${this.productSelectedFromBarcode.pro_name}"`);
                     this.productSelectedFromBarcode = null;
                 } else {
-                    console.warn(`❌ Product not found for barcode: ${cleanedBarcode}`);
+                    console.warn(`❌ [SCANNER:NOT_FOUND] Product not found for barcode: "${cleanedBarcode}"`);
                     if (this.$toast) {
                         this.$toast.error(`Barcode: ${cleanedBarcode} not found`, {
                             position: 'top-center',
@@ -568,10 +619,14 @@ export default {
                     }
                 }
             } catch (error) {
-                console.error('Error adding restaurant product from barcode:', error);
+                console.error('💥 [SCANNER:ERROR] Error adding restaurant product from barcode:', error);
             } finally {
                 setTimeout(() => {
                     this.isProcessingBarcode = false;
+                    if (typeof window !== 'undefined') {
+                        window.__posGlobalIsProcessing = false;
+                    }
+                    console.log(`🔓 [SCANNER:UNLOCK] Restaurant scanner unlocked and ready for next scan`);
                 }, 300);
             }
         },
@@ -624,6 +679,9 @@ export default {
                 if (this.barcode) {
                     event.preventDefault();
                     event.stopPropagation();
+                    if (event.stopImmediatePropagation) {
+                        event.stopImmediatePropagation();
+                    }
 
                     if (
                         document.activeElement &&
@@ -631,10 +689,12 @@ export default {
                         document.activeElement.tagName !== 'INPUT' &&
                         document.activeElement.tagName !== 'TEXTAREA'
                     ) {
+                        console.log('⚡ [SCANNER:ENTER] Blurring focused non-input element on Enter:', document.activeElement.tagName);
                         document.activeElement.blur();
                     }
 
                     const barcodeToScan = this.barcode;
+                    console.log(`🎯 [SCANNER:ENTER] Restaurant barcode completed via Enter: "${barcodeToScan}"`);
                     this.barcode = '';
                     this.isScanning = false;
                     this.preScanTarget = null;
@@ -652,6 +712,9 @@ export default {
             }
 
             this.timer = setTimeout(() => {
+                if (this.barcode) {
+                    console.log(`⌛ [SCANNER:TIMEOUT] Buffer cleared after 100ms timeout. Incomplete barcode was: "${this.barcode}"`);
+                }
                 this.barcode = '';
                 this.isScanning = false;
                 this.preScanTarget = null;

@@ -292,7 +292,7 @@
           <span class="font-weight-bold font-numeric green--text">{{ numberWithCommas(item.total) }}</span>
         </template>
 
-        <!-- Payment Method Column -->
+        <!-- Payment Method Column: Prioritizes salePayment table, fallbacks to saleHeader -->
         <template v-slot:[`item.paymentMethod`]="{ item }">
           <div v-if="item.header">
             <div v-if="isMultiPayment(item.header)">
@@ -485,9 +485,22 @@ export default {
     },
 
     activeOrderHeaderList() {
-      return this.orderHeaderList.filter(
-        (el) => el['isActive'] == true && el['paymentId'] != 2
-      )
+      return this.orderHeaderList.filter((el) => {
+        if (!el || el['isActive'] !== true) return false
+
+        // Priority 1: Check salePayment table for paymentId == 2 (quotation/excluded)
+        if (el.payments && Array.isArray(el.payments) && el.payments.length > 0) {
+          const paymentIds = el.payments
+            .map((p) => p.paymentId || p.paymentMethod?.id)
+            .filter((id) => id != null)
+          if (paymentIds.length > 0 && paymentIds.every((id) => id === 2)) return false
+          return true
+        }
+
+        // Priority 2: Fallback to saleHeader.paymentId
+        if (el.paymentId === 2) return false
+        return true
+      })
     },
 
     filteredOrderHeaderList() {
@@ -502,19 +515,18 @@ export default {
           case 'MULTI':
             return this.isMultiPayment(item)
           default:
-            if (this.isMultiPayment(item)) {
-              return (
-                item.payments &&
-                item.payments.some(
-                  (payment) =>
-                    payment.paymentMethod?.payment_code === this.selectedPaymentFilter ||
-                    payment.payment_code === this.selectedPaymentFilter
-                )
-              )
-            } else {
-              const paymentCode = this.getPaymentCode(item)
-              return paymentCode === this.selectedPaymentFilter
+            // Priority 1: Check salePayment table
+            if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+              return item.payments.some((p) => {
+                const paymentId = p.paymentId || p.paymentMethod?.id
+                const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+                const pCode = pMethod?.payment_code || p.payment_code
+                return pCode === this.selectedPaymentFilter
+              })
             }
+            // Priority 2: Fallback to saleHeader
+            const paymentCode = this.getPaymentCode(item)
+            return paymentCode === this.selectedPaymentFilter
         }
       })
     },
@@ -571,36 +583,39 @@ export default {
 
         grandTotalLocal += headerNetLocal
 
-        // Build list of payments for this header
+        // Build list of payments for this header:
+        // Priority 1: salePayment table (header.payments)
+        // Priority 2: saleHeader (header.payment / header.paymentId)
         const paymentList = []
-        if (this.isMultiPayment(header)) {
+        if (header.payments && Array.isArray(header.payments) && header.payments.length > 0) {
           header.payments.forEach((p) => {
+            const paymentId = p.paymentId || p.paymentMethod?.id || p.paymentMethodId
+            const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
             const pCcy = this.findAllCurrency?.find(
               (c) => Number(c.id) === Number(p.currencyId || header.currencyId)
             )
             const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
             const rate = isLocal ? 1 : p.exchangeRate || header.exchangeRate || 1
-            const pAmountLocal = Number(p.amount || 0) * rate
+            const pAmountLocal = Number(p.amount !== undefined ? p.amount : 0) * rate
 
             paymentList.push({
-              code: p.paymentMethod?.payment_code || p.payment_code,
-              name: p.paymentMethod?.payment_name || p.payment_name,
+              code: pMethod?.payment_code || p.payment_code || 'UNKNOWN',
+              name: pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code || 'Unknown',
               amountLocal: pAmountLocal,
               currencyCode: pCcy?.code || this.localCurrency?.code || 'LAK',
               exchangeRate: rate,
             })
           })
         } else {
-          const pMethod = header.payment || header.payments?.[0]?.paymentMethod
+          // Priority 2: Fallback to saleHeader
+          const paymentId = header.paymentId || header.payment?.id
+          const pMethod = header.payment || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
           const pCcy = this.findAllCurrency?.find(
-            (c) => Number(c.id) === Number(header.payments?.[0]?.currencyId || header.currencyId)
+            (c) => Number(c.id) === Number(header.currencyId)
           )
           const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
-          const rate = isLocal ? 1 : header.payments?.[0]?.exchangeRate || header.exchangeRate || 1
-          const pAmountLocal =
-            header.payments?.[0]?.amount !== undefined
-              ? Number(header.payments[0].amount) * rate
-              : headerNetLocal
+          const rate = isLocal ? 1 : header.exchangeRate || 1
+          const pAmountLocal = headerNetLocal
 
           paymentList.push({
             code: pMethod?.payment_code || this.getPaymentCode(header),
@@ -759,12 +774,29 @@ export default {
       let txnList = []
       let orderDetail = {}
       this.orderHeaderList.forEach((element) => {
-        const hasCodPayment =
-          (element.payment && typeof element.payment === 'object' && element.payment.payment_code?.includes('COD')) ||
-          (element.payments && element.payments.some((p) => p.paymentMethod?.payment_code?.includes('COD') || p.payment_code?.includes('COD'))) ||
-          (typeof element.payment === 'string' && element.payment.includes('COD'))
+        if (element.paymentStatus !== 'PENDING') return
 
-        if (element.paymentStatus === 'PENDING' && hasCodPayment) {
+        let isCod = false
+        // Priority 1: Check salePayment table
+        if (element.payments && Array.isArray(element.payments) && element.payments.length > 0) {
+          isCod = element.payments.some((p) => {
+            const paymentId = p.paymentId || p.paymentMethod?.id
+            const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+            const code = pMethod?.payment_code || p.payment_code || ''
+            return code.includes('COD')
+          })
+        } else {
+          // Priority 2: Fallback to saleHeader
+          const code =
+            element.payment?.payment_code ||
+            (element.paymentId && this.findAllPayment?.find((p) => p.id === element.paymentId)?.payment_code) ||
+            (typeof element.payment === 'string' ? element.payment : '')
+          if (code && code.includes('COD')) {
+            isCod = true
+          }
+        }
+
+        if (isCod) {
           txnList.push(element)
         }
       })
@@ -792,6 +824,30 @@ export default {
   },
 
   methods: {
+    // Helper to get exact paymentId(s) prioritizing salePayment table
+    getPaymentId(item) {
+      if (!item) return null
+      // Priority 1: Check salePayment table
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        return item.payments[0].paymentId || item.payments[0].paymentMethodId || item.payments[0].payment_id || item.payments[0].paymentMethod?.id || null
+      }
+      // Priority 2: Fallback to saleHeader.paymentId
+      return item.paymentId || item.payment?.id || null
+    },
+
+    getAllPaymentIds(item) {
+      if (!item) return []
+      // Priority 1: Check salePayment table
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        return item.payments
+          .map((p) => p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id)
+          .filter((id) => id != null)
+      }
+      // Priority 2: Fallback to saleHeader.paymentId
+      const fallbackId = item.paymentId || item.payment?.id
+      return fallbackId != null ? [fallbackId] : []
+    },
+
     isMultiPayment(item) {
       return (
         item &&
@@ -802,10 +858,11 @@ export default {
     },
 
     getPaymentMethodsCount(item) {
-      if (this.isMultiPayment(item)) {
+      if (!item) return 0
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
         return item.payments.length
       }
-      return item && item.payment ? 1 : 0
+      return (item.payment || item.paymentId) ? 1 : 0
     },
 
     getPaymentCode(item) {
@@ -813,28 +870,57 @@ export default {
       if (this.isMultiPayment(item)) {
         return 'MULTI'
       }
-      return (
-        item.payment?.payment_code ||
-        item.payments?.[0]?.paymentMethod?.payment_code ||
-        item.payments?.[0]?.payment_code ||
-        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_code) ||
-        'N/A'
-      )
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        const p0 = item.payments[0]
+        const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+        const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+        if (pMethod?.payment_code) return pMethod.payment_code
+        if (p0.payment_code) return p0.payment_code
+      }
+      // Priority 2: Fallback to saleHeader.payment / saleHeader.paymentId
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
     },
 
     getPaymentName(item) {
       if (!item) return 'N/A'
-      if (this.isMultiPayment(item)) {
-        return 'ຫຼາຍວິທີ'
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        if (item.payments.length > 1) {
+          const names = item.payments
+            .map((p) => {
+              const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+              const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+              return pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code
+            })
+            .filter(Boolean)
+          return names.length > 0 ? names.join(' + ') : 'ຫຼາຍວິທີ'
+        } else {
+          const p0 = item.payments[0]
+          const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+          const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+          if (pMethod?.payment_name) return pMethod.payment_name
+          if (p0.payment_name) return p0.payment_name
+          if (pMethod?.payment_code) return pMethod.payment_code
+          if (p0.payment_code) return p0.payment_code
+        }
       }
-      return (
-        item.payment?.payment_name ||
-        item.payments?.[0]?.paymentMethod?.payment_name ||
-        item.payments?.[0]?.payment_name ||
-        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_name) ||
-        item.payment?.payment_code ||
-        'N/A'
-      )
+      // Priority 2: Fallback to saleHeader.payment / saleHeader.paymentId
+      if (item.payment?.payment_name) return item.payment.payment_name
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_name) return found.payment_name
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
     },
 
     getPaymentMethodColor(paymentCode) {
@@ -1070,10 +1156,44 @@ export default {
 
 <style scoped>
 .sales-report-container {
-  font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif !important;
   background-color: #f8f9fa;
   min-height: 100vh;
   padding: 24px;
+}
+
+.sales-report-container * {
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
+}
+
+.sales-report-container .caption,
+.sales-report-container .text-caption,
+.sales-report-container .subtitle-1,
+.sales-report-container .subtitle-2,
+.sales-report-container .text-h4,
+.sales-report-container .text-h5,
+.sales-report-container .text-h6,
+.sales-report-container .text-body-1,
+.sales-report-container .text-body-2,
+.sales-report-container h1,
+.sales-report-container h2,
+.sales-report-container h3,
+.sales-report-container p,
+.sales-report-container span,
+.sales-report-container div,
+.sales-report-container .v-chip,
+.sales-report-container .v-btn,
+.sales-report-container .v-data-table {
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif !important;
+}
+
+.font-numeric {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  letter-spacing: -0.011em;
+}
+
+.v-icon {
+  font-family: 'Material Design Icons' !important;
 }
 
 .header-section {
@@ -1190,5 +1310,11 @@ export default {
 
 .clickable-order:hover {
   color: #1565c0 !important;
+}
+
+.caption,
+.text-caption {
+  font-size: 0.75rem !important;
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif !important;
 }
 </style>

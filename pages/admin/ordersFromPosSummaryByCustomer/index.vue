@@ -238,6 +238,20 @@
           </v-chip>
         </template>
 
+        <template v-slot:[`item.payment.payment_code`]="{ item }">
+          <div v-if="isMultiPayment(item)">
+            <v-chip color="teal darken-1" small dark class="font-weight-medium">
+              <v-icon left x-small>mdi-credit-card-multiple</v-icon>
+              ຫຼາຍວິທີ ({{ getPaymentMethodsCount(item) }})
+            </v-chip>
+          </div>
+          <div v-else>
+            <v-chip :color="getPaymentMethodColor(getPaymentCode(item))" small dark class="font-weight-medium">
+              <v-icon left x-small>{{ getPaymentMethodIcon(getPaymentCode(item)) }}</v-icon>
+              {{ getPaymentName(item) }}
+            </v-chip>
+          </div>
+        </template>
         <template v-slot:[`item.discount`]="{ item }">
           {{ numberWithCommas(item.discount) }}
         </template>
@@ -489,11 +503,29 @@ export default {
       let txnList = []
       let orderDetail = {}
       this.orderHeaderList.forEach((element) => {
-        if (
-          element.paymentStatus === 'PENDING' &&
-          element.payment.includes('COD')
-        ) {
-          console.log('Concept applied')
+        if (element.paymentStatus !== 'PENDING') return
+        let isCod = false
+
+        // Priority 1: Check salePayment table
+        if (element.payments && Array.isArray(element.payments) && element.payments.length > 0) {
+          isCod = element.payments.some((p) => {
+            const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+            const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+            const code = pMethod?.payment_code || p.payment_code || ''
+            return code.includes('COD')
+          })
+        } else {
+          // Priority 2: Fallback to saleHeader
+          const code =
+            element.payment?.payment_code ||
+            (element.paymentId && this.findAllPayment?.find((p) => p.id === element.paymentId)?.payment_code) ||
+            (typeof element.payment === 'string' ? element.payment : '')
+          if (code && code.includes('COD')) {
+            isCod = true
+          }
+        }
+
+        if (isCod) {
           txnList.push(element)
         }
       })
@@ -515,6 +547,141 @@ export default {
   },
 
   methods: {
+    // Payment Resolution & Helper Methods
+    isMultiPayment(item) {
+      return item && item.payments && Array.isArray(item.payments) && item.payments.length > 1
+    },
+
+    getPaymentMethodsCount(item) {
+      if (!item) return 0
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        return item.payments.length
+      }
+      return (item.payment || item.paymentId) ? 1 : 0
+    },
+
+    getPaymentCode(item) {
+      if (!item) return 'N/A'
+      if (this.isMultiPayment(item)) {
+        return 'MULTI'
+      }
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        const p0 = item.payments[0]
+        const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+        const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+        if (pMethod?.payment_code) return pMethod.payment_code
+        if (p0.payment_code) return p0.payment_code
+      }
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
+    },
+
+    getPaymentName(item) {
+      if (!item) return 'N/A'
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        if (item.payments.length > 1) {
+          const names = item.payments
+            .map((p) => {
+              const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+              const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+              return pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code
+            })
+            .filter(Boolean)
+          return names.length > 0 ? names.join(' + ') : 'ຫຼາຍວິທີ'
+        } else {
+          const p0 = item.payments[0]
+          const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+          const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+          if (pMethod?.payment_name) return pMethod.payment_name
+          if (p0.payment_name) return p0.payment_name
+          if (pMethod?.payment_code) return pMethod.payment_code
+          if (p0.payment_code) return p0.payment_code
+        }
+      }
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_name) return item.payment.payment_name
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_name) return found.payment_name
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
+    },
+
+    getPaymentMethodColor(paymentCode) {
+      if (!paymentCode) return 'grey'
+      const colorMap = {
+        CASH: 'green',
+        QR: 'purple',
+        TRANSFER: 'blue',
+        TRANSFER_BCEL: 'blue',
+        BCEL: 'blue',
+        COD: 'orange',
+        CREDIT: 'red',
+        CARD: 'indigo',
+        BANK: 'teal',
+        MOBILE: 'pink',
+        MULTI: 'teal darken-1',
+      }
+
+      if (colorMap[paymentCode]) {
+        return colorMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH') || code.includes('MONEY')) return 'green'
+      if (code.includes('QR') || code.includes('SCAN')) return 'purple'
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'blue'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'indigo'
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'orange'
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'pink'
+
+      return 'primary'
+    },
+
+    getPaymentMethodIcon(paymentCode) {
+      if (!paymentCode) return 'mdi-help-circle'
+      const iconMap = {
+        CASH: 'mdi-cash',
+        QR: 'mdi-qrcode',
+        TRANSFER: 'mdi-bank-transfer',
+        TRANSFER_BCEL: 'mdi-bank-transfer',
+        BCEL: 'mdi-bank',
+        COD: 'mdi-truck-delivery',
+        CREDIT: 'mdi-credit-card-outline',
+        CARD: 'mdi-credit-card',
+        BANK: 'mdi-bank',
+        MOBILE: 'mdi-cellphone',
+        WALLET: 'mdi-wallet',
+        MULTI: 'mdi-credit-card-multiple',
+      }
+
+      if (iconMap[paymentCode]) {
+        return iconMap[paymentCode]
+      }
+
+      const code = paymentCode.toUpperCase()
+      if (code.includes('CASH') || code.includes('MONEY')) return 'mdi-cash'
+      if (code.includes('QR') || code.includes('SCAN')) return 'mdi-qrcode'
+      if (code.includes('TRANSFER') || code.includes('BANK') || code.includes('BCEL')) return 'mdi-bank-transfer'
+      if (code.includes('CARD') || code.includes('CREDIT')) return 'mdi-credit-card'
+      if (code.includes('COD') || code.includes('DELIVERY')) return 'mdi-truck-delivery'
+      if (code.includes('MOBILE') || code.includes('PHONE')) return 'mdi-cellphone'
+      if (code.includes('WALLET')) return 'mdi-wallet'
+      if (code.includes('MULTI')) return 'mdi-credit-card-multiple'
+
+      return 'mdi-cash-multiple'
+    },
     exportToExcel() {
       const worksheet = this.$xlsx.utils.json_to_sheet(
         this.activeOrderHeaderList

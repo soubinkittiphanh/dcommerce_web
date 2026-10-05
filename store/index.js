@@ -164,43 +164,59 @@ export const mutations = {
             const categoryMap = new Map()
 
             processedProducts.forEach(product => {
+                const stockUnitId = product.stockUnitId || product.baseUnitId;
+                const stockUnitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === stockUnitId) : null;
+                const stockRate = parseFloat(stockUnitModel?.conversionRate || 1.0);
+
                 const baseUnitId = product.baseUnitId || product.stockUnitId;
                 const baseUnitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null;
                 const baseRate = parseFloat(baseUnitModel?.conversionRate || 1.0);
+                const baseRelRate = stockRate > 0 ? (baseRate / stockRate) : 1.0;
 
-                // Barcode map for instant lookup (with unit metadata wrapper)
-                if (product.barCode) {
-                    const baseUnit = product.baseUnit || product.stockUnit || baseUnitModel;
-                    barcodeMap.set(product.barCode.toLowerCase(), {
-                        product,
-                        unit: {
-                            id: baseUnitId || null,
-                            name: baseUnit?.name || 'Unit',
-                            symbol: baseUnit?.name || baseUnit?.symbol || 'pcs',
-                            conversionRate: 1.0
-                        },
-                        price: product.pro_price
-                    })
-                }
-
-                // Index all nested selling units barcodes
+                // Index all nested selling units barcodes FIRST (so specific unit barcodes take precedence)
                 if (Array.isArray(product.productUnits)) {
                     product.productUnits.forEach(pu => {
                         if (pu.barCode) {
-                            const targetRate = parseFloat(pu.unit?.conversionRate || 1.0);
-                            const relRate = baseRate > 0 ? (targetRate / baseRate) : targetRate;
+                            const unitModel = Array.isArray(state.unitList)
+                                ? state.unitList.find(u => u.id === (pu.unitId || pu.unit?.id))
+                                : null;
+                            const targetUnit = pu.unit || unitModel;
+                            const targetRate = parseFloat(targetUnit?.conversionRate || 1.0);
+                            const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate;
+                            const unitId = pu.unitId || targetUnit?.id || baseUnitId;
+                            const unitSymbol = targetUnit?.symbol || targetUnit?.name || 'pcs';
+                            const unitName = targetUnit?.name || targetUnit?.symbol || 'Unit';
+
                             barcodeMap.set(pu.barCode.toLowerCase(), {
                                 product,
                                 unit: {
-                                    id: pu.unit?.id || pu.unitId,
-                                    name: pu.unit?.name || 'Unit',
-                                    symbol: pu.unit?.name || pu.unit?.symbol || 'pcs',
+                                    id: unitId,
+                                    name: unitName,
+                                    symbol: unitSymbol,
                                     conversionRate: relRate
                                 },
                                 price: Number(pu.price) || product.pro_price
                             })
                         }
                     })
+                }
+
+                // Barcode map for primary product barCode (if not already mapped by a specific unit)
+                if (product.barCode) {
+                    const cleanCode = product.barCode.toLowerCase();
+                    if (!barcodeMap.has(cleanCode)) {
+                        const baseUnit = product.baseUnit || product.stockUnit || baseUnitModel || stockUnitModel;
+                        barcodeMap.set(cleanCode, {
+                            product,
+                            unit: {
+                                id: baseUnitId || stockUnitId || null,
+                                name: baseUnit?.name || 'Unit',
+                                symbol: baseUnit?.symbol || baseUnit?.name || 'pcs',
+                                conversionRate: baseRelRate
+                            },
+                            price: product.pro_price
+                        })
+                    }
                 }
 
                 // Category map for fast filtering
@@ -436,85 +452,98 @@ export const mutations = {
     addProductToCart(state, product) {
         try {
             if (!product || !product.id) {
-                console.warn(`⚠️ [CART] Invalid product - missing product or product.id`)
+                console.warn(`⚠️ [VUEX:CART] Invalid product - missing product or product.id:`, product)
                 return
             }
 
+            console.log(`📥 [VUEX:CART_START] addProductToCart called for product: "${product.pro_name || product.name}" (ID: ${product.id || product.pro_id}, QtyToAdd: ${product.qty || 1})`)
+
+            // Determine target unit when adding to cart
+            let targetUnitId = product.unitId
+            let targetRate = product.unitRate
+            let targetSymbol = product.unitSymbol
+            let targetPrice = product.localPrice || product.pro_price
+
+            if (!targetUnitId) {
+                const stockUnitId = product.stockUnitId || product.baseUnitId
+                const stockUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === stockUnitId) : null
+                const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
+
+                const baseUnitId = product.baseUnitId || product.stockUnitId
+                const baseUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null
+                const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
+                const baseSymbol = baseUnit?.symbol || baseUnit?.name || 'pcs'
+
+                // 1. Look for a mapped unit in productUnits marked as isBaseUnit
+                let matchedUnit = null
+                if (Array.isArray(product.productUnits)) {
+                    matchedUnit = product.productUnits.find(pu => pu.isBaseUnit === true || pu.isBaseUnit === 1)
+                }
+
+                if (matchedUnit) {
+                    const unitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === matchedUnit.unitId) : null
+                    const targetU = matchedUnit.unit || unitModel
+                    const unitRateVal = parseFloat(targetU?.conversionRate || 1.0)
+                    const relRate = stockRate > 0 ? (unitRateVal / stockRate) : unitRateVal
+
+                    targetUnitId = matchedUnit.unitId || targetU?.id
+                    targetRate = relRate
+                    targetSymbol = targetU?.symbol || targetU?.name || 'pcs'
+                    targetPrice = Number(matchedUnit.price) || product.pro_price
+                } else {
+                    // 2. Fall back to product base unit (rate relative to stock unit)
+                    targetUnitId = baseUnitId
+                    targetRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
+                    targetSymbol = baseSymbol
+                    targetPrice = product.pro_price
+                }
+            }
+
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
-                // If it's a variant, match product ID and specific color and size (and gift status)
+                // If specific lineUUID is requested, match by lineUUID
+                if (product.lineUUIDCheck && product.lineUUID) {
+                    return item.id === product.id && item.lineUUID === product.lineUUID
+                }
+
+                // If variant (color/size), match id, color, size, unitId, and isGift
                 if (product.colorId || product.sizeId) {
                     return item.id === product.id &&
                            item.colorId === product.colorId &&
                            item.sizeId === product.sizeId &&
+                           (targetUnitId ? item.unitId === targetUnitId : true) &&
                            item.isGift === product.isGift
                 }
-                if (!product.lineUUIDCheck) {
-                    return item.id === product.id && !item.colorId && !item.sizeId && item.isGift === product.isGift
-                } else {
-                    return item.id === product.id && item.lineUUID === product.lineUUID
-                }
+
+                // Standard match: match id, unitId, and isGift
+                return item.id === product.id &&
+                       (targetUnitId ? item.unitId === targetUnitId : true) &&
+                       !item.colorId &&
+                       !item.sizeId &&
+                       item.isGift === product.isGift
             })
 
             const addQty = product.qty || 1
 
             if (existingProductIndex !== -1) {
                 state.cartOfproductSelected[existingProductIndex].qty += addQty
-                console.info(`➕ [CART_UPDATE] Increased quantity by ${addQty} for existing product`)
+                const newQty = state.cartOfproductSelected[existingProductIndex].qty
+                console.info(`➕ [VUEX:CART_UPDATE] Incremented quantity: "${product.pro_name || product.name}" -> NewQty: ${newQty} (Unit: ${state.cartOfproductSelected[existingProductIndex].unitSymbol})`)
             } else {
-                // Determine default unit when first adding to cart
-                let defaultUnitId = product.unitId
-                let defaultRate = product.unitRate
-                let defaultSymbol = product.unitSymbol
-                let defaultPrice = product.localPrice || product.pro_price
-
-                if (!defaultUnitId) {
-                    const stockUnitId = product.stockUnitId || product.baseUnitId
-                    const stockUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === stockUnitId) : null
-                    const stockRate = parseFloat(stockUnit?.conversionRate || 1.0)
-
-                    const baseUnitId = product.baseUnitId || product.stockUnitId
-                    const baseUnit = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null
-                    const baseRate = parseFloat(baseUnit?.conversionRate || 1.0)
-                    const baseSymbol = baseUnit?.name || baseUnit?.symbol || 'pcs'
-
-                    // 1. Look for a mapped unit in productUnits marked as isBaseUnit
-                    let matchedUnit = null
-                    if (Array.isArray(product.productUnits)) {
-                        matchedUnit = product.productUnits.find(pu => pu.isBaseUnit === true || pu.isBaseUnit === 1)
-                    }
-
-                    if (matchedUnit) {
-                        const targetRate = parseFloat(matchedUnit.unit?.conversionRate || 1.0)
-                        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
-
-                        defaultUnitId = matchedUnit.unitId
-                        defaultRate = relRate
-                        defaultSymbol = matchedUnit.unit?.name || matchedUnit.unit?.symbol || 'pcs'
-                        defaultPrice = Number(matchedUnit.price) || product.pro_price
-                    } else {
-                        // 2. Fall back to product base unit (rate relative to stock unit)
-                        defaultUnitId = baseUnitId
-                        defaultRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
-                        defaultSymbol = baseSymbol
-                        defaultPrice = product.pro_price
-                    }
-                }
-
                 const cartItem = {
                     ...product,
                     qty: addQty,
-                    unitId: defaultUnitId,
-                    unitRate: defaultRate,
-                    unitSymbol: defaultSymbol,
-                    localPrice: defaultPrice,
+                    unitId: targetUnitId,
+                    unitRate: targetRate || 1.0,
+                    unitSymbol: targetSymbol,
+                    localPrice: targetPrice,
                     lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
                 }
                 state.cartOfproductSelected.push(cartItem)
-                console.info(`🆕 [CART_ADD] Added new product to cart with unit ${defaultSymbol} and price ${defaultPrice}`)
+                console.info(`🆕 [VUEX:CART_ADD] Added new item to cart: "${product.pro_name || product.name}" (Qty: ${addQty}, Unit: ${targetSymbol}, Price: ${targetPrice}). Total cart lines: ${state.cartOfproductSelected.length}`)
             }
 
         } catch (error) {
-            console.error(`❌ [ERROR] Error adding product to cart:`, error)
+            console.error(`❌ [VUEX:CART_ERROR] Error adding product to cart:`, error)
         }
     },
 
@@ -1226,12 +1255,15 @@ export const actions = {
 
     async addProduct({ state, commit, dispatch }, product) {
         try {
+            console.log(`🎬 [VUEX:addProduct_ACTION] Dispatch received for: "${product?.pro_name || product?.name}" (ID: ${product?.id || product?.pro_id}, Qty: ${product?.qty || 1})`)
+
             // Check if STOCK.VAR is enabled
             const stockVarSpf = state.SPF.find(spf => spf.code === 'STOCK.VAR')
             const isStockVarEnabled = stockVarSpf?.value === 'Y'
 
             // If STOCK.VAR is not enabled, or the product has bypass flag, add directly.
             if (!isStockVarEnabled || product.hasVariantSelected) {
+                console.log(`➡️ [VUEX:addProduct_ACTION] Adding directly to cart (STOCK.VAR=${isStockVarEnabled})`)
                 commit("addProductToCart", product)
                 return
             }

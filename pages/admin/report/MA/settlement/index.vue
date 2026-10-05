@@ -240,6 +240,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { printMoneyAdvanceSettlementReport } from '@/common/moneyAdvanceSettlementPrintTemplate'
 
 export default {
   name: 'SettlementReport',
@@ -313,7 +314,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['findAllCurrency']),
+    ...mapGetters(['findAllCurrency', 'findAllCompany']),
 
     summaryCards() {
       return [
@@ -459,7 +460,7 @@ export default {
     // Export method using frontend data
     async exportToExcel() {
       if (!this.settlements.length) {
-        this.$toast.warning('No data to export')
+        this.showToast('No data to export', 'warning')
         return
       }
 
@@ -500,17 +501,71 @@ export default {
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
 
-        this.$toast.success('Report exported successfully')
+        this.showToast('Report exported successfully', 'success')
       } catch (error) {
         console.error('Error exporting report:', error)
-        this.$toast.error('Error exporting report')
+        this.showToast('Error exporting report', 'error')
       } finally {
         this.exporting = false
       }
     },
 
-    printReport() {
-      window.print()
+    async printReport() {
+      if (!this.settlements.length) {
+        this.showToast('No data to print', 'warning')
+        return
+      }
+
+      let dataToPrint = this.settlements
+
+      // If total items exceed current page size, fetch all filtered items for print
+      if (this.pagination.totalItems > this.settlements.length) {
+        try {
+          const params = {
+            page: 1,
+            limit: 10000,
+            sortBy: this.tableOptions.sortBy?.[0] || 'id',
+            sortOrder: this.tableOptions.sortDesc?.[0] ? 'desc' : 'asc',
+            ...this.filters
+          }
+          Object.keys(params).forEach((key) => {
+            if (params[key] === null || params[key] === '') {
+              delete params[key]
+            }
+          })
+          const response = await this.$axios.get('/api/settlements', { params })
+          if (response.data?.data?.settlements) {
+            dataToPrint = response.data.data.settlements
+          }
+        } catch (error) {
+          console.error(
+            'Error fetching all settlements for print, falling back to current page:',
+            error
+          )
+        }
+      }
+
+      const company =
+        this.findAllCompany && this.findAllCompany.length > 0
+          ? this.findAllCompany[0]
+          : {}
+      const user = this.$auth?.user || this.$store.state.user || {}
+      const selectedStatus = this.statusOptions.find(
+        (s) => s.value === this.filters.status
+      )
+      const selectedMethod = this.methodOptions.find(
+        (m) => m.value === this.filters.method
+      )
+
+      printMoneyAdvanceSettlementReport({
+        reportData: dataToPrint,
+        summaryData: this.stats,
+        filters: this.filters,
+        companyData: company,
+        user: user,
+        statusLabel: selectedStatus ? selectedStatus.text : '',
+        methodLabel: selectedMethod ? selectedMethod.text : '',
+      })
     },
 
     // Dialog methods
@@ -623,6 +678,35 @@ export default {
         VND: '₫'
       }
       return symbols[currencyCode] || '₭'
+    },
+
+    showToast(message, type = 'info') {
+      if (this.$toast) {
+        if (type === 'warning') {
+          if (typeof this.$toast.warning === 'function') {
+            this.$toast.warning(message)
+          } else if (typeof this.$toast.info === 'function') {
+            this.$toast.info(message)
+          } else {
+            this.$toast.show(message)
+          }
+        } else if (typeof this.$toast[type] === 'function') {
+          this.$toast[type](message)
+        } else {
+          this.$toast.show(message)
+        }
+      } else if (this.$swal) {
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          icon: type === 'warning' ? 'warning' : type,
+          title: message
+        })
+      } else {
+        console.log(`[${type}] ${message}`)
+      }
     }
   }
 }

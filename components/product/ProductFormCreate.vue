@@ -688,7 +688,11 @@ export default {
       const selectedCcy = productCurrency || localCcy
       const currencyStr = selectedCcy ? selectedCcy.symbol || selectedCcy.code : 'LAK'
 
-      const companyData = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+      const companyBase = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
+      const companyData = {
+        ...companyBase,
+        primaryColor: this.$store?.state?.theme?.primary_color || '#01532B',
+      }
 
       const foundCat = this.category?.find(
         (c) => c.id === this.formData.pro_category || c.categ_id === this.formData.pro_category

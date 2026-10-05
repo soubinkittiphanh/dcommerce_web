@@ -4,27 +4,27 @@
     <div class="report-header">
       <div class="title-section">
         <h1 class="page-title">
-          <i class="fas fa-chart-line primary--text"></i>
+          <v-icon large color="primary" class="mr-2">mdi-chart-line</v-icon>
           ລາຍງານ ລາຍຈ່າຍລ່ວງໜ້າ
         </h1>
         <p class="page-subtitle">Money Advance Report</p>
       </div>
       <div class="action-buttons">
-        <v-btn color="primary" @click="exportToExcel" :loading="exporting" dark>
-          <i class="fas fa-file-excel mr-1"></i>
+        <v-btn color="primary" @click="exportToExcel" :loading="exporting" dark class="mr-2">
+          <v-icon left>mdi-file-excel</v-icon>
           Export Excel
         </v-btn>
         <v-btn color="primary" @click="printReport" dark>
-          <i class="fas fa-print mr-1"></i>
+          <v-icon left>mdi-printer</v-icon>
           Print
         </v-btn>
       </div>
     </div>
 
     <!-- Filters Card -->
-    <v-card class="filter-card mb-4 primary" elevation="1">
+    <v-card class="filter-card mb-4" elevation="1">
       <v-card-title class="filter-title py-2">
-        <v-icon small class="mr-2">mdi-filter</v-icon>
+        <v-icon small class="mr-2" color="primary">mdi-filter</v-icon>
         ຕົວກອງ (Filters)
       </v-card-title>
       <v-card-text class="pa-3">
@@ -53,9 +53,10 @@
 
           <!-- Actions -->
           <v-col cols="12" sm="2" class="d-flex align-center">
-            <v-btn color="grey lighten-1" class="white--text mr-1" small depressed @click="applyFilters"
+            <v-btn color="primary" class="white--text mr-2" small depressed @click="applyFilters"
               :loading="loading">
-              <v-icon small>mdi-refresh</v-icon>
+              <v-icon small class="mr-1">mdi-refresh</v-icon>
+              ໂຫຼດໃໝ່
             </v-btn>
             <v-btn color="grey lighten-1" class="white--text" small depressed @click="resetFilters">
               <v-icon small>mdi-restore</v-icon>
@@ -67,7 +68,7 @@
 
     <!-- Summary Cards -->
     <v-row class="mb-4" dense>
-      <v-col cols="12" md="3" v-for="(card, index) in summaryCards" :key="index">
+      <v-col cols="12" sm="6" md="3" v-for="(card, index) in summaryCards" :key="index">
         <v-card class="summary-card" elevation="2">
           <v-card-text class="pa-4">
             <v-row align="center" no-gutters>
@@ -79,7 +80,7 @@
               <v-col cols="9">
                 <div class="summary-details pl-2">
                   <div class="summary-title text-uppercase">{{ card.title }}</div>
-                  <div class="summary-amount primary--text truncate">
+                  <div class="summary-amount primary--text text-truncate">
                     {{ formatCurrency(card.amount) }}
                   </div>
                   <div v-if="card.lcyAmount" class="summary-lcy">
@@ -96,7 +97,7 @@
     <!-- Detailed Report Table -->
     <v-card class="table-card" elevation="2">
       <v-card-title class="table-title">
-        <i class="fas fa-table"></i>
+        <v-icon color="primary" class="mr-2">mdi-table-large</v-icon>
         ລາຍລະອຽດລາຍງານ (Detailed Report)
         <v-spacer></v-spacer>
         <v-text-field v-model="search" append-icon="mdi-magnify" label="ຄົ້ນຫາ..." single-line hide-details
@@ -110,7 +111,7 @@
         }">
         <!-- Custom slots for better formatting -->
         <template v-slot:item.id="{ item }">
-          <span class="date-cell">{{ formatVoucherNumber(item.id) }}</span>
+          <span class="date-cell font-weight-bold">{{ formatVoucherNumber(item.id) }}</span>
         </template>
 
         <template v-slot:item.bookingDate="{ item }">
@@ -123,7 +124,7 @@
               {{ formatCurrency(item.amount) }} {{ item.currencyCode }}
             </div>
             <div v-if="item.currencyCode !== 'LAK'" class="currency-info-sub">
-              ({{ formatCurrency(convertToLocal(item.amount, item.currencyCode)) }} LAK)
+              ({{ formatCurrency(item.lcyEquivalent ?? convertToLocal(item.amount, item.currencyCode, item.exchangeRate)) }} LAK)
             </div>
           </div>
         </template>
@@ -140,7 +141,7 @@
               {{ formatCurrency(item.settlementAmount || 0) }} {{ item.currencyCode }}
             </div>
             <div v-if="item.currencyCode !== 'LAK'" class="currency-info-sub">
-              ({{ formatCurrency(convertToLocal(item.settlementAmount || 0, item.currencyCode)) }} LAK)
+              ({{ formatCurrency(convertToLocal(item.settlementAmount || 0, item.currencyCode, item.exchangeRate)) }} LAK)
             </div>
           </div>
         </template>
@@ -148,19 +149,19 @@
         <template v-slot:item.outstandingAmount="{ item }">
           <div class="amount-display">
             <div class="outstanding-amount font-weight-bold">
-              {{ formatCurrency(item.outstandingAmount) }} {{ item.currencyCode }}
+              {{ formatCurrency(item.outstandingAmount !== undefined ? item.outstandingAmount : (item.amount - (item.settlementAmount || 0))) }} {{ item.currencyCode }}
             </div>
             <div v-if="item.currencyCode !== 'LAK'" class="currency-info-sub">
-              ({{ formatCurrency(convertToLocal(item.outstandingAmount, item.currencyCode)) }} LAK)
+              ({{ formatCurrency(item.outstandingLcyEquivalent ?? convertToLocal(item.outstandingAmount, item.currencyCode, item.exchangeRate)) }} LAK)
             </div>
           </div>
         </template>
 
         <template v-slot:item.settlementPercentage="{ item }">
           <div class="settlement-progress">
-            <v-progress-linear :value="parseFloat(item.settlementPercentage)"
+            <v-progress-linear :value="parseFloat(item.settlementPercentage || 0)"
               :color="getProgressColor(item.settlementPercentage)" height="20" rounded>
-              <span class="progress-text">{{ item.settlementPercentage }}%</span>
+              <span class="progress-text">{{ item.settlementPercentage || 0 }}%</span>
             </v-progress-linear>
           </div>
         </template>
@@ -174,16 +175,16 @@
         <template v-slot:item.ministry="{ item }">
           <div class="ministry-cell">
             <span class="ministry-name">{{ item.ministry?.ministryName || 'N/A' }}</span>
-            <span class="ministry-code">{{ item.ministry?.ministryCode || '' }}</span>
+            <span v-if="item.ministry?.ministryCode" class="ministry-code">{{ item.ministry.ministryCode }}</span>
           </div>
         </template>
 
         <template v-slot:item.actions="{ item }">
-          <v-btn small color="primary" @click="viewDetails(item)" class="mr-2">
-            <i class="fas fa-eye"></i>
+          <v-btn small color="primary" @click="viewDetails(item)" class="mr-1">
+            <v-icon small>mdi-eye</v-icon>
           </v-btn>
-          <v-btn small color="#228B22" @click="viewSettlements(item)" v-if="item.settlementCount > 0">
-            <i class="fas fa-list"></i>
+          <v-btn small color="#228B22" dark @click="viewSettlements(item)" v-if="item.settlementCount > 0">
+            <v-icon small class="mr-1">mdi-format-list-bulleted</v-icon>
             {{ item.settlementCount }}
           </v-btn>
         </template>
@@ -193,33 +194,34 @@
     <!-- Details Dialog -->
     <v-dialog v-model="detailsDialog" max-width="900px">
       <v-card>
-        <v-card-title class="dialog-header">
-          <i class="fas fa-info-circle"></i>
+        <v-card-title class="dialog-header primary white--text py-3">
+          <v-icon left color="white">mdi-information-outline</v-icon>
           ລາຍລະອຽດລາຍຈ່າຍ (Advance Details)
           <v-spacer></v-spacer>
-          <v-btn icon @click="detailsDialog = false" class="close-btn">
+          <v-btn icon dark @click="detailsDialog = false" class="white--text">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text v-if="selectedItem">
+        <v-card-text v-if="selectedItem" class="pt-4">
           <v-row>
-            <v-col cols="6" v-for="(field, index) in detailFields" :key="index">
+            <v-col cols="12" sm="6" v-for="(field, index) in detailFields" :key="index" class="py-2">
               <div class="detail-item">
-                <strong>{{ field.label }}:</strong>
+                <strong class="detail-label">{{ field.label }}:</strong>
                 <span v-if="field.type === 'chip'">
-                  <v-chip :color="field.color(selectedItem[field.key])" text-color="white" small>
-                    {{ field.formatter ? field.formatter(selectedItem[field.key]) : selectedItem[field.key] }}
+                  <v-chip :color="field.color(getNestedValue(selectedItem, field.key))" text-color="white" small>
+                    {{ field.formatter ? field.formatter(getNestedValue(selectedItem, field.key), selectedItem) : getNestedValue(selectedItem, field.key) }}
                   </v-chip>
                 </span>
-                <span v-else>
-                  {{ field.formatter ? field.formatter(selectedItem[field.key]) : selectedItem[field.key] || 'N/A' }}
+                <span v-else class="detail-value">
+                  {{ field.formatter ? field.formatter(getNestedValue(selectedItem, field.key), selectedItem) : (getNestedValue(selectedItem, field.key) || 'N/A') }}
                 </span>
               </div>
             </v-col>
           </v-row>
           <v-divider class="my-4"></v-divider>
           <div class="detail-item">
-            <strong>ໝາຍເຫດ:</strong> {{ selectedItem.note || 'ບໍ່ມີໝາຍເຫດ' }}
+            <strong class="detail-label">ໝາຍເຫດ (Note):</strong> 
+            <span class="detail-value">{{ selectedItem.note || 'ບໍ່ມີໝາຍເຫດ' }}</span>
           </div>
         </v-card-text>
       </v-card>
@@ -228,29 +230,32 @@
     <!-- Settlements Dialog -->
     <v-dialog v-model="settlementsDialog" max-width="900px">
       <v-card>
-        <v-card-title class="dialog-header">
-          <i class="fas fa-receipt"></i>
+        <v-card-title class="dialog-header primary white--text py-3">
+          <v-icon left color="white">mdi-receipt</v-icon>
           ປະຫວັດການຊຳລະ (Settlement History)
           <v-spacer></v-spacer>
-          <v-btn icon @click="settlementsDialog = false" class="close-btn">
+          <v-btn icon dark @click="settlementsDialog = false" class="white--text">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
-        <v-card-text>
+        <v-card-text class="pt-4">
           <v-data-table :headers="settlementHeaders" :items="settlements" :loading="loadingSettlements"
             hide-default-footer class="settlement-table">
             <template v-slot:item.bookingDate="{ item }">
               <span class="date-cell">{{ formatDate(item.bookingDate) }}</span>
             </template>
             <template v-slot:item.amount="{ item }">
-              <span class="amount-cell settlement-amount">
-                {{ formatCurrency(item.amount) }}
+              <span class="amount-cell settlement-amount font-weight-bold">
+                {{ formatCurrency(item.amount) }} {{ item.currencyCode || selectedItem?.currencyCode || 'LAK' }}
               </span>
             </template>
             <template v-slot:item.method="{ item }">
-              <v-chip small :color="getMethodColor(item.method)">
+              <v-chip small :color="getMethodColor(item.method)" text-color="white">
                 {{ getMethodText(item.method) }}
               </v-chip>
+            </template>
+            <template v-slot:item.user="{ item }">
+              <span>{{ item.user?.cus_name || item.maker?.cus_name || 'N/A' }}</span>
             </template>
           </v-data-table>
         </v-card-text>
@@ -261,6 +266,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { printMoneyAdvancePaymentReport } from '@/common/moneyAdvancePaymentPrintTemplate'
 
 export default {
   name: 'MoneyAdvanceReport',
@@ -303,32 +309,32 @@ export default {
 
       // Table headers
       tableHeaders: [
-        { text: 'ID', value: 'id', width: '100px' },
+        { text: 'ID', value: 'id', width: '90px' },
         { text: 'ວັນທີ', value: 'bookingDate', width: '100px' },
-        { text: 'ຈຳນວນເງິນ', value: 'amount', width: '120px' },
-        { text: 'ອັດຕາແລກປ່ຽນ', value: 'exchangeRate', width: '100px' },
-        { text: 'ການຊຳລະ', value: 'settlementAmount', width: '120px' },
-        { text: 'ຍອດຄ້າງ', value: 'outstandingAmount', width: '120px' },
-        { text: '% ຊຳລະ', value: 'settlementPercentage', width: '100px' },
-        { text: 'ກະຊວງ', value: 'ministry', width: '150px' },
+        { text: 'ຈຳນວນເງິນ', value: 'amount', width: '130px', align: 'right' },
+        { text: 'ອັດຕາແລກປ່ຽນ', value: 'exchangeRate', width: '100px', align: 'center' },
+        { text: 'ການຊຳລະ', value: 'settlementAmount', width: '130px', align: 'right' },
+        { text: 'ຍອດຄ້າງ', value: 'outstandingAmount', width: '130px', align: 'right' },
+        { text: '% ຊຳລະ', value: 'settlementPercentage', width: '100px', align: 'center' },
+        { text: 'ກະຊວງ', value: 'ministry', width: '160px' },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '200px' },
-        { text: 'ສະຖານະ', value: 'status', width: '100px' },
+        { text: 'ສະຖານະ', value: 'status', width: '100px', align: 'center' },
         { text: 'ຜູ້ລົງ', value: 'maker.cus_name', width: '120px' },
-        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '100px' }
+        { text: 'ຈັດການ', value: 'actions', sortable: false, width: '120px', align: 'center' }
       ],
 
       settlementHeaders: [
         { text: 'ວັນທີ', value: 'bookingDate' },
-        { text: 'ຈຳນວນ', value: 'amount' },
-        { text: 'ວິທີການ', value: 'method' },
+        { text: 'ຈຳນວນ', value: 'amount', align: 'right' },
+        { text: 'ວິທີການ', value: 'method', align: 'center' },
         { text: 'ໝາຍເຫດ', value: 'notes' },
-        { text: 'ຜູ້ດຳເນີນການ', value: 'user.cus_name' }
+        { text: 'ຜູ້ດຳເນີນການ', value: 'user' }
       ]
     }
   },
 
   computed: {
-    ...mapGetters(['findAllCurrency']),
+    ...mapGetters(['findAllCurrency', 'findAllCompany']),
 
     summaryCards() {
       return [
@@ -344,32 +350,37 @@ export default {
           amount: this.summaryData.totalSettlements,
           lcyAmount: this.summaryData.totalSettlementsLcy,
           vIcon: 'mdi-hand-holding-usd',
-          color: 'success'
+          color: '#228B22'
         },
         {
           title: 'ຍອດຄ້າງຊຳລະ',
           amount: this.summaryData.outstandingBalance,
           lcyAmount: this.summaryData.outstandingBalanceLcy,
-          vIcon: 'mdi-exclamation-triangle',
-          color: 'error'
+          vIcon: 'mdi-alert-circle',
+          color: '#e53e3e'
         },
         {
           title: 'ຍອດຍົກມາ',
           amount: this.summaryData.broughtForward,
           lcyAmount: this.summaryData.broughtForwardLcy,
-          vIcon: 'mdi-arrow-right',
-          color: 'info'
+          vIcon: 'mdi-arrow-right-bold-circle',
+          color: '#3182ce'
         }
       ]
     },
 
     detailFields() {
       return [
+        { key: 'id', label: 'ເລກທີໃບເບີກ', formatter: this.formatVoucherNumber },
         { key: 'bookingDate', label: 'ວັນທີບັນທຶກ', formatter: this.formatDate },
         { key: 'amount', label: 'ຈຳນວນເງິນ', formatter: this.formatCurrency },
         { key: 'currencyCode', label: 'ສະກຸນເງິນ' },
         { key: 'exchangeRate', label: 'ອັດຕາແລກປ່ຽນ', formatter: this.formatExchangeRate },
-        { key: 'lcyEquivalent', label: 'ເທົ່າກັບກີບ', formatter: this.formatCurrency },
+        { 
+          key: 'lcyEquivalent', 
+          label: 'ເທົ່າກັບກີບ (LAK)', 
+          formatter: (val, item) => this.formatCurrency(val ?? this.convertToLocal(item.amount, item.currencyCode, item.exchangeRate))
+        },
         { key: 'purpose', label: 'ຈຸດປະສົງ' },
         { key: 'ministry.ministryName', label: 'ກະຊວງ', formatter: (val) => val || 'N/A' },
         {
@@ -381,7 +392,7 @@ export default {
         },
         { key: 'settlementAmount', label: 'ຈຳນວນຊຳລະ', formatter: this.formatCurrency },
         { key: 'outstandingAmount', label: 'ຍອດຄ້າງ', formatter: this.formatCurrency },
-        { key: 'settlementPercentage', label: 'ເປີເຊັນຊຳລະ', formatter: (val) => `${val}%` },
+        { key: 'settlementPercentage', label: 'ເປີເຊັນຊຳລະ', formatter: (val) => `${val || 0}%` },
         { key: 'maker.cus_name', label: 'ຜູ້ລົງບັນທຶກ', formatter: (val) => val || 'N/A' }
       ]
     }
@@ -401,8 +412,8 @@ export default {
           this.$axios.get('/api/currency/findAll')
         ])
 
-        this.ministries = ministriesRes.data.data || ministriesRes.data
-        this.currencies = currenciesRes.data.data || currenciesRes.data
+        this.ministries = ministriesRes.data.data || ministriesRes.data || []
+        this.currencies = currenciesRes.data.data || currenciesRes.data || []
       } catch (error) {
         console.error('Error loading initial data:', error)
         this.$toast.error('Error loading initial data')
@@ -428,12 +439,12 @@ export default {
 
         const response = await this.$axios.get(`/api/money-advances/report?${params}`)
 
-        if (response.data.success) {
+        if (response.data && response.data.success) {
           this.reportData = response.data.data || []
-          this.summaryData = response.data.summary || {}
-        } else {
-          this.reportData = response.data.data || response.data || []
           this.summaryData = response.data.summary || this.calculateSummary()
+        } else {
+          this.reportData = response.data?.data || response.data || []
+          this.summaryData = response.data?.summary || this.calculateSummary()
         }
       } catch (error) {
         console.error('Error loading report data:', error)
@@ -459,19 +470,36 @@ export default {
         totalAdvances: 0,
         totalSettlements: 0,
         outstandingBalance: 0,
+        totalAdvancesLcy: 0,
+        totalSettlementsLcy: 0,
+        outstandingBalanceLcy: 0,
+        broughtForward: 0,
+        broughtForwardLcy: 0,
         totalRecords: this.reportData.length
       }
 
       this.reportData.forEach((item) => {
-        summary.totalAdvances += parseFloat(item.amount || 0)
-        summary.totalSettlements += parseFloat(item.settlementAmount || 0)
-        summary.outstandingBalance += parseFloat(item.outstandingAmount || 0)
+        const amount = parseFloat(item.amount || 0)
+        const settle = parseFloat(item.settlementAmount || 0)
+        const outstanding = parseFloat(item.outstandingAmount !== undefined ? item.outstandingAmount : (amount - settle))
+
+        summary.totalAdvances += amount
+        summary.totalSettlements += settle
+        summary.outstandingBalance += outstanding
+
+        const lcyAdv = parseFloat(item.lcyEquivalent ?? this.convertToLocal(amount, item.currencyCode, item.exchangeRate))
+        const lcySet = parseFloat(item.settlementLcyEquivalent ?? this.convertToLocal(settle, item.currencyCode, item.exchangeRate))
+        const lcyOut = parseFloat(item.outstandingLcyEquivalent ?? this.convertToLocal(outstanding, item.currencyCode, item.exchangeRate))
+
+        summary.totalAdvancesLcy += isNaN(lcyAdv) ? 0 : lcyAdv
+        summary.totalSettlementsLcy += isNaN(lcySet) ? 0 : lcySet
+        summary.outstandingBalanceLcy += isNaN(lcyOut) ? 0 : lcyOut
       })
 
       return summary
     },
 
-    // Export methods - using frontend data instead of making API call
+    // Export methods with UTF-8 BOM for Excel compatibility
     async exportToExcel() {
       if (!this.reportData.length) {
         this.$toast.warning('No data to export')
@@ -480,7 +508,6 @@ export default {
 
       this.exporting = true
       try {
-        // Prepare data from frontend instead of calling API
         const exportData = this.reportData.map((item, index) => ({
           'ລດ': index + 1,
           'ເລກທີ': `'${this.formatVoucherNumber(item.id)}`,
@@ -489,28 +516,34 @@ export default {
           'Notes': item.note || '',
           'ສະກຸນ': item.currencyCode || 'LAK',
           'ອັດຕາແລກປ່ຽນ': item.exchangeRate || 1,
-          'ຍອດຫນີ້': item.amount,
-          'ຍອດມີ': item.settlementAmount || 0,
-          'ຍອດເຫລືອ': item.outstandingAmount,
+          'ຍອດຫນີ້': item.amount ?? 0,
+          'ເທົ່າກັບກີບ': item.lcyEquivalent ?? this.convertToLocal(item.amount, item.currencyCode, item.exchangeRate),
+          'ຍອດມີ': item.settlementAmount ?? 0,
+          'ຍອດເຫລືອ': item.outstandingAmount ?? (item.amount - (item.settlementAmount || 0)),
           'ລະຫັດ ກະຊວງ': item.ministry?.ministryCode || 'N/A',
-          'ກະຊວງ': item.ministry?.ministryName || 'N/A'
+          'ກະຊວງ': item.ministry?.ministryName || 'N/A',
+          'ສະຖານະ': this.getStatusText(item.status),
+          'ຜູ້ລົງ': item.maker?.cus_name || 'N/A'
         }))
 
-        // Create CSV content
         const headers = Object.keys(exportData[0])
         const csvContent = [
           headers.join(','),
           ...exportData.map((row) =>
-            headers.map((header) => `"${(row[header] || '').toString().replace(/"/g, '""')}"`).join(',')
+            headers.map((header) => {
+              const val = row[header] ?? ''
+              return `"${val.toString().replace(/"/g, '""')}"`
+            }).join(',')
           )
         ].join('\n')
 
-        // Download file
-        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+        // Prepend UTF-8 BOM so Excel properly displays Lao characters
+        const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' })
         const link = document.createElement('a')
         const url = URL.createObjectURL(blob)
         link.setAttribute('href', url)
-        link.setAttribute('download', `money-advance-report-${new Date().toISOString().substr(0, 10)}.csv`)
+        const dateStr = new Date().toISOString().substr(0, 10)
+        link.setAttribute('download', `money-advance-report-${this.filters.fromDate || dateStr}-to-${this.filters.toDate || dateStr}.csv`)
         link.style.visibility = 'hidden'
         document.body.appendChild(link)
         link.click()
@@ -526,23 +559,43 @@ export default {
       }
     },
 
+    // Print report using dedicated template
     printReport() {
-      window.print()
+      if (!this.reportData.length) {
+        this.$toast.warning('No data to print')
+        return
+      }
+
+      const selectedMinistry = this.ministries.find(m => m.id === this.filters.ministryId)
+      const selectedCurrency = this.currencies.find(c => c.id === this.filters.currencyId)
+      const company = (this.findAllCompany && this.findAllCompany.length > 0) ? this.findAllCompany[0] : {}
+      const user = this.$auth?.user || this.$store.state.user || {}
+
+      printMoneyAdvancePaymentReport({
+        reportData: this.reportData,
+        summaryData: this.summaryData,
+        filters: this.filters,
+        companyData: company,
+        user: user,
+        ministryName: selectedMinistry ? `${selectedMinistry.ministryName}${selectedMinistry.ministryCode ? ` (${selectedMinistry.ministryCode})` : ''}` : '',
+        currencyName: selectedCurrency ? selectedCurrency.name : ''
+      })
     },
 
     // Dialog methods
-    async viewDetails(item) {
+    viewDetails(item) {
       this.selectedItem = item
       this.detailsDialog = true
     },
 
     async viewSettlements(item) {
+      this.selectedItem = item
       this.loadingSettlements = true
       this.settlementsDialog = true
 
       try {
         const response = await this.$axios.get(`/api/money-advances/${item.id}/settlements`)
-        this.settlements = response.data.data || response.data || []
+        this.settlements = response.data?.data || response.data || []
       } catch (error) {
         console.error('Error loading settlements:', error)
         this.$toast.error('Error loading settlements')
@@ -552,36 +605,58 @@ export default {
       }
     },
 
-    // Formatting methods
+    // Utility methods
+    getNestedValue(obj, path) {
+      if (!obj || !path) return ''
+      return path.split('.').reduce((current, key) => (current ? current[key] : undefined), obj)
+    },
+
     formatVoucherNumber(id) {
+      if (!id && id !== 0) return '-'
       return String(id).padStart(6, '0')
     },
 
     formatCurrency(amount) {
       if (!amount && amount !== 0) return '0.00'
+      const num = typeof amount === 'number' ? amount : parseFloat(amount)
+      if (isNaN(num)) return '0.00'
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
-      }).format(amount)
+      }).format(num)
     },
 
     formatExchangeRate(rate) {
       if (!rate && rate !== 0) return '1.0000'
+      const num = typeof rate === 'number' ? rate : parseFloat(rate)
+      if (isNaN(num)) return '1.0000'
       return new Intl.NumberFormat('en-US', {
         minimumFractionDigits: 4,
         maximumFractionDigits: 4
-      }).format(rate)
+      }).format(num)
     },
 
     formatDate(date) {
       if (!date) return ''
-      return new Date(date).toLocaleDateString('lo-LA')
+      try {
+        const d = new Date(date)
+        if (isNaN(d.getTime())) return date
+        const day = String(d.getDate()).padStart(2, '0')
+        const month = String(d.getMonth() + 1).padStart(2, '0')
+        const year = d.getFullYear()
+        return `${day}/${month}/${year}`
+      } catch (e) {
+        return date
+      }
     },
 
-    // Utility methods
-    convertToLocal(amount, currencyCode) {
+    convertToLocal(amount, currencyCode, exchangeRate) {
       if (!amount) return 0
       if (currencyCode === 'LAK') return amount
+
+      if (exchangeRate && parseFloat(exchangeRate) > 0) {
+        return amount * parseFloat(exchangeRate)
+      }
 
       const currency = (this.findAllCurrency || []).find(c => c.code === currencyCode)
       if (!currency || !currency.rate) return amount
@@ -605,27 +680,29 @@ export default {
 
     getStatusColor(status) {
       const colors = {
-        pending: '#32CD32',
+        pending: '#e65100',
         approved: '#228B22',
-        settled: 'primary'
+        settled: 'primary',
+        rejected: '#e53e3e'
       }
-      return colors[status] || '#666'
+      return colors[status] || '#718096'
     },
 
     getStatusText(status) {
       const texts = {
         pending: 'ລໍຖ້າ',
         approved: 'ອະນຸມັດ',
-        settled: 'ຊຳລະແລ້ວ'
+        settled: 'ຊຳລະແລ້ວ',
+        rejected: 'ປະຕິເສດ'
       }
-      return texts[status] || status
+      return texts[status] || status || '-'
     },
 
     getMethodColor(method) {
       const colors = {
         cash: 'primary',
         bank_transfer: '#228B22',
-        deduction: '#32CD32'
+        deduction: '#3182ce'
       }
       return colors[method] || 'primary'
     },
@@ -636,7 +713,7 @@ export default {
         bank_transfer: 'ໂອນເງິນ',
         deduction: 'ຫັກລົບ'
       }
-      return texts[method] || method
+      return texts[method] || method || '-'
     }
   }
 }
@@ -647,16 +724,26 @@ export default {
   padding: 0;
 }
 
+.report-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
 .page-title {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 700;
   color: #2d3748;
   margin: 0;
+  display: flex;
+  align-items: center;
 }
 
 .page-subtitle {
   color: #718096;
-  margin: 4px 0 0;
+  margin: 2px 0 0;
+  font-size: 13px;
 }
 
 .filter-card {
@@ -665,26 +752,27 @@ export default {
 }
 
 .filter-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
   border-bottom: 1px solid #edf2f7;
-  padding: 12px 16px;
+  padding: 10px 16px;
   color: #2d3748 !important;
 }
 
 .summary-card {
   border-radius: 8px;
   border: 1px solid #edf2f7;
+  height: 100%;
 }
 
 .summary-icon-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 60px;
-  width: 60px;
+  height: 52px;
+  width: 52px;
   background-color: #f7fafc;
-  border-radius: 12px;
+  border-radius: 10px;
 }
 
 .summary-details .summary-title {
@@ -695,7 +783,7 @@ export default {
 }
 
 .summary-details .summary-amount {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   margin-top: 2px;
 }
@@ -705,12 +793,22 @@ export default {
   color: #a0aec0;
 }
 
+.table-card {
+  border-radius: 8px;
+}
+
+.table-title {
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 16px;
+}
+
 .report-table {
   background: white;
   border-radius: 8px;
 }
 
-.report-table>>>thead th {
+.report-table >>> thead th {
   background-color: #f8fafc !important;
   color: #4a5568 !important;
   font-weight: 700 !important;
@@ -720,7 +818,7 @@ export default {
   border-bottom: 2px solid #edf2f7 !important;
 }
 
-.report-table>>>tbody tr:hover {
+.report-table >>> tbody tr:hover {
   background-color: #f7fafc !important;
 }
 
@@ -728,7 +826,7 @@ export default {
 .date-cell {
   font-family: monospace;
   font-size: 13px;
-  color: primary;
+  color: #2d3748;
 }
 
 .amount-cell {
@@ -743,6 +841,7 @@ export default {
   font-size: 12px;
   text-align: center;
   display: block;
+  color: #718096;
 }
 
 .amount-display {
@@ -774,7 +873,7 @@ export default {
 .ministry-name {
   font-weight: 600;
   font-size: 13px;
-  color: primary;
+  color: #2d3748;
 }
 
 .ministry-code {
@@ -782,87 +881,57 @@ export default {
   color: #666;
   font-family: monospace;
   background: #f8f9fa;
-  padding: 2px 6px;
+  padding: 1px 6px;
   border-radius: 4px;
-  margin-top: 4px;
+  margin-top: 2px;
   display: inline-block;
   width: fit-content;
 }
 
 /* Dialog Styling */
 .dialog-header {
-  color: white !important;
   font-weight: 600 !important;
-}
-
-.close-btn {
-  color: white !important;
 }
 
 .detail-item {
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
 }
 
-.detail-item strong {
-  color: primary;
+.detail-label {
+  color: #4a5568;
+  min-width: 130px;
+  font-weight: 600;
+}
+
+.detail-value {
+  color: #1a202c;
 }
 
 .settlement-table {
-  margin-top: 16px;
+  margin-top: 8px;
 }
 
-.settlement-table>>>thead th {
-  background-color: primary !important;
+.settlement-table >>> thead th {
+  background-color: var(--v-primary-base, #01532B) !important;
   color: white !important;
   font-weight: 600 !important;
-}
-
-/* Print styles */
-@media print {
-
-  .action-buttons,
-  .filter-card,
-  .v-btn {
-    display: none !important;
-  }
-
-  .summary-cards {
-    page-break-inside: avoid;
-  }
-
-  .report-header {
-    color: white !important;
-    -webkit-print-color-adjust: exact;
-  }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
   .report-header {
     flex-direction: column;
-    text-align: center;
-    gap: 16px;
-    padding: 16px;
-  }
-
-  .title-section h1 {
-    font-size: 24px;
+    align-items: flex-start;
+    gap: 12px;
   }
 
   .action-buttons {
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .summary-icon {
-    margin-right: 0;
-    margin-bottom: 8px;
-    font-size: 40px;
-  }
-
-  .summary-details .summary-amount {
-    font-size: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
   }
 }
 </style>

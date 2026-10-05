@@ -10,6 +10,10 @@
               <v-icon left small>mdi-plus</v-icon>
               ລົງລາຍຈ່າຍ
             </v-btn>
+            <v-btn color="indigo" small outlined to="/admin/report/MA/period" class="text-none">
+              <v-icon left small>mdi-calendar-lock-outline</v-icon>
+              ຈັດການງວດ (Period)
+            </v-btn>
             <v-btn color="secondary" small outlined @click="exportData" :disabled="loading || advances.length === 0">
               <v-icon left small>mdi-download</v-icon>
               Export
@@ -155,7 +159,7 @@
         <template #item.amount="{ item }">
           <div class="amount-column">
             <span class="amount-value">
-              {{ formatCurrency(item.amount, item.currency.code) }}
+              {{ formatCurrency(item.amount, item.currency ? item.currency.code : 'LAK') }}
             </span>
             <span v-if="item.currency" class="currency-code">
               {{ item.currency.code }}
@@ -167,7 +171,7 @@
         <template #item.settleLine="{ item }">
           <div class="amount-column">
             <span class="amount-value">
-              {{ formatCurrency(getSettleAmount(item.settlementLine || []), item.currency.code) }}
+              {{ formatCurrency(getSettleAmount(item.settlementLine || []), item.currency ? item.currency.code : 'LAK') }}
             </span>
             <span v-if="item.currency" class="currency-code">
               {{ item.currency.code }}
@@ -183,19 +187,26 @@
         </template>
 
         <!-- Bank Account Column -->
-        <template #item.bankAccount="{ item }">
+        <!-- <template #item.bankAccount="{ item }">
           <div v-if="item.bankAccount" class="bank-compact">
             <div class="bank-name">{{ item.bankAccount.bankName }}</div>
             <div class="account-number">{{ item.bankAccount.accountNumber }}</div>
           </div>
           <span v-else class="no-data">-</span>
-        </template>
+        </template> -->
 
         <!-- Status Column -->
         <template #item.status="{ item }">
           <v-chip :color="getStatusColor(item.status)" x-small outlined>
             {{ getStatusInLao(item.status) }}
           </v-chip>
+        </template>
+
+        <!-- Maker / Inputter Column -->
+        <template #item.maker="{ item }">
+          <span class="maker-name">
+            {{ item.maker ? (item.maker.cus_name || item.maker.name) : (item.user ? (item.user.cus_name || item.user.name) : 'N/A') }}
+          </span>
         </template>
 
         <!-- Booking Date Column -->
@@ -424,8 +435,9 @@ export default {
         { text: 'ຈຳນວນ ຫນີ້', value: 'amount', width: '100px', sortable: true },
         { text: 'ຈຳນວນ ມີ', value: 'settleLine', width: '100px', sortable: true },
         { text: 'ຈຸດປະສົງ', value: 'purpose', width: '150px', sortable: true },
-        { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
+        // { text: 'ບັນຊີ', value: 'bankAccount', width: '120px', sortable: false },
         { text: 'ສະຖານະ', value: 'status', width: '80px', sortable: true },
+        { text: 'ຜູ້ລົງ', value: 'maker', width: '100px', sortable: true },
         { text: '', value: 'actions', width: '120px', sortable: false },
       ]
     },
@@ -611,12 +623,50 @@ export default {
           this.advances = []
           this.showToast('Failed to fetch data', 'error')
         }
+        this.calculateSummaryStats()
       } catch (error) {
         console.error('Error fetching advances:', error)
         this.advances = []
+        this.calculateSummaryStats()
         this.showToast('Error loading data', 'error')
       } finally {
         this.loading = false
+      }
+    },
+
+    calculateSummaryStats() {
+      const advances = this.advances || []
+      const totalCount = advances.length
+      const settledCount = advances.filter((a) => a.status === 'settled').length
+      const approvedCount = advances.filter((a) => a.status === 'approved').length
+      const pendingCount = advances.filter((a) => a.status === 'pending').length
+
+      const totalAmount = advances.reduce((sum, item) => {
+        const amt = parseFloat(item.amount) || 0
+        const rate = parseFloat(item.exchangeRate) || 1
+        return sum + (amt * rate)
+      }, 0)
+
+      const pendingAmount = advances.reduce((sum, item) => {
+        if (item.status === 'pending') {
+          const amt = parseFloat(item.amount) || 0
+          const rate = parseFloat(item.exchangeRate) || 1
+          return sum + (amt * rate)
+        }
+        return sum
+      }, 0)
+
+      this.dashboard = {
+        counts: {
+          total: totalCount,
+          settled: settledCount,
+          approved: approvedCount,
+          pending: pendingCount,
+        },
+        amounts: {
+          total: totalAmount,
+          pending: pendingAmount,
+        },
       }
     },
 
@@ -626,8 +676,8 @@ export default {
         const response = await this.$axios.get('/api/money-advances/dashboard', { params })
         const { data } = response
 
-        if (data?.success) {
-          this.dashboard = data.data || this.dashboard
+        if (data?.success && data.data) {
+          this.dashboard = data.data
         }
       } catch (error) {
         console.error('Error fetching dashboard:', error)
@@ -711,6 +761,7 @@ export default {
           'ທະນາຄານ': item.bankAccount?.bankName || '-',
           'ເລກບັນຊີ': item.bankAccount?.accountNumber || '-',
           'ສະຖານະ': this.getStatusInLao(item.status),
+          'ຜູ້ລົງ': item.maker?.cus_name || item.maker?.name || item.user?.cus_name || item.user?.name || '-',
           'ຊື່ຜູ້ຮັບ': item.receiveName || '-',
           'ເລກບັດປະຈຳຕົວ': item.receiveIDNO || '-',
           'ເລກອ້າງອີງພາຍນອກ': item.externalRefNo || '-',
@@ -734,6 +785,7 @@ export default {
           { wch: 20 }, // ທະນາຄານ
           { wch: 20 }, // ເລກບັນຊີ
           { wch: 12 }, // ສະຖານະ
+          { wch: 15 }, // ຜູ້ລົງ
           { wch: 20 }, // ຊື່ຜູ້ຮັບ
           { wch: 18 }, // ເລກບັດປະຈຳຕົວ
           { wch: 20 }, // ເລກອ້າງອີງພາຍນອກ
@@ -771,7 +823,9 @@ export default {
 
     getSettleAmount(settlements) {
       if (!Array.isArray(settlements)) return 0
-      return settlements.reduce((total, item) => total + (parseFloat(item.amount) || 0), 0)
+      return settlements
+        .filter((item) => item.isActive !== false && item.isActive !== 0)
+        .reduce((total, item) => total + (parseFloat(item.amount) || 0), 0)
     },
 
     // Date formatting methods

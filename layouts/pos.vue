@@ -3154,24 +3154,35 @@ export default {
     },
 
     resetScannerState() {
+      console.log('🔄 [LAYOUT:RESET] resetScannerState button clicked on POS layout')
       // 1. Blur active element so Enter won't trigger synthetic button clicks
       if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        console.log('🔄 [LAYOUT:RESET] Blurring activeElement:', document.activeElement.tagName, document.activeElement.className)
         document.activeElement.blur()
       }
-      // 2. Broadcast reset event to all POS views (minimart / restaurant)
+      // 2. Clear global scanner lock and processing states
+      if (typeof window !== 'undefined') {
+        window.__posLastGlobalBarcode = ''
+        window.__posLastGlobalScanTime = 0
+        window.__posGlobalIsProcessing = false
+        console.log('🔄 [LAYOUT:RESET] Cleared global window scanner locks')
+      }
+      // 3. Broadcast reset event to all POS views (minimart / restaurant)
       if (this.$nuxt) {
+        console.log('📢 [LAYOUT:RESET] Emitting "reset-pos-scanner" event via $nuxt')
         this.$nuxt.$emit('reset-pos-scanner')
       }
-      // 3. Clear and rebuild product lookup cache
+      // 4. Clear and rebuild product lookup cache
       this.productLookupCache.clear()
       this.buildProductLookupCache()
-      // 4. Toast feedback to cashier
+      // 5. Toast feedback to cashier
       if (this.$toast) {
         this.$toast.success('ຣີເຊັດລະບົບສະແກນເນີຮຽບຮ້ອຍແລ້ວ (Scanner Reset)', {
           position: 'bottom-center',
           duration: 1500,
         })
       }
+      console.log('✅ [LAYOUT:RESET] ResetScannerState completed successfully')
     },
 
     // In-Memory Cart / Ticket Parking Methods

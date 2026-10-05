@@ -11,14 +11,21 @@
           </div>
 
           <div class="modal-header-right">
+            <span v-if="formData.id && !isCancelled" class="status-indicator active-indicator">
+              <i class="fas fa-check-circle mr-1"></i> Active
+            </span>
+            <span v-else-if="formData.id && isCancelled" class="status-indicator cancelled-indicator">
+              <i class="fas fa-ban mr-1"></i> Cancelled
+            </span>
             <span class="voucher-number">
               ເລກທີ:
               {{ formData.id ? formatVoucherNumber(formData.id) : '000000' }}
             </span>
             <button
+              type="button"
               @click="closeDialog"
               class="close-btn"
-              :disabled="isFormDisabled"
+              :disabled="loading || isSubmitting"
             >
               <i class="fas fa-times"></i>
             </button>
@@ -27,6 +34,26 @@
 
         <form @submit.prevent="saveSettlement">
           <div class="modal-body">
+            <!-- Cancelled Notice Banner -->
+            <div v-if="formData.id && isCancelled" class="cancelled-banner mb-3">
+              <div class="banner-content">
+                <i class="fas fa-ban banner-icon"></i>
+                <div class="banner-text">
+                  <div class="banner-title">ທຸລະກຳນີ້ຖືກຍົກເລີກແລ້ວ (Transaction Cancelled / Void)</div>
+                  <div class="banner-desc">ທຸລະກຳນີ້ຖືກໝາຍວ່າບໍ່ມີຜົນ. ຟອມຖືກປິດການແກ້ໄຂ ນອກຈາກຈະກູ້ຄືນທຸລະກຳ.</div>
+                </div>
+                <button
+                  type="button"
+                  class="btn-restore-banner"
+                  @click.prevent="restoreSettlement"
+                  :disabled="isSubmitting || loading"
+                >
+                  <i class="fas fa-undo mr-1"></i>
+                  ກູ້ຄືນ (Restore)
+                </button>
+              </div>
+            </div>
+
             <!-- Loading state for form data -->
             <div v-if="loading || isSubmitting" class="form-loading">
               <div class="spinner-small"></div>
@@ -562,23 +589,50 @@
           </div>
 
           <div class="modal-footer enhanced-footer compact">
+            <!-- Cancel / Void Transaction Button for Active Existing Record -->
+            <button
+              v-if="formData.id && !isCancelled"
+              type="button"
+              class="btn-cancel-txn mr-auto"
+              @click.prevent="confirmCancelTransaction"
+              :disabled="isSubmitting || loading"
+              title="ຍົກເລີກທຸລະກຳການຊຳລະນີ້"
+            >
+              <i class="fas fa-ban mr-1"></i>
+              ຍົກເລີກທຸລະກຳ (Cancel Transaction)
+            </button>
+
+            <!-- Restore Button for Cancelled Record -->
+            <button
+              v-else-if="formData.id && isCancelled"
+              type="button"
+              class="btn-restore-txn mr-auto"
+              @click.prevent="restoreSettlement"
+              :disabled="isSubmitting || loading"
+              title="ກູ້ຄືນທຸລະກຳການຊຳລະນີ້"
+            >
+              <i class="fas fa-undo mr-1"></i>
+              ກູ້ຄືນທຸລະກຳ (Restore)
+            </button>
+
             <v-btn
               type="button"
               @click="closeDialog"
-              :disabled="isFormDisabled"
+              :disabled="loading || isSubmitting"
             >
-              <i class="fas fa-times"></i>
-              ຍົກເລີກ
+              <i class="fas fa-times mr-1"></i>
+              ປິດ
             </v-btn>
             <v-btn
+              v-if="!isCancelled"
               type="submit"
               color="primary"
               :disabled="isFormDisabled || !isFormValid"
             >
-              <i v-if="isSubmitting" class="fas fa-spinner fa-spin"></i>
+              <i v-if="isSubmitting" class="fas fa-spinner fa-spin mr-1"></i>
               <i
                 v-else
-                class="fas"
+                class="fas mr-1"
                 :class="isEditMode ? 'fa-save' : 'fa-plus'"
               ></i>
               {{
@@ -590,13 +644,14 @@
               }}
             </v-btn>
             <v-btn
+              v-if="!isCancelled"
               type="button"
               class="btn btn-sm btn-outline-secondary"
               @click.prevent="printSettlement"
               title="Save & Print"
               :disabled="isFormDisabled || !isFormValid"
             >
-              <i class="fas fa-print"></i>
+              <i class="fas fa-print mr-1"></i>
               Save & Print
             </v-btn>
           </div>
@@ -778,7 +833,7 @@ export default {
     },
   },
 
-  emits: ['close', 'save', 'created', 'updated'],
+  emits: ['close', 'save', 'created', 'updated', 'cancelled'],
 
   data() {
     return {
@@ -800,6 +855,7 @@ export default {
         status: '',
       },
       formData: {
+        id: null,
         bookingDate: '',
         method: '',
         amount: null,
@@ -817,6 +873,7 @@ export default {
         externalRefNo: '',
         chequeNo: '',
         fromPersonName: '',
+        isActive: true,
       },
       errors: {},
       formErrors: [],
@@ -949,8 +1006,20 @@ export default {
       return Object.values(validations).every((v) => v === true)
     },
 
+    isCancelled() {
+      return (
+        this.formData.isActive === false ||
+        this.formData.isActive === 0 ||
+        this.formData.isActive === 'false'
+      )
+    },
+
     isFormDisabled() {
-      return this.loading || this.isSubmitting
+      return (
+        this.loading ||
+        this.isSubmitting ||
+        (this.isEditMode && this.isCancelled)
+      )
     },
   },
 
@@ -1208,6 +1277,12 @@ export default {
             externalRefNo: this.settlement.externalRefNo || '',
             chequeNo: this.settlement.chequeNo || '',
             fromPersonName: this.settlement.fromPersonName || '',
+            isActive:
+              this.settlement.isActive !== undefined
+                ? this.settlement.isActive === true ||
+                  this.settlement.isActive === 1 ||
+                  this.settlement.isActive === 'true'
+                : true,
           }
 
           // Set date picker values for existing settlement
@@ -1228,6 +1303,7 @@ export default {
           const todayDate = this.today
 
           this.formData = {
+            id: null,
             bookingDate: todayDate,
             method: this.paymentMethod,
             amount: null,
@@ -1245,6 +1321,7 @@ export default {
             externalRefNo: '',
             chequeNo: '',
             fromPersonName: '',
+            isActive: true,
           }
 
           // Set date picker values for new settlement
@@ -1275,13 +1352,14 @@ export default {
       )
     },
 
-    // Update your resetForm method to clear date picker values
+    // Update resetForm method
     resetForm() {
       if (this.isSubmitting) {
         return
       }
 
       this.formData = {
+        id: null,
         bookingDate: '',
         method: '',
         amount: null,
@@ -1299,6 +1377,7 @@ export default {
         externalRefNo: '',
         chequeNo: '',
         fromPersonName: '',
+        isActive: true,
       }
 
       // Clear date picker values
@@ -1314,6 +1393,111 @@ export default {
 
       if (this.showAdvanceBrowser) {
         this.closeAdvanceBrowser()
+      }
+    },
+
+    // Cancel Transaction Methods
+    async confirmCancelTransaction() {
+      if (!this.formData.id) return
+
+      let confirmed = false
+      const voucherNum = this.formatVoucherNumber(this.formData.id)
+
+      if (this.$swal) {
+        const result = await this.$swal.fire({
+          title: 'ຢືນຢັນການຍົກເລີກທຸລະກຳ?',
+          text: `ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຍົກເລີກທຸລະກຳເລກທີ #${voucherNum}? (Are you sure you want to cancel this settlement transaction?)`,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#d33',
+          cancelButtonColor: '#3085d6',
+          confirmButtonText: 'ແມ່ນ, ຍົກເລີກທຸລະກຳ',
+          cancelButtonText: 'ບໍ່, ກັບຄືນ',
+        })
+        confirmed = result.isConfirmed
+      } else {
+        confirmed = window.confirm(
+          `ທ່ານແນ່ໃຈບໍ່ວ່າຕ້ອງການຍົກເລີກທຸລະກຳເລກທີ #${voucherNum}?`
+        )
+      }
+
+      if (!confirmed) return
+
+      await this.cancelSettlement()
+    },
+
+    async cancelSettlement() {
+      if (!this.formData.id) return
+
+      this.isSubmitting = true
+      this.loading = true
+
+      try {
+        const response = await this.$axios.put(
+          `/api/settlements/${this.formData.id}`,
+          {
+            ...this.formData,
+            isActive: false,
+          }
+        )
+
+        this.formData.isActive = false
+        const updatedData =
+          response.data?.data || { ...this.formData, isActive: false }
+
+        this.$emit('updated', updatedData)
+        this.$emit('cancelled', updatedData)
+        this.showToast(
+          'ຍົກເລີກທຸລະກຳການຊຳລະສຳເລັດແລ້ວ (Settlement cancelled successfully)',
+          'success'
+        )
+      } catch (error) {
+        console.error('Error cancelling settlement:', error)
+        this.showToast(
+          error.response?.data?.message ||
+            'ບໍ່ສາມາດຍົກເລີກທຸລະກຳໄດ້ (Failed to cancel transaction)',
+          'error'
+        )
+      } finally {
+        this.isSubmitting = false
+        this.loading = false
+      }
+    },
+
+    async restoreSettlement() {
+      if (!this.formData.id) return
+
+      this.isSubmitting = true
+      this.loading = true
+
+      try {
+        const response = await this.$axios.put(
+          `/api/settlements/${this.formData.id}`,
+          {
+            ...this.formData,
+            isActive: true,
+          }
+        )
+
+        this.formData.isActive = true
+        const updatedData =
+          response.data?.data || { ...this.formData, isActive: true }
+
+        this.$emit('updated', updatedData)
+        this.showToast(
+          'ກູ້ຄືນທຸລະກຳການຊຳລະສຳເລັດແລ້ວ (Settlement restored successfully)',
+          'success'
+        )
+      } catch (error) {
+        console.error('Error restoring settlement:', error)
+        this.showToast(
+          error.response?.data?.message ||
+            'ບໍ່ສາມາດກູ້ຄືນທຸລະກຳໄດ້ (Failed to restore transaction)',
+          'error'
+        )
+      } finally {
+        this.isSubmitting = false
+        this.loading = false
       }
     },
 
@@ -1922,6 +2106,130 @@ export default {
 </script>
 
 <style scoped>
+/* Status Indicators in Header */
+.status-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-right: 8px;
+}
+
+.active-indicator {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #e6fffa;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.cancelled-indicator {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  font-weight: 700;
+}
+
+/* Cancelled Alert Banner */
+.cancelled-banner {
+  background-color: #fff5f5;
+  border: 1px solid #feb2b2;
+  border-left: 5px solid #e53e3e;
+  border-radius: 6px;
+  padding: 10px 14px;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.banner-icon {
+  font-size: 22px;
+  color: #e53e3e;
+}
+
+.banner-text {
+  flex: 1;
+}
+
+.banner-title {
+  font-weight: 700;
+  color: #c53030;
+  font-size: 13px;
+}
+
+.banner-desc {
+  font-size: 11px;
+  color: #742a2a;
+  margin-top: 2px;
+}
+
+.btn-restore-banner {
+  background-color: #38a169;
+  color: #ffffff;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.btn-restore-banner:hover {
+  background-color: #2f855a;
+}
+
+/* Cancel / Restore Transaction Buttons in Footer */
+.btn-cancel-txn {
+  background-color: #e53e3e;
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.btn-cancel-txn:hover:not(:disabled) {
+  background-color: #c53030;
+}
+
+.btn-cancel-txn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-restore-txn {
+  background-color: #38a169;
+  color: #ffffff;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+.btn-restore-txn:hover:not(:disabled) {
+  background-color: #2f855a;
+}
+
+.btn-restore-txn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 /* Updated compact date field styles to match form controls exactly */
 .compact-date-field {
   font-size: 13px !important;

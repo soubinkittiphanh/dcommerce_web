@@ -115,7 +115,7 @@
           </v-col>
 
           <!-- Account Filter -->
-          <v-col cols="12" sm="6" md="2" class="px-1">
+          <!-- <v-col cols="12" sm="6" md="2" class="px-1">
             <v-select
               v-model="filters.bankAccountId"
               :items="accountOptions"
@@ -125,7 +125,7 @@
               clearable
               hide-details
             />
-          </v-col>
+          </v-col> -->
 
           <!-- Actions -->
           <v-col cols="12" sm="12" md="2" class="px-1">
@@ -238,10 +238,15 @@
         <!-- ID Column -->
         <template v-slot:item.id="{ item }">
           <div class="id-cell">
-            {{ formatVoucherNumber(item.id) }}
+            <span :class="{ 'text-decoration-line-through grey--text': item.isActive === false }">
+              {{ formatVoucherNumber(item.id) }}
+            </span>
             <span v-if="item.moneyAdvanceId" class="advance-id"
               >({{ item.moneyAdvanceId }})</span
             >
+            <v-chip v-if="item.isActive === false" x-small color="error" class="ml-1" outlined>
+              ຍົກເລີກ
+            </v-chip>
           </div>
         </template>
 
@@ -252,11 +257,12 @@
           }}</span>
         </template>
 
-        <!-- Method Column -->
-        <template v-slot:item.method="{ item }">
-          <v-chip :color="getMethodColor(item.method)" small outlined>
-            {{ formatMethod(item.method) }}
+        <!-- Ministry Column -->
+        <template v-slot:item.ministry="{ item }">
+          <v-chip v-if="item.ministry" color="info" x-small outlined>
+            {{ item.ministry.ministryName }}
           </v-chip>
+          <span v-else class="no-data">-</span>
         </template>
 
         <!-- Amount Column -->
@@ -271,6 +277,7 @@
             <span class="grey--text">-</span>
           </div>
         </template>
+
         <!-- Amount Column -->
         <template v-slot:item.cramount="{ item }">
           <div class="amount-cell">
@@ -281,27 +288,25 @@
           </div>
         </template>
 
-        <!-- Ministry Column -->
+        <!-- Notes Column -->
         <template v-slot:item.notes="{ item }">
-          <v-chip v-if="item.notes" color="info" x-small outlined>
-            {{ item.notes }}
-          </v-chip>
-          <span v-else class="no-data">-</span>
-        </template>
-        <!-- Ministry Column -->
-        <template v-slot:item.ministry="{ item }">
-          <v-chip v-if="item.ministry" color="info" x-small outlined>
-            {{ item.ministry.ministryName }}
-          </v-chip>
-          <span v-else class="no-data">-</span>
+          <span class="notes-text" :title="item.notes">
+            {{ truncateText(item.notes, 20) }}
+          </span>
         </template>
 
-        <!-- Chart Account Column -->
-        <template v-slot:item.chartAccount="{ item }">
-          <v-chip v-if="item.chartAccount" color="warning" x-small outlined>
-            {{ item.chartAccount.accountNumber }}
+        <!-- Method Column -->
+        <template v-slot:item.method="{ item }">
+          <v-chip :color="getMethodColor(item.method)" small outlined>
+            {{ formatMethod(item.method) }}
           </v-chip>
-          <span v-else class="no-data">-</span>
+        </template>
+
+        <!-- Requester Column -->
+        <template v-slot:item.requester="{ item }">
+          <span class="maker-name">
+            {{ item.requester || item.proceeder?.cus_name || '-' }}
+          </span>
         </template>
 
         <!-- Actions Column -->
@@ -351,6 +356,7 @@
         @close="handleSettlementDialogClose"
         @created="handleSettlementCreated"
         @updated="handleSettlementUpdated"
+        @cancelled="handleSettlementUpdated"
         @save="handleLegacySettlementSave"
       />
     </client-only>
@@ -486,17 +492,17 @@ export default {
       return [
         { text: 'ID', value: 'id', width: '80px', sortable: true },
         { text: 'ວັນທີ', value: 'bookingDate', width: '100px', sortable: true },
-        { text: 'ການຊຳລະ', value: 'method', width: '90px', sortable: true },
+        { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
         { text: 'ຈຳນວນ ຫນີ້', value: 'dramount', width: '120px', sortable: true },
         { text: 'ຈຳນວນ ມີ', value: 'cramount', width: '120px', sortable: true },
-        { text: 'ເນື້ອໃນ', value: 'notes', width: '80px', sortable: false },
-        { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
-        {
-          text: 'ບັນຊີ',
-          value: 'chartAccount',
-          width: '80px',
-          sortable: false,
-        },
+        { text: 'ເນື້ອໃນ', value: 'notes', width: '150px', sortable: false },
+        // {
+        //   text: 'ບັນຊີ',
+        //   value: 'chartAccount',
+        //   width: '80px',
+        //   sortable: false,
+        // },
+        { text: 'ການຊຳລະ', value: 'method', width: '90px', sortable: true },
         { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
         { text: 'ຈັດການ', value: 'actions', width: '100px', sortable: false },
       ]
@@ -740,6 +746,12 @@ export default {
       return colors[method] || 'grey'
     },
 
+    truncateText(text, maxLength = 50) {
+      if (!text) return '-'
+      if (text.length <= maxLength) return text
+      return text.substring(0, maxLength) + '...'
+    },
+
     // Keep all existing methods from the original component
     // (I'm including the key ones here, but you'll want to copy all methods)
 
@@ -866,6 +878,7 @@ export default {
           this.settlements = response.data.data.settlements.map(
             (settlement) => ({
               id: settlement.id,
+              isActive: settlement.isActive !== false && settlement.isActive !== 0,
               bookingDate: settlement.bookingDate,
               method: settlement.method,
               requester: settlement.proceeder?.cus_name || 'Unknown',
@@ -1435,6 +1448,16 @@ export default {
 .no-data {
   color: #999;
   font-style: italic;
+}
+
+.notes-text {
+  font-size: 11px;
+  color: #4a5568;
+}
+
+.maker-name {
+  font-size: 11px;
+  color: #2d3748;
 }
 
 @media (max-width: 600px) {

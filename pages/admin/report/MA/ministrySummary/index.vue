@@ -365,6 +365,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { printMoneyAdvancePaymentReport } from '@/common/moneyAdvancePaymentPrintTemplate'
 
 export default {
   name: 'PaymentReport',
@@ -428,7 +429,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['findAllCurrency']),
+    ...mapGetters(['findAllCurrency', 'findAllCompany']),
 
     summaryCards() {
       return [
@@ -626,12 +627,12 @@ export default {
 
     async applyFilters() {
       if (!this.filters.fromDate || !this.filters.toDate) {
-        this.$toast.warning('ກະລຸນາເລືອກໄລຍະເວລາ')
+        this.showToast('ກະລຸນາເລືອກໄລຍະເວລາ', 'warning')
         return
       }
 
       if (!this.isDateRangeValid) {
-        this.$toast.warning('ໄລຍະເວລາບໍ່ຖືກຕ້ອງ')
+        this.showToast('ໄລຍະເວລາບໍ່ຖືກຕ້ອງ', 'warning')
         return
       }
 
@@ -689,7 +690,7 @@ export default {
     // Export using frontend data
     async exportToExcel() {
       if (!this.reportData.length) {
-        this.$toast.warning('No data to export')
+        this.showToast('No data to export', 'warning')
         return
       }
 
@@ -735,17 +736,45 @@ export default {
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
 
-        this.$toast.success('Report exported successfully')
+        this.showToast('Report exported successfully', 'success')
       } catch (error) {
         console.error('Error exporting report:', error)
-        this.$toast.error('Error exporting report')
+        this.showToast('Error exporting report', 'error')
       } finally {
         this.exporting = false
       }
     },
 
     printReport() {
-      window.print()
+      if (!this.reportData.length) {
+        this.showToast('No data to print', 'warning')
+        return
+      }
+
+      const selectedMinistry = this.ministries.find(
+        (m) => m.id === this.filters.ministryId
+      )
+      const company =
+        this.findAllCompany && this.findAllCompany.length > 0
+          ? this.findAllCompany[0]
+          : {}
+      const user = this.$auth?.user || this.$store.state.user || {}
+
+      printMoneyAdvancePaymentReport({
+        reportData: this.reportData,
+        summaryData: this.summaryData,
+        filters: this.filters,
+        companyData: company,
+        user: user,
+        ministryName: selectedMinistry
+          ? `${selectedMinistry.ministryName}${
+              selectedMinistry.ministryCode
+                ? ` (${selectedMinistry.ministryCode})`
+                : ''
+            }`
+          : '',
+        currencyName: '',
+      })
     },
 
     viewPaymentDetails(item) {
@@ -856,6 +885,35 @@ export default {
       if (percent >= 100) return 'primary'
       if (percent >= 50) return '#228B22'
       return '#32CD32'
+    },
+
+    showToast(message, type = 'info') {
+      if (this.$toast) {
+        if (type === 'warning') {
+          if (typeof this.$toast.warning === 'function') {
+            this.$toast.warning(message)
+          } else if (typeof this.$toast.info === 'function') {
+            this.$toast.info(message)
+          } else {
+            this.$toast.show(message)
+          }
+        } else if (typeof this.$toast[type] === 'function') {
+          this.$toast[type](message)
+        } else {
+          this.$toast.show(message)
+        }
+      } else if (this.$swal) {
+        this.$swal({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          icon: type === 'warning' ? 'warning' : type,
+          title: message
+        })
+      } else {
+        console.log(`[${type}] ${message}`)
+      }
     }
   }
 }

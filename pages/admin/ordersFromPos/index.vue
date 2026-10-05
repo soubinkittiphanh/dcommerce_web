@@ -865,18 +865,26 @@ export default {
       const terminal = this.findAllTerminal.find(
         (el) => el['id'] == this.terminalId
       )
-      if (!terminal) {
-        return this.orderHeaderList.filter(
-          (el) => el['isActive'] == true && el['paymentId'] != 2
-        )
-      }
-      console.log(`Current location ${JSON.stringify(terminal)}`)
-      return this.orderHeaderList.filter(
-        (el) =>
-          el['isActive'] == true &&
-          el['paymentId'] != 2 &&
-          el['locationId'] == terminal['locationId']
-      )
+      return this.orderHeaderList.filter((el) => {
+        if (!el || el['isActive'] !== true) return false
+
+        // Check location if terminal is selected
+        if (terminal && el['locationId'] != terminal['locationId']) {
+          return false
+        }
+
+        // Priority 1: Check salePayment table for paymentId == 2 (quotation/excluded)
+        if (el.payments && Array.isArray(el.payments) && el.payments.length > 0) {
+          const paymentIds = el.payments
+            .map((p) => p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id)
+            .filter((id) => id != null)
+          if (paymentIds.length > 0 && paymentIds.every((id) => id === 2)) return false
+          return true
+        }
+
+        // Priority 2: Fallback to saleHeader.paymentId
+        return el['paymentId'] != 2
+      })
     },
 
     filteredOrderHeaderList() {
@@ -890,23 +898,19 @@ export default {
             return !this.isMultiPayment(item)
           case 'MULTI':
             return this.isMultiPayment(item)
-          case 'CASH':
-          case 'TRANSFER_BCEL':
-          case 'QR':
-          case 'CARD':
-          case 'COD':
-            if (this.isMultiPayment(item)) {
-              return item.payments.some(
-                (payment) =>
-                  payment.paymentMethod?.payment_code ===
-                  this.selectedPaymentFilter
-              )
-            } else {
-              const paymentCode = item.payment?.payment_code || item.payments?.[0]?.paymentMethod?.payment_code
-              return paymentCode === this.selectedPaymentFilter
-            }
           default:
-            return true
+            // Priority 1: Check salePayment table
+            if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+              return item.payments.some((p) => {
+                const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+                const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+                const pCode = pMethod?.payment_code || p.payment_code
+                return pCode === this.selectedPaymentFilter
+              })
+            }
+            // Priority 2: Fallback to saleHeader
+            const paymentCode = this.getPaymentCode(item)
+            return paymentCode === this.selectedPaymentFilter
         }
       })
     },
@@ -929,42 +933,46 @@ export default {
         
         grandTotalLocal += headerNetLocal
 
-        // Build list of payments for this header
+        // Build list of payments for this header:
+        // Priority 1: salePayment table (header.payments)
+        // Priority 2: saleHeader (header.payment / header.paymentId)
         const paymentList = []
-        if (this.isMultiPayment(header)) {
+        if (header.payments && Array.isArray(header.payments) && header.payments.length > 0) {
           header.payments.forEach((p) => {
+            const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+            const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
             const pCcy = this.findAllCurrency?.find(
               (c) => Number(c.id) === Number(p.currencyId || header.currencyId)
             )
             const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
             const rate = isLocal ? 1 : p.exchangeRate || header.exchangeRate || 1
-            const pAmountLocal = Number(p.amount || 0) * rate
+            const pAmountLocal = Number(p.amount !== undefined ? p.amount : 0) * rate
 
             paymentList.push({
-              code: p.paymentMethod?.payment_code,
-              name: p.paymentMethod?.payment_name,
+              code: pMethod?.payment_code || p.payment_code || 'UNKNOWN',
+              name: pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code || 'Unknown',
               amountLocal: pAmountLocal,
               currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
-              exchangeRate: rate
+              exchangeRate: rate,
             })
           })
         } else {
-          const pMethod = header.payment || header.payments?.[0]?.paymentMethod
+          // Priority 2: Fallback to saleHeader
+          const paymentId = header.paymentId || header.payment?.id
+          const pMethod = header.payment || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
           const pCcy = this.findAllCurrency?.find(
-            (c) => Number(c.id) === Number(header.payments?.[0]?.currencyId || header.currencyId)
+            (c) => Number(c.id) === Number(header.currencyId)
           )
           const isLocal = pCcy?.isLocalCCY === true || pCcy?.isLocalCCY === 1
-          const rate = isLocal ? 1 : header.payments?.[0]?.exchangeRate || header.exchangeRate || 1
-          const pAmountLocal = header.payments?.[0]?.amount !== undefined 
-            ? Number(header.payments[0].amount) * rate 
-            : headerNetLocal
+          const rate = isLocal ? 1 : header.exchangeRate || 1
+          const pAmountLocal = headerNetLocal
 
           paymentList.push({
-            code: pMethod?.payment_code,
-            name: pMethod?.payment_name,
+            code: pMethod?.payment_code || this.getPaymentCode(header),
+            name: pMethod?.payment_name || this.getPaymentName(header),
             amountLocal: pAmountLocal,
             currencyCode: pCcy?.code || this.findLocalCurrency?.code || 'LAK',
-            exchangeRate: rate
+            exchangeRate: rate,
           })
         }
 
@@ -1363,30 +1371,61 @@ export default {
     },
 
     getPaymentCode(item) {
+      if (!item) return 'N/A'
       if (this.isMultiPayment(item)) {
         return 'MULTI'
       }
-      return (
-        item.payment?.payment_code ||
-        item.payments?.[0]?.paymentMethod?.payment_code ||
-        item.payments?.[0]?.payment_code ||
-        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_code) ||
-        'N/A'
-      )
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        const p0 = item.payments[0]
+        const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+        const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+        if (pMethod?.payment_code) return pMethod.payment_code
+        if (p0.payment_code) return p0.payment_code
+      }
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
     },
 
     getPaymentName(item) {
-      if (this.isMultiPayment(item)) {
-        return 'ຫຼາຍວິທີ'
+      if (!item) return 'N/A'
+      // Priority 1: Check salePayment table first
+      if (item.payments && Array.isArray(item.payments) && item.payments.length > 0) {
+        if (item.payments.length > 1) {
+          const names = item.payments
+            .map((p) => {
+              const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+              const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+              return pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code
+            })
+            .filter(Boolean)
+          return names.length > 0 ? names.join(' + ') : 'ຫຼາຍວິທີ'
+        } else {
+          const p0 = item.payments[0]
+          const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+          const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+          if (pMethod?.payment_name) return pMethod.payment_name
+          if (p0.payment_name) return p0.payment_name
+          if (pMethod?.payment_code) return pMethod.payment_code
+          if (p0.payment_code) return p0.payment_code
+        }
       }
-      return (
-        item.payment?.payment_name ||
-        item.payments?.[0]?.paymentMethod?.payment_name ||
-        item.payments?.[0]?.payment_name ||
-        (item.paymentId && this.findAllPayment?.find((p) => p.id === item.paymentId)?.payment_name) ||
-        item.payment?.payment_code ||
-        'N/A'
-      )
+      // Priority 2: Fallback to saleHeader
+      if (item.payment?.payment_name) return item.payment.payment_name
+      if (item.payment?.payment_code) return item.payment.payment_code
+      if (item.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === item.paymentId)
+        if (found?.payment_name) return found.payment_name
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof item.payment === 'string') return item.payment
+      return 'N/A'
     },
 
     // Payment Filter Methods (remain the same)

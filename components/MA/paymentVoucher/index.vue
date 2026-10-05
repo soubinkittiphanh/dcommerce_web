@@ -235,7 +235,13 @@
               <div class="signature-box">
                 <div class="signature-title">ຜູ້ຈ່າຍເງິນ</div>
                 <div class="signature-name">
-                  {{ voucherData.checker?.cus_name || '' }}
+                  {{
+                    voucherData.maker?.cus_name ||
+                    voucherData.maker?.name ||
+                    voucherData.user?.cus_name ||
+                    voucherData.inputter?.cus_name ||
+                    ''
+                  }}
                 </div>
               </div>
             </div>

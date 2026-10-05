@@ -507,18 +507,37 @@ export default {
       if (this.isCreditOrder(header)) {
         return 'ຕິດໜີ້ (CREDIT)'
       }
-      if (header.payments && header.payments.length > 1) {
-        return `ຫຼາຍວິທີ (${header.payments.length})`
+      // Priority 1: Check salePayment table first
+      if (header.payments && Array.isArray(header.payments) && header.payments.length > 0) {
+        if (header.payments.length > 1) {
+          const names = header.payments
+            .map((p) => {
+              const paymentId = p.paymentId || p.paymentMethodId || p.payment_id || p.paymentMethod?.id
+              const pMethod = p.paymentMethod || (paymentId && this.findAllPayment?.find((pay) => pay.id === paymentId))
+              return pMethod?.payment_name || p.payment_name || pMethod?.payment_code || p.payment_code
+            })
+            .filter(Boolean)
+          return names.length > 0 ? names.join(' + ') : `ຫຼາຍວິທີ (${header.payments.length})`
+        } else {
+          const p0 = header.payments[0]
+          const paymentId = p0.paymentId || p0.paymentMethodId || p0.payment_id || p0.paymentMethod?.id
+          const pMethod = p0.paymentMethod || (paymentId && this.findAllPayment?.find((p) => p.id === paymentId))
+          if (pMethod?.payment_name) return pMethod.payment_name
+          if (p0.payment_name) return p0.payment_name
+          if (pMethod?.payment_code) return pMethod.payment_code
+          if (p0.payment_code) return p0.payment_code
+        }
       }
-      return (
-        header.payment?.payment_name ||
-        header.payments?.[0]?.paymentMethod?.payment_name ||
-        header.payment?.payment_code ||
-        (header.paymentId &&
-          this.findAllPayment?.find((p) => p.id === header.paymentId)?.payment_name) ||
-        header.payment ||
-        'N/A'
-      )
+      // Priority 2: Fallback to saleHeader
+      if (header.payment?.payment_name) return header.payment.payment_name
+      if (header.payment?.payment_code) return header.payment.payment_code
+      if (header.paymentId && this.findAllPayment) {
+        const found = this.findAllPayment.find((p) => p.id === header.paymentId)
+        if (found?.payment_name) return found.payment_name
+        if (found?.payment_code) return found.payment_code
+      }
+      if (typeof header.payment === 'string') return header.payment
+      return 'N/A'
     },
 
     exportToExcel() {
