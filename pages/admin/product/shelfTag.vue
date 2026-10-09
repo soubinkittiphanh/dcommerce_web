@@ -17,13 +17,13 @@
           </v-avatar>
           <div>
             <h2 class="font-weight-bold text-h6 grey--text text--darken-4 mb-0 d-flex align-center">
-              ພິມປ້າຍລາຄາຕິດຊັ້ນວາງ (Shelf Tag A4)
+              ພິມປ້າຍລາຄາຕິດຊັ້ນວາງ (Shelf Tag Printing)
               <v-chip x-small color="primary lighten-4" text-color="primary" class="ml-2 font-weight-bold">
                 Batch Scanner
               </v-chip>
             </h2>
             <p class="grey--text text--darken-1 mb-0 caption">
-              ຍິງ Barcode ຫຼື ຄົ້ນຫາສິນຄ້າເພື່ອເພີ່ມເຂົ້າໃນລາຍການພິມປ້າຍລາຄາ (ຂະໜາດ 80x40mm, 12 ໃບ/ໜ້າ A4)
+              ຍິງ Barcode ຫຼື ຄົ້ນຫາສິນຄ້າ (ຂະໜາດ {{ currentSelectedSizeName }}, {{ isRollMode ? 'ມ້ວນສະຕິກເກີ 1 ໃບ/ໜ້າ' : `${activeTagsPerSheet} ໃບ/ໜ້າ A4` }})
             </p>
           </div>
         </div>
@@ -58,6 +58,99 @@
         </v-btn>
       </v-col>
     </v-row>
+
+    <!-- Tag Size & Paper Format Selector Bar -->
+    <v-card outlined class="rounded-xl pa-2 mb-3 bg-white elevation-1 border-light">
+      <v-row align="center" no-gutters class="flex-wrap" style="gap: 8px;">
+        <!-- Size Selector Menu -->
+        <v-col cols="12" sm="auto" class="d-flex align-center">
+          <span class="caption font-weight-bold grey--text text--darken-2 mr-2 d-none d-md-inline">
+            <v-icon small color="primary" class="mr-1">mdi-aspect-ratio</v-icon>
+            ຂະໜາດປ້າຍ:
+          </span>
+          <v-menu offset-y transition="slide-y-transition" rounded="lg">
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                small
+                depressed
+                color="indigo lighten-5"
+                class="rounded-lg font-weight-bold indigo--text text--darken-4 text-none"
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon left small color="indigo">mdi-tag-outline</v-icon>
+                <span>{{ currentSelectedSizeName }}</span>
+                <v-chip x-small color="indigo" text-color="white" class="ml-2 font-weight-bold">
+                  {{ isRollMode ? 'Roll' : `${activeTagsPerSheet} ໃບ/A4` }}
+                </v-chip>
+                <v-icon right small color="indigo">mdi-chevron-down</v-icon>
+              </v-btn>
+            </template>
+            <v-list dense>
+              <v-list-item
+                v-for="preset in sizePresetsList"
+                :key="preset.key"
+                :class="sizePreset === preset.key ? 'indigo lighten-5 font-weight-bold' : ''"
+                @click="setSizePreset(preset.key)"
+              >
+                <v-list-item-icon class="mr-2">
+                  <v-icon small :color="sizePreset === preset.key ? 'indigo' : 'grey'">
+                    {{ sizePreset === preset.key ? 'mdi-check-circle' : 'mdi-tag-outline' }}
+                  </v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title class="font-weight-bold">
+                    {{ preset.width }}x{{ preset.height }}mm – {{ preset.labelLao }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle class="caption grey--text">
+                    {{ preset.tagsPerA4 }} ໃບ/ໜ້າ A4
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
+              <v-divider></v-divider>
+              <v-list-item @click="customSizeDialog = true">
+                <v-list-item-icon class="mr-2">
+                  <v-icon small color="orange darken-2">mdi-ruler-square</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title class="font-weight-bold">
+                  ກຳນົດຂະໜາດເອງ (Custom Size)...
+                </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-col>
+
+        <!-- Paper Mode Toggle -->
+        <v-col cols="12" sm="auto" class="d-flex align-center">
+          <v-btn-toggle v-model="paperType" mandatory dense color="primary" class="rounded-lg bg-slate-50 border-light">
+            <v-btn value="a4" small class="text-none font-weight-bold px-3">
+              <v-icon left small color="primary">mdi-file-document-outline</v-icon>
+              <span>A4 Sheet</span>
+            </v-btn>
+            <v-btn value="roll" small class="text-none font-weight-bold px-3">
+              <v-icon left small color="orange darken-2">mdi-receipt-text-outline</v-icon>
+              <span>Thermal Roll</span>
+            </v-btn>
+          </v-btn-toggle>
+        </v-col>
+
+        <v-spacer></v-spacer>
+
+        <!-- Display Options Button -->
+        <v-col cols="12" sm="auto" class="d-flex align-center justify-sm-end">
+          <v-btn
+            small
+            outlined
+            color="grey darken-2"
+            class="rounded-lg font-weight-bold text-none"
+            @click="optionsDialog = true"
+          >
+            <v-icon left small color="primary">mdi-tune</v-icon>
+            ຕັ້ງຄ່າການສະແດງຜົນ
+          </v-btn>
+        </v-col>
+      </v-row>
+    </v-card>
 
     <!-- Metrics & Sheet Estimator Cards -->
     <v-row class="mb-3">
@@ -99,14 +192,16 @@
         <v-card outlined class="rounded-xl pa-3 stat-card bg-gradient-purple elevation-1">
           <div class="d-flex align-center justify-space-between">
             <div>
-              <div class="text-caption font-weight-bold text-uppercase purple--text text--darken-3">ຈຳນວນໜ້າ A4</div>
+              <div class="text-caption font-weight-bold text-uppercase purple--text text--darken-3">
+                {{ isRollMode ? 'ຈຳນວນສະຕິກເກີ' : 'ຈຳນວນໜ້າ A4' }}
+              </div>
               <div class="text-h5 font-weight-black purple--text text--darken-4 mt-1 font-mono">
-                {{ totalA4Sheets }}
-                <span class="text-caption grey--text">ໜ້າ</span>
+                {{ isRollMode ? totalCopies : totalA4Sheets }}
+                <span class="text-caption grey--text">{{ isRollMode ? 'ໃບ' : 'ໜ້າ' }}</span>
               </div>
             </div>
             <v-avatar color="purple lighten-5" size="38">
-              <v-icon color="purple darken-2">mdi-file-document-outline</v-icon>
+              <v-icon color="purple darken-2">{{ isRollMode ? 'mdi-receipt-text-outline' : 'mdi-file-document-outline' }}</v-icon>
             </v-avatar>
           </div>
         </v-card>
@@ -117,11 +212,11 @@
           <div class="d-flex align-center justify-space-between">
             <div style="width: 100%;">
               <div class="text-caption font-weight-bold text-uppercase primary--text text--darken-2 d-flex justify-space-between">
-                <span>ສະຖານະເຕັມໜ້າ A4</span>
-                <span class="font-weight-bold">{{ filledOnLastSheet }}/12</span>
+                <span>{{ isRollMode ? 'ຮູບແບບມ້ວນຕໍ່ເນື່ອງ' : 'ສະຖານະເຕັມໜ້າ A4' }}</span>
+                <span class="font-weight-bold">{{ isRollMode ? '1 ໃບ/ໜ້າ' : `${filledOnLastSheet}/${activeTagsPerSheet}` }}</span>
               </div>
               <v-progress-linear
-                :value="(filledOnLastSheet / 12) * 100"
+                :value="isRollMode ? 100 : (filledOnLastSheet / activeTagsPerSheet) * 100"
                 color="primary"
                 height="8"
                 rounded
@@ -241,13 +336,13 @@
                 <v-list-item-icon class="mr-2"><v-icon small color="primary">mdi-numeric-1-box</v-icon></v-list-item-icon>
                 <v-list-item-title>ຕັ້ງທຸກລາຍການເປັນ 1 ໃບ</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="setAllCopies(6)">
-                <v-list-item-icon class="mr-2"><v-icon small color="primary darken-1">mdi-numeric-6-box</v-icon></v-list-item-icon>
-                <v-list-item-title>ຕັ້ງທຸກລາຍການເປັນ 6 ໃບ (ເຄິ່ງໜ້າ A4)</v-list-item-title>
+              <v-list-item @click="setAllCopies(halfSheetQty)">
+                <v-list-item-icon class="mr-2"><v-icon small color="primary darken-1">mdi-numeric</v-icon></v-list-item-icon>
+                <v-list-item-title>ຕັ້ງທຸກລາຍການເປັນ {{ halfSheetQty }} ໃບ (ເຄິ່ງໜ້າ A4)</v-list-item-title>
               </v-list-item>
-              <v-list-item @click="setAllCopies(12)">
+              <v-list-item @click="setAllCopies(activeTagsPerSheet)">
                 <v-list-item-icon class="mr-2"><v-icon small color="primary darken-2">mdi-file-document-outline</v-icon></v-list-item-icon>
-                <v-list-item-title>ຕັ້ງທຸກລາຍການເປັນ 12 ໃບ (ເຕັມ 1 ໜ້າ A4)</v-list-item-title>
+                <v-list-item-title>ຕັ້ງທຸກລາຍການເປັນ {{ activeTagsPerSheet }} ໃບ ({{ isRollMode ? 'ມ້ວນສະຕິກເກີ' : 'ເຕັມ 1 ໜ້າ A4' }})</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -386,20 +481,20 @@
               <v-chip
                 x-small
                 outlined
-                :color="item.printQty === 6 ? 'primary' : 'grey'"
+                :color="item.printQty === halfSheetQty ? 'primary' : 'grey'"
                 class="cursor-pointer font-weight-bold"
-                @click="item.printQty = 6"
+                @click="item.printQty = halfSheetQty"
               >
-                6
+                {{ halfSheetQty }}
               </v-chip>
               <v-chip
                 x-small
-                :color="item.printQty === 12 ? 'primary' : 'grey lighten-3'"
-                :dark="item.printQty === 12"
+                :color="item.printQty === activeTagsPerSheet ? 'primary' : 'grey lighten-3'"
+                :dark="item.printQty === activeTagsPerSheet"
                 class="cursor-pointer font-weight-bold"
-                @click="item.printQty = 12"
+                @click="item.printQty = activeTagsPerSheet"
               >
-                12 (A4)
+                {{ activeTagsPerSheet }} {{ isRollMode ? '' : '(A4)' }}
               </v-chip>
             </div>
           </div>
@@ -413,7 +508,7 @@
         </template>
 
         <!-- Actions Slot -->
-        <template v-slot:item.actions="{ item, index }">
+        <template v-slot:item.actions="{ index }">
           <v-btn icon small color="red lighten-1" @click="removeItem(index)">
             <v-icon small>mdi-delete-outline</v-icon>
           </v-btn>
@@ -485,6 +580,161 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Display Options Dialog -->
+    <v-dialog v-model="optionsDialog" max-width="500px">
+      <v-card class="rounded-xl">
+        <v-card-title class="primary white--text py-3">
+          <v-icon left color="white">mdi-tune</v-icon>
+          <span>ຕັ້ງຄ່າການສະແດງຜົນປ້າຍລາຄາ</span>
+          <v-spacer></v-spacer>
+          <v-btn icon dark small @click="optionsDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <v-row dense>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showLogo"
+                label="ໂລໂກ້ / ຊື່ຮ້ານ (Logo)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showCategory"
+                label="ໝວດໝູ່ (Category)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showSku"
+                label="ລະຫັດສິນຄ້າ (SKU)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showBarcode"
+                label="ບາໂຄດ (Barcode)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showPrice"
+                label="ລາຄາຂາຍ (Price)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="displayOptions.showDesc"
+                label="ລາຍລະອຽດ (Description)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+            <v-col cols="12">
+              <v-switch
+                v-model="displayOptions.showCutLines"
+                label="ເສັ້ນປະຕັດເຈ້ຍ A4 (Cut Lines)"
+                color="primary"
+                dense
+                hide-details
+                class="mt-1 font-weight-bold"
+              ></v-switch>
+            </v-col>
+          </v-row>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-3">
+          <v-spacer></v-spacer>
+          <v-btn color="primary" depressed class="font-weight-bold rounded-lg px-4" @click="optionsDialog = false">
+            ຕົກລົງ
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Custom Size Dialog -->
+    <v-dialog v-model="customSizeDialog" max-width="450px">
+      <v-card class="rounded-xl">
+        <v-card-title class="primary white--text py-3">
+          <v-icon left color="white">mdi-ruler-square</v-icon>
+          <span>ກຳນົດຂະໜາດປ້າຍເອງ (Custom Size)</span>
+          <v-spacer></v-spacer>
+          <v-btn icon dark small @click="customSizeDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-card-text class="pt-4">
+          <p class="caption grey--text text--darken-1 mb-3">
+            ກຳນົດຂະໜາດລວງກວ້າງ ແລະ ລວງສູງ (ຫົວໜ່ວຍ mm) ລະບົບຈະຄຳນວນຈຳນວນປ້າຍຕໍ່ໜ້າ A4 ອັດຕະໂນມັດ
+          </p>
+          <v-row dense>
+            <v-col cols="6">
+              <v-text-field
+                v-model.number="customWidth"
+                label="ລວງກວ້າງ (Width mm)"
+                type="number"
+                min="20"
+                max="200"
+                outlined
+                dense
+                suffix="mm"
+                prepend-inner-icon="mdi-arrow-expand-horizontal"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="6">
+              <v-text-field
+                v-model.number="customHeight"
+                label="ລວງສູງ (Height mm)"
+                type="number"
+                min="15"
+                max="150"
+                outlined
+                dense
+                suffix="mm"
+                prepend-inner-icon="mdi-arrow-expand-vertical"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <div class="pa-3 bg-slate-50 rounded-lg border-light mt-1">
+            <div class="caption font-weight-bold grey--text text--darken-3">
+              ຄຳນວນໄດ້: <span class="primary--text font-mono">{{ activeTagsPerSheet }}</span> ໃບ/ໜ້າ A4
+            </div>
+          </div>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions class="pa-3">
+          <v-spacer></v-spacer>
+          <v-btn text color="grey darken-1" @click="customSizeDialog = false">ຍົກເລີກ</v-btn>
+          <v-btn color="primary" depressed class="font-weight-bold rounded-lg px-4" @click="applyCustomSize">
+            ນຳໃຊ້ຂະໜາດນີ້
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -493,6 +743,7 @@ import { mapGetters } from 'vuex'
 import { getFormatNum, swalSuccess, swalError2 } from '~/common'
 import { mainCompanyInfo } from '~/common/api'
 import {
+  SHELF_TAG_SIZES,
   generateShelfPriceTagHTML,
   executeTraditionalPrint,
 } from '~/common/printTemplates'
@@ -525,6 +776,31 @@ export default {
       selectedCategoryToImport: null,
       categoryDefaultQty: 1,
 
+      // Tag Size & Output Format Configuration
+      sizePreset: '80x38',
+      customWidth: 80,
+      customHeight: 38,
+      paperType: 'a4',
+      optionsDialog: false,
+      customSizeDialog: false,
+      displayOptions: {
+        showLogo: true,
+        showCategory: true,
+        showSku: true,
+        showBarcode: true,
+        showPrice: true,
+        showDesc: false,
+        showCutLines: true,
+      },
+      sizePresetsList: [
+        { key: '80x38', width: 80, height: 38, labelLao: 'ມາດຕະຖານຊັ້ນວາງ', tagsPerA4: 12 },
+        { key: '80x40', width: 80, height: 40, labelLao: 'ປ້າຍລາຄາໃຫຍ່', tagsPerA4: 12 },
+        { key: '58x38', width: 58, height: 38, labelLao: 'ຂະໜາດກາງ / ມ້ວນ 58mm', tagsPerA4: 21 },
+        { key: '58x30', width: 58, height: 30, labelLao: 'ຂະໜາດກະທັດຮັດ', tagsPerA4: 27 },
+        { key: '40x30', width: 40, height: 30, labelLao: 'ປ້າຍຂະໜາດນ້ອຍ Mini', tagsPerA4: 36 },
+        { key: '100x50', width: 100, height: 50, labelLao: 'ປ້າຍໃຫຍ່ Jumbo', tagsPerA4: 10 },
+      ],
+
       // Table Headers
       headers: [
         { text: '#', value: 'index', width: '40px', sortable: false, align: 'center' },
@@ -554,27 +830,57 @@ export default {
       return defaultCcy ? defaultCcy.symbol || defaultCcy.code : '₭'
     },
 
+    activeTagsPerSheet() {
+      if (this.sizePreset === 'custom') {
+        const w = Math.max(10, parseFloat(this.customWidth) || 80)
+        const h = Math.max(10, parseFloat(this.customHeight) || 38)
+        const cols = Math.floor(198 / w) || 1
+        const rows = Math.floor(281 / h) || 1
+        return cols * rows
+      }
+      return SHELF_TAG_SIZES[this.sizePreset]?.tagsPerA4 || 12
+    },
+
+    isRollMode() {
+      return this.paperType === 'roll'
+    },
+
+    currentSelectedSizeName() {
+      if (this.sizePreset === 'custom') {
+        return `${this.customWidth}x${this.customHeight}mm (Custom)`
+      }
+      const preset = SHELF_TAG_SIZES[this.sizePreset]
+      return preset ? `${preset.width}x${preset.height}mm` : '80x38mm'
+    },
+
+    halfSheetQty() {
+      return Math.max(1, Math.floor(this.activeTagsPerSheet / 2))
+    },
+
     totalCopies() {
       return this.queue.reduce((sum, item) => sum + (parseInt(item.printQty, 10) || 0), 0)
     },
 
     totalA4Sheets() {
       if (this.totalCopies === 0) return 0
-      return Math.ceil(this.totalCopies / 12)
+      return Math.ceil(this.totalCopies / this.activeTagsPerSheet)
     },
 
     filledOnLastSheet() {
       if (this.totalCopies === 0) return 0
-      const rem = this.totalCopies % 12
-      return rem === 0 ? 12 : rem
+      const rem = this.totalCopies % this.activeTagsPerSheet
+      return rem === 0 ? this.activeTagsPerSheet : rem
     },
 
     slotsRemainingText() {
+      if (this.isRollMode) {
+        return 'ພິມແບບມ້ວນສະຕິກເກີ (1 ໃບ/ໜ້າ)'
+      }
       if (this.totalCopies === 0) return 'ຍັງບໍ່ມີປ້າຍໃນ Queue'
-      const rem = this.totalCopies % 12
-      if (rem === 0) return 'ເຕັມໜ້າ A4 ພໍດີ (12/12)'
-      const needed = 12 - rem
-      return `ຍັງອີກ ${needed} ໃບ ຈະເຕັມໜ້າ A4 (${rem}/12)`
+      const rem = this.totalCopies % this.activeTagsPerSheet
+      if (rem === 0) return `ເຕັມໜ້າ A4 ພໍດີ (${this.activeTagsPerSheet}/${this.activeTagsPerSheet})`
+      const needed = this.activeTagsPerSheet - rem
+      return `ຍັງອີກ ${needed} ໃບ ຈະເຕັມໜ້າ A4 (${rem}/${this.activeTagsPerSheet})`
     },
 
     getProductsForSelectedCategory() {
@@ -600,6 +906,24 @@ export default {
         }
       },
     },
+    sizePreset(val) {
+      if (process.client) {
+        localStorage.setItem('shelf_tag_size_preset', val)
+      }
+    },
+    paperType(val) {
+      if (process.client) {
+        localStorage.setItem('shelf_tag_paper_type', val)
+      }
+    },
+    displayOptions: {
+      deep: true,
+      handler(val) {
+        if (process.client) {
+          localStorage.setItem('shelf_tag_display_options', JSON.stringify(val))
+        }
+      },
+    },
   },
 
   async mounted() {
@@ -608,15 +932,11 @@ export default {
     await this.fetchProducts()
 
     // Add global keydown listener for hardware barcode scanner guns
-    if (process.client) {
-      window.addEventListener('keydown', this.handleHardwareBarcodeScan)
-    }
+    window.addEventListener('keydown', this.handleHardwareBarcodeScan)
   },
 
   beforeDestroy() {
-    if (process.client) {
-      window.removeEventListener('keydown', this.handleHardwareBarcodeScan)
-    }
+    window.removeEventListener('keydown', this.handleHardwareBarcodeScan)
     if (this.barcodeTimeout) {
       clearTimeout(this.barcodeTimeout)
     }
@@ -625,6 +945,19 @@ export default {
   methods: {
     formatNumber(val) {
       return getFormatNum(val)
+    },
+
+    setSizePreset(key) {
+      this.sizePreset = key
+      if (key !== 'custom' && SHELF_TAG_SIZES[key]) {
+        this.customWidth = SHELF_TAG_SIZES[key].width
+        this.customHeight = SHELF_TAG_SIZES[key].height
+      }
+    },
+
+    applyCustomSize() {
+      this.sizePreset = 'custom'
+      this.customSizeDialog = false
     },
 
     restoreQueueFromStorage() {
@@ -636,6 +969,19 @@ export default {
             if (Array.isArray(parsed)) {
               this.queue = parsed.map((p) => ({ ...p, justAdded: false }))
             }
+          }
+          const savedPreset = localStorage.getItem('shelf_tag_size_preset')
+          if (savedPreset) {
+            this.sizePreset = savedPreset
+          }
+          const savedPaper = localStorage.getItem('shelf_tag_paper_type')
+          if (savedPaper) {
+            this.paperType = savedPaper
+          }
+          const savedDisplay = localStorage.getItem('shelf_tag_display_options')
+          if (savedDisplay) {
+            const parsed = JSON.parse(savedDisplay)
+            this.displayOptions = { ...this.displayOptions, ...parsed }
           }
         }
       } catch (e) {
@@ -725,7 +1071,7 @@ export default {
 
     // Global Hardware Scanner Listener
     handleHardwareBarcodeScan(e) {
-      if (this.categoryDialog) return
+      if (this.categoryDialog || this.optionsDialog || this.customSizeDialog) return
 
       // If user is typing inside an input/textarea (other than our scan field), let native handler do it
       const target = e.target
@@ -954,11 +1300,26 @@ export default {
           printQty: parseInt(p.printQty, 10) || 1,
         }))
 
+        const printOptions = {
+          sizePreset: this.sizePreset,
+          customWidth: this.customWidth,
+          customHeight: this.customHeight,
+          paperType: this.paperType,
+          showLogo: this.displayOptions.showLogo,
+          showCategory: this.displayOptions.showCategory,
+          showSku: this.displayOptions.showSku,
+          showBarcode: this.displayOptions.showBarcode,
+          showPrice: this.displayOptions.showPrice,
+          showDesc: this.displayOptions.showDesc,
+          showCutLines: this.displayOptions.showCutLines,
+        }
+
         const htmlContent = generateShelfPriceTagHTML(
           productsForTags,
           companyData,
           currencyStr,
-          1
+          1,
+          printOptions
         )
 
         executeTraditionalPrint(htmlContent)

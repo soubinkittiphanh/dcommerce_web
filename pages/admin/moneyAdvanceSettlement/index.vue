@@ -1,344 +1,247 @@
 <template>
   <div>
     <!-- Compact Header -->
-    <div class="page-header">
-      <h1 class="page-title">ສະຫລຸບບັນຊີ ລາຍຮັບ</h1>
-      <div class="header-actions">
-        <v-btn
-          color="primary"
-          small
-          @click="openCreateDialog"
-          :loading="loading"
-        >
-          <v-icon left small>mdi-plus</v-icon>
-          ລົງລາຍຮັບ
-        </v-btn>
-        <v-btn
-          color="secondary"
-          small
-          outlined
-          @click="exportData"
-          :disabled="loading"
-        >
-          <v-icon left small>mdi-download</v-icon>
-          Export
-        </v-btn>
-      </div>
+    <v-card class="header-card" flat>
+      <v-card-text class="py-3">
+        <div class="header-content">
+          <h1 class="header-title">ສະຫລຸບບັນຊີ ລາຍຮັບ</h1>
+          <div class="header-actions">
+            <v-btn color="primary" small @click="openCreateDialog" :loading="loading">
+              <v-icon left small>mdi-plus</v-icon>
+              ລົງລາຍຮັບ
+            </v-btn>
+            <v-btn color="indigo" small outlined to="/admin/report/MA/period" class="text-none">
+              <v-icon left small>mdi-calendar-lock-outline</v-icon>
+              ຈັດການງວດ (Period)
+            </v-btn>
+            <v-btn color="primary" small outlined @click="printReport" :disabled="loading || filteredSettlements.length === 0">
+              <v-icon left small>mdi-printer</v-icon>
+              ພິມລາຍງານ
+            </v-btn>
+            <v-btn color="secondary" small outlined @click="exportData" :disabled="loading || filteredSettlements.length === 0">
+              <v-icon left small>mdi-download</v-icon>
+              Export
+            </v-btn>
+          </div>
+        </div>
+      </v-card-text>
+    </v-card>
+
+    <!-- Compact Summary Cards -->
+    <div class="summary-grid mb-2">
+      <v-card class="summary-card">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon total">
+              <v-icon color="white">mdi-cash-multiple</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ summaryStats.totalLAK.count }}</div>
+              <div class="summary-label">ຈນ ລາຍຮັບ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card settled">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon">
+              <v-icon color="info">mdi-cash-check</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">{{ activeSettlementCount }}</div>
+              <div class="summary-label">ເຄື່ອນໄຫວປົກກະຕິ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
+
+      <v-card class="summary-card total-amount">
+        <v-card-text class="pa-3">
+          <div class="summary-layout">
+            <div class="summary-icon total">
+              <v-icon color="white">mdi-calculator</v-icon>
+            </div>
+            <div class="summary-content">
+              <div class="summary-amount">
+                {{ formatCurrency(summaryStats.totalLAK.amount) }}
+              </div>
+              <div class="summary-label">ລວມຍອດທັງໝົດ</div>
+            </div>
+          </div>
+        </v-card-text>
+      </v-card>
     </div>
 
     <!-- Compact Filter Section -->
-    <v-card class="filter-card" flat>
+    <v-card class="filter-card mb-2" flat>
       <v-card-text class="py-2">
         <v-row no-gutters align="center" class="filter-row">
-          <!-- Date Range Picker -->
-          <v-col cols="12" sm="6" md="3" class="px-1">
-            <div class="date-range-container">
-              <v-menu
-                ref="startDateMenu"
-                v-model="startDateMenu"
-                :close-on-content-click="false"
-                transition="scale-transition"
-                offset-y
-                max-width="290px"
-                min-width="auto"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-text-field
-                    v-model="formattedStartDate"
-                    label="ວັນທີ່ເລີ່ມ"
-                    dense
-                    outlined
-                    clearable
-                    hide-details
-                    prepend-inner-icon="mdi-calendar"
-                    readonly
-                    v-bind="attrs"
-                    v-on="on"
-                    @click:clear="clearStartDate"
-                  />
-                </template>
-                <v-date-picker
-                  v-model="pickerStartDate"
-                  no-title
-                  @input="setStartDate"
-                  @change="setStartDate"
-                />
-              </v-menu>
-            </div>
+          <!-- Date Range Filters -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu ref="startDateMenu" v-model="startDateMenu" :close-on-content-click="false"
+              transition="scale-transition" offset-y max-width="290px" min-width="auto">
+              <template #activator="{ on, attrs }">
+                <v-text-field :value="formattedStartDate" label="ວັນທີ່ເລີ່ມຕົ້ນ" hint="DD/MM/YYYY" dense outlined
+                  clearable hide-details="auto" prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                  @click:clear="clearStartDate" />
+              </template>
+              <v-date-picker v-model="pickerStartDate" no-title @input="setStartDate" />
+            </v-menu>
           </v-col>
 
-          <v-col cols="12" sm="6" md="3" class="px-1">
-            <v-menu
-              ref="endDateMenu"
-              v-model="endDateMenu"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-text-field
-                  v-model="formattedEndDate"
-                  label="ວັນທີ່ສິ້ນສຸດ"
-                  dense
-                  outlined
-                  clearable
-                  hide-details
-                  prepend-inner-icon="mdi-calendar"
-                  readonly
-                  v-bind="attrs"
-                  v-on="on"
-                  @click:clear="clearEndDate"
-                />
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-menu ref="endDateMenu" v-model="endDateMenu" :close-on-content-click="false" transition="scale-transition"
+              offset-y max-width="290px" min-width="auto">
+              <template #activator="{ on, attrs }">
+                <v-text-field :value="formattedEndDate" label="ວັນທີ່ສິ້ນສຸດ" hint="DD/MM/YYYY" dense outlined clearable
+                  hide-details="auto" prepend-inner-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"
+                  @click:clear="clearEndDate" />
               </template>
-              <v-date-picker
-                v-model="pickerEndDate"
-                no-title
-                @input="setEndDate"
-                @change="setEndDate"
-              />
+              <v-date-picker v-model="pickerEndDate" no-title @input="setEndDate" />
             </v-menu>
           </v-col>
 
           <!-- Method Filter -->
           <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-select
-              v-model="filters.method"
-              :items="methodOptions"
-              label="ວິທີການ"
-              dense
-              outlined
-              clearable
-              hide-details
-            />
+            <v-select v-model="filters.method" :items="methodOptions" label="ວິທີການ" dense outlined clearable
+              hide-details="auto" @change="fetchSettlements" />
           </v-col>
 
-          <!-- Account Filter -->
-          <!-- <v-col cols="12" sm="6" md="2" class="px-1">
-            <v-select
-              v-model="filters.bankAccountId"
-              :items="accountOptions"
-              label="ບັນຊີ"
-              dense
-              outlined
-              clearable
-              hide-details
-            />
-          </v-col> -->
+          <!-- Ministry Filter -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-select v-model="filters.ministryId" :items="ministryOptions" label="ກະຊວງ" dense outlined clearable
+              hide-details="auto" @change="fetchSettlements" />
+          </v-col>
 
-          <!-- Actions -->
-          <v-col cols="12" sm="12" md="2" class="px-1">
-            <div class="filter-actions">
-              <v-btn
-                color="primary"
-                small
-                @click="fetchSettlements"
-                :loading="loading"
-              >
-                <v-icon small>mdi-magnify</v-icon>
+          <!-- Search and Actions -->
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <v-text-field v-model="searchTerm" label="ຄົ້ນຫາ" dense outlined clearable hide-details="auto"
+              prepend-inner-icon="mdi-magnify" @input="debounceSearch" />
+          </v-col>
+
+          <v-col cols="12" sm="6" md="2" class="px-1">
+            <div class="action-buttons">
+              <v-btn color="primary" x-small @click="fetchSettlements" :loading="loading">
+                <v-icon small>mdi-filter</v-icon>
               </v-btn>
-              <v-btn small outlined @click="resetFilters" :disabled="loading">
+              <v-btn x-small outlined @click="resetFilters" :disabled="loading">
                 <v-icon small>mdi-refresh</v-icon>
               </v-btn>
             </div>
           </v-col>
         </v-row>
-
-        <!-- Secondary Filters (Collapsible) -->
-        <v-expand-transition>
-          <v-row no-gutters class="mt-2">
-            <v-col cols="12" sm="6" md="3" class="px-1">
-              <v-select
-                v-model="filters.ministryId"
-                :items="ministryOptions"
-                label="ກະຊວງ"
-                dense
-                outlined
-                clearable
-                hide-details
-              />
-            </v-col>
-          </v-row>
-        </v-expand-transition>
-
-        <!-- Advanced Filter Toggle -->
       </v-card-text>
     </v-card>
 
-    <!-- Compact Summary Cards -->
-    <div class="summary-section">
-      <!-- Total Summary Card -->
-      <v-card class="summary-card total-card" dark>
-        <v-card-text class="py-2">
-          <div class="summary-content">
-            <div class="summary-icon">
-              <v-icon>mdi-calculator</v-icon>
-            </div>
-            <div class="summary-details">
-              <div class="summary-amount">
-                {{ formatCurrency(summaryStats.totalLAK.amount, 'LAK') }}
-              </div>
-              <div class="summary-label">
-                ລວມທັງໝົດ ({{ summaryStats.totalLAK.count }} ລາຍການ)
-              </div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-
-      <!-- Currency Cards -->
-      <v-card
-        v-for="currencyStat in summaryStats.currencies"
-        :key="currencyStat.currencyId"
-        class="summary-card currency-card"
-      >
-        <v-card-text class="py-2">
-          <div class="summary-content">
-            <div class="currency-icon">
-              <v-icon color="success">mdi-currency-usd</v-icon>
-            </div>
-            <div class="summary-details">
-              <div class="summary-amount">
-                {{
-                  formatCurrencyAmount(
-                    currencyStat.originalAmount,
-                    currencyStat.currencyCode
-                  )
-                }}
-              </div>
-              <div class="summary-label">
-                {{ currencyStat.currencyCode }} ({{ currencyStat.count }})
-              </div>
-              <div class="lak-equivalent">
-                ≈ {{ formatCurrency(currencyStat.lakEquivalent, 'LAK') }}
-              </div>
-            </div>
-          </div>
-        </v-card-text>
-      </v-card>
-    </div>
-
     <!-- Compact Data Table -->
     <v-card class="table-card" flat>
-      <v-card-title class="py-2">
-        <span class="table-title"
-          >ລາຍການ ({{ filteredSettlements.length }})</span
-        >
+      <v-card-title class="py-2 px-3">
+        <span class="table-title">ລາຍການ ({{ filteredSettlements.length }})</span>
         <v-spacer />
       </v-card-title>
 
-      <v-data-table
-        :headers="tableHeaders"
-        :items="filteredSettlements"
-        :items-per-page="25"
-        class="compact-table"
-        dense
-      >
+      <v-data-table :headers="compactHeaders" :items="filteredSettlements" :items-per-page="25" class="compact-table" dense
+        :loading="loading" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ...">
         <!-- ID Column -->
-        <template v-slot:item.id="{ item }">
-          <div class="id-cell">
-            <span :class="{ 'text-decoration-line-through grey--text': item.isActive === false }">
-              {{ formatVoucherNumber(item.id) }}
-            </span>
-            <span v-if="item.moneyAdvanceId" class="advance-id"
-              >({{ item.moneyAdvanceId }})</span
-            >
-            <v-chip v-if="item.isActive === false" x-small color="error" class="ml-1" outlined>
-              ຍົກເລີກ
-            </v-chip>
-          </div>
-        </template>
-
-        <!-- Date Column -->
-        <template v-slot:item.bookingDate="{ item }">
-          <span class="date-text">{{
-            formatCompactDate(item.bookingDate)
-          }}</span>
+        <template #item.id="{ item }">
+          <span class="id-text" :class="{ 'text-decoration-line-through grey--text': item.isActive === false }">
+            {{ formatVoucherNumber(item.id) }}
+          </span>
+          <span v-if="item.moneyAdvanceId" class="id-text grey--text text--darken-1" style="font-size: 10px;">
+            (MA: #{{ item.moneyAdvanceId }})
+          </span>
+          <v-chip v-if="item.isActive === false" x-small color="error" class="ml-1" outlined>
+            ຍົກເລີກ
+          </v-chip>
         </template>
 
         <!-- Ministry Column -->
-        <template v-slot:item.ministry="{ item }">
-          <v-chip v-if="item.ministry" color="info" x-small outlined>
-            {{ item.ministry.ministryName }}
-          </v-chip>
+        <template #item.ministry="{ item }">
+          <div v-if="item.ministry" class="ministry-compact">
+            <v-chip color="info" x-small outlined>
+              {{ `${item.ministry.ministryCode ? item.ministry.ministryCode + ' - ' : ''}${item.ministry.ministryName}` }}
+            </v-chip>
+          </div>
           <span v-else class="no-data">-</span>
         </template>
 
-        <!-- Amount Column -->
-        <template v-slot:item.dramount="{ item }">
-          <div class="amount-cell" v-if="item.moneyAdvance">
-            <div class="amount-value">{{ formatAdvanceAmount(item.moneyAdvance) }}</div>
-            <div class="currency-code">
+        <!-- Dr Amount Column -->
+        <template #item.dramount="{ item }">
+          <div class="amount-column" v-if="item.moneyAdvance">
+            <span class="amount-value text--primary">
+              {{ formatAdvanceAmount(item.moneyAdvance) }}
+            </span>
+            <span class="currency-code">
               {{ item.moneyAdvance?.currency?.code || 'LAK' }}
-            </div>
+            </span>
           </div>
-          <div v-else class="no-data">
-            <span class="grey--text">-</span>
-          </div>
+          <span v-else class="no-data">-</span>
         </template>
 
-        <!-- Amount Column -->
-        <template v-slot:item.cramount="{ item }">
-          <div class="amount-cell">
-            <div class="amount-value">{{ formatSettlementAmount(item) }}</div>
-            <div class="currency-code">
+        <!-- Cr Amount Column -->
+        <template #item.cramount="{ item }">
+          <div class="amount-column">
+            <span class="amount-value">
+              {{ formatSettlementAmount(item) }}
+            </span>
+            <span class="currency-code">
               {{ getSettlementCurrency(item)?.code || 'LAK' }}
-            </div>
+            </span>
           </div>
         </template>
 
         <!-- Notes Column -->
-        <template v-slot:item.notes="{ item }">
-          <span class="notes-text" :title="item.notes">
-            {{ truncateText(item.notes, 20) }}
+        <template #item.notes="{ item }">
+          <span class="purpose-text" :title="item.notes">
+            {{ truncateText(item.notes, 25) }}
           </span>
         </template>
 
         <!-- Method Column -->
-        <template v-slot:item.method="{ item }">
-          <v-chip :color="getMethodColor(item.method)" small outlined>
+        <template #item.method="{ item }">
+          <v-chip :color="getMethodColor(item.method)" x-small outlined>
             {{ formatMethod(item.method) }}
           </v-chip>
         </template>
 
         <!-- Requester Column -->
-        <template v-slot:item.requester="{ item }">
+        <template #item.requester="{ item }">
           <span class="maker-name">
             {{ item.requester || item.proceeder?.cus_name || '-' }}
           </span>
         </template>
 
+        <!-- Booking Date Column -->
+        <template #item.bookingDate="{ item }">
+          <span class="date-compact">{{ formatCompactDate(item.bookingDate) }}</span>
+        </template>
+
         <!-- Actions Column -->
-        <template v-slot:item.actions="{ item }">
-          <div class="action-buttons">
-            <v-btn
-              icon
-              x-small
-              @click="viewSettlement(item)"
-              :disabled="loading"
-            >
+        <template #item.actions="{ item }">
+          <div class="action-buttons-table">
+            <v-btn icon x-small @click="viewSettlement(item)" title="ເບິ່ງລາຍລະອຽດ">
               <v-icon small>mdi-eye</v-icon>
             </v-btn>
-            <v-btn
-              icon
-              x-small
-              @click="editSettlement(item)"
-              :disabled="loading"
-            >
+            <v-btn icon x-small @click="editSettlement(item)" title="ແກ້ໄຂ">
               <v-icon small>mdi-pencil</v-icon>
             </v-btn>
-            <v-btn
-              icon
-              x-small
-              @click="printSettlement(item)"
-              :disabled="loading"
-            >
+            <v-btn icon x-small color="error" @click="printSettlement(item)" title="ພິມ">
               <v-icon small>mdi-printer</v-icon>
             </v-btn>
           </div>
         </template>
       </v-data-table>
+    </v-card>
+
+    <!-- No Data Message -->
+    <v-card v-if="!loading && filteredSettlements.length === 0" class="no-data-card" flat>
+      <v-card-text class="text-center py-8">
+        <v-icon size="64" color="grey lighten-2">mdi-inbox</v-icon>
+        <div class="mt-3 grey--text">ບໍ່ມີຂໍ້ມູນ</div>
+        <div class="grey--text">ບໍ່ພົບລາຍການລາຍຮັບທີ່ຕົງກັບເງື່ອນໄຂການຄົ້ນຫາ</div>
+      </v-card-text>
     </v-card>
 
     <!-- Dialogs (keeping existing) -->
@@ -387,6 +290,8 @@
 import VoucherPrintComponent from '~/components/MA/settlementVoucher'
 import SettlementDialog from '~/components/MA/settlementDialog'
 import SettlementViewDialog from '~/components/MA/settlementViewDialog'
+import { printSettlementListReport } from '~/common/moneyAdvanceSettlementListPrintTemplate'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'SettlementSummary',
@@ -399,13 +304,13 @@ export default {
 
   data() {
     return {
-      // Date picker data - Fixed initialization
+      // Date picker data
       startDateMenu: false,
       endDateMenu: false,
+      fromDateMenu: false,
+      toDateMenu: false,
       pickerStartDate: null,
       pickerEndDate: null,
-      formattedStartDate: null,
-      formattedEndDate: null,
 
       // UI state
       showAdvancedFilters: false,
@@ -414,6 +319,8 @@ export default {
       showViewDialog: false,
       selectedSettlement: null,
       defaultPaymentMethod: 'cash',
+      searchTerm: '',
+      searchTimeout: null,
 
       // Data arrays (keeping existing)
       outstandingInvoices: [],
@@ -430,10 +337,12 @@ export default {
       formLoading: false,
       settlementDetail: null,
 
-      // Filters (updated for new date handling)
+      // Filters
       filters: {
-        startDate: null,
-        endDate: null,
+        fromDate: '',
+        toDate: '',
+        startDate: '',
+        endDate: '',
         method: '',
         bankAccountId: '',
         ministryId: '',
@@ -460,17 +369,44 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['findAllCompany']),
+    companyData() {
+      return (this.findAllCompany && this.findAllCompany.length > 0) ? this.findAllCompany[0] : {}
+    },
     user() {
       return this.$auth.user || ''
     },
+    formattedStartDate: {
+      get() {
+        return this.formatDisplayDate(this.pickerStartDate)
+      },
+      set(value) {
+        this.pickerStartDate = value
+      },
+    },
+    formattedEndDate: {
+      get() {
+        return this.formatDisplayDate(this.pickerEndDate)
+      },
+      set(value) {
+        this.pickerEndDate = value
+      },
+    },
+    formattedFromDate() {
+      return this.formattedStartDate
+    },
+    formattedToDate() {
+      return this.formattedEndDate
+    },
     filterParams() {
       const params = {}
-      console.info(`${JSON.stringify(this.filters)}`)
-      if (this.filters.startDate) {
-        params.fromDate = this.formatDateForAPI(this.filters.startDate)
+      const fromDate = this.filters.fromDate || this.filters.startDate
+      const toDate = this.filters.toDate || this.filters.endDate
+      if (fromDate) {
+        params.fromDate = typeof fromDate === 'string' ? fromDate : this.formatDateForAPI(fromDate)
       }
-      if (this.filters.endDate) {
-        params.toDate = this.formatDateForAPI(this.filters.endDate)
+      if (toDate) {
+        params.toDate = typeof toDate === 'string' ? toDate : this.formatDateForAPI(toDate)
       }
       if (this.filters.bankAccountId) {
         params.bankAccountId = this.filters.bankAccountId
@@ -481,31 +417,30 @@ export default {
       if (this.filters.method) {
         params.method = this.filters.method
       }
-      if (this.searchTerm) {
-        params.search = this.searchTerm
-      }
 
       return params
     },
+    activeSettlementCount() {
+      return (this.filteredSettlements || []).filter((s) => s.isActive !== false).length
+    },
+
+    compactHeaders() {
+      return [
+        { text: 'ID', value: 'id', width: '70px', sortable: true },
+        { text: 'ວັນທີ', value: 'bookingDate', width: '80px', sortable: true },
+        { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
+        { text: 'ຈຳນວນ ຫນີ້', value: 'dramount', width: '100px', sortable: true },
+        { text: 'ຈຳນວນ ມີ', value: 'cramount', width: '100px', sortable: true },
+        { text: 'ເນື້ອໃນ', value: 'notes', width: '150px', sortable: true },
+        { text: 'ການຊຳລະ', value: 'method', width: '80px', sortable: true },
+        { text: 'ຜູ້ລົງ', value: 'requester', width: '100px', sortable: true },
+        { text: '', value: 'actions', width: '110px', sortable: false },
+      ]
+    },
+
     // Table headers for compact design
     tableHeaders() {
-      return [
-        { text: 'ID', value: 'id', width: '80px', sortable: true },
-        { text: 'ວັນທີ', value: 'bookingDate', width: '100px', sortable: true },
-        { text: 'ກົມ', value: 'ministry', width: '80px', sortable: false },
-        { text: 'ຈຳນວນ ຫນີ້', value: 'dramount', width: '120px', sortable: true },
-        { text: 'ຈຳນວນ ມີ', value: 'cramount', width: '120px', sortable: true },
-        { text: 'ເນື້ອໃນ', value: 'notes', width: '150px', sortable: false },
-        // {
-        //   text: 'ບັນຊີ',
-        //   value: 'chartAccount',
-        //   width: '80px',
-        //   sortable: false,
-        // },
-        { text: 'ການຊຳລະ', value: 'method', width: '90px', sortable: true },
-        { text: 'ຜູ້ລົງ', value: 'requester', width: '120px', sortable: true },
-        { text: 'ຈັດການ', value: 'actions', width: '100px', sortable: false },
-      ]
+      return this.compactHeaders
     },
 
     // Options for filters
@@ -613,117 +548,130 @@ export default {
   },
 
   methods: {
-    // Fixed date picker methods
-    initializeDefaultDates() {
-      const today = new Date()
-      
-      // First day of current month
-      const firstDay = new Date(today.getFullYear(), today.getMonth(), 1)
-      
-      // Last day of current month  
-      const lastDay = new Date(today.getFullYear(), today.getMonth() + 1, 0)
-
-      // Set picker dates first (YYYY-MM-DD format for v-date-picker)
-      this.pickerStartDate = this.formatForPicker(firstDay)
-      this.pickerEndDate = this.formatForPicker(lastDay)
-      
-      // Set display dates
-      this.formattedStartDate = this.formatDate(firstDay)
-      this.formattedEndDate = this.formatDate(lastDay)
-      
-      // Set filter dates
-      this.filters.startDate = firstDay
-      this.filters.endDate = lastDay
-    },
-
-    formatForPicker(date) {
-      if (!date) return null
-      
-      // Handle if date is already a string in correct format
-      if (typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2}$/)) {
-        return date
-      }
-      
-      // Convert to Date object if it's not already
-      const d = date instanceof Date ? date : new Date(date)
-      
-      // Check if date is valid
-      if (isNaN(d.getTime())) return null
-      
-      const year = d.getFullYear()
-      const month = String(d.getMonth() + 1).padStart(2, '0')
-      const day = String(d.getDate()).padStart(2, '0')
+    getStartOfCurrentMonth() {
+      const now = new Date()
+      const firstDay = new Date(now.getFullYear(), now.getMonth(), 1)
+      const year = firstDay.getFullYear()
+      const month = String(firstDay.getMonth() + 1).padStart(2, '0')
+      const day = String(firstDay.getDate()).padStart(2, '0')
       return `${year}-${month}-${day}`
     },
 
+    getEndOfCurrentMonth() {
+      const now = new Date()
+      const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0)
+      const year = lastDay.getFullYear()
+      const month = String(lastDay.getMonth() + 1).padStart(2, '0')
+      const day = String(lastDay.getDate()).padStart(2, '0')
+      return `${year}-${month}-${day}`
+    },
+
+    initializeDefaultDates() {
+      const fromDate = this.getStartOfCurrentMonth()
+      const toDate = this.getEndOfCurrentMonth()
+
+      this.filters.fromDate = fromDate
+      this.filters.toDate = toDate
+      this.filters.startDate = fromDate
+      this.filters.endDate = toDate
+      this.pickerStartDate = fromDate
+      this.pickerEndDate = toDate
+    },
+
+    formatDisplayDate(dateString) {
+      if (!dateString) return ''
+      try {
+        const date = new Date(dateString)
+        if (isNaN(date.getTime())) return dateString
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+        return `${day}/${month}/${year}`
+      } catch (error) {
+        return dateString
+      }
+    },
+
     formatDate(date) {
-      if (!date) return null
-      const d = new Date(date)
-      const day = String(d.getDate()).padStart(2, '0')
-      const month = String(d.getMonth() + 1).padStart(2, '0')
-      const year = d.getFullYear()
-      return `${day}/${month}/${year}`
+      return this.formatDisplayDate(date)
     },
 
     formatDateForAPI(date) {
       if (!date) return null
-      const d = new Date(date)
+      if (typeof date === 'string' && date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+        return date
+      }
+      const d = date instanceof Date ? date : new Date(date)
+      if (isNaN(d.getTime())) return null
       const year = d.getFullYear()
       const month = String(d.getMonth() + 1).padStart(2, '0')
       const day = String(d.getDate()).padStart(2, '0')
       return `${year}-${month}-${day}`
     },
 
-    parsePickerDate(pickerValue) {
-      if (!pickerValue) return null
-      
-      // If pickerValue is already a Date object, return it
-      if (pickerValue instanceof Date) {
-        return pickerValue
-      }
-      
-      // If pickerValue is a string in YYYY-MM-DD format
-      if (typeof pickerValue === 'string') {
-        const parts = pickerValue.split('-')
-        return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]))
-      }
-      
-      // Fallback: try to create a Date from the value
-      return new Date(pickerValue)
+    formatForPicker(date) {
+      return this.formatDateForAPI(date)
     },
 
-    setStartDate(pickerValue) {
+    setStartDate(val) {
+      this.pickerStartDate = val
+      this.filters.fromDate = val || ''
+      this.filters.startDate = val || ''
       this.startDateMenu = false
-      if (!pickerValue) return
-      
-      const dateObj = this.parsePickerDate(pickerValue)
-      // Update picker value - ensure it's in YYYY-MM-DD format for the picker
-      this.pickerStartDate = this.formatForPicker(dateObj)
-      this.formattedStartDate = this.formatDate(dateObj)
-      this.filters.startDate = dateObj
+      this.fromDateMenu = false
+      this.fetchSettlements()
     },
 
-    setEndDate(pickerValue) {
+    setEndDate(val) {
+      this.pickerEndDate = val
+      this.filters.toDate = val || ''
+      this.filters.endDate = val || ''
       this.endDateMenu = false
-      if (!pickerValue) return
-      
-      const dateObj = this.parsePickerDate(pickerValue)
-      // Update picker value - ensure it's in YYYY-MM-DD format for the picker
-      this.pickerEndDate = this.formatForPicker(dateObj)
-      this.formattedEndDate = this.formatDate(dateObj)
-      this.filters.endDate = dateObj
+      this.toDateMenu = false
+      this.fetchSettlements()
+    },
+
+    setFromDate(val) {
+      this.setStartDate(val)
+    },
+
+    setToDate(val) {
+      this.setEndDate(val)
     },
 
     clearStartDate() {
-      this.formattedStartDate = null
       this.pickerStartDate = null
-      this.filters.startDate = null
+      this.filters.fromDate = ''
+      this.filters.startDate = ''
+      this.startDateMenu = false
+      this.fromDateMenu = false
+      this.fetchSettlements()
     },
 
     clearEndDate() {
-      this.formattedEndDate = null
       this.pickerEndDate = null
-      this.filters.endDate = null
+      this.filters.toDate = ''
+      this.filters.endDate = ''
+      this.endDateMenu = false
+      this.toDateMenu = false
+      this.fetchSettlements()
+    },
+
+    clearFromDate() {
+      this.clearStartDate()
+    },
+
+    clearToDate() {
+      this.clearEndDate()
+    },
+
+    debounceSearch() {
+      if (this.searchTimeout) {
+        clearTimeout(this.searchTimeout)
+      }
+      this.searchTimeout = setTimeout(() => {
+        this.applyLocalFilters()
+      }, 300)
     },
 
     // Compact date formatting
@@ -764,8 +712,6 @@ export default {
         this.fetchBankAccounts(),
         this.fetchSettlements(),
       ])
-      this.applyFilters()
-      this.calculateSummaryStats()
     },
 
     // Keep all your existing API methods exactly as they are
@@ -859,15 +805,15 @@ export default {
       return String(id).padStart(5, '0')
     },
     async fetchSettlements() {
-      
-      const params = {
-        page: 1,
-        limit: 1000,
-        ...this.filterParams,
-      }
+      if (this.loading) return
       this.loading = true
       try {
-        this.filteredSettlements = []
+        const params = {
+          page: 1,
+          limit: 1000,
+          ...this.filterParams,
+        }
+        console.info('Fetching settlements with params:', params)
         const response = await this.$axios.get('/api/settlements', { params })
         if (
           response.data &&
@@ -902,14 +848,15 @@ export default {
             })
           )
           console.info(`TOTAL ROWS ${this.settlements.length}`)
-          this.applyFilters()
         } else {
           this.settlements = []
         }
+        this.applyLocalFilters()
       } catch (error) {
         console.error('Error fetching settlements:', error)
         this.showToast('Error loading settlement data', 'error')
         this.settlements = []
+        this.applyLocalFilters()
       } finally {
         this.loading = false
       }
@@ -1002,8 +949,7 @@ export default {
       }
       this.selectedSettlement = newSettlement
       this.showToast('ການສ້າງລາຍຮັບສຳເລັດແລ້ວ', 'success')
-      this.applyFilters()
-      this.calculateSummaryStats()
+      this.applyLocalFilters()
     },
 
     async handleSettlementUpdated(updatedSettlement) {
@@ -1039,8 +985,7 @@ export default {
       }
       this.selectedSettlement = updatedSettlement
       this.showToast('ການອັບເດດລາຍຮັບສຳເລັດແລ້ວ', 'success')
-      this.applyFilters()
-      this.calculateSummaryStats()
+      this.applyLocalFilters()
     },
 
     handleLegacySettlementSave(settlementData) {
@@ -1085,6 +1030,10 @@ export default {
 
     // Keep all your existing filter, sort, pagination methods
     applyFilters() {
+      this.fetchSettlements()
+    },
+
+    applyLocalFilters() {
       let filtered = [...this.settlements]
       if (this.filters.method) {
         filtered = filtered.filter((s) => s.method === this.filters.method)
@@ -1099,6 +1048,27 @@ export default {
           (s) => s.ministryId === this.filters.ministryId
         )
       }
+      if (this.searchTerm) {
+        const term = this.searchTerm.toLowerCase().trim()
+        filtered = filtered.filter((s) => {
+          const notes = (s.notes || '').toLowerCase()
+          const id = String(s.id || '')
+          const maId = String(s.moneyAdvanceId || '')
+          const minName = (s.ministry?.ministryName || '').toLowerCase()
+          const minCode = (s.ministry?.ministryCode || '').toLowerCase()
+          const person = (s.fromPersonName || '').toLowerCase()
+          const req = (s.requester || '').toLowerCase()
+          return (
+            notes.includes(term) ||
+            id.includes(term) ||
+            maId.includes(term) ||
+            minName.includes(term) ||
+            minCode.includes(term) ||
+            person.includes(term) ||
+            req.includes(term)
+          )
+        })
+      }
 
       this.filteredSettlements = filtered
       this.sortData()
@@ -1107,19 +1077,12 @@ export default {
     },
 
     resetFilters() {
-      this.filters = {
-        startDate: null,
-        endDate: null,
-        method: '',
-        bankAccountId: '',
-        ministryId: '',
-        chartAccountId: '',
-        search: '',
-      }
-      this.clearStartDate()
-      this.clearEndDate()
       this.initializeDefaultDates()
-      this.applyFilters()
+      this.filters.method = ''
+      this.filters.bankAccountId = ''
+      this.filters.ministryId = ''
+      this.searchTerm = ''
+      this.fetchSettlements()
     },
 
     sortData() {
@@ -1199,6 +1162,34 @@ export default {
 
     goToPage(page) {
       this.pagination.currentPage = page
+    },
+
+    // Print Lao Government Style A4 Report (7 Columns)
+    printReport() {
+      if (!this.filteredSettlements || this.filteredSettlements.length === 0) {
+        this.showToast('ບໍ່ມີຂໍ້ມູນສຳລັບພິມລາຍງານ', 'warning')
+        return
+      }
+
+      const selectedMinistry = this.ministries.find((m) => m.id === this.filters.ministryId)
+      const selectedMethod = this.methodOptions.find((m) => m.value === this.filters.method)
+
+      const ministryName = selectedMinistry
+        ? `${selectedMinistry.ministryCode ? selectedMinistry.ministryCode + ' - ' : ''}${selectedMinistry.ministryName}`
+        : ''
+      const methodName = selectedMethod && selectedMethod.value ? selectedMethod.text : ''
+
+      printSettlementListReport({
+        reportData: this.filteredSettlements,
+        filters: this.filters,
+        formattedStartDate: this.formattedStartDate,
+        formattedEndDate: this.formattedEndDate,
+        companyData: this.companyData,
+        user: this.user,
+        ministryName: ministryName,
+        methodName: methodName,
+        summaryStats: this.summaryStats,
+      })
     },
 
     exportData() {
@@ -1308,17 +1299,23 @@ export default {
 </script>
 
 <style scoped>
-.page-header {
+/* Compact Header */
+.header-card {
+  margin-bottom: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
 }
 
-.page-title {
+.header-title {
   margin: 0;
-  font-size: 24px;
-  font-weight: 500;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1a202c;
 }
 
 .header-actions {
@@ -1326,12 +1323,85 @@ export default {
   gap: 8px;
 }
 
-.filter-card {
-  margin-bottom: 16px;
+/* Compact Summary Grid */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
 }
 
-.filter-row .px-1 {
-  padding: 0 4px;
+.summary-card {
+  border: 1px solid #e2e8f0;
+  transition: transform 0.2s;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+}
+
+.summary-card.total-amount {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+  color: white;
+}
+
+.summary-card.settled {
+  border-left: 4px solid #3b82f6;
+}
+
+.summary-layout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.summary-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  flex-shrink: 0;
+}
+
+.summary-icon.total {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.summary-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.summary-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a202c;
+  word-break: break-word;
+}
+
+.total-amount .summary-amount {
+  color: white;
+}
+
+.summary-label {
+  font-size: 11px;
+  color: #718096;
+  margin-top: 2px;
+}
+
+.total-amount .summary-label {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Compact Filter */
+.filter-card {
+  border: 1px solid #e2e8f0;
+}
+
+.filter-row {
+  align-items: flex-end;
 }
 
 .filter-actions {
@@ -1339,120 +1409,43 @@ export default {
   gap: 4px;
 }
 
-.date-range-container {
-  width: 100%;
-}
-
-.summary-section {
+.action-buttons {
   display: flex;
-  gap: 12px;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
+  gap: 4px;
 }
 
-.summary-card {
-  flex: 1;
-  min-width: 200px;
-}
-
-.total-card {
-  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-}
-
-.currency-card {
-  border: 1px solid #e0e0e0;
-}
-
-.summary-content {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.summary-icon,
-.currency-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.summary-details {
-  flex: 1;
-}
-
-.summary-amount {
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.summary-label {
-  font-size: 12px;
-  opacity: 0.8;
-  margin-top: 2px;
-}
-
-.lak-equivalent {
-  font-size: 11px;
-  color: #666;
-  margin-top: 2px;
-}
-
+/* Compact Table */
 .table-card {
-  margin-bottom: 16px;
+  border: 1px solid #e2e8f0;
 }
 
 .table-title {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .compact-table {
-  font-size: 13px;
-}
-
-.id-cell {
-  font-family: monospace;
   font-size: 12px;
 }
 
-.advance-id {
-  color: #666;
-  font-size: 10px;
+.compact-table>>>th {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  padding: 6px 8px !important;
+  height: 36px !important;
+  background: #f8fafc !important;
 }
 
-.date-text {
-  font-family: monospace;
-  font-size: 11px;
+.compact-table>>>td {
+  padding: 4px 8px !important;
+  height: 40px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
 }
 
-.amount-cell {
-  text-align: right;
-}
-
-.amount-value {
-  font-weight: 500;
+/* Table Cell Styles */
+.id-text {
+  font-weight: 600;
   font-size: 12px;
-}
-
-.currency-code {
-  font-size: 10px;
-  color: #666;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 2px;
-}
-
-.no-data {
-  color: #999;
-  font-style: italic;
-}
-
-.notes-text {
-  font-size: 11px;
-  color: #4a5568;
 }
 
 .maker-name {
@@ -1460,17 +1453,131 @@ export default {
   color: #2d3748;
 }
 
-@media (max-width: 600px) {
-  .summary-section {
+.ministry-compact {
+  display: flex;
+  justify-content: center;
+}
+
+.amount-column {
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.amount-value {
+  font-weight: 600;
+  color: #22c55e;
+  font-size: 12px;
+}
+
+.currency-code {
+  font-size: 9px;
+  color: #718096;
+  text-transform: uppercase;
+}
+
+.purpose-text {
+  font-size: 11px;
+  color: #4a5568;
+}
+
+.date-compact {
+  font-size: 10px;
+  color: #4a5568;
+}
+
+.action-buttons-table {
+  display: flex;
+  gap: 2px;
+  justify-content: center;
+}
+
+.no-data {
+  color: #a0aec0;
+  font-style: italic;
+  font-size: 10px;
+}
+
+/* No Data Card */
+.no-data-card {
+  border: 1px solid #e2e8f0;
+  margin-top: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 960px) {
+  .header-content {
     flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
   }
-  
+
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .filter-row {
+    gap: 8px;
+  }
+
+  .action-buttons-table {
     flex-direction: column;
+    gap: 1px;
   }
-  
-  .filter-row .v-col {
-    margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
   }
+
+  .summary-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .summary-icon {
+    margin: 0 auto;
+  }
+}
+
+/* Vuetify component overrides */
+.v-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v-btn--small {
+  height: 28px !important;
+  min-width: 60px !important;
+}
+
+.v-btn--x-small {
+  height: 24px !important;
+  min-width: 24px !important;
+}
+
+.v-chip--x-small {
+  height: 18px !important;
+  font-size: 10px !important;
+  padding: 0 6px !important;
+}
+
+.v-text-field--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-select--dense .v-input__control {
+  min-height: 32px !important;
+}
+
+.v-text-field--dense .v-input__details {
+  min-height: 14px !important;
+  padding-top: 2px !important;
+}
+
+.v-text-field--dense .v-messages {
+  font-size: 10px !important;
 }
 </style>

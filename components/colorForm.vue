@@ -456,8 +456,12 @@ export default {
   border-radius: 8px !important;
 }
 
-.caption {
+.caption,
+.text-caption,
+::v-deep .caption,
+::v-deep .text-caption {
   font-size: 0.75rem !important;
+  font-family: 'Noto Sans Lao', sans-serif !important;
   color: rgba(0, 0, 0, 0.6) !important;
 }
 

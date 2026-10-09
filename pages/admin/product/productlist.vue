@@ -87,7 +87,7 @@
                         <v-icon left small>mdi-barcode-scan</v-icon>
                         Barcodes
                       </v-btn>
-                      <v-btn small outlined color="indigo darken-1" class="rounded-lg" @click="printShelfTagsList">
+                      <v-btn small outlined color="indigo darken-1" class="rounded-lg" @click="openShelfTagDialog()">
                         <v-icon left small>mdi-tag-text-outline</v-icon>
                         Shelf Tags (A4)
                       </v-btn>
@@ -137,6 +137,17 @@
                       <v-icon x-small color="secondary">mdi-barcode</v-icon>
                       {{ item.barCode }}
                     </span>
+                    <v-chip
+                      v-if="item.isReturnable || item.hasPackaging"
+                      x-small
+                      color="teal lighten-5"
+                      text-color="teal darken-3"
+                      class="font-weight-bold mt-1"
+                      style="width: fit-content;"
+                    >
+                      <v-icon x-small left color="teal darken-2">mdi-package-variant-closed</v-icon>
+                      ມີບັນຈຸພັນສົ່ງຄືນ (Returnable)
+                    </v-chip>
                   </div>
                 </template>
 
@@ -252,6 +263,20 @@
                           <v-icon small color="purple">mdi-book-open-variant</v-icon>
                         </v-list-item-icon>
                         <v-list-item-title>ຈັດການສູດ (Manage Recipe)</v-list-item-title>
+                      </v-list-item>
+
+                      <v-list-item @click="openPackagingDialog(item)">
+                        <v-list-item-icon class="mr-2">
+                          <v-icon small color="teal darken-2">mdi-package-variant-closed</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>ກຳນົດບັນຈຸພັນສົ່ງຄືນ (Packaging Setup)</v-list-item-title>
+                      </v-list-item>
+
+                      <v-list-item @click="openShelfTagDialog(item)">
+                        <v-list-item-icon class="mr-2">
+                          <v-icon small color="indigo darken-1">mdi-tag-text-outline</v-icon>
+                        </v-list-item-icon>
+                        <v-list-item-title>ພິມປ້າຍລາຄາ (Shelf Tag)</v-list-item-title>
                       </v-list-item>
                     </v-list>
                   </v-menu>
@@ -411,6 +436,384 @@
       </v-card>
     </v-dialog>
 
+    <!-- Shelf Tag Print Settings & Preview Dialog -->
+    <v-dialog v-model="shelfTagDialog" max-width="1050px" scrollable>
+      <v-card class="rounded-xl overflow-hidden">
+        <!-- Modal Header -->
+        <v-card-title class="primary white--text py-3 px-4 d-flex align-center justify-space-between">
+          <div class="d-flex align-center">
+            <v-avatar color="white" size="32" class="mr-3">
+              <v-icon color="primary" small>mdi-tag-text-outline</v-icon>
+            </v-avatar>
+            <div>
+              <div class="text-h6 font-weight-bold" style="line-height: 1.2;">ພິມປ້າຍລາຄາຕິດຊັ້ນວາງ (Shelf Price Tags)</div>
+              <div class="caption white--text" style="opacity: 0.85;">ເລືອກຂະໜາດປ້າຍ, ຮູບແບບເຈ້ຍ A4 ຫຼື ມ້ວນສະຕິກເກີ ແລະ ຕົວເລືອກການສະແດງຜົນ</div>
+            </div>
+          </div>
+          <v-btn icon dark small @click="shelfTagDialog = false">
+            <v-icon>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4 bg-slate-50" style="max-height: 80vh;">
+          <v-row>
+            <!-- Left Panel: Settings & Configuration -->
+            <v-col cols="12" md="7">
+              <!-- 1. Size Preset Selection -->
+              <div class="settings-section mb-4">
+                <div class="section-title mb-2 d-flex align-center justify-space-between">
+                  <span class="font-weight-bold text-subtitle-2 grey--text text--darken-4">
+                    <v-icon small color="primary" class="mr-1">mdi-aspect-ratio</v-icon>
+                    1. ເລືອກຂະໜາດປ້າຍ (Tag Size Presets)
+                  </span>
+                  <v-chip x-small color="primary lighten-4" text-color="primary" class="font-weight-bold">
+                    {{ currentSelectedSizeName }}
+                  </v-chip>
+                </div>
+
+                <v-row dense>
+                  <v-col v-for="preset in sizePresetsList" :key="preset.key" cols="6" sm="4">
+                    <v-card
+                      outlined
+                      :class="['pa-2 size-card rounded-lg cursor-pointer h-100', shelfTagSettings.sizePreset === preset.key ? 'size-card-active' : '']"
+                      @click="selectSizePreset(preset.key)"
+                    >
+                      <div class="d-flex align-center justify-space-between mb-1">
+                        <span class="font-weight-black font-mono text-body-2" :class="shelfTagSettings.sizePreset === preset.key ? 'primary--text' : 'grey--text text--darken-3'">
+                          {{ preset.width }}x{{ preset.height }}mm
+                        </span>
+                        <v-icon x-small :color="shelfTagSettings.sizePreset === preset.key ? 'primary' : 'grey lighten-1'">
+                          {{ shelfTagSettings.sizePreset === preset.key ? 'mdi-check-circle' : 'mdi-checkbox-blank-circle-outline' }}
+                        </v-icon>
+                      </div>
+                      <div class="caption font-weight-bold grey--text text--darken-2 text-truncate">{{ preset.labelLao }}</div>
+                      <div class="caption grey--text text-truncate mt-1" style="font-size: 10px !important;">
+                        <v-icon x-small color="grey">mdi-file-document-outline</v-icon>
+                        {{ preset.tagsPerA4 }} ໃບ / A4
+                      </div>
+                    </v-card>
+                  </v-col>
+
+                  <!-- Custom Size Card -->
+                  <v-col cols="6" sm="4">
+                    <v-card
+                      outlined
+                      :class="['pa-2 size-card rounded-lg cursor-pointer h-100', shelfTagSettings.sizePreset === 'custom' ? 'size-card-active' : '']"
+                      @click="selectSizePreset('custom')"
+                    >
+                      <div class="d-flex align-center justify-space-between mb-1">
+                        <span class="font-weight-bold text-body-2" :class="shelfTagSettings.sizePreset === 'custom' ? 'primary--text' : 'grey--text text--darken-3'">
+                          ກຳນົດເອງ
+                        </span>
+                        <v-icon x-small :color="shelfTagSettings.sizePreset === 'custom' ? 'primary' : 'grey lighten-1'">
+                          {{ shelfTagSettings.sizePreset === 'custom' ? 'mdi-check-circle' : 'mdi-checkbox-blank-circle-outline' }}
+                        </v-icon>
+                      </div>
+                      <div class="caption grey--text" style="font-size: 10px !important;">Custom W x H mm</div>
+                    </v-card>
+                  </v-col>
+                </v-row>
+
+                <!-- Custom Size Inputs if selected -->
+                <v-expand-transition>
+                  <div v-if="shelfTagSettings.sizePreset === 'custom'" class="pa-3 bg-white rounded-lg border-light mt-2">
+                    <v-row dense align="center">
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model.number="shelfTagSettings.customWidth"
+                          label="ລວງກວ້າງ (Width mm)"
+                          type="number"
+                          min="20"
+                          max="200"
+                          outlined
+                          dense
+                          hide-details
+                          suffix="mm"
+                          @input="updatePreviewBarcode"
+                        ></v-text-field>
+                      </v-col>
+                      <v-col cols="6">
+                        <v-text-field
+                          v-model.number="shelfTagSettings.customHeight"
+                          label="ລວງສູງ (Height mm)"
+                          type="number"
+                          min="15"
+                          max="150"
+                          outlined
+                          dense
+                          hide-details
+                          suffix="mm"
+                          @input="updatePreviewBarcode"
+                        ></v-text-field>
+                      </v-col>
+                    </v-row>
+                  </div>
+                </v-expand-transition>
+              </div>
+
+              <!-- 2. Paper Output Format -->
+              <div class="settings-section mb-4">
+                <div class="section-title mb-2">
+                  <span class="font-weight-bold text-subtitle-2 grey--text text--darken-4">
+                    <v-icon small color="primary" class="mr-1">mdi-printer-outline</v-icon>
+                    2. ຮູບແບບເຈ້ຍພິມ (Paper Output Mode)
+                  </span>
+                </div>
+                <v-btn-toggle v-model="shelfTagSettings.paperType" mandatory dense color="primary" class="d-flex w-100 bg-white border-light rounded-lg">
+                  <v-btn value="a4" class="flex-grow-1 text-none font-weight-bold py-2" height="42">
+                    <v-icon left small color="primary">mdi-file-document-outline</v-icon>
+                    <span>📄 ເຈ້ຍ A4 (Grid Sheet • {{ currentActiveTagsPerSheet }} ໃບ/ໜ້າ)</span>
+                  </v-btn>
+                  <v-btn value="roll" class="flex-grow-1 text-none font-weight-bold py-2" height="42">
+                    <v-icon left small color="orange darken-2">mdi-receipt-text-outline</v-icon>
+                    <span>🏷️ ມ້ວນສະຕິກເກີ (Thermal Roll • 1 ໃບ/ໜ້າ)</span>
+                  </v-btn>
+                </v-btn-toggle>
+              </div>
+
+              <!-- 3. Display Elements Toggles -->
+              <div class="settings-section mb-4">
+                <div class="section-title mb-2">
+                  <span class="font-weight-bold text-subtitle-2 grey--text text--darken-4">
+                    <v-icon small color="primary" class="mr-1">mdi-tune</v-icon>
+                    3. ການສະແດງຜົນ (Display Elements)
+                  </span>
+                </div>
+                <v-card outlined class="pa-3 bg-white rounded-lg border-light">
+                  <v-row dense>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showLogo" label="ໂລໂກ້ / ຊື່ຮ້ານ" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showCategory" label="ໝວດໝູ່ສິນຄ້າ" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showSku" label="ລະຫັດສິນຄ້າ (SKU)" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showBarcode" label="ບາໂຄດ (Barcode)" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showPrice" label="ລາຄາ (Price Box)" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                    <v-col cols="6" sm="4">
+                      <v-switch v-model="shelfTagSettings.showCutLines" label="ເສັ້ນຂອບຕັດ (Dashed)" dense hide-details color="primary" class="mt-0 pt-0"></v-switch>
+                    </v-col>
+                  </v-row>
+                </v-card>
+              </div>
+
+              <!-- 4. Copies & Target Products -->
+              <div class="settings-section">
+                <v-row dense>
+                  <v-col cols="12" sm="6">
+                    <div class="section-title mb-1">
+                      <span class="font-weight-bold text-subtitle-2 grey--text text--darken-4">
+                        <v-icon small color="primary" class="mr-1">mdi-numeric</v-icon>
+                        4. ຈຳນວນໃບຕໍ່ລາຍການ
+                      </span>
+                    </div>
+                    <div class="d-flex align-center">
+                      <v-text-field
+                        v-model.number="shelfTagSettings.copiesPerProduct"
+                        type="number"
+                        min="1"
+                        max="100"
+                        outlined
+                        dense
+                        hide-details
+                        class="rounded-lg font-mono font-weight-bold mr-2"
+                        style="max-width: 100px;"
+                      ></v-text-field>
+                      <div class="d-flex align-center flex-wrap" style="gap: 4px;">
+                        <v-chip x-small outlined :color="shelfTagSettings.copiesPerProduct === 1 ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="shelfTagSettings.copiesPerProduct = 1">1</v-chip>
+                        <v-chip x-small outlined :color="shelfTagSettings.copiesPerProduct === 2 ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="shelfTagSettings.copiesPerProduct = 2">2</v-chip>
+                        <v-chip x-small outlined :color="shelfTagSettings.copiesPerProduct === 6 ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="shelfTagSettings.copiesPerProduct = 6">6</v-chip>
+                        <v-chip x-small outlined :color="shelfTagSettings.copiesPerProduct === currentActiveTagsPerSheet ? 'primary' : 'grey'" class="cursor-pointer font-weight-bold" @click="shelfTagSettings.copiesPerProduct = currentActiveTagsPerSheet">{{ currentActiveTagsPerSheet }} (1 ໜ້າ)</v-chip>
+                      </div>
+                    </div>
+                  </v-col>
+
+                  <v-col cols="12" sm="6">
+                    <div class="section-title mb-1">
+                      <span class="font-weight-bold text-subtitle-2 grey--text text--darken-4">
+                        <v-icon small color="primary" class="mr-1">mdi-filter-variant</v-icon>
+                        5. ລາຍການທີ່ຈະພິມ
+                      </span>
+                    </div>
+                    <v-select
+                      v-model="shelfTagSettings.targetMode"
+                      :items="targetModeItems"
+                      outlined
+                      dense
+                      hide-details
+                      class="rounded-lg bg-white"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+
+                <!-- Multi Select Specific Products if chosen -->
+                <v-expand-transition>
+                  <div v-if="shelfTagSettings.targetMode === 'selected'" class="mt-2">
+                    <v-autocomplete
+                      v-model="shelfTagSettings.selectedProducts"
+                      :items="filteredProducts"
+                      item-text="pro_name"
+                      return-object
+                      multiple
+                      chips
+                      small-chips
+                      deletable-chips
+                      outlined
+                      dense
+                      hide-details
+                      placeholder="ເລືອກສິນຄ້າທີ່ຕ້ອງການພິມ..."
+                      class="rounded-lg bg-white"
+                      @change="onSelectedProductsChange"
+                    ></v-autocomplete>
+                  </div>
+                </v-expand-transition>
+              </div>
+            </v-col>
+
+            <!-- Right Panel: Dynamic Live Preview & Metrics -->
+            <v-col cols="12" md="5">
+              <!-- Estimator Metrics Card -->
+              <v-card outlined class="rounded-xl pa-3 mb-3 bg-white elevation-1 border-primary-light">
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="font-weight-bold text-subtitle-2 primary--text text--darken-2">
+                    <v-icon small color="primary" class="mr-1">mdi-calculator</v-icon>
+                    ສະຫຼຸບການພິມ (Print Summary)
+                  </span>
+                  <v-chip x-small color="primary" text-color="white" class="font-weight-bold">
+                    {{ shelfTagSettings.paperType === 'roll' ? 'Continuous Roll' : 'A4 Sheet' }}
+                  </v-chip>
+                </div>
+                
+                <div class="d-flex align-center justify-space-between py-1 border-bottom-subtle caption">
+                  <span class="grey--text">ຈຳນວນສິນຄ້າ:</span>
+                  <span class="font-weight-bold font-mono">{{ activeShelfTagProducts.length }} ລາຍການ</span>
+                </div>
+                <div class="d-flex align-center justify-space-between py-1 border-bottom-subtle caption">
+                  <span class="grey--text">ຈຳນວນປ້າຍທັງໝົດ:</span>
+                  <span class="font-weight-black font-mono primary--text text-body-2">{{ totalShelfTagCopiesCount }} ໃບ</span>
+                </div>
+                <div class="d-flex align-center justify-space-between py-1 caption">
+                  <span class="grey--text">{{ shelfTagSettings.paperType === 'roll' ? 'ຈຳນວນສະຕິກເກີ:' : 'ຈຳນວນໜ້າ A4 ທີ່ໃຊ້:' }}</span>
+                  <span class="font-weight-bold font-mono purple--text text--darken-3">
+                    {{ shelfTagSettings.paperType === 'roll' ? `${totalShelfTagCopiesCount} ໃບ` : `ປະມານ ${totalShelfTagA4SheetsCount} ໜ້າ` }}
+                  </span>
+                </div>
+              </v-card>
+
+              <!-- Scaled Live Tag Preview Card -->
+              <div class="tag-preview-wrapper pa-3 rounded-xl bg-white border-light elevation-1">
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="caption font-weight-bold grey--text text--darken-3">
+                    <v-icon x-small color="primary">mdi-eye</v-icon>
+                    ຕົວຢ່າງປ້າຍ (Live Scale Preview)
+                  </span>
+                  <!-- Navigation for previewing different products -->
+                  <div v-if="activeShelfTagProducts.length > 1" class="d-flex align-center" style="gap: 4px;">
+                    <v-btn icon x-small :disabled="previewProductIndex === 0" @click="previewProductIndex--">
+                      <v-icon small>mdi-chevron-left</v-icon>
+                    </v-btn>
+                    <span class="caption font-mono grey--text">{{ previewProductIndex + 1 }}/{{ activeShelfTagProducts.length }}</span>
+                    <v-btn icon x-small :disabled="previewProductIndex >= activeShelfTagProducts.length - 1" @click="previewProductIndex++">
+                      <v-icon small>mdi-chevron-right</v-icon>
+                    </v-btn>
+                  </div>
+                </div>
+
+                <!-- Visual Scaled Shelf Tag Component -->
+                <div class="preview-tag-stage pa-2 d-flex align-center justify-center bg-slate-100 rounded-lg" style="min-height: 180px;">
+                  <div
+                    v-if="samplePreviewProduct"
+                    class="live-preview-tag elevation-2"
+                    :style="getLivePreviewTagStyle"
+                  >
+                    <!-- Tag Header -->
+                    <div v-if="shelfTagSettings.showLogo || shelfTagSettings.showCategory" class="live-tag-header">
+                      <div class="live-tag-logo-box">
+                        <img v-if="shelfTagSettings.showLogo && companyLogoUrl" :src="companyLogoUrl" class="live-tag-logo" />
+                        <span v-else-if="shelfTagSettings.showLogo" class="live-tag-company-name">{{ companyDisplayName }}</span>
+                      </div>
+                      <span v-if="shelfTagSettings.showCategory" class="live-tag-category">{{ samplePreviewProduct.categ_name || samplePreviewProduct.pro_category_desc || 'SHELF TAG' }}</span>
+                    </div>
+
+                    <!-- Tag Body -->
+                    <div class="live-tag-body">
+                      <div class="live-tag-title" :title="samplePreviewProduct.pro_name">
+                        {{ samplePreviewProduct.pro_name }}
+                      </div>
+                      <div v-if="shelfTagSettings.showSku && samplePreviewProduct.product_code" class="live-tag-sku font-mono">
+                        [{{ samplePreviewProduct.product_code }}]
+                      </div>
+                    </div>
+
+                    <!-- Tag Footer -->
+                    <div v-if="shelfTagSettings.showBarcode || shelfTagSettings.showPrice" class="live-tag-footer">
+                      <div v-if="shelfTagSettings.showBarcode" class="live-tag-barcode-box">
+                        <img v-if="previewBarcodeImg" :src="previewBarcodeImg" class="live-tag-barcode-img" />
+                        <div class="live-tag-barcode-text font-mono">{{ samplePreviewProduct.barCode || samplePreviewProduct.pro_id }}</div>
+                      </div>
+                      <div v-else style="flex:1;"></div>
+
+                      <div v-if="shelfTagSettings.showPrice" class="live-tag-price-box">
+                        <div class="live-tag-price-label">ລາຄາ / PRICE</div>
+                        <div class="live-tag-price-val">
+                          {{ formatNumber(samplePreviewProduct.pro_price) }} <span class="live-tag-ccy">{{ getCurrencySymbolForProduct(samplePreviewProduct) }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div v-else class="caption grey--text pa-4 text-center">
+                    ບໍ່ມີສິນຄ້າສຳລັບສະແດງຕົວຢ່າງ
+                  </div>
+                </div>
+
+                <div class="text-center mt-2 caption grey--text" style="font-size: 11px !important;">
+                  ຂະໜາດຈິງ: <strong class="grey--text text--darken-3">{{ currentActiveWidthMm }} x {{ currentActiveHeightMm }} mm</strong>
+                </div>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <!-- Dialog Actions -->
+        <v-card-actions class="pa-3 bg-white d-flex align-center justify-space-between flex-wrap" style="gap: 8px;">
+          <v-btn
+            text
+            color="primary"
+            class="rounded-lg font-weight-bold text-none"
+            @click="$router.push('/admin/product/shelfTag')"
+          >
+            <v-icon left small>mdi-barcode-scan</v-icon>
+            ໄປໜ້າ Batch Scanner (ຍິງບາໂຄດຈັດຄິວ)
+          </v-btn>
+
+          <div class="d-flex align-center" style="gap: 8px;">
+            <v-btn text color="grey darken-1" class="rounded-lg font-weight-bold" @click="shelfTagDialog = false">
+              ຍົກເລີກ
+            </v-btn>
+            <v-btn
+              color="indigo darken-1"
+              dark
+              depressed
+              class="rounded-lg font-weight-bold px-4"
+              :disabled="activeShelfTagProducts.length === 0"
+              @click="confirmPrintShelfTags"
+            >
+              <v-icon left>mdi-printer</v-icon>
+              ພິມປ້າຍລາຄາ ({{ totalShelfTagCopiesCount }} ໃບ)
+            </v-btn>
+          </div>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <!-- Audit Trail Dialog -->
     <v-dialog v-model="auditDialog" max-width="900">
       <v-card>
@@ -489,6 +892,15 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Returnable Packaging Mapping Dialog -->
+    <PackagingOptionDialog
+      v-model="packagingOptionDialog"
+      :product-id="selectedPackagingProductId"
+      :product-name="selectedPackagingProductName"
+      :product-barcode="selectedPackagingProductBarcode"
+      @saved="onPackagingSaved"
+    />
   </div>
 </template>
 <script>
@@ -507,6 +919,7 @@ import ProductImportDialog from '~/components/product/ProductImportDialog.vue'
 import StockImportDialog from '~/components/product/StockImportDialog.vue'
 import PriceImportDialog from '~/components/product/PriceImportDialog.vue'
 import StockAdjustmentDialog from '~/components/card/stockAdjustMent.vue'
+import PackagingOptionDialog from '~/components/PackagingOptionDialog.vue'
 
 export default {
   components: {
@@ -519,6 +932,7 @@ export default {
     StockImportDialog,
     PriceImportDialog,
     StockAdjustmentDialog,
+    PackagingOptionDialog,
   },
   middleware: 'auths',
 
@@ -526,12 +940,49 @@ export default {
     return {
       // Tab management
       activeTab: 0,
+      packagingOptionDialog: false,
+      selectedPackagingProductId: null,
+      selectedPackagingProductName: '',
+      selectedPackagingProductBarcode: '',
       recipeManagementDialog: false,
       recipeDialogNew: false,
       selectedProductPrice: 0,
       showActive: false,
 
-      // Print-related data
+      // Shelf Tag Print Dialog State
+      shelfTagDialog: false,
+      shelfTagSettings: {
+        sizePreset: '80x38',
+        customWidth: 80,
+        customHeight: 38,
+        paperType: 'a4',
+        showLogo: true,
+        showCategory: true,
+        showSku: true,
+        showBarcode: true,
+        showPrice: true,
+        showDesc: false,
+        showCutLines: true,
+        copiesPerProduct: 1,
+        targetMode: 'filtered',
+        selectedProducts: [],
+      },
+      previewProductIndex: 0,
+      previewBarcodeImg: '',
+      sizePresetsList: [
+        { key: '80x38', width: 80, height: 38, labelLao: 'ມາດຕະຖານຊັ້ນວາງ', tagsPerA4: 12 },
+        { key: '80x40', width: 80, height: 40, labelLao: 'ປ້າຍລາຄາໃຫຍ່', tagsPerA4: 12 },
+        { key: '58x38', width: 58, height: 38, labelLao: 'ຂະໜາດກາງ (Medium)', tagsPerA4: 21 },
+        { key: '58x30', width: 58, height: 30, labelLao: 'ປ້າຍກະທັດຮັດ', tagsPerA4: 27 },
+        { key: '40x30', width: 40, height: 30, labelLao: 'ປ້າຍນ້ອຍ Mini', tagsPerA4: 36 },
+        { key: '100x50', width: 100, height: 50, labelLao: 'ປ້າຍໂປຣໂມຊັ່ນ', tagsPerA4: 10 },
+      ],
+      targetModeItems: [
+        { text: 'ສິນຄ້າທີ່ກັ່ນຕອງທັງໝົດ (All Filtered)', value: 'filtered' },
+        { text: 'ເລືອກສະເພາະສິນຄ້າ (Select Specific)', value: 'selected' },
+      ],
+
+      // Print-related data (Barcodes)
       printDialog: false,
       selectedPrintFormat: 'standard',
       labelsPerRow: 3,
@@ -665,6 +1116,20 @@ export default {
       }
     },
 
+    shelfTagDialog(val) {
+      if (val) {
+        this.$nextTick(() => {
+          this.generatePreviewBarcode()
+        })
+      }
+    },
+
+    samplePreviewProduct() {
+      this.$nextTick(() => {
+        this.generatePreviewBarcode()
+      })
+    },
+
     selectedPrintFormat() {
       // Regenerate barcodes when format changes
       this.$nextTick(() => {
@@ -710,8 +1175,10 @@ export default {
       })
     }
 
-    await this.loadCardCategory()
-    await this.loadCategories()
+    await Promise.all([
+      this.loadCardCategory(),
+      this.loadCategories(),
+    ])
     await this.fetchData()
     window.addEventListener('keydown', this.handleBarcodeScanner)
   },
@@ -742,36 +1209,125 @@ export default {
     },
 
     filteredProducts() {
-      let products = this.loaddata || []
+      const products = this.loaddata || []
       const searchTerm = this.searchDebounced
-
-      if (searchTerm) {
-        products = products.filter((product) => {
-          if (product._searchKey) {
-            return product._searchKey.includes(searchTerm)
-          }
-          const name = String(product.pro_name || '').toLowerCase()
-          const barcode = String(product.barCode || '').toLowerCase()
-          const proId = String(product.pro_id || '').toLowerCase()
-          const productCode = String(product.product_code || '').toLowerCase()
-          const categoryDesc = String(product.pro_category_desc || '').toLowerCase()
-          const categName = String(product.categ_name || '').toLowerCase()
-
-          return (
-            name.includes(searchTerm) ||
-            barcode.includes(searchTerm) ||
-            proId.includes(searchTerm) ||
-            productCode.includes(searchTerm) ||
-            categoryDesc.includes(searchTerm) ||
-            categName.includes(searchTerm)
-          )
-        })
-      }
       const showInactiveOnly = this.showActive === true || Number(this.showActive) === 1
+
       return products.filter((product) => {
         const isItemActive = product.isActive === 1 || product.isActive === '1' || product.isActive === true
-        return showInactiveOnly ? !isItemActive : isItemActive
+        if (showInactiveOnly ? isItemActive : !isItemActive) {
+          return false
+        }
+        if (!searchTerm) return true
+
+        if (product._searchKey) {
+          return product._searchKey.includes(searchTerm)
+        }
+        const name = String(product.pro_name || '').toLowerCase()
+        const barcode = String(product.barCode || '').toLowerCase()
+        const proId = String(product.pro_id || '').toLowerCase()
+        const productCode = String(product.product_code || '').toLowerCase()
+        const categoryDesc = String(product.pro_category_desc || '').toLowerCase()
+        const categName = String(product.categ_name || '').toLowerCase()
+
+        return (
+          name.includes(searchTerm) ||
+          barcode.includes(searchTerm) ||
+          proId.includes(searchTerm) ||
+          productCode.includes(searchTerm) ||
+          categoryDesc.includes(searchTerm) ||
+          categName.includes(searchTerm)
+        )
       })
+    },
+
+    // Shelf Tag Computed Properties
+    activeShelfTagProducts() {
+      if (this.shelfTagSettings.targetMode === 'selected') {
+        return this.shelfTagSettings.selectedProducts || []
+      }
+      return this.filteredProducts || []
+    },
+
+    samplePreviewProduct() {
+      if (!this.activeShelfTagProducts || this.activeShelfTagProducts.length === 0) {
+        return this.filteredProducts?.[0] || null
+      }
+      const idx = Math.min(this.previewProductIndex, this.activeShelfTagProducts.length - 1)
+      return this.activeShelfTagProducts[Math.max(0, idx)] || null
+    },
+
+    currentActiveWidthMm() {
+      if (this.shelfTagSettings.sizePreset === 'custom') {
+        return parseFloat(this.shelfTagSettings.customWidth) || 80
+      }
+      const found = this.sizePresetsList.find((p) => p.key === this.shelfTagSettings.sizePreset)
+      return found ? found.width : 80
+    },
+
+    currentActiveHeightMm() {
+      if (this.shelfTagSettings.sizePreset === 'custom') {
+        return parseFloat(this.shelfTagSettings.customHeight) || 38
+      }
+      const found = this.sizePresetsList.find((p) => p.key === this.shelfTagSettings.sizePreset)
+      return found ? found.height : 38
+    },
+
+    currentActiveTagsPerSheet() {
+      if (this.shelfTagSettings.sizePreset === 'custom') {
+        const w = this.currentActiveWidthMm
+        const h = this.currentActiveHeightMm
+        const a4Cols = Math.max(1, Math.floor(180 / w))
+        const a4Rows = Math.max(1, Math.floor(270 / h))
+        return a4Cols * a4Rows
+      }
+      const found = this.sizePresetsList.find((p) => p.key === this.shelfTagSettings.sizePreset)
+      return found ? found.tagsPerA4 : 12
+    },
+
+    currentSelectedSizeName() {
+      if (this.shelfTagSettings.sizePreset === 'custom') {
+        return `Custom (${this.currentActiveWidthMm}x${this.currentActiveHeightMm}mm)`
+      }
+      const found = this.sizePresetsList.find((p) => p.key === this.shelfTagSettings.sizePreset)
+      return found ? `${found.width}x${found.height}mm` : '80x38mm'
+    },
+
+    totalShelfTagCopiesCount() {
+      const count = this.activeShelfTagProducts.length
+      const qty = parseInt(this.shelfTagSettings.copiesPerProduct, 10) || 1
+      return count * qty
+    },
+
+    totalShelfTagA4SheetsCount() {
+      if (this.totalShelfTagCopiesCount === 0) return 0
+      return Math.ceil(this.totalShelfTagCopiesCount / this.currentActiveTagsPerSheet)
+    },
+
+    companyLogoUrl() {
+      const comp = this.findAllCompany?.[0] || mainCompanyInfo() || {}
+      if (comp.logo_path && comp.logo_name && comp.logo_name !== 'No image') {
+        return `${this.$axios.defaults.baseURL}/${comp.logo_path}`
+      }
+      return null
+    },
+
+    companyDisplayName() {
+      const comp = this.findAllCompany?.[0] || mainCompanyInfo() || {}
+      return comp.name || comp.company_name || 'D-COMMERCE'
+    },
+
+    getLivePreviewTagStyle() {
+      const w = this.currentActiveWidthMm
+      const h = this.currentActiveHeightMm
+      const pxWidth = Math.round(w * 3.4)
+      const pxHeight = Math.round(h * 3.4)
+      return {
+        width: `${pxWidth}px`,
+        height: `${pxHeight}px`,
+        maxWidth: '100%',
+        aspectRatio: `${w} / ${h}`,
+      }
     },
   },
 
@@ -783,7 +1339,7 @@ export default {
       }
 
       // Ignore scanner if any dialog or loading indicator is open
-      if (this.productFormCreate || this.editProductForm || this.isstock || this.printDialog || this.priceListDialog || this.recipeManagementDialog || this.productRecipeDialog || this.isloading || this.showStockBottomSheet) {
+      if (this.productFormCreate || this.editProductForm || this.isstock || this.printDialog || this.shelfTagDialog || this.priceListDialog || this.recipeManagementDialog || this.productRecipeDialog || this.isloading || this.showStockBottomSheet) {
         return
       }
 
@@ -817,12 +1373,77 @@ export default {
       this.printDialog = true
     },
 
-    printShelfTagsList() {
-      try {
-        if (!this.filteredProducts || this.filteredProducts.length === 0) {
-          swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າສຳລັບພິມ')
-          return
+    // Shelf Tag Methods
+    openShelfTagDialog(singleProduct = null) {
+      if (singleProduct) {
+        this.shelfTagSettings.targetMode = 'selected'
+        this.shelfTagSettings.selectedProducts = [singleProduct]
+        this.previewProductIndex = 0
+      } else {
+        this.shelfTagSettings.targetMode = 'filtered'
+        if ((!this.shelfTagSettings.selectedProducts || this.shelfTagSettings.selectedProducts.length === 0) && this.filteredProducts.length > 0) {
+          this.shelfTagSettings.selectedProducts = [this.filteredProducts[0]]
         }
+      }
+      this.shelfTagDialog = true
+      this.$nextTick(() => {
+        this.generatePreviewBarcode()
+      })
+    },
+
+    selectSizePreset(key) {
+      this.shelfTagSettings.sizePreset = key
+      this.generatePreviewBarcode()
+    },
+
+    onSelectedProductsChange() {
+      this.previewProductIndex = 0
+      this.generatePreviewBarcode()
+    },
+
+    updatePreviewBarcode() {
+      this.generatePreviewBarcode()
+    },
+
+    getCurrencySymbolForProduct(product) {
+      if (!product) return '₭'
+      const ccy = this.findAllCurrency?.find((c) => c.id === product.saleCurrencyId)
+      if (ccy) return ccy.symbol || ccy.code
+      const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
+      return defaultCcy ? defaultCcy.symbol || defaultCcy.code : '₭'
+    },
+
+    generatePreviewBarcode() {
+      if (!this.samplePreviewProduct) return
+      const code = String(this.samplePreviewProduct.barCode || this.samplePreviewProduct.pro_id || '000000')
+      if (typeof document === 'undefined') return
+      try {
+        const canvas = document.createElement('canvas')
+        JsBarcode(canvas, code, {
+          format: 'CODE128',
+          displayValue: false,
+          width: 2,
+          height: 36,
+          margin: 0,
+        })
+        this.previewBarcodeImg = canvas.toDataURL('image/png')
+      } catch (e) {
+        console.warn('Preview barcode generation error:', e)
+      }
+    },
+
+    printShelfTagsList() {
+      this.openShelfTagDialog()
+    },
+
+    confirmPrintShelfTags() {
+      const productsToPrint = this.activeShelfTagProducts
+      if (!productsToPrint || productsToPrint.length === 0) {
+        swalError2(this.$swal, 'Error', 'ບໍ່ມີລາຍການສິນຄ້າສຳລັບພິມ')
+        return
+      }
+
+      try {
         const companyBase = this.$store.getters.findAllCompany?.[0] || mainCompanyInfo() || {}
         const companyData = {
           ...companyBase,
@@ -831,7 +1452,9 @@ export default {
         const defaultCcy = this.findAllCurrency?.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1)
         const currencyStr = defaultCcy ? defaultCcy.symbol || defaultCcy.code : 'LAK'
 
-        const productsForTags = this.filteredProducts.map((p) => {
+        const copies = parseInt(this.shelfTagSettings.copiesPerProduct, 10) || 1
+
+        const productsForTags = productsToPrint.map((p) => {
           const productCurrency = this.findAllCurrency?.find((c) => c.id === p.saleCurrencyId)
           const ccy = productCurrency ? productCurrency.symbol || productCurrency.code : currencyStr
           return {
@@ -840,23 +1463,39 @@ export default {
             pro_price: p.pro_price,
             formattedPrice: this.formatNumber(p.pro_price),
             barCode: p.barCode || p.pro_id,
-            pro_category_desc: p.pro_category_desc || '',
+            pro_category_desc: p.categ_name || p.pro_category_desc || '',
             product_code: p.product_code || '',
             currency: ccy,
-            printQty: 1,
+            printQty: copies,
           }
         })
+
+        const printOptions = {
+          sizePreset: this.shelfTagSettings.sizePreset,
+          customWidth: this.shelfTagSettings.customWidth,
+          customHeight: this.shelfTagSettings.customHeight,
+          paperType: this.shelfTagSettings.paperType,
+          showLogo: this.shelfTagSettings.showLogo,
+          showCategory: this.shelfTagSettings.showCategory,
+          showSku: this.shelfTagSettings.showSku,
+          showBarcode: this.shelfTagSettings.showBarcode,
+          showPrice: this.shelfTagSettings.showPrice,
+          showDesc: this.shelfTagSettings.showDesc,
+          showCutLines: this.shelfTagSettings.showCutLines,
+        }
 
         const htmlContent = generateShelfPriceTagHTML(
           productsForTags,
           companyData,
           currencyStr,
-          1
+          copies,
+          printOptions
         )
 
+        this.shelfTagDialog = false
         executeTraditionalPrint(htmlContent)
       } catch (error) {
-        console.error('Error printing shelf tags from product list:', error)
+        console.error('Error printing shelf tags:', error)
         swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມປ້າຍລາຄາ')
       }
     },
@@ -1646,35 +2285,20 @@ export default {
       try {
         const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
         
-        // Fetch from both endpoints concurrently for optimal performance.
-        const [resV1, resV0] = await Promise.all([
-          this.$axios.get(`product_f_v1/${locationId}`, {
-            params: { include: 'priceList', isActive: false },
-          }),
-          this.$axios.get(`product_f/${locationId}`).catch(err => {
-            console.error('Error fetching V0 product_f:', err)
-            return { data: { data: [] } }
-          })
-        ])
-
-        const productsV1 = resV1.data.data || []
-        const productsV0 = resV0.data.data || []
-
-        // Create a map of pro_id -> minStock from the V0 response
-        const minStockMap = new Map()
-        productsV0.forEach(el => {
-          if (el.pro_id !== undefined && el.minStock !== undefined) {
-            minStockMap.set(el.pro_id, el.minStock)
-          }
+        // Single optimized API call with all required fields (including minStock, priceLists, productUnits)
+        const res = await this.$axios.get(`product_f_v1/${locationId}`, {
+          params: { include: 'priceList', isActive: false },
         })
 
-        this.initProduct(productsV1)
+        const products = res.data?.data || []
+
+        this.initProduct(products)
 
         if (!this.categoryList || this.categoryList.length === 0) {
           await this.loadCategories()
         }
 
-        this.loaddata = productsV1.map((el) => this.mapProductItem(el, minStockMap))
+        this.loaddata = products.map((el) => this.mapProductItem(el))
       } catch (er) {
         this.message = er
         console.error('Error fetching data: ', er)
@@ -1783,6 +2407,17 @@ export default {
       this.productFormKey += 1
       this.selectedProductId = item.pro_id
       this.editProductForm = true
+    },
+
+    openPackagingDialog(item) {
+      this.selectedPackagingProductId = item.id || item.pro_id
+      this.selectedPackagingProductName = item.pro_name || item.name || ''
+      this.selectedPackagingProductBarcode = item.barCode || item.barcode || ''
+      this.packagingOptionDialog = true
+    },
+
+    onPackagingSaved() {
+      this.fetchData()
     },
 
     editStock(idx) {
@@ -2205,5 +2840,208 @@ export default {
   .barcode-label {
     page-break-inside: avoid;
   }
+}
+
+/* Shelf Tag Modal & Live Preview Styles */
+.size-card {
+  transition: all 0.2s ease-in-out;
+  border: 1.5px solid #e2e8f0 !important;
+  background-color: #ffffff;
+}
+
+.size-card:hover {
+  border-color: rgba(var(--v-primary-base), 0.6) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+.size-card-active {
+  border-color: var(--v-primary-base) !important;
+  background-color: rgba(var(--v-primary-base), 0.05) !important;
+  box-shadow: 0 2px 8px rgba(var(--v-primary-base), 0.15) !important;
+}
+
+.border-primary-light {
+  border: 1.5px solid rgba(var(--v-primary-base), 0.25) !important;
+}
+
+.border-bottom-subtle {
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.preview-tag-stage {
+  min-height: 190px;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+}
+
+/* Live Scaled Tag Preview */
+.live-preview-tag {
+  background: #ffffff;
+  border: 1px dashed #94a3b8;
+  border-radius: 4px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: 'Noto Sans Lao', system-ui, -apple-system, sans-serif !important;
+  transition: all 0.2s ease;
+  overflow: hidden;
+}
+
+.live-tag-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(var(--v-primary-base), 0.25);
+  padding-bottom: 2px;
+  margin-bottom: 2px;
+}
+
+.live-tag-logo-box {
+  display: flex;
+  align-items: center;
+  max-width: 55%;
+  overflow: hidden;
+}
+
+.live-tag-logo {
+  max-height: 16px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.live-tag-company-name {
+  font-size: 8px;
+  font-weight: 800;
+  color: #1e293b;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-tag-category {
+  font-size: 7px;
+  font-weight: 700;
+  color: var(--v-primary-base);
+  background: rgba(var(--v-primary-base), 0.1);
+  padding: 1px 4px;
+  border-radius: 3px;
+  border: 1px solid rgba(var(--v-primary-base), 0.3);
+  text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 42%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-tag-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2px 0;
+}
+
+.live-tag-title {
+  font-size: 11px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #0f172a;
+  max-height: 28px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-word;
+}
+
+.live-tag-sku {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: #ea580c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.live-tag-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.live-tag-barcode-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 55%;
+  overflow: hidden;
+}
+
+.live-tag-barcode-img {
+  max-width: 100%;
+  height: 18px;
+  object-fit: fill;
+  display: block;
+}
+
+.live-tag-barcode-text {
+  font-size: 7.5px;
+  font-weight: 700;
+  color: #334155;
+  letter-spacing: 0.3px;
+  line-height: 1;
+  margin-top: 1px;
+}
+
+.live-tag-price-box {
+  background: rgba(var(--v-primary-base), 0.08);
+  border: 1.5px solid var(--v-primary-base);
+  border-radius: 4px;
+  padding: 1px 4px;
+  text-align: right;
+  min-width: 35%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.live-tag-price-label {
+  font-size: 6px;
+  font-weight: 800;
+  color: var(--v-primary-base);
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  line-height: 1;
+}
+
+.live-tag-price-val {
+  font-size: 13px;
+  font-weight: 900;
+  color: #0f172a;
+  line-height: 1.05;
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.live-tag-ccy {
+  font-size: 8px;
+  font-weight: 800;
+  color: var(--v-primary-base);
 }
 </style>

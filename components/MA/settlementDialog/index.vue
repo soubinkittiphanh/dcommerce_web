@@ -64,7 +64,24 @@
               </p>
             </div>
 
-            <div v-else class="form-grid compact">
+            <!-- Duplicate Warning Banner (Inline) -->
+            <div v-if="!loading && !isSubmitting && duplicateWarningInfo" class="duplicate-warning-box mb-3">
+              <div class="duplicate-warning-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>ແຈ້ງເຕືອນ: ພົບການຊຳລະທີ່ຄ້າຍຄືກັນໃນງວດປັດຈຸບັນ/ຜ່ານມາ ({{ duplicateWarningInfo.count }} ລາຍການ)</span>
+              </div>
+              <div class="duplicate-warning-chips">
+                <span
+                  v-for="dup in duplicateWarningInfo.duplicates"
+                  :key="dup.id"
+                  class="duplicate-chip"
+                >
+                  <strong>#{{ formatVoucherNumber(dup.id) }}</strong> ({{ formatDateForDisplay(dup.bookingDate) }}) - {{ formatAmountNumber(dup.amount) }} {{ dup.currencyCode }}
+                </span>
+              </div>
+            </div>
+
+            <div v-if="!loading && !isSubmitting" class="form-grid compact">
               <!-- Row 1: Settlement Date -->
               <div class="form-group">
                 <label class="form-label required">
@@ -497,22 +514,15 @@
                         :disabled="isFormDisabled"
                         @change="updateSelectedAdvance"
                       >
-                        <option value="">ເລືອກລາຍຈ່າຍລ່ວງໜ້າ</option>
+                        <option value="">
+                          -- ເລືອກລາຍຈ່າຍລ່ວງໜ້າ ({{ availableAdvances.length }} ລາຍການ{{ selectedMinistry ? ' - ' + selectedMinistry.ministryName : '' }}) --
+                        </option>
                         <option
                           v-for="advance in availableAdvances"
                           :key="advance.id"
                           :value="advance.id"
                         >
-                          #{{ advance.id }} - #{{ advance.receiveName }} - #{{
-                            advance.ministry?.ministryName || ''
-                          }}
-                          -
-                          {{
-                            formatCurrency(
-                              advance.amount,
-                              advance.currency.code
-                            )
-                          }}
+                          #{{ formatVoucherNumber(advance.id) }} - {{ advance.ministry?.ministryName || 'ທົ່ວໄປ' }} - {{ advance.receiveName || advance.maker?.cus_name || '' }} - {{ formatCurrency(advance.outstandingAmount !== undefined ? advance.outstandingAmount : advance.amount, advance.currency?.code) }}
                         </option>
                       </select>
                       <div class="select-icon">
@@ -521,30 +531,40 @@
                     </div>
                     <button
                       type="button"
-                      class="btn btn-outline-primary btn-sm compact"
+                      class="btn-browse-advance"
                       @click.stop="browseMoneyAdvances"
                       :disabled="isFormDisabled || loadingAdvances"
+                      title="ເປີດໜ້າຕ່າງຄົ້ນຫາລາຍຈ່າຍລ່ວງໜ້າແບບລະອຽດ"
                     >
                       <i
                         v-if="loadingAdvances"
-                        class="fas fa-spinner fa-spin"
+                        class="fas fa-spinner fa-spin mr-1"
                       ></i>
-                      <i v-else class="fas fa-search"></i>
+                      <i v-else class="fas fa-search-plus mr-1"></i>
+                      <span>ຄົ້ນຫາແບບລະອຽດ (Browse)</span>
                     </button>
                   </div>
 
                   <!-- Compact Selected Advance Info -->
                   <div v-if="selectedAdvance" class="advance-info compact">
                     <div class="advance-summary">
-                      <span class="advance-id">#{{ selectedAdvance.id }}</span>
-                      <span class="advance-amount">{{
-                        formatCurrency(
-                          selectedAdvance.amount,
-                          selectedAdvance.currency.code
-                        )
-                      }}</span>
+                      <span class="advance-id">#{{ formatVoucherNumber(selectedAdvance.id) }}</span>
+                      <span v-if="selectedAdvance.ministry" class="advance-ministry-badge">
+                        <i class="fas fa-building mr-1"></i>{{ selectedAdvance.ministry.ministryName }}
+                      </span>
+                      <span class="advance-amount">
+                        ຍອດຍັງເຫຼືອ: <strong>{{
+                          formatCurrency(
+                            selectedAdvance.outstandingAmount !== undefined ? selectedAdvance.outstandingAmount : selectedAdvance.amount,
+                            selectedAdvance.currency?.code || selectedAdvance.currencyCode
+                          )
+                        }}</strong>
+                      </span>
+                      <span v-if="selectedAdvance.receiveName" class="advance-receiver">
+                        <i class="fas fa-user mr-1"></i>{{ selectedAdvance.receiveName }}
+                      </span>
                       <span class="advance-purpose">{{
-                        selectedAdvance.purpose || 'No purpose'
+                        selectedAdvance.purpose || selectedAdvance.note || 'No purpose'
                       }}</span>
                       <span :class="['status-badge', selectedAdvance.status]">
                         {{ formatStatus(selectedAdvance.status) }}
@@ -657,124 +677,438 @@
           </div>
         </form>
       </div>
+    </div>
 
-      <!-- Money Advance Browser Modal -->
+    <!-- Money Advance Browser Modal (Enhanced Multi-Criteria Search) -->
       <div
         v-if="showAdvanceBrowser"
         class="modal-overlay browser-overlay"
         @click="handleAdvanceBrowserOverlayClick"
       >
         <div class="modal-dialog advance-browser-dialog" @click.stop>
-          <div class="modal-header">
+          <!-- Modal Header -->
+          <div class="modal-header primary advance-browser-header">
             <div class="modal-title-section">
-              <i class="fas fa-search modal-icon"></i>
-              <h5 class="modal-title">ເລືອກລາຍຈ່າຍລ່ວງໜ້າ</h5>
+              <i class="fas fa-search-dollar modal-icon"></i>
+              <div>
+                <h5 class="modal-title">ຄົ້ນຫາ ແລະ ເລືອກລາຍຈ່າຍລ່ວງໜ້າ (Select Payment Advance)</h5>
+                <span class="browser-subtitle">
+                  ເລືອກລາຍຈ່າຍລ່ວງໜ້າເພື່ອເຊື່ອມຕໍ່ກັບການລົງຊຳລະ (Settlement)
+                </span>
+              </div>
             </div>
-            <button @click="closeAdvanceBrowser" class="close-btn">
+            <button type="button" @click="closeAdvanceBrowser" class="close-btn" title="ປິດໜ້າຕ່າງ (Close)">
               <i class="fas fa-times"></i>
             </button>
           </div>
 
-          <div class="modal-body">
-            <!-- Search and Filters -->
-            <div class="advance-filters compact">
-              <div class="filter-row compact">
-                <div class="filter-group">
+          <!-- Organized Filter Panel -->
+          <div class="advance-browser-filters">
+            <!-- Row 1: Filter Controls Toolbar -->
+            <div class="browser-filter-controls">
+              <!-- Search query input -->
+              <div class="filter-col col-search">
+                <label class="filter-label"><i class="fas fa-search"></i> ຄົ້ນຫາ (Search)</label>
+                <div class="browser-search-input-wrapper">
+                  <i class="fas fa-search search-input-icon"></i>
                   <input
                     v-model="advanceSearch.query"
                     type="text"
-                    class="form-control compact"
-                    placeholder="ຄົ້ນຫາຕາມຈຸດປະສົງ, ໝາຍເຫດ..."
-                    @input="searchAdvances"
+                    class="form-control browser-search-input"
+                    placeholder="ເລກທີ #, ຈຸດປະສົງ, ຜູ້ຮັບເງິນ, ເລກອ້າງອີງ..."
+                    @input="debounceSearchAdvances"
                   />
+                  <button
+                    v-if="advanceSearch.query"
+                    type="button"
+                    class="clear-search-btn"
+                    @click="clearSearchQuery"
+                    title="ລ້າງຄຳຄົ້ນຫາ"
+                  >
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
-                <div class="filter-group">
+              </div>
+
+              <!-- Ministry filter -->
+              <div class="filter-col col-ministry">
+                <label class="filter-label">
+                  <i class="fas fa-building"></i> ກົມ (Ministry)
+                  <span
+                    v-if="formData.ministryId && advanceSearch.ministryId == formData.ministryId"
+                    class="badge-primary-light"
+                    title="ກັ່ນຕອງເລີ່ມຕົ້ນຕາມກົມທີ່ເລືອກໃນຟອມຊຳລະ"
+                  >
+                    ຕາມຟອມ
+                  </span>
+                </label>
+                <div class="custom-select-wrapper">
+                  <select
+                    v-model="advanceSearch.ministryId"
+                    class="form-control custom-select browser-filter-select"
+                    @change="onFilterChange"
+                  >
+                    <option value="">-- ທຸກກົມ (All Ministries) --</option>
+                    <option
+                      v-for="min in ministries"
+                      :key="min.id"
+                      :value="min.id"
+                    >
+                      {{ min.ministryCode ? min.ministryCode + ' - ' : '' }}{{ min.ministryName }}
+                    </option>
+                  </select>
+                  <div class="select-icon"><i class="fas fa-chevron-down"></i></div>
+                </div>
+              </div>
+
+              <!-- Currency filter -->
+              <div class="filter-col col-currency">
+                <label class="filter-label"><i class="fas fa-coins"></i> ສະກຸນເງິນ</label>
+                <div class="custom-select-wrapper">
+                  <select
+                    v-model="advanceSearch.currencyId"
+                    class="form-control custom-select browser-filter-select"
+                    @change="onFilterChange"
+                  >
+                    <option value="">-- ທຸກສະກຸນ --</option>
+                    <option
+                      v-for="curr in currencies"
+                      :key="curr.id"
+                      :value="curr.id"
+                    >
+                      {{ curr.code || curr.currencyCode }}
+                    </option>
+                  </select>
+                  <div class="select-icon"><i class="fas fa-chevron-down"></i></div>
+                </div>
+              </div>
+
+              <!-- From Date -->
+              <div class="filter-col col-date">
+                <label class="filter-label"><i class="fas fa-calendar-alt"></i> ແຕ່ວັນທີ</label>
+                <input
+                  v-model="advanceSearch.fromDate"
+                  type="date"
+                  class="form-control browser-filter-input"
+                  @change="onFilterChange"
+                />
+              </div>
+
+              <!-- To Date -->
+              <div class="filter-col col-date">
+                <label class="filter-label"><i class="fas fa-calendar-alt"></i> ຫາວັນທີ</label>
+                <input
+                  v-model="advanceSearch.toDate"
+                  type="date"
+                  class="form-control browser-filter-input"
+                  @change="onFilterChange"
+                />
+              </div>
+
+              <!-- Status filter -->
+              <div class="filter-col col-status">
+                <label class="filter-label"><i class="fas fa-tag"></i> ສະຖານະ</label>
+                <div class="custom-select-wrapper">
                   <select
                     v-model="advanceSearch.status"
-                    class="form-control compact"
-                    @change="filterAdvances"
+                    class="form-control custom-select browser-filter-select"
+                    @change="onFilterChange"
                   >
-                    <option value="">ທຸກສະຖານະ</option>
-                    <option value="pending">ລໍຖ້າ</option>
-                    <option value="approved">ອະນຸມັດ</option>
+                    <option value="">-- ທຸກສະຖານະ --</option>
+                    <option value="approved">ອະນຸມັດແລ້ວ (Approved)</option>
+                    <option value="pending">ລໍຖ້າ (Pending)</option>
                   </select>
+                  <div class="select-icon"><i class="fas fa-chevron-down"></i></div>
                 </div>
+              </div>
+
+              <!-- Reset / Reload Actions -->
+              <div class="filter-col col-actions">
+                <button
+                  type="button"
+                  class="filter-btn-reset"
+                  @click="resetAdvanceFilters"
+                  title="ລ້າງເງື່ອນໄຂການຄົ້ນຫາ (Reset Filters)"
+                >
+                  <i class="fas fa-undo mr-1"></i> ລ້າງ
+                </button>
+                <button
+                  type="button"
+                  class="filter-btn-reload"
+                  @click="loadMoneyAdvances"
+                  title="ໂຫຼດຂໍ້ມູນຄືນໃໝ່ (Reload)"
+                >
+                  <i class="fas fa-sync-alt mr-1"></i> ໂຫຼດໃໝ່
+                </button>
               </div>
             </div>
 
-            <!-- Advances List -->
-            <div class="advances-list compact">
-              <div v-if="loadingAdvances" class="loading-state">
-                <div class="spinner-small"></div>
-                <p>ກຳລັງໂຫຼດ...</p>
+            <!-- Sub-toolbar: Active Filter Chips & View Mode Toggle -->
+            <div class="browser-toolbar-subrow">
+              <div class="active-filters-chips">
+                <span class="results-count-text">
+                  <i class="fas fa-list-ul mr-1"></i> ພົບທັງໝົດ <strong>{{ filteredAdvances.length }}</strong> ລາຍການ
+                </span>
+                <span v-if="selectedMinistry && advanceSearch.ministryId == selectedMinistry.id" class="active-filter-chip">
+                  <i class="fas fa-building mr-1"></i> {{ selectedMinistry.ministryName }}
+                </span>
+                <span v-if="advanceSearch.query" class="active-filter-chip">
+                  <i class="fas fa-search mr-1"></i> "{{ advanceSearch.query }}"
+                  <i class="fas fa-times chip-remove" @click="clearSearchQuery"></i>
+                </span>
+                <span v-if="advanceSearch.fromDate || advanceSearch.toDate" class="active-filter-chip">
+                  <i class="fas fa-calendar mr-1"></i> {{ advanceSearch.fromDate || '...' }} ຫາ {{ advanceSearch.toDate || '...' }}
+                </span>
               </div>
 
-              <div
-                v-else-if="filteredAdvances.length === 0"
-                class="empty-state"
-              >
-                <i class="fas fa-inbox"></i>
-                <p>ບໍ່ພົບລາຍຈ່າຍລ່ວງໜ້າ</p>
-              </div>
-
-              <div v-else class="advance-items compact">
-                <div
-                  v-for="advance in filteredAdvances"
-                  :key="advance.id"
-                  class="advance-item compact"
-                  :class="{
-                    selected: selectedAdvanceForBrowser?.id === advance.id,
-                  }"
-                  @click.stop="selectAdvanceFromBrowser(advance)"
+              <div class="view-mode-toggle">
+                <button
+                  type="button"
+                  class="view-mode-btn"
+                  :class="{ active: browserViewMode === 'table' }"
+                  @click="browserViewMode = 'table'"
+                  title="ສະແດງແບບຕາຕະລາງ (Table View)"
                 >
-                  <div class="advance-item-content compact">
-                    <div class="advance-item-header compact">
-                      <span class="advance-id">#{{ advance.id }}</span>
-                      <span :class="['status-badge', advance.status]">
-                        {{ formatStatus(advance.status) }}
+                  <i class="fas fa-table mr-1"></i> ຕາຕະລາງ
+                </button>
+                <button
+                  type="button"
+                  class="view-mode-btn"
+                  :class="{ active: browserViewMode === 'grid' }"
+                  @click="browserViewMode = 'grid'"
+                  title="ສະແດງແບບກາດ (Grid View)"
+                >
+                  <i class="fas fa-th-large mr-1"></i> ກາດ
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advances List Body -->
+          <div class="modal-body advance-browser-body">
+            <!-- Loading State -->
+            <div v-if="loadingAdvances" class="browser-loading-state">
+              <div class="spinner-small"></div>
+              <p>ກຳລັງຄົ້ນຫາລາຍຈ່າຍລ່ວງໜ້າ...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div
+              v-else-if="filteredAdvances.length === 0"
+              class="browser-empty-state"
+            >
+              <i class="fas fa-search-minus empty-icon"></i>
+              <h6>ບໍ່ພົບລາຍຈ່າຍລ່ວງໜ້າຕາມເງື່ອນໄຂ</h6>
+              <p class="empty-desc">ລອງປ່ຽນຄຳຄົ້ນຫາ ຫຼື ກົດ "ລ້າງ (Reset)" ເພື່ອເບິ່ງລາຍການທັງໝົດ</p>
+              <button
+                type="button"
+                class="btn-outline-primary mt-2"
+                @click="resetAdvanceFilters"
+              >
+                <i class="fas fa-undo mr-1"></i> ລ້າງເງື່ອນໄຂທັງໝົດ
+              </button>
+            </div>
+
+            <!-- TABLE VIEW (Organized & Highly Scannable) -->
+            <div v-else-if="browserViewMode === 'table'" class="browser-table-wrapper">
+              <table class="browser-data-table">
+                <thead>
+                  <tr>
+                    <th class="th-radio text-center">ເລືອກ</th>
+                    <th class="th-voucher">ເລກທີ & ວັນທີ</th>
+                    <th class="th-ministry">ກົມ / ກະຊວງ</th>
+                    <th class="th-receiver">ຜູ້ຮັບເງິນ / ຜູ້ເບີກ</th>
+                    <th class="th-purpose">ຈຸດປະສົງ / ໝາຍເຫດ</th>
+                    <th class="th-amount text-right">ມູນຄ່າທັງໝົດ</th>
+                    <th class="th-settled text-right">ຊຳລະແລ້ວ</th>
+                    <th class="th-outstanding text-right">ຍອດຍັງເຫຼືອທີ່ຊຳລະໄດ້</th>
+                    <th class="th-status text-center">ສະຖານະ</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="adv in filteredAdvances"
+                    :key="adv.id"
+                    :class="{ 'tr-selected': selectedAdvanceForBrowser?.id === adv.id }"
+                    @click="selectAdvanceFromBrowser(adv)"
+                    @dblclick="selectAndConfirmAdvance(adv)"
+                  >
+                    <td class="td-radio text-center">
+                      <div class="custom-radio-dot" :class="{ active: selectedAdvanceForBrowser?.id === adv.id }">
+                        <i v-if="selectedAdvanceForBrowser?.id === adv.id" class="fas fa-check"></i>
+                      </div>
+                    </td>
+                    <td class="td-voucher">
+                      <div class="voucher-id-tag">#{{ formatVoucherNumber(adv.id) }}</div>
+                      <div class="voucher-date-text">{{ formatDateForDisplay(adv.bookingDate) }}</div>
+                    </td>
+                    <td class="td-ministry">
+                      <div v-if="adv.ministry" class="ministry-cell">
+                        <i class="fas fa-building text-muted mr-1"></i>
+                        <span>{{ adv.ministry.ministryCode ? adv.ministry.ministryCode + ' - ' : '' }}{{ adv.ministry.ministryName }}</span>
+                      </div>
+                      <span v-else class="text-muted">ທົ່ວໄປ</span>
+                    </td>
+                    <td class="td-receiver">
+                      <div class="receiver-cell">
+                        <i class="fas fa-user text-muted mr-1"></i>
+                        <span class="receiver-name">{{ adv.receiveName || adv.maker?.cus_name || adv.maker?.name || '-' }}</span>
+                      </div>
+                      <div v-if="adv.externalRefNo || adv.chequeNo" class="ref-subtext">
+                        Ref: {{ adv.externalRefNo || adv.chequeNo }}
+                      </div>
+                    </td>
+                    <td class="td-purpose" :title="adv.purpose || adv.note || ''">
+                      <div class="purpose-cell-text">{{ adv.purpose || adv.note || '-' }}</div>
+                    </td>
+                    <td class="td-amount text-right">
+                      <div class="amount-val">{{ formatAmountNumber(adv.amount) }}</div>
+                      <div class="curr-val">{{ adv.currency?.code || adv.currencyCode || '' }}</div>
+                    </td>
+                    <td class="td-settled text-right">
+                      <div class="settled-val">{{ formatAmountNumber(adv.totalSettled || 0) }}</div>
+                      <div v-if="adv.settlementPercentage > 0" class="settled-percent">({{ adv.settlementPercentage }}%)</div>
+                    </td>
+                    <td class="td-outstanding text-right">
+                      <div class="outstanding-main-val">
+                        {{ formatAmountNumber(adv.outstandingAmount !== undefined ? adv.outstandingAmount : adv.amount) }}
+                      </div>
+                      <div class="outstanding-curr">{{ adv.currency?.code || adv.currencyCode || '' }}</div>
+                    </td>
+                    <td class="td-status text-center">
+                      <span :class="['status-pill', adv.status]">
+                        {{ formatStatus(adv.status) }}
                       </span>
-                    </div>
-                    <div class="advance-item-body compact">
-                      <div class="advance-amount">
-                        {{
-                          formatCurrency(advance.amount, advance.currency.code)
-                        }}
-                      </div>
-                      <div class="advance-date">
-                        {{ formatDate(advance.bookingDate) }}
-                      </div>
-                      <div v-if="advance.purpose" class="advance-purpose">
-                        {{ advance.purpose }}
-                      </div>
-                    </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- CARD GRID VIEW (Visual Overview) -->
+            <div v-else class="browser-advance-grid">
+              <div
+                v-for="adv in filteredAdvances"
+                :key="adv.id"
+                class="browser-advance-card"
+                :class="{
+                  'is-selected': selectedAdvanceForBrowser?.id === adv.id,
+                }"
+                @click="selectAdvanceFromBrowser(adv)"
+                @dblclick="selectAndConfirmAdvance(adv)"
+              >
+                <!-- Card Top Row -->
+                <div class="card-top-row">
+                  <div class="card-voucher-tag">
+                    <i class="fas fa-file-invoice-dollar mr-1"></i>
+                    #{{ formatVoucherNumber(adv.id) }}
                   </div>
+                  <div class="card-status-badges">
+                    <span :class="['status-pill', adv.status]">
+                      {{ formatStatus(adv.status) }}
+                    </span>
+                    <span class="date-badge">
+                      <i class="fas fa-calendar-day mr-1"></i>
+                      {{ formatDateForDisplay(adv.bookingDate) }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Card Main Details -->
+                <div class="card-details-grid">
+                  <div class="detail-item ministry-item" v-if="adv.ministry">
+                    <i class="fas fa-building text-muted mr-1"></i>
+                    <span class="detail-label">ກົມ:</span>
+                    <span class="detail-val font-weight-bold">{{ adv.ministry.ministryCode ? adv.ministry.ministryCode + ' - ' : '' }}{{ adv.ministry.ministryName }}</span>
+                  </div>
+                  <div class="detail-item receiver-item" v-if="adv.receiveName || adv.maker">
+                    <i class="fas fa-user text-muted mr-1"></i>
+                    <span class="detail-label">ຜູ້ຮັບ/ຜູ້ເບີກ:</span>
+                    <span class="detail-val">{{ adv.receiveName || adv.maker?.cus_name || adv.maker?.name || 'ບໍ່ລະບຸ' }}</span>
+                  </div>
+                </div>
+
+                <!-- Card Purpose / Note -->
+                <div class="card-purpose" v-if="adv.purpose || adv.note">
+                  <i class="fas fa-comment-alt text-muted mr-1"></i>
+                  <span>{{ adv.purpose || adv.note }}</span>
+                </div>
+
+                <!-- Card Financial Overview -->
+                <div class="card-financial-summary">
+                  <div class="fin-box total-box">
+                    <span class="fin-label">ມູນຄ່າທັງໝົດ</span>
+                    <span class="fin-val total-val">
+                      {{ formatAmountNumber(adv.amount) }} {{ adv.currency?.code || adv.currencyCode || '' }}
+                    </span>
+                  </div>
+                  <div class="fin-box settled-box">
+                    <span class="fin-label">ຊຳລະແລ້ວ</span>
+                    <span class="fin-val settled-val">
+                      {{ formatAmountNumber(adv.totalSettled || 0) }}
+                    </span>
+                  </div>
+                  <div class="fin-box outstanding-box">
+                    <span class="fin-label">ຍັງເຫຼືອທີ່ຊຳລະໄດ້</span>
+                    <span class="fin-val outstanding-val">
+                      {{ formatAmountNumber(adv.outstandingAmount !== undefined ? adv.outstandingAmount : adv.amount) }} {{ adv.currency?.code || adv.currencyCode || '' }}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Settlement Progress Bar -->
+                <div v-if="adv.totalSettled > 0" class="settlement-progress-wrap mt-2">
+                  <div class="progress-bar-bg">
+                    <div
+                      class="progress-bar-fill"
+                      :style="{ width: Math.min(100, adv.settlementPercentage || 0) + '%' }"
+                    ></div>
+                  </div>
+                  <span class="progress-label">{{ adv.settlementPercentage || 0 }}% ຊຳລະແລ້ວ</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div class="modal-footer compact">
-            <button
-              type="button"
-              @click.stop="closeAdvanceBrowser"
-              class="btn btn-secondary compact"
-            >
-              <i class="fas fa-times"></i>
-              ຍົກເລີກ
-            </button>
-            <button
-              type="button"
-              @click.stop="confirmAdvanceSelection"
-              class="btn btn-primary compact"
-              :disabled="!selectedAdvanceForBrowser"
-            >
-              <i class="fas fa-check"></i>
-              ເລືອກ
-            </button>
+          <!-- Advance Browser Footer -->
+          <div class="modal-footer advance-browser-footer">
+            <div class="selection-preview-bar">
+              <template v-if="selectedAdvanceForBrowser">
+                <div class="preview-selected-tag">
+                  <i class="fas fa-check-circle text-success mr-2"></i>
+                  <span>
+                    ເລືອກ: <strong>#{{ formatVoucherNumber(selectedAdvanceForBrowser.id) }}</strong> -
+                    <span class="receiver-txt">{{ selectedAdvanceForBrowser.receiveName || selectedAdvanceForBrowser.maker?.cus_name || '' }}</span>
+                    - ຍັງເຫຼືອທີ່ຊຳລະໄດ້: <strong class="text-outstanding-badge">{{ formatAmountNumber(selectedAdvanceForBrowser.outstandingAmount !== undefined ? selectedAdvanceForBrowser.outstandingAmount : selectedAdvanceForBrowser.amount) }} {{ selectedAdvanceForBrowser.currency?.code || selectedAdvanceForBrowser.currencyCode || '' }}</strong>
+                    <span v-if="selectedAdvanceForBrowser.ministry" class="text-muted ml-1">({{ selectedAdvanceForBrowser.ministry.ministryName }})</span>
+                  </span>
+                </div>
+              </template>
+              <span v-else class="text-muted">
+                <i class="fas fa-info-circle mr-1"></i> ຄລິກເລືອກລາຍການໃນຕາຕະລາງ ຫຼື ດັບເບິລຄລິກເພື່ອຢືນຢັນທັນທີ
+              </span>
+            </div>
+
+            <div class="footer-buttons">
+              <button
+                type="button"
+                @click="closeAdvanceBrowser"
+                class="btn-browser-cancel"
+              >
+                <i class="fas fa-times mr-1"></i> ຍົກເລີກ (Cancel)
+              </button>
+              <button
+                type="button"
+                @click="confirmAdvanceSelection"
+                class="btn-select-confirm"
+                :disabled="!selectedAdvanceForBrowser"
+              >
+                <i class="fas fa-check mr-1"></i> ຢືນຢັນເລືອກ (Select)
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
     <!-- Voucher Print Component - MOVED OUTSIDE main modal -->
     <VoucherPrintComponent
@@ -845,15 +1179,24 @@ export default {
       loading: false,
       isSubmitting: false, // New flag for submission state
       justCreated: false, // NEW: Flag to prevent form reset after creation
+      checkingDuplicate: false,
+      duplicateWarningInfo: null,
+      duplicateCheckTimeout: null,
       loadingAdvances: false,
       showAdvanceBrowser: false,
+      browserViewMode: 'table', // 'table' or 'grid'
       selectedAdvanceForBrowser: null,
       availableAdvances: [],
       filteredAdvances: [],
       advanceSearch: {
         query: '',
+        ministryId: '',
+        currencyId: '',
         status: '',
+        fromDate: '',
+        toDate: '',
       },
+      advanceSearchTimeout: null,
       formData: {
         id: null,
         bookingDate: '',
@@ -1039,7 +1382,27 @@ export default {
         if (!this._isInitializing || !this.isEditMode) {
           this.handleCurrencyChange()
         }
+        this.debounceCheckDuplicate()
       }
+    },
+
+    'formData.amount'() {
+      this.debounceCheckDuplicate()
+    },
+
+    'formData.ministryId'(newVal, oldVal) {
+      if (newVal !== oldVal) {
+        this.debounceCheckDuplicate()
+        // Automatically set ministry filter for advances when ministry in settlement changes
+        this.advanceSearch.ministryId = newVal || ''
+        if (this.formData.linkToAdvance === 'true') {
+          this.loadMoneyAdvances()
+        }
+      }
+    },
+
+    'formData.bookingDate'() {
+      this.debounceCheckDuplicate()
     },
 
     settlement: {
@@ -1069,7 +1432,13 @@ export default {
     },
 
     'formData.linkToAdvance'(newVal, oldVal) {
-      if (newVal === 'false' && oldVal === 'true') {
+      if (newVal === 'true') {
+        // When linking to payment advance, default ministry filter to settlement's defined ministry
+        if (this.formData.ministryId) {
+          this.advanceSearch.ministryId = this.formData.ministryId
+        }
+        this.loadMoneyAdvances()
+      } else if (newVal === 'false' && oldVal === 'true') {
         this.clearAdvanceSelection()
       }
     },
@@ -1101,6 +1470,14 @@ export default {
     document.body.style.overflow = 'auto'
     this.isSubmitting = false
     this.loading = false
+    if (this.duplicateCheckTimeout) {
+      clearTimeout(this.duplicateCheckTimeout)
+      this.duplicateCheckTimeout = null
+    }
+    if (this.advanceSearchTimeout) {
+      clearTimeout(this.advanceSearchTimeout)
+      this.advanceSearchTimeout = null
+    }
     this.cleanupEventListeners()
   },
 
@@ -1337,6 +1714,11 @@ export default {
           }
         }
 
+        // Set advance search ministry default from settlement ministry if defined
+        if (this.formData.ministryId) {
+          this.advanceSearch.ministryId = this.formData.ministryId
+        }
+
         this.errors = {}
         this.formErrors = []
       } catch (error) {
@@ -1390,6 +1772,11 @@ export default {
       this.loading = false
       this.isSubmitting = false
       this.justCreated = false
+      this.duplicateWarningInfo = null
+      if (this.duplicateCheckTimeout) {
+        clearTimeout(this.duplicateCheckTimeout)
+        this.duplicateCheckTimeout = null
+      }
 
       if (this.showAdvanceBrowser) {
         this.closeAdvanceBrowser()
@@ -1543,22 +1930,39 @@ export default {
       // Placeholder for calculation logic
     },
 
-    async loadMoneyAdvances() {
+    async loadMoneyAdvances(customParams = {}) {
       this.loadingAdvances = true
 
       try {
         const params = {
-          status: ['pending', 'approved'],
-          available_for_settlement: true,
+          status: this.advanceSearch.status || ['pending', 'approved'],
+          limit: 200,
+          ...customParams,
         }
 
+        if (this.advanceSearch.query && this.advanceSearch.query.trim()) {
+          params.search = this.advanceSearch.query.trim()
+        }
+        if (this.advanceSearch.ministryId) {
+          params.ministryId = this.advanceSearch.ministryId
+        }
+        if (this.advanceSearch.currencyId) {
+          params.currencyId = this.advanceSearch.currencyId
+        }
+        if (this.advanceSearch.fromDate) {
+          params.fromDate = this.advanceSearch.fromDate
+        }
+        if (this.advanceSearch.toDate) {
+          params.toDate = this.advanceSearch.toDate
+        }
         if (this.formData.moneyAdvanceId) {
           params.include_advance_id = this.formData.moneyAdvanceId
         }
 
-        const { data } = await this.$axios.get('/api/money-advances', {
-          params,
-        })
+        const { data } = await this.$axios.get(
+          '/api/money-advances/available-for-settlement',
+          { params }
+        )
 
         if (data && data.success) {
           this.availableAdvances = data.data || []
@@ -1587,7 +1991,7 @@ export default {
           this.availableAdvances = []
         }
 
-        this.filteredAdvances = [...this.availableAdvances]
+        this.applyFrontendAdvanceFilters()
       } catch (error) {
         console.error('Error loading money advances:', error)
         this.availableAdvances = []
@@ -1690,8 +2094,14 @@ export default {
     },
 
     syncAmountFromAdvance() {
-      if (this.selectedAdvance && this.selectedAdvance.amount) {
-        this.formData.amount = this.selectedAdvance.amount
+      if (this.selectedAdvance) {
+        const remain =
+          this.selectedAdvance.outstandingAmount !== undefined
+            ? this.selectedAdvance.outstandingAmount
+            : this.selectedAdvance.amount
+        if (remain && (!this.formData.amount || this.formData.amount <= 0)) {
+          this.formData.amount = remain
+        }
       }
     },
 
@@ -1727,17 +2137,27 @@ export default {
     },
 
     browseMoneyAdvances() {
+      // Default filter to settlement's defined ministry
+      if (this.formData.ministryId) {
+        this.advanceSearch.ministryId = this.formData.ministryId
+      }
+      // If form has currency selected and advance search has none, pre-populate
+      if (this.formData.currencyId && !this.advanceSearch.currencyId) {
+        this.advanceSearch.currencyId = this.formData.currencyId
+      }
       this.showAdvanceBrowser = true
       this.selectedAdvanceForBrowser = this.selectedAdvance
+      this.loadMoneyAdvances()
       document.body.style.overflow = 'hidden'
     },
 
     closeAdvanceBrowser() {
       this.showAdvanceBrowser = false
       this.selectedAdvanceForBrowser = null
-      this.advanceSearch.query = ''
-      this.advanceSearch.status = ''
-      this.filteredAdvances = [...this.availableAdvances]
+      if (this.advanceSearchTimeout) {
+        clearTimeout(this.advanceSearchTimeout)
+        this.advanceSearchTimeout = null
+      }
       document.body.style.overflow = 'auto'
     },
 
@@ -1751,9 +2171,22 @@ export default {
       this.selectedAdvanceForBrowser = advance
     },
 
+    selectAndConfirmAdvance(advance) {
+      this.selectedAdvanceForBrowser = advance
+      this.confirmAdvanceSelection()
+    },
+
     confirmAdvanceSelection() {
       if (this.selectedAdvanceForBrowser) {
         this.formData.moneyAdvanceId = this.selectedAdvanceForBrowser.id
+        // Auto-fill ministry if not yet set in settlement
+        if (
+          this.selectedAdvanceForBrowser.ministryId &&
+          !this.formData.ministryId
+        ) {
+          this.formData.ministryId = this.selectedAdvanceForBrowser.ministryId
+        }
+
         this.closeAdvanceBrowser()
 
         this.$nextTick(() => {
@@ -1763,11 +2196,47 @@ export default {
       }
     },
 
+    debounceSearchAdvances() {
+      this.applyFrontendAdvanceFilters()
+      if (this.advanceSearchTimeout) {
+        clearTimeout(this.advanceSearchTimeout)
+      }
+      this.advanceSearchTimeout = setTimeout(() => {
+        this.loadMoneyAdvances()
+      }, 400)
+    },
+
+    onFilterChange() {
+      this.applyFrontendAdvanceFilters()
+      this.loadMoneyAdvances()
+    },
+
+    clearSearchQuery() {
+      this.advanceSearch.query = ''
+      this.onFilterChange()
+    },
+
+    resetAdvanceFilters() {
+      this.advanceSearch = {
+        query: '',
+        ministryId: this.formData.ministryId || '',
+        currencyId: '',
+        status: '',
+        fromDate: '',
+        toDate: '',
+      }
+      this.loadMoneyAdvances()
+    },
+
     searchAdvances() {
-      this.filterAdvances()
+      this.debounceSearchAdvances()
     },
 
     filterAdvances() {
+      this.onFilterChange()
+    },
+
+    applyFrontendAdvanceFilters() {
       let filtered = [...this.availableAdvances]
 
       if (this.advanceSearch.status) {
@@ -1776,15 +2245,67 @@ export default {
         )
       }
 
-      if (this.advanceSearch.query) {
-        const query = this.advanceSearch.query.toLowerCase()
+      if (this.advanceSearch.ministryId) {
         filtered = filtered.filter(
           (advance) =>
-            (advance.purpose &&
-              advance.purpose.toLowerCase().includes(query)) ||
-            (advance.note && advance.note.toLowerCase().includes(query)) ||
-            advance.id.toString().includes(query)
+            advance.ministryId == this.advanceSearch.ministryId ||
+            advance.ministry?.id == this.advanceSearch.ministryId
         )
+      }
+
+      if (this.advanceSearch.currencyId) {
+        filtered = filtered.filter(
+          (advance) =>
+            advance.currencyId == this.advanceSearch.currencyId ||
+            advance.currency?.id == this.advanceSearch.currencyId
+        )
+      }
+
+      if (this.advanceSearch.fromDate) {
+        filtered = filtered.filter(
+          (advance) => advance.bookingDate >= this.advanceSearch.fromDate
+        )
+      }
+
+      if (this.advanceSearch.toDate) {
+        filtered = filtered.filter(
+          (advance) => advance.bookingDate <= this.advanceSearch.toDate
+        )
+      }
+
+      if (this.advanceSearch.query) {
+        const query = this.advanceSearch.query.toLowerCase().trim()
+        const queryNum = query.replace(/[^0-9]/g, '')
+        filtered = filtered.filter((advance) => {
+          const idMatch =
+            advance.id.toString().includes(query) ||
+            (queryNum && advance.id.toString() === queryNum)
+          const purposeMatch =
+            advance.purpose && advance.purpose.toLowerCase().includes(query)
+          const noteMatch =
+            advance.note && advance.note.toLowerCase().includes(query)
+          const receiverMatch =
+            advance.receiveName &&
+            advance.receiveName.toLowerCase().includes(query)
+          const ministryMatch =
+            advance.ministry?.ministryName &&
+            advance.ministry.ministryName.toLowerCase().includes(query)
+          const refMatch =
+            (advance.externalRef &&
+              advance.externalRef.toLowerCase().includes(query)) ||
+            (advance.externalRefNo &&
+              advance.externalRefNo.toLowerCase().includes(query)) ||
+            (advance.chequeNo &&
+              advance.chequeNo.toLowerCase().includes(query))
+          return (
+            idMatch ||
+            purposeMatch ||
+            noteMatch ||
+            receiverMatch ||
+            ministryMatch ||
+            refMatch
+          )
+        })
       }
 
       this.filteredAdvances = filtered
@@ -1898,10 +2419,188 @@ export default {
       }
     },
 
+    debounceCheckDuplicate() {
+      if (this.duplicateCheckTimeout) {
+        clearTimeout(this.duplicateCheckTimeout)
+      }
+      this.duplicateCheckTimeout = setTimeout(() => {
+        this.checkDuplicateLive()
+      }, 500)
+    },
+
+    async checkDuplicateLive() {
+      if (
+        !this.formData.amount ||
+        parseFloat(this.formData.amount) <= 0 ||
+        !this.formData.currencyId
+      ) {
+        this.duplicateWarningInfo = null
+        return
+      }
+
+      try {
+        const result = await this.performDuplicateCheck()
+        if (result && result.isDuplicate && result.duplicates.length > 0) {
+          this.duplicateWarningInfo = {
+            count: result.count,
+            dateRange: result.dateRange,
+            duplicates: result.duplicates,
+            ids: result.duplicates.map((d) => String(d.id).padStart(5, '0')),
+          }
+        } else {
+          this.duplicateWarningInfo = null
+        }
+      } catch (err) {
+        console.warn('Duplicate settlement check live warning error:', err)
+      }
+    },
+
+    async performDuplicateCheck() {
+      if (!this.formData.amount || !this.formData.currencyId) {
+        return { isDuplicate: false, duplicates: [] }
+      }
+
+      const params = {
+        amount: this.formData.amount,
+        currencyId: this.formData.currencyId,
+        ministryId: this.formData.ministryId || undefined,
+        bookingDate: this.formData.bookingDate || undefined,
+        excludeId:
+          this.isEditMode && this.formData.id ? this.formData.id : undefined,
+      }
+
+      try {
+        const response = await this.$axios.get(
+          '/api/settlements/check-duplicate',
+          { params }
+        )
+        if (response.data && response.data.success) {
+          return response.data
+        }
+        return { isDuplicate: false, duplicates: [] }
+      } catch (error) {
+        console.warn('Duplicate settlement check API failed:', error)
+        return { isDuplicate: false, duplicates: [] }
+      }
+    },
+
+    async promptDuplicateOverrideConfirmation(duplicates) {
+      const duplicateItemsHtml = duplicates
+        .map(
+          (d) => `
+        <div style="text-align: left; background: #fff8e1; border: 1px solid #ffe082; border-left: 5px solid #ffb300; padding: 10px 14px; margin-bottom: 8px; border-radius: 6px; font-size: 13px; color: #5d4037; line-height: 1.6;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ffd54f; padding-bottom: 4px; margin-bottom: 4px;">
+            <span style="font-weight: 700; color: #e65100;">ເລກທີ (Voucher): #${String(
+              d.id
+            ).padStart(5, '0')}</span>
+            <span style="background: #ffecb3; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;">${
+              d.method || 'SETTLEMENT'
+            }</span>
+          </div>
+          <div>📅 <strong>ວັນທີ (Date):</strong> ${this.formatDateForDisplay(
+            d.bookingDate
+          )}</div>
+          <div>💰 <strong>ຈຳນວນເງິນ (Amount):</strong> <span style="font-weight: 700; color: #c62828;">${this.formatAmountNumber(
+            d.amount
+          )} ${d.currencyCode || ''}</span></div>
+          ${
+            d.ministryName
+              ? `<div>🏢 <strong>ກົມ (Ministry):</strong> ${d.ministryName}</div>`
+              : ''
+          }
+          ${
+            d.notes
+              ? `<div>📝 <strong>ໝາຍເຫດ (Notes):</strong> ${d.notes}</div>`
+              : ''
+          }
+          ${
+            d.proceederName
+              ? `<div>👤 <strong>ຜູ້ລົງ (Proceeder):</strong> ${d.proceederName}</div>`
+              : ''
+          }
+        </div>
+      `
+        )
+        .join('')
+
+      const result = await this.$swal({
+        title: '⚠️ ແຈ້ງເຕືອນລາຍການຊ້ຳຊ້ອນ',
+        html: `
+          <div style="font-size: 13.5px; text-align: left; margin-bottom: 8px;">
+            <div style="color: #b71c1c; font-weight: 600; margin-bottom: 10px; background: #ffebee; padding: 8px 12px; border-radius: 4px; border-left: 4px solid #ef5350;">
+              ພົບການຊຳລະທີ່ມີມູນຄ່າ, ສະກຸນເງິນ ແລະ ກົມດຽວກັນໃນເດືອນນີ້/ເດືອນຜ່ານມາ (${duplicates.length} ລາຍການ):
+            </div>
+            <div style="max-height: 240px; overflow-y: auto; padding-right: 4px;">
+              ${duplicateItemsHtml}
+            </div>
+            <div style="margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px; font-weight: 600; color: #263238; font-size: 13px; text-align: center;">
+              ທ່ານຕ້ອງການດຳເນີນການບັນທຶກຕໍ່ ຫຼື ບໍ່?<br/>
+              <span style="font-size: 11px; color: #78909c; font-weight: normal;">(ລະບົບຈະບັນທຶກປະຫວັດ Override Log ລົງໃນຖານຂໍ້ມູນ)</span>
+            </div>
+          </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'ຍົກເລີກ (Cancel)',
+        confirmButtonText: 'ຢືນຢັນບັນທຶກຕໍ່ (Proceed)',
+        confirmButtonColor: '#fb8c00',
+        cancelButtonColor: '#78909c',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      })
+
+      return result.isConfirmed
+    },
+
+    formatAmountNumber(amount) {
+      if (!amount && amount !== 0) return '0'
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount)
+    },
+
     // FIXED saveSettlement method
     async saveSettlement() {
       if (!this.validateForm() || this.isSubmitting) {
         return
+      }
+
+      // Check for duplicate settlement entry before final save
+      this.checkingDuplicate = true
+      let duplicateOverrideData = {}
+      try {
+        const duplicateCheck = await this.performDuplicateCheck()
+        if (
+          duplicateCheck &&
+          duplicateCheck.isDuplicate &&
+          duplicateCheck.duplicates.length > 0
+        ) {
+          const confirmed = await this.promptDuplicateOverrideConfirmation(
+            duplicateCheck.duplicates
+          )
+          if (!confirmed) {
+            this.checkingDuplicate = false
+            return // User cancelled
+          }
+          duplicateOverrideData = {
+            isDuplicateOverride: true,
+            matchedSettlementIds: duplicateCheck.duplicates.map((d) => d.id),
+            overrideReason:
+              'User confirmed duplicate settlement creation after warning',
+            overrideMessage: `User acknowledged duplicate warning and confirmed saving settlement of ${this.formatAmountNumber(
+              this.formData.amount
+            )} ${
+              this.selectedCurrencyCode || ''
+            } matching existing records: ${duplicateCheck.duplicates
+              .map((d) => '#' + String(d.id).padStart(5, '0'))
+              .join(', ')}`,
+          }
+        }
+      } catch (dupErr) {
+        console.warn('Duplicate check prompt error:', dupErr)
+      } finally {
+        this.checkingDuplicate = false
       }
 
       // Prevent double submission
@@ -1911,6 +2610,7 @@ export default {
       try {
         const submitData = {
           ...this.formData,
+          ...duplicateOverrideData,
           selectedInvoices:
             this.formData.method === 'deduction'
               ? this.formData.selectedInvoices
@@ -2053,26 +2753,33 @@ export default {
 
     // Utility methods
     formatCurrency(amount, currency = 'LAK', locale = 'en-US', options = {}) {
-      if (
-        typeof amount !== 'number' &&
-        amount !== null &&
-        amount !== undefined
-      ) {
-        amount = 0
+      let num = amount
+      if (typeof num === 'string') {
+        num = parseFloat(num)
+      }
+      if (typeof num !== 'number' || isNaN(num)) {
+        num = 0
+      }
+
+      let ccyCode = 'LAK'
+      if (typeof currency === 'string' && currency.trim()) {
+        ccyCode = currency.trim().toUpperCase()
+      } else if (currency && typeof currency === 'object') {
+        ccyCode = (currency.code || currency.currencyCode || 'LAK').toUpperCase()
       }
 
       const defaultOptions = {
         style: 'currency',
-        currency: currency.toUpperCase(),
+        currency: ccyCode,
         minimumFractionDigits: 0,
         maximumFractionDigits: 2,
         ...options,
       }
 
       try {
-        return new Intl.NumberFormat(locale, defaultOptions).format(amount || 0)
+        return new Intl.NumberFormat(locale, defaultOptions).format(num)
       } catch (error) {
-        return `${currency.toUpperCase()} ${(amount || 0).toLocaleString()}`
+        return `${ccyCode} ${num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
       }
     },
 
@@ -2386,7 +3093,7 @@ export default {
   align-items: center;
   padding: 16px 24px;
   border-bottom: 1px solid #e9ecef;
-  background: primary;
+  background: linear-gradient(135deg, #01532B 0%, #1e7e48 100%);
   color: white;
   flex-shrink: 0;
 }
@@ -2636,7 +3343,7 @@ export default {
 .advance-selection-container.compact {
   display: flex;
   gap: 8px;
-  align-items: flex-start;
+  align-items: center;
   margin-bottom: 8px;
 }
 
@@ -2667,10 +3374,10 @@ export default {
 /* Compact Advance Info */
 .advance-info.compact {
   margin-top: 8px;
-  padding: 8px;
-  background: #f0f9ff;
+  padding: 8px 12px;
+  background: #f0fdf4;
   border-radius: 6px;
-  border: 1px solid #bae6fd;
+  border: 1px solid #bbf7d0;
 }
 
 .advance-summary {
@@ -2693,8 +3400,8 @@ export default {
 
 .advance-amount {
   font-weight: 700;
-  color: #059669;
-  background: #d1fae5;
+  color: #01532B;
+  background: #e8f5e9;
   padding: 2px 6px;
   border-radius: 4px;
   font-size: 10px;
@@ -2830,8 +3537,13 @@ export default {
 }
 
 .btn-primary {
-  background: primary;
-  color: white;
+  background-color: #01532B !important;
+  color: #ffffff !important;
+  border: 1px solid #014222 !important;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #014222 !important;
 }
 
 .btn-secondary {
@@ -2840,14 +3552,15 @@ export default {
 }
 
 .btn-outline-primary {
-  background: transparent;
-  border: 2px solid #667eea;
-  color: #667eea;
+  background: transparent !important;
+  border: 1.5px solid #01532B !important;
+  color: #01532B !important;
+  border-radius: 6px;
 }
 
 .btn-outline-primary:hover {
-  background: #667eea;
-  color: white;
+  background: #01532B !important;
+  color: white !important;
 }
 
 .btn:disabled {
@@ -2861,89 +3574,870 @@ export default {
   animation: spin 1s linear infinite;
 }
 
-/* Advance Browser Compact Styles */
-.advance-filters.compact {
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  padding: 12px;
-  margin-bottom: 12px;
-}
-
-.filter-row.compact {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 12px;
-  align-items: center;
-}
-
-.advances-list.compact {
-  background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
-  max-height: 300px;
-  overflow-y: auto;
-}
-
-.advance-items.compact {
+/* Advance Browser Modal & Criteria Filter Styles (Enhanced Layout) */
+.advance-browser-dialog {
+  max-width: 1120px;
+  width: 96%;
+  max-height: 92vh;
   display: flex;
   flex-direction: column;
-  padding: 8px;
-}
-
-.advance-item.compact {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  margin-bottom: 8px;
-  padding: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.advance-item.compact:hover {
-  background: #f0f9ff;
-  border-color: #60a5fa;
-}
-
-.advance-item.compact.selected {
-  background: #dbeafe;
-  border-color: #3b82f6;
-}
-
-.advance-item-content.compact {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.advance-item-header.compact {
+.advance-browser-header {
+  background: linear-gradient(135deg, #01532B 0%, #1e7e48 100%);
+  color: #ffffff;
+  padding: 14px 22px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
-.advance-item-body.compact {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+.advance-browser-header .modal-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.browser-subtitle {
+  font-size: 11.5px;
+  color: #e8f5e9;
+  display: block;
+  opacity: 0.9;
+}
+
+.advance-browser-filters {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 14px 20px 12px 20px;
+  flex-shrink: 0;
+}
+
+.browser-filter-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.filter-col {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.col-search {
+  flex: 2;
+  min-width: 240px;
+}
+
+.col-ministry {
+  flex: 1.6;
+  min-width: 200px;
+}
+
+.col-currency {
+  width: 120px;
+}
+
+.col-date {
+  width: 145px;
+}
+
+.col-status {
+  width: 150px;
+}
+
+.col-actions {
+  display: flex;
+  flex-direction: row;
   gap: 8px;
+  margin-bottom: 0;
+}
+
+.filter-label {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.filter-label i {
+  color: #01532B;
   font-size: 11px;
 }
 
-.loading-state,
-.empty-state {
+.browser-search-input-wrapper {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px;
-  color: #666;
+  width: 100%;
 }
 
-.empty-state i {
-  font-size: 48px;
-  color: #ccc;
-  margin-bottom: 16px;
+.search-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  font-size: 13px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.browser-search-input {
+  width: 100%;
+  height: 38px;
+  padding: 8px 32px 8px 36px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+  box-sizing: border-box;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+}
+
+.browser-search-input:focus {
+  border-color: #01532B;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(1, 83, 43, 0.15);
+  outline: none;
+}
+
+.clear-search-btn {
+  position: absolute;
+  right: 8px;
+  background: none;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 4px 6px;
+  font-size: 12px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.clear-search-btn:hover {
+  color: #1e293b;
+  background: #e2e8f0;
+}
+
+.browser-filter-select,
+.browser-filter-input {
+  width: 100%;
+  height: 38px;
+  border-radius: 6px;
+  font-size: 12.5px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #1e293b;
+  box-sizing: border-box;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+}
+
+.browser-filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 8px 32px 8px 12px !important;
+  cursor: pointer;
+}
+
+.browser-filter-input {
+  padding: 8px 12px !important;
+}
+
+.browser-filter-select:focus,
+.browser-filter-input:focus {
+  border-color: #01532B;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(1, 83, 43, 0.15);
+  outline: none;
+}
+
+.advance-browser-filters .select-icon {
+  right: 12px;
+  font-size: 11px;
+  color: #64748b;
+}
+
+.filter-btn-reset {
+  height: 38px;
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.filter-btn-reset:hover {
+  background: #e2e8f0;
+  border-color: #94a3b8;
+  color: #1e293b;
+}
+
+.filter-btn-reload {
+  height: 38px;
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 6px;
+  background: #01532B !important;
+  color: #ffffff !important;
+  border: 1px solid #014222 !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(1, 83, 43, 0.25);
+}
+
+.filter-btn-reload:hover {
+  background: #014222 !important;
+  box-shadow: 0 2px 6px rgba(1, 83, 43, 0.35);
+}
+
+/* Sub-toolbar */
+.browser-toolbar-subrow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.active-filters-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+}
+
+.results-count-text {
+  color: #475569;
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.active-filter-chip {
+  background: #e8f5e9;
+  color: #01532B;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border: 1px solid #c8e6c9;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chip-remove {
+  cursor: pointer;
+  opacity: 0.7;
+  font-size: 9px;
+  margin-left: 2px;
+}
+
+.chip-remove:hover {
+  opacity: 1;
+}
+
+.view-mode-toggle {
+  display: inline-flex;
+  background: #e2e8f0;
+  border-radius: 6px;
+  padding: 2px;
+  gap: 2px;
+}
+
+.view-mode-btn {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.view-mode-btn.active {
+  background: #ffffff;
+  color: #01532B;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.advance-browser-body {
+  padding: 12px 18px;
+  max-height: 480px;
+  min-height: 280px;
+  overflow-y: auto;
+  background: #f8fafc;
+  flex: 1;
+}
+
+/* TABLE VIEW STYLING (Ultra organized) */
+.browser-table-wrapper {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.browser-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  text-align: left;
+}
+
+.browser-data-table thead {
+  background: #f1f5f9;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+.browser-data-table th {
+  padding: 9px 10px;
+  font-weight: 700;
+  color: #334155;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.browser-data-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+  color: #334155;
+}
+
+.browser-data-table tbody tr {
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.browser-data-table tbody tr:hover {
+  background-color: #f0fdf4;
+}
+
+.browser-data-table tbody tr.tr-selected {
+  background-color: #ecfdf5 !important;
+  box-shadow: inset 3px 0 0 #01532B;
+}
+
+.custom-radio-dot {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #ffffff;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.custom-radio-dot.active {
+  background: #01532B;
+  border-color: #01532B;
+}
+
+.voucher-id-tag {
+  font-weight: 700;
+  font-family: 'Courier New', monospace;
+  color: #01532B;
+  font-size: 12.5px;
+}
+
+.voucher-date-text {
+  font-size: 10.5px;
+  color: #64748b;
+}
+
+.ministry-cell {
+  font-weight: 600;
+  color: #1e293b;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.receiver-cell {
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.receiver-name {
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.ref-subtext {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.td-purpose {
+  max-width: 200px;
+}
+
+.purpose-cell-text {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11.5px;
+  color: #475569;
+}
+
+.amount-val {
+  font-weight: 600;
+  color: #334155;
+  font-size: 12px;
+}
+
+.curr-val {
+  font-size: 10px;
+  color: #64748b;
+}
+
+.settled-val {
+  color: #0284c7;
+  font-weight: 600;
+  font-size: 11.5px;
+}
+
+.settled-percent {
+  font-size: 10px;
+  color: #0284c7;
+}
+
+.outstanding-main-val {
+  font-weight: 700;
+  color: #01532B;
+  font-size: 13px;
+}
+
+.outstanding-curr {
+  font-size: 10px;
+  font-weight: 600;
+  color: #01532B;
+}
+
+/* CARD GRID VIEW */
+.browser-advance-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 12px;
+}
+
+.browser-advance-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 13px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.browser-advance-card:hover {
+  border-color: #01532B;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px -2px rgba(1, 83, 43, 0.18);
+}
+
+.browser-advance-card.is-selected {
+  border-color: #01532B;
+  background: #f0fdf4;
+  box-shadow: 0 0 0 2.5px rgba(1, 83, 43, 0.25);
+}
+
+.card-top-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px dashed #e2e8f0;
+}
+
+.card-voucher-tag {
+  font-weight: 700;
+  color: #01532B;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.card-status-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-pill {
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.status-pill.approved {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status-pill.pending {
+  background: #fef9c3;
+  color: #854d0e;
+}
+
+.status-pill.settled {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.date-badge {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.card-details-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  margin-bottom: 8px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.detail-label {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.detail-val {
+  color: #1e293b;
+}
+
+.card-purpose {
+  font-size: 11.5px;
+  color: #475569;
+  background: #f8fafc;
+  border-radius: 6px;
+  padding: 6px 8px;
+  margin-bottom: 8px;
+  line-height: 1.35;
+  max-height: 42px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-financial-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 6px;
+  background: #f8fafc;
+  border-radius: 8px;
+  padding: 8px 10px;
+  border: 1px solid #edf2f7;
+  margin-top: auto;
+}
+
+.browser-advance-card.is-selected .card-financial-summary {
+  background: #ffffff;
+}
+
+.fin-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.fin-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.fin-val {
+  font-size: 11.5px;
+  font-weight: 700;
+}
+
+.total-val {
+  color: #334155;
+}
+
+.settled-val {
+  color: #0284c7;
+}
+
+.outstanding-val {
+  color: #01532B;
+  font-size: 12px;
+}
+
+.settlement-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10px;
+  color: #64748b;
+}
+
+.progress-bar-bg {
+  flex: 1;
+  height: 5px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #337555, #01532B);
+  border-radius: 3px;
+}
+
+/* FOOTER */
+.advance-browser-footer {
+  background: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.selection-preview-bar {
+  font-size: 12.5px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-selected-tag {
+  display: flex;
+  align-items: center;
+}
+
+.text-outstanding-badge {
+  color: #01532B;
+  font-size: 13px;
+  background: #e8f5e9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.btn-browser-cancel {
+  height: 36px;
+  padding: 0 16px;
+  font-size: 12.5px;
+  font-weight: 600;
+  background: #ffffff;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.btn-browser-cancel:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.btn-select-confirm {
+  height: 36px;
+  padding: 0 20px !important;
+  font-weight: 600 !important;
+  font-size: 12.5px !important;
+  background-color: #01532B !important;
+  color: #ffffff !important;
+  border: 1px solid #014222 !important;
+  border-radius: 6px !important;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(1, 83, 43, 0.25);
+}
+
+.btn-select-confirm:hover:not(:disabled) {
+  background-color: #014222 !important;
+}
+
+.btn-select-confirm:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+@media (max-width: 900px) {
+  .browser-filter-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-col {
+    width: 100% !important;
+  }
+  .advance-browser-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .selection-preview-bar {
+    margin-bottom: 8px;
+  }
+}
+
+.btn-browse-advance {
+  height: 38px;
+  background-color: #01532B !important;
+  color: #ffffff !important;
+  border: 1px solid #014222 !important;
+  border-radius: 6px !important;
+  padding: 0 14px !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  cursor: pointer !important;
+  white-space: nowrap !important;
+  transition: all 0.2s ease !important;
+  box-shadow: 0 2px 4px rgba(1, 83, 43, 0.2) !important;
+  flex-shrink: 0 !important;
+}
+
+.btn-browse-advance:hover:not(:disabled) {
+  background-color: #014222 !important;
+  box-shadow: 0 4px 8px rgba(1, 83, 43, 0.3) !important;
+  transform: translateY(-1px);
+}
+
+.btn-browse-advance:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.btn-browse-advance:disabled {
+  opacity: 0.6 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}
+
+.advance-ministry-badge {
+  background: #e8f5e9;
+  color: #01532B;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.badge-primary-light {
+  background: #e8f5e9;
+  color: #01532B;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  border: 1px solid #c8e6c9;
+}
+
+.advance-receiver {
+  color: #0f766e;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .browser-filter-grid,
+  .browser-filter-grid.secondary-filters {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .browser-advance-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .advance-browser-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .selection-preview-bar {
+    margin-bottom: 8px;
+  }
 }
 
 /* Responsive Design for Compact Layout */
@@ -3019,5 +4513,39 @@ export default {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
+}
+
+/* Duplicate Warning Banner Styles */
+.duplicate-warning-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-left: 4px solid #ff9800;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: #795548;
+}
+
+.duplicate-warning-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #e65100;
+  margin-bottom: 6px;
+}
+
+.duplicate-warning-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.duplicate-chip {
+  background: #ffecb3;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: #4e342e;
 }
 </style>

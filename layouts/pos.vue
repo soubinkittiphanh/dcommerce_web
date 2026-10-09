@@ -15,6 +15,14 @@
         :initial-nfc-uid="initialNfcUid" @cancel="nfcPaymentDialog = false" @confirmed="processNfcSettlement" />
     </v-dialog>
 
+    <!-- Return Packaging Empties Dialog -->
+    <PackagingPosReturnDialog
+      v-model="posPackagingReturnDialog"
+      :location-id="currentTerminal ? currentTerminal.locationId : 1"
+      :terminal-id="currentTerminal ? currentTerminal.id : null"
+      :client-id="currentSelectedCustomer ? currentSelectedCustomer.id : null"
+    />
+
     <v-dialog v-model="showQuotationPrintDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
@@ -440,6 +448,14 @@
           <v-spacer></v-spacer> <v-col cols="auto" class="d-flex justify-end pr-4">
             <div class="d-flex align-center">
 
+              <v-btn class="header-btn mr-2" color="teal darken-2" dark
+                depressed @click="posPackagingReturnDialog = true" large rounded>
+                <v-icon left size="20">mdi-package-down</v-icon>
+                <span class="d-none d-sm-inline font-weight-bold">
+                  ຮັບຄືນລັງ-ແກ້ວ
+                </span>
+              </v-btn>
+
               <v-btn class="header-btn mr-2" :color="isCustomerDisplayOpen() ? 'success' : 'rgba(255,255,255,0.1)'"
                 depressed @click="openCustomerScreenEnhanced" large rounded>
                 <v-icon left size="20">
@@ -713,6 +729,7 @@ import LoadingIndicator from '~/components/LoadingIndicator.vue'
 import DeliveryForm from '~/components/deliveryForm.vue'
 import MultiPaymentDialog from '~/components/pos/MultiPaymentDialog-vue2.vue'
 import NfcPaymentDialog from '~/components/pos/NfcPaymentDialog.vue'
+import PackagingPosReturnDialog from '~/components/PackagingPosReturnDialog.vue'
 import CurrencyHelper from '~/utils/currency-helper'
 import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
 import {
@@ -755,6 +772,9 @@ export default {
     CartFooterComponent,
     MultiPaymentDialog,
     NfcPaymentDialog,
+    PackagingPosReturnDialog,
+    PackagingPOSReturnDialog: PackagingPosReturnDialog,
+    'packaging-pos-return-dialog': PackagingPosReturnDialog,
     SystemGuideDialog,
   },
   name: 'DefaultLayout',
@@ -765,6 +785,7 @@ export default {
   },
   data() {
     return {
+      posPackagingReturnDialog: false,
       showProductList: true,
       showQuotationPrintDialog: false,
       quotationPrintId: null,
@@ -2394,6 +2415,13 @@ export default {
           this.saleHeader
         )
 
+        const finalSaleHeaderId = this.lastTransactionSaleHeaderId || response.data?.id || response.data?.saleHeaderId
+        const cartSnapshot = this.productCart ? [...this.productCart] : []
+        const customerSnapshot = this.currenctCustomer ? { ...this.currenctCustomer } : null
+
+        // Trigger returnable packaging movement
+        this.processPackagingSaleMovement(finalSaleHeaderId, cartSnapshot, customerSnapshot)
+
         this.showPaymentSuccessOnCustomerScreen()
         this.sharedState.saleHeader =
           this.lastTransactionSaleHeaderId || Date.now()
@@ -2843,6 +2871,11 @@ export default {
         }
 
         this.lastTransactionSaleHeaderId = saleHeaderId
+        const cartSnapshot = this.productCart ? [...this.productCart] : []
+        const customerSnapshot = this.currenctCustomer ? { ...this.currenctCustomer } : null
+
+        // Trigger returnable packaging movement
+        this.processPackagingSaleMovement(saleHeaderId, cartSnapshot, customerSnapshot)
 
         // Map single payment in salePayment model
         try {
@@ -3340,6 +3373,102 @@ export default {
         if (this.$toast) {
           this.$toast.info('ລຶບລາຍການພັກບິນທັງໝົດຮຽບຮ້ອຍແລ້ວ')
         }
+      }
+    },
+
+    /**
+     * Automatically detect and record returnable packaging movements (Crates & Bottles) for sold products
+     */
+    async processPackagingSaleMovement(saleHeaderId, cartSnapshot, customerSnapshot) {
+      if (!saleHeaderId || !cartSnapshot || cartSnapshot.length === 0) return
+
+      try {
+        const packagingDeliveries = []
+
+        for (const item of cartSnapshot) {
+          const productId = item.id || item.productId || item.pro_id
+          const itemQty = Number(item.qty || item.quantity || item.count || 1)
+          if (!productId || itemQty <= 0) continue
+
+          try {
+            const pkgRes = await this.$axios.get(`/api/packaging/product/${productId}`)
+            const pkgList = Array.isArray(pkgRes.data)
+              ? pkgRes.data
+              : (pkgRes.data?.rows || pkgRes.data?.data || [])
+
+            if (pkgList && pkgList.length > 0) {
+              for (const pkg of pkgList) {
+                const ratio = Number(pkg.quantity || 1)
+                const unitDeposit = Number(pkg.depositPrice || 0)
+                const totalQty = ratio * itemQty
+                const totalDeposit = unitDeposit * totalQty
+
+                packagingDeliveries.push({
+                  packagingProductId: pkg.packagingProductId,
+                  quantity: totalQty,
+                  depositPrice: unitDeposit,
+                  totalDeposit: totalDeposit,
+                  sourceProductId: productId,
+                  sourceProductName: item.name || item.pro_name || ''
+                })
+              }
+            } else {
+              // Direct scan check: If the item itself is a packaging asset (e.g. Empty Crate / Empty Bottle)
+              const pInfo = (this.productLookupCache && this.productLookupCache.get(productId)) ||
+                            (this.findAllProduct && this.findAllProduct.find(p => p.id == productId || p.pro_id == productId))
+              const isDirectAsset = pInfo && (
+                pInfo.isPackagingAsset ||
+                pInfo.pro_name?.includes('ລັງ') ||
+                pInfo.pro_name?.includes('ແກ້ວ') ||
+                pInfo.pro_name?.toLowerCase()?.includes('crate') ||
+                pInfo.pro_name?.toLowerCase()?.includes('bottle')
+              )
+
+              if (isDirectAsset) {
+                const unitRate = Number(item.localPrice || pInfo.pro_price || 0)
+                packagingDeliveries.push({
+                  packagingProductId: productId,
+                  quantity: itemQty,
+                  depositPrice: unitRate,
+                  totalDeposit: unitRate * itemQty,
+                  sourceProductId: productId,
+                  sourceProductName: item.name || pInfo.pro_name || 'Direct Packaging Asset'
+                })
+              }
+            }
+          } catch (pkgFetchErr) {
+            console.warn(`[Packaging] Check for product #${productId} error:`, pkgFetchErr)
+          }
+        }
+
+        if (packagingDeliveries.length > 0) {
+          const payload = {
+            saleHeaderId: parseInt(saleHeaderId),
+            clientId: customerSnapshot?.id || null,
+            clientName: customerSnapshot?.name || 'Walk-in Customer',
+            clientPhone: customerSnapshot?.telephone || '',
+            locationId: (this.currentTerminal && this.currentTerminal.locationId) ? this.currentTerminal.locationId : 1,
+            transactionType: 'DELIVERED_OUT',
+            items: packagingDeliveries,
+            notes: `POS Sale #${saleHeaderId} - Packaging Borrowed / Delivered (${customerSnapshot?.name || 'Retail'})`
+          }
+
+          console.log('📦 Dispatching POS Packaging Movement:', payload)
+
+          try {
+            await this.$axios.post('/api/packaging/pos/sale', payload)
+            console.log('✅ POS packaging movements recorded successfully')
+          } catch (err1) {
+            try {
+              await this.$axios.post('/api/packaging/movement', payload)
+              console.log('✅ POS packaging movements recorded via fallback route')
+            } catch (err2) {
+              console.warn('⚠️ Could not post to /api/packaging/pos/sale or /api/packaging/movement:', err2)
+            }
+          }
+        }
+      } catch (globalPkgErr) {
+        console.error('Error processing packaging sale movements:', globalPkgErr)
       }
     },
   },

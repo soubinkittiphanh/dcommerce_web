@@ -1,18 +1,43 @@
+/* Import Google Font for Noto Sans Lao */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700;800;900&display=swap');
+
 /* Import GSTC styles */
 @import 'node_modules/gantt-schedule-timeline-calendar/dist/style.css';
 
-/* app font */
-#app {
-  font-family: NotoSansLaoUI-Regular, Roboto-Regular;
-}
-/* sweetalert font */
-.swal2-content,
-.swal2-title,
-.swal2-confirm,
-.swal2-cancel {
-  font-family: NotoSansLaoUI-Regular, Roboto-Regular;
+@font-face {
+  font-family: 'Noto Sans Lao';
+  src: url(~assets/font/notosan/NotoSansLao-Regular.ttf) format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: 'Noto Sans Lao';
+  src: url(~assets/font/notosan/NotoSansLao-Medium.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Lao';
+  src: url(~assets/font/notosan/NotoSansLao-SemiBold.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Noto Sans Lao';
+  src: url(~assets/font/notosan/NotoSansLao-Bold.ttf) format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'noto sans lao';
+  src: url(~assets/font/notosan/NotoSansLao-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'NotoSansLaoUI-Regular';
@@ -23,3 +48,86 @@
   font-family: 'Roboto-Regular';
   src: url(~assets/fonts/Roboto-Regular.ttf) format('truetype');
 }
+
+/* Global Application Typography */
+html,
+body,
+#app,
+.v-application,
+.v-application * {
+  font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
+}
+
+/* Specific Vuetify Element Font Overrides */
+.v-application button,
+.v-application input,
+.v-application select,
+.v-application textarea,
+.v-application .v-btn,
+.v-application .v-chip,
+.v-application .v-chip__content,
+.v-application .v-label,
+.v-application .v-input,
+.v-application .v-text-field,
+.v-application .v-select,
+.v-application .v-autocomplete,
+.v-application .v-card,
+.v-application .v-card__title,
+.v-application .v-card__subtitle,
+.v-application .v-card__text,
+.v-application .v-card__actions,
+.v-application .v-dialog,
+.v-application .v-list-item,
+.v-application .v-list-item__title,
+.v-application .v-list-item__subtitle,
+.v-application .v-data-table,
+.v-application .v-data-table th,
+.v-application .v-data-table td,
+.v-application .v-data-table-header th,
+.v-application .v-tooltip__content,
+.v-application .v-badge,
+.v-application .v-tabs,
+.v-application .v-tab {
+  font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
+}
+
+/* High Specificity Helper Class Overrides for Text Caption & Headings */
+html body #app .v-application .text-caption,
+html body #app .v-application .caption,
+html body #app .v-application span.text-caption,
+html body #app .v-application div.text-caption,
+html body #app .v-application p.text-caption,
+html body #app .v-application .subtitle-1,
+html body #app .v-application .subtitle-2,
+html body #app .v-application .text-subtitle-1,
+html body #app .v-application .text-subtitle-2,
+html body #app .v-application .headline,
+html body #app .v-application .title,
+html body #app .v-application .text-h1,
+html body #app .v-application .text-h2,
+html body #app .v-application .text-h3,
+html body #app .v-application .text-h4,
+html body #app .v-application .text-h5,
+html body #app .v-application .text-h6,
+html body #app .v-application .body-1,
+html body #app .v-application .body-2,
+html body #app .v-application .text-body-1,
+html body #app .v-application .text-body-2,
+.text-caption,
+.caption,
+span.text-caption,
+div.text-caption,
+p.text-caption {
+  font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
+}
+
+/* SweetAlert Typography */
+.swal2-popup,
+.swal2-title,
+.swal2-content,
+.swal2-html-container,
+.swal2-confirm,
+.swal2-cancel {
+  font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
+}
+

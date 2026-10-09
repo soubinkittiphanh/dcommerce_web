@@ -7,12 +7,12 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8014'
+      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8052'
     }
   },
   privateRuntimeConfig: {
     axios: {
-      baseURL: process.env.BASE_URL || 'http://150.95.31.23:8014'
+      baseURL: process.env.BASE_URL || 'http://150.95.31.23:8052'
     }
   },
   // 1. CONDITIONAL SSR: Defaults to 'server' for VPS deployment. Uses 'static' only if explicitly requested.
@@ -38,7 +38,12 @@ export default {
       { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/dc.jpeg' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/dc.jpeg' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@300;400;500;600;700;800;900&display=swap' }
+    ],
     script: [
       { src: "https://unpkg.com/jspdf-invoice-template@1.4.3/dist/index.js" }
     ],

@@ -217,8 +217,13 @@
                                     @input="productChange(item)" item-text="pro_name" item-value="id"
                                     :items="productList" label="ສິນຄ້າ*" v-model="item.productId"></v-autocomplete>
                             </td>
-                            <td> <v-text-field @input="quantityChange(item)" v-model="item.qty" label="ຈຳນວນ"
+                            <td>
+                                <v-text-field @input="quantityChange(item)" v-model="item.qty" label="ຈຳນວນຊື້"
                                     v-comma-thousand :rules="[numberCommaRule]"></v-text-field>
+                            </td>
+                            <td>
+                                <v-text-field @input="quantityChange(item)" v-model.number="item.focQty" label="ແຖມ (FOC)"
+                                    type="number" min="0" placeholder="0"></v-text-field>
                             </td>
                             <td>
                                 <v-autocomplete @input="unitChange(item)" item-text="name" item-value="id"
@@ -1010,12 +1015,14 @@ export default {
                 this.transaction.lines = fullPO.lines.map(line => {
                     const rate = parseFloat(line.unitRate !== undefined ? line.unitRate : (line.rate || 1))
                     const qty = parseFloat(line.quantity !== undefined ? line.quantity : (line.qty || 1))
+                    const focQty = parseFloat(line.focQty || 0)
                     const price = line.unitPrice !== undefined ? parseFloat(line.unitPrice) : ((parseFloat(line.price) || 0) * rate)
                     return {
                         id: line.id,
                         productId: line.productId,
                         product: line.product,
                         qty: qty,
+                        focQty: focQty,
                         unitId: line.unitId,
                         rate: rate,
                         price: price,
@@ -1175,7 +1182,8 @@ export default {
             headers: [
                 { text: '#', align: 'start', value: '' },
                 { text: 'ສິນຄ້າ', align: 'start', value: 'product.pro_name' },
-                { text: 'ຈຳນວນ', align: 'start', value: 'qty' },
+                { text: 'ຈຳນວນຊື້', align: 'start', value: 'qty' },
+                { text: 'ແຖມ (FOC)', align: 'start', value: 'focQty' },
 
                 {
                     text: 'ຫົວຫນ່ວຍ',

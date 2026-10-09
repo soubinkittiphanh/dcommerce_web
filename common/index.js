@@ -113,6 +113,11 @@ export const swalConfirm = (swal, title, text, icon, cancelButtonText, confirmBu
   })
 }
 
+export const numberWithCommas = (value) => {
+  if (value === undefined || value === null) return '0'
+  return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
 export const getFormatNum = (val) => {
   // Use 'en-US' or another specific locale to ensure consistent formatting,
   // especially for the decimal separator ('.') and thousands separator (',').

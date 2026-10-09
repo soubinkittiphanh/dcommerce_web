@@ -41,6 +41,7 @@ const _f13f2d5e = () => interopDefault(import('../pages/admin/customer/index.vue
 const _4dd908a1 = () => interopDefault(import('../pages/admin/customer_request/index.vue' /* webpackChunkName: "pages/admin/customer_request/index" */))
 const _6aa85aae = () => interopDefault(import('../pages/admin/database/index.vue' /* webpackChunkName: "pages/admin/database/index" */))
 const _4d28069b = () => interopDefault(import('../pages/admin/expense/index.vue' /* webpackChunkName: "pages/admin/expense/index" */))
+const _2db27080 = () => interopDefault(import('../pages/admin/expenseBudget/index.vue' /* webpackChunkName: "pages/admin/expenseBudget/index" */))
 const _6ac19bef = () => interopDefault(import('../pages/admin/fixed-assets/index.vue' /* webpackChunkName: "pages/admin/fixed-assets/index" */))
 const _09aa8974 = () => interopDefault(import('../pages/admin/generalLedger/index.vue' /* webpackChunkName: "pages/admin/generalLedger/index" */))
 const _975dcbfc = () => interopDefault(import('../pages/admin/group/index.vue' /* webpackChunkName: "pages/admin/group/index" */))
@@ -173,7 +174,9 @@ const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
 const _578b92c0 = () => interopDefault(import('../pages/admin/product/shelfTag.vue' /* webpackChunkName: "pages/admin/product/shelfTag" */))
+const _9a7776cc = () => interopDefault(import('../pages/admin/report/customerPackaging.vue' /* webpackChunkName: "pages/admin/report/customerPackaging" */))
 const _7ab6275b = () => interopDefault(import('../pages/admin/report/loyalty.vue' /* webpackChunkName: "pages/admin/report/loyalty" */))
+const _b0c07e92 = () => interopDefault(import('../pages/admin/report/masterPackagingMatrix.vue' /* webpackChunkName: "pages/admin/report/masterPackagingMatrix" */))
 const _1665b085 = () => interopDefault(import('../pages/admin/reports/accountStatement/index.vue' /* webpackChunkName: "pages/admin/reports/accountStatement/index" */))
 const _6dba86ed = () => interopDefault(import('../pages/admin/reports/endOfDay/index.vue' /* webpackChunkName: "pages/admin/reports/endOfDay/index" */))
 const _cf45db36 = () => interopDefault(import('../pages/admin/reports/moneyAdvance/index.vue' /* webpackChunkName: "pages/admin/reports/moneyAdvance/index" */))
@@ -397,6 +400,10 @@ export const routerOptions = {
     path: "/admin/expense",
     component: _4d28069b,
     name: "admin-expense"
+  }, {
+    path: "/admin/expenseBudget",
+    component: _2db27080,
+    name: "admin-expenseBudget"
   }, {
     path: "/admin/fixed-assets",
     component: _6ac19bef,
@@ -926,9 +933,17 @@ export const routerOptions = {
     component: _578b92c0,
     name: "admin-product-shelfTag"
   }, {
+    path: "/admin/report/customerPackaging",
+    component: _9a7776cc,
+    name: "admin-report-customerPackaging"
+  }, {
     path: "/admin/report/loyalty",
     component: _7ab6275b,
     name: "admin-report-loyalty"
+  }, {
+    path: "/admin/report/masterPackagingMatrix",
+    component: _b0c07e92,
+    name: "admin-report-masterPackagingMatrix"
   }, {
     path: "/admin/reports/accountStatement",
     component: _1665b085,

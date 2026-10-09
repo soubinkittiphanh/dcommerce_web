@@ -14,6 +14,10 @@
               <v-icon left small>mdi-calendar-lock-outline</v-icon>
               ຈັດການງວດ (Period)
             </v-btn>
+            <v-btn color="primary" small outlined @click="printReport" :disabled="loading || advances.length === 0">
+              <v-icon left small>mdi-printer</v-icon>
+              ພິມລາຍງານ
+            </v-btn>
             <v-btn color="secondary" small outlined @click="exportData" :disabled="loading || advances.length === 0">
               <v-icon left small>mdi-download</v-icon>
               Export
@@ -279,7 +283,9 @@ import MoneyAdvanceDetailDialog from '~/components/MA/paymentDetailDialog'
 import VoucherPrintComponent from '~/components/MA/paymentVoucher'
 import SettlementDialog from '~/components/MA/settlementDialog'
 import { swalConfirm } from '~/common'
+import { printMoneyAdvanceListReport } from '~/common/moneyAdvanceListPrintTemplate'
 import * as XLSX from 'xlsx'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MoneyAdvanceManagement',
@@ -381,6 +387,12 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['findAllCompany']),
+
+    companyData() {
+      return (this.findAllCompany && this.findAllCompany.length > 0) ? this.findAllCompany[0] : {}
+    },
+
     // Formatted dates for display
     formattedFromDate: {
       get() {
@@ -738,6 +750,34 @@ export default {
     formatNumber(number) {
       if (!number) return '0'
       return new Intl.NumberFormat('en-US').format(number)
+    },
+
+    // Print Lao Government Style A4 Report (7 Columns)
+    printReport() {
+      if (!this.advances || this.advances.length === 0) {
+        this.showToast('ບໍ່ມີຂໍ້ມູນສຳລັບພິມລາຍງານ', 'warning')
+        return
+      }
+
+      const selectedMinistry = this.ministries.find((m) => m.id === this.filters.ministryId)
+      const selectedUser = this.users.find((u) => u.id === this.filters.makerId)
+
+      const ministryName = selectedMinistry
+        ? `${selectedMinistry.ministryCode ? selectedMinistry.ministryCode + ' - ' : ''}${selectedMinistry.ministryName}`
+        : ''
+      const makerName = selectedUser ? (selectedUser.cus_name || selectedUser.name) : ''
+
+      printMoneyAdvanceListReport({
+        reportData: this.advances,
+        filters: this.filters,
+        formattedFromDate: this.formattedFromDate,
+        formattedToDate: this.formattedToDate,
+        companyData: this.companyData,
+        user: this.user,
+        ministryName: ministryName,
+        makerName: makerName,
+        dashboard: this.dashboard,
+      })
     },
 
     // Excel Export Function

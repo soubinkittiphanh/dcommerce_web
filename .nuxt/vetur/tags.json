@@ -98,6 +98,12 @@
   "OrderStatusForm": {
     "description": "Auto imported from components/OrderStatusForm.vue"
   },
+  "PackagingOptionDialog": {
+    "description": "Auto imported from components/PackagingOptionDialog.vue"
+  },
+  "PackagingPosReturnDialog": {
+    "description": "Auto imported from components/PackagingPosReturnDialog.vue"
+  },
   "PaymentForm": {
     "description": "Auto imported from components/PaymentForm.vue"
   },
@@ -521,15 +527,6 @@
   "AccountingTransaction": {
     "description": "Auto imported from components/accounting/transaction/index.vue"
   },
-  "ApplicantsApplicantDialog": {
-    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
-  },
-  "ApplicantsApplicantViewDialog": {
-    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
-  },
-  "ApplicantsStatusUpdateDialog": {
-    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
-  },
   "BankBankAccount": {
     "description": "Auto imported from components/bank/bankAccount/index.vue"
   },
@@ -538,6 +535,15 @@
   },
   "BenefitView": {
     "description": "Auto imported from components/benefit/view/index.vue"
+  },
+  "ApplicantsApplicantDialog": {
+    "description": "Auto imported from components/applicants/ApplicantDialog/index.vue"
+  },
+  "ApplicantsApplicantViewDialog": {
+    "description": "Auto imported from components/applicants/ApplicantViewDialog/index.vue"
+  },
+  "ApplicantsStatusUpdateDialog": {
+    "description": "Auto imported from components/applicants/StatusUpdateDialog/index.vue"
   },
   "CompanyTheme": {
     "description": "Auto imported from components/company/theme/index.vue"

@@ -1537,9 +1537,12 @@ h1, h2, h3, h4, h5, h6 {
   border-width: 1px !important;
 }
 
-.caption {
+.caption,
+.text-caption,
+::v-deep .caption,
+::v-deep .text-caption {
   font-size: 0.75rem !important;
-  font-family: 'Noto Sans Lao', sans-serif;
+  font-family: 'Noto Sans Lao', sans-serif !important;
 }
 
 .color-preview-small {

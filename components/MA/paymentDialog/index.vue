@@ -30,7 +30,24 @@
               <p>Loading form data...</p>
             </div>
 
-            <div v-else class="form-grid">
+            <!-- Duplicate Warning Banner (Inline) -->
+            <div v-if="!formLoading && duplicateWarningInfo" class="duplicate-warning-box mb-3">
+              <div class="duplicate-warning-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>ແຈ້ງເຕືອນ: ພົບລາຍຈ່າຍທີ່ຄ້າຍຄືກັນໃນງວດປັດຈຸບັນ/ຜ່ານມາ ({{ duplicateWarningInfo.count }} ລາຍການ)</span>
+              </div>
+              <div class="duplicate-warning-chips">
+                <span
+                  v-for="dup in duplicateWarningInfo.duplicates"
+                  :key="dup.id"
+                  class="duplicate-chip"
+                >
+                  <strong>#{{ formatVoucherNumber(dup.id) }}</strong> ({{ formatDateForDisplay(dup.bookingDate) }}) - {{ formatAmountNumber(dup.amount) }} {{ dup.currencyCode }}
+                </span>
+              </div>
+            </div>
+
+            <div v-if="!formLoading" class="form-grid">
               <!-- First Row: Date, Payment Method, Currency -->
               <div class="form-group">
                 <label class="form-label required">
@@ -595,6 +612,9 @@ export default {
 
       advanceDetails: null,
       showPrintVoucher: false,
+      checkingDuplicate: false,
+      duplicateWarningInfo: null,
+      duplicateCheckTimeout: null,
       localForm: {
         id: null,
         amount: '',
@@ -762,6 +782,19 @@ export default {
       if (oldMethod && newMethod !== oldMethod) {
         this.handleMethodChange()
       }
+    },
+
+    'localForm.amount'() {
+      this.debounceCheckDuplicate()
+    },
+    'localForm.currencyId'() {
+      this.debounceCheckDuplicate()
+    },
+    'localForm.ministryId'() {
+      this.debounceCheckDuplicate()
+    },
+    'localForm.bookingDate'() {
+      this.debounceCheckDuplicate()
     },
   },
 
@@ -1061,6 +1094,12 @@ export default {
       this.bookingDateMenu = false
       this.externalBookingDateMenu = false // NEW
       this.dueDateMenu = false
+
+      this.duplicateWarningInfo = null
+      if (this.duplicateCheckTimeout) {
+        clearTimeout(this.duplicateCheckTimeout)
+        this.duplicateCheckTimeout = null
+      }
     },
 
     validateForm() {
@@ -1250,6 +1289,149 @@ export default {
       }
     },
 
+    debounceCheckDuplicate() {
+      if (this.duplicateCheckTimeout) {
+        clearTimeout(this.duplicateCheckTimeout)
+      }
+      this.duplicateCheckTimeout = setTimeout(() => {
+        this.checkDuplicateLive()
+      }, 500)
+    },
+
+    async checkDuplicateLive() {
+      if (
+        !this.localForm.amount ||
+        parseFloat(this.localForm.amount) <= 0 ||
+        !this.localForm.currencyId
+      ) {
+        this.duplicateWarningInfo = null
+        return
+      }
+
+      try {
+        const result = await this.performDuplicateCheck()
+        if (result && result.isDuplicate && result.duplicates.length > 0) {
+          this.duplicateWarningInfo = {
+            count: result.count,
+            dateRange: result.dateRange,
+            duplicates: result.duplicates,
+            ids: result.duplicates.map((d) => String(d.id).padStart(6, '0')),
+          }
+        } else {
+          this.duplicateWarningInfo = null
+        }
+      } catch (err) {
+        console.warn('Duplicate check live warning error:', err)
+      }
+    },
+
+    async performDuplicateCheck() {
+      if (!this.localForm.amount || !this.localForm.currencyId) {
+        return { isDuplicate: false, duplicates: [] }
+      }
+
+      const params = {
+        amount: this.localForm.amount,
+        currencyId: this.localForm.currencyId,
+        ministryId: this.localForm.ministryId || undefined,
+        bookingDate: this.localForm.bookingDate
+          ? this.formatDateForAPI(this.localForm.bookingDate)
+          : undefined,
+        excludeId:
+          this.isEdit && this.localForm.id ? this.localForm.id : undefined,
+      }
+
+      try {
+        const response = await this.$axios.get(
+          '/api/money-advances/check-duplicate',
+          { params }
+        )
+        if (response.data && response.data.success) {
+          return response.data
+        }
+        return { isDuplicate: false, duplicates: [] }
+      } catch (error) {
+        console.warn('Duplicate check API failed:', error)
+        return { isDuplicate: false, duplicates: [] }
+      }
+    },
+
+    async promptDuplicateOverrideConfirmation(duplicates) {
+      const duplicateItemsHtml = duplicates
+        .map(
+          (d) => `
+        <div style="text-align: left; background: #fff8e1; border: 1px solid #ffe082; border-left: 5px solid #ffb300; padding: 10px 14px; margin-bottom: 8px; border-radius: 6px; font-size: 13px; color: #5d4037; line-height: 1.6;">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #ffd54f; padding-bottom: 4px; margin-bottom: 4px;">
+            <span style="font-weight: 700; color: #e65100;">ເລກທີ (Voucher): #${String(
+              d.id
+            ).padStart(6, '0')}</span>
+            <span style="background: #ffecb3; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; text-transform: uppercase;">${
+              d.status
+            }</span>
+          </div>
+          <div>📅 <strong>ວັນທີ (Date):</strong> ${this.formatDateForDisplay(
+            d.bookingDate
+          )}</div>
+          <div>💰 <strong>ຈຳນວນເງິນ (Amount):</strong> <span style="font-weight: 700; color: #c62828;">${this.formatAmountNumber(
+            d.amount
+          )} ${d.currencyCode}</span></div>
+          ${
+            d.ministryName
+              ? `<div>🏢 <strong>ກົມ (Ministry):</strong> ${d.ministryName}</div>`
+              : ''
+          }
+          ${
+            d.purpose
+              ? `<div>📝 <strong>ຈຸດປະສົງ (Purpose):</strong> ${d.purpose}</div>`
+              : ''
+          }
+          ${
+            d.makerName
+              ? `<div>👤 <strong>ຜູ້ລົງ (Maker):</strong> ${d.makerName}</div>`
+              : ''
+          }
+        </div>
+      `
+        )
+        .join('')
+
+      const result = await this.$swal({
+        title: '⚠️ ແຈ້ງເຕືອນລາຍການຊ້ຳຊ້ອນ',
+        html: `
+          <div style="font-size: 13.5px; text-align: left; margin-bottom: 8px;">
+            <div style="color: #b71c1c; font-weight: 600; margin-bottom: 10px; background: #ffebee; padding: 8px 12px; border-radius: 4px; border-left: 4px solid #ef5350;">
+              ພົບລາຍຈ່າຍທີ່ມີມູນຄ່າ, ສະກຸນເງິນ ແລະ ກົມດຽວກັນໃນເດືອນນີ້/ເດືອນຜ່ານມາ (${duplicates.length} ລາຍການ):
+            </div>
+            <div style="max-height: 240px; overflow-y: auto; padding-right: 4px;">
+              ${duplicateItemsHtml}
+            </div>
+            <div style="margin-top: 12px; padding: 10px; background: #f5f5f5; border-radius: 6px; font-weight: 600; color: #263238; font-size: 13px; text-align: center;">
+              ທ່ານຕ້ອງການດຳເນີນການບັນທຶກຕໍ່ ຫຼື ບໍ່?<br/>
+              <span style="font-size: 11px; color: #78909c; font-weight: normal;">(ລະບົບຈະບັນທຶກປະຫວັດ Override Log ລົງໃນຖານຂໍ້ມູນ)</span>
+            </div>
+          </div>
+        `,
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'ຍົກເລີກ (Cancel)',
+        confirmButtonText: 'ຢືນຢັນບັນທຶກຕໍ່ (Proceed)',
+        confirmButtonColor: '#fb8c00',
+        cancelButtonColor: '#78909c',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      })
+
+      return result.isConfirmed
+    },
+
+    formatAmountNumber(amount) {
+      if (!amount && amount !== 0) return '0'
+      return new Intl.NumberFormat('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }).format(amount)
+    },
+
     async saveAdvance() {
       if (!this.validateForm()) {
         this.$emit('validation-error', 'Please fix the form errors')
@@ -1291,6 +1473,43 @@ export default {
       if (!formData.chequeNo) delete formData.chequeNo
       if (!formData.receiveName) delete formData.receiveName
       if (!formData.receiveIDNO) delete formData.receiveIDNO
+
+      // 🆕 Check for duplicate entry before final save
+      this.checkingDuplicate = true
+      try {
+        const duplicateCheck = await this.performDuplicateCheck()
+        if (
+          duplicateCheck &&
+          duplicateCheck.isDuplicate &&
+          duplicateCheck.duplicates.length > 0
+        ) {
+          const confirmed = await this.promptDuplicateOverrideConfirmation(
+            duplicateCheck.duplicates
+          )
+          if (!confirmed) {
+            this.checkingDuplicate = false
+            return // User chose to cancel and adjust form
+          }
+          // Set duplicate override flags to be saved into log table
+          formData.isDuplicateOverride = true
+          formData.matchedAdvanceIds = duplicateCheck.duplicates.map(
+            (d) => d.id
+          )
+          formData.overrideReason =
+            'User confirmed duplicate creation after warning'
+          formData.overrideMessage = `User acknowledged duplicate warning and confirmed saving payment of ${this.formatAmountNumber(
+            this.localForm.amount
+          )} ${
+            this.selectedCurrencyCode
+          } matching existing records: ${duplicateCheck.duplicates
+            .map((d) => '#' + String(d.id).padStart(6, '0'))
+            .join(', ')}`
+        }
+      } catch (dupErr) {
+        console.warn('Duplicate check prompt error:', dupErr)
+      } finally {
+        this.checkingDuplicate = false
+      }
 
       console.info(
         `CLEANED FORM DATA WITH FORMATTED DATES: ${JSON.stringify(formData)}`
@@ -1842,5 +2061,39 @@ textarea.form-control {
   .compact-date-field .v-input__slot {
     padding: 0 6px !important;
   }
+}
+
+/* Duplicate Warning Banner Styles */
+.duplicate-warning-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-left: 4px solid #ff9800;
+  border-radius: 6px;
+  padding: 10px 14px;
+  color: #795548;
+}
+
+.duplicate-warning-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #e65100;
+  margin-bottom: 6px;
+}
+
+.duplicate-warning-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.duplicate-chip {
+  background: #ffecb3;
+  border-radius: 12px;
+  padding: 3px 10px;
+  font-size: 12px;
+  color: #4e342e;
 }
 </style>

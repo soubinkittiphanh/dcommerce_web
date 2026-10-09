@@ -152,7 +152,7 @@ const getBaseUrl = () => {
             return window.location.origin.replace(/\/$/, '')
         }
     }
-    return 'http://150.95.31.23:8014'
+    return 'http://150.95.31.23:8052'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -5943,21 +5943,210 @@ const generateBarcodeDataUrlHelper = (barcodeVal) => {
 };
 
 /**
- * Generates HTML for Shelf Price Tags (40x80 mm) formatted for A4 sheet printing.
- * Allows traditional printer selection via standard print dialog.
+ * Standard Shelf Tag Size Presets & Metric Dimensions
+ */
+export const SHELF_TAG_SIZES = {
+    '80x38': {
+        key: '80x38',
+        name: '80 x 38 mm',
+        desc: 'ມາດຕະຖານຊັ້ນວາງ (Standard Shelf Tag)',
+        width: 80,
+        height: 38,
+        a4Cols: 2,
+        a4Rows: 6,
+        tagsPerA4: 12,
+        titleFontSize: '11px',
+        titleLineHeight: '1.2',
+        titleMaxHeight: '26px',
+        priceFontSize: '14px',
+        priceLabelFontSize: '6.5px',
+        currencyFontSize: '8px',
+        barcodeHeight: '8.5mm',
+        barcodeFontSize: '7px',
+        badgeFontSize: '7px',
+        logoMaxHeight: '16px',
+        paddingY: '1.8',
+        paddingX: '2.8'
+    },
+    '80x40': {
+        key: '80x40',
+        name: '80 x 40 mm',
+        desc: 'ປ້າຍລາຄາໃຫຍ່ (Large Shelf Tag)',
+        width: 80,
+        height: 40,
+        a4Cols: 2,
+        a4Rows: 6,
+        tagsPerA4: 12,
+        titleFontSize: '11.5px',
+        titleLineHeight: '1.2',
+        titleMaxHeight: '28px',
+        priceFontSize: '14.5px',
+        priceLabelFontSize: '6.5px',
+        currencyFontSize: '8px',
+        barcodeHeight: '9mm',
+        barcodeFontSize: '7.5px',
+        badgeFontSize: '7.5px',
+        logoMaxHeight: '18px',
+        paddingY: '2.0',
+        paddingX: '3.0'
+    },
+    '58x38': {
+        key: '58x38',
+        name: '58 x 38 mm',
+        desc: 'ຂະໜາດກາງ / ມ້ວນ 58mm (Medium / 58mm Roll)',
+        width: 58,
+        height: 38,
+        a4Cols: 3,
+        a4Rows: 7,
+        tagsPerA4: 21,
+        titleFontSize: '9.5px',
+        titleLineHeight: '1.15',
+        titleMaxHeight: '22px',
+        priceFontSize: '12.5px',
+        priceLabelFontSize: '6px',
+        currencyFontSize: '7px',
+        barcodeHeight: '7mm',
+        barcodeFontSize: '6.5px',
+        badgeFontSize: '6.5px',
+        logoMaxHeight: '14px',
+        paddingY: '1.6',
+        paddingX: '2.2'
+    },
+    '58x30': {
+        key: '58x30',
+        name: '58 x 30 mm',
+        desc: 'ປ້າຍກະທັດຮັດ (Compact 58mm Label)',
+        width: 58,
+        height: 30,
+        a4Cols: 3,
+        a4Rows: 9,
+        tagsPerA4: 27,
+        titleFontSize: '8.5px',
+        titleLineHeight: '1.1',
+        titleMaxHeight: '19px',
+        priceFontSize: '11.5px',
+        priceLabelFontSize: '5.5px',
+        currencyFontSize: '6.5px',
+        barcodeHeight: '6mm',
+        barcodeFontSize: '6px',
+        badgeFontSize: '6px',
+        logoMaxHeight: '12px',
+        paddingY: '1.2',
+        paddingX: '2.0'
+    },
+    '40x30': {
+        key: '40x30',
+        name: '40 x 30 mm',
+        desc: 'ປ້າຍນ້ອຍ Mini (Mini Price / Peg Hook)',
+        width: 40,
+        height: 30,
+        a4Cols: 4,
+        a4Rows: 9,
+        tagsPerA4: 36,
+        titleFontSize: '7.8px',
+        titleLineHeight: '1.1',
+        titleMaxHeight: '17px',
+        priceFontSize: '10px',
+        priceLabelFontSize: '5px',
+        currencyFontSize: '6px',
+        barcodeHeight: '5.5mm',
+        barcodeFontSize: '5.5px',
+        badgeFontSize: '5.5px',
+        logoMaxHeight: '10px',
+        paddingY: '1.0',
+        paddingX: '1.5'
+    },
+    '100x50': {
+        key: '100x50',
+        name: '100 x 50 mm',
+        desc: 'ປ້າຍໂປຣໂມຊັ່ນໃຫຍ່ (Promotional / Warehouse)',
+        width: 100,
+        height: 50,
+        a4Cols: 2,
+        a4Rows: 5,
+        tagsPerA4: 10,
+        titleFontSize: '13.5px',
+        titleLineHeight: '1.25',
+        titleMaxHeight: '34px',
+        priceFontSize: '18px',
+        priceLabelFontSize: '8px',
+        currencyFontSize: '10px',
+        barcodeHeight: '12mm',
+        barcodeFontSize: '9px',
+        badgeFontSize: '9px',
+        logoMaxHeight: '22px',
+        paddingY: '2.5',
+        paddingX: '3.5'
+    }
+};
+
+/**
+ * Generates HTML for Shelf Price Tags with customizable dimensions, paper types, and display options.
+ * Allows traditional printer selection via standard OS print dialog.
  * 
  * @param {Object|Array} productOrList - Product object or array of products
  * @param {Object} companyData - Company details
  * @param {string} currencyStr - Currency symbol/code (e.g. 'LAK', '₭', 'THB')
  * @param {number} copies - Number of tag copies to render (default: 1)
+ * @param {Object} options - Customization options (sizePreset, paperType, displayOptions, customWidth, customHeight)
  * @returns {string} Full HTML document
  */
-export const generateShelfPriceTagHTML = (productOrList, companyData = {}, currencyStr = 'LAK', copies = 1) => {
-    console.log('🏷️ GENERATING A4 SHELF PRICE TAG HTML (40x80 mm)');
+export const generateShelfPriceTagHTML = (
+    productOrList,
+    companyData = {},
+    currencyStr = 'LAK',
+    copies = 1,
+    options = {}
+) => {
+    const sizePresetKey = options.sizePreset || '80x38';
+    const paperType = options.paperType || 'a4'; // 'a4' or 'roll'
+
+    // Determine dimensions & metrics
+    let config = SHELF_TAG_SIZES[sizePresetKey] || SHELF_TAG_SIZES['80x38'];
+    if (sizePresetKey === 'custom' || !config) {
+        const customW = parseFloat(options.customWidth) || 80;
+        const customH = parseFloat(options.customHeight) || 38;
+        const a4Cols = Math.max(1, Math.floor(180 / customW));
+        const a4Rows = Math.max(1, Math.floor(270 / customH));
+        config = {
+            key: 'custom',
+            name: `${customW} x ${customH} mm (Custom)`,
+            desc: `ຂະໜາດກຳນົດເອງ (${customW}x${customH}mm)`,
+            width: customW,
+            height: customH,
+            a4Cols,
+            a4Rows,
+            tagsPerA4: a4Cols * a4Rows,
+            titleFontSize: customW < 50 ? '8px' : customW < 70 ? '9.5px' : '11.5px',
+            titleLineHeight: '1.2',
+            titleMaxHeight: customH < 35 ? '18px' : '26px',
+            priceFontSize: customW < 50 ? '10px' : customW < 70 ? '12px' : '14px',
+            priceLabelFontSize: '6px',
+            currencyFontSize: '7px',
+            barcodeHeight: customH < 35 ? '6mm' : '8.5mm',
+            barcodeFontSize: '6.5px',
+            badgeFontSize: '6.5px',
+            logoMaxHeight: '15px',
+            paddingY: '1.5',
+            paddingX: '2.5'
+        };
+    }
+
+    const displayOpts = {
+        showLogo: options.showLogo !== undefined ? options.showLogo : true,
+        showCategory: options.showCategory !== undefined ? options.showCategory : true,
+        showSku: options.showSku !== undefined ? options.showSku : true,
+        showBarcode: options.showBarcode !== undefined ? options.showBarcode : true,
+        showPrice: options.showPrice !== undefined ? options.showPrice : true,
+        showDesc: options.showDesc !== undefined ? options.showDesc : false,
+        showCutLines: options.showCutLines !== undefined ? options.showCutLines : true,
+        ...options.displayOptions
+    };
+
+    console.log(`🏷️ GENERATING SHELF PRICE TAG HTML [${config.name}, Paper: ${paperType}]`);
+
     const logoUrl = getCompanyLogoUrl(companyData);
     const companyName = companyData.name || companyData.company_name || companyData.companyName || 'D-COMMERCE';
-
-    // Dynamic Primary Color (from companyData or default app primary #01532B)
     const primaryColor = companyData.primaryColor || companyData.primary_color || companyData.themeColor || companyData.color || '#01532B';
 
     const hexToRgba = (hex, alpha = 1) => {
@@ -5987,7 +6176,8 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
     // Build template array of processed product objects
     const processedProducts = rawList.map((product) => {
         const proName = product.pro_name || product.name || 'Product';
-        const proDesc = product.pro_desc || product.desc || product.pro_desc_lao || (product.product_code ? `SKU: ${product.product_code}` : '') || '';
+        const productCode = product.product_code || product.code || '';
+        const proDesc = product.pro_desc || product.desc || product.pro_desc_lao || '';
         const rawPrice = product.pro_price !== undefined ? product.pro_price : (product.price || 0);
         const formattedPrice = product.formattedPrice || formatNumber(rawPrice);
         const barcodeVal = product.barCode || product.barcode || product.pro_id || '';
@@ -5997,6 +6187,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
 
         return {
             proName,
+            productCode,
             proDesc,
             rawPrice,
             formattedPrice,
@@ -6008,47 +6199,65 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
         };
     });
 
-    const renderSingleTag = (p) => `
+    const renderSingleTag = (p) => {
+        const hasHeader = (displayOpts.showLogo && (logoUrl || companyName)) || (displayOpts.showCategory && p.categoryDesc);
+        const hasFooter = (displayOpts.showBarcode && p.barcodeImg) || displayOpts.showPrice;
+
+        return `
         <div class="shelf-tag">
-            <!-- Top Header: Company Logo & Category Badge -->
+            ${hasHeader ? `
+            <!-- Top Header: Logo & Category Badge -->
             <div class="tag-header">
                 <div class="tag-logo-box">
-                    ${logoUrl
-            ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />`
-            : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
-        }
+                    ${displayOpts.showLogo ? (logoUrl
+                ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />`
+                : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
+            ) : ''}
                 </div>
+                ${displayOpts.showCategory && p.categoryDesc ? `
                 <div class="tag-badge">
                     ${escapeHtmlTag(p.categoryDesc)}
                 </div>
+                ` : ''}
             </div>
+            ` : ''}
 
-            <!-- Product Details: Name & Description -->
+            <!-- Product Details: Name, SKU, Description -->
             <div class="tag-body">
                 <div class="tag-product-name" title="${escapeHtmlTag(p.proName)}">
                     ${escapeHtmlTag(p.proName)}
                 </div>
-                ${p.proDesc ? `<div class="tag-product-desc">${escapeHtmlTag(p.proDesc)}</div>` : ''}
+                ${displayOpts.showSku && p.productCode ? `
+                <div class="tag-product-sku font-mono">[${escapeHtmlTag(p.productCode)}]</div>
+                ` : ''}
+                ${displayOpts.showDesc && p.proDesc && p.proDesc !== p.productCode ? `
+                <div class="tag-product-desc">${escapeHtmlTag(p.proDesc)}</div>
+                ` : ''}
             </div>
 
+            ${hasFooter ? `
             <!-- Bottom Section: Barcode & Sell Price Box -->
             <div class="tag-footer">
-                <!-- Barcode Area -->
+                ${displayOpts.showBarcode ? `
                 <div class="tag-barcode-box">
                     ${p.barcodeImg ? `<img src="${p.barcodeImg}" alt="Barcode" class="tag-barcode-img" />` : ''}
-                    <div class="tag-barcode-text">${escapeHtmlTag(p.barcodeVal)}</div>
+                    <div class="tag-barcode-text font-mono">${escapeHtmlTag(p.barcodeVal)}</div>
                 </div>
+                ` : '<div style="flex:1;"></div>'}
 
-                <!-- Price Box -->
+                ${displayOpts.showPrice ? `
                 <div class="tag-price-box">
                     <div class="tag-price-label">ລາຄາ / PRICE</div>
                     <div class="tag-price-value">
                         ${p.formattedPrice} <span class="tag-price-currency">${escapeHtmlTag(p.currency)}</span>
                     </div>
                 </div>
+                ` : ''}
             </div>
+            ` : ''}
         </div>
-    `;
+        `;
+    };
 
     // Generate initial tags HTML
     const initialTags = [];
@@ -6068,17 +6277,20 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
     }
 
     const initialTotalCount = initialTags.length;
-    const initialPagesCount = Math.ceil(initialTotalCount / 12) || 1;
+    const tagsPerSheet = config.tagsPerA4 || 12;
+    const initialPagesCount = paperType === 'roll' ? initialTotalCount : (Math.ceil(initialTotalCount / tagsPerSheet) || 1);
 
     // JSON encoded for client-side dynamic regeneration
     const encodedProductsJson = JSON.stringify(processedProducts).replace(/</g, '\\u003c');
+    const encodedConfigJson = JSON.stringify(config).replace(/</g, '\\u003c');
+    const encodedDisplayOptsJson = JSON.stringify(displayOpts).replace(/</g, '\\u003c');
 
     return `
     <!DOCTYPE html>
     <html lang="lo">
     <head>
         <meta charset="utf-8">
-        <title>Shelf Price Tags (40x80 mm)</title>
+        <title>Shelf Price Tags (${config.name})</title>
         <style>
             @font-face {
                 font-family: 'DM Sans';
@@ -6102,6 +6314,10 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 font-family: 'Noto Sans Lao', 'DM Sans', system-ui, -apple-system, sans-serif;
             }
 
+            .font-mono {
+                font-family: 'Courier New', Courier, monospace !important;
+            }
+
             body {
                 background-color: #f1f5f9;
                 color: #0f172a;
@@ -6110,7 +6326,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
 
             /* Floating preview toolbar */
             .preview-toolbar {
-                max-width: 184mm;
+                max-width: ${paperType === 'roll' ? '600px' : '184mm'};
                 margin: 0 auto 15px auto;
                 background: #1e293b;
                 color: #fff;
@@ -6194,7 +6410,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 text-align: center;
                 background: transparent;
                 border: none;
-                color: ${primaryColor};
+                color: #38bdf8;
                 font-size: 13px;
                 font-weight: 800;
                 outline: none;
@@ -6228,35 +6444,35 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 cursor: pointer;
             }
 
-            /* A4 Sheet Container (2 Columns of 80mm tags = fits 12 tags per A4 sheet) */
-            .a4-container {
+            /* Main Tags Container */
+            .tags-container {
                 width: 100%;
-                max-width: 180mm;
+                max-width: ${paperType === 'roll' ? `${config.width + 10}mm` : '186mm'};
                 margin: 0 auto;
-                display: grid;
-                grid-template-columns: repeat(2, 80mm);
-                gap: 5mm 6mm;
-                justify-content: center;
+                ${paperType === 'roll'
+            ? 'display: flex; flex-direction: column; align-items: center; gap: 4mm;'
+            : `display: grid; grid-template-columns: repeat(${config.a4Cols}, ${config.width}mm); gap: 4mm 5mm; justify-content: center;`
+        }
             }
 
-            /* 80mm x 40mm Shelf Tag Card */
+            /* Shelf Tag Card */
             .shelf-tag {
-                width: 80mm;
-                height: 40mm;
-                max-width: 80mm;
-                max-height: 40mm;
+                width: ${config.width}mm;
+                height: ${config.height}mm;
+                max-width: ${config.width}mm;
+                max-height: ${config.height}mm;
                 background: #ffffff;
-                border: 1px dashed #94a3b8;
-                border-radius: 4px;
-                padding: 2.2mm 3.2mm;
+                border: ${displayOpts.showCutLines ? '1px dashed #94a3b8' : '1px solid #e2e8f0'};
+                border-radius: ${paperType === 'roll' ? '0' : '4px'};
+                padding: ${config.paddingY}mm ${config.paddingX}mm;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 position: relative;
                 overflow: hidden;
+                box-sizing: border-box;
                 box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-                page-break-inside: avoid;
-                break-inside: avoid;
+                ${paperType === 'roll' ? 'page-break-after: always; break-after: page;' : 'page-break-inside: avoid; break-inside: avoid;'}
             }
 
             /* Top Header */
@@ -6264,123 +6480,132 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                height: 6mm;
                 border-bottom: 1px solid ${primaryBorder};
-                padding-bottom: 0.8mm;
+                padding-bottom: 0.6mm;
+                margin-bottom: 0.5mm;
             }
             .tag-logo-box {
                 display: flex;
                 align-items: center;
-                max-width: 44mm;
+                max-width: ${config.width * 0.55}mm;
                 overflow: hidden;
             }
             .tag-logo {
-                max-height: 18px;
-                max-width: 42mm;
+                max-height: ${config.logoMaxHeight};
+                max-width: ${config.width * 0.5}mm;
                 object-fit: contain;
                 display: block;
             }
             .tag-company-text {
-                font-size: 8px;
+                font-size: ${config.badgeFontSize};
                 font-weight: 800;
                 color: #1e293b;
-                letter-spacing: 0.3px;
+                letter-spacing: 0.2px;
                 text-transform: uppercase;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
             .tag-badge {
-                font-size: 7px;
+                font-size: ${config.badgeFontSize};
                 font-weight: 700;
                 color: ${primaryColor};
                 background: ${primaryBadgeBg};
-                padding: 1px 4px;
+                padding: 1px 3.5px;
                 border-radius: 3px;
                 border: 1px solid ${primaryBorder};
                 text-transform: uppercase;
                 white-space: nowrap;
-                max-width: 28mm;
+                max-width: ${config.width * 0.4}mm;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
-            /* Product Name & Description Body */
+            /* Product Details Body */
             .tag-body {
                 flex: 1;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 overflow: hidden;
-                padding: 1mm 0;
+                padding: 0.5mm 0;
             }
             .tag-product-name {
-                font-size: 11.5px;
+                font-size: ${config.titleFontSize};
                 font-weight: 800;
-                line-height: 1.2;
+                line-height: ${config.titleLineHeight};
                 color: #0f172a;
-                max-height: 28px;
+                max-height: ${config.titleMaxHeight};
                 overflow: hidden;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 -webkit-box-orient: vertical;
                 word-break: break-word;
             }
+            .tag-product-sku {
+                font-size: ${parseFloat(config.titleFontSize) * 0.75}px;
+                font-weight: 700;
+                color: #ea580c;
+                margin-top: 0.5px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
             .tag-product-desc {
-                font-size: 7.8px;
+                font-size: ${parseFloat(config.titleFontSize) * 0.7}px;
                 color: #64748b;
-                margin-top: 1px;
-                line-height: 1.1;
+                margin-top: 0.5px;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
 
-            /* Bottom Barcode and Price */
+            /* Bottom Barcode and Price Footer */
             .tag-footer {
                 display: flex;
                 align-items: flex-end;
                 justify-content: space-between;
-                height: 14mm;
+                gap: 2mm;
+                margin-top: 0.5mm;
             }
             .tag-barcode-box {
                 display: flex;
                 flex-direction: column;
                 align-items: flex-start;
-                max-width: 42mm;
+                max-width: ${config.width * 0.52}mm;
                 overflow: hidden;
             }
             .tag-barcode-img {
-                max-width: 42mm;
-                height: 9.5mm;
+                max-width: ${config.width * 0.52}mm;
+                height: ${config.barcodeHeight};
                 object-fit: fill;
                 display: block;
             }
             .tag-barcode-text {
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 7.5px;
+                font-size: ${config.barcodeFontSize};
                 font-weight: 700;
                 color: #334155;
-                letter-spacing: 0.5px;
+                letter-spacing: 0.4px;
                 line-height: 1;
-                margin-top: 1px;
+                margin-top: 0.5px;
             }
 
             .tag-price-box {
                 background: ${primaryLightBg};
                 border: 1.5px solid ${primaryColor};
-                border-radius: 4px;
-                padding: 1.5px 3.5px;
+                border-radius: 3.5px;
+                padding: 1px 3px;
                 text-align: right;
-                min-width: 28mm;
+                min-width: ${config.width * 0.36}mm;
                 box-sizing: border-box;
                 display: flex;
                 flex-direction: column;
                 align-items: flex-end;
                 justify-content: center;
+                flex-shrink: 0;
             }
             .tag-price-label {
-                font-size: 6.5px;
+                font-size: ${config.priceLabelFontSize};
                 font-weight: 800;
                 color: ${primaryColor};
                 text-transform: uppercase;
@@ -6388,16 +6613,16 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 line-height: 1;
             }
             .tag-price-value {
-                font-size: 14px;
+                font-size: ${config.priceFontSize};
                 font-weight: 900;
                 color: #0f172a;
-                line-height: 1.1;
+                line-height: 1.05;
                 letter-spacing: -0.2px;
                 white-space: nowrap;
-                margin-top: 1px;
+                margin-top: 0.5px;
             }
             .tag-price-currency {
-                font-size: 8px;
+                font-size: ${config.currencyFontSize};
                 font-weight: 800;
                 color: ${primaryColor};
             }
@@ -6405,8 +6630,10 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             /* Print Media Query */
             @media print {
                 @page {
-                    size: A4 portrait;
-                    margin: 8mm 6mm;
+                    ${paperType === 'roll'
+            ? `size: ${config.width}mm ${config.height}mm; margin: 0;`
+            : 'size: A4 portrait; margin: 8mm 6mm;'
+        }
                 }
                 body {
                     background: #ffffff !important;
@@ -6418,16 +6645,21 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 .no-print {
                     display: none !important;
                 }
-                .a4-container {
+                .tags-container {
                     max-width: 100% !important;
                     margin: 0 auto !important;
-                    gap: 4mm 6mm !important;
+                    ${paperType === 'roll'
+            ? 'display: block !important; padding: 0 !important; gap: 0 !important;'
+            : `display: grid !important; grid-template-columns: repeat(${config.a4Cols}, ${config.width}mm) !important; gap: 3mm 4mm !important;`
+        }
                 }
                 .shelf-tag {
                     box-shadow: none !important;
-                    border: 1px dashed #94a3b8 !important;
-                    page-break-inside: avoid !important;
-                    break-inside: avoid !important;
+                    border: ${displayOpts.showCutLines ? '1px dashed #94a3b8' : 'none'} !important;
+                    ${paperType === 'roll'
+            ? 'margin: 0 auto !important; page-break-after: always !important; break-after: page !important;'
+            : 'page-break-inside: avoid !important; break-inside: avoid !important;'
+        }
                 }
             }
         </style>
@@ -6436,11 +6668,17 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
         <div class="preview-toolbar no-print">
             <div class="toolbar-left">
                 <div class="toolbar-title">
-                    <span>🏷️ ປ້າຍລາຄາຕິດຊັ້ນ / Shelf Price Tag (40x80 mm)</span>
+                    <span>🏷️ ປ້າຍລາຄາຕິດຊັ້ນ / Shelf Price Tag (${config.name})</span>
+                    <span style="font-size: 11px; background: #334155; padding: 2px 6px; border-radius: 4px; color: #38bdf8;">
+                        ${paperType === 'roll' ? 'Continuous Roll' : 'A4 Sheet Grid'}
+                    </span>
                 </div>
                 <div class="info-text">
                     <span id="tag-count-display">${initialTotalCount}</span> ປ້າຍ 
-                    (ປະມານ <span id="page-count-display">${initialPagesCount}</span> ໜ້າ A4 • 12 ປ້າຍ/ໜ້າ)
+                    ${paperType === 'roll'
+            ? `(ມ້ວນສະຕິກເກີ ${config.width}mm • 1 ປ້າຍ/ໜ້າ)`
+            : `(ປະມານ <span id="page-count-display">${initialPagesCount}</span> ໜ້າ A4 • ${tagsPerSheet} ປ້າຍ/ໜ້າ)`
+        }
                 </div>
             </div>
 
@@ -6448,13 +6686,13 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                 <span style="font-size: 11.5px; color: #cbd5e1; margin-right: 2px;">ຕື່ມປ້າຍ (Quantity):</span>
                 <div class="qty-stepper">
                     <button class="btn-step" onclick="changeQty(-1)" title="Decrease 1">-</button>
-                    <input id="qtyInput" class="qty-input" type="number" value="${initialTotalCount}" min="1" max="120" onchange="setCustomQty(this.value)" />
+                    <input id="qtyInput" class="qty-input" type="number" value="${initialTotalCount}" min="1" max="240" onchange="setCustomQty(this.value)" />
                     <button class="btn-step" onclick="changeQty(1)" title="Increase 1">+</button>
                 </div>
                 <button class="btn-chip" onclick="setCustomQty(1)">1 ໃບ</button>
-                <button class="btn-chip" onclick="setCustomQty(6)">6 ໃບ</button>
-                <button class="btn-chip btn-chip-active" onclick="setCustomQty(12)" title="Fill 1 Full A4 Page">12 ໃບ (ເຕັມ 1 ໜ້າ A4)</button>
-                <button class="btn-chip" onclick="setCustomQty(24)" title="Fill 2 Full A4 Pages">24 ໃບ (2 ໜ້າ)</button>
+                <button class="btn-chip" onclick="setCustomQty(${Math.max(1, Math.floor(tagsPerSheet / 2))})">${Math.max(1, Math.floor(tagsPerSheet / 2))} ໃບ</button>
+                <button class="btn-chip btn-chip-active" onclick="setCustomQty(${tagsPerSheet})" title="Fill 1 Full Sheet">${tagsPerSheet} ໃບ (${paperType === 'roll' ? 'ຊຸດ' : '1 ໜ້າ A4'})</button>
+                <button class="btn-chip" onclick="setCustomQty(${tagsPerSheet * 2})" title="Fill 2 Sheets">${tagsPerSheet * 2} ໃບ</button>
             </div>
 
             <div style="display: flex; gap: 8px;">
@@ -6467,7 +6705,7 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             </div>
         </div>
 
-        <div id="tagsGrid" class="a4-container">
+        <div id="tagsGrid" class="tags-container">
             ${initialTags.join('')}
         </div>
 
@@ -6476,6 +6714,9 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             const isSingle = ${isSingleProduct};
             const logoUrl = ${JSON.stringify(logoUrl)};
             const companyName = ${JSON.stringify(companyName)};
+            const cfg = ${encodedConfigJson};
+            const disp = ${encodedDisplayOptsJson};
+            const paperMode = ${JSON.stringify(paperType)};
 
             function escapeHtml(str) {
                 if (!str) return '';
@@ -6488,37 +6729,58 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             }
 
             function createTagHTML(p) {
+                const hasHeader = (disp.showLogo && (logoUrl || companyName)) || (disp.showCategory && p.categoryDesc);
+                const hasFooter = (disp.showBarcode && p.barcodeImg) || disp.showPrice;
+
                 return \`
                 <div class="shelf-tag">
+                    \${hasHeader ? \`
                     <div class="tag-header">
                         <div class="tag-logo-box">
-                            \${logoUrl 
+                            \${disp.showLogo ? (logoUrl 
                                 ? \`<img src="\${logoUrl}" alt="Logo" class="tag-logo" />\` 
                                 : \`<span class="tag-company-text">\${escapeHtml(companyName)}</span>\`
-                            }
+                            ) : ''}
                         </div>
+                        \${disp.showCategory && p.categoryDesc ? \`
                         <div class="tag-badge">
                             \${escapeHtml(p.categoryDesc)}
                         </div>
+                        \` : ''}
                     </div>
+                    \` : ''}
+
                     <div class="tag-body">
                         <div class="tag-product-name" title="\${escapeHtml(p.proName)}">
                             \${escapeHtml(p.proName)}
                         </div>
-                        \${p.proDesc ? \`<div class="tag-product-desc">\${escapeHtml(p.proDesc)}</div>\` : ''}
+                        \${disp.showSku && p.productCode ? \`
+                        <div class="tag-product-sku font-mono">[\${escapeHtml(p.productCode)}]</div>
+                        \` : ''}
+                        \${disp.showDesc && p.proDesc && p.proDesc !== p.productCode ? \`
+                        <div class="tag-product-desc">\${escapeHtml(p.proDesc)}</div>
+                        \` : ''}
                     </div>
+
+                    \${hasFooter ? \`
                     <div class="tag-footer">
+                        \${disp.showBarcode ? \`
                         <div class="tag-barcode-box">
                             \${p.barcodeImg ? \`<img src="\${p.barcodeImg}" alt="Barcode" class="tag-barcode-img" />\` : ''}
-                            <div class="tag-barcode-text">\${escapeHtml(p.barcodeVal)}</div>
+                            <div class="tag-barcode-text font-mono">\${escapeHtml(p.barcodeVal)}</div>
                         </div>
+                        \` : '<div style="flex:1;"></div>'}
+
+                        \${disp.showPrice ? \`
                         <div class="tag-price-box">
                             <div class="tag-price-label">ລາຄາ / PRICE</div>
                             <div class="tag-price-value">
                                 \${p.formattedPrice} <span class="tag-price-currency">\${escapeHtml(p.currency)}</span>
                             </div>
                         </div>
+                        \` : ''}
                     </div>
+                    \` : ''}
                 </div>
                 \`;
             }
@@ -6526,12 +6788,11 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
             function setCustomQty(qty) {
                 let targetQty = parseInt(qty, 10);
                 if (isNaN(targetQty) || targetQty < 1) targetQty = 1;
-                if (targetQty > 240) targetQty = 240;
+                if (targetQty > 300) targetQty = 300;
 
                 const input = document.getElementById('qtyInput');
                 if (input) input.value = targetQty;
 
-                // Update active chip styling
                 document.querySelectorAll('.preview-toolbar .btn-chip').forEach(btn => {
                     const txt = btn.innerText || '';
                     if (txt.startsWith(targetQty + ' ໃບ')) {
@@ -6551,7 +6812,6 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
                         html += createTagHTML(p);
                     }
                 } else if (productsData.length > 0) {
-                    // Loop through products list repeatedly until targetQty is reached
                     for (let i = 0; i < targetQty; i++) {
                         const p = productsData[i % productsData.length];
                         html += createTagHTML(p);
@@ -6560,11 +6820,13 @@ export const generateShelfPriceTagHTML = (productOrList, companyData = {}, curre
 
                 grid.innerHTML = html;
 
-                // Update stats
                 const countElem = document.getElementById('tag-count-display');
                 if (countElem) countElem.innerText = targetQty;
                 const pageElem = document.getElementById('page-count-display');
-                if (pageElem) pageElem.innerText = Math.ceil(targetQty / 12) || 1;
+                if (pageElem) {
+                    const perSheet = cfg.tagsPerA4 || 12;
+                    pageElem.innerText = paperMode === 'roll' ? targetQty : (Math.ceil(targetQty / perSheet) || 1);
+                }
             }
 
             function changeQty(diff) {

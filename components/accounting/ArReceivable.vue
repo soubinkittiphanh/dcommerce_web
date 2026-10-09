@@ -27,11 +27,12 @@
           <!-- Row 1: Reference & Date -->
           <v-row dense>
             <v-col cols="12" md="8">
-              <v-text-field v-model="form.header.receiveNumber" label="ເລກເອກະສານອ້າງອີງ" outlined dense
-                :rules="requiredRules" prepend-inner-icon="mdi-file-document-outline"></v-text-field>
+              <v-text-field v-model="form.header.receiveNumber" label="ເລກເອກະສານອ້າງອີງ *" outlined dense
+                :rules="requiredRules" prepend-inner-icon="mdi-file-document-outline"
+                placeholder="ຕົວຢ່າງ: REC261008001"></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
-              <v-text-field v-model="form.header.bookingDate" type="date" label="ວັນທີ" outlined dense
+              <v-text-field v-model="form.header.bookingDate" type="date" label="ວັນທີ *" outlined dense
                 :rules="requiredRules"></v-text-field>
             </v-col>
           </v-row>
@@ -39,24 +40,24 @@
           <!-- Row 2: Payer & Description -->
           <v-row dense>
             <v-col cols="12" md="6">
-              <v-text-field v-model="form.header.payee" label="ຜູ້ຊຳລະເງິນ/ລູກຄ້າ" outlined dense :rules="requiredRules"
-                prepend-inner-icon="mdi-account-cash-outline"></v-text-field>
+              <v-text-field v-model="form.header.payee" label="ຜູ້ຊຳລະເງິນ/ລູກຄ້າ *" outlined dense :rules="requiredRules"
+                prepend-inner-icon="mdi-account-cash-outline" placeholder="ລະບຸຊື່ຜູ້ຈ່າຍເງິນ / ລູກຄ້າ"></v-text-field>
             </v-col>
             <v-col cols="12" md="6">
-              <v-text-field v-model="form.header.notes" label="ເນື້ອໃນລາຍການ" outlined dense :rules="requiredRules"
-                prepend-inner-icon="mdi-note-text-outline"></v-text-field>
+              <v-text-field v-model="form.header.notes" label="ເນື້ອໃນລາຍການ *" outlined dense :rules="requiredRules"
+                prepend-inner-icon="mdi-note-text-outline" placeholder="ລະບຸລາຍລະອຽດການຮັບເງິນ"></v-text-field>
             </v-col>
           </v-row>
 
           <!-- Row 3: Amount, Currency & Rate -->
           <v-row dense>
             <v-col cols="12" md="4">
-              <v-text-field v-model="form.header.totalAmount" label="ຈຳນວນເງິນ" outlined dense
+              <v-text-field v-model="form.header.totalAmount" label="ຈຳນວນເງິນ *" outlined dense
                 :rules="[...requiredRules, ...numberRules]" v-comma-thousand
-                prepend-inner-icon="mdi-cash-plus"></v-text-field>
+                prepend-inner-icon="mdi-cash-plus" placeholder="0"></v-text-field>
             </v-col>
             <v-col cols="12" md="4">
-              <v-autocomplete v-model="form.header.currencyId" :items="currencyList" label="ສະກຸນເງິນ" item-text="code"
+              <v-autocomplete v-model="form.header.currencyId" :items="currencyList" label="ສະກຸນເງິນ *" item-text="code"
                 item-value="id" outlined dense :rules="requiredRules" @input="currencyChange"
                 prepend-inner-icon="mdi-currency-usd">
                 <template v-slot:item="data">
@@ -68,7 +69,7 @@
               </v-autocomplete>
             </v-col>
             <v-col cols="12" md="4">
-              <v-text-field v-model="form.header.rate" label="ອັດຕາແລກປ່ຽນ" outlined dense
+              <v-text-field v-model="form.header.rate" label="ອັດຕາແລກປ່ຽນ *" outlined dense
                 :rules="[...requiredRules, ...numberRules]" v-comma-thousand
                 prepend-inner-icon="mdi-calculator"></v-text-field>
             </v-col>
@@ -77,9 +78,9 @@
           <!-- Row 4: Payment Type -->
           <v-row dense>
             <v-col cols="12">
-              <v-autocomplete v-model="form.header.paymentId" :items="paymentList" label="ປະເພດການຊຳລະ"
+              <v-autocomplete v-model="form.header.paymentId" :items="paymentList" label="ປະເພດການຊຳລະ *"
                 item-text="payment_name" item-value="id" outlined dense :rules="requiredRules"
-                prepend-inner-icon="mdi-credit-card-outline">
+                prepend-inner-icon="mdi-credit-card-outline" placeholder="ເລືອກຮູບແບບການຊຳລະ...">
                 <template v-slot:item="data">
                   <v-list-item-content>
                     <v-list-item-title>{{ data.item.payment_name }}</v-list-item-title>
@@ -93,9 +94,9 @@
           <!-- Row 5: Accounts -->
           <v-row dense>
             <v-col cols="12" md="6">
-              <v-autocomplete v-model="form.header.drAccountId" :items="accountList" label="DR Account (ບັນຊີເດບິດ)"
+              <v-autocomplete v-model="form.header.drAccountId" :items="accountList" label="DR Account (ບັນຊີເດບິດ) *"
                 item-text="displayName" item-value="id" outlined dense :rules="requiredRules"
-                prepend-inner-icon="mdi-bank-plus" hint="ບັນຊີທີ່ຮັບເງິນເຂົ້າ">
+                prepend-inner-icon="mdi-bank-plus" hint="ບັນຊີທີ່ຮັບເງິນເຂົ້າ" placeholder="ເລືອກບັນຊີຮັບເງິນ...">
                 <template v-slot:item="data">
                   <v-list-item-content>
                     <v-list-item-title>{{ data.item.accountName }}</v-list-item-title>
@@ -106,9 +107,9 @@
               </v-autocomplete>
             </v-col>
             <v-col cols="12" md="6">
-              <v-autocomplete v-model="form.header.crAccountId" :items="accountList" label="CR Account (ບັນຊີເຄຣດິດ)"
+              <v-autocomplete v-model="form.header.crAccountId" :items="accountList" label="CR Account (ບັນຊີເຄຣດິດ) *"
                 item-text="displayName" item-value="id" outlined dense :rules="requiredRules"
-                prepend-inner-icon="mdi-bank-minus" hint="ບັນຊີລາຍຮັບ">
+                prepend-inner-icon="mdi-bank-minus" hint="ບັນຊີລາຍຮັບ" placeholder="ເລືອກບັນຊີລາຍຮັບ...">
                 <template v-slot:item="data">
                   <v-list-item-content>
                     <v-list-item-title>{{ data.item.accountName }}</v-list-item-title>
@@ -203,6 +204,7 @@ export default {
       isFormValid: false,
       accountList: [],
       paymentList: [],
+      localCurrencyList: [],
 
       // Validation rules
       requiredRules: [
@@ -236,7 +238,11 @@ export default {
     ...mapGetters(['findAllCurrency']),
 
     currencyList() {
-      return this.findAllCurrency || []
+      const list = this.findAllCurrency
+      if (Array.isArray(list) && list.length > 0) return list
+      if (list && Array.isArray(list.data) && list.data.length > 0) return list.data
+      if (Array.isArray(this.localCurrencyList) && this.localCurrencyList.length > 0) return this.localCurrencyList
+      return []
     },
 
     // Filter accounts for revenue (typically Revenue type accounts for CR)
@@ -294,6 +300,7 @@ export default {
       this.isLoading = true
       try {
         await Promise.all([
+          this.loadCurrencies(),
           this.loadAccounts(),
           this.loadPaymentMethods(),
         ])
@@ -319,6 +326,18 @@ export default {
         this.handleError('ການໂຫຼດຂໍ້ມູນລົ້ມເຫລວ', error)
       } finally {
         this.isLoading = false
+      }
+    },
+
+    async loadCurrencies() {
+      try {
+        const response = await this.$axios.get('/api/currency/findAll')
+        const rawData = Array.isArray(response.data) ? response.data : (response.data?.data || [])
+        if (Array.isArray(rawData) && rawData.length > 0) {
+          this.localCurrencyList = rawData
+        }
+      } catch (err) {
+        console.error('Failed to load currencies', err)
       }
     },
 
@@ -463,5 +482,9 @@ export default {
 
 .v-card-text::-webkit-scrollbar-thumb:hover {
   background: #a1a1a1;
+}
+
+* {
+  font-family: 'Noto Sans Lao', 'NotoSansLaoUI-Regular', sans-serif;
 }
 </style>

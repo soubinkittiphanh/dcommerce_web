@@ -102,7 +102,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"titleTemplate":"DCOMMERCE","title":" DC","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fdc.jpeg"}],"script":[{"src":"https:\u002F\u002Funpkg.com\u002Fjspdf-invoice-template@1.4.3\u002Fdist\u002Findex.js"}],"style":[]},
+    head: {"titleTemplate":"DCOMMERCE","title":" DC","htmlAttrs":{"lang":"en"},"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":""},{"name":"format-detection","content":"telephone=no"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Fdc.jpeg"},{"rel":"preconnect","href":"https:\u002F\u002Ffonts.googleapis.com"},{"rel":"preconnect","href":"https:\u002F\u002Ffonts.gstatic.com","crossorigin":true},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Noto+Sans+Lao:wght@300;400;500;600;700;800;900&display=swap"}],"script":[{"src":"https:\u002F\u002Funpkg.com\u002Fjspdf-invoice-template@1.4.3\u002Fdist\u002Findex.js"}],"style":[]},
 
     store,
     router,
