@@ -245,7 +245,6 @@
               </tfoot>
             </table>
           </div>
-          </div>
         </div>
 
         <!-- Related Documents -->

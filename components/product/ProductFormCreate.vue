@@ -18,21 +18,21 @@
               <v-row dense class="mb-4">
                 <v-col cols="12" sm="3">
                   <v-autocomplete v-model="formData.companyId" :items="companyList" item-text="name" item-value="id"
-                    label="ຮ້ານ*" dense outlined />
+                    :rules="rules.companyRule" label="ຮ້ານ*" dense outlined />
                 </v-col>
                 <v-col cols="12" sm="3">
                   <v-autocomplete v-model="formData.pro_category" :items="category" item-text="categ_name"
-                    item-value="categ_id" label="ໝວດໝູ່*" dense outlined />
+                    item-value="categ_id" :rules="rules.categoryRule" label="ໝວດໝູ່*" dense outlined />
                 </v-col>
                 <v-col cols="12" sm="3">
-                  <v-autocomplete v-model="formData._category" :items="productType" label="ປະເພດສິນຄ້າ (Type)*" dense
-                    outlined />
+                  <v-autocomplete v-model="formData._category" :items="productType" :rules="rules.productTypeRule"
+                    label="ປະເພດສິນຄ້າ (Type)*" dense outlined />
                 </v-col>
                 <v-col cols="12" sm="3">
                   <v-text-field :value="formData.pro_id || 'AUTO'" label="ໄອດີສິນຄ້າ" disabled dense outlined />
                 </v-col>
                 <v-col cols="12" sm="6">
-                  <v-text-field v-model="formData.pro_name" :rules="rules.nameRule" label="ຊື້ສິນຄ້າ*" dense outlined />
+                  <v-text-field v-model="formData.pro_name" :rules="rules.nameRule" label="ຊື່ສິນຄ້າ*" dense outlined />
                 </v-col>
                 <v-col cols="12" sm="3">
                   <v-text-field v-model="formData.product_code" label="ລະຫັດສິນຄ້າ (Product Code)" dense outlined />
@@ -50,15 +50,15 @@
               </div>
               <v-row dense>
                 <v-col cols="6" sm="3">
-                  <v-text-field v-model="formattedCostPrice" label="ຕົ້ນທຶນ*" dense outlined color="error" />
+                  <v-text-field v-model="formattedCostPrice" :rules="rules.costPriceRule" label="ຕົ້ນທຶນ*" dense outlined color="error" />
                 </v-col>
 
                 <v-col cols="6" sm="3">
-                  <v-text-field v-model="formattedProPrice" label="ລາຄາຂາຍ*" dense outlined color="success" />
+                  <v-text-field v-model="formattedProPrice" :rules="rules.priceRule" label="ລາຄາຂາຍ*" dense outlined color="success" />
                 </v-col>
                 <v-col cols="6" sm="3">
                   <v-autocomplete v-model="formData.saleCurrencyId" :items="findAllCurrency" item-text="code"
-                    item-value="id" label="ສະກຸນເງິນ*" dense outlined />
+                    item-value="id" :rules="rules.currencyRule" label="ສະກຸນເງິນ*" dense outlined />
                 </v-col>
                 <v-col cols="6" sm="3">
                   <v-autocomplete v-model="formData.taxId" :items="taxRateOptions" item-text="displayText"
@@ -100,18 +100,19 @@
               <v-row dense class="mb-4">
                 <v-col cols="6" sm="3">
                   <v-autocomplete v-model="formData.receiveUnitId" :items="unitList" item-text="name" item-value="id"
-                    label="ຫົວຫນ່ວຍຮັບ*" dense outlined />
+                    :rules="rules.receiveUnitRule" label="ຫົວຫນ່ວຍຮັບ*" dense outlined />
                 </v-col>
                 <v-col cols="6" sm="3">
                   <v-autocomplete v-model="formData.stockUnitId" :items="unitList" item-text="name" item-value="id"
-                    label="ຫົວຫນ່ວຍສາງ*" dense outlined />
+                    :rules="rules.stockUnitRule" label="ຫົວຫນ່ວຍສາງ*" dense outlined />
                 </v-col>
                 <v-col cols="6" sm="3">
                   <v-autocomplete v-model="formData.baseUnitId" :items="unitList" item-text="name" item-value="id"
-                    label="ຫົວຫນ່ວຍພື້ນຖານ (Base Unit)" dense outlined />
+                    :rules="rules.baseUnitRule" label="ຫົວຫນ່ວຍພື້ນຖານ (Base Unit)*" dense outlined
+                    @change="onBaseUnitSelected" />
                 </v-col>
                 <v-col cols="6" sm="3">
-                  <v-text-field v-model="formData.minStock" type="number" label="ສຕັອກຂັ້ນຕ່ຳ*" dense outlined />
+                  <v-text-field v-model="formData.minStock" type="number" :rules="rules.minStockRule" label="ສຕັອກຂັ້ນຕ່ຳ*" dense outlined />
                 </v-col>
                 <v-col cols="6" sm="3">
                   <v-text-field v-model="formData.vendorName" label="Vendor name" dense outlined />
@@ -146,7 +147,7 @@
                   <thead>
                     <tr>
                       <th class="text-left" style="width: 25%">ຫົວໜ່ວຍ (Unit)*</th>
-                      <th class="text-left" style="width: 30%">Barcode*</th>
+                      <th class="text-left" style="width: 30%">Barcode</th>
                       <th class="text-left" style="width: 20%">ລາຄາຂາຍ*</th>
                       <th class="text-center" style="width: 10%">ຫົວໜ່ວຍຫຼັກ</th>
                       <th class="text-center" style="width: 10%">ໃຊ້ງານ</th>
@@ -325,7 +326,7 @@ export default {
   data() {
     return {
       productType: ['product', 'service', 'stock'],
-      valid: false,
+      valid: true,
       isloading: false,
       message: null,
       preview: false,
@@ -366,9 +367,34 @@ export default {
       },
 
       rules: {
-        nameRule: [(v) => !!v || 'ຊື່ສິນຄ້າຈຳເປັນ'],
-        priceRule: [(v) => !!v || 'ລາຄາຈຳເປັນ'],
-        currencyRule: [(v) => !!v || 'Currency is required'],
+        nameRule: [(v) => !!v || 'ກະລຸນາໃສ່ຊື່ສິນຄ້າ'],
+        companyRule: [(v) => !!v || 'ກະລຸນາເລືອກຮ້ານ'],
+        categoryRule: [(v) => !!v || 'ກະລຸນາເລືອກໝວດໝູ່'],
+        productTypeRule: [(v) => !!v || 'ກະລຸນາເລືອກປະເພດສິນຄ້າ'],
+        costPriceRule: [
+          (v) => (v !== '' && v !== null && v !== undefined) || 'ກະລຸນາໃສ່ລາຄາຕົ້ນທຶນ',
+          (v) =>
+            !isNaN(parseFloat(String(v).replace(/,/g, ''))) ||
+            'ກະລຸນາໃສ່ຕົວເລກເທົ່ານັ້ນ',
+        ],
+        priceRule: [
+          (v) => (v !== '' && v !== null && v !== undefined) || 'ກະລຸນາໃສ່ລາຄາຂາຍ',
+          (v) =>
+            !isNaN(parseFloat(String(v).replace(/,/g, ''))) ||
+            'ກະລຸນາໃສ່ຕົວເລກເທົ່ານັ້ນ',
+        ],
+        currencyRule: [(v) => !!v || 'ກະລຸນາເລືອກສະກຸນເງິນ'],
+        receiveUnitRule: [(v) => !!v || 'ກະລຸນາເລືອກຫົວໜ່ວຍຮັບ'],
+        stockUnitRule: [(v) => !!v || 'ກະລຸນາເລືອກຫົວໜ່ວຍສາງ'],
+        baseUnitRule: [
+          (v) => !!v || 'ກະລຸນາເລືອກຫົວໜ່ວຍພື້ນຖານ (Base Unit)',
+        ],
+        minStockRule: [
+          (v) =>
+            (v !== '' && v !== null && v !== undefined && +v >= 0) ||
+            'ກະລຸນາໃສ່ສຕັອກຂັ້ນຕ່ຳ',
+        ],
+        unitRule: [(v) => !!v || 'ກະລຸນາເລືອກຫົວໜ່ວຍ'],
       },
 
       category: [],
@@ -786,6 +812,12 @@ export default {
           console.error('Error fetching currency:', error)
         }
       }
+      if (!this.formData.saleCurrencyId && this.findAllCurrency && this.findAllCurrency.length > 0) {
+        const defaultCcy = this.findAllCurrency.find((c) => c.isLocalCCY === true || c.isLocalCCY === 1) || this.findAllCurrency[0]
+        if (defaultCcy) {
+          this.formData.saleCurrencyId = defaultCcy.id
+        }
+      }
     },
 
     onFilesChange(files) {
@@ -806,6 +838,21 @@ export default {
     async uploadFiles() {
       if (!this.$refs.form.validate()) {
         return
+      }
+
+      // Validate selling units if any exist
+      if (this.formData.productUnits && this.formData.productUnits.length > 0) {
+        const invalidUnit = this.formData.productUnits.find(
+          (u) => !u.unitId || u.price === undefined || u.price === null || u.price < 0
+        )
+        if (invalidUnit) {
+          if (this.$toast) {
+            this.$toast.warning('ກະລຸນາເລືອກຫົວໜ່ວຍ ແລະ ໃສ່ລາຄາໃນຕາຕະລາງຫົວໜ່ວຍຂາຍໃຫ້ຄົບຖ້ວນ')
+          } else {
+            swalError2(this.$swal, 'Warning', 'ກະລຸນາເລືອກຫົວໜ່ວຍ ແລະ ໃສ່ລາຄາໃນຕາຕະລາງຫົວໜ່ວຍຂາຍໃຫ້ຄົບຖ້ວນ')
+          }
+          return
+        }
       }
 
       this.isloading = true
@@ -1010,6 +1057,17 @@ export default {
         const baseRate = parseFloat(primaryUnit.conversionRate || 1.0)
         const targetRate = parseFloat(selectedUnit.conversionRate || 1.0)
         item.price = baseRate > 0 ? Math.round((salePrice / baseRate) * targetRate) : salePrice
+      }
+    },
+
+    onBaseUnitSelected(val) {
+      if (val) {
+        if (!this.formData.stockUnitId) {
+          this.formData.stockUnitId = val
+        }
+        if (!this.formData.receiveUnitId) {
+          this.formData.receiveUnitId = val
+        }
       }
     },
   },

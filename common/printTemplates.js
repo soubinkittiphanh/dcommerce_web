@@ -152,7 +152,7 @@ const getBaseUrl = () => {
             return window.location.origin.replace(/\/$/, '')
         }
     }
-    return 'http://150.95.31.23:8052'
+    return 'http://150.95.31.23:8026'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -6210,9 +6210,9 @@ export const generateShelfPriceTagHTML = (
             <div class="tag-header">
                 <div class="tag-logo-box">
                     ${displayOpts.showLogo ? (logoUrl
-                ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />`
-                : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
-            ) : ''}
+                    ? `<img src="${logoUrl}" alt="Logo" class="tag-logo" />`
+                    : `<span class="tag-company-text">${escapeHtmlTag(companyName)}</span>`
+                ) : ''}
                 </div>
                 ${displayOpts.showCategory && p.categoryDesc ? `
                 <div class="tag-badge">

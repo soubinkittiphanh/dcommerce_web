@@ -458,6 +458,7 @@ export const executeTicketPrint = async (params, dateValue) => {
         const showLogo = companyData.showLogoOnTicket;
         const taxId = companyData.taxId || companyData.tax_id || companyData.tin || '';
         const taxIdHtml = taxId ? `<div class="company-info">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : '';
+        const billNumber = params.lastTransactionSaleHeaderId || params.referenceNo || 'DRAFT';
 
         let headerHtml = '';
         if (layout === 'modern') {
@@ -469,7 +470,7 @@ export const executeTicketPrint = async (params, dateValue) => {
                     <div class="company-info">ທີ່ຢູ່: ${companyData.address}</div>
                     <div class="company-info">ໂທ: ${companyData.tel}</div>
                     ${taxIdHtml}
-                    <div class="company-info" style="margin-top:2px;">ເລກທີ: ${params.lastTransactionSaleHeaderId}</div>
+                    <div class="company-info" style="margin-top:2px;">ເລກທີ: ${billNumber}</div>
                     <div class="company-info">${formatDate(dateValue)}</div>
                 </div>
             </div>`;
@@ -481,7 +482,7 @@ export const executeTicketPrint = async (params, dateValue) => {
                 <div style="font-size:0.9em;font-weight:700;">ທີ່ຢູ່: ${companyData.address}</div>
                 <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
                 ${taxIdHtml ? `<div style="font-size:0.9em;font-weight:700;">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : ''}
-                <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${params.lastTransactionSaleHeaderId} | ${formatDate(dateValue)}</div>
+                <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${billNumber} | ${formatDate(dateValue)}</div>
             </div>`;
         }
 

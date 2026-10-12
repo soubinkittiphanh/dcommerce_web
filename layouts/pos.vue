@@ -641,6 +641,18 @@
                   <v-icon>mdi-qrcode</v-icon>
                 </v-btn>
 
+                <!-- Print Receipt Without Post -->
+                <v-btn
+                  icon
+                  color="indigo"
+                  @click="printReceiptWithoutPost"
+                  title="ພິມບິນ (Print Receipt without Post)"
+                  class="action-btn"
+                  :disabled="productCart.length === 0"
+                >
+                  <v-icon>mdi-printer</v-icon>
+                </v-btn>
+
                 <v-btn icon color="primary" @click="openDeliveryBox" title="ຈັດສົ່ງ" class="action-btn">
                   <v-icon>mdi-truck-delivery</v-icon>
                 </v-btn>
@@ -1085,6 +1097,12 @@ export default {
           path: '',
           icon: 'mdi-receipt-text-clock-outline',
           method: this.setQuotation,
+        },
+        {
+          title: 'Print Bill',
+          path: '',
+          icon: 'mdi-printer',
+          method: this.printReceiptWithoutPost,
         },
         {
           title: 'Logout',
@@ -2637,7 +2655,7 @@ export default {
       this.initiateData(this.$axios)
     },
 
-    printDefaultTicket() {
+    printDefaultTicket(customSaleHeaderId = null) {
       const theChanges = this.changes
       console.info(`poduct cart DET ${JSON.stringify(this.productCart)}`)
       defaultTicket({
@@ -2647,14 +2665,14 @@ export default {
         discount: Number(this.discount) + Number(this.loyaltyDiscountAmount),
         currencyList: this.findAllCurrency,
         grandTotal: this.grandTotal,
-        lastTransactionSaleHeaderId: this.lastTransactionSaleHeaderId,
+        lastTransactionSaleHeaderId: customSaleHeaderId || this.lastTransactionSaleHeaderId || (this.saleHeader?.referenceNo ? `REF: ${this.saleHeader.referenceNo}` : 'DRAFT'),
         currentTerminal: {
           ...this.currentTerminal,
           baseURL: this.$axios.defaults.baseURL,
         },
         user: this.user,
         ticketCommon: this.ticketCommon,
-        currentPaymentCode: this.currentPaymentCode,
+        currentPaymentCode: this.currentPaymentCode || 'PENDING',
         cashReceived: this.cashReceived,
         changes: theChanges,
         axios: this.$axios,
@@ -2663,6 +2681,54 @@ export default {
         printers: this.findAllprinters,
         client: this.currenctCustomer,
       })
+    },
+
+    async printReceiptWithoutPost() {
+      if (!this.productCart || this.productCart.length === 0) {
+        swalError2(this.$swal, 'ແຈ້ງເຕືອນ', 'ກະລຸນາເລືອກສິນຄ້າໃສ່ກະຕ່າກ່ອນພິມບິນ (Please add items to cart before printing)')
+        return
+      }
+
+      try {
+        const PRINTFORMAT = (this.findSPF || []).find(
+          (spf) => spf.code === 'TICKET_FORM'
+        )
+        if (PRINTFORMAT && PRINTFORMAT.value === 'FORMAL') {
+          const draftInvoiceData = {
+            id: this.saleHeader?.referenceNo || 'DRAFT',
+            bookingDate: (this.isBusinessDateEnabled && this.businessDate) ? this.businessDate : new Date(),
+            customer: this.currenctCustomer,
+            lines: this.productCart.map((item, idx) => ({
+              id: item.id || idx,
+              product: item,
+              pro_name: item.pro_name,
+              qty: item.qty,
+              price: item.localPrice || item.pro_price,
+              total: (item.qty || 1) * (item.localPrice || item.pro_price || 0),
+              tax: item.tax,
+            })),
+            discount: Number(this.discount || 0) + Number(this.loyaltyDiscountAmount || 0),
+            total: this.grandTotal - this.discount - this.loyaltyDiscountAmount,
+            user: this.user,
+            payment: this.findAllPayment?.find((p) => p.id === this.currentPayment) || { payment_name: 'Pending' },
+          }
+          const htmlContent = generateA4ReceiptHTML(
+            draftInvoiceData,
+            this.companyData,
+            this.findAllCurrency
+          )
+          this.openPrintWindow(htmlContent, 'A4')
+        } else {
+          this.printDefaultTicket(this.saleHeader?.referenceNo ? `REF: ${this.saleHeader.referenceNo}` : 'DRAFT')
+        }
+
+        if (this.$toast) {
+          this.$toast.success('ພິມບິນສຳເລັດ (Print Successful)')
+        }
+      } catch (err) {
+        console.error('Print receipt without post error:', err)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມບິນ: ' + (err.message || err))
+      }
     },
 
     formSaleHeader(remark = '') {
