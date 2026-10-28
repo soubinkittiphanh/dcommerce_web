@@ -150,7 +150,7 @@
         :disabled="isSubmitting"
       >
         <v-icon left>mdi-close</v-icon>
-        ຍົກເລີກ
+        ປິດໜ້າຕ່າງ
       </v-btn>
       <v-btn 
         color="primary" 

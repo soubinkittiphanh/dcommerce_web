@@ -54,18 +54,20 @@
 
           </v-toolbar>
         </template>
+        <template v-slot:[`item.isPackaging`]="{ item }">
+          <v-chip
+            x-small
+            :color="item.isPackaging ? 'teal darken-2' : 'grey lighten-2'"
+            :text-color="item.isPackaging ? 'white' : 'grey darken-2'"
+            class="font-weight-bold"
+          >
+            <v-icon x-small left v-if="item.isPackaging">mdi-package-variant-closed</v-icon>
+            {{ item.isPackaging ? 'ບັນຈຸພັນ (Packaging)' : 'ສິນຄ້າທົ່ວໄປ' }}
+          </v-chip>
+        </template>
         <template v-slot:[`item.categ_function`]="{ item }">
-          <!-- <v-icon small class="mr-2" @click="
-            editItem(item)
-          isedit = true
-            ">
-            mdi-pencil
-          </v-icon>
-
- -->
-
           <v-btn color="primary" text @click="editItem(item)">
-            <i class="fa-regular fa-pen-to-square"></i>
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
 
@@ -103,6 +105,7 @@ export default {
       },
       { text: 'ຊື່ຫມວດຫມູ່', align: 'center', value: 'categ_name' },
       { text: 'ຫມາຍເຫດ', align: 'center', value: 'categ_desc' },
+      { text: 'ປະເພດບັນຈຸພັນ (Packaging)', align: 'center', value: 'isPackaging' },
       {
         text: 'ຟັງຊັ່ນ',
         align: 'end',

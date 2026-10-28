@@ -91,8 +91,8 @@
               hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
           </v-col>
           <v-col cols="12" md="3">
-            <v-select v-model="filters.agencyId" :items="agencies" item-text="agencyName" item-value="id" label="ລູກຄ້າ"
-              outlined dense hide-details clearable prepend-inner-icon="mdi-account" @change="applyFilters" />
+            <v-autocomplete v-model="filters.customerId" :items="customerFilterList" item-text="name" item-value="value" label="ລູກຄ້າ"
+              placeholder="ທັງໝົດ" outlined dense hide-details clearable prepend-inner-icon="mdi-account" @change="applyFilters" />
           </v-col>
           <v-col cols="12" md="2">
             <v-text-field v-model="filters.dateFrom" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense hide-details
@@ -129,8 +129,20 @@
         class="elevation-0 modernize-table notosans-lao" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ມີຂໍ້ມູນ">
         <template v-slot:item.invoiceNumber="{ item }">
           <div>
-            <div class="font-weight-bold">{{ item.invoiceNumber }}</div>
-            <div v-if="item.description" class=" grey--text text-truncate" style="max-width: 200px">
+            <div class="font-weight-bold d-flex align-center flex-wrap">
+              <span>{{ item.invoiceNumber }}</span>
+              <v-chip
+                v-if="item.saleOrder || item.sourceType === 'POS_ORDER' || item.saleHeaderId"
+                x-small
+                color="indigo lighten-5"
+                class="indigo--text ml-2 font-weight-medium"
+                label
+              >
+                <v-icon left x-small color="indigo">mdi-cart</v-icon>
+                Order #{{ item.saleHeaderId || item.saleOrder?.id }}
+              </v-chip>
+            </div>
+            <div v-if="item.description" class=" grey--text text-truncate" style="max-width: 220px">
               {{ item.description }}
             </div>
           </div>
@@ -143,12 +155,25 @@
         </template>
 
         <template v-slot:item.customer="{ item }">
-          <div v-if="item.agency">
+          <div v-if="item.client">
+            <div class="font-weight-medium">
+              <v-icon x-small class="mr-1" color="primary">mdi-store</v-icon>
+              {{ item.client.name }}
+              <v-chip x-small color="blue lighten-5" class="blue--text text--darken-2 ml-1" label>POS</v-chip>
+            </div>
+            <div v-if="item.client.company" class="grey--text caption">
+              {{ item.client.company }}
+            </div>
+            <div v-else-if="item.client.telephone" class="grey--text caption">
+              {{ item.client.telephone }}
+            </div>
+          </div>
+          <div v-else-if="item.agency">
             <div class="font-weight-medium">
               <v-icon x-small class="mr-1">mdi-account</v-icon>
               {{ item.agency.agencyName }}
             </div>
-            <div v-if="item.agency.email" class=" grey--text">
+            <div v-if="item.agency.email" class=" grey--text caption">
               {{ item.agency.email }}
             </div>
           </div>
@@ -251,6 +276,7 @@
     </v-card>
 
     <InvoiceHeaderMaintain :gl-accounts="glAccounts" :visible="showEditDialog" :invoice="selectedInvoice"
+      :customers="customers"
       :agencies="agencies.filter(agency => agency.agencyType != 'Employee')" :jobBatches="jobBatches"
       :currencies="currencies" @close="closeEditDialog" @save="onInvoiceSave" />
 
@@ -301,6 +327,7 @@ export default {
 
       filters: {
         search: '',
+        customerId: null,
         agencyId: '',
         dateFrom: '',
         dateTo: '',
@@ -421,10 +448,34 @@ export default {
         { totalInvoices: 0, totalSettled: 0, totalOutstanding: 0, totalOverdue: 0 }
       )
     },
+
+    customerFilterList() {
+      const list = []
+      if (this.customers && this.customers.length > 0) {
+        this.customers.forEach((c) => {
+          list.push({
+            value: `client_${c.id}`,
+            name: `${c.name} ${c.company ? '(' + c.company + ')' : ''}`,
+          })
+        })
+      }
+      if (this.agencies && this.agencies.length > 0) {
+        this.agencies.forEach((a) => {
+          list.push({
+            value: `agency_${a.id}`,
+            name: `${a.agencyName || a.name}`,
+          })
+        })
+      }
+      return list
+    },
   },
 
   mounted() {
     this.setDefaultDates()
+    if (this.$route.query.search) {
+      this.filters.search = this.$route.query.search
+    }
     this.fetchInvoices()
     this.fetchCustomers()
     this.fetchAgencies()
@@ -436,19 +487,36 @@ export default {
   methods: {
     calculateAmounts(invoices) {
       return invoices.map((invoice) => {
-        const settledAmount = (invoice.receiveHeaders || []).reduce(
+        const activeReceiveHeaders = (invoice.receiveHeaders || []).filter(
+          (header) =>
+            header.status === 'active' ||
+            (!header.status && header.status !== 'cancelled' && header.status !== 'voided')
+        )
+
+        const settledAmount = activeReceiveHeaders.reduce(
           (sum, header) => {
-            const totalReceived = header.totalReceivedAmount || 0;
-            return sum + totalReceived;
+            const totalReceived = parseFloat(header.totalReceivedAmount || 0)
+            return sum + totalReceived
           },
           0
         )
 
-        const totalAmount = invoice.totalAmount || 0
-        const outstandingAmount = totalAmount - settledAmount;
+        const totalAmount = parseFloat(invoice.totalAmount || 0)
+        const outstandingAmount = Math.max(0, totalAmount - settledAmount)
+
+        let status = invoice.status
+        if (invoice.status !== 'cancelled') {
+          if (settledAmount >= totalAmount && totalAmount > 0) {
+            status = 'paid'
+          } else if (invoice.status === 'paid' && settledAmount < totalAmount) {
+            const isOverdue = invoice.dueDate && new Date() > new Date(invoice.dueDate)
+            status = isOverdue ? 'overdue' : 'sent'
+          }
+        }
 
         return {
           ...invoice,
+          status,
           settledAmount,
           outstandingAmount,
         }
@@ -655,13 +723,28 @@ export default {
           (inv) =>
             inv.invoiceNumber.toLowerCase().includes(search) ||
             inv.description?.toLowerCase().includes(search) ||
-            inv.customer?.name.toLowerCase().includes(search)
+            inv.agency?.agencyName?.toLowerCase().includes(search) ||
+            inv.client?.name?.toLowerCase().includes(search) ||
+            inv.client?.company?.toLowerCase().includes(search) ||
+            String(inv.saleHeaderId || '').includes(search)
         )
       }
 
-      if (this.filters.agencyId) {
+      if (this.filters.customerId) {
+        const filterVal = String(this.filters.customerId)
+        if (filterVal.startsWith('client_')) {
+          const cId = parseInt(filterVal.replace('client_', ''))
+          filtered = filtered.filter((inv) => inv.clientId === cId)
+        } else if (filterVal.startsWith('agency_')) {
+          const aId = parseInt(filterVal.replace('agency_', ''))
+          filtered = filtered.filter((inv) => inv.agencyId === aId)
+        } else {
+          const numId = parseInt(filterVal)
+          filtered = filtered.filter((inv) => inv.agencyId === numId || inv.clientId === numId)
+        }
+      } else if (this.filters.agencyId) {
         filtered = filtered.filter(
-          (inv) => inv.agencyId === this.filters.agencyId // Corrected from customerId to agencyId
+          (inv) => inv.agencyId === this.filters.agencyId
         )
       }
 
@@ -690,6 +773,7 @@ export default {
       this.showCancelled = false
       this.filters = {
         search: '',
+        customerId: null,
         agencyId: '',
         dateFrom: this.getCurrentMonthStart(),
         dateTo: this.getCurrentMonthEnd(),

@@ -1,22 +1,34 @@
-html
 <template>
     <div>
         <v-dialog v-model="isLoading" hide-overlay persistent width="300">
             <loading-indicator> </loading-indicator>
         </v-dialog>
         <v-card class="pa-4">
-            ຍົກເລີກບິນ
+            <v-card-title class="px-0 pt-0 text-h6 font-weight-bold">
+                ຍົກເລີກບິນ
+            </v-card-title>
+            <v-alert
+                v-if="errorMessage"
+                type="error"
+                dense
+                text
+                dismissible
+                class="mb-3"
+                @input="errorMessage = ''"
+            >
+                {{ errorMessage }}
+            </v-alert>
             <v-form ref="myform" @submit.prevent="submitForm">
-                <v-text-field disabled v-model="id" label="ເລກທີອໍເດີ "></v-text-field>
+                <v-text-field :value="id" disabled label="ເລກທີອໍເດີ "></v-text-field>
                 <v-text-field v-model="form.remark" label="ເຫດຜົນການຍົກເລີກ" :rules="nameRules"></v-text-field>
                 <v-text-field v-model="form.cancel_fee" label="ຄ່າທຳນຽມ"></v-text-field>
             </v-form>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn class="warning" text rounded @click="$emit('close-dialog')">
+                <v-btn class="warning" text rounded @click="closeDialog">
                     ປິດ
                 </v-btn>
-                <v-btn class="primary" text @click="submitForm" rounded>
+                <v-btn class="primary" text rounded :loading="isLoading" @click="submitForm">
                     ຢືນຢັນ
                 </v-btn>
             </v-card-actions>
@@ -30,17 +42,19 @@ export default {
     props: {
         id: {
             type: Number,
-            require: false,
+            required: false,
+            default: null,
         },
         customerId: {
             type: Number,
-            require: false,
+            required: false,
             default: null,
         }
     },
     data() {
         return {
             isLoading: false,
+            errorMessage: '',
             form: {
                 isActive: false,
                 remark: '',
@@ -48,7 +62,7 @@ export default {
             },
             nameRules: [
                 value => !!value || 'ກະລຸນາ ໃສ່ເຫດຜົນ',
-                value => (value.toString().length <= 100) || 'Reason must be less than 100 characters'
+                value => (value && value.toString().length <= 100) || 'Reason must be less than 100 characters'
             ],
         };
     },
@@ -57,34 +71,56 @@ export default {
             return this.$auth.user || ''
         }
     },
+    watch: {
+        id() {
+            this.errorMessage = ''
+            this.form.remark = ''
+            this.form.cancel_fee = 0
+        }
+    },
     methods: {
+        closeDialog() {
+            this.errorMessage = ''
+            this.$emit('close-dialog')
+        },
         async submitForm() {
             if (this.$refs.myform.validate() && !this.isLoading) {
                 this.isLoading = true
+                this.errorMessage = ''
                 try {
                     this.form.customerId = this.customerId;
-                    console.log(`${JSON.stringify(this.form)}`);
                     const response = await this.$axios.put(`api/sale/reverse/${this.id}`, this.form)
-                    if(response.status = 200){
+                    
+                    if (response && response.data && response.data.success === false) {
+                        const message = response.data.message || response.data.error || 'User group is not authorized to reverse transactions / ທ່ານບໍ່ມີສິດໃນການຍົກເລີກລາຍການຂາຍ'
+                        this.errorMessage = message
+                        swalError2(this.$swal, 'Error', message)
+                        return
+                    }
+
+                    if (response && response.status === 200) {
                         this.refreshData()
                         swalSuccess(this.$swal, 'Succeed', 'ດຳເນີນການສຳເລັດ')
-                        this.$emit('close-dialog')
+                        this.closeDialog()
                     }
                 } catch (error) {
-                    swalError2(this.$swal, 'Error', 'Something went wrong ' + error)
+                    const message =
+                        error.response?.data?.message ||
+                        error.response?.data?.error ||
+                        (typeof error.response?.data === 'string' ? error.response.data : null) ||
+                        error.message ||
+                        'Something went wrong'
+                    this.errorMessage = message
+                    swalError2(this.$swal, 'Error', message)
+                } finally {
+                    this.isLoading = false
                 }
-                this.isLoading = false
-
-            } else {
-                // Form is invalid, do not submit
-                return
             }
-            this.isLoading = false
         },
         refreshData() {
             this.$emit('reload-data')
+            this.$emit('refresh')
         }
-
     },
 };
 </script>

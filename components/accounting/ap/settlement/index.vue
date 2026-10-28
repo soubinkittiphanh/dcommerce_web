@@ -114,7 +114,7 @@
                     >
                       <template v-slot:append>
                         <span class="grey--text font-weight-medium text-caption" v-if="selectedCurrency">
-                          {{ selectedCurrency.code }} / LAK
+                          {{ selectedCurrency.code }} / {{ localCurrencyCode }}
                         </span>
                       </template>
                     </v-text-field>
@@ -360,8 +360,8 @@
                         <div class="total-row-highlight px-5 py-4 d-flex justify-space-between align-center">
                           <div class="d-flex flex-column">
                             <span class="text-subtitle-1 font-weight-black white--text mb-0">ລວມຈຳນວນເງິນຊຳລະ (Total Allocated):</span>
-                            <span v-if="selectedCurrency && selectedCurrency.code !== 'LAK'" class="white--text opacity-80 font-weight-bold text-caption mt-1">
-                              Converted to LAK: {{ new Intl.NumberFormat('en-US', { style: 'currency', currency: 'LAK' }).format(totalAllocated * parseFloat(form.exchangeRate || 1)) }}
+                            <span v-if="selectedCurrency && selectedCurrency.code !== localCurrencyCode" class="white--text opacity-80 font-weight-bold text-caption mt-1">
+                              Converted to {{ localCurrencyCode }}: {{ new Intl.NumberFormat('en-US', { style: 'currency', currency: localCurrencyCode }).format(totalAllocated * parseFloat(form.exchangeRate || 1)) }}
                             </span>
                           </div>
                           <div class="text-h5 font-weight-black white--text font-monospace">
@@ -739,6 +739,18 @@ export default {
       return Array.from(agencyMap.values())
     },
 
+    localCurrency() {
+      return (
+        (this.currencies || []).find((c) => c.isLocalCCY === true || c.isLocalCCY === 1) ||
+        (this.currencies || []).find((c) => c.code === 'LAK') ||
+        { code: 'LAK' }
+      )
+    },
+
+    localCurrencyCode() {
+      return this.localCurrency?.code || 'LAK'
+    },
+
     agencyFilterOptions() {
       return [{ id: '', name: 'ທຸກຕົວແທນ' }, ...this.availableAgencies]
     },
@@ -982,6 +994,20 @@ export default {
     // FORM MANAGEMENT METHODS
     // =====================================================
     loadSettlementData(settlement) {
+      let curId = settlement.currencyId
+        ? Number(settlement.currencyId)
+        : (settlement.currency?.id ? Number(settlement.currency.id) : '')
+
+      if (!curId && settlement.invoiceSettlements && settlement.invoiceSettlements.length > 0) {
+        for (const line of settlement.invoiceSettlements) {
+          const invCurId = line.invoiceLineItem?.invoice?.currencyId || line.currencyId
+          if (invCurId) {
+            curId = Number(invCurId)
+            break
+          }
+        }
+      }
+
       this.form = {
         id: settlement.id,
         settlementDate:
@@ -989,7 +1015,7 @@ export default {
         paymentMethodId: settlement.paymentMethodId
           ? Number(settlement.paymentMethodId)
           : '',
-        currencyId: settlement.currencyId ? Number(settlement.currencyId) : '',
+        currencyId: curId || '',
         exchangeRate: settlement.exchangeRate || 1.0,
         bankAccountId: settlement.bankAccountId
           ? Number(settlement.bankAccountId)
@@ -1003,10 +1029,12 @@ export default {
         documents: settlement.documents ? JSON.parse(JSON.stringify(settlement.documents)) : [],
       }
 
-      if (settlement.currencyId) {
+      if (curId) {
         this.selectedCurrency = this.currencies.find(
-          (c) => c.id === Number(settlement.currencyId)
+          (c) => Number(c.id) === Number(curId)
         )
+      } else if (settlement.currency && typeof settlement.currency === 'object') {
+        this.selectedCurrency = settlement.currency
       }
 
       if (settlement.invoiceSettlements) {

@@ -1,7 +1,7 @@
 <template>
-  <v-container class="school-billing-dashboard pa-6" fluid>
+  <v-container class="school-billing-dashboard pa-0 ma-0" fluid>
     <!-- Top Header -->
-    <div class="d-flex align-center justify-space-between mb-6">
+    <div class="d-flex align-center justify-space-between">
       <div>
         <h1 class="text-h4 font-weight-bold primary--text mb-1">
           <v-icon size="40" color="primary" class="mr-2">mdi-school-outline</v-icon>
@@ -39,20 +39,62 @@
 
       <!-- Invoice Filter Toolbar -->
       <v-card outlined class="pa-4 mb-4 bg-light">
-        <v-row dense>
-          <v-col cols="12" sm="2">
-            <v-select v-model="filters.academicYearId" :items="academicYears" item-text="name" item-value="id"
-              label="ປີການສຶກສາ (Academic Year)" outlined dense clearable @change="loadInvoices"></v-select>
+        <v-row dense align="center">
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.academicYearId"
+              :items="academicYears"
+              item-text="name"
+              item-value="id"
+              label="ປີການສຶກສາ (Academic Year)"
+              outlined
+              dense
+              clearable
+              hide-details="auto"
+              @change="loadInvoices"
+            ></v-select>
           </v-col>
-          <v-col cols="12" sm="3">
-            <v-select v-model="filters.classId" :items="classes" item-text="name" item-value="id"
-              label="ຊັ້ນຮຽນ/ຫ້ອງຮຽນ (Class)" outlined dense clearable @change="loadInvoices"></v-select>
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.classId"
+              :items="classes"
+              item-text="name"
+              item-value="id"
+              label="ຊັ້ນຮຽນ (Class)"
+              outlined
+              dense
+              clearable
+              hide-details="auto"
+              @change="onClassChange"
+            ></v-select>
           </v-col>
-          <v-col cols="12" sm="2">
-            <v-select v-model="filters.status" :items="invoiceStatuses" label="ສະຖານະ (Status)" outlined dense
-              clearable @change="loadInvoices"></v-select>
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.roomId"
+              :items="filteredRooms"
+              item-text="name"
+              item-value="id"
+              label="ຫ້ອງຮຽນ (Room)"
+              outlined
+              dense
+              clearable
+              hide-details="auto"
+              @change="loadInvoices"
+            ></v-select>
           </v-col>
-          <v-col cols="12" sm="2">
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.status"
+              :items="invoiceStatuses"
+              label="ສະຖານະ (Status)"
+              outlined
+              dense
+              clearable
+              hide-details="auto"
+              @change="loadInvoices"
+            ></v-select>
+          </v-col>
+          <v-col cols="12" sm="6" md="2">
             <v-text-field
               v-model="filters.billingMonth"
               type="month"
@@ -60,13 +102,23 @@
               outlined
               dense
               clearable
+              hide-details="auto"
               @change="loadInvoices"
               @click:clear="filters.billingMonth = ''; loadInvoices()"
             ></v-text-field>
           </v-col>
-          <v-col cols="12" sm="3">
-            <v-text-field v-model="filters.search" label="ຄົ້ນຫາ (ເລກໃບບິນ, ລະຫັດນັກຮຽນ...)" outlined dense
-              append-icon="mdi-magnify" clearable @keyup.enter="loadInvoices"></v-text-field>
+          <v-col cols="12" sm="6" md="2">
+            <v-text-field
+              v-model="filters.search"
+              label="ຄົ້ນຫາ (ເລກໃບບິນ, ລະຫັດ...)"
+              outlined
+              dense
+              append-icon="mdi-magnify"
+              clearable
+              hide-details="auto"
+              @keyup.enter="loadInvoices"
+              @click:clear="filters.search = ''; loadInvoices()"
+            ></v-text-field>
           </v-col>
         </v-row>
       </v-card>
@@ -177,11 +229,67 @@
         </v-card-title>
         <v-card-text class="pt-4">
           <v-form ref="bulkForm" v-model="bulkValid">
-            <v-select v-model="bulkFormFields.academicYearId" :items="academicYears" item-text="name" item-value="id"
-              label="ເລືອກປີການສຶກສາ *" :rules="[v => !!v || 'ກະລຸນາເລືອກປີການສຶກສາ']" outlined dense></v-select>
+            <v-select
+              v-model="bulkFormFields.academicYearId"
+              :items="academicYears"
+              item-text="name"
+              item-value="id"
+              label="ເລືອກປີການສຶກສາ *"
+              :rules="[v => !!v || 'ກະລຸນາເລືອກປີການສຶກສາ']"
+              outlined
+              dense
+            ></v-select>
 
-            <v-select v-model="bulkFormFields.classId" :items="classes" item-text="name" item-value="id"
-              label="ເລືອກຊັ້ນຮຽນ/ຫ້ອງຮຽນ *" :rules="[v => !!v || 'ກະລຸນາເລືອກຊັ້ນຮຽນ']" outlined dense></v-select>
+            <v-select
+              v-model="bulkFormFields.classId"
+              :items="classes"
+              item-text="name"
+              item-value="id"
+              label="ເລືອກຊັ້ນຮຽນ *"
+              :rules="[v => !!v || 'ກະລຸນາເລືອກຊັ້ນຮຽນ']"
+              outlined
+              dense
+              @change="bulkFormFields.roomId = null"
+            ></v-select>
+
+            <!-- Target Scope Selection: All Rooms vs Specific Room -->
+            <div class="mb-3">
+              <label class="caption font-weight-bold grey--text text--darken-2 d-block mb-1">
+                ຂອບເຂດການສ້າງໃບບິນ (Target Scope) *
+              </label>
+              <v-btn-toggle
+                v-model="bulkFormFields.scope"
+                mandatory
+                dense
+                color="primary"
+                class="d-flex"
+              >
+                <v-btn value="ALL" class="flex-grow-1" text>
+                  <v-icon left small>mdi-account-group</v-icon>
+                  ທຸກຫ້ອງໃນຊັ້ນຮຽນ (All)
+                </v-btn>
+                <v-btn value="ROOM" class="flex-grow-1" text>
+                  <v-icon left small>mdi-door-open</v-icon>
+                  ສະເພາະຫ້ອງ (Specific Room)
+                </v-btn>
+              </v-btn-toggle>
+            </div>
+
+            <!-- Specific Room Selector (shown when scope is ROOM) -->
+            <v-select
+              v-if="bulkFormFields.scope === 'ROOM'"
+              v-model="bulkFormFields.roomId"
+              :items="bulkFilteredRooms"
+              item-text="name"
+              item-value="id"
+              label="ເລືອກຫ້ອງຮຽນ (Select Specific Room) *"
+              :rules="[v => (bulkFormFields.scope !== 'ROOM' || !!v) || 'ກະລຸນາເລືອກຫ້ອງຮຽນ']"
+              outlined
+              dense
+              clearable
+              prepend-inner-icon="mdi-door-open"
+              no-data-text="ບໍ່ມີຫ້ອງຮຽນຍ່ອຍໃນຊັ້ນນີ້"
+            ></v-select>
 
             <v-text-field
               v-model="bulkFormFields.billingMonth"
@@ -194,8 +302,25 @@
 
             <v-text-field v-model="bulkFormFields.dueDate" type="date" label="ວັນຄົບກຳນົດຊຳລະ (Due Date)" outlined dense></v-text-field>
 
-            <v-alert type="warning" text outlined icon="mdi-alert" class="mt-2 mb-0">
-              ລະບົບຈະສ້າງໃບບິນຄ່າຮຽນໃຫ້ກັບ <strong>ນັກຮຽນທຸກຄົນ</strong> ທີ່ຢູ່ໃນຊັ້ນຮຽນນີ້ ໂດຍອີງຕາມອັດຕາຄ່າທໍານຽມທີ່ກຳນົດໄວ້.
+            <v-alert
+              v-if="bulkFormFields.scope === 'ROOM'"
+              type="info"
+              text
+              outlined
+              icon="mdi-information"
+              class="mt-2 mb-0"
+            >
+              ລະບົບຈະສ້າງໃບບິນຄ່າຮຽນໃຫ້ກັບ <strong>ນັກຮຽນສະເພາະຫ້ອງ: {{ getBulkSelectedRoomName() || '...' }}</strong> ຂອງຊັ້ນຮຽນ <strong>{{ getBulkSelectedClassName() }}</strong>.
+            </v-alert>
+            <v-alert
+              v-else
+              type="info"
+              text
+              outlined
+              icon="mdi-account-group"
+              class="mt-2 mb-0"
+            >
+              ລະບົບຈະສ້າງໃບບິນຄ່າຮຽນໃຫ້ກັບ <strong>ນັກຮຽນທຸກຄົນ (ທຸກຫ້ອງ)</strong> ທີ່ຢູ່ໃນຊັ້ນຮຽນ <strong>{{ getBulkSelectedClassName() }}</strong>.
             </v-alert>
           </v-form>
         </v-card-text>
@@ -364,6 +489,7 @@ export default {
       filters: {
         academicYearId: null,
         classId: null,
+        roomId: null,
         status: null,
         billingMonth: '',
         search: ''
@@ -373,6 +499,7 @@ export default {
       invoices: [],
       academicYears: [],
       classes: [],
+      rooms: [],
       paymentMethods: [],
       invoiceStatuses: ['UNPAID', 'PARTIAL', 'PAID'],
 
@@ -391,7 +518,9 @@ export default {
 
       // Form bindings
       bulkFormFields: {
+        scope: 'ALL',
         classId: null,
+        roomId: null,
         academicYearId: null,
         dueDate: '',
         billingMonth: ''
@@ -424,10 +553,23 @@ export default {
     this.checkActiveShift();
     this.loadAcademicYears();
     this.loadClasses();
+    this.loadRooms();
     this.loadPaymentMethods();
     this.loadInvoices();
   },
   computed: {
+    filteredRooms() {
+      if (!this.filters.classId) {
+        return this.rooms;
+      }
+      return this.rooms.filter(r => r.classId === this.filters.classId);
+    },
+    bulkFilteredRooms() {
+      if (!this.bulkFormFields.classId) {
+        return [];
+      }
+      return this.rooms.filter(r => r.classId === this.bulkFormFields.classId);
+    },
     classSummary() {
       const total = this.invoices.length;
       if (total === 0) {
@@ -519,12 +661,30 @@ export default {
         console.error('Error fetching classes:', err);
       }
     },
+    async loadRooms() {
+      try {
+        const res = await this.$axios.get('/api/school/rooms');
+        this.rooms = (res.data || []).filter(r => r.isActive !== false);
+      } catch (err) {
+        console.error('Error fetching rooms:', err);
+      }
+    },
+    onClassChange() {
+      if (this.filters.roomId && this.filters.classId) {
+        const belongs = this.rooms.some(r => r.id === this.filters.roomId && r.classId === this.filters.classId);
+        if (!belongs) {
+          this.filters.roomId = null;
+        }
+      }
+      this.loadInvoices();
+    },
     async loadInvoices() {
       this.loadingInvoices = true;
       try {
         const params = {};
         if (this.filters.academicYearId) params.academicYearId = this.filters.academicYearId;
         if (this.filters.classId) params.classId = this.filters.classId;
+        if (this.filters.roomId) params.roomId = this.filters.roomId;
         if (this.filters.status) params.status = this.filters.status;
         if (this.filters.billingMonth) params.billingMonth = this.filters.billingMonth;
 
@@ -538,7 +698,8 @@ export default {
             const studentId = item.student?.studentId?.toLowerCase() || '';
             const fName = item.student?.firstName?.toLowerCase() || '';
             const lName = item.student?.lastName?.toLowerCase() || '';
-            return num.includes(keyword) || studentId.includes(keyword) || fName.includes(keyword) || lName.includes(keyword);
+            const roomName = item.student?.schoolRoom?.name?.toLowerCase() || item.student?.room?.toLowerCase() || '';
+            return num.includes(keyword) || studentId.includes(keyword) || fName.includes(keyword) || lName.includes(keyword) || roomName.includes(keyword);
           });
         }
         this.invoices = list;
@@ -548,9 +709,19 @@ export default {
         this.loadingInvoices = false;
       }
     },
+    getBulkSelectedClassName() {
+      const cls = this.classes.find(c => c.id === this.bulkFormFields.classId);
+      return cls ? cls.name : '';
+    },
+    getBulkSelectedRoomName() {
+      const room = this.rooms.find(r => r.id === this.bulkFormFields.roomId);
+      return room ? room.name : '';
+    },
     openBulkDialog() {
       this.bulkFormFields = {
+        scope: 'ALL',
         classId: this.classes[0]?.id || null,
+        roomId: null,
         academicYearId: this.academicYears[0]?.id || null,
         dueDate: '',
         billingMonth: new Date().toISOString().substring(0, 7) // Default to current month, e.g. "2026-08"
@@ -560,10 +731,13 @@ export default {
     async generateBulkInvoices() {
       this.generatingBulk = true;
       try {
-        const payload = { ...this.bulkFormFields };
-        if (payload.billingMonth) {
-          payload.billingMonth = payload.billingMonth.substring(0, 7);
-        }
+        const payload = {
+          academicYearId: this.bulkFormFields.academicYearId,
+          classId: this.bulkFormFields.classId,
+          dueDate: this.bulkFormFields.dueDate,
+          billingMonth: this.bulkFormFields.billingMonth ? this.bulkFormFields.billingMonth.substring(0, 7) : null,
+          roomId: this.bulkFormFields.scope === 'ROOM' ? this.bulkFormFields.roomId : null
+        };
         const res = await this.$axios.post('/api/school/invoices/bulk', payload);
         this.$toast.success(res.data?.message || 'ສ້າງໃບບິນກຸ່ມສຳເລັດ');
         this.loadInvoices();
@@ -708,6 +882,10 @@ export default {
 </script>
 
 <style scoped>
+.school-billing-dashboard {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .school-billing-dashboard * {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }
@@ -716,5 +894,15 @@ export default {
 }
 .bg-light-green {
   background-color: #f1f8e9 !important;
+}
+::v-deep .v-text-field input[type="month"] {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+::v-deep input[type="month"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
 </style>

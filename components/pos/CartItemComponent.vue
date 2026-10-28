@@ -1,5 +1,12 @@
 <template>
-  <v-card flat class="cart-item pa-2" :class="{ 'cart-item-hover': true }">
+  <v-card
+    flat
+    class="cart-item pa-2 transition-swing"
+    :class="{
+      'cart-item-hover': true,
+      'cart-item-return-active': isItemReturn
+    }"
+  >
     <v-row no-gutters align="center">
       <v-col cols="1">
         <v-btn icon small color="error" @click="$emit('delete', item)" title="ລົບອອກ">
@@ -79,6 +86,55 @@
               {{ item.size.name || item.size.size_name }}
             </v-chip>
           </div>
+
+          <!-- Packaging Sell / Buy 2-Way Segmented Control -->
+          <div v-if="isPackagingAssetItem" class="d-flex align-center mt-1 flex-wrap">
+            <v-btn-toggle
+              dense
+              mandatory
+              :value="isItemReturn ? 1 : 0"
+              class="rounded-pill packaging-segmented-toggle mr-1"
+            >
+              <v-btn
+                x-small
+                :color="!isItemReturn ? 'amber darken-3' : 'grey lighten-4'"
+                :dark="!isItemReturn"
+                class="px-2 font-weight-bold"
+                style="height: 22px; font-size: 10px;"
+                @click.stop="setReturnMode(false)"
+                title="ຂາຍ (+ລາຄາ)"
+              >
+                <v-icon x-small left>mdi-cart-plus</v-icon>
+                ຂາຍ (SELL)
+              </v-btn>
+              <v-btn
+                x-small
+                :color="isItemReturn ? 'teal darken-2' : 'grey lighten-4'"
+                :dark="isItemReturn"
+                class="px-2 font-weight-bold"
+                style="height: 22px; font-size: 10px;"
+                @click.stop="setReturnMode(true)"
+                title="ຮັບຊື້ຄືນ (-ລາຄາ)"
+              >
+                <v-icon x-small left>mdi-keyboard-return</v-icon>
+                ຮັບຊື້ (BUY)
+              </v-btn>
+            </v-btn-toggle>
+
+            <!-- Quick button to duplicate and add paired return line if currently in SELL mode -->
+            <v-btn
+              v-if="!isItemReturn"
+              x-small
+              outlined
+              color="teal darken-2"
+              class="rounded-pill px-1 font-weight-bold"
+              style="height: 20px; font-size: 10px;"
+              @click.stop="$emit('duplicate-return', item)"
+              title="ເພີ່ມແຖວຮັບຊື້ຄືນອີກ 1 ລາຍການ"
+            >
+              <v-icon x-small left>mdi-plus</v-icon>ຮັບຄືນພ້ອມ
+            </v-btn>
+          </div>
         </div>
 
         <div v-if="item.tax" class=" grey--text">
@@ -112,9 +168,10 @@
 
       <v-col cols="4" class="text-right">
         <div class="d-flex flex-column align-end">
-          <v-chip small :color="item.isGift ? 'pink' : 'warning'" outlined @click="$emit('price-click', item)"
-            class="price-chip mb-1" :class="{ 'gift-price': item.isGift }">
+          <v-chip small :color="item.isGift ? 'pink' : (item.isReturn || item.packagingAction === 'RETURNED' ? 'teal darken-2' : 'black')" outlined @click="$emit('price-click', item)"
+            class="price-chip mb-1" :class="{ 'gift-price': item.isGift, 'teal--text text--darken-2': (item.isReturn || item.packagingAction === 'RETURNED') }">
             <v-icon v-if="item.isGift" x-small left>mdi-gift</v-icon>
+            <v-icon v-else-if="item.isReturn || item.packagingAction === 'RETURNED'" x-small left>mdi-cash-minus</v-icon>
             {{ getPriceDisplay() }}
           </v-chip>
 
@@ -142,8 +199,6 @@
 </template>
 
 <script>
-// We assume getFormatNum is available via a utility file
-import { getFormatNum } from '~/common'
 import GiftDialog from '~/components/card/GiftDialog.vue'
 import { mapActions, mapGetters } from 'vuex'
 export default {
@@ -172,6 +227,18 @@ export default {
   },
   computed: {
     ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit']),
+    isPackagingAssetItem() {
+      if (this.item.isPackagingAsset === true ||
+          this.item.isReturnablePackaging === true ||
+          this.item.packagingAction === 'SOLD' ||
+          this.item.packagingAction === 'RETURNED' ||
+          this.item.isReturn === true) {
+        return true
+      }
+    },
+    isItemReturn() {
+      return this.item.isReturn === true || this.item.packagingAction === 'RETURNED'
+    },
   },
   methods: {
     getInclusiveUnitPrice() {
@@ -232,6 +299,10 @@ export default {
         // Gifts usually stay at their configured giftAmount (often 0)
         const displayTotal = this.item.localPrice * this.item.qty;
         return displayTotal === 0 ? 'FREE' : `${this.formatNumber(displayTotal)}${currencyCode}`;
+      } else if (this.item.isReturn || this.item.packagingAction === 'RETURNED') {
+        // Returned packaging (Negative credit)
+        const displayTotal = inclusivePrice * this.item.qty;
+        return `-${this.formatNumber(displayTotal)}${currencyCode}`;
       } else if (this.item.giftQuantity > 0) {
         // Mixed pricing
         const regularTotal = (this.item.qty - this.item.giftQuantity) * inclusivePrice;
@@ -294,6 +365,11 @@ export default {
         })
       }
     },
+    setReturnMode(targetIsReturn) {
+      if (this.isItemReturn !== targetIsReturn) {
+        this.$emit('toggle-return', this.item)
+      }
+    },
   },
 
   // Emit events: delete, decrease, increase, update-qty, price-click, configure-gift
@@ -304,11 +380,25 @@ export default {
 /* Scoped styles for the cart item container */
 .cart-item {
   border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.cart-item-return-active {
+  background-color: #f0fdfa !important;
+  border-left: 4px solid #0d9488 !important;
+}
+
+.packaging-segmented-toggle {
+  border: 1px solid #b2dfdb !important;
+  box-shadow: none !important;
 }
 
 .cart-item:hover {
   background-color: rgba(0, 0, 0, 0.02);
+}
+
+.cart-item-return-active:hover {
+  background-color: #e6fffa !important;
 }
 
 .qty-btn {

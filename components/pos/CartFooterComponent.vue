@@ -95,6 +95,22 @@
         </div>
       </div>
 
+      <!-- Packaging Sold Breakdown -->
+      <div v-if="packagingSoldTotalLAK > 0" class="d-flex justify-space-between align-center mb-1">
+        <div class="caption font-weight-bold amber--text text--darken-3">
+          <v-icon x-small color="amber darken-3" class="mr-1">mdi-package-up</v-icon>ຂາຍບັນຈຸພັນ (+Packaging):
+        </div>
+        <div class="caption font-weight-black amber--text text--darken-3">+{{ formatNumber(packagingSoldTotalLAK) }}</div>
+      </div>
+
+      <!-- Packaging Returned Breakdown -->
+      <div v-if="packagingReturnTotalLAK > 0" class="d-flex justify-space-between align-center mb-1">
+        <div class="caption font-weight-bold teal--text text--darken-3">
+          <v-icon x-small color="teal darken-3" class="mr-1">mdi-keyboard-return</v-icon>ຮັບຊື້ຄືນບັນຈຸພັນ (-Empties):
+        </div>
+        <div class="caption font-weight-black teal--text text--darken-3">-{{ formatNumber(packagingReturnTotalLAK) }}</div>
+      </div>
+
       <div v-if="totalTaxLAK > 0" class="d-flex justify-space-between align-center mb-1">
         <div class="stat-label success--text">ອາກອນ (Tax)</div>
         <div class="stat-value success--text font-weight-bold">+{{ formatNumber(totalTaxLAK) }}</div>
@@ -172,8 +188,8 @@
           </v-btn>
         </v-col>
         <v-col cols="8">
-          <v-btn color="success" block small :disabled="!canPaySingleRealTime" :loading="processingPayment"
-            class="pay-btn rounded-lg elevation-2" @click="handleSinglePayment">
+          <v-btn :color="realTimeFinalTotal < 0 ? 'teal darken-2' : 'success'" block small :disabled="!canPaySingleRealTime" :loading="processingPayment"
+            class="pay-btn rounded-lg elevation-2 white--text" @click="handleSinglePayment">
             <strong>{{ getPaymentButtonTextRealTime }}</strong>
           </v-btn>
         </v-col>
@@ -254,6 +270,28 @@ export default {
       return this.productCart.reduce((sum, item) => {
         const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
         const lineTotal = item.qty * (item.localPrice || 0)
+        const converted = currency?.isLocalCCY ? lineTotal : CurrencyHelper.convertToLocal(lineTotal, currency, this.localCurrency)
+        const isReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+        return sum + (isReturn ? -converted : converted)
+      }, 0)
+    },
+
+    packagingSoldTotalLAK() {
+      return this.productCart.reduce((sum, item) => {
+        const isSold = item.packagingAction === 'SOLD' || (item.isPackagingAsset && !item.isReturn && item.packagingAction !== 'RETURNED')
+        if (!isSold) return sum
+        const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
+        const lineTotal = item.qty * (item.localPrice || 0)
+        return sum + (currency?.isLocalCCY ? lineTotal : CurrencyHelper.convertToLocal(lineTotal, currency, this.localCurrency))
+      }, 0)
+    },
+
+    packagingReturnTotalLAK() {
+      return this.productCart.reduce((sum, item) => {
+        const isReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+        if (!isReturn) return sum
+        const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
+        const lineTotal = item.qty * (item.localPrice || 0)
         return sum + (currency?.isLocalCCY ? lineTotal : CurrencyHelper.convertToLocal(lineTotal, currency, this.localCurrency))
       }, 0)
     },
@@ -320,6 +358,11 @@ export default {
 
     getPaymentButtonTextRealTime() {
       const method = this.paymentList.find(p => p.id === this.selectedPayment)
+      if (this.realTimeFinalTotal < 0) {
+        return method
+          ? `ຈ່າຍຄືນ/ຮັບຊື້ (${method.payment_name} -${this.formatNumber(Math.abs(this.realTimeFinalTotal))})`
+          : `ຈ່າຍຄືນ/ຮັບຊື້ (-${this.formatNumber(Math.abs(this.realTimeFinalTotal))})`
+      }
       return method ? `ຊຳລະ (${method.payment_name})` : 'ເລືອກການຊຳລະ'
     },
 

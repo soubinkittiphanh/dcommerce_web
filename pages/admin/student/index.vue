@@ -1,7 +1,7 @@
 <template>
-  <div class="student-summary pa-4">
+  <div class="student-summary pa-0 ma-0">
     <!-- Header -->
-    <div class="d-flex align-center justify-space-between mb-4">
+    <div class="d-flex align-center justify-space-between">
       <div>
         <h1 class="text-h5 font-weight-bold primary--text">
           <v-icon color="primary" class="mr-2">mdi-account-school</v-icon>
@@ -199,6 +199,10 @@ export default {
 </script>
 
 <style scoped>
+.student-summary {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .student-summary * {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }

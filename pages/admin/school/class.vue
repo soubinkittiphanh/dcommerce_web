@@ -1,7 +1,7 @@
 <template>
-  <v-container class="school-billing-dashboard pa-6" fluid>
+  <v-container class="school-billing-dashboard pa-0 ma-0" fluid>
     <!-- Top Header -->
-    <div class="d-flex align-center justify-space-between mb-6">
+    <div class="d-flex align-center justify-space-between">
       <div>
         <h1 class="text-h4 font-weight-bold primary--text mb-1">
           <v-icon size="40" color="primary" class="mr-2">mdi-school-outline</v-icon>
@@ -410,6 +410,10 @@ export default {
 </script>
 
 <style scoped>
+.school-billing-dashboard {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .school-billing-dashboard * {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }

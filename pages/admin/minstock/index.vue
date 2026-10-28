@@ -65,52 +65,45 @@
           </v-btn>
         </template> -->
         <template v-slot:[`item.functionEdit`]="{ item }">
-          <v-btn variant="outlined" @click="editItem(item)
-          isedit = true">
-            <v-icon small class="mr-2">
-              <!-- mdi-pencil -->
-            </v-icon>
-            ແກ້ໄຂ
-          </v-btn>
-        </template>
-        <template v-slot:[`item.functionEdit`]="{ item }">
-          <!-- <v-btn variant="outlined" @click="editItem(item)
-          isedit = true">
-            <v-icon small class="mr-2">
-              mdi-pencil
-            </v-icon>
-          </v-btn> -->
-
-          <v-btn color="primary" text @click="editItem(item)
-          wallet = true
-            ">
-
-<i class="fa-regular fa-pen-to-square"></i>
+          <v-btn
+            color="primary"
+            icon
+            small
+            @click="
+              editItem(item)
+              wallet = true
+            "
+            title="ແກ້ໄຂ (Edit)"
+          >
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
         <template v-slot:[`item.functionStock`]="{ item }">
-
-          <!-- <v-btn variant="outlined" @click="triggerCardForm(item)">
-            <i class="fas fa-cart-plus"></i>
-
-          </v-btn> -->
-          <v-btn color="primary" text @click="triggerCardForm(item)
-          wallet = true
-            ">
-            <i class="fa fa-cart-plus"></i>
+          <v-btn
+            color="primary"
+            icon
+            small
+            @click="
+              triggerCardForm(item)
+              wallet = true
+            "
+            title="ເພີ່ມສະຕັອກ (Add Stock)"
+          >
+            <v-icon small>mdi-cart-plus</v-icon>
           </v-btn>
-
         </template>
         <template v-slot:[`item.functionStockView`]="{ item }">
-          <!-- <v-btn variant="outlined" @click="editStock(item)">
-            <i class="fas fa-eye"></i>
-          </v-btn> -->
-
-          <v-btn color="primary" text @click="editStock(item)
-          wallet = true
-            ">
-
-            <i class="fa fa-eye"></i>
+          <v-btn
+            color="primary"
+            icon
+            small
+            @click="
+              editStock(item)
+              wallet = true
+            "
+            title="ເບິ່ງສະຕັອກ (View Stock)"
+          >
+            <v-icon small>mdi-eye</v-icon>
           </v-btn>
         </template>
         <template v-slot:[`item.pro_cost_price`]="{ item }">

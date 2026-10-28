@@ -54,7 +54,7 @@ html,
 body,
 #app,
 .v-application,
-.v-application * {
+.v-application *:not(.v-icon):not(.v-icon *):not([class*="fa-"]):not(.fas):not(.far):not(.fal):not(.fab):not(.fa-solid):not(.fa-regular):not(.fa-brands):not([class*="mdi-"]):not(.mdi) {
   font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
 }
 
@@ -130,4 +130,64 @@ p.text-caption {
 .swal2-cancel {
   font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
 }
+
+/* Global Fix for FontAwesome Free and Material Design Icons:
+   Ensures icon font-family is never overridden by Lao typography */
+.v-application .fa,
+.v-application .fas,
+.v-application .fa-solid,
+.v-application .far,
+.v-application .fa-regular,
+.v-application .fa-classic,
+.v-application [class^="fa-"],
+.v-application [class*=" fa-"],
+.fa,
+.fas,
+.fa-solid,
+.far,
+.fa-regular,
+.fa-classic,
+[class^="fa-"],
+[class*=" fa-"],
+.fa-regular.fa-pen-to-square,
+.fa-pen-to-square,
+.fa-regular.fa-circle-check,
+.fa-circle-check {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free' !important;
+}
+
+.v-application .fas,
+.v-application .fa-solid,
+.fas,
+.fa-solid,
+.fa-pen-to-square,
+.fa-circle-check {
+  font-weight: 900 !important;
+}
+
+.v-application .far,
+.v-application .fa-regular,
+.far,
+.fa-regular {
+  font-weight: 400 !important;
+}
+
+.v-application .fab,
+.v-application .fa-brands,
+.fab,
+.fa-brands {
+  font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands' !important;
+  font-weight: 400 !important;
+}
+
+.v-application .v-icon,
+.v-application .mdi,
+.v-application [class^="mdi-"],
+.v-application [class*=" mdi-"],
+.mdi,
+[class^="mdi-"],
+[class*=" mdi-"] {
+  font-family: 'Material Design Icons' !important;
+}
+
 

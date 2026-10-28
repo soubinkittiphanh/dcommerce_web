@@ -165,18 +165,31 @@
             {{ item.createdAt.split('.')[0] }}
           </template>
           <template v-slot:[`item.id`]="{ item }">
-            <v-btn color="primary" text @click="viewItem(item)
-      wallet = true
-        ">
-              <i class="fa-regular fa-pen-to-square"></i>
+            <v-btn
+              color="primary"
+              icon
+              small
+              @click="
+                viewItem(item)
+                wallet = true
+              "
+              title="ແກ້ໄຂທຸລະກຳ (View/Update)"
+            >
+              <v-icon small>mdi-square-edit-outline</v-icon>
             </v-btn>
           </template>
           <template v-slot:[`item.cancel`]="{ item }">
-
-            <v-btn color="blue darken-1" text @click="cancelItem(item)
-      wallet = true
-        ">
-              <i class="fas fa-sync"></i>
+            <v-btn
+              color="blue darken-1"
+              icon
+              small
+              @click="
+                cancelItem(item)
+                wallet = true
+              "
+              title="ຍົກເລີກບິນ (Cancel)"
+            >
+              <v-icon small>mdi-sync</v-icon>
             </v-btn>
           </template>
           <template v-slot:[`item.cusTel`]="{ item }">

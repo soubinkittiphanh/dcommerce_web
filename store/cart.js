@@ -1,8 +1,10 @@
 // store/cart.js
 // Cart module - handles cart operations and product management
+import { isPackagingProduct } from '~/common'
 
 export const state = () => ({
-    cartOfproductSelected: []
+    cartOfproductSelected: [],
+    packagingMode: 'SELL',
 })
 
 export const mutations = {
@@ -33,6 +35,18 @@ export const mutations = {
         }
     },
 
+    setPackagingMode(state, mode) {
+        state.packagingMode = mode === 'BUY' ? 'BUY' : 'SELL'
+    },
+
+    cartOfProduct(state, payload) {
+        if (Array.isArray(payload)) {
+            state.cartOfproductSelected = payload
+        } else if (payload && typeof payload === 'object') {
+            this.commit('addProductToCart', payload)
+        }
+    },
+
     addProductToCart(state, product) {
         try {
             if (!product || !product.id) return
@@ -53,16 +67,28 @@ export const mutations = {
             const originalProductLocalPrice = product.localPrice
             product.localPrice = customerPrice ?? product.localPrice
 
+            const isPkg = isPackagingProduct(product)
+            const isBuyMode = state.packagingMode === 'BUY'
+            const isReturnTarget = product.isReturn !== undefined
+                ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+                : (isPkg ? isBuyMode : false)
+            const targetProdId = String(product.id || product.pro_id || '')
+
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
+                const itemIsReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+                if (itemIsReturn !== isReturnTarget) return false
+
+                const itemProdId = String(item.id || item.pro_id || '')
+                const isSameProduct = targetProdId && itemProdId && (targetProdId === itemProdId)
+                if (!isSameProduct) return false
+
                 if (product.colorId || product.sizeId) {
-                    return item.id === product.id && 
-                           item.colorId === product.colorId && 
-                           item.sizeId === product.sizeId &&
+                    return item.colorId === product.colorId && 
+                           item.sizeId === product.sizeId && 
                            (product.unitId ? item.unitId === product.unitId : true) &&
                            item.isGift === product.isGift
                 }
-                return item.id === product.id && 
-                       (product.unitId ? item.unitId === product.unitId : true) &&
+                return (product.unitId ? item.unitId === product.unitId : true) &&
                        !item.colorId && 
                        !item.sizeId && 
                        item.isGift === product.isGift
@@ -76,6 +102,8 @@ export const mutations = {
                 state.cartOfproductSelected.push({
                     ...product,
                     qty: addQty,
+                    isReturn: isReturnTarget,
+                    packagingAction: product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE')),
                     lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
                 })
             }
@@ -84,6 +112,19 @@ export const mutations = {
             product.localPrice = originalProductLocalPrice
         } catch (error) {
             console.error('Error adding product to cart:', error)
+        }
+    },
+
+    TOGGLE_ITEM_RETURN(state, { lineUUID, id }) {
+        const index = state.cartOfproductSelected.findIndex(i => 
+            lineUUID ? i.lineUUID === lineUUID : i.id === id
+        )
+        if (index !== -1) {
+            const item = state.cartOfproductSelected[index]
+            const isCurrentlyReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+            item.isReturn = !isCurrentlyReturn
+            item.packagingAction = item.isReturn ? 'RETURNED' : (item.isPackagingAsset ? 'SOLD' : 'NONE')
+            state.cartOfproductSelected.splice(index, 1, { ...item })
         }
     },
 
@@ -158,11 +199,14 @@ export const mutations = {
 
 export const getters = {
     cartOfProduct: (state) => state.cartOfproductSelected || [],
+    packagingMode: (state) => state.packagingMode || 'SELL',
     
     // Cart totals
     cartTotal: (state) => {
         return state.cartOfproductSelected.reduce((total, item) => {
-            return total + (item.qty * item.localPrice)
+            const isReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+            const lineTotal = item.qty * item.localPrice
+            return total + (isReturn ? -lineTotal : lineTotal)
         }, 0)
     },
     

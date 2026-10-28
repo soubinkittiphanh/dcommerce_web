@@ -94,7 +94,7 @@
               hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
           </v-col>
           <v-col cols="12" md="2">
-            <v-select v-model="filters.paymentMethod" :items="paymentMethodOptions" label="ວິທີຈ່າຍ" outlined dense
+            <v-select v-model="filters.paymentMethod" :items="paymentFilterOptions" label="ວິທີຈ່າຍ" outlined dense
               hide-details clearable prepend-inner-icon="mdi-cash" @change="applyFilters" />
           </v-col>
           <v-col cols="12" md="2">
@@ -185,8 +185,8 @@
 
         <!-- Payment Method -->
         <template v-slot:item.paymentMethod="{ item }">
-          <v-chip x-small :color="getPaymentMethodColor(item.paymentMethod)" text-color="white">
-            {{ formatPaymentMethod(item.paymentMethod) }}
+          <v-chip x-small :color="getPaymentMethodColor(item)" text-color="white">
+            {{ getPaymentMethodText(item) }}
           </v-chip>
         </template>
 
@@ -223,7 +223,7 @@
         <template v-slot:item.inputter="{ item }">
           <div class="">
             <div>
-              {{ item.inputter?.username || item.maker?.username || 'N/A' }}
+              {{ getInputterName(item) }}
             </div>
             <div v-if="item.createdAt" class="grey--text">
               {{ formatDate(item.createdAt) }}
@@ -290,12 +290,12 @@
     <!-- Receive Header Maintain Dialog -->
     <client-only>
       <ReceiveHeaderMaintain :visible="showEditDialog" :receipt="selectedReceipt" :gl-accounts="glAccounts"
-        :invoices="invoices" :currencies="currencies" :users="users" @close="closeEditDialog" @save="onReceiptSave" />
+        :invoices="invoices" :currencies="currencies" :users="users" :payment-methods="paymentMethods" @close="closeEditDialog" @save="onReceiptSave" />
     </client-only>
 
     <!-- Receipt View Dialog -->
     <client-only>
-      <ReceiveHeaderView :visible="showViewDialog" :receipt="selectedReceipt" @close="closeViewDialog" @print="onPrintFromView" />
+      <ReceiveHeaderView :visible="showViewDialog" :receipt="selectedReceipt" :payment-methods="paymentMethods" @close="closeViewDialog" @print="onPrintFromView" />
     </client-only>
 
     <!-- Add this Print Voucher Dialog -->
@@ -477,17 +477,53 @@ export default {
       }
     },
 
+    paymentFilterOptions() {
+      if (this.paymentMethods && this.paymentMethods.length > 0) {
+        return [
+          { text: 'ທັງໝົດ', value: '' },
+          ...this.paymentMethods.map((m) => ({
+            text: m.payment_name,
+            value: m.id,
+          })),
+        ]
+      }
+      return [
+        { text: 'ທັງໝົດ', value: '' },
+        ...this.paymentMethodOptions,
+      ]
+    },
+
     summaryTotals() {
       return this.filteredReceipts.reduce(
         (acc, receipt) => {
-          acc.totalReceived += (receipt.totalReceivedAmount || 0)
+          const amount = parseFloat(receipt.totalReceivedAmount) || 0
+          acc.totalReceived += amount
 
-          if (receipt.paymentMethod === 'cash') {
-            acc.totalCash += (receipt.totalReceivedAmount || 0)
-          } else if (receipt.paymentMethod === 'bank_transfer') {
-            acc.totalBankTransfer += (receipt.totalReceivedAmount || 0)
+          let code = ''
+          if (receipt.payment?.payment_code) {
+            code = receipt.payment.payment_code.toUpperCase()
+          } else if (receipt.paymentId && this.paymentMethods && this.paymentMethods.length > 0) {
+            const found = this.paymentMethods.find((m) => Number(m.id) === Number(receipt.paymentId))
+            if (found?.payment_code) code = found.payment_code.toUpperCase()
+          }
+
+          const isCash = code === 'CASH' || code === 'COD' || receipt.paymentMethod === 'cash'
+          const isTransfer =
+            code.includes('TRANSFER') ||
+            code.includes('BCEL') ||
+            code.includes('JDB') ||
+            code.includes('LDB') ||
+            code.includes('LVB') ||
+            code.includes('QR') ||
+            code.includes('BANK') ||
+            receipt.paymentMethod === 'bank_transfer'
+
+          if (isCash) {
+            acc.totalCash += amount
+          } else if (isTransfer) {
+            acc.totalBankTransfer += amount
           } else {
-            acc.totalOther += (receipt.totalReceivedAmount || 0)
+            acc.totalOther += amount
           }
 
           return acc
@@ -597,15 +633,15 @@ export default {
           'ລູກຄ້າ': receipt.invoiceHeader?.customer?.name || '',
           'ຍອດເງິນຮັບ': receipt.totalReceivedAmount || 0,
           'ສະກຸນເງິນ': this.getCurrencyCode(receipt),
-          'ວິທີການຊຳລະ': this.formatPaymentMethod(receipt.paymentMethod),
+          'ວິທີການຊຳລະ': this.getPaymentMethodText(receipt),
           'ເລກອ້າງອີງ': receipt.referenceNumber || '',
           'ຊື່ບໍລິສັດ': receipt.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '',
           'ລະຫັດວຽກ': receipt.invoiceHeader?.jobbatch?.mou?.jobCode || '',
           'ຊື່ວຽກ': receipt.invoiceHeader?.jobbatch?.mou?.jobTitle || '',
           'ຈຳນວນການແບ່ງປັນ': receipt.receiveLines?.length || 0,
           'ໝາຍເຫດ': receipt.notes || '',
-          'ຜູ້ບັນທຶກ': receipt.inputter?.username || receipt.maker?.username || '',
-          'ຜູ້ກວດສອບ': receipt.checker?.username || '',
+          'ຜູ້ບັນທຶກ': this.getInputterName(receipt) === 'N/A' ? '' : this.getInputterName(receipt),
+          'ຜູ້ກວດສອບ': receipt.checker?.cus_name || receipt.checker?.username || '',
           'ວັນທີສ້າງ': this.formatDate(receipt.createdAt),
           'ວັນທີອັບເດດ': this.formatDate(receipt.updateTimestamp),
           'ສະຖານະ': receipt.status || 'active'
@@ -709,14 +745,14 @@ export default {
         receipt.invoiceHeader?.customer?.name || '',
         receipt.totalReceivedAmount || 0,
         this.getCurrencyCode(receipt),
-        this.formatPaymentMethod(receipt.paymentMethod),
+        this.getPaymentMethodText(receipt),
         receipt.referenceNumber || '',
         receipt.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || '',
         receipt.invoiceHeader?.jobbatch?.mou?.jobCode || '',
         receipt.invoiceHeader?.jobbatch?.mou?.jobTitle || '',
         receipt.receiveLines?.length || 0,
         receipt.notes || '',
-        receipt.inputter?.username || receipt.maker?.username || '',
+        this.getInputterName(receipt) === 'N/A' ? '' : this.getInputterName(receipt),
         this.formatDate(receipt.createdAt)
       ])
 
@@ -730,17 +766,64 @@ export default {
 
     // Helper method to get currency code
     getCurrencyCode(receipt) {
-      // Try to get from receive lines first
+      if (!receipt) return 'LAK'
+
+      // 1. Try directly from receipt.currency (associated model on ARReceiveHeader)
+      if (receipt.currency) {
+        if (typeof receipt.currency === 'string') return receipt.currency
+        if (receipt.currency.code) return receipt.currency.code
+        if (receipt.currency.name) return receipt.currency.name
+      }
+
+      // 2. Try from receipt.currencyId
+      if (receipt.currencyId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(receipt.currencyId)
+        )
+        if (found && found.code) return found.code
+      }
+
+      // 3. Try from receive lines if available
       if (receipt.receiveLines && receipt.receiveLines.length > 0) {
-        const firstLine = receipt.receiveLines[0]
-        if (firstLine.currency) {
-          return firstLine.currency.code || firstLine.currency.name || 'LAK'
+        for (const line of receipt.receiveLines) {
+          if (line.currency?.code) return line.currency.code
+          if (line.currencyId && this.currencies && this.currencies.length > 0) {
+            const found = this.currencies.find(
+              (c) => Number(c.id) === Number(line.currencyId)
+            )
+            if (found && found.code) return found.code
+          }
         }
       }
 
-      // Try to get from invoice
-      if (receipt.invoiceHeader && receipt.invoiceHeader.currency) {
-        return receipt.invoiceHeader.currency.code || receipt.invoiceHeader.currency.name || 'LAK'
+      // 4. Try from invoice header
+      if (receipt.invoiceHeader) {
+        if (receipt.invoiceHeader.currency?.code) {
+          return receipt.invoiceHeader.currency.code
+        }
+        if (receipt.invoiceHeader.currencyId && this.currencies && this.currencies.length > 0) {
+          const found = this.currencies.find(
+            (c) => Number(c.id) === Number(receipt.invoiceHeader.currencyId)
+          )
+          if (found && found.code) return found.code
+        }
+      }
+
+      // 5. Try looking up the invoice from this.invoices
+      const invoiceId = receipt.invoiceHeaderId || receipt.invoiceHeader?.id
+      if (invoiceId && this.invoices && this.invoices.length > 0) {
+        const inv = this.invoices.find(
+          (i) => Number(i.id) === Number(invoiceId)
+        )
+        if (inv) {
+          if (inv.currency?.code) return inv.currency.code
+          if (inv.currencyId && this.currencies && this.currencies.length > 0) {
+            const found = this.currencies.find(
+              (c) => Number(c.id) === Number(inv.currencyId)
+            )
+            if (found && found.code) return found.code
+          }
+        }
       }
 
       // Default to LAK
@@ -983,14 +1066,19 @@ export default {
           (r) =>
             r.receiptNumber.toLowerCase().includes(search) ||
             r.referenceNumber?.toLowerCase().includes(search) ||
-            r.notes?.toLowerCase().includes(search)
+            r.notes?.toLowerCase().includes(search) ||
+            this.getInputterName(r).toLowerCase().includes(search)
         )
       }
 
       if (this.filters.paymentMethod) {
-        filtered = filtered.filter(
-          (r) => r.paymentMethod === this.filters.paymentMethod
-        )
+        filtered = filtered.filter((r) => {
+          return (
+            Number(r.paymentId) === Number(this.filters.paymentMethod) ||
+            r.paymentMethod === this.filters.paymentMethod ||
+            (r.payment && Number(r.payment.id) === Number(this.filters.paymentMethod))
+          )
+        })
       }
 
       if (this.filters.bookingDateFrom || this.filters.bookingDateTo) {
@@ -1059,7 +1147,7 @@ export default {
             `"${row.invoiceHeader?.customer?.name || ''}"`,
             row.totalReceivedAmount,
             `"${this.getCurrencyCode(row)}"`,
-            `"${this.formatPaymentMethod(row.paymentMethod)}"`,
+            `"${this.getPaymentMethodText(row)}"`,
             `"${row.referenceNumber || ''}"`,
             `"${row.invoiceHeader?.jobbatch?.mou?.agency?.agencyName || ''}"`,
             `"${row.invoiceHeader?.jobbatch?.mou?.jobCode || ''}"`,
@@ -1093,7 +1181,27 @@ export default {
       })
     },
 
+    getPaymentMethodText(item) {
+      if (!item) return '-'
+      if (typeof item === 'object') {
+        if (item.payment && item.payment.payment_name) {
+          return item.payment.payment_name
+        }
+        if (item.paymentId && this.paymentMethods && this.paymentMethods.length > 0) {
+          const found = this.paymentMethods.find((m) => Number(m.id) === Number(item.paymentId))
+          if (found) return found.payment_name
+        }
+        return this.formatPaymentMethod(item.paymentMethod)
+      }
+      return this.formatPaymentMethod(item)
+    },
+
     formatPaymentMethod(method) {
+      if (!method) return '-'
+      if (this.paymentMethods && this.paymentMethods.length > 0) {
+        const found = this.paymentMethods.find((m) => Number(m.id) === Number(method))
+        if (found) return found.payment_name
+      }
       const methods = {
         cash: 'ເງິນສົດ',
         check: 'ເຊັກ',
@@ -1104,7 +1212,37 @@ export default {
       return methods[method] || method
     },
 
-    getPaymentMethodColor(method) {
+    getPaymentMethodColor(item) {
+      let code = ''
+      let method = ''
+      if (typeof item === 'object' && item !== null) {
+        if (item.payment?.payment_code) {
+          code = item.payment.payment_code.toUpperCase()
+        } else if (item.paymentId && this.paymentMethods && this.paymentMethods.length > 0) {
+          const found = this.paymentMethods.find((m) => Number(m.id) === Number(item.paymentId))
+          if (found?.payment_code) code = found.payment_code.toUpperCase()
+        }
+        method = item.paymentMethod
+      } else {
+        method = item
+      }
+
+      if (code) {
+        if (code === 'CASH' || code === 'COD') return 'success'
+        if (
+          code.includes('TRANSFER') ||
+          code.includes('BCEL') ||
+          code.includes('JDB') ||
+          code.includes('LDB') ||
+          code.includes('LVB') ||
+          code.includes('QR') ||
+          code.includes('BANK')
+        )
+          return 'info'
+        if (code.includes('CHECK')) return 'warning'
+        if (code.includes('CREDIT') || code.includes('CARD') || code.includes('NFC')) return 'error'
+      }
+
       const colors = {
         cash: 'success',
         bank_transfer: 'info',
@@ -1140,6 +1278,21 @@ export default {
         cancelled: 'mdi-close-circle-outline',
       }
       return icons[status] || 'mdi-help-circle-outline'
+    },
+
+    getInputterName(item) {
+      if (!item) return 'N/A'
+      return (
+        item.inputter?.cus_name ||
+        item.inputter?.name ||
+        item.inputter?.username ||
+        item.inputter?.cus_id ||
+        item.maker?.cus_name ||
+        item.maker?.name ||
+        item.maker?.username ||
+        item.maker?.cus_id ||
+        'N/A'
+      )
     },
 
     async voidReceiptAction(receipt) {

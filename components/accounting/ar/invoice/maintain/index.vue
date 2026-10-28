@@ -66,37 +66,135 @@
                       />
                     </v-col>
 
-                    <!-- Client/Agency Autocomplete -->
+                    <!-- Client/Agency Autocomplete or POS Client Display -->
                     <v-col cols="12" sm="6" md="4" lg="3">
-                      <v-autocomplete
-                        v-model="form.agencyId"
-                        :items="agencies"
-                        item-value="id"
-                        item-text="name"
-                        :label="formLabel.vendor"
+                      <!-- POS Invoice Client (Read-only for POS-generated invoices) -->
+                      <v-text-field
+                        v-if="isEdit && invoice && invoice.saleHeaderId && (invoice.client || form.clientId)"
+                        :value="invoice.client ? `${invoice.client.name} ${invoice.client.company ? '(' + invoice.client.company + ')' : ''} [POS]` : `POS Client #${form.clientId}`"
+                        label="ລູກຄ້າ POS (POS Customer)"
                         outlined
                         dense
+                        readonly
                         hide-details="auto"
-                        :error="!!errors.agencyId"
-                        :error-messages="errors.agencyId"
-                        clearable
-                        required
-                        @change="onVendorChange"
-                      >
-                        <template v-slot:item="{ item }">
-                          <v-list-item-content class="py-1">
-                            <v-list-item-title class="text-body-2 font-weight-medium">
-                              {{ item.name || item.agencyName }}
-                              <span class="grey--text font-weight-regular">
-                                ({{ item.code || item.agencyCode }})
-                              </span>
-                            </v-list-item-title>
-                          </v-list-item-content>
-                        </template>
-                        <template v-slot:selection="{ item }">
-                          {{ item.name || item.agencyName }} ({{ item.code || item.agencyCode }})
-                        </template>
-                      </v-autocomplete>
+                        prepend-inner-icon="mdi-store"
+                      />
+
+                      <!-- Manual / Editable Invoice Customer Selection -->
+                      <div v-else>
+                        <!-- Type selector if Job Fair mode is enabled or agencies exist -->
+                        <div v-if="enableBatchJobbutton || (agencies && agencies.length > 0)" class="d-flex align-center justify-space-between mb-1">
+                          <span class="caption grey--text font-weight-medium">ປະເພດລູກຄ້າ:</span>
+                          <v-btn-toggle
+                            v-model="customerType"
+                            mandatory
+                            dense
+                            class="customer-toggle"
+                            @change="onCustomerTypeChange"
+                          >
+                            <v-btn small value="client" active-class="primary white--text">
+                              <v-icon x-small left>mdi-account</v-icon>
+                              ລູກຄ້າ (Client)
+                            </v-btn>
+                            <v-btn small value="agency" active-class="primary white--text">
+                              <v-icon x-small left>mdi-domain</v-icon>
+                              {{ clientLabel || 'ຕົວແທນ' }}
+                            </v-btn>
+                          </v-btn-toggle>
+                        </div>
+
+                        <!-- Client Autocomplete -->
+                        <v-autocomplete
+                          v-if="customerType === 'client'"
+                          v-model="form.clientId"
+                          :items="availableCustomers"
+                          item-value="id"
+                          item-text="name"
+                          label="ລູກຄ້າ (Client / Customer)"
+                          placeholder="ເລືອກລູກຄ້າ (Select Client)"
+                          outlined
+                          dense
+                          hide-details="auto"
+                          :error="!!errors.clientId || !!errors.agencyId"
+                          :error-messages="errors.clientId || errors.agencyId"
+                          :loading="loadingCustomers"
+                          clearable
+                          required
+                          prepend-inner-icon="mdi-account"
+                          @change="onClientChange"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content class="py-1">
+                              <v-list-item-title class="text-body-2 font-weight-medium">
+                                {{ item.name }}
+                                <span v-if="item.company" class="grey--text font-weight-regular">
+                                  ({{ item.company }})
+                                </span>
+                              </v-list-item-title>
+                              <v-list-item-subtitle v-if="item.telephone || item.address" class="caption grey--text">
+                                {{ item.telephone }} {{ item.address ? '• ' + item.address : '' }}
+                              </v-list-item-subtitle>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.name }} {{ item.company ? `(${item.company})` : '' }}
+                          </template>
+                          <template v-slot:no-data>
+                            <v-list-item>
+                              <v-list-item-content>
+                                <v-list-item-title class="grey--text text-caption">
+                                  ບໍ່ພົບຂໍ້ມູນລູກຄ້າ (ຈັດການລູກຄ້າໄດ້ທີ່ 
+                                  <a href="/admin/client" target="_blank" class="primary--text text-decoration-underline font-weight-bold">/admin/client</a>)
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </template>
+                        </v-autocomplete>
+
+                        <!-- Agency Autocomplete -->
+                        <v-autocomplete
+                          v-else
+                          v-model="form.agencyId"
+                          :items="agencies"
+                          item-value="id"
+                          item-text="name"
+                          :label="formLabel.vendor"
+                          placeholder="ເລືອກຕົວແທນ"
+                          outlined
+                          dense
+                          hide-details="auto"
+                          :error="!!errors.agencyId || !!errors.clientId"
+                          :error-messages="errors.agencyId || errors.clientId"
+                          clearable
+                          required
+                          prepend-inner-icon="mdi-domain"
+                          @change="onVendorChange"
+                        >
+                          <template v-slot:item="{ item }">
+                            <v-list-item-content class="py-1">
+                              <v-list-item-title class="text-body-2 font-weight-medium">
+                                {{ item.name || item.agencyName }}
+                                <span class="grey--text font-weight-regular">
+                                  ({{ item.code || item.agencyCode }})
+                                </span>
+                              </v-list-item-title>
+                            </v-list-item-content>
+                          </template>
+                          <template v-slot:selection="{ item }">
+                            {{ item.name || item.agencyName }} ({{ item.code || item.agencyCode }})
+                          </template>
+                          <template v-slot:no-data>
+                            <v-list-item>
+                              <v-list-item-content>
+                                <v-list-item-title class="grey--text text-caption">
+                                  ບໍ່ພົບຂໍ້ມູນຕົວແທນ (ຈັດການໄດ້ທີ່
+                                  <a href="/admin/job_fair/agency" target="_blank" class="primary--text text-decoration-underline font-weight-bold">/admin/job_fair/agency</a>)
+                                </v-list-item-title>
+                              </v-list-item-content>
+                            </v-list-item>
+                          </template>
+                        </v-autocomplete>
+                      </div>
                     </v-col>
 
                     <!-- Job Batch Autocomplete (Conditional) -->
@@ -198,11 +296,12 @@
                           <v-list-item-content class="py-1">
                             <v-list-item-title class="text-body-2 font-weight-medium">
                               {{ item.name }} ({{ item.code }})
+                              <span v-if="item.symbol" class="grey--text font-weight-regular"> - {{ item.symbol }}</span>
                             </v-list-item-title>
                           </v-list-item-content>
                         </template>
                         <template v-slot:selection="{ item }">
-                          {{ item.name }} ({{ item.code }})
+                          {{ item.name }} ({{ item.code }})<span v-if="item.symbol" class="ml-1 grey--text"> - {{ item.symbol }}</span>
                         </template>
                       </v-autocomplete>
                     </v-col>
@@ -325,10 +424,14 @@
                           <th style="width: 250px">ລາຍລະອຽດ (Description) *</th>
                           <th style="width: 220px">ລະຫັດການເງິນ (Financial Code) *</th>
                           <th style="width: 120px" class="text-right">ຈຳນວນ *</th>
-                          <th style="width: 140px" class="text-right">ລາຄາຕໍ່ຫົວ *</th>
+                          <th style="width: 140px" class="text-right">
+                            ລາຄາຕໍ່ຫົວ <span v-if="currencyCode" class="caption font-weight-regular grey--text text--darken-1">({{ currencyCode }})</span> *
+                          </th>
                           <th style="width: 180px" v-if="enableGL">DR Account</th>
                           <th style="width: 180px" v-if="enableGL">CR Account</th>
-                          <th style="width: 140px" class="text-right">ລວມຕໍ່ແຖວ (Total)</th>
+                          <th style="width: 140px" class="text-right">
+                            ລວມຕໍ່ແຖວ (Total) <span v-if="currencyCode" class="caption font-weight-regular grey--text text--darken-1">({{ currencyCode }})</span>
+                          </th>
                           <th style="width: 50px" class="text-center">ລຶບ</th>
                         </tr>
                       </thead>
@@ -554,25 +657,45 @@
                 <v-card-text class="pa-4 grey lighten-5">
                   <v-row dense class="align-center justify-space-between text-center text-sm-left">
                     <v-col cols="12" sm="3" class="px-4 py-2 border-sm-right">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ລວມຍ່ອຍ (Subtotal)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ລວມຍ່ອຍ (Subtotal)</span>
+                        <v-chip v-if="currencyCode" x-small color="grey lighten-2" class="ml-1 font-weight-bold grey--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h6 font-weight-black grey--text text--darken-4 mt-1">
                         {{ formatCurrency(calculatedSubtotal) }}
                       </div>
                     </v-col>
                     <v-col cols="12" sm="3" class="px-4 py-2 border-sm-right">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ພາສີລວມ (Total Tax)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ພາສີລວມ (Total Tax)</span>
+                        <v-chip v-if="currencyCode" x-small color="grey lighten-2" class="ml-1 font-weight-bold grey--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h6 font-weight-black error--text mt-1">
                         {{ formatCurrency(calculatedTax) }}
                       </div>
                     </v-col>
                     <v-col cols="12" sm="3" class="px-4 py-2 border-sm-right">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ຍອດສຸດທິ (Net Amount)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ຍອດສຸດທິ (Net Amount)</span>
+                        <v-chip v-if="currencyCode" x-small color="grey lighten-2" class="ml-1 font-weight-bold grey--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h6 font-weight-black info--text mt-1">
                         {{ formatCurrency(calculatedNet) }}
                       </div>
                     </v-col>
                     <v-col cols="12" sm="3" class="px-4 py-2">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ລວມທັງໝົດ (Grand Total)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ລວມທັງໝົດ (Grand Total)</span>
+                        <v-chip v-if="currencyCode" x-small color="success lighten-4" class="ml-1 font-weight-bold success--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h5 font-weight-black success--text mt-1">
                         {{ formatCurrency(calculatedTotal) }}
                       </div>
@@ -595,7 +718,7 @@
             :disabled="saving"
           >
             <v-icon left>mdi-close</v-icon>
-            ຍົກເລີກ
+            ປິດໜ້າຕ່າງ
           </v-btn>
 
           <v-btn
@@ -682,6 +805,9 @@ export default {
     return {
       transactionCodes: [], // Add this
       loadingTransactionCodes: false, // Add this
+      customerType: 'client',
+      localCustomers: [],
+      loadingCustomers: false,
       selectedVendor: null,
       showAuditDialog: false,
       showInvoicePrinter: false,
@@ -715,7 +841,10 @@ export default {
     }
   },
   async mounted() {
-    await this.loadTransactionCodes() // Add this
+    await Promise.all([
+      this.loadTransactionCodes(),
+      this.fetchLocalCustomers(),
+    ])
   },
 
   computed: {
@@ -743,8 +872,33 @@ export default {
     isEdit() {
       return !!(this.invoice && this.invoice.id)
     },
+    availableCustomers() {
+      if (this.customers && this.customers.length > 0) {
+        return this.customers
+      }
+      return this.localCustomers || []
+    },
     user() {
       return this.$auth.user || ''
+    },
+    currentCurrency() {
+      if (this.selectedCurrency) return this.selectedCurrency
+      if (this.form.currencyId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(this.form.currencyId)
+        )
+        if (found) return found
+      }
+      if (this.invoice && this.invoice.currency) {
+        return this.invoice.currency
+      }
+      return null
+    },
+    currencyCode() {
+      return this.currentCurrency?.code || ''
+    },
+    currencySymbol() {
+      return this.currentCurrency?.symbol || ''
     },
     invoiceInfoForAudit() {
       if (!this.form.id) return null
@@ -791,7 +945,7 @@ export default {
       const hasValidHeader =
         this.form.invoiceNumber &&
         this.form.invoiceDate &&
-        this.form.agencyId &&
+        (this.form.agencyId || this.form.clientId) &&
         (!this.isEdit || this.form.reason)
 
       const hasValidLines =
@@ -835,6 +989,22 @@ export default {
           this.initializeDialog()
         }
       },
+    },
+    currencies: {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.updateSelectedCurrency(false)
+        }
+      },
+      immediate: true,
+    },
+    customers: {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.updateSelectedCustomer()
+        }
+      },
+      immediate: true,
     },
   },
 
@@ -921,9 +1091,11 @@ export default {
         invoiceDate: this.form.invoiceDate,
         dueDate: this.form.dueDate,
         agencyId: this.form.agencyId,
+        clientId: this.form.clientId,
         jobBatchId: this.form.jobBatchId,
         currencyId: this.form.currencyId,
         exchangeRate: this.form.exchangeRate,
+        currency: this.currentCurrency,
         status: this.form.status,
         description: this.form.description || '',
         lineItems: this.lineItems.map((line) => ({
@@ -962,6 +1134,41 @@ export default {
       }
     },
 
+    async fetchLocalCustomers() {
+      if (this.customers && this.customers.length > 0) return
+      this.loadingCustomers = true
+      try {
+        const { data } = await this.$axios.get('/api/client/find')
+        this.localCustomers = data || []
+      } catch (e) {
+        console.error('Failed to fetch clients:', e)
+        this.localCustomers = []
+      } finally {
+        this.loadingCustomers = false
+      }
+    },
+
+    onCustomerTypeChange(type) {
+      this.customerType = type
+      if (type === 'client') {
+        this.form.agencyId = null
+      } else {
+        this.form.clientId = null
+      }
+      this.updateSelectedCustomer()
+      this.clearFieldError('clientId')
+      this.clearFieldError('agencyId')
+    },
+
+    onClientChange(clientId) {
+      this.form.clientId = clientId
+      this.form.agencyId = null
+      this.updateSelectedCustomer()
+      this.calculateDueDate()
+      this.clearFieldError('clientId')
+      this.clearFieldError('agencyId')
+    },
+
     updateSelectedVendor() {
       if (this.form.agencyId && this.agencies.length > 0) {
         this.selectedVendor = this.agencies.find(
@@ -973,9 +1180,12 @@ export default {
     },
 
     onVendorChange() {
+      this.form.clientId = null
       this.updateSelectedVendor()
+      this.updateSelectedCustomer()
       this.calculateDueDate()
       this.clearFieldError('agencyId')
+      this.clearFieldError('clientId')
     },
 
     openAuditDialog() {
@@ -1001,8 +1211,9 @@ export default {
           dueDate: this.invoice.dueDate
             ? this.invoice.dueDate.split('T')[0]
             : '',
-          agencyId: this.invoice.agencyId,
-          jobBatchId: this.invoice.jobBatchId,
+          clientId: this.invoice.clientId || null,
+          agencyId: this.invoice.agencyId || null,
+          jobBatchId: this.invoice.jobBatchId || null,
           currencyId: this.invoice.currencyId,
           exchangeRate: this.invoice.exchangeRate || 1.0,
           totalAmount: this.invoice.totalAmount || 0.0,
@@ -1014,9 +1225,18 @@ export default {
           documents: this.invoice.documents ? JSON.parse(JSON.stringify(this.invoice.documents)) : [],
         }
 
+        if (this.invoice.clientId) {
+          this.customerType = 'client'
+        } else if (this.invoice.agencyId) {
+          this.customerType = 'agency'
+        } else {
+          this.customerType = this.enableBatchJobbutton ? 'agency' : 'client'
+        }
+
         await this.loadLineItems(this.invoice.id)
       } else {
         this.resetForm()
+        this.customerType = this.enableBatchJobbutton ? 'agency' : 'client'
 
         this.form.invoiceDate = new Date().toISOString().split('T')[0]
         const dueDate = new Date()
@@ -1024,18 +1244,24 @@ export default {
         this.form.dueDate = dueDate.toISOString().split('T')[0]
 
         if (this.currencies.length > 0) {
+          // Priority: isLocalCCY -> LAK -> USD -> currencies[0]
           const defaultCurrency =
-            this.currencies.find((c) => c.code === 'USD') || this.currencies[0]
+            this.currencies.find((c) => c.isLocalCCY) ||
+            this.currencies.find((c) => c.code === 'LAK') ||
+            this.currencies.find((c) => c.code === 'USD') ||
+            this.currencies[0]
           this.form.currencyId = defaultCurrency.id
           this.selectedCurrency = defaultCurrency
+          this.form.exchangeRate = defaultCurrency.rate || 1.0
         }
 
         this.lineItems = [this.createEmptyLine()]
         this.requestSequence()
       }
 
+      await this.fetchLocalCustomers()
       this.updateSelectedCustomer()
-      this.updateSelectedCurrency()
+      this.updateSelectedCurrency(false)
     },
 
     resetDialog() {
@@ -1119,23 +1345,32 @@ export default {
     },
 
     updateSelectedCustomer() {
-      if (this.form.agencyId && this.agencies.length > 0) {
+      if (this.form.clientId) {
+        const list = this.availableCustomers
+        this.selectedCustomer = list.find((c) => c.id === this.form.clientId) || null
+      } else if (this.form.agencyId && this.agencies.length > 0) {
         this.selectedCustomer = this.agencies.find(
           (c) => c.id === this.form.agencyId
-        )
+        ) || null
       } else {
         this.selectedCustomer = null
       }
     },
 
-    updateSelectedCurrency() {
-      if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find(
-          (c) => c.id === this.form.currencyId
+    updateSelectedCurrency(updateExchangeRate = false) {
+      if (this.form.currencyId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(this.form.currencyId)
         )
-        this.form.exchangeRate = this.currencies.find(
-          (c) => c.id === this.form.currencyId
-        ).rate
+        this.selectedCurrency = found || (this.invoice?.currency || null)
+        if (updateExchangeRate && found && found.rate) {
+          this.form.exchangeRate = found.rate
+        }
+      } else if (this.invoice && this.invoice.currency) {
+        this.selectedCurrency = this.invoice.currency
+        if (!this.form.currencyId) {
+          this.form.currencyId = this.invoice.currency.id
+        }
       } else {
         this.selectedCurrency = null
       }
@@ -1145,6 +1380,7 @@ export default {
       this.updateSelectedCustomer()
       this.calculateDueDate()
       this.clearFieldError('agencyId')
+      this.clearFieldError('clientId')
     },
 
     onBatchJobChange() {
@@ -1225,16 +1461,20 @@ export default {
     },
 
     onCurrencyChange() {
-      this.updateSelectedCurrency()
+      this.updateSelectedCurrency(true)
       this.clearFieldError('currencyId')
     },
 
     calculateDueDate() {
-      if (this.form.invoiceDate && this.selectedCustomer?.paymentTerms) {
+      const creditDays =
+        this.selectedCustomer?.credit ||
+        this.selectedCustomer?.paymentTerms ||
+        30
+      if (this.form.invoiceDate && creditDays) {
         const invoiceDate = new Date(this.form.invoiceDate)
         const dueDate = new Date(invoiceDate)
         dueDate.setDate(
-          dueDate.getDate() + parseInt(this.selectedCustomer.paymentTerms)
+          dueDate.getDate() + parseInt(creditDays)
         )
         this.form.dueDate = dueDate.toISOString().split('T')[0]
       }
@@ -1247,8 +1487,9 @@ export default {
         this.errors.invoiceNumber = 'ກະລຸນາໃສ່ເລກທີໃບແຈ້ງໜີ້'
       }
 
-      if (!this.form.agencyId) {
+      if (!this.form.agencyId && !this.form.clientId) {
         this.errors.agencyId = 'ກະລຸນາເລືອກລູກຄ້າ'
+        this.errors.clientId = 'ກະລຸນາເລືອກລູກຄ້າ'
       }
 
       if (!this.form.invoiceDate) {
@@ -1346,6 +1587,7 @@ export default {
         invoiceDate: '',
         dueDate: '',
         clientId: null,
+        agencyId: null,
         jobBatchId: null,
         currencyId: null,
         exchangeRate: 1.0,
@@ -1360,10 +1602,21 @@ export default {
     },
 
     formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(amount || 0)
+      if (amount === null || amount === undefined || isNaN(amount)) {
+        return '0.00'
+      }
+      const val = parseFloat(amount) || 0
+      const formatted = val.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+      if (this.currencySymbol) {
+        return `${this.currencySymbol} ${formatted}`
+      }
+      if (this.currencyCode) {
+        return `${formatted} ${this.currencyCode}`
+      }
+      return formatted
     },
 
     showToast(message, type = 'info') {
@@ -1388,8 +1641,9 @@ export default {
     currencyFilter(item, queryText) {
       const searchText = queryText.toLowerCase()
       return (
-        item.name.toLowerCase().includes(searchText) ||
-        item.code.toLowerCase().includes(searchText)
+        (item.name && item.name.toLowerCase().includes(searchText)) ||
+        (item.code && item.code.toLowerCase().includes(searchText)) ||
+        (item.symbol && item.symbol.toLowerCase().includes(searchText))
       )
     },
   },
@@ -1415,6 +1669,19 @@ export default {
 }
 
 /* Modal and layout styling */
+.customer-toggle {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+  height: 26px !important;
+}
+.customer-toggle .v-btn {
+  height: 26px !important;
+  font-size: 11px !important;
+  padding: 0 8px !important;
+  text-transform: none !important;
+}
+
 .invoice-modal-card {
   background-color: #f8fafc !important;
   height: 100vh;

@@ -223,7 +223,7 @@
         <v-spacer></v-spacer>
         <v-btn text color="grey darken-1" @click="toggleDialog" :disabled="isloading" small class="mr-2 rounded-lg">
           <v-icon left small>mdi-close</v-icon>
-          Cancel
+          ປິດໜ້າຕ່າງ
         </v-btn>
         <v-btn depressed color="primary" @click="postTransaction" :disabled="isloading || !canSave" :loading="isloading"
           small class="rounded-lg px-4 font-weight-bold">

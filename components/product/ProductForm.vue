@@ -107,6 +107,186 @@
 
               <v-divider class="mb-4"></v-divider>
 
+              <!-- Commission Settings Section Card -->
+              <div
+                class="commission-card rounded-xl pa-3 pa-sm-4 mb-4"
+                :class="formData.hasCommission ? 'commission-card--active' : 'commission-card--inactive'"
+              >
+                <div class="d-flex align-center justify-space-between flex-wrap gap-2">
+                  <div class="d-flex align-center">
+                    <v-avatar
+                      size="36"
+                      :color="formData.hasCommission ? 'primary lighten-5' : 'grey lighten-4'"
+                      class="mr-3"
+                    >
+                      <v-icon :color="formData.hasCommission ? 'primary' : 'grey darken-1'" size="20">
+                        mdi-cash-multiple
+                      </v-icon>
+                    </v-avatar>
+                    <div>
+                      <div class="d-flex align-center">
+                        <span class="body-2 font-weight-bold grey--text text--darken-3 mr-2">
+                          ຄ່ານາຍໜ້າການຂາຍ
+                        </span>
+                        <v-chip x-small label color="primary lighten-5" class="primary--text font-weight-medium">
+                          Sales Commission
+                        </v-chip>
+                      </div>
+                      <div class="caption grey--text">
+                        ກຳນົດສ່ວນແບ່ງຄ່ານາຍໜ້າໃຫ້ຜູ້ຂາຍເມື່ອສິນຄ້ານີ້ຖືກຂາຍອອກ
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="d-flex align-center">
+                    <v-chip
+                      x-small
+                      :color="formData.hasCommission ? 'success lighten-5' : 'grey lighten-4'"
+                      :text-color="formData.hasCommission ? 'success darken-2' : 'grey darken-1'"
+                      class="font-weight-bold mr-2"
+                    >
+                      {{ formData.hasCommission ? 'ເປີດໃຊ້ງານ' : 'ປິດໃຊ້ງານ' }}
+                    </v-chip>
+                    <v-switch
+                      v-model="formData.hasCommission"
+                      dense
+                      hide-details
+                      inset
+                      color="primary"
+                      class="mt-0 pt-0"
+                    />
+                  </div>
+                </div>
+
+                <v-expand-transition>
+                  <div v-if="formData.hasCommission" class="mt-3 pt-3 commission-body">
+                    <v-row dense>
+                      <v-col cols="12" sm="4">
+                        <v-select
+                          v-model="formData.commissionType"
+                          :items="commissionTypeOptions"
+                          item-text="text"
+                          item-value="value"
+                          label="ປະເພດຄ່ານາຍໜ້າ*"
+                          dense
+                          outlined
+                          prepend-inner-icon="mdi-format-list-bulleted-type"
+                          hide-details="auto"
+                          class="rounded-lg"
+                        />
+                      </v-col>
+                      <v-col cols="12" sm="4">
+                        <v-text-field
+                          v-model="formattedCommissionValue"
+                          :label="formData.commissionType === 'percentage' ? 'ເປີເຊັນຄ່ານາຍໜ້າ (%)*' : 'ຈຳນວນເງິນຕໍ່ໜ່ວຍ*'"
+                          :suffix="formData.commissionType === 'percentage' ? '%' : getCommissionCurrencySymbol"
+                          :prepend-inner-icon="formData.commissionType === 'percentage' ? 'mdi-percent' : 'mdi-currency-usd'"
+                          dense
+                          outlined
+                          hide-details="auto"
+                          class="rounded-lg"
+                        />
+                      </v-col>
+                      <v-col cols="12" sm="4">
+                        <v-autocomplete
+                          v-model="formData.commissionCurrencyId"
+                          :items="findAllCurrency"
+                          item-text="code"
+                          item-value="id"
+                          label="ສະກຸນເງິນຄ່ານາຍໜ້າ*"
+                          dense
+                          outlined
+                          prepend-inner-icon="mdi-cash"
+                          hide-details="auto"
+                          class="rounded-lg"
+                          :disabled="formData.commissionType === 'percentage'"
+                        />
+                      </v-col>
+
+                      <!-- Dealership / Vehicle Agency Discount Impact Policy Controls -->
+                      <v-col v-if="formData.commissionType === 'fixed'" cols="12" :sm="formData.commissionDiscountImpact === 'deduct_shared' ? 5 : 7" class="mt-1">
+                        <v-select
+                          v-model="formData.commissionDiscountImpact"
+                          :items="commissionDiscountImpactOptions"
+                          item-text="text"
+                          item-value="value"
+                          label="ນະໂຍບາຍເມື່ອມີສ່ວນຫຼຸດ (Discount Impact)*"
+                          dense
+                          outlined
+                          prepend-inner-icon="mdi-tag-minus-outline"
+                          hide-details="auto"
+                          class="rounded-lg"
+                        />
+                      </v-col>
+                      <v-col v-if="formData.commissionType === 'fixed' && formData.commissionDiscountImpact === 'deduct_shared'" cols="12" sm="3" class="mt-1">
+                        <v-text-field
+                          v-model.number="formData.commissionDiscountRate"
+                          type="number"
+                          label="ອັດຕາຮັບສ່ວນຫຼຸດ (%)*"
+                          suffix="%"
+                          dense
+                          outlined
+                          hide-details="auto"
+                          class="rounded-lg"
+                          min="0"
+                          max="100"
+                        />
+                      </v-col>
+                      <v-col v-if="formData.commissionType === 'fixed'" cols="12" :sm="formData.commissionDiscountImpact === 'deduct_shared' ? 4 : 5" class="mt-1">
+                        <v-text-field
+                          v-model="formattedCommissionMinFloor"
+                          label="ຄ່ານາຍໜ້າຂັ້ນຕ່ຳສຸດ (Min Floor)"
+                          :suffix="getCommissionCurrencySymbol"
+                          prepend-inner-icon="mdi-shield-check-outline"
+                          dense
+                          outlined
+                          hide-details="auto"
+                          class="rounded-lg"
+                        />
+                      </v-col>
+
+                      <v-col cols="12" class="mt-2">
+                        <div class="commission-preview-box pa-2 px-3 rounded-lg">
+                          <div class="d-flex align-center justify-space-between flex-wrap">
+                            <div class="d-flex align-center">
+                              <v-icon small color="primary" class="mr-2">mdi-calculator-variant-outline</v-icon>
+                              <span class="caption grey--text text--darken-3 font-weight-medium">
+                                ຕົວຢ່າງ: ຂາຍ 1 ໜ່ວຍ (ລາຄາ {{ formatNumber(formData.pro_price || 0) }})
+                              </span>
+                            </div>
+                            <div class="d-flex align-center my-1 my-sm-0">
+                              <span class="caption grey--text mr-1">ຄ່ານາຍໜ້າເຕັມ (Gross):</span>
+                              <v-chip small color="primary" class="font-weight-black white--text px-2">
+                                {{ formatNumber(estimatedCommissionAmount) }} {{ getCommissionCurrencyCode }}
+                              </v-chip>
+                            </div>
+                          </div>
+
+                          <div
+                            v-if="formData.commissionType === 'fixed' && formData.commissionDiscountImpact !== 'none'"
+                            class="mt-2 pt-2 border-top-subtle d-flex align-center justify-space-between flex-wrap caption grey--text text--darken-2"
+                          >
+                            <div class="d-flex align-center">
+                              <v-icon x-small color="warning darken-2" class="mr-1">mdi-information-outline</v-icon>
+                              <span>
+                                <strong class="warning--text text--darken-3">ນະໂຍບາຍສ່ວນຫຼຸດ:</strong>
+                                {{ getDiscountPolicySummary }}
+                              </span>
+                            </div>
+                            <div v-if="Number(formData.commissionMinFloor) > 0" class="d-flex align-center">
+                              <v-icon x-small color="success" class="mr-1">mdi-shield-lock-outline</v-icon>
+                              <span>ຂັ້ນຕ່ຳຮັບປະກັນ: <strong>{{ formatNumber(formData.commissionMinFloor) }} {{ getCommissionCurrencyCode }}</strong></span>
+                            </div>
+                          </div>
+                        </div>
+                      </v-col>
+                    </v-row>
+                  </div>
+                </v-expand-transition>
+              </div>
+
+              <v-divider class="mb-4"></v-divider>
+
               <div class=" green--text text--darken-3 mb-2">
                 ສາງ ແລະ ການຈັດຊື້ (Inventory)
               </div>
@@ -311,11 +491,11 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 import JsBarcode from 'jsbarcode'
 import ImagePreviewMixin from '../../pages/product/index.vue'
-import { swalSuccess, swalError2, confirmSwal, getFormatNum } from '~/common'
-import { hostName, mainCompanyInfo } from '~/common/api'
+import { swalSuccess, swalError2, confirmSwal } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
 
 import {
   getBarcode2by2cmHtml,
@@ -359,6 +539,18 @@ export default {
       category: [],
       companyList: [],
 
+      commissionTypeOptions: [
+        { text: 'ເປີເຊັນ (%)', value: 'percentage' },
+        { text: 'ຈຳນວນເງິນຄົງທີ່ຕໍ່ໜ່ວຍ (Fixed Amount)', value: 'fixed' },
+      ],
+
+      commissionDiscountImpactOptions: [
+        { text: 'ຫັກ 100% ຂອງສ່ວນຫຼຸດ (100% Deduct Full Discount)', value: 'deduct_full' },
+        { text: 'ແບ່ງປັນສ່ວນຫຼຸດຕາມ % (Shared Discount %)', value: 'deduct_shared' },
+        { text: 'ຫຼຸດຕາມອັດຕາສ່ວນຂາຍ (Proportional to Price)', value: 'proportional' },
+        { text: 'ບໍ່ໄດ້ຮັບຜົນກະທົບ (No Impact / Keep Full)', value: 'none' },
+      ],
+
       formData: {
         productId: null,
         pro_category: null,
@@ -385,6 +577,13 @@ export default {
         baseUnitId: null,
         pro_image: [],
         productUnits: [],
+        hasCommission: false,
+        commissionType: 'percentage',
+        commissionValue: 0,
+        commissionCurrencyId: null,
+        commissionDiscountImpact: 'deduct_full',
+        commissionDiscountRate: 100,
+        commissionMinFloor: 0,
       },
 
       rules: {
@@ -446,6 +645,54 @@ export default {
           : parseFloat(number)
       },
     },
+
+    formattedCommissionValue: {
+      get() {
+        if (
+          this.formData.commissionValue === undefined ||
+          this.formData.commissionValue === null ||
+          this.formData.commissionValue === ''
+        ) {
+          return ''
+        }
+        if (this.formData.commissionType === 'percentage') {
+          return this.formData.commissionValue
+        }
+        return this.formatNumber(this.formData.commissionValue)
+      },
+      set(newVal) {
+        if (newVal === undefined || newVal === null || newVal === '') {
+          this.formData.commissionValue = 0
+          return
+        }
+        const clean = String(newVal).replace(/,/g, '')
+        this.formData.commissionValue = isNaN(parseFloat(clean))
+          ? 0
+          : parseFloat(clean)
+      },
+    },
+    formattedCommissionMinFloor: {
+      get() {
+        if (
+          this.formData.commissionMinFloor === undefined ||
+          this.formData.commissionMinFloor === null ||
+          this.formData.commissionMinFloor === ''
+        ) {
+          return '0'
+        }
+        return this.formatNumber(this.formData.commissionMinFloor)
+      },
+      set(newVal) {
+        if (newVal === undefined || newVal === null || newVal === '') {
+          this.formData.commissionMinFloor = 0
+          return
+        }
+        const clean = String(newVal).replace(/,/g, '')
+        this.formData.commissionMinFloor = isNaN(parseFloat(clean))
+          ? 0
+          : parseFloat(clean)
+      },
+    },
     ...mapGetters(['findAllUnit', 'findAllCurrency', 'findAllprinters']),
     unitList() {
       return this.findAllUnit
@@ -466,6 +713,43 @@ export default {
     },
     selectedTaxRate() {
       return this.taxRates.find((tax) => tax.id === this.formData.taxId)
+    },
+    getCommissionCurrency() {
+      if (this.formData.commissionType === 'percentage') {
+        return this.findAllCurrency?.find((c) => c.id === this.formData.saleCurrencyId) || null
+      }
+      return this.findAllCurrency?.find((c) => c.id === this.formData.commissionCurrencyId) || null
+    },
+    getCommissionCurrencySymbol() {
+      const c = this.getCommissionCurrency
+      return c ? (c.symbol || c.code) : ''
+    },
+    getCommissionCurrencyCode() {
+      const c = this.getCommissionCurrency
+      return c ? c.code : ''
+    },
+    estimatedCommissionAmount() {
+      const val = parseFloat(this.formData.commissionValue) || 0
+      if (!this.formData.hasCommission || val <= 0) return 0
+      if (this.formData.commissionType === 'percentage') {
+        const price = parseFloat(this.formData.pro_price) || 0
+        return Math.round(((price * val) / 100) * 100) / 100
+      }
+      return val
+    },
+    getDiscountPolicySummary() {
+      const impact = this.formData.commissionDiscountImpact || 'deduct_full'
+      if (impact === 'deduct_full') {
+        return 'ຫັກສ່ວນຫຼຸດທີ່ໃຫ້ລູກຄ້າອອກຈາກຄ່ານາຍໜ້າ 100% (ຖ້າຫຼຸດ 100,000, ຄ່ານາຍໜ້າຫຼຸດ 100,000)'
+      }
+      if (impact === 'deduct_shared') {
+        const rate = this.formData.commissionDiscountRate !== undefined ? this.formData.commissionDiscountRate : 100
+        return `ແບ່ງປັນສ່ວນຫຼຸດ: ຫັກ ${rate}% ຂອງສ່ວນຫຼຸດທີ່ໃຫ້ລູກຄ້າອອກຈາກຄ່ານາຍໜ້າ`
+      }
+      if (impact === 'proportional') {
+        return 'ຫຼຸດຕາມສັດສ່ວນ: ຄ່ານາຍໜ້າຈະຫຼຸດລົງຕາມອັດຕາສ່ວນຫຼຸດທຽບກັບລາຄາຂາຍ'
+      }
+      return 'ບໍ່ໄດ້ຮັບຜົນກະທົບ: ໄດ້ຮັບຄ່ານາຍໜ້າເຕັມຈຳນວນເຖິງແມ່ນວ່າມີສ່ວນຫຼຸດ'
     },
   },
 
@@ -771,12 +1055,19 @@ export default {
           costCurrencyId: el.costCurrencyId || 1,
           saleCurrencyId: el.saleCurrencyId || 1,
           pro_image: images,
-          isActive: el.isActive == 1,
-          validateStockOnSale: el.validateStockOnSale == 1,
+          isActive: Number(el.isActive) === 1,
+          validateStockOnSale: Number(el.validateStockOnSale) === 1,
           vendorName: el.vendorName,
           taxId: el.taxId || null,
           baseUnitId: el.baseUnitId,
           productUnits: el.productUnits || [],
+          hasCommission: Number(el.hasCommission) === 1 || el.hasCommission === true,
+          commissionType: el.commissionType || 'percentage',
+          commissionValue: el.commissionValue !== undefined ? Number(el.commissionValue) : 0,
+          commissionCurrencyId: el.commissionCurrencyId || el.saleCurrencyId || null,
+          commissionDiscountImpact: el.commissionDiscountImpact || 'deduct_full',
+          commissionDiscountRate: el.commissionDiscountRate !== undefined ? Number(el.commissionDiscountRate) : 100,
+          commissionMinFloor: el.commissionMinFloor !== undefined ? Number(el.commissionMinFloor) : 0,
         }
         this.generateBarcodeImage(this.formData.barCode)
       } catch (error) {
@@ -882,7 +1173,7 @@ export default {
       this.imagesPreviewURL.splice(idx, 1)
       this.files.splice(idx, 1)
     },
-    async deleteFileFrServ(idx) {
+    deleteFileFrServ(idx) {
       confirmSwal(this.$swal, 'warning', async () => {
         this.isLoading = true
         await this.$axios
@@ -1118,5 +1409,27 @@ export default {
 .modal-content::-webkit-scrollbar-thumb {
   background: #c1c1c1;
   border-radius: 10px;
+}
+
+/* Commission Card Styling */
+.commission-card {
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  transition: all 0.25s ease;
+}
+.commission-card--active {
+  background-color: #ffffff !important;
+  border-color: #a7f3d0 !important;
+  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.05);
+}
+.commission-body {
+  border-top: 1px dashed #e2e8f0;
+}
+.commission-preview-box {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1px solid #bbf7d0;
+}
+.border-top-subtle {
+  border-top: 1px dashed rgba(0, 0, 0, 0.08);
 }
 </style>

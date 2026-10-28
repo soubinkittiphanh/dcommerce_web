@@ -7,12 +7,12 @@ export default {
   },
   publicRuntimeConfig: {
     axios: {
-      browserBaseURL: process.env.BASE_URL || 'http://150.95.31.23:8026'
+      browserBaseURL: process.env.BASE_URL || 'http://162.35.18.246:8054'
     }
   },
   privateRuntimeConfig: {
     axios: {
-      baseURL: process.env.BASE_URL || 'http://150.95.31.23:8026'
+      baseURL: process.env.BASE_URL || 'http://162.35.18.246:8054'
     }
   },
   // 1. CONDITIONAL SSR: Defaults to 'server' for VPS deployment. Uses 'static' only if explicitly requested.
@@ -125,6 +125,9 @@ export default {
     defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
     theme: {
+      options: {
+        customProperties: true,
+      },
       themes: {
         light: {
           primary: '#01532B',

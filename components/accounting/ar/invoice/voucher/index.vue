@@ -346,18 +346,29 @@ export default {
     },
 
     getClientName() {
+      if (this.safeInvoiceData.client) {
+        return this.safeInvoiceData.client.name + (this.safeInvoiceData.client.company ? ` (${this.safeInvoiceData.client.company})` : '')
+      }
       const agencyId = this.safeInvoiceData.agencyId
       if (!agencyId) return '-'
 
-      const agency = this.agencies.find((a) => a.id === agencyId)
+      const agency = this.agencies.find((a) => a.id === agencyId) || this.safeInvoiceData.agency
       return agency?.agencyName || agency?.name || '-'
     },
 
     getClientDetails() {
+      if (this.safeInvoiceData.client) {
+        const client = this.safeInvoiceData.client
+        const parts = []
+        if (client.address) parts.push(client.address)
+        if (client.telephone) parts.push(`Tel: ${client.telephone}`)
+        if (client.email) parts.push(`Email: ${client.email}`)
+        return parts.join(' | ')
+      }
       const agencyId = this.safeInvoiceData.agencyId
       if (!agencyId) return ''
 
-      const agency = this.agencies.find((a) => a.id === agencyId)
+      const agency = this.agencies.find((a) => a.id === agencyId) || this.safeInvoiceData.agency
       if (!agency) return ''
 
       const parts = []
@@ -369,11 +380,16 @@ export default {
     },
 
     getCurrencyInfo() {
+      if (this.safeInvoiceData.currency) {
+        const c = this.safeInvoiceData.currency
+        return `${c.name} (${c.code})`
+      }
       const currencyId = this.safeInvoiceData.currencyId
-      if (!currencyId) return 'USD'
-
-      const currency = this.currencies.find((c) => c.id === currencyId)
-      return currency ? `${currency.name} (${currency.code})` : 'USD'
+      if (currencyId && this.currencies) {
+        const currency = this.currencies.find((c) => Number(c.id) === Number(currencyId))
+        if (currency) return `${currency.name} (${currency.code})`
+      }
+      return 'LAK'
     },
 
     paymentTerms() {
@@ -471,7 +487,7 @@ export default {
     },
 
     formatCurrency(value) {
-      if (!value && value !== 0) return '$0.00'
+      if (!value && value !== 0) return '0.00'
       return `${parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,

@@ -39,14 +39,35 @@ const formatDate = (dateInput) => {
     } catch (error) { return 'Date Error'; }
 };
 
-const getPaperConfig = (paperWidth = '80mm') => {
+const resolveTicketImageUrl = (imagePath, params = {}) => {
+    if (!imagePath) return '';
+    if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('data:image') || imagePath.startsWith('blob:')) {
+        return imagePath;
+    }
+    let baseUrl = params.currentTerminal?.baseURL || params.axios?.defaults?.baseURL;
+    if (!baseUrl && typeof window !== 'undefined') {
+        baseUrl = window.localStorage?.getItem('api_base_url') || window.$nuxt?.$axios?.defaults?.baseURL || (window.location?.origin?.startsWith('http') ? window.location.origin : '');
+    }
+    if (!baseUrl) baseUrl = 'http://162.35.18.246:8054';
+    const cleanBase = baseUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '');
+    return `${cleanBase}/${imagePath.replace(/^\//, '')}`;
+};
+
+const getPaperConfig = (paperWidth = '80mm', customLogoSize = null) => {
     const configs = {
         '58mm': { width: '175px', fontSize: '10.5px', logoSize: '45px' },
         '80mm': { width: '280px', fontSize: '11px', logoSize: '65px' },
         'A5': { width: '540px', fontSize: '14px', logoSize: '80px' },
         'A4': { width: '750px', fontSize: '16px', logoSize: '100px' }
     };
-    return configs[paperWidth] || configs['80mm'];
+    const selected = { ...(configs[paperWidth] || configs['80mm']) };
+    if (customLogoSize !== null && customLogoSize !== undefined && customLogoSize !== '') {
+        const parsed = parseInt(customLogoSize, 10);
+        if (!isNaN(parsed) && parsed >= 30 && parsed <= 250) {
+            selected.logoSize = `${parsed}px`;
+        }
+    }
+    return selected;
 };
 
 const getLocalCurrency = (currencyList) => Array.isArray(currencyList) ? currencyList.find(currency => currency.isLocalCCY === true) : null;
@@ -117,12 +138,12 @@ const getBaseStyles = (config, isThermal) => `
   .receipt-container { width: ${config.width} !important; margin: 0 auto !important; padding: ${isThermal ? '0 10px 75px 5px' : '20px'}; overflow: hidden; }
   
   .header-section { text-align: center; margin-bottom: 10px; }
-  .logo-wrapper { margin-bottom: 8px; display: block; }
-  .logo-img { width: ${config.logoSize}; height: auto; object-fit: contain; }
+  .logo-wrapper { margin-bottom: 8px; display: block; text-align: center; }
+  .logo-img { max-width: 100%; width: ${config.logoSize}; height: auto; object-fit: contain; }
 
   /* MODERN LAYOUT STYLES */
   .header-modern { display: flex; align-items: center; margin-bottom: 15px; border-bottom: 2px solid #000; padding-bottom: 10px; }
-  .header-modern .logo-wrapper { margin-bottom: 0; margin-right: 12px; flex: 0 0 ${config.logoSize}; }
+  .header-modern .logo-wrapper { margin-bottom: 0; margin-right: 12px; flex: 0 0 ${config.logoSize}; max-width: min(${config.logoSize}, 120px); text-align: center; }
   .header-modern .company-details { flex: 1; text-align: left; }
   .header-modern .company-name { font-weight: 700; font-size: 1.3em; line-height: 1.2; margin-bottom: 2px; }
   .header-modern .company-info { font-size: 0.9em; font-weight: 700; color: #444; }
@@ -218,14 +239,14 @@ const calculateTotalInLocalCurrency = (productCart, currencyList) => {
         const price = getItemActivePrice(item);
         const itemTotal = qty * price;
         const currency = currencyList?.find(c => c.id === getItemActiveCurrencyId(item));
-        const itemTotalLAK = (currency && !currency.isLocalCCY) 
-            ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency) 
+        const itemTotalLAK = (currency && !currency.isLocalCCY)
+            ? CurrencyHelper.convertToLocal(itemTotal, currency, localCurrency)
             : itemTotal;
         subtotalLAK += itemTotalLAK;
 
         const taxAmount = calculateItemTaxAmount(item);
-        const taxLAK = (currency && !currency.isLocalCCY) 
-            ? CurrencyHelper.convertToLocal(taxAmount, currency, localCurrency) 
+        const taxLAK = (currency && !currency.isLocalCCY)
+            ? CurrencyHelper.convertToLocal(taxAmount, currency, localCurrency)
             : taxAmount;
 
         const taxInfo = item.tax || {};
@@ -247,15 +268,15 @@ const calculateTotalInLocalCurrency = (productCart, currencyList) => {
     const totalInLocal = subtotalLAK + totalTaxExclusiveLAK;
     const netSubtotal = Math.max(0, totalInLocal - totalTaxLAK);
 
-    return { 
-        totalInLocal, 
-        totalTax: totalTaxLAK, 
-        totalTaxInclusive: totalTaxInclusiveLAK, 
+    return {
+        totalInLocal,
+        totalTax: totalTaxLAK,
+        totalTaxInclusive: totalTaxInclusiveLAK,
         totalTaxExclusive: totalTaxExclusiveLAK,
         netSubtotal,
         subtotalLAK,
         dominantTaxRate: foundTaxRate,
-        localCurrency 
+        localCurrency
     };
 };
 
@@ -362,7 +383,7 @@ const generateFlexibleTotalSection = (params, config) => {
 
     currencyList.filter(curr => curr.isActive && !curr.isLocalCCY).forEach(curr => {
         const convertedAmount = (curr.exchangeDirection === 'foreign_to_local') ? finalTotalLAK / curr.rate : finalTotalLAK * curr.rate;
-        const formattedVal = curr.code === 'LAK' 
+        const formattedVal = curr.code === 'LAK'
             ? formatNumber(Math.round(convertedAmount))
             : new Intl.NumberFormat('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(convertedAmount)
         html += `<div class="item" style="font-weight: normal; margin-bottom: 1px;">
@@ -372,27 +393,36 @@ const generateFlexibleTotalSection = (params, config) => {
     });
     html += `</div>`;
 
-    // CONDITIONAL QR SECTION
-    const showQR = companyData?.ticketQRcode === true;
-    const qrPath = companyData?.bank_qr_image_path || companyData?.qrCode;
-    const qrPath2 = companyData?.qrCode2;
+    const rawQr1 = companyData?.bank_qr_image_path || companyData?.qrCode || companyData?.bank_qr_image_path_1;
+    const rawQr2 = companyData?.bank_qr_image_path_2 || companyData?.qrCode2;
+    const qrPath = rawQr1 ? resolveTicketImageUrl(rawQr1, params) : '';
+    const qrPath2 = rawQr2 ? resolveTicketImageUrl(rawQr2, params) : '';
+    const showQR = Boolean(qrPath || qrPath2) && (
+        companyData?.ticketQRcode === true ||
+        companyData?.ticketQRcode === 1 ||
+        companyData?.ticketQRcode === '1' ||
+        String(companyData?.ticketQRcode).toLowerCase() === 'true' ||
+        companyData?.ticketQRcode === undefined ||
+        companyData?.ticketQRcode === null ||
+        companyData?.ticketQRcode === ''
+    );
     const layout = companyData?.ticketLayout || 'classic';
 
-    if (showQR) {
+    if (showQR && (qrPath || qrPath2)) {
         if (layout === 'modern' && (qrPath || qrPath2)) {
             html += `<div class="dual-qr-container">`;
             if (qrPath) {
                 html += `
                 <div class="qr-tag">
                     <div class="qr-tag-label">ຊຳລະຜ່ານ QR 1</div>
-                    <img src="${qrPath}">
+                    <img src="${qrPath}" onerror="this.style.display='none';">
                 </div>`;
             }
             if (qrPath2) {
                 html += `
                 <div class="qr-tag">
                     <div class="qr-tag-label">ຊຳລະຜ່ານ QR 2</div>
-                    <img src="${qrPath2}">
+                    <img src="${qrPath2}" onerror="this.style.display='none';">
                 </div>`;
             }
             html += `</div>`;
@@ -400,7 +430,7 @@ const generateFlexibleTotalSection = (params, config) => {
             const qrWidth = paperWidth === '58mm' ? '100px' : '140px';
             html += `<div class="qr-section" style="text-align: center; margin-top: 10px; padding-top: 10px; border-top: 1px solid #eee;">
                     <div style="font-size: 0.8em; margin-bottom: 5px; color: #333;">ສະແກນເພື່ອຊຳລະເງິນ</div>
-                    <img src="${qrPath}" style="width:${qrWidth}; height:auto;">
+                    <img src="${qrPath}" style="width:${qrWidth}; height:auto;" onerror="this.style.display='none';">
                 </div>`;
         }
     }
@@ -431,8 +461,8 @@ const printTicketElectron = (windowContent, paperWidth = '80mm', printers) => {
 // 5. EXPORTS
 // ============================================================================
 
-export const executeTicketPrint = async (params, dateValue) => {
-    const { productCart, findAllProduct, formatNumber, discount, currencyList, printers, companyData } = params;
+export const buildTicketWindowContent = (params, dateValue = new Date()) => {
+    const { productCart = [], findAllProduct = [], formatNumber, currencyList = [], companyData = {} } = params;
     let paperWidth = params.paperWidth;
     if (!paperWidth) {
         try {
@@ -446,89 +476,158 @@ export const executeTicketPrint = async (params, dateValue) => {
         }
     }
     if (!paperWidth) paperWidth = '80mm';
-    try {
-        const config = getPaperConfig(paperWidth);
-        const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
 
-        // CONDITIONAL LOGO HEADER
-        console.info(`company data is ${JSON.stringify(companyData)}`);
-        const logoPath = companyData.profile_image_path || companyData.ticketLogo;
-        const logoHtml = logoPath ? `<div class="logo-wrapper"><img src="${logoPath}" class="logo-img"></div>` : '';
-        const layout = companyData.ticketLayout || 'classic';
-        const showLogo = companyData.showLogoOnTicket;
-        const taxId = companyData.taxId || companyData.tax_id || companyData.tin || '';
-        const taxIdHtml = taxId ? `<div class="company-info">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : '';
-        const billNumber = params.lastTransactionSaleHeaderId || params.referenceNo || 'DRAFT';
+    const safeCompany = companyData || {};
+    const customLogoSize = safeCompany.ticket_logo_size ?? safeCompany.ticketLogoSize ?? params.ticket_logo_size ?? params.ticketLogoSize;
+    const config = getPaperConfig(paperWidth, customLogoSize);
+    const isThermal = paperWidth === '58mm' || paperWidth === '80mm';
 
-        let headerHtml = '';
-        if (layout === 'modern') {
-            headerHtml = `
-            <div class="header-modern">
-                ${showLogo ? logoHtml : ''}
-                <div class="company-details">
-                    <div class="company-name">${companyData.name}</div>
-                    <div class="company-info">ທີ່ຢູ່: ${companyData.address}</div>
-                    <div class="company-info">ໂທ: ${companyData.tel}</div>
-                    ${taxIdHtml}
-                    <div class="company-info" style="margin-top:2px;">ເລກທີ: ${billNumber}</div>
-                    <div class="company-info">${formatDate(dateValue)}</div>
-                </div>
-            </div>`;
-        } else {
-            headerHtml = `
-            <div class="header-section">
-                ${showLogo ? logoHtml : ''}
-                <div style="font-weight:700; font-size:1.5em;">${companyData.name}</div>
-                <div style="font-size:0.9em;font-weight:700;">ທີ່ຢູ່: ${companyData.address}</div>
-                <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${companyData.tel}</div>
-                ${taxIdHtml ? `<div style="font-size:0.9em;font-weight:700;">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : ''}
-                <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${billNumber} | ${formatDate(dateValue)}</div>
-            </div>`;
-        }
+    // CONDITIONAL LOGO HEADER
+    const rawLogo = safeCompany.profile_image_path || safeCompany.ticketLogo || safeCompany.companyLogo || safeCompany.logo || safeCompany.dcLogo;
+    const logoPath = (rawLogo && rawLogo !== 'default-logo.png' && rawLogo !== 'default-logo.jpg') ? resolveTicketImageUrl(rawLogo, params) : '';
+    const logoHtml = logoPath ? `<div class="logo-wrapper"><img src="${logoPath}" class="logo-img" onerror="this.style.display='none';"></div>` : '';
+    const showLogo = Boolean(logoPath) && (
+        safeCompany.showLogoOnTicket === true ||
+        safeCompany.showLogoOnTicket === 1 ||
+        safeCompany.showLogoOnTicket === '1' ||
+        String(safeCompany.showLogoOnTicket).toLowerCase() === 'true' ||
+        safeCompany.showLogoOnTicket === undefined ||
+        safeCompany.showLogoOnTicket === null ||
+        safeCompany.showLogoOnTicket === ''
+    );
+    const taxId = safeCompany.taxId || safeCompany.tax_id || safeCompany.tin || '';
+    const taxIdHtml = taxId ? `<div class="company-info">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : '';
+    const billNumber = params.lastTransactionSaleHeaderId || params.referenceNo || 'DRAFT';
+    const layout = params.layout || safeCompany.ticketLayout || 'classic';
 
-        const client = params.client;
-        let customerHtml = '';
-        if (client) {
-            const customerName = client.name || 'N/A';
-            const phone = client.telephone ? ` | ໂທ: ${client.telephone}` : '';
-            const points = client.loyaltyPoints !== undefined ? client.loyaltyPoints : 0;
-            const isWalkIn = client.id === 1 || client.name === 'POS' || client.company === 'Walkin customer';
-            customerHtml = `
-            <div class="customer-section" style="font-size: 0.9em; margin-top: 4px; padding-top: 4px; border-top: 1px dashed #eee; text-align: left;">
-                <div>ລູກຄ້າ: ${customerName}${phone}</div>
-                ${(client.loyaltyPoints !== undefined && !isWalkIn) ? `<div>ຄະແນນສະສົມ (Loyalty Points): ${formatNumber(points)}</div>` : ''}
-            </div>`;
-        }
+    let headerHtml = '';
+    if (layout === 'modern') {
+        headerHtml = `
+        <div class="header-modern">
+            ${showLogo ? logoHtml : ''}
+            <div class="company-details">
+                <div class="company-name">${safeCompany.name || ''}</div>
+                <div class="company-info">ທີ່ຢູ່: ${safeCompany.address || ''}</div>
+                <div class="company-info">ໂທ: ${safeCompany.tel || ''}</div>
+                ${taxIdHtml}
+                <div class="company-info" style="margin-top:2px;">ເລກທີ: ${billNumber}</div>
+                <div class="company-info">${formatDate(dateValue)}</div>
+            </div>
+        </div>`;
+    } else {
+        headerHtml = `
+        <div class="header-section">
+            ${showLogo ? logoHtml : ''}
+            <div style="font-weight:700; font-size:1.5em;">${safeCompany.name || ''}</div>
+            <div style="font-size:0.9em;font-weight:700;">ທີ່ຢູ່: ${safeCompany.address || ''}</div>
+            <div style="font-size:0.9em;font-weight:700;">ເບີໂທ: ${safeCompany.tel || ''}</div>
+            ${taxIdHtml ? `<div style="font-size:0.9em;font-weight:700;">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${taxId}</div>` : ''}
+            <div style="font-size:0.9em;font-weight:700; margin-top:3px;">ເລກທີ: ${billNumber} | ${formatDate(dateValue)}</div>
+        </div>`;
+    }
 
-        const contentData = {
-            headerHtml,
-            customerHtml,
-            transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, formatNumber, currencyList),
-            currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, formatNumber),
-            discountHtml: '',
-            totalHtml: generateFlexibleTotalSection(params, config),
-            paymentSectionHtml: `<div style="margin-top:10px; font-size:0.85em; border-top:1px solid #eee; padding-top:5px; text-align:center;">ຊຳລະດ້ວຍ: ${params.currentPaymentCode || 'N/A'}<br>ພະນັກງານ: ${params.user?.cus_name || ''}</div>`
-        };
+    const fmt = formatNumber || ((n) => (n !== null && n !== undefined) ? Number(n).toLocaleString() : '0');
 
-        const windowContent = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${getBaseStyles(config, isThermal)}</style></head>
-          <body><div class="receipt-container">
-            <div style="text-align:center; font-weight:700; font-size:1.3em; margin-bottom:12px;">ໃບຮັບເງິນ</div>
-            ${contentData.headerHtml}
-            ${contentData.customerHtml ? `${contentData.customerHtml}<div class="divider"></div>` : '<div class="divider"></div>'}
-            ${contentData.transactionListHtml}${contentData.currencyBreakdownHtml}${contentData.discountHtml}
-            ${contentData.totalHtml}${contentData.paymentSectionHtml}
-            ${companyData?.term_condition ? `<div style="text-align:center; font-size:10px; margin-top:10px; border-top:1px dashed #ccc; padding-top:5px; white-space: pre-line;">${companyData.term_condition}</div>` : ''}
-            <div style="text-align:center; margin-top:15px; font-weight:700;">ຂອບໃຈທີ່ມາອຸດໜູນ</div>
-            <div style="height: 45px;"></div>
-          </div></body></html>`;
+    const client = params.client;
+    let customerHtml = '';
+    if (client) {
+        const customerName = client.name || 'N/A';
+        const phone = client.telephone ? ` | ໂທ: ${client.telephone}` : '';
+        const points = client.loyaltyPoints !== undefined ? client.loyaltyPoints : 0;
+        const isWalkIn = client.id === 1 || client.name === 'POS' || client.company === 'Walkin customer';
+        customerHtml = `
+        <div class="customer-section" style="font-size: 0.9em; margin-top: 4px; padding-top: 4px; border-top: 1px dashed #eee; text-align: left;">
+            <div>ລູກຄ້າ: ${customerName}${phone}</div>
+            ${(client.loyaltyPoints !== undefined && !isWalkIn) ? `<div>ຄະແນນສະສົມ (Loyalty Points): ${fmt(points)}</div>` : ''}
+        </div>`;
+    }
 
-        await printTicketElectron(windowContent, paperWidth, printers);
-    } catch (error) { console.error('Ticket Print Error:', error); }
+    const contentData = {
+        headerHtml,
+        customerHtml,
+        transactionListHtml: generateFlexibleTransactionList(productCart, findAllProduct, fmt, currencyList),
+        currencyBreakdownHtml: generateCurrencyBreakdownSection(productCart, currencyList, fmt),
+        discountHtml: '',
+        totalHtml: generateFlexibleTotalSection(params, config),
+        paymentSectionHtml: `<div style="margin-top:10px; font-size:0.85em; border-top:1px solid #eee; padding-top:5px; text-align:center;">ຊຳລະດ້ວຍ: ${params.currentPaymentCode || 'N/A'}<br>ພະນັກງານ: ${params.user?.cus_name || 'Admin'}</div>`
+    };
+
+    return `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>${getBaseStyles(config, isThermal)}</style></head>
+      <body><div class="receipt-container">
+        <div style="text-align:center; font-weight:700; font-size:1.5em; margin-bottom:12px;">${params.ticketTitle || 'ໃບບິນຮັບເງິນ'}</div>
+        ${contentData.headerHtml}
+        ${contentData.customerHtml ? `${contentData.customerHtml}<div class="divider"></div>` : '<div class="divider"></div>'}
+        ${contentData.transactionListHtml}${contentData.currencyBreakdownHtml}${contentData.discountHtml}
+        ${contentData.totalHtml}${contentData.paymentSectionHtml}
+        ${safeCompany?.term_condition ? `<div style="text-align:center; font-size:10px; margin-top:10px; border-top:1px dashed #ccc; padding-top:5px; white-space: pre-line;">${safeCompany.term_condition}</div>` : ''}
+        <div style="text-align:center; margin-top:15px; font-weight:700;">ຂອບໃຈທີ່ມາອຸດໜູນ</div>
+        <div style="height: 45px;"></div>
+      </div></body></html>`;
 };
 
-export const defaultTicket = (params) => executeTicketPrint(params, new Date());
-export const defaultTicketReprint = (params) => executeTicketPrint(params, params.bookingDate || new Date());
-export const customerTicket = (params) => executeTicketPrint(params, new Date());
+export const executeTicketPrint = async (params, dateValue = new Date()) => {
+    let paperWidth = params.paperWidth;
+    if (!paperWidth) {
+        try {
+            if (typeof window !== 'undefined' && window.$nuxt) {
+                const spf = window.$nuxt.$store.getters.findSPF;
+                const item = spf?.find(s => s.code === 'PAPER_SIZE');
+                if (item && item.value) paperWidth = item.value;
+            }
+        } catch (e) {
+            console.warn('Failed to retrieve PAPER_SIZE:', e);
+        }
+    }
+    if (!paperWidth) paperWidth = '80mm';
+
+    try {
+        console.info(`company data is ${JSON.stringify(params.companyData)}`);
+        const windowContent = buildTicketWindowContent(params, dateValue);
+        await printTicketElectron(windowContent, paperWidth, params.printers);
+    } catch (error) {
+        console.error('Ticket Print Error:', error);
+    }
+};
+
+export const generateTicketPreviewHtml = (companyData, options = {}) => {
+    const dummyCurrencyList = options.currencyList || [
+        { id: 1, code: 'LAK', rate: 1, isLocalCCY: true }
+    ];
+    const dummyProducts = [
+        { id: 1, pro_name: 'ເບຍລາວແກ້ວໃຫຍ່ 640ml (Beerlao Lager)', pro_price: 18000, qty: 2, saleCurrencyId: 1 },
+        { id: 2, pro_name: 'ນ້ຳດື່ມບໍລິສຸດ 500ml (Purified Water)', pro_price: 5000, qty: 1, saleCurrencyId: 1 },
+        { id: 3, pro_name: 'ເຂົ້າໜົມມັນຝຣັ່ງ (Potato Chips)', pro_price: 12000, qty: 1, saleCurrencyId: 1 }
+    ];
+    const subtotal = 2 * 18000 + 5000 + 12000; // 53,000 LAK
+    const fmt = options.formatNumber || ((num) => {
+        if (num === null || num === undefined) return '0';
+        return Number(num).toLocaleString();
+    });
+
+    return buildTicketWindowContent({
+        companyData,
+        productCart: dummyProducts,
+        findAllProduct: dummyProducts,
+        formatNumber: fmt,
+        discount: 0,
+        currencyList: dummyCurrencyList,
+        grandTotal: subtotal,
+        lastTransactionSaleHeaderId: 'INV-DEMO-001',
+        ticketTitle: options.ticketTitle || 'ໃບບິນຮັບເງິນ (ຕົວຢ່າງ)',
+        currentPaymentCode: 'CASH (ເງິນສົດ)',
+        cashReceived: 60000,
+        changes: '7,000',
+        user: { cus_name: 'Admin / ພະນັກງານ' },
+        client: { name: 'ລູກຄ້າທົ່ວໄປ (General Customer)', telephone: '020-5555-xxxx', loyaltyPoints: 120 },
+        paperWidth: options.paperWidth || '80mm',
+        currentTerminal: options.currentTerminal || {},
+        ...options
+    }, new Date());
+};
+
+export const defaultTicket = (params) => executeTicketPrint(params, params?.bookingDate || new Date());
+export const defaultTicketReprint = (params) => executeTicketPrint(params, params?.bookingDate || new Date());
+export const customerTicket = (params) => executeTicketPrint(params, params?.bookingDate || new Date());
 
 export const generateDeliveryCustomerHTML = (params) => {
     const { onlineCustomerInfo, productCart, findAllProduct, formatNumber, discount, grandTotal, currencyList } = params;
@@ -545,7 +644,9 @@ export const generateDeliveryCustomerHTML = (params) => {
         }
     }
     if (!paperWidth) paperWidth = '80mm';
-    const config = getPaperConfig(paperWidth);
+    const safeCompanyDelivery = params.companyData || {};
+    const deliveryLogoSize = safeCompanyDelivery.ticket_logo_size ?? safeCompanyDelivery.ticketLogoSize ?? params.ticket_logo_size ?? params.ticketLogoSize;
+    const config = getPaperConfig(paperWidth, deliveryLogoSize);
     const today = new Date();
     console.log(`onlineCustomerInfo ${JSON.stringify(onlineCustomerInfo)}`);
     const isCOD = onlineCustomerInfo.payment === 'COD';

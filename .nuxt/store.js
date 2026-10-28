@@ -18,6 +18,7 @@ let store = {};
   resolveStoreModules(require('../store/cart.js'), 'cart.js')
   resolveStoreModules(require('../store/microfinance.js'), 'microfinance.js')
   resolveStoreModules(require('../store/order.js'), 'order.js')
+  resolveStoreModules(require('../store/parking.js'), 'parking.js')
   resolveStoreModules(require('../store/theme.js'), 'theme.js')
 
   // If the environment supports hot reloading...

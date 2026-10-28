@@ -421,20 +421,32 @@
           </template>
 
           <template v-slot:[`item.id`]="{ item }">
-            <v-btn color="primary" text @click="
-              viewItem(item)
-            wallet = true
-              ">
-              <i class="fa-regular fa-pen-to-square"></i>
+            <v-btn
+              color="primary"
+              icon
+              small
+              @click="
+                viewItem(item)
+                wallet = true
+              "
+              title="ແກ້ໄຂທຸລະກຳ (View/Update)"
+            >
+              <v-icon small>mdi-square-edit-outline</v-icon>
             </v-btn>
           </template>
 
           <template v-slot:[`item.cancel`]="{ item }">
-            <v-btn color="blue darken-1" text @click="
-              cancelItem(item)
-            wallet = true
-              ">
-              <i class="fas fa-sync"></i>
+            <v-btn
+              color="blue darken-1"
+              icon
+              small
+              @click="
+                cancelItem(item)
+                wallet = true
+              "
+              title="ຍົກເລີກບິນ (Cancel)"
+            >
+              <v-icon small>mdi-sync</v-icon>
             </v-btn>
           </template>
 
@@ -810,6 +822,8 @@ export default {
         showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || storeCompany?.showLogoOnTicket || '',
         ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || storeCompany?.ticketQRcode || false,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || storeCompany?.ticketLayout || 'classic',
+        ticket_logo_size: terminalCompany?.ticket_logo_size ?? baseCompany?.ticket_logo_size ?? storeCompany?.ticket_logo_size ?? 65,
+        ticketLogoSize: terminalCompany?.ticket_logo_size ?? baseCompany?.ticket_logo_size ?? storeCompany?.ticket_logo_size ?? 65,
         profile_image_path: resolvedProfileImagePath,
         bank_qr_image_path: resolvedBankQrImagePath,
         bank_qr_image_path_2: resolvedBankQrImagePath2,

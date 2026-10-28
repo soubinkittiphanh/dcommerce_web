@@ -46,7 +46,7 @@
                     <v-btn color="blue darken-1" text @click="editItem(item.id)
                     wallet = true
                         ">
-<i class="fa-regular fa-pen-to-square"></i>
+<v-icon small>mdi-square-edit-outline</v-icon>
                     </v-btn>
                 </template>
                 <template v-slot:[`item.id`]="{ item }">

@@ -51,7 +51,7 @@
                               variant="text"
                               @click="selectedClientNew(client['id'], idx)"
                             >
-                              <i class="fa-regular fa-circle-check"></i>
+                              <v-icon small>mdi-check-circle</v-icon>
                             </v-btn>
                           </v-col>
                         </v-row>
@@ -127,7 +127,7 @@
                     variant="text"
                     @click="confirmOrder(order)"
                   >
-                    <i class="fa-regular fa-circle-check"></i>
+                    <v-icon small>mdi-check-circle</v-icon>
                   </v-btn>
                 </v-col>
                 <v-col
@@ -144,7 +144,7 @@
                       printTicket(order)
                     "
                   >
-                    <i class="fa-regular fa-circle-check"></i>
+                    <v-icon small>mdi-check-circle</v-icon>
                     &
                     <i class="fa-solid fa-print"></i>
                   </v-btn>

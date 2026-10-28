@@ -270,7 +270,7 @@
               wallet = true
             "
           >
-            <i class="fa-regular fa-pen-to-square"></i>
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
         <template v-slot:[`item.cancel`]="{ item }">

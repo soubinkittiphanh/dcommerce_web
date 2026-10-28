@@ -37,28 +37,65 @@ const getCurrency = (currencyId, currencyList = []) => {
     return currencyList.find(c => c.id === currencyId) || currencyList.find(c => c.isLocalCCY)
 }
 
+// Base URL resolver for images and static assets (strips /api and trailing slashes)
+const getBaseUrl = () => {
+    let url = ''
+    if (typeof window !== 'undefined') {
+        const savedUrl = window.localStorage.getItem('api_base_url')
+        if (savedUrl) {
+            url = savedUrl
+        } else if (window.$nuxt && window.$nuxt.$axios && window.$nuxt.$axios.defaults.baseURL) {
+            url = window.$nuxt.$axios.defaults.baseURL
+        } else if (window.location && window.location.origin && window.location.origin.startsWith('http')) {
+            url = window.location.origin
+        }
+    }
+    if (!url) {
+        url = 'http://162.35.18.246:8054'
+    }
+    return url.replace(/\/api\/?$/, '').replace(/\/+$/, '')
+}
+
+// Helper to format date & time for thermal receipts
+const formatDateTime = (dateString) => {
+    if (!dateString) return 'N/A'
+    try {
+        const date = new Date(dateString)
+        if (isNaN(date.getTime())) return String(dateString)
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+        const hours = String(date.getHours()).padStart(2, '0')
+        const minutes = String(date.getMinutes()).padStart(2, '0')
+        return `${day}/${month}/${year} ${hours}:${minutes}`
+    } catch (error) {
+        return String(dateString)
+    }
+}
+
 const getCompanyLogoUrl = (companyData) => {
     if (!companyData) return ''
     const baseUrl = getBaseUrl()
 
     // 1. Try profile_image_path from API data
     const profilePath = companyData.profile_image_path || companyData.apiData?.profile_image_path || companyData.imageUrl
-    if (profilePath) {
+    if (profilePath && profilePath !== 'default-logo.png' && profilePath !== 'default-logo.jpg') {
+        if (profilePath.startsWith('http://') || profilePath.startsWith('https://') || profilePath.startsWith('data:image') || profilePath.startsWith('blob:')) {
+            return profilePath
+        }
         return `${baseUrl}/${profilePath.replace(/^\//, '')}`
     }
 
-    // 2. Try ticketLogo or companyLogo if they exist
-    const logoName = companyData.companyLogo || companyData.ticketLogo || companyData.logo
-    if (logoName) {
-        if (logoName.startsWith('http') || logoName.startsWith('blob:') || logoName.includes('/')) {
+    // 2. Try companyLogo, ticketLogo, logo, dcLogo
+    const logoName = companyData.companyLogo || companyData.ticketLogo || companyData.logo || companyData.dcLogo
+    if (logoName && logoName !== 'default-logo.png' && logoName !== 'default-logo.jpg') {
+        if (logoName.startsWith('http://') || logoName.startsWith('https://') || logoName.startsWith('data:image') || logoName.startsWith('blob:')) {
             return logoName
         }
+        if (logoName.includes('/')) {
+            return `${baseUrl}/${logoName.replace(/^\//, '')}`
+        }
         return `${baseUrl}/uploads/${logoName}`
-    }
-
-    // 3. Fallback to dcLogo
-    if (companyData.dcLogo) {
-        return `${baseUrl}/uploads/${companyData.dcLogo}`
     }
 
     return ''
@@ -67,9 +104,9 @@ const getCompanyLogoUrl = (companyData) => {
 const getCompanyQR1Url = (companyData) => {
     if (!companyData) return ''
     const baseUrl = getBaseUrl()
-    const qrPath = companyData.bank_qr_image_path || companyData.qrCode
+    const qrPath = companyData.bank_qr_image_path || companyData.qrCode || companyData.bank_qr_image_path_1 || companyData.qrCode1
     if (qrPath) {
-        if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+        if (qrPath.startsWith('http://') || qrPath.startsWith('https://') || qrPath.startsWith('blob:') || qrPath.startsWith('data:image')) {
             return qrPath
         }
         return `${baseUrl}/${qrPath.replace(/^\//, '')}`
@@ -82,7 +119,7 @@ const getCompanyQR2Url = (companyData) => {
     const baseUrl = getBaseUrl()
     const qrPath = companyData.bank_qr_image_path_2 || companyData.qrCode2
     if (qrPath) {
-        if (qrPath.startsWith('http') || qrPath.startsWith('blob:') || qrPath.includes('data:image')) {
+        if (qrPath.startsWith('http://') || qrPath.startsWith('https://') || qrPath.startsWith('blob:') || qrPath.startsWith('data:image')) {
             return qrPath
         }
         return `${baseUrl}/${qrPath.replace(/^\//, '')}`
@@ -137,22 +174,6 @@ const generateMultiCurrencyTotalsHTML = (grandTotalInLocal, localCurrency, curre
             </div>
         `
     }).join('')
-}
-
-const getBaseUrl = () => {
-    if (typeof window !== 'undefined') {
-        const savedUrl = window.localStorage.getItem('api_base_url')
-        if (savedUrl) {
-            return savedUrl.replace(/\/$/, '')
-        }
-        if (window.$nuxt && window.$nuxt.$axios) {
-            return (window.$nuxt.$axios.defaults.baseURL || '').replace(/\/$/, '')
-        }
-        if (window.location.origin && window.location.origin.startsWith('http')) {
-            return window.location.origin.replace(/\/$/, '')
-        }
-    }
-    return 'http://150.95.31.23:8026'
 }
 
 // Helper to resolve reference / external ref number from various sources
@@ -264,22 +285,314 @@ const resolvePaymentName = (header) => {
 // ==========================================
 // RECEIPT TEMPLATE - ORIGINAL CURRENCY PER LINE
 // ==========================================
-export const generateReceiptHTML = (header, companyData, currencyList = []) => {
+export const generateReceiptHTML = (header, companyData = {}, currencyList = [], paperWidthOrOptions = '80mm') => {
     console.log('🧾 GENERATING RECEIPT - ORIGINAL CURRENCY VERSION')
     console.log('================================================')
 
+    // Detect target paper size (default to 80mm for POS receipts)
+    const paperWidth = (typeof paperWidthOrOptions === 'object' ? paperWidthOrOptions?.width : paperWidthOrOptions) || '80mm'
+    const isThermal = paperWidth === '80mm' || paperWidth === '58mm'
+
     // Get local currency
-    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency
+    const localCurrency = currencyList.find(c => c.isLocalCCY) || header.currency || { code: 'LAK', rate: 1 }
     console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
     const baseUrl = getBaseUrl()
+    const logoUrl = getCompanyLogoUrl(companyData)
+    const qr1Url = getCompanyQR1Url(companyData)
+    const qr2Url = getCompanyQR2Url(companyData)
 
-    // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
-    const linesHTML = header.lines?.map((line, index) => {
+    const showLogo = Boolean(logoUrl) && (
+        companyData?.showLogoOnTicket === true ||
+        companyData?.showLogoOnTicket === 1 ||
+        companyData?.showLogoOnTicket === '1' ||
+        String(companyData?.showLogoOnTicket).toLowerCase() === 'true' ||
+        companyData?.showLogoOnTicket === undefined ||
+        companyData?.showLogoOnTicket === null ||
+        companyData?.showLogoOnTicket === ''
+    )
+    const showQR = Boolean(qr1Url || qr2Url) && (
+        companyData?.ticketQRcode === true ||
+        companyData?.ticketQRcode === 1 ||
+        companyData?.ticketQRcode === '1' ||
+        String(companyData?.ticketQRcode).toLowerCase() === 'true' ||
+        companyData?.ticketQRcode === undefined ||
+        companyData?.ticketQRcode === null ||
+        companyData?.ticketQRcode === ''
+    )
+
+    // Calculate totals BY CURRENCY
+    const totalsByCurrency = {}
+    let totalInLocalCurrency = 0
+
+    header.lines?.forEach(line => {
         const lineCurrency = getCurrency(line.currencyId, currencyList)
 
-        console.log(`📦 Line ${index + 1}: ${line.product?.pro_name}`)
-        console.log(`   Original: ${line.price} ${lineCurrency.code} (no conversion)`)
+        // Group by currency
+        if (!totalsByCurrency[lineCurrency.code]) {
+            totalsByCurrency[lineCurrency.code] = {
+                currency: lineCurrency,
+                subtotal: 0,
+                discount: 0,
+                total: 0
+            }
+        }
+
+        const isReturn = line.isReturn === true || line.packagingAction === 'RETURNED' || (line.total < 0 || line.price < 0)
+        const effectiveLineTotal = isReturn ? -Math.abs(line.total || 0) : (line.total || 0)
+
+        totalsByCurrency[lineCurrency.code].subtotal += effectiveLineTotal
+        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
+        totalsByCurrency[lineCurrency.code].total += effectiveLineTotal - (line.discount || 0)
+
+        // Convert to local currency for grand total
+        const localAmount = convertToLocalCurrency(effectiveLineTotal - (line.discount || 0), lineCurrency, localCurrency)
+        totalInLocalCurrency += localAmount
+    })
+
+    // Add header discount to local currency
+    const headerDiscount = header.discount || 0
+    totalInLocalCurrency -= headerDiscount
+
+    console.log('💰 Totals by Currency:', totalsByCurrency)
+    console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
+
+    if (isThermal) {
+        // ==========================================
+        // 80mm / 58mm THERMAL SLIP RECEIPT
+        // ==========================================
+        const thermalLinesHTML = header.lines?.map((line, index) => {
+            const lineCurrency = getCurrency(line.currencyId, currencyList)
+            const lineDiscount = line.discount || 0
+            const isGift = Boolean(line.isGift)
+            const isReturn = line.isReturn === true || line.packagingAction === 'RETURNED' || (line.total < 0 || line.price < 0)
+            const isSoldPkg = line.packagingAction === 'SOLD' || (line.product?.isPackagingAsset && !isReturn)
+
+            let badgeHtml = ''
+            if (isGift) {
+                badgeHtml = ' <span style="color: #28a745; font-size: 9px;">[Gift]</span>'
+            } else if (isReturn) {
+                badgeHtml = ' <span style="background: #e6fffa; color: #047857; font-size: 8.5px; padding: 1px 4px; border-radius: 3px; font-weight: bold;">[ຮັບຊື້ຄືນ / BUY-RETURN]</span>'
+            } else if (isSoldPkg) {
+                badgeHtml = ' <span style="background: #fffbeb; color: #b45309; font-size: 8.5px; padding: 1px 4px; border-radius: 3px; font-weight: bold;">[ຂາຍບັນຈຸພັນ / SELL]</span>'
+            }
+
+            return `
+                <tr>
+                    <td colspan="3" style="padding-top: 4px; font-weight: bold; line-height: 1.2;">
+                        ${index + 1}. ${line.product?.pro_name || 'Item'}${badgeHtml}
+                        ${line.product?.barCode ? `<div style="font-size: 9px; font-weight: normal; color: #555;">${line.product.barCode}</div>` : ''}
+                    </td>
+                </tr>
+                <tr style="border-bottom: 1px dashed #ddd;">
+                    <td style="padding-bottom: 4px; font-size: 9.5px; color: ${isReturn ? '#047857' : '#444'};">
+                        ${formatNumber(line.quantity)} ${line.unit?.name || ''} x ${isReturn ? '-' : ''}${formatNumber(Math.abs(line.price))} ${lineCurrency.code}
+                        ${lineDiscount > 0 ? `<span style="color: #c00;"> (-${formatNumber(lineDiscount)})</span>` : ''}
+                    </td>
+                    <td style="text-align: center; padding-bottom: 4px; font-size: 9.5px; color: ${isReturn ? '#047857' : 'inherit'};">${formatNumber(line.quantity)}</td>
+                    <td style="text-align: right; padding-bottom: 4px; font-weight: bold; color: ${isReturn ? '#047857' : 'inherit'};">
+                        ${isReturn ? '-' : ''}${formatNumber(Math.abs(line.total))} ${lineCurrency.code}
+                    </td>
+                </tr>
+            `
+        }).join('') || '<tr><td colspan="3" style="text-align: center; padding: 6px;">No items</td></tr>'
+
+        const thermalTotalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
+            <div style="display: flex; justify-content: space-between; font-size: 10px; margin-bottom: 2px;">
+                <span>Subtotal (${currencyCode}) / ລວມຍ່ອຍ:</span>
+                <span><strong>${formatNumber(data.total)} ${currencyCode}</strong></span>
+            </div>
+        `).join('')
+
+        return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <meta charset="UTF-8">
+        <title>Receipt #${header.id}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Lao:wght@400;700&display=swap" rel="stylesheet">
+        <style>
+            * { box-sizing: border-box; -webkit-print-color-adjust: exact; margin: 0; padding: 0; }
+            html, body {
+                width: ${paperWidth === '58mm' ? '175px' : '280px'};
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0;
+                background: #fff;
+                color: #000;
+                font-family: 'Noto Sans Lao', Arial, sans-serif;
+                font-size: ${paperWidth === '58mm' ? '10px' : '11px'};
+                line-height: 1.25;
+            }
+            @page {
+                size: auto;
+                margin: 0;
+            }
+            .receipt-container {
+                width: 100%;
+                padding: 6px 8px 30px 8px;
+            }
+            .dashed-sep {
+                border-bottom: 1px dashed #000;
+                margin: 6px 0;
+            }
+            .solid-sep {
+                border-bottom: 1px solid #000;
+                margin: 6px 0;
+            }
+            @media print {
+                body { margin: 0; padding: 0; }
+                .receipt-container { padding-bottom: 35px; }
+            }
+        </style>
+        </head>
+        <body>
+        <div class="receipt-container">
+            <!-- Company Logo -->
+            ${(logoUrl && showLogo) ? `
+                <div style="text-align: center; margin-bottom: 6px;">
+                    <img src="${logoUrl}" style="max-height: 60px; max-width: ${paperWidth === '58mm' ? '120px' : '150px'}; object-fit: contain;" onerror="this.style.display='none';" />
+                </div>
+            ` : ''}
+
+            <!-- Company Header Info -->
+            <div style="text-align: center;">
+                <div style="font-size: ${paperWidth === '58mm' ? '13px' : '15px'}; font-weight: bold; line-height: 1.2;">${companyData.name || 'COMPANY NAME'}</div>
+                ${companyData.address ? `<div style="font-size: 10px; margin-top: 2px;">${companyData.address}</div>` : ''}
+                ${companyData.tel ? `<div style="font-size: 10px;">ໂທ: ${companyData.tel}</div>` : ''}
+                ${companyData.taxId ? `<div style="font-size: 10px;">ເລກປະຈຳຕົວຜູ້ເສຍອາກອນ: ${companyData.taxId}</div>` : ''}
+            </div>
+
+            <div class="dashed-sep"></div>
+
+            <!-- Receipt Title & Details -->
+            <div style="text-align: center; font-size: 13px; font-weight: bold; margin: 2px 0 4px 0;">
+                ໃບຮັບເງິນ / RECEIPT
+            </div>
+
+            <div style="font-size: 10px; line-height: 1.4;">
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ເລກບິນ:</span>
+                    <b>RCP-${header.id || ''}${resolveReferenceNo(header) !== '-' ? ` | ${resolveReferenceNo(header)}` : ''}</b>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ວັນທີ:</span>
+                    <span>${formatDateTime(header.bookingDate || header.createdAt || new Date())}</span>
+                </div>
+                ${resolveLocationName(header) !== '-' ? `
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ສະຖານທີ່:</span>
+                    <span>${resolveLocationName(header)}</span>
+                </div>` : ''}
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ພະນັກງານ:</span>
+                    <span>${header.user?.cus_name || header.user?.name || '-'}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ລູກຄ້າ:</span>
+                    <span>${header.client?.name || header.client?.company || 'Walk-in'}</span>
+                </div>
+                ${header.client?.telephone ? `
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ເບີໂທລູກຄ້າ:</span>
+                    <span>${header.client.telephone}</span>
+                </div>` : ''}
+                <div style="display: flex; justify-content: space-between;">
+                    <span>ການຊຳລະ:</span>
+                    <span>${resolvePaymentName(header)}</span>
+                </div>
+            </div>
+
+            <div class="dashed-sep"></div>
+
+            <!-- Line Items -->
+            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                <thead>
+                    <tr style="border-bottom: 1px solid #000;">
+                        <th style="text-align: left; padding: 2px 0;">ລາຍການ</th>
+                        <th style="text-align: center; width: 35px; padding: 2px 0;">ຈ/ນ</th>
+                        <th style="text-align: right; width: 70px; padding: 2px 0;">ລວມ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${thermalLinesHTML}
+                </tbody>
+            </table>
+
+            <div class="dashed-sep"></div>
+
+            <!-- Subtotals by Currency -->
+            ${thermalTotalsHTML}
+
+            <!-- Header Discount if any -->
+            ${headerDiscount > 0 ? `
+                <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: #c00; margin-bottom: 2px;">
+                    <span>ສ່ວນຫຼຸດເພີ່ມ (Discount):</span>
+                    <span><strong>-${formatNumber(headerDiscount)} ${localCurrency.code}</strong></span>
+                </div>
+            ` : ''}
+
+            <div class="solid-sep"></div>
+
+            <!-- Grand Total in Local Currency -->
+            <div style="display: flex; justify-content: space-between; font-size: ${paperWidth === '58mm' ? '12px' : '14px'}; font-weight: bold; margin: 4px 0;">
+                <span>ຍອດລວມ (TOTAL):</span>
+                <span>${formatNumber(totalInLocalCurrency)} ${localCurrency.code}</span>
+            </div>
+
+            <!-- Multi-currency conversions -->
+            ${generateMultiCurrencyTotalsHTML(totalInLocalCurrency, localCurrency, currencyList)}
+
+            <!-- QR Code Payment Section -->
+            ${(showQR && (qr1Url || qr2Url)) ? `
+                <div class="qr-section" style="text-align: center; margin-top: 8px; padding-top: 6px; border-top: 1px dashed #000;">
+                    <div style="font-size: 11px; font-weight: bold; margin-bottom: 4px;">ສະແກນເພື່ອຊຳລະເງິນ (Scan to Pay)</div>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap;">
+                        ${qr1Url ? `
+                            <div style="text-align: center;">
+                                <img src="${qr1Url}" style="width: ${paperWidth === '58mm' ? '100px' : '125px'}; height: ${paperWidth === '58mm' ? '100px' : '125px'}; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" onerror="this.style.display='none';" />
+                                <div style="font-size: 9.5px; font-weight: bold; margin-top: 2px; color: #333;">QR 1 (${companyData.bank || 'LAK'})</div>
+                            </div>
+                        ` : ''}
+                        ${qr2Url ? `
+                            <div style="text-align: center;">
+                                <img src="${qr2Url}" style="width: ${paperWidth === '58mm' ? '100px' : '125px'}; height: ${paperWidth === '58mm' ? '100px' : '125px'}; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" onerror="this.style.display='none';" />
+                                <div style="font-size: 9.5px; font-weight: bold; margin-top: 2px; color: #333;">QR 2 (THB)</div>
+                            </div>
+                        ` : ''}
+                    </div>
+                </div>
+            ` : ''}
+
+            <div class="dashed-sep"></div>
+
+            <!-- Terms, Remarks, and Thank You Message -->
+            ${companyData.term_condition ? `
+                <div style="text-align: center; font-size: 9px; color: #444; margin-top: 4px; line-height: 1.2;">
+                    ${companyData.term_condition}
+                </div>
+            ` : ''}
+            ${companyData.remark ? `
+                <div style="text-align: center; font-size: 9px; color: #666; font-style: italic; margin-top: 2px;">
+                    ${companyData.remark}
+                </div>
+            ` : ''}
+            <div style="text-align: center; font-size: 11px; font-weight: bold; margin-top: 6px;">
+                ຂອບໃຈທີ່ໃຊ້ນິການ / Thank You
+            </div>
+
+            <div style="height: 35px;"></div>
+        </div>
+        </body>
+        </html>
+        `
+    }
+
+    // ==========================================
+    // FORMAL A4 / A5 RECEIPT TEMPLATE (WITH LOGO & QR)
+    // ==========================================
+    const linesHTML = header.lines?.map((line, index) => {
+        const lineCurrency = getCurrency(line.currencyId, currencyList)
 
         return `
       <tr>
@@ -309,39 +622,6 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
       </tr>
     `
     }).join('') || '<tr><td colspan="7" style="text-align: center;">No items</td></tr>'
-
-    // Calculate totals BY CURRENCY
-    const totalsByCurrency = {}
-    let totalInLocalCurrency = 0
-
-    header.lines?.forEach(line => {
-        const lineCurrency = getCurrency(line.currencyId, currencyList)
-
-        // Group by currency
-        if (!totalsByCurrency[lineCurrency.code]) {
-            totalsByCurrency[lineCurrency.code] = {
-                currency: lineCurrency,
-                subtotal: 0,
-                discount: 0,
-                total: 0
-            }
-        }
-
-        totalsByCurrency[lineCurrency.code].subtotal += line.total
-        totalsByCurrency[lineCurrency.code].discount += (line.discount || 0)
-        totalsByCurrency[lineCurrency.code].total += line.total - (line.discount || 0)
-
-        // Convert to local currency for grand total
-        const localAmount = convertToLocalCurrency(line.total - (line.discount || 0), lineCurrency, localCurrency)
-        totalInLocalCurrency += localAmount
-    })
-
-    // Add header discount to local currency
-    const headerDiscount = header.discount || 0
-    totalInLocalCurrency -= headerDiscount
-
-    console.log('💰 Totals by Currency:', totalsByCurrency)
-    console.log(`🎯 Grand Total in Local Currency: ${totalInLocalCurrency} ${localCurrency.code}`)
 
     // Generate totals HTML - SUMMARY BY CURRENCY
     const totalsHTML = Object.entries(totalsByCurrency).map(([currencyCode, data]) => `
@@ -376,6 +656,7 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
         .header-container { 
             display: flex; 
             justify-content: space-between; 
+            align-items: center;
             border-bottom: 2px solid #000; 
             padding-bottom: 8px; 
             margin-bottom: 12px; 
@@ -392,7 +673,7 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
             color: #444; 
         }
         .receipt-title { 
-            text-align: right; 
+            text-align: center; 
             border: 2px solid #000; 
             padding: 8px 15px; 
             background: #f5f5f5; 
@@ -529,7 +810,7 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
         
         @media print { 
             body { margin: 0; padding: 5mm; } 
-            @page { size: A4; margin: 5mm; } 
+            @page { size: ${paperWidth === 'A5' ? 'A5' : 'A4'}; margin: 5mm; } 
             .footer { page-break-inside: avoid; }
             .currency-banner { background: #f0f0f0 !important; }
             .totals-box { background: #f8f8f8 !important; }
@@ -540,16 +821,37 @@ export const generateReceiptHTML = (header, companyData, currencyList = []) => {
     <body>
     <div class="content">
         <div class="header-container">
-            <div class="company-info" style="flex: 1; text-align: left;">
+            ${(logoUrl && showLogo) ? `
+                <div style="margin-right: 15px; display: flex; align-items: center;">
+                    <img src="${logoUrl}" style="max-height: 70px; max-width: 130px; object-fit: contain;" onerror="this.style.display='none';" />
+                </div>
+            ` : ''}
+            <div class="company-info" style="flex: 1.2; text-align: left;">
                 <h1>${companyData.name || 'COMPANY NAME'}</h1>
                 <p>${companyData.address || ''}</p>
                 <p>Tel: ${companyData.tel || ''} | Email: ${companyData.email || ''}</p>
                 ${companyData.taxId ? `<p><strong>Tax ID:</strong> ${companyData.taxId}</p>` : ''}
                 ${companyData.bank ? `<p><strong>Bank:</strong> ${companyData.bank} ${companyData.accountName ? `- ${companyData.accountName}` : ''} ${companyData.accounts ? `(${companyData.accounts})` : ''}</p>` : ''}
             </div>
-            <div class="receipt-title">
-                <h2>RECEIVE NOTE</h2>
-                <span>ໃບຂາຍສິນຄ້າ</span>
+            <div style="flex: 0.8; display: flex; justify-content: center; align-self: flex-start; margin-top: 5px;">
+                <div class="receipt-title">
+                    <h2>RECEIVE NOTE</h2>
+                    <span>ໃບຂາຍສິນຄ້າ</span>
+                </div>
+            </div>
+            <div class="header-qrs" style="flex: 1.2; display: flex; gap: 8px; justify-content: flex-end; align-items: center;">
+                ${qr1Url ? `
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                        <img src="${qr1Url}" style="width: 130px; height: 130px; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" onerror="this.style.display='none';" />
+                        <span style="font-size: 11px; margin-top: 2px; color: #555; font-weight: bold;">ກີບ</span>
+                    </div>
+                ` : ''}
+                ${qr2Url ? `
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+                        <img src="${qr2Url}" style="width: 130px; height: 130px; object-fit: contain; border: 1px solid #ccc; padding: 2px; background: #fff; border-radius: 4px;" onerror="this.style.display='none';" />
+                        <span style="font-size: 11px; margin-top: 2px; color: #555; font-weight: bold;">ບາດ</span>
+                    </div>
+                ` : ''}
             </div>
         </div>
         
@@ -649,8 +951,18 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
     console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
     const baseUrl = getBaseUrl()
+    const logoUrl = getCompanyLogoUrl(companyData)
     const qr1Url = getCompanyQR1Url(companyData)
     const qr2Url = getCompanyQR2Url(companyData)
+    const showLogo = Boolean(logoUrl) && (
+        companyData?.showLogoOnTicket === true ||
+        companyData?.showLogoOnTicket === 1 ||
+        companyData?.showLogoOnTicket === '1' ||
+        String(companyData?.showLogoOnTicket).toLowerCase() === 'true' ||
+        companyData?.showLogoOnTicket === undefined ||
+        companyData?.showLogoOnTicket === null ||
+        companyData?.showLogoOnTicket === ''
+    )
 
     // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
     const linesHTML = header.lines?.map((line, index) => {
@@ -924,6 +1236,11 @@ export const generateInvoiceHTML = (header, companyData, currencyList = []) => {
     <body>
     <div class="content">
         <div class="header-container" style="display: flex; align-items: center; justify-content: space-between;">
+            ${(logoUrl && showLogo) ? `
+                <div style="margin-right: 15px; display: flex; align-items: center;">
+                    <img src="${logoUrl}" style="max-height: 70px; max-width: 130px; object-fit: contain;" onerror="this.style.display='none';" />
+                </div>
+            ` : ''}
             <div class="company-info" style="flex: 1.2; text-align: left;">
                 <h1>${companyData.name || 'COMPANY NAME'}</h1>
                 <p>${companyData.address || ''}</p>
@@ -1046,8 +1363,18 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
     console.log(`🏠 Local Currency: ${localCurrency.code}`)
 
     const baseUrl = getBaseUrl()
+    const logoUrl = getCompanyLogoUrl(companyData)
     const qr1Url = getCompanyQR1Url(companyData)
     const qr2Url = getCompanyQR2Url(companyData)
+    const showLogo = Boolean(logoUrl) && (
+        companyData?.showLogoOnTicket === true ||
+        companyData?.showLogoOnTicket === 1 ||
+        companyData?.showLogoOnTicket === '1' ||
+        String(companyData?.showLogoOnTicket).toLowerCase() === 'true' ||
+        companyData?.showLogoOnTicket === undefined ||
+        companyData?.showLogoOnTicket === null ||
+        companyData?.showLogoOnTicket === ''
+    )
 
     // Generate lines HTML - SHOW ORIGINAL CURRENCY FOR EACH LINE
     const linesHTML = header.lines?.map((line, index) => {
@@ -1321,6 +1648,11 @@ export const generateA4ReceiptHTML = (header, companyData, currencyList = []) =>
     <body>
     <div class="content">
         <div class="header-container" style="display: flex; align-items: center; justify-content: space-between;">
+            ${(logoUrl && showLogo) ? `
+                <div style="margin-right: 15px; display: flex; align-items: center;">
+                    <img src="${logoUrl}" style="max-height: 70px; max-width: 130px; object-fit: contain;" onerror="this.style.display='none';" />
+                </div>
+            ` : ''}
             <div class="company-info" style="flex: 1.2; text-align: left;">
                 <h1>${companyData.name || 'COMPANY NAME'}</h1>
                 <p>${companyData.address || ''}</p>

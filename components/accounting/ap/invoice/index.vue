@@ -509,7 +509,7 @@
           <v-spacer></v-spacer>
           <v-btn text color="grey darken-1" class="px-4 rounded-lg font-weight-bold" @click="handleClose" :disabled="saving">
             <v-icon left>mdi-close</v-icon>
-            ຍົກເລີກ (Cancel)
+            ປິດໜ້າຕ່າງ
           </v-btn>
           <v-btn color="primary" class="px-5 rounded-lg font-weight-bold elevation-1" @click="handleSubmit" :disabled="saving || !isFormValid" :loading="saving">
             <v-icon left>mdi-content-save</v-icon>

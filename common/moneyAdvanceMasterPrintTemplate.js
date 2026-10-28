@@ -4,6 +4,8 @@
  */
 
 // Helper to format currency numbers
+import govLogoImage from '@/assets/image/MPWT/gov sign.png'
+
 const formatCurrency = (val) => {
   if (val === null || val === undefined || val === '') return '0.00'
   const num = typeof val === 'number' ? val : parseFloat(val)
@@ -67,6 +69,7 @@ export const generateMasterMinistryAnalysisReportHTML = ({
   const companyName = companyData?.name || companyData?.company_name || 'ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ'
   const printTime = formatDateTime(new Date())
   const printedBy = user?.name || user?.cus_name || user?.username || 'Admin'
+  const resolvedGovLogo = typeof govLogoImage === 'object' && govLogoImage?.default ? govLogoImage.default : govLogoImage
 
   let totalBF = 0
   let totalPay = 0
@@ -151,6 +154,14 @@ export const generateMasterMinistryAnalysisReportHTML = ({
         .gov-header {
           text-align: center;
           margin-bottom: 12px;
+        }
+
+        .gov-logo {
+          width: 55px;
+          height: 55px;
+          object-fit: contain;
+          margin: 0 auto 4px auto;
+          display: block;
         }
 
         .gov-country {
@@ -360,6 +371,7 @@ export const generateMasterMinistryAnalysisReportHTML = ({
       <div class="report-container">
         <!-- 1. Lao Government Header -->
         <div class="gov-header">
+          <img src="${resolvedGovLogo}" class="gov-logo" alt="Lao National Emblem" />
           <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ (ສປປ ລາວ)</div>
           <div class="gov-motto">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດຖະນະຖາວອນ</div>
           <div class="gov-stars">*** 000 ***</div>
@@ -369,19 +381,19 @@ export const generateMasterMinistryAnalysisReportHTML = ({
         <div class="org-meta-section">
           <div class="org-left">
             <div class="org-ministry">${companyName}</div>
-            <div class="org-dept">ກົມແຜນການ ແລະ ການເງິນ</div>
-            <div class="org-division">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
+            <div class="org-dept">ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</div>
+            <div class="org-division">ກົມແຜນການ ແລະ ການເງິນ</div>
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>
-            <div>ວຽງຈັນ, ວັນທີພິມ: ${printTime}</div>
-            <div>ຜູ້ສັງລວມ: ${printedBy}</div>
+            <div>ນະຄອນຫລວງວຽງຈັນ, ລົງວັນທີ: ${printTime}</div>
+            <!-- <div>ຜູ້ສັງລວມ: ${printedBy}</div> -->
           </div>
         </div>
 
         <!-- 3. Report Title Box -->
         <div class="report-title-box">
-          <h1 class="report-title">ບົດລາຍງານ ການວິເຄາະການຊຳລະ ແລະ ລາຍຮັບ (Master Report)</h1>
+          <h1 class="report-title">ສັງລວມໜີ້ສິນ ການຢືມຈ່າຍລ່ວງໜ້າ ແລະ ແທນຄືນ</h1>
           <div class="report-subtitle">
             ປະຈຳງວດ: <strong>${selectedMonthText || '-'}</strong> ${dateRangeText ? `(${dateRangeText})` : ''}
           </div>
@@ -412,11 +424,11 @@ export const generateMasterMinistryAnalysisReportHTML = ({
           <thead>
             <tr>
               <th style="width: 40px;">ລ/ດ</th>
-              <th>ຊື່ກະຊວງ / ກົມ (Ministry Name)</th>
+              <th>ຊື່ບັນດາກົມ ແລະ ກອງ</th>
               <th style="width: 135px;">ຍອດຍົກມາ<br><span style="font-size: 9px; font-weight: normal;">(Balance Forward)</span></th>
-              <th style="width: 135px;">ລາຍຈ່າຍ<br><span style="font-size: 9px; font-weight: normal;">(Payment converted to LAK)</span></th>
-              <th style="width: 135px;">ລາຍຮັບ / ຊຳລະ<br><span style="font-size: 9px; font-weight: normal;">(Settlement)</span></th>
-              <th style="width: 145px;">ຍອດຄົງເຫຼືອທ້າຍງວດ<br><span style="font-size: 9px; font-weight: normal;">(Closing Balance)</span></th>
+              <th style="width: 135px;">ໜີ້ເກີດຂື້ນ<br><span style="font-size: 9px; font-weight: normal;">(Payment converted to LAK)</span></th>
+              <th style="width: 135px;">ຊຳລະໜີ້<br><span style="font-size: 9px; font-weight: normal;">(Settlement)</span></th>
+              <th style="width: 145px;">ຍອດຍົກໄປ<br><span style="font-size: 9px; font-weight: normal;">(Closing Balance)</span></th>
               <th style="width: 100px;">ໝາຍເຫດ<br><span style="font-size: 9px; font-weight: normal;">(Remark)</span></th>
             </tr>
           </thead>
@@ -425,7 +437,7 @@ export const generateMasterMinistryAnalysisReportHTML = ({
           </tbody>
           <tfoot>
             <tr>
-              <td colspan="2" class="text-center font-bold">ລວມຍອດທັງໝົດ (Grand Total LAK):</td>
+              <td colspan="2" class="text-center font-bold">ລວມຈ່າຍ:</td>
               <td class="text-right font-mono font-bold">₭${formatCurrency(finalTotalBF)}</td>
               <td class="text-right font-mono font-bold">₭${formatCurrency(finalTotalPay)}</td>
               <td class="text-right font-mono font-bold">₭${formatCurrency(finalTotalSet)}</td>
@@ -439,19 +451,19 @@ export const generateMasterMinistryAnalysisReportHTML = ({
         <div class="signatures">
           <div class="sign-box">
             <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
-            <div class="sign-title">ຜູ້ສັງລວມ / ຜູ້ລາຍງານ</div>
+            <div class="sign-title">ຫົວໜ້າກົມ</div>
             <div class="sign-line"></div>
-            <div class="sign-name">${printedBy}</div>
+            <!-- <div class="sign-name">${printedBy}</div> -->
           </div>
           <div class="sign-box">
             <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
-            <div class="sign-title">ຫົວໜ້າພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
+            <div class="sign-title">ຫົວໜ້າພະແນກ</div>
             <div class="sign-line"></div>
             <div class="sign-name">(...................................................)</div>
           </div>
           <div class="sign-box">
             <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
-            <div class="sign-title">ຫົວໜ້າກົມແຜນການ ແລະ ການເງິນ</div>
+            <div class="sign-title">ຜູ້ສັງລວມ</div>
             <div class="sign-line"></div>
             <div class="sign-name">(...................................................)</div>
           </div>

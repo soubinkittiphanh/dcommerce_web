@@ -47,7 +47,8 @@
         </div>
 
         <!-- Customer Information -->
-        <div class="info-section" v-if="invoice.customer">
+        <!-- Customer Information -->
+        <div class="info-section" v-if="invoice.customer || invoice.client || invoice.agency">
           <div class="section-header">
             <h3>
               <i class="fas fa-user"></i>
@@ -58,22 +59,25 @@
           <div class="info-grid">
             <div class="info-item">
               <label>ຊື່ລູກຄ້າ:</label>
-              <span class="customer-name">{{ invoice.customer.name }}</span>
+              <span class="customer-name">
+                {{ invoice.client ? invoice.client.name : (invoice.agency ? (invoice.agency.agencyName || invoice.agency.name) : (invoice.customer ? invoice.customer.name : 'N/A')) }}
+                <small v-if="invoice.client && invoice.client.company">({{ invoice.client.company }})</small>
+              </span>
             </div>
 
-            <div class="info-item" v-if="invoice.customer.email">
+            <div class="info-item" v-if="(invoice.client && invoice.client.email) || (invoice.agency && invoice.agency.email) || (invoice.customer && invoice.customer.email)">
               <label>ອີເມວ:</label>
-              <span>{{ invoice.customer.email }}</span>
+              <span>{{ invoice.client ? invoice.client.email : (invoice.agency ? invoice.agency.email : invoice.customer?.email) }}</span>
             </div>
 
-            <div class="info-item" v-if="invoice.customer.phone">
+            <div class="info-item" v-if="(invoice.client && invoice.client.telephone) || (invoice.agency && (invoice.agency.phone || invoice.agency.telephone)) || (invoice.customer && invoice.customer.phone)">
               <label>ເບີໂທ:</label>
-              <span>{{ invoice.customer.phone }}</span>
+              <span>{{ invoice.client ? invoice.client.telephone : (invoice.agency ? (invoice.agency.phone || invoice.agency.telephone) : invoice.customer?.phone) }}</span>
             </div>
 
-            <div class="info-item" v-if="invoice.customer.address">
+            <div class="info-item" v-if="(invoice.client && invoice.client.address) || (invoice.agency && invoice.agency.address) || (invoice.customer && invoice.customer.address)">
               <label>ທີ່ຢູ່:</label>
-              <span>{{ invoice.customer.address }}</span>
+              <span>{{ invoice.client ? invoice.client.address : (invoice.agency ? invoice.agency.address : invoice.customer?.address) }}</span>
             </div>
           </div>
         </div>
@@ -87,7 +91,7 @@
             </h3>
           </div>
 
-          <div class="info-grid">
+          <div class="info-grid" v-if="invoice.currency">
             <div class="info-item">
               <label>ສະກຸນເງິນ:</label>
               <span>{{ invoice.currency.code }} - {{ invoice.currency.name }}</span>
@@ -208,20 +212,34 @@
                   <th>ວັນທີຮັບເງິນ</th>
                   <th>ຍອດເງິນ</th>
                   <th>ວິທີຈ່າຍ</th>
+                  <th>ສະຖານະ</th>
                   <th>ເລກອ້າງອີງ</th>
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="receive in invoice.receiveHeaders" :key="receive.id">
+                <tr
+                  v-for="receive in invoice.receiveHeaders"
+                  :key="receive.id"
+                  :class="{ 'cancelled-receipt-row': receive.status === 'cancelled' || receive.status === 'voided' }"
+                >
                   <td>
                     <span class="receipt-number">{{ receive.receiptNumber }}</span>
                   </td>
                   <td>{{ formatDate(receive.bookingDate) }}</td>
                   <td>{{ formatDate(receive.receivedDate) }}</td>
-                  <td class="text-right">{{ formatCurrency(receive.totalReceivedAmount) }}</td>
+                  <td class="text-right">
+                    <span :class="{ 'cancelled-amount': receive.status === 'cancelled' || receive.status === 'voided' }">
+                      {{ formatCurrency(receive.totalReceivedAmount) }}
+                    </span>
+                  </td>
                   <td>
                     <span :class="['payment-method', receive.paymentMethod]">
                       {{ formatPaymentMethod(receive.paymentMethod) }}
+                    </span>
+                  </td>
+                  <td>
+                    <span :class="['status-badge', receive.status || 'active']">
+                      {{ formatReceiptStatus(receive.status) }}
                     </span>
                   </td>
                   <td>{{ receive.referenceNumber || '-' }}</td>
@@ -231,7 +249,7 @@
                 <tr class="summary-row">
                   <td colspan="3"><strong>ລວມຊຳລະແລ້ວ:</strong></td>
                   <td class="text-right"><strong>{{ formatCurrency(calculatePaymentsTotal()) }}</strong></td>
-                  <td colspan="2"></td>
+                  <td colspan="3"></td>
                 </tr>
                 <tr class="balance-row">
                   <td colspan="3"><strong>ຍອດຄ້າງຊຳລະ:</strong></td>
@@ -240,7 +258,7 @@
                       {{ formatCurrency(calculateBalance()) }}
                     </strong>
                   </td>
-                  <td colspan="2"></td>
+                  <td colspan="3"></td>
                 </tr>
               </tfoot>
             </table>
@@ -391,9 +409,15 @@ export default {
 
     calculatePaymentsTotal() {
       if (!this.invoice.receiveHeaders) return 0
-      return this.invoice.receiveHeaders.reduce((total, receive) => {
-        return total + parseFloat(receive.totalReceivedAmount || 0)
-      }, 0)
+      return this.invoice.receiveHeaders
+        .filter(
+          (r) =>
+            r.status === 'active' ||
+            (!r.status && r.status !== 'cancelled' && r.status !== 'voided')
+        )
+        .reduce((total, receive) => {
+          return total + parseFloat(receive.totalReceivedAmount || 0)
+        }, 0)
     },
 
     calculateBalance() {
@@ -431,11 +455,23 @@ export default {
     },
 
     formatCurrency(amount) {
-      if (!amount) return '0.00'
-      return parseFloat(amount).toLocaleString('en-US', {
+      if (amount === null || amount === undefined || isNaN(amount)) {
+        return '0.00'
+      }
+      const val = parseFloat(amount) || 0
+      const formatted = val.toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })
+      const symbol = this.invoice?.currency?.symbol
+      const code = this.invoice?.currency?.code
+      if (symbol) {
+        return `${symbol} ${formatted}`
+      }
+      if (code) {
+        return `${formatted} ${code}`
+      }
+      return formatted
     },
 
     formatNumber(number) {
@@ -468,6 +504,15 @@ export default {
         other: 'ອື່ນໆ',
       }
       return methods[method] || method
+    },
+
+    formatReceiptStatus(status) {
+      const labels = {
+        active: 'ປົກກະຕິ',
+        voided: 'ໂມຄະ',
+        cancelled: 'ຍົກເລີກ',
+      }
+      return labels[status] || status || 'ປົກກະຕິ'
     },
 
     getDueDateClass(dueDate, status) {
@@ -674,6 +719,26 @@ export default {
 .status-badge.cancelled {
   background-color: #e2e3e5;
   color: #383d41;
+}
+
+.status-badge.active {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status-badge.voided {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.cancelled-receipt-row {
+  background-color: #f8f9fa !important;
+  opacity: 0.75;
+}
+
+.cancelled-amount {
+  text-decoration: line-through;
+  color: #6c757d;
 }
 
 /* Due Date Classes */

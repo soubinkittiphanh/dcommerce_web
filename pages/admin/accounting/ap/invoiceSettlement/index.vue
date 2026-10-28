@@ -160,7 +160,7 @@
               <div class="text-right font-weight-bold">
                 {{ formatCurrency(item.paymentAmount) }}
                 <br>
-                <small class="grey--text">{{ item.currency?.code || 'LAK' }}</small>
+                <small class="grey--text">{{ getCurrencyCode(item) }}</small>
               </div>
             </template>
 
@@ -169,7 +169,7 @@
               <div class="text-right">
                 {{ formatCurrency(item.baseAmount) }}
                 <br>
-                <small class="grey--text">LAK</small>
+                <small class="grey--text">{{ getLocalCurrencyCode() }}</small>
               </div>
             </template>
 
@@ -195,9 +195,45 @@
             <!-- Actions -->
             <template v-slot:item.actions="{ item }">
               <div class="d-flex align-center justify-center">
-                <v-btn icon small color="primary" class="mr-1" @click="printSettlementVoucher(item)">
-                  <v-icon small>mdi-printer</v-icon>
-                </v-btn>
+                <!-- Direct View Button -->
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon small color="info" class="mr-1" v-bind="attrs" v-on="on" @click="viewDetails(item)">
+                      <v-icon small>mdi-eye</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ເບິ່ງລາຍລະອຽດ</span>
+                </v-tooltip>
+
+                <!-- Direct Edit Button -->
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      v-if="['draft', 'pending', 'approved'].includes(item.status)"
+                      icon
+                      small
+                      color="warning"
+                      class="mr-1"
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="openDialog(item)"
+                    >
+                      <v-icon small>mdi-pencil</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ແກ້ໄຂ</span>
+                </v-tooltip>
+
+                <!-- Direct Print Button -->
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn icon small color="primary" class="mr-1" v-bind="attrs" v-on="on" @click="printSettlementVoucher(item)">
+                      <v-icon small>mdi-printer</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ພິມ Voucher</span>
+                </v-tooltip>
+
                 <v-menu bottom left>
                   <template v-slot:activator="{ on, attrs }">
                     <v-btn icon small v-bind="attrs" v-on="on">
@@ -212,48 +248,48 @@
                       <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
                     </v-list-item>
 
-                  <v-list-item v-if="['draft', 'pending'].includes(item.status)" @click="openDialog(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="warning">mdi-pencil</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
-                  </v-list-item>
+                    <v-list-item v-if="['draft', 'pending', 'approved'].includes(item.status)" @click="openDialog(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="warning">mdi-pencil</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                    </v-list-item>
 
-                  <v-list-item v-if="item.status === 'draft'" @click="submitSettlement(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="primary">mdi-send</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ສົ່ງຂໍອະນຸມັດ</v-list-item-title>
-                  </v-list-item>
+                    <v-list-item v-if="item.status === 'draft'" @click="submitSettlement(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="primary">mdi-send</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ສົ່ງຂໍອະນຸມັດ</v-list-item-title>
+                    </v-list-item>
 
-                  <v-list-item v-if="item.status === 'pending'" @click="approveSettlement(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="success">mdi-check</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ອະນຸມັດ</v-list-item-title>
-                  </v-list-item>
+                    <v-list-item v-if="item.status === 'pending'" @click="approveSettlement(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="success">mdi-check</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ອະນຸມັດ</v-list-item-title>
+                    </v-list-item>
 
-                  <v-list-item v-if="item.status === 'approved'" @click="completeSettlement(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="primary">mdi-check-all</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ສຳເລັດ</v-list-item-title>
-                  </v-list-item>
+                    <v-list-item v-if="item.status === 'approved'" @click="completeSettlement(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="primary">mdi-check-all</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ສຳເລັດ</v-list-item-title>
+                    </v-list-item>
 
-                  <v-divider v-if="
-                    ['draft', 'pending', 'approved'].includes(item.status)
-                  " />
+                    <v-divider v-if="
+                      ['draft', 'pending', 'approved'].includes(item.status)
+                    " />
 
-                  <v-list-item v-if="
-                    ['draft', 'pending', 'approved'].includes(item.status)
-                  " @click="cancelSettlement(item)">
-                    <v-list-item-icon>
-                      <v-icon small color="error">mdi-close</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-title>ຍົກເລີກ</v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
+                    <v-list-item v-if="
+                      ['draft', 'pending', 'approved'].includes(item.status)
+                    " @click="cancelSettlement(item)">
+                      <v-list-item-icon>
+                        <v-icon small color="error">mdi-close</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>ຍົກເລີກ</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
               </div>
             </template>
           </v-data-table>
@@ -361,11 +397,19 @@
                   <td class="font-weight-bold">ຈຳນວນເງິນຊຳລະ:</td>
                   <td class="font-weight-bold">
                     {{ formatCurrency(settlementDetails.paymentAmount) }}
+                    <span class="grey--text text--darken-1 ml-1 font-weight-regular">
+                      {{ getCurrencyCode(settlementDetails) }}
+                    </span>
                   </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ຈຳນວນເງິນພື້ນຖານ:</td>
-                  <td>{{ formatCurrency(settlementDetails.baseAmount) }}</td>
+                  <td>
+                    {{ formatCurrency(settlementDetails.baseAmount) }}
+                    <span class="grey--text text--darken-1 ml-1 font-weight-regular">
+                      {{ getLocalCurrencyCode() }}
+                    </span>
+                  </td>
                 </tr>
                 <tr>
                   <td class="font-weight-bold">ສະຖານະ:</td>
@@ -406,6 +450,7 @@
                     <td>{{ getInvoiceNumber(allocation) }}</td>
                     <td class="text-right font-weight-medium">
                       {{ formatCurrency(allocation.amount) }}
+                      <small class="grey--text ml-1">{{ getCurrencyCode(settlementDetails) }}</small>
                     </td>
                   </tr>
                 </tbody>
@@ -460,6 +505,16 @@
         <v-divider></v-divider>
         <v-card-actions class="pa-3">
           <v-spacer></v-spacer>
+          <v-btn
+            v-if="['draft', 'pending', 'approved'].includes(settlementDetails?.status)"
+            color="warning"
+            outlined
+            @click="editFromDetail(settlementDetails)"
+            class="rounded-lg mr-2"
+          >
+            <v-icon left>mdi-pencil</v-icon>
+            ແກ້ໄຂ
+          </v-btn>
           <v-btn color="primary" outlined @click="printSettlementVoucher(settlementDetails)" class="rounded-lg mr-2">
             <v-icon left>mdi-printer</v-icon>
             ພິມ Voucher
@@ -608,7 +663,7 @@ export default {
           text: 'ຟັງຊັ່ນ',
           value: 'actions',
           sortable: false,
-          width: '80px',
+          width: '150px',
           align: 'center',
         },
       ],
@@ -806,8 +861,8 @@ export default {
           'ID ການຊຳລະ': settlement.id,
           'ວັນທີຊຳລະ': this.formatDate(settlement.settlementDate),
           'ຈຳນວນເງິນຊຳລະ': settlement.paymentAmount,
-          'ສະກຸນເງິນ': settlement.currency?.code || 'LAK',
-          'ຈຳນວນເງິນພື້ນຖານ (LAK)': settlement.baseAmount,
+          'ສະກຸນເງິນ': this.getCurrencyCode(settlement),
+          [`ຈຳນວນເງິນພື້ນຖານ (${this.getLocalCurrencyCode()})`]: settlement.baseAmount,
           'ອັດຕາແລກປ່ຽນ': settlement.exchangeRate,
           'ສະຖານະ': this.getStatusInLao(settlement.status),
           'ອ້າງອີງ': settlement.reference || '',
@@ -860,7 +915,7 @@ export default {
         'ວັນທີຊຳລະ',
         'ຈຳນວນເງິນຊຳລະ',
         'ສະກຸນເງິນ',
-        'ຈຳນວນເງິນພື້ນຖານ (LAK)',
+        `ຈຳນວນເງິນພື້ນຖານ (${this.getLocalCurrencyCode()})`,
         'ອັດຕາແລກປ່ຽນ',
         'ສະຖານະ',
         'ອ້າງອີງ',
@@ -877,7 +932,7 @@ export default {
         settlement.id,
         this.formatDate(settlement.settlementDate),
         settlement.paymentAmount,
-        settlement.currency?.code || 'LAK',
+        this.getCurrencyCode(settlement),
         settlement.baseAmount,
         settlement.exchangeRate,
         this.getStatusInLao(settlement.status),
@@ -1307,6 +1362,8 @@ export default {
 
         const voucherData = {
           ...details,
+          currencyId: details.currencyId || details.currency?.id || (details.invoiceSettlements?.[0]?.invoiceLineItem?.invoice?.currencyId),
+          currency: details.currency || (this.currencies ? this.currencies.find(c => Number(c.id) === Number(details.currencyId)) : null),
           settlementLines: (details.invoiceSettlements || []).map((line) => ({
             invoiceNumber: line.invoiceLineItem?.invoice?.invoiceNumber || line.invoiceNumber || '-',
             agencyName: line.agency?.agencyName || line.invoiceLineItem?.invoice?.agency?.agencyName || line.agencyName || '-',
@@ -1373,6 +1430,77 @@ export default {
     formatDate(date) {
       if (!date) return 'N/A'
       return new Date(date).toLocaleDateString('en-GB')
+    },
+
+    editFromDetail(settlement) {
+      this.closeDetailModal()
+      this.openDialog(settlement)
+    },
+
+    getLocalCurrencyCode() {
+      const local = (this.currencies || []).find(
+        (c) => c.isLocalCCY === true || c.isLocalCCY === 1
+      )
+      return local?.code || 'LAK'
+    },
+
+    getCurrencyCode(settlement) {
+      if (!settlement) return 'LAK'
+
+      // 1. Direct from settlement.currency (associated object or string)
+      if (settlement.currency) {
+        if (typeof settlement.currency === 'string') return settlement.currency
+        if (settlement.currency.code) return settlement.currency.code
+        if (settlement.currency.name) return settlement.currency.name
+      }
+
+      // 2. Direct string properties if any
+      if (settlement.currencyCode) return settlement.currencyCode
+      if (settlement.currency_code) return settlement.currency_code
+
+      // 3. Lookup via settlement.currencyId against this.currencies
+      const curId = settlement.currencyId || settlement.paymentCurrencyId
+      if (curId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(curId)
+        )
+        if (found && found.code) return found.code
+      }
+
+      // 4. Try settlement lines / allocations
+      const lines =
+        settlement.invoiceSettlements ||
+        settlement.settlementLines ||
+        settlement.allocations ||
+        []
+      if (lines.length > 0) {
+        for (const line of lines) {
+          if (line.currency) {
+            if (typeof line.currency === 'string') return line.currency
+            if (line.currency.code) return line.currency.code
+          }
+          if (line.currencyId && this.currencies && this.currencies.length > 0) {
+            const found = this.currencies.find(
+              (c) => Number(c.id) === Number(line.currencyId)
+            )
+            if (found && found.code) return found.code
+          }
+
+          const inv = line.invoiceLineItem?.invoice || line.invoice
+          if (inv) {
+            if (inv.currency?.code) return inv.currency.code
+            if (inv.currencyId && this.currencies && this.currencies.length > 0) {
+              const found = this.currencies.find(
+                (c) => Number(c.id) === Number(inv.currencyId)
+              )
+              if (found && found.code) return found.code
+            }
+          }
+        }
+      }
+
+      // 5. Default to LAK
+      return 'LAK'
     },
   },
 }

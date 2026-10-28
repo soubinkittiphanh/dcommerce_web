@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../dc_api"
+		},
+		{
+			"path": "../dc_pos"
 		}
 	],
 	"settings": {}

@@ -293,7 +293,7 @@ export const jsDateToMysqlDate = (jsDate) => {
 
   // Return date only (remove time if not needed)
   return `${year}-${formattedMonth}-${formattedDay}`;
-  
+
   // If you need datetime format, use this instead:
   // return `${year}-${formattedMonth}-${formattedDay} ${formattedHour}:${formattedMinute}:${formattedSecond}`;
 }
@@ -309,27 +309,27 @@ export const getFirstDayOfMonth = () => {
   const today = new Date();
   const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
   console.log("Date found => ", firstDayOfMonth);
-  
+
   // Use local timezone methods
   const year = firstDayOfMonth.getFullYear();
   const month = String(firstDayOfMonth.getMonth() + 1).padStart(2, '0');
   const day = String(firstDayOfMonth.getDate()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day}`;
 }
 
 // UPDATED: Get date range for last 6 months using LOCAL timezone
 export const firstAndLastDateOfLast6Months = () => {
   const today = new Date();
-  
+
   // Get date 6 months ago
   const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
-  
+
   // Format start date (6 months ago, first day of that month) - LOCAL TIME
   const startYear = sixMonthsAgo.getFullYear();
   const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
   const startDate = `${startYear}-${startMonth}-01`;
-  
+
   // Format end date (today) - LOCAL TIME
   const endYear = today.getFullYear();
   const endMonth = String(today.getMonth() + 1).padStart(2, '0');
@@ -343,15 +343,15 @@ export const firstAndLastDateOfLast6Months = () => {
 // UPDATED: Alternative version using helper functions
 export const firstAndLastDateOfLast6MonthsMySQL = () => {
   const today = new Date();
-  
+
   // Get date 6 months ago
   const sixMonthsAgo = new Date(today.getFullYear(), today.getMonth() - 6, 1);
-  
+
   // Format using local timezone
   const startYear = sixMonthsAgo.getFullYear();
   const startMonth = String(sixMonthsAgo.getMonth() + 1).padStart(2, '0');
   const startDate = `${startYear}-${startMonth}-01`;
-  
+
   const endYear = today.getFullYear();
   const endMonth = String(today.getMonth() + 1).padStart(2, '0');
   const endDay = String(today.getDate()).padStart(2, '0');
@@ -366,10 +366,10 @@ export const firstAndLastDateOfCurrentYear = () => {
   const today = new Date();
   const year = today.getFullYear();
   console.log(`THIS YEAR IS ${year} ${today}`);
-  
+
   const startDate = getMySQLDateOfFirstDayOfYear();
   const endDate = getMySQLDateOfLastDayOfYear();
-  
+
   console.log(`THIS YEAR IS ${startDate} ${endDate}`);
   return { startDate, endDate };
 }
@@ -379,11 +379,11 @@ export const getMySQLDateOfFirstDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const firstDayOfYear = new Date(year, 0, 1); // January 1st
-  
+
   // Use local timezone methods
   const month = String(firstDayOfYear.getMonth() + 1).padStart(2, '0');
   const day = String(firstDayOfYear.getDate()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day}`;
 }
 
@@ -392,11 +392,11 @@ export const getMySQLDateOfLastDayOfYear = () => {
   const currentDate = new Date();
   const year = currentDate.getFullYear();
   const lastDayOfYear = new Date(year, 11, 31); // December 31st
-  
+
   // Use local timezone methods
   const month = String(lastDayOfYear.getMonth() + 1).padStart(2, '0');
   const day = String(lastDayOfYear.getDate()).padStart(2, '0');
-  
+
   return `${year}-${month}-${day}`;
 }
 
@@ -465,27 +465,27 @@ export const dayCount = (fromDate) => {
   const [year, month, day] = fromDate.split('-');
   const date1 = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
   const date2 = new Date(); // Current date in local timezone
-  
+
   // Calculate difference in milliseconds
   const difference = date2.getTime() - date1.getTime();
   const totalDays = Math.ceil(difference / (1000 * 3600 * 24));
-  
+
   return totalDays;
 }
 
 // UPDATED: Get next date using LOCAL timezone
 export const getNextDate = (startDate, days) => {
   console.log("DATE =>", startDate, " to=> ", days);
-  
+
   // Parse the date (handle both ISO string and date-only formats)
   const dateString = startDate.split("T")[0];
   const [year, month, day] = dateString.split('-');
   const startDateObject = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
-  
+
   // Create next date
   const nextDate = new Date(startDateObject);
   nextDate.setDate(nextDate.getDate() + days);
-  
+
   return nextDate;
 }
 
@@ -591,4 +591,33 @@ export const getTimezoneInfo = () => {
     isoString: now.toISOString(),
     localDateString: dateToLocalMysqlFormat(now)
   };
+}
+
+/**
+ * Detect whether a product is a packaging item (empty crate, bottle, or packaging category asset).
+ * Normal merchandise (finished beer cases, sodas, food) return false.
+ */
+export const isPackagingProduct = (product) => {
+  if (!product) return false
+
+  // 1. Explicit packaging asset flag on product OR category isPackaging
+  if (product.isPackagingAsset === true || product.isPackagingAsset === 1) return true
+  if (product.categoryIsPackaging === true || product.categoryIsPackaging === 1) return true
+  if (product.category?.isPackaging === true || product.category?.isPackaging === 1) return true
+  if (product.isPackaging === true || product.isPackaging === 1) return true
+
+  // 2. Finished merchandise (e.g. beer cases sold with drinks) are NOT packaging empties
+  if (product.isReturnablePackaging === true && !product.isPackagingAsset) {
+    return false
+  }
+
+  // 3. Category match
+
+
+  // 4. Barcode match
+
+
+  // 5. Product name match (empty crates, bottles, packaging)
+
+  return false
 }

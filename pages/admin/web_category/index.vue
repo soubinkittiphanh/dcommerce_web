@@ -61,7 +61,7 @@
 
         <template v-slot:[`item.edit`]="{ item }">
           <v-btn color="primary" text @click="editItem(item)">
-            <i class="fa-regular fa-pen-to-square"></i>
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
 

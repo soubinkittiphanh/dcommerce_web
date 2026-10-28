@@ -5,7 +5,7 @@
       <ARReceivePrinter
         :visible="showPrintDialog"
         :receipt-data="selectedReceiptForPrint"
-        :payment-methods="paymentMethods"
+        :payment-methods="allPaymentMethods"
         :currencies="currencies"
         :transaction-codes="transactionCodes"
         :gl-accounts="glAccounts"
@@ -98,7 +98,7 @@
                     <v-col cols="12" sm="6" md="4" lg="3">
                       <v-autocomplete
                         v-model="form.paymentId"
-                        :items="paymentMethods"
+                        :items="allPaymentMethods"
                         item-value="id"
                         item-text="payment_name"
                         label="ວິທີການຊຳລະ (Payment Method)"
@@ -109,6 +109,7 @@
                         clearable
                         placeholder="ເລືອກວິທີການຊຳລະ"
                         required
+                        @change="onPaymentMethodChange"
                       >
                         <template v-slot:item="{ item }">
                           <v-list-item-content>
@@ -140,11 +141,12 @@
                           <v-list-item-content>
                             <v-list-item-title>
                               {{ item.name }} ({{ item.code }})
+                              <span v-if="item.symbol" class="grey--text font-weight-regular"> - {{ item.symbol }}</span>
                             </v-list-item-title>
                           </v-list-item-content>
                         </template>
                         <template v-slot:selection="{ item }">
-                          {{ item.name }} ({{ item.code }})
+                          {{ item.name }} ({{ item.code }})<span v-if="item.symbol" class="ml-1 grey--text"> - {{ item.symbol }}</span>
                         </template>
                       </v-autocomplete>
                     </v-col>
@@ -214,12 +216,12 @@
                                 {{ item.invoiceNumber }}
                               </v-list-item-title>
                               <v-list-item-subtitle class="text-caption">
-                                {{ item.customer ? item.customer.name : 'N/A' }} | {{ formatCurrency(item.totalAmount) }}
+                                {{ item.client ? item.client.name : (item.agency ? item.agency.agencyName : (item.customer ? item.customer.name : 'N/A')) }} | {{ formatInvoiceAmount(item.totalAmount, item) }}
                               </v-list-item-subtitle>
                             </v-list-item-content>
                           </template>
                           <template v-slot:selection="{ item }">
-                            {{ item.invoiceNumber }} - {{ item.customer ? item.customer.name : 'N/A' }}
+                            {{ item.invoiceNumber }} - {{ item.client ? item.client.name : (item.agency ? item.agency.agencyName : (item.customer ? item.customer.name : 'N/A')) }}
                           </template>
                         </v-autocomplete>
                         <v-btn
@@ -349,8 +351,12 @@
                         <tr>
                           <th style="width: 40px" class="text-center">#</th>
                           <th style="width: 250px">ລາຍລະອຽດ (Description) *</th>
-                          <th style="width: 140px" class="text-right">ຍອດອ້າງອີງ (Ref)</th>
-                          <th style="width: 140px">ຍອດຊຳລະ (Allocated) *</th>
+                          <th style="width: 140px" class="text-right">
+                            ຍອດອ້າງອີງ (Ref) <span v-if="currencyCode" class="caption font-weight-regular grey--text">({{ currencyCode }})</span>
+                          </th>
+                          <th style="width: 140px">
+                            ຍອດຊຳລະ (Allocated) <span v-if="currencyCode" class="caption font-weight-regular grey--text">({{ currencyCode }})</span> *
+                          </th>
                           <th style="width: 220px">ລະຫັດການເງິນ (Financial Code) *</th>
                           <th style="width: 180px" v-if="enableGL">DR Account</th>
                           <th style="width: 180px" v-if="enableGL">CR Account</th>
@@ -571,13 +577,23 @@
                 <v-card-text class="pa-4 grey lighten-5">
                   <v-row dense class="align-center justify-space-between text-center text-sm-left">
                     <v-col cols="12" sm="4" class="px-4 py-2 border-sm-right">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ຍອດທີ່ຮັບ (Total Received)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ຍອດທີ່ຮັບ (Total Received)</span>
+                        <v-chip v-if="currencyCode" x-small color="grey lighten-2" class="ml-1 font-weight-bold grey--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h5 font-weight-black success--text mt-1">
                         {{ formatCurrency(form.totalReceivedAmount) }}
                       </div>
                     </v-col>
                     <v-col cols="12" sm="4" class="px-4 py-2 border-sm-right">
-                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold">ລວມການແບ່ງປັນ (Allocated)</div>
+                      <div class="text-subtitle-2 grey--text text--darken-2 font-weight-bold d-flex align-center justify-center justify-sm-start">
+                        <span>ລວມການແບ່ງປັນ (Allocated)</span>
+                        <v-chip v-if="currencyCode" x-small color="grey lighten-2" class="ml-1 font-weight-bold grey--text text--darken-3">
+                          {{ currencyCode }}
+                        </v-chip>
+                      </div>
                       <div class="text-h5 font-weight-black primary--text mt-1">
                         {{ formatCurrency(calculatedAllocatedTotal) }}
                       </div>
@@ -607,7 +623,7 @@
             :disabled="saving"
           >
             <v-icon left>mdi-close</v-icon>
-            ຍົກເລີກ
+            ປິດໜ້າຕ່າງ
           </v-btn>
           
           <v-btn
@@ -712,20 +728,27 @@
                     <td>
                       <div class="customer-info">
                         <div class="customer-name font-weight-medium text-body-2 grey--text text--darken-3">
-                          {{ invoice.customer ? invoice.customer.name : 'N/A' }}
+                          {{ invoice.client ? invoice.client.name : (invoice.agency ? invoice.agency.agencyName : (invoice.customer ? invoice.customer.name : 'N/A')) }}
+                          <v-chip v-if="invoice.client" x-small color="blue lighten-5" class="blue--text text--darken-2 ml-1" label>POS</v-chip>
                         </div>
                         <div
-                          v-if="invoice.customer && invoice.customer.email"
+                          v-if="invoice.client && (invoice.client.company || invoice.client.telephone)"
                           class="customer-email grey--text text-caption"
                         >
-                          {{ invoice.customer.email }}
+                          {{ invoice.client.company || invoice.client.telephone }}
+                        </div>
+                        <div
+                          v-else-if="invoice.agency && (invoice.agency.email || invoice.agency.phone)"
+                          class="customer-email grey--text text-caption"
+                        >
+                          {{ invoice.agency.email || invoice.agency.phone }}
                         </div>
                       </div>
                     </td>
                     <td>{{ formatDate(invoice.invoiceDate) }}</td>
                     <td>{{ formatDate(invoice.dueDate) }}</td>
                     <td class="text-right font-weight-bold success--text pr-4">
-                      {{ formatCurrency(invoice.totalAmount) }}
+                      {{ formatInvoiceAmount(invoice.totalAmount, invoice) }}
                     </td>
                     <td class="text-center">
                       <v-chip
@@ -814,6 +837,7 @@ export default {
     currencies: { type: Array, default: () => [] },
     invoices: { type: Array, default: () => [] },
     users: { type: Array, default: () => [] },
+    paymentMethods: { type: Array, default: () => [] },
   },
 
   data() {
@@ -821,7 +845,7 @@ export default {
       showPrintDialog: false,
       selectedReceiptForPrint: null,
       selectedCurrency: null,
-      paymentMethods: [],
+      localPaymentMethods: [],
       transactionCodes: [],
       loadingTransactionCodes: false,
       activeTab: 'header',
@@ -848,6 +872,7 @@ export default {
         exchangeRate: 1.0,
         totalReceivedAmount: 0.0,
         paymentId: null,
+        paymentMethod: 'cash',
         referenceNumber: '',
         notes: '',
         inputterId: '',
@@ -857,7 +882,13 @@ export default {
   },
 
   computed: {
-        enableGL() {
+    allPaymentMethods() {
+      if (this.paymentMethods && this.paymentMethods.length > 0) {
+        return this.paymentMethods
+      }
+      return this.localPaymentMethods
+    },
+    enableGL() {
       const spf = this.getSPF.find((spf) => spf.code === 'AC_AR_GL_ENABLE')
       return spf?.value === 'Y'
     },
@@ -870,6 +901,28 @@ export default {
     
     user() {
       return this.$auth.user || {}
+    },
+    currentCurrency() {
+      if (this.selectedCurrency) return this.selectedCurrency
+      if (this.form.currencyId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(this.form.currencyId)
+        )
+        if (found) return found
+      }
+      if (this.selectedInvoice && this.selectedInvoice.currency) {
+        return this.selectedInvoice.currency
+      }
+      if (this.receipt && this.receipt.currency) {
+        return this.receipt.currency
+      }
+      return null
+    },
+    currencyCode() {
+      return this.currentCurrency?.code || ''
+    },
+    currencySymbol() {
+      return this.currentCurrency?.symbol || ''
     },
     
     calculatedAllocatedTotal() {
@@ -953,12 +1006,42 @@ export default {
       immediate: true,
     },
 
+    allPaymentMethods: {
+      handler(methods) {
+        if (methods && methods.length > 0 && this.receipt && !this.form.paymentId && this.receipt.paymentMethod) {
+          const pm = this.receipt.paymentMethod.toLowerCase()
+          const found = methods.find((m) => {
+            const code = (m.payment_code || '').toUpperCase()
+            if (pm === 'cash' && (code === 'CASH' || code === 'COD')) return true
+            if (pm === 'bank_transfer' && (code.includes('TRANSFER') || code.includes('BCEL') || code.includes('JDB') || code.includes('QR'))) return true
+            if (pm === 'check' && code.includes('CHECK')) return true
+            if (pm === 'credit_card' && (code.includes('CREDIT') || code.includes('NFC'))) return true
+            return false
+          })
+          if (found) {
+            this.form.paymentId = found.id
+            this.form.paymentMethod = pm
+          }
+        }
+      },
+      immediate: true,
+    },
+
     receipt: {
       handler() {
         if (this.visible) {
           this.initializeDialog()
         }
       },
+    },
+
+    currencies: {
+      handler(newVal) {
+        if (newVal && newVal.length > 0) {
+          this.syncSelectedCurrency(false)
+        }
+      },
+      immediate: true,
     },
 
     // Auto-update totalReceivedAmount when allocation lines change
@@ -1055,7 +1138,9 @@ export default {
         receivedDate: this.form.receivedDate,
         invoiceHeaderId: this.form.invoiceHeaderId,
         paymentId: this.form.paymentId,
+        paymentMethod: this.form.paymentMethod || this.derivePaymentMethod(this.form.paymentId),
         currencyId: this.form.currencyId,
+        currency: this.currentCurrency,
         exchangeRate: this.form.exchangeRate,
         totalReceivedAmount: this.form.totalReceivedAmount,
         referenceNumber: this.form.referenceNumber || '',
@@ -1109,12 +1194,15 @@ export default {
     },
 
     async loadPaymentMethods() {
+      if (this.paymentMethods && this.paymentMethods.length > 0) {
+        return
+      }
       try {
         const { data } = await this.$axios.get('/api/paymentMethod/find')
-        this.paymentMethods = data || []
+        this.localPaymentMethods = data || []
       } catch (error) {
         console.error('Error loading payment methods:', error)
-        this.paymentMethods = []
+        this.localPaymentMethods = []
       }
     },
 
@@ -1140,18 +1228,34 @@ export default {
     // =====================================================
     // CURRENCY HANDLING
     // =====================================================
-    onCurrencyChange() {
-      if (this.form.currencyId && this.currencies.length > 0) {
-        this.selectedCurrency = this.currencies.find((c) => c.id === this.form.currencyId)
-        console.info(`Currency structure ${JSON.stringify(this.currencies)}`)
-        
-        if (this.selectedCurrency) {
-          this.form.exchangeRate = this.selectedCurrency.rate || 1.0
-          console.log('✅ Currency updated:', this.selectedCurrency.code, 'Rate:', this.form.exchangeRate)
+    syncSelectedCurrency(updateExchangeRate = false) {
+      if (this.form.currencyId && this.currencies && this.currencies.length > 0) {
+        const found = this.currencies.find(
+          (c) => Number(c.id) === Number(this.form.currencyId)
+        )
+        this.selectedCurrency = found || (this.selectedInvoice?.currency || this.receipt?.currency || null)
+        if (updateExchangeRate && found && found.rate) {
+          this.form.exchangeRate = found.rate
+        }
+      } else if (this.selectedInvoice && this.selectedInvoice.currency) {
+        this.selectedCurrency = this.selectedInvoice.currency
+        if (!this.form.currencyId) {
+          this.form.currencyId = this.selectedInvoice.currency.id
+        }
+      } else if (this.receipt && this.receipt.currency) {
+        this.selectedCurrency = this.receipt.currency
+        if (!this.form.currencyId) {
+          this.form.currencyId = this.receipt.currency.id
         }
       } else {
         this.selectedCurrency = null
-        this.form.exchangeRate = 1.0
+      }
+    },
+
+    onCurrencyChange() {
+      this.syncSelectedCurrency(true)
+      if (this.errors.currencyId) {
+        this.clearFieldError('currencyId')
       }
     },
 
@@ -1248,9 +1352,7 @@ export default {
         if (this.selectedInvoice.currencyId) {
           console.log('💱 Setting currency from invoice:', this.selectedInvoice.currencyId)
           this.form.currencyId = this.selectedInvoice.currencyId
-          
-          // Find and set the selected currency
-          this.selectedCurrency = this.currencies.find(c => c.id === this.selectedInvoice.currencyId)
+          this.syncSelectedCurrency(false)
           
           if (this.selectedCurrency) {
             console.log('✅ Currency found:', this.selectedCurrency.code, 'Rate:', this.selectedCurrency.rate)
@@ -1703,6 +1805,22 @@ export default {
       this.clearErrors()
 
       if (this.receipt) {
+        let initialPaymentId = this.receipt.paymentId || null
+        if (!initialPaymentId && this.receipt.paymentMethod && this.allPaymentMethods.length > 0) {
+          const pm = this.receipt.paymentMethod.toLowerCase()
+          const found = this.allPaymentMethods.find((m) => {
+            const code = (m.payment_code || '').toUpperCase()
+            if (pm === 'cash' && (code === 'CASH' || code === 'COD')) return true
+            if (pm === 'bank_transfer' && (code.includes('TRANSFER') || code.includes('BCEL') || code.includes('JDB') || code.includes('QR'))) return true
+            if (pm === 'check' && code.includes('CHECK')) return true
+            if (pm === 'credit_card' && (code.includes('CREDIT') || code.includes('NFC'))) return true
+            return false
+          })
+          if (found) initialPaymentId = found.id
+        }
+
+        const resolvedPaymentMethod = this.receipt.paymentMethod || this.derivePaymentMethod(initialPaymentId)
+
         this.form = {
           id: this.receipt.id,
           receiptNumber: this.receipt.receiptNumber,
@@ -1710,7 +1828,8 @@ export default {
           receivedDate: this.receipt.receivedDate ? this.receipt.receivedDate.split('T')[0] : '',
           invoiceHeaderId: this.receipt.invoiceHeaderId,
           totalReceivedAmount: this.receipt.totalReceivedAmount || 0.0,
-          paymentId: this.receipt.paymentId || null,
+          paymentId: initialPaymentId,
+          paymentMethod: resolvedPaymentMethod,
           currencyId: this.receipt.currencyId || null,
           exchangeRate: this.receipt.exchangeRate || 1,
           referenceNumber: this.receipt.referenceNumber || '',
@@ -1722,6 +1841,7 @@ export default {
 
         await this.loadAllocationLines(this.receipt.id)
         await this.updateSelectedInvoice()
+        this.syncSelectedCurrency(false)
       } else {
         this.resetForm()
 
@@ -1729,12 +1849,27 @@ export default {
         this.form.bookingDate = today
         this.form.receivedDate = today
 
+        if (this.currencies && this.currencies.length > 0) {
+          // Priority: isLocalCCY -> LAK -> USD -> currencies[0]
+          const defaultCurrency =
+            this.currencies.find((c) => c.isLocalCCY) ||
+            this.currencies.find((c) => c.code === 'LAK') ||
+            this.currencies.find((c) => c.code === 'USD') ||
+            this.currencies[0]
+          if (defaultCurrency) {
+            this.form.currencyId = defaultCurrency.id
+            this.selectedCurrency = defaultCurrency
+            this.form.exchangeRate = defaultCurrency.rate || 1.0
+          }
+        }
+
         this.allocationLines = []
 
         if (this.user && this.user.id) {
           this.form.inputterId = this.user.id
         }
         this.requestSequence()
+        this.syncSelectedCurrency(false)
       }
     },
 
@@ -1874,6 +2009,8 @@ export default {
 
       const formData = {
         ...this.form,
+        paymentId: this.form.paymentId,
+        paymentMethod: this.form.paymentMethod || this.derivePaymentMethod(this.form.paymentId),
         totalReceivedAmount: parseFloat(this.form.totalReceivedAmount) || 0,
         allocationLines: validAllocationLines.map((allocation, index) => ({
           id: allocation.id || null,
@@ -1902,6 +2039,34 @@ export default {
     // =====================================================
     // UTILITY METHODS
     // =====================================================
+    derivePaymentMethod(paymentId) {
+      if (!paymentId) return 'cash'
+      const found = this.allPaymentMethods.find((m) => Number(m.id) === Number(paymentId))
+      if (!found) return 'cash'
+      const code = (found.payment_code || '').toUpperCase()
+      if (code === 'CASH' || code === 'COD') return 'cash'
+      if (
+        code.includes('TRANSFER') ||
+        code.includes('BCEL') ||
+        code.includes('JDB') ||
+        code.includes('LDB') ||
+        code.includes('LVB') ||
+        code.includes('QR') ||
+        code.includes('BANK')
+      )
+        return 'bank_transfer'
+      if (code.includes('CHECK')) return 'check'
+      if (code.includes('CREDIT') || code.includes('CARD') || code.includes('NFC')) return 'credit_card'
+      return 'other'
+    },
+
+    onPaymentMethodChange(paymentId) {
+      this.form.paymentMethod = this.derivePaymentMethod(paymentId)
+      if (this.errors.paymentId) {
+        this.errors.paymentId = null
+      }
+    },
+
     getTransactionCodeLabel(txnId) {
       const txn = this.transactionCodes.find((t) => t.id === txnId)
       return txn ? `${txn.code} - ${txn.description}` : ''
@@ -1965,6 +2130,7 @@ export default {
         invoiceHeaderId: '',
         totalReceivedAmount: 0.0,
         paymentId: null,
+        paymentMethod: 'cash',
         currencyId: null,
         exchangeRate: 1,
         referenceNumber: '',
@@ -1979,10 +2145,45 @@ export default {
     // FORMATTING METHODS
     // =====================================================
     formatCurrency(amount) {
-      return new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: this.selectedCurrency?.code || 'USD',
-      }).format(amount || 0)
+      if (amount === null || amount === undefined || isNaN(amount)) {
+        return '0.00'
+      }
+      const val = parseFloat(amount) || 0
+      const formatted = val.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+      if (this.currencySymbol) {
+        return `${this.currencySymbol} ${formatted}`
+      }
+      if (this.currencyCode) {
+        return `${formatted} ${this.currencyCode}`
+      }
+      return formatted
+    },
+
+    getCurrencyById(id) {
+      if (!id || !this.currencies || this.currencies.length === 0) return null
+      return this.currencies.find((c) => Number(c.id) === Number(id)) || null
+    },
+
+    formatInvoiceAmount(amount, invoice) {
+      if (amount === null || amount === undefined || isNaN(amount)) {
+        return '0.00'
+      }
+      const val = parseFloat(amount) || 0
+      const formatted = val.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+      const curr = invoice?.currency || this.getCurrencyById(invoice?.currencyId)
+      if (curr?.symbol) {
+        return `${curr.symbol} ${formatted}`
+      }
+      if (curr?.code) {
+        return `${formatted} ${curr.code}`
+      }
+      return this.formatCurrency(amount)
     },
 
     formatNumber(number) {

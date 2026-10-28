@@ -23,6 +23,175 @@
       :client-id="currentSelectedCustomer ? currentSelectedCustomer.id : null"
     />
 
+    <!-- Packaging & Empties Assistant Dialog (For Ticket / Cart) -->
+    <v-dialog v-model="packagingModal" max-width="620" persistent>
+      <v-card class="rounded-xl overflow-hidden elevation-12">
+        <v-toolbar color="teal darken-2" dark flat dense class="px-4">
+          <v-icon left>mdi-package-variant-closed</v-icon>
+          <v-toolbar-title class="subtitle-1 font-weight-bold">
+            ຈັດການບັນຈຸພັນ ລັງ & ແກ້ວ (Packaging & Empties Assistant)
+          </v-toolbar-title>
+          <v-spacer></v-spacer>
+          <v-btn icon small @click="packagingModal = false">
+            <v-icon small>mdi-close</v-icon>
+          </v-btn>
+        </v-toolbar>
+
+        <v-card-text class="pa-4">
+          <!-- Returnable Beer in Cart Summary Notice -->
+          <v-alert dense text color="teal" class="rounded-lg mb-3">
+            <div class="d-flex align-center justify-space-between flex-wrap">
+              <div>
+                <span class="caption font-weight-bold teal--text text--darken-4">
+                  <v-icon small color="teal" class="mr-1">mdi-beer</v-icon>
+                  ເບຍໃນກະຕ່າປະຈຸບັນ: {{ detectedReturnableCases }} ລັງ ({{ detectedReturnableCases * 12 }} ແກ້ວ)
+                </span>
+              </div>
+              <div class="caption grey--text">ອັດຕາ: 1 ລັງ = 12 ແກ້ວ</div>
+            </div>
+          </v-alert>
+
+          <!-- 1-Click Presets -->
+          <div class="mb-3">
+            <span class="caption font-weight-bold grey--text text--darken-2 d-block mb-1">
+              ປຸ່ມລັດ 1-ຄລິກ (Quick Presets):
+            </span>
+            <div class="d-flex flex-wrap">
+              <v-btn small depressed color="teal darken-2" dark class="rounded-pill mr-1 mb-1 font-weight-bold text-caption" @click="applyModalPreset('swapBoth')">
+                <v-icon x-small left>mdi-swap-horizontal</v-icon> ປ່ຽນຄົບ 1:1 (ລັງ + 12 ແກ້ວ)
+              </v-btn>
+              <v-btn small depressed color="teal darken-3" outlined class="rounded-pill mr-1 mb-1 font-weight-bold text-caption" @click="applyModalPreset('swapCrate')">
+                <v-icon x-small left>mdi-package-variant</v-icon> ປ່ຽນສະເພາະລັງ
+              </v-btn>
+              <v-btn small depressed color="teal darken-3" outlined class="rounded-pill mr-1 mb-1 font-weight-bold text-caption" @click="applyModalPreset('swapBottle')">
+                <v-icon x-small left>mdi-bottle-wine</v-icon> ປ່ຽນສະເພາະແກ້ວ
+              </v-btn>
+              <v-btn small depressed color="amber darken-3" dark class="rounded-pill mr-1 mb-1 font-weight-bold text-caption" @click="applyModalPreset('sellBoth')">
+                <v-icon x-small left>mdi-plus</v-icon> ຂາຍຄົບ (ບໍ່ມີລັງ/ແກ້ວ)
+              </v-btn>
+              <v-btn small depressed color="teal" dark class="rounded-pill mr-1 mb-1 font-weight-bold text-caption" @click="applyModalPreset('returnBottle12')">
+                <v-icon x-small left>mdi-keyboard-return</v-icon> ຮັບຊື້ແກ້ວ 12 ໜ່ວຍ
+              </v-btn>
+            </div>
+          </div>
+
+          <!-- Dynamic Packaging Assets List -->
+          <div class="packaging-assets-list overflow-y-auto mb-3" style="max-height: 380px;">
+            <div v-if="dynamicPackagingAssets.length === 0" class="text-center py-4 grey--text caption">
+              <v-progress-circular indeterminate color="teal" size="20" class="mr-2"></v-progress-circular>
+              ກຳລັງໂຫຼດລາຍການບັນຈຸພັນ...
+            </div>
+            <v-card
+              v-for="asset in dynamicPackagingAssets"
+              :key="asset.id"
+              outlined
+              class="rounded-lg mb-2 pa-3 grey lighten-5"
+            >
+              <div class="d-flex justify-space-between align-center mb-2">
+                <div class="font-weight-bold subtitle-2 teal--text text--darken-3">
+                  <v-icon small color="teal darken-3" class="mr-1">
+                    {{ asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE') ? 'mdi-package-variant-closed' : 'mdi-bottle-wine' }}
+                  </v-icon>
+                  {{ asset.pro_name }}
+                  <span v-if="asset.barCode" class="caption grey--text">({{ asset.barCode }})</span>
+                </div>
+                <v-chip x-small color="teal" outlined class="font-weight-bold">
+                  {{ formatNumber(asset.pro_price) }} LAK
+                </v-chip>
+              </div>
+
+              <v-row dense align="center">
+                <v-col cols="6">
+                  <div class="caption font-weight-bold amber--text text--darken-4 mb-1">
+                    📦 ຂາຍ (+{{ formatNumber(asset.pro_price) }} LAK):
+                  </div>
+                  <div class="d-flex align-center">
+                    <v-btn icon x-small @click="asset.sellQty = Math.max(0, (asset.sellQty || 0) - 1)">
+                      <v-icon small>mdi-minus</v-icon>
+                    </v-btn>
+                    <v-text-field
+                      v-model.number="asset.sellQty"
+                      type="number"
+                      min="0"
+                      dense
+                      outlined
+                      hide-details
+                      class="mx-1 text-center font-weight-bold"
+                      style="max-width: 80px;"
+                    ></v-text-field>
+                    <v-btn icon x-small @click="asset.sellQty = (asset.sellQty || 0) + 1">
+                      <v-icon small>mdi-plus</v-icon>
+                    </v-btn>
+                  </div>
+                </v-col>
+
+                <v-col cols="6">
+                  <div class="caption font-weight-bold teal--text text--darken-3 mb-1">
+                    🔄 ຮັບຊື້ຄືນ (-{{ formatNumber(asset.pro_price) }} LAK):
+                  </div>
+                  <div class="d-flex align-center">
+                    <v-btn icon x-small @click="asset.returnQty = Math.max(0, (asset.returnQty || 0) - 1)">
+                      <v-icon small>mdi-minus</v-icon>
+                    </v-btn>
+                    <v-text-field
+                      v-model.number="asset.returnQty"
+                      type="number"
+                      min="0"
+                      dense
+                      outlined
+                      hide-details
+                      class="mx-1 text-center font-weight-bold"
+                      style="max-width: 80px;"
+                    ></v-text-field>
+                    <v-btn icon x-small @click="asset.returnQty = (asset.returnQty || 0) + 1">
+                      <v-icon small>mdi-plus</v-icon>
+                    </v-btn>
+                  </div>
+                </v-col>
+              </v-row>
+            </v-card>
+          </div>
+
+          <!-- Live Impact Summary -->
+          <v-alert dense text color="teal darken-2" class="rounded-xl pa-3 mb-0">
+            <div class="d-flex justify-space-between align-center">
+              <div>
+                <span class="caption grey--text">ຍອດສຸດທິບັນຈຸພັນ:</span>
+                <div class="caption font-weight-medium">
+                  ຂາຍ: +{{ formatNumber(modalGrossSellTotal) }} LAK | 
+                  ຮັບຊື້: -{{ formatNumber(modalGrossReturnTotal) }} LAK
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-h6 font-weight-black" :class="modalNetImpact >= 0 ? 'amber--text text--darken-4' : 'teal--text text--darken-4'">
+                  {{ modalNetImpact >= 0 ? '+' : '' }}{{ formatNumber(modalNetImpact) }} LAK
+                </div>
+              </div>
+            </div>
+          </v-alert>
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions class="pa-3">
+          <v-spacer></v-spacer>
+          <v-btn text @click="packagingModal = false" class="rounded-lg">
+            ຍົກເລີກ
+          </v-btn>
+          <v-btn
+            color="teal darken-2"
+            dark
+            depressed
+            class="px-6 rounded-lg font-weight-bold"
+            @click="confirmApplyPackagingModal"
+          >
+            <v-icon left small>mdi-cart-plus</v-icon>
+            ນຳໃຊ້ໃສ່ກະຕ່າ (Apply to Cart)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-dialog v-model="showQuotationPrintDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
       <v-card>
         <v-toolbar dark color="primary">
@@ -405,71 +574,97 @@
       <Quotation></Quotation>
     </v-dialog>
 
-    <!-- ENHANCED App Bar -->
-    <v-app-bar app color="primary" dark clipped-left clipped-right elevation="8" height="80" class="app-header">
-      <v-container fluid class="pa-0"> <v-row align="center" no-gutters>
+    <!-- Compact Minimal App Bar -->
+    <v-app-bar app color="primary" dark clipped-left clipped-right elevation="2" height="52" class="app-header">
+      <v-container fluid class="pa-0">
+        <v-row align="center" no-gutters>
 
-          <v-col cols="auto" class="d-flex align-center pl-4">
-            <v-btn icon @click="drawer = !drawer" class="mr-1" large>
-              <v-icon size="28">mdi-menu</v-icon>
+          <v-col cols="auto" class="d-flex align-center pl-2">
+            <v-btn icon small @click="drawer = !drawer" class="mr-1" title="ເມນູສິນຄ້າ (Toggle Drawer)">
+              <v-icon size="22">mdi-menu</v-icon>
             </v-btn>
 
-            <v-btn text @click="showProductList = !showProductList" class="mr-1 px-2" large>
-              <v-icon size="28" left>
+            <v-btn small text @click="showProductList = !showProductList" class="header-compact-btn mr-1 px-2" title="ສະແດງ/ຊ່ອນກາດ">
+              <v-icon size="18" :left="$vuetify.breakpoint.mdAndUp">
                 {{ showProductList ? 'mdi-view-list' : 'mdi-view-grid-plus' }}
               </v-icon>
-              <span class="d-none d-md-inline font-weight-medium">
+              <span class="d-none d-md-inline text-caption">
                 {{ showProductList ? 'ຊ່ອນກາດ' : 'ສະແດງກາດ' }}
               </span>
             </v-btn>
 
-            <v-btn icon @click="drawer_right = !drawer_right" class="d-lg-none" large>
-              <v-badge v-if="productCart.length > 0" :content="productCart.length" color="error" overlap small>
-                <v-icon size="28">mdi-cart</v-icon>
+            <v-btn icon small @click="drawer_right = !drawer_right" class="d-lg-none mr-1" title="ກະຕ່າ">
+              <v-badge v-if="productCart.length > 0" :content="productCart.length" color="error" overlap x-small>
+                <v-icon size="20">mdi-cart</v-icon>
               </v-badge>
-              <v-icon v-else size="28">mdi-cart-outline</v-icon>
+              <v-icon v-else size="20">mdi-cart-outline</v-icon>
             </v-btn>
           </v-col>
 
-          <v-col cols="auto" class="d-flex align-center pl-2" v-if="isBusinessDateEnabled && businessDate">
+          <v-col cols="auto" class="d-flex align-center pl-1" v-if="isBusinessDateEnabled && businessDate">
             <v-chip
-              :color="businessDateStatus === 'OPEN' ? 'teal accent-3' : 'red accent-2'"
+              x-small
               outlined
-              class="font-weight-bold ml-2 elevation-1"
+              :color="businessDateStatus === 'OPEN' ? 'teal accent-3' : 'red accent-2'"
+              class="font-weight-medium ml-2 px-2"
+              style="height: 26px; font-size: 11px;"
               label
             >
-              <v-icon left small>mdi-calendar-sync</v-icon>
-              ວັນທີເຮັດວຽກ: {{ businessDate }}
-              <v-divider vertical class="mx-2 my-1" style="border-color: currentColor;"></v-divider>
+              <v-icon left x-small>mdi-calendar-sync</v-icon>
+              {{ businessDate }}
+              <v-divider vertical class="mx-1 my-0" style="border-color: currentColor; height: 12px;"></v-divider>
               {{ businessDateStatus === 'OPEN' ? 'OPEN' : 'CLOSED' }}
             </v-chip>
           </v-col>
 
-          <v-spacer></v-spacer> <v-col cols="auto" class="d-flex justify-end pr-4">
+          <v-spacer></v-spacer>
+
+          <v-col cols="auto" class="d-flex justify-end pr-2">
             <div class="d-flex align-center">
 
-              <v-btn class="header-btn mr-2" color="teal darken-2" dark
-                depressed @click="posPackagingReturnDialog = true" large rounded>
-                <v-icon left size="20">mdi-package-down</v-icon>
-                <span class="d-none d-sm-inline font-weight-bold">
-                  ຮັບຄືນລັງ-ແກ້ວ
-                </span>
+              <v-btn
+                v-if="hasPackagingCapability"
+                small
+                depressed
+                color="teal darken-2"
+                dark
+                class="header-compact-btn mr-1 px-2"
+                @click="posPackagingReturnDialog = true"
+                title="ຮັບຄືນລັງ-ແກ້ວ (Packaging Return)"
+              >
+                <v-icon size="16" :left="$vuetify.breakpoint.smAndUp">mdi-package-down</v-icon>
+                <span class="d-none d-sm-inline text-caption font-weight-medium">ຮັບຄືນລັງ-ແກ້ວ</span>
               </v-btn>
 
-              <v-btn class="header-btn mr-2" :color="isCustomerDisplayOpen() ? 'success' : 'rgba(255,255,255,0.1)'"
-                depressed @click="openCustomerScreenEnhanced" large rounded>
-                <v-icon left size="20">
+              <v-btn
+                small
+                depressed
+                :color="isCustomerDisplayOpen() ? 'success darken-1' : 'rgba(255,255,255,0.12)'"
+                class="header-compact-btn mr-1 px-2"
+                @click="openCustomerScreenEnhanced"
+                title="ຈໍລູກຄ້າ (Customer Screen)"
+              >
+                <v-icon size="16" :left="$vuetify.breakpoint.smAndUp">
                   {{ isCustomerDisplayOpen() ? 'mdi-monitor-eye' : 'mdi-monitor-share' }}
                 </v-icon>
-                <span class="d-none d-sm-inline font-weight-medium">
+                <span class="d-none d-sm-inline text-caption font-weight-medium">
                   {{ isCustomerDisplayOpen() ? 'ອັບເດດຈໍ' : 'ຈໍລູກຄ້າ' }}
                 </span>
               </v-btn>
 
-              <v-btn v-for="item in headerMenu" :key="item.title" :to="item.path" @click="item.method" text
-                class="header-btn ml-1" :class="{ 'active-route': $route.path === item.path }" large rounded>
-                <v-icon left size="20">{{ item.icon }}</v-icon>
-                <span class="d-none d-lg-inline font-weight-medium">{{ item.title }}</span>
+              <v-btn
+                v-for="item in headerMenu"
+                :key="item.title"
+                :to="item.path || undefined"
+                @click="item.method"
+                small
+                text
+                class="header-compact-btn ml-1 px-2"
+                :class="{ 'active-route': item.path && $route.path === item.path }"
+                :title="item.title"
+              >
+                <v-icon size="16" :left="$vuetify.breakpoint.lgAndUp">{{ item.icon }}</v-icon>
+                <span class="d-none d-lg-inline text-caption font-weight-medium">{{ item.title }}</span>
               </v-btn>
             </div>
           </v-col>
@@ -695,12 +890,87 @@
               </v-row>
             </div>
 
+            <!-- Packaging Mode Switcher (Affects Packaging Products Only) -->
+            <div 
+              v-if="hasPackagingCapability"
+              class="px-3 py-2 border-bottom transition-swing d-flex align-center justify-space-between flex-wrap"
+              :class="packagingMode === 'BUY' ? 'teal lighten-5' : 'grey lighten-4'"
+            >
+              <div class="d-flex align-center my-1 mr-2">
+                <v-avatar size="26" :color="packagingMode === 'BUY' ? 'teal darken-2' : 'amber darken-3'" class="mr-2 elevation-1">
+                  <v-icon x-small dark>
+                    {{ packagingMode === 'BUY' ? 'mdi-keyboard-return' : 'mdi-cart-plus' }}
+                  </v-icon>
+                </v-avatar>
+                <div>
+                  <div class="caption font-weight-bold" :class="packagingMode === 'BUY' ? 'teal--text text--darken-4' : 'grey--text text--darken-4'">
+                    {{ packagingMode === 'BUY' ? 'ໂໝດຮັບຊື້ບັນຈຸພັນ (BUY MODE)' : 'ໂໝດຂາຍບັນຈຸພັນ (SELL MODE)' }}
+                  </div>
+                  <div class="text-caption grey--text text--darken-1" style="font-size: 10px; line-height: 1.1;">
+                    <span v-if="packagingMode === 'BUY'" class="teal--text text--darken-3 font-weight-medium">
+                      ⚠️ ຄລິກ/ສະແກນບັນຈຸພັນ ຈະເພີ່ມເປັນ <b>ຮັບຊື້ (BUY)</b>
+                    </span>
+                    <span v-else>
+                      ມີຜົນສະເພາະໝວດບັນຈຸພັນ (Packaging Only)
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex align-center my-1">
+                <!-- Segmented Switcher Button Toggle -->
+                <v-btn-toggle
+                  v-model="packagingMode"
+                  mandatory
+                  dense
+                  class="rounded-pill elevation-0 border"
+                >
+                  <v-btn
+                    value="SELL"
+                    x-small
+                    :color="packagingMode === 'SELL' ? 'amber darken-3' : 'transparent'"
+                    :dark="packagingMode === 'SELL'"
+                    class="font-weight-bold px-2"
+                    style="height: 26px; text-transform: none;"
+                  >
+                    <v-icon x-small left>mdi-cart-plus</v-icon>
+                    ຂາຍ (SELL)
+                  </v-btn>
+                  <v-btn
+                    value="BUY"
+                    x-small
+                    :color="packagingMode === 'BUY' ? 'teal darken-2' : 'transparent'"
+                    :dark="packagingMode === 'BUY'"
+                    class="font-weight-bold px-2"
+                    style="height: 26px; text-transform: none;"
+                  >
+                    <v-icon x-small left>mdi-keyboard-return</v-icon>
+                    ຮັບຊື້ (BUY)
+                  </v-btn>
+                </v-btn-toggle>
+
+                <!-- Optional Packaging Modal Dialog Access -->
+                <v-btn 
+                  icon 
+                  x-small 
+                  color="grey darken-1" 
+                  class="ml-1" 
+                  @click="openPackagingModal" 
+                  title="ປັບຈຳນວນລັງ ແລະ ແກ້ວລະອຽດ (Custom Adjust)"
+                >
+                  <v-icon small>mdi-tune</v-icon>
+                </v-btn>
+              </div>
+            </div>
+
             <div class="cart-items-list flex-grow-1 overflow-y-auto">
               <template v-if="productCart.length > 0">
-                <cart-item-component v-for="item in productCart" :key="item.id" :item="item"
+                <cart-item-component v-for="item in productCart" :key="item.lineUUID || (item.id + '_' + (item.isReturn ? 'ret' : 'sell'))" :item="item"
                   :format-number="formatNumber" @delete="deteletProductLocal" @update-qty="openQtyDialog"
                   @decrease="decreaseProductAmount" @increase="addProductValidation" @price-click="pricingLogig"
-                  @configure-gift="handleGiftConfirm" @change-unit="handleCartItemUnitChange" />
+                  @configure-gift="handleGiftConfirm" @change-unit="handleCartItemUnitChange"
+                  @toggle-return="toggleCartItemReturnType"
+                  @duplicate-return="handleDuplicateReturnLine" />
               </template>
 
               <!-- Enhanced Empty Cart -->
@@ -709,7 +979,17 @@
                   mdi-cart-outline
                 </v-icon>
                 <div class="grey--text mb-2">ກະຕ່າວ່າງເປົ່າ.</div>
-                <div class="grey--text">ເລືອກສິນຄ້າເພື່ອເພີ່ມໃສ່ກະຕ່າ</div>
+                <div class="grey--text mb-3">ເລືອກສິນຄ້າເພື່ອເພີ່ມໃສ່ກະຕ່າ</div>
+                <v-btn
+                  v-if="hasPackagingCapability"
+                  small
+                  outlined
+                  color="teal darken-2"
+                  class="font-weight-bold rounded-pill"
+                  @click="openPackagingModal"
+                >
+                  <v-icon small left>mdi-package-down</v-icon>ຮັບຊື້ຄືນລັງ/ແກ້ວ (Empties)
+                </v-btn>
               </div>
             </div>
           </v-card>
@@ -745,8 +1025,6 @@ import PackagingPosReturnDialog from '~/components/PackagingPosReturnDialog.vue'
 import CurrencyHelper from '~/utils/currency-helper'
 import { createMultiPayment } from '~/composables/useMultiPayment-vue2.js'
 import {
-  generateInvoiceHTML,
-  generateReceiptHTML,
   generateA4ReceiptHTML,
 } from '~/common/printTemplates'
 
@@ -762,7 +1040,7 @@ import {
   deliveryCustomerTicket,
 } from '~/common/ticket.js'
 import Vue from 'vue'
-import { getFormatNum, jsDateToMysqlDate, ticketHtml } from '~/common'
+import { getFormatNum, jsDateToMysqlDate, ticketHtml, isPackagingProduct } from '~/common'
 import SystemGuideDialog from '~/components/common/SystemGuideDialog.vue'
 import {
   swalSuccess,
@@ -798,6 +1076,12 @@ export default {
   data() {
     return {
       posPackagingReturnDialog: false,
+      packagingModal: false,
+      dynamicPackagingAssets: [],
+      pkgCrateSellQty: 0,
+      pkgCrateReturnQty: 0,
+      pkgBottleSellQty: 0,
+      pkgBottleReturnQty: 0,
       showProductList: true,
       showQuotationPrintDialog: false,
       quotationPrintId: null,
@@ -806,6 +1090,7 @@ export default {
       customerScreenUpdateTimeout: null,
       productLookupCache: new Map(),
       lastCartUpdateTime: 0,
+      cachedUserGroupMenuHeaders: null,
 
       multiPaymentCodes: '',
       sharedState: Vue.observable({
@@ -1010,17 +1295,23 @@ export default {
         storeCompany?.bank_qr_image_path_2 ||
         null
 
+      const cleanBase = baseUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '')
+
       const ticketLogo = resolvedProfileImagePath 
-        ? `${baseUrl}/${resolvedProfileImagePath.replace(/^\//, '')}` 
-        : 'default-logo.png'
+        ? (resolvedProfileImagePath.startsWith('http') ? resolvedProfileImagePath : `${cleanBase}/${resolvedProfileImagePath.replace(/^\//, '')}`) 
+        : ''
 
       const qrCode = resolvedBankQrImagePath 
-        ? `${baseUrl}/${resolvedBankQrImagePath.replace(/^\//, '')}` 
+        ? (resolvedBankQrImagePath.startsWith('http') ? resolvedBankQrImagePath : `${cleanBase}/${resolvedBankQrImagePath.replace(/^\//, '')}`) 
         : null
 
       const qrCode2 = resolvedBankQrImagePath2 
-        ? `${baseUrl}/${resolvedBankQrImagePath2.replace(/^\//, '')}` 
+        ? (resolvedBankQrImagePath2.startsWith('http') ? resolvedBankQrImagePath2 : `${cleanBase}/${resolvedBankQrImagePath2.replace(/^\//, '')}`) 
         : null
+
+      const rawShowLogo = terminalCompany?.showLogoOnTicket ?? baseCompany?.showLogoOnTicket ?? storeCompany?.showLogoOnTicket
+      const rawShowQR = terminalCompany?.ticketQRcode ?? baseCompany?.ticketQRcode ?? storeCompany?.ticketQRcode
+      const rawLogoSize = terminalCompany?.ticket_logo_size ?? baseCompany?.ticket_logo_size ?? storeCompany?.ticket_logo_size ?? 65
 
       return {
         name: terminalCompany?.name || baseCompany?.name || storeCompany?.name || 'DCOMMERCE MART',
@@ -1038,9 +1329,11 @@ export default {
         taxId: terminalCompany?.taxId || baseCompany?.taxId || storeCompany?.taxId || '',
         remark: terminalCompany?.remark || baseCompany?.remark || storeCompany?.remark || '',
         term_condition: terminalCompany?.term_condition || baseCompany?.term_condition || storeCompany?.term_condition || '',
-        showLogoOnTicket: terminalCompany?.showLogoOnTicket || baseCompany?.showLogoOnTicket || storeCompany?.showLogoOnTicket || '',
-        ticketQRcode: terminalCompany?.ticketQRcode || baseCompany?.ticketQRcode || storeCompany?.ticketQRcode || false,
+        showLogoOnTicket: (rawShowLogo !== undefined && rawShowLogo !== null && rawShowLogo !== '') ? rawShowLogo : true,
+        ticketQRcode: (rawShowQR !== undefined && rawShowQR !== null && rawShowQR !== '') ? rawShowQR : true,
         ticketLayout: terminalCompany?.ticketLayout || baseCompany?.ticketLayout || storeCompany?.ticketLayout || 'classic',
+        ticket_logo_size: rawLogoSize,
+        ticketLogoSize: rawLogoSize,
         profile_image_path: resolvedProfileImagePath,
         bank_qr_image_path: resolvedBankQrImagePath,
         bank_qr_image_path_2: resolvedBankQrImagePath2,
@@ -1088,9 +1381,9 @@ export default {
         },
         {
           title: 'Orders',
-          path: '/admin/ordersFromPos',
+          path: '',
           icon: 'mdi-reorder-horizontal',
-          method: () => { },
+          method: this.goToOrdersFromPos,
         },
         {
           title: 'Quotation',
@@ -1180,19 +1473,25 @@ export default {
         const originalPrice = iterator.localPrice || 0
         const lineSubtotalOriginal = iterator.qty * originalPrice
 
+        const isReturn = iterator.isReturn === true || iterator.packagingAction === 'RETURNED'
         const taxAmountOriginal = this.calculateLineTaxAmount(iterator)
         const taxType = iterator.tax?.taxType || 'INC'
 
-        const totalOriginal = taxType === 'EXC' ? lineSubtotalOriginal + taxAmountOriginal : lineSubtotalOriginal
+        let totalOriginal = taxType === 'EXC' ? lineSubtotalOriginal + taxAmountOriginal : lineSubtotalOriginal
+        if (isReturn) {
+          totalOriginal = -Math.abs(totalOriginal)
+        }
 
         lines.push({
           quantity: iterator.qty,
           unitRate: iterator.unitRate || 1,
           currencyId: iterator.saleCurrencyId,
           exchangeRate: currency.rate || 1,
-          price: originalPrice,
+          price: isReturn ? -Math.abs(originalPrice) : originalPrice,
           discount: 0,
-          validateStockOnSale: iterator.validateStockOnSale,
+          validateStockOnSale: isReturn ? false : iterator.validateStockOnSale,
+          isReturn: isReturn,
+          packagingAction: iterator.packagingAction || (isReturn ? 'RETURNED' : (iterator.isPackagingAsset ? 'SOLD' : 'NONE')),
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.unitId || iterator.stockUnitId || iterator.baseUnitId,
@@ -1238,6 +1537,14 @@ export default {
     selectedCategoryId() {
       return this.currenctSelectedCategoryId
     },
+    packagingMode: {
+      get() {
+        return this.$store.getters.packagingMode || 'SELL'
+      },
+      set(val) {
+        this.$store.commit('setPackagingMode', val)
+      }
+    },
     currentPayment() {
       return this.currentSelectedPayment
     },
@@ -1264,8 +1571,9 @@ export default {
 
         const taxType = item.tax?.taxType || 'INC'
         const lineTotalLocal = taxType === 'EXC' ? lineSubtotalLocal + taxAmountLocal : lineSubtotalLocal
+        const isReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
 
-        return total + lineTotalLocal
+        return total + (isReturn ? -lineTotalLocal : lineTotalLocal)
       }, 0)
       return totalPrice
     },
@@ -1276,6 +1584,74 @@ export default {
       )
       const redeemRate = spfRate ? parseFloat(spfRate.value) || 10 : 10
       return this.redeemedPoints * redeemRate
+    },
+    hasReturnableItemsInCart() {
+      return this.productCart.some(item => {
+        if (item.isReturn || item.packagingAction === 'RETURNED' || item.packagingAction === 'SOLD' || item.isPackagingAsset) return false
+        return item.isReturnablePackaging
+      })
+    },
+    hasPackagingInCart() {
+      return this.productCart.some(item => 
+        item.isPackagingAsset || 
+        item.isReturn || 
+        item.packagingAction === 'RETURNED' || 
+        item.packagingAction === 'SOLD'
+      )
+    },
+    detectedReturnableCases() {
+      const returnableBeer = this.productCart.filter(item => {
+        if (item.isReturn || item.packagingAction === 'RETURNED' || item.packagingAction === 'SOLD' || item.isPackagingAsset) return false
+        return item.isReturnablePackaging 
+      })
+      return returnableBeer.reduce((sum, item) => sum + (Number(item.qty) || 1), 0)
+    },
+    modalGrossSellTotal() {
+      return (this.dynamicPackagingAssets || []).reduce((sum, a) => sum + (Number(a.sellQty || 0) * Number(a.pro_price || 0)), 0)
+    },
+    modalGrossReturnTotal() {
+      return (this.dynamicPackagingAssets || []).reduce((sum, a) => sum + (Number(a.returnQty || 0) * Number(a.pro_price || 0)), 0)
+    },
+    modalNetImpact() {
+      return this.modalGrossSellTotal - this.modalGrossReturnTotal
+    },
+    hasPackagingCapability() {
+      // 1. If cart already has packaging or returnable items, always show
+      if (this.hasPackagingInCart || this.hasReturnableItemsInCart) {
+        return true
+      }
+
+      // 2. Check if any store category is flagged or named as packaging
+      const hasPackagingCategory = (this.categoryList || []).some((c) => {
+        if (!c || c.categ_id === 9999) return false
+        if (c.isPackaging === true || c.isPackaging === 1) return true
+        const name = String(c.categ_name || '').toLowerCase()
+        return (
+          name.includes('ບັນຈຸພັນ') ||
+          name.includes('packaging') ||
+          name.includes('packing')
+        )
+      })
+      if (hasPackagingCategory) {
+        return true
+      }
+
+      // 3. Check if any product in loaded catalog belongs to packaging or is returnable
+      const products = this.findAllProduct || []
+      return products.some((p) => {
+        if (!p) return false
+        return (
+          p.isPackagingAsset === true ||
+          p.isPackagingAsset === 1 ||
+          p.categoryIsPackaging === true ||
+          p.categoryIsPackaging === 1 ||
+          p.category?.isPackaging === true ||
+          p.category?.isPackaging === 1 ||
+          p.isReturnablePackaging === true ||
+          p.isReturnablePackaging === 1 ||
+          this.isPackagingItem(p)
+        )
+      })
     },
   },
 
@@ -1298,7 +1674,14 @@ export default {
     this.initializeMultiPayment()
     this.setupGlobalNfcListener()
     this.fetchBusinessDate()
+    this.loadUserGroupMenus()
     // this.$root.$on('update-cus-screen', this.openCustomerScreenEnhanced)
+
+    // Restore last transaction ID for reprint testing
+    const savedLastSaleId = localStorage.getItem('lastCompletedSaleHeaderId')
+    if (savedLastSaleId && !this.lastTransactionSaleHeaderId) {
+      this.lastTransactionSaleHeaderId = savedLastSaleId
+    }
 
     // CUSTOMER SCREEN INTEGRATION
     this.$customerWindow = null
@@ -1399,6 +1782,15 @@ export default {
       }
     },
 
+    hasPackagingCapability: {
+      handler(val) {
+        if (!val && this.packagingMode !== 'SELL') {
+          this.packagingMode = 'SELL'
+        }
+      },
+      immediate: true,
+    },
+
     // PERFORMANCE OPTIMIZATION: Rebuild cache when products change
     findAllProduct: {
       handler: _.debounce(function (newVal, oldVal) {
@@ -1445,6 +1837,98 @@ export default {
   },
 
   methods: {
+    async loadUserGroupMenus() {
+      // 1. If already provided in user object from store
+      if (this.user?.userGroup?.menuHeaders && Array.isArray(this.user.userGroup.menuHeaders)) {
+        return this.user.userGroup.menuHeaders
+      }
+      if (this.cachedUserGroupMenuHeaders) {
+        return this.cachedUserGroupMenuHeaders
+      }
+      const groupId = this.user?.userGroup?.id
+      if (!groupId) return []
+      try {
+        const response = await this.$axios.get(`api/group/find/${groupId}`)
+        if (response?.data?.menuHeaders) {
+          this.cachedUserGroupMenuHeaders = response.data.menuHeaders
+          return this.cachedUserGroupMenuHeaders
+        }
+      } catch (error) {
+        console.error('Error fetching user group menu headers:', error)
+      }
+      return []
+    },
+
+    async checkUserGroupMenuAccess(targetPath = '/admin/ordersFromPos') {
+      const user = this.user || this.$auth?.user || this.$store?.state?.auth?.user
+      if (!user || !user.userGroup) {
+        return false
+      }
+
+      // Admin role bypass
+      const groupCode = (user.userGroup.code || '').trim().toUpperCase()
+      if (['ADMIN', 'SUPER_ADMIN', 'SUPER USER'].includes(groupCode)) {
+        return true
+      }
+
+      const normalize = (p) => (p || '').toString().trim().toLowerCase().replace(/\/+$/, '')
+      const target = normalize(targetPath)
+
+      const hasPathInHeaders = (headers) => {
+        if (!Array.isArray(headers)) return false
+        return headers.some((header) => {
+          if (header.isActive === false || header.isActive === 0) return false
+          const lines = header.menuLines || []
+          return lines.some((line) => {
+            if (line.isActive === false || line.isActive === 0) return false
+            return normalize(line.path) === target
+          })
+        })
+      }
+
+      // 1. Check userGroup.menuHeaders from store
+      const menuHeaders = user.userGroup.menuHeaders
+      if (Array.isArray(menuHeaders) && menuHeaders.length > 0) {
+        return hasPathInHeaders(menuHeaders)
+      }
+
+      // Check direct userGroup.menuLines if any
+      if (Array.isArray(user.userGroup.menuLines) && user.userGroup.menuLines.length > 0) {
+        const match = user.userGroup.menuLines.some((line) => {
+          if (line.isActive === false || line.isActive === 0) return false
+          return normalize(line.path) === target
+        })
+        if (match) return true
+      }
+
+      // 2. Check cached menu headers
+      if (this.cachedUserGroupMenuHeaders) {
+        return hasPathInHeaders(this.cachedUserGroupMenuHeaders)
+      }
+
+      // 3. Fallback: fetch group details from API
+      const fetched = await this.loadUserGroupMenus()
+      if (Array.isArray(fetched) && fetched.length > 0) {
+        return hasPathInHeaders(fetched)
+      }
+
+      return false
+    },
+
+    async goToOrdersFromPos() {
+      const targetPath = '/admin/ordersFromPos'
+      const hasAccess = await this.checkUserGroupMenuAccess(targetPath)
+      if (!hasAccess) {
+        if (this.$toast) {
+          this.$toast.error('ທ່ານບໍ່ມີສິດເຂົ້າເຖິງໜ້າ Orders (You do not have permission to access Orders page)', {
+            duration: 3000
+          })
+        }
+        return
+      }
+      this.$router.push(targetPath)
+    },
+
     async fetchBusinessDate() {
       if (!this.isBusinessDateEnabled) return
       try {
@@ -1501,6 +1985,9 @@ export default {
         duration: 800,
         dismissible: true,
       })
+    },
+    isPackagingItem(product) {
+      return isPackagingProduct(product)
     },
     getStockColor(stockCount) {
       if (stockCount <= 0) return 'error'
@@ -1590,8 +2077,15 @@ export default {
           return false
         }
 
-        // Check stock if validation is enabled
-        if (product.validateStockOnSale === 1) {
+        const isPkg = this.isPackagingItem(product)
+        const isBuyMode = this.packagingMode === 'BUY'
+        const isReturnTarget = product.isReturn !== undefined
+          ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+          : (isPkg ? isBuyMode : false)
+        const targetPkgAction = product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE'))
+
+        // Check stock only for normal sales (skip for buying/returning packaging)
+        if (!isReturnTarget && product.validateStockOnSale === 1) {
           const productStock =
             this.productLookupCache.get(product.id) ||
             this.findAllProduct.find((p) => p.id === product.id)
@@ -1602,13 +2096,16 @@ export default {
         }
 
         console.info(`PRODUCT DET CART ADD INCRESE ${JSON.stringify(product)}`)
-        // Check card_count limit before adding to cart
-        if (!this.validateCardCountForIncrease(product)) {
+        // Check card_count limit before adding to cart (skip for buying/returning packaging)
+        if (!isReturnTarget && !this.validateCardCountForIncrease(product)) {
           return false
         }
+
         const cartItem = {
           ...product,
           qty: 1,
+          isReturn: isReturnTarget,
+          packagingAction: targetPkgAction,
           isGift,
           lineUUIDCheck: true,
           lineUUID: product.lineUUID || Date.now() + Math.random().toString(16),
@@ -1640,8 +2137,26 @@ export default {
     showOptimizedSuccessMessage(product) {
       if (!this.$toast) return
 
+      const isPkg = this.isPackagingItem(product)
+      const isBuyMode = this.packagingMode === 'BUY'
+      const isReturnTarget = product.isReturn !== undefined
+        ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+        : (isPkg ? isBuyMode : false)
+
+      if (isReturnTarget) {
+        this.$toast.info(
+          `ເພີ່ມລາຍການຮັບຊື້ຄືນ: ${product.pro_name || product.name || ''}`,
+          {
+            position: 'bottom-center',
+            duration: 800,
+            dismissible: true,
+          }
+        )
+        return
+      }
+
       const existingItem = this.cartOfProduct.find(
-        (item) => item.pro_id === product.pro_id || item.id === product.id
+        (item) => (item.pro_id === product.pro_id || item.id === product.id) && !item.isReturn
       )
 
       const newQty = existingItem ? existingItem.qty : 1
@@ -1673,6 +2188,17 @@ export default {
      * Optimized card count validation
      */
     validateCardCountForIncrease(product) {
+      const isPkg = this.isPackagingItem(product)
+      const isBuyMode = this.packagingMode === 'BUY'
+      const isReturnTarget = product.isReturn !== undefined
+        ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+        : (isPkg ? isBuyMode : false)
+
+      // When buying/returning packaging, stock limits do not apply
+      if (isReturnTarget) {
+        return true
+      }
+
       const cardCountLimit = product.card_count
 
       if (
@@ -1688,9 +2214,9 @@ export default {
         return false
       }
 
-      // Use cached lookup if available
+      // Use cached lookup if available (only count sell items)
       const existingCartItem = this.cartOfProduct.find((item) => {
-        return item.pro_id === product.pro_id || item.id === product.id
+        return (item.pro_id === product.pro_id || item.id === product.id) && !item.isReturn
       })
 
       if (existingCartItem) {
@@ -2434,6 +2960,10 @@ export default {
         )
 
         const finalSaleHeaderId = this.lastTransactionSaleHeaderId || response.data?.id || response.data?.saleHeaderId
+        if (finalSaleHeaderId) {
+          this.lastTransactionSaleHeaderId = finalSaleHeaderId
+          localStorage.setItem('lastCompletedSaleHeaderId', finalSaleHeaderId)
+        }
         const cartSnapshot = this.productCart ? [...this.productCart] : []
         const customerSnapshot = this.currenctCustomer ? { ...this.currenctCustomer } : null
 
@@ -2655,7 +3185,7 @@ export default {
       this.initiateData(this.$axios)
     },
 
-    printDefaultTicket(customSaleHeaderId = null) {
+    printDefaultTicket(customSaleHeaderId = null, customOptions = {}) {
       const theChanges = this.changes
       console.info(`poduct cart DET ${JSON.stringify(this.productCart)}`)
       defaultTicket({
@@ -2680,6 +3210,8 @@ export default {
         paperWidth: this.paperSize,
         printers: this.findAllprinters,
         client: this.currenctCustomer,
+        bookingDate: (this.isBusinessDateEnabled && this.businessDate) ? this.businessDate : new Date(),
+        ...customOptions,
       })
     },
 
@@ -2693,9 +3225,10 @@ export default {
         const PRINTFORMAT = (this.findSPF || []).find(
           (spf) => spf.code === 'TICKET_FORM'
         )
+
         if (PRINTFORMAT && PRINTFORMAT.value === 'FORMAL') {
           const draftInvoiceData = {
-            id: this.saleHeader?.referenceNo || 'DRAFT',
+            id: this.saleHeader?.referenceNo || 'DRAFT-CART',
             bookingDate: (this.isBusinessDateEnabled && this.businessDate) ? this.businessDate : new Date(),
             customer: this.currenctCustomer,
             lines: this.productCart.map((item, idx) => ({
@@ -2706,6 +3239,8 @@ export default {
               price: item.localPrice || item.pro_price,
               total: (item.qty || 1) * (item.localPrice || item.pro_price || 0),
               tax: item.tax,
+              currencyId: item.saleCurrencyId || this.findLocalCurrency?.id,
+              isGift: item.isGift,
             })),
             discount: Number(this.discount || 0) + Number(this.loyaltyDiscountAmount || 0),
             total: this.grandTotal - this.discount - this.loyaltyDiscountAmount,
@@ -2719,7 +3254,9 @@ export default {
           )
           this.openPrintWindow(htmlContent, 'A4')
         } else {
-          this.printDefaultTicket(this.saleHeader?.referenceNo ? `REF: ${this.saleHeader.referenceNo}` : 'DRAFT')
+          // Use exact same ticket format and engine as post-sale print (common/ticket.js)
+          const draftBillNumber = this.saleHeader?.referenceNo ? `REF: ${this.saleHeader.referenceNo}` : 'DRAFT'
+          this.printDefaultTicket(draftBillNumber)
         }
 
         if (this.$toast) {
@@ -2937,6 +3474,7 @@ export default {
         }
 
         this.lastTransactionSaleHeaderId = saleHeaderId
+        localStorage.setItem('lastCompletedSaleHeaderId', saleHeaderId)
         const cartSnapshot = this.productCart ? [...this.productCart] : []
         const customerSnapshot = this.currenctCustomer ? { ...this.currenctCustomer } : null
 
@@ -3210,6 +3748,7 @@ export default {
               categ_id: el.categ_id,
               categ_name: el.categ_name,
               categ_desc: el.categ_desc,
+              isPackaging: Boolean(el.isPackaging),
             }
           })
           this.categoryList.push({
@@ -3537,6 +4076,354 @@ export default {
         console.error('Error processing packaging sale movements:', globalPkgErr)
       }
     },
+
+    async findPackagingAssetProduct(preferredType = 'crate') {
+      let assets = (this.findAllProduct || []).filter(p => p.isPackagingAsset)
+      if (!assets || assets.length === 0) {
+        try {
+          const res = await this.$axios.get('/api/packaging/assets')
+          if (res.data && Array.isArray(res.data)) {
+            assets = res.data
+          }
+        } catch (e) {
+          // ignore
+        }
+      }
+
+      if (!assets || assets.length === 0) {
+        assets = (this.findAllProduct || []).filter(p => 
+          p.barCode?.startsWith('PKG-') ||
+          p.pro_name?.includes('ລັງເປົ່າ') ||
+          p.pro_name?.includes('ແກ້ວເປົ່າ')
+        )
+      }
+
+      if (preferredType === 'crate') {
+        const cartNames = (this.productCart || []).map(i => i.pro_name || '').join(' ')
+        if (cartNames.includes('240')) {
+          const m240 = assets.find(p => (p.pro_name?.includes('240') || p.barCode?.includes('240')) && (p.pro_name?.includes('ລັງ') || p.barCode?.includes('CRATE')))
+          if (m240) return m240
+        }
+        return assets.find(p => p.pro_name?.includes('ລັງ') || p.barCode?.includes('CRATE')) || assets[0]
+      } else {
+        const cartNames = (this.productCart || []).map(i => i.pro_name || '').join(' ')
+        if (cartNames.includes('240')) {
+          const m240 = assets.find(p => p.pro_name?.includes('240') || p.barCode?.includes('240'))
+          if (m240) return m240
+        }
+        if (cartNames.includes('330')) {
+          const m330 = assets.find(p => p.pro_name?.includes('330') || p.barCode?.includes('330'))
+          if (m330) return m330
+        }
+        if (cartNames.includes('640')) {
+          const m640 = assets.find(p => p.pro_name?.includes('640') || p.barCode?.includes('640'))
+          if (m640) return m640
+        }
+        return assets.find(p => p.pro_name?.includes('ແກ້ວ') || p.barCode?.includes('BTL') || p.barCode?.includes('BOTTLE')) || assets[0]
+      }
+    },
+
+    async autoApplyPackagingSwap(swapType = 'both') {
+      const returnableBeer = this.productCart.filter(item => {
+        if (item.isReturn || item.packagingAction === 'RETURNED' || item.packagingAction === 'SOLD' || item.isPackagingAsset) return false
+        return item.isReturnablePackaging 
+      })
+
+      const totalCases = returnableBeer.length > 0
+        ? returnableBeer.reduce((sum, item) => sum + (Number(item.qty) || 1), 0)
+        : 1
+
+      const crateProduct = await this.findPackagingAssetProduct('crate')
+      const bottleProduct = await this.findPackagingAssetProduct('bottle')
+
+      if (!crateProduct && !bottleProduct) {
+        this.$toast.warning('ບໍ່ພົບສິນຄ້າບັນຈຸພັນ (Packaging assets not found)')
+        return
+      }
+
+      const totalBottles = totalCases * 12
+
+      // Swap Crates (1 Crate per Case)
+      if ((swapType === 'both' || swapType === 'crate') && crateProduct) {
+        this.$store.commit('addProductToCart', {
+          ...crateProduct,
+          id: crateProduct.id || crateProduct.pro_id,
+          pro_id: crateProduct.pro_id || crateProduct.id,
+          qty: totalCases,
+          isReturn: false,
+          packagingAction: 'SOLD',
+          hasVariantSelected: true,
+          localPrice: Number(crateProduct.pro_price || 20000)
+        })
+        this.$store.commit('addProductToCart', {
+          ...crateProduct,
+          id: crateProduct.id || crateProduct.pro_id,
+          pro_id: crateProduct.pro_id || crateProduct.id,
+          qty: totalCases,
+          isReturn: true,
+          packagingAction: 'RETURNED',
+          hasVariantSelected: true,
+          localPrice: Number(crateProduct.pro_price || 20000)
+        })
+      }
+
+      // Swap Bottles (12 Bottles per Case)
+      if ((swapType === 'both' || swapType === 'bottle') && bottleProduct) {
+        this.$store.commit('addProductToCart', {
+          ...bottleProduct,
+          id: bottleProduct.id || bottleProduct.pro_id,
+          pro_id: bottleProduct.pro_id || bottleProduct.id,
+          qty: totalBottles,
+          isReturn: false,
+          packagingAction: 'SOLD',
+          hasVariantSelected: true,
+          localPrice: Number(bottleProduct.pro_price || 2000)
+        })
+        this.$store.commit('addProductToCart', {
+          ...bottleProduct,
+          id: bottleProduct.id || bottleProduct.pro_id,
+          pro_id: bottleProduct.pro_id || bottleProduct.id,
+          qty: totalBottles,
+          isReturn: true,
+          packagingAction: 'RETURNED',
+          hasVariantSelected: true,
+          localPrice: Number(bottleProduct.pro_price || 2000)
+        })
+      }
+
+      if (swapType === 'both') {
+        this.$toast.success(`ປ່ຽນ 1:1 ຄົບຊຸດ: ຂາຍ/ຮັບຄືນ ລັງ ${totalCases} ລັງ, ແກ້ວ ${totalBottles} ແກ້ວ (ສຸດທິ 0 LAK)`)
+      } else if (swapType === 'crate') {
+        this.$toast.success(`ປ່ຽນ 1:1 ສະເພາະລັງ: ຂາຍ/ຮັບຄືນ ${totalCases} ລັງ (ສຸດທິ 0 LAK)`)
+      } else {
+        this.$toast.success(`ປ່ຽນ 1:1 ສະເພາະແກ້ວ: ຂາຍ/ຮັບຄືນ ${totalBottles} ແກ້ວ (ສຸດທິ 0 LAK)`)
+      }
+    },
+
+    async autoApplyPackagingSell(type = 'crate', customQty = null) {
+      const returnableBeer = this.productCart.filter(item => {
+        if (item.isReturn || item.packagingAction === 'RETURNED' || item.packagingAction === 'SOLD' || item.isPackagingAsset) return false
+        return item.isReturnablePackaging 
+      })
+      const totalCases = returnableBeer.length > 0
+        ? returnableBeer.reduce((sum, item) => sum + (Number(item.qty) || 1), 0)
+        : 1
+
+      const product = await this.findPackagingAssetProduct(type)
+      if (!product) {
+        this.$toast.warning(`ບໍ່ພົບສິນຄ້າ ${type === 'crate' ? 'ລັງເປົ່າ' : 'ແກ້ວເປົ່າ'}`)
+        return
+      }
+
+      const defaultQty = type === 'crate' ? totalCases : totalCases * 12
+      const targetQty = customQty !== null ? customQty : defaultQty
+
+      this.$store.commit('addProductToCart', {
+        ...product,
+        id: product.id || product.pro_id,
+        pro_id: product.pro_id || product.id,
+        qty: targetQty,
+        isReturn: false,
+        packagingAction: 'SOLD',
+        hasVariantSelected: true,
+        localPrice: Number(product.pro_price || (type === 'crate' ? 20000 : 2000))
+      })
+
+      this.$toast.info(`ເພີ່ມລາຍການຂາຍ${type === 'crate' ? 'ລັງ' : 'ແກ້ວ'} ${targetQty} ${type === 'crate' ? 'ລັງ' : 'ແກ້ວ'}`)
+    },
+
+    async autoApplyPackagingReturn(type = 'crate', customQty = null) {
+      const returnableBeer = this.productCart.filter(item => {
+        if (item.isReturn || item.packagingAction === 'RETURNED' || item.packagingAction === 'SOLD' || item.isPackagingAsset) return false
+        return item.isReturnablePackaging 
+      })
+      const totalCases = returnableBeer.length > 0
+        ? returnableBeer.reduce((sum, item) => sum + (Number(item.qty) || 1), 0)
+        : 1
+
+      const product = await this.findPackagingAssetProduct(type)
+      if (!product) {
+        this.$toast.warning(`ບໍ່ພົບສິນຄ້າ ${type === 'crate' ? 'ລັງເປົ່າ' : 'ແກ້ວເປົ່າ'}`)
+        return
+      }
+
+      const defaultQty = type === 'crate' ? totalCases : totalCases * 12
+      const targetQty = customQty !== null ? customQty : defaultQty
+
+      this.$store.commit('addProductToCart', {
+        ...product,
+        id: product.id || product.pro_id,
+        pro_id: product.pro_id || product.id,
+        qty: targetQty,
+        isReturn: true,
+        packagingAction: 'RETURNED',
+        hasVariantSelected: true,
+        localPrice: Number(product.pro_price || (type === 'crate' ? 20000 : 2000))
+      })
+
+      this.$toast.info(`ເພີ່ມລາຍການຮັບຊື້ຄືນ${type === 'crate' ? 'ລັງ' : 'ແກ້ວ'} ${targetQty} ${type === 'crate' ? 'ລັງ' : 'ແກ້ວ'} (ຫັກລົບຍອດບິນ)`)
+    },
+
+    autoApplyBottleSell(qty = null) {
+      return this.autoApplyPackagingSell('bottle', qty)
+    },
+
+    autoApplyBottleReturn(qty = null) {
+      return this.autoApplyPackagingReturn('bottle', qty)
+    },
+
+    toggleCartItemReturnType(item) {
+      this.$store.commit('TOGGLE_ITEM_RETURN', {
+        lineUUID: item.lineUUID,
+        id: item.id
+      })
+      const isNowReturn = !(item.isReturn === true || item.packagingAction === 'RETURNED')
+      const label = isNowReturn ? 'ຮັບຊື້ຄືນ (BUY)' : 'ຂາຍ (SELL)'
+      this.$toast.info(`ປ່ຽນສະຖານະ "${item.pro_name}" ເປັນ ${label}`)
+    },
+
+    handleDuplicateReturnLine(item) {
+      this.$store.commit('addProductToCart', {
+        ...item,
+        id: item.id || item.pro_id,
+        pro_id: item.pro_id || item.id,
+        qty: 1,
+        isReturn: true,
+        packagingAction: 'RETURNED',
+        hasVariantSelected: true,
+        localPrice: Number(item.localPrice || item.pro_price || 0),
+        lineUUID: Date.now() + Math.random().toString(16)
+      })
+      this.$toast.info(`ເພີ່ມແຖວຮັບຊື້ຄືນ: ${item.pro_name}`)
+    },
+
+    async openPackagingModal() {
+      this.packagingModal = true
+      await this.loadAllPackagingAssets()
+    },
+
+    async loadAllPackagingAssets() {
+      let assets = []
+      try {
+        const res = await this.$axios.get('/api/packaging/assets')
+        if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+          assets = res.data
+        }
+      } catch (e) {
+        console.warn('Failed to load packaging assets via API, fallback to local store:', e.message)
+      }
+
+      if (!assets || assets.length === 0) {
+        assets = (this.findAllProduct || []).filter(p =>
+          p.isPackagingAsset ||
+          p.barCode?.startsWith('PKG-') ||
+          p.pro_name?.includes('ລັງເປົ່າ') ||
+          p.pro_name?.includes('ແກ້ວເປົ່າ')
+        )
+      }
+
+      // Fallback defaults if no products in database are flagged yet
+      if (!assets || assets.length === 0) {
+        assets = [
+          { id: 3534, pro_id: 3534, pro_name: 'Beerlao Empty Crate (ລັງເປົ່າ)', pro_price: 20000, barCode: 'PKG-CRATE-BEER', isPackagingAsset: true },
+          { id: 3535, pro_id: 3535, pro_name: 'Beerlao Empty Glass Bottle 640ml (ແກ້ວເປົ່າ 640ml)', pro_price: 2000, barCode: 'PKG-BTL-BEER-640', isPackagingAsset: true }
+        ]
+      }
+
+      const cases = this.detectedReturnableCases || 1
+      this.dynamicPackagingAssets = assets.map(asset => {
+        const isCrate = asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE')
+        const isBottle = asset.pro_name?.includes('ແກ້ວ') || asset.barCode?.includes('BTL') || asset.barCode?.includes('BOTTLE')
+        return {
+          ...asset,
+          sellQty: isCrate ? cases : (isBottle ? cases * 12 : 0),
+          returnQty: isCrate ? cases : (isBottle ? cases * 12 : 0)
+        }
+      })
+      return this.dynamicPackagingAssets
+    },
+
+    applyModalPreset(preset) {
+      const cases = this.detectedReturnableCases || 1
+      this.dynamicPackagingAssets = this.dynamicPackagingAssets.map(asset => {
+        const isCrate = asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE')
+        const isBottle = asset.pro_name?.includes('ແກ້ວ') || asset.barCode?.includes('BTL') || asset.barCode?.includes('BOTTLE')
+
+        let sellQty = 0
+        let returnQty = 0
+
+        if (preset === 'swapBoth') {
+          sellQty = isCrate ? cases : (isBottle ? cases * 12 : 0)
+          returnQty = isCrate ? cases : (isBottle ? cases * 12 : 0)
+        } else if (preset === 'swapCrate') {
+          sellQty = isCrate ? cases : 0
+          returnQty = isCrate ? cases : 0
+        } else if (preset === 'swapBottle') {
+          sellQty = isBottle ? cases * 12 : 0
+          returnQty = isBottle ? cases * 12 : 0
+        } else if (preset === 'sellBoth') {
+          sellQty = isCrate ? cases : (isBottle ? cases * 12 : 0)
+          returnQty = 0
+        } else if (preset === 'returnBottle12') {
+          sellQty = asset.sellQty || 0
+          returnQty = (asset.returnQty || 0) + (isBottle ? 12 : 0)
+        }
+
+        return {
+          ...asset,
+          sellQty,
+          returnQty
+        }
+      })
+    },
+
+    confirmApplyPackagingModal() {
+      let addedCount = 0
+
+      for (const asset of this.dynamicPackagingAssets) {
+        const sellQty = Number(asset.sellQty) || 0
+        const returnQty = Number(asset.returnQty) || 0
+        const price = Number(asset.pro_price) || 0
+
+        // SELL item
+        if (sellQty > 0) {
+          this.$store.commit('addProductToCart', {
+            ...asset,
+            id: asset.id || asset.pro_id,
+            pro_id: asset.pro_id || asset.id,
+            qty: sellQty,
+            isReturn: false,
+            packagingAction: 'SOLD',
+            hasVariantSelected: true,
+            localPrice: price,
+            lineUUID: Date.now() + Math.random().toString(16)
+          })
+          addedCount++
+        }
+
+        // RETURN item
+        if (returnQty > 0) {
+          this.$store.commit('addProductToCart', {
+            ...asset,
+            id: asset.id || asset.pro_id,
+            pro_id: asset.pro_id || asset.id,
+            qty: returnQty,
+            isReturn: true,
+            packagingAction: 'RETURNED',
+            hasVariantSelected: true,
+            localPrice: price,
+            lineUUID: Date.now() + Math.random().toString(16)
+          })
+          addedCount++
+        }
+      }
+
+      this.packagingModal = false
+      if (addedCount > 0) {
+        this.$toast.success('ອັບເດດລາຍການບັນຈຸພັນໃສ່ກະຕ່າຮຽບຮ້ອຍແລ້ວ')
+        this.$root.$emit('update-cus-screen')
+      }
+    },
   },
 }
 </script>
@@ -3547,9 +4434,26 @@ export default {
   font-family: 'Noto Sans Lao', 'Roboto', sans-serif;
 }
 
-/* App Header Enhancements */
+/* Compact App Header Styling */
 .app-header {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+
+.header-compact-btn {
+  height: 32px !important;
+  min-height: 32px !important;
+  font-size: 12px !important;
+  letter-spacing: 0.2px !important;
+  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  transition: all 0.2s ease;
+  margin: 0 1px;
+}
+
+.header-compact-btn:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  transform: translateY(-1px);
 }
 
 .menu-btn,
@@ -3590,8 +4494,8 @@ export default {
 }
 
 .active-route {
-  background: rgba(255, 255, 255, 0.25) !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  background: rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
 /* Enhanced Left Drawer */
@@ -3632,7 +4536,7 @@ export default {
 }
 
 .main-content-wrapper {
-  height: calc(100vh - 80px);
+  height: calc(100vh - 52px);
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -3722,7 +4626,8 @@ export default {
     max-width: 500px !important;
   }
 
-  .header-btn span {
+  .header-btn span,
+  .header-compact-btn span {
     display: none;
   }
 
@@ -3731,7 +4636,7 @@ export default {
   }
 
   .main-content-wrapper {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 52px);
     padding-right: 0;
   }
 }
@@ -3748,16 +4653,12 @@ export default {
 }
 
 @media (max-width: 600px) {
-  .main-content-wrapper {
-    height: calc(100vh - 80px);
-  }
-
   .app-header {
-    height: 70px !important;
+    height: 48px !important;
   }
 
   .main-content-wrapper {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 48px);
   }
 }
 

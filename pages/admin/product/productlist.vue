@@ -40,9 +40,31 @@
             <v-card flat class="transparent">
               <v-card-title class="px-0 pb-2 pt-0">
                 <v-row align="center" class="my-0">
-                  <v-col cols="12" sm="4" class="py-1">
-                    <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Search products..." outlined
-                      dense hide-details class="rounded-lg bg-white" />
+                  <v-col cols="12" sm="6" md="5" class="py-1">
+                    <div class="d-flex align-center">
+                      <v-text-field
+                        v-model="search"
+                        prepend-inner-icon="mdi-magnify"
+                        label="ຄົ້ນຫາ (ຊື່, ບາຣ໌ໂຄ້ດ, ລະຫັດ)..."
+                        outlined
+                        dense
+                        clearable
+                        hide-details
+                        class="rounded-lg bg-white"
+                        @keydown.enter="handleSearch"
+                        @click:clear="clearSearch"
+                      />
+                      <v-btn
+                        color="primary"
+                        depressed
+                        class="rounded-lg ml-2 px-4 font-weight-bold"
+                        :loading="isTableLoading"
+                        @click="handleSearch"
+                      >
+                        <v-icon left small>mdi-magnify</v-icon>
+                        ຄົ້ນຫາ
+                      </v-btn>
+                    </div>
                   </v-col>
                   <v-spacer></v-spacer>
                   <v-col cols="auto" class="py-1">
@@ -95,11 +117,15 @@
                         <v-icon left small>mdi-printer</v-icon>
                         Print Report
                       </v-btn>
+                      <v-btn small outlined color="primary" class="rounded-lg font-weight-bold" to="/admin/saleReportCommission">
+                        <v-icon left small>mdi-cash-multiple</v-icon>
+                        ລາຍງານຄ່ານາຍໜ້າ (Commission)
+                      </v-btn>
                       <v-btn small outlined color="grey darken-2" class="rounded-lg" @click="rebuildStock">
                         <v-icon left small>mdi-wrench</v-icon>
                         Fix Stock
                       </v-btn>
-                      <v-btn small outlined color="primary" class="rounded-lg" :loading="isloading" @click="fetchData">
+                      <v-btn small outlined color="primary" class="rounded-lg" :loading="isTableLoading" @click="fetchData">
                         <v-icon left small>mdi-refresh</v-icon>
                         Reload
                       </v-btn>
@@ -109,8 +135,18 @@
                 </v-row>
               </v-card-title>
 
-              <v-data-table v-if="loaddata" :headers="headers" :items="filteredProducts" :items-per-page="pageLine"
-                class="compact-table rounded-xl elevation-0 border-light">
+              <v-data-table
+                v-if="loaddata"
+                :headers="headers"
+                :items="loaddata"
+                :server-items-length="totalProducts"
+                :options.sync="tableOptions"
+                :loading="isTableLoading"
+                loading-text="ກຳລັງໂຫຼດຂໍ້ມູນສິນຄ້າ... (Loading products...)"
+                no-data-text="ບໍ່ພົບລາຍການສິນຄ້າ (No products found)"
+                hide-default-footer
+                class="compact-table rounded-t-xl elevation-0 border-light"
+              >
                 <!-- Thumbnail Slot -->
                 <template v-slot:item.thumbnail="{ item }">
                   <v-avatar size="32" rounded class="border-light elevation-1 bg-white">
@@ -174,6 +210,20 @@
                     <v-chip v-if="getCurrencyCode(item.saleCurrencyId)" x-small label class="ml-1 px-1 py-0 height-auto font-weight-bold" color="primary" outlined>
                       {{ getCurrencyCode(item.saleCurrencyId) }}
                     </v-chip>
+                  </div>
+                </template>
+
+                <!-- Commission Slot -->
+                <template v-slot:item.commission="{ item }">
+                  <div class="text-center">
+                    <template v-if="item.hasCommission">
+                      <v-chip x-small color="primary lighten-5" class="font-weight-bold primary--text">
+                        <v-icon x-small left color="primary">mdi-cash-multiple</v-icon>
+                        <span v-if="item.commissionType === 'percentage'">{{ item.commissionValue }}%</span>
+                        <span v-else>{{ formatNumber(item.commissionValue) }} {{ getCurrencyCode(item.commissionCurrencyId || item.saleCurrencyId) }}</span>
+                      </v-chip>
+                    </template>
+                    <span v-else class="grey--text text--lighten-1 caption">-</span>
                   </div>
                 </template>
 
@@ -282,6 +332,40 @@
                   </v-menu>
                 </template>
               </v-data-table>
+
+              <!-- Modern Server-Side Pagination Bar -->
+              <div class="d-flex align-center justify-space-between flex-wrap px-4 py-2 bg-white rounded-b-xl border-light border-top elevation-0">
+                <div class="d-flex align-center flex-wrap my-1">
+                  <span class="caption grey--text text--darken-2 font-weight-medium">
+                    ສະແດງ <strong>{{ paginationFrom }}</strong> - <strong>{{ paginationTo }}</strong> ຈາກທັງໝົດ <strong>{{ totalProducts }}</strong> ລາຍການ
+                  </span>
+                  <v-divider vertical class="mx-3 my-1" style="height: 16px;"></v-divider>
+                  <div class="d-flex align-center">
+                    <span class="caption grey--text mr-2">ແຖວຕໍ່ໜ້າ:</span>
+                    <v-select
+                      v-model="tableOptions.itemsPerPage"
+                      :items="[15, 30, 50, 100]"
+                      dense
+                      outlined
+                      hide-details
+                      class="caption rounded-lg"
+                      style="width: 85px;"
+                      @change="onItemsPerPageChange"
+                    ></v-select>
+                  </div>
+                </div>
+
+                <div class="d-flex align-center my-1">
+                  <v-pagination
+                    v-model="tableOptions.page"
+                    :length="totalPages"
+                    :total-visible="7"
+                    circle
+                    color="primary"
+                    class="my-0 product-pagination"
+                  ></v-pagination>
+                </div>
+              </div>
             </v-card>
           </v-card-text>
         </v-tab-item>
@@ -1040,6 +1124,7 @@ export default {
       selectedProductCost: 0,
       selectedProductName: '',
       isloading: false,
+      isTableLoading: false,
       dialogMessage: false,
       message: '',
       selectedStockProductId: '',
@@ -1050,9 +1135,17 @@ export default {
       content: null,
       selectedCardType: '',
       pageLine: 30,
+      tableOptions: {
+        page: 1,
+        itemsPerPage: 30,
+        sortBy: ['id'],
+        sortDesc: [false],
+      },
+      totalProducts: 0,
+      totalPages: 1,
+      _pendingFetch: false,
       search: '',
-      searchDebounced: '',
-      searchTimer: null,
+      searchApplied: '',
       editProductForm: false,
       selectedProductId: null,
       stockFormKey: 1,
@@ -1063,6 +1156,7 @@ export default {
         { text: 'ຫມວດສິນຄ້າ', align: 'start', value: 'pro_category_desc' },
         { text: 'ຕົ້ນທຶນ', align: 'end', value: 'pro_cost_price', width: '100px' },
         { text: 'ລາຄາຂາຍ', align: 'end', value: 'pro_price', width: '100px' },
+        { text: 'ຄ່ານາຍໜ້າ', align: 'center', value: 'commission', width: '130px' },
         { text: 'ລະດັບສະຕັອກ', align: 'center', value: 'pro_card_count', width: '120px' },
         { text: 'ສະຖານະ', align: 'center', value: 'status', width: '100px' },
         { text: 'ຈັດການ', align: 'center', value: 'actions', sortable: false, width: '60px' },
@@ -1092,11 +1186,27 @@ export default {
   },
 
   watch: {
-    search(val) {
-      if (this.searchTimer) clearTimeout(this.searchTimer)
-      this.searchTimer = setTimeout(() => {
-        this.searchDebounced = val ? val.trim().toLowerCase() : ''
-      }, 250)
+    showActive() {
+      if (this.tableOptions.page === 1) {
+        this.fetchData()
+      } else {
+        this.tableOptions.page = 1
+      }
+    },
+
+    currentSelectedLocation() {
+      if (this.tableOptions.page === 1) {
+        this.fetchData()
+      } else {
+        this.tableOptions.page = 1
+      }
+    },
+
+    tableOptions: {
+      handler() {
+        this.fetchData()
+      },
+      deep: true,
     },
 
     message(val) {
@@ -1175,10 +1285,10 @@ export default {
       })
     }
 
-    await Promise.all([
-      this.loadCardCategory(),
-      this.loadCategories(),
-    ])
+    // Load auxiliary metadata in background without blocking table fetch
+    this.loadCategories().catch(err => console.error('Error preloading categories:', err))
+    this.loadCardCategory().catch(err => console.error('Error preloading card categories:', err))
+
     await this.fetchData()
     window.addEventListener('keydown', this.handleBarcodeScanner)
   },
@@ -1208,37 +1318,26 @@ export default {
       return (this.filteredProducts || []).slice(0, 100)
     },
 
+    paginationFrom() {
+      if (!this.totalProducts || this.totalProducts === 0) return 0
+      const page = this.tableOptions.page || 1
+      const limit = this.tableOptions.itemsPerPage || 30
+      return (page - 1) * limit + 1
+    },
+
+    paginationTo() {
+      if (!this.totalProducts || this.totalProducts === 0) return 0
+      const page = this.tableOptions.page || 1
+      const limit = this.tableOptions.itemsPerPage || 30
+      return Math.min(page * limit, this.totalProducts)
+    },
+
+    previewBarcodeProducts() {
+      return (this.filteredProducts || []).slice(0, 100)
+    },
+
     filteredProducts() {
-      const products = this.loaddata || []
-      const searchTerm = this.searchDebounced
-      const showInactiveOnly = this.showActive === true || Number(this.showActive) === 1
-
-      return products.filter((product) => {
-        const isItemActive = product.isActive === 1 || product.isActive === '1' || product.isActive === true
-        if (showInactiveOnly ? isItemActive : !isItemActive) {
-          return false
-        }
-        if (!searchTerm) return true
-
-        if (product._searchKey) {
-          return product._searchKey.includes(searchTerm)
-        }
-        const name = String(product.pro_name || '').toLowerCase()
-        const barcode = String(product.barCode || '').toLowerCase()
-        const proId = String(product.pro_id || '').toLowerCase()
-        const productCode = String(product.product_code || '').toLowerCase()
-        const categoryDesc = String(product.pro_category_desc || '').toLowerCase()
-        const categName = String(product.categ_name || '').toLowerCase()
-
-        return (
-          name.includes(searchTerm) ||
-          barcode.includes(searchTerm) ||
-          proId.includes(searchTerm) ||
-          productCode.includes(searchTerm) ||
-          categoryDesc.includes(searchTerm) ||
-          categName.includes(searchTerm)
-        )
-      })
+      return this.loaddata || []
     },
 
     // Shelf Tag Computed Properties
@@ -1345,8 +1444,9 @@ export default {
 
       if (e.key === 'Enter') {
         if (this.barcodeBuffer && this.barcodeBuffer.length > 2) {
-          // If buffered string looks like a barcode, set it to search
+          // If buffered string looks like a barcode, set it to search and fetch
           this.search = this.barcodeBuffer
+          this.handleSearch()
         }
         this.barcodeBuffer = ''
         return
@@ -1500,17 +1600,30 @@ export default {
       }
     },
 
-    printProductReport() {
+    async printProductReport() {
       try {
+        let printItems = this.loaddata
+        if (this.totalProducts > this.loaddata.length) {
+          this.isloading = true
+          const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
+          const search = this.searchApplied || ''
+          const isActive = this.showActive ? 0 : 1
+          const res = await this.$axios.get(`product_f_v2/${locationId}`, {
+            params: { include: 'priceList', limit: -1, search, isActive }
+          })
+          const allProducts = res.data?.data || []
+          printItems = allProducts.map((el) => this.mapProductItem(el))
+        }
+
         const companyData = mainCompanyInfo() || {}
         const filters = {
           search: this.search || '',
-          status: this.showActive ? 'ສະແດງທັງໝົດ (All Included)' : 'ສະແດງສະເພາະທີ່ໃຊ້ງານ (Active Only)',
+          status: this.showActive ? 'ສະແດງສະເພາະທີ່ປິດໃຊ້ງານ (Inactive Only)' : 'ສະແດງສະເພາະທີ່ໃຊ້ງານ (Active Only)',
           userName: this.$auth?.user?.cus_name || '-'
         }
 
         const htmlContent = generateProductListReportHTML(
-          this.filteredProducts,
+          printItems,
           companyData,
           this.findAllCurrency,
           filters
@@ -1520,6 +1633,8 @@ export default {
       } catch (error) {
         console.error('Error printing product report:', error)
         swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການພິມລາຍງານ')
+      } finally {
+        this.isloading = false
       }
     },
 
@@ -2018,12 +2133,60 @@ export default {
       this.profitMargin = 0
     },
 
-    // Existing methods (keeping all your original functionality)
-    exportToExcel() {
+    async exportToExcel() {
+      try {
+        let exportData = this.loaddata
+        if (this.totalProducts > this.loaddata.length) {
+          this.isloading = true
+          const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
+          const search = this.searchApplied || ''
+          const isActive = this.showActive ? 0 : 1
+          let allProducts = []
+          try {
+            const res = await this.$axios.get(`product_f_v2/${locationId}`, {
+              params: { include: 'priceList', limit: -1, search, isActive }
+            })
+            allProducts = res.data?.data || []
+          } catch (v2Err) {
+            console.warn('product_f_v2 export fallback to v1:', v2Err)
+            const fallbackRes = await this.$axios.get(`product_f_v1/${locationId}`, {
+              params: { include: 'priceList', isActive: false }
+            })
+            let all = fallbackRes.data?.data || []
+            if (this.showActive) {
+              all = all.filter(p => p.isActive === 0 || p.isActive === false || p.isActive === '0')
+            } else {
+              all = all.filter(p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined)
+            }
+            if (search) {
+              const q = search.toLowerCase()
+              all = all.filter(p => {
+                const name = (p.pro_name || '').toLowerCase()
+                const code = (p.product_code || '').toLowerCase()
+                const bar = (p.barCode || '').toLowerCase()
+                const proId = String(p.pro_id || '')
+                const cat = (p.categ_name || '').toLowerCase()
+                const vendor = (p.vendorName || '').toLowerCase()
+                return name.includes(q) || code.includes(q) || bar.includes(q) || proId.includes(q) || cat.includes(q) || vendor.includes(q)
+              })
+            }
+            allProducts = all
+          }
+          exportData = allProducts.map((el) => this.mapProductItem(el))
+        }
+        this.runExportExcel(exportData)
+      } catch (err) {
+        console.error('Export error: ', err)
+        swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກຂໍ້ມູນ')
+      } finally {
+        this.isloading = false
+      }
+    },
+
+    runExportExcel(itemsToExport) {
       // Get all unique price list grades from the data
       const allGrades = new Set()
-      this.loaddata.forEach((item) => {
-        console.info(`Additional product ${JSON.stringify(item)}`)
+      itemsToExport.forEach((item) => {
         if (item.priceLists && item.priceLists.length > 0) {
           item.priceLists.forEach((priceList) => {
             if (priceList.grade) {
@@ -2051,10 +2214,10 @@ export default {
         effectivePrice: 'Current Price',
         pro_desc: 'Product Description',
         categ_name: 'Category',
-        card_count: 'Stock',
         minStock: 'Minimum Stock',
         pro_card_count: 'Stock',
         stockStatus: 'Stock Status',
+        createdAt: 'Created Time',
       }
 
       // Add dynamic price list columns
@@ -2063,7 +2226,7 @@ export default {
       })
 
       // Transform data with dynamic price list fields
-      const transformedData = this.loaddata.map((item) => {
+      const transformedData = itemsToExport.map((item) => {
         const newItem = {}
 
         // Map base fields
@@ -2080,6 +2243,12 @@ export default {
             newItem[headerMap[key]] = this.getCurrencyCode(item.costCurrencyId)
           } else if (key === 'saleCurrency') {
             newItem[headerMap[key]] = this.getCurrencyCode(item.saleCurrencyId)
+          } else if (key === 'createdAt') {
+            newItem[headerMap[key]] = this.formatDateTime(item.createdAt)
+          } else if (key === 'pro_card_count' || key === 'card_count') {
+            newItem[headerMap[key]] = item.pro_card_count !== undefined && item.pro_card_count !== null
+              ? item.pro_card_count
+              : (item.card_count ?? item.stock_count ?? 0)
           } else if (Object.prototype.hasOwnProperty.call(item, key)) {
             newItem[headerMap[key]] = item[key]
           }
@@ -2090,6 +2259,22 @@ export default {
 
       // Create Excel file
       const worksheet = this.$xlsx.utils.json_to_sheet(transformedData)
+
+      // Auto-fit column widths
+      if (transformedData.length > 0) {
+        const keys = Object.keys(transformedData[0])
+        worksheet['!cols'] = keys.map((key) => {
+          let maxLen = key.toString().length
+          transformedData.forEach((row) => {
+            const cellVal = row[key] !== null && row[key] !== undefined ? String(row[key]) : ''
+            if (cellVal.length > maxLen) {
+              maxLen = cellVal.length
+            }
+          })
+          return { wch: Math.min(Math.max(maxLen + 3, 10), 50) }
+        })
+      }
+
       const workbook = this.$xlsx.utils.book_new()
       this.$xlsx.utils.book_append_sheet(
         workbook,
@@ -2278,19 +2463,114 @@ export default {
       }
       },
 
+    onItemsPerPageChange() {
+      this.tableOptions.page = 1
+      this.fetchData()
+    },
+
+    handleSearch() {
+      this.searchApplied = this.search ? this.search.trim() : ''
+      if (this.tableOptions.page === 1) {
+        this.fetchData()
+      } else {
+        this.tableOptions.page = 1
+      }
+    },
+
+    clearSearch() {
+      this.search = ''
+      this.searchApplied = ''
+      if (this.tableOptions.page === 1) {
+        this.fetchData()
+      } else {
+        this.tableOptions.page = 1
+      }
+    },
+
     async fetchData() {
-      console.log(`PRODUCT LIST ===>`)
-      this.isloading = true
+      if (this.isTableLoading) {
+        this._pendingFetch = true
+        return
+      }
+      this.isTableLoading = true
 
       try {
         const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
         
-        // Single optimized API call with all required fields (including minStock, priceLists, productUnits)
-        const res = await this.$axios.get(`product_f_v1/${locationId}`, {
-          params: { include: 'priceList', isActive: false },
-        })
+        const page = this.tableOptions.page || 1
+        const limit = this.tableOptions.itemsPerPage || this.pageLine || 30
+        const search = this.searchApplied || ''
+        // showActive: if true, show inactive (0); if false, show active only (1)
+        const isActive = this.showActive ? 0 : 1
 
-        const products = res.data?.data || []
+        const sortBy = this.tableOptions.sortBy && this.tableOptions.sortBy.length > 0 ? this.tableOptions.sortBy[0] : 'id'
+        const sortDesc = this.tableOptions.sortDesc && this.tableOptions.sortDesc.length > 0 ? this.tableOptions.sortDesc[0] : false
+
+        let products = []
+        try {
+          // Primary: Server-side paginated API call (v2)
+          const res = await this.$axios.get(`product_f_v2/${locationId}`, {
+            params: { 
+              include: 'priceList', 
+              page, 
+              limit, 
+              search, 
+              isActive, 
+              sortBy, 
+              sortDesc 
+            },
+          })
+
+          products = res.data?.data || []
+          this.totalProducts = res.data?.total !== undefined ? res.data.total : products.length
+          this.totalPages = res.data?.totalPages || (this.totalProducts ? Math.ceil(this.totalProducts / limit) : 1)
+        } catch (v2Err) {
+          console.warn('product_f_v2 failed or not reachable, using product_f_v1 fallback:', v2Err?.message || v2Err)
+          // Resilient Fallback: product_f_v1
+          const fallbackRes = await this.$axios.get(`product_f_v1/${locationId}`, {
+            params: { include: 'priceList', isActive: false }
+          })
+          let all = fallbackRes.data?.data || []
+          if (!Array.isArray(all)) all = []
+
+          // Filter by active status
+          if (this.showActive) {
+            all = all.filter(p => p.isActive === 0 || p.isActive === false || p.isActive === '0')
+          } else {
+            all = all.filter(p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined)
+          }
+
+          // Filter by search query
+          if (search) {
+            const q = search.toLowerCase()
+            all = all.filter(p => {
+              const name = (p.pro_name || '').toLowerCase()
+              const code = (p.product_code || '').toLowerCase()
+              const bar = (p.barCode || '').toLowerCase()
+              const proId = String(p.pro_id || '')
+              const cat = (p.categ_name || '').toLowerCase()
+              const vendor = (p.vendorName || '').toLowerCase()
+              return name.includes(q) || code.includes(q) || bar.includes(q) || proId.includes(q) || cat.includes(q) || vendor.includes(q)
+            })
+          }
+
+          // Sort products
+          all.sort((a, b) => {
+            let valA = a[sortBy] ?? a.id
+            let valB = b[sortBy] ?? b.id
+            if (typeof valA === 'string') valA = valA.toLowerCase()
+            if (typeof valB === 'string') valB = valB.toLowerCase()
+            if (valA < valB) return sortDesc ? 1 : -1
+            if (valA > valB) return sortDesc ? -1 : 1
+            return 0
+          })
+
+          this.totalProducts = all.length
+          this.totalPages = Math.ceil(this.totalProducts / limit) || 1
+
+          const offset = (page - 1) * limit
+          products = all.slice(offset, offset + limit)
+        }
 
         this.initProduct(products)
 
@@ -2303,7 +2583,11 @@ export default {
         this.message = er
         console.error('Error fetching data: ', er)
       } finally {
-        this.isloading = false
+        this.isTableLoading = false
+        if (this._pendingFetch) {
+          this._pendingFetch = false
+          this.$nextTick(() => this.fetchData())
+        }
       }
     },
 
@@ -2430,24 +2714,21 @@ export default {
     },
 
     loadCardCategory() {
-      this.isloading = true
-      this.$axios
+      return this.$axios
         .get('stockcate_f')
         .then((res) => {
-          this.cardType = res.data.map((el) => {
+          this.cardType = (res.data || []).map((el) => {
             return {
               card_type_code: el.card_type_code,
               card_type_name: el.card_type_name,
             }
           })
-          this.selectedCardType = this.cardType[0].card_type_code
-          console.log('CARD LEN: ' + this.cardType.length)
-          console.log('CARD LEN: ' + this.cardType[0].card_type_code)
-          this.isloading = false
+          if (this.cardType.length > 0) {
+            this.selectedCardType = this.cardType[0].card_type_code
+          }
         })
         .catch((er) => {
-          console.log('Error: ' + er)
-          this.isloading = false
+          console.log('Error loading card categories: ' + er)
         })
     },
 
@@ -2536,7 +2817,18 @@ export default {
     },
     formatDateTime(val) {
       if (!val) return '-'
-      return new Date(val).toLocaleString('en-GB')
+      const safeVal = typeof val === 'string' && val.includes(' ') && !val.includes('T')
+        ? val.replace(' ', 'T')
+        : val
+      const d = new Date(safeVal)
+      if (isNaN(d.getTime())) return String(val)
+      const dd = String(d.getDate()).padStart(2, '0')
+      const mm = String(d.getMonth() + 1).padStart(2, '0')
+      const yyyy = d.getFullYear()
+      const hh = String(d.getHours()).padStart(2, '0')
+      const min = String(d.getMinutes()).padStart(2, '0')
+      const ss = String(d.getSeconds()).padStart(2, '0')
+      return `${dd}/${mm}/${yyyy} ${hh}:${min}:${ss}`
     },
     formatMinimalDate(val) {
       if (!val) return '-'
@@ -3043,5 +3335,29 @@ export default {
   font-size: 8px;
   font-weight: 800;
   color: var(--v-primary-base);
+}
+.caption,
+.font-weight-bold,
+.font-weight-medium,
+.text-caption {
+  font-size: 0.75rem !important;
+  font-family: 'Noto Sans Lao', 'Roboto', sans-serif !important;
+}
+.product-pagination >>> .v-pagination__item {
+  font-size: 13px;
+  height: 32px;
+  min-width: 32px;
+  box-shadow: none !important;
+  border: 1px solid #e2e8f0;
+}
+.product-pagination >>> .v-pagination__item--active {
+  color: #fff !important;
+  border-color: transparent !important;
+}
+.product-pagination >>> .v-pagination__navigation {
+  height: 32px;
+  width: 32px;
+  box-shadow: none !important;
+  border: 1px solid #e2e8f0;
 }
 </style>

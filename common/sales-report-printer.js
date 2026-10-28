@@ -668,3 +668,8 @@ export const printSalesReportSummary = (params) => {
  * Export helper function for date formatting
  */
 export const formatDateForReport = formatDateLao;
+
+/**
+ * Export Sales Commission Report Printer
+ */
+export { printCommissionReportSummary } from './commission-report-printer.js';

@@ -291,13 +291,13 @@
               <v-card-text style="max-height: 200px; overflow-y: auto">
                 <div v-for="item in selectedTable.order" :key="item.id" class="d-flex justify-space-between mb-2">
                   <div>
-                    <div class="font-weight-medium">{{ item.product.pro_name }}</div>
+                    <div class="font-weight-medium">{{ item.product?.pro_name || item.pro_name }}</div>
                     <div class=" grey--text">
                       Qty: {{ item.quantity }}
                     </div>
                   </div>
                   <div class="font-weight-bold primary--text">
-                    ${{ formatPrice(item.unitPrice * item.quantity) }}
+                    ${{ formatPrice((item.unitPrice || item.pro_price || 0) * item.quantity) }}
                   </div>
                 </div>
                 <v-divider class="my-2"></v-divider>
@@ -1542,13 +1542,25 @@ export default {
         const mappedTicketLines = ticketLines
           .map((line) => {
             const product = products.find((p) => p.id === line.productId)
-            return {
+            const resolvedProName =
+              line.product?.pro_name ||
+              line.product?.name ||
+              product?.pro_name ||
+              `Product ${line.productId}`
+            const resolvedProduct = line.product || product || {
               id: line.productId,
+              pro_name: resolvedProName,
+              pro_price: line.unitPrice,
+            }
+
+            return {
+              ...line,
+              id: line.id || line.productId,
+              productId: line.productId,
               pro_id: line.productId,
-              pro_name:
-                line.product?.name ||
-                product?.pro_name ||
-                `Product ${line.productId}`,
+              pro_name: resolvedProName,
+              product: resolvedProduct,
+              unitPrice: line.unitPrice,
               categ_name: product?.categ_name || 'Unknown Category',
               stock_count: product?.stock_count || 0,
               isActive: product?.isActive || false,
@@ -1630,7 +1642,9 @@ export default {
     async fetchTables() {
       this.loading = true
       try {
-        const response = await this.$axios.get('api/tables')
+        const response = await this.$axios.get('api/tables', {
+          params: { limit: 100 }
+        })
         console.log('Tables response:', response.data)
 
         const tableData = response.data.data || response.data
@@ -1854,6 +1868,7 @@ export default {
 
     // Updated method to handle payment confirmation from PaymentDialog component
     async handlePaymentConfirmation(selectedPaymentMethod) {
+      if (this.actionLoading) return
       this.actionLoading = true
 
       try {
@@ -1885,6 +1900,7 @@ export default {
         this.showMessage('Failed to process payment', 'error', 'mdi-alert')
       } finally {
         this.actionLoading = false
+        this.isSplitPayment = false
       }
     },
 
@@ -1900,7 +1916,9 @@ export default {
     closePaymentDialog() {
       this.showPaymentDialog = false
       this.paymentAmount = 0
-      this.isSplitPayment = false
+      if (!this.actionLoading) {
+        this.isSplitPayment = false
+      }
     },
 
     // Table Transfer dialog methods
@@ -2041,6 +2059,10 @@ export default {
               unitPrice: parseFloat(item.unitPrice || item.pro_price),
               totalPrice: parseFloat(((item.unitPrice || item.pro_price) * item.splitQty).toFixed(2)),
               status: 'ordered',
+              colorId: item.colorId || null,
+              sizeId: item.sizeId || null,
+              selectedOptions: item.selectedOptions || null,
+              specialInstructions: item.specialInstructions || null,
               taxId,
               taxRate,
               taxType
@@ -2058,6 +2080,10 @@ export default {
               unitPrice: parseFloat(item.unitPrice || item.pro_price),
               totalPrice: parseFloat(((item.unitPrice || item.pro_price) * remQty).toFixed(2)),
               status: 'ordered',
+              colorId: item.colorId || null,
+              sizeId: item.sizeId || null,
+              selectedOptions: item.selectedOptions || null,
+              specialInstructions: item.specialInstructions || null,
               taxId,
               taxRate,
               taxType
@@ -2106,7 +2132,7 @@ export default {
             tableId: this.selectedTable.id,
             clientId: originalTicket.clientId || null,
             locationId: originalTicket.locationId || 1,
-            status: originalTicket.status || 'pending',
+            status: originalTicket.status === 'paid' ? 'pending' : (originalTicket.status || 'pending'),
             subtotal: parseFloat((remSubtotal - remTax).toFixed(2)),
             promotionDiscount: originalTicket.promotionDiscount || 0,
             tax: parseFloat(remTax.toFixed(2)),
@@ -2139,6 +2165,17 @@ export default {
         // Refresh tables list
         await this.fetchTables()
         if (remainingLines.length > 0) {
+          const refreshedTable = this.tables.find(t => t.id === this.selectedTable.id)
+          if (refreshedTable) {
+            this.selectedTable = {
+              ...refreshedTable,
+              status: 'occupied',
+              currentOrderId: ticketId,
+            }
+          } else {
+            this.selectedTable.currentOrderId = ticketId
+            this.selectedTable.status = 'occupied'
+          }
           await this.loadTableTicketData(this.selectedTable.id)
         }
       } catch (error) {

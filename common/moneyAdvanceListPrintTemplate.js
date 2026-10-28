@@ -107,9 +107,9 @@ export const generateMoneyAdvanceListReportHTML = ({
     const voucherNo = formatVoucherNumber(item.id)
     const extRef = item.externalRefNo ? `<div class="sub-ref">Ref: ${item.externalRefNo}</div>` : ''
     const cheque = item.chequeNo ? `<div class="sub-ref">Cheque: ${item.chequeNo}</div>` : ''
-    
+
     // Description formatting
-    const ministryTag = item.ministry 
+    const ministryTag = item.ministry
       ? `<div class="ministry-tag">${item.ministry.ministryCode ? item.ministry.ministryCode + ' - ' : ''}${item.ministry.ministryName}</div>`
       : ''
     const purposeText = item.purpose ? `<div class="purpose-text">${item.purpose}</div>` : '-'
@@ -121,7 +121,7 @@ export const generateMoneyAdvanceListReportHTML = ({
     const settlement = getSettleAmount(item.settlementLine || item.settlements || [])
     const payment = parseFloat(item.amount || 0)
     const itemClosingBalance = payment - settlement
-    
+
     totalSettlement += settlement
     totalPayment += payment
     runningBalance += itemClosingBalance
@@ -468,8 +468,8 @@ export const generateMoneyAdvanceListReportHTML = ({
         <div class="org-meta-section">
           <div class="org-left">
             <div class="org-ministry">${companyName}</div>
-            <div class="org-dept">ກົມແຜນການ ແລະ ການເງິນ</div>
-            <div class="org-division">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
+            <div class="org-dept">ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</div>
+            <div class="org-division">ກົມແຜນການ ແລະ ການເງິນ</div>
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>

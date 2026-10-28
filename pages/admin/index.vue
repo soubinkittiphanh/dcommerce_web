@@ -65,22 +65,61 @@
       </div>
 
       <section class="quick-actions-section">
-        <div class="section-header">
-          <h2 class="section-title">ເມນູດ່ວນ</h2>
+        <div class="section-header d-flex justify-space-between align-center">
+          <div class="d-flex align-center">
+            <h2 class="section-title mb-0">ເມນູດ່ວນ</h2>
+            <v-chip
+              v-if="shortcutSource === 'user'"
+              x-small
+              color="pink lighten-4"
+              text-color="pink darken-4"
+              class="ml-2 font-weight-bold"
+            >
+              <v-icon left x-small>mdi-account-star</v-icon>
+              ເມນູສ່ວນຕົວ (Personal)
+            </v-chip>
+          </div>
+          <!-- <v-btn
+            text
+            small
+            color="primary"
+            class="customize-btn rounded-pill font-weight-medium"
+            to="/admin/dashboardMenu"
+          >
+            <v-icon left small>mdi-cog-outline</v-icon>
+            ຈັດການເມນູດ່ວນ
+          </v-btn> -->
         </div>
-        <div class="quick-actions-grid">
+
+        <!-- Skeleton loader while loading -->
+        <div v-if="isLoadingShortcuts" class="quick-actions-grid">
+          <div v-for="n in 6" :key="n" class="action-card skeleton-card">
+            <v-skeleton-loader type="avatar, text"></v-skeleton-loader>
+          </div>
+        </div>
+
+        <!-- Dynamic Shortcuts Grid -->
+        <div v-else class="quick-actions-grid">
           <div
-            v-for="(item, index) in menus"
-            :key="index"
+            v-for="(item, index) in activeDashboardMenus"
+            :key="item.id || index"
             class="action-card"
             @click="navigateTo(item.path)"
           >
             <div class="card-icon" :style="cardIconStyle">
-              <img :src="item.svgIcon" alt="" />
+              <template v-if="resolveItemIcon(item).isSvg">
+                <img :src="resolveItemIcon(item).src" alt="" />
+              </template>
+              <template v-else>
+                <v-icon color="white" size="26">{{ resolveItemIcon(item).mdi }}</v-icon>
+              </template>
             </div>
             <div class="card-content">
-              <h3>{{ item.title }}</h3>
+              <h3>{{ item.llname || item.title || item.name }}</h3>
               <v-icon class="arrow-icon">mdi-arrow-right</v-icon>
+            </div>
+            <div v-if="item.badge" class="action-card-badge">
+              {{ item.badge }}
             </div>
             <div class="card-overlay"></div>
           </div>
@@ -246,14 +285,14 @@
 </template>
 
 <script>
-import { firstAndLastDateOfLast6Months, getFormatNum } from '~/common'
-import MinStockCard from '~/components/minStockCard'
-import MenuOverview from '~/components/menuOverview'
 import { mapActions, mapGetters } from 'vuex'
 import * as ECharts from 'echarts'
+import { getFormatNum } from '~/common'
+import MinStockCard from '~/components/minStockCard'
+import { resolveDashboardIcon } from '~/utils/dashboardIcons'
 
 export default {
-  components: { MenuOverview, MinStockCard },
+  components: { MinStockCard },
   middleware: 'auths',
   data() {
     return {
@@ -304,23 +343,30 @@ export default {
         { title: 'ຍອດຂາຍ 3 ເດືອນຫຼັງ', icon: 'mdi-calendar-range', total: '0', discount: '0', groupedSales: {}, groupedCurrency: {} },
       ],
 
-      menus: [
-        { title: 'ຂາຍສິນຄ້າ (POS)', svgIcon: require('~/assets/icons/cashier_2.svg'), path: '/pos/minimart' },
-        { title: 'ໃບບິນ (Invoice)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/ordersFromPos' },
-        { title: 'ລູກໜີ້', svgIcon: require('~/assets/icons/pay-card.svg'), path: '/admin/ordersFromPosCredit' },
-        { title: 'ສາງສິນຄ້າ', svgIcon: require('~/assets/icons/stock.svg'), path: '/admin/product/productlist' },
-        { title: 'ເມນູອາຫານ (Menu)', svgIcon: require('~/assets/icons/coffee.svg'), path: '/admin/restaurant/menu' },
-        { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), path: '/admin/client' },
-        { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByMainCategory' },
-        { title: 'ລາຍງານຕາມປະເພດສິນຄ້າ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleByCategory' },
-        { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/saleReportSummary' },
-        { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), path: '/admin/report/loyalty' },
-        // { title: 'ຈັດການຄ່າຮຽນ (School Billing)', svgIcon: require('~/assets/icons/invoice.svg'), path: '/admin/school/invoice' },
+      dashboardMenus: [],
+      isLoadingShortcuts: false,
+      shortcutSource: 'default',
+      fallbackMenus: [
+        { title: 'ຂາຍສິນຄ້າ (POS)', svgIcon: require('~/assets/icons/cashier_2.svg'), icon: 'cashier_2.svg', iconType: 'svg', path: '/pos/minimart' },
+        { title: 'ໃບບິນ (Invoice)', svgIcon: require('~/assets/icons/invoice.svg'), icon: 'invoice.svg', iconType: 'svg', path: '/admin/ordersFromPos' },
+        { title: 'ລູກໜີ້', svgIcon: require('~/assets/icons/pay-card.svg'), icon: 'pay-card.svg', iconType: 'svg', path: '/admin/ordersFromPosCredit' },
+        { title: 'ສາງສິນຄ້າ', svgIcon: require('~/assets/icons/stock.svg'), icon: 'stock.svg', iconType: 'svg', path: '/admin/product/productlist' },
+        { title: 'ເມນູອາຫານ (Menu)', svgIcon: require('~/assets/icons/coffee.svg'), icon: 'coffee.svg', iconType: 'svg', path: '/admin/restaurant/menu' },
+        { title: 'ລູກຄ້າ', svgIcon: require('~/assets/icons/patient.svg'), icon: 'patient.svg', iconType: 'svg', path: '/admin/client' },
+        { title: 'ລາຍງານຕາມໝວດຫຼັກ', svgIcon: require('~/assets/icons/invoice.svg'), icon: 'invoice.svg', iconType: 'svg', path: '/admin/saleByMainCategory' },
+        { title: 'ລາຍງານຕາມປະເພດສິນຄ້າ', svgIcon: require('~/assets/icons/invoice.svg'), icon: 'invoice.svg', iconType: 'svg', path: '/admin/saleByCategory' },
+        { title: 'ສະຫຼຸບຍອດຂາຍລາຍວັນ', svgIcon: require('~/assets/icons/invoice.svg'), icon: 'invoice.svg', iconType: 'svg', path: '/admin/saleReportSummary' },
+        { title: 'ລາຍງານຄະແນນສະສົມ', svgIcon: require('~/assets/icons/overview.svg'), icon: 'overview.svg', iconType: 'svg', path: '/admin/report/loyalty' },
       ],
     }
   },
 
   computed: {
+    activeDashboardMenus() {
+      return this.dashboardMenus && this.dashboardMenus.length > 0
+        ? this.dashboardMenus
+        : this.fallbackMenus
+    },
     ...mapGetters([
       'findAllTerminal',
       'findAllLocation',
@@ -363,7 +409,10 @@ export default {
   },
 
   async created() {
-    await this.loadSaleStatistic()
+    await Promise.all([
+      this.loadSaleStatistic(),
+      this.loadDashboardShortcuts()
+    ])
   },
 
   mounted() {
@@ -379,6 +428,29 @@ export default {
     ...mapActions(['setSelectedTerminal', 'setSelectedLocation', 'initProduct']),
     
     navigateTo(path) { this.$router.push(path) },
+
+    async loadDashboardShortcuts() {
+      this.isLoadingShortcuts = true
+      try {
+        const res = await this.$axios.get('api/dashboardMenu/find')
+        if (res.data && Array.isArray(res.data.shortcuts) && res.data.shortcuts.length > 0) {
+          this.dashboardMenus = res.data.shortcuts
+          this.shortcutSource = res.data.source || 'default'
+        }
+      } catch (e) {
+        console.warn('Could not load dynamic dashboard shortcuts, using fallback:', e)
+      } finally {
+        this.isLoadingShortcuts = false
+      }
+    },
+
+    resolveItemIcon(item) {
+      return resolveDashboardIcon({
+        icon: item.icon || item.svgIcon,
+        iconType: item.iconType
+      })
+    },
+
     numberFormatter(value) { return getFormatNum(Math.round(value)) },
     handleResize() { this.topSaleChartInstance?.resize() },
 
@@ -497,7 +569,7 @@ export default {
               paymentId: p.paymentId,
               paymentName: pmDetails?.payment_name || 'ອື່ນໆ',
               currencyCode: pCode,
-              rawAmount: rawAmount,
+              rawAmount,
               convAmount: conv
             })
           })
@@ -593,7 +665,7 @@ export default {
 
     monthGroupSale() {
       if (!this.yearlySale.length) return
-      let grouped = {}
+      const grouped = {}
       this.yearlySale.forEach(sale => {
         const d = new Date(sale.bookingDate)
         const key = `${d.getFullYear()}-${(d.getMonth() + 1).toString().padStart(2, '0')}`
@@ -672,6 +744,10 @@ export default {
 .action-card:hover { transform: translateY(-5px); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); }
 .card-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
 .card-icon img { width: 24px; filter: brightness(0) invert(1); }
+.customize-btn { font-size: 0.85rem; text-transform: none; background: #f1f5f9; border: 1px solid #e2e8f0; }
+.customize-btn:hover { background: #e2e8f0; }
+.action-card-badge { position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; font-size: 0.65rem; font-weight: 700; padding: 2px 8px; border-radius: 20px; }
+.skeleton-card { min-height: 120px; display: flex; align-items: center; }
 
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; margin-bottom: 40px; }
 .kpi-card { background: white; padding: 24px; border-radius: 16px; border: 1px solid #e2e8f0; position: relative; }

@@ -16,8 +16,8 @@
               <i class="fas fa-receipt"></i>
               ຂໍ້ມູນການຮັບຊຳລະ
             </h3>
-            <span :class="['payment-method-badge', receipt.paymentMethod]">
-              {{ formatPaymentMethod(receipt.paymentMethod) }}
+            <span v-if="receipt" :class="['payment-method-badge', getPaymentMethodBadgeClass(receipt)]">
+              {{ getPaymentMethodText(receipt) }}
             </span>
           </div>
 
@@ -39,7 +39,7 @@
 
             <div class="info-item">
               <label>ຍອດເງິນທີ່ຮັບ:</label>
-              <span class="amount-received">{{ formatCurrency(receipt.totalReceivedAmount) }}</span>
+              <span class="amount-received">{{ formatCurrency(receipt.totalReceivedAmount) }} {{ getCurrencyCode(receipt) }}</span>
             </div>
 
             <div class="info-item" v-if="receipt.referenceNumber">
@@ -76,7 +76,7 @@
 
             <div class="info-item">
               <label>ຍອດໃບແຈ້ງໜີ້:</label>
-              <span class="invoice-amount">{{ formatCurrency(receipt.invoiceHeader.totalAmount) }}</span>
+              <span class="invoice-amount">{{ formatCurrency(receipt.invoiceHeader.totalAmount) }} {{ getCurrencyCode(receipt.invoiceHeader) || getCurrencyCode(receipt) }}</span>
             </div>
 
             <div class="info-item" v-if="receipt.invoiceHeader.customer">
@@ -105,23 +105,23 @@
           <div class="payment-summary">
             <div class="summary-row">
               <label>ຍອດໃບແຈ້ງໜີ້:</label>
-              <span class="amount invoice-total">{{ formatCurrency(receipt.invoiceHeader?.totalAmount || 0) }}</span>
+              <span class="amount invoice-total">{{ formatCurrency(receipt.invoiceHeader?.totalAmount || 0) }} {{ getCurrencyCode(receipt) }}</span>
             </div>
 
             <div class="summary-row">
               <label>ຍອດທີ່ຮັບຄັ້ງນີ້:</label>
-              <span class="amount current-payment">{{ formatCurrency(receipt.totalReceivedAmount) }}</span>
+              <span class="amount current-payment">{{ formatCurrency(receipt.totalReceivedAmount) }} {{ getCurrencyCode(receipt) }}</span>
             </div>
 
             <div class="summary-row">
               <label>ລວມທີ່ຮັບແລ້ວທັງໝົດ:</label>
-              <span class="amount total-received">{{ formatCurrency(calculateTotalReceived()) }}</span>
+              <span class="amount total-received">{{ formatCurrency(calculateTotalReceived()) }} {{ getCurrencyCode(receipt) }}</span>
             </div>
 
             <div class="summary-row subtotal">
               <label>ຍອດຄົງເຫຼືອ:</label>
               <span class="amount remaining" :class="{ 'fully-paid': getRemainingBalance() <= 0 }">
-                {{ formatCurrency(getRemainingBalance()) }}
+                {{ formatCurrency(getRemainingBalance()) }} {{ getCurrencyCode(receipt) }}
               </span>
             </div>
 
@@ -265,12 +265,12 @@
           <div class="info-grid">
             <div class="info-item" v-if="receipt.inputter">
               <label>ຜູ້ບັນທຶກ:</label>
-              <span>{{ receipt.inputter.username }}</span>
+              <span>{{ receipt.inputter.cus_name || receipt.inputter.name || receipt.inputter.username || receipt.inputter.cus_id }}</span>
             </div>
 
             <div class="info-item" v-if="receipt.maker">
               <label>ຜູ້ສ້າງ:</label>
-              <span>{{ receipt.maker.username }}</span>
+              <span>{{ receipt.maker.cus_name || receipt.maker.name || receipt.maker.username || receipt.maker.cus_id }}</span>
             </div>
 
             <div class="info-item">
@@ -320,6 +320,10 @@ export default {
     receipt: {
       type: Object,
       default: null,
+    },
+    paymentMethods: {
+      type: Array,
+      default: () => [],
     },
   },
 
@@ -427,12 +431,67 @@ export default {
       })
     },
 
+    getCurrencyCode(obj) {
+      if (!obj) return ''
+      if (obj.currency?.code) return obj.currency.code
+      if (obj.currency?.name) return obj.currency.name
+      if (typeof obj.currency === 'string') return obj.currency
+      if (obj.invoiceHeader?.currency?.code) return obj.invoiceHeader.currency.code
+      return ''
+    },
+
     formatNumber(number) {
       if (!number) return '0'
       return parseFloat(number).toLocaleString('en-US')
     },
 
+    getPaymentMethodText(receipt) {
+      if (!receipt) return '-'
+      if (receipt.payment && receipt.payment.payment_name) {
+        return receipt.payment.payment_name
+      }
+      if (receipt.paymentId && this.paymentMethods && this.paymentMethods.length > 0) {
+        const found = this.paymentMethods.find((m) => Number(m.id) === Number(receipt.paymentId))
+        if (found) return found.payment_name
+      }
+      return this.formatPaymentMethod(receipt.paymentMethod)
+    },
+
+    getPaymentMethodBadgeClass(receipt) {
+      if (!receipt) return 'cash'
+      let code = ''
+      if (receipt.payment?.payment_code) {
+        code = receipt.payment.payment_code.toUpperCase()
+      } else if (receipt.paymentId && this.paymentMethods && this.paymentMethods.length > 0) {
+        const found = this.paymentMethods.find((m) => Number(m.id) === Number(receipt.paymentId))
+        if (found?.payment_code) code = found.payment_code.toUpperCase()
+      }
+
+      if (code) {
+        if (code === 'CASH' || code === 'COD') return 'cash'
+        if (
+          code.includes('TRANSFER') ||
+          code.includes('BCEL') ||
+          code.includes('JDB') ||
+          code.includes('LDB') ||
+          code.includes('LVB') ||
+          code.includes('QR') ||
+          code.includes('BANK')
+        )
+          return 'bank_transfer'
+        if (code.includes('CHECK')) return 'check'
+        if (code.includes('CREDIT') || code.includes('CARD') || code.includes('NFC')) return 'credit_card'
+      }
+
+      return receipt.paymentMethod || 'cash'
+    },
+
     formatPaymentMethod(method) {
+      if (!method) return '-'
+      if (this.paymentMethods && this.paymentMethods.length > 0) {
+        const found = this.paymentMethods.find((m) => Number(m.id) === Number(method))
+        if (found) return found.payment_name
+      }
       const methods = {
         cash: 'ເງິນສົດ',
         check: 'ເຊັກ',

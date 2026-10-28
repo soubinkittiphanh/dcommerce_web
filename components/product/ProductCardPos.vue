@@ -3,19 +3,14 @@
     <v-hover v-slot:default="{ hover }" open-delay="100">
       <v-card :elevation="hover ? 16 : 4" hover outlined
         class="ma-0 text-center cursor-pointer product-card d-flex flex-column position-relative overflow-hidden"
-        height="220" :disabled="(!product.isActive || stock <= 0) && product.validateStockOnSale == 1
-          " :class="{
-            'product-disabled':
-              (!product.isActive || stock <= 0) &&
-              product.validateStockOnSale == 1,
+        height="220" :disabled="isCardDisabled" :class="{
+            'product-disabled': isCardDisabled,
             'promotion-eligible': isProductInPromotion(product),
             'customer-grade-pricing': getCustomerGradePrice(product),
           }" @click="handleCardClick">
         <!-- Background Image -->
         <div class="product-background ma-0" :class="{
-          'grayscale-filter':
-            (!product.isActive || stock <= 0) &&
-            product.validateStockOnSale == 1,
+          'grayscale-filter': isCardDisabled,
         }" :style="!imageError
           ? `background-image: url('${host}/uploads/${imagePath}')`
           : ''
@@ -30,6 +25,18 @@
         <div class="content-overlay d-flex flex-column justify-space-between fill-height">
           <!-- Top Section - Badges -->
           <div class="top-section pa-2">
+            <!-- Packaging Mode Badge on Packaging Item -->
+            <v-chip 
+              v-if="isPackagingItem" 
+              x-small 
+              :color="packagingMode === 'BUY' ? 'teal darken-2' : 'amber darken-3'" 
+              text-color="white" 
+              class="font-weight-bold mr-1 elevation-1"
+            >
+              <v-icon x-small left>{{ packagingMode === 'BUY' ? 'mdi-keyboard-return' : 'mdi-package-variant-closed' }}</v-icon>
+              {{ packagingMode === 'BUY' ? 'ຮັບຊື້ (BUY)' : 'ບັນຈຸພັນ' }}
+            </v-chip>
+
             <!-- Promotion indicator -->
             <v-icon v-if="isProductInPromotion(product)" color="success" class="promotion-badge" small>
               mdi-tag
@@ -107,10 +114,24 @@
                   hasAvailablePriceLists(product) ||
                   !getCustomerGradePrice(product)
                 " class="d-inline-block ml-2">
-                  <v-btn @click.stop="handlePriceSelection" color="primary" outlined x-small icon :disabled="(!product.isActive || stock <= 0) &&
-                    product.validateStockOnSale == 1
-                    " class="price-select-btn-enhanced">
+                  <v-btn @click.stop="handlePriceSelection" color="primary" outlined x-small icon :disabled="isCardDisabled" class="price-select-btn-enhanced">
                     <v-icon x-small>mdi-tag-multiple</v-icon>
+                  </v-btn>
+                </div>
+
+                <!-- Packaging Return Button -->
+                <div v-if="product.isPackagingAsset" class="d-inline-block ml-1">
+                  <v-btn
+                    x-small
+                    depressed
+                    color="teal darken-2"
+                    dark
+                    class="rounded-pill font-weight-bold px-1"
+                    style="height: 22px; font-size: 10px;"
+                    @click.stop="handlePackagingReturnQuickAdd"
+                    title="ເພີ່ມເປັນລາຍການຮັບຊື້ຄືນ (BUY)"
+                  >
+                    <v-icon x-small left>mdi-keyboard-return</v-icon>ຮັບຄືນ
                   </v-btn>
                 </div>
               </div>
@@ -121,7 +142,7 @@
                   INACTIVE
                 </v-chip>
               </div>
-              <div v-else-if="stock <= 0 && product.validateStockOnSale == 1" class="status-overlay-enhanced">
+              <div v-else-if="stock <= 0 && product.validateStockOnSale == 1 && !(isPackagingItem && packagingMode === 'BUY')" class="status-overlay-enhanced">
                 <v-chip x-small color="warning" text-color="white" class="status-chip-enhanced">
                   OUT OF STOCK
                 </v-chip>
@@ -136,7 +157,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import { getFormatNum } from '../../common/index'
+import { getFormatNum, isPackagingProduct } from '../../common/index'
 import { hostName } from '~/common/api'
 
 export default {
@@ -159,7 +180,20 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit']),
+    ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit', 'packagingMode']),
+
+    isPackagingItem() {
+      return isPackagingProduct(this.product)
+    },
+
+    isCardDisabled() {
+      if (!this.product.isActive) return true
+      // Packaging products in BUY mode are being bought into the shop, so never disable due to low/zero stock!
+      if (this.isPackagingItem && this.packagingMode === 'BUY') {
+        return false
+      }
+      return this.stock <= 0 && this.product.validateStockOnSale == 1
+    },
 
     host() {
       return this.$axios.defaults.baseURL
@@ -260,6 +294,11 @@ export default {
         return
       }
 
+      const isPkg = this.isPackagingItem
+      const isBuyMode = this.packagingMode === 'BUY'
+      const targetIsReturn = isPkg ? isBuyMode : false
+      const targetPackagingAction = isPkg ? (isBuyMode ? 'RETURNED' : 'SOLD') : 'NONE'
+
       // Use customer grade price if available, otherwise use default price
       const productToAdd = {
         ...this.product,
@@ -268,6 +307,8 @@ export default {
           this.product.localPrice ||
           this.product.pro_price,
         isGift: isGift,
+        isReturn: targetIsReturn,
+        packagingAction: targetPackagingAction,
         lineUUIDCheck: false,
         priceListId: this.getCustomerGradePriceListId(this.product),
         lineUUID: Date.now() + Math.random().toString(16),
@@ -282,28 +323,63 @@ export default {
 
       // Show success feedback with quantity info
       if (this.$toast) {
-        const existingItem = this.cartOfProduct.find(
-          (item) => item.pro_id === this.product.pro_id
-        )
-        const newQty = existingItem ? existingItem.qty : 1
-        const limit = this.product.card_count
-
-        if (limit && limit > 0) {
-          const remaining = limit - newQty
-          this.$toast.success(
-            `${this.productName} added to cart. ${remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
-            }`,
-            { position: 'bottom-center' }
+        if (targetIsReturn) {
+          this.$toast.info(
+            `ເພີ່ມລາຍການຮັບຊື້ຄືນ: ${this.productName} (-${this.formatNumber(productToAdd.localPrice)} LAK)`,
+            { position: 'bottom-center', duration: 1200 }
           )
         } else {
-          this.$toast.success(`${this.productName} added to cart`, {
-            position: 'bottom-center',
-          })
+          const existingItem = this.cartOfProduct.find(
+            (item) => item.pro_id === this.product.pro_id && !item.isReturn
+          )
+          const newQty = existingItem ? existingItem.qty : 1
+          const limit = this.product.card_count
+
+          if (limit && limit > 0) {
+            const remaining = limit - newQty
+            this.$toast.success(
+              `${this.productName} added to cart. ${remaining > 0 ? `${remaining} more allowed` : 'Limit reached'
+              }`,
+              { position: 'bottom-center' }
+            )
+          } else {
+            this.$toast.success(`${this.productName} added to cart`, {
+              position: 'bottom-center',
+            })
+          }
         }
       }
     },
 
+    handlePackagingReturnQuickAdd() {
+      const productToAdd = {
+        ...this.product,
+        localPrice:
+          this.getCustomerGradePrice(this.product) ||
+          this.product.localPrice ||
+          this.product.pro_price,
+        isGift: false,
+        isReturn: true,
+        packagingAction: 'RETURNED',
+        lineUUIDCheck: false,
+        priceListId: this.getCustomerGradePriceListId(this.product),
+        lineUUID: Date.now() + Math.random().toString(16),
+      }
+
+      this.addProduct(productToAdd)
+      this.$root.$emit('update-cus-screen')
+
+      if (this.$toast) {
+        this.$toast.info(`ເພີ່ມລາຍການຮັບຊື້ຄືນ: ${this.productName} (-${this.formatNumber(productToAdd.localPrice)} LAK)`)
+      }
+    },
+
     validateCardCount() {
+      // When buying packaging into the shop, stock limits do not restrict buying
+      if (this.isPackagingItem && this.packagingMode === 'BUY') {
+        return true
+      }
+
       const cardCountLimit = this.product.card_count
       console.info(`product det ${JSON.stringify(this.product)}`)
       // If card_count is not defined, null, or 0, don't allow any additions
@@ -317,9 +393,9 @@ export default {
         return false
       }
 
-      // Find if this product is already in the cart
+      // Find if this product is already in the cart (SELL item only)
       const existingCartItem = this.cartOfProduct.find(
-        (item) => item.pro_id === this.product.pro_id
+        (item) => item.pro_id === this.product.pro_id && !item.isReturn
       )
 
       if (existingCartItem) {
@@ -356,6 +432,11 @@ export default {
       if (!this.product.isActive) {
         this.showError('Product is inactive')
         return false
+      }
+
+      // Buying packaging into the store does not require existing stock
+      if (this.isPackagingItem && this.packagingMode === 'BUY') {
+        return true
       }
 
       if (this.stock <= 0 && this.product.validateStockOnSale == 1) {

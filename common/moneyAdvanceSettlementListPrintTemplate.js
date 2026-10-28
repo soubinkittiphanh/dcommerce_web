@@ -111,9 +111,9 @@ export const generateSettlementListReportHTML = ({
     const advanceNo = item.moneyAdvanceId ? `<div class="sub-ref">MA: #${formatVoucherNumber(item.moneyAdvanceId)}</div>` : ''
     const extRef = item.externalRefNo ? `<div class="sub-ref">Ref: ${item.externalRefNo}</div>` : ''
     const cheque = item.chequeNo ? `<div class="sub-ref">Cheque: ${item.chequeNo}</div>` : ''
-    
+
     // Description formatting
-    const ministryTag = item.ministry 
+    const ministryTag = item.ministry
       ? `<div class="ministry-tag">${item.ministry.ministryCode ? item.ministry.ministryCode + ' - ' : ''}${item.ministry.ministryName}</div>`
       : ''
     const notesText = item.notes ? `<div class="purpose-text">${item.notes}</div>` : '-'
@@ -126,7 +126,7 @@ export const generateSettlementListReportHTML = ({
     const settlement = parseFloat(item.amount || 0)
     const payment = parseFloat(item.moneyAdvance ? item.moneyAdvance.amount || 0 : (item.paymentAmount || 0))
     const itemClosingBalance = payment > 0 ? (payment - settlement) : settlement
-    
+
     totalSettlement += settlement
     totalPayment += payment
     runningBalance += itemClosingBalance
@@ -479,8 +479,8 @@ export const generateSettlementListReportHTML = ({
         <div class="org-meta-section">
           <div class="org-left">
             <div class="org-ministry">${companyName}</div>
-            <div class="org-dept">ກົມແຜນການ ແລະ ການເງິນ</div>
-            <div class="org-division">ພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
+            <div class="org-dept">ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</div>
+            <div class="org-division">ກົມແຜນການ ແລະ ການເງິນ</div>
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>

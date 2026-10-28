@@ -1,4 +1,5 @@
 // store/index.js
+import { isPackagingProduct } from '~/common'
 // All state variables [data] with performance optimizations
 export const state = () => ({
     user: '',
@@ -9,6 +10,7 @@ export const state = () => ({
     productPriceList: [],
     productPriceListToCreate: [],
     cartOfproductSelected: [],
+    packagingMode: 'SELL', // 'SELL' or 'BUY'
     parkedCarts: [],
     parkedCartCounter: 0,
     listOfConfirmStockInOrder: [],
@@ -449,6 +451,19 @@ export const mutations = {
         }
     },
 
+    setPackagingMode(state, mode) {
+        state.packagingMode = mode === 'BUY' ? 'BUY' : 'SELL'
+        console.log(`📦 [VUEX:PACKAGING_MODE] Packaging mode updated to: ${state.packagingMode}`)
+    },
+
+    cartOfProduct(state, payload) {
+        if (Array.isArray(payload)) {
+            state.cartOfproductSelected = payload
+        } else if (payload && typeof payload === 'object') {
+            this.commit('addProductToCart', payload)
+        }
+    },
+
     addProductToCart(state, product) {
         try {
             if (!product || !product.id) {
@@ -499,24 +514,36 @@ export const mutations = {
                 }
             }
 
+            const isPkg = isPackagingProduct(product)
+            const isBuyMode = state.packagingMode === 'BUY'
+            const isReturnTarget = product.isReturn !== undefined
+                ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+                : (isPkg ? isBuyMode : false)
+            const targetProdId = String(product.id || product.pro_id || '')
+
             const existingProductIndex = state.cartOfproductSelected.findIndex((item) => {
+                const itemIsReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+                if (itemIsReturn !== isReturnTarget) return false
+
+                const itemProdId = String(item.id || item.pro_id || '')
+                const isSameProduct = targetProdId && itemProdId && (targetProdId === itemProdId)
+                if (!isSameProduct) return false
+
                 // If specific lineUUID is requested, match by lineUUID
                 if (product.lineUUIDCheck && product.lineUUID) {
-                    return item.id === product.id && item.lineUUID === product.lineUUID
+                    return item.lineUUID === product.lineUUID
                 }
 
                 // If variant (color/size), match id, color, size, unitId, and isGift
                 if (product.colorId || product.sizeId) {
-                    return item.id === product.id &&
-                           item.colorId === product.colorId &&
+                    return item.colorId === product.colorId &&
                            item.sizeId === product.sizeId &&
                            (targetUnitId ? item.unitId === targetUnitId : true) &&
                            item.isGift === product.isGift
                 }
 
                 // Standard match: match id, unitId, and isGift
-                return item.id === product.id &&
-                       (targetUnitId ? item.unitId === targetUnitId : true) &&
+                return (targetUnitId ? item.unitId === targetUnitId : true) &&
                        !item.colorId &&
                        !item.sizeId &&
                        item.isGift === product.isGift
@@ -532,6 +559,8 @@ export const mutations = {
                 const cartItem = {
                     ...product,
                     qty: addQty,
+                    isReturn: isReturnTarget,
+                    packagingAction: product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE')),
                     unitId: targetUnitId,
                     unitRate: targetRate || 1.0,
                     unitSymbol: targetSymbol,
@@ -539,7 +568,7 @@ export const mutations = {
                     lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
                 }
                 state.cartOfproductSelected.push(cartItem)
-                console.info(`🆕 [VUEX:CART_ADD] Added new item to cart: "${product.pro_name || product.name}" (Qty: ${addQty}, Unit: ${targetSymbol}, Price: ${targetPrice}). Total cart lines: ${state.cartOfproductSelected.length}`)
+                console.info(`🆕 [VUEX:CART_ADD] Added new item to cart: "${product.pro_name || product.name}" (Qty: ${addQty}, Unit: ${targetSymbol}, Price: ${targetPrice}, IsReturn: ${isReturnTarget}). Total cart lines: ${state.cartOfproductSelected.length}`)
             }
 
         } catch (error) {
@@ -612,6 +641,20 @@ export const mutations = {
             
             state.cartOfproductSelected.splice(index, 1, { ...item })
             console.log(`Updated cart item ${item.pro_name} to unit ${unitSymbol} (Rate: ${unitRate}, Price: ${localPrice})`)
+        }
+    },
+
+    TOGGLE_ITEM_RETURN(state, { lineUUID, id }) {
+        const index = state.cartOfproductSelected.findIndex(i => 
+            lineUUID ? i.lineUUID === lineUUID : i.id === id
+        )
+        if (index !== -1) {
+            const item = state.cartOfproductSelected[index]
+            const isCurrentlyReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+            item.isReturn = !isCurrentlyReturn
+            item.packagingAction = item.isReturn ? 'RETURNED' : (item.isPackagingAsset ? 'SOLD' : 'NONE')
+            state.cartOfproductSelected.splice(index, 1, { ...item })
+            console.log(`[VUEX] Toggled item return: ${item.pro_name} -> isReturn: ${item.isReturn}, action: ${item.packagingAction}`)
         }
     },
 
@@ -918,6 +961,7 @@ export const getters = {
     searchKeyword: (state) => state.productSearchKeyboard || '',
     isExactMatchSearch: (state) => !!state.isExactMatchSearch,
     cartOfProduct: (state) => state.cartOfproductSelected || [],
+    packagingMode: (state) => state.packagingMode || 'SELL',
     findAllParkedCarts: (state) => state.parkedCarts || [],
     parkedCartsCount: (state) => (state.parkedCarts || []).length,
     currenctSelectedCategoryId: (state) => state.selectedCategoryId || 9999,
@@ -1025,6 +1069,10 @@ export const actions = {
 
     clearErrors({ commit }) {
         commit('CLEAR_ERRORS')
+    },
+
+    setPackagingMode({ commit }, mode) {
+        commit('setPackagingMode', mode)
     },
 
     setLoading({ commit }, isLoading) {
@@ -1257,13 +1305,19 @@ export const actions = {
         try {
             console.log(`🎬 [VUEX:addProduct_ACTION] Dispatch received for: "${product?.pro_name || product?.name}" (ID: ${product?.id || product?.pro_id}, Qty: ${product?.qty || 1})`)
 
+            const isPkg = isPackagingProduct(product)
+            const isBuyMode = state.packagingMode === 'BUY'
+            const isReturnTarget = product.isReturn !== undefined
+                ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+                : (isPkg ? isBuyMode : false)
+
             // Check if STOCK.VAR is enabled
             const stockVarSpf = state.SPF.find(spf => spf.code === 'STOCK.VAR')
             const isStockVarEnabled = stockVarSpf?.value === 'Y'
 
-            // If STOCK.VAR is not enabled, or the product has bypass flag, add directly.
-            if (!isStockVarEnabled || product.hasVariantSelected) {
-                console.log(`➡️ [VUEX:addProduct_ACTION] Adding directly to cart (STOCK.VAR=${isStockVarEnabled})`)
+            // If STOCK.VAR is not enabled, or product is a return/buy item, or the product has bypass flag, add directly.
+            if (!isStockVarEnabled || product.hasVariantSelected || isReturnTarget) {
+                console.log(`➡️ [VUEX:addProduct_ACTION] Adding directly to cart (STOCK.VAR=${isStockVarEnabled}, isReturnTarget=${isReturnTarget})`)
                 commit("addProductToCart", product)
                 return
             }

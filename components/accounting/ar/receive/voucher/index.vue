@@ -299,11 +299,16 @@ export default {
     },
     
     getCurrencyInfo() {
+      if (this.safeReceiptData.currency) {
+        const c = this.safeReceiptData.currency
+        return `${c.name} (${c.code})`
+      }
       const currencyId = this.safeReceiptData.currencyId
-      if (!currencyId) return 'USD'
-      
-      const currency = this.currencies.find(c => c.id === currencyId)
-      return currency ? `${currency.name} (${currency.code})` : 'USD'
+      if (currencyId && this.currencies) {
+        const currency = this.currencies.find(c => Number(c.id) === Number(currencyId))
+        if (currency) return `${currency.name} (${currency.code})`
+      }
+      return 'LAK'
     },
     
     getInvoiceNumber() {
@@ -372,7 +377,7 @@ export default {
     },
     
     formatCurrency(value) {
-      if (!value && value !== 0) return '$0.00'
+      if (!value && value !== 0) return '0.00'
       return `${parseFloat(value).toLocaleString('en-US', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2

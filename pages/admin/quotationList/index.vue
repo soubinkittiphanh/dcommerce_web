@@ -145,7 +145,7 @@
           <v-btn color="primary" text @click="viewItem(item)
       wallet = true
         ">
-            <i class="fa-regular fa-pen-to-square"></i>
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
           <v-btn color="success" text @click="printItem(item)">
             <v-icon>mdi-printer</v-icon>

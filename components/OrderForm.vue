@@ -38,7 +38,7 @@
                                                 <v-col cols="2" align-self="center">
                                                     <v-btn color="primary" rounded variant="text"
                                                         @click="selectedClientNew(client['id'], true)">
-                                                        <i class="fa-regular fa-circle-check"></i>
+                                                        <v-icon small>mdi-check-circle</v-icon>
                                                     </v-btn>
                                                 </v-col>
                                             </v-row>
@@ -76,7 +76,7 @@
                                                 <v-col cols="2" align-self="center">
                                                     <v-btn color="primary" rounded variant="text"
                                                         @click="selectedClientNew(client['id'], false)">
-                                                        <i class="fa-regular fa-circle-check"></i>
+                                                        <v-icon small>mdi-check-circle</v-icon>
                                                     </v-btn>
                                                 </v-col>
                                             </v-row>

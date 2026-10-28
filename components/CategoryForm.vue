@@ -20,6 +20,12 @@
                     <v-select v-model="form.mainCategoryId" :items="mainCategories" item-text="categoryName"
                         item-value="id" label="ໝວດສິນຄ້າຫຼັກ" clearable></v-select>
                     <v-checkbox v-model.number="form.isActive" label="Is Active"></v-checkbox>
+                    <v-checkbox 
+                        v-model="form.isPackaging" 
+                        label="ໝວດສິນຄ້າບັນຈຸພັນ (Packaging Category)" 
+                        color="teal darken-2"
+                        messages="ໝາຍເຖິງໝວດສິນຄ້າບັນຈຸພັນເປົ່າ (ລັງ, ແກ້ວ, ຖັງ) ທີ່ຮອງຮັບໂໝດຮັບຊື້/ຂາຍໃນ POS"
+                    ></v-checkbox>
                 </v-form>
                 <small>* ສະແດງເຖິງຟິວທີ່ຕ້ອງໃສ່ຂໍ້ມູນ</small>
             </v-card-text>
@@ -59,7 +65,8 @@ export default {
                 categ_name: '',
                 categ_desc: '',
                 mainCategoryId: null,
-                isActive: true
+                isActive: true,
+                isPackaging: false,
             },
             mainCategories: [],
             isloading: false,

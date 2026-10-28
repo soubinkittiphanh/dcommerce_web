@@ -131,12 +131,8 @@
               </div>
 
               <v-row dense>
-                <v-col cols="12" sm="6" md="12">
+                <v-col cols="12">
                   <v-text-field v-model="transaction.expectedDeliveryDate" type="date" label="ວັນທີຄາດວ່າຈະສົ່ງ" outlined dense hide-details class="custom-input mb-3" />
-                </v-col>
-                <v-col cols="12" sm="6" md="12">
-                  <v-autocomplete v-model="transaction.termId" :items="termsList" item-text="term_name" item-value="id"
-                    label="ເງື່ອນໄຂການຊຳລະ" outlined dense hide-details class="custom-input mb-3" />
                 </v-col>
                 <v-col cols="12">
                   <v-textarea v-model="transaction.notes" label="ໝາຍເຫດ" outlined dense rows="3" hide-details class="custom-input" />
@@ -397,7 +393,6 @@ export default {
     productList() { return this.findAllProduct || [] },
     unitList() { return this.findAllUnit || [] },
     currencyList() { return this.findAllCurrency || [] },
-    termsList() { return [{ id: 1, term_name: 'Net 30' }, { id: 2, term_name: 'Net 60' }, { id: 3, term_name: 'COD' }, { id: 4, term_name: 'Prepaid' }] },
     statusOptions() { return ['Draft', 'Pending Approval', 'Approved', 'Sent to Supplier', 'Partially Received', 'Fully Received', 'Cancelled'] },
     currentTerminal() { return this.findAllTerminal?.find(el => el.id === this.findSelectedTerminal) || {} },
     user() { return this.$auth.user || {} },

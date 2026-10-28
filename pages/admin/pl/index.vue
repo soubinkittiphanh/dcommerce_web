@@ -17,6 +17,19 @@
         </div>
         
         <div class="d-flex align-center flex-wrap gap-2">
+          <!-- Switch to Agency Commission P&L -->
+          <v-btn
+            outlined
+            color="deep-purple darken-1"
+            class="action-btn text-none"
+            to="/admin/plCommission"
+            exact
+            small
+          >
+            <v-icon left small>mdi-swap-horizontal</v-icon>
+            ເບິ່ງ P&L ຕົວແທນ KAOLAO (Commission Based)
+          </v-btn>
+
           <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
             <template v-slot:activator="{ on, attrs }">
               <v-text-field v-model="dateFormatted" label="ຈາກວັນທີ" prepend-inner-icon="mdi-calendar" readonly 
@@ -51,6 +64,9 @@
                 <v-icon color="success" small>mdi-arrow-up-bold-circle</v-icon>
               </div>
               <div class="text-h6 font-weight-black success--text">{{ formatAmount(totalIncome) }} {{ localCurrencyCode }}</div>
+              <div v-if="foreignSaleSummaryText" class="text-caption text-tiny grey--text font-weight-medium">
+                (≈ {{ foreignSaleSummaryText }})
+              </div>
               <div class="text-tiny grey--text mt-1">ລວມຍອດຂາຍ ແລະ ລາຍຮັບອື່ນໆ</div>
             </v-card>
           </v-col>
@@ -62,6 +78,9 @@
                 <v-icon color="orange darken-2" small>mdi-package-variant</v-icon>
               </div>
               <div class="text-h6 font-weight-black orange--text text--darken-2">{{ formatAmount(totalCostOfSale) }} {{ localCurrencyCode }}</div>
+              <div v-if="foreignCostSummaryText" class="text-caption text-tiny grey--text font-weight-medium">
+                (≈ {{ foreignCostSummaryText }})
+              </div>
               <div class="text-tiny grey--text mt-1">ຕົ້ນທຶນສິນຄ້າ + ຄ່າທຳນຽມຕ່າງໆ</div>
             </v-card>
           </v-col>
@@ -111,7 +130,12 @@
               
               <div class="analysis-list">
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
-                  <span class="grey--text">ຍອດຂາຍລວມ (Gross Sales)</span>
+                  <div>
+                    <span class="grey--text">ຍອດຂາຍລວມ (Gross Sales)</span>
+                    <span v-if="foreignSaleSummaryText" class="d-block text-tiny grey--text font-weight-medium">
+                      (≈ {{ foreignSaleSummaryText }})
+                    </span>
+                  </div>
                   <span class="font-weight-bold">{{ formatAmount(grandSaleTotal) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
@@ -123,7 +147,12 @@
                   <span>{{ formatAmount(grandSaleCancelTotal) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
-                  <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
+                  <div>
+                    <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
+                    <span v-if="foreignSaleSummaryText" class="d-block text-tiny grey--text font-weight-medium">
+                      (≈ {{ foreignSaleSummaryText }})
+                    </span>
+                  </div>
                   <span class="font-weight-bold">{{ formatAmount(totalSale) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
@@ -145,7 +174,12 @@
                 
                 <div class="mt-4 text-caption font-weight-bold orange--text">ລາຍລະອຽດຕົ້ນທຶນ (COGS Breakdown)</div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
-                  <span class="grey--text pl-2">- ຕົ້ນທຶນສິນຄ້າ (Product Cost)</span>
+                  <div>
+                    <span class="grey--text pl-2">- ຕົ້ນທຶນສິນຄ້າ (Product Cost)</span>
+                    <span v-if="foreignCostSummaryText" class="d-block text-tiny grey--text pl-2 font-weight-medium">
+                      (≈ {{ foreignCostSummaryText }})
+                    </span>
+                  </div>
                   <span>{{ formatAmount(productCostOnly) }} {{ localCurrencyCode }}</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
@@ -247,6 +281,67 @@ export default {
     localCurrencyCode() {
       return this.findLocalCurrency?.code || 'LAK'
     },
+    foreignSaleBreakdown() {
+      const breakdown = {};
+      const localCode = this.findLocalCurrency?.code || 'LAK';
+
+      this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
+        sale.lines?.forEach(line => {
+          const currId = line.currencyId || sale.currencyId;
+          const curr = this.findAllCurrency?.find(c => c.id === currId);
+          const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
+          
+          if (code !== localCode) {
+            const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
+            breakdown[code] = (breakdown[code] || 0) + lineTotal;
+          }
+        });
+      });
+      return breakdown;
+    },
+    foreignSaleSummaryText() {
+      const entries = Object.entries(this.foreignSaleBreakdown);
+      if (entries.length === 0) return '';
+      return entries.map(([code, amt]) => `${this.formatAmount(amt)} ${code}`).join(' + ');
+    },
+    foreignCostBreakdown() {
+      const breakdown = {};
+      const localCode = this.findLocalCurrency?.code || 'LAK';
+
+      this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
+        sale.lines?.forEach(line => {
+          const lineCurrId = line.currencyId || sale.currencyId;
+
+          if (line.cards && line.cards.length > 0) {
+            line.cards.forEach(card => {
+              const cardCurrId = card.currencyId || lineCurrId;
+              const curr = this.findAllCurrency?.find(c => c.id === cardCurrId);
+              const code = curr?.code || (cardCurrId === 6 ? 'THB' : (cardCurrId === 1 ? 'LAK' : `CCY_${cardCurrId}`));
+
+              if (code !== localCode) {
+                const qty = parseFloat(card.stockCardQty || 1);
+                const cost = parseFloat(card.cost || 0) * qty;
+                breakdown[code] = (breakdown[code] || 0) + cost;
+              }
+            });
+          } else {
+            const curr = this.findAllCurrency?.find(c => c.id === lineCurrId);
+            const code = curr?.code || (lineCurrId === 6 ? 'THB' : (lineCurrId === 1 ? 'LAK' : `CCY_${lineCurrId}`));
+            if (code !== localCode) {
+              const unitCost = parseFloat(line.product?.cost_price || 0);
+              const qty = parseFloat(line.quantity || 0);
+              breakdown[code] = (breakdown[code] || 0) + (unitCost * qty);
+            }
+          }
+        });
+      });
+      return breakdown;
+    },
+    foreignCostSummaryText() {
+      const entries = Object.entries(this.foreignCostBreakdown);
+      if (entries.length === 0) return '';
+      return entries.map(([code, amt]) => `${this.formatAmount(amt)} ${code}`).join(' + ');
+    },
     grandSaleTotal() {
       return this.yearlySale.reduce((total, item) => {
         const itemTotal = parseFloat(item.total || 0)
@@ -330,7 +425,16 @@ export default {
         const saleRate = sale.exchangeRate || 1;
         
         sale.lines?.forEach(line => {
-          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
+          const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
+          let lineRate = line.exchangeRate;
+          if (!lineRate || lineRate === 1) {
+            if (line.currencyId && Number(line.currencyId) !== 1) {
+              lineRate = (line.cards && line.cards[0]?.exchangeRate) || 1;
+            } else {
+              lineRate = saleRate;
+            }
+          }
+          const sellingPriceLAK = unitPrice * lineRate;
           let lineCost = 0;
           
           if (line.cards && line.cards.length > 0) {
@@ -377,7 +481,7 @@ export default {
             // Fallback: Use product cost_price if there are no cards
             const unitCost = parseFloat(line.product?.cost_price || 0);
             const qty = parseFloat(line.quantity || 0);
-            lineCost = qty * unitCost * saleRate;
+            lineCost = qty * unitCost * (lineRate || saleRate);
           }
           saleCost += lineCost;
         });

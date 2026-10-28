@@ -77,6 +77,13 @@
     "_name": "_5a38e948"
   },
   {
+    "name": "test-order-detail",
+    "path": "/test-order-detail",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/test-order-detail.vue",
+    "chunkName": "pages/test-order-detail",
+    "_name": "_17f3afea"
+  },
+  {
     "name": "admin-advertise",
     "path": "/admin/advertise",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/advertise/index.vue",
@@ -243,6 +250,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/customer_request/index.vue",
     "chunkName": "pages/admin/customer_request/index",
     "_name": "_4dd908a1"
+  },
+  {
+    "name": "admin-dashboardMenu",
+    "path": "/admin/dashboardMenu",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/dashboardMenu/index.vue",
+    "chunkName": "pages/admin/dashboardMenu/index",
+    "_name": "_72ae1c96"
   },
   {
     "name": "admin-database",
@@ -546,6 +560,13 @@
     "_name": "_515d0028"
   },
   {
+    "name": "admin-parking",
+    "path": "/admin/parking",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/index.vue",
+    "chunkName": "pages/admin/parking/index",
+    "_name": "_4bf58c0a"
+  },
+  {
     "name": "admin-payment",
     "path": "/admin/payment",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/payment/index.vue",
@@ -558,6 +579,20 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/pl/index.vue",
     "chunkName": "pages/admin/pl/index",
     "_name": "_80d5a822"
+  },
+  {
+    "name": "admin-platform",
+    "path": "/admin/platform",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/platform/index.vue",
+    "chunkName": "pages/admin/platform/index",
+    "_name": "_38565ba6"
+  },
+  {
+    "name": "admin-plCommission",
+    "path": "/admin/plCommission",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/plCommission/index.vue",
+    "chunkName": "pages/admin/plCommission/index",
+    "_name": "_9da00b8c"
   },
   {
     "name": "admin-po",
@@ -658,11 +693,25 @@
     "_name": "_966e82b2"
   },
   {
+    "name": "admin-saleCostCommission",
+    "path": "/admin/saleCostCommission",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleCostCommission/index.vue",
+    "chunkName": "pages/admin/saleCostCommission/index",
+    "_name": "_74f586f2"
+  },
+  {
     "name": "admin-saleDashBoard",
     "path": "/admin/saleDashBoard",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleDashBoard/index.vue",
     "chunkName": "pages/admin/saleDashBoard/index",
     "_name": "_50aa43f0"
+  },
+  {
+    "name": "admin-saleReportCommission",
+    "path": "/admin/saleReportCommission",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/saleReportCommission/index.vue",
+    "chunkName": "pages/admin/saleReportCommission/index",
+    "_name": "_63da1f19"
   },
   {
     "name": "admin-saleReportDetail",
@@ -1169,6 +1218,41 @@
     "_name": "_2d5fc25d"
   },
   {
+    "name": "admin-parking-passes",
+    "path": "/admin/parking/passes",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/passes/index.vue",
+    "chunkName": "pages/admin/parking/passes/index",
+    "_name": "_f6308fae"
+  },
+  {
+    "name": "admin-parking-pricing",
+    "path": "/admin/parking/pricing",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/pricing/index.vue",
+    "chunkName": "pages/admin/parking/pricing/index",
+    "_name": "_175cfdf2"
+  },
+  {
+    "name": "admin-parking-reports",
+    "path": "/admin/parking/reports",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/reports/index.vue",
+    "chunkName": "pages/admin/parking/reports/index",
+    "_name": "_49a966aa"
+  },
+  {
+    "name": "admin-parking-tickets",
+    "path": "/admin/parking/tickets",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/tickets/index.vue",
+    "chunkName": "pages/admin/parking/tickets/index",
+    "_name": "_62f8c05a"
+  },
+  {
+    "name": "admin-parking-zones",
+    "path": "/admin/parking/zones",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/parking/zones/index.vue",
+    "chunkName": "pages/admin/parking/zones/index",
+    "_name": "_0dd4991a"
+  },
+  {
     "name": "admin-pos-table",
     "path": "/admin/pos/table",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/pos/table/index.vue",
@@ -1209,6 +1293,13 @@
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/masterPackagingMatrix.vue",
     "chunkName": "pages/admin/report/masterPackagingMatrix",
     "_name": "_b0c07e92"
+  },
+  {
+    "name": "admin-report-packagingOwnerSummary",
+    "path": "/admin/report/packagingOwnerSummary",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/packagingOwnerSummary.vue",
+    "chunkName": "pages/admin/report/packagingOwnerSummary",
+    "_name": "_578d6e2a"
   },
   {
     "name": "admin-reports-accountStatement",
@@ -1253,11 +1344,25 @@
     "_name": "_2d13abf8"
   },
   {
+    "name": "admin-restaurant-kitchen",
+    "path": "/admin/restaurant/kitchen",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/restaurant/kitchen/index.vue",
+    "chunkName": "pages/admin/restaurant/kitchen/index",
+    "_name": "_95e6a576"
+  },
+  {
     "name": "admin-restaurant-menu",
     "path": "/admin/restaurant/menu",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/restaurant/menu.vue",
     "chunkName": "pages/admin/restaurant/menu",
     "_name": "_278ea631"
+  },
+  {
+    "name": "admin-restaurant-ordersFromPos",
+    "path": "/admin/restaurant/ordersFromPos",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/restaurant/ordersFromPos/index.vue",
+    "chunkName": "pages/admin/restaurant/ordersFromPos/index",
+    "_name": "_783120f4"
   },
   {
     "name": "admin-school-class",

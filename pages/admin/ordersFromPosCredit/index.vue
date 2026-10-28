@@ -38,6 +38,175 @@
       :company-logo="companyLogo" :ticket-common="ticketCommon" :show-print-button="true" @close="onTicketDialogClose"
       @print-ticket="onPrintTicket" @print-payment-details="onPrintPaymentDetails" />
 
+    <!-- Post to AR Dialog -->
+    <v-dialog v-model="postToArDialog" persistent max-width="720px">
+      <v-card v-if="selectedOrderForAr" class="rounded-xl overflow-hidden elevation-8">
+        <!-- Dialog Header -->
+        <div class="px-6 py-4 white--text primary">
+          <div class="d-flex align-center">
+            <v-avatar color="white" size="42" class="mr-3 elevation-2">
+              <v-icon color="primary">mdi-file-invoice-dollar</v-icon>
+            </v-avatar>
+            <div class="flex-grow-1">
+              <h3 class="text-h6 font-weight-bold mb-0 white--text">ສ້າງໃບແຈ້ງໜີ້ AR ຈາກບິນຂາຍຕິດໜີ້</h3>
+              <span class="caption white--text" style="opacity: 0.85;">Post Order to Accounts Receivable Invoice</span>
+            </div>
+            <v-btn icon dark @click="closePostToArDialog" :disabled="postingToAr">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </div>
+        </div>
+
+        <v-card-text class="pa-6 pt-5">
+          <!-- Order & Customer Highlights Card -->
+          <v-card outlined class="rounded-lg pa-4 mb-4" style="background-color: #f8fafc; border-color: #e2e8f0;">
+            <v-row dense>
+              <v-col cols="12" sm="6">
+                <div class="caption grey--text text--darken-1 font-weight-medium">ລູກຄ້າ (Customer)</div>
+                <div class="text-subtitle-1 font-weight-bold primary--text">
+                  <v-icon small color="primary" class="mr-1">mdi-account</v-icon>
+                  {{ selectedOrderForAr.client?.name || 'N/A' }}
+                </div>
+                <div v-if="selectedOrderForAr.client?.company" class="caption grey--text">
+                  {{ selectedOrderForAr.client?.company }}
+                </div>
+                <div v-if="selectedOrderForAr.client?.telephone" class="caption grey--text">
+                  <v-icon x-small class="mr-1">mdi-phone</v-icon>{{ selectedOrderForAr.client?.telephone }}
+                </div>
+              </v-col>
+
+              <v-col cols="12" sm="6" class="text-sm-right">
+                <div class="caption grey--text text--darken-1 font-weight-medium">ເລກທີບິນ / ຍອດລວມ</div>
+                <div class="d-flex align-center justify-sm-end my-1">
+                  <v-chip small color="primary" outlined class="font-weight-bold mr-2">
+                    Order #{{ selectedOrderForAr.id }}
+                  </v-chip>
+                  <v-chip small color="orange darken-1" dark class="font-weight-bold">
+                    {{ selectedOrderForAr.payment?.payment_name || 'ຕິດໜີ້' }}
+                  </v-chip>
+                </div>
+                <div class="text-h5 font-weight-black success--text mt-1">
+                  {{ numberWithCommas(selectedOrderForAr.total) }}
+                  <small class="caption font-weight-bold grey--text">{{ selectedOrderForAr.currency?.code || 'LAK' }}</small>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+
+          <!-- Input Controls -->
+          <v-row dense class="mb-3">
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="arInvoiceDate"
+                type="date"
+                label="ວັນທີໃບແຈ້ງໜີ້ (Invoice Date)*"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-calendar"
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model="arDueDate"
+                type="date"
+                label="ວັນທີຄົບກຳນົດ (Due Date)*"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-calendar-clock"
+                :hint="`ຄິດໄລ່ຕາມສິນເຊື່ອ ${selectedOrderForAr.client?.credit || 30} ມື້`"
+                persistent-hint
+              />
+            </v-col>
+
+            <v-col cols="12" class="mt-2">
+              <v-text-field
+                v-model="arDescription"
+                label="ຄຳອະທິບາຍ (Description / Remarks)"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-comment-text-outline"
+              />
+            </v-col>
+          </v-row>
+
+          <!-- Order Lines Preview -->
+          <div class="text-subtitle-2 font-weight-bold grey--text text--darken-2 mb-2">
+            <v-icon small color="grey darken-2" class="mr-1">mdi-format-list-bulleted</v-icon>
+            ລາຍການສິນຄ້າ ({{ selectedOrderForAr.lines?.length || 0 }} ລາຍການ)
+          </div>
+          <v-simple-table dense class="mb-4 rounded-lg" style="border: 1px solid #e2e8f0;">
+            <template v-slot:default>
+              <thead>
+                <tr class="grey lighten-4">
+                  <th class="text-left py-2">ສິນຄ້າ</th>
+                  <th class="text-center py-2" style="width: 80px;">ຈຳນວນ</th>
+                  <th class="text-right py-2" style="width: 110px;">ລາຄາ</th>
+                  <th class="text-right py-2" style="width: 120px;">ລວມ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(line, idx) in (selectedOrderForAr.lines || [])" :key="idx">
+                  <td class="text-left font-weight-medium py-1">
+                    {{ line.product?.pro_name || `Product #${line.productId}` }}
+                  </td>
+                  <td class="text-center py-1">{{ line.quantity }}</td>
+                  <td class="text-right py-1">{{ numberWithCommas(line.price) }}</td>
+                  <td class="text-right font-weight-bold py-1">{{ numberWithCommas(line.total) }}</td>
+                </tr>
+                <tr v-if="!selectedOrderForAr.lines || selectedOrderForAr.lines.length === 0">
+                  <td colspan="4" class="text-center grey--text py-2">
+                    ລາຍການລວມບິນ Order #{{ selectedOrderForAr.id }} ({{ numberWithCommas(selectedOrderForAr.total) }})
+                  </td>
+                </tr>
+              </tbody>
+            </template>
+          </v-simple-table>
+
+          <!-- Double-entry Accounting Notice -->
+          <v-card outlined class="rounded-lg pa-3" style="background: #f0fdf4; border-color: #bbf7d0;">
+            <div class="d-flex align-center">
+              <v-icon color="success" class="mr-2">mdi-shield-check</v-icon>
+              <div>
+                <div class="caption font-weight-bold success--text text--darken-2">
+                  ການບັນທຶກບັນຊີຄູ່ອັດຕະໂນມັດ (Automatic Double-Entry Posting)
+                </div>
+                <div class="caption grey--text text--darken-2">
+                  <strong>Debit (DR):</strong> 1131 - ລູກໜີ້ການຄ້າ (AR) &nbsp;|&nbsp;
+                  <strong>Credit (CR):</strong> 4111 - ລາຍຮັບຈາກການຂາຍ (Revenue)
+                </div>
+              </div>
+            </div>
+          </v-card>
+        </v-card-text>
+
+        <v-divider />
+
+        <!-- Dialog Footer Actions -->
+        <v-card-actions class="pa-4 bg-light">
+          <v-spacer />
+          <v-btn text large class="rounded-lg mr-2 font-weight-medium" @click="closePostToArDialog" :disabled="postingToAr">
+            ຍົກເລີກ (Cancel)
+          </v-btn>
+          <v-btn
+            color="primary"
+            dark
+            large
+            depressed
+            class="rounded-lg font-weight-bold px-6 shadow-sm"
+            :loading="postingToAr"
+            @click="confirmPostToAr"
+          >
+            <v-icon left>mdi-file-export</v-icon>
+            ຢືນຢັນສ້າງໃບແຈ້ງໜີ້ AR (Confirm & Post)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card>
       <v-card-title>
         <v-layout row wrap>
@@ -275,9 +444,60 @@
           </v-chip>
         </template>
 
+        <!-- AR Posting Status Slot -->
+        <template v-slot:[`item.isPostedToAR`]="{ item }">
+          <div v-if="item.isPostedToAR || item.arInvoiceId">
+            <v-chip
+              small
+              color="primary lighten-5"
+              class="primary--text font-weight-bold"
+              style="cursor: pointer;"
+              @click="openArInvoiceView(item)"
+            >
+              <v-icon left small color="primary">mdi-check-decagram</v-icon>
+              {{ item.arInvoice ? item.arInvoice.invoiceNumber : 'Posted' }}
+            </v-chip>
+          </div>
+          <div v-else>
+            <v-chip small color="grey lighten-3" class="grey--text text--darken-2">
+              <v-icon left small color="grey">mdi-clock-outline</v-icon>
+              ຍັງບໍ່ Post
+            </v-chip>
+          </div>
+        </template>
+
         <!-- NEW: Enhanced Action Buttons -->
         <template v-slot:[`item.id`]="{ item }">
-          <div class="d-flex">
+          <div class="d-flex align-center">
+            <!-- Post to AR Button (if unposted) -->
+            <v-btn
+              v-if="!item.isPostedToAR && !item.arInvoiceId"
+              color="primary"
+              depressed
+              small
+              dark
+              class="mr-1 font-weight-bold"
+              style="border-radius: 8px;"
+              @click="openPostToArDialog(item)"
+            >
+              <v-icon left small>mdi-file-export</v-icon>
+              Post to AR
+            </v-btn>
+
+            <!-- View AR Invoice Button (if posted) -->
+            <v-btn
+              v-else
+              color="primary"
+              outlined
+              small
+              class="mr-1 font-weight-bold"
+              style="border-radius: 8px;"
+              @click="openArInvoiceView(item)"
+            >
+              <v-icon left small>mdi-receipt-text</v-icon>
+              ໃບແຈ້ງໜີ້
+            </v-btn>
+
             <!-- View/Edit Button -->
             <v-btn color="primary" text small @click="viewItem(item)" class="mr-1">
               <v-icon small>mdi-pencil</v-icon>
@@ -359,6 +579,14 @@ export default {
       cancelForm: false,
       OrderIdSelected: '',
 
+      // Post to AR state
+      postToArDialog: false,
+      postingToAr: false,
+      selectedOrderForAr: null,
+      arDueDate: '',
+      arInvoiceDate: '',
+      arDescription: '',
+
       // NEW: Ticket Details Dialog
       ticketDetailsDialog: false,
       selectedTicketForDetails: null,
@@ -437,11 +665,18 @@ export default {
           sortable: false,
         },
         {
+          text: 'ສະຖານະ AR',
+          align: 'center',
+          value: 'isPostedToAR',
+          sortable: true,
+          width: '160px',
+        },
+        {
           text: 'ການດຳເນີນການ',
           align: 'center',
           value: 'id',
           sortable: false,
-          width: '200px'
+          width: '320px',
         },
       ],
 
@@ -620,6 +855,8 @@ export default {
         showLogoOnTicket: baseCompany?.showLogoOnTicket || '',
         ticketQRcode: baseCompany?.ticketQRcode || false,
         ticketLayout: baseCompany?.ticketLayout || 'classic',
+        ticket_logo_size: baseCompany?.ticket_logo_size ?? 65,
+        ticketLogoSize: baseCompany?.ticket_logo_size ?? 65,
         profile_image_path: resolvedProfileImagePath,
         bank_qr_image_path: resolvedBankQrImagePath,
         bank_qr_image_path_2: resolvedBankQrImagePath2,
@@ -1083,10 +1320,12 @@ export default {
       console.log("DATE ", startDate, " to ", day)
       return getNextDate(startDate, day)
     },
-
-    numberWithCommas(value) {
-      return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
-    },
+numberWithCommas(value) {
+  return (Math.round(Number(value) || 0)).toLocaleString('en-US')
+},
+    // numberWithCommas(value) {
+    //   return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    // },
 
     whatsappLink(item) {
       const tel = item.client.telephone.trim()
@@ -1094,10 +1333,14 @@ export default {
       this.whatsappContactLink = `https://api.whatsapp.com/send?phone=+85620${completeTel}&text=${encodeURIComponent('ສະບາຍດີ ລູກຄ້າ ')}`
     },
 
-    getFormatNum(val) {
-      return new Intl.NumberFormat().format(val)
-    },
-
+    // getFormatNum(val) {
+    //   return new Intl.NumberFormat().format(val)
+    // },
+getFormatNum(val) {
+  return new Intl.NumberFormat('en-US', {
+    maximumFractionDigits: 0
+  }).format(Number(val) || 0)
+},
     editItem(item) {
       this.componentKey += 1
       this.selectedOrderId = item.orderId.toString()
@@ -1147,6 +1390,72 @@ export default {
           console.log('Error ===>: ' + er)
         })
       this.isloading = false
+    },
+
+    openPostToArDialog(item) {
+      this.selectedOrderForAr = item
+      this.arInvoiceDate = this.safeSplitDate(item.bookingDate) || new Date().toISOString().slice(0, 10)
+      
+      // Calculate due date based on client.credit days (defaults to 30)
+      const creditDays = item.client?.credit && parseInt(item.client.credit, 10) > 0 
+        ? parseInt(item.client.credit, 10) 
+        : 30
+      const d = new Date(this.arInvoiceDate)
+      d.setDate(d.getDate() + creditDays)
+      this.arDueDate = d.toISOString().slice(0, 10)
+
+      this.arDescription = `Created from POS Credit Order #${item.id}${item.referenceNo ? ` (${item.referenceNo})` : ''}`
+      this.postToArDialog = true
+    },
+
+    closePostToArDialog() {
+      if (!this.postingToAr) {
+        this.postToArDialog = false
+        this.selectedOrderForAr = null
+      }
+    },
+
+    async confirmPostToAr() {
+      if (!this.selectedOrderForAr) return
+      this.postingToAr = true
+      try {
+        const payload = {
+          invoiceDate: this.arInvoiceDate,
+          dueDate: this.arDueDate,
+          description: this.arDescription,
+          status: 'sent'
+        }
+        const { data } = await this.$axios.post(
+          `/api/ar-invoices/from-order/${this.selectedOrderForAr.id}`,
+          payload
+        )
+        if (data && data.success) {
+          swalSuccess(
+            this.$swal,
+            'ສຳເລັດ',
+            data.message || `ສ້າງໃບແຈ້ງໜີ້ AR ເລກທີ ${data.data?.invoice?.invoiceNumber} ສຳເລັດແລ້ວ!`
+          )
+          this.postToArDialog = false
+          this.selectedOrderForAr = null
+          await this.loadData()
+        } else {
+          swalError2(this.$swal, 'Error', data?.message || 'ບໍ່ສາມາດ Post ເຂົ້າ AR ໄດ້')
+        }
+      } catch (err) {
+        console.error('Post to AR error:', err)
+        const errMsg = err.response?.data?.message || err.message || 'ເກີດຂໍ້ຜິດພາດ'
+        swalError2(this.$swal, 'Error', errMsg)
+      } finally {
+        this.postingToAr = false
+      }
+    },
+
+    openArInvoiceView(item) {
+      const query = item.arInvoice?.invoiceNumber || item.arInvoiceId || item.id
+      this.$router.push({
+        path: '/admin/accounting/ar/invoice',
+        query: { search: String(query) }
+      })
     },
 
     formatDate(date) {

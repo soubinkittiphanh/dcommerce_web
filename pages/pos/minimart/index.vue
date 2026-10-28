@@ -17,6 +17,31 @@
         </v-col>
       </v-row> -->
 
+      <!-- Active BUY MODE Alert Banner for Packaging -->
+      <v-alert
+        v-if="packagingMode === 'BUY'"
+        dense
+        text
+        color="teal darken-2"
+        icon="mdi-keyboard-return"
+        class="mb-3 rounded-lg"
+      >
+        <div class="d-flex align-center justify-space-between flex-wrap">
+          <span class="caption font-weight-bold teal--text text--darken-4">
+            🔄 ໂໝດຮັບຊື້ບັນຈຸພັນ (BUY MODE ACTIVE): ຄລິກສິນຄ້າບັນຈຸພັນເພື່ອເພີ່ມເປັນລາຍການຮັບຊື້ຄືນ (ສິນຄ້າທົ່ວໄປຍັງຂາຍປົກກະຕິ)
+          </span>
+          <v-btn
+            x-small
+            outlined
+            color="teal darken-3"
+            class="rounded-pill font-weight-bold ml-2"
+            @click="setPackagingMode('SELL')"
+          >
+            ປ່ຽນເປັນໂໝດຂາຍ (SELL)
+          </v-btn>
+        </div>
+      </v-alert>
+
       <!-- Products Grid -->
       <v-row v-if="filterProduct.length > 0">
         <v-col cols="12">
@@ -63,7 +88,7 @@
 </template>
 
 <script>
-import { getFormatNum, swalError2, swalSuccess } from '~/common'
+import { getFormatNum, swalError2, swalSuccess, isPackagingProduct } from '~/common'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 import { mainCompanyInfo, mainCompanyInfoV1 } from '~/common/api'
 
@@ -213,6 +238,7 @@ export default {
       findAllProduct: 'findAllProduct',
       findSelectedTerminal: 'findSelectedTerminal',
       currentSelectedCustomer: 'currentSelectedCustomer',
+      packagingMode: 'packagingMode',
     }),
 
     effectiveCustomer() {
@@ -334,7 +360,12 @@ export default {
   },
 
   methods: {
+    ...mapMutations(['setPackagingMode']),
     ...mapActions(['addProduct']),
+
+    isPackagingItem(product) {
+      return isPackagingProduct(product)
+    },
 
     handleSearchKeywordChange(keyword) {
       // Clear any pending timeout
@@ -478,6 +509,11 @@ export default {
             }
           }
 
+          const isPkg = this.isPackagingItem(product)
+          const isBuyMode = this.packagingMode === 'BUY'
+          const targetIsReturn = isPkg ? isBuyMode : false
+          const targetPackagingAction = isPkg ? (isBuyMode ? 'RETURNED' : 'SOLD') : 'NONE'
+
           const cartItem = {
             ...product,
             qty: 1,
@@ -488,6 +524,8 @@ export default {
             localPrice:
               customerPrice || price || product.pro_price,
             isGift,
+            isReturn: targetIsReturn,
+            packagingAction: targetPackagingAction,
             lineUUIDCheck: false,
             priceListId: null,
             lineUUID: Date.now() + Math.random().toString(16),

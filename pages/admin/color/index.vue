@@ -157,7 +157,7 @@
                  variant="text" 
                  size="small"
                  @click="viewRecord(item)">
-            <i class="fa-regular fa-pen-to-square"></i>
+            <v-icon small>mdi-square-edit-outline</v-icon>
           </v-btn>
         </template>
       </v-data-table>

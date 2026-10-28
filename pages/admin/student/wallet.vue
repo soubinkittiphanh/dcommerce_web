@@ -1,6 +1,6 @@
 <template>
-  <div class="wallet-station pa-4">
-    <div class="d-flex align-center justify-space-between mb-4">
+  <div class="wallet-station pa-0 ma-0">
+    <div class="d-flex align-center justify-space-between">
       <div>
         <h1 class="text-h5 font-weight-bold primary--text">
           <v-icon color="primary" class="mr-2">mdi-wallet-plus</v-icon>
@@ -186,7 +186,7 @@ export default {
 
       return (
         this.safeTerminals.find(
-          (el) => el && el.id == this.findSelectedTerminal
+          (el) => el && String(el.id) === String(this.findSelectedTerminal)
         ) || null
       )
     },
@@ -398,6 +398,10 @@ export default {
 </script>
 
 <style scoped>
+.wallet-station {
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .wallet-station * {
   font-family: 'Noto Sans Lao', sans-serif !important;
 }

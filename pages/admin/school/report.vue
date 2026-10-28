@@ -1,162 +1,248 @@
 <template>
-  <v-container class="school-billing-dashboard pa-6" fluid>
-    <!-- Top Header -->
-    <div class="d-flex align-center justify-space-between mb-4">
-      <div>
-        <h1 class="text-h4 font-weight-bold primary--text mb-1">
-          <v-icon size="38" color="primary" class="mr-2">mdi-chart-box-outline</v-icon>
-          ລາຍງານການເງິນ ແລະ ສະຫຼຸບຍອດປິດກະເປົາ (Financial & Shift Reports)
-        </h1>
-        <p class="text-subtitle-1 grey--text text--darken-1 mb-0">
-          ກວດສອບຍອດເງິນສົດໃນລີ້ນຊັກ, ຍອດຕື່ມ-ຖອນບັດນັກຮຽນ, ການມອບເງິນສົດເຂົ້າບັນຊີກາງ ແລະ ສະຫຼຸບປິດ Shift ແຕ່ລະ Cashier
-        </p>
-      </div>
+  <v-container class="school-billing-dashboard pa-0 ma-0" fluid>
+    <!-- Top Header Banner -->
+    <v-card class="pa-4 mb-4 rounded-xl header-banner-card elevation-1" outlined>
+      <div class="d-flex flex-wrap align-center justify-space-between">
+        <div class="d-flex align-center">
+          <div class="header-icon-box mr-3">
+            <v-icon size="32" color="primary">mdi-chart-box-outline</v-icon>
+          </div>
+          <div>
+            <div class="d-flex align-center flex-wrap">
+              <h1 class="text-h5 font-weight-bold primary--text mb-0">
+                ລາຍງານການເງິນ ແລະ ສະຫຼຸບຍອດປິດກະເປົາ
+              </h1>
+              <span class="caption grey--text text--darken-1 ml-2 font-weight-medium">(Financial & Shift Reports)</span>
+            </div>
+            <p class="text-caption grey--text text--darken-1 mb-0 mt-1">
+              ກວດສອບຍອດເງິນສົດໃນລີ້ນຊັກ, ຍອດຕື່ມ-ຖອນບັດນັກຮຽນ, ການມອບເງິນສົດເຂົ້າບັນຊີກາງ ແລະ ສະຫຼຸບປິດ Shift ແຕ່ລະ Cashier
+            </p>
+          </div>
+        </div>
 
-      <!-- Active Shift Indicator & Quick Links -->
-      <div class="d-flex align-center">
-        <v-btn color="success" class="mr-3" @click="openCashDropFromReport(null)" elevation="1">
-          <v-icon left small>mdi-bank-transfer-out</v-icon>
-          ມອບເງິນສົດເຂົ້າບັນຊີກາງ (Cash Drop)
-        </v-btn>
-        <v-chip v-if="activeShift" color="success" dark class="px-4 py-2 font-weight-bold mr-3" elevation="1">
-          <v-icon left small>mdi-cash-register</v-icon>
-          Shift ປະຈຸບັນ: #{{ activeShift.id }} | ເປີດ: {{ formatCurrency(activeShift.openingCash) }} LAK
-        </v-chip>
-        <v-chip v-else color="error" dark class="px-4 py-2 font-weight-bold mr-3" elevation="1" to="/admin/school/shift">
-          <v-icon left small>mdi-cash-register-off</v-icon>
-          ບໍ່ມີກະເປົາເປີດ (No Active Shift)
-        </v-chip>
-        <v-btn color="primary" outlined to="/admin/school/shift" small>
-          <v-icon left small>mdi-cogs</v-icon>
-          ຈັດການ Shift
-        </v-btn>
+        <!-- Active Shift Indicator & Quick Actions -->
+        <div class="d-flex align-center flex-wrap mt-2 mt-sm-0">
+          <v-btn color="teal darken-1" dark class="mr-3 font-weight-bold rounded-lg" elevation="2" small @click="openCashDropFromReport(null)">
+            <v-icon left small>mdi-bank-transfer-out</v-icon>
+            ມອບເງິນສົດເຂົ້າບັນຊີກາງ (Cash Drop)
+          </v-btn>
+          <v-chip v-if="activeShift" color="success" text-color="white" class="px-3 font-weight-bold mr-2 shift-active-chip" small elevation="1">
+            <span class="live-dot mr-2"></span>
+            <v-icon left x-small>mdi-cash-register</v-icon>
+            Shift #{{ activeShift.id }} | ເປີດ: {{ formatCurrency(activeShift.openingCash) }} LAK
+          </v-chip>
+          <v-chip v-else color="error" text-color="white" class="px-3 font-weight-bold mr-2" small elevation="1" to="/admin/school/shift">
+            <v-icon left x-small>mdi-cash-register-off</v-icon>
+            ບໍ່ມີກະເປົາເປີດ (No Active Shift)
+          </v-chip>
+          <v-btn color="primary" outlined to="/admin/school/shift" small class="rounded-lg">
+            <v-icon left small>mdi-cogs</v-icon>
+            ຈັດການ Shift
+          </v-btn>
+        </div>
       </div>
-    </div>
+    </v-card>
 
     <!-- Main Navigation Tabs -->
-    <v-tabs v-model="activeTab" background-color="transparent" color="primary" class="mb-4" slider-color="primary">
-      <v-tab class="font-weight-bold">
-        <v-icon left>mdi-cash-multiple</v-icon>
-        ສະຫຼຸບຍອດເງິນສົດແຕ່ລະ Cashier (Cash Position per User)
-      </v-tab>
-      <v-tab class="font-weight-bold">
-        <v-icon left>mdi-chart-line</v-icon>
-        ຍອດເກັບເງິນປະຈຳວັນ (Daily Collections)
-      </v-tab>
-      <v-tab class="font-weight-bold">
-        <v-icon left>mdi-account-cash</v-icon>
-        ຄ້າງຊຳລະສະສົມ (Outstanding Balances)
-      </v-tab>
-      <v-tab class="font-weight-bold">
-        <v-icon left>mdi-google-classroom</v-icon>
-        ຕາມຊັ້ນຮຽນ & ຫ້ອງຮຽນ (Class & Room)
-      </v-tab>
-      <v-tab class="font-weight-bold">
-        <v-icon left>mdi-tag-text-outline</v-icon>
-        ຕາມປະເພດຄ່າທໍານຽມ (Fee Items)
-      </v-tab>
-    </v-tabs>
+    <v-card class="mb-4 pa-1 rounded-xl nav-tabs-card elevation-0" outlined>
+      <v-tabs v-model="activeTab" background-color="transparent" color="primary" slider-size="3" slider-color="primary" class="modern-tabs" show-arrows>
+        <v-tab class="font-weight-bold rounded-lg text-body-2 tab-item">
+          <v-icon left small color="primary">mdi-cash-multiple</v-icon>
+          ສະຫຼຸບຍອດ Cashier (Cash Position)
+        </v-tab>
+        <v-tab class="font-weight-bold rounded-lg text-body-2 tab-item">
+          <v-icon left small color="info">mdi-chart-timeline-variant</v-icon>
+          ຍອດເກັບເງິນປະຈຳວັນ (Daily Collections)
+        </v-tab>
+        <v-tab class="font-weight-bold rounded-lg text-body-2 tab-item">
+          <v-icon left small color="error">mdi-account-alert-outline</v-icon>
+          ຄ້າງຊຳລະສະສົມ (Outstanding)
+        </v-tab>
+        <v-tab class="font-weight-bold rounded-lg text-body-2 tab-item">
+          <v-icon left small color="deep-purple">mdi-google-classroom</v-icon>
+          ຕາມຊັ້ນ & ຫ້ອງຮຽນ (Class & Room)
+        </v-tab>
+        <v-tab class="font-weight-bold rounded-lg text-body-2 tab-item">
+          <v-icon left small color="teal">mdi-tag-text-outline</v-icon>
+          ຕາມປະເພດຄ່າທໍານຽມ (Fee Items)
+        </v-tab>
+      </v-tabs>
+    </v-card>
 
-    <v-tabs-items v-model="activeTab">
+    <v-tabs-items v-model="activeTab" class="bg-transparent">
       <!-- TAB 1: CASH POSITION & SHIFT SUMMARY PER USER -->
       <v-tab-item>
-        <v-card outlined class="pa-4 elevation-1 mb-6">
+        <v-card outlined class="pa-4 elevation-1 mb-6 rounded-xl">
           <!-- Filter and Action Bar -->
-          <v-row align="center" dense class="mb-3">
-            <v-col cols="12" sm="3" md="2">
-              <v-text-field v-model="cashPositionFilters.startDate" type="date" label="ແຕ່ວັນທີ (Start Date)" outlined dense
-                hide-details @change="fetchCashPositionReport"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="3" md="2">
-              <v-text-field v-model="cashPositionFilters.endDate" type="date" label="ຫາວັນທີ (End Date)" outlined dense
-                hide-details @change="fetchCashPositionReport"></v-text-field>
-            </v-col>
-            <v-col cols="12" sm="4" md="3">
-              <v-select v-model="cashPositionFilters.userId" :items="userOptions" item-text="name" item-value="id"
-                label="ເລືອກ Cashier / User" outlined dense hide-details clearable @change="fetchCashPositionReport"></v-select>
-            </v-col>
-            <v-col cols="12" sm="2" md="1">
-              <v-btn color="primary" block @click="fetchCashPositionReport" :loading="loadingCashPosition">
-                <v-icon left small>mdi-magnify</v-icon>
-                ຄົ້ນຫາ
-              </v-btn>
-            </v-col>
-            <v-spacer></v-spacer>
-            <v-col cols="12" sm="12" md="4" class="text-right d-flex justify-end">
-              <v-btn color="primary" outlined class="mr-2" @click="printCashPositionReport" :disabled="loadingCashPosition">
-                <v-icon left small>mdi-printer</v-icon>
-                ພິມລາຍງານ (Print)
-              </v-btn>
-              <v-btn color="success" outlined @click="exportToCSV" :disabled="loadingCashPosition || filteredUsers.length === 0">
-                <v-icon left small>mdi-file-excel</v-icon>
-                Export Excel
-              </v-btn>
-            </v-col>
-          </v-row>
+          <v-card outlined class="pa-3 mb-4 rounded-xl filter-toolbar-card">
+            <v-row align="center" dense>
+              <v-col cols="12" sm="3" md="2">
+                <v-text-field
+                  v-model="cashPositionFilters.startDate"
+                  type="date"
+                  label="ແຕ່ວັນທີ (Start Date)"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar-start"
+                  @change="fetchCashPositionReport"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="3" md="2">
+                <v-text-field
+                  v-model="cashPositionFilters.endDate"
+                  type="date"
+                  label="ຫາວັນທີ (End Date)"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar-end"
+                  @change="fetchCashPositionReport"
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12" sm="4" md="3">
+                <v-select
+                  v-model="cashPositionFilters.userId"
+                  :items="userOptions"
+                  item-text="name"
+                  item-value="id"
+                  label="ເລືອກ Cashier / User"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  clearable
+                  prepend-inner-icon="mdi-account"
+                  @change="fetchCashPositionReport"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="2" md="1">
+                <v-btn
+                  color="primary"
+                  block
+                  depressed
+                  class="rounded-lg font-weight-bold"
+                  :loading="loadingCashPosition"
+                  @click="fetchCashPositionReport"
+                >
+                  <v-icon left small>mdi-magnify</v-icon>
+                  ຄົ້ນຫາ
+                </v-btn>
+              </v-col>
+              <v-spacer></v-spacer>
+              <v-col cols="12" sm="12" md="4" class="text-right d-flex justify-end mt-2 mt-md-0">
+                <v-btn
+                  color="primary"
+                  outlined
+                  class="mr-2 rounded-lg font-weight-bold"
+                  :disabled="loadingCashPosition"
+                  @click="printCashPositionReport"
+                >
+                  <v-icon left small>mdi-printer</v-icon>
+                  ພິມລາຍງານ (Print)
+                </v-btn>
+                <v-btn
+                  color="success"
+                  outlined
+                  class="rounded-lg font-weight-bold"
+                  :disabled="loadingCashPosition || filteredUsers.length === 0"
+                  @click="exportToCSV"
+                >
+                  <v-icon left small>mdi-file-excel</v-icon>
+                  Export Excel
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card>
 
           <!-- KPI Summary Cards -->
           <v-row dense class="mb-4">
             <!-- 1. Total Opening Float -->
-            <v-col cols="6" sm="4" md="2">
-              <v-card class="pa-3 text-center elevation-1 rounded-lg" style="background: #f8fafc; border: 1px solid #e2e8f0;">
-                <div class="caption font-weight-bold grey--text text--darken-2 mb-1">
-                  <v-icon small color="blue-grey" class="mr-1">mdi-cash-lock</v-icon>
-                  ເງິນເປີດກະເປົາລວມ
+            <v-col cols="12" sm="6" md="2">
+              <v-card class="pa-3 elevation-1 rounded-xl kpi-metric-card kpi-card-slate" outlined>
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="caption font-weight-bold grey--text text--darken-2">ເງິນເປີດກະເປົາລວມ</span>
+                  <div class="kpi-icon-circle icon-slate">
+                    <v-icon small color="blue-grey darken-1">mdi-cash-lock</v-icon>
+                  </div>
                 </div>
-                <div class="text-subtitle-1 font-weight-bold blue-grey--text text--darken-3">
-                  {{ formatCurrency(cashPositionSummary.totalOpeningCash) }} <span class="caption">LAK</span>
+                <div class="text-h6 font-weight-bold blue-grey--text text--darken-4 text-tabular">
+                  {{ formatCurrency(cashPositionSummary.totalOpeningCash) }}
+                  <span class="caption font-weight-regular grey--text ml-1">LAK</span>
                 </div>
+                <div class="caption grey--text mt-1">Opening Float ລວມ</div>
               </v-card>
             </v-col>
 
             <!-- 2. Wallet Topup IN -->
-            <v-col cols="6" sm="4" md="2">
-              <v-card class="pa-3 text-center elevation-1 rounded-lg" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
-                <div class="caption font-weight-bold success--text text--darken-2 mb-1">
-                  <v-icon small color="success" class="mr-1">mdi-arrow-down-bold-circle</v-icon>
-                  ຕື່ມເງິນບັດ (Deposit IN)
+            <v-col cols="12" sm="6" md="2">
+              <v-card class="pa-3 elevation-1 rounded-xl kpi-metric-card kpi-card-emerald" outlined>
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="caption font-weight-bold success--text text--darken-3">ຕື່ມເງິນບັດ (Topup IN)</span>
+                  <div class="kpi-icon-circle icon-emerald">
+                    <v-icon small color="success darken-1">mdi-arrow-down-bold-circle</v-icon>
+                  </div>
                 </div>
-                <div class="text-subtitle-1 font-weight-bold success--text text--darken-3">
-                  +{{ formatCurrency(cashPositionSummary.totalTopupIn) }} <span class="caption">LAK</span>
+                <div class="text-h6 font-weight-bold success--text text--darken-3 text-tabular">
+                  +{{ formatCurrency(cashPositionSummary.totalTopupIn) }}
+                  <span class="caption font-weight-regular success--text ml-1">LAK</span>
                 </div>
+                <div class="caption grey--text mt-1">ເງິນສົດຮັບເຂົ້າບັດນັກຮຽນ</div>
               </v-card>
             </v-col>
 
             <!-- 3. Wallet Withdraw OUT -->
-            <v-col cols="6" sm="4" md="2">
-              <v-card class="pa-3 text-center elevation-1 rounded-lg" style="background: #fef2f2; border: 1px solid #fecaca;">
-                <div class="caption font-weight-bold error--text text--darken-2 mb-1">
-                  <v-icon small color="error" class="mr-1">mdi-arrow-up-bold-circle</v-icon>
-                  ຖອນເງິນບັດ (Withdraw OUT)
+            <v-col cols="12" sm="6" md="2">
+              <v-card class="pa-3 elevation-1 rounded-xl kpi-metric-card kpi-card-rose" outlined>
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="caption font-weight-bold error--text text--darken-2">ຖອນເງິນບັດ (Withdraw)</span>
+                  <div class="kpi-icon-circle icon-rose">
+                    <v-icon small color="error">mdi-arrow-up-bold-circle</v-icon>
+                  </div>
                 </div>
-                <div class="text-subtitle-1 font-weight-bold error--text text--darken-3">
-                  -{{ formatCurrency(cashPositionSummary.totalWithdrawOut) }} <span class="caption">LAK</span>
+                <div class="text-h6 font-weight-bold error--text text--darken-3 text-tabular">
+                  -{{ formatCurrency(cashPositionSummary.totalWithdrawOut) }}
+                  <span class="caption font-weight-regular error--text ml-1">LAK</span>
                 </div>
+                <div class="caption grey--text mt-1">ເງິນສົດຈ່າຍຄືນນັກຮຽນ</div>
               </v-card>
             </v-col>
 
             <!-- 4. POS Cash Sales -->
-            <v-col cols="6" sm="4" md="2">
-              <v-card class="pa-3 text-center elevation-1 rounded-lg" style="background: #f0f9ff; border: 1px solid #bae6fd;">
-                <div class="caption font-weight-bold info--text text--darken-2 mb-1">
-                  <v-icon small color="info" class="mr-1">mdi-cart-check</v-icon>
-                  POS ຂາຍເງິນສົດ
+            <v-col cols="12" sm="6" md="2">
+              <v-card class="pa-3 elevation-1 rounded-xl kpi-metric-card kpi-card-sky" outlined>
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <span class="caption font-weight-bold info--text text--darken-3">POS ຂາຍເງິນສົດ</span>
+                  <div class="kpi-icon-circle icon-sky">
+                    <v-icon small color="info darken-1">mdi-cart-check</v-icon>
+                  </div>
                 </div>
-                <div class="text-subtitle-1 font-weight-bold info--text text--darken-3">
-                  +{{ formatCurrency(cashPositionSummary.totalPosCashSales) }} <span class="caption">LAK</span>
+                <div class="text-h6 font-weight-bold info--text text--darken-3 text-tabular">
+                  +{{ formatCurrency(cashPositionSummary.totalPosCashSales) }}
+                  <span class="caption font-weight-regular info--text ml-1">LAK</span>
                 </div>
+                <div class="caption grey--text mt-1">ຍອດຂາຍເງິນສົດໜ້າຮ້ານ</div>
               </v-card>
             </v-col>
 
-            <!-- 5. Net Expected Cash in Drawers -->
-            <v-col cols="12" sm="8" md="4">
-              <v-card class="pa-3 text-center elevation-2 rounded-lg white--text" style="background: linear-gradient(135deg, #0f766e, #047857);">
-                <div class="caption font-weight-bold text-uppercase mb-1" style="color: #a7f3d0;">
-                  <v-icon small color="#a7f3d0" class="mr-1">mdi-safe</v-icon>
-                  ເງິນສົດລວມທີ່ຄວນມີໃນລີ້ນຊັກ (Grand Expected Cash)
+            <!-- 5. Net Expected Cash in Drawers (HERO CARD) -->
+            <v-col cols="12" sm="12" md="4">
+              <v-card class="pa-3 elevation-2 rounded-xl kpi-hero-card white--text">
+                <div class="d-flex align-center justify-space-between mb-2">
+                  <div class="caption font-weight-bold text-uppercase hero-badge">
+                    <v-icon x-small color="white" class="mr-1">mdi-safe</v-icon>
+                    ເງິນສົດລວມທີ່ຄວນມີໃນລີ້ນຊັກ
+                  </div>
+                  <div class="kpi-icon-circle icon-hero">
+                    <v-icon small color="white">mdi-cash-register</v-icon>
+                  </div>
                 </div>
-                <div class="text-h6 font-weight-bold text-white">
-                  {{ formatCurrency(cashPositionSummary.grandExpectedCashInDrawers) }} <span class="text-subtitle-2">LAK</span>
+                <div class="text-h5 font-weight-bold text-white text-tabular mb-1">
+                  {{ formatCurrency(cashPositionSummary.grandExpectedCashInDrawers) }}
+                  <span class="text-subtitle-2 font-weight-regular ml-1">LAK</span>
+                </div>
+                <div class="caption hero-subtext d-flex align-center justify-space-between">
+                  <span>ສູດຄິດໄລ່: ເປີດ + ຕື່ມ + POS - ຖອນ</span>
+                  <span class="font-weight-bold">Grand Expected Cash</span>
                 </div>
               </v-card>
             </v-col>
@@ -165,43 +251,68 @@
           <v-divider class="mb-4"></v-divider>
 
           <!-- Per-User Cash Position Table -->
-          <v-data-table :headers="cashPositionHeaders" :items="filteredUsers" :loading="loadingCashPosition"
-            no-data-text="ບໍ່ມີຂໍ້ມູນການເຄື່ອນໄຫວໃນຊ່ວງວັນທີນີ້" class="elevation-0" dense :items-per-page="15">
+          <v-data-table
+            :headers="cashPositionHeaders"
+            :items="filteredUsers"
+            :loading="loadingCashPosition"
+            no-data-text="ບໍ່ມີຂໍ້ມູນການເຄື່ອນໄຫວໃນຊ່ວງວັນທີນີ້"
+            class="elevation-0 modern-report-table rounded-xl"
+            dense
+            :items-per-page="15"
+          >
             <!-- User Name / Info -->
-            <template v-slot:item.userName="{ item }">
-              <div class="py-1">
-                <span class="font-weight-bold text-subtitle-2 primary--text">{{ item.userName }}</span>
-                <span class="caption grey--text ml-1">({{ item.userCode }})</span>
+            <template #[`item.userName`]="{ item }">
+              <div class="d-flex align-center py-2">
+                <v-avatar size="32" color="primary lighten-5" class="mr-2">
+                  <span class="primary--text font-weight-bold caption">{{ (item.userName || 'U').charAt(0).toUpperCase() }}</span>
+                </v-avatar>
+                <div>
+                  <div class="font-weight-bold text-subtitle-2 primary--text">{{ item.userName }}</div>
+                  <div class="caption grey--text">{{ item.userCode }}</div>
+                </div>
               </div>
             </template>
 
             <!-- Shift Status -->
-            <template v-slot:item.shift="{ item }">
-              <v-chip v-if="item.shift && item.shift.status === 'OPEN'" color="success" text-color="white" x-small class="font-weight-bold">
+            <template #[`item.shift`]="{ item }">
+              <v-chip
+                v-if="item.shift && item.shift.status === 'OPEN'"
+                color="success"
+                text-color="white"
+                x-small
+                class="font-weight-bold px-2"
+              >
+                <span class="table-live-dot mr-1"></span>
                 OPEN #{{ item.shift.id }}
               </v-chip>
-              <v-chip v-else-if="item.shift && item.shift.status === 'CLOSED'" color="grey darken-1" text-color="white" x-small>
+              <v-chip
+                v-else-if="item.shift && item.shift.status === 'CLOSED'"
+                color="blue-grey lighten-4"
+                text-color="blue-grey darken-3"
+                x-small
+                class="font-weight-bold px-2"
+              >
                 CLOSED #{{ item.shift.id }}
               </v-chip>
               <span v-else class="grey--text caption">-</span>
             </template>
 
             <!-- Opening Float -->
-            <template v-slot:item.openingCash="{ item }">
-              <span class="font-weight-medium">{{ formatCurrency(item.openingCash) }}</span>
+            <template #[`item.openingCash`]="{ item }">
+              <span class="font-weight-medium text-tabular">{{ formatCurrency(item.openingCash) }}</span>
             </template>
 
             <!-- Topup IN -->
-            <template v-slot:item.topupIn="{ item }">
-              <span class="font-weight-bold success--text">
+            <template #[`item.topupIn`]="{ item }">
+              <span class="font-weight-bold success--text text-tabular">
                 +{{ formatCurrency(item.topupIn) }}
               </span>
               <span v-if="item.topupCount > 0" class="caption grey--text ml-1">({{ item.topupCount }})</span>
             </template>
 
             <!-- Withdraw OUT -->
-            <template v-slot:item.withdrawOut="{ item }">
-              <span v-if="item.withdrawOut > 0" class="font-weight-bold error--text">
+            <template #[`item.withdrawOut`]="{ item }">
+              <span v-if="item.withdrawOut > 0" class="font-weight-bold error--text text-tabular">
                 -{{ formatCurrency(item.withdrawOut) }}
               </span>
               <span v-else class="grey--text">0</span>
@@ -209,79 +320,121 @@
             </template>
 
             <!-- POS Cash -->
-            <template v-slot:item.posCashSales="{ item }">
-              <span>{{ formatCurrency(item.posCashSales) }}</span>
+            <template #[`item.posCashSales`]="{ item }">
+              <span class="text-tabular">{{ formatCurrency(item.posCashSales) }}</span>
             </template>
 
             <!-- Total Cash IN -->
-            <template v-slot:item.totalCashIn="{ item }">
-              <strong class="teal--text text--darken-2">+{{ formatCurrency(item.totalCashIn) }}</strong>
+            <template #[`item.totalCashIn`]="{ item }">
+              <strong class="teal--text text--darken-2 text-tabular">+{{ formatCurrency(item.totalCashIn) }}</strong>
             </template>
 
             <!-- Total Cash OUT -->
-            <template v-slot:item.totalCashOut="{ item }">
-              <strong :class="item.totalCashOut > 0 ? 'red--text' : 'grey--text'">-{{ formatCurrency(item.totalCashOut) }}</strong>
+            <template #[`item.totalCashOut`]="{ item }">
+              <strong :class="item.totalCashOut > 0 ? 'red--text' : 'grey--text'" class="text-tabular">-{{ formatCurrency(item.totalCashOut) }}</strong>
             </template>
 
             <!-- Expected Cash In Drawer -->
-            <template v-slot:item.expectedCashInDrawer="{ item }">
-              <v-chip color="green lighten-5" text-color="green darken-4" small class="font-weight-bold">
+            <template #[`item.expectedCashInDrawer`]="{ item }">
+              <v-chip color="green lighten-5" text-color="green darken-4" small class="font-weight-bold text-tabular expected-cash-chip">
                 {{ formatCurrency(item.expectedCashInDrawer) }} LAK
               </v-chip>
             </template>
 
             <!-- Actual Closing Cash -->
-            <template v-slot:item.actualClosingCash="{ item }">
-              <span v-if="item.actualClosingCash !== null" class="font-weight-bold">
+            <template #[`item.actualClosingCash`]="{ item }">
+              <span v-if="item.actualClosingCash !== null" class="font-weight-bold text-tabular">
                 {{ formatCurrency(item.actualClosingCash) }}
               </span>
               <span v-else class="grey--text caption">ຍັງບໍ່ປິດ</span>
             </template>
 
             <!-- Variance -->
-            <template v-slot:item.variance="{ item }">
-              <span v-if="item.variance !== null" :class="item.variance === 0 ? 'success--text' : (item.variance > 0 ? 'primary--text font-weight-bold' : 'error--text font-weight-bold')">
+            <template #[`item.variance`]="{ item }">
+              <span
+                v-if="item.variance !== null"
+                :class="item.variance === 0 ? 'success--text' : (item.variance > 0 ? 'primary--text font-weight-bold' : 'error--text font-weight-bold')"
+                class="text-tabular"
+              >
                 {{ item.variance > 0 ? '+' : '' }}{{ formatCurrency(item.variance) }}
               </span>
               <span v-else class="grey--text">-</span>
             </template>
 
             <!-- Non-Cash NFC -->
-            <template v-slot:item.posNfcSales="{ item }">
-              <span class="purple--text font-weight-medium">{{ formatCurrency(item.posNfcSales) }}</span>
+            <template #[`item.posNfcSales`]="{ item }">
+              <span class="purple--text font-weight-medium text-tabular">{{ formatCurrency(item.posNfcSales) }}</span>
             </template>
 
             <!-- Actions -->
-            <template v-slot:item.actions="{ item }">
-              <div class="d-flex align-center">
-                <v-btn icon color="success" small @click="openCashDropFromReport(item)" title="ມອບເງິນສົດເຂົ້າບັນຊີກາງ (Cash Drop)">
-                  <v-icon small>mdi-bank-transfer-out</v-icon>
-                </v-btn>
-                <v-btn icon color="primary" small @click="openUserDrilldown(item)" title="ເບິ່ງລາຍການຍ່ອຍ (Drilldown)">
-                  <v-icon small>mdi-format-list-bulleted</v-icon>
-                </v-btn>
-                <v-btn icon color="teal" small @click="printUserSlip(item)" title="ພິມ Slip ປິດກະເປົາ (Print Slip)">
-                  <v-icon small>mdi-receipt</v-icon>
-                </v-btn>
+            <template #[`item.actions`]="{ item }">
+              <div class="d-flex align-center justify-center">
+                <v-tooltip bottom>
+                  <template #[`activator`]="{ on, attrs }">
+                    <v-btn
+                      icon
+                      color="teal darken-1"
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="openCashDropFromReport(item)"
+                    >
+                      <v-icon small>mdi-bank-transfer-out</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ມອບເງິນສົດ (Cash Drop)</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                  <template #[`activator`]="{ on, attrs }">
+                    <v-btn
+                      icon
+                      color="primary"
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="openUserDrilldown(item)"
+                    >
+                      <v-icon small>mdi-format-list-bulleted</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ລາຍການຍ່ອຍ (Drilldown)</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                  <template #[`activator`]="{ on, attrs }">
+                    <v-btn
+                      icon
+                      color="blue-grey"
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                      @click="printUserSlip(item)"
+                    >
+                      <v-icon small>mdi-receipt</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>ພິມ Slip ປິດກະເປົາ</span>
+                </v-tooltip>
               </div>
             </template>
 
             <!-- Summary Table Footer -->
-            <template v-slot:body.append>
-              <tr class="font-weight-bold grey lighten-4">
-                <td colspan="3" class="text-center">ຍອດລວມທັງໝົດ (Grand Total)</td>
-                <td class="text-right">{{ formatCurrency(cashPositionSummary.totalOpeningCash) }}</td>
-                <td class="text-right success--text">+{{ formatCurrency(cashPositionSummary.totalTopupIn) }}</td>
-                <td class="text-right error--text">-{{ formatCurrency(cashPositionSummary.totalWithdrawOut) }}</td>
-                <td class="text-right">{{ formatCurrency(cashPositionSummary.totalPosCashSales) }}</td>
-                <td class="text-right teal--text text--darken-3">+{{ formatCurrency(cashPositionSummary.grandTotalCashIn) }}</td>
-                <td class="text-right red--text">-{{ formatCurrency(cashPositionSummary.grandTotalCashOut) }}</td>
-                <td class="text-right font-weight-bold green--text text--darken-4" style="font-size: 13px;">
+            <template #[`body.append`]>
+              <tr class="font-weight-bold grand-total-row">
+                <td colspan="2" class="text-center py-3">ຍອດລວມທັງໝົດ (Grand Total)</td>
+                <td class="text-right text-tabular">{{ formatCurrency(cashPositionSummary.totalOpeningCash) }}</td>
+                <td class="text-right success--text text-tabular">+{{ formatCurrency(cashPositionSummary.totalTopupIn) }}</td>
+                <td class="text-right error--text text-tabular">-{{ formatCurrency(cashPositionSummary.totalWithdrawOut) }}</td>
+                <td class="text-right text-tabular">{{ formatCurrency(cashPositionSummary.totalPosCashSales) }}</td>
+                <td class="text-right teal--text text--darken-3 text-tabular">+{{ formatCurrency(cashPositionSummary.grandTotalCashIn) }}</td>
+                <td class="text-right red--text text-tabular">-{{ formatCurrency(cashPositionSummary.grandTotalCashOut) }}</td>
+                <td class="text-right font-weight-bold green--text text--darken-4 text-tabular grand-total-highlight">
                   {{ formatCurrency(cashPositionSummary.grandExpectedCashInDrawers) }} LAK
                 </td>
-                <td class="text-right">{{ cashPositionSummary.grandActualClosingCash ? formatCurrency(cashPositionSummary.grandActualClosingCash) : '-' }}</td>
-                <td class="text-right">-</td>
-                <td class="text-right purple--text">{{ formatCurrency(cashPositionSummary.totalPosNfcSales) }}</td>
+                <td class="text-right text-tabular">{{ cashPositionSummary.grandActualClosingCash ? formatCurrency(cashPositionSummary.grandActualClosingCash) : '-' }}</td>
+                <td class="text-right text-tabular">-</td>
+                <td class="text-right purple--text text-tabular">{{ formatCurrency(cashPositionSummary.totalPosNfcSales) }}</td>
                 <td></td>
               </tr>
             </template>
@@ -291,110 +444,203 @@
 
       <!-- TAB 2: DAILY PAYMENT COLLECTIONS -->
       <v-tab-item>
-        <v-card outlined class="pa-4 elevation-1 mb-6">
+        <v-card outlined class="pa-4 elevation-1 mb-6 rounded-xl">
           <div class="d-flex justify-space-between align-center mb-4">
             <div class="d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-chart-line</v-icon>
-              <span class="text-subtitle-1 font-weight-bold">ຍອດເກັບເງິນປະຈຳວັນ (Daily Collection Summary)</span>
+              <div class="subpage-icon-box mr-3 bg-info-light">
+                <v-icon color="info">mdi-chart-timeline-variant</v-icon>
+              </div>
+              <div>
+                <h2 class="text-subtitle-1 font-weight-bold mb-0">ຍອດເກັບເງິນປະຈຳວັນ (Daily Collection Summary)</h2>
+                <span class="caption grey--text">ລວມຍອດຮັບຊຳລະແຕ່ລະ Cashier ແລະ ຮູບແບບການຊຳລະ</span>
+              </div>
             </div>
-            <v-btn icon color="primary" @click="fetchDailyReport">
+            <v-btn icon color="primary" class="rounded-lg" @click="fetchDailyReport">
               <v-icon>mdi-refresh</v-icon>
             </v-btn>
           </div>
 
-          <v-row align="center" class="mb-4">
-            <v-col cols="12" sm="4">
-              <v-text-field v-model="reportDate" type="date" label="ເລືອກວັນທີ (Select Date)" outlined dense
-                hide-details @change="fetchDailyReport"></v-text-field>
-            </v-col>
-          </v-row>
+          <v-card outlined class="pa-3 mb-4 rounded-xl filter-toolbar-card">
+            <v-row align="center" dense>
+              <v-col cols="12" sm="4">
+                <v-text-field
+                  v-model="reportDate"
+                  type="date"
+                  label="ເລືອກວັນທີ (Select Date)"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  prepend-inner-icon="mdi-calendar"
+                  @change="fetchDailyReport"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-card>
 
-          <v-divider class="mb-4"></v-divider>
-
-          <v-data-table :headers="dailyReportHeaders" :items="dailyCollections" :loading="loadingDailyReport"
-            no-data-text="ບໍ່ມີຍອດເກັບເງິນໃນວັນທີນີ້" class="elevation-0" dense hide-default-footer>
-            <template v-slot:item.cashier="{ item }">
-              <span class="font-weight-medium">{{ item.cashier }}</span>
+          <v-data-table
+            :headers="dailyReportHeaders"
+            :items="dailyCollections"
+            :loading="loadingDailyReport"
+            no-data-text="ບໍ່ມີຍອດເກັບເງິນໃນວັນທີນີ້"
+            class="elevation-0 modern-report-table rounded-xl mb-4"
+            dense
+            hide-default-footer
+          >
+            <template #[`item.cashier`]="{ item }">
+              <div class="d-flex align-center py-1">
+                <v-avatar size="28" color="primary lighten-5" class="mr-2">
+                  <v-icon x-small color="primary">mdi-account</v-icon>
+                </v-avatar>
+                <span class="font-weight-medium">{{ item.cashier }}</span>
+              </div>
             </template>
-            <template v-slot:item.paymentMethod="{ item }">
-              <v-chip color="info" outlined small>{{ item.paymentMethod }}</v-chip>
+            <template #[`item.paymentMethod`]="{ item }">
+              <v-chip
+                :color="item.paymentMethod === 'CASH' ? 'success' : (item.paymentMethod === 'NFC' ? 'purple' : 'info')"
+                outlined
+                small
+                class="font-weight-bold"
+              >
+                {{ item.paymentMethod }}
+              </v-chip>
             </template>
-            <template v-slot:item.totalAmount="{ item }">
-              <span class="font-weight-bold">{{ formatCurrency(item.totalAmount) }} LAK</span>
+            <template #[`item.totalAmount`]="{ item }">
+              <span class="font-weight-bold text-tabular">{{ formatCurrency(item.totalAmount) }} LAK</span>
             </template>
           </v-data-table>
 
-          <v-alert type="success" text class="mt-4 mb-0" icon="mdi-cash">
+          <!-- Grand Total Banner -->
+          <v-card class="pa-4 rounded-xl total-summary-banner elevation-1" outlined>
             <div class="d-flex justify-space-between align-center">
-              <span class="font-weight-bold text-subtitle-1">ຍອດເກັບລວມທັງໝົດ:</span>
-              <strong class="text-h6 text-success">{{ formatCurrency(dailyReportTotal) }} LAK</strong>
+              <div class="d-flex align-center">
+                <v-icon color="success" size="32" class="mr-3">mdi-cash-check</v-icon>
+                <div>
+                  <div class="font-weight-bold text-subtitle-1">ຍອດເກັບລວມທັງໝົດປະຈຳວັນ:</div>
+                  <div class="caption grey--text">Total Daily Collections Across All Channels</div>
+                </div>
+              </div>
+              <strong class="text-h5 success--text text--darken-3 font-weight-bold text-tabular">
+                {{ formatCurrency(dailyReportTotal) }} LAK
+              </strong>
             </div>
-          </v-alert>
+          </v-card>
         </v-card>
       </v-tab-item>
 
       <!-- TAB 3: OUTSTANDING BALANCES -->
       <v-tab-item>
-        <v-card outlined class="pa-4 elevation-1 mb-6">
+        <v-card outlined class="pa-4 elevation-1 mb-6 rounded-xl">
           <div class="d-flex justify-space-between align-center mb-4">
             <div class="d-flex align-center">
-              <v-icon color="error" class="mr-2">mdi-account-cash</v-icon>
-              <span class="text-subtitle-1 font-weight-bold text-error">ຄ້າງຊຳລະສະສົມ (Outstanding Balances)</span>
+              <div class="subpage-icon-box mr-3 bg-error-light">
+                <v-icon color="error">mdi-account-alert-outline</v-icon>
+              </div>
+              <div>
+                <h2 class="text-subtitle-1 font-weight-bold text-error mb-0">ຄ້າງຊຳລະສະສົມ (Outstanding Balances)</h2>
+                <span class="caption grey--text">ກວດສອບນັກຮຽນ ແລະ ໃບບິນທີ່ຍັງບໍ່ທັນຊຳລະຄົບ</span>
+              </div>
             </div>
             <div class="d-flex align-center">
-              <v-btn color="error" outlined small @click="printOutstandingReport" class="mr-2">
+              <v-btn color="error" outlined small class="mr-2 rounded-lg font-weight-bold" @click="printOutstandingReport">
                 <v-icon left small>mdi-printer</v-icon>
                 ພິມລາຍງານ (Print)
               </v-btn>
-              <v-btn icon color="error" @click="fetchOutstandingReport">
+              <v-btn icon color="error" class="rounded-lg" @click="fetchOutstandingReport">
                 <v-icon>mdi-refresh</v-icon>
               </v-btn>
             </div>
           </div>
 
-          <v-row dense class="mb-2">
-            <v-col cols="12" sm="4">
-              <v-select v-model="outstandingFilters.classId" :items="classes" item-text="name" item-value="id"
-                label="ຊັ້ນຮຽນ (Class)" outlined dense hide-details clearable @change="fetchOutstandingReport"></v-select>
-            </v-col>
-            <v-col cols="12" sm="4">
-              <v-select v-model="outstandingFilters.feeItemId" :items="feeItems" item-text="name" item-value="id"
-                label="ຄ່າທໍານຽມ (Fee Item)" outlined dense hide-details clearable @change="fetchOutstandingReport"></v-select>
-            </v-col>
-          </v-row>
+          <v-card outlined class="pa-3 mb-4 rounded-xl filter-toolbar-card">
+            <v-row dense align="center">
+              <v-col cols="12" sm="4">
+                <v-select
+                  v-model="outstandingFilters.classId"
+                  :items="classes"
+                  item-text="name"
+                  item-value="id"
+                  label="ຊັ້ນຮຽນ (Class)"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  clearable
+                  prepend-inner-icon="mdi-google-classroom"
+                  @change="fetchOutstandingReport"
+                ></v-select>
+              </v-col>
+              <v-col cols="12" sm="4">
+                <v-select
+                  v-model="outstandingFilters.feeItemId"
+                  :items="feeItems"
+                  item-text="name"
+                  item-value="id"
+                  label="ຄ່າທໍານຽມ (Fee Item)"
+                  outlined
+                  dense
+                  hide-details="auto"
+                  clearable
+                  prepend-inner-icon="mdi-tag-text-outline"
+                  @change="fetchOutstandingReport"
+                ></v-select>
+              </v-col>
+            </v-row>
+          </v-card>
 
-          <v-divider class="mb-4"></v-divider>
-
-          <v-data-table :headers="outstandingReportHeaders" :items="outstandingInvoices"
-            :loading="loadingOutstandingReport" no-data-text="ບໍ່ມີຍອດຄ້າງຊຳລະ" class="elevation-0" :items-per-page="10">
-            <template v-slot:item.student="{ item }">
-              <div v-if="item.student" class="font-weight-medium">
-                {{ item.student.name || item.studentName }}
-                <div class="caption grey--text">ID: {{ item.student.studentId || item.studentId }}</div>
+          <v-data-table
+            :headers="outstandingReportHeaders"
+            :items="outstandingInvoices"
+            :loading="loadingOutstandingReport"
+            no-data-text="ບໍ່ມີຍອດຄ້າງຊຳລະ"
+            class="elevation-0 modern-report-table rounded-xl"
+            :items-per-page="10"
+          >
+            <template #[`item.student`]="{ item }">
+              <div v-if="item.student" class="d-flex align-center py-1">
+                <v-avatar size="30" color="primary lighten-5" class="mr-2">
+                  <v-icon small color="primary">mdi-school</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="font-weight-medium">{{ item.student.name || item.studentName }}</div>
+                  <v-chip x-small color="primary" outlined class="mt-1">ID: {{ item.student.studentId || item.studentId }}</v-chip>
+                </div>
               </div>
             </template>
-            <template v-slot:item.invoiceNumber="{ item }">
+            <template #[`item.invoiceNumber`]="{ item }">
               <div class="font-weight-medium">{{ item.invoiceNumber }}</div>
               <div v-if="item.feeItemDetail" class="caption teal--text font-weight-bold">{{ item.feeItemDetail }}</div>
             </template>
-            <template v-slot:item.parent="{ item }">
+            <template #[`item.parent`]="{ item }">
               <div v-if="item.student && item.student.parentName" class="caption">
-                {{ item.student.parentName }}
-                <div class="text-info font-weight-bold">{{ item.student.parentPhone }}</div>
+                <div class="font-weight-medium">{{ item.student.parentName }}</div>
+                <div class="d-flex align-center text-info font-weight-bold mt-1">
+                  <v-icon x-small color="info" class="mr-1">mdi-phone</v-icon>
+                  {{ item.student.parentPhone }}
+                </div>
               </div>
               <div v-else-if="item.parentName" class="caption">
-                {{ item.parentName }}
-                <div class="text-info font-weight-bold">{{ item.parentPhone }}</div>
+                <div class="font-weight-medium">{{ item.parentName }}</div>
+                <div class="d-flex align-center text-info font-weight-bold mt-1">
+                  <v-icon x-small color="info" class="mr-1">mdi-phone</v-icon>
+                  {{ item.parentPhone }}
+                </div>
               </div>
               <span v-else class="grey--text">-</span>
             </template>
-            <template v-slot:item.balanceAmount="{ item }">
-              <span class="text-error font-weight-bold">{{ formatCurrency(item.balanceAmount) }} LAK</span>
+            <template #[`item.balanceAmount`]="{ item }">
+              <span class="text-error font-weight-bold text-tabular">{{ formatCurrency(item.balanceAmount) }} LAK</span>
             </template>
-            <template v-slot:item.dueDate="{ item }">
-              <span :class="isOverdue(item.dueDate) ? 'text-error font-weight-bold' : ''">
-                {{ formatDate(item.dueDate) }}
-              </span>
+            <template #[`item.dueDate`]="{ item }">
+              <v-chip
+                v-if="isOverdue(item.dueDate)"
+                color="error lighten-5"
+                text-color="error darken-2"
+                small
+                class="font-weight-bold"
+              >
+                <v-icon x-small color="error" class="mr-1">mdi-alert-circle</v-icon>
+                {{ formatDate(item.dueDate) }} (ກາຍກຳນົດ)
+              </v-chip>
+              <span v-else class="caption text-tabular">{{ formatDate(item.dueDate) }}</span>
             </template>
           </v-data-table>
         </v-card>
@@ -402,18 +648,23 @@
 
       <!-- TAB 4: CLASS & ROOM SUMMARY -->
       <v-tab-item>
-        <v-card outlined class="pa-4 elevation-1 mb-6">
+        <v-card outlined class="pa-4 elevation-1 mb-6 rounded-xl">
           <div class="d-flex justify-space-between align-center mb-4">
             <div class="d-flex align-center">
-              <v-icon color="primary" class="mr-2">mdi-google-classroom</v-icon>
-              <span class="text-subtitle-1 font-weight-bold">ລາຍງານຍອດເກັບເງິນຕາມຊັ້ນຮຽນ ແລະ ຫ້ອງຮຽນ (Class & Room Invoice Summary)</span>
+              <div class="subpage-icon-box mr-3 bg-purple-light">
+                <v-icon color="deep-purple">mdi-google-classroom</v-icon>
+              </div>
+              <div>
+                <h2 class="text-subtitle-1 font-weight-bold mb-0">ລາຍງານຍອດເກັບເງິນຕາມຊັ້ນຮຽນ ແລະ ຫ້ອງຮຽນ</h2>
+                <span class="caption grey--text">Class & Room Invoice Collection Summary</span>
+              </div>
             </div>
             <div class="d-flex align-center">
-              <v-btn color="primary" outlined small @click="printClassRoomSummary" class="mr-2">
+              <v-btn color="primary" outlined small class="mr-2 rounded-lg font-weight-bold" @click="printClassRoomSummary">
                 <v-icon left small>mdi-printer</v-icon>
                 ພິມລາຍງານ (Print)
               </v-btn>
-              <v-btn icon color="primary" @click="fetchClassRoomSummary">
+              <v-btn icon color="primary" class="rounded-lg" @click="fetchClassRoomSummary">
                 <v-icon>mdi-refresh</v-icon>
               </v-btn>
             </div>
@@ -421,28 +672,42 @@
 
           <v-divider class="mb-4"></v-divider>
 
-          <v-data-table :headers="classRoomSummaryHeaders" :items="classRoomSummary" :loading="loadingClassRoomSummary"
-            no-data-text="ບໍ່ມີຂໍ້ມູນຍອດເກັບເງິນຕາມຊັ້ນ ແລະ ຫ້ອງ" class="elevation-0" dense>
-            <template v-slot:item.className="{ item }">
+          <v-data-table
+            :headers="classRoomSummaryHeaders"
+            :items="classRoomSummary"
+            :loading="loadingClassRoomSummary"
+            no-data-text="ບໍ່ມີຂໍ້ມູນຍອດເກັບເງິນຕາມຊັ້ນ ແລະ ຫ້ອງ"
+            class="elevation-0 modern-report-table rounded-xl"
+            dense
+          >
+            <template #[`item.className`]="{ item }">
               <span class="font-weight-bold">{{ item.className }}</span>
             </template>
-            <template v-slot:item.roomName="{ item }">
-              <span class="font-weight-medium text-info">{{ item.roomName }}</span>
+            <template #[`item.roomName`]="{ item }">
+              <v-chip small color="info lighten-5" text-color="info darken-3" class="font-weight-medium">
+                {{ item.roomName }}
+              </v-chip>
             </template>
-            <template v-slot:item.totalAmount="{ item }">
-              <span>{{ formatCurrency(item.totalAmount) }} LAK</span>
+            <template #[`item.totalAmount`]="{ item }">
+              <span class="text-tabular">{{ formatCurrency(item.totalAmount) }} LAK</span>
             </template>
-            <template v-slot:item.paidAmount="{ item }">
-              <span class="text-success font-weight-bold">{{ formatCurrency(item.paidAmount) }} LAK</span>
+            <template #[`item.paidAmount`]="{ item }">
+              <span class="text-success font-weight-bold text-tabular">{{ formatCurrency(item.paidAmount) }} LAK</span>
             </template>
-            <template v-slot:item.balanceAmount="{ item }">
-              <span class="text-error font-weight-bold">{{ formatCurrency(item.balanceAmount) }} LAK</span>
+            <template #[`item.balanceAmount`]="{ item }">
+              <span class="text-error font-weight-bold text-tabular">{{ formatCurrency(item.balanceAmount) }} LAK</span>
             </template>
-            <template v-slot:item.completion="{ item }">
+            <template #[`item.completion`]="{ item }">
               <div class="d-flex align-center">
-                <v-progress-linear :value="getCompletionPercentage(item)" color="success" height="15" rounded>
-                  <template v-slot:default="{ value }">
-                    <strong class="white--text" style="font-size: 9px;">{{ Math.round(value) }}%</strong>
+                <v-progress-linear
+                  :value="getCompletionPercentage(item)"
+                  color="success"
+                  height="16"
+                  rounded
+                  class="progress-gradient"
+                >
+                  <template #default="{ value }">
+                    <strong class="white--text" style="font-size: 10px;">{{ Math.round(value) }}%</strong>
                   </template>
                 </v-progress-linear>
               </div>
@@ -453,18 +718,23 @@
 
       <!-- TAB 5: FEE ITEM SUMMARY -->
       <v-tab-item>
-        <v-card outlined class="pa-4 elevation-1 mb-6">
+        <v-card outlined class="pa-4 elevation-1 mb-6 rounded-xl">
           <div class="d-flex justify-space-between align-center mb-4">
             <div class="d-flex align-center">
-              <v-icon color="teal" class="mr-2">mdi-cash-multiple</v-icon>
-              <span class="text-subtitle-1 font-weight-bold">ລາຍງານຍອດເກັບເງິນຕາມປະເພດຄ່າທໍານຽມ (Fee Item Invoice Summary)</span>
+              <div class="subpage-icon-box mr-3 bg-teal-light">
+                <v-icon color="teal">mdi-tag-text-outline</v-icon>
+              </div>
+              <div>
+                <h2 class="text-subtitle-1 font-weight-bold mb-0">ລາຍງານຍອດເກັບເງິນຕາມປະເພດຄ່າທໍານຽມ</h2>
+                <span class="caption grey--text">Fee Item Collection Summary</span>
+              </div>
             </div>
             <div class="d-flex align-center">
-              <v-btn color="primary" outlined small @click="printFeeItemSummary" class="mr-2">
+              <v-btn color="primary" outlined small class="mr-2 rounded-lg font-weight-bold" @click="printFeeItemSummary">
                 <v-icon left small>mdi-printer</v-icon>
                 ພິມລາຍງານ (Print)
               </v-btn>
-              <v-btn icon color="primary" @click="fetchFeeItemSummary">
+              <v-btn icon color="primary" class="rounded-lg" @click="fetchFeeItemSummary">
                 <v-icon>mdi-refresh</v-icon>
               </v-btn>
             </div>
@@ -472,25 +742,40 @@
 
           <v-divider class="mb-4"></v-divider>
 
-          <v-data-table :headers="feeItemSummaryHeaders" :items="feeItemSummary" :loading="loadingFeeItemSummary"
-            no-data-text="ບໍ່ມີຂໍ້ມູນຍອດເກັບເງິນຕາມປະເພດຄ່າທໍານຽມ" class="elevation-0" dense>
-            <template v-slot:item.feeItemName="{ item }">
-              <span class="font-weight-bold">{{ item.feeItemName }}</span>
-            </template>
-            <template v-slot:item.totalBilled="{ item }">
-              <span>{{ formatCurrency(item.totalBilled) }} LAK</span>
-            </template>
-            <template v-slot:item.totalPaid="{ item }">
-              <span class="text-success font-weight-bold">{{ formatCurrency(item.totalPaid) }} LAK</span>
-            </template>
-            <template v-slot:item.totalPending="{ item }">
-              <span class="text-error font-weight-bold">{{ formatCurrency(item.totalPending) }} LAK</span>
-            </template>
-            <template v-slot:item.completion="{ item }">
+          <v-data-table
+            :headers="feeItemSummaryHeaders"
+            :items="feeItemSummary"
+            :loading="loadingFeeItemSummary"
+            no-data-text="ບໍ່ມີຂໍ້ມູນຍອດເກັບເງິນຕາມປະເພດຄ່າທໍານຽມ"
+            class="elevation-0 modern-report-table rounded-xl"
+            dense
+          >
+            <template #[`item.feeItemName`]="{ item }">
               <div class="d-flex align-center">
-                <v-progress-linear :value="getFeeItemCompletionPercentage(item)" color="success" height="15" rounded>
-                  <template v-slot:default="{ value }">
-                    <strong class="white--text" style="font-size: 9px;">{{ Math.round(value) }}%</strong>
+                <v-icon x-small color="teal" class="mr-2">mdi-tag</v-icon>
+                <span class="font-weight-bold">{{ item.feeItemName }}</span>
+              </div>
+            </template>
+            <template #[`item.totalBilled`]="{ item }">
+              <span class="text-tabular">{{ formatCurrency(item.totalBilled) }} LAK</span>
+            </template>
+            <template #[`item.totalPaid`]="{ item }">
+              <span class="text-success font-weight-bold text-tabular">{{ formatCurrency(item.totalPaid) }} LAK</span>
+            </template>
+            <template #[`item.totalPending`]="{ item }">
+              <span class="text-error font-weight-bold text-tabular">{{ formatCurrency(item.totalPending) }} LAK</span>
+            </template>
+            <template #[`item.completion`]="{ item }">
+              <div class="d-flex align-center">
+                <v-progress-linear
+                  :value="getFeeItemCompletionPercentage(item)"
+                  color="teal"
+                  height="16"
+                  rounded
+                  class="progress-gradient"
+                >
+                  <template #default="{ value }">
+                    <strong class="white--text" style="font-size: 10px;">{{ Math.round(value) }}%</strong>
                   </template>
                 </v-progress-linear>
               </div>
@@ -501,62 +786,70 @@
     </v-tabs-items>
 
     <!-- TRANSACTION DRILLDOWN MODAL -->
-    <v-dialog v-model="drilldownDialog" max-width="850px" scrollable>
-      <v-card v-if="selectedUserDrilldown">
-        <v-card-title class="primary white--text font-weight-bold d-flex justify-space-between align-center">
+    <v-dialog v-model="drilldownDialog" max-width="880px" scrollable>
+      <v-card v-if="selectedUserDrilldown" class="rounded-xl overflow-hidden">
+        <v-card-title class="dialog-header-primary white--text font-weight-bold d-flex justify-space-between align-center py-3">
           <div class="d-flex align-center">
-            <v-icon left color="white">mdi-account-details</v-icon>
+            <v-avatar size="32" color="white" class="mr-2">
+              <v-icon color="primary" small>mdi-account-details</v-icon>
+            </v-avatar>
             <span>ລາຍການເຄື່ອນໄຫວລະອຽດ: {{ selectedUserDrilldown.userName }} ({{ selectedUserDrilldown.userCode }})</span>
           </div>
-          <v-btn icon dark @click="drilldownDialog = false">
+          <v-btn icon dark small @click="drilldownDialog = false">
             <v-icon>mdi-close</v-icon>
           </v-btn>
         </v-card-title>
 
         <v-card-text class="pa-4">
-          <!-- Summary Header in Dialog -->
+          <!-- Summary Metric Cards in Dialog -->
           <v-row dense class="mb-3">
             <v-col cols="4">
-              <div class="caption grey--text">ເງິນເປີດກະເປົາ:</div>
-              <div class="font-weight-bold">{{ formatCurrency(selectedUserDrilldown.openingCash) }} LAK</div>
+              <v-card class="pa-3 rounded-lg text-center bg-slate-light" outlined>
+                <div class="caption grey--text text--darken-1 mb-1">ເງິນເປີດກະເປົາ:</div>
+                <div class="font-weight-bold text-subtitle-1 text-tabular">{{ formatCurrency(selectedUserDrilldown.openingCash) }} LAK</div>
+              </v-card>
             </v-col>
             <v-col cols="4">
-              <div class="caption grey--text">ລວມຮັບເຂົ້າ (Cash IN):</div>
-              <div class="font-weight-bold success--text">+{{ formatCurrency(selectedUserDrilldown.totalCashIn) }} LAK</div>
+              <v-card class="pa-3 rounded-lg text-center bg-emerald-light" outlined>
+                <div class="caption success--text text--darken-2 mb-1">ລວມຮັບເຂົ້າ (Cash IN):</div>
+                <div class="font-weight-bold success--text text-subtitle-1 text-tabular">+{{ formatCurrency(selectedUserDrilldown.totalCashIn) }} LAK</div>
+              </v-card>
             </v-col>
             <v-col cols="4">
-              <div class="caption grey--text">ເງິນສົດຄວນມີໃນລີ້ນຊັກ:</div>
-              <div class="font-weight-bold teal--text text--darken-3">{{ formatCurrency(selectedUserDrilldown.expectedCashInDrawer) }} LAK</div>
+              <v-card class="pa-3 rounded-lg text-center bg-teal-light" outlined>
+                <div class="caption teal--text text--darken-2 mb-1">ເງິນສົດຄວນມີໃນລີ້ນຊັກ:</div>
+                <div class="font-weight-bold teal--text text--darken-3 text-subtitle-1 text-tabular">{{ formatCurrency(selectedUserDrilldown.expectedCashInDrawer) }} LAK</div>
+              </v-card>
             </v-col>
           </v-row>
 
-          <v-tabs v-model="drilldownTab" color="primary" dense>
-            <v-tab>
+          <v-tabs v-model="drilldownTab" color="primary" dense class="mb-2">
+            <v-tab class="font-weight-bold">
               <v-badge :content="selectedUserDrilldown.transactions.topups.length" :value="selectedUserDrilldown.transactions.topups.length" color="success" inline>
                 ຕື່ມເງິນບັດ (Top-up IN)
               </v-badge>
             </v-tab>
-            <v-tab>
+            <v-tab class="font-weight-bold">
               <v-badge :content="selectedUserDrilldown.transactions.withdrawals.length" :value="selectedUserDrilldown.transactions.withdrawals.length" color="error" inline>
                 ຖອນເງິນບັດ (Withdraw OUT)
               </v-badge>
             </v-tab>
-            <v-tab>
+            <v-tab class="font-weight-bold">
               <v-badge :content="selectedUserDrilldown.transactions.posSales.length" :value="selectedUserDrilldown.transactions.posSales.length" color="info" inline>
                 POS ຂາຍສິນຄ້າ
               </v-badge>
             </v-tab>
-            <v-tab>
+            <v-tab class="font-weight-bold">
               <v-badge :content="selectedUserDrilldown.transactions.feePayments.length" :value="selectedUserDrilldown.transactions.feePayments.length" color="teal" inline>
                 ຄ່າຮຽນ (Fee Payments)
               </v-badge>
             </v-tab>
           </v-tabs>
 
-          <v-tabs-items v-model="drilldownTab" class="mt-3">
+          <v-tabs-items v-model="drilldownTab" class="mt-2">
             <!-- 1. Topups List -->
             <v-tab-item>
-              <v-simple-table dense>
+              <v-simple-table dense class="dialog-table">
                 <thead>
                   <tr>
                     <th>ເວລາ</th>
@@ -568,11 +861,11 @@
                 </thead>
                 <tbody>
                   <tr v-for="t in selectedUserDrilldown.transactions.topups" :key="t.id">
-                    <td>{{ formatDateTime(t.createdAt) }}</td>
+                    <td class="caption">{{ formatDateTime(t.createdAt) }}</td>
                     <td><v-chip x-small color="primary" outlined>{{ t.studentCode || '-' }}</v-chip></td>
                     <td class="font-weight-medium">{{ t.studentName }}</td>
                     <td class="caption grey--text">{{ t.description }}</td>
-                    <td class="text-right font-weight-bold success--text">+{{ formatCurrency(t.amount) }}</td>
+                    <td class="text-right font-weight-bold success--text text-tabular">+{{ formatCurrency(t.amount) }}</td>
                   </tr>
                   <tr v-if="selectedUserDrilldown.transactions.topups.length === 0">
                     <td colspan="5" class="text-center py-4 grey--text">ບໍ່ມີລາຍການຕື່ມເງິນ</td>
@@ -583,7 +876,7 @@
 
             <!-- 2. Withdrawals List -->
             <v-tab-item>
-              <v-simple-table dense>
+              <v-simple-table dense class="dialog-table">
                 <thead>
                   <tr>
                     <th>ເວລາ</th>
@@ -595,11 +888,11 @@
                 </thead>
                 <tbody>
                   <tr v-for="w in selectedUserDrilldown.transactions.withdrawals" :key="w.id">
-                    <td>{{ formatDateTime(w.createdAt) }}</td>
+                    <td class="caption">{{ formatDateTime(w.createdAt) }}</td>
                     <td><v-chip x-small color="error" outlined>{{ w.studentCode || '-' }}</v-chip></td>
                     <td class="font-weight-medium">{{ w.studentName }}</td>
                     <td class="caption grey--text">{{ w.description }}</td>
-                    <td class="text-right font-weight-bold error--text">-{{ formatCurrency(w.amount) }}</td>
+                    <td class="text-right font-weight-bold error--text text-tabular">-{{ formatCurrency(w.amount) }}</td>
                   </tr>
                   <tr v-if="selectedUserDrilldown.transactions.withdrawals.length === 0">
                     <td colspan="5" class="text-center py-4 grey--text">ບໍ່ມີລາຍການຖອນເງິນ</td>
@@ -610,7 +903,7 @@
 
             <!-- 3. POS Sales List -->
             <v-tab-item>
-              <v-simple-table dense>
+              <v-simple-table dense class="dialog-table">
                 <thead>
                   <tr>
                     <th>ເວລາ</th>
@@ -621,14 +914,14 @@
                 </thead>
                 <tbody>
                   <tr v-for="s in selectedUserDrilldown.transactions.posSales" :key="s.id">
-                    <td>{{ formatDateTime(s.createdAt) }}</td>
+                    <td class="caption">{{ formatDateTime(s.createdAt) }}</td>
                     <td>{{ s.referenceNo || '#' + s.id }}</td>
                     <td>
                       <v-chip x-small :color="s.paymentCode === 'CASH' ? 'success' : (s.paymentCode === 'NFC' ? 'purple' : 'info')" text-color="white">
                         {{ s.paymentName || s.paymentCode }}
                       </v-chip>
                     </td>
-                    <td class="text-right font-weight-bold">{{ formatCurrency(s.total) }}</td>
+                    <td class="text-right font-weight-bold text-tabular">{{ formatCurrency(s.total) }}</td>
                   </tr>
                   <tr v-if="selectedUserDrilldown.transactions.posSales.length === 0">
                     <td colspan="4" class="text-center py-4 grey--text">ບໍ່ມີລາຍການຂາຍ POS</td>
@@ -639,7 +932,7 @@
 
             <!-- 4. Fee Payments List -->
             <v-tab-item>
-              <v-simple-table dense>
+              <v-simple-table dense class="dialog-table">
                 <thead>
                   <tr>
                     <th>ເວລາ</th>
@@ -650,10 +943,10 @@
                 </thead>
                 <tbody>
                   <tr v-for="f in selectedUserDrilldown.transactions.feePayments" :key="f.id">
-                    <td>{{ formatDateTime(f.createdAt) }}</td>
+                    <td class="caption">{{ formatDateTime(f.createdAt) }}</td>
                     <td>{{ f.referenceNo || '#' + f.id }}</td>
                     <td><v-chip x-small color="info" outlined>{{ f.paymentName || f.paymentCode }}</v-chip></td>
-                    <td class="text-right font-weight-bold teal--text">+{{ formatCurrency(f.amount) }}</td>
+                    <td class="text-right font-weight-bold teal--text text-tabular">+{{ formatCurrency(f.amount) }}</td>
                   </tr>
                   <tr v-if="selectedUserDrilldown.transactions.feePayments.length === 0">
                     <td colspan="4" class="text-center py-4 grey--text">ບໍ່ມີລາຍການຊຳລະຄ່າຮຽນ</td>
@@ -666,68 +959,128 @@
 
         <v-card-actions class="pa-4 grey lighten-4">
           <v-spacer></v-spacer>
-          <v-btn color="primary" outlined small @click="printUserSlip(selectedUserDrilldown)" class="mr-2">
+          <v-btn color="primary" outlined small class="mr-2 rounded-lg font-weight-bold" @click="printUserSlip(selectedUserDrilldown)">
             <v-icon left small>mdi-printer</v-icon>
             ພິມ Slip
           </v-btn>
-          <v-btn color="grey darken-1" text small @click="drilldownDialog = false">ປິດ</v-btn>
+          <v-btn color="grey darken-1" text small class="rounded-lg" @click="drilldownDialog = false">ປິດ</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
     <!-- CASH DROP / REMITTANCE TO CENTRAL ACCOUNT MODAL -->
-    <v-dialog v-model="cashDropDialog" max-width="560px" persistent>
-      <v-card>
-        <v-card-title class="success darken-1 white--text font-weight-bold">
+    <v-dialog v-model="cashDropDialog" max-width="580px" persistent>
+      <v-card class="rounded-xl overflow-hidden">
+        <v-card-title class="dialog-header-emerald white--text font-weight-bold py-3">
           <v-icon left color="white">mdi-bank-transfer-out</v-icon>
           ມອບເງິນສົດເຂົ້າບັນຊີກາງ (Cash Drop to Central Vault)
         </v-card-title>
         <v-card-text class="pt-4">
           <!-- Target Cashier Info -->
-          <v-alert v-if="selectedUserForCashDrop" type="info" text dense class="mb-3">
+          <v-card v-if="selectedUserForCashDrop" class="pa-3 mb-4 rounded-lg bg-teal-light" outlined>
             <div class="d-flex justify-space-between align-center">
-              <span>Cashier: <strong>{{ selectedUserForCashDrop.userName }}</strong> ({{ selectedUserForCashDrop.userCode }})</span>
-              <span>ເງິນສົດຄວນມີ: <strong>{{ formatCurrency(selectedUserForCashDrop.expectedCashInDrawer) }} LAK</strong></span>
+              <div class="d-flex align-center">
+                <v-avatar size="32" color="teal lighten-4" class="mr-2">
+                  <v-icon small color="teal darken-2">mdi-account</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="font-weight-bold text-subtitle-2 teal--text text--darken-4">{{ selectedUserForCashDrop.userName }}</div>
+                  <div class="caption grey--text">{{ selectedUserForCashDrop.userCode }}</div>
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="caption grey--text">ເງິນສົດຄວນມີໃນລີ້ນຊັກ</div>
+                <div class="font-weight-bold teal--text text--darken-3 text-subtitle-2 text-tabular">{{ formatCurrency(selectedUserForCashDrop.expectedCashInDrawer) }} LAK</div>
+              </div>
             </div>
-          </v-alert>
+          </v-card>
 
           <v-form ref="cashDropForm">
             <!-- Source Till Account -->
-            <v-select v-model="cashDropFields.fromAccountId" :items="availableTillAccounts" item-text="displayName" item-value="id"
-              label="ບັນຊີຕົ້ນທາງ / ລີ້ນຊັກ (From Till Account) *" outlined dense class="mb-2" :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີຕົ້ນທາງ']"></v-select>
+            <v-select
+              v-model="cashDropFields.fromAccountId"
+              :items="availableTillAccounts"
+              item-text="displayName"
+              item-value="id"
+              label="ບັນຊີຕົ້ນທາງ / ລີ້ນຊັກ (From Till Account) *"
+              outlined
+              dense
+              class="mb-2"
+              prepend-inner-icon="mdi-cash-register"
+              :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີຕົ້ນທາງ']"
+            ></v-select>
 
             <!-- Destination Central Account -->
-            <v-select v-model="cashDropFields.toAccountId" :items="availableCentralAccounts" item-text="displayName" item-value="id"
-              label="ບັນຊີປາຍທາງ / ຕູ້ເຊບກາງ (To Central Account) *" outlined dense class="mb-2" :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີປາຍທາງ']"></v-select>
+            <v-select
+              v-model="cashDropFields.toAccountId"
+              :items="availableCentralAccounts"
+              item-text="displayName"
+              item-value="id"
+              label="ບັນຊີປາຍທາງ / ຕູ້ເຊບກາງ (To Central Account) *"
+              outlined
+              dense
+              class="mb-2"
+              prepend-inner-icon="mdi-safe"
+              :rules="[v => !!v || 'ກະລຸນາເລືອກບັນຊີປາຍທາງ']"
+            ></v-select>
 
             <!-- Amount & Quick Presets -->
             <div class="mb-1 d-flex justify-space-between align-center">
               <span class="caption font-weight-bold grey--text text--darken-2">ຈຳນວນເງິນສົດທີ່ມອບ (Amount) *</span>
               <div class="d-flex gap-1">
-                <v-btn x-small color="success" outlined @click="fillMaxCashDrop" class="mr-1">
+                <v-btn x-small color="success" outlined class="mr-1 rounded-pill font-weight-bold" @click="fillMaxCashDrop">
                   ມອບໝົດ
                 </v-btn>
-                <v-btn x-small color="primary" outlined @click="fillNetSalesDrop">
+                <v-btn x-small color="primary" outlined class="rounded-pill font-weight-bold" @click="fillNetSalesDrop">
                   ມອບສະເພາະຍອດຂາຍ
                 </v-btn>
               </div>
             </div>
-            <v-text-field :value="formatInputAmount(cashDropFields.amount)" @input="onAmountInput($event, cashDropFields, 'amount')"
-              outlined dense suffix="LAK" class="mb-2" :rules="[v => cashDropFields.amount > 0 || 'ຈຳນວນເງິນຕ້ອງຫຼາຍກວ່າ 0']"></v-text-field>
+            <v-text-field
+              :value="formatInputAmount(cashDropFields.amount)"
+              outlined
+              dense
+              suffix="LAK"
+              class="mb-2"
+              prepend-inner-icon="mdi-currency-usd"
+              :rules="[v => cashDropFields.amount > 0 || 'ຈຳນວນເງິນຕ້ອງຫຼາຍກວ່າ 0']"
+              @input="onAmountInput($event, cashDropFields, 'amount')"
+            ></v-text-field>
 
             <!-- Receiver Name -->
-            <v-text-field v-model="cashDropFields.receiverName" label="ຊື່ຜູ້ຮັບມອບ / ຫົວໜ້າການເງິນ (Receiver Name) *"
-              outlined dense class="mb-2" :rules="[v => !!v || 'ກະລຸນາລະບຸຊື່ຜູ້ຮັບມອບ']"></v-text-field>
+            <v-text-field
+              v-model="cashDropFields.receiverName"
+              label="ຊື່ຜູ້ຮັບມອບ / ຫົວໜ້າການເງິນ (Receiver Name) *"
+              outlined
+              dense
+              class="mb-2"
+              prepend-inner-icon="mdi-account-check"
+              :rules="[v => !!v || 'ກະລຸນາລະບຸຊື່ຜູ້ຮັບມອບ']"
+            ></v-text-field>
 
             <!-- Remarks -->
-            <v-textarea v-model="cashDropFields.description" label="ໝາຍເຫດ (Remarks)" outlined dense rows="2" hide-details></v-textarea>
+            <v-textarea
+              v-model="cashDropFields.description"
+              label="ໝາຍເຫດ (Remarks)"
+              outlined
+              dense
+              rows="2"
+              hide-details="auto"
+              prepend-inner-icon="mdi-note-text-outline"
+            ></v-textarea>
           </v-form>
         </v-card-text>
 
         <v-card-actions class="pa-4 grey lighten-4">
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="cashDropDialog = false">ຍົກເລີກ</v-btn>
-          <v-btn color="success darken-1" class="font-weight-bold" @click="submitCashDrop" :loading="savingCashDrop">
+          <v-btn color="grey" text class="rounded-lg" @click="cashDropDialog = false">ຍົກເລີກ</v-btn>
+          <v-btn
+            color="success darken-1"
+            class="font-weight-bold rounded-lg px-4"
+            depressed
+            :loading="savingCashDrop"
+            @click="submitCashDrop"
+          >
             <v-icon left small>mdi-check</v-icon>
             ຢືນຢັນການມອບເງິນສົດ
           </v-btn>
@@ -1431,7 +1784,297 @@ export default {
 </script>
 
 <style scoped>
+.school-billing-dashboard {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 .school-billing-dashboard * {
   font-family: 'Noto Sans Lao', sans-serif !important;
+}
+
+/* Header Banner Card */
+.header-banner-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03) !important;
+}
+
+.header-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c7d2fe;
+}
+
+/* Live Pulsing Dot Indicator */
+.live-dot {
+  width: 8px;
+  height: 8px;
+  background-color: #22c55e;
+  border-radius: 50%;
+  display: inline-block;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulse-green 1.8s infinite;
+}
+
+.table-live-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-white 1.8s infinite;
+}
+
+@keyframes pulse-green {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+@keyframes pulse-white {
+  0% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+}
+
+/* Modern Segmented Tabs */
+.nav-tabs-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.modern-tabs >>> .v-tabs-bar {
+  background-color: transparent !important;
+}
+
+.modern-tabs .tab-item {
+  letter-spacing: normal;
+  text-transform: none;
+  min-height: 42px;
+  margin: 0 4px;
+  transition: all 0.25s ease;
+  border-radius: 8px !important;
+}
+
+.modern-tabs >>> .v-tab--active {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Filter Toolbar */
+.filter-toolbar-card {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+/* KPI Metric Cards */
+.kpi-metric-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 104px;
+}
+
+.kpi-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.08) !important;
+}
+
+.kpi-card-slate {
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%) !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.kpi-card-emerald {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.kpi-card-rose {
+  background: linear-gradient(135deg, #fff1f2 0%, #ffe4e6 100%) !important;
+  border: 1px solid #fecdd3 !important;
+}
+
+.kpi-card-sky {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%) !important;
+  border: 1px solid #bae6fd !important;
+}
+
+/* Hero Card (Grand Expected Cash) */
+.kpi-hero-card {
+  background: linear-gradient(135deg, #065f46 0%, #047857 50%, #0d9488 100%) !important;
+  border: none !important;
+  box-shadow: 0 10px 25px -5px rgba(4, 120, 87, 0.35) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpi-hero-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(4, 120, 87, 0.45) !important;
+}
+
+.hero-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.hero-subtext {
+  color: #a7f3d0 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  padding-top: 4px;
+}
+
+/* KPI Icon Circles */
+.kpi-icon-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-slate {
+  background: rgba(71, 85, 105, 0.12);
+}
+
+.icon-emerald {
+  background: rgba(16, 185, 129, 0.18);
+}
+
+.icon-rose {
+  background: rgba(244, 63, 94, 0.18);
+}
+
+.icon-sky {
+  background: rgba(14, 165, 233, 0.18);
+}
+
+.icon-hero {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+/* Subpage Icon Boxes */
+.subpage-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-info-light {
+  background-color: #e0f2fe;
+}
+
+.bg-error-light {
+  background-color: #ffe4e6;
+}
+
+.bg-purple-light {
+  background-color: #f3e8ff;
+}
+
+.bg-teal-light {
+  background-color: #ccfbf1;
+}
+
+.bg-slate-light {
+  background-color: #f1f5f9;
+}
+
+.bg-emerald-light {
+  background-color: #dcfce7;
+}
+
+/* Tabular Numerals for Finance */
+.text-tabular {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.2px;
+}
+
+/* Modern Report Table */
+.modern-report-table {
+  border: 1px solid #e2e8f0 !important;
+  overflow: hidden;
+}
+
+.modern-report-table >>> th {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  white-space: nowrap;
+}
+
+.modern-report-table >>> tbody tr:hover {
+  background-color: #f8fafc !important;
+}
+
+/* Grand Total Row Footer */
+.grand-total-row {
+  background-color: #f1f5f9 !important;
+  border-top: 2px solid #cbd5e1 !important;
+}
+
+.grand-total-highlight {
+  background-color: #dcfce7 !important;
+  font-size: 13px !important;
+}
+
+/* Expected Cash Chip */
+.expected-cash-chip {
+  border: 1px solid #a7f3d0 !important;
+}
+
+/* Total Summary Banner (Tab 2) */
+.total-summary-banner {
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%) !important;
+  border: 1px solid #a7f3d0 !important;
+}
+
+/* Dialog Headers */
+.dialog-header-primary {
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%) !important;
+}
+
+.dialog-header-emerald {
+  background: linear-gradient(135deg, #065f46 0%, #059669 100%) !important;
+}
+
+.dialog-table >>> th {
+  background-color: #f8fafc !important;
+  font-weight: 700 !important;
+  font-size: 12px !important;
+}
+
+/* Progress Linear Gradient */
+.progress-gradient >>> .v-progress-linear__determinate {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%) !important;
 }
 </style>

@@ -2813,6 +2813,29 @@ export default {
 </script>
 
 <style scoped>
+/* FontAwesome Icon Support */
+i.fas,
+i.far,
+i.fab,
+i.fa,
+[class^="fa-"],
+[class*=" fa-"] {
+  font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free' !important;
+  font-style: normal;
+  display: inline-block;
+  line-height: 1;
+}
+
+i.fas,
+i.fa-solid {
+  font-weight: 900 !important;
+}
+
+i.far,
+i.fa-regular {
+  font-weight: 400 !important;
+}
+
 /* Status Indicators in Header */
 .status-indicator {
   display: inline-flex;

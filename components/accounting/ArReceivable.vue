@@ -165,7 +165,7 @@
       <v-card-actions class="px-4 pb-4">
         <v-btn outlined color="grey" @click="$emit('close-dialog')" :disabled="isLoading">
           <v-icon left>mdi-close</v-icon>
-          ຍົກເລີກ
+          ປິດໜ້າຕ່າງ
         </v-btn>
         <v-spacer></v-spacer>
         <v-btn type="submit" color="success" :loading="isLoading" :disabled="!isFormValid">

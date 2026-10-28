@@ -712,7 +712,16 @@ export default {
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
         const saleRate = sale.exchangeRate || 1;
         for (const line of sale.lines) {
-          const sellingPriceLAK = parseFloat(line.product?.pro_price || 0) * saleRate;
+          const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
+          let lineRate = line.exchangeRate;
+          if (!lineRate || lineRate === 1) {
+            if (line.currencyId && Number(line.currencyId) !== 1) {
+              lineRate = (line.cards && line.cards[0]?.exchangeRate) || 1;
+            } else {
+              lineRate = saleRate;
+            }
+          }
+          const sellingPriceLAK = unitPrice * lineRate;
           let lineCost = 0;
           
           if (line.cards && line.cards.length > 0) {
@@ -759,7 +768,7 @@ export default {
             // Fallback: Use product cost_price if there are no cards
             const unitCost = parseFloat(line.product?.cost_price || 0);
             const qty = parseFloat(line.quantity || 0);
-            lineCost = qty * unitCost * saleRate;
+            lineCost = qty * unitCost * (lineRate || saleRate);
           }
           totalSaleValue += lineCost;
         }

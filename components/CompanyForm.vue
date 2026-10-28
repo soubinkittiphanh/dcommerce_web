@@ -6,6 +6,48 @@
 
     <company-theme-dialog v-model="showThemeDialog" :company-id="form.id || recordId" @theme-updated="onThemeUpdated" />
 
+    <!-- Ticket Preview Dialog -->
+    <v-dialog v-model="showPreviewDialog" max-width="400" scrollable transition="dialog-bottom-transition">
+      <v-card class="rounded-xl overflow-hidden">
+        <v-card-title class="primary white--text py-2 px-4 d-flex align-center justify-space-between">
+          <div class="d-flex align-center">
+            <v-icon left small color="white">mdi-receipt-text-outline</v-icon>
+            <span class="text-subtitle-1 font-weight-bold">ຕົວຢ່າງໃບບິນ 80mm</span>
+          </div>
+          <v-btn icon dark small @click="showPreviewDialog = false">
+            <v-icon small>mdi-close</v-icon>
+          </v-btn>
+        </v-card-title>
+
+        <v-card-text class="pa-4" style="background: #e2e8f0; max-height: 75vh; overflow-y: auto;">
+          <div class="ticket-receipt-card mx-auto elevation-4 rounded-lg overflow-hidden" style="background: white; width: 300px; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+            <iframe
+              ref="ticketPreviewIframe"
+              :srcdoc="previewTicketHtml"
+              style="width: 100%; min-height: 580px; border: none; display: block;"
+              scrolling="no"
+              @load="onPreviewIframeLoad"
+            ></iframe>
+          </div>
+        </v-card-text>
+
+        <v-card-actions class="py-2 px-4 bg-white d-flex justify-space-between" style="border-top: 1px solid #e2e8f0;">
+          <v-chip x-small color="grey lighten-2" class="font-weight-medium">
+            {{ form.ticketLayout === 'modern' ? 'Modern' : 'Classic' }} | {{ form.ticket_logo_size || 65 }}px
+          </v-chip>
+          <div>
+            <v-btn color="grey" text small @click="showPreviewDialog = false">
+              ປິດ
+            </v-btn>
+            <v-btn color="primary" small @click="printTestTicket">
+              <v-icon left small>mdi-printer</v-icon>
+              ທົດສອບພິມ
+            </v-btn>
+          </div>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card class="pa-3 mx-auto" max-width="800">
       <v-card-title class="pb-2">
         <v-chip color="primary" label text-color="white" small>
@@ -97,6 +139,115 @@
                 prepend-inner-icon="mdi-format-paint"></v-select>
             </v-col>
           </v-row>
+
+          <!-- Ticket Preview Quick Bar -->
+          <div class="d-flex align-center justify-space-between mt-2 px-1">
+            <span class="caption grey--text text--darken-1 font-weight-medium">
+              <v-icon x-small color="primary" class="mr-1">mdi-receipt-text-check</v-icon>
+              ຕັ້ງຄ່າໃບບິນ POS 80mm (ຮູບແບບ, ໂລໂກ້, QR Code)
+            </span>
+            <v-btn color="primary" small outlined @click="openTicketPreview" class="rounded-pill">
+              <v-icon left small>mdi-eye</v-icon>
+              ເບິ່ງຕົວຢ່າງໃບບິນ (Preview Ticket)
+            </v-btn>
+          </div>
+
+          <!-- Ticket Logo Size Controls (Visible when showLogoOnTicket is enabled) -->
+          <v-slide-y-transition>
+            <v-card v-if="form.showLogoOnTicket" outlined class="mt-3 pa-3 rounded-lg" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+              <div class="d-flex align-center justify-space-between mb-2">
+                <div class="d-flex align-center">
+                  <v-icon small color="primary" class="mr-2">mdi-resize</v-icon>
+                  <span class="text-subtitle-2 font-weight-bold">ຂະໜາດໂລໂກ້ໃນໃບບິນ 80mm</span>
+                </div>
+                <div class="d-flex align-center">
+                  <v-btn color="primary" x-small text @click="openTicketPreview" class="mr-1">
+                    <v-icon left x-small>mdi-eye</v-icon> ເບິ່ງຕົວຢ່າງເຕັມ
+                  </v-btn>
+                  <v-chip x-small color="primary" label outlined>
+                    {{ form.ticket_logo_size || 65 }} px
+                  </v-chip>
+                </div>
+              </div>
+
+              <!-- Quick Presets -->
+              <div class="d-flex align-center flex-wrap mb-3">
+                <span class="caption grey--text text--darken-1 mr-2">ຂະໜາດແນະນຳ:</span>
+                <v-btn-toggle v-model="form.ticket_logo_size" mandatory dense>
+                  <v-btn :value="50" small outlined class="text-caption">
+                    ນ້ອຍ (50px)
+                  </v-btn>
+                  <v-btn :value="65" small outlined class="text-caption">
+                    ປົກກະຕິ (65px)
+                  </v-btn>
+                  <v-btn :value="90" small outlined class="text-caption">
+                    ໃຫຍ່ (90px)
+                  </v-btn>
+                  <v-btn :value="120" small outlined class="text-caption">
+                    ໃຫຍ່ພິເສດ (120px)
+                  </v-btn>
+                </v-btn-toggle>
+              </div>
+
+              <v-row dense align="center">
+                <v-col cols="12" sm="8">
+                  <v-slider
+                    v-model="form.ticket_logo_size"
+                    min="35"
+                    max="180"
+                    step="5"
+                    thumb-label
+                    thumb-size="24"
+                    label="ປັບລະອຽດ"
+                    prepend-icon="mdi-image-size-select-small"
+                    append-icon="mdi-image-size-select-large"
+                    hide-details
+                    dense
+                    color="primary"
+                    track-color="grey lighten-2"
+                  >
+                    <template v-slot:thumb-label="{ value }">
+                      {{ value }}px
+                    </template>
+                  </v-slider>
+                  <div class="text-caption grey--text mt-1">
+                    * ຂະໜາດແນະນຳສຳລັບ Classic: 65-120px | ສຳລັບ Modern: 50-80px
+                  </div>
+                </v-col>
+                <v-col cols="12" sm="4" class="text-center">
+                  <v-tooltip bottom>
+                    <template v-slot:activator="{ on, attrs }">
+                      <div
+                        v-bind="attrs"
+                        v-on="on"
+                        @click="openTicketPreview"
+                        class="pa-2 rounded elevation-1 mx-auto white"
+                        style="border: 1px dashed #cbd5e1; min-height: 85px; max-width: 200px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;"
+                      >
+                        <div class="caption grey--text mb-1" style="font-size: 10px;">
+                          ຕົວຢ່າງຂະໜາດ <v-icon x-small color="grey">mdi-magnify-plus-outline</v-icon>:
+                        </div>
+                        <img
+                          v-if="currentImageUrl"
+                          :src="currentImageUrl"
+                          :style="{ width: (form.ticket_logo_size || 65) + 'px', maxWidth: '100%', height: 'auto', objectFit: 'contain' }"
+                          alt="Logo Preview"
+                        />
+                        <v-icon
+                          v-else
+                          :size="Math.min(form.ticket_logo_size || 65, 80)"
+                          color="grey lighten-1"
+                        >
+                          mdi-image
+                        </v-icon>
+                      </div>
+                    </template>
+                    <span>ກົດເພື່ອເບິ່ງໃບບິນຕົວຢ່າງ 80mm</span>
+                  </v-tooltip>
+                </v-col>
+              </v-row>
+            </v-card>
+          </v-slide-y-transition>
 
           <!-- Banking Info (Collapsible) -->
           <v-expansion-panels flat class="mt-4">
@@ -301,6 +452,7 @@
 <script>
 import { swalSuccess, swalError2 } from '~/common'
 import CompanyThemeDialog from '~/components/company/theme'
+import { generateTicketPreviewHtml, defaultTicket } from '~/common/ticket.js'
 
 export default {
   components: {
@@ -321,6 +473,7 @@ export default {
   data() {
     return {
       showThemeDialog: false,
+      showPreviewDialog: false,
       form: {
         id: null,
         mnemonic: 'BNK',
@@ -342,6 +495,7 @@ export default {
         isActive: true,
         ticketQRcode: false,
         showLogoOnTicket: false,
+        ticket_logo_size: 65,
         ticketLayout: 'classic',
         term_condition: '',
         customer_welcome_text: '',
@@ -389,6 +543,26 @@ export default {
       }
       return null
     },
+    previewTicketHtml() {
+      const companyInfo = {
+        ...this.form,
+        profile_image_path: this.previewUrl || this.form.profile_image_path,
+        ticketLogo: this.previewUrl || this.currentImageUrl,
+        companyLogo: this.previewUrl || this.currentImageUrl,
+        logo: this.previewUrl || this.currentImageUrl,
+        qrCode: this.currentQRImageUrl,
+        qrCode2: this.currentQRImageUrl2,
+        bank_qr_image_path: this.form.bank_qr_image_path,
+        bank_qr_image_path_2: this.form.bank_qr_image_path_2
+      }
+
+      return generateTicketPreviewHtml(companyInfo, {
+        currentTerminal: {
+          baseURL: this.$axios?.defaults?.baseURL || ''
+        },
+        paperWidth: '80mm'
+      })
+    },
   },
 
   created() {
@@ -396,6 +570,57 @@ export default {
   },
 
   methods: {
+    openTicketPreview() {
+      this.showPreviewDialog = true
+    },
+
+    onPreviewIframeLoad(event) {
+      const iframe = event?.target
+      if (iframe && iframe.contentWindow?.document?.body) {
+        const scrollHeight = iframe.contentWindow.document.body.scrollHeight
+        if (scrollHeight > 150) {
+          iframe.style.height = `${scrollHeight + 20}px`
+        }
+      }
+    },
+
+    async printTestTicket() {
+      const companyInfo = {
+        ...this.form,
+        profile_image_path: this.previewUrl || this.form.profile_image_path,
+        ticketLogo: this.previewUrl || this.currentImageUrl,
+        companyLogo: this.previewUrl || this.currentImageUrl,
+        logo: this.previewUrl || this.currentImageUrl,
+      }
+      try {
+        const dummyProducts = [
+          { id: 1, pro_name: 'ເບຍລາວແກ້ວໃຫຍ່ 640ml (Beerlao Lager)', pro_price: 18000, qty: 2, saleCurrencyId: 1 },
+          { id: 2, pro_name: 'ນ້ຳດື່ມບໍລິສຸດ 500ml (Purified Water)', pro_price: 5000, qty: 1, saleCurrencyId: 1 },
+          { id: 3, pro_name: 'ເຂົ້າໜົມມັນຝຣັ່ງ (Potato Chips)', pro_price: 12000, qty: 1, saleCurrencyId: 1 }
+        ]
+        defaultTicket({
+          productCart: dummyProducts,
+          findAllProduct: dummyProducts,
+          formatNumber: (n) => (n !== null && n !== undefined) ? Number(n).toLocaleString() : '0',
+          discount: 0,
+          currencyList: [{ id: 1, code: 'LAK', isLocalCCY: true }],
+          grandTotal: 53000,
+          lastTransactionSaleHeaderId: 'TEST-0001',
+          companyData: companyInfo,
+          paperWidth: '80mm',
+          currentPaymentCode: 'CASH (ທົດສອບ)',
+          cashReceived: 60000,
+          changes: '7,000',
+          user: { cus_name: 'Admin (Test)' },
+          client: { name: 'ລູກຄ້າທົດສອບ (Test Customer)', telephone: '020-5555-xxxx' },
+          currentTerminal: { baseURL: this.$axios?.defaults?.baseURL || '' }
+        })
+        this.$toast.success('ສົ່ງຄຳສັ່ງພິມທົດສອບສຳເລັດ')
+      } catch (e) {
+        this.$toast.error('ບໍ່ສາມາດພິມໃບບິນທົດສອບໄດ້: ' + e.message)
+      }
+    },
+
     onThemeUpdated() {
       this.$toast.success('ອັບເດດສີທີມສຳເລັດ')
       this.loadEntry()
@@ -457,6 +682,11 @@ export default {
             `api/company/find/${this.recordId}`
           )
           this.form = response.data
+          if (this.form.ticket_logo_size === undefined || this.form.ticket_logo_size === null) {
+            this.$set(this.form, 'ticket_logo_size', 65)
+          } else {
+            this.$set(this.form, 'ticket_logo_size', Number(this.form.ticket_logo_size) || 65)
+          }
         } catch (error) {
           console.log('Cannot fetch data ' + error)
         }

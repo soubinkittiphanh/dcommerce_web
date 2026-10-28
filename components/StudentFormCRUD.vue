@@ -284,7 +284,7 @@
       </div>
       <div class="d-flex align-center ml-auto">
         <v-btn color="grey darken-1" text class="mr-2 px-4" @click="$emit('close')">
-          <v-icon left>mdi-close</v-icon> ຍົກເລີກ (Cancel)
+          <v-icon left>mdi-close</v-icon> ປິດໜ້າຕ່າງ
         </v-btn>
         <v-btn color="primary" depressed class="px-6 font-weight-bold" @click="save" :loading="saving" :disabled="!valid">
           <v-icon left>mdi-content-save</v-icon> ບັນທຶກ (Save)
@@ -537,7 +537,7 @@ export default {
 
     getPhotoUrl(photoPath) {
       if (!photoPath) return '';
-      const baseURL = this.$axios.defaults.baseURL || 'http://150.95.31.23:8026';
+      const baseURL = this.$axios.defaults.baseURL || 'http://162.35.18.246:8054';
       return `${baseURL.replace(/\/$/, '')}${photoPath}`;
     },
 
