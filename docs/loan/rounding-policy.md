@@ -1,6 +1,6 @@
 # Loan Module: Rounding Policy (UNCONFIRMED)
 
-Status: **draft default, UNCONFIRMED.** To be confirmed by the customer's accountant before Phase 3 (schedule engine) and Phase 4 (billing and posting). Nothing here is implemented yet. It is the rule Phase 3 and 4 will follow unless the accountant changes it.
+Status: **approved as the default (2026-10-29), still UNCONFIRMED by the customer's accountant.** Phase 3 implements it, including the loan-owned per-currency decimals setting (`ln_currency_rule`, §3). The accountant can still change it before go-live.
 
 ## 1. What the code has today (checked 2026-10-29)
 

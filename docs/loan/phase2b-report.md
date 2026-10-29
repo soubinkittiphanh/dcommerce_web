@@ -117,6 +117,12 @@ The loan portfolio, receivables, provision reserve, repossessed vehicles, suspen
 
 Also recommended under any option: show "other equity" as a calculated balancing figure, or add a check line, so a missing account becomes visible.
 
+**Decision (2026-10-29): option A, recorded as a Phase 4 requirement.** The existing report stays unchanged until then.
+- The loan section is opt-in, behind SPF `BS_INCLUDE_LOAN_BOOK` (default `false`).
+- It shows a separate **"Loan result"** line (loan GL income minus loan GL expense), so the "Other equity" plug can never absorb loan profit or loss.
+- It shows a visible **GL-vs-subledger reconciliation** check (cash/bank and AR in the GL against the subledgers the report uses).
+- **Loan receipts and disbursements must go through the existing POS bank and AR mechanisms** (bank-account balances and AR invoice settlement), so the subledgers stay complete.
+
 ### 3.2 Rounding (draft policy, UNCONFIRMED)
 - The POS `currency` table has **no decimals field**, and its `rate` is a floating-point `DOUBLE`.
 - Loan amounts are DECIMAL(20,4), but the POS `general_ledger` stores DECIMAL(15,2).

@@ -750,6 +750,14 @@ Helper: `loan_propose_accounts.js`, read-only (§5).
   - The product check doesn't block product authorization, because no rule is authorized yet. Wire it in once the rules are authorized.
   - The Parameter Studio has no screen yet for entry rules or the new product field.
 
+Phase 4 requirements (decided 2026-10-29):
+- Balance sheet without a project:
+  - an opt-in loan section behind SPF `BS_INCLUDE_LOAN_BOOK` (default off);
+  - a separate "Loan result" line (loan GL income minus expense), so the Other equity plug can't absorb it;
+  - a visible GL-vs-subledger reconciliation check.
+- Loan receipts and disbursements go through the existing POS bank and AR mechanisms.
+- The existing report stays unchanged until then. Details: `phase2b-report.md` §3.1.
+
 Not in Phase 2B:
 - creating GL accounts;
 - seeding `ln_role_gl_mapping`;
