@@ -1,5 +1,11 @@
 <template>
   <div>
+    <v-alert v-if="failure" type="error" text dense dismissible class="mb-3" @input="failure = null">
+      <div class="font-weight-bold">{{ failure.message }}</div>
+      <ul class="text-caption mt-1">
+        <li v-for="(e, i) in failure.errors" :key="i">{{ e }}</li>
+      </ul>
+    </v-alert>
     <v-card outlined class="mb-4" :loading="loading">
       <v-card-title class="py-2">
         <span class="text-subtitle-1 font-weight-bold">ລາຍການໃໝ່ລໍຖ້າອະນຸມັດ (Unauthorized records)</span>
@@ -40,7 +46,7 @@
 </template>
 
 <script>
-import { errMsg, asList, AUTH_COLORS } from '~/common/loan/loanApi'
+import { errMsg, errDetails, asList, AUTH_COLORS } from '~/common/loan/loanApi'
 import { functionOf, titleOf } from '~/common/loan/masterConfigs'
 
 // Checker inbox. Makers' own items are disabled here (default LOAN_ALLOW_SELF_AUTHORIZE = false);
@@ -51,6 +57,7 @@ export default {
     return {
       records: [],
       changes: [],
+      failure: null,
       search: '',
       loading: false,
       authColors: AUTH_COLORS,
@@ -119,11 +126,13 @@ export default {
     },
     async decideRecord (item, action) {
       try {
+        this.failure = null
         const res = await this.$axios.$post(`/api/loan/params/${item.entity}/${item.entityKey}/${action}`, {})
         this.$toast.success(res.message)
         await this.after()
       } catch (err) {
         this.$toast.error(errMsg(err))
+        if (errDetails(err).length) this.failure = { message: errMsg(err), errors: errDetails(err) }
       }
     },
     async decideChange (item, action) {

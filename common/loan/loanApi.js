@@ -4,6 +4,12 @@
 export const errMsg = (err) =>
   (err && err.response && err.response.data && err.response.data.message) || (err && err.message) || String(err)
 
+// Itemized problems returned with a refusal (e.g. the entry-rule legs blocking a product authorization)
+export const errDetails = (err) => {
+  const list = err && err.response && err.response.data && err.response.data.errors
+  return Array.isArray(list) ? list : []
+}
+
 // Unwraps { data } / { data: { items } } / bare arrays from the different APIs
 export const asList = (payload) => {
   const data = payload && payload.data !== undefined ? payload.data : payload

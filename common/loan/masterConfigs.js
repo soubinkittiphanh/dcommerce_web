@@ -27,7 +27,7 @@ export const MASTER_GROUPS = [
   { key: 'pricing', title: 'ອັດຕາ ແລະ ຄ່າທຳນຽມ (Rates, fees & tax)' },
   { key: 'risk', title: 'ຊັ້ນໜີ້ ແລະ ສຳຮອງ (Status & provisioning)' },
   { key: 'governance', title: 'ການອະນຸມັດ (Governance)' },
-  { key: 'accounting', title: 'ບັນຊີ - ເບິ່ງຢ່າງດຽວ (Accounting, view only until Phase 2B)' },
+  { key: 'accounting', title: 'ບັນຊີ (Accounting: entry rules; roles and GL mappings view only)' },
   { key: 'system', title: 'ລະບົບ (System)' }
 ]
 
@@ -42,6 +42,7 @@ export const MASTER_CONFIGS = [
   lookup('lookup-collateral-type', 'ປະເພດຫຼັກຊັບຄ້ຳປະກັນ (Collateral types)', [description]),
   lookup('lookup-loan-purpose', 'ຈຸດປະສົງສິນເຊື່ອ (Loan purposes)', [description]),
   lookup('lookup-deferred-fee-presentation', 'ການສະແດງຄ່າທຳນຽມ (Fee presentation)', [description]),
+  lookup('lookup-interest-recognition', 'ການຮັບຮູ້ດອກເບ້ຍ (Interest recognition)', [description]),
 
   {
     entity: 'product-category', functionCode: 'LN_PRODUCT_CATEGORY', group: 'product',
@@ -190,10 +191,28 @@ export const MASTER_CONFIGS = [
   },
 
   { entity: 'accounting-role', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ບົດບາດບັນຊີ (Accounting roles)', fields: [code('roleCode'), name, f('expectedType', 'ປະເພດ (Expected type)'), f('resolverType', 'ວິທີຫາບັນຊີ (Resolver)', 'select', { enumKey: 'accounting-role.resolverType' })] },
-  { entity: 'amount-tag', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ປ້າຍຈຳນວນເງິນ (Amount tags)', fields: [code('tagCode'), name] },
-  { entity: 'event', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ເຫດການ (Events)', fields: [code('eventCode'), name, description] },
-  { entity: 'accounting-entry-rule', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ກົດການບັນທຶກບັນຊີ (Entry rules - Phase 2B)', fields: [f('eventCode', 'Event'), f('amountTag', 'Amount tag'), f('drCr', 'Dr/Cr'), f('roleCode', 'Role'), f('qualifierSource', 'Qualifier'), effectiveFrom] },
-  { entity: 'role-gl-mapping', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ການຈັບຄູ່ບັນຊີ GL (GL mappings - Phase 2B)', fields: [f('roleCode', 'Role'), f('statusQualifier', 'Qualifier'), f('chartAccountId', 'Account id', 'int'), effectiveFrom] },
+  { entity: 'amount-tag', functionCode: 'LN_ENTRY_RULE', group: 'accounting', title: 'ປ້າຍຈຳນວນເງິນ (Amount tags)', fields: [code('tagCode'), name] },
+  { entity: 'event', functionCode: 'LN_ENTRY_RULE', group: 'accounting', title: 'ເຫດການ (Events)', fields: [code('eventCode'), name, description] },
+  {
+    entity: 'accounting-entry-rule', functionCode: 'LN_ENTRY_RULE', group: 'accounting',
+    title: 'ກົດການບັນທຶກບັນຊີ (Entry rules)',
+    fields: [
+      f('eventCode', 'ເຫດການ (Event)', 'select', { ref: { entity: 'event', value: 'eventCode', text: 'eventCode' } }),
+      f('amountTag', 'ປ້າຍຈຳນວນ (Amount tag)', 'select', { ref: { entity: 'amount-tag', value: 'tagCode', text: 'tagCode' } }),
+      f('drCr', 'Dr/Cr', 'select', { enumKey: 'accounting-entry-rule.drCr' }),
+      f('roleCode', 'ບົດບາດ (Role)', 'select', { ref: { entity: 'accounting-role', value: 'roleCode', text: 'roleCode' } }),
+      f('qualifierSource', 'Qualifier', 'select', { enumKey: 'accounting-entry-rule.qualifierSource' }),
+      f('isActive', 'ໃຊ້ງານ (Active)', 'bool'),
+      f('feeModeFilter', 'ເງື່ອນໄຂວິທີເກັບຄ່າທຳນຽມ (Fee mode filter)', 'select', { enumKey: 'accounting-entry-rule.feeModeFilter' }),
+      f('presentationFilter', 'ເງື່ອນໄຂການຮັບຮູ້ (Presentation filter)', 'select', { enumKey: 'accounting-entry-rule.presentationFilter' }),
+      f('targetFilter', 'ເງື່ອນໄຂປາຍທາງ (Target filter)', 'select', { enumKey: 'accounting-entry-rule.targetFilter' }),
+      f('productId', 'ຜະລິດຕະພັນ (Product scope)', 'select', { optional: true, ref: { entity: 'product', text: r => `${r.productCode} v${r.version}` } }),
+      f('categoryId', 'ໝວດ (Category scope)', 'select', { optional: true, ref: { entity: 'product-category', text: 'code' } }),
+      effectiveFrom, effectiveTo
+    ],
+    columns: ['eventCode', 'amountTag', 'drCr', 'roleCode', 'qualifierSource', 'isActive', 'feeModeFilter', 'presentationFilter', 'targetFilter']
+  },
+  { entity: 'role-gl-mapping', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ການຈັບຄູ່ບັນຊີ GL (GL mappings, view only)', fields: [f('roleCode', 'Role'), f('statusQualifier', 'Qualifier'), f('chartAccountId', 'Account id', 'int'), effectiveFrom] },
 
   {
     entity: 'sequence', functionCode: 'LN_SEQUENCE', group: 'system',

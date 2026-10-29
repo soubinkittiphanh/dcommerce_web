@@ -25,6 +25,7 @@
           <checklist-panel v-if="t.key === 'checklist'" />
           <tax-profile-panel v-else-if="t.key === 'tax'" />
           <product-list v-else-if="t.key === 'products'" />
+          <entry-rules-panel v-else-if="t.key === 'rules'" />
           <master-data-browser v-else-if="t.key === 'master'" />
           <pending-inbox v-else-if="t.key === 'changes'" />
         </v-tab-item>
@@ -39,6 +40,7 @@ import ChecklistPanel from '~/components/loan/ChecklistPanel.vue'
 import TaxProfilePanel from '~/components/loan/TaxProfilePanel.vue'
 import ProductList from '~/components/loan/ProductList.vue'
 import MasterDataBrowser from '~/components/loan/MasterDataBrowser.vue'
+import EntryRulesPanel from '~/components/loan/EntryRulesPanel.vue'
 import PendingInbox from '~/components/loan/PendingInbox.vue'
 import { errMsg } from '~/common/loan/loanApi'
 
@@ -46,13 +48,14 @@ const TABS = [
   { key: 'checklist', label: 'ກວດສອບ Go-Live (Checklist)', icon: 'mdi-clipboard-check-outline' },
   { key: 'tax', label: 'ອາກອນ VAT (Tax profile)', icon: 'mdi-receipt-text-check-outline' },
   { key: 'products', label: 'ຜະລິດຕະພັນ (Products)', icon: 'mdi-car-multiple' },
+  { key: 'rules', label: 'ກົດບັນຊີ (Entry rules)', icon: 'mdi-scale-balance' },
   { key: 'master', label: 'ຂໍ້ມູນພື້ນຖານ (Master data)', icon: 'mdi-database-cog-outline' },
   { key: 'changes', label: 'ລໍຖ້າອະນຸມັດ (Pending approvals)', icon: 'mdi-account-check-outline' }
 ]
 
 export default {
   name: 'LoanParameterStudio',
-  components: { LoanBanner, ChecklistPanel, TaxProfilePanel, ProductList, MasterDataBrowser, PendingInbox },
+  components: { LoanBanner, ChecklistPanel, TaxProfilePanel, ProductList, EntryRulesPanel, MasterDataBrowser, PendingInbox },
   layout: 'admin',
   middleware: 'auths',
   data () {

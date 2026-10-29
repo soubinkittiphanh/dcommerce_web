@@ -21,6 +21,13 @@
       </template>
     </div>
 
+    <v-alert v-if="failure" type="error" text dense dismissible @input="failure = null">
+      <div class="font-weight-bold">{{ failure.message }}</div>
+      <ul class="text-caption mt-1">
+        <li v-for="(e, i) in failure.errors" :key="i">{{ e }}</li>
+      </ul>
+    </v-alert>
+
     <v-progress-linear v-if="!ready" indeterminate color="primary" />
     <v-alert v-else-if="!can('VIEW')" type="info" text>ທ່ານບໍ່ມີສິດເບິ່ງ (No VIEW permission for LN_PRODUCT).</v-alert>
 
@@ -39,6 +46,7 @@
         <v-tab class="text-none" :disabled="isNew">ອົງປະກອບ (Components)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ຕົວແປ (UDEs)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ລຳດັບຕັດຊຳລະ (Waterfall)</v-tab>
+        <v-tab class="text-none" :disabled="isNew">ກວດບັນຊີ (Accounting check)</v-tab>
         <v-tab class="text-none">ຈຳລອງ (Simulation)</v-tab>
       </v-tabs>
 
@@ -90,6 +98,45 @@
         </v-tab-item>
 
         <v-tab-item>
+          <v-card outlined :loading="checking">
+            <v-card-title class="py-2">
+              <span class="text-subtitle-1 font-weight-bold">ກົດບັນຊີທີ່ຜະລິດຕະພັນນີ້ຕ້ອງການ (Entry rules this product needs)</span>
+              <v-spacer />
+              <v-btn small outlined class="text-none" :disabled="isNew || !canCheck" :loading="checking" @click="runCheck">
+                <v-icon left small>mdi-refresh</v-icon>ກວດ (Check)
+              </v-btn>
+            </v-card-title>
+            <v-card-text>
+              <v-alert v-if="!canCheck" type="info" text dense>ທ່ານບໍ່ມີສິດເບິ່ງກົດບັນຊີ (No VIEW permission for LN_ENTRY_RULE).</v-alert>
+              <template v-else>
+                <div class="text-caption mb-2">
+                  ຜະລິດຕະພັນອະນຸມັດໄດ້ສະເພາະເມື່ອທຸກກົດທີ່ຕ້ອງການອະນຸມັດແລ້ວ.
+                  (A product can be authorized only when every entry rule it needs is AUTHORIZED.)
+                </div>
+                <v-row dense>
+                  <v-col v-for="c in checkCards" :key="c.key" cols="12" md="6">
+                    <v-card outlined>
+                      <v-card-subtitle class="pb-1 font-weight-bold">
+                        {{ c.title }}
+                        <v-chip v-if="check[c.key]" x-small dark class="ml-2" :color="check[c.key].ok ? 'green' : 'red'">
+                          {{ check[c.key].ok ? 'OK' : `${check[c.key].errors.length} problem(s)` }}
+                        </v-chip>
+                      </v-card-subtitle>
+                      <v-card-text v-if="check[c.key]">
+                        <div class="text-caption grey--text">{{ check[c.key].activeRules }} active rules apply · {{ check[c.key].asOfDate }}</div>
+                        <ul v-if="check[c.key].errors.length" class="text-caption mt-1">
+                          <li v-for="(e, i) in check[c.key].errors" :key="i">{{ e }}</li>
+                        </ul>
+                      </v-card-text>
+                    </v-card>
+                  </v-col>
+                </v-row>
+              </template>
+            </v-card-text>
+          </v-card>
+        </v-tab-item>
+
+        <v-tab-item>
           <v-card outlined>
             <v-card-text class="text-center py-10">
               <v-icon x-large color="grey lighten-1">mdi-calculator-variant-outline</v-icon>
@@ -110,7 +157,7 @@
 import LoanBanner from '~/components/loan/LoanBanner.vue'
 import MasterDataTable from '~/components/loan/MasterDataTable.vue'
 import { PRODUCT_CHILD_CONFIGS } from '~/common/loan/masterConfigs'
-import { errMsg, loadRefOptions, AUTH_COLORS } from '~/common/loan/loanApi'
+import { errMsg, errDetails, loadRefOptions, AUTH_COLORS } from '~/common/loan/loanApi'
 
 const F = (key, label, type = 'text', extra = {}) => ({ key, label, type, ...extra })
 
@@ -135,6 +182,7 @@ const GENERAL_FIELDS = [
   F('deferredFeePresentation', 'ການຮັບຮູ້ຄ່າທຳນຽມ (Fee presentation)', 'select', { lookup: 'deferredFeePresentations' }),
   F('earlySettlementRebateMethod', 'ການຄືນດອກເບ້ຍ (Rebate method)', 'select', { lookup: 'rebateMethods' }),
   F('accrualMethodCode', 'ວິທີຄ້າງຮັບ (Accrual method)', 'select', { lookup: 'accrualMethods' }),
+  F('interestRecognitionCode', 'ການຮັບຮູ້ດອກເບ້ຍ (Interest recognition)', 'select', { lookup: 'interestRecognitions' }),
   F('dayCountCode', 'ວິທີນັບມື້ (Day count)', 'select', { lookup: 'dayCounts' }),
   F('defaultFrequencyCode', 'ຄວາມຖີ່ (Frequency)', 'select', { lookup: 'frequencies' }),
   F('holidayHandlingCode', 'ວັນພັກ (Holiday handling)', 'select', { lookup: 'holidayHandlings' }),
@@ -164,6 +212,13 @@ export default {
       form: {},
       refOptions: {},
       saving: false,
+      failure: null,
+      checking: false,
+      check: { authorized: null, pending: null },
+      checkCards: [
+        { key: 'authorized', title: 'ກົດທີ່ອະນຸມັດແລ້ວ (Authorized rules: used for authorization)' },
+        { key: 'pending', title: 'ລວມກົດທີ່ລໍຖ້າ (Including pending rules: preview)' }
+      ],
       generalFields: GENERAL_FIELDS,
       childConfigs: PRODUCT_CHILD_CONFIGS,
       childKeys: ['currencies', 'components', 'udes', 'waterfall'],
@@ -172,6 +227,9 @@ export default {
     }
   },
   computed: {
+    canCheck () {
+      return this.$store.getters['loan/can']('LN_ENTRY_RULE', 'VIEW')
+    },
     isNew () {
       return this.$route.params.id === 'new'
     },
@@ -235,6 +293,19 @@ export default {
       const res = await this.$axios.$get(`/api/loan/products/${this.$route.params.id}`)
       this.product = res.data
       this.form = Object.fromEntries(GENERAL_FIELDS.map(f => [f.key, res.data[f.key] === undefined ? null : res.data[f.key]]))
+      if (this.canCheck) await this.runCheck()
+    },
+    async runCheck () {
+      this.checking = true
+      try {
+        const url = `/api/loan/products/${this.product.id}/accounting-check`
+        const [authorized, pending] = await Promise.all([this.$axios.$get(url), this.$axios.$get(url, { params: { includePending: 1 } })])
+        this.check = { authorized: authorized.data, pending: pending.data }
+      } catch (err) {
+        this.$toast.error(errMsg(err))
+      } finally {
+        this.checking = false
+      }
     },
     payload () {
       const out = {}
@@ -269,11 +340,17 @@ export default {
     },
     async decide (action) {
       try {
+        this.failure = null
         const res = await this.$axios.$post(`/api/loan/params/product/${this.product.id}/${action}`, {})
         this.$toast.success(res.message)
         await this.load()
       } catch (err) {
         this.$toast.error(errMsg(err))
+        // Entry-rule legs blocking the authorization: list them and open the Accounting check tab
+        if (errDetails(err).length) {
+          this.failure = { message: errMsg(err), errors: errDetails(err) }
+          this.tab = 5
+        }
       }
     }
   }
