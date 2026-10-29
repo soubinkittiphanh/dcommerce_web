@@ -43,6 +43,7 @@ export const MASTER_CONFIGS = [
   lookup('lookup-loan-purpose', 'ຈຸດປະສົງສິນເຊື່ອ (Loan purposes)', [description]),
   lookup('lookup-deferred-fee-presentation', 'ການສະແດງຄ່າທຳນຽມ (Fee presentation)', [description]),
   lookup('lookup-interest-recognition', 'ການຮັບຮູ້ດອກເບ້ຍ (Interest recognition)', [description]),
+  lookup('lookup-repayment-method', 'ວິທີຜ່ອນ (Repayment methods)', [description]),
 
   {
     entity: 'product-category', functionCode: 'LN_PRODUCT_CATEGORY', group: 'product',
@@ -214,6 +215,16 @@ export const MASTER_CONFIGS = [
   },
   { entity: 'role-gl-mapping', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ການຈັບຄູ່ບັນຊີ GL (GL mappings, view only)', fields: [f('roleCode', 'Role'), f('statusQualifier', 'Qualifier'), f('chartAccountId', 'Account id', 'int'), effectiveFrom] },
 
+  {
+    entity: 'currency-rule', functionCode: 'LN_CURRENCY_RULE', group: 'pricing',
+    title: 'ການປັດເສດສະກຸນເງິນ (Currency rounding rules)',
+    fields: [
+      f('currencyId', 'ສະກຸນເງິນ (Currency)', 'select', { pos: 'currency' }),
+      f('decimalPlaces', 'ຈຳນວນທົດສະນິຍົມ (Decimal places, 0-2)', 'int'),
+      f('roundingMode', 'ວິທີປັດ (Rounding mode)', 'select', { enumKey: 'currency-rule.roundingMode' }),
+      effectiveFrom, effectiveTo
+    ]
+  },
   {
     entity: 'sequence', functionCode: 'LN_SEQUENCE', group: 'system',
     title: 'ລຳດັບເລກທີ (Numbering sequences)',

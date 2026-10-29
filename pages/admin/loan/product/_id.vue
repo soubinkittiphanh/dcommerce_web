@@ -47,7 +47,7 @@
         <v-tab class="text-none" :disabled="isNew">ຕົວແປ (UDEs)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ລຳດັບຕັດຊຳລະ (Waterfall)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ກວດບັນຊີ (Accounting check)</v-tab>
-        <v-tab class="text-none">ຈຳລອງ (Simulation)</v-tab>
+        <v-tab class="text-none" :disabled="isNew">ຈຳລອງ (Simulation)</v-tab>
       </v-tabs>
 
       <v-tabs-items v-model="tab" class="pt-4">
@@ -137,16 +137,8 @@
         </v-tab-item>
 
         <v-tab-item>
-          <v-card outlined>
-            <v-card-text class="text-center py-10">
-              <v-icon x-large color="grey lighten-1">mdi-calculator-variant-outline</v-icon>
-              <div class="text-h6 mt-2">ການຈຳລອງຕາຕະລາງຜ່ອນ (Schedule simulation)</div>
-              <div class="grey--text">
-                ຈະເປີດໃຊ້ໃນໄລຍະທີ 3 ພ້ອມເຄື່ອງຄິດໄລ່ຕາຕະລາງຜ່ອນ.
-                (Available in Phase 3 together with the schedule engine.)
-              </div>
-            </v-card-text>
-          </v-card>
+          <simulation-panel v-if="!isNew && product.id" :key="product.id" :product="product" />
+          <v-alert v-else type="info" text dense>ບັນທຶກຜະລິດຕະພັນກ່ອນ (Save the product first.)</v-alert>
         </v-tab-item>
       </v-tabs-items>
     </template>
@@ -156,6 +148,7 @@
 <script>
 import LoanBanner from '~/components/loan/LoanBanner.vue'
 import MasterDataTable from '~/components/loan/MasterDataTable.vue'
+import SimulationPanel from '~/components/loan/SimulationPanel.vue'
 import { PRODUCT_CHILD_CONFIGS } from '~/common/loan/masterConfigs'
 import { errMsg, errDetails, loadRefOptions, AUTH_COLORS } from '~/common/loan/loanApi'
 
@@ -183,6 +176,10 @@ const GENERAL_FIELDS = [
   F('earlySettlementRebateMethod', 'ການຄືນດອກເບ້ຍ (Rebate method)', 'select', { lookup: 'rebateMethods' }),
   F('accrualMethodCode', 'ວິທີຄ້າງຮັບ (Accrual method)', 'select', { lookup: 'accrualMethods' }),
   F('interestRecognitionCode', 'ການຮັບຮູ້ດອກເບ້ຍ (Interest recognition)', 'select', { lookup: 'interestRecognitions' }),
+  F('repaymentMethodCode', 'ວິທີຜ່ອນ (Repayment method)', 'select', { lookup: 'repaymentMethods' }),
+  F('maxGracePeriods', 'ງວດຜ່ອນຜັນສູງສຸດ (Max grace periods)', 'int'),
+  F('firstPeriodMinDays', 'ງວດທຳອິດຕ່ຳສຸດ ມື້ (First period min days)', 'int'),
+  F('firstPeriodMaxDays', 'ງວດທຳອິດສູງສຸດ ມື້ (First period max days)', 'int'),
   F('dayCountCode', 'ວິທີນັບມື້ (Day count)', 'select', { lookup: 'dayCounts' }),
   F('defaultFrequencyCode', 'ຄວາມຖີ່ (Frequency)', 'select', { lookup: 'frequencies' }),
   F('holidayHandlingCode', 'ວັນພັກ (Holiday handling)', 'select', { lookup: 'holidayHandlings' }),
@@ -201,7 +198,7 @@ const GENERAL_FIELDS = [
 
 export default {
   name: 'LoanProductForm',
-  components: { LoanBanner, MasterDataTable },
+  components: { LoanBanner, MasterDataTable, SimulationPanel },
   layout: 'admin',
   middleware: 'auths',
   data () {
