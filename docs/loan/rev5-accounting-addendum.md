@@ -595,6 +595,25 @@ After: portfolio 240,000,000 and interest receivable 3,600,000, so installment 1
 
 The application is cancelled; no loan account is opened.
 
+### Example 9: Equal installment (annuity), Phase 3 schedule
+Loan A terms (240,000,000; 12 months; 18% a year; 30/360, so 1.5% a month), repaid as a declining-balance annuity, in LAK with 0 decimals (rounding-policy.md).
+- Payment = P·r·(1+r)^12 / ((1+r)^12 − 1) = **22,003,198**, computed exactly and rounded once.
+- Installment 1: principal 18,403,198 + interest 3,600,000.
+- Installment 2: principal 18,679,246 + interest 3,323,952.
+- Installment 12 (absorbs the residue): principal 21,678,030 + interest 325,170 = 22,003,200.
+- Total interest 24,038,378; total principal exactly 240,000,000.
+
+Each installment's accounting is the same as in Examples 2 and 3 (ACCR on the due date, LIQD on receipt).
+
+### Example 10: Flat rate, Phase 3 schedule
+The same terms with FLAT repayment (accrual MONTHLY_FLAT).
+- Total interest = 240,000,000 × 18% × 12/12 = 43,200,000.
+- 12 installments of 20,000,000 principal + 3,600,000 interest.
+- The last installment absorbs any rounding residue.
+- An early settlement uses RULE_OF_78 or NONE. ACTUARIAL_PRO_RATA is refused for FLAT products (decision D6).
+
+These values were computed independently (Python decimal, precision 60, half-up) and are test fixtures in `dc_api/test/loan/fixtures/engineFixtures.js`.
+
 ---
 
 ## 5. Proposed role → GL mapping (PROPOSALS ONLY)
