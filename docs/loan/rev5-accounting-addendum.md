@@ -81,6 +81,7 @@ Applies when `feeFinancingMode = UPFRONT`, at signing, before DISB.
 | TOTAL_PAID | Dr | CASH_BANK | — | always (= FEE_DOC + INS_PREM + VAT_OUT) |
 | FEE_DOC | Cr | FEE_INCOME | — | `IMMEDIATE` (default) |
 | FEE_DOC | Cr | DEFERRED_FEE | — | `LIABILITY` (inactive) |
+| FEE_DOC | Cr | UNAMORTIZED_FEE_CONTRA | — | `CONTRA_ASSET_NET` (inactive) |
 | INS_PREM | Cr | INSURANCE_PAYABLE | — | insurance collected |
 | VAT_OUT **[NEW]** | Cr | TAX_PAYABLE | — | fee component taxable, company VAT-registered (UNCONFIRMED, §3) |
 
@@ -93,6 +94,7 @@ Applies when a deal is cancelled after FEE_COLLECT and before DISB, and the fees
 |---|---|---|---|---|
 | FEE_DOC | Dr | FEE_INCOME | — | `IMMEDIATE` (default) |
 | FEE_DOC | Dr | DEFERRED_FEE | — | `LIABILITY` (inactive) |
+| FEE_DOC | Dr | UNAMORTIZED_FEE_CONTRA | — | `CONTRA_ASSET_NET` (inactive) |
 | VAT_OUT **[NEW]** | Dr | TAX_PAYABLE | — | VAT was booked at FEE_COLLECT |
 | INS_PREM | Dr | INSURANCE_PAYABLE | — | premium not yet remitted to the insurer |
 | REFUND_AMT **[NEW]** | Cr | CASH_BANK | — | always (= FEE_DOC + VAT_OUT + INS_PREM) |
@@ -735,6 +737,18 @@ Validators (Phase 2B):
 - **Product rule set.** The product's resolved rule set must contain the legs required by its fee mode, presentation and disbursement target, and no leg belonging to another mode or target. Invalid combinations (DEDUCTED with SALE_INVOICE_SETTLEMENT; target CUSTOMER_ACCOUNT, which has no role) are rejected.
 
 Helper: `loan_propose_accounts.js`, read-only (§5).
+
+**Phase 2B status (2026-10-29, local sandbox only):**
+- **Implemented.** Migration `20261030_loan_phase2b_accounting` and `seed_loan_phase2b_accounting.js`:
+  - 142 global entry rules, all PENDING; 34 are inactive options (deferred-fee and penalty-receivable legs).
+  - Rule values: `drCr` is `DR`/`CR`; unqualified roles use `qualifierSource = NONE`.
+  - Entry rules, events and tags are maintained under the `LN_ENTRY_RULE` function with maker-checker; `LN_ACCOUNTING_SETUP` (roles, GL mappings) stays view-only.
+- **Validators** live in `src/loan/accounting/`.
+- **Product check:** `GET /api/loan/products/:id/accounting-check[?includePending=1]`.
+- **Tests:** the worked examples in §4 are test fixtures, and the seeded rules must produce exactly those lines.
+- **Not wired in yet:**
+  - The product check doesn't block product authorization, because no rule is authorized yet. Wire it in once the rules are authorized.
+  - The Parameter Studio has no screen yet for entry rules or the new product field.
 
 Not in Phase 2B:
 - creating GL accounts;
