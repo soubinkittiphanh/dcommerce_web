@@ -60,7 +60,7 @@ export default {
                 accountType: '',
                 isActive: true
             },
-            accountTypeList: ['Asset', 'Liability', 'Equity', 'Revenue', 'Expense'],
+            accountTypeList: ['Asset', 'Liability', 'Equity', 'Revenue', 'Expense', 'Off-Balance'],
             isloading: false,
             nameRules: [
                 value => !!value || 'Name is required',

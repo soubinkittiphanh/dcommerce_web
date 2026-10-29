@@ -266,7 +266,8 @@ export default {
         Liability: 'ໜີ້ສິນ (Liability)',
         Equity: 'ສ່ວນທຶນ (Equity)',
         Revenue: 'ລາຍຮັບ (Revenue)',
-        Expense: 'ລາຍຈ່າຍ (Expense)'
+        Expense: 'ລາຍຈ່າຍ (Expense)',
+        'Off-Balance': 'ນອກງົບດຸນ (Off-Balance)'
       }
       return mapping[type] || type
     },
