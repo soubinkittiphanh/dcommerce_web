@@ -59,6 +59,16 @@ See the final message for the full output. All suites run against `dcommerce_loa
 - period lock and backdating;
 - balance sheet unchanged with the switch off, compared against `main`'s original controller.
 
+### Follow-ups from review
+- **Who approved a schedule amendment.** `ln_amendment_history.approvedBy` is now nullable. Each row also carries `source` (`TRANSACTION`), `transactionId` and `makerId`.
+  - `approvedBy` is set **only** when a checker authorized the transaction (for example DISB on a different date, which regenerates the schedule). A self-authorization under `LOAN_ALLOW_SELF_AUTHORIZE` records that user, and the audit records it as `SELF_AUTH`.
+  - It stays NULL for single-step kinds: a cashier's REPAYMENT with a partial principal prepayment is recorded with the maker, not as "approved".
+  - This is part of the unreleased `20261030_loan_phase4` migration; the DOWN reverses it.
+- **Advance over-refund, tested in isolation.** Run with `LOAN_POSTING_ONLY='^isolated:'`: a freshly rebuilt test DB, the posting setup, and only this test, on a fresh loan.
+  - With an advance of exactly 1,000,000, an ADV_REFUND of 2,000,000 is refused: HTTP 400, "Refund 2000000 exceeds the customer advance of 1000000".
+  - Nothing is written: no pending transaction, journal, GL row, bank entry, link or idempotency row; the bank balance and the advance are unchanged.
+  - 1,000,001 is also refused. Exactly 1,000,000 is accepted through maker-checker, and the advance becomes 0.
+
 ## 3. D8: business dates
 EOD refuses when the POS business date is behind the loan date. The message:
 
