@@ -213,7 +213,7 @@ export const MASTER_CONFIGS = [
     ],
     columns: ['eventCode', 'amountTag', 'drCr', 'roleCode', 'qualifierSource', 'isActive', 'feeModeFilter', 'presentationFilter', 'targetFilter']
   },
-  { entity: 'role-gl-mapping', functionCode: 'LN_ACCOUNTING_SETUP', group: 'accounting', title: 'ການຈັບຄູ່ບັນຊີ GL (GL mappings, view only)', fields: [f('roleCode', 'Role'), f('statusQualifier', 'Qualifier'), f('chartAccountId', 'Account id', 'int'), effectiveFrom] },
+  { entity: 'role-gl-mapping', functionCode: 'LN_GL_MAPPING', group: 'accounting', title: 'ການຈັບຄູ່ບັນຊີ GL (GL mappings)', fields: [f('roleCode', 'Role'), f('statusQualifier', 'Qualifier'), f('chartAccountId', 'Account id', 'int'), effectiveFrom] },
 
   {
     entity: 'currency-rule', functionCode: 'LN_CURRENCY_RULE', group: 'pricing',
