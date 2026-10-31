@@ -14,7 +14,8 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 6 | Balance sheet Mode B subtracts voided and cancelled receipts from open invoices | Balance sheet | High: AR understated | Active-receipts filter only when `BS_INCLUDE_LOAN_BOOK` is on (§10); void-date caveat |
 | 7 | GL cash batch treats every non-cash receipt method as bank account 1002 | GL batch | Low (latent) | Loan receipts are marked `posted` |
 | 8 | AR receipt search uses `Op.iLike` (PostgreSQL only) on MariaDB | AR API | Medium: search filter fails (not run, read from code) | None needed |
-| 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | High: line totals don't add up to the header; a line-based AR posting would post foreign amounts as LAK | Loan allocates its receipts from the header base |
+| 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | **Critical, confirmed by sandbox test**: the AR batch posted a USD 15,000 car (LAK 315,000,000) as LAK 15,000 and marked the invoice posted | Loan allocates its receipts from the header base |
+| 10 | An invoice saved after its due date becomes `overdue` (model hook), and the AR posting batch only selects `sent`/`paid` | AR / GL batch | High, observed in the sandbox: such an invoice is never posted to the GL | None needed |
 
 ---
 
@@ -125,8 +126,25 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 - **Related, dc_pos** (`lib/service/sale_service.dart`, `restaurant_pos_screen.dart:696–702`, `merchant_pos_screen.dart:707`): the header is sent with the app's active currency and `exchangeRate: 1`, and `SaleLine` has no currency or rate. A sale in a non-base active currency is therefore stored with rate 1.
 - **The server** (`sales/controller.js` create and complete paths) stores the totals as sent, with no recomputation or consistency check between the header and its lines.
 
+**Sandbox test (2026-10-31): CONFIRMED.** Test *POS defect 9 (evidence only, POS code unchanged)* in `dc_api/test/loan/postingTests.js` runs on `dcommerce_loan_test` with the real endpoints and no POS code changed.
+- **Steps:**
+  - a credit sale is created the way the POS screen sends it: header LAK 315,000,000 at rate 1; one line USD 15,000.00 at rate 21,000, with both header keys set as `assignHeaderId` does;
+  - the invoice is created through `POST /api/ar-invoices/from-order/:saleHeaderId`;
+  - the AR batch runs through `POST /api/gl/posting/batch` (`module: 'AR'`).
+- **Output:**
+  ```
+  invoice AR-INV-2026-00012: header 315000000.00 (currency 1, rate 1.00); lines 15000.00 (no currency column)
+  GL rows before batch: 0; after AR batch: 1 row(s), localDebit total 15000 (currency 1, rate 1.000000); expected for the car: 315000000
+  invoice glPostingStatus after batch: posted
+  ```
+- **Severity: Critical.**
+  - AR and revenue in the GL are understated by 314,985,000 for this one car, which is 99.995% of the sale.
+  - The invoice is then marked `posted`, so no later batch corrects it.
+  - The error is silent: there is no warning, the posting is balanced, and the trial balance still balances.
+  - It affects every credit sale with a foreign-currency line that goes through the AR batch. It does **not** depend on the loan module.
+
 **Effect**
-- Invoices from POS orders are created `glPostingStatus = 'unposted'`. The AR posting batch (`GL/postingService.js:170–200`) posts **per line** `lineTotal × header exchangeRate`. For the example it would post 15,000 (as LAK) instead of 315,000,000. Whether such invoices are also covered by the sale's own GL posting is a separate question for the POS owner.
+- Invoices from POS orders are created `glPostingStatus = 'unposted'`. The AR posting batch (`GL/postingService.js:170–200`) posts **per line** `lineTotal × header exchangeRate`, which posts foreign line amounts as LAK (confirmed above). Whether such invoices are also covered by the sale's own GL posting is a separate question for the POS owner.
 - AR receipt allocations to invoice lines (`arReceiveLine`) compare base receipt amounts with foreign line amounts.
 - Invoice printouts and line reports show foreign amounts under a LAK header.
 
@@ -137,6 +155,18 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 - In dc_pos, send each line's currency and rate, and the header rate of the active currency.
 
 **Loan workaround (Phase 5 A8):** for a base-currency invoice, the loan proposes the contract principal from the sale line's currency amount and line rate. It allocates its DISB receipt from the invoice header's base (in proportion to each line's base), and never compares base amounts with raw line totals (addendum §8.4).
+
+
+## 10. Invoices saved after their due date become `overdue` and are never posted by the AR batch
+**Evidence**
+- `dc_api/src/AR/invoice/header/model.js:111–115` (`beforeSave` hook): when `dueDate` is in the past and the status is `draft` or `sent`, the status is set to `overdue` on **every save**, including creation.
+- The AR posting batch (`GL/postingService.js`, AR branch) selects only `status IN ('sent','paid')` and `glPostingStatus = 'unposted'`.
+- **Observed in the sandbox** (first run of the #9 test, invoice date 2001-02-03, due date 30 days later): the invoice was created as `overdue`, and the batch answered "No unposted AR records found in the date range". Nothing was posted.
+
+**Effect:** a credit-sale invoice that is created, or saved again, after its due date before the AR batch runs never reaches the GL. Late batch runs make this likely. It is related to the invoice picker excluding `overdue` (phase4-report §8.4).
+
+**Suggested fix:** include `overdue` in the AR batch selection (the GL posting should not depend on collection status), and do not change the status of an unposted invoice in a save hook.
+
 
 ---
 
