@@ -46,19 +46,49 @@ In every copy it uses the **current** `currency.rate` with both directions, assu
 - compares the GL base balance of the bank's chart account with balance × rate;
 - posts the difference to auto-created accounts **4008 Unrealized Exchange Gain** or **5108 Unrealized Exchange Loss**, with `debit = credit = 0`.
 
-### 1.4 Documents carry their own rate
+### 1.4 Documents carry their own rate (corrected 2026-10-31 after the owner's review)
 | Document | Currency | Rate column | How POS posts it |
 |---|---|---|---|
-| `saleHeader` | `currencyId` | `exchangeRate` **DOUBLE** | `local = total × rate` (`accountingPostingService.js:56–66`) |
-| `arInvoiceHeader` | `currencyId` | `exchangeRate` **DECIMAL(15,2)** | `local = lineTotal × rate`, 2 decimals (`postingService.js:176`) |
+| `saleHeader` | `currencyId` (**base** from the POS screen) | `exchangeRate` DOUBLE | `local = total × rate` (`accountingPostingService.js:56–66`) |
+| `saleLine` | `currencyId` (**the product's `saleCurrencyId`**) | `exchangeRate` DOUBLE (the currency's rate at sale time) | not posted per line; the header total is already in base |
+| `arInvoiceHeader` | `currencyId` | `exchangeRate` **DECIMAL(15,2)** | `local = lineTotal × rate` per line, 2 decimals (`postingService.js:176`) |
+| `arInvoiceLine` | **no currency column** | none | uses the header's rate |
 | AR receipt / AP settlement | `currencyId` | `exchangeRate` | `cashPostingService.js:77, 122, 156, 264` |
 
 **Direction:** every document rate is used as **base per 1 document unit** (multiply). That matches `foreign_to_local`. A `local_to_foreign`-style rate would be wrong on documents. On an invoice it would also be cut to 2 decimals (for example 0.000047 becomes 0.00).
 
-**Important for loans:**
-- **POS sales are always in the base currency today.** `dc_web/layouts/pos.vue` creates the sale with `currencyId: findLocalCurrency.id` and `exchangeRate: findLocalCurrency.rate`, marked `//TODO: update currency DYNAMICALLY`. An AR invoice created from a POS credit order copies the order's currency and rate (`AR/invoice/header/controller.js:688`). So vehicle sales made at the POS produce **LAK invoices**.
-- **Manual AR invoices** (`components/accounting/ar/invoice/maintain`) let the user choose the currency and type a rate. A USD invoice is therefore possible, but only through the AR screen, not through a POS sale.
-- **Consequence for the decided rule "invoice currency must equal loan currency":** a USD or THB loan cannot settle a POS-made vehicle sale (which is LAK) by DISB with target SALE_INVOICE_SETTLEMENT. Either the vehicle is invoiced in USD or THB through AR, or the product uses the CASH_BANK target. **Decided 2026-10-31:** only CASH_BANK products and USD/THB invoices made in the AR module are supported; converting a LAK invoice is not built (addendum §8.4, Q23).
+**POS sale: lines vs header (corrects the earlier claim that "POS sales are always in the base currency").**
+- **Each sale line has its own currency and rate.** In `dc_web/layouts/pos.vue` `generateSaleLine` (≈1470–1505), a line takes `currencyId = product.saleCurrencyId` and `exchangeRate = currency.rate`. `price` and `total` are in **that line's currency**. One sale can mix currencies (for example a USD car and LAK accessories).
+- **The sale header is in base.** Its `total` is `grandTotal` (≈1562): the sum of each line converted to local with `CurrencyHelper.convertToLocal` at the line currency's current rate and direction. The header has `currencyId = local` and `exchangeRate = local rate` (≈2880, marked TODO).
+- **The server stores what the client sends.** `sales/controller.js` (`createSaleHeader`, `createSaleHeaderV3`, `createSaleHeaderOnly`, `createSaleLineOnly`, `completeSaleWithLines`) does not recompute the header total or convert lines.
+- **AR invoice from a POS credit order** (`AR/invoice/header/controller.js:684–732`):
+  - the header copies the sale's base `total`, currency and rate;
+  - each **invoice line copies the sale line's `price` and `total` in the line's own currency**, but invoice lines have **no currency column**.
+  
+  So for a USD car, the invoice header says LAK 315,000,000 while its line says 15,000.00. This is a POS defect (`pos-defects.md` #9). It matters to the loan: receipt allocations to invoice lines cannot use line amounts for a mixed or foreign-line invoice (see 1.4.1).
+- **Manual AR invoices** (`components/accounting/ar/invoice/maintain`) have a currency and a rate on the header. A USD invoice is possible there.
+
+#### 1.4.1 Other ways sales are created (checked 2026-10-31)
+| Client | Endpoint | Header currency / rate | Line currency / rate |
+|---|---|---|---|
+| dc_web POS screen (`layouts/pos.vue`) | `POST /api/sale/create-header-only`, `create-line-only`, `complete-sale` (multi-payment), `/api/sale/create` | local / local rate | product `saleCurrencyId` / currency rate |
+| dc_web `composables/pos/usePaymentProcessing.js` | `/api/sale/...` | `currencyId: 1` hard-coded (≈ lines 63, 93) | as sent by the cart |
+| dc_web other forms (`OrderDetailPosCRUD`, quotation/reservation converters, `mixins/posHelpers.js`) | `/api/sale/...` | as sent (not inspected line by line) | as sent (not inspected line by line) |
+| **dc_pos** (Flutter, `lib/service/sale_service.dart` → `POST api/sale/create`; screens `restaurant_pos_screen.dart:696–702`, `merchant_pos_screen.dart:707`) | `/api/sale/create` | `currencyId = the app's active currency`, **`exchangeRate: 1`** | **no currency or rate fields** on `SaleLine` (`lib/models/sale_line.dart`), so the DB defaults apply (rate 1, currency empty) |
+| dc_mobile | — | **not present in this workspace** (`/dcommerce` contains Archieve, dc_api, dc_pos, dc_web, docs) | — |
+
+**Findings:**
+- A dc_pos sale in a non-base active currency carries rate 1 on the header, so `local = total × 1` would be wrong. This is a pre-existing dc_pos behaviour, and it is noted in `pos-defects.md` #9.
+- The server never validates currency consistency between the header and its lines.
+
+**Consequences for the loan (feeds addendum §8.4):**
+- The vehicle's contract-currency price is on the **sale line** (`currencyId`, `price`/`total`, `exchangeRate`). The invoice open balance is in **base** (the header).
+- A USD or THB loan can therefore settle a base-currency (LAK) invoice:
+  - the principal's carrying base is the invoice base relieved;
+  - the contract principal is proposed from the vehicle line's currency amount minus the down payment converted at the line rate;
+  - the implied rate (base / contract) is checked against the line rate and the rate table.
+- **Loan receipt allocations** must work off the invoice header's base, because line amounts can be in another currency. The AR receipt lines are allocated in proportion to the base of each invoice line, at the header rate for base lines and at the sale line's rate for foreign lines. Otherwise a single allocation line is used. That is a Phase 5 A8 implementation detail.
+- **Normalizing line rates:** a sale line stores the raw `currency.rate`, whose meaning depends on that currency's `exchangeDirection`. The loan normalizes it to base per 1 unit with the currency's direction and records the normalized value.
 
 ### 1.5 Bank accounts
 `bankAccount.currency` is an ENUM (LAK, USD, THB, CNY, EUR) and `balance` is a **DOUBLE** in the account's own currency. Locally there are 10 LAK and 2 USD accounts. `transactionEntry` (`debit`/`credit` DOUBLE) is always in the bank account's currency; it has no currency or rate column.
@@ -76,6 +106,7 @@ In every copy it uses the **current** `currency.rate` with both directions, assu
 2. GL rows can carry everything we need: foreign amount, base amount, rate and currency. Base-only rows for FX and rounding follow an existing POS precedent.
 3. POS screens that convert balances at today's rate (balance sheet Mode B for foreign bank accounts) will differ from GL base balances that were booked at historical rates. This is a POS-wide property, not caused by the loan. The loan reconciliation line will show it.
 4. The loan writes document rates as base per 1 unit, like the POS documents. It never writes a `local_to_foreign` rate onto a POS document.
+5. POS sales mix currencies by line, with the header in base. A foreign-currency loan may settle a base-currency invoice, as addendum §8.4 (revised) sets out.
 
 ## 2. Business date and manual close of business
 

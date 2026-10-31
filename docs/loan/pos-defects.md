@@ -14,6 +14,7 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 6 | Balance sheet Mode B subtracts voided and cancelled receipts from open invoices | Balance sheet | High: AR understated | Active-receipts filter only when `BS_INCLUDE_LOAN_BOOK` is on (§10); void-date caveat |
 | 7 | GL cash batch treats every non-cash receipt method as bank account 1002 | GL batch | Low (latent) | Loan receipts are marked `posted` |
 | 8 | AR receipt search uses `Op.iLike` (PostgreSQL only) on MariaDB | AR API | Medium: search filter fails (not run, read from code) | None needed |
+| 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | High: line totals don't add up to the header; a line-based AR posting would post foreign amounts as LAK | Loan allocates its receipts from the header base |
 
 ---
 
@@ -114,6 +115,28 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 **Evidence:** `dc_api/src/AR/receive/header/controller.js` `findAll` and `findAllForPL` (search filter): `{ receiptNumber: { [Op.iLike]: … } }`. `Op.iLike` is PostgreSQL only; with the MariaDB dialect it produces SQL MariaDB rejects. **Read from code; not run.** The AR receipt screen searches client-side, so it does not send `search`.
 
 **Suggested fix:** use `Op.like` (MariaDB comparisons are case-insensitive under the default collations).
+
+
+## 9. AR invoice lines from a POS order are in the line's currency, the header in base, and lines have no currency column
+**Evidence**
+- **POS sale lines carry their own currency.** `dc_web/layouts/pos.vue` `generateSaleLine` (≈1470–1505) sets `currencyId = product.saleCurrencyId` and `exchangeRate = currency.rate`, with `price` and `total` in that currency. The sale header `total` is the lines converted to local (`grandTotal`, ≈1562), with header `currencyId` = local.
+- **The invoice from a POS credit order** (`dc_api/src/AR/invoice/header/controller.js:684–732`) copies the header's base `total`, currency and rate. **Each invoice line copies the sale line's `price` and `total` unchanged** (`unitPrice: line.price`, `lineTotal: line.total`). `arInvoiceLine` has no currency column.
+- **Example:** a USD 15,000.00 car at 21,000. Invoice header LAK 315,000,000, invoice line 15,000.00. The line total does not add up to the header, and nothing says the line is in USD.
+- **Related, dc_pos** (`lib/service/sale_service.dart`, `restaurant_pos_screen.dart:696–702`, `merchant_pos_screen.dart:707`): the header is sent with the app's active currency and `exchangeRate: 1`, and `SaleLine` has no currency or rate. A sale in a non-base active currency is therefore stored with rate 1.
+- **The server** (`sales/controller.js` create and complete paths) stores the totals as sent, with no recomputation or consistency check between the header and its lines.
+
+**Effect**
+- Invoices from POS orders are created `glPostingStatus = 'unposted'`. The AR posting batch (`GL/postingService.js:170–200`) posts **per line** `lineTotal × header exchangeRate`. For the example it would post 15,000 (as LAK) instead of 315,000,000. Whether such invoices are also covered by the sale's own GL posting is a separate question for the POS owner.
+- AR receipt allocations to invoice lines (`arReceiveLine`) compare base receipt amounts with foreign line amounts.
+- Invoice printouts and line reports show foreign amounts under a LAK header.
+
+**Suggested fix**
+- Add `currencyId` and `exchangeRate` (and optionally `baseLineTotal`) to `arInvoiceLine`, and fill them from the sale line.
+- Post AR lines at the line's own rate (or post the header total and keep lines informational).
+- Validate on the server that header total = Σ lines converted at their stored rates.
+- In dc_pos, send each line's currency and rate, and the header rate of the active currency.
+
+**Loan workaround (Phase 5 A8):** for a base-currency invoice, the loan proposes the contract principal from the sale line's currency amount and line rate. It allocates its DISB receipt from the invoice header's base (in proportion to each line's base), and never compares base amounts with raw line totals (addendum §8.4).
 
 ---
 

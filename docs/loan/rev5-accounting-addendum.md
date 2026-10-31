@@ -2,7 +2,7 @@
 
 Status: **accepted with changes (revision 2); account numbers and VAT still to be confirmed by the customer's accountant.** Phase 2B seeds the catalog additions (§7) and `ln_accounting_entry_rule` as PENDING. `ln_role_gl_mapping` stays empty and no GL accounts are created until the accountant confirms §5.
 
-Revision 3 draft (2026-10-31): new §8 Multi-currency (UNCONFIRMED). Reviewed the same day; changes applied: DISB carries over the invoice base; rate age 3 days with a warning; self-authorize applies to rates; USD examples from the engine schedule; Q23 decided.
+Revision 3 draft (2026-10-31): new §8 Multi-currency (UNCONFIRMED). Reviewed the same day; changes applied: DISB carries over the invoice base; rate age 3 days with a warning; self-authorize applies to rates; USD examples from the engine schedule. Owner's correction (same day): POS sale lines carry their own currency, so a foreign-currency loan may settle a base-currency invoice (implied-rate tolerance, currency position, examples X1–X3).
 
 Revision 2 changes:
 - penalties default to MEMO_ONLY (cash basis);
@@ -828,7 +828,7 @@ Everything here is **UNCONFIRMED** until the customer's accountant answers §8.9
 
   | Bucket | Role | Booked at |
   |---|---|---|
-  | Principal | `LOAN_PORTFOLIO` (by qualifier) | target SALE_INVOICE_SETTLEMENT: the invoice's carrying base, carried over (§8.4); target CASH_BANK: DISB rate. Capitalized fees: DISB rate |
+  | Principal | `LOAN_PORTFOLIO` (by qualifier) | target SALE_INVOICE_SETTLEMENT: the invoice base relieved, carried over (§8.4, same-currency or base-currency invoice); target CASH_BANK: DISB rate. Capitalized fees: DISB rate |
   | Interest receivable | `INTEREST_RECEIVABLE` | ACCR rate (EOD date) |
   | Fee / insurance receivable | `FEE_RECEIVABLE`, `INSURANCE_RECEIVABLE` | billing rate |
   | Penalty receivable (BILL option only) | `PENALTY_RECEIVABLE` | billing rate |
@@ -840,17 +840,34 @@ Everything here is **UNCONFIRMED** until the customer's accountant answers §8.9
   - Income and payable lines (interest income, `INT_CASH`, `PEN_CASH`, fee income, VAT, insurance payable) are converted at today's rate and have no FX.
 - **Suspended interest** (`SUSPENDED_INTEREST`) and off-balance memo amounts are not monetary buckets. They are converted at the rate of the transaction that moves them.
 
-### 8.4 Disbursement settling the vehicle invoice
-- **Currency rule:** the AR invoice must be in the loan currency, otherwise the DISB is refused.
-- **POS limitation:** POS sales are always LAK today (`phase5-fx-investigation.md` §1.4). So a USD or THB loan with target SALE_INVOICE_SETTLEMENT needs a USD or THB invoice made in the AR module (see Q23).
-- **Decided (2026-10-31): the invoice's carrying base is carried over, with no FX at DISB.**
-  - Cr `SALE_RECEIVABLE` and Dr `LOAN_PORTFOLIO` both carry the same base: contract amount × the invoice's `exchangeRate` (POS documents store base per 1 unit). Earlier receipts, such as the down payment, have already relieved their part at the same rate.
-  - The DISB-date rate is not used for this pair, and there is no `FX_DIFF` line. The principal bucket starts at the invoice's carrying rate.
-  - Any movement between the invoice rate and later rates is recognized only when principal is repaid (realized FX, §8.3), or at month-end if revaluation is switched on (§8.7).
-  - **Note for the accountant (Q32):** this defers the FX between the invoice date and the DISB date into the loan. If the invoice is old and the rate has moved, the portfolio starts below or above its value at the DISB-date rate until repayment or revaluation.
-- **Decided scope (Q23):** only USD/THB invoices made in the AR module, or products with target CASH_BANK. Converting a LAK invoice into a USD or THB loan is **not** built; a currency mismatch is refused.
-- **CASH_BANK target:** the principal is paid out from a bank account in the loan currency at the DISB rate. Both lines are at the same rate, so there is no FX.
-- **The AR receipt created by DISB:** recorded in the invoice currency at the invoice rate. It stays `posted` (Phase 4), so the POS cash batch never posts it.
+### 8.4 Disbursement settling the vehicle invoice (revised 2026-10-31 after the owner's correction)
+**Facts** (`phase5-fx-investigation.md` §1.4):
+- A POS sale's **lines** carry their own currency and rate (`product.saleCurrencyId`). The sale **header**, and the AR invoice created from a POS credit order, are in **base** (LAK); the header total is the lines converted at each line's rate.
+- AR invoices made in the AR module can be in any currency.
+
+**Rule (replaces "invoice currency must equal loan currency"):**
+1. **Same currency:** the invoice is in the loan currency (for example a USD invoice made in the AR module). Settled as before: a single pair at the invoice's carrying base.
+2. **Base-currency invoice, foreign-currency loan:** allowed. This is the normal case for a USD car sold at the POS.
+   - **Carrying base:** the principal's carrying base is the **invoice base relieved**: the open base after the down payment and other receipts.
+   - **Contract principal:** entered by the user, or **proposed** from the sale lines: Σ vehicle lines in the loan currency (their `total`) minus the receipts already applied, converted at the line's rate (normalized to base per 1 unit), rounded to the loan currency's decimals.
+   - **Implied rate** = invoice base relieved ÷ contract principal. It must be within **`LOAN_FX_IMPLIED_RATE_TOLERANCE_PCT`** (proposed default 1.00%) of **both** the sale line's rate and the rate-table rate for the DISB date.
+   - **Outside the tolerance:** refused when `LOAN_FX_IMPLIED_RATE_BREACH = REFUSE` (proposed default). When it is `CHECKER_OVERRIDE`, the maker gives a reason and the checker must explicitly accept the deviation; this is audited. DISB already needs a checker under Phase 4 D4.
+   - **When it is checked:** at application/booking (as a proposal) and again at DISB (binding).
+   - **Warning:** within the tolerance, any difference between the implied rate and the table rate is shown as a warning on the screen and in the API response.
+   - **No FX at DISB:** the table rate is not used for posting.
+3. **Any other invoice currency** (neither the loan currency nor base): refused.
+
+**Posting for case 2: currency position.** One POS GL row has one currency, so a USD debit cannot be paired with a LAK credit. Following standard multi-currency practice, the DISB goes through a **currency position** account, role **`CCY_POSITION` [NEW]**:
+- row in USD: Dr `LOAN_PORTFOLIO` / Cr `CCY_POSITION` (contract amount, base = invoice base relieved);
+- row in LAK: Dr `CCY_POSITION` / Cr `SALE_RECEIVABLE` (base amount, same base).
+
+Each currency balances, and the base balances. `CCY_POSITION` nets to **0 in base** in every journal (a validator rule). In the contract columns it keeps an offsetting USD/LAK position, which is what a position account shows. Accountant question Q34.
+
+**Carry-over (decided 2026-10-31):** in every case the principal starts at the invoice's carrying base, and there is no FX at DISB. The FX against later rates is realized on repayment (§8.3), or at month-end if revaluation is on (§8.7). Note for the accountant: Q32.
+
+**CASH_BANK target:** the principal is paid out from a bank account in the loan currency at the DISB rate. Both lines are at that rate, so there is no FX and no position.
+
+**The AR receipt created by DISB:** recorded in the invoice currency (LAK in case 2) for the invoice base relieved. It stays `posted` (Phase 4), so the POS cash batch never posts it. Its allocation lines follow the invoice header's base (investigation §1.4.1), because POS invoice lines can hold foreign-currency amounts.
 
 ### 8.5 Cash
 The bank account must be in the loan currency, otherwise refused. `transactionEntry` and `bankAccount.balance` move in that currency, with no conversion. The GL cash line carries the contract amount and base at today's rate.
@@ -876,7 +893,7 @@ The bank account must be in the loan currency, otherwise refused. `transactionEn
 ### 8.8 Worked examples (exact; contract and base both balance; these become the Phase 5 `fx.js` test fixtures)
 Base LAK, 0 decimals; USD and THB, 2 decimals. Base-only lines show "—" in the contract column. All figures are computed and checked by script. The USD installments come from the engine (revision of 2026-10-31).
 
-**USD loan:** vehicle USD 15,000.00, invoiced in USD (AR module) at 21,000; down payment USD 3,000.00 received at the invoice rate; financed USD 12,000.00, 18% p.a., 12 months, annuity, 30/360, USD 2 decimals.
+**USD loan (POS sale, the normal case):** vehicle sold at the POS on a USD sale line, 15,000.00 at line rate 21,000. The sale header and AR invoice total is LAK 315,000,000. The down payment of LAK 63,000,000 is received, leaving an invoice balance of LAK 252,000,000. The loan is USD 12,000.00, 18% p.a., 12 months, annuity, 30/360, USD 2 decimals. `LOAN_FX_IMPLIED_RATE_TOLERANCE_PCT` = 1.00.
 
 The installments are the **engine's own schedule** (`generateSchedule`, EQUAL_INSTALLMENT; value date 2026-01-15):
 - installments 1–11: 1,100.16 each;
@@ -892,7 +909,31 @@ The installments are the **engine's own schedule** (`generateSchedule`, EQUAL_IN
 | Cr | TAX_PAYABLE | VAT_OUT | 30.00 | 636,000 |
 | | | **Totals** | **330.00 = 330.00** | **6,996,000 = 6,996,000** |
 
-**U1. DISB settles the USD invoice. Invoice rate 21,000; DISB-date rate 21,200 (not used: the base is carried over)**
+**X1. DISB settles the LAK invoice; implied rate equals the line rate and the table rate**
+
+Proposed principal = 252,000,000 ÷ 21,000 = USD 12,000.00. Implied rate = 252,000,000 ÷ 12,000.00 = **21,000.00000000**; line rate 21,000 (deviation 0.0000%); table rate on the DISB date 21,000 (0.0000%). Passed.
+
+| Row currency | Dr/Cr | Role | Tag | Contract amount | LAK |
+|---|---|---|---|---|---|
+| USD | Dr | LOAN_PORTFOLIO (CURRENT) | PRINCIPAL | USD 12,000.00 | 252,000,000 |
+| USD | Cr | CCY_POSITION | PRINCIPAL | USD 12,000.00 | 252,000,000 |
+| LAK | Dr | CCY_POSITION | PRINCIPAL | LAK 252,000,000 | 252,000,000 |
+| LAK | Cr | SALE_RECEIVABLE | PRINCIPAL | LAK 252,000,000 | 252,000,000 |
+| | | | **Totals** | **USD 12,000.00 = 12,000.00; LAK 252,000,000 = 252,000,000** | **504,000,000 = 504,000,000** |
+
+`CCY_POSITION` base: Cr 252,000,000, Dr 252,000,000, so it nets to 0. Principal bucket: USD 12,000.00 / LAK 252,000,000 (carrying rate 21,000).
+
+**X2. As X1, but the table rate on the DISB date is 21,150: within the tolerance, so it posts with a warning**
+
+Implied rate 21,000.00000000; line rate 21,000 (0.0000%); table rate 21,150 (**0.7092%** ≤ 1.00%). Passed. The journal is **identical to X1**: the table rate is not used for posting, there is no FX at DISB, and the carrying rate is 21,000. The response and screen show: "Implied rate 21,000.00 differs from the table rate 21,150.00 for 2026-11-02 by 0.71% (tolerance 1.00%)." The difference of 12,000.00 × (21,150 − 21,000) = 1,800,000 is realized later as principal is repaid, or at month-end if revaluation is on.
+
+**X3. Wrong principal entered: refused**
+
+The user enters USD 11,500.00 instead of the proposed 12,000.00. Implied rate = 252,000,000 ÷ 11,500.00 = **21,913.04347826**. Deviation from the line rate 21,000: **4.3478%**; from the table rate 21,000: **4.3478%**. Both are above 1.00%.
+- With `LOAN_FX_IMPLIED_RATE_BREACH = REFUSE`: HTTP 409 "Implied rate 21,913.04 (LAK 252,000,000 / USD 11,500.00) differs from the sale line rate 21,000.00 by 4.35% and from the table rate 21,000.00 by 4.35% (tolerance 1.00%). Check the principal: proposed USD 12,000.00." Nothing is written.
+- With `CHECKER_OVERRIDE`: the DISB stays pending, the reason is required, and the checker must accept the deviation explicitly.
+
+**U1 (variant, same-currency invoice).** The vehicle is invoiced in USD in the AR module at 21,000, with a USD 3,000.00 down payment. DISB-date rate 21,200 (not used: the base is carried over).
 
 | Dr/Cr | Role | Tag | USD | LAK |
 |---|---|---|---|---|
@@ -900,7 +941,7 @@ The installments are the **engine's own schedule** (`generateSchedule`, EQUAL_IN
 | Cr | SALE_RECEIVABLE | PRINCIPAL | 12,000.00 | 252,000,000 |
 | | | **Totals** | **12,000.00 = 12,000.00** | **252,000,000 = 252,000,000** |
 
-Principal bucket: USD 12,000.00 / LAK 252,000,000 (carrying rate 21,000).
+Principal bucket: USD 12,000.00 / LAK 252,000,000 (carrying rate 21,000), the same as after X1. U2 to U4 therefore apply to either path.
 
 **U2a. EOD ACCR on the first due date, at 21,450**
 
@@ -994,7 +1035,7 @@ Principal bucket after T3: THB 275,000.00 / LAK 182,875,000 (carrying rate 665.0
 Check: with revaluation, the total FX on this slice is −1,375,000 × 25,000 / 275,000 + 75,000 = −125,000 + 75,000 = −50,000, the same as T4-off. Revaluation changes only *when* the FX is recognized, not how much.
 
 ### 8.9 Questions for the accountant (new; continue the numbering of §6)
-23. **Foreign-currency vehicles.** *Decided 2026-10-31:* USD or THB loans either settle a USD/THB invoice made in the AR module, or use target CASH_BANK. Converting a LAK invoice is not built. For the accountant: confirm that this matches how the dealer invoices foreign-currency vehicles.
+23. **Foreign-currency vehicles.** *Revised 2026-10-31 (owner's correction):* a USD or THB loan may settle the base-currency (LAK) invoice of a POS sale whose vehicle line is in USD or THB. The principal carries the invoice base relieved; the contract principal comes from the sale line; the implied rate must be within the tolerance of the line rate and the table rate (§8.4, X1–X3). Same-currency AR invoices and CASH_BANK also remain. For the accountant: confirm the tolerance (proposed 1.00%), and whether a breach is refused or can be accepted by a checker.
 24. **Rate source and type:** which rate is official for loan postings (central bank, the dealer's bank, a daily board rate)? Who enters it, by what time, and is one rate per day enough? Should a payment use the bank's actual conversion rate when it differs, and within what tolerance?
 25. **Carrying method:** is the weighted-average carrying rate per bucket acceptable, or must each installment keep its own historical rate (FIFO)?
 26. **Provisions:** computed in the contract currency and converted at each provision date, or fixed in LAK at the classification date? Are provisions revalued?
@@ -1005,6 +1046,7 @@ Check: with revaluation, the total FX on this slice is −1,375,000 × 25,000 / 
 31. **Revaluing foreign bank accounts:** the POS bank revaluation recomputes a foreign bank account's whole GL balance, including loan cash. Is running both (bank revaluation in POS, loan revaluation in the loan module) acceptable, or should one process own both?
 32. **DISB carry-over (decided 2026-10-31, for your confirmation):** DISB that settles an invoice carries the invoice's base value into the loan portfolio, with no FX at DISB. The FX between the invoice date and the DISB date is recognized later: on repayment as realized FX, or at month-end if revaluation is on. Is that acceptable, or must the receivable be revalued to the DISB-date rate first (which would post FX at DISB)?
 33. **Rate age:** a transaction may use a rate up to 3 calendar days old (`LOAN_FX_MAX_RATE_AGE_DAYS = 3`), with a visible warning when the rate is not the booking date's. Is 3 days acceptable (weekends, holidays)?
+34. **Currency position account:** a USD loan settling a LAK invoice is posted through a currency position account (`CCY_POSITION`) that nets to 0 in LAK in every journal but shows offsetting USD/LAK amounts. Is a position account acceptable in the dealer's chart (proposed 1990 *Currency position / ບັນຊີຖານະເງິນຕາ*), and should it be reported or hidden in the balance sheet?
 
 ### 8.10 Catalog and mapping additions (proposals; seeded PENDING in Phase 5 A3, no GL accounts created)
 | Kind | Code | Purpose | Proposed account |
@@ -1013,15 +1055,17 @@ Check: with revaluation, the total FX on this slice is −1,375,000 × 25,000 / 
 | Role | `FX_LOSS_REALIZED` | realized FX loss | 5902 *Realized FX loss / ຂາດທຶນອັດຕາແລກປ່ຽນ* (new) |
 | Role | `FX_GAIN_UNREALIZED` | revaluation gain (switch on) | 4008 (POS, existing) or new 4902 (Q27) |
 | Role | `FX_LOSS_UNREALIZED` | revaluation loss (switch on) | 5108 (POS, existing) or new 5903 (Q27) |
+| Role | `CCY_POSITION` | currency position for cross-currency DISB (nets to 0 in base) | 1990 *Currency position / ບັນຊີຖານະເງິນຕາ* (new; Q34) |
 | Amount tag | `FX_DIFF` | realized FX leg (posting layer, no fixed rule) | — |
 | Amount tag | `FX_REVAL` | revaluation leg | — |
 | Batch job | `EOD_FX_REVAL` | month-end revaluation, disabled | — |
-| SPF | `LOAN_FX_MAX_RATE_AGE_DAYS` = `3`, `LOAN_FX_OVERRIDE_TOLERANCE_PCT` = `0`, `LOAN_FX_MAX_ROUND_DIFF` = `1`, `LOAN_FX_REVAL_ENABLED` = `false` | defaults above | — |
+| SPF | `LOAN_FX_MAX_RATE_AGE_DAYS` = `3`, `LOAN_FX_OVERRIDE_TOLERANCE_PCT` = `0`, `LOAN_FX_MAX_ROUND_DIFF` = `1`, `LOAN_FX_REVAL_ENABLED` = `false`, `LOAN_FX_IMPLIED_RATE_TOLERANCE_PCT` = `1.00`, `LOAN_FX_IMPLIED_RATE_BREACH` = `REFUSE` | defaults above | — |
 
 Existing and unchanged: `ROUNDING_DIFF` role and `ROUND_DIFF` tag (§5, §7).
 
 **Validators to add (Phase 5 A6):**
 - no `FX_DIFF` on a DISB with target SALE_INVOICE_SETTLEMENT (carry-over);
+- `CCY_POSITION` nets to 0 in base in every journal, and appears only on a cross-currency DISB (and its reversal);
 - base balance per journal;
 - `FX_DIFF`, `FX_REVAL` and `ROUND_DIFF` lines must be base-only;
 - `FX_DIFF` only on events that relieve a monetary bucket;
