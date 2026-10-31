@@ -299,3 +299,14 @@ Waiting for your decision on R1.
 - **Files for review:**
   - `docs/loan/ar-receive-screen.patch`: the AR receipt screen patch, **not applied**;
   - `docs/loan/phase4-pos-diffs.patch`: complete diffs against `main` of every existing POS file changed on this branch (dc_api and dc_web), plus the new non-loan files that plug into the POS app, with the file list at the top. Password literals in `src/config/dbClient.js` are redacted there.
+
+## 11. Phase 4 close: `DCOMMERCE_DB_*` rename (2026-10-31)
+- **Commit:** dc_api `7ce313b`.
+- **What changed:** `src/config/dbClient.js` (`dev` and `env_auto`) reads `DCOMMERCE_DB_HOST`, `_USER`, `_PASSWORD`, `_NAME` and `_PORT` through one helper. The old `DB_*` names are still read as a fallback (decision D0), and the literal fallback values are untouched.
+- **Test runner and guard:** `test/loan/run.js` sets `DCOMMERCE_DB_NAME`, and the `dbGuard` message names the new variable.
+- **Verified:**
+  - With **no** `DB_*` variable set, the config resolves to the sandbox (`127.0.0.1 dcommerce_loan_dev`).
+  - With only the old names, it falls back correctly.
+  - With both sets present, the new names win.
+  - The full suite (105 passed, 0 failed) ran against `dcommerce_loan_test` with only the new names set.
+- **Protected files:** hashes unchanged.

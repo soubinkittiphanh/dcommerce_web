@@ -2,6 +2,8 @@
 
 Status: **accepted with changes (revision 2); account numbers and VAT still to be confirmed by the customer's accountant.** Phase 2B seeds the catalog additions (§7) and `ln_accounting_entry_rule` as PENDING. `ln_role_gl_mapping` stays empty and no GL accounts are created until the accountant confirms §5.
 
+Revision 3 draft (2026-10-31): new §8 Multi-currency (UNCONFIRMED, for review before any Phase 5 coding).
+
 Revision 2 changes:
 - penalties default to MEMO_ONLY (cash basis);
 - two portfolio accounts by default;
@@ -791,3 +793,223 @@ Corrections to spec-rev4 §2 made above:
 - cash counted twice in LIQD + LIQD_SUSP;
 - FEE_COLLECT used but never seeded;
 - `CUSTOMER_ACCOUNT` target without a role.
+
+---
+
+## 8. Multi-currency (DRAFT, UNCONFIRMED; Phase 5 Part A; for review before any coding)
+
+Customer facts (2026-10-31): contracts are in the **contract currency**, LAK, USD or THB. The loan account, schedule, interest, penalties, fees and payments are all in that currency (FLEXCUBE style). The base (reporting) currency is the POS `isLocalCCY` currency, LAK. Findings behind this section: `phase5-fx-investigation.md`.
+
+Everything here is **UNCONFIRMED** until the customer's accountant answers §8.9. Posting stays behind `LOAN_POSTING_ENABLED` (off). A currency can post only once it has an authorized exchange rate and an authorized currency rule.
+
+### 8.1 Conventions
+- **Rate:** always **base units per 1 contract unit** (LAK per USD), DECIMAL(20,8). POS rates in `local_to_foreign` direction are inverted when copied.
+- **Base amount:** base amount = round half-up (contract amount × rate) to the base decimals (`ln_currency_rule` of LAK: 0).
+- **Every journal line** carries the contract amount, the rate and the base amount. In the POS GL, `debit`/`credit` hold the contract amount, `localDebit`/`localCredit` the base amount, and `rate` and `currencyId` are set.
+- **Base-only line:** contract amount 0, base amount only. Used for FX and rounding legs. In the POS GL it is a row with `debit = credit = 0`, the same pattern as the POS bank revaluation.
+- **Two balance rules, both exact:**
+  - contract debits = contract credits (per currency, as today);
+  - base debits = base credits for the whole journal.
+- **LAK loans are unchanged:** rate 1, base = amount, never an FX or rounding line.
+
+### 8.2 Rate source and rate per transaction
+- **New loan table `ln_exchange_rate`** (`currencyId`, `rateDate`, `rate`, `source` MANUAL/POS_COPY), maker-checker like the other parameters. "Copy today's POS rate" creates a PENDING row from `currency.rate`; a second person authorizes it.
+- **Rate used by a transaction:** the latest AUTHORIZED rate with `rateDate` ≤ its booking date. Refused if:
+  - none exists;
+  - it is older than `LOAN_FX_MAX_RATE_AGE_DAYS` (default **0** = a rate for the booking date itself is required).
+- **EOD jobs:** use the rate of the EOD business date.
+- **Optional per-transaction override** (for example the bank's actual conversion rate): allowed only within `LOAN_FX_OVERRIDE_TOLERANCE_PCT` of the table rate (default **0** = off), and it always needs a checker.
+- **Reversal:** uses the original transaction's stored rate and base amounts, never today's rate.
+
+### 8.3 Carrying base and realized FX
+- **Buckets:** each monetary balance keeps its contract amount **and** its base amount (the *carrying base*):
+
+  | Bucket | Role | Booked at |
+  |---|---|---|
+  | Principal | `LOAN_PORTFOLIO` (by qualifier) | DISB rate (capitalized fees: DISB rate) |
+  | Interest receivable | `INTEREST_RECEIVABLE` | ACCR rate (EOD date) |
+  | Fee / insurance receivable | `FEE_RECEIVABLE`, `INSURANCE_RECEIVABLE` | billing rate |
+  | Penalty receivable (BILL option only) | `PENALTY_RECEIVABLE` | billing rate |
+  | Customer advance | `CUSTOMER_ADVANCE_LIAB` | rate of the overpayment |
+
+- **Relief at the weighted-average carrying rate:** base relieved = round(contract relieved × carrying base / contract balance). When a bucket's contract balance reaches 0, its whole remaining base is relieved, so a closed bucket never keeps a base residue.
+- **Realized FX:** for each relieved bucket, realized FX = round(contract relieved × today's rate) − base relieved.
+  - It is posted as a base-only line, tag **`FX_DIFF` [NEW]**: gain to **`FX_GAIN_REALIZED` [NEW]** (Cr), loss to **`FX_LOSS_REALIZED` [NEW]** (Dr).
+  - Income and payable lines (interest income, `INT_CASH`, `PEN_CASH`, fee income, VAT, insurance payable) are converted at today's rate and have no FX.
+- **Suspended interest** (`SUSPENDED_INTEREST`) and off-balance memo amounts are not monetary buckets. They are converted at the rate of the transaction that moves them.
+
+### 8.4 Disbursement settling the vehicle invoice
+- **Currency rule:** the AR invoice must be in the loan currency, otherwise the DISB is refused.
+- **POS limitation:** POS sales are always LAK today (`phase5-fx-investigation.md` §1.4). So a USD or THB loan with target SALE_INVOICE_SETTLEMENT needs a USD or THB invoice made in the AR module (see Q23).
+- **Posting:**
+  - Cr `SALE_RECEIVABLE` at the invoice's carrying base: contract amount × the invoice's `exchangeRate` (POS documents store base per 1 unit). Earlier receipts, such as the down payment, have already relieved their part at the same rate.
+  - Dr `LOAN_PORTFOLIO` at the DISB rate.
+  - The difference is realized FX (`FX_DIFF`).
+- **The AR receipt created by DISB:** recorded in the invoice currency at the invoice rate. It stays `posted` (Phase 4), so the POS cash batch never posts it.
+
+### 8.5 Cash
+The bank account must be in the loan currency, otherwise refused. `transactionEntry` and `bankAccount.balance` move in that currency, with no conversion. The GL cash line carries the contract amount and base at today's rate.
+
+### 8.6 Rounding (`ROUND_DIFF`)
+- **When it arises:** each line's base amount is rounded separately. When the rounded base debits and credits differ (this happens only when one rate converts several lines with different amounts, for example cash = fee + VAT + insurance), the residue is posted as a base-only line to **`ROUNDING_DIFF`**, tag `ROUND_DIFF` (Dr or Cr).
+- **Cap:** allowed only up to **`LOAN_FX_MAX_ROUND_DIFF`** base minor units per journal line (default 1 kip per line). A larger residue is a defect, and the posting is refused.
+- **Never applies:** to same-currency (LAK) journals, which balance exactly or are refused, as in `rounding-policy.md` rule 4.
+- **POS GL rows:** when a journal line is split across several POS paired rows, the base is split per piece and the last piece takes the remainder, so each line keeps its exact base.
+
+### 8.7 Month-end revaluation (optional; switch `LOAN_FX_REVAL_ENABLED`, default **off**)
+- **When on:**
+  - **Job and timing:** EOD job `EOD_FX_REVAL` runs on month-end business dates, after provision.
+  - **Scope:** the monetary buckets in §8.3, revalued at the month-end rate.
+  - **Posting:** each difference is a base-only pair, tag **`FX_REVAL` [NEW]**:
+    - for an asset bucket: Dr bucket / Cr **`FX_GAIN_UNREALIZED` [NEW]** when the base value rises, or Dr **`FX_LOSS_UNREALIZED` [NEW]** / Cr bucket when it falls;
+    - mirrored for the customer advance (a liability).
+  - **Batches:** summarized per batch, like the other EOD jobs.
+- **Proposed mode: carry forward.** The bucket's carrying base becomes the revalued base, so later realized FX is measured from it (Example T4). There is no reversal on the next day.
+- **When off (default):** no revaluation. Realized FX on payment covers the whole movement since booking (Example T4-off).
+- **Not revalued:** suspended interest, off-balance memo amounts and provisions (provision currency: Q26).
+
+### 8.8 Worked examples (exact; contract and base both balance; these become the Phase 5 `fx.js` test fixtures)
+Base LAK, 0 decimals; USD and THB, 2 decimals. Base-only lines show "—" in the contract column. All figures are computed and checked by script.
+
+**USD loan:** vehicle USD 15,000.00, invoiced in USD at 21,000; down payment USD 3,000.00 received at the invoice rate; financed USD 12,000.00, 18% p.a., 12 months.
+
+**U0. FEE_COLLECT, USD 300.00 fee + 10% VAT, at 21,200**
+
+| Dr/Cr | Role | Tag | USD | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 330.00 | 6,996,000 |
+| Cr | FEE_INCOME | FEE_DOC | 300.00 | 6,360,000 |
+| Cr | TAX_PAYABLE | VAT_OUT | 30.00 | 636,000 |
+| | | **Totals** | **330.00 = 330.00** | **6,996,000 = 6,996,000** |
+
+**U1. DISB settles the USD invoice. Invoice rate 21,000, DISB rate 21,200**
+
+| Dr/Cr | Role | Tag | USD | LAK |
+|---|---|---|---|---|
+| Dr | LOAN_PORTFOLIO (CURRENT) | PRINCIPAL | 12,000.00 | 254,400,000 |
+| Cr | SALE_RECEIVABLE | PRINCIPAL | 12,000.00 | 252,000,000 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF | — | 2,400,000 |
+| | | **Totals** | **12,000.00 = 12,000.00** | **254,400,000 = 254,400,000** |
+
+Principal bucket: USD 12,000.00 / LAK 254,400,000 (carrying rate 21,200).
+
+**U2a. EOD ACCR on the first due date, at 21,450**
+
+| Dr/Cr | Role | Tag | USD | LAK |
+|---|---|---|---|---|
+| Dr | INTEREST_RECEIVABLE | INT_ACCR | 180.00 | 3,861,000 |
+| Cr | INTEREST_INCOME | INT_ACCR | 180.00 | 3,861,000 |
+
+**U2. Installment 1 paid at 21,500: principal 909.71 + interest 180.00**
+
+| Dr/Cr | Role | Tag | USD | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 1,089.71 | 23,428,765 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | PRIN_PAID | 909.71 | 19,285,852 |
+| Cr | INTEREST_RECEIVABLE | INT_PAID | 180.00 | 3,861,000 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF (principal) | — | 272,913 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF (interest) | — | 9,000 |
+| | | **Totals** | **1,089.71 = 1,089.71** | **23,428,765 = 23,428,765** |
+
+Principal bucket after U2: USD 11,090.29 / LAK 235,114,148. The interest bucket is closed (its whole base is relieved).
+
+**U3. Partial principal prepayment USD 2,000.00 at 20,900 (rate fell: realized loss)**
+
+| Dr/Cr | Role | Tag | USD | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 2,000.00 | 41,800,000 |
+| Dr | FX_LOSS_REALIZED | FX_DIFF | — | 600,000 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | PRIN_PAID | 2,000.00 | 42,400,000 |
+| | | **Totals** | **2,000.00 = 2,000.00** | **42,400,000 = 42,400,000** |
+
+**U4. REVERSAL of U3:** the exact mirror with U3's stored rates and base amounts (Dr LOAN_PORTFOLIO 2,000.00 / 42,400,000; Cr CASH_BANK 2,000.00 / 41,800,000; Cr FX_LOSS_REALIZED 600,000). The principal bucket returns to USD 11,090.29 / LAK 235,114,148.
+
+**THB loan:** principal THB 300,000.00, target CASH_BANK, disbursed at 670.00. The principal bucket is THB 300,000.00 / LAK 201,000,000.
+
+**T1. FEE_COLLECT at 670.55: fee 4,500.00 + VAT 450.00 + insurance 300.05 (rounding residue)**
+
+| Dr/Cr | Role | Tag | THB | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 5,250.05 | 3,520,421 |
+| Dr | ROUNDING_DIFF | ROUND_DIFF | — | 1 |
+| Cr | FEE_INCOME | FEE_DOC | 4,500.00 | 3,017,475 |
+| Cr | TAX_PAYABLE | VAT_OUT | 450.00 | 301,748 |
+| Cr | INSURANCE_PAYABLE | INS_PREM | 300.05 | 201,199 |
+| | | **Totals** | **5,250.05 = 5,250.05** | **3,520,422 = 3,520,422** |
+
+Each line rounded separately: 5,250.05 × 670.55 = 3,520,421.03 → 3,520,421, while the credit lines round to 3,017,475 + 301,748 (301,747.50 rounds up) + 201,199 = 3,520,422. The 1-kip residue is within the cap.
+
+**T2a. EOD ACCR on the due date at 668.20:** Dr INTEREST_RECEIVABLE / Cr INTEREST_INCOME, THB 4,500.00, LAK 3,006,900 each.
+
+**T2. Installment paid 20 days late at 671.35: principal 25,000.00 + interest 4,500.00 + memo penalty 125.48 (PEN_CASH)**
+
+| Dr/Cr | Role | Tag | THB | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 29,625.48 | 19,889,066 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | PRIN_PAID | 25,000.00 | 16,750,000 |
+| Cr | INTEREST_RECEIVABLE | INT_PAID | 4,500.00 | 3,006,900 |
+| Cr | PENALTY_INCOME | PEN_CASH | 125.48 | 84,241 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF (principal) | — | 33,750 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF (interest) | — | 14,175 |
+| | | **Totals** | **29,625.48 = 29,625.48** | **19,889,066 = 19,889,066** |
+
+The penalty is income at today's rate, with no FX. Principal bucket after T2: THB 275,000.00 / LAK 184,250,000.
+
+**T3. Month-end revaluation at 665.00 (only when `LOAN_FX_REVAL_ENABLED = 'true'`, carry forward)**
+
+| Dr/Cr | Role | Tag | THB | LAK |
+|---|---|---|---|---|
+| Dr | FX_LOSS_UNREALIZED | FX_REVAL | — | 1,375,000 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | FX_REVAL | — | 1,375,000 |
+
+Principal bucket after T3: THB 275,000.00 / LAK 182,875,000 (carrying rate 665.00).
+
+**T4. Next installment, principal 25,000.00 at 668.00, after T3**
+
+| Dr/Cr | Role | Tag | THB | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 25,000.00 | 16,700,000 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | PRIN_PAID | 25,000.00 | 16,625,000 |
+| Cr | FX_GAIN_REALIZED | FX_DIFF | — | 75,000 |
+
+**T4-off. The same payment with revaluation off** (carrying rate still 670.00):
+
+| Dr/Cr | Role | Tag | THB | LAK |
+|---|---|---|---|---|
+| Dr | CASH_BANK | TOTAL_PAID | 25,000.00 | 16,700,000 |
+| Dr | FX_LOSS_REALIZED | FX_DIFF | — | 50,000 |
+| Cr | LOAN_PORTFOLIO (CURRENT) | PRIN_PAID | 25,000.00 | 16,750,000 |
+
+Check: with revaluation, the total FX on this slice is −1,375,000 × 25,000 / 275,000 + 75,000 = −125,000 + 75,000 = −50,000, the same as T4-off. Revaluation changes only *when* the FX is recognized, not how much.
+
+### 8.9 Questions for the accountant (new; continue the numbering of §6)
+23. **Foreign-currency vehicles:** POS sales are always LAK. For a USD or THB loan, should the vehicle be invoiced in USD or THB through the AR module (so DISB settles that invoice), or should those products disburse to cash/bank (target CASH_BANK), or should DISB settle a LAK invoice by conversion (which breaks the "invoice currency = loan currency" rule)?
+24. **Rate source and type:** which rate is official for loan postings (central bank, the dealer's bank, a daily board rate)? Who enters it, by what time, and is one rate per day enough? Should a payment use the bank's actual conversion rate when it differs, and within what tolerance?
+25. **Carrying method:** is the weighted-average carrying rate per bucket acceptable, or must each installment keep its own historical rate (FIFO)?
+26. **Provisions:** computed in the contract currency and converted at each provision date, or fixed in LAK at the classification date? Are provisions revalued?
+27. **FX accounts:** separate realized gain and realized loss accounts? For unrealized FX, reuse the POS accounts 4008 and 5108 (created by the POS bank revaluation) or separate loan accounts? Proposed numbers are in §8.10.
+28. **Month-end revaluation:** required at all? If so, carry forward (proposed) or reverse on the first day of the next month?
+29. **Rounding:** is a 1-kip-per-line cap for `ROUNDING_DIFF` acceptable, and should rounding differences go to their own account or to FX gain/loss?
+30. **Interest and penalties on foreign loans:** confirm that interest, penalties, fees and insurance are always charged and paid in the contract currency (never in LAK), and that VAT on fees of a USD or THB loan is declared in LAK at the transaction rate.
+31. **Revaluing foreign bank accounts:** the POS bank revaluation recomputes a foreign bank account's whole GL balance, including loan cash. Is running both (bank revaluation in POS, loan revaluation in the loan module) acceptable, or should one process own both?
+
+### 8.10 Catalog and mapping additions (proposals; seeded PENDING in Phase 5 A3, no GL accounts created)
+| Kind | Code | Purpose | Proposed account |
+|---|---|---|---|
+| Role | `FX_GAIN_REALIZED` | realized FX gain | 4901 *Realized FX gain / ກຳໄລອັດຕາແລກປ່ຽນ* (new) |
+| Role | `FX_LOSS_REALIZED` | realized FX loss | 5902 *Realized FX loss / ຂາດທຶນອັດຕາແລກປ່ຽນ* (new) |
+| Role | `FX_GAIN_UNREALIZED` | revaluation gain (switch on) | 4008 (POS, existing) or new 4902 (Q27) |
+| Role | `FX_LOSS_UNREALIZED` | revaluation loss (switch on) | 5108 (POS, existing) or new 5903 (Q27) |
+| Amount tag | `FX_DIFF` | realized FX leg (posting layer, no fixed rule) | — |
+| Amount tag | `FX_REVAL` | revaluation leg | — |
+| Batch job | `EOD_FX_REVAL` | month-end revaluation, disabled | — |
+| SPF | `LOAN_FX_MAX_RATE_AGE_DAYS` = `0`, `LOAN_FX_OVERRIDE_TOLERANCE_PCT` = `0`, `LOAN_FX_MAX_ROUND_DIFF` = `1`, `LOAN_FX_REVAL_ENABLED` = `false` | defaults above | — |
+
+Existing and unchanged: `ROUNDING_DIFF` role and `ROUND_DIFF` tag (§5, §7).
+
+**Validators to add (Phase 5 A6):**
+- base balance per journal;
+- `FX_DIFF`, `FX_REVAL` and `ROUND_DIFF` lines must be base-only;
+- `FX_DIFF` only on events that relieve a monetary bucket;
+- `ROUND_DIFF` within the cap;
+- LAK journals contain none of the three.
