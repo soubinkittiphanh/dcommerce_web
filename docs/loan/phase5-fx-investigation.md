@@ -58,7 +58,7 @@ In every copy it uses the **current** `currency.rate` with both directions, assu
 **Important for loans:**
 - **POS sales are always in the base currency today.** `dc_web/layouts/pos.vue` creates the sale with `currencyId: findLocalCurrency.id` and `exchangeRate: findLocalCurrency.rate`, marked `//TODO: update currency DYNAMICALLY`. An AR invoice created from a POS credit order copies the order's currency and rate (`AR/invoice/header/controller.js:688`). So vehicle sales made at the POS produce **LAK invoices**.
 - **Manual AR invoices** (`components/accounting/ar/invoice/maintain`) let the user choose the currency and type a rate. A USD invoice is therefore possible, but only through the AR screen, not through a POS sale.
-- **Consequence for the decided rule "invoice currency must equal loan currency":** a USD or THB loan cannot settle a POS-made vehicle sale (which is LAK) by DISB with target SALE_INVOICE_SETTLEMENT. Either the vehicle is invoiced in USD or THB through AR, or the product uses the CASH_BANK target. This is a new question for you and the accountant (addendum §8.9, Q23).
+- **Consequence for the decided rule "invoice currency must equal loan currency":** a USD or THB loan cannot settle a POS-made vehicle sale (which is LAK) by DISB with target SALE_INVOICE_SETTLEMENT. Either the vehicle is invoiced in USD or THB through AR, or the product uses the CASH_BANK target. **Decided 2026-10-31:** only CASH_BANK products and USD/THB invoices made in the AR module are supported; converting a LAK invoice is not built (addendum §8.4, Q23).
 
 ### 1.5 Bank accounts
 `bankAccount.currency` is an ENUM (LAK, USD, THB, CNY, EUR) and `balance` is a **DOUBLE** in the account's own currency. Locally there are 10 LAK and 2 USD accounts. `transactionEntry` (`debit`/`credit` DOUBLE) is always in the bank account's currency; it has no currency or rate column.
@@ -104,7 +104,7 @@ SPF **`USE_BUSINESS_DATE`** (Y/N), seeded `N` at startup (`src/models/index.js:1
 | Bank entries' `businessDate` | the POS date | still the POS date, so it **goes stale** |
 | Phase 4 loan EOD (D8: refuse while POS date < loan date) | works once COB has been run up to the loan date | **blocks permanently** once the loan date passes the stale POS date (`dcommerce_loan_dev`: POS 2026-04-09, loan 2026-10-29) |
 
-### 2.4 Proposal (plan A.6, decisions D7 and D8)
+### 2.4 Rules (plan A.6, decisions D7 and D8): **approved 2026-10-31**
 - **`Y`:** loan EOD for loan date D runs only when the POS date is **later than** D, which means POS COB has closed day D, so no POS cash for D can still arrive. Today's check also accepts *equal* (D7).
 - **`N`:** loan EOD for D runs when the calendar date in `Asia/Vientiane` is later than D. The POS date is ignored, and the loan's bank entries carry the loan business date (D8).
 - **Both modes:**
