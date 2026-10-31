@@ -119,3 +119,92 @@ In `dcommerce_loan_dev`, the POS date copied from dev is 2026-04-09 and the loan
 - The multi-level `ln_approval_matrix` is not used yet; there is a single checker.
 - **No screens for payments or EOD** yet (D11).
 - GL mappings, entry rules and the tax profile remain **sandbox values** until the accountant confirms the chart accounts. With `LOAN_POSTING_ENABLED = 'false'`, nothing posts at a customer.
+
+## 8. The AR receipt created at DISB: what it is and who counts it (investigated 2026-10-31, read-only)
+
+### 8.1 What the receipt carries
+`posAdapters.settleInvoice` creates one `ARReceiveHeader` per DISB with target SALE_INVOICE_SETTLEMENT:
+
+| Field | Value |
+|---|---|
+| `receiptNumber` | `LN-<txNo>` (POS receipts use the `AR-RCP` prefix, so they cannot collide) |
+| `paymentMethod` (POS ENUM `cash / check / bank_transfer / credit_card / other`) | **`other`** |
+| `paymentId` (FK to the POS `payment` table: CASH, CREDIT, TRANSFER_BCEL, …) | **not set (NULL)** |
+| `status` | `active` |
+| `glPostingStatus` / `glBatchId` | `posted` / `<txNo>` (the loan posts its own GL: Dr LOAN_PORTFOLIO / Cr SALE_RECEIVABLE) |
+| `referenceNumber`, `notes` | `<txNo>`, "Settled by loan disbursement `<txNo>`" |
+| Lines | `ARReceiveLine` allocations to the invoice lines |
+
+DISB creates **no bank entry**: no `transactionEntry` row and no `bankAccount.balance` change. No cash moves, because the finance company is the dealer itself.
+
+### 8.2 Which POS reports and batches count it
+| Report / batch you named | Exists in POS? | Does it count the loan receipt as cash received? |
+|---|---|---|
+| Daily collection | No report of that name. The nearest are the AR receipt list summary cards (below) and the bank daily balance (COB). | **No.** COB and the bank statement read only `transactionEntry`, and DISB writes none. |
+| Cash flow | No cash-flow report in dc_api or dc_web. The balance sheet (Mode B) takes cash from bank balances. | **No.** Bank balances are not changed. |
+| Shift close | Only `school/shift` and the POS ticket/shift code. Neither reads AR receipts. | **No.** |
+| AR receipt list (`/admin/accounting/ar/receive`) | Yes | **Listed and included in "Total received", under the "Other" card, not "Cash" or "Bank transfer".** The cards classify by `payment.payment_code` or by `paymentMethod`; `other` with no `paymentId` lands in "Other". |
+| Customer statement | No AR customer statement exists. The account statement is for bank accounts; there is also a money-advance statement. | **No.** |
+| GL cash posting batch (`cashPostingService`, module AR_RECEIPT) | Yes | **No.** It picks only `glPostingStatus = 'unposted'`, which is tested. **Caution:** if a user ever reset the flag to `unposted`, the batch would post Dr *Bank Account 1002* / Cr AR, because it treats every method other than `cash` as bank. That would be a second, wrong posting. |
+
+**Also affected (not in your list, but they count it as money received):** five POS P&L screens add **every active AR receipt, whatever its payment method**, to income as "ໃບຮັບເງິນ (AR Receive)", inside "Other Income":
+- `pages/admin/pl`, `pages/admin/plCommission`, `pages/admin/saleCost`, `pages/admin/saleCostCommission`, `pages/reports/financial/pl`;
+- plus `components/reports/ProfitLossReport.vue` (via `/api/ar-receive-headers/pl`), used by `pages/reports/profit-loss.vue`.
+
+These screens filter only on status (voided and cancelled are excluded), never on method. Their sales figure (`/api/sale/findDetailByDate`) already includes the vehicle sale, credit or not.
+- **Effect:** for a 300,000,000 vehicle sale with a 60,000,000 down payment and a 240,000,000 loan, these screens show 300m sales + 60m + 240m "AR Receive" = **600m income**.
+- The 60m down-payment double count is pre-existing POS behaviour for any AR-settled POS sale. **The loan receipt adds the 240m.**
+- The posted GL is correct: the loan posts Dr LOAN_PORTFOLIO / Cr SALE_RECEIVABLE, with no revenue. The GL-based P&L and trial balance are not affected.
+
+### 8.3 Proposed fix: shown for approval, NOT implemented
+A dedicated payment method alone would **not** fix the P&L screens, because they ignore the method. And it is not small:
+- The POS `paymentMethod` ENUM is defined in four backend places:
+  - the model;
+  - `models/index.js` addColIfMissing;
+  - `helper/sqlExecutor.js`;
+  - the controller's `resolvePaymentMethodEnum` allow-list.
+  
+  That allow-list rewrites unknown values on every edit.
+- A row in the POS `payment` table would appear in the POS payment pickers.
+
+**Option A (recommended, smallest; no POS schema change):**
+1. Mark the receipt explicitly. Keep `paymentMethod = 'other'` and add a fixed marker: `notes` and `referenceNumber` stay, and `receiptNumber` stays `LN-<txNo>`. The authoritative link already exists in `ln_pos_link` (`posTable = 'ARReceiveHeader'`).
+2. Back end: **one new optional query flag** on the two list endpoints `GET /api/ar-receive-headers` and `/pl`: `excludeLoanSettlement=1`. When set, it adds `id NOT IN (SELECT posId FROM ln_pos_link WHERE posTable = 'ARReceiveHeader')`. Without the flag, nothing changes.
+   - Touches `src/AR/receive/header/controller.js`, about 6 lines.
+3. Front end: the six P&L consumers pass `excludeLoanSettlement: 1`. That is one parameter per call, in six POS dc_web files.
+
+**Option B (what you suggested): dedicated method `loan_settlement`.**
+- Add `'loan_settlement'` in the four backend ENUM/allow-list places. The model change alters `ARReceiveHeader.paymentMethod` at startup on every customer, the same deployment caveat as LOAN_IN/LOAN_OUT.
+- Exclude it in the six P&L screens.
+- Optionally make `cashPostingService` skip it.
+- More POS files are touched than in A, and a migration is needed. Its advantage: the method is visible in the AR list ("Loan settlement" instead of "Other").
+
+Either option also needs the protections in 8.4. **I recommend A + 8.4 (2).** Waiting for your decision.
+
+### 8.4 How the existing POS AR receipt screen behaves with loan-settled invoices
+Read from `pages/admin/accounting/ar/receive/index.vue` and `components/accounting/ar/receive/maintain/index.vue`, without editing either. Both files carry your unrelated local changes.
+
+1. **List and view.** The receipt appears as `LN-<txNo>`, method "ອື່ນໆ / Other", status active, with its allocation lines. It is counted in "Total received" and "Other" (8.2).
+2. **New receipts.** The invoice picker loads only invoices with status `draft` or `sent`. A loan-settled invoice is `paid`, so it **cannot be picked again**, and a second receipt cannot be entered through the screen.
+   - The invoice is `paid` because the loan applies the status itself (POS defect §6.1).
+   - Side note, pre-existing: `overdue` invoices cannot be picked either.
+3. **Actions the screen offers on an active loan receipt: Edit, Void, Cancel.** Delete is refused by the API because the receipt has lines. Nothing in POS knows the receipt belongs to a loan:
+   - **Void / Cancel** (and later **Reactivate**):
+     - the receipt changes status;
+     - POS `syncInvoiceStatus` is a no-op (§6.1), so the invoice **stays `paid`**;
+     - the loan account stays DISBURSED, and the GL still shows Dr portfolio / Cr AR.
+     
+     The subledger and the loan disagree silently. A later loan REVERSAL of that DISB is then **refused** (409 "AR receipt … is voided"). That is safe, but it needs manual repair.
+   - **Edit:** a user can change the amount, date, method or allocations, or the invoice.
+     - After saving, if the invoice is linked to a POS sale and is `paid`, the screen offers to change the **sale's** payment from credit to the receipt's `paymentId`. The loan receipt has none, so the screen falls back to **`paymentId = 1`**.
+     - In the local copy there is no payment id 1. At a customer it can be any method; if it is CASH, the vehicle sale would then show as a cash sale.
+4. **Balance sheet after a loan REVERSAL (pre-existing POS defect, affects us).** Mode B computes AR as invoice total minus **all** linked receipts, with **no status filter**. After a DISB reversal:
+   - the loan receipt is voided and the invoice is back to sent or overdue;
+   - but the voided 240m receipt is still subtracted, so the report's AR is understated by 240m.
+   
+   With `BS_INCLUDE_LOAN_BOOK = 'true'`, the loan reconciliation line shows this as a GL-vs-subledger difference.
+
+**Proposed protection (part of the fix, not implemented):**
+- (1) The loan code already refuses its own reversal when the receipt was changed outside the loan.
+- (2) A small guard in the POS AR receipt API: `update`, `void`, `cancel` and `reactivate` refuse a receipt that has an `ln_pos_link` row, with the message "This receipt settles loan `<txNo>`; reverse it from the loan module." That is one check in `src/AR/receive/header/controller.js`. The screen keeps working and just shows the API message.
+- (3) Optionally, hide those menu items in the screen for `LN-` receipts.
