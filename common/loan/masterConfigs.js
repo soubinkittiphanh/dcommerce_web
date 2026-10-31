@@ -98,6 +98,7 @@ export const MASTER_CONFIGS = [
       code('feeCode'),
       f('componentId', 'ອົງປະກອບ (Component)', 'select', { optional: true, ref: { entity: 'component', text: 'componentCode' } }),
       f('feeType', 'ປະເພດ (Fee type)'), f('calcMethod', 'ວິທີຄິດໄລ່ (Calc method)'), f('basisAmountType', 'ພື້ນຖານ (Basis amount)'),
+      f('currencyId', 'ສະກຸນເງິນຂອງຈຳນວນ (Currency of the amounts; empty = base)', 'select', { pos: 'currency', optional: true }),
       f('minAmount', 'ຕ່ຳສຸດ (Min amount)', 'money'), f('maxAmount', 'ສູງສຸດ (Max amount)', 'money'),
       f('isEirAmortized', 'ຕັດຈ່າຍ EIR (EIR amortized)', 'bool'), f('taxApplicable', 'ມີອາກອນ (Tax applicable)', 'bool'),
       f('triggerEventCode', 'ເຫດການ (Trigger event)', 'select', { ref: { entity: 'event', value: 'eventCode', text: 'eventCode' } }),
@@ -186,6 +187,7 @@ export const MASTER_CONFIGS = [
     title: 'ຕາຕະລາງອະນຸມັດ (Approval matrix)',
     fields: [
       f('entityType', 'ປະເພດ (Entity type)', 'select', { enumKey: 'approval-matrix.entityType' }),
+      f('currencyId', 'ສະກຸນເງິນຂອງຈຳນວນ (Currency of the amounts; empty = base)', 'select', { pos: 'currency', optional: true }),
       f('minAmount', 'ຕ່ຳສຸດ (Min amount)', 'money'), f('maxAmount', 'ສູງສຸດ (Max amount)', 'money'),
       f('requiredLevel', 'ລະດັບ (Required level)', 'int'), f('approverRoleId', 'ກຸ່ມຜູ້ອະນຸມັດ (Approver group id)', 'int')
     ]
@@ -225,6 +227,31 @@ export const MASTER_CONFIGS = [
       effectiveFrom, effectiveTo
     ]
   },
+  // Phase 5: dated exchange rates (base units per 1 unit); the Exchange rates screen adds "copy POS rate"
+  {
+    entity: 'exchange-rate', functionCode: 'LN_EXCHANGE_RATE', group: 'pricing',
+    title: 'ອັດຕາແລກປ່ຽນ (Exchange rates)',
+    fields: [
+      f('currencyId', 'ສະກຸນເງິນ (Currency)', 'select', { pos: 'currency' }),
+      f('rateDate', 'ວັນທີ (Rate date)', 'date'),
+      f('rate', 'ອັດຕາ: ເງິນຫຼັກຕໍ່ 1 ໜ່ວຍ (Rate: base units per 1 unit)', 'fxrate'),
+      f('source', 'ແຫຼ່ງ (Source)', 'select', { enumKey: 'exchange-rate.source' }),
+      f('remarks', 'ໝາຍເຫດ (Remarks)', 'textarea', { optional: true })
+    ],
+    columns: ['currencyId', 'rateDate', 'rate', 'source', 'remarks']
+  },
+  // Phase 5 B7: print wording (D11); plain text with {{placeholders}} (the API lists the allowed ones)
+  {
+    entity: 'print-template', functionCode: 'LN_PRINT_TEMPLATE', group: 'system',
+    title: 'ແບບຟອມພິມ (Print templates)',
+    fields: [
+      f('templateCode', 'ແບບຟອມ (Template)', 'select', { enumKey: 'print-template.templateCode' }),
+      f('title', 'ຫົວຂໍ້ (Title)'),
+      f('body', 'ເນື້ອໃນ: {{customerName}}, {{accountNo}}, {{principal}}, ... (Body with placeholders)', 'textarea'),
+      effectiveFrom, effectiveTo
+    ],
+    columns: ['templateCode', 'title', 'effectiveFrom', 'effectiveTo']
+  },
   {
     entity: 'sequence', functionCode: 'LN_SEQUENCE', group: 'system',
     title: 'ລຳດັບເລກທີ (Numbering sequences)',
@@ -247,9 +274,23 @@ export const PRODUCT_CHILD_CONFIGS = {
     fields: [
       f('productId', 'ຜະລິດຕະພັນ (Product)', 'select', { ref: productRef }),
       f('currencyId', 'ສະກຸນເງິນ (Currency)', 'select', { pos: 'currency' }),
-      f('isDefault', 'ຄ່າເລີ່ມຕົ້ນ (Default)', 'bool')
+      f('isDefault', 'ຄ່າເລີ່ມຕົ້ນ (Default)', 'bool'),
+      f('minAmount', 'ວົງເງິນຕ່ຳສຸດ ໃນສະກຸນນີ້ (Min amount, in this currency)', 'money'),
+      f('maxAmount', 'ວົງເງິນສູງສຸດ ໃນສະກຸນນີ້ (Max amount, in this currency)', 'money')
     ],
-    columns: ['currencyId', 'isDefault']
+    columns: ['currencyId', 'isDefault', 'minAmount', 'maxAmount']
+  },
+  // Phase 5 B0: fixed amounts per currency (components with a fixed-amount formula, UDEs of dataType AMOUNT)
+  amounts: {
+    entity: 'product-amount', functionCode: 'LN_PRODUCT', title: 'ຈຳນວນຄົງທີ່ຕາມສະກຸນ (Fixed amounts per currency)',
+    fields: [
+      f('productId', 'ຜະລິດຕະພັນ (Product)', 'select', { ref: productRef }),
+      f('currencyId', 'ສະກຸນເງິນ (Currency)', 'select', { pos: 'currency' }),
+      f('itemType', 'ປະເພດ (Item type)', 'select', { enumKey: 'product-amount.itemType' }),
+      f('itemCode', 'ລະຫັດອົງປະກອບ / ຕົວແປ (Component or UDE code)'),
+      f('defaultValue', 'ຄ່າເລີ່ມຕົ້ນ (Default)', 'money'), f('minValue', 'ຕ່ຳສຸດ (Min)', 'money'), f('maxValue', 'ສູງສຸດ (Max)', 'money')
+    ],
+    columns: ['currencyId', 'itemType', 'itemCode', 'defaultValue', 'minValue', 'maxValue']
   },
   components: {
     entity: 'product-component', functionCode: 'LN_PRODUCT', title: 'ອົງປະກອບ (Components)',

@@ -42,7 +42,8 @@
 
       <v-tabs v-model="tab" background-color="grey lighten-4" color="primary" show-arrows>
         <v-tab class="text-none">ທົ່ວໄປ (General)</v-tab>
-        <v-tab class="text-none" :disabled="isNew">ສະກຸນເງິນ (Currencies)</v-tab>
+        <v-tab class="text-none" :disabled="isNew">ສະກຸນເງິນ ແລະ ວົງເງິນ (Currencies & limits)</v-tab>
+        <v-tab class="text-none" :disabled="isNew">ຈຳນວນຄົງທີ່ຕາມສະກຸນ (Fixed amounts)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ອົງປະກອບ (Components)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ຕົວແປ (UDEs)</v-tab>
         <v-tab class="text-none" :disabled="isNew">ລຳດັບຕັດຊຳລະ (Waterfall)</v-tab>
@@ -88,6 +89,7 @@
         </v-tab-item>
 
         <v-tab-item v-for="key in childKeys" :key="key">
+          <v-alert v-if="childHelp[key]" type="info" text dense class="mb-2">{{ childHelp[key] }}</v-alert>
           <master-data-table
             v-if="!isNew"
             :config="childConfigs[key]"
@@ -110,8 +112,8 @@
               <v-alert v-if="!canCheck" type="info" text dense>ທ່ານບໍ່ມີສິດເບິ່ງກົດບັນຊີ (No VIEW permission for LN_ENTRY_RULE).</v-alert>
               <template v-else>
                 <div class="text-caption mb-2">
-                  ຜະລິດຕະພັນອະນຸມັດໄດ້ສະເພາະເມື່ອທຸກກົດທີ່ຕ້ອງການອະນຸມັດແລ້ວ.
-                  (A product can be authorized only when every entry rule it needs is AUTHORIZED.)
+                  ຜະລິດຕະພັນອະນຸມັດໄດ້ສະເພາະເມື່ອທຸກກົດທີ່ຕ້ອງການອະນຸມັດແລ້ວ ແລະ ທຸກສະກຸນເງິນມີວົງເງິນ ແລະ ຈຳນວນຄົງທີ່.
+                  (A product can be authorized only when every entry rule it needs is AUTHORIZED, and every offered currency has its amount limits and fixed amounts.)
                 </div>
                 <v-row dense>
                   <v-col v-for="c in checkCards" :key="c.key" cols="12" md="6">
@@ -124,9 +126,14 @@
                       </v-card-subtitle>
                       <v-card-text v-if="check[c.key]">
                         <div class="text-caption grey--text">{{ check[c.key].activeRules }} active rules apply · {{ check[c.key].asOfDate }}</div>
-                        <ul v-if="check[c.key].errors.length" class="text-caption mt-1">
-                          <li v-for="(e, i) in check[c.key].errors" :key="i">{{ e }}</li>
-                        </ul>
+                        <template v-for="grp in errorGroups">
+                          <div v-if="(check[c.key][grp.key] || []).length" :key="grp.key" class="mt-2">
+                            <div class="text-caption font-weight-bold">{{ grp.title }}</div>
+                            <ul class="text-caption">
+                              <li v-for="(e, i) in check[c.key][grp.key]" :key="i">{{ e }}</li>
+                            </ul>
+                          </div>
+                        </template>
                       </v-card-text>
                     </v-card>
                   </v-col>
@@ -162,8 +169,7 @@ const GENERAL_FIELDS = [
   F('loanTypeCode', 'ປະເພດສິນເຊື່ອ (Loan type)', 'select', { lookup: 'loanTypes' }),
   F('effectiveDate', 'ມີຜົນແຕ່ (Effective date)', 'date'),
   F('expiryDate', 'ໝົດອາຍຸ (Expiry date)', 'date', { optional: true }),
-  F('minAmount', 'ວົງເງິນຕ່ຳສຸດ (Min amount)', 'money'),
-  F('maxAmount', 'ວົງເງິນສູງສຸດ (Max amount)', 'money'),
+  // Amount limits are per currency (Currencies & limits tab, Phase 5 B0); ln_product.minAmount/maxAmount are no longer read
   F('minTenorMonths', 'ໄລຍະຕ່ຳສຸດ ເດືອນ (Min tenor, months)', 'int'),
   F('maxTenorMonths', 'ໄລຍະສູງສຸດ ເດືອນ (Max tenor, months)', 'int'),
   F('minInterestRate', 'ດອກເບ້ຍຕ່ຳສຸດ (Min interest rate)', 'rate'),
@@ -218,7 +224,15 @@ export default {
       ],
       generalFields: GENERAL_FIELDS,
       childConfigs: PRODUCT_CHILD_CONFIGS,
-      childKeys: ['currencies', 'components', 'udes', 'waterfall'],
+      childKeys: ['currencies', 'amounts', 'components', 'udes', 'waterfall'],
+      childHelp: {
+        currencies: 'ທຸກສະກຸນເງິນທີ່ສະເໜີຕ້ອງມີວົງເງິນຕ່ຳສຸດ ແລະ ສູງສຸດ ໃນສະກຸນນັ້ນ. (Every offered currency needs its own min and max amount, in that currency.)',
+        amounts: 'ອົງປະກອບທີ່ເປັນຈຳນວນຄົງທີ່ (FIXED_CONTRACT_FEE) ແລະ ຕົວແປປະເພດ AMOUNT ຕ້ອງມີຄ່າໃນທຸກສະກຸນເງິນທີ່ສະເໜີ. ອັດຕາສ່ວນຮ້ອຍບໍ່ຕ້ອງ. (Fixed-amount components such as FIXED_CONTRACT_FEE, and UDEs of type AMOUNT, need a value in every offered currency. Percentages and rates do not.)'
+      },
+      errorGroups: [
+        { key: 'ruleErrors', title: 'ກົດບັນຊີ (Entry rules)' },
+        { key: 'currencyErrors', title: 'ສະກຸນເງິນ: ວົງເງິນ ແລະ ຈຳນວນຄົງທີ່ (Currencies: limits and fixed amounts)' }
+      ],
       authColors: AUTH_COLORS,
       hints: { money: 'Decimal, up to 4 places', rate: '0 to 1 (0.12 = 12%)' }
     }
@@ -346,7 +360,7 @@ export default {
         // Entry-rule legs blocking the authorization: list them and open the Accounting check tab
         if (errDetails(err).length) {
           this.failure = { message: errMsg(err), errors: errDetails(err) }
-          this.tab = 5
+          this.tab = 6
         }
       }
     }

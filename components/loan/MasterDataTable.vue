@@ -154,7 +154,8 @@ export default {
       hints: {
         money: 'Decimal, up to 4 places (e.g. 300000.0000)',
         rate: 'Rate between 0 and 1 (0.12 = 12%)',
-        decimal: 'Decimal, up to 6 places'
+        decimal: 'Decimal, up to 6 places',
+        fxrate: 'Base units per 1 unit, up to 8 places (e.g. 21150.00000000)'
       }
     }
   },
