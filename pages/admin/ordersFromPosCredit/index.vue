@@ -207,6 +207,282 @@
       </v-card>
     </v-dialog>
 
+    <!-- Settle AR Dialog -->
+    <v-dialog v-model="settleArDialog" persistent max-width="680px">
+      <v-card v-if="selectedOrderForSettle" class="rounded-xl overflow-hidden elevation-8">
+        <!-- Dialog Header -->
+        <div class="px-6 py-4 white--text success darken-1">
+          <div class="d-flex align-center">
+            <v-avatar color="white" size="42" class="mr-3 elevation-2">
+              <v-icon color="success darken-1">mdi-cash-register</v-icon>
+            </v-avatar>
+            <div class="flex-grow-1">
+              <h3 class="text-h6 font-weight-bold mb-0 white--text">ຮັບຊຳລະໃບແຈ້ງໜີ້ AR</h3>
+              <span class="caption white--text" style="opacity: 0.9;">
+                AR Invoice Settlement | Order #{{ selectedOrderForSettle.id }}
+              </span>
+            </div>
+            <v-btn icon dark @click="closeSettleArDialog" :disabled="submittingSettle">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </div>
+        </div>
+
+        <v-card-text class="pa-6 pt-5">
+          <v-progress-linear v-if="settleLoading" indeterminate color="success" class="mb-4" />
+
+          <!-- Order & AR Highlights Card -->
+          <v-card outlined class="rounded-lg pa-4 mb-4" style="background-color: #f8fafc; border-color: #e2e8f0;">
+            <v-row dense>
+              <v-col cols="12" sm="6">
+                <div class="caption grey--text text--darken-1 font-weight-medium">ລູກຄ້າ (Customer)</div>
+                <div class="text-subtitle-1 font-weight-bold primary--text">
+                  <v-icon small color="primary" class="mr-1">mdi-account</v-icon>
+                  {{ selectedOrderForSettle.client?.name || 'N/A' }}
+                </div>
+                <div v-if="selectedOrderForSettle.client?.company" class="caption grey--text">
+                  {{ selectedOrderForSettle.client?.company }}
+                </div>
+                <div v-if="selectedOrderForSettle.client?.telephone" class="caption grey--text">
+                  <v-icon x-small class="mr-1">mdi-phone</v-icon>{{ selectedOrderForSettle.client?.telephone }}
+                </div>
+              </v-col>
+
+              <v-col cols="12" sm="6" class="text-sm-right">
+                <div class="caption grey--text text--darken-1 font-weight-medium">ໃບແຈ້ງໜີ້ AR</div>
+                <div class="d-flex align-center justify-sm-end my-1">
+                  <v-chip small color="primary" outlined class="font-weight-bold mr-2">
+                    {{ settleInvoiceNumber }}
+                  </v-chip>
+                  <v-chip small color="orange darken-1" dark class="font-weight-bold">
+                    Order #{{ selectedOrderForSettle.id }}
+                  </v-chip>
+                </div>
+                <div class="caption grey--text">ຍອດເຕັມ: {{ numberWithCommas(settleTotalAmount) }} {{ selectedOrderForSettle.currency?.code || 'LAK' }}</div>
+                <div v-if="settleAlreadyPaid > 0" class="caption grey--text">
+                  ຊຳລະແລ້ວ: <span class="success--text font-weight-bold">{{ numberWithCommas(settleAlreadyPaid) }}</span>
+                </div>
+                <div class="text-h6 font-weight-black error--text mt-1">
+                  ຍອດຄ້າງຊຳລະ: {{ numberWithCommas(settleOutstandingAmount) }}
+                  <small class="caption font-weight-bold grey--text">{{ selectedOrderForSettle.currency?.code || 'LAK' }}</small>
+                </div>
+              </v-col>
+            </v-row>
+          </v-card>
+
+          <!-- Input Controls -->
+          <v-row dense class="mb-3">
+            <v-col cols="12" sm="6">
+              <v-select
+                v-model="settlePaymentId"
+                :items="availablePaymentMethods"
+                item-text="payment_name"
+                item-value="id"
+                label="ວິທີການຊຳລະ (Payment Method)*"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-credit-card"
+              >
+                <template v-slot:selection="{ item }">
+                  <div class="d-flex align-center">
+                    <v-chip x-small :color="getPaymentMethodColor(item.payment_code)" dark class="mr-2">
+                      {{ item.payment_code }}
+                    </v-chip>
+                    <span>{{ item.payment_name || item.payment_code }}</span>
+                  </div>
+                </template>
+                <template v-slot:item="{ item }">
+                  <div class="d-flex align-center">
+                    <v-chip x-small :color="getPaymentMethodColor(item.payment_code)" dark class="mr-2">
+                      {{ item.payment_code }}
+                    </v-chip>
+                    <span>{{ item.payment_name || item.payment_code }}</span>
+                  </div>
+                </template>
+              </v-select>
+            </v-col>
+
+            <v-col cols="12" sm="6">
+              <v-text-field
+                v-model.number="settleAmount"
+                type="number"
+                label="ຈຳນວນເງິນຮັບຊຳລະ (Amount to Settle)*"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-currency-usd"
+                :hint="`ຍອດຄ້າງຊຳລະ: ${numberWithCommas(settleOutstandingAmount)}`"
+                persistent-hint
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6" class="mt-2">
+              <v-text-field
+                v-model="settleDate"
+                type="date"
+                label="ວັນທີຮັບຊຳລະ (Payment Date)*"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-calendar"
+              />
+            </v-col>
+
+            <v-col cols="12" sm="6" class="mt-2">
+              <v-text-field
+                v-model="settleNotes"
+                label="ໝາຍເຫດ (Notes / Reference)"
+                outlined
+                dense
+                hide-details="auto"
+                prepend-inner-icon="mdi-comment-text-outline"
+              />
+            </v-col>
+          </v-row>
+
+          <v-alert
+            v-if="settleAmount >= settleOutstandingAmount && settleOutstandingAmount > 0"
+            dense
+            outlined
+            type="info"
+            color="success"
+            class="rounded-lg mb-0"
+          >
+            <div class="caption">
+              <strong>ແຈ້ງເຕືອນ:</strong> ການຊຳລະນີ້ຈະເຮັດໃຫ້ໃບແຈ້ງໜີ້ AR ນີ້<strong>ຄົບຖ້ວນ 100%</strong>. ລະບົບຈະຖາມເພື່ອປ່ຽນວິທີການຊຳລະຂອງບິນຂາຍ POS ເພື່ອຍ້າຍອອກຈາກລາຍການຕິດໜີ້.
+            </div>
+          </v-alert>
+        </v-card-text>
+
+        <v-divider />
+
+        <!-- Dialog Footer Actions -->
+        <v-card-actions class="pa-4 bg-light">
+          <v-spacer />
+          <v-btn text large class="rounded-lg mr-2 font-weight-medium" @click="closeSettleArDialog" :disabled="submittingSettle">
+            ຍົກເລີກ (Cancel)
+          </v-btn>
+          <v-btn
+            color="success darken-1"
+            dark
+            large
+            depressed
+            class="rounded-lg font-weight-bold px-6 shadow-sm"
+            :loading="submittingSettle"
+            @click="confirmSettleAr"
+          >
+            <v-icon left>mdi-check</v-icon>
+            ຢືນຢັນຮັບຊຳລະ (Confirm Settlement)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!-- Prompt User to Change SaleHeader Payment Dialog -->
+    <v-dialog v-model="promptChangePaymentDialog" persistent max-width="600px">
+      <v-card v-if="orderToChangePayment" class="rounded-xl overflow-hidden elevation-8">
+        <!-- Dialog Header -->
+        <div class="px-6 py-4 white--text success darken-1">
+          <div class="d-flex align-center">
+            <v-avatar color="white" size="42" class="mr-3 elevation-2">
+              <v-icon color="success darken-1">mdi-check-decagram</v-icon>
+            </v-avatar>
+            <div class="flex-grow-1">
+              <h3 class="text-h6 font-weight-bold mb-0 white--text">AR ຊຳລະຄົບຖ້ວນແລ້ວ!</h3>
+              <span class="caption white--text" style="opacity: 0.9;">
+                AR Invoice Settled Completely | Order #{{ orderToChangePayment.id }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <v-card-text class="pa-6 pt-5">
+          <!-- Summary Alert Card -->
+          <v-card outlined class="rounded-lg pa-4 mb-4" style="background-color: #f0fdf4; border-color: #bbf7d0;">
+            <div class="d-flex align-start">
+              <v-icon color="success" class="mr-3 mt-1">mdi-information</v-icon>
+              <div>
+                <div class="text-subtitle-1 font-weight-bold success--text text--darken-2 mb-1">
+                  ໃບແຈ້ງໜີ້ AR ເລກທີ {{ orderToChangePayment.arInvoice?.invoiceNumber || (orderToChangePayment.arInvoiceId ? `AR-INV-${orderToChangePayment.arInvoiceId}` : 'AR') }} ໄດ້ຖືກຊຳລະຄົບຖ້ວນ 100% ແລ້ວ!
+                </div>
+                <div class="body-2 grey--text text--darken-2">
+                  ທ່ານຕ້ອງການປ່ຽນວິທີການຊຳລະຂອງບິນຂາຍ <strong>Order #{{ orderToChangePayment.id }}</strong> ຈາກ <strong>"ຕິດໜີ້" (Credit)</strong> ໃຫ້ເປັນວິທີການຊຳລະຕົວຈິງນຳບໍ່?
+                </div>
+                <div class="caption grey--text mt-2">
+                  💡 <strong>ໝາຍເຫດ:</strong> ເມື່ອປ່ຽນວິທີການຊຳລະແລ້ວ, ບິນນີ້ຈະຖືກຍ້າຍອອກຈາກລາຍການລູກຄ້າຕິດໜີ້ໂດຍອັດຕະໂນມັດ ແລະ ບັນທຶກເປັນຍອດຂາຍທີ່ຊຳລະແລ້ວໃນລາຍງານ POS.
+                </div>
+              </div>
+            </div>
+          </v-card>
+
+          <!-- Highlights -->
+          <div class="d-flex justify-space-between align-center px-2 mb-4">
+            <div>
+              <span class="caption grey--text">ລູກຄ້າ:</span>
+              <strong class="ml-1">{{ orderToChangePayment.client?.name || 'N/A' }}</strong>
+            </div>
+            <div>
+              <span class="caption grey--text">ຍອດລວມບິນ:</span>
+              <strong class="ml-1 success--text">{{ numberWithCommas(orderToChangePayment.total) }} {{ orderToChangePayment.currency?.code || 'LAK' }}</strong>
+            </div>
+          </div>
+
+          <!-- Payment Selector -->
+          <v-select
+            v-model="targetPaymentId"
+            :items="availablePaymentMethods"
+            item-text="payment_name"
+            item-value="id"
+            label="ເລືອກວິທີການຊຳລະຂອງບິນຂາຍ (Target Payment Method)*"
+            outlined
+            dense
+            hide-details="auto"
+            prepend-inner-icon="mdi-credit-card-check"
+          >
+            <template v-slot:selection="{ item }">
+              <div class="d-flex align-center">
+                <v-chip x-small :color="getPaymentMethodColor(item.payment_code)" dark class="mr-2">
+                  {{ item.payment_code }}
+                </v-chip>
+                <span class="font-weight-bold">{{ item.payment_name || item.payment_code }}</span>
+              </div>
+            </template>
+            <template v-slot:item="{ item }">
+              <div class="d-flex align-center">
+                <v-chip x-small :color="getPaymentMethodColor(item.payment_code)" dark class="mr-2">
+                  {{ item.payment_code }}
+                </v-chip>
+                <span>{{ item.payment_name || item.payment_code }}</span>
+              </div>
+            </template>
+          </v-select>
+        </v-card-text>
+
+        <v-divider />
+
+        <!-- Dialog Footer Actions -->
+        <v-card-actions class="pa-4 bg-light">
+          <v-btn text large class="rounded-lg mr-2 font-weight-medium grey--text text--darken-1" @click="cancelChangeSalePayment" :disabled="changingSalePayment">
+            ຮັກສາຕິດໜີ້ (Keep As Credit)
+          </v-btn>
+          <v-spacer />
+          <v-btn
+            color="success darken-1"
+            dark
+            large
+            depressed
+            class="rounded-lg font-weight-bold px-6 shadow-sm"
+            :loading="changingSalePayment"
+            @click="confirmChangeSalePayment"
+          >
+            <v-icon left>mdi-check-all</v-icon>
+            ຢືນຢັນປ່ຽນວິທີຊຳລະ (Confirm & Update)
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-card>
       <v-card-title>
         <v-layout row wrap>
@@ -448,14 +724,26 @@
         <template v-slot:[`item.isPostedToAR`]="{ item }">
           <div v-if="item.isPostedToAR || item.arInvoiceId">
             <v-chip
+              v-if="isArSettled(item)"
+              small
+              color="success lighten-5"
+              class="success--text font-weight-bold"
+              style="cursor: pointer;"
+              @click="openArInvoiceView(item)"
+            >
+              <v-icon left small color="success">mdi-check-decagram</v-icon>
+              {{ item.arInvoice ? item.arInvoice.invoiceNumber : (item.arInvoiceId ? `AR #${item.arInvoiceId}` : 'AR') }} (ຊຳລະແລ້ວ)
+            </v-chip>
+            <v-chip
+              v-else
               small
               color="primary lighten-5"
               class="primary--text font-weight-bold"
               style="cursor: pointer;"
               @click="openArInvoiceView(item)"
             >
-              <v-icon left small color="primary">mdi-check-decagram</v-icon>
-              {{ item.arInvoice ? item.arInvoice.invoiceNumber : 'Posted' }}
+              <v-icon left small color="primary">mdi-file-document-check</v-icon>
+              {{ item.arInvoice ? item.arInvoice.invoiceNumber : (item.arInvoiceId ? `AR #${item.arInvoiceId}` : 'Posted') }}
             </v-chip>
           </div>
           <div v-else>
@@ -466,10 +754,10 @@
           </div>
         </template>
 
-        <!-- NEW: Enhanced Action Buttons -->
+        <!-- Action Buttons -->
         <template v-slot:[`item.id`]="{ item }">
           <div class="d-flex align-center">
-            <!-- Post to AR Button (if unposted) -->
+            <!-- Unposted: Post to AR Button -->
             <v-btn
               v-if="!item.isPostedToAR && !item.arInvoiceId"
               color="primary"
@@ -484,19 +772,47 @@
               Post to AR
             </v-btn>
 
-            <!-- View AR Invoice Button (if posted) -->
+            <!-- Posted & AR completely settled: Prompt Change Payment -->
             <v-btn
-              v-else
-              color="primary"
-              outlined
+              v-else-if="isArSettled(item)"
+              color="success"
+              depressed
               small
+              dark
               class="mr-1 font-weight-bold"
               style="border-radius: 8px;"
-              @click="openArInvoiceView(item)"
+              @click="openPromptChangePayment(item)"
             >
-              <v-icon left small>mdi-receipt-text</v-icon>
-              ໃບແຈ້ງໜີ້
+              <v-icon left small>mdi-cash-check</v-icon>
+              ປ່ຽນການຊຳລະ
             </v-btn>
+
+            <!-- Posted & Pending settlement: Quick Settle AR & View Invoice -->
+            <template v-else>
+              <v-btn
+                color="orange darken-2"
+                depressed
+                small
+                dark
+                class="mr-1 font-weight-bold"
+                style="border-radius: 8px;"
+                @click="openSettleArDialog(item)"
+              >
+                <v-icon left small>mdi-cash-register</v-icon>
+                ຊຳລະ AR
+              </v-btn>
+              <v-btn
+                color="primary"
+                outlined
+                small
+                class="mr-1 font-weight-bold"
+                style="border-radius: 8px;"
+                @click="openArInvoiceView(item)"
+              >
+                <v-icon left small>mdi-receipt-text</v-icon>
+                ໃບແຈ້ງໜີ້
+              </v-btn>
+            </template>
 
             <!-- View/Edit Button -->
             <v-btn color="primary" text small @click="viewItem(item)" class="mr-1">
@@ -586,6 +902,28 @@ export default {
       arDueDate: '',
       arInvoiceDate: '',
       arDescription: '',
+
+      // Settle AR state
+      settleArDialog: false,
+      settleLoading: false,
+      submittingSettle: false,
+      selectedOrderForSettle: null,
+      selectedArInvoiceFull: null,
+      settlePaymentId: 1,
+      settleAmount: 0,
+      settleDate: '',
+      settleNotes: '',
+      settleTotalAmount: 0,
+      settleAlreadyPaid: 0,
+      settleOutstandingAmount: 0,
+      settleInvoiceNumber: '',
+      currentInvoiceLines: [],
+
+      // Prompt change sale payment state
+      promptChangePaymentDialog: false,
+      changingSalePayment: false,
+      orderToChangePayment: null,
+      targetPaymentId: 1,
 
       // NEW: Ticket Details Dialog
       ticketDetailsDialog: false,
@@ -729,6 +1067,12 @@ export default {
       'findSelectedTerminal',
       'findAllTerminal'
     ]),
+
+    availablePaymentMethods() {
+      return (this.findAllPayment || []).filter(
+        (p) => p.id !== 2 && (p.payment_code || '').toUpperCase() !== 'CREDIT'
+      )
+    },
 
     customTerminalList() {
       let originalTerminalListVanilla = JSON.stringify(this.findAllTerminal)
@@ -1456,6 +1800,226 @@ getFormatNum(val) {
         path: '/admin/accounting/ar/invoice',
         query: { search: String(query) }
       })
+    },
+
+    isArSettled(item) {
+      if (!item) return false
+      if (item.arInvoice?.status === 'paid') return true
+      if (item.arInvoice?.receiveHeaders && Array.isArray(item.arInvoice.receiveHeaders)) {
+        const activeReceipts = item.arInvoice.receiveHeaders.filter(
+          r => r.status === 'active' || (!r.status && r.status !== 'cancelled' && r.status !== 'voided')
+        )
+        const totalPaid = activeReceipts.reduce((sum, r) => sum + parseFloat(r.totalReceivedAmount || 0), 0)
+        const invTotal = parseFloat(item.arInvoice.totalAmount || item.total || 0)
+        if (totalPaid >= invTotal && invTotal > 0) return true
+      }
+      return false
+    },
+
+    closeSettleArDialog() {
+      if (!this.submittingSettle) {
+        this.settleArDialog = false
+        this.selectedOrderForSettle = null
+      }
+    },
+
+    async openSettleArDialog(item) {
+      this.selectedOrderForSettle = item
+      this.settleLoading = true
+      this.settleArDialog = true
+
+      this.settlePaymentId = this.availablePaymentMethods[0]?.id || 1
+      this.settleDate = new Date().toISOString().slice(0, 10)
+      this.settleNotes = `Settlement for POS Credit Order #${item.id}${item.referenceNo ? ` (${item.referenceNo})` : ''}`
+      this.settleTotalAmount = parseFloat(item.total || 0)
+      this.settleOutstandingAmount = parseFloat(item.total || 0)
+      this.settleAlreadyPaid = 0
+      this.settleInvoiceNumber = item.arInvoice?.invoiceNumber || (item.arInvoiceId ? `AR-INV-${item.arInvoiceId}` : `Order #${item.id}`)
+      this.currentInvoiceLines = []
+
+      try {
+        const invoiceId = item.arInvoiceId || item.arInvoice?.id
+        if (invoiceId) {
+          const { data } = await this.$axios.get(`/api/ar-invoices/${invoiceId}`)
+          const inv = data?.data || data
+          if (inv) {
+            this.selectedArInvoiceFull = inv
+            this.settleInvoiceNumber = inv.invoiceNumber || this.settleInvoiceNumber
+            this.settleTotalAmount = parseFloat(inv.totalAmount || item.total || 0)
+            this.currentInvoiceLines = inv.invoiceLines || []
+
+            const activeReceipts = (inv.receiveHeaders || []).filter(
+              r => r.status === 'active' || (!r.status && r.status !== 'cancelled' && r.status !== 'voided')
+            )
+            const totalPaid = activeReceipts.reduce((sum, r) => sum + parseFloat(r.totalReceivedAmount || 0), 0)
+            this.settleAlreadyPaid = totalPaid
+            this.settleOutstandingAmount = Math.max(0, this.settleTotalAmount - totalPaid)
+            this.settleAmount = this.settleOutstandingAmount
+
+            if (this.settleOutstandingAmount <= 0 || inv.status === 'paid') {
+              this.settleArDialog = false
+              this.openPromptChangePayment(item)
+              return
+            }
+          }
+        } else {
+          this.settleAmount = this.settleOutstandingAmount
+        }
+      } catch (err) {
+        console.warn('Could not fetch AR invoice details, using order total:', err)
+        this.settleAmount = this.settleOutstandingAmount
+      } finally {
+        this.settleLoading = false
+      }
+    },
+
+    async confirmSettleAr() {
+      if (!this.selectedOrderForSettle) return
+      if (!this.settleAmount || parseFloat(this.settleAmount) <= 0) {
+        swalError2(this.$swal, 'Error', 'ກະລຸນາປ້ອນຈຳນວນເງິນທີ່ຖືກຕ້ອງ')
+        return
+      }
+
+      this.submittingSettle = true
+      try {
+        const invoiceId = this.selectedOrderForSettle.arInvoiceId || this.selectedOrderForSettle.arInvoice?.id
+        let receiptNumber = `AR-RCP-${new Date().getFullYear()}-${Date.now().toString().slice(-5)}`
+        try {
+          const seqRes = await this.$axios.get('/api/ar-receive-headers/sequence')
+          if (seqRes.data?.data?.receiptNumber) {
+            receiptNumber = seqRes.data.data.receiptNumber
+          } else if (typeof seqRes.data?.data === 'string') {
+            receiptNumber = seqRes.data.data
+          }
+        } catch (e) {
+          console.warn('Using fallback receipt sequence:', receiptNumber)
+        }
+
+        const pm = this.findAllPayment?.find(p => p.id === this.settlePaymentId)
+        const pmCode = (pm?.payment_code || '').toUpperCase()
+        let paymentMethodStr = 'cash'
+        if (pmCode.includes('BCEL') || pmCode.includes('TRANSFER') || pmCode.includes('BANK') || pmCode.includes('QR')) {
+          paymentMethodStr = 'bank_transfer'
+        } else if (pmCode.includes('CARD') || pmCode.includes('CREDIT')) {
+          paymentMethodStr = 'credit_card'
+        } else if (pmCode.includes('CHECK')) {
+          paymentMethodStr = 'check'
+        }
+
+        const settleAmt = parseFloat(this.settleAmount)
+        let allocationLines = []
+        if (this.currentInvoiceLines && this.currentInvoiceLines.length > 0) {
+          let remaining = settleAmt
+          allocationLines = this.currentInvoiceLines.map((line, idx) => {
+            const lineTotal = parseFloat(line.lineTotal || line.unitPrice || 0)
+            const alloc = (idx === this.currentInvoiceLines.length - 1)
+              ? remaining
+              : Math.min(lineTotal, remaining)
+            remaining = Math.max(0, remaining - alloc)
+            return {
+              lineNumber: idx + 1,
+              invoiceLineId: line.id,
+              txnId: 1,
+              DRglAccountId: line.DRglAccountId || null,
+              CRglAccountId: line.CRglAccountId || null,
+              allocatedAmount: alloc,
+              allocationDate: this.settleDate,
+              description: line.description || `Item #${line.id}`
+            }
+          }).filter(al => al.allocatedAmount > 0)
+        }
+
+        if (allocationLines.length === 0) {
+          allocationLines = [{
+            lineNumber: 1,
+            invoiceLineId: null,
+            isManual: true,
+            allocatedAmount: settleAmt,
+            allocationDate: this.settleDate,
+            description: `Settlement for POS Credit Order #${this.selectedOrderForSettle.id}`
+          }]
+        }
+
+        const payload = {
+          receiptNumber,
+          bookingDate: this.settleDate,
+          receivedDate: this.settleDate,
+          invoiceHeaderId: invoiceId || null,
+          totalReceivedAmount: settleAmt,
+          paymentId: this.settlePaymentId,
+          paymentMethod: paymentMethodStr,
+          exchangeRate: 1,
+          currencyId: this.selectedOrderForSettle.currencyId || 1,
+          notes: this.settleNotes,
+          allocationLines
+        }
+
+        const { data } = await this.$axios.post('/api/ar-receive-headers', payload)
+
+        if (data && data.success) {
+          this.settleArDialog = false
+          const isCompletelySettled = (this.settleAlreadyPaid + settleAmt) >= this.settleTotalAmount || settleAmt >= this.settleOutstandingAmount
+
+          if (isCompletelySettled) {
+            this.openPromptChangePayment(this.selectedOrderForSettle, this.settlePaymentId)
+          } else {
+            swalSuccess(
+              this.$swal,
+              'ສຳເລັດ',
+              `ບັນທຶກການຮັບຊຳລະ AR ເລກທີ ${receiptNumber} ຈຳນວນ ${this.numberWithCommas(settleAmt)} ສຳເລັດແລ້ວ (ຍອດຍັງເຫຼືອ: ${this.numberWithCommas(Math.max(0, this.settleOutstandingAmount - settleAmt))})`
+            )
+            await this.loadData()
+          }
+        } else {
+          swalError2(this.$swal, 'Error', data?.message || 'ບໍ່ສາມາດບັນທຶກການຊຳລະ AR ໄດ້')
+        }
+      } catch (err) {
+        console.error('Settle AR error:', err)
+        const msg = err.response?.data?.message || err.message || 'ເກີດຂໍ້ຜິດພາດໃນການຮັບຊຳລະ'
+        swalError2(this.$swal, 'Error', msg)
+      } finally {
+        this.submittingSettle = false
+      }
+    },
+
+    openPromptChangePayment(item, suggestedPaymentId = null) {
+      this.orderToChangePayment = item
+      this.targetPaymentId = suggestedPaymentId || (this.availablePaymentMethods[0]?.id || 1)
+      this.promptChangePaymentDialog = true
+    },
+
+    cancelChangeSalePayment() {
+      this.promptChangePaymentDialog = false
+      this.orderToChangePayment = null
+      this.loadData()
+    },
+
+    async confirmChangeSalePayment() {
+      if (!this.orderToChangePayment || !this.targetPaymentId) return
+      this.changingSalePayment = true
+      try {
+        const selectedMethod = this.findAllPayment?.find(p => p.id === this.targetPaymentId)
+        const paymentName = selectedMethod?.payment_name || selectedMethod?.payment_code || `Payment #${this.targetPaymentId}`
+
+        await this.$axios.put(`/api/sale/update/${this.orderToChangePayment.id}`, {
+          paymentId: this.targetPaymentId
+        })
+
+        swalSuccess(
+          this.$swal,
+          'ສຳເລັດ',
+          `ປ່ຽນວິທີການຊຳລະຂອງບິນຂາຍ #${this.orderToChangePayment.id} ເປັນ "${paymentName}" ສຳເລັດແລ້ວ! ບິນນີ້ໄດ້ຖືກຍ້າຍອອກຈາກລາຍການຕິດໜີ້.`
+        )
+        this.promptChangePaymentDialog = false
+        this.orderToChangePayment = null
+        await this.loadData()
+      } catch (err) {
+        console.error('Update sale payment error:', err)
+        const msg = err.response?.data?.message || err.message || 'ເກີດຂໍ້ຜິດພາດໃນການປ່ຽນວິທີການຊຳລະ'
+        swalError2(this.$swal, 'Error', msg)
+      } finally {
+        this.changingSalePayment = false
+      }
     },
 
     formatDate(date) {

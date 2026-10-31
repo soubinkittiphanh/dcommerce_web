@@ -1042,6 +1042,37 @@ export default {
           this.$toast.success('ບັນທຶກສຳເລັດ')
           this.closeEditDialog()
           await this.fetchReceipts()
+
+          // Check if settled invoice is linked to a POS sale order and is now fully paid
+          const invId = receiptData?.invoiceHeaderId || this.selectedReceipt?.invoiceHeaderId
+          if (invId) {
+            try {
+              const { data: invData } = await this.$axios.get(`/api/ar-invoices/${invId}`)
+              const invoice = invData?.data || invData
+              if (invoice && invoice.saleHeaderId && invoice.status === 'paid') {
+                const result = await this.$swal.fire({
+                  title: 'AR ຊຳລະຄົບຖ້ວນແລ້ວ!',
+                  html: `ໃບແຈ້ງໜີ້ AR ເລກທີ <strong>${invoice.invoiceNumber}</strong> (ບິນຂາຍ POS Order #${invoice.saleHeaderId}) ໄດ້ຮັບການຊຳລະຄົບ 100% ແລ້ວ.<br><br>ທ່ານຕ້ອງການປ່ຽນວິທີການຊຳລະຂອງບິນຂາຍ (Sale Header) ຈາກ 'ຕິດໜີ້' ໃຫ້ເປັນວິທີການຊຳລະທີ່ຮັບຕົວຈິງນຳບໍ່?`,
+                  icon: 'question',
+                  showCancelButton: true,
+                  confirmButtonText: 'ຢືນຢັນປ່ຽນ (Yes, Update POS Payment)',
+                  cancelButtonText: 'ຮັກສາຕິດໜີ້ (Keep As Credit)',
+                  confirmButtonColor: '#22c55e',
+                  cancelButtonColor: '#64748b'
+                })
+
+                if (result.isConfirmed) {
+                  const targetPaymentId = receiptData?.paymentId || 1
+                  await this.$axios.put(`/api/sale/update/${invoice.saleHeaderId}`, {
+                    paymentId: targetPaymentId
+                  })
+                  this.$toast.success(`ປັບປຸງວິທີການຊຳລະຂອງບິນຂາຍ #${invoice.saleHeaderId} ສຳເລັດແລ້ວ`)
+                }
+              }
+            } catch (invErr) {
+              console.warn('Could not verify linked POS saleHeader:', invErr)
+            }
+          }
         } else {
           throw new Error(response.data?.message || 'Save failed')
         }
