@@ -11,7 +11,7 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 3 | Receipt `afterCreate` audit hook reads outside the transaction (and has a bad include) | AR audit | Medium: no audit row for receipts created in a transaction | None needed |
 | 4 | Invoice `afterCreate` audit hook fails with "Include unexpected" | AR audit | Medium: no audit row on invoice creation | None needed |
 | 5 | P&L screens count every AR receipt as "Other income", which double counts AR-settled sales (including the down payment) | P&L screens | High: overstated income | Loan receipts are left out of the list endpoints by default |
-| 6 | Balance sheet Mode B subtracts voided and cancelled receipts from open invoices | Balance sheet | High: AR understated | None yet (proposal in phase4-report §9.3) |
+| 6 | Balance sheet Mode B subtracts voided and cancelled receipts from open invoices | Balance sheet | High: AR understated | Active-receipts filter only when `BS_INCLUDE_LOAN_BOOK` is on (§10); void-date caveat |
 | 7 | GL cash batch treats every non-cash receipt method as bank account 1002 | GL batch | Low (latent) | Loan receipts are marked `posted` |
 | 8 | AR receipt search uses `Op.iLike` (PostgreSQL only) on MariaDB | AR API | Medium: search filter fails (not run, read from code) | None needed |
 
@@ -91,8 +91,15 @@ The same screens take sales from `api/sale/findDetailByDate`, which already incl
 - Without the loan, the same happens for any manual void. It is partly masked today by #1 (a voided receipt never reopens a `paid` invoice).
 
 **Suggested fix:** `include: [{ model: db.arReceiveHeaderV2, as: 'receiveHeaders', required: false, where: { status: 'active' } }]`.
-- An exact as-of-date figure would also need to know *when* a receipt was voided. Receipts have no void date, only `updatedAt`, so that part is a separate decision.
-- See phase4-report §9.3 for how this ties to the DISB reversal.
+
+**Partly addressed on the loan branch (2026-10-31):** that filter is applied **only when `BS_INCLUDE_LOAN_BOOK = 'true'`** (phase4-report §10). With the switch off, the report is identical to `main` and the defect remains, which a test checks.
+
+**Caveat: void date.** Receipts have no void or cancel date; the only trace is `updatedAt`, which any later edit also changes. With the filter, a receipt voided *after* the as-of date stops counting for that earlier date too.
+- **Example:** a receipt that was active on 31 March and voided on 15 April no longer reduces the invoice in a balance sheet re-run "as of 31 March". AR as of 31 March then shows higher than it was on that date.
+- An exact as-of figure needs a `voidedAt` / `cancelledAt` column, set by `voidReceipt` / `cancelReceipt` and cleared by `reactivateReceipt`. The filter would then become "active, or voided/cancelled after the as-of date".
+- Until then, balance sheets re-run for past dates can differ from the ones printed at the time whenever receipts were voided in between. Without the filter (switch off, or `main`), the error goes the other way: voided receipts are subtracted for every date.
+
+See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 
 ## 7. GL cash batch treats every non-cash receipt as bank 1002
 **Evidence:** `dc_api/src/GL/cashPostingService.js` (module `AR_RECEIPT`) posts unposted active receipts with Dr bank / Cr AR. Any method other than `cash` goes to bank account 1002 (fallback by name, then 1000).

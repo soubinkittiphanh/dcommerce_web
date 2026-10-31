@@ -278,3 +278,24 @@ After the reversal the invoice is back to `sent`; its receipts are the down paym
 - **As-of dates:** a receipt voided *after* the as-of date would also stop counting for earlier as-of dates, because receipts have no void date, only `updatedAt`. Fixing that needs a void-date column; it is a separate decision.
 
 Waiting for your decision on R1.
+
+## 10. Decision on R1 (2026-10-31): implemented behind the loan switch
+- **Code (POS file `src/GL/adbReportController.js`, dc_api `155fe1d`):**
+  - `BS_INCLUDE_LOAN_BOOK` is now read once, before the AR step.
+  - **Switch on:** only `active` receipts reduce an open invoice (`include … where: { status: 'active' }`).
+  - **Switch off:** the include is exactly the original, so customers without the loan section see no change.
+  - The loan section block reuses the same flag.
+- **Test** *DISB reversal: with the loan section on, … return to zero; with it off, the output is identical to main*:
+
+  | Step (switch on, deltas against before DISB) | AR line | Portfolio | Recon GL | Recon subledger | Recon difference |
+  |---|---|---|---|---|---|
+  | after DISB | −240,000,000 | +240,000,000 | −240,000,000 | −240,000,000 | 0 |
+  | after REVERSAL | **0** | 0 | 0 | **0** | **0** |
+
+  Then the test turns the switch off, checks the fixture (the invoice is open and has a `voided` 240m receipt), and compares the whole response with the controller loaded from `main`: **identical**. With the switch off the original behaviour remains: the AR line is lower by every voided receipt on open invoices (480m in the full run, because an earlier test also reversed a DISB).
+- **Earlier test still in place:** *balance sheet: switch OFF returns exactly what the original POS code returns …* (both tests now share one loader for `main`'s controller).
+- **Caveat** (also in `pos-defects.md` #6): receipts have no void date. With the switch on, a receipt voided after an as-of date also stops counting for that earlier date.
+- **Results:** full suite **105 passed, 0 failed**; protected-file hashes OK.
+- **Files for review:**
+  - `docs/loan/ar-receive-screen.patch`: the AR receipt screen patch, **not applied**;
+  - `docs/loan/phase4-pos-diffs.patch`: complete diffs against `main` of every existing POS file changed on this branch (dc_api and dc_web), plus the new non-loan files that plug into the POS app, with the file list at the top. Password literals in `src/config/dbClient.js` are redacted there.

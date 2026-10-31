@@ -1,0 +1,74 @@
+--- a/pages/admin/accounting/ar/receive/index.vue
++++ b/pages/admin/accounting/ar/receive/index.vue
+@@ -251,30 +251,30 @@
+                   <v-list-item-title>ເບິ່ງລາຍລະອຽດ</v-list-item-title>
+                 </v-list-item>
+ 
+-                <v-list-item v-if="!item.status || item.status === 'active'" @click="editReceipt(item)" class="px-3">
++                <v-list-item v-if="(!item.status || item.status === 'active') && !isLoanSettlement(item)" @click="editReceipt(item)" class="px-3">
+                   <v-list-item-icon class="mr-3">
+                     <v-icon small color="warning">mdi-pencil-outline</v-icon>
+                   </v-list-item-icon>
+                   <v-list-item-title>ແກ້ໄຂ</v-list-item-title>
+                 </v-list-item>
+ 
+-                <v-divider v-if="!item.status || item.status === 'active'" />
++                <v-divider v-if="(!item.status || item.status === 'active') && !isLoanSettlement(item)" />
+ 
+-                <v-list-item v-if="!item.status || item.status === 'active'" @click="voidReceiptAction(item)" class="px-3">
++                <v-list-item v-if="(!item.status || item.status === 'active') && !isLoanSettlement(item)" @click="voidReceiptAction(item)" class="px-3">
+                   <v-list-item-icon class="mr-3">
+                     <v-icon small color="error">mdi-alert-circle-outline</v-icon>
+                   </v-list-item-icon>
+                   <v-list-item-title class="error--text">ໂມຄະ (Void)</v-list-item-title>
+                 </v-list-item>
+ 
+-                <v-list-item v-if="!item.status || item.status === 'active'" @click="cancelReceiptAction(item)" class="px-3">
++                <v-list-item v-if="(!item.status || item.status === 'active') && !isLoanSettlement(item)" @click="cancelReceiptAction(item)" class="px-3">
+                   <v-list-item-icon class="mr-3">
+                     <v-icon small color="grey darken-2">mdi-close-circle-outline</v-icon>
+                   </v-list-item-icon>
+                   <v-list-item-title class="grey--text text--darken-3">ຍົກເລີກ (Cancel)</v-list-item-title>
+                 </v-list-item>
+ 
+-                <v-list-item v-if="item.status === 'voided' || item.status === 'cancelled'" @click="reactivateReceiptAction(item)" class="px-3">
++                <v-list-item v-if="(item.status === 'voided' || item.status === 'cancelled') && !isLoanSettlement(item)" @click="reactivateReceiptAction(item)" class="px-3">
+                   <v-list-item-icon class="mr-3">
+                     <v-icon small color="success">mdi-play-circle-outline</v-icon>
+                   </v-list-item-icon>
+@@ -896,7 +896,8 @@
+     async fetchReceipts() {
+       this.loading = true
+       try {
+-        const params = { page: 1, limit: 1000 }
++        // The list endpoints leave loan settlement receipts out unless asked; this screen shows them labelled
++        const params = { page: 1, limit: 1000, includeLoanSettlement: 1 }
+         if (this.showCancelled) {
+           params.includeCancelled = true
+           params.showCancelled = true
+@@ -1179,11 +1180,17 @@
+         minimumFractionDigits: 2,
+         maximumFractionDigits: 2,
+       })
++    },
++
++    // Receipts created by a loan disbursement (DISB) settle the invoice; only the loan module may change them
++    isLoanSettlement(item) {
++      return !!(item && (item.loanSettlementTxNo || /^LN-/.test(item.receiptNumber || '')))
+     },
+ 
+     getPaymentMethodText(item) {
+       if (!item) return '-'
+       if (typeof item === 'object') {
++        if (this.isLoanSettlement(item)) return 'Loan settlement'
+         if (item.payment && item.payment.payment_name) {
+           return item.payment.payment_name
+         }
+@@ -1213,6 +1220,7 @@
+     },
+ 
+     getPaymentMethodColor(item) {
++      if (typeof item === 'object' && this.isLoanSettlement(item)) return 'deep-purple'
+       let code = ''
+       let method = ''
+       if (typeof item === 'object' && item !== null) {
