@@ -838,7 +838,12 @@ Everything here is **UNCONFIRMED** until the customer's accountant answers §8.9
 - **Realized FX:** for each relieved bucket, realized FX = round(contract relieved × today's rate) − base relieved.
   - It is posted as a base-only line, tag **`FX_DIFF` [NEW]**: gain to **`FX_GAIN_REALIZED` [NEW]** (Cr), loss to **`FX_LOSS_REALIZED` [NEW]** (Dr).
   - Income and payable lines (interest income, `INT_CASH`, `PEN_CASH`, fee income, VAT, insurance payable) are converted at today's rate and have no FX.
-- **Suspended interest** (`SUSPENDED_INTEREST`) and off-balance memo amounts are not monetary buckets. They are converted at the rate of the transaction that moves them.
+- **As implemented (Phase 5 A4, 2026-10-31; for the accountant to confirm):** the same carrying-base rule also applies to the other balances the loan module owns: `SUSPENDED_INTEREST`, `INSURANCE_PAYABLE`, `PROVISION_RESERVE`, `DEFERRED_FEE`, `UNAMORTIZED_FEE_CONTRA` and `REPOSSESSED_VEHICLE_ASSET`.
+  - **Why:** otherwise a balance that is zero in the contract currency could keep a LAK residue. For example, suspended interest booked at one rate and released at another would leave LAK in an account whose USD balance is zero.
+  - **Revaluation** (§8.7) still covers only principal, receivables and the customer advance.
+  - **Off-balance memo amounts** are converted at the transaction rate, and their pairs always share one base.
+- **Status changes** (STCH / STCH_CURE `OUT_PRIN`) move the carrying base between qualifiers unchanged, with no FX.
+- **Storage:** each bucket's carrying base is the signed sum of `baseAmount` over the account's own `ln_journal_posting` legs for that role and qualifier. No separate balance columns are stored, so reversals and revaluations are included automatically.
 
 ### 8.4 Disbursement settling the vehicle invoice (revised 2026-10-31 after the owner's correction)
 **Facts** (`phase5-fx-investigation.md` §1.4):
