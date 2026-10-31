@@ -208,3 +208,73 @@ Read from `pages/admin/accounting/ar/receive/index.vue` and `components/accounti
 - (1) The loan code already refuses its own reversal when the receipt was changed outside the loan.
 - (2) A small guard in the POS AR receipt API: `update`, `void`, `cancel` and `reactivate` refuse a receipt that has an `ln_pos_link` row, with the message "This receipt settles loan `<txNo>`; reverse it from the loan module." That is one check in `src/AR/receive/header/controller.js`. The screen keeps working and just shows the API message.
 - (3) Optionally, hide those menu items in the screen for `LN-` receipts.
+
+## 9. Decisions on §8 (2026-10-31): implemented, plus the DISB reversal proposal
+
+### 9.1 Consumer check before flipping the default
+**Every caller** of `GET /api/ar-receive-headers` and `GET /api/ar-receive-headers/pl` was searched in dc_web, dc_mobile, dc_pos and dc_api:
+
+| Consumer | Needs loan receipts? |
+|---|---|
+| `pages/admin/accounting/ar/receive/index.vue` (AR receipt list) | **Yes**: passes `includeLoanSettlement=1` (see 9.2, screen patch) |
+| `pages/admin/pl`, `plCommission`, `saleCost`, `saleCostCommission`, `reports/financial/pl` | No: P&L income (they must *not* see them, §8.2) |
+| `components/reports/ProfitLossReport.vue` (`/pl`) | No: P&L income |
+| `ordersFromPosCredit`, AR receipt maintain dialog | They call only `/sequence` and `POST`: not affected |
+| dc_mobile, dc_pos | No calls to these endpoints |
+| Server side: balance sheet, AR invoice controller, cash posting batch, income, MOU | They read the models directly, not the endpoints: not affected |
+| Balances, AR statements, dashboards | None of them use these endpoints (there is no AR customer statement, §8.2) |
+
+No consumer other than the AR list screen needs the loan receipts, so **the default is flipped as you decided** (the opt-in fallback was not needed). `/search`, `/statistics` and `/by-invoice` are unchanged.
+
+### 9.2 What was implemented
+**Back end:** `src/loan/posting/posReceiptLink.js` (new, loan code) plus small hooks in two POS files:
+- **POS file 3** `src/AR/receive/header/controller.js`: `findAll` and `findAllForPL` add `id NOT IN (SELECT posId FROM ln_pos_link WHERE posTable = 'ARReceiveHeader' AND role = 'AR_SETTLEMENT')` unless `includeLoanSettlement=1` (or `true`). With the flag, every returned row carries `loanSettlementTxNo` (the DISB transaction number, or `null`).
+  - On a database without the loan tables, nothing changes: the existence of `ln_pos_link` is checked first and cached.
+  - The reversal's `AR_VOID` link points at the same receipt, so the filter keys on `AR_SETTLEMENT` only.
+- **POS file 4** `src/AR/receive/header/router.js`: the middleware `refuseLoanReceipt` runs before `PUT /:id`, `DELETE /:id`, `POST /:id/void`, `/cancel` and `/reactivate`. It answers 409 "This receipt settles loan `<txNo>`; reverse it from the loan module."
+  - **Delete is included too**: it was already refused for receipts with lines, and this makes the message clear.
+  - The loan's own reversal changes the receipt through the model, not the API, so it is unaffected.
+
+**Screen (NOT applied):** `pages/admin/accounting/ar/receive/index.vue` is one of the two files you told me never to edit or commit, and it carries someone's uncommitted local change. So the screen change is prepared as a patch, not applied:
+- `fetchReceipts` passes `includeLoanSettlement: 1`;
+- the method chip shows **"Loan settlement"** (deep-purple) for rows with `loanSettlementTxNo` or an `LN-` receipt number;
+- Edit, the divider, Void, Cancel and Reactivate are hidden for those rows.
+
+The patch was built against the committed file. `git apply --check` passes on the working copy (it applies on top of the uncommitted local change), and the patched template compiles with no errors. **Until it is applied, the AR list screen no longer shows loan settlement receipts.** The summary cards are unchanged (loan receipts would still count under "Other" once the patch is applied). A separate "Loan settlement" card is possible if you want one.
+
+**Tests (new, both pass alone and in the full suite):**
+- *POS AR receipt API: loan settlement receipts …*
+  - both endpoints return only the down payment by default, and the down payment plus the loan receipt with `includeLoanSettlement=1`;
+  - `loanSettlementTxNo` = txNo on the loan receipt and `null` on the down payment;
+  - all five mutating calls answer 409 with the exact message; receipt and invoice unchanged;
+  - an ordinary receipt passes the guard.
+- *DISB reversal: balance sheet AR line and loan reconciliation* (9.3).
+
+Full suite **105 passed, 0 failed**; protected-file hashes OK.
+
+### 9.3 DISB reversal and the balance sheet: current behaviour (tested) and proposal (NOT implemented)
+**What the test shows** (deltas against just before the DISB; the test database is a copy of `dcommerce_dev`, whose POS GL and subledger already differ, so only the deltas mean anything):
+
+| Step | AR line (Mode B) | Portfolio 1211 | Recon AR: GL | Recon AR: subledger | Recon AR: difference |
+|---|---|---|---|---|---|
+| after DISB | −240,000,000 | +240,000,000 | −240,000,000 | −240,000,000 | 0 |
+| after REVERSAL of the DISB | **−240,000,000** | 0 | 0 | **−240,000,000** | **+240,000,000** |
+
+After the reversal the invoice is back to `sent`; its receipts are the down payment (`active`, 60m) and the loan receipt (`voided`, 240m). Mode B still subtracts the voided receipt (POS defect, `pos-defects.md` #6), so the AR line stays 240m low and the loan reconciliation line shows the 240m difference. The test asserts today's numbers, so it fails as soon as the behaviour changes and must then be updated to the expected zeros.
+
+**Options**
+
+| | Option | Effect | Verdict |
+|---|---|---|---|
+| R1 | **POS fix:** Mode B counts only active receipts: `include: [{ …, where: { status: 'active' } }]` in `adbReportController.js` (already a touched POS file; one line) | AR line and reconciliation return to 0 after the reversal; manual POS voids are fixed too | **Recommended** |
+| R2 | Loan-only: on reversal, instead of voiding, add an offsetting receipt of −240m (active, `posted`, linked) | Mode B nets to the right figure without a POS change, but a negative receipt shows in the AR list and would need exclusions in the P&L screens and the cash batch | Not recommended |
+| R3 | Loan-only: on reversal, zero the voided receipt's amount and lines | Fixes the number but destroys the record of what was settled | Rejected |
+| R4 | Loan-only report adjustment: the reconciliation adds back voided loan receipts on open invoices | The reconciliation line looks clean, but the POS AR line is still wrong | Rejected |
+
+**With R1:**
+- **Expected test result:** after the reversal, all five deltas are 0.
+- **Reversal procedure:** unchanged. The receipt is voided, the invoice reopens, and the GL is mirrored.
+- **Switch-OFF test:** the test that compares the switch-OFF balance sheet with `main` would then differ wherever a voided receipt sits on an open invoice. It would compare against `main` plus the R1 line instead.
+- **As-of dates:** a receipt voided *after* the as-of date would also stop counting for earlier as-of dates, because receipts have no void date, only `updatedAt`. Fixing that needs a void-date column; it is a separate decision.
+
+Waiting for your decision on R1.
