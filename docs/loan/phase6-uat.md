@@ -263,6 +263,7 @@ Result line at the end of each script: `PASS / FAIL — tester initials — date
 | R1 | Reverse a repayment (Manager *API* REVERSAL A.11 → Checker authorizes) | sandbox tx 35 reversing tx 33 (LAK 50,000,000): Cr CASH_BANK 1105 50,000,000 / Dr LOAN_PORTFOLIO 1211 50,000,000. Every original leg is mirrored with its original rate. The schedule and balances return to before; a bank `LOAN_OUT` entry is written |
 | R2 | Reverse a DISB | sandbox tx 78 reversing tx 76: Cr LOAN_PORTFOLIO 1211 240,000,000 / Dr SALE_RECEIVABLE 1201 240,000,000. The AR invoice is open again |
 | R3 | Reverse twice | a second reversal of the same transaction is refused |
+| R4 | Reverse out of order (LIFO) | with two repayments posted, reverse the **older** one first | refused while the later one stands; reverse the later one first, then the older one |
 
 ---
 
