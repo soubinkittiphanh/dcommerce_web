@@ -16,6 +16,7 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 8 | AR receipt search uses `Op.iLike` (PostgreSQL only) on MariaDB | AR API | Medium: search filter fails (not run, read from code) | None needed |
 | 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | **Critical, confirmed by sandbox test**: the AR batch posted a USD 15,000 car (LAK 315,000,000) as LAK 15,000 and marked the invoice posted | Loan allocates its receipts from the header base |
 | 10 | An invoice saved after its due date becomes `overdue` (model hook), and the AR posting batch only selects `sent`/`paid` | AR / GL batch | High, observed in the sandbox: such an invoice is never posted to the GL | None needed |
+| 11 | The POS `uploads/` folder is served publicly, with no login | Security / file storage | **High (security)**: anyone who knows or guesses a file URL can download uploaded images and documents, including applicant photos | Loan documents are stored in a private folder (`LOAN_DOCUMENT_DIR`) and downloaded only through a permission-checked route (Phase 5 B1) |
 
 ---
 
@@ -167,6 +168,22 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 
 **Suggested fix:** include `overdue` in the AR batch selection (the GL posting should not depend on collection status), and do not change the status of an unposted invoice in a save hook.
 
+
+
+## 11. The POS `uploads/` folder is served publicly, with no login (security)
+**Evidence** (read from code on `main` at `1f63709`; not exploited or tested against any server)
+- `dc_api/src/app.js:14`: `app.use('/uploads', express.static('uploads'))` is registered before any router, and before `Router.authenticate(app)` (line 256). Every file under `uploads/` is served to anyone, with no token and no permission check.
+- What lands there:
+  - `src/middleware/multerConfig.js:10–12, 53–59`: field `images` goes to `uploads/images`, field `documents` to `uploads/documents`;
+  - `src/middleware/multerConfigApplicant.js:12–13, 49–50`: applicant photos go to `uploads/applicants`.
+- File names are `<field>_<Date.now()>_<random suffix><original extension>`. The timestamp narrows the guessing; the random suffix's strength was not reviewed. Names can also leak through API responses, logs and shared links, and a leaked URL never expires.
+- CORS is open (`app.use(cors())`, line 12), so any web page can request those files too.
+
+**Effect:** uploaded documents (contracts, ID cards, applicant photos) are readable without authentication by anyone who obtains or guesses a URL. This is personal data. Permissions set in the POS UI do not protect these files.
+
+**Loan workaround (Phase 5 B1):** loan account documents never go into `uploads/`. They are stored under `LOAN_DOCUMENT_DIR` (default `./private/loan-documents`, which is not served statically), with random 32-hex names, and are downloaded only through `GET /api/loan/documents/:docId/file`, which checks the `LN_DOCUMENT` VIEW permission. For a production install, `LOAN_DOCUMENT_DIR` should point outside the application folder (Phase 6 runbook).
+
+**Suggested fix (separate POS task):** remove the public static route; serve files through an authenticated route that checks the caller's right to the record the file belongs to; move existing files outside the web root; use long random names; and review which existing URLs are stored in the database or have been shared.
 
 ---
 
