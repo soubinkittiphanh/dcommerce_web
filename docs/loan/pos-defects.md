@@ -17,6 +17,7 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | **Critical, confirmed by sandbox test**: the AR batch posted a USD 15,000 car (LAK 315,000,000) as LAK 15,000 and marked the invoice posted | Loan allocates its receipts from the header base |
 | 10 | An invoice saved after its due date becomes `overdue` (model hook), and the AR posting batch only selects `sent`/`paid` | AR / GL batch | High, observed in the sandbox: such an invoice is never posted to the GL | None needed |
 | 11 | The POS `uploads/` folder is served publicly, with no login | Security / file storage | **High (security)**: anyone who knows or guesses a file URL can download uploaded images and documents, including applicant photos | Loan documents are stored in a private folder (`LOAN_DOCUMENT_DIR`) and downloaded only through a permission-checked route (Phase 5 B1) |
+| 12 | Database export and import need only a login, no permission | Security / backup | **Critical (security)**: any logged-in user, a cashier included, can download the whole database or overwrite it with an uploaded `.sql` file; the upload sits in the public `uploads/` folder while it is restored | None possible in the loan module (it bypasses every loan permission). The Phase 6 runbook takes backups with `mariadb-dump`, never through this screen |
 
 ---
 
@@ -184,6 +185,29 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 **Loan workaround (Phase 5 B1):** loan account documents never go into `uploads/`. They are stored under `LOAN_DOCUMENT_DIR` (default `./private/loan-documents`, which is not served statically), with random 32-hex names, and are downloaded only through `GET /api/loan/documents/:docId/file`, which checks the `LN_DOCUMENT` VIEW permission. For a production install, `LOAN_DOCUMENT_DIR` should point outside the application folder (Phase 6 runbook).
 
 **Suggested fix (separate POS task):** remove the public static route; serve files through an authenticated route that checks the caller's right to the record the file belongs to; move existing files outside the web root; use long random names; and review which existing URLs are stored in the database or have been shared.
+
+
+## 12. Database export and import need only a login, no permission (security)
+**Evidence** (read from code on `main` at `1f63709`; not exploited or tested against any server)
+- `dc_api/src/app.js:221` mounts `/api/database` (`src/databaseBackup/router.js`).
+- `src/databaseBackup/router.js:30` `GET /export` and `:33` `POST /import` use only `validateToken`. There is no `requirePermission` or group check, so any valid user token is enough.
+- `GET /export` (`controller.js:115–131`) streams a full `mysqldump` of the database as a download. That covers every customer, loan, price, user row and audit row in that database.
+- `POST /import` (`router.js:8–27`, `controller.js:172+`) accepts any file named `*.sql` (extension check only, no size limit) and pipes it into the `mysql` client against the live database. It can replace or drop any table.
+- The uploaded file is stored as `uploads/restore_<Date.now()>_<original name>` and deleted only when the restore ends. While it runs, it is inside the folder served publicly without login (#11).
+
+**Effect:**
+- Any account, including a cashier or a compromised low-privilege login, can take a full copy of the business data (personal data included) or destroy or alter it.
+- Loan permissions, maker-checker and audit can all be bypassed by an import.
+- A restore in progress exposes the dump under a guessable public URL.
+
+**Loan workaround:** none possible inside the loan module. The Phase 6 runbook (step 2) takes backups with `mariadb-dump` on the server and tells operators not to use this screen.
+
+**Suggested fix (separate POS task, urgent):**
+- restrict both routes to a dedicated permission held only by the owner or SUPER_ADMIN, or remove import from the web API entirely;
+- add a size limit;
+- store uploads outside `uploads/`;
+- audit every export and import with the user and IP;
+- consider requiring a second person for import.
 
 ---
 
