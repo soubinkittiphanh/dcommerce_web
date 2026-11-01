@@ -1076,3 +1076,16 @@ Existing and unchanged: `ROUNDING_DIFF` role and `ROUND_DIFF` tag (§5, §7).
 - `FX_DIFF` only on events that relieve a monetary bucket;
 - `ROUND_DIFF` within the cap;
 - LAK journals contain none of the three.
+
+
+## 9. Boarding existing contracts (Phase 6; questions only, UNCONFIRMED)
+Design: `phase6-boarding-design.md`. The opening transaction (`BOARD`, dated the cut-over business date) debits the opening balances and credits the new role `BOARDING_CLEARING` (owner's decision D-BOARD-GL, 2026-11-01). The clearing balance is shown in the GL tie-out, and must be 0 after the accountant's reclassification before go-live. Questions continue the numbering of §6 and §8.9:
+
+35. **Boarding clearing account:**
+    - Which account should `BOARDING_CLEARING` map to (e.g. a temporary "loan migration clearing" account)?
+    - How is it cleared: against the old receivable account, against opening-balance equity, or against open POS AR invoices for contracts that came from a POS credit sale (otherwise the receivable is counted twice)?
+    - Who posts the reclassification journal, and how soon after each boarding batch?
+36. **Opening provisions for boarded past-due accounts:**
+    - (A) book the provision at boarding against the clearing account (Dr `BOARDING_CLEARING` / Cr `PROVISION_RESERVE`), so the first loan provision run expenses only the change;
+    - or (B) book none and let the first month-end provision run expense the whole amount in the boarding month.
+    - If (A): from the old books' figure, or from the loan module's provision rules applied at the cut-over?
