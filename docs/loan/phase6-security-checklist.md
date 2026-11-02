@@ -154,7 +154,7 @@ All 73 routes are in `dc_api/src/loan/router.js`, mounted at `/api/loan` (`src/a
 | G6 | No `X-Content-Type-Options: nosniff` on document downloads | Low | add the header |
 | G7 | JWT secret handling (POS) | Review | confirm the production setting; out of loan scope |
 | G8 | Open CORS (POS) | Review | out of loan scope |
-| G9 | 4 Phase 5 tables use `utf8mb4_general_ci`, the other 72 `utf8mb4_unicode_ci` | Low (correctness, not security) | a later migration aligns them (runbook step 5 note) |
+| G9 | 4 Phase 5 tables used `utf8mb4_general_ci`, the other 72 `utf8mb4_unicode_ci` | Low (correctness, not security) | **Resolved:** migration `20261105_loan_phase5_collation_align` (runbook 4.11) converts them to `utf8mb4_unicode_ci`; all 76 now match |
 | G10 | Reversal journal legs don't carry `glRecordId`; the tie-out finds them through `ln_pos_link` | Low (traceability) | a later cleanup (Phase 5 report B) |
 | G11 | Most transaction kinds have no entry screen (API only) | Operational | build them, or train staff on the documented calls (runbook step 10) |
 | — | POS #11 public `uploads/`, POS #12 database export/import without permission | **High / Critical (POS)** | separate POS task; #12 urgent |

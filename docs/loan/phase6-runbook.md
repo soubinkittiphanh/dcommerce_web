@@ -125,9 +125,9 @@ From a scratch folder, with the API still stopped:
 ```
 cd /tmp/loan-deploy
 export NO_SYNC=true ALLOW_REMOTE=1 CONFIRM_DB=<db>          # plus the DCOMMERCE_DB_* variables
-node /opt/dc_api/loan_migrate.js status                     # expect 10 x [pending]
+node /opt/dc_api/loan_migrate.js status                     # expect 11 x [pending]
 node /opt/dc_api/loan_migrate.js up
-node /opt/dc_api/loan_migrate.js status                     # expect 10 x [applied]
+node /opt/dc_api/loan_migrate.js status                     # expect 11 x [applied]
 ```
 
 The runner applies the steps in this fixed order and stops at the first failure. If one fails, run `status` before deciding anything.
@@ -144,6 +144,7 @@ The runner applies the steps in this fixed order and stops at the first failure.
 | 4.8 | `20261102_loan_phase5_ccy_limits` | `ln_product_amount`, per-currency limit columns | `status` | `down --yes` (refuses with foreign amounts) |
 | 4.9 | `20261103_loan_phase5_documents` | `ln_account_document` | `status` | `down --yes` (refuses with documents) |
 | 4.10 | `20261104_loan_phase5_print_templates` | `ln_print_template` | `status` | `down --yes` (refuses with authorized templates) |
+| 4.11 | `20261105_loan_phase5_collation_align` | converts the 4 Phase 5 tables (`ln_exchange_rate`, `ln_product_amount`, `ln_account_document`, `ln_print_template`) to `utf8mb4_unicode_ci` to match the other 72; no data change | `SELECT table_name, table_collation FROM information_schema.tables WHERE table_schema=DATABASE() AND table_name LIKE 'ln\_%' AND table_collation<>'utf8mb4_unicode_ci';` (expect 0 rows) | `down --yes` returns them to `utf8mb4_general_ci` (always reversible; keeps data) |
 
 **Warning for 4.5 (start outside business hours):**
 - `transactionEntry` is written by POS cash and bank operations.
@@ -152,7 +153,7 @@ The runner applies the steps in this fixed order and stops at the first failure.
 - So: POS closed, no long transactions (step 1), and if 4.5 waits more than a minute, find the blocking session with `SHOW PROCESSLIST` rather than cancelling the migration.
 - The same column change also happens at the first API start if 4.5 was skipped, which is another reason for the order.
 
-*Rehearsal: all 10 migrations in 12.9 s. `transactionEntry` gained exactly the two values. `down --all --yes` before any seed rolled all 10 back, and the full POS schema (every table's columns and indexes) was then identical to the original copy. An `ALGORITHM=INSTANT` probe on a scratch copy of `transactionEntry` succeeded.*
+*Rehearsal: all 11 migrations in ~13 s. `transactionEntry` gained exactly the two values. The 4 Phase 5 tables ended at `utf8mb4_unicode_ci` like the other 72 (0 mismatched). `down --all --yes` before any seed rolled all 11 back, and the full POS schema (every table's columns and indexes) was then identical to the original copy. An `ALGORITHM=INSTANT` probe on a scratch copy of `transactionEntry` succeeded.*
 
 ---
 
@@ -165,7 +166,7 @@ Pass when there are 0 differences. Expected exceptions to note but not fail:
 - the POS columns' collation follows the customer's database default;
 - ENUM lists may already include customer-specific values before `LOAN_IN`/`LOAN_OUT`.
 
-Known item (not a deployment blocker): 4 Phase 5 tables (`ln_exchange_rate`, `ln_product_amount`, `ln_account_document`, `ln_print_template`) were created with `utf8mb4_general_ci`, while the other 72 use `utf8mb4_unicode_ci`. A cross-table string comparison between the two groups fails with "Illegal mix of collations". The loan code doesn't do this today, but a later migration should align them (listed in the security checklist).
+Resolved: the 4 Phase 5 tables (`ln_exchange_rate`, `ln_product_amount`, `ln_account_document`, `ln_print_template`) were created with `utf8mb4_general_ci`, while the other 72 use `utf8mb4_unicode_ci`; migration 4.11 (`20261105_loan_phase5_collation_align`) now converts them to `utf8mb4_unicode_ci`, so after step 4 all 76 match and a cross-table string comparison no longer raises "Illegal mix of collations". The reference snapshot reflects the aligned state, so step 5 expects 0 differences.
 
 ---
 
