@@ -16,17 +16,17 @@ All 73 routes are in `dc_api/src/loan/router.js`, mounted at `/api/loan` (`src/a
 | # | Check | Evidence | First pass |
 |---|---|---|---|
 | 1.1 | Every route requires a valid token | `router.use(validateToken)` at `router.js:20`, before any route | ✅ |
-| 1.2 | Every route has `can(function, action)` except an explicit allow-list | allow-list: `GET /status` (banner state only, no parameter details) and `GET /pending` (lists unauthorized records, **filtered by the caller's VIEW grants** in `paramController.listPending`) | ✅ (71 of 73 have `can`) **[T4]** |
+| 1.2 | Every route has `can(function, action)` except an explicit allow-list | allow-list: `GET /status` (banner state only, no parameter details) and `GET /pending` (lists unauthorized records, **filtered by the caller's VIEW grants** in `paramController.listPending`) | ✅ (71 of 73 have `can`). **T4 passes:** `test/loan/routePermissionTests.js` audits the real router against `routeManifest.js`, so a new or changed route fails until the manifest changes |
 | 1.3 | The permission comes from the database, not the token | `src/security/middleware.js:12–26`: the user's `groupId` is read from `user`; the function must be active and the action applicable; then a `sec_group_grant` row is required | ✅ |
 | 1.4 | Unknown entity/function is refused | `requirePermission`: `if (!code) return 404 'Unknown function'` (generic `/params/:entity` routes) | ✅ |
 | 1.5 | An inactive user is refused | `hasPermission`: `user.isActive === false` → false | ✅ |
-| 1.6 | The action fits the verb | GET → VIEW everywhere. Mutations → CREATE / EDIT / DELETE / AUTHORIZE. Three POSTs use VIEW because they write nothing: `POST /products/:id/simulate`, `POST /accounts/:id/preview/:kind` (dry run, rolled back), and both return computed results only | ✅ (the three VIEW-POSTs accepted: no writes) ⏳ confirm in T4 that they write no row |
+| 1.6 | The action fits the verb | GET → VIEW everywhere. Mutations → CREATE / EDIT / DELETE / AUTHORIZE. Two POSTs use VIEW because they write nothing: `POST /products/:id/simulate` and `POST /accounts/:id/preview/:kind` (dry run, rolled back); both return computed results only | ✅ T4 proves it: simulate and all four previews leave row counts in every `ln_` table, `general_ledger` and `transactionEntry` unchanged, and checksums of `ln_account`, `ln_schedule`, `ln_numbering_sequence` and `ln_account_balance` the same |
 | 1.7 | Maker ≠ checker, enforced on the server | transactions: `transactionService` authorize refuses `makerId === checkerId` unless `LOAN_ALLOW_SELF_AUTHORIZE = 'true'`; parameters: `paramService` authorize/changes; applications: approve | ✅ (tests in `postingTests.js` "makerChecker" and Phase 2A tests) |
 | 1.8 | `LOAN_ALLOW_SELF_AUTHORIZE` stays `false` | seed default `false`; runbook step 8.12 | ✅ ⏳ per deployment |
 | 1.9 | Per-kind control of transaction requests | **one** function `LN_TRANSACTION` CREATE covers every kind: REPAYMENT and also WAIVE, WRITE_OFF, REPOSSESS, REVERSAL requests. A user who can take payments can also *request* a write-off (a checker must still authorize it) | ⚠️ G1 |
 | 1.10 | Booking an account | `POST /applications/:id/book` needs `LN_ACCOUNT` CREATE; approval needs `LN_APPLICATION` AUTHORIZE | ✅ |
 | 1.11 | The web hides buttons without a grant | `store/loan.js` `can()`; e.g. the Payment button `accounts/_id.vue:13`; the pending queue disables authorize for the maker (`pending/index.vue:27`). The UI is a convenience only; 1.2/1.3 are the control | ✅ |
-| 1.12 | Route matrix per role | for each proposed group (`phase6-uat.md` §1), every route is either allowed or 403 as designed | ⏳ **[T4]** |
+| 1.12 | Route matrix per role | for each proposed group (`phase6-uat.md` §1), every route is either allowed or 403 as designed | ✅ **T4:** LOAN_CASHIER 19 allowed / 406 refused, LOAN_MANAGER 231 / 194, LOAN_CHECKER 270 / 155 (each route once per parameter entity). No token gives 401 and a bad token 403 on all 73; a user with no grants, no group, or inactive gets 403 on all 71 guarded routes |
 
 **Full route list** (function, action), for T4 and for a reviewer:
 
@@ -148,7 +148,7 @@ All 73 routes are in `dc_api/src/loan/router.js`, mounted at `/api/loan` (`src/a
 |---|---|---|---|
 | G1 | `LN_TRANSACTION` CREATE covers every kind, so a cashier who can take payments can also request write-offs, waivers and reversals (a checker still has to authorize them) | Medium | Phase 7: per-kind function codes (e.g. `LN_TXN_PAYMENT`, `LN_TXN_ADJUST`, `LN_TXN_WRITEOFF`), or a kind allow-list per group |
 | G2 | No branch / showroom data scoping; sequential ids | Medium (**known limitation for go-live**; customer question C2) | Phase 7 if the customer has several showrooms on one database |
-| G3 | Document downloads are not audited | Low–Medium (personal documents) | add an audit row on download (small change, with T4) |
+| G3 | Document downloads are not audited | Low–Medium (personal documents) | add an audit row on download (small change; not done, T4 is test code only) |
 | G4 | The EOD run's user is not kept | Low | add `startedBy` to `ln_batch_log`, or an audit row per run |
 | G5 | Report views are not audited | Low | optional |
 | G6 | No `X-Content-Type-Options: nosniff` on document downloads | Low | add the header |

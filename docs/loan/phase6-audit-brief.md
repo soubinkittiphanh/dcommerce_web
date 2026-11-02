@@ -154,7 +154,7 @@ POS defects #11 (public `uploads/`) and #12 (database export/import with only a 
 ## 7. Out of scope
 - Fixing anything: report only.
 - The POS outside the files listed in §2, except where the loan module depends on it (AR invoices and receipts, GL posting, bank `transactionEntry`, business date).
-- Boarding (T2), the deploy check (T1), the volume tooling (T3) and the route test (T4): not built yet. Review their designs only.
+- Boarding (T2) and the volume tooling (T3): not built yet. Review their designs only. The route test (T4, `test/loan/routePermissionTests.js`) is built: check it, and check that `routeManifest.js` matches `phase6-security-checklist.md` §1. The deploy check (T1, `loan_deploy_check.js`) is built: confirm it cannot write (read-only session plus statement filter) and that it never prints credentials.
 - Accounting policy choices marked UNCONFIRMED (the accountant's questions): you may comment, but they're the accountant's to decide.
 
 ---

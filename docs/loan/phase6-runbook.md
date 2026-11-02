@@ -53,7 +53,7 @@ Who this is for: the person deploying, with the accountant and the customer's ma
 ---
 
 ## Step 1: Preflight (read-only)
-> Tool T1 `loan_deploy_check.js --pre` will automate this. Until it exists, run the queries below in a read-only session (`START TRANSACTION READ ONLY; … ROLLBACK;`).
+> **Run `node <app>/loan_deploy_check.js --pre` from the scratch folder** with the step 3 variables (`NO_SYNC=true`, `LOAN_DOCUMENT_DIR`, and for a non-local database `ALLOW_REMOTE=1 CONFIRM_DB=<database>`). It is read-only: the database session is read-only, and it creates no folder and no test file. Exit code: 0 no FAIL (read every WARN and MANUAL line), 1 at least one FAIL (stop), 2 could not run. The table below is what it checks. `MANUAL` lines are yours to do; a user without the PROCESS privilege gets the long-transaction check as MANUAL, and a non-local database gets the disk check as MANUAL.
 
 | Check | Query / action | Pass when |
 |---|---|---|
@@ -157,9 +157,9 @@ The runner applies the steps in this fixed order and stops at the first failure.
 ---
 
 ## Step 5: Schema check
-> Tool T1 `loan_deploy_check.js --schema` will automate this.
+> **Run `node <app>/loan_deploy_check.js --schema`** (read-only; exit 0 only with 0 differences).
 
-Compare the target with `docs/loan/schema-reference.json`. That file records the 76 `ln_*` tables (engine, collation), 957 columns, 138 indexes and the two POS columns changed (`chart_of_account.accountType`, `transactionEntry.transactionType`). It was taken read-only from the rehearsal copy right after step 4.
+It compares the target with `dc_api/loan_schema_reference.json`, which ships with the build (`docs/loan/schema-reference.json` is a copy for readers). The test suite fails if that file no longer matches what the migrations build. It records the 76 `ln_*` tables (engine, collation), 957 columns, 138 indexes and the two POS columns changed (`chart_of_account.accountType`, `transactionEntry.transactionType`). It was taken read-only from the rehearsal copy right after step 4.
 
 Pass when there are 0 differences. Expected exceptions to note but not fail:
 - the POS columns' collation follows the customer's database default;
@@ -200,7 +200,7 @@ node /opt/dc_api/seed_loan_menus.js
 ## Step 7: First start and post-checks
 1. Start the API normally. Its first sync now finds every loan table in place.
 2. In the log, the two "Too many keys" notes are expected (step 1). Any other `error:` line except the logger demo line needs a look.
-3. Post-checks (T1 `--post` will automate them):
+3. Post-checks: **run `node <app>/loan_deploy_check.js --post --url=<api base>`** (read-only). It covers the switches, the schema, the seeded data and the 401, and also warns if business data exists or a group below SUPER_ADMIN holds CREATE and AUTHORIZE on one function. On a fresh seed that warning shows the seeded ADMIN grants: review them in step 8.11. The login and upload rows stay manual:
 
 | Check | Pass when |
 |---|---|
