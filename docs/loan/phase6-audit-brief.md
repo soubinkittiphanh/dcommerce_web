@@ -31,7 +31,7 @@ A parameter-driven installment-loan module (FLEXCUBE style) for a Lao vehicle de
 
 | Repo | Stack | Branch | Range to review |
 |---|---|---|---|
-| `dc_api` | Node 16, Express, Sequelize 6, MariaDB | `feature/loan-module` | `1f63709` (base, `main`, 2026-10-28) .. `f0d5e27`: 54 commits |
+| `dc_api` | Node 16, Express, Sequelize 6, MariaDB | `feature/loan-module` | `1f63709` (base, `main`, 2026-10-28) .. `eaf2a55` (Phase 6 tooling head): 59 commits. (`f0d5e27` was the Phase 5 head at 133 tests.) |
 | `dc_web` | Nuxt 2, Vuetify 2 | `feature/loan-module` | `7be510864` (base) .. current head: 31+ commits (the last ones are docs) |
 
 ```
@@ -99,10 +99,11 @@ grep -E "^\s+(PASS|FAIL)" run.txt | sort | uniq -c | sort -rn | head
 grep -E "[0-9]+ passed, [0-9]+ failed" run.txt
 ```
 
-- **Expected:** `133 passed, 0 failed` at `f0d5e27`.
+- **Expected:** `159 passed, 0 failed` at `eaf2a55` (was `133` at the Phase 5 head `f0d5e27`; Phase 6 adds the T1 deploy-check, T4 route-permission and collation-migration tests).
 - The runner refuses any target that isn't local or doesn't end in `_test`.
 - It starts its own API on a free port from a temp folder and stops it.
 - The POS log lines contain the word "Error:" in normal operation, so judge only the summary line.
+- **Clean-checkout verification (2026-11-02):** the suite was run from a detached `git worktree` at `eaf2a55` in a scratch folder, with a fresh `node_modules` copy and no access to the working tree — result **`159 passed, 0 failed`**. So HEAD is green independently of any uncommitted working-tree changes. To reproduce: `git worktree add --detach <dir> eaf2a55`, provide `node_modules` (copy an install or `npm ci`), then run the command above against a local `*_test` database.
 
 **Optional, a full migration round trip by hand** on another local copy (`dcommerce_loan_<you>`; the database name must be local):
 
