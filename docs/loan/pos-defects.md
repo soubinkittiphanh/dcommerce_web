@@ -17,7 +17,8 @@ Line numbers are from `dc_api` and `dc_web` at the loan branch's base on `main`,
 | 9 | AR invoice lines from a POS order copy line-currency amounts while the header is in base (no line currency column); dc_pos sends rate 1 and no line currency | AR / sales | **Critical, confirmed by sandbox test**: the AR batch posted a USD 15,000 car (LAK 315,000,000) as LAK 15,000 and marked the invoice posted | Loan allocates its receipts from the header base |
 | 10 | An invoice saved after its due date becomes `overdue` (model hook), and the AR posting batch only selects `sent`/`paid` | AR / GL batch | High, observed in the sandbox: such an invoice is never posted to the GL | None needed |
 | 11 | The POS `uploads/` folder is served publicly, with no login | Security / file storage | **High (security)**: anyone who knows or guesses a file URL can download uploaded images and documents, including applicant photos | Loan documents are stored in a private folder (`LOAN_DOCUMENT_DIR`) and downloaded only through a permission-checked route (Phase 5 B1) |
-| 12 | Database export and import need only a login, no permission | Security / backup | **Critical (security)**: any logged-in user, a cashier included, can download the whole database or overwrite it with an uploaded `.sql` file; the upload sits in the public `uploads/` folder while it is restored | None possible in the loan module (it bypasses every loan permission). The Phase 6 runbook takes backups with `mariadb-dump`, never through this screen |
+| 12 | Database export and import need only a login, no permission | Security / backup | **Critical (security), reproduced on a local sandbox**: any logged-in user, a cashier included, can download the whole database, overwrite it with an uploaded `.sql` file, **and run OS shell commands on the API host** through the `mysql` client; the upload sits in the public `uploads/` folder while it is restored. Full brief: `pos-defect-12-brief.md` | None possible in the loan module (it bypasses every loan permission). The Phase 6 runbook takes backups with `mariadb-dump`, never through this screen |
+| 13 | User routes mounted with no authentication; passwords stored in plaintext | Security / auth | **Critical (security), reproduced on a local sandbox**: `POST /user_i`, `PUT /user_e`, `GET /user_f` have no `validateToken`, so anyone can create/update/list users with no login; `user.cus_pass` is plaintext, so one export (#12) yields every password | Loan routes are all behind `validateToken` + permission; found while confirming #12 |
 
 ---
 
@@ -188,26 +189,43 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 
 
 ## 12. Database export and import need only a login, no permission (security)
-**Evidence** (read from code on `main` at `1f63709`; not exploited or tested against any server)
+**→ Full standalone fix brief, for a developer or fresh session working off `main`: [`pos-defect-12-brief.md`](pos-defect-12-brief.md).** It has the exact routes, the minimal fix with tests, and the proxy-level stopgap.
+
+**Evidence** (read from code on `main` at `1f63709`; **reproduced on a local sandbox copy**, `dcommerce_loan_test`, 2026-11-02 — never a customer or remote database)
 - `dc_api/src/app.js:221` mounts `/api/database` (`src/databaseBackup/router.js`).
-- `src/databaseBackup/router.js:30` `GET /export` and `:33` `POST /import` use only `validateToken`. There is no `requirePermission` or group check, so any valid user token is enough.
-- `GET /export` (`controller.js:115–131`) streams a full `mysqldump` of the database as a download. That covers every customer, loan, price, user row and audit row in that database.
-- `POST /import` (`router.js:8–27`, `controller.js:172+`) accepts any file named `*.sql` (extension check only, no size limit) and pipes it into the `mysql` client against the live database. It can replace or drop any table.
+- `src/databaseBackup/router.js:30` `GET /export` and `:33` `POST /import` use only `validateToken`. There is no `checkRole`/permission or group check, so any valid user token is enough. `validateToken` also never checks `isActive`.
+- `GET /export` (`controller.js` `exportDatabase`, ~line 115) streams a full `mysqldump` of the database as a download. That covers every customer, loan, price, user row and audit row in that database.
+- `POST /import` (`router.js:8–27`, `controller.js` `importDatabase`, ~line 172) accepts any file named `*.sql` (extension check only, no size limit) and pipes it into the **interactive `mysql` client** against the live database.
 - The uploaded file is stored as `uploads/restore_<Date.now()>_<original name>` and deleted only when the restore ends. While it runs, it is inside the folder served publicly without login (#11).
+
+**Confirmed on the sandbox:** `GET /export` with a **cashier** token, an **inactive** user's token and a **no-group** user's token each returned **200 and a full 19.8 MB SQL dump**; only a missing/invalid token gave 401. `POST /import` with a cashier token returned **200 "Database restored successfully"** and the statements ran. Uppercase, trailing-slash, double-slash and percent-encoded path variants without a token all gave 401, so the token is the entire control.
+
+**Escalation — OS command execution, not just SQL:** the import pipes the file into the interactive `mysql` client, which runs its own `\!` backslash command from stdin as a **shell command on the API host**. The sandbox probe uploaded a `.sql` file with a `\!` line and the OS command ran (a marker file appeared). So `/import` is arbitrary command execution on the server for any logged-in user.
 
 **Effect:**
 - Any account, including a cashier or a compromised low-privilege login, can take a full copy of the business data (personal data included) or destroy or alter it.
+- Any such account can run shell commands on the API host via `/import`.
 - Loan permissions, maker-checker and audit can all be bypassed by an import.
-- A restore in progress exposes the dump under a guessable public URL.
+- A restore in progress exposes the dump under a guessable public URL (#11).
 
 **Loan workaround:** none possible inside the loan module. The Phase 6 runbook (step 2) takes backups with `mariadb-dump` on the server and tells operators not to use this screen.
 
-**Suggested fix (separate POS task, urgent):**
-- restrict both routes to a dedicated permission held only by the owner or SUPER_ADMIN, or remove import from the web API entirely;
-- add a size limit;
-- store uploads outside `uploads/`;
-- audit every export and import with the user and IP;
-- consider requiring a second person for import.
+**Suggested fix (separate POS task off `main`, urgent):** see the brief. In short — gate both routes with `checkRole(['admin'])` (the existing `main` primitive), put it before the multer upload, add a size limit, store uploads outside `uploads/`, audit every call with user and IP, and consider a second-person confirmation for import or removing import from the web API. **Proxy-level stopgap** (apply now, no code change): block `/api/database/` at the reverse proxy — nginx/Apache snippets in the brief, §4.
+
+---
+
+## 13. User management routes have no authentication; passwords in plaintext (security)
+**Evidence** (read from code on `main` at `1f63709`; **reproduced on a local sandbox**, 2026-11-02)
+- `src/router/router.js` `user(app)` registers `POST /user_i` (create user), `PUT /user_e` (update user) and `GET /user_f` (fetch users) **directly on the app with no `validateToken`**. (`app.js` mounts these via `Router.user(app)`.)
+- `src/user/controller.js` stores and compares `user.cus_pass` in plaintext; the `bcrypt` hash/compare lines are commented out. In the sandbox, every `cus_pass` was plaintext.
+
+**Confirmed on the sandbox:** anonymous (no token at all) `GET /user_f` returned **200 with a user list**; anonymous `POST /user_i` and `PUT /user_e` returned **200**. (`GET /me` correctly returned 401.)
+
+**Effect:**
+- Anyone who can reach the API can list, create and modify user accounts with no login — including creating an admin.
+- Combined with #12, a single export hands an attacker every user's password directly, because they are not hashed.
+
+**Loan workaround:** all loan routes are behind `validateToken` plus a permission (T4). This was found while confirming #12 and is outside the loan module; file and fix it off `main` (hash passwords with `bcrypt`; require a token and an admin check on the user routes).
 
 ---
 
