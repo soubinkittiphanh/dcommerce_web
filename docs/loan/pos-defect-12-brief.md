@@ -57,32 +57,31 @@ While a restore runs, the uploaded file sits in `uploads/`, which `app.js:14` se
 
 Branch: `fix/database-backup-permission` from `main`. Keep it additive; do not pull in anything from `feature/loan-module` (the loan RBAC middleware does not exist on `main`).
 
-1. **Gate both routes with the role check that already exists on `main`.** `src/parking/validation.js` exports `checkRole(allowedRoles)`, which 401s without a user and otherwise loads the user with their role and treats `groupId === 1` or role level ≥ 100 as super-admin. Use it:
+**Recommended shape: remove `POST /import` from the app; keep only a fixed `GET /export`.** A full restore is a server-administrator task done on the box (`mysql < dump.sql` by someone with shell access), not a web action — the Phase 6 runbook already restores that way. Removing `/import` deletes the entire remote-command-execution surface rather than trying to contain it. So:
+
+1. **Delete the `/import` route and its controller/multer config.** Keep `exportDatabase`; drop `importDatabase`, `upload`, and the multer `require`s. `src/app.js:221` can keep mounting the router (now export-only), or mount nothing if the router becomes trivial.
+2. **Gate `GET /export` with the role check that already exists on `main`.** `src/parking/validation.js` exports `checkRole(allowedRoles)`, which 401s without a user and otherwise loads the user with their role and treats `groupId === 1` or role level ≥ 100 as super-admin:
    ```js
    const { checkRole } = require('../parking/validation');
-   router.get('/export',  validateToken, checkRole(['admin']), controller.exportDatabase);
-   router.post('/import', validateToken, checkRole(['admin']), upload.single('file'), controller.importDatabase);
+   router.get('/export', validateToken, checkRole(['admin']), controller.exportDatabase);
    ```
    If a dedicated permission is preferred over the generic `admin` role, add one; `checkRole(['admin'])` is the smallest change that matches existing `main` code.
-2. **Put `checkRole` before `upload.single('file')`** on `/import` (as above) so an unauthorised request is rejected before any file is written to disk.
-3. **Limit the upload and move it out of the public folder:** add `limits: { fileSize: <N> MB }` to the multer config, and set `destination` to `os.tmpdir()` (or another path **outside `uploads/`**), so a rejected or in-flight file is never web-reachable (defect #11).
-4. **Audit every call:** write one row (existing audit table or a log line) with the user id, IP (`req.ip`), action (`export`/`import`), filename and outcome.
-5. **Handle the non-.sql and spawn-error cases** so they return a clean 400/500 and always delete the temp file (the current `.txt` path returns an unshaped 500).
-6. **Optional, recommended:** require a second admin confirmation for `/import`, given it can run shell commands; or drop `/import` from the web API entirely and restore only from the server (the Phase 6 runbook already backs up with `mariadb-dump` on the server and tells operators not to use this screen).
+3. **Fold in an `isActive` check** (either in the fix or confirm `checkRole` covers it): `validateToken` today does not look at `isActive`, so a disabled admin's unexpired token must still be refused.
+4. **Audit every export:** write one row (existing audit table or a log line) with the user id, IP (`req.ip`), action and outcome.
 
-Note: step 1 is the control that stops the critical exposure. The shell-command risk in `/import` is inherent to restoring through the `mysql` client; restricting to admin and adding a second-person confirmation is the practical mitigation. Removing `/import` from the web removes it entirely.
+**If `POST /import` must stay** (only with the owner's written sign-off), then it must **not** shell out:
+- **No `mysql`/`mysqldump` client and no `child_process`/`spawn`/`exec` at all** — that is what let an uploaded `\!` line run a shell command. Apply the dump with a SQL library instead: read the file and run it through the existing `mariadb`/`sequelize` connection (e.g. `mariadb` driver with `multipleStatements`, inside a transaction), so only SQL is ever executed and nothing reaches a shell.
+- Gate it with `checkRole(['admin'])` **before** the upload is parsed, cap the size (`limits: { fileSize: <N> MB }`), store the temp file **outside `uploads/`** (`os.tmpdir()`), require a second admin confirmation, and audit it.
+- Even then, a restore can run arbitrary SQL (`DROP`, etc.); the control is the admin gate plus the second person. Removing the route is still preferred.
 
 ### Tests (new, on the fix branch)
 A small integration test, same shape as the loan suite (start the API on a free port against a **local throwaway `*_test` database**, never a customer DB; see `dc_api/test/loan/run.js` for the clone-and-start pattern):
-- `GET /export` and `POST /import` **without a token → 401**.
-- both **with a non-admin (cashier) token → 403** (the fix's core assertion; today this is 200).
-- both **with an admin token → 200** (export streams SQL; import of a tiny valid `.sql` succeeds).
-- `POST /import` with a **non-.sql** file → 400, and no file left in the upload folder.
-- `POST /import` with a file **larger than the limit** → 413/400, rejected before the DB is touched.
-- an **inactive** admin user → 403 (fold an `isActive` check into the fix if `checkRole` does not already cover it).
-- the upload lands **outside `uploads/`** (assert the destination path).
-- a **regression**: an admin export/import still works end to end.
-- do **not** add a test that uploads a `\!` shell line against anything but a disposable local DB; assert the permission gate instead.
+- `GET /export` **without a token → 401**.
+- `GET /export` **with a non-admin (cashier) token → 403** — the fix's core assertion; today this is 200 with a full dump.
+- `GET /export` **with an admin token → 200** and streams SQL (regression: admin export still works end to end).
+- `GET /export` with an **inactive** admin user → 403.
+- **`POST /import` no longer exists**: a POST to `/api/database/import` returns **404** (route removed). If import was kept instead, assert non-admin → 403, that the handler uses no `child_process` (a code assertion/grep in the test, or a unit test that a `\!`-bearing file runs no shell), a size-limit rejection, and the temp file landing outside `uploads/`.
+- do **not** add a test that uploads a `\!` shell line against anything but a disposable local DB; assert the permission gate and route removal instead.
 
 ---
 
@@ -127,3 +126,40 @@ Notes:
 - This blocks both `/export` and `/import`.
 - A 403 here stops the exposure for every user, admin included, so use allow-list mode if an admin must still export during the window.
 - If there is **no** reverse proxy, the equivalent one-line stopgap is a code change — comment out `app.use('/api/database', myRouter.databaseBackup);` at `app.js:221` and restart — but that is not proxy-level and touches code, so it is out of this "stopgap" scope; prefer shipping the real fix.
+
+---
+
+## 5. Was this exploited? (incident check, do this before/alongside the fix)
+
+The routes have been open to any logged-in user for as long as they have existed, so check the history before assuming they were not used.
+
+### Where to look
+- **Reverse proxy access logs** (Apache: `/var/log/apache2/*access*` or the vhost's `CustomLog`; nginx: `/var/log/nginx/access.log*`), including rotated/compressed files.
+- **API logs** (`dc_api/logs.log` and any process-manager log, e.g. the supervisor `stdout_logfile`). The export handler logs `Starting database export for <db> (Host: <host>)` and `Database export completed successfully`; the import handler logs `Starting database import for <db> from <filename>` and `Database import completed successfully`. These lines do not record the user or IP (part of the defect), so correlate by timestamp with the proxy log.
+
+### Searches
+```bash
+# Proxy: every hit on the two routes, oldest logs included
+zgrep -hE "/api/database/(export|import)" /var/log/{nginx,apache2}/*access* 2>/dev/null
+
+# API: the handler log lines (run from the app folder; read-only)
+grep -nE "database (export|import)|Starting database|restored successfully" dc_api/logs.log
+```
+For each proxy hit, note the timestamp, HTTP method (`GET`=export, `POST`=import), source IP, status (200 = it succeeded) and bytes sent (a large response on `/export` = a dump left).
+
+### What a suspicious hit looks like
+- A **`POST /api/database/import`** at all — the app's own backup screen is export-only in normal use, so an import is noteworthy by itself.
+- A request from an **IP that is not a known admin workstation** or the office range.
+- A hit **outside business hours**, or a burst of them.
+- A `GET /export` returning **200 with a large body** to a non-admin session (cross-check the timestamp with who was logged in, if the app has a session/audit trail).
+- Any `/api/database/*` hit you cannot tie to a deliberate, authorised backup.
+
+### If a successful or unexplained hit is found
+Treat the server as potentially compromised — `/import` allows OS command execution, and `/export` discloses every credential stored in the database (including plaintext `cus_pass`, defect #13):
+1. Take the app offline or apply the §4 proxy block immediately.
+2. Preserve the logs (copy them aside) before they rotate.
+3. **Rotate every secret the database or host holds:** the DB account password; the JWT/app signing secret (invalidates stolen tokens); all integration credentials (BCEL/OnePay QR and other bank QR providers in `bank.config`, the dynamic-QR SPF settings, platform-connector tokens, any Facebook/platform env secrets); and force a password reset for all users (their `cus_pass` is stored in plaintext, so assume every one is known).
+4. Inspect the host for anything the `\!` path could have left (unexpected files, cron entries, new processes/users) and restore from a known-good image if in doubt.
+5. Review the DB for unauthorised changes (e.g. new admin users, altered prices) against the last trusted backup.
+
+Finding no hits in the available logs is reassuring but not proof, since the logs may not reach back to when the routes first shipped.

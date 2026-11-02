@@ -221,11 +221,26 @@ See phase4-report §9.3 and §10 for how this ties to the DISB reversal.
 
 **Confirmed on the sandbox:** anonymous (no token at all) `GET /user_f` returned **200 with a user list**; anonymous `POST /user_i` and `PUT /user_e` returned **200**. (`GET /me` correctly returned 401.)
 
+**Who calls these routes** (read-only search of the front-ends, so you know whether a proxy block is safe):
+- **dc_web — one screen, `pages/admin/member/index.vue`** (the "ສະມາຊິກ"/Members admin screen) calls all three: `GET /user_f` to list (line 251), and `POST /user_i` / `PUT /user_e` to create and update via `urlpath = '/user_'` (lines 222–236). It also shows and sends `user_pass` in plaintext.
+- **dc_pos** (Flutter) does **not** call them; it uses only `userLogin` (login) and its own `user_info` routes.
+- **dc_mobile**: not present in this workspace.
+- So a **proxy block on `/user_f`, `/user_i`, `/user_e` is NOT safe** — it breaks the dc_web Members screen. The right fix is to require a token, not to block the path. (The screen runs behind the nuxt `auth-next` login, which attaches the bearer token to axios, so adding `validateToken` will not break it for a logged-in admin.)
+
 **Effect:**
 - Anyone who can reach the API can list, create and modify user accounts with no login — including creating an admin.
 - Combined with #12, a single export hands an attacker every user's password directly, because they are not hashed.
 
-**Loan workaround:** all loan routes are behind `validateToken` plus a permission (T4). This was found while confirming #12 and is outside the loan module; file and fix it off `main` (hash passwords with `bcrypt`; require a token and an admin check on the user routes).
+**Loan workaround:** all loan routes are behind `validateToken` plus a permission (T4). This was found while confirming #12 and is outside the loan module; file and fix it off `main`.
+
+**Suggested fix (separate POS task off `main`):**
+- **Require auth on the routes:** add `validateToken` (and ideally `checkRole(['admin'])`) to `/user_f`, `/user_i`, `/user_e` where `user(app)` registers them in `src/router/router.js`. The dc_web Members screen keeps working for a logged-in admin; test that anonymous now gets 401 and a non-admin 403.
+- **Hash passwords with a migration plan:**
+  1. switch create/update (`src/user/controller.js`) and login (`src/user/service.js` `getUserById`) to `bcrypt.hash` / `bcrypt.compare` (the `bcrypt` lines are already present but commented out);
+  2. make login accept both for a transition: if the stored value is not a bcrypt hash, compare as plaintext and, on success, re-save it hashed (upgrade-on-login);
+  3. optionally a one-off script that hashes any remaining plaintext `cus_pass` after a grace period;
+  4. never return `cus_pass` from `/user_f` (the Members screen currently reads it) — drop it from the payload.
+- Because passwords are currently plaintext, treat them as already exposed if #12 was ever used (see `pos-defect-12-brief.md` §5) and force a reset.
 
 ---
 
