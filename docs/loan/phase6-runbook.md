@@ -265,6 +265,7 @@ Boarding (if used) runs between 3 and 4, for base-currency contracts first (`pha
 - [ ] Step 7 post-checks passed
 - [ ] Every mapping, entry rule, product, rate and template used is AUTHORIZED; the pending queue holds nothing unexpected
 - [ ] Switches as intended (step 9 table), and `LOAN_ALLOW_SELF_AUTHORIZE = false`
+- [ ] **Loan grants on generic groups reviewed:** the seeded **ADMIN** group holds both CREATE and AUTHORIZE on loan functions (every loan function is granted to it), so one ADMIN user can be both maker and checker. Confirm who is in ADMIN, and either narrow ADMIN's loan grants or move loan staff to the dedicated LOAN_* groups (`phase6-uat.md` §1). `loan_deploy_check.js --post` flags this as a WARN (C9)
 - [ ] Rates: every foreign currency in use has a rate within `LOAN_FX_MAX_RATE_AGE_DAYS`
 - [ ] Loan EOD run once on a restored copy with this configuration (and on production after day 1); duration noted against C1
 - [ ] GL tie-out balanced, including the **`BOARDING_CLEARING` balance is 0 after the accountant's reclassification journal** when contracts were boarded

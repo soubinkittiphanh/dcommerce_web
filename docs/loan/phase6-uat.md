@@ -14,32 +14,39 @@ Account numbers are the **proposed** ones from `loan_propose_accounts.js`. Repla
 ---
 
 ## 1. Roles and groups (to create in the POS security screen; not seeded)
-Create these three groups in **Security → User Group Access Rights** (`/admin/security/grants`) and assign the testers. An optional idempotent seed can create them later, after UAT, if you want one.
+Create these four groups in **Security → User Group Access Rights** (`/admin/security/grants`) and assign the testers. An optional idempotent seed can create them later, after UAT, if you want one.
 
-| Grant (function: actions) | LOAN_CASHIER | LOAN_MANAGER | LOAN_CHECKER |
-|---|---|---|---|
-| LN_ACCOUNT: VIEW | ✓ | ✓ | ✓ |
-| LN_ACCOUNT: CREATE (book an approved application) | | ✓ | |
-| LN_TRANSACTION: VIEW | ✓ | ✓ | ✓ |
-| LN_TRANSACTION: CREATE (payments; also requests for every other kind, see security checklist G1) | ✓ | ✓ | |
-| LN_TRANSACTION: AUTHORIZE | | | ✓ |
-| LN_APPLICATION: VIEW, CREATE, EDIT | | ✓ | VIEW |
-| LN_APPLICATION: AUTHORIZE | | | ✓ |
-| LN_DOCUMENT: VIEW, CREATE | VIEW | ✓ | VIEW |
-| LN_COLLECTION: VIEW | ✓ | ✓ | ✓ |
-| LN_REPORT: VIEW | | ✓ | ✓ |
-| LN_EOD: VIEW | | ✓ | ✓ |
-| LN_EOD: CREATE (run EOD) | | ✓ | |
-| LN_EXCHANGE_RATE: VIEW, CREATE | VIEW | ✓ | VIEW |
-| LN_EXCHANGE_RATE: AUTHORIZE | | | ✓ |
-| Parameter functions (LN_PRODUCT, LN_FEE, LN_ENTRY_RULE, LN_GL_MAPPING, LN_PRINT_TEMPLATE, …): VIEW, CREATE, EDIT | | ✓ (parameter maker) | VIEW |
-| Same parameter functions: AUTHORIZE | | | ✓ |
-| LN_AUDIT_LOG: VIEW | | ✓ | ✓ |
+| Grant (function: actions) | LOAN_CASHIER | LOAN_MANAGER | LOAN_CHECKER | LOAN_ACCOUNTANT |
+|---|---|---|---|---|
+| LN_ACCOUNT: VIEW | ✓ | ✓ | ✓ | ✓ |
+| LN_ACCOUNT: CREATE (book an approved application) | | ✓ | | |
+| LN_TRANSACTION: VIEW | ✓ | ✓ | ✓ | |
+| LN_TRANSACTION: CREATE (payments; also requests for every other kind, see security checklist G1) | ✓ | ✓ | | |
+| LN_TRANSACTION: AUTHORIZE | | | ✓ | |
+| LN_APPLICATION: VIEW, CREATE, EDIT | | ✓ | VIEW | |
+| LN_APPLICATION: AUTHORIZE | | | ✓ | |
+| LN_DOCUMENT: VIEW, CREATE | VIEW | ✓ | VIEW | |
+| LN_COLLECTION: VIEW | ✓ | ✓ | ✓ | ✓ |
+| LN_REPORT: VIEW (portfolio, aging, NPL, provisions, GL tie-out) | | ✓ | ✓ | ✓ |
+| LN_VAT_REPORT: VIEW | | ✓ | ✓ | ✓ |
+| LN_TAX_PROFILE: VIEW | | | | ✓ |
+| LN_EOD: VIEW | | ✓ | ✓ | |
+| LN_EOD: CREATE (run EOD) | | ✓ | | |
+| LN_EXCHANGE_RATE: VIEW, CREATE | VIEW | ✓ | VIEW | |
+| LN_EXCHANGE_RATE: AUTHORIZE | | | ✓ | |
+| Parameter functions (LN_PRODUCT, LN_FEE, LN_ENTRY_RULE, LN_GL_MAPPING, LN_PRINT_TEMPLATE, …): VIEW, CREATE, EDIT | | ✓ (parameter maker) | VIEW | |
+| Same parameter functions: AUTHORIZE | | | ✓ | |
+| LN_AUDIT_LOG: VIEW | | ✓ | ✓ | ✓ |
+
+**LOAN_ACCOUNTANT** is view-only: the loan reports, the VAT report, the GL tie-out and the tax profile, for reconciliation and tax work. It makes no changes and authorizes nothing.
+
+**Kept on SUPER_ADMIN only** (no role above holds them): **LN_CHECKLIST** (the go-live checklist), **LN_ACCOUNTING_SETUP**, and the **LN_TAX_PROFILE** change actions **EDIT and AUTHORIZE** (the accountant gets LN_TAX_PROFILE VIEW only; confirming or editing the tax profile stays with SUPER_ADMIN). *(If the tax profile should not be visible to the accountant at all, drop the LN_TAX_PROFILE: VIEW row above — then LN_TAX_PROFILE is wholly SUPER_ADMIN.)*
 
 **Rules:**
 - Nobody holds CREATE and AUTHORIZE for the same function, unless the customer accepts it in writing.
 - `LOAN_ALLOW_SELF_AUTHORIZE` stays `false`.
 - Keep SUPER_ADMIN for setup only.
+- The seeded generic **ADMIN** group holds CREATE *and* AUTHORIZE on loan functions (it is granted every loan function). Review and tighten it before go-live — see the go-live checklist item.
 
 ---
 
