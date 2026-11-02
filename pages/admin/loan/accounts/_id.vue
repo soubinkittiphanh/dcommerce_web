@@ -13,6 +13,16 @@
         <v-btn v-if="can('LN_TRANSACTION', 'CREATE') && summary.account.accountStage === 'DISBURSED'" color="primary" class="text-none mr-2" @click="payment = true">
           <v-icon left>mdi-cash-plus</v-icon>ຮັບຊຳລະ (Payment)
         </v-btn>
+        <v-menu v-if="can('LN_TRANSACTION', 'CREATE') && txActions.length" offset-y>
+          <template #activator="{ on, attrs }">
+            <v-btn outlined color="primary" class="text-none mr-2" v-bind="attrs" v-on="on"><v-icon left>mdi-swap-horizontal</v-icon>ລາຍການ (Actions)</v-btn>
+          </template>
+          <v-list dense>
+            <v-list-item v-for="a in txActions" :key="a.value" @click="openTransaction(a.value)">
+              <v-list-item-title>{{ a.text }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
         <v-menu offset-y>
           <template #activator="{ on, attrs }">
             <v-btn outlined class="text-none" v-bind="attrs" v-on="on"><v-icon left>mdi-printer</v-icon>ພິມ (Print)</v-btn>
@@ -162,6 +172,7 @@
       </v-tabs-items>
 
       <payment-dialog v-model="payment" :summary="summary" @posted="reloadAfterPosting" @print-receipt="openReceipt" />
+      <transaction-dialog v-model="txDialog" :summary="summary" :transactions="transactions" :initial-kind="txKind" @posted="reloadAfterPosting" @print-receipt="openReceipt" />
 
       <print-shell v-model="print.open" :title="print.title" :printable="print.printable">
         <receipt-print v-if="print.kind === 'receipt' && print.txn" :txn="print.txn" :summary="summary" :company="company" />
@@ -180,6 +191,8 @@ import LoanBanner from '~/components/loan/LoanBanner.vue'
 import PageTitle from '~/components/loan/PageTitle.vue'
 import FxAmount from '~/components/loan/FxAmount.vue'
 import PaymentDialog from '~/components/loan/PaymentDialog.vue'
+import TransactionDialog from '~/components/loan/TransactionDialog.vue'
+import { kindsForStage } from '~/components/loan/transactionKinds'
 import PrintShell from '~/components/loan/print/PrintShell.vue'
 import ReceiptPrint from '~/components/loan/print/ReceiptPrint.vue'
 import ContractSummaryPrint from '~/components/loan/print/ContractSummaryPrint.vue'
@@ -189,7 +202,7 @@ import { fmtAmount, fmtMoney, fmtRate, decimalsOf, addAmounts, AGING_COLORS, TX_
 
 export default {
   name: 'LoanAccountPage',
-  components: { LoanBanner, PageTitle, FxAmount, PaymentDialog, PrintShell, ReceiptPrint, ContractSummaryPrint, StatementPrint },
+  components: { LoanBanner, PageTitle, FxAmount, PaymentDialog, TransactionDialog, PrintShell, ReceiptPrint, ContractSummaryPrint, StatementPrint },
   layout: 'admin',
   middleware: 'auths',
   data () {
@@ -206,6 +219,8 @@ export default {
       company: {},
       stmt: { from: '', to: '' },
       payment: false,
+      txDialog: false,
+      txKind: null,
       upload: { docType: 'CONTRACT', file: null, remarks: '' },
       uploading: false,
       print: { open: false, kind: null, title: '', txn: null, template: null, error: null, printable: true },
@@ -241,7 +256,9 @@ export default {
   },
   computed: {
     id () { return this.$route.params.id },
-    isForeign () { return this.summary && this.summary.currency !== this.summary.baseCurrency }
+    isForeign () { return this.summary && this.summary.currency !== this.summary.baseCurrency },
+    // Transactions a user may raise at this account's stage (payment/prepayment stay on the Payment button)
+    txActions () { return this.summary ? kindsForStage(this.summary.account.accountStage).map(k => ({ value: k.value, text: k.label })) : [] }
   },
   async mounted () {
     try {
@@ -295,6 +312,10 @@ export default {
     },
     async loadDocuments () {
       this.documents = (await this.$axios.$get(`/api/loan/accounts/${this.id}/documents`)).data
+    },
+    openTransaction (kind) {
+      this.txKind = kind
+      this.txDialog = true
     },
     async reloadAfterPosting () {
       await this.load()

@@ -14,7 +14,9 @@ export const getters = {
     const actions = state.permissions[functionCode]
     return Array.isArray(actions) && actions.includes(action)
   },
-  enumOf: (state) => (key) => state.enums[key] || []
+  enumOf: (state) => (key) => state.enums[key] || [],
+  // Operational switch from /lookups: when false the UI hides self-authorization (the API also refuses it).
+  allowSelfAuthorize: (state) => Boolean(state.lookups.settings && state.lookups.settings.allowSelfAuthorize)
 }
 
 export const mutations = {

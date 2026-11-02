@@ -24,8 +24,9 @@
         </template>
         <template #[`item.actions`]="{ item }">
           <template v-if="can('AUTHORIZE')">
-            <v-btn x-small color="green" dark class="text-none mr-1" :disabled="isMine(item)" :title="isMine(item) ? 'Maker cannot authorize' : ''" @click="decide(item, 'authorize')">ອະນຸມັດ</v-btn>
-            <v-btn x-small color="red" dark class="text-none" :disabled="isMine(item)" @click="decide(item, 'reject')">ປະຕິເສດ</v-btn>
+            <v-btn v-if="!isMine(item) || allowSelfAuthorize" x-small color="green" dark class="text-none mr-1" @click="decide(item, 'authorize')">ອະນຸມັດ</v-btn>
+            <v-chip v-else x-small color="grey lighten-3" class="mr-1" title="Maker cannot authorize their own request (LOAN_ALLOW_SELF_AUTHORIZE is off)">ລໍຖ້າຜູ້ອື່ນ (needs another)</v-chip>
+            <v-btn x-small color="red" dark class="text-none" :disabled="isMine(item) && !allowSelfAuthorize" @click="decide(item, 'reject')">ປະຕິເສດ</v-btn>
           </template>
         </template>
         <template #expanded-item="{ headers: hs, item }">
@@ -85,7 +86,8 @@ export default {
     }
   },
   computed: {
-    userId () { return this.$auth && this.$auth.user ? Number(this.$auth.user.id) : null }
+    userId () { return this.$auth && this.$auth.user ? Number(this.$auth.user.id) : null },
+    allowSelfAuthorize () { return this.$store.getters['loan/allowSelfAuthorize'] }
   },
   async mounted () {
     try {
