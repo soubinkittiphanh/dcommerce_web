@@ -56,7 +56,7 @@ npm run test:loan                    # rebuilds a local *_test DB from LOAN_TEST
 ```
 The test runner needs the `mariadb` / `mariadb-dump` CLIs with OS socket login (or `LOAN_TEST_MYSQL_ARGS`).
 
-Web: start the API locally, then run dc_web with `BASE_URL=http://127.0.0.1:<api port>`. Without `BASE_URL`, `nuxt.config.js` points at the remote `162.35.18.246:8054`.
+Web: start the API locally, then run dc_web with `BASE_URL=http://127.0.0.1:<api port>`. Without `BASE_URL`, `nuxt.config.js` points at the remote `150.95.31.23:8052`.
 
 **Note on `.nuxt`:** dc_web tracks 32 files under `.nuxt`; a normal `nuxt dev`/`build` rewrites them. For verification I used a scratch config that imports `nuxt.config.js` unchanged and sets `buildDir` outside the repo.
 
