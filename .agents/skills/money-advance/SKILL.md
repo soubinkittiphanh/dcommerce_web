@@ -15,10 +15,22 @@ This skill governs the **Money Advance (MA)** and **Settlement** workflows in `d
 - **Settlement Views & Management**: [pages/admin/moneyAdvanceSettlement/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceSettlement/index.vue)
 - **Money Advance Requests & Statements**:
   - [pages/admin/moneyAdvance](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvance)
+  - [pages/admin/moneyAdvanceByBank](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceByBank)
+  - [pages/admin/moneyAdvanceSettlementByBank](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceSettlementByBank)
   - [pages/admin/moneyAdvanceStatement](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceStatement)
   - [pages/admin/moneyAdvanceDashboard](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceDashboard)
-- **Print Templates**: [common/moneyAdvancePaymentPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvancePaymentPrintTemplate.js)
-- **Reports**: [pages/admin/report/MA/payment/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/payment/index.vue)
+  - [pages/admin/moneyAdvanceTarget](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvanceTarget)
+- **Print Templates**:
+  - [common/moneyAdvanceListPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvanceListPrintTemplate.js) (A4 Lao Gov 7-column summary: Payment & Settlement on same row)
+  - [common/moneyAdvanceLedgerPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvanceLedgerPrintTemplate.js) (A4 Lao Gov 7-column ledger: Payment & Settlement on separate rows, Settlement left [Col 5] / Payment right [Col 6] with running balance)
+  - [common/moneyAdvanceSettlementListPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvanceSettlementListPrintTemplate.js) (A4 Lao Gov 7-column Settlement List)
+  - [common/moneyAdvanceMasterPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvanceMasterPrintTemplate.js) (A4 Landscape Master Ministry Analysis)
+  - [common/moneyAdvancePaymentPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvancePaymentPrintTemplate.js)
+  - [common/moneyAdvanceSettlementPrintTemplate.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/common/moneyAdvanceSettlementPrintTemplate.js)
+- **Reports**:
+  - [pages/admin/report/MA/master/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/master/index.vue)
+  - [pages/admin/report/MA/period/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/period/index.vue)
+  - [pages/admin/report/MA/payment/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/payment/index.vue)
 
 ---
 
@@ -56,6 +68,17 @@ This skill governs the **Money Advance (MA)** and **Settlement** workflows in `d
 - **Audit & Override**: If the user confirms to proceed despite the warning:
   - For payments: The backend logs the transaction, matched duplicate IDs, timestamp, and user details into the `MoneyAdvanceOverrideLog` table.
   - For settlements: The backend logs the transaction, matched duplicate IDs, timestamp, and user details into the `MoneySettlementOverrideLog` table.
+
+### F. Monthly Period Balance Forward Capture (`MinistryPeriodBalance`)
+- **Backend Service**: `dc_api/src/PWT/ministryPeriodBalance/` (`MinistryPeriodBalance` model, `service.js`, `controller.js`, `router.js`).
+- **Endpoints (`/api/pwt/period-balances`)**:
+  - `GET /api/pwt/period-balances/master-summary?branchId=&year=&month=`: Returns `period`, `balanceForward` (`byMinistry`, `byBankAccount`, `totals`), `currentAdvances`, `currentSettlements`, and `closingBalance`.
+  - `GET /api/pwt/period-balances/period-list?branchId=&year=`: Returns the 12-month continuous balance chain (`openingBalanceLak`, `advancesLak`, `settlementsLak`, `closingBalanceLak`, `isClosed`).
+  - `POST /api/pwt/period-balances/close-period`: Freezes/upserts monthly snapshots per ministry and currency into `MinistryPeriodBalance`.
+  - `POST /api/pwt/period-balances/reopen-period`: Reopens a closed monthly period.
+  - `POST /api/pwt/period-balances/backfill`: Sequentially backfills historical monthly period snapshots from the earliest transaction date.
+- **Usage in Reports**:
+  - [pages/admin/report/MA/period/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/period/index.vue), [pages/admin/report/MA/master/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/MA/master/index.vue), and [pages/admin/moneyAdvance/index.vue](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/moneyAdvance/index.vue) use `/api/pwt/period-balances/master-summary` to obtain the monthly captured `balanceForward` (`openingBalance`) per ministry or across all ministries.
 
 
 ---

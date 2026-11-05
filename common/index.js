@@ -605,19 +605,18 @@ export const isPackagingProduct = (product) => {
   if (product.categoryIsPackaging === true || product.categoryIsPackaging === 1) return true
   if (product.category?.isPackaging === true || product.category?.isPackaging === 1) return true
   if (product.isPackaging === true || product.isPackaging === 1) return true
+  if (product.categ_isPackaging === true || product.categ_isPackaging === 1) return true
 
   // 2. Finished merchandise (e.g. beer cases sold with drinks) are NOT packaging empties
-  if (product.isReturnablePackaging === true && !product.isPackagingAsset) {
+  if (product.isReturnablePackaging === true && !product.isPackagingAsset && !product.category?.isPackaging && !product.categoryIsPackaging) {
     return false
   }
 
-  // 3. Category match
-
-
-  // 4. Barcode match
-
-
-  // 5. Product name match (empty crates, bottles, packaging)
+  // 3. Category match (by category name if provided)
+  const catName = (product.category?.categ_name || product.categ_name || product.categoryName || '').toLowerCase()
+  if (catName.includes('ບັນຈຸພັນ') || catName.includes('packaging') || catName.includes('empties')) {
+    return true
+  }
 
   return false
 }

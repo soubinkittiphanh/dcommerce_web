@@ -538,6 +538,7 @@ export const printPackagingAssetsA4 = ({
 
   let rowsHTML = ''
   packagingProducts.forEach((p, idx) => {
+    const netDelta = (p.boughtQty || 0) - (p.soldQty || 0)
     rowsHTML += `
       <tr>
         <td class="text-center">${idx + 1}</td>
@@ -545,12 +546,16 @@ export const printPackagingAssetsA4 = ({
           <b>${p.productName}</b>
           <div style="font-size: 8.5px; color: #64748b;">${p.barCode || '-'}</div>
         </td>
-        <td class="text-right" style="color: #3730a3; font-weight: bold;">${formatNumber(p.soldQty)}</td>
+        <td class="text-right" style="color: #3730a3; font-weight: bold;">
+          ${p.soldQty > 0 ? '-' : ''}${formatNumber(p.soldQty)}
+        </td>
         <td class="text-right" style="color: #3730a3;">${formatNumber(p.soldAmount)} ₭</td>
-        <td class="text-right" style="color: #047857; font-weight: bold;">${formatNumber(p.boughtQty)}</td>
+        <td class="text-right" style="color: #047857; font-weight: bold;">
+          ${p.boughtQty > 0 ? '+' : ''}${formatNumber(p.boughtQty)}
+        </td>
         <td class="text-right" style="color: #047857;">${formatNumber(p.boughtAmount)} ₭</td>
-        <td class="text-center font-weight-bold">
-          ${p.netQty > 0 ? '+' : ''}${formatNumber(p.netQty)}
+        <td class="text-center font-weight-bold" style="color: ${netDelta > 0 ? '#047857' : (netDelta < 0 ? '#ea580c' : '#64748b')};">
+          ${netDelta > 0 ? '+' : ''}${formatNumber(netDelta)}
         </td>
         <td class="text-right" style="font-weight: bold; color: ${p.netAmount >= 0 ? '#166534' : '#c2410c'};">
           ${p.netAmount >= 0 ? '+' : ''}${formatNumber(p.netAmount)} ₭
@@ -560,7 +565,7 @@ export const printPackagingAssetsA4 = ({
   })
 
   const netCash = kpiData.netPackagingCash || 0
-  const netQty = (kpiData.totalPackagingSoldQty || 0) - (kpiData.totalPackagingBoughtQty || 0)
+  const totalNetDelta = (kpiData.totalPackagingBoughtQty || 0) - (kpiData.totalPackagingSoldQty || 0)
 
   const html = `
     <!DOCTYPE html>
@@ -592,7 +597,7 @@ export const printPackagingAssetsA4 = ({
         </div>
         <div class="report-title-box">
           <div class="report-main-title" style="color: #0f766e;">ລາຍງານການຊື້-ຂາຍ ແລະ ຄືນມັດຈຳສິນຄ້າບັນຈຸພັນ</div>
-          <div class="report-sub-title">Packaging Assets Sales, Deposits & Empties Buy-backs Report</div>
+          <div class="report-sub-title">Packaging Products Sales, Deposits & Empties Buy-backs Report</div>
         </div>
       </div>
 
@@ -606,14 +611,14 @@ export const printPackagingAssetsA4 = ({
       <!-- KPI Summary Row -->
       <div class="kpi-row">
         <div class="kpi-card" style="background: #eef2ff; border-color: #c7d2fe;">
-          <div class="kpi-label">ຂາຍ/ມັດຈຳ (Sold / Deposits)</div>
+          <div class="kpi-label">ຂາຍ/ມັດຈຳ (Sold / Outgoing)</div>
           <div class="kpi-val" style="color: #3730a3;">${formatNumber(kpiData.totalPackagingSoldAmount)} ₭</div>
-          <div class="kpi-sub">ຈຳນວນ: ${formatNumber(kpiData.totalPackagingSoldQty)} ໜ່ວຍ</div>
+          <div class="kpi-sub">ຈຳນວນ: -${formatNumber(kpiData.totalPackagingSoldQty)} ໜ່ວຍ</div>
         </div>
         <div class="kpi-card teal">
-          <div class="kpi-label">ຮັບຊື້/ຄືນເງິນ (Bought / Refunded)</div>
+          <div class="kpi-label">ຮັບຊື້/ຄືນເງິນ (Bought / Incoming)</div>
           <div class="kpi-val teal-text">${formatNumber(kpiData.totalPackagingBoughtAmount)} ₭</div>
-          <div class="kpi-sub">ຈຳນວນ: ${formatNumber(kpiData.totalPackagingBoughtQty)} ໜ່ວຍ</div>
+          <div class="kpi-sub">ຈຳນວນ: +${formatNumber(kpiData.totalPackagingBoughtQty)} ໜ່ວຍ</div>
         </div>
         <div class="kpi-card ${netCash >= 0 ? 'teal' : 'amber'}">
           <div class="kpi-label">ກະແສເງິນສຸດທິ (Net Packaging Cash)</div>
@@ -634,12 +639,12 @@ export const printPackagingAssetsA4 = ({
         <thead>
           <tr>
             <th class="teal-bg" style="width: 32px; text-align: center;">ລ/ດ</th>
-            <th class="teal-bg">ບັນຈຸພັນ (Packaging Asset)</th>
-            <th class="teal-bg text-right" style="width: 85px;">ຂາຍ (Qty)</th>
+            <th class="teal-bg">ບັນຈຸພັນ (Packaging Product)</th>
+            <th class="teal-bg text-right" style="width: 85px;">ຂາຍ (Out -)</th>
             <th class="teal-bg text-right" style="width: 115px;">ຍອດຂາຍ/ມັດຈຳ</th>
-            <th class="teal-bg text-right" style="width: 85px;">ຮັບຊື້ (Qty)</th>
+            <th class="teal-bg text-right" style="width: 85px;">ຮັບຊື້ (In +)</th>
             <th class="teal-bg text-right" style="width: 115px;">ຍອດຮັບຊື້/ຄືນ</th>
-            <th class="teal-bg text-center" style="width: 80px;">ສ່ວນຕ່າງຈຳນວນ</th>
+            <th class="teal-bg text-center" style="width: 80px;">ດຸນດ່ຽງສາງ</th>
             <th class="teal-bg text-right" style="width: 120px;">ກະແສເງິນສຸດທິ</th>
           </tr>
         </thead>
@@ -647,12 +652,18 @@ export const printPackagingAssetsA4 = ({
           ${rowsHTML}
           <tr class="total-row-teal">
             <td colspan="2" style="text-align: center;">🔹 ລວມຍອດບັນຈຸພັນ (Total Packaging)</td>
-            <td class="text-right" style="color: #3730a3;">${formatNumber(kpiData.totalPackagingSoldQty)}</td>
+            <td class="text-right" style="color: #3730a3; font-weight: bold;">
+              ${kpiData.totalPackagingSoldQty > 0 ? '-' : ''}${formatNumber(kpiData.totalPackagingSoldQty)}
+            </td>
             <td class="text-right" style="color: #3730a3;">${formatNumber(kpiData.totalPackagingSoldAmount)} ₭</td>
-            <td class="text-right" style="color: #047857;">${formatNumber(kpiData.totalPackagingBoughtQty)}</td>
+            <td class="text-right" style="color: #047857; font-weight: bold;">
+              ${kpiData.totalPackagingBoughtQty > 0 ? '+' : ''}${formatNumber(kpiData.totalPackagingBoughtQty)}
+            </td>
             <td class="text-right" style="color: #047857;">${formatNumber(kpiData.totalPackagingBoughtAmount)} ₭</td>
-            <td class="text-center">${netQty > 0 ? '+' : ''}${formatNumber(netQty)}</td>
-            <td class="text-right" style="color: ${netCash >= 0 ? '#166534' : '#c2410c'};">
+            <td class="text-center font-weight-bold" style="color: ${totalNetDelta > 0 ? '#047857' : (totalNetDelta < 0 ? '#ea580c' : '#64748b')};">
+              ${totalNetDelta > 0 ? '+' : ''}${formatNumber(totalNetDelta)}
+            </td>
+            <td class="text-right" style="color: ${netCash >= 0 ? '#166534' : '#c2410c'}; font-weight: bold;">
               ${netCash >= 0 ? '+' : ''}${formatNumber(netCash)} ₭
             </td>
           </tr>
@@ -752,8 +763,32 @@ export const printCustomerTimelineA4 = ({
   // Customer debt card block if specific client profile is present
   let profileSectionHTML = ''
   if (customerProfile) {
+    let balanceBadgesHTML = ''
+    if (customerProfile.balances && customerProfile.balances.length > 0) {
+      balanceBadgesHTML = customerProfile.balances.map(b => `
+        <div style="background: #0f766e; color: #fff; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: bold; text-align: center;">
+          📦 ${b.packagingName}: ${formatNumber(b.balanceOwed)}
+        </div>
+      `).join('')
+    } else {
+      if (customerProfile.currentCratesOwed) {
+        balanceBadgesHTML += `
+          <div style="background: #b45309; color: #fff; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: bold; text-align: center;">
+            📦 ລັງຕິດໜີ້ຄ້າງສົ່ງ: ${formatNumber(customerProfile.currentCratesOwed)}
+          </div>
+        `
+      }
+      if (customerProfile.currentBottlesOwed) {
+        balanceBadgesHTML += `
+          <div style="background: #0f766e; color: #fff; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: bold; text-align: center;">
+            📦 ແກ້ວຕິດໜີ້ຄ້າງສົ່ງ: ${formatNumber(customerProfile.currentBottlesOwed)}
+          </div>
+        `
+      }
+    }
+
     profileSectionHTML = `
-      <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+      <div style="background: #fffbeb; border: 1.5px solid #fde68a; border-radius: 6px; padding: 8px 12px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
         <div>
           <div style="font-size: 13px; font-weight: 900; color: #92400e;">
             🏪 ${customerProfile.name} ${customerProfile.company ? `(${customerProfile.company})` : ''}
@@ -762,13 +797,8 @@ export const printCustomerTimelineA4 = ({
             ໂທ: ${customerProfile.telephone || '-'} | ທີ່ຢູ່: ${customerProfile.address || 'ບໍ່ມີຂໍ້ມູນ'}
           </div>
         </div>
-        <div style="display: flex; gap: 10px;">
-          <div style="background: #b45309; color: #fff; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: bold; text-align: center;">
-            📦 ລັງຕິດໜີ້ຄ້າງສົ່ງ: ${formatNumber(customerProfile.currentCratesOwed)} ລັງ
-          </div>
-          <div style="background: #0f766e; color: #fff; border-radius: 4px; padding: 4px 10px; font-size: 11px; font-weight: bold; text-align: center;">
-            🍺 ແກ້ວຕິດໜີ້ຄ້າງສົ່ງ: ${formatNumber(customerProfile.currentBottlesOwed)} ແກ້ວ
-          </div>
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 4px;">
+          ${balanceBadgesHTML}
         </div>
       </div>
     `

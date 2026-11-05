@@ -90,7 +90,7 @@
               <div class="d-flex justify-space-between align-center mb-2">
                 <div class="font-weight-bold subtitle-2 teal--text text--darken-3">
                   <v-icon small color="teal darken-3" class="mr-1">
-                    {{ asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE') ? 'mdi-package-variant-closed' : 'mdi-bottle-wine' }}
+                    {{ isCrateAsset(asset) ? 'mdi-package-variant-closed' : 'mdi-bottle-wine' }}
                   </v-icon>
                   {{ asset.pro_name }}
                   <span v-if="asset.barCode" class="caption grey--text">({{ asset.barCode }})</span>
@@ -1491,7 +1491,9 @@ export default {
           discount: 0,
           validateStockOnSale: isReturn ? false : iterator.validateStockOnSale,
           isReturn: isReturn,
-          packagingAction: iterator.packagingAction || (isReturn ? 'RETURNED' : (iterator.isPackagingAsset ? 'SOLD' : 'NONE')),
+          packagingAction: this.isPackagingItem(iterator)
+            ? (isReturn ? 'RETURNED' : (iterator.packagingAction || 'SOLD'))
+            : 'NONE',
           productId: iterator.id,
           productKey: iterator.id,
           unitId: iterator.unitId || iterator.stockUnitId || iterator.baseUnitId,
@@ -1593,8 +1595,7 @@ export default {
     },
     hasPackagingInCart() {
       return this.productCart.some(item => 
-        item.isPackagingAsset || 
-        item.isReturn || 
+        this.isPackagingItem(item) ||
         item.packagingAction === 'RETURNED' || 
         item.packagingAction === 'SOLD'
       )
@@ -1636,22 +1637,8 @@ export default {
         return true
       }
 
-      // 3. Check if any product in loaded catalog belongs to packaging or is returnable
-      const products = this.findAllProduct || []
-      return products.some((p) => {
-        if (!p) return false
-        return (
-          p.isPackagingAsset === true ||
-          p.isPackagingAsset === 1 ||
-          p.categoryIsPackaging === true ||
-          p.categoryIsPackaging === 1 ||
-          p.category?.isPackaging === true ||
-          p.category?.isPackaging === 1 ||
-          p.isReturnablePackaging === true ||
-          p.isReturnablePackaging === 1 ||
-          this.isPackagingItem(p)
-        )
-      })
+      // 3. O(1) check using pre-computed store flag (avoids scanning 7,000+ products on every cart mutation)
+      return !!this.$store.getters.hasPackagingProducts
     },
   },
 
@@ -2080,9 +2067,11 @@ export default {
         const isPkg = this.isPackagingItem(product)
         const isBuyMode = this.packagingMode === 'BUY'
         const isReturnTarget = product.isReturn !== undefined
-          ? (product.isReturn === true || product.packagingAction === 'RETURNED')
+          ? (product.isReturn === true || (isPkg && product.packagingAction === 'RETURNED'))
           : (isPkg ? isBuyMode : false)
-        const targetPkgAction = product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE'))
+        const targetPkgAction = isPkg
+          ? (product.packagingAction || (isReturnTarget ? 'RETURNED' : 'SOLD'))
+          : 'NONE'
 
         // Check stock only for normal sales (skip for buying/returning packaging)
         if (!isReturnTarget && product.validateStockOnSale === 1) {
@@ -3988,9 +3977,37 @@ export default {
       if (!saleHeaderId || !cartSnapshot || cartSnapshot.length === 0) return
 
       try {
+        // 1. Gather all explicit packaging lines already in the cart.
+        // Direct packaging assets (whether sold or returned) are ALREADY handled by the backend
+        // in handleLinePackagingMovement (which inflows stock cards for returns and records in ledger).
+        // They must NEVER be dispatched again via /api/packaging/pos/sale!
+        const explicitSoldQtyByPkgId = {}
+        for (const item of cartSnapshot) {
+          const isDirectPkg = this.isPackagingItem(item) || item.isPackagingAsset || 
+                              item.packagingAction === 'SOLD' || item.packagingAction === 'RETURNED' || 
+                              item.isReturn === true || item.isReturn === 1
+          if (isDirectPkg) {
+            const isSold = (item.packagingAction === 'SOLD') && !item.isReturn
+            if (isSold) {
+              const pid = item.id || item.productId || item.pro_id
+              if (pid) {
+                explicitSoldQtyByPkgId[pid] = (explicitSoldQtyByPkgId[pid] || 0) + Number(item.qty || item.quantity || item.count || 1)
+              }
+            }
+          }
+        }
+
         const packagingDeliveries = []
 
+        // 2. Only process finished merchandise goods (e.g. Beer Cases) that have returnable packaging BOM
         for (const item of cartSnapshot) {
+          const isDirectPkg = this.isPackagingItem(item) || item.isPackagingAsset || 
+                              item.packagingAction === 'SOLD' || item.packagingAction === 'RETURNED' || 
+                              item.isReturn === true || item.isReturn === 1
+          if (isDirectPkg) {
+            continue // Skip direct packaging assets!
+          }
+
           const productId = item.id || item.productId || item.pro_id
           const itemQty = Number(item.qty || item.quantity || item.count || 1)
           if (!productId || itemQty <= 0) continue
@@ -4005,40 +4022,24 @@ export default {
               for (const pkg of pkgList) {
                 const ratio = Number(pkg.quantity || 1)
                 const unitDeposit = Number(pkg.depositPrice || 0)
-                const totalQty = ratio * itemQty
-                const totalDeposit = unitDeposit * totalQty
+                const totalBOMQty = ratio * itemQty
 
-                packagingDeliveries.push({
-                  packagingProductId: pkg.packagingProductId,
-                  quantity: totalQty,
-                  depositPrice: unitDeposit,
-                  totalDeposit: totalDeposit,
-                  sourceProductId: productId,
-                  sourceProductName: item.name || item.pro_name || ''
-                })
-              }
-            } else {
-              // Direct scan check: If the item itself is a packaging asset (e.g. Empty Crate / Empty Bottle)
-              const pInfo = (this.productLookupCache && this.productLookupCache.get(productId)) ||
-                            (this.findAllProduct && this.findAllProduct.find(p => p.id == productId || p.pro_id == productId))
-              const isDirectAsset = pInfo && (
-                pInfo.isPackagingAsset ||
-                pInfo.pro_name?.includes('ລັງ') ||
-                pInfo.pro_name?.includes('ແກ້ວ') ||
-                pInfo.pro_name?.toLowerCase()?.includes('crate') ||
-                pInfo.pro_name?.toLowerCase()?.includes('bottle')
-              )
+                // Deduct any quantity already accounted for by explicit packaging sale lines in the cart
+                const coveredQty = explicitSoldQtyByPkgId[pkg.packagingProductId] || 0
+                const netQtyToDeliver = Math.max(0, totalBOMQty - coveredQty)
+                explicitSoldQtyByPkgId[pkg.packagingProductId] = Math.max(0, coveredQty - totalBOMQty)
 
-              if (isDirectAsset) {
-                const unitRate = Number(item.localPrice || pInfo.pro_price || 0)
-                packagingDeliveries.push({
-                  packagingProductId: productId,
-                  quantity: itemQty,
-                  depositPrice: unitRate,
-                  totalDeposit: unitRate * itemQty,
-                  sourceProductId: productId,
-                  sourceProductName: item.name || pInfo.pro_name || 'Direct Packaging Asset'
-                })
+                if (netQtyToDeliver > 0) {
+                  const totalDeposit = unitDeposit * netQtyToDeliver
+                  packagingDeliveries.push({
+                    packagingProductId: pkg.packagingProductId,
+                    quantity: netQtyToDeliver,
+                    depositPrice: unitDeposit,
+                    totalDeposit: totalDeposit,
+                    sourceProductId: productId,
+                    sourceProductName: item.name || item.pro_name || ''
+                  })
+                }
               }
             }
           } catch (pkgFetchErr) {
@@ -4077,13 +4078,41 @@ export default {
       }
     },
 
+    getPackagingAssetCategory(asset) {
+      if (!asset) return null
+      const catId = asset.pro_category || asset.category?.categ_id || asset.category?.id
+      return (this.categoryList || []).find(c => c.categ_id === catId || c.id === catId)
+    },
+
+    isCrateAsset(asset) {
+      if (!asset) return false
+      const cat = this.getPackagingAssetCategory(asset)
+      if (cat) {
+        const catName = (cat.categ_name || '').toLowerCase()
+        if (catName.includes('ລັງ') || catName.includes('crate') || catName.includes('case')) return true
+        if (catName.includes('ແກ້ວ') || catName.includes('bottle')) return false
+      }
+      return Boolean(asset.barCode?.includes('CRATE'))
+    },
+
+    isBottleAsset(asset) {
+      if (!asset) return false
+      const cat = this.getPackagingAssetCategory(asset)
+      if (cat) {
+        const catName = (cat.categ_name || '').toLowerCase()
+        if (catName.includes('ແກ້ວ') || catName.includes('bottle')) return true
+        if (catName.includes('ລັງ') || catName.includes('crate')) return false
+      }
+      return Boolean(asset.barCode?.includes('BTL') || asset.barCode?.includes('BOTTLE'))
+    },
+
     async findPackagingAssetProduct(preferredType = 'crate') {
-      let assets = (this.findAllProduct || []).filter(p => p.isPackagingAsset)
+      let assets = (this.findAllProduct || []).filter(p => this.isPackagingItem(p))
       if (!assets || assets.length === 0) {
         try {
           const res = await this.$axios.get('/api/packaging/assets')
-          if (res.data && Array.isArray(res.data)) {
-            assets = res.data
+          if (res.data && Array.isArray(res.data) && res.data.length > 0) {
+            assets = res.data.filter(p => this.isPackagingItem(p))
           }
         } catch (e) {
           // ignore
@@ -4091,35 +4120,15 @@ export default {
       }
 
       if (!assets || assets.length === 0) {
-        assets = (this.findAllProduct || []).filter(p => 
-          p.barCode?.startsWith('PKG-') ||
-          p.pro_name?.includes('ລັງເປົ່າ') ||
-          p.pro_name?.includes('ແກ້ວເປົ່າ')
-        )
+        return null
       }
 
       if (preferredType === 'crate') {
-        const cartNames = (this.productCart || []).map(i => i.pro_name || '').join(' ')
-        if (cartNames.includes('240')) {
-          const m240 = assets.find(p => (p.pro_name?.includes('240') || p.barCode?.includes('240')) && (p.pro_name?.includes('ລັງ') || p.barCode?.includes('CRATE')))
-          if (m240) return m240
-        }
-        return assets.find(p => p.pro_name?.includes('ລັງ') || p.barCode?.includes('CRATE')) || assets[0]
+        const crate = assets.find(p => this.isCrateAsset(p))
+        return crate || assets[0]
       } else {
-        const cartNames = (this.productCart || []).map(i => i.pro_name || '').join(' ')
-        if (cartNames.includes('240')) {
-          const m240 = assets.find(p => p.pro_name?.includes('240') || p.barCode?.includes('240'))
-          if (m240) return m240
-        }
-        if (cartNames.includes('330')) {
-          const m330 = assets.find(p => p.pro_name?.includes('330') || p.barCode?.includes('330'))
-          if (m330) return m330
-        }
-        if (cartNames.includes('640')) {
-          const m640 = assets.find(p => p.pro_name?.includes('640') || p.barCode?.includes('640'))
-          if (m640) return m640
-        }
-        return assets.find(p => p.pro_name?.includes('ແກ້ວ') || p.barCode?.includes('BTL') || p.barCode?.includes('BOTTLE')) || assets[0]
+        const bottle = assets.find(p => this.isBottleAsset(p))
+        return bottle || assets[0]
       }
     },
 
@@ -4314,26 +4323,13 @@ export default {
       }
 
       if (!assets || assets.length === 0) {
-        assets = (this.findAllProduct || []).filter(p =>
-          p.isPackagingAsset ||
-          p.barCode?.startsWith('PKG-') ||
-          p.pro_name?.includes('ລັງເປົ່າ') ||
-          p.pro_name?.includes('ແກ້ວເປົ່າ')
-        )
-      }
-
-      // Fallback defaults if no products in database are flagged yet
-      if (!assets || assets.length === 0) {
-        assets = [
-          { id: 3534, pro_id: 3534, pro_name: 'Beerlao Empty Crate (ລັງເປົ່າ)', pro_price: 20000, barCode: 'PKG-CRATE-BEER', isPackagingAsset: true },
-          { id: 3535, pro_id: 3535, pro_name: 'Beerlao Empty Glass Bottle 640ml (ແກ້ວເປົ່າ 640ml)', pro_price: 2000, barCode: 'PKG-BTL-BEER-640', isPackagingAsset: true }
-        ]
+        assets = (this.findAllProduct || []).filter(p => this.isPackagingItem(p))
       }
 
       const cases = this.detectedReturnableCases || 1
-      this.dynamicPackagingAssets = assets.map(asset => {
-        const isCrate = asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE')
-        const isBottle = asset.pro_name?.includes('ແກ້ວ') || asset.barCode?.includes('BTL') || asset.barCode?.includes('BOTTLE')
+      this.dynamicPackagingAssets = (assets || []).map(asset => {
+        const isCrate = this.isCrateAsset(asset)
+        const isBottle = this.isBottleAsset(asset)
         return {
           ...asset,
           sellQty: isCrate ? cases : (isBottle ? cases * 12 : 0),
@@ -4346,8 +4342,8 @@ export default {
     applyModalPreset(preset) {
       const cases = this.detectedReturnableCases || 1
       this.dynamicPackagingAssets = this.dynamicPackagingAssets.map(asset => {
-        const isCrate = asset.pro_name?.includes('ລັງ') || asset.barCode?.includes('CRATE')
-        const isBottle = asset.pro_name?.includes('ແກ້ວ') || asset.barCode?.includes('BTL') || asset.barCode?.includes('BOTTLE')
+        const isCrate = this.isCrateAsset(asset)
+        const isBottle = this.isBottleAsset(asset)
 
         let sellQty = 0
         let returnQty = 0

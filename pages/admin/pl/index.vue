@@ -142,10 +142,6 @@
                   <span class="grey--text pl-2">- ສ່ວນຫຼຸດ (Discount)</span>
                   <span>{{ formatAmount(grandSaleDiscountTotal) }} {{ localCurrencyCode }}</span>
                 </div>
-                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
-                  <span class="grey--text pl-2">- ຍົກເລີກ/ສົ່ງຄືນ (Return/Cancel)</span>
-                  <span>{{ formatAmount(grandSaleCancelTotal) }} {{ localCurrencyCode }}</span>
-                </div>
                 <div class="analysis-item d-flex justify-space-between py-2 border-bottom">
                   <div>
                     <span class="grey--text font-weight-bold">ຍອດຂາຍສຸດທິ (Net Sales)</span>
@@ -154,6 +150,14 @@
                     </span>
                   </div>
                   <span class="font-weight-bold">{{ formatAmount(totalSale) }} {{ localCurrencyCode }}</span>
+                </div>
+                <div v-if="packagingReturnTotal > 0" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">ຮັບຊື້/ຄືນບັນຈຸພັນ (Packaging Buyback/Returns)</span>
+                  <span class="teal--text font-weight-medium">{{ formatAmount(packagingReturnTotal) }} {{ localCurrencyCode }}</span>
+                </div>
+                <div v-if="grandSaleCancelTotal > 0" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">ຍົກເລີກບິນ (Cancelled Orders - Excluded)</span>
+                  <span class="grey--text font-weight-medium">({{ formatAmount(grandSaleCancelTotal) }} {{ localCurrencyCode }})</span>
                 </div>
                 <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ລາຍຮັບອື່ນໆ (AR Income)</span>
@@ -232,6 +236,15 @@ import * as ECharts from 'echarts'
 import { mapGetters } from 'vuex'
 import { swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
 
+const isPackagingReturnLine = (line) => {
+  if (!line) return false
+  return line.isReturn === true || 
+         line.isReturn === 1 || 
+         line.packagingAction === 'RETURNED' || 
+         parseFloat(line.price || 0) < 0 || 
+         parseFloat(line.total || 0) < 0
+}
+
 export default {
   name: 'ProfitLossReport',
   mounted() { this.loadTxn() },
@@ -287,13 +300,16 @@ export default {
 
       this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
         sale.lines?.forEach(line => {
+          if (isPackagingReturnLine(line)) return;
           const currId = line.currencyId || sale.currencyId;
           const curr = this.findAllCurrency?.find(c => c.id === currId);
           const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
           
           if (code !== localCode) {
             const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
-            breakdown[code] = (breakdown[code] || 0) + lineTotal;
+            if (lineTotal > 0 && lineTotal < 1e12) {
+              breakdown[code] = (breakdown[code] || 0) + lineTotal;
+            }
           }
         });
       });
@@ -310,6 +326,7 @@ export default {
 
       this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
         sale.lines?.forEach(line => {
+          if (isPackagingReturnLine(line)) return;
           const lineCurrId = line.currencyId || sale.currencyId;
 
           if (line.cards && line.cards.length > 0) {
@@ -343,48 +360,77 @@ export default {
       return entries.map(([code, amt]) => `${this.formatAmount(amt)} ${code}`).join(' + ');
     },
     grandSaleTotal() {
-      return this.yearlySale.reduce((total, item) => {
-        const itemTotal = parseFloat(item.total || 0)
-        const itemDiscount = parseFloat(item.discount || 0)
-        
-        // Guard against corrupted/astronomical values
-        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
-          return total;
+      return this.yearlySale.filter(el => el.isActive === true).reduce((total, sale) => {
+        let saleGross = 0;
+        if (sale.lines && sale.lines.length > 0) {
+          sale.lines.forEach(line => {
+            if (!isPackagingReturnLine(line)) {
+              const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
+              if (Math.abs(lineTotal) < 1e12 && lineTotal > 0) {
+                const lineDiscount = parseFloat(line.discount || 0);
+                const gross = lineTotal + (lineDiscount > 0 ? lineDiscount : 0);
+                const rate = line.exchangeRate || sale.exchangeRate || 1;
+                const currId = line.currencyId || sale.currencyId;
+                saleGross += this.convertToHomeCurrency(gross, currId, rate);
+              }
+            }
+          });
+        } else {
+          const itemTotal = parseFloat(sale.total || 0);
+          const itemDiscount = parseFloat(sale.discount || 0);
+          if (Math.abs(itemTotal) < 1e12 && itemTotal > 0) {
+            const gross = itemTotal + itemDiscount;
+            saleGross += this.convertToHomeCurrency(gross, sale.currencyId, sale.exchangeRate);
+          }
         }
-
-        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
-        const converted = this.convertToHomeCurrency(grossAmount, item.currencyId, item.exchangeRate)
-        return total + converted
-      }, 0)
+        return total + saleGross;
+      }, 0);
+    },
+    packagingReturnTotal() {
+      return this.yearlySale.filter(el => el.isActive === true).reduce((total, sale) => {
+        let saleReturns = 0;
+        if (sale.lines && sale.lines.length > 0) {
+          sale.lines.forEach(line => {
+            if (isPackagingReturnLine(line)) {
+              const lineTotal = Math.abs(parseFloat(line.total ?? (line.quantity * line.price) ?? 0));
+              if (lineTotal < 1e12 && lineTotal > 0) {
+                const rate = line.exchangeRate || sale.exchangeRate || 1;
+                const currId = line.currencyId || sale.currencyId;
+                saleReturns += this.convertToHomeCurrency(lineTotal, currId, rate);
+              }
+            }
+          });
+        } else {
+          const itemTotal = parseFloat(sale.total || 0);
+          if (Math.abs(itemTotal) < 1e12 && itemTotal < 0) {
+            saleReturns += this.convertToHomeCurrency(Math.abs(itemTotal), sale.currencyId, sale.exchangeRate);
+          }
+        }
+        return total + saleReturns;
+      }, 0);
     },
     grandSaleDiscountTotal() {
       return this.yearlySale.filter(el => el.isActive === true).reduce((total, item) => {
-        const itemDiscount = parseFloat(item.discount || 0)
-
-        // Guard against corrupted/astronomical values
-        if (Math.abs(itemDiscount) > 1e12) {
+        const itemDiscount = parseFloat(item.discount || 0);
+        if (Math.abs(itemDiscount) > 1e12 || itemDiscount <= 0) {
           return total;
         }
-
-        const converted = this.convertToHomeCurrency(itemDiscount, item.currencyId, item.exchangeRate)
-        return total + converted
-      }, 0)
+        const converted = this.convertToHomeCurrency(itemDiscount, item.currencyId, item.exchangeRate);
+        return total + converted;
+      }, 0);
     },
     grandSaleCancelTotal() {
       return this.yearlySale.filter(el => el.isActive === false).reduce((total, item) => {
-        const itemTotal = parseFloat(item.total || 0)
-
-        // Guard against corrupted/astronomical values
+        const itemTotal = parseFloat(item.total || 0);
         if (Math.abs(itemTotal) > 1e12) {
           return total;
         }
-
-        const converted = this.convertToHomeCurrency(Math.abs(itemTotal), item.currencyId, item.exchangeRate)
-        return total + converted
-      }, 0)
+        const converted = this.convertToHomeCurrency(Math.abs(itemTotal), item.currencyId, item.exchangeRate);
+        return total + converted;
+      }, 0);
     },
     totalSale() {
-      return this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal)
+      return Math.max(0, this.grandSaleTotal - this.grandSaleDiscountTotal);
     },
     totalFinancialIncome() {
       return this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
@@ -425,6 +471,8 @@ export default {
         const saleRate = sale.exchangeRate || 1;
         
         sale.lines?.forEach(line => {
+          if (isPackagingReturnLine(line)) return;
+
           const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
           let lineRate = line.exchangeRate;
           if (!lineRate || lineRate === 1) {
@@ -544,6 +592,7 @@ export default {
     profit() { return this.totalIncome - this.totalExpense }
   },
   methods: {
+    isPackagingReturnLine(line) { return isPackagingReturnLine(line) },
     formatAmount(v) { return getFormatNum(v) },
     formatDate(d) { if (!d) return null; const [y, m, d_] = this.formatDateToISO(d).split('-'); return `${m}/${d_}/${y}` },
     formatDateToISO(d) { if (!(d instanceof Date)) d = new Date(d); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}` },

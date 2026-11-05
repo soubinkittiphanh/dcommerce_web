@@ -459,7 +459,7 @@ export default {
 
     async loadCurrencies() {
       try {
-        const response = await this.$axios.get('/api/currency/findAll')
+        const response = await this.$axios.get('/api/currency/findAll', { timeout: 30000 })
         const rawData = Array.isArray(response.data) ? response.data : (response.data?.data || [])
         if (Array.isArray(rawData) && rawData.length > 0) {
           this.localCurrencyList = rawData
@@ -471,7 +471,7 @@ export default {
 
     async loadAccounts() {
       try {
-        const response = await this.$axios.get('/api/account/find')
+        const response = await this.$axios.get('/api/account/find', { timeout: 30000 })
         const rawAccounts = Array.isArray(response.data) ? response.data : (response.data?.data || [])
         this.accountList = rawAccounts.map(account => ({
           id: account.id,
@@ -496,7 +496,7 @@ export default {
 
     async loadPaymentMethods() {
       try {
-        const response = await this.$axios.get('/api/paymentMethod/find')
+        const response = await this.$axios.get('/api/paymentMethod/find', { timeout: 30000 })
         const rawPayments = Array.isArray(response.data) ? response.data : (response.data?.data || [])
         this.paymentList = rawPayments
       } catch (error) {
@@ -510,7 +510,8 @@ export default {
       try {
         const year = this.form.header.bookingDate ? new Date(this.form.header.bookingDate).getFullYear() : new Date().getFullYear()
         const response = await this.$axios.get('/api/expense-budget/find', {
-          params: { year, isActive: true }
+          params: { year, isActive: true },
+          timeout: 30000
         })
         const rawBudgets = Array.isArray(response.data) ? response.data : (response.data?.data || [])
         this.budgetList = rawBudgets.map(b => ({
@@ -613,11 +614,12 @@ export default {
           budgetId: this.form.header.expenseSource === 'BUDGET' ? this.form.header.budgetId : null
         }
 
-        let response
+        // Timeout so a stalled request surfaces an error instead of spinning forever
+        const reqConfig = { timeout: 30000 }
         if (this.isEdit) {
-          response = await this.$axios.put(`/api/finanicial/ap/header/update/${this.paymentHeadId}`, submitData)
+          await this.$axios.put(`/api/finanicial/ap/header/update/${this.paymentHeadId}`, submitData, reqConfig)
         } else {
-          response = await this.$axios.post('/api/finanicial/ap/header/create', submitData)
+          await this.$axios.post('/api/finanicial/ap/header/create', submitData, reqConfig)
         }
 
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ດຳເນີນການສຳເລັດແລ້ວ')

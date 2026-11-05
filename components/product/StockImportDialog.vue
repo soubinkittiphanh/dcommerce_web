@@ -138,7 +138,8 @@ export default {
   name: 'StockImportDialog',
   props: {
     value: { type: Boolean, default: false },
-    locationId: { type: [Number, String], default: null }
+    locationId: { type: [Number, String], default: null },
+    products: { type: Array, default: () => [] }
   },
   data() {
     return {
@@ -211,18 +212,68 @@ export default {
       return getFormatNum(val)
     },
     async fetchProducts() {
-      if (!this.locationId) return
+      const locId = this.locationId || 1
       try {
-        const response = await this.$axios.get(`product_f/${this.locationId}`, {
-          params: { include: 'priceList', isActive: false },
-        })
-        const items = response.data?.data || response.data || []
-        this.productList = items.map(el => ({
+        let items = []
+        try {
+          const response = await this.$axios.get(`product_f_v2/${locId}`, {
+            params: { include: 'priceList', page: 1, limit: 10000, isActive: 1 },
+          })
+          const rawList = response.data?.data ?? response.data ?? []
+          let list = Array.isArray(rawList) ? rawList : (Array.isArray(rawList?.data) ? rawList.data : [])
+          const total = response.data?.total !== undefined ? Number(response.data.total) : list.length
+          const pageSize = list.length || 30
+          const totalPages = response.data?.totalPages || (total > pageSize ? Math.ceil(total / pageSize) : 1)
+
+          if (list.length > 0 && (list.length < total || totalPages > 1)) {
+            const calculatedTotalPages = Math.max(totalPages, Math.ceil(total / list.length))
+            if (calculatedTotalPages <= 5) {
+              const pagePromises = []
+              for (let p = 2; p <= calculatedTotalPages; p++) {
+                pagePromises.push(
+                  this.$axios.get(`product_f_v2/${locId}`, {
+                    params: { include: 'priceList', page: p, limit: list.length, isActive: 1 }
+                  })
+                )
+              }
+              const pageResults = await Promise.all(pagePromises)
+              pageResults.forEach((pRes) => {
+                const pRaw = pRes.data?.data ?? pRes.data ?? []
+                const pList = Array.isArray(pRaw) ? pRaw : (Array.isArray(pRaw?.data) ? pRaw.data : [])
+                list = list.concat(pList)
+              })
+              items = list
+            }
+          } else {
+            items = list
+          }
+        } catch (v2Err) {
+          console.warn('product_f_v2 failed for stock import, falling back to product_f:', v2Err)
+        }
+
+        if (!items || items.length === 0) {
+          try {
+            const response = await this.$axios.get(`product_f/${locId}`, {
+              params: { include: 'priceList' },
+            })
+            items = response.data?.data || response.data || []
+          } catch (v0Err) {
+            console.warn('product_f fallback also failed for stock import:', v0Err)
+          }
+        }
+
+        const sourceList = (Array.isArray(items) && items.length >= (this.products?.length || 0) && items.length > 0)
+          ? items
+          : (Array.isArray(this.products) && this.products.length > 0 ? this.products : (Array.isArray(items) ? items : []))
+
+        this.productList = Object.freeze(sourceList.map(el => Object.freeze({
           id: el.id,
           pro_id: el.pro_id,
           pro_name: el.pro_name,
-          card_count: el.card_count || 0
-        }))
+          card_count: el.card_count !== undefined && el.card_count !== null
+            ? el.card_count
+            : (el.stock_count !== undefined && el.stock_count !== null ? el.stock_count : (el.pro_card_count || 0))
+        })))
       } catch (error) {
         console.error('Error fetching products for adjustment template:', error)
         this.$toast.error('ເກີດຂໍ້ຜິດພາດໃນການໂຫຼດຂໍ້ມູນສິນຄ້າ (Error loading products)')
@@ -235,7 +286,9 @@ export default {
       }
       this.downloading = true
       try {
-        await this.fetchProducts()
+        if (!this.productList || this.productList.length === 0) {
+          await this.fetchProducts()
+        }
 
         if (this.productList.length === 0) {
           this.$toast.warning('ບໍ່ມີລາຍການສິນຄ້າໃນສາງນີ້ (No products found in this location)')
@@ -326,8 +379,11 @@ export default {
 
       this.loading = true
       const reader = new FileReader()
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         try {
+          if (!this.productList || this.productList.length === 0) {
+            await this.fetchProducts()
+          }
           const data = new Uint8Array(e.target.result)
           const workbook = XLSX.read(data, { type: 'array' })
           const firstSheetName = workbook.SheetNames[0]
@@ -370,21 +426,22 @@ export default {
         return
       }
 
+      const productByIdMap = new Map(this.productList.map(p => [p.id, p]))
+      const firstRowKeys = Object.keys(data[0] || {})
+      const findKey = (patterns) => {
+        return firstRowKeys.find(k => {
+          const kl = k.toLowerCase()
+          return patterns.some(p => kl.includes(p.toLowerCase()))
+        })
+      }
+
+      const productIdKey = findKey(['product id', 'internal id', 'ລະຫັດລະບົບ', 'id'])
+      const proIdKey = findKey(['product code', 'ລະຫັດສິນຄ້າ', 'pro_id', 'code'])
+      const proNameKey = findKey(['product name', 'ຊື່ສິນຄ້າ', 'pro_name', 'name'])
+      const currentQtyKey = findKey(['current stock qty', 'ສະຕັອກປັດຈຸບັນ', 'card_count', 'stock', 'pro_card_count'])
+      const actualQtyKey = findKey(['actual stock qty', 'ຈຳນວນຕົວຈິງ', 'actualqty', 'actual'])
+
       this.importData = data.map((row) => {
-        const keys = Object.keys(row)
-        const findKey = (patterns) => {
-          return keys.find(k => {
-            const kl = k.toLowerCase()
-            return patterns.some(p => kl.includes(p.toLowerCase()))
-          })
-        }
-
-        const productIdKey = findKey(['product id', 'internal id', 'ລະຫັດລະບົບ', 'id'])
-        const proIdKey = findKey(['product code', 'ລະຫັດສິນຄ້າ', 'pro_id', 'code'])
-        const proNameKey = findKey(['product name', 'ຊື່ສິນຄ້າ', 'pro_name', 'name'])
-        const currentQtyKey = findKey(['current stock qty', 'ສະຕັອກປັດຈຸບັນ', 'card_count', 'stock', 'pro_card_count'])
-        const actualQtyKey = findKey(['actual stock qty', 'ຈຳນວນຕົວຈິງ', 'actualqty', 'actual'])
-
         const productId = productIdKey ? parseInt(row[productIdKey]) : NaN
         const pro_id = proIdKey ? String(row[proIdKey] || '').trim() : ''
         const pro_name = proNameKey ? String(row[proNameKey] || '').trim() : ''
@@ -415,8 +472,8 @@ export default {
           return item
         }
 
-        // 2. Validate matching product in current products list
-        const dbProduct = this.productList.find(p => p.id === productId)
+        // 2. Validate matching product in current products list (O(1) Map lookup)
+        const dbProduct = productByIdMap.get(productId)
         if (!dbProduct) {
           item.isValid = false
           item.validationError = 'ບໍ່ພົບສິນຄ້ານີ້ໃນລະບົບ (Product not found in this location)'

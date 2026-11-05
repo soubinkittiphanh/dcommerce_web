@@ -459,7 +459,7 @@ export const generateMoneyAdvanceListReportHTML = ({
         <!-- 1. Lao Government Header -->
         <div class="gov-header">
           <img src="${govLogoImage}" class="gov-logo" alt="Lao National Emblem" />
-          <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ (ສປປ ລາວ)</div>
+          <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
           <div class="gov-motto">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດຖະນະຖາວອນ</div>
           <div class="gov-stars">*** 000 ***</div>
         </div>
@@ -473,8 +473,7 @@ export const generateMoneyAdvanceListReportHTML = ({
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>
-            <div>ວຽງຈັນ, ວັນທີພິມ: ${printTime}</div>
-            <div>ຜູ້ສັງລວມ: ${printedBy}</div>
+            <div>ວຽງຈັນ, ວັນທີພິມ: </div>
           </div>
         </div>
 
@@ -537,22 +536,13 @@ export const generateMoneyAdvanceListReportHTML = ({
         <!-- 6. Official Government Signatures -->
         <div class="signatures">
           <div class="sign-box">
-            <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
             <div class="sign-title">ຜູ້ສັງລວມ / ຜູ້ລາຍງານ</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">${printedBy}</div>
           </div>
           <div class="sign-box">
-            <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
             <div class="sign-title">ຫົວໜ້າພະແນກຄຸ້ມຄອງລາຍຮັບ</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
           <div class="sign-box">
-            <div class="sign-date">ວຽງຈັນ, ວັນທີ: ......./......./...........</div>
             <div class="sign-title">ຫົວໜ້າກົມແຜນການ ແລະ ການເງິນ</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
         </div>
       </div>

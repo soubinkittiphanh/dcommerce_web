@@ -251,94 +251,21 @@ export default {
       )
     },
 
-    // FIXED: Proper filtering logic that handles all cases
+    // Optimized filtering using pre-indexed Vuex category map & pre-computed lowercase search fields
     filterProduct() {
-      const keyword = this.searchKeyword || ''
+      const keyword = this.debouncedKeyword || ''
       const categoryId = this.currenctSelectedCategoryId
       const allProducts = this.findAllProduct || []
 
-      console.log(`🔍 FILTERING DEBUG:`)
-      console.log(`  - Total products: ${allProducts.length}`)
-      console.log(`  - Search keyword: "${keyword}"`)
-      console.log(`  - Category ID: ${categoryId}`)
-      console.log(`  - Keyword length: ${keyword.length}`)
-      console.log(
-        `  - Is keyword empty: ${!keyword || keyword.trim().length === 0}`
-      )
-
-      // If no products loaded, return empty
       if (!allProducts || allProducts.length === 0) {
-        console.log(`  - No products available`)
         return []
       }
 
-      let filteredProducts = [...allProducts] // Start with all products
-
-      // Apply category filter first (if not "All Categories")
-      if (categoryId && categoryId !== 9999) {
-        console.log(`  - Applying category filter: ${categoryId}`)
-        filteredProducts = filteredProducts.filter((product) => {
-          const productCategory = product.pro_category
-          return productCategory === categoryId
-        })
-        console.log(
-          `  - After category filter: ${filteredProducts.length} products`
-        )
-      } else {
-        console.log(`  - No category filter (showing all categories)`)
-      }
-
-      // Apply search filter (only if keyword exists and is not empty)
-      if (keyword && keyword.trim().length > 0) {
-        const searchTerm = keyword.trim().toLowerCase()
-        const isExact = this.isExactMatchSearch
-        console.log(
-          `  - Applying search filter: "${searchTerm}" (Exact: ${isExact})`
-        )
-
-        if (isExact) {
-          // In exact match mode, search across all products matching product_code or barCode
-          filteredProducts = allProducts.filter((product) => {
-            const productCode = product.product_code != null ? String(product.product_code).trim().toLowerCase() : ''
-            const barcode = product.barCode != null ? String(product.barCode).trim().toLowerCase() : ''
-
-            return (
-              (productCode && productCode === searchTerm) ||
-              (barcode && barcode === searchTerm)
-            )
-          })
-        } else {
-          filteredProducts = filteredProducts.filter((product) => {
-            const productName = (product.pro_name || '').toLowerCase()
-            const barcode = (product.barCode || '').toLowerCase()
-            const productCode = (product.product_code || '').toLowerCase()
-            const proId = product.pro_id != null ? String(product.pro_id).toLowerCase() : ''
-            const id = product.id != null ? String(product.id).toLowerCase() : ''
-
-            const nameMatch = productName.includes(searchTerm)
-            const barcodeMatch = barcode.includes(searchTerm)
-            const productCodeMatch = productCode.includes(searchTerm)
-            const proIdMatch = proId.includes(searchTerm)
-            const idMatch = id.includes(searchTerm)
-
-            return (
-              nameMatch ||
-              barcodeMatch ||
-              productCodeMatch ||
-              proIdMatch ||
-              idMatch
-            )
-          })
-        }
-        console.log(
-          `  - After search filter: ${filteredProducts.length} products`
-        )
-      } else {
-        console.log(`  - No search filter (keyword empty or whitespace)`)
-      }
-
-      console.log(`  - FINAL RESULT: ${filteredProducts.length} products`)
-      return filteredProducts
+      return this.$store.getters.searchProducts(
+        keyword,
+        categoryId,
+        this.isExactMatchSearch
+      )
     },
 
     displayedProducts() {
@@ -371,14 +298,21 @@ export default {
       // Clear any pending timeout
       if (this.searchTimeout) {
         clearTimeout(this.searchTimeout)
+        this.searchTimeout = null
       }
 
-      // Debounce the keyword update
+      // Immediately clear if keyword is emptied
+      if (!keyword || !keyword.trim()) {
+        this.debouncedKeyword = ''
+        this.resetDisplayLimit()
+        return
+      }
+
+      // Debounce the keyword update while typing
       this.searchTimeout = setTimeout(() => {
         this.debouncedKeyword = keyword || ''
         this.resetDisplayLimit()
-        console.log(`🔍 Debounced keyword updated: "${this.debouncedKeyword}"`)
-      }, 300)
+      }, 200)
     },
 
     resetDisplayLimit() {

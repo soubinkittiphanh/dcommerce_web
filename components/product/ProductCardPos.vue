@@ -352,6 +352,7 @@ export default {
     },
 
     handlePackagingReturnQuickAdd() {
+      const isPkg = this.isPackagingItem
       const productToAdd = {
         ...this.product,
         localPrice:
@@ -360,7 +361,7 @@ export default {
           this.product.pro_price,
         isGift: false,
         isReturn: true,
-        packagingAction: 'RETURNED',
+        packagingAction: isPkg ? 'RETURNED' : 'NONE',
         lineUUIDCheck: false,
         priceListId: this.getCustomerGradePriceListId(this.product),
         lineUUID: Date.now() + Math.random().toString(16),

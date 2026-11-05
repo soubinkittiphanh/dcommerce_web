@@ -178,6 +178,14 @@ const _21eab965 = () => interopDefault(import('../pages/admin/job_fair/broker/in
 const _d3be8c8c = () => interopDefault(import('../pages/admin/job_fair/employee/index.vue' /* webpackChunkName: "pages/admin/job_fair/employee/index" */))
 const _4031d773 = () => interopDefault(import('../pages/admin/job_fair/login/index.vue' /* webpackChunkName: "pages/admin/job_fair/login/index" */))
 const _2d5fc25d = () => interopDefault(import('../pages/admin/job_fair/mou/index.vue' /* webpackChunkName: "pages/admin/job_fair/mou/index" */))
+const _2cfcebb0 = () => interopDefault(import('../pages/admin/loan/accounts/index.vue' /* webpackChunkName: "pages/admin/loan/accounts/index" */))
+const _32ea1fa5 = () => interopDefault(import('../pages/admin/loan/applications/index.vue' /* webpackChunkName: "pages/admin/loan/applications/index" */))
+const _31ea6920 = () => interopDefault(import('../pages/admin/loan/collection/index.vue' /* webpackChunkName: "pages/admin/loan/collection/index" */))
+const _5bf7b6e4 = () => interopDefault(import('../pages/admin/loan/eod/index.vue' /* webpackChunkName: "pages/admin/loan/eod/index" */))
+const _d3db8eaa = () => interopDefault(import('../pages/admin/loan/exchange-rates/index.vue' /* webpackChunkName: "pages/admin/loan/exchange-rates/index" */))
+const _6550bf2a = () => interopDefault(import('../pages/admin/loan/pending/index.vue' /* webpackChunkName: "pages/admin/loan/pending/index" */))
+const _62675693 = () => interopDefault(import('../pages/admin/loan/reports/index.vue' /* webpackChunkName: "pages/admin/loan/reports/index" */))
+const _d0616c50 = () => interopDefault(import('../pages/admin/loan/studio/index.vue' /* webpackChunkName: "pages/admin/loan/studio/index" */))
 const _f6308fae = () => interopDefault(import('../pages/admin/parking/passes/index.vue' /* webpackChunkName: "pages/admin/parking/passes/index" */))
 const _175cfdf2 = () => interopDefault(import('../pages/admin/parking/pricing/index.vue' /* webpackChunkName: "pages/admin/parking/pricing/index" */))
 const _49a966aa = () => interopDefault(import('../pages/admin/parking/reports/index.vue' /* webpackChunkName: "pages/admin/parking/reports/index" */))
@@ -204,6 +212,7 @@ const _51bc3081 = () => interopDefault(import('../pages/admin/school/fee-structu
 const _0d1efdfc = () => interopDefault(import('../pages/admin/school/invoice.vue' /* webpackChunkName: "pages/admin/school/invoice" */))
 const _5377b86f = () => interopDefault(import('../pages/admin/school/report.vue' /* webpackChunkName: "pages/admin/school/report" */))
 const _8f6b79d2 = () => interopDefault(import('../pages/admin/school/shift.vue' /* webpackChunkName: "pages/admin/school/shift" */))
+const _e6cf4174 = () => interopDefault(import('../pages/admin/security/grants.vue' /* webpackChunkName: "pages/admin/security/grants" */))
 const _228e3c4a = () => interopDefault(import('../pages/admin/settings/system.vue' /* webpackChunkName: "pages/admin/settings/system" */))
 const _4e54f48d = () => interopDefault(import('../pages/admin/settings/userRole.vue' /* webpackChunkName: "pages/admin/settings/userRole" */))
 const _26644e3d = () => interopDefault(import('../pages/admin/student/wallet.vue' /* webpackChunkName: "pages/admin/student/wallet" */))
@@ -244,6 +253,8 @@ const _0eb07144 = () => interopDefault(import('../pages/admin/report/MA/settleme
 const _7e071c50 = () => interopDefault(import('../pages/admin/report/MA/settlement/chartAccount/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/chartAccount/index" */))
 const _226939a8 = () => interopDefault(import('../pages/admin/report/MA/settlement/ministry/index.vue' /* webpackChunkName: "pages/admin/report/MA/settlement/ministry/index" */))
 const _4600e75c = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _0e8812e0 = () => interopDefault(import('../pages/admin/loan/accounts/_id.vue' /* webpackChunkName: "pages/admin/loan/accounts/_id" */))
+const _6b2da62a = () => interopDefault(import('../pages/admin/loan/product/_id.vue' /* webpackChunkName: "pages/admin/loan/product/_id" */))
 const _30dc45ce = () => interopDefault(import('../pages/admin/PDFInvoice/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoice/_id/index" */))
 const _70237d99 = () => interopDefault(import('../pages/admin/PDFInvoiceSummary/_id/index.vue' /* webpackChunkName: "pages/admin/PDFInvoiceSummary/_id/index" */))
 const _a3d2a890 = () => interopDefault(import('../pages/admin/PDFQuotation/_id/index.vue' /* webpackChunkName: "pages/admin/PDFQuotation/_id/index" */))
@@ -964,6 +975,38 @@ export const routerOptions = {
     component: _2d5fc25d,
     name: "admin-job_fair-mou"
   }, {
+    path: "/admin/loan/accounts",
+    component: _2cfcebb0,
+    name: "admin-loan-accounts"
+  }, {
+    path: "/admin/loan/applications",
+    component: _32ea1fa5,
+    name: "admin-loan-applications"
+  }, {
+    path: "/admin/loan/collection",
+    component: _31ea6920,
+    name: "admin-loan-collection"
+  }, {
+    path: "/admin/loan/eod",
+    component: _5bf7b6e4,
+    name: "admin-loan-eod"
+  }, {
+    path: "/admin/loan/exchange-rates",
+    component: _d3db8eaa,
+    name: "admin-loan-exchange-rates"
+  }, {
+    path: "/admin/loan/pending",
+    component: _6550bf2a,
+    name: "admin-loan-pending"
+  }, {
+    path: "/admin/loan/reports",
+    component: _62675693,
+    name: "admin-loan-reports"
+  }, {
+    path: "/admin/loan/studio",
+    component: _d0616c50,
+    name: "admin-loan-studio"
+  }, {
     path: "/admin/parking/passes",
     component: _f6308fae,
     name: "admin-parking-passes"
@@ -1067,6 +1110,10 @@ export const routerOptions = {
     path: "/admin/school/shift",
     component: _8f6b79d2,
     name: "admin-school-shift"
+  }, {
+    path: "/admin/security/grants",
+    component: _e6cf4174,
+    name: "admin-security-grants"
   }, {
     path: "/admin/settings/system",
     component: _228e3c4a,
@@ -1227,6 +1274,14 @@ export const routerOptions = {
     path: "/",
     component: _4600e75c,
     name: "index"
+  }, {
+    path: "/admin/loan/accounts/:id",
+    component: _0e8812e0,
+    name: "admin-loan-accounts-id"
+  }, {
+    path: "/admin/loan/product/:id?",
+    component: _6b2da62a,
+    name: "admin-loan-product-id"
   }, {
     path: "/admin/PDFInvoice/:id",
     component: _30dc45ce,

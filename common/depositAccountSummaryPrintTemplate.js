@@ -648,7 +648,7 @@ export const generateDepositAccountSummaryReportHTML = ({
         <!-- 1. Lao Government Header -->
         <div class="gov-header">
           <img src="${resolvedGovLogo}" class="gov-logo" alt="Lao National Emblem" />
-          <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ (ສປປ ລາວ)</div>
+          <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
           <div class="gov-motto">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດຖະນະຖາວອນ</div>
           <div class="gov-stars">*** 000 ***</div>
         </div>
@@ -730,22 +730,19 @@ export const generateDepositAccountSummaryReportHTML = ({
         <!-- 6. Official Government Signatures -->
         <div class="signatures">
           <div class="sign-box">
-            <div class="sign-date">ນະຄອນຫລວງວຽງຈັນ, ວັນທີ: ......./......./...........</div>
+
             <div class="sign-title">ຫົວໜ້າກົມ</div>
-            <div class="sign-line"></div>
-            <!-- <div class="sign-name">${printedBy}</div> -->
+
           </div>
           <div class="sign-box">
-            <div class="sign-date">ນະຄອນຫລວງວຽງຈັນ, ວັນທີ: ......./......./...........</div>
+
             <div class="sign-title">ຫົວໜ້າພະແນກ</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
+
           </div>
           <div class="sign-box">
-            <div class="sign-date">ນະຄອນຫລວງວຽງຈັນ, ວັນທີ: ......./......./...........</div>
+
             <div class="sign-title">ຜູ້ສັງລວມ</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
+
           </div>
         </div>
       </div>

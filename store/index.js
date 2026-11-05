@@ -54,6 +54,8 @@ export const state = () => ({
     productSearchCache: new Map(),
     lastCacheUpdate: null,
     productProcessed: false,
+    productLocationId: null,
+    hasPackagingProducts: false,
 
     // Performance metrics
     performanceMetrics: {
@@ -65,7 +67,7 @@ export const state = () => ({
 
     // Cache configuration
     cacheConfig: {
-        maxSearchCacheSize: 100,
+        maxSearchCacheSize: 25,
         cacheTimeout: 5 * 60 * 1000, // 5 minutes
     },
 
@@ -114,28 +116,78 @@ export const mutations = {
         }
     },
 
+    SET_PRODUCT_LOCATION_ID(state, locationId) {
+        state.productLocationId = locationId
+    },
+
     // Enhanced product list mutation with performance optimization
     SetProductList(state, products) {
         const startTime = performance.now()
         console.log(`📦 Setting ${products?.length || 0} products`)
 
         if (!Array.isArray(products)) {
-            state.productList = []
-            state.productBarcodeMap.clear()
-            state.productCategoryMap.clear()
+            state.productList = Object.freeze([])
+            state.productBarcodeMap = new Map()
+            state.productCategoryMap = new Map()
+            state.productSearchCache.clear()
             state.productProcessed = false
+            state.hasPackagingProducts = false
             return
         }
 
         try {
-            // Pre-process products for optimal performance
-            const processedProducts = products.map((product, index) => {
+            const nowTs = Date.now()
+            // Build O(1) unit lookup map once instead of calling .find() inside 7,000+ product loops
+            const unitMap = new Map()
+            if (Array.isArray(state.unitList)) {
+                for (let i = 0; i < state.unitList.length; i++) {
+                    const u = state.unitList[i]
+                    if (u && u.id != null) {
+                        unitMap.set(u.id, u)
+                    }
+                }
+            }
+
+            const barcodeMap = new Map()
+            const categoryMap = new Map()
+            const processedProducts = new Array(products.length)
+            let hasPackaging = false
+
+            // Single-pass pre-processing + indexing + deep Object.freeze to prevent Vue 2 Observer memory bloat
+            for (let index = 0; index < products.length; index++) {
+                const product = products[index]
+                if (!product) continue
+
                 const productName = product.pro_name || ''
                 const barCode = product.barCode || ''
                 const productCode = product.product_code || ''
+                const productNameLower = productName.toLowerCase()
+                const barCodeLower = barCode.toLowerCase()
+                const productCodeLower = productCode.toLowerCase()
 
-                return {
+                // Freeze nested arrays/objects so Vue 2 never creates reactive Dep/Observer instances on 7,000+ items
+                const frozenPriceLists = Array.isArray(product.priceLists)
+                    ? Object.freeze(product.priceLists.map(pl => (pl && typeof pl === 'object' ? Object.freeze({ ...pl }) : pl)))
+                    : Object.freeze([])
+
+                const frozenProductUnits = Array.isArray(product.productUnits)
+                    ? Object.freeze(product.productUnits.map(pu => {
+                        if (!pu || typeof pu !== 'object') return pu
+                        return Object.freeze({
+                            ...pu,
+                            unit: pu.unit && typeof pu.unit === 'object' ? Object.freeze({ ...pu.unit }) : pu.unit
+                        })
+                    }))
+                    : Object.freeze([])
+
+                const processed = Object.freeze({
                     ...product,
+                    category: product.category && typeof product.category === 'object' ? Object.freeze({ ...product.category }) : product.category,
+                    company: product.company && typeof product.company === 'object' ? Object.freeze({ ...product.company }) : product.company,
+                    baseUnit: product.baseUnit && typeof product.baseUnit === 'object' ? Object.freeze({ ...product.baseUnit }) : product.baseUnit,
+                    stockUnit: product.stockUnit && typeof product.stockUnit === 'object' ? Object.freeze({ ...product.stockUnit }) : product.stockUnit,
+                    tax: product.tax && typeof product.tax === 'object' ? Object.freeze({ ...product.tax }) : product.tax,
+
                     // Ensure required fields
                     id: product.id || product.pro_id || index,
                     pro_price: Number(product.pro_price) || 0,
@@ -143,109 +195,119 @@ export const mutations = {
                     pro_category: Number(product.pro_category) || 0,
 
                     // Pre-computed search fields
-                    pro_name_lower: productName.toLowerCase(),
-                    barCode_lower: barCode.toLowerCase(),
-                    product_code_lower: productCode.toLowerCase(),
-                    searchString: `${productName} ${barCode} ${productCode} ${product.pro_id || ''} ${product.id || ''}`.toLowerCase(),
+                    pro_name_lower: productNameLower,
+                    barCode_lower: barCodeLower,
+                    product_code_lower: productCodeLower,
+                    searchString: `${productNameLower} ${barCodeLower} ${productCodeLower} ${product.pro_id || ''} ${product.id || ''}`,
 
                     // Price-related
-                    priceLists: Array.isArray(product.priceLists) ? product.priceLists : [],
-                    hasSpecialPrice: Array.isArray(product.priceLists) && product.priceLists.length > 0,
+                    priceLists: frozenPriceLists,
+                    productUnits: frozenProductUnits,
+                    hasSpecialPrice: frozenPriceLists.length > 0,
 
                     // Stock status
                     isInStock: (Number(product.card_count) || 0) > 0,
 
                     // Processing metadata
                     _processed: true,
-                    _processedAt: Date.now(),
-                }
-            })
+                    _processedAt: nowTs,
+                })
 
-            // Build lookup maps for O(1) access
-            const barcodeMap = new Map()
-            const categoryMap = new Map()
+                processedProducts[index] = processed
 
-            processedProducts.forEach(product => {
-                const stockUnitId = product.stockUnitId || product.baseUnitId;
-                const stockUnitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === stockUnitId) : null;
-                const stockRate = parseFloat(stockUnitModel?.conversionRate || 1.0);
-
-                const baseUnitId = product.baseUnitId || product.stockUnitId;
-                const baseUnitModel = Array.isArray(state.unitList) ? state.unitList.find(u => u.id === baseUnitId) : null;
-                const baseRate = parseFloat(baseUnitModel?.conversionRate || 1.0);
-                const baseRelRate = stockRate > 0 ? (baseRate / stockRate) : 1.0;
-
-                // Index all nested selling units barcodes FIRST (so specific unit barcodes take precedence)
-                if (Array.isArray(product.productUnits)) {
-                    product.productUnits.forEach(pu => {
-                        if (pu.barCode) {
-                            const unitModel = Array.isArray(state.unitList)
-                                ? state.unitList.find(u => u.id === (pu.unitId || pu.unit?.id))
-                                : null;
-                            const targetUnit = pu.unit || unitModel;
-                            const targetRate = parseFloat(targetUnit?.conversionRate || 1.0);
-                            const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate;
-                            const unitId = pu.unitId || targetUnit?.id || baseUnitId;
-                            const unitSymbol = targetUnit?.symbol || targetUnit?.name || 'pcs';
-                            const unitName = targetUnit?.name || targetUnit?.symbol || 'Unit';
-
-                            barcodeMap.set(pu.barCode.toLowerCase(), {
-                                product,
-                                unit: {
-                                    id: unitId,
-                                    name: unitName,
-                                    symbol: unitSymbol,
-                                    conversionRate: relRate
-                                },
-                                price: Number(pu.price) || product.pro_price
-                            })
-                        }
-                    })
-                }
-
-                // Barcode map for primary product barCode (if not already mapped by a specific unit)
-                if (product.barCode) {
-                    const cleanCode = product.barCode.toLowerCase();
-                    if (!barcodeMap.has(cleanCode)) {
-                        const baseUnit = product.baseUnit || product.stockUnit || baseUnitModel || stockUnitModel;
-                        barcodeMap.set(cleanCode, {
-                            product,
-                            unit: {
-                                id: baseUnitId || stockUnitId || null,
-                                name: baseUnit?.name || 'Unit',
-                                symbol: baseUnit?.symbol || baseUnit?.name || 'pcs',
-                                conversionRate: baseRelRate
-                            },
-                            price: product.pro_price
-                        })
+                if (!hasPackaging) {
+                    if (
+                        processed.isPackagingAsset === true ||
+                        processed.isPackagingAsset === 1 ||
+                        processed.categoryIsPackaging === true ||
+                        processed.categoryIsPackaging === 1 ||
+                        processed.category?.isPackaging === true ||
+                        processed.category?.isPackaging === 1 ||
+                        processed.isReturnablePackaging === true ||
+                        processed.isReturnablePackaging === 1 ||
+                        isPackagingProduct(processed)
+                    ) {
+                        hasPackaging = true
                     }
                 }
 
-                // Category map for fast filtering
-                const categoryId = product.pro_category
-                if (!categoryMap.has(categoryId)) {
-                    categoryMap.set(categoryId, [])
+                const stockUnitId = processed.stockUnitId || processed.baseUnitId
+                const stockUnitModel = unitMap.get(stockUnitId) || null
+                const stockRate = parseFloat(stockUnitModel?.conversionRate || 1.0)
+
+                const baseUnitId = processed.baseUnitId || processed.stockUnitId
+                const baseUnitModel = unitMap.get(baseUnitId) || null
+                const baseRate = parseFloat(baseUnitModel?.conversionRate || 1.0)
+                const baseRelRate = stockRate > 0 ? (baseRate / stockRate) : 1.0
+
+                // Index all nested selling units barcodes FIRST (so specific unit barcodes take precedence)
+                for (let uIdx = 0; uIdx < frozenProductUnits.length; uIdx++) {
+                    const pu = frozenProductUnits[uIdx]
+                    if (pu && pu.barCode) {
+                        const unitModel = unitMap.get(pu.unitId || pu.unit?.id) || null
+                        const targetUnit = pu.unit || unitModel
+                        const targetRate = parseFloat(targetUnit?.conversionRate || 1.0)
+                        const relRate = stockRate > 0 ? (targetRate / stockRate) : targetRate
+                        const unitId = pu.unitId || targetUnit?.id || baseUnitId
+                        const unitSymbol = targetUnit?.symbol || targetUnit?.name || 'pcs'
+                        const unitName = targetUnit?.name || targetUnit?.symbol || 'Unit'
+
+                        barcodeMap.set(pu.barCode.toLowerCase(), Object.freeze({
+                            product: processed,
+                            unit: Object.freeze({
+                                id: unitId,
+                                name: unitName,
+                                symbol: unitSymbol,
+                                conversionRate: relRate
+                            }),
+                            price: Number(pu.price) || processed.pro_price
+                        }))
+                    }
                 }
-                categoryMap.get(categoryId).push(product)
-            })
+
+                // Barcode map for primary product barCode (if not already mapped by a specific unit)
+                if (barCodeLower && !barcodeMap.has(barCodeLower)) {
+                    const baseUnit = processed.baseUnit || processed.stockUnit || baseUnitModel || stockUnitModel
+                    barcodeMap.set(barCodeLower, Object.freeze({
+                        product: processed,
+                        unit: Object.freeze({
+                            id: baseUnitId || stockUnitId || null,
+                            name: baseUnit?.name || 'Unit',
+                            symbol: baseUnit?.symbol || baseUnit?.name || 'pcs',
+                            conversionRate: baseRelRate
+                        }),
+                        price: processed.pro_price
+                    }))
+                }
+
+                // Category map for fast filtering
+                const categoryId = processed.pro_category
+                let catGroup = categoryMap.get(categoryId)
+                if (!catGroup) {
+                    catGroup = []
+                    categoryMap.set(categoryId, catGroup)
+                }
+                catGroup.push(processed)
+            }
 
             // Freeze category arrays for performance
-            categoryMap.forEach((products, categoryId) => {
-                categoryMap.set(categoryId, Object.freeze(products))
+            categoryMap.forEach((catProducts, categoryId) => {
+                categoryMap.set(categoryId, Object.freeze(catProducts))
             })
 
-            // Update state with optimized structures
+            // Update state with optimized frozen structures
             state.productList = Object.freeze(processedProducts)
             state.productBarcodeMap = barcodeMap
             state.productCategoryMap = categoryMap
+            state.hasPackagingProducts = hasPackaging
             state.productProcessed = true
-            state.lastCacheUpdate = Date.now()
+            state.lastCacheUpdate = nowTs
 
             // Clear search cache when products are updated
             state.productSearchCache.clear()
 
             const processingTime = performance.now() - startTime
-            state.performanceMetrics.lastProductLoadTime = Date.now()
+            state.performanceMetrics.lastProductLoadTime = nowTs
             state.performanceMetrics.productProcessingTime = processingTime
 
             console.log(`✅ Products processed in ${processingTime.toFixed(2)}ms`)
@@ -560,7 +622,7 @@ export const mutations = {
                     ...product,
                     qty: addQty,
                     isReturn: isReturnTarget,
-                    packagingAction: product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE')),
+                    packagingAction: isPkg ? (product.packagingAction || (isReturnTarget ? 'RETURNED' : 'SOLD')) : 'NONE',
                     unitId: targetUnitId,
                     unitRate: targetRate || 1.0,
                     unitSymbol: targetSymbol,
@@ -652,7 +714,8 @@ export const mutations = {
             const item = state.cartOfproductSelected[index]
             const isCurrentlyReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
             item.isReturn = !isCurrentlyReturn
-            item.packagingAction = item.isReturn ? 'RETURNED' : (item.isPackagingAsset ? 'SOLD' : 'NONE')
+            const isPkg = isPackagingProduct(item)
+            item.packagingAction = isPkg ? (item.isReturn ? 'RETURNED' : 'SOLD') : 'NONE'
             state.cartOfproductSelected.splice(index, 1, { ...item })
             console.log(`[VUEX] Toggled item return: ${item.pro_name} -> isReturn: ${item.isReturn}, action: ${item.packagingAction}`)
         }
@@ -970,6 +1033,7 @@ export const getters = {
     currentSelectedLocation: (state) => state.selectedLocation,
     isLoading: (state) => state.isLoading,
     isDataInitialized: (state) => state.dataInitialized,
+    hasPackagingProducts: (state) => !!state.hasPackagingProducts,
     getErrors: (state) => state.errors || [],
 
     // Variant Getters
@@ -990,7 +1054,17 @@ export const getters = {
 
     searchProducts: (state) => (keyword, categoryId, exactMatch = null) => {
         const isExact = exactMatch !== null ? exactMatch : !!state.isExactMatchSearch
-        const cacheKey = `${keyword || ''}_${categoryId || 9999}_${isExact ? 'exact' : 'fuzzy'}`
+        const cleanKeyword = keyword ? keyword.trim() : ''
+
+        // Fast-path when no search keyword is entered: return frozen category or full list directly without cloning/caching
+        if (!cleanKeyword) {
+            if (categoryId && categoryId !== 9999) {
+                return state.productCategoryMap.get(categoryId) || []
+            }
+            return state.productList || []
+        }
+
+        const cacheKey = `${cleanKeyword}_${categoryId || 9999}_${isExact ? 'exact' : 'fuzzy'}`
 
         // Check cache first
         if (state.productSearchCache.has(cacheKey)) {
@@ -1005,34 +1079,21 @@ export const getters = {
             results = state.productCategoryMap.get(categoryId) || []
         }
 
-        // Apply search filter
-        if (keyword && keyword.length > 0) {
-            const searchTerm = keyword.trim().toLowerCase()
-            if (isExact) {
-                results = (categoryId && categoryId !== 9999 ? results : (state.productList || [])).filter(product => {
-                    const productCode = product.product_code != null ? String(product.product_code).trim().toLowerCase() : ''
-                    const barcode = product.barCode != null ? String(product.barCode).trim().toLowerCase() : ''
-
-                    return (
-                        (productCode && productCode === searchTerm) ||
-                        (barcode && barcode === searchTerm)
-                    )
-                })
-            } else {
-                results = results.filter(product =>
-                    product.searchString?.includes(searchTerm) ||
-                    product.pro_name_lower?.includes(searchTerm) ||
-                    product.barCode_lower?.includes(searchTerm) ||
-                    (product.product_code_lower && product.product_code_lower.includes(searchTerm)) ||
-                    (product.pro_id != null && String(product.pro_id).toLowerCase().includes(searchTerm)) ||
-                    (product.id != null && String(product.id).toLowerCase().includes(searchTerm))
-                )
-            }
+        const searchTerm = cleanKeyword.toLowerCase()
+        if (isExact) {
+            results = (categoryId && categoryId !== 9999 ? results : (state.productList || [])).filter(product =>
+                product.product_code_lower === searchTerm ||
+                product.barCode_lower === searchTerm
+            )
+        } else {
+            results = results.filter(product =>
+                product.searchString?.includes(searchTerm)
+            )
         }
 
         const searchTime = performance.now() - startTime
 
-        // Cache the result
+        // Cache only non-empty keyword results (bounded to maxSearchCacheSize)
         if (state.featureFlags.enableProductCaching) {
             if (state.productSearchCache.size >= state.cacheConfig.maxSearchCacheSize) {
                 const firstKey = state.productSearchCache.keys().next().value
@@ -1060,6 +1121,10 @@ export const getters = {
     }),
 }
 
+let _inFlightProductPromise = null
+let _inFlightProductLocationId = null
+let _inFlightInitiateDataPromise = null
+
 // Enhanced actions with performance optimizations
 export const actions = {
     // Error handling actions
@@ -1079,32 +1144,63 @@ export const actions = {
         commit('SET_LOADING', isLoading)
     },
 
-    // Enhanced product initialization
-    async initializeProductsByLocation({ commit, dispatch }, locationId) {
+    // Enhanced product initialization with in-flight deduplication
+    async initializeProductsByLocation({ state, commit, dispatch }, payload) {
+        const isObj = payload && typeof payload === 'object'
+        const locationId = (isObj ? payload.locationId : payload) || state.selectedLocation?.id || 1
+        const force = isObj ? !!payload.force : false
+
+        // If an identical location product fetch is already in flight, reuse it
+        if (_inFlightProductPromise && String(_inFlightProductLocationId) === String(locationId)) {
+            console.info(`⏳ Reusing in-flight product load for location ${locationId}`)
+            return _inFlightProductPromise
+        }
+
+        // If products for this location were very recently loaded (< 5s ago) and not forced, skip duplicate reload
+        if (
+            !force &&
+            state.productProcessed &&
+            state.productList.length > 0 &&
+            String(state.productLocationId) === String(locationId) &&
+            state.lastCacheUpdate &&
+            Date.now() - state.lastCacheUpdate < 5000
+        ) {
+            console.info(`⚡ Skipping duplicate product reload for location ${locationId} (${state.productList.length} products already fresh)`)
+            return
+        }
+
         commit('SET_LOADING', true)
         commit('CLEAR_ERRORS')
 
-        try {
-            console.info(`🚀 Loading ALL products for location ${locationId}`)
-            const startTime = performance.now()
+        _inFlightProductLocationId = locationId
+        _inFlightProductPromise = (async () => {
+            try {
+                console.info(`🚀 Loading ALL products for location ${locationId}`)
+                const startTime = performance.now()
 
-            const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
+                const response = await this.$axios.get(`product_f_v1/${locationId}?include=priceList`)
 
-            const loadTime = performance.now() - startTime
-            console.info(`📡 API call completed in ${loadTime.toFixed(2)}ms`)
+                const loadTime = performance.now() - startTime
+                console.info(`📡 API call completed in ${loadTime.toFixed(2)}ms`)
 
-            await dispatch('initProduct', response.data.data)
+                commit('SET_PRODUCT_LOCATION_ID', locationId)
+                await dispatch('initProduct', response.data.data)
 
-            const totalTime = performance.now() - startTime
-            console.info(`✅ ALL products initialized in ${totalTime.toFixed(2)}ms`)
+                const totalTime = performance.now() - startTime
+                console.info(`✅ ALL products initialized in ${totalTime.toFixed(2)}ms`)
 
-        } catch (error) {
-            console.error(`Product initialization failed: ${error.message || error}`)
-            commit('ADD_ERROR', error)
-            throw error
-        } finally {
-            commit('SET_LOADING', false)
-        }
+            } catch (error) {
+                console.error(`Product initialization failed: ${error.message || error}`)
+                commit('ADD_ERROR', error)
+                throw error
+            } finally {
+                commit('SET_LOADING', false)
+                _inFlightProductPromise = null
+                _inFlightProductLocationId = null
+            }
+        })()
+
+        return _inFlightProductPromise
     },
 
     // Cache management
@@ -1613,33 +1709,45 @@ export const actions = {
         }
     },
 
-    async initiateData({ commit, dispatch }, axios) {
+    async initiateData({ state, commit, dispatch }, axios) {
+        if (_inFlightInitiateDataPromise) {
+            console.info('⏳ Reusing in-flight initiateData promise')
+            return _inFlightInitiateDataPromise
+        }
+
+        const targetAxios = axios || this.$axios
         commit('SET_LOADING', true)
         commit('CLEAR_ERRORS')
 
-        try {
-            const initPromises = [
-                initTerminal(dispatch, axios),
-                initPrinters(dispatch, axios),
-                initLocation(dispatch, axios),
-                initClient(dispatch, axios),
-                initCurrency(dispatch, axios),
-                initPayment(dispatch, axios),
-                initSPF(dispatch, axios),
-                initUnit(dispatch, axios),
-                initCompanyData(dispatch, axios)
-            ]
+        _inFlightInitiateDataPromise = (async () => {
+            try {
+                const initPromises = [
+                    initTerminal(dispatch, targetAxios),
+                    initPrinters(dispatch, targetAxios),
+                    initLocation(dispatch, targetAxios),
+                    initClient(dispatch, targetAxios),
+                    initCurrency(dispatch, targetAxios),
+                    initPayment(dispatch, targetAxios),
+                    initSPF(dispatch, targetAxios),
+                    initUnit(dispatch, targetAxios),
+                    initCompanyData(dispatch, targetAxios)
+                ]
 
-            await Promise.allSettled(initPromises)
-            await initProduct(dispatch, axios)
+                await Promise.allSettled(initPromises)
+                const locationId = state.selectedLocation?.id || 1
+                await initProduct(dispatch, targetAxios, locationId, commit)
 
-            commit('SET_DATA_INITIALIZED', true)
-        } catch (error) {
-            console.error("Failed to initialize data:", error)
-            commit('ADD_ERROR', error)
-        } finally {
-            commit('SET_LOADING', false)
-        }
+                commit('SET_DATA_INITIALIZED', true)
+            } catch (error) {
+                console.error("Failed to initialize data:", error)
+                commit('ADD_ERROR', error)
+            } finally {
+                commit('SET_LOADING', false)
+                _inFlightInitiateDataPromise = null
+            }
+        })()
+
+        return _inFlightInitiateDataPromise
     },
 
     async initiateDataCompany({ commit, dispatch }, axios) {
@@ -1677,17 +1785,32 @@ const fetchData = async (url, action, dispatch, axios, errorMessage) => {
     }
 }
 
-const initProduct = async (dispatch, axios) => {
-    console.info(`fetch product initialize`)
-    try {
-        const response = await axios.get('product_f_v1/1?include=priceList')
-        console.info(`fetch product product_f_v1 initialize response: ${response.data?.data?.length || 0} products`)
-        await dispatch('initProduct', response.data.data)
-    } catch (error) {
-        console.error(`Product initialization failed: ${error.message || error}`)
-        await dispatch('addError', `Product initialization failed: ${error.message || error}`)
-        throw error
+const initProduct = async (dispatch, axios, locationId = 1, commit = null) => {
+    if (_inFlightProductPromise && String(_inFlightProductLocationId) === String(locationId)) {
+        return _inFlightProductPromise
     }
+
+    console.info(`fetch product initialize for location ${locationId}`)
+    _inFlightProductLocationId = locationId
+    _inFlightProductPromise = (async () => {
+        try {
+            const response = await axios.get(`product_f_v1/${locationId}?include=priceList`)
+            console.info(`fetch product product_f_v1 initialize response: ${response.data?.data?.length || 0} products`)
+            if (commit) {
+                commit('SET_PRODUCT_LOCATION_ID', locationId)
+            }
+            await dispatch('initProduct', response.data.data)
+        } catch (error) {
+            console.error(`Product initialization failed: ${error.message || error}`)
+            await dispatch('addError', `Product initialization failed: ${error.message || error}`)
+            throw error
+        } finally {
+            _inFlightProductPromise = null
+            _inFlightProductLocationId = null
+        }
+    })()
+
+    return _inFlightProductPromise
 }
 
 const initClient = (dispatch, axios) =>

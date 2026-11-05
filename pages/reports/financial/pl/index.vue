@@ -602,6 +602,15 @@ import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
 import { ticketHtml, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
 import { mapActions, mapGetters } from 'vuex'
 
+const isPackagingReturnLine = (line) => {
+  if (!line) return false
+  return line.isReturn === true || 
+         line.isReturn === 1 || 
+         line.packagingAction === 'RETURNED' || 
+         parseFloat(line.price || 0) < 0 || 
+         parseFloat(line.total || 0) < 0
+}
+
 export default {
   components: { ProductForm, ProductFormCreate, PriceListForm },
   middleware: 'auths',
@@ -662,20 +671,53 @@ export default {
 
     // Sales calculations
     grandSaleTotal() {
-      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
-      return this.loaddata.reduce((total, item) => {
-        const rate = item.exchangeRate || 1
-        const itemTotal = parseFloat(item.total || 0)
-        const itemDiscount = parseFloat(item.discount || 0)
-        
-        // Guard against corrupted/astronomical values
-        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
-          return total;
+      return this.loaddata.filter(el => el.isActive == true).reduce((total, sale) => {
+        let saleGross = 0;
+        if (sale.lines && sale.lines.length > 0) {
+          sale.lines.forEach(line => {
+            if (!isPackagingReturnLine(line)) {
+              const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
+              if (Math.abs(lineTotal) < 1e12 && lineTotal > 0) {
+                const lineDiscount = parseFloat(line.discount || 0);
+                const gross = lineTotal + (lineDiscount > 0 ? lineDiscount : 0);
+                const rate = line.exchangeRate || sale.exchangeRate || 1;
+                saleGross += (gross * rate);
+              }
+            }
+          });
+        } else {
+          const rate = sale.exchangeRate || 1;
+          const itemTotal = parseFloat(sale.total || 0);
+          const itemDiscount = parseFloat(sale.discount || 0);
+          if (Math.abs(itemTotal) < 1e12 && itemTotal > 0) {
+            saleGross += ((itemTotal + itemDiscount) * rate);
+          }
         }
-
-        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
-        return total + (grossAmount * rate)
-      }, 0)
+        return total + saleGross;
+      }, 0);
+    },
+    packagingReturnTotal() {
+      return this.loaddata.filter(el => el.isActive == true).reduce((total, sale) => {
+        let saleReturns = 0;
+        if (sale.lines && sale.lines.length > 0) {
+          sale.lines.forEach(line => {
+            if (isPackagingReturnLine(line)) {
+              const lineTotal = Math.abs(parseFloat(line.total ?? (line.quantity * line.price) ?? 0));
+              if (lineTotal < 1e12 && lineTotal > 0) {
+                const rate = line.exchangeRate || sale.exchangeRate || 1;
+                saleReturns += (lineTotal * rate);
+              }
+            }
+          });
+        } else {
+          const rate = sale.exchangeRate || 1;
+          const itemTotal = parseFloat(sale.total || 0);
+          if (Math.abs(itemTotal) < 1e12 && itemTotal < 0) {
+            saleReturns += (Math.abs(itemTotal) * rate);
+          }
+        }
+        return total + saleReturns;
+      }, 0);
     },
     grandSaleDiscountTotal() {
       // ✅ Normalize to LAK: discount * exchangeRate
@@ -684,7 +726,7 @@ export default {
         const itemDiscount = parseFloat(item.discount || 0)
 
         // Guard against corrupted/astronomical values
-        if (Math.abs(itemDiscount) > 1e12) {
+        if (Math.abs(itemDiscount) > 1e12 || itemDiscount <= 0) {
           return total;
         }
 
@@ -712,6 +754,8 @@ export default {
       for (const sale of this.loaddata.filter(el => el.isActive == true)) {
         const saleRate = sale.exchangeRate || 1;
         for (const line of sale.lines) {
+          if (isPackagingReturnLine(line)) continue;
+
           const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
           let lineRate = line.exchangeRate;
           if (!lineRate || lineRate === 1) {
@@ -799,7 +843,7 @@ export default {
 
     // Enhanced computations
     netSale() {
-      return this.grandSaleTotal - (this.grandSaleCancelTotal + this.grandSaleDiscountTotal);
+      return Math.max(0, this.grandSaleTotal - this.grandSaleDiscountTotal);
     },
     totalCOGS() {
       return this.grandSaleCost + this.grandCODCost + this.grandCancellationCost;
@@ -1021,6 +1065,9 @@ export default {
   },
 
   methods: {
+    isPackagingReturnLine(line) {
+      return isPackagingReturnLine(line)
+    },
     formatNumber(value) {
       return getFormatNum(value)
     },

@@ -119,7 +119,7 @@ export const generateMoneyAdvanceSettlementReportHTML = ({
     const ccy = item.currency?.code || item.currencyCode || 'LAK'
     const amount = formatCurrency(item.amount)
     const rate = formatExchangeRate(item.exchangeRate || 1)
-    
+
     // Calculate LCY equivalent
     let numAmount = parseFloat(item.amount || 0)
     let numRate = parseFloat(item.exchangeRate || 1)
@@ -153,8 +153,8 @@ export const generateMoneyAdvanceSettlementReportHTML = ({
 
   // Summary KPI Cards
   const totalCount = summaryData.totalCount !== undefined ? summaryData.totalCount : reportData.length
-  const totalAmountLAK = summaryData.totalAmount !== undefined && summaryData.totalAmount > 0 
-    ? formatCurrency(summaryData.totalAmount) 
+  const totalAmountLAK = summaryData.totalAmount !== undefined && summaryData.totalAmount > 0
+    ? formatCurrency(summaryData.totalAmount)
     : formatCurrency(grandTotalLAK)
   const thisMonthCount = summaryData.thisMonth || 0
   const pendingCount = summaryData.pending || 0
@@ -501,18 +501,12 @@ export const generateMoneyAdvanceSettlementReportHTML = ({
         <div class="signatures">
           <div class="sign-box">
             <div class="sign-title">ຜູ້ລາຍງານ (Prepared By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">${printedBy}</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຫົວໜ້າບັນຊີ (Chief Accountant)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຜູ້ອຳນວຍການ (Authorized By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
         </div>
       </div>
@@ -527,7 +521,7 @@ export const generateMoneyAdvanceSettlementReportHTML = ({
 export const printMoneyAdvanceSettlementReport = (params) => {
   try {
     const htmlContent = generateMoneyAdvanceSettlementReportHTML(params)
-    
+
     // Open new popup window with landscape dimensions
     const printWindow = window.open(
       '',
@@ -961,18 +955,12 @@ export const generateMinistrySettlementSummaryReportHTML = ({
         <div class="signatures">
           <div class="sign-box">
             <div class="sign-title">ຜູ້ລາຍງານ (Prepared By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">${printedBy}</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຫົວໜ້າບັນຊີ (Chief Accountant)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຜູ້ອຳນວຍການ (Authorized By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
         </div>
       </div>
@@ -984,7 +972,7 @@ export const generateMinistrySettlementSummaryReportHTML = ({
 export const printMinistrySettlementSummaryReport = (params) => {
   try {
     const htmlContent = generateMinistrySettlementSummaryReportHTML(params)
-    
+
     const printWindow = window.open(
       '',
       '_blank',

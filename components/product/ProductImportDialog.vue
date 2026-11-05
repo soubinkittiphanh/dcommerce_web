@@ -114,12 +114,14 @@ export default {
   name: 'ProductImportDialog',
   props: {
     value: { type: Boolean, default: false },
-    products: { type: Array, default: () => [] }
+    products: { type: Array, default: () => [] },
+    locationId: { type: [Number, String], default: 1 }
   },
   data() {
     return {
       excelFile: null,
       importData: [],
+      allProductList: [],
       loading: false,
       downloading: false,
       companies: [],
@@ -169,10 +171,75 @@ export default {
     value(val) {
       if (val) {
         this.fetchMetadata()
+        this.fetchAllProducts()
       }
     }
   },
   methods: {
+    async fetchAllProducts() {
+      const locId = this.locationId || 1
+      try {
+        let items = []
+        try {
+          const res = await this.$axios.get(`product_f_v2/${locId}`, {
+            params: { include: 'priceList', page: 1, limit: 10000, isActive: 1 }
+          })
+          const rawList = res.data?.data ?? res.data ?? []
+          let list = Array.isArray(rawList) ? rawList : (Array.isArray(rawList?.data) ? rawList.data : [])
+          const total = res.data?.total !== undefined ? Number(res.data.total) : list.length
+          const pageSize = list.length || 30
+          const totalPages = res.data?.totalPages || (total > pageSize ? Math.ceil(total / pageSize) : 1)
+
+          if (list.length > 0 && (list.length < total || totalPages > 1)) {
+            const calculatedTotalPages = Math.max(totalPages, Math.ceil(total / list.length))
+            if (calculatedTotalPages <= 5) {
+              const pagePromises = []
+              for (let p = 2; p <= calculatedTotalPages; p++) {
+                pagePromises.push(
+                  this.$axios.get(`product_f_v2/${locId}`, {
+                    params: { include: 'priceList', page: p, limit: list.length, isActive: 1 }
+                  })
+                )
+              }
+              const pageResults = await Promise.all(pagePromises)
+              pageResults.forEach((pRes) => {
+                const pRaw = pRes.data?.data ?? pRes.data ?? []
+                const pList = Array.isArray(pRaw) ? pRaw : (Array.isArray(pRaw?.data) ? pRaw.data : [])
+                list = list.concat(pList)
+              })
+              items = list
+            }
+          } else {
+            items = list
+          }
+        } catch (v2Err) {
+          console.warn('product_f_v2 failed in ProductImportDialog, falling back to product_f_v1:', v2Err)
+        }
+
+        if (!items || items.length === 0) {
+          try {
+            const res = await this.$axios.get(`product_f_v1/${locId}`, {
+              params: { include: 'priceList', isActive: false }
+            })
+            const raw = res.data?.data ?? res.data ?? []
+            items = (Array.isArray(raw) ? raw : []).filter(
+              p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined
+            )
+          } catch (v1Err) {
+            console.warn('product_f_v1 fallback also failed in ProductImportDialog:', v1Err)
+          }
+        }
+
+        if (Array.isArray(items) && items.length > 0) {
+          this.allProductList = Object.freeze(items.map(el => Object.freeze(el)))
+        }
+      } catch (err) {
+        console.warn('Failed to fetch all products in ProductImportDialog:', err)
+      }
+      return this.allProductList.length >= (this.products?.length || 0) && this.allProductList.length > 0
+        ? this.allProductList
+        : (this.products || [])
+    },
     close() {
       this.$emit('input', false)
       setTimeout(() => this.reset(), 300)
@@ -382,22 +449,36 @@ export default {
         }
         currentHeaderRow.alignment = { vertical: 'middle', horizontal: 'center' }
 
-        // Populate current product list
-        if (Array.isArray(this.products) && this.products.length > 0) {
-          this.products.forEach(item => {
-            const companyName = item.co_name || this.companies.find(c => c.id === item.companyId)?.name || ''
-            const categoryName = this.categories.find(c => c.id === item.pro_category)?.name || ''
-            const costCurrencyCode = this.currencies.find(c => c.id === item.costCurrencyId)?.code || ''
-            const saleCurrencyCode = this.currencies.find(c => c.id === item.saleCurrencyId)?.code || ''
-            const receiveUnitName = this.units.find(u => u.id === item.receiveUnitId)?.name || ''
-            const stockUnitName = this.units.find(u => u.id === item.stockUnitId)?.name || ''
-            const baseUnitName = this.units.find(u => u.id === item.baseUnitId)?.name || ''
+        // Populate current product list - reuse loaded products if available
+        if (!this.companies.length || !this.categories.length || !this.currencies.length || !this.units.length) {
+          await this.fetchMetadata()
+        }
+        const currentProducts = (this.allProductList && this.allProductList.length > 0)
+          ? this.allProductList
+          : await this.fetchAllProducts()
+
+        if (Array.isArray(currentProducts) && currentProducts.length > 0) {
+          const companyMap = new Map(this.companies.map(c => [c.id, c.name]))
+          const categoryMap = new Map(this.categories.map(c => [String(c.id), c.name]))
+          const currencyMap = new Map(this.currencies.map(c => [c.id, c.code]))
+          const unitMap = new Map(this.units.map(u => [u.id, u.name]))
+
+          currentProducts.forEach(item => {
+            const companyId = item.companyId ?? item.pro_outlet ?? item.outlet
+            const companyName = item.co_name || companyMap.get(companyId) || ''
+            const catId = item.pro_category ?? item.categoryCategId ?? item.categoryId ?? (item.category ? (item.category.categ_id ?? item.category.id) : null)
+            const categoryName = item.categ_name || item.category?.categ_name || categoryMap.get(String(catId)) || ''
+            const costCurrencyCode = currencyMap.get(item.costCurrencyId) || ''
+            const saleCurrencyCode = currencyMap.get(item.saleCurrencyId) || ''
+            const receiveUnitName = unitMap.get(item.receiveUnitId) || ''
+            const stockUnitName = unitMap.get(item.stockUnitId) || ''
+            const baseUnitName = unitMap.get(item.baseUnitId) || ''
 
             currentProductsWorksheet.addRow({
               pro_name: item.pro_name || '',
               product_code: item.product_code || '',
               barCode: item.barCode || '',
-              cost_price: item.pro_cost_price || 0,
+              cost_price: item.pro_cost_price !== undefined ? item.pro_cost_price : (item.cost_price || 0),
               costCurrency: costCurrencyCode,
               pro_price: item.pro_price || 0,
               saleCurrency: saleCurrencyCode,

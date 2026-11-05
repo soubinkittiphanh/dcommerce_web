@@ -48,7 +48,7 @@ const resolveTicketImageUrl = (imagePath, params = {}) => {
     if (!baseUrl && typeof window !== 'undefined') {
         baseUrl = window.localStorage?.getItem('api_base_url') || window.$nuxt?.$axios?.defaults?.baseURL || (window.location?.origin?.startsWith('http') ? window.location.origin : '');
     }
-    if (!baseUrl) baseUrl = 'http://162.35.18.246:8054';
+    if (!baseUrl) baseUrl = 'http://150.95.31.23:8052';
     const cleanBase = baseUrl.replace(/\/api\/?$/, '').replace(/\/+$/, '');
     return `${cleanBase}/${imagePath.replace(/^\//, '')}`;
 };

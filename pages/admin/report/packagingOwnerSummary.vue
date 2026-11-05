@@ -198,20 +198,42 @@
 
         <!-- Outstanding Packaging Debt Badges for this Client -->
         <div class="d-flex align-center mt-2 mt-sm-0 flex-wrap">
-          <div class="mr-3 text-right">
-            <span class="caption grey--text text--darken-2 font-weight-bold d-block">ຍອດໜີ້ລັງເປົ່າຄ້າງສົ່ງ:</span>
-            <v-chip color="amber darken-3" dark label class="font-weight-black text-body-2">
-              <v-icon x-small left>mdi-cube-outline</v-icon>
-              {{ numberWithCommas(customerProfile.currentCratesOwed) }} ລັງ
-            </v-chip>
-          </div>
-          <div class="text-right">
-            <span class="caption grey--text text--darken-2 font-weight-bold d-block">ຍອດໜີ້ແກ້ວເປົ່າຄ້າງສົ່ງ:</span>
-            <v-chip color="teal darken-2" dark label class="font-weight-black text-body-2">
-              <v-icon x-small left>mdi-glass-mug-variant</v-icon>
-              {{ numberWithCommas(customerProfile.currentBottlesOwed) }} ແກ້ວ
-            </v-chip>
-          </div>
+          <template v-if="customerProfile.balances && customerProfile.balances.length > 0">
+            <div
+              v-for="bal in customerProfile.balances"
+              :key="bal.packagingProductId"
+              class="mr-3 mb-1 text-right"
+            >
+              <span class="caption grey--text text--darken-2 font-weight-bold d-block">
+                ໜີ້ຄ້າງ {{ bal.packagingName }}:
+              </span>
+              <v-chip
+                :color="bal.balanceOwed > 0 ? 'amber darken-3' : 'teal darken-2'"
+                dark
+                label
+                class="font-weight-black text-body-2"
+              >
+                <v-icon x-small left>{{ getPackagingIcon(bal.packagingName) }}</v-icon>
+                {{ numberWithCommas(bal.balanceOwed) }}
+              </v-chip>
+            </div>
+          </template>
+          <template v-else>
+            <div v-if="customerProfile.currentCratesOwed" class="mr-3 text-right">
+              <span class="caption grey--text text--darken-2 font-weight-bold d-block">ຍອດໜີ້ຄ້າງສົ່ງ:</span>
+              <v-chip color="amber darken-3" dark label class="font-weight-black text-body-2">
+                <v-icon x-small left>mdi-cube-outline</v-icon>
+                {{ numberWithCommas(customerProfile.currentCratesOwed) }}
+              </v-chip>
+            </div>
+            <div v-if="customerProfile.currentBottlesOwed" class="text-right">
+              <span class="caption grey--text text--darken-2 font-weight-bold d-block">ຍອດໜີ້ຄ້າງສົ່ງ:</span>
+              <v-chip color="teal darken-2" dark label class="font-weight-black text-body-2">
+                <v-icon x-small left>mdi-glass-mug-variant</v-icon>
+                {{ numberWithCommas(customerProfile.currentBottlesOwed) }}
+              </v-chip>
+            </div>
+          </template>
         </div>
       </div>
     </v-card>
@@ -242,65 +264,124 @@
         </v-card>
       </v-col>
 
-      <!-- KPI 2: Total Cases Sold & Promo FOC -->
+      <!-- KPI 2: Total Packing Products Sold & Promo FOC -->
       <v-col cols="12" sm="6" md="3">
-        <v-card class="pa-4 rounded-xl elevation-2 h-100 blue lighten-5 border-blue" outlined>
-          <div class="d-flex justify-space-between align-start">
-            <div>
-              <span class="caption grey--text text--darken-2 font-weight-bold">ຈຳນວນລັງທີ່ຂາຍ + ແຖມ</span>
-              <div class="text-h5 font-weight-black blue--text text--darken-4 mt-1">
-                {{ numberWithCommas(kpiData.totalCasesSold) }}
-                <span class="text-subtitle-2 font-weight-medium grey--text text--darken-2">ລັງ</span>
+        <v-card class="pa-4 rounded-xl elevation-2 h-100 blue lighten-5 border-blue d-flex flex-column justify-space-between" outlined>
+          <div>
+            <div class="d-flex justify-space-between align-start">
+              <div>
+                <span class="caption grey--text text--darken-2 font-weight-bold">ສິນຄ້າທີ່ຂາຍ + ແຖມ (Packing Products)</span>
+                <div class="text-h5 font-weight-black blue--text text--darken-4 mt-1">
+                  {{ numberWithCommas(kpiData.totalCasesSold) }}
+                </div>
+                <div class="caption blue--text text--darken-3 font-weight-bold mt-1">
+                  ຂາຍ: {{ numberWithCommas(kpiData.totalPaidCases) }} | ແຖມ FOC: {{ numberWithCommas(kpiData.totalFocCases) }}
+                </div>
               </div>
-              <div class="caption blue--text text--darken-3 font-weight-bold mt-1">
-                ຂາຍ: {{ numberWithCommas(kpiData.totalPaidCases) }} | ແຖມ FOC: {{ numberWithCommas(kpiData.totalFocCases) }}
+              <v-avatar color="blue darken-2" size="40">
+                <v-icon color="white">mdi-package-variant</v-icon>
+              </v-avatar>
+            </div>
+
+            <!-- Compact Breakdown of Top Packing Products -->
+            <div v-if="packingProducts.length > 0" class="mt-2 pt-1 border-top-dashed">
+              <div
+                v-for="(p, idx) in packingProducts.slice(0, 2)"
+                :key="'kpi-pack-' + idx"
+                class="caption d-flex justify-space-between text-truncate grey--text text--darken-3"
+                style="max-width: 220px;"
+              >
+                <span class="text-truncate mr-1">• {{ p.productName }}</span>
+                <span class="font-weight-bold blue--text text--darken-3">{{ numberWithCommas(p.totalCases) }}</span>
+              </div>
+              <div v-if="packingProducts.length > 2" class="caption grey--text font-italic">
+                + ອີກ {{ packingProducts.length - 2 }} ລາຍການ...
               </div>
             </div>
-            <v-avatar color="blue darken-2" size="40">
-              <v-icon color="white">mdi-package-variant</v-icon>
-            </v-avatar>
           </div>
         </v-card>
       </v-col>
 
-      <!-- KPI 3: Packaging Sold / Deposits Charged -->
+      <!-- KPI 3: Packaging Sold / Deposits Charged (Stock OUT -) -->
       <v-col cols="12" sm="6" md="3">
-        <v-card class="pa-4 rounded-xl elevation-2 h-100 indigo lighten-5 border-indigo" outlined>
-          <div class="d-flex justify-space-between align-start">
-            <div>
-              <span class="caption grey--text text--darken-2 font-weight-bold">ຂາຍບັນຈຸພັນ / ຮັບມັດຈຳ</span>
-              <div class="text-h5 font-weight-black indigo--text text--darken-4 mt-1">
-                {{ numberWithCommas(kpiData.totalPackagingSoldAmount) }}
-                <span class="text-caption font-weight-medium grey--text text--darken-2">₭</span>
+        <v-card class="pa-4 rounded-xl elevation-2 h-100 indigo lighten-5 border-indigo d-flex flex-column justify-space-between" outlined>
+          <div>
+            <div class="d-flex justify-space-between align-start">
+              <div>
+                <span class="caption grey--text text--darken-2 font-weight-bold">ຂາຍບັນຈຸພັນ / ຮັບມັດຈຳ (Stock Out)</span>
+                <div class="text-h5 font-weight-black indigo--text text--darken-4 mt-1">
+                  {{ numberWithCommas(kpiData.totalPackagingSoldAmount) }}
+                  <span class="text-caption font-weight-medium grey--text text--darken-2">₭</span>
+                </div>
+                <div class="caption indigo--text text--darken-3 font-weight-bold mt-1">
+                  ຈຳນວນຈ່າຍອອກ:
+                  <span class="font-weight-black font-weight-bold red--text text--darken-3">
+                    {{ kpiData.totalPackagingSoldQty > 0 ? '-' : '' }}{{ numberWithCommas(kpiData.totalPackagingSoldQty) }}
+                  </span>
+                  ໜ່ວຍ
+                </div>
               </div>
-              <div class="caption indigo--text text--darken-3 font-weight-bold mt-1">
-                ຈຳນວນ: {{ numberWithCommas(kpiData.totalPackagingSoldQty) }} ໜ່ວຍ (ລັງ/ແກ້ວ)
+              <v-avatar color="indigo darken-2" size="40">
+                <v-icon color="white">mdi-cart-arrow-right</v-icon>
+              </v-avatar>
+            </div>
+
+            <!-- Breakdown Count per Packaging Product Sold -->
+            <div v-if="packagingProducts.length > 0" class="mt-2 pt-1 border-top-dashed">
+              <div
+                v-for="p in packagingProducts"
+                :key="'sold-kpi-' + p.productId"
+                class="caption d-flex justify-space-between text-truncate indigo--text text--darken-4 py-0"
+                style="max-width: 220px;"
+              >
+                <span class="text-truncate mr-1">• {{ p.productName }}</span>
+                <span class="font-weight-bold">
+                  {{ p.soldQty > 0 ? '-' : '' }}{{ numberWithCommas(p.soldQty) }}
+                </span>
               </div>
             </div>
-            <v-avatar color="indigo darken-2" size="40">
-              <v-icon color="white">mdi-cart-plus</v-icon>
-            </v-avatar>
           </div>
         </v-card>
       </v-col>
 
-      <!-- KPI 4: Packaging Bought Back / Deposits Refunded -->
+      <!-- KPI 4: Packaging Bought Back / Deposits Refunded (Stock IN +) -->
       <v-col cols="12" sm="6" md="3">
-        <v-card class="pa-4 rounded-xl elevation-2 h-100 teal lighten-5 border-teal" outlined>
-          <div class="d-flex justify-space-between align-start">
-            <div>
-              <span class="caption grey--text text--darken-2 font-weight-bold">ຮັບຊື້ບັນຈຸພັນ / ຄືນມັດຈຳ</span>
-              <div class="text-h5 font-weight-black teal--text text--darken-4 mt-1">
-                {{ numberWithCommas(kpiData.totalPackagingBoughtAmount) }}
-                <span class="text-caption font-weight-medium grey--text text--darken-2">₭</span>
+        <v-card class="pa-4 rounded-xl elevation-2 h-100 teal lighten-5 border-teal d-flex flex-column justify-space-between" outlined>
+          <div>
+            <div class="d-flex justify-space-between align-start">
+              <div>
+                <span class="caption grey--text text--darken-2 font-weight-bold">ຮັບຊື້ບັນຈຸພັນ / ຄືນມັດຈຳ (Stock In)</span>
+                <div class="text-h5 font-weight-black teal--text text--darken-4 mt-1">
+                  {{ numberWithCommas(kpiData.totalPackagingBoughtAmount) }}
+                  <span class="text-caption font-weight-medium grey--text text--darken-2">₭</span>
+                </div>
+                <div class="caption teal--text text--darken-3 font-weight-bold mt-1">
+                  ຈຳນວນຮັບຄືນ:
+                  <span class="font-weight-black font-weight-bold teal--text text--darken-4">
+                    {{ kpiData.totalPackagingBoughtQty > 0 ? '+' : '' }}{{ numberWithCommas(kpiData.totalPackagingBoughtQty) }}
+                  </span>
+                  ໜ່ວຍ
+                </div>
               </div>
-              <div class="caption teal--text text--darken-3 font-weight-bold mt-1">
-                ຈຳນວນ: {{ numberWithCommas(kpiData.totalPackagingBoughtQty) }} ໜ່ວຍ (POS)
+              <v-avatar color="teal darken-2" size="40">
+                <v-icon color="white">mdi-keyboard-return</v-icon>
+              </v-avatar>
+            </div>
+
+            <!-- Breakdown Count per Packaging Product Bought -->
+            <div v-if="packagingProducts.length > 0" class="mt-2 pt-1 border-top-dashed">
+              <div
+                v-for="p in packagingProducts"
+                :key="'bought-kpi-' + p.productId"
+                class="caption d-flex justify-space-between text-truncate teal--text text--darken-4 py-0"
+                style="max-width: 220px;"
+              >
+                <span class="text-truncate mr-1">• {{ p.productName }}</span>
+                <span class="font-weight-bold">
+                  {{ p.boughtQty > 0 ? '+' : '' }}{{ numberWithCommas(p.boughtQty) }}
+                </span>
               </div>
             </div>
-            <v-avatar color="teal darken-2" size="40">
-              <v-icon color="white">mdi-keyboard-return</v-icon>
-            </v-avatar>
           </div>
         </v-card>
       </v-col>
@@ -342,7 +423,7 @@
               <div class="subtitle-1 font-weight-black purple--text text--darken-4">
                 {{ kpiData.recoveryRatePercent }}%
                 <span class="caption font-weight-normal grey--text">
-                  (ເກັບຄືນ {{ numberWithCommas(kpiData.totalEmptiesRecoveredUnits) }} / ຈ່າຍອອກ {{ numberWithCommas(kpiData.totalDispatchedCrates + kpiData.totalDispatchedBottles) }} ໜ່ວຍ)
+                  (ເກັບຄືນ {{ numberWithCommas(kpiData.totalEmptiesRecoveredUnits) }} / ຈ່າຍອອກທັງໝົດ {{ numberWithCommas(kpiData.totalDispatchedCrates + kpiData.totalDispatchedBottles) }} ໜ່ວຍ)
                 </span>
               </div>
             </div>
@@ -360,29 +441,155 @@
       </v-col>
     </v-row>
 
+    <!-- Dedicated Packaging Product Breakdown Section in Summary Header -->
+    <v-card outlined class="pa-4 mb-4 rounded-xl elevation-1 bg-gradient-breakdown">
+      <div class="d-flex justify-space-between align-center mb-3 flex-wrap">
+        <div class="d-flex align-center">
+          <v-avatar size="36" color="teal darken-3" class="mr-3 elevation-1">
+            <v-icon color="white">mdi-format-list-bulleted-type</v-icon>
+          </v-avatar>
+          <div>
+            <div class="text-subtitle-1 font-weight-black primary--text d-flex align-center flex-wrap">
+              <span>ສະຫຼຸບຈຳນວນບັນຈຸພັນແຍກຕາມແຕ່ລະສິນຄ້າ (Packaging Breakdown by Product)</span>
+              <v-chip x-small color="teal darken-2" dark class="ml-2 font-weight-bold">
+                {{ packagingProducts.length }} ລາຍການບັນຈຸພັນ
+              </v-chip>
+            </div>
+            <span class="caption grey--text text--darken-2">
+              ລາຍລະອຽດຈຳນວນຂາຍ/ຈ່າຍອອກ (-) ແລະ ຮັບຊື້/ຮັບຄືນ (+) ຂອງແຕ່ລະບັນຈຸພັນ ພ້ອມດຸນດ່ຽງສາງ ແລະ ກະແສເງິນ
+            </span>
+          </div>
+        </div>
+
+        <div class="d-flex align-center caption grey--text text--darken-2 my-1">
+          <v-chip x-small outlined color="indigo" class="mr-2 font-weight-bold">
+            <v-icon x-small left>mdi-cart-arrow-right</v-icon> ຂາຍ/ຈ່າຍອອກ: ສິນຄ້າອອກ (-)
+          </v-chip>
+          <v-chip x-small outlined color="teal" class="font-weight-bold">
+            <v-icon x-small left>mdi-keyboard-return</v-icon> ຮັບຊື້/ຮັບຄືນ: ສິນຄ້າເຂົ້າ (+)
+          </v-chip>
+        </div>
+      </div>
+
+      <!-- Breakdown Grid Cards for Each Packaging Product -->
+      <v-row v-if="packagingProducts.length > 0" dense>
+        <v-col
+          v-for="item in packagingProducts"
+          :key="'summary-card-' + item.productId"
+          cols="12"
+          sm="6"
+          md="4"
+          lg="3"
+        >
+          <v-card
+            outlined
+            class="pa-3 rounded-lg fill-height d-flex flex-column justify-space-between border-item-card"
+          >
+            <div>
+              <!-- Product Title & Barcode -->
+              <div class="d-flex align-center justify-space-between mb-2">
+                <div class="d-flex align-center text-truncate mr-2">
+                  <v-avatar size="30" color="teal lighten-5" class="mr-2">
+                    <v-icon small color="teal darken-2">{{ getPackagingIcon(item.productName) }}</v-icon>
+                  </v-avatar>
+                  <div class="text-truncate">
+                    <div class="font-weight-black text-body-2 text-truncate primary--text" :title="item.productName">
+                      {{ item.productName }}
+                    </div>
+                    <span class="caption grey--text text-truncate">{{ item.barCode || item.categoryName || 'ບັນຈຸພັນ' }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <v-divider class="my-2"></v-divider>
+
+              <!-- Out vs In Qty & Amount Rows -->
+              <div class="d-flex justify-space-between align-center py-1">
+                <span class="caption indigo--text text--darken-3 font-weight-medium">
+                  <v-icon x-small color="indigo">mdi-cart-arrow-right</v-icon> ຂາຍ/ຈ່າຍອອກ:
+                </span>
+                <div class="text-right">
+                  <span class="font-weight-black indigo--text text--darken-4">
+                    {{ item.soldQty > 0 ? '-' : '' }}{{ numberWithCommas(item.soldQty) }}
+                  </span>
+                  <span class="caption grey--text text--darken-1 d-block" style="font-size: 10px !important;">
+                    {{ numberWithCommas(item.soldAmount) }} ₭
+                  </span>
+                </div>
+              </div>
+
+              <div class="d-flex justify-space-between align-center py-1">
+                <span class="caption teal--text text--darken-3 font-weight-medium">
+                  <v-icon x-small color="teal">mdi-keyboard-return</v-icon> ຮັບຊື້/ຮັບຄືນ:
+                </span>
+                <div class="text-right">
+                  <span class="font-weight-black teal--text text--darken-4">
+                    {{ item.boughtQty > 0 ? '+' : '' }}{{ numberWithCommas(item.boughtQty) }}
+                  </span>
+                  <span class="caption grey--text text--darken-1 d-block" style="font-size: 10px !important;">
+                    {{ numberWithCommas(item.boughtAmount) }} ₭
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Net Movement & Cash Footer -->
+            <div class="pt-2 mt-2 border-top">
+              <div class="d-flex justify-space-between align-center">
+                <span class="caption grey--text text--darken-2 font-weight-bold">ດຸນດ່ຽງສາງ:</span>
+                <v-chip
+                  x-small
+                  label
+                  :color="(item.boughtQty - item.soldQty) > 0 ? 'teal lighten-4' : ((item.boughtQty - item.soldQty) < 0 ? 'orange lighten-4' : 'grey lighten-3')"
+                  :class="(item.boughtQty - item.soldQty) > 0 ? 'teal--text text--darken-4' : ((item.boughtQty - item.soldQty) < 0 ? 'orange--text text--darken-4' : 'grey--text')"
+                  class="font-weight-black"
+                >
+                  {{ (item.boughtQty - item.soldQty) > 0 ? '+' : '' }}{{ numberWithCommas(item.boughtQty - item.soldQty) }}
+                </v-chip>
+              </div>
+              <div class="d-flex justify-space-between align-center mt-1">
+                <span class="caption grey--text text--darken-2 font-weight-bold">ກະແສເງິນສຸດທິ:</span>
+                <span
+                  class="caption font-weight-black"
+                  :class="(item.soldAmount - item.boughtAmount) >= 0 ? 'green--text text--darken-3' : 'orange--text text--darken-3'"
+                >
+                  {{ (item.soldAmount - item.boughtAmount) >= 0 ? '+' : '' }}{{ numberWithCommas(item.soldAmount - item.boughtAmount) }} ₭
+                </span>
+              </div>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+
+      <div v-else class="text-center py-4 grey--text">
+        <v-icon large color="grey lighten-1">mdi-package-variant-closed</v-icon>
+        <div class="caption mt-1">ບໍ່ມີຂໍ້ມູນການຊື້-ຂາຍບັນຈຸພັນໃນຊ່ວງເວລານີ້</div>
+      </div>
+    </v-card>
+
     <!-- Main Content Tabs -->
     <v-card outlined class="rounded-xl elevation-1 overflow-hidden">
       <v-tabs v-model="activeTab" background-color="grey lighten-4" color="primary" slider-color="primary" class="border-bottom">
-        <v-tab class="font-weight-bold text-subtitle-2 px-4">
+        <v-tab href="#tab-packing" class="font-weight-bold text-subtitle-2 px-4">
           <v-icon left small>mdi-glass-mug-variant</v-icon>
           1. ສິນຄ້າທີ່ບັນຈຸ (Packing Products - Full Cases)
           <v-chip x-small class="ml-2 font-weight-black" color="primary" dark>{{ packingProducts.length }}</v-chip>
         </v-tab>
-        <v-tab class="font-weight-bold text-subtitle-2 px-4">
+        <v-tab href="#tab-packaging" class="font-weight-bold text-subtitle-2 px-4">
           <v-icon left small>mdi-cube-outline</v-icon>
           2. ສິນຄ້າບັນຈຸພັນ (Packaging Products - Empty Assets)
           <v-chip x-small class="ml-2 font-weight-black" color="teal darken-2" dark>{{ packagingProducts.length }}</v-chip>
         </v-tab>
-        <v-tab v-if="selectedClientId !== 'retail' && customerMovements.length > 0" class="font-weight-bold text-subtitle-2 px-4">
+        <v-tab href="#tab-timeline" class="font-weight-bold text-subtitle-2 px-4">
           <v-icon left small>mdi-history</v-icon>
           3. ປະຫວັດການເຄື່ອນໄຫວລູກຄ້າ (Movement Timeline)
           <v-chip x-small class="ml-2 font-weight-black" color="amber darken-3" dark>{{ customerMovements.length }}</v-chip>
         </v-tab>
       </v-tabs>
 
-      <v-tabs-items v-model="activeTab">
+      <v-tabs-items v-model="activeTab" :touchless="true">
         <!-- TAB 1: PACKING PRODUCTS (FULL BEER CASES) -->
-        <v-tab-item>
+        <v-tab-item value="tab-packing">
           <div class="pa-4">
             <div class="d-flex justify-space-between align-center mb-3 flex-wrap">
               <span class="text-subtitle-1 font-weight-bold primary--text">
@@ -491,11 +698,11 @@
         </v-tab-item>
 
         <!-- TAB 2: PACKAGING PRODUCTS (EMPTY ASSETS ACTIVITY) -->
-        <v-tab-item>
+        <v-tab-item value="tab-packaging">
           <div class="pa-4">
             <div class="d-flex justify-space-between align-center mb-3 flex-wrap">
               <span class="text-subtitle-1 font-weight-bold teal--text text--darken-3">
-                ລາຍລະອຽດການຊື້-ຂາຍ ແລະ ຄືນມັດຈຳສິນຄ້າບັນຈຸພັນ (ລັງເປົ່າ / ແກ້ວເປົ່າ)
+                ລາຍລະອຽດການຊື້-ຂາຍ ແລະ ຄືນມັດຈຳສິນຄ້າບັນຈຸພັນ (Packaging Products - Assets Activity)
               </span>
               <v-btn
                 color="teal darken-2"
@@ -522,19 +729,21 @@
                 <div class="d-flex align-center py-1">
                   <v-avatar size="32" color="teal lighten-4" class="mr-2 rounded">
                     <v-icon small color="teal darken-3">
-                      {{ item.productName.includes('ລັງ') ? 'mdi-cube-outline' : 'mdi-glass-mug-variant' }}
+                      {{ getPackagingIcon(item.productName) }}
                     </v-icon>
                   </v-avatar>
                   <div>
                     <div class="font-weight-bold text-caption">{{ item.productName }}</div>
-                    <span class="text-caption grey--text">{{ item.barCode || '-' }}</span>
+                    <span class="text-caption grey--text">{{ item.barCode || item.categoryName || '-' }}</span>
                   </div>
                 </div>
               </template>
 
-              <!-- Sold Qty -->
+              <!-- Sold Qty (Stock OUT -) -->
               <template #item.soldQty="{ item }">
-                <span class="font-weight-bold indigo--text text--darken-3">{{ numberWithCommas(item.soldQty) }}</span>
+                <span class="font-weight-bold indigo--text text--darken-3">
+                  {{ item.soldQty > 0 ? '-' : '' }}{{ numberWithCommas(item.soldQty) }}
+                </span>
               </template>
 
               <!-- Sold Amount -->
@@ -544,9 +753,11 @@
                 </span>
               </template>
 
-              <!-- Bought Qty -->
+              <!-- Bought Qty (Stock IN +) -->
               <template #item.boughtQty="{ item }">
-                <span class="font-weight-bold teal--text text--darken-3">{{ numberWithCommas(item.boughtQty) }}</span>
+                <span class="font-weight-bold teal--text text--darken-3">
+                  {{ item.boughtQty > 0 ? '+' : '' }}{{ numberWithCommas(item.boughtQty) }}
+                </span>
               </template>
 
               <!-- Bought Amount -->
@@ -556,16 +767,16 @@
                 </span>
               </template>
 
-              <!-- Net Stock Delta -->
+              <!-- Net Stock Delta: Stock In (+) minus Stock Out (-) -->
               <template #item.netQty="{ item }">
                 <v-chip
                   small
                   label
-                  :color="item.netQty > 0 ? 'orange lighten-4' : (item.netQty < 0 ? 'teal lighten-4' : 'grey lighten-3')"
-                  :class="item.netQty > 0 ? 'orange--text text--darken-4' : (item.netQty < 0 ? 'teal--text text--darken-4' : 'grey--text')"
+                  :color="(item.boughtQty - item.soldQty) > 0 ? 'teal lighten-4' : ((item.boughtQty - item.soldQty) < 0 ? 'orange lighten-4' : 'grey lighten-3')"
+                  :class="(item.boughtQty - item.soldQty) > 0 ? 'teal--text text--darken-4' : ((item.boughtQty - item.soldQty) < 0 ? 'orange--text text--darken-4' : 'grey--text')"
                   class="font-weight-bold"
                 >
-                  {{ item.netQty > 0 ? '+' : '' }}{{ numberWithCommas(item.netQty) }}
+                  {{ (item.boughtQty - item.soldQty) > 0 ? '+' : '' }}{{ numberWithCommas(item.boughtQty - item.soldQty) }}
                 </v-chip>
               </template>
 
@@ -580,12 +791,24 @@
               <template #body.append>
                 <tr class="teal lighten-5 font-weight-black">
                   <td class="text-left font-weight-black teal--text text--darken-4">🔹 ລວມບັນຈຸພັນ (Packaging Total)</td>
-                  <td class="text-right indigo--text text--darken-3">{{ numberWithCommas(kpiData.totalPackagingSoldQty) }}</td>
+                  <td class="text-right indigo--text text--darken-3 font-weight-bold">
+                    {{ kpiData.totalPackagingSoldQty > 0 ? '-' : '' }}{{ numberWithCommas(kpiData.totalPackagingSoldQty) }}
+                  </td>
                   <td class="text-right indigo--text text--darken-4">{{ numberWithCommas(kpiData.totalPackagingSoldAmount) }} ₭</td>
-                  <td class="text-right teal--text text--darken-3">{{ numberWithCommas(kpiData.totalPackagingBoughtQty) }}</td>
+                  <td class="text-right teal--text text--darken-3 font-weight-bold">
+                    {{ kpiData.totalPackagingBoughtQty > 0 ? '+' : '' }}{{ numberWithCommas(kpiData.totalPackagingBoughtQty) }}
+                  </td>
                   <td class="text-right teal--text text--darken-4">{{ numberWithCommas(kpiData.totalPackagingBoughtAmount) }} ₭</td>
                   <td class="text-center font-weight-black">
-                    {{ (kpiData.totalPackagingSoldQty - kpiData.totalPackagingBoughtQty) > 0 ? '+' : '' }}{{ numberWithCommas(kpiData.totalPackagingSoldQty - kpiData.totalPackagingBoughtQty) }}
+                    <v-chip
+                      small
+                      label
+                      :color="(kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) > 0 ? 'teal lighten-4' : ((kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) < 0 ? 'orange lighten-4' : 'grey lighten-3')"
+                      :class="(kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) > 0 ? 'teal--text text--darken-4' : ((kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) < 0 ? 'orange--text text--darken-4' : 'grey--text')"
+                      class="font-weight-black"
+                    >
+                      {{ (kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) > 0 ? '+' : '' }}{{ numberWithCommas(kpiData.totalPackagingBoughtQty - kpiData.totalPackagingSoldQty) }}
+                    </v-chip>
                   </td>
                   <td class="text-right font-weight-black" :class="kpiData.netPackagingCash >= 0 ? 'green--text text--darken-4' : 'orange--text text--darken-4'">
                     {{ kpiData.netPackagingCash >= 0 ? '+' : '' }}{{ numberWithCommas(kpiData.netPackagingCash) }} ₭
@@ -597,7 +820,7 @@
         </v-tab-item>
 
         <!-- TAB 3: CUSTOMER MOVEMENT TIMELINE (Wholesale Route / Specific Client) -->
-        <v-tab-item v-if="selectedClientId !== 'retail' && customerMovements.length > 0">
+        <v-tab-item value="tab-timeline">
           <div class="pa-4">
             <div class="d-flex justify-space-between align-center mb-3 flex-wrap">
               <span class="text-subtitle-1 font-weight-bold amber--text text--darken-4">
@@ -614,14 +837,32 @@
               </v-btn>
             </div>
 
+            <v-alert
+              v-if="selectedClientId === 'retail'"
+              type="info"
+              outlined
+              dense
+              class="rounded-lg caption mb-3"
+            >
+              ລູກຄ້າທົ່ວໄປ (Retail Walk-in) ຊື້-ຂາຍເງິນສົດໜ້າຮ້ານ ແລະ ບໍ່ມີບັນຊີໜີ້ສິນຄ້າບັນຈຸພັນຄ້າງ.
+            </v-alert>
+
             <v-data-table
               :headers="movementHeaders"
               :items="customerMovements"
+              item-key="id"
               :loading="isLoading"
               dense
               class="elevation-0 border rounded-lg"
               :items-per-page="10"
+              no-data-text="ບໍ່ມີຂໍ້ມູນການເຄື່ອນໄຫວບັນຈຸພັນ (No Movement Records)"
             >
+              <template #no-data>
+                <div class="pa-6 text-center grey--text">
+                  <v-icon large color="grey lighten-1">mdi-clipboard-text-clock-outline</v-icon>
+                  <div class="caption mt-2 font-weight-medium">ບໍ່ມີປະຫວັດການເຄື່ອນໄຫວບັນຈຸພັນຂອງລູກຄ້າໃນຊ່ວງເວລານີ້</div>
+                </div>
+              </template>
               <!-- Date/Time -->
               <template #item.createdAt="{ item }">
                 <span class="caption">{{ formatDateTime(item.createdAt) }}</span>
@@ -698,7 +939,7 @@ export default {
       selectedClientId: 'all',
       selectedLocationId: 'all',
       clientList: [],
-      activeTab: 0,
+      activeTab: 'tab-packing',
       isLoading: false,
       packingSearch: '',
       fetchedCompany: null,
@@ -737,13 +978,13 @@ export default {
         { text: 'ແກ້ວທີ່ຈ່າຍອອກ (Bottles Out)', value: 'dispatchedBottles', align: 'right', width: '150px' }
       ],
       packagingHeaders: [
-        { text: 'ບັນຈຸພັນ (Packaging Asset)', value: 'productName', width: '260px' },
-        { text: 'ຂາຍ/ມັດຈຳ (Sold Qty)', value: 'soldQty', align: 'right', width: '140px' },
-        { text: 'ຍອດຂາຍ/ມັດຈຳ (Sold Amount)', value: 'soldAmount', align: 'right', width: '170px' },
-        { text: 'ຮັບຊື້/ຄືນ (Bought Qty)', value: 'boughtQty', align: 'right', width: '140px' },
-        { text: 'ຈ່າຍຄືນ (Refunded Amount)', value: 'boughtAmount', align: 'right', width: '170px' },
-        { text: 'ສ່ວນຕ່າງຈຳນວນ (Net Qty)', value: 'netQty', align: 'center', width: '140px' },
-        { text: 'ກະແສເງິນສຸດທິ (Net Cash)', value: 'netAmount', align: 'right', width: '170px' }
+        { text: 'ບັນຈຸພັນ (Packaging Product)', value: 'productName', width: '260px' },
+        { text: 'ຂາຍ/ຈ່າຍອອກ (Sold Out -)', value: 'soldQty', align: 'right', width: '150px' },
+        { text: 'ຍອດຂາຍ/ມັດຈຳ (Sold Amount)', value: 'soldAmount', align: 'right', width: '160px' },
+        { text: 'ຮັບຊື້/ຮັບຄືນ (Bought In +)', value: 'boughtQty', align: 'right', width: '150px' },
+        { text: 'ຈ່າຍຄືນ (Refunded Amount)', value: 'boughtAmount', align: 'right', width: '160px' },
+        { text: 'ດຸນດ່ຽງສາງ (Stock Delta)', value: 'netQty', align: 'center', width: '140px' },
+        { text: 'ກະແສເງິນສຸດທິ (Net Cash)', value: 'netAmount', align: 'right', width: '160px' }
       ],
       movementHeaders: [
         { text: 'ວັນທີ/ເວລາ', value: 'createdAt', width: '140px' },
@@ -815,6 +1056,17 @@ export default {
     ])
   },
   methods: {
+    getPackagingIcon(name) {
+      if (!name) return 'mdi-package-variant-closed'
+      const lower = name.toLowerCase()
+      if (lower.includes('ລັງ') || lower.includes('crate') || lower.includes('box')) return 'mdi-cube-outline'
+      if (lower.includes('ແກ້ວ') || lower.includes('ຂວດ') || lower.includes('bottle')) return 'mdi-glass-mug-variant'
+      if (lower.includes('ຖັງ') || lower.includes('keg') || lower.includes('barrel') || lower.includes('drum')) return 'mdi-barrel'
+      if (lower.includes('ກະຕ່າ') || lower.includes('basket')) return 'mdi-basket-outline'
+      if (lower.includes('ພາເລັດ') || lower.includes('pallet')) return 'mdi-pallet'
+      return 'mdi-package-variant-closed'
+    },
+
     async fetchCompanyDetails() {
       if (this.findAllCompany && this.findAllCompany.length > 0) {
         return
@@ -923,7 +1175,16 @@ export default {
           this.kpiData = d.kpi || this.kpiData
           this.packingProducts = d.packingProducts || []
           this.packagingProducts = d.packagingProducts || []
-          this.customerMovements = d.customerMovements || []
+          // Deduplicate customer movements by unique id to prevent double rows
+          const rawMovements = d.customerMovements || []
+          const seenIds = new Set()
+          this.customerMovements = rawMovements.filter(m => {
+            if (!m) return false
+            const key = m.id ? String(m.id) : `${m.createdAt}_${m.clientId}_${m.packagingProductId}_${m.qtyChange}`
+            if (seenIds.has(key)) return false
+            seenIds.add(key)
+            return true
+          })
         }
       } catch (err) {
         if (this.$toast) {
@@ -1014,8 +1275,8 @@ export default {
           'ລວມລັງຂາຍ (Total Cases)',
           'ຍອດຂາຍ (Revenue)',
           'ສະກຸນເງິນ (CCY)',
-          'ລັງທີ່ຈ່າຍອອກ (Crates Dispatched)',
-          'ແກ້ວທີ່ຈ່າຍອອກ (Bottles Dispatched)'
+          'ບັນຈຸພັນຈ່າຍອອກ (Packaging Out)',
+          'ແກ້ວ/ລູກຈ່າຍອອກ (Units Out)'
         ])
         h1.font = { bold: true, color: { argb: 'FFFFFFFF' } }
         h1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFB45309' } }
@@ -1052,39 +1313,40 @@ export default {
         tot1.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FFFDE68A' } }
 
         // ==========================================
-        // SHEET 2: PACKAGING ASSETS (CRATES / BOTTLES)
+        // SHEET 2: PACKAGING PRODUCTS ACTIVITY
         // ==========================================
-        const sheet2 = workbook.addWorksheet('Packaging Assets Activity')
+        const sheet2 = workbook.addWorksheet('Packaging Products Activity')
 
-        const titleRow2 = sheet2.addRow(['ລາຍງານການຊື້-ຂາຍ ແລະ ຄືນມັດຈຳບັນຈຸພັນ / Packaging Assets Sales & Buy-backs'])
+        const titleRow2 = sheet2.addRow(['ລາຍງານການຊື້-ຂາຍ ແລະ ຄືນມັດຈຳບັນຈຸພັນ / Packaging Products Sales & Buy-backs'])
         titleRow2.font = { size: 14, bold: true, color: { argb: 'FF0F766E' } }
         sheet2.addRow([`ລູກຄ້າ: ${clientLabel}`, `ຊ່ວງວັນທີ: ${this.startDate} ຫາ ${this.endDate}`])
         sheet2.addRow([])
 
         const h2 = sheet2.addRow([
           'ລ/ດ',
-          'ຊື່ບັນຈຸພັນ (Packaging Asset)',
+          'ຊື່ບັນຈຸພັນ (Packaging Product)',
           'ບາໂຄ້ດ (Barcode)',
-          'ຂາຍ/ມັດຈຳ (Sold Qty)',
+          'ຂາຍ/ຈ່າຍອອກ (Sold Out -)',
           'ຍອດຂາຍ/ມັດຈຳ (Sold Amount LAK)',
-          'ຮັບຊື້/ຄືນ (Bought Qty)',
+          'ຮັບຊື້/ຮັບຄືນ (Bought In +)',
           'ຈ່າຍຄືນ (Refunded Amount LAK)',
-          'ສ່ວນຕ່າງຈຳນວນ (Net Qty)',
+          'ດຸນດ່ຽງສາງ (Stock Delta)',
           'ກະແສເງິນສຸດທິ (Net Cash LAK)'
         ])
         h2.font = { bold: true, color: { argb: 'FFFFFFFF' } }
         h2.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF0F766E' } }
 
         this.packagingProducts.forEach((p, idx) => {
+          const stockDelta = (p.boughtQty || 0) - (p.soldQty || 0)
           sheet2.addRow([
             idx + 1,
             p.productName,
             p.barCode || '',
-            p.soldQty,
+            p.soldQty > 0 ? -p.soldQty : 0,
             p.soldAmount,
-            p.boughtQty,
+            p.boughtQty > 0 ? p.boughtQty : 0,
             p.boughtAmount,
-            p.netQty,
+            stockDelta,
             p.netAmount
           ])
         })
@@ -1093,11 +1355,11 @@ export default {
           'ລວມທັງໝົດ',
           '',
           '',
-          this.kpiData.totalPackagingSoldQty,
+          this.kpiData.totalPackagingSoldQty > 0 ? -this.kpiData.totalPackagingSoldQty : 0,
           this.kpiData.totalPackagingSoldAmount,
-          this.kpiData.totalPackagingBoughtQty,
+          this.kpiData.totalPackagingBoughtQty > 0 ? this.kpiData.totalPackagingBoughtQty : 0,
           this.kpiData.totalPackagingBoughtAmount,
-          this.kpiData.totalPackagingSoldQty - this.kpiData.totalPackagingBoughtQty,
+          (this.kpiData.totalPackagingBoughtQty || 0) - (this.kpiData.totalPackagingSoldQty || 0),
           this.kpiData.netPackagingCash
         ])
         tot2.font = { bold: true }
@@ -1148,6 +1410,12 @@ export default {
 .border-bottom {
   border-bottom: 1px solid #e0e0e0 !important;
 }
+.border-top {
+  border-top: 1px solid #e2e8f0 !important;
+}
+.border-top-dashed {
+  border-top: 1px dashed #cbd5e1 !important;
+}
 .border-amber {
   border: 1px solid #ffe082 !important;
 }
@@ -1168,5 +1436,23 @@ export default {
 }
 .border-purple {
   border: 1px solid #e9d5ff !important;
+}
+.bg-gradient-breakdown {
+  background: linear-gradient(135deg, #f8fafc 0%, #f0fdfa 100%) !important;
+  border: 1.5px solid #ccfbf1 !important;
+}
+.border-item-card {
+  border: 1px solid #e2e8f0 !important;
+  background-color: #ffffff !important;
+  transition: all 0.2s ease-in-out;
+}
+.border-item-card:hover {
+  border-color: #0d9488 !important;
+  box-shadow: 0 4px 12px rgba(13, 148, 136, 0.12) !important;
+}
+
+/* Ensure inactive tab items in Vuetify are strictly hidden to prevent simultaneous display */
+::v-deep .v-window-item:not(.v-window-item--active) {
+  display: none !important;
 }
 </style>

@@ -537,7 +537,7 @@ export default {
 
     getPhotoUrl(photoPath) {
       if (!photoPath) return '';
-      const baseURL = this.$axios.defaults.baseURL || 'http://162.35.18.246:8054';
+      const baseURL = this.$axios.defaults.baseURL || 'http://150.95.31.23:8052';
       return `${baseURL.replace(/\/$/, '')}${photoPath}`;
     },
 

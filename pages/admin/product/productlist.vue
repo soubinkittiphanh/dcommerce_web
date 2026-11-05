@@ -69,7 +69,7 @@
                   <v-spacer></v-spacer>
                   <v-col cols="auto" class="py-1">
                     <div class="d-flex align-center gap-2 flex-wrap">
-                      <v-btn small outlined color="success" class="rounded-lg" @click="exportToExcel">
+                      <v-btn small outlined color="success" class="rounded-lg" :loading="isExporting" @click="exportToExcel">
                         <v-icon left small>mdi-microsoft-excel</v-icon>
                         Export
                       </v-btn>
@@ -84,19 +84,19 @@
                           </v-btn>
                         </template>
                         <v-list dense class="py-2">
-                          <v-list-item @click="importDialog = true">
+                          <v-list-item @click="openImportDialog('product')">
                             <v-list-item-icon class="mr-2">
                               <v-icon small color="indigo">mdi-file-upload</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Import Excel</v-list-item-title>
                           </v-list-item>
-                          <v-list-item @click="priceImportDialog = true">
+                          <v-list-item @click="openImportDialog('price')">
                             <v-list-item-icon class="mr-2">
                               <v-icon small color="purple">mdi-currency-usd</v-icon>
                             </v-list-item-icon>
                             <v-list-item-title>Import Price Update</v-list-item-title>
                           </v-list-item>
-                          <v-list-item @click="stockImportDialog = true">
+                          <v-list-item @click="openImportDialog('stock')">
                             <v-list-item-icon class="mr-2">
                               <v-icon small color="orange darken-2">mdi-clipboard-arrow-down</v-icon>
                             </v-list-item-icon>
@@ -426,9 +426,24 @@
     </v-dialog>
 
     <!-- Import Dialog -->
-    <product-import-dialog v-model="importDialog" :products="loaddata" @imported="fetchData" />
-    <price-import-dialog v-model="priceImportDialog" :products="loaddata" @imported="fetchData" />
-    <stock-import-dialog v-model="stockImportDialog" :location-id="currentSelectedLocation ? currentSelectedLocation.id : null" @imported="fetchData" />
+    <product-import-dialog
+      v-model="importDialog"
+      :products="allProductsForImport.length ? allProductsForImport : loaddata"
+      :location-id="currentSelectedLocation ? currentSelectedLocation.id : (findAllLocation && findAllLocation.length > 0 ? findAllLocation[0].id : 1)"
+      @imported="handleImported"
+    />
+    <price-import-dialog
+      v-model="priceImportDialog"
+      :products="allProductsForImport.length ? allProductsForImport : loaddata"
+      :location-id="currentSelectedLocation ? currentSelectedLocation.id : (findAllLocation && findAllLocation.length > 0 ? findAllLocation[0].id : 1)"
+      @imported="handleImported"
+    />
+    <stock-import-dialog
+      v-model="stockImportDialog"
+      :products="allProductsForImport.length ? allProductsForImport : loaddata"
+      :location-id="currentSelectedLocation ? currentSelectedLocation.id : (findAllLocation && findAllLocation.length > 0 ? findAllLocation[0].id : 1)"
+      @imported="handleImported"
+    />
 
     <!-- Dialog for Stock Details (Fullscreen) -->
     <v-dialog
@@ -1124,6 +1139,7 @@ export default {
       selectedProductCost: 0,
       selectedProductName: '',
       isloading: false,
+      isExporting: false,
       isTableLoading: false,
       dialogMessage: false,
       message: '',
@@ -1179,6 +1195,7 @@ export default {
       importDialog: false,
       stockImportDialog: false,
       priceImportDialog: false,
+      allProductsForImport: [],
       stockAdjustDialog: false,
       selectedProductForAdjust: null,
       isSavingAdjust: false,
@@ -1330,10 +1347,6 @@ export default {
       const page = this.tableOptions.page || 1
       const limit = this.tableOptions.itemsPerPage || 30
       return Math.min(page * limit, this.totalProducts)
-    },
-
-    previewBarcodeProducts() {
-      return (this.filteredProducts || []).slice(0, 100)
     },
 
     filteredProducts() {
@@ -1601,18 +1614,12 @@ export default {
     },
 
     async printProductReport() {
+      this.isloading = true
       try {
-        let printItems = this.loaddata
-        if (this.totalProducts > this.loaddata.length) {
-          this.isloading = true
-          const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
-          const search = this.searchApplied || ''
-          const isActive = this.showActive ? 0 : 1
-          const res = await this.$axios.get(`product_f_v2/${locationId}`, {
-            params: { include: 'priceList', limit: -1, search, isActive }
-          })
-          const allProducts = res.data?.data || []
-          printItems = allProducts.map((el) => this.mapProductItem(el))
+        const printItems = await this.fetchAllProductsForExportOrPrint()
+        if (!printItems || printItems.length === 0) {
+          swalError2(this.$swal, 'ແຈ້ງເຕືອນ', 'ບໍ່ພົບລາຍການສິນຄ້າສຳລັບພິມ (No products found to print)')
+          return
         }
 
         const companyData = mainCompanyInfo() || {}
@@ -2133,52 +2140,159 @@ export default {
       this.profitMargin = 0
     },
 
-    async exportToExcel() {
+    openImportDialog(type) {
+      if (type === 'product') {
+        this.importDialog = true
+      } else if (type === 'price') {
+        this.priceImportDialog = true
+      } else if (type === 'stock') {
+        this.stockImportDialog = true
+      }
+    },
+
+    async handleImported() {
+      this.allProductsForImport = []
+      await this.fetchData()
+    },
+
+    async fetchAllProductsForExportOrPrint(options = {}) {
+      const { ignoreFilters = false } = options
+      const locationId = this.currentSelectedLocation 
+        ? this.currentSelectedLocation.id 
+        : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
+      const search = ignoreFilters
+        ? ''
+        : ((this.searchApplied !== undefined && this.searchApplied !== null && this.searchApplied !== '') 
+          ? this.searchApplied 
+          : (this.search ? this.search.trim() : ''))
+      const isActive = ignoreFilters ? 1 : (this.showActive ? 0 : 1)
+      const sortBy = this.tableOptions.sortBy && this.tableOptions.sortBy.length > 0 ? this.tableOptions.sortBy[0] : 'id'
+      const sortDesc = this.tableOptions.sortDesc && this.tableOptions.sortDesc.length > 0 ? this.tableOptions.sortDesc[0] : false
+
+      let allProducts = []
       try {
-        let exportData = this.loaddata
-        if (this.totalProducts > this.loaddata.length) {
-          this.isloading = true
-          const locationId = this.currentSelectedLocation ? this.currentSelectedLocation.id : (this.findAllLocation && this.findAllLocation.length > 0 ? this.findAllLocation[0].id : 1)
-          const search = this.searchApplied || ''
-          const isActive = this.showActive ? 0 : 1
-          let allProducts = []
-          try {
-            const res = await this.$axios.get(`product_f_v2/${locationId}`, {
-              params: { include: 'priceList', limit: -1, search, isActive }
-            })
-            allProducts = res.data?.data || []
-          } catch (v2Err) {
-            console.warn('product_f_v2 export fallback to v1:', v2Err)
-            const fallbackRes = await this.$axios.get(`product_f_v1/${locationId}`, {
-              params: { include: 'priceList', isActive: false }
-            })
-            let all = fallbackRes.data?.data || []
-            if (this.showActive) {
-              all = all.filter(p => p.isActive === 0 || p.isActive === false || p.isActive === '0')
-            } else {
-              all = all.filter(p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined)
-            }
-            if (search) {
-              const q = search.toLowerCase()
-              all = all.filter(p => {
-                const name = (p.pro_name || '').toLowerCase()
-                const code = (p.product_code || '').toLowerCase()
-                const bar = (p.barCode || '').toLowerCase()
-                const proId = String(p.pro_id || '')
-                const cat = (p.categ_name || '').toLowerCase()
-                const vendor = (p.vendorName || '').toLowerCase()
-                return name.includes(q) || code.includes(q) || bar.includes(q) || proId.includes(q) || cat.includes(q) || vendor.includes(q)
-              })
-            }
-            allProducts = all
+        const res = await this.$axios.get(`product_f_v2/${locationId}`, {
+          params: { 
+            include: 'priceList', 
+            page: 1,
+            limit: 10000, 
+            search, 
+            isActive, 
+            sortBy, 
+            sortDesc 
           }
-          exportData = allProducts.map((el) => this.mapProductItem(el))
+        })
+        const rawList = res.data?.data ?? res.data ?? []
+        let list = Array.isArray(rawList) ? rawList : (Array.isArray(rawList?.data) ? rawList.data : [])
+        const total = res.data?.total !== undefined ? Number(res.data.total) : list.length
+        const pageSize = list.length || 30
+        const totalPages = res.data?.totalPages || (total > pageSize ? Math.ceil(total / pageSize) : 1)
+
+        if (list.length > 0 && (list.length < total || totalPages > 1)) {
+          const calculatedTotalPages = Math.max(totalPages, Math.ceil(total / list.length))
+          // Only paginate v2 if total pages is small (<= 5); otherwise fall through to single-request product_f_v1
+          if (calculatedTotalPages <= 5) {
+            const pagePromises = []
+            for (let p = 2; p <= calculatedTotalPages; p++) {
+              pagePromises.push(
+                this.$axios.get(`product_f_v2/${locationId}`, {
+                  params: {
+                    include: 'priceList',
+                    page: p,
+                    limit: list.length,
+                    search,
+                    isActive,
+                    sortBy,
+                    sortDesc,
+                  }
+                })
+              )
+            }
+            const pageResults = await Promise.all(pagePromises)
+            pageResults.forEach((pRes) => {
+              const pRaw = pRes.data?.data ?? pRes.data ?? []
+              const pList = Array.isArray(pRaw) ? pRaw : (Array.isArray(pRaw?.data) ? pRaw.data : [])
+              list = list.concat(pList)
+            })
+            allProducts = list
+          }
+        } else {
+          allProducts = list
+        }
+      } catch (v2Err) {
+        console.warn('product_f_v2 fetchAllProducts fallback to v1:', v2Err)
+      }
+
+      if (!allProducts || allProducts.length === 0) {
+        try {
+          const fallbackRes = await this.$axios.get(`product_f_v1/${locationId}`, {
+            params: { include: 'priceList', isActive: false }
+          })
+          let all = fallbackRes.data?.data ?? fallbackRes.data ?? []
+          if (!Array.isArray(all)) all = []
+
+          if (!ignoreFilters && this.showActive) {
+            all = all.filter(p => p.isActive === 0 || p.isActive === false || p.isActive === '0')
+          } else {
+            all = all.filter(p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined)
+          }
+
+          if (search) {
+            const q = search.toLowerCase()
+            all = all.filter(p => {
+              const name = (p.pro_name || '').toLowerCase()
+              const code = (p.product_code || '').toLowerCase()
+              const bar = (p.barCode || '').toLowerCase()
+              const proId = String(p.pro_id || '')
+              const cat = (p.categ_name || '').toLowerCase()
+              const vendor = (p.vendorName || '').toLowerCase()
+              return name.includes(q) || code.includes(q) || bar.includes(q) || proId.includes(q) || cat.includes(q) || vendor.includes(q)
+            })
+          }
+
+          all.sort((a, b) => {
+            let valA = a[sortBy] ?? a.id
+            let valB = b[sortBy] ?? b.id
+            if (typeof valA === 'string') valA = valA.toLowerCase()
+            if (typeof valB === 'string') valB = valB.toLowerCase()
+            if (valA < valB) return sortDesc ? 1 : -1
+            if (valA > valB) return sortDesc ? -1 : 1
+            return 0
+          })
+          allProducts = all
+        } catch (v1Err) {
+          console.error('product_f_v1 fallback also failed:', v1Err)
+        }
+      }
+
+      // If backend returned 0 items, check if current loaddata has items as emergency safety net
+      if ((!allProducts || allProducts.length === 0) && this.loaddata && this.loaddata.length > 0) {
+        console.warn('fetchAllProducts returned 0 items, using currently loaded page as emergency fallback')
+        return this.loaddata
+      }
+
+      if (!this.categoryList || this.categoryList.length === 0) {
+        await this.loadCategories()
+      }
+
+      return Object.freeze(allProducts.map((el) => Object.freeze(this.mapProductItem(el))))
+    },
+
+    async exportToExcel() {
+      this.isExporting = true
+      this.isloading = true
+      try {
+        const exportData = await this.fetchAllProductsForExportOrPrint()
+        if (!exportData || exportData.length === 0) {
+          swalError2(this.$swal, 'ແຈ້ງເຕືອນ', 'ບໍ່ພົບລາຍການສິນຄ້າເພື່ອສົ່ງອອກ (No products found to export)')
+          return
         }
         this.runExportExcel(exportData)
       } catch (err) {
         console.error('Export error: ', err)
         swalError2(this.$swal, 'Error', 'ເກີດຂໍ້ຜິດພາດໃນການສົ່ງອອກຂໍ້ມູນ')
       } finally {
+        this.isExporting = false
         this.isloading = false
       }
     },
@@ -2571,8 +2685,6 @@ export default {
           const offset = (page - 1) * limit
           products = all.slice(offset, offset + limit)
         }
-
-        this.initProduct(products)
 
         if (!this.categoryList || this.categoryList.length === 0) {
           await this.loadCategories()

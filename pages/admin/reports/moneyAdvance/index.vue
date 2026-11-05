@@ -135,6 +135,8 @@
 </template>
 
 <script>
+import { printMoneyAdvanceLedgerReport } from '~/common/moneyAdvanceLedgerPrintTemplate'
+
 export default {
   name: 'MoneyAdvanceLedgerReport',
   data() {
@@ -148,6 +150,8 @@ export default {
         toDate: ''
       },
       ledgerEntries: [],
+      periodAdvanceDocs: [],
+      periodSettlementDocs: [],
       broughtForward: 0,
       totalAdvances: 0,
       totalSettlements: 0,
@@ -322,6 +326,12 @@ export default {
         this.totalSettlements = periodSettlements
         this.currentOutstanding = runningBalance
         this.ledgerEntries = finalEntries
+        this.periodAdvanceDocs = periodTransactions
+          .filter((tx) => tx.type === 'ADVANCE' && tx.originalDoc)
+          .map((tx) => tx.originalDoc)
+        this.periodSettlementDocs = periodTransactions
+          .filter((tx) => tx.type === 'SETTLEMENT' && tx.originalDoc)
+          .map((tx) => tx.originalDoc)
 
       } catch (error) {
         console.error('Error computing ledger:', error)
@@ -398,7 +408,22 @@ export default {
       }
     },
     printReport() {
-      window.print()
+      const selectedMinistry =
+        this.filters.ministryId && this.filters.ministryId !== 'ALL'
+          ? this.ministries.find((m) => m.id === this.filters.ministryId)
+          : null
+      const ministryName = selectedMinistry
+        ? `${selectedMinistry.ministryCode ? selectedMinistry.ministryCode + ' - ' : ''}${selectedMinistry.ministryName}`
+        : ''
+
+      printMoneyAdvanceLedgerReport({
+        reportData: this.periodAdvanceDocs,
+        settlements: this.periodSettlementDocs,
+        filters: this.filters,
+        user: this.$auth?.user || {},
+        ministryName,
+        openingBalance: this.broughtForward,
+      })
     }
   }
 }

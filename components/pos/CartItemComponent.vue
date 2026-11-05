@@ -201,6 +201,7 @@
 <script>
 import GiftDialog from '~/components/card/GiftDialog.vue'
 import { mapActions, mapGetters } from 'vuex'
+import { isPackagingProduct } from '~/common'
 export default {
   name: 'CartItem',
 
@@ -228,13 +229,7 @@ export default {
   computed: {
     ...mapGetters(['currentSelectedCustomer', 'cartOfProduct', 'findAllCurrency', 'findAllUnit']),
     isPackagingAssetItem() {
-      if (this.item.isPackagingAsset === true ||
-          this.item.isReturnablePackaging === true ||
-          this.item.packagingAction === 'SOLD' ||
-          this.item.packagingAction === 'RETURNED' ||
-          this.item.isReturn === true) {
-        return true
-      }
+      return isPackagingProduct(this.item) || this.item.packagingAction === 'SOLD' || (this.item.packagingAction === 'RETURNED' && isPackagingProduct(this.item))
     },
     isItemReturn() {
       return this.item.isReturn === true || this.item.packagingAction === 'RETURNED'

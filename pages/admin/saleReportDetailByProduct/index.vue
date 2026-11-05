@@ -83,7 +83,7 @@
     <v-card outlined class="rounded-lg shadow-sm mb-6">
       <v-card-text class="pa-4 grey lighten-4">
         <v-row dense class="align-center">
-          <v-col cols="12" md="2">
+          <v-col cols="12" sm="6" md="2">
             <v-menu ref="menu1" v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y
               min-width="auto">
               <template v-slot:activator="{ on, attrs }">
@@ -93,7 +93,7 @@
               <v-date-picker v-model="date" no-title @input="menu1 = false"></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col cols="12" md="2">
+          <v-col cols="12" sm="6" md="2">
             <v-menu ref="menu2" v-model="menu2" :close-on-content-click="false" transition="scale-transition" offset-y
               min-width="auto">
               <template v-slot:activator="{ on, attrs }">
@@ -103,16 +103,21 @@
               <v-date-picker v-model="date2" no-title @input="menu2 = false"></v-date-picker>
             </v-menu>
           </v-col>
-          <v-col cols="12" md="3">
-            <v-autocomplete v-model="creteria.productId" :items="productList" item-text="pro_name" item-value="id"
-              label="Product" prepend-inner-icon="mdi-package" outlined dense hide-details clearable
+          <v-col cols="12" sm="6" md="2">
+            <v-autocomplete v-model="creteria.categoryId" :items="categoryList" item-text="categ_name"
+              item-value="categ_id" label="ໝວດໝູ່ (Category)" prepend-inner-icon="mdi-shape" outlined dense
+              hide-details clearable @change="onCategoryChange"></v-autocomplete>
+          </v-col>
+          <v-col cols="12" sm="6" md="2">
+            <v-autocomplete v-model="creteria.productId" :items="filteredProductList" item-text="pro_name" item-value="id"
+              label="ສິນຄ້າ (Product)" prepend-inner-icon="mdi-package" outlined dense hide-details clearable
               @change="loadData"></v-autocomplete>
           </v-col>
-          <v-col cols="12" md="4">
+          <v-col cols="12" sm="9" md="3">
             <v-text-field v-model="search" label="Search report items..." prepend-inner-icon="mdi-magnify" outlined
               dense hide-details clearable></v-text-field>
           </v-col>
-          <v-col cols="12" md="1" class="text-right">
+          <v-col cols="12" sm="3" md="1" class="text-right">
             <v-btn color="primary" icon @click="loadData" :loading="isloading" class="elevation-1 white">
               <v-icon>mdi-refresh</v-icon>
             </v-btn>
@@ -211,6 +216,10 @@
       <v-card-title class="pa-4 grey lighten-5  font-weight-bold d-flex align-center">
         <v-icon left color="primary" small>mdi-format-list-bulleted</v-icon>
         DETAILED PRODUCT SALES
+        <v-chip v-if="selectedCategoryLabel" color="secondary lighten-5" small label text-color="secondary"
+          class="font-weight-bold ml-2">
+          ໝວດ: {{ selectedCategoryLabel }}
+        </v-chip>
         <v-spacer></v-spacer>
         <v-chip color="primary lighten-5" small label text-color="primary" class="font-weight-bold">
           {{ activeOrderHeaderList.length }} ITEMS FOUND
@@ -318,7 +327,9 @@ export default {
       cancelForm: false,
       OrderIdSelected: '',
       productList: [],
+      categoryList: [],
       creteria: {
+        categoryId: null,
         productId: -1,
       },
       enhancedHeaders: [
@@ -366,6 +377,7 @@ export default {
   },
 
   async created() {
+    await this.loadCategories()
     await this.loadData()
     await this.loadProduct()
   },
@@ -401,6 +413,23 @@ export default {
       return this.findAllCurrency?.find(c => c.isLocalCCY === true || c.isLocalCCY === 1);
     },
 
+    filteredProductList() {
+      if (!this.creteria.categoryId || this.creteria.categoryId === -1) {
+        return this.productList;
+      }
+      return this.productList.filter((p) => {
+        if (p.id === -1) return true;
+        const pCatId = p.pro_category ?? p.category?.categ_id ?? p.category?.id ?? p.categoryId;
+        return String(pCatId) === String(this.creteria.categoryId);
+      });
+    },
+
+    selectedCategoryLabel() {
+      if (!this.creteria.categoryId || this.creteria.categoryId === -1) return '';
+      const cat = this.categoryList.find(c => String(c.categ_id) === String(this.creteria.categoryId));
+      return cat ? cat.categ_name : '';
+    },
+
     activeOrderHeaderList() {
       const productMap = {};
 
@@ -415,6 +444,21 @@ export default {
 
         order.lines?.forEach((line) => {
           if (!line.product) return;
+
+          // Resolve category if missing
+          if (!line.product.category && (line.product.pro_category || line.product.categoryId)) {
+            const catId = line.product.pro_category || line.product.categoryId;
+            const foundCat = this.categoryList.find(c => c.categ_id && String(c.categ_id) === String(catId));
+            if (foundCat) {
+              line.product.category = foundCat;
+            }
+          }
+
+          // Apply Category Selection Filter
+          if (this.creteria.categoryId !== null && this.creteria.categoryId !== undefined && this.creteria.categoryId !== -1 && this.creteria.categoryId !== '') {
+            const lineCatId = line.product.category?.categ_id ?? line.product.category?.id ?? line.product.pro_category ?? line.product.categoryId;
+            if (String(lineCatId) !== String(this.creteria.categoryId)) return;
+          }
 
           // Apply Product Selection Filter (Strict)
           if (this.creteria.productId && this.creteria.productId !== -1 && line.product.id !== this.creteria.productId) return;
@@ -477,6 +521,21 @@ export default {
 
         order.lines?.forEach((line) => {
           if (!line.product) return;
+
+          // Resolve category if missing
+          if (!line.product.category && (line.product.pro_category || line.product.categoryId)) {
+            const catId = line.product.pro_category || line.product.categoryId;
+            const foundCat = this.categoryList.find(c => c.categ_id && String(c.categ_id) === String(catId));
+            if (foundCat) {
+              line.product.category = foundCat;
+            }
+          }
+
+          // Apply Category Selection Filter
+          if (this.creteria.categoryId !== null && this.creteria.categoryId !== undefined && this.creteria.categoryId !== -1 && this.creteria.categoryId !== '') {
+            const lineCatId = line.product.category?.categ_id ?? line.product.category?.id ?? line.product.pro_category ?? line.product.categoryId;
+            if (String(lineCatId) !== String(this.creteria.categoryId)) return;
+          }
 
           if (this.creteria.productId && this.creteria.productId !== -1 && line.product.id !== this.creteria.productId) return;
 
@@ -676,6 +735,12 @@ export default {
         if (this.$auth && this.$auth.user) {
           companyData.user = this.$auth.user.cus_name || this.$auth.user.name
         }
+        if (this.currentSelectedLocation?.name) {
+          companyData.location = this.currentSelectedLocation.name
+        }
+        if (this.selectedCategoryLabel) {
+          companyData.category = this.selectedCategoryLabel
+        }
 
         const htmlContent = generateProductSalesReportHTML(
           this.activeOrderHeaderList,
@@ -721,7 +786,7 @@ export default {
           ສິນຄ້າ: product,
           ຫມວດໝູ່: iterator['product']['category']
             ? iterator['product']['category']['categ_name']
-            : 'ບໍ່ມີໝວດໝູ່',
+            : (this.categoryList.find(c => c.categ_id && String(c.categ_id) === String(iterator['product']['pro_category']))?.categ_name || 'ບໍ່ມີໝວດໝູ່'),
           ຈຳນວນ: iterator['totalQTY'],
           'ລາຄາ/ໜ່ວຍ': Math.round(avgPrice),
           'ສ່ວນຫຼຸດ (%)': discountPercentage + '%',
@@ -739,9 +804,10 @@ export default {
         worksheet,
         'Product Sales Report'
       )
+      const catSuffix = this.selectedCategoryLabel ? `_${this.selectedCategoryLabel.replace(/\s+/g, '_')}` : ''
       this.$xlsx.writeFile(
         workbook,
-        `product_sales_report_${this.date}_to_${this.date2}.xlsx`
+        `product_sales_report_${this.date}_to_${this.date2}${catSuffix}.xlsx`
       )
     },
 
@@ -785,6 +851,7 @@ export default {
           <div class="header">
             <h2>PRODUCT SALES AUDIT REPORT</h2>
             <p>Period: ${this.dateFormatted} - ${this.dateFormatted2}</p>
+            ${this.selectedCategoryLabel ? `<p>Category: <strong>${this.selectedCategoryLabel}</strong></p>` : ''}
             <p>Generated: ${new Date().toLocaleDateString()}</p>
           </div>
 
@@ -907,6 +974,7 @@ export default {
         auditData.push({
           'Report Type': 'Product Sales External Audit Report',
           Period: `${this.dateFormatted} - ${this.dateFormatted2}`,
+          Category: this.selectedCategoryLabel || 'All Categories',
           'Generated On': new Date().toLocaleDateString(),
           'Generated By': this.user?.name || 'System',
           Location: this.currentSelectedLocation?.name || 'All Locations',
@@ -1028,6 +1096,7 @@ export default {
         startDate: this.date,
         endDate: this.date2,
         productId: this.creteria.productId,
+        categoryId: this.creteria.categoryId,
         locationId: locationId,
       }
 
@@ -1038,7 +1107,7 @@ export default {
 
       try {
         const response = await this.$axios.get(apiLine, { params: { date } })
-        this.orderHeaderList = response.data
+        this.orderHeaderList = response.data || []
       } catch (error) {
         swalError2(
           this.$swal,
@@ -1048,6 +1117,43 @@ export default {
       }
 
       this.isloading = false
+    },
+
+    async loadCategories() {
+      try {
+        let categories = []
+        try {
+          const response = await this.$axios.get('/api/category/findAll')
+          categories = response.data?.data || response.data || []
+        } catch (e) {
+          const response = await this.$axios.get('api/category/find')
+          categories = response.data?.data || response.data || []
+        }
+
+        const list = (Array.isArray(categories) ? categories : []).map(c => ({
+          categ_id: c.categ_id ?? c.id,
+          categ_name: c.categ_name ?? c.name ?? `ໝວດ #${c.categ_id || c.id}`,
+          ...c
+        }))
+
+        this.categoryList = [
+          { categ_id: null, categ_name: 'ທັງຫມົດ (All Categories)' },
+          ...list
+        ]
+      } catch (error) {
+        console.error('Category load error:', error)
+        this.categoryList = [{ categ_id: null, categ_name: 'ທັງຫມົດ (All Categories)' }]
+      }
+    },
+
+    onCategoryChange() {
+      if (this.creteria.productId && this.creteria.productId !== -1) {
+        const stillValid = this.filteredProductList.some(p => p.id === this.creteria.productId)
+        if (!stillValid) {
+          this.creteria.productId = -1
+        }
+      }
+      this.loadData()
     },
 
     async loadProduct() {

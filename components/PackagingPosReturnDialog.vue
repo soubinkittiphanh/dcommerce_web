@@ -220,7 +220,7 @@
 </template>
 
 <script>
-import { swalSuccess, swalError2 } from '~/common'
+import { swalSuccess, swalError2, isPackagingProduct } from '~/common'
 
 export default {
   name: 'PackagingPosReturnDialog',
@@ -268,8 +268,10 @@ export default {
     }
   },
   mounted() {
-    this.loadClients()
-    this.loadPackagingProducts()
+    if (this.dialog) {
+      this.loadClients()
+      this.loadPackagingProducts()
+    }
   },
   computed: {
     totalRefundAmount() {
@@ -347,8 +349,7 @@ export default {
 
       this.clientPackagingBalances.forEach(bal => {
         const targetLine = this.returnLines.find(
-          l => String(l.packagingProductId) === String(bal.packagingProductId) ||
-               (l.name && bal.packagingName && l.name.includes(bal.packagingName))
+          l => String(l.packagingProductId) === String(bal.packagingProductId)
         )
         if (targetLine && bal.balanceOwed > 0) {
           targetLine.quantity = bal.balanceOwed
@@ -369,23 +370,18 @@ export default {
         }
 
         if (items.length === 0) {
-          try {
-            const res2 = await this.$axios.get('product_f_v1/1', { params: { isActive: false } })
-            const raw = res2.data?.data || res2.data?.rows || (Array.isArray(res2.data) ? res2.data : [])
-            items = raw.filter(p => p && (p.isPackagingAsset || p.pro_name?.includes('ລັງ') || p.pro_name?.includes('ແກ້ວ')))
-          } catch (e) {
-            // fallback
+          const storeProducts = this.$store?.getters?.findAllProduct || []
+          if (storeProducts.length > 0) {
+            items = storeProducts.filter(p => p && isPackagingProduct(p))
+          } else {
+            try {
+              const res2 = await this.$axios.get('product_f_v1/1', { params: { isActive: false } })
+              const raw = res2.data?.data || res2.data?.rows || (Array.isArray(res2.data) ? res2.data : [])
+              items = raw.filter(p => p && isPackagingProduct(p))
+            } catch (e) {
+              // fallback
+            }
           }
-        }
-
-        if (items.length === 0) {
-          const fallbackRes = await this.$axios.get('/api/product/find')
-          const list = Array.isArray(fallbackRes.data)
-            ? fallbackRes.data
-            : (fallbackRes.data?.rows || fallbackRes.data?.data || [])
-          items = list.filter(
-            p => p && (p.isPackagingAsset || p.pro_name?.includes('ລັງ') || p.pro_name?.includes('ແກ້ວ'))
-          )
         }
 
         if (items.length > 0) {

@@ -165,10 +165,11 @@ export default {
       await this.$axios
         .get(`product_f/${this.currentSelectedLocation['id']}`)
         .then((res) => {
-          this.loaddata = []
-          for (const iterator of res.data.data) {
+          const lowStockItems = []
+          const list = Array.isArray(res.data?.data) ? res.data.data : []
+          for (const iterator of list) {
             if (iterator['minStock'] > iterator['card_count']) {
-              this.loaddata.push({
+              lowStockItems.push(Object.freeze({
                 pro_id: iterator.pro_id,
                 pro_name: iterator.pro_name,
                 pro_price: iterator.pro_price,
@@ -187,9 +188,10 @@ export default {
                 functionStock: iterator.pro_id,
                 functionStockView: iterator.pro_id,
                 status: iterator.pro_id,
-              })
+              }))
             }
           }
+          this.loaddata = Object.freeze(lowStockItems)
         })
         .catch((er) => {
           this.message = er

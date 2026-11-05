@@ -64,8 +64,7 @@ export const mutations = {
                 }
             }
 
-            const originalProductLocalPrice = product.localPrice
-            product.localPrice = customerPrice ?? product.localPrice
+            const resolvedLocalPrice = customerPrice ?? product.localPrice
 
             const isPkg = isPackagingProduct(product)
             const isBuyMode = state.packagingMode === 'BUY'
@@ -101,15 +100,13 @@ export const mutations = {
             } else {
                 state.cartOfproductSelected.push({
                     ...product,
+                    localPrice: resolvedLocalPrice,
                     qty: addQty,
                     isReturn: isReturnTarget,
-                    packagingAction: product.packagingAction || (isPkg ? (isReturnTarget ? 'RETURNED' : 'SOLD') : (isReturnTarget ? 'RETURNED' : 'NONE')),
+                    packagingAction: isPkg ? (product.packagingAction || (isReturnTarget ? 'RETURNED' : 'SOLD')) : 'NONE',
                     lineUUID: product.lineUUID || (Date.now() + Math.random().toString(16))
                 })
             }
-
-            // Restore original price
-            product.localPrice = originalProductLocalPrice
         } catch (error) {
             console.error('Error adding product to cart:', error)
         }
@@ -123,7 +120,8 @@ export const mutations = {
             const item = state.cartOfproductSelected[index]
             const isCurrentlyReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
             item.isReturn = !isCurrentlyReturn
-            item.packagingAction = item.isReturn ? 'RETURNED' : (item.isPackagingAsset ? 'SOLD' : 'NONE')
+            const isPkg = isPackagingProduct(item)
+            item.packagingAction = isPkg ? (item.isReturn ? 'RETURNED' : 'SOLD') : 'NONE'
             state.cartOfproductSelected.splice(index, 1, { ...item })
         }
     },

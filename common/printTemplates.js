@@ -51,7 +51,7 @@ const getBaseUrl = () => {
         }
     }
     if (!url) {
-        url = 'http://162.35.18.246:8054'
+        url = 'http://150.95.31.23:8052'
     }
     return url.replace(/\/api\/?$/, '').replace(/\/+$/, '')
 }
@@ -5460,6 +5460,7 @@ export const generateCategorySalesReportHTML = (categories = [], companyData = {
             <div class="info-col">
                 <p><span class="field-label">ໄລຍະເວລາລາຍງານ (Period):</span> ${formattedFromDate} - ${formattedToDate}</p>
                 <p><span class="field-label">ສະຖານທີ່ (Location):</span> ${companyData?.location || companyData?.address || 'ສາງຫຼັກ (Main Warehouse)'}</p>
+                ${companyData?.category ? `<p><span class="field-label">ໝວດໝູ່ (Category):</span> ${companyData.category}</p>` : ''}
             </div>
             <div class="info-col right">
                 <p><span class="field-label">ວັນທີພິມ (Date Printed):</span> ${new Date().toLocaleDateString('en-GB')}</p>
@@ -5730,6 +5731,7 @@ export const generateProductSalesReportHTML = (products = [], companyData = {}, 
             <div class="info-col">
                 <p><span class="field-label">ໄລຍະເວລາລາຍງານ (Period):</span> ${formattedFromDate} - ${formattedToDate}</p>
                 <p><span class="field-label">ສະຖານທີ່ (Location):</span> ${companyData?.location || companyData?.address || 'ສາງຫຼັກ (Main Warehouse)'}</p>
+                ${companyData?.category ? `<p><span class="field-label">ໝວດໝູ່ (Category):</span> ${companyData.category}</p>` : ''}
             </div>
             <div class="info-col right">
                 <p><span class="field-label">ວັນທີພິມ (Date Printed):</span> ${new Date().toLocaleDateString('en-GB')}</p>
@@ -7202,3 +7204,5 @@ export const executeTraditionalPrint = (htmlContent) => {
     printWin.document.write(htmlContent);
     printWin.document.close();
 };
+
+export { generateInventoryValueReportHTML, printInventoryValueReport } from './inventoryValuePrintTemplate.js';

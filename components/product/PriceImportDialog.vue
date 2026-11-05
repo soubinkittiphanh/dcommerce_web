@@ -203,12 +203,14 @@ export default {
   name: 'PriceImportDialog',
   props: {
     value: { type: Boolean, default: false },
-    products: { type: Array, default: () => [] }
+    products: { type: Array, default: () => [] },
+    locationId: { type: [Number, String], default: 1 }
   },
   data() {
     return {
       excelFile: null,
       importData: [],
+      allProductList: [],
       loading: false,
       downloading: false,
       importedCount: 0,
@@ -268,6 +270,25 @@ export default {
     importProgress() {
       if (!this.totalCount) return 0
       return (this.importedCount / this.totalCount) * 100
+    },
+    effectiveProducts() {
+      if (this.allProductList && this.allProductList.length >= (this.products?.length || 0) && this.allProductList.length > 0) {
+        return this.allProductList
+      }
+      return this.products || []
+    },
+    productByIdMap() {
+      return new Map(this.effectiveProducts.map(p => [p.id, p]))
+    },
+    currencyByIdMap() {
+      return new Map((this.findAllCurrency || []).map(c => [c.id, c]))
+    }
+  },
+  watch: {
+    value(val) {
+      if (val) {
+        this.fetchAllProducts()
+      }
     }
   },
   methods: {
@@ -290,11 +311,82 @@ export default {
       return getFormatNum(val)
     },
     getCurrencyCode(productId, type) {
-      const dbProduct = this.products.find(p => p.id === productId)
+      const dbProduct = this.productByIdMap.get(productId)
       if (!dbProduct) return ''
       const currencyId = type === 'cost' ? dbProduct.costCurrencyId : dbProduct.saleCurrencyId
-      const currency = this.findAllCurrency.find(c => c.id === currencyId)
+      const currency = this.currencyByIdMap.get(currencyId)
       return currency ? currency.code : ''
+    },
+    async fetchAllProducts() {
+      const locId = this.locationId || 1
+      try {
+        let items = []
+        try {
+          const res = await this.$axios.get(`product_f_v2/${locId}`, {
+            params: { include: 'priceList', page: 1, limit: 10000, isActive: 1 }
+          })
+          const rawList = res.data?.data ?? res.data ?? []
+          let list = Array.isArray(rawList) ? rawList : (Array.isArray(rawList?.data) ? rawList.data : [])
+          const total = res.data?.total !== undefined ? Number(res.data.total) : list.length
+          const pageSize = list.length || 30
+          const totalPages = res.data?.totalPages || (total > pageSize ? Math.ceil(total / pageSize) : 1)
+
+          if (list.length > 0 && (list.length < total || totalPages > 1)) {
+            const calculatedTotalPages = Math.max(totalPages, Math.ceil(total / list.length))
+            if (calculatedTotalPages <= 5) {
+              const pagePromises = []
+              for (let p = 2; p <= calculatedTotalPages; p++) {
+                pagePromises.push(
+                  this.$axios.get(`product_f_v2/${locId}`, {
+                    params: { include: 'priceList', page: p, limit: list.length, isActive: 1 }
+                  })
+                )
+              }
+              const pageResults = await Promise.all(pagePromises)
+              pageResults.forEach((pRes) => {
+                const pRaw = pRes.data?.data ?? pRes.data ?? []
+                const pList = Array.isArray(pRaw) ? pRaw : (Array.isArray(pRaw?.data) ? pRaw.data : [])
+                list = list.concat(pList)
+              })
+              items = list
+            }
+          } else {
+            items = list
+          }
+        } catch (v2Err) {
+          console.warn('product_f_v2 failed in PriceImportDialog, falling back to product_f_v1:', v2Err)
+        }
+
+        if (!items || items.length === 0) {
+          try {
+            const res = await this.$axios.get(`product_f_v1/${locId}`, {
+              params: { include: 'priceList', isActive: false }
+            })
+            const raw = res.data?.data ?? res.data ?? []
+            items = (Array.isArray(raw) ? raw : []).filter(
+              p => p.isActive === 1 || p.isActive === true || p.isActive === '1' || p.isActive === undefined
+            )
+          } catch (v1Err) {
+            console.warn('product_f_v1 fallback also failed in PriceImportDialog:', v1Err)
+          }
+        }
+
+        if (Array.isArray(items) && items.length > 0) {
+          this.allProductList = Object.freeze(items.map(el => Object.freeze({
+            id: el.id,
+            pro_id: el.pro_id,
+            product_code: el.product_code,
+            barCode: el.barCode,
+            pro_name: el.pro_name,
+            pro_cost_price: el.pro_cost_price !== undefined ? el.pro_cost_price : (el.cost_price || 0),
+            pro_price: el.pro_price || 0,
+            costCurrencyId: el.costCurrencyId,
+            saleCurrencyId: el.saleCurrencyId
+          })))
+        }
+      } catch (err) {
+        console.warn('Failed to fetch all products in PriceImportDialog:', err)
+      }
     },
     roundValue(val, currency, strategy) {
       if (val === null || val === undefined || isNaN(val)) return 0
@@ -364,7 +456,7 @@ export default {
         if (!item.isValid) return item
 
         const updateField = (currentVal, currencyId) => {
-          const currency = this.findAllCurrency.find(c => c.id === currencyId)?.code || ''
+          const currency = this.currencyByIdMap.get(currencyId)?.code || ''
           const baseVal = parseFloat(currentVal) || 0
           const diff = baseVal * factor
           const newValRaw = isIncrease ? (baseVal + diff) : (baseVal - diff)
@@ -373,7 +465,7 @@ export default {
         }
 
         const newItem = { ...item }
-        const dbProduct = this.products.find(p => p.id === item.id)
+        const dbProduct = this.productByIdMap.get(item.id)
 
         if (this.adjTarget === 'cost_price' || this.adjTarget === 'both') {
           const costCurrencyId = dbProduct?.costCurrencyId || item.costCurrencyId
@@ -396,12 +488,15 @@ export default {
       this.$toast.success('ນຳໃຊ້ການປັບປຸງລາຄາຮຽບຮ້ອຍແລ້ວ')
     },
     async downloadTemplate() {
-      if (this.products.length === 0) {
-        this.$toast.warning('ບໍ່ມີລາຍການສິນຄ້າໃນລະບົບ (No products found)')
-        return
-      }
       this.downloading = true
       try {
+        if (!this.allProductList || this.allProductList.length === 0) {
+          await this.fetchAllProducts()
+        }
+        if (this.effectiveProducts.length === 0) {
+          this.$toast.warning('ບໍ່ມີລາຍການສິນຄ້າໃນລະບົບ (No products found)')
+          return
+        }
         const workbook = new ExcelJS.Workbook()
         const worksheet = workbook.addWorksheet('ໃບປັບປຸງລາຄາສິນຄ້າ')
 
@@ -428,7 +523,7 @@ export default {
         headerRow.alignment = { vertical: 'middle', horizontal: 'center' }
 
         // Populate product list
-        this.products.forEach(item => {
+        this.effectiveProducts.forEach(item => {
           worksheet.addRow({
             id: item.id,
             pro_id: item.product_code || item.pro_id || '',
@@ -467,8 +562,11 @@ export default {
 
       this.loading = true
       const reader = new FileReader()
-      reader.onload = (e) => {
+      reader.onload = async (e) => {
         try {
+          if (!this.allProductList || this.allProductList.length === 0) {
+            await this.fetchAllProducts()
+          }
           const data = new Uint8Array(e.target.result)
           const workbook = XLSX.read(data, { type: 'array' })
           const firstSheetName = workbook.SheetNames[0]
@@ -496,24 +594,25 @@ export default {
         return
       }
 
+      const productMap = this.productByIdMap
+      const firstRowKeys = Object.keys(data[0] || {})
+      const findKey = (patterns) => {
+        return firstRowKeys.find(k => {
+          const kl = k.toLowerCase()
+          return patterns.some(p => kl.includes(p.toLowerCase()))
+        })
+      }
+
+      const idKey = findKey(['product id', 'ລະຫັດລະບົບ', 'id'])
+      const proIdKey = findKey(['product code', 'ລະຫັດສິນຄ້າ', 'pro_id'])
+      const barCodeKey = findKey(['barcode', 'ບາໂຄດ'])
+      const proNameKey = findKey(['product name', 'ຊື່ສິນຄ້າ', 'pro_name'])
+      const currentCostKey = findKey(['current cost', 'ຕົ້ນທຶນປັດຈຸບັນ', 'current_cost'])
+      const currentPriceKey = findKey(['current sale price', 'ລາຄາຂາຍປັດຈຸບັນ', 'current_price'])
+      const newCostKey = findKey(['new cost price', 'ຕົ້ນທຶນໃໝ່', 'cost_price'])
+      const newPriceKey = findKey(['new sale price', 'ລາຄາຂາຍໃໝ່', 'pro_price'])
+
       this.importData = data.map((row) => {
-        const keys = Object.keys(row)
-        const findKey = (patterns) => {
-          return keys.find(k => {
-            const kl = k.toLowerCase()
-            return patterns.some(p => kl.includes(p.toLowerCase()))
-          })
-        }
-
-        const idKey = findKey(['product id', 'ລະຫັດລະບົບ', 'id'])
-        const proIdKey = findKey(['product code', 'ລະຫັດສິນຄ້າ', 'pro_id'])
-        const barCodeKey = findKey(['barcode', 'ບາໂຄດ'])
-        const proNameKey = findKey(['product name', 'ຊື່ສິນຄ້າ', 'pro_name'])
-        const currentCostKey = findKey(['current cost', 'ຕົ້ນທຶນປັດຈຸບັນ', 'current_cost'])
-        const currentPriceKey = findKey(['current sale price', 'ລາຄາຂາຍປັດຈຸບັນ', 'current_price'])
-        const newCostKey = findKey(['new cost price', 'ຕົ້ນທຶນໃໝ່', 'cost_price'])
-        const newPriceKey = findKey(['new sale price', 'ລາຄາຂາຍໃໝ່', 'pro_price'])
-
         const id = idKey ? parseInt(row[idKey]) : NaN
         const pro_id = proIdKey ? String(row[proIdKey]).trim() : ''
         const barCode = barCodeKey ? String(row[barCodeKey]).trim() : ''
@@ -547,7 +646,7 @@ export default {
           return item
         }
 
-        const dbProduct = this.products.find(p => p.id === id)
+        const dbProduct = productMap.get(id)
         if (!dbProduct) {
           item.isValid = false
           item.validationError = 'ບໍ່ພົບສິນຄ້ານີ້ໃນລະບົບ (Product not found)'

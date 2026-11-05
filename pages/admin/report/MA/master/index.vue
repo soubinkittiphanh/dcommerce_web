@@ -405,7 +405,7 @@
           <v-icon left small>mdi-office-building</v-icon>
           ຕາມກົມ (By Ministry)
           <v-chip x-small color="grey lighten-3" class="ml-1 font-weight-bold">
-            {{ activeOutstandingMinistries.length }}
+            {{ masterMinistrySummary.length }}
           </v-chip>
         </v-tab>
         <v-tab class="font-weight-medium text-none">
@@ -1410,6 +1410,9 @@ export default {
         { name: 'ທັນວາ (December)', value: 12 },
       ],
 
+      // Master list of all Ministries (so ministries with 0 movement still appear)
+      allMinistries: [],
+
       // Balance Forward Data
       balanceForwardData: {
         byMinistry: [],
@@ -1522,26 +1525,38 @@ export default {
         return ministryMap.get(key)
       }
 
+      // 0. Pre-seed with all registered ministries so ministries with no movement still appear
+      const allMins = this.allMinistries || []
+      allMins.forEach((minObj) => {
+        if (minObj && minObj.id) {
+          getOrSetMinistry(minObj.id, minObj.ministryCode, minObj.ministryName)
+        }
+      })
+
       // 1. Balance Forward
-      (this.balanceForwardData?.byMinistry || []).forEach((item) => {
+      const bfList = this.balanceForwardData?.byMinistry || []
+      bfList.forEach((item) => {
         const min = getOrSetMinistry(item.ministryId, item.ministryCode, item.ministryName)
         min.balanceForward = parseFloat(item.totalLakEquivalent || 0)
-      });
+      })
 
       // 2. Payments (converted to LAK)
-      (this.paymentMinistryReport || []).forEach((item) => {
+      const payList = this.paymentMinistryReport || []
+      payList.forEach((item) => {
         const min = getOrSetMinistry(item.ministryId, item.ministryCode, item.ministryName)
         min.payment = parseFloat(item.totalLakEquivalent || 0)
-      });
+      })
 
       // 3. Settlements (converted to LAK)
-      (this.settlementMinistryReport || []).forEach((item) => {
+      const setList = this.settlementMinistryReport || []
+      setList.forEach((item) => {
         const min = getOrSetMinistry(item.ministryId, item.ministryCode, item.ministryName)
         min.settlement = parseFloat(item.totalLakEquivalent || 0)
-      });
+      })
 
       // 4. Closing Balance
-      (this.outstandingBalanceData?.byMinistry || []).forEach((item) => {
+      const outList = this.outstandingBalanceData?.byMinistry || []
+      outList.forEach((item) => {
         const min = getOrSetMinistry(item.ministryId, item.ministryCode, item.ministryName)
         min.closingBalance = parseFloat(item.totalLakEquivalent || 0)
       })
@@ -1614,10 +1629,13 @@ export default {
           break
       }
 
-      if (!this.searchMinistryText) return rawList
+      // Merge with allMinistries so ministries with 0 movement still appear in sub-views
+      const mergedList = this.mergeMinistryListWithAll(rawList)
+
+      if (!this.searchMinistryText) return mergedList
 
       const query = this.searchMinistryText.toLowerCase().trim()
-      return rawList.filter(
+      return mergedList.filter(
         (r) =>
           (r?.ministryCode && r.ministryCode.toLowerCase().includes(query)) ||
           (r?.ministryName && r.ministryName.toLowerCase().includes(query))
@@ -1778,9 +1796,65 @@ export default {
       }
     },
 
+    async fetchAllMinistries() {
+      try {
+        const res = await this.$axios.get('/api/ministries')
+        if (res.data?.success && Array.isArray(res.data.data)) {
+          this.allMinistries = res.data.data
+        } else if (Array.isArray(res.data)) {
+          this.allMinistries = res.data
+        }
+      } catch (err) {
+        console.warn('Error fetching all ministries:', err)
+      }
+    },
+
+    mergeMinistryListWithAll(list = []) {
+      const map = new Map()
+      const allMins = this.allMinistries || []
+      allMins.forEach((m) => {
+        if (!m || !m.id) return
+        map.set(m.id, {
+          ministryId: m.id,
+          ministryCode: m.ministryCode || 'N/A',
+          ministryName: m.ministryName || 'Unknown Ministry',
+          count: 0,
+          amounts: {},
+          totalLakEquivalent: 0,
+        })
+      })
+      const items = list || []
+      items.forEach((item) => {
+        if (!item) return
+        const key = item.ministryId || 'NO_MINISTRY'
+        if (key === 0 || key === 'NO_MINISTRY') {
+          if (Math.abs(item.totalLakEquivalent || 0) > 0.01) {
+            map.set(key, item)
+          }
+          return
+        }
+        const existing = map.get(key) || {}
+        map.set(key, {
+          ...existing,
+          ...item,
+          ministryCode: item.ministryCode || existing.ministryCode || 'N/A',
+          ministryName: item.ministryName || existing.ministryName || 'Unknown Ministry',
+        })
+      })
+      return Array.from(map.values()).sort((a, b) => {
+        if (a.ministryId === 'NO_MINISTRY' || a.ministryId === 0) return 1
+        if (b.ministryId === 'NO_MINISTRY' || b.ministryId === 0) return -1
+        return (a.ministryName || '').localeCompare(b.ministryName || '')
+      })
+    },
+
     async fetchAllReports() {
       this.loading = true
       try {
+        if (!this.allMinistries || !this.allMinistries.length) {
+          await this.fetchAllMinistries()
+        }
+
         const response = await this.$axios.get('/api/pwt/period-balances/master-summary', {
           params: {
             branchId: this.selectedBranchId,
@@ -1797,16 +1871,22 @@ export default {
             closedBy: null,
             note: '',
           }
-          this.balanceForwardData = data.balanceForward || this.balanceForwardData
-          this.paymentMinistryReport = data.currentAdvances?.byMinistry || []
+          this.balanceForwardData = {
+            ...(data.balanceForward || this.balanceForwardData),
+            byMinistry: this.mergeMinistryListWithAll(data.balanceForward?.byMinistry || []),
+          }
+          this.paymentMinistryReport = this.mergeMinistryListWithAll(data.currentAdvances?.byMinistry || [])
           this.paymentMinistryTotals = data.currentAdvances?.totals || { currencyTotals: {}, totalLakEquivalent: 0 }
           this.paymentBankReport = data.currentAdvances?.byBankAccount || []
           this.paymentBankTotals = data.currentAdvances?.totals || { currencyTotals: {}, totalLakEquivalent: 0 }
-          this.settlementMinistryReport = data.currentSettlements?.byMinistry || []
+          this.settlementMinistryReport = this.mergeMinistryListWithAll(data.currentSettlements?.byMinistry || [])
           this.settlementMinistryTotals = data.currentSettlements?.totals || { currencyTotals: {}, totalLakEquivalent: 0 }
           this.settlementBankReport = data.currentSettlements?.byBankAccount || []
           this.settlementBankTotals = data.currentSettlements?.totals || { currencyTotals: {}, totalLakEquivalent: 0 }
-          this.outstandingBalanceData = data.closingBalance || this.outstandingBalanceData
+          this.outstandingBalanceData = {
+            ...(data.closingBalance || this.outstandingBalanceData),
+            byMinistry: this.mergeMinistryListWithAll(data.closingBalance?.byMinistry || []),
+          }
 
           // Fetch chart accounts for Tab 3 breakdown
           this.fetchSettlementChartReport()
@@ -1831,6 +1911,19 @@ export default {
         this.fetchSettlementChartReport(),
       ])
       await this.calculateOutstandingBalance()
+
+      this.balanceForwardData.byMinistry = this.mergeMinistryListWithAll(
+        this.balanceForwardData.byMinistry || []
+      )
+      this.paymentMinistryReport = this.mergeMinistryListWithAll(
+        this.paymentMinistryReport || []
+      )
+      this.settlementMinistryReport = this.mergeMinistryListWithAll(
+        this.settlementMinistryReport || []
+      )
+      this.outstandingBalanceData.byMinistry = this.mergeMinistryListWithAll(
+        this.outstandingBalanceData.byMinistry || []
+      )
     },
 
     async handleClosePeriod() {
@@ -2512,6 +2605,20 @@ export default {
         const ministryBalanceMap = new Map()
         const bankAccountBalanceMap = new Map()
         const allCurrencies = new Set()
+
+        // 0. Pre-seed with all registered ministries so ministries with no movement still appear
+        const allMins = this.allMinistries || []
+        allMins.forEach((minObj) => {
+          if (minObj && minObj.id) {
+            ministryBalanceMap.set(minObj.id, {
+              ministryId: minObj.id,
+              ministryCode: minObj.ministryCode || 'N/A',
+              ministryName: minObj.ministryName || 'Unknown Ministry',
+              amounts: {},
+              totalLakEquivalent: 0,
+            })
+          }
+        })
 
         // 1. Balance Forward
         balanceForward.byMinistry.forEach((item) => {

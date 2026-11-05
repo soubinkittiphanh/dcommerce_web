@@ -107,7 +107,7 @@ export const generateMoneyAdvanceReportHTML = ({
     const ccy = item.currencyCode || 'LAK'
     const amount = formatCurrency(item.amount)
     const rate = formatExchangeRate(item.exchangeRate || 1)
-    
+
     // Calculate LCY equivalent if not already provided
     let lcyVal = item.lcyEquivalent
     if (lcyVal === undefined || lcyVal === null) {
@@ -536,18 +536,12 @@ export const generateMoneyAdvanceReportHTML = ({
         <div class="signatures">
           <div class="sign-box">
             <div class="sign-title">ຜູ້ລາຍງານ (Prepared By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">${printedBy}</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຫົວໜ້າບັນຊີ (Chief Accountant)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
           <div class="sign-box">
             <div class="sign-title">ຜູ້ອຳນວຍການ (Authorized By)</div>
-            <div class="sign-line"></div>
-            <div class="sign-name">(...................................................)</div>
           </div>
         </div>
       </div>
@@ -562,7 +556,7 @@ export const generateMoneyAdvanceReportHTML = ({
 export const printMoneyAdvancePaymentReport = (params) => {
   try {
     const htmlContent = generateMoneyAdvanceReportHTML(params)
-    
+
     // Open new popup window with landscape dimensions
     const printWindow = window.open(
       '',

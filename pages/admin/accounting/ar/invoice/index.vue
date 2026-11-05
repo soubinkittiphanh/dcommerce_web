@@ -1,114 +1,376 @@
 <template>
-  <div class="ap-settlement-container notosans-lao">
-    <!-- Header Section -->
-    <div class="d-flex align-center mb-6">
-      <v-avatar color="primary lighten-5" rounded size="48" class="mr-4">
-        <v-icon color="primary" large>mdi-file-invoice-dollar</v-icon>
-      </v-avatar>
-      <div>
-        <h1 class="text-h5 font-weight-bold mb-1 primary--text">ລະບົບຈັດການໃບທວງໜີ້</h1>
-        <p class="text-caption grey--text text--darken-1 mb-0">ເບິ່ງ ແລະ ຈັດການໃບທວງໜີ້ລູກຄ້າທັງໝົດ</p>
+  <div>
+    <!-- Top Header Bar -->
+    <div class="d-flex align-center justify-space-between mb-5 flex-wrap">
+      <div class="d-flex align-center my-1 mr-4">
+        <v-avatar color="primary lighten-5" rounded size="48" class="mr-4 elevation-0">
+          <v-icon color="primary" large>mdi-file-invoice-dollar</v-icon>
+        </v-avatar>
+        <div>
+          <div class="d-flex align-center flex-wrap">
+            <h1 class="text-h5 font-weight-bold mb-0 primary--text mr-2">ລະບົບຈັດການໃບທວງໜີ້</h1>
+            <v-chip x-small color="primary lighten-5" class="primary--text font-weight-bold" label>
+              AR Invoices
+            </v-chip>
+          </div>
+          <p class="text-caption grey--text text--darken-1 mb-0 mt-1">
+            ຕິດຕາມຍອດຂາຍເຊື່ອ, ການຊຳລະເງິນ ແລະ ສະຖານະໃບທວງໜີ້ລູກຄ້າທັງໝົດ
+          </p>
+        </div>
       </div>
-      <v-spacer />
-      <v-btn color="grey lighten-4" text @click="exportData" class="mr-2 rounded-lg text--secondary font-weight-bold">
-        <v-icon left>mdi-download</v-icon>Export
-      </v-btn>
-      <v-btn color="primary" depressed large @click="openCreateDialog" class="rounded-lg font-weight-bold">
-        <v-icon left>mdi-plus</v-icon>ເພີ່ມໃໝ່
-      </v-btn>
+
+      <div class="d-flex align-center my-1 flex-wrap">
+        <v-btn
+          color="grey lighten-4"
+          text
+          class="mr-2 rounded-lg text--secondary font-weight-bold text-none"
+          :loading="loading"
+          @click="fetchInvoices"
+        >
+          <v-icon left small>mdi-refresh</v-icon>ໂຫຼດໃໝ່
+        </v-btn>
+        <v-btn
+          color="success"
+          outlined
+          class="mr-2 rounded-lg font-weight-bold text-none"
+          :disabled="loading || filteredInvoices.length === 0"
+          @click="exportData"
+        >
+          <v-icon left small>mdi-file-excel</v-icon>Export CSV
+        </v-btn>
+        <v-btn
+          color="primary"
+          depressed
+          class="rounded-lg font-weight-bold white--text text-none"
+          @click="openCreateDialog"
+        >
+          <v-icon left small>mdi-plus</v-icon>ສ້າງໃບທວງໜີ້ໃໝ່
+        </v-btn>
+      </div>
     </div>
 
-    <!-- Summary Cards -->
-    <v-row class="mb-6" dense>
-      <v-col cols="12" md="3">
-        <v-card class="summary-card total-ap" elevation="1">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center">
-              <v-avatar color="primary lighten-5" rounded size="48">
-                <v-icon color="primary">mdi-file-document-multiple</v-icon>
-              </v-avatar>
-              <div class="ml-4">
-                <div class="grey--text font-weight-bold text-uppercase">ລວມໃບແຈ້ງໜີ້</div>
-                <div class="font-weight-bold uppercase">{{ formatCurrency(summaryTotals.totalInvoices) }}</div>
+    <!-- Summary KPI Status Cards -->
+    <v-row class="mb-5" dense>
+      <!-- 1. All Invoices -->
+      <v-col cols="12" sm="6" md="3">
+        <v-card
+          elevation="1"
+          class="summary-card total-ap cursor-pointer fill-height"
+          :class="{ 'card-active-primary': !filters.status }"
+          @click="setStatusFilter('')"
+        >
+          <v-card-text class="pa-4 d-flex flex-column justify-space-between fill-height">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-avatar color="primary lighten-5" rounded size="42" class="mr-3">
+                  <v-icon color="primary">mdi-file-document-multiple</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="caption grey--text font-weight-bold text-uppercase">ລວມໃບແຈ້ງໜີ້ທັງໝົດ</div>
+                  <div class="text-h6 font-weight-bold primary--text lh-tight mt-1">
+                    {{ formatCurrency(summaryTotals.totalInvoices) }}
+                    <span class="caption grey--text font-weight-regular">₭</span>
+                  </div>
+                </div>
               </div>
+              <v-chip x-small color="primary lighten-5" class="primary--text font-weight-bold" label>
+                {{ statusCounts.all }} ໃບ
+              </v-chip>
+            </div>
+            <div class="d-flex align-center justify-space-between pt-2 border-top-subtle caption mt-2">
+              <span class="grey--text">ຍອດລວມທັງໝົດ</span>
+              <span v-if="!filters.status" class="primary--text font-weight-bold d-flex align-center">
+                <v-icon x-small color="primary" class="mr-1">mdi-check-circle</v-icon>ສະແດງທັງໝົດ
+              </span>
+              <span v-else class="grey--text text--lighten-1">ຄລິກເພື່ອເບິ່ງ</span>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" md="3">
-        <v-card class="summary-card total-paid" elevation="1">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center">
-              <v-avatar color="success lighten-5" rounded size="48">
-                <v-icon color="success">mdi-cash-check</v-icon>
-              </v-avatar>
-              <div class="ml-4">
-                <div class="grey--text font-weight-bold text-uppercase">ຈ່າຍແລ້ວ (Settled)</div>
-                <div class="font-weight-bold success--text uppercase">{{ formatCurrency(summaryTotals.totalSettled) }}</div>
+
+      <!-- 2. Pending / Outstanding -->
+      <v-col cols="12" sm="6" md="3">
+        <v-card
+          elevation="1"
+          class="summary-card outstanding cursor-pointer fill-height"
+          :class="{ 'card-active-warning': filters.status === 'pending' }"
+          @click="setStatusFilter(filters.status === 'pending' ? '' : 'pending')"
+        >
+          <v-card-text class="pa-4 d-flex flex-column justify-space-between fill-height">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-avatar color="warning lighten-5" rounded size="42" class="mr-3">
+                  <v-icon color="warning darken-2">mdi-clock-alert</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="caption grey--text font-weight-bold text-uppercase">ຄ້າງຊຳລະ (Pending)</div>
+                  <div class="text-h6 font-weight-bold warning--text text--darken-2 lh-tight mt-1">
+                    {{ formatCurrency(summaryTotals.totalOutstanding) }}
+                    <span class="caption grey--text font-weight-regular">₭</span>
+                  </div>
+                </div>
               </div>
+              <v-chip x-small color="warning lighten-5" class="warning--text text--darken-3 font-weight-bold" label>
+                {{ statusCounts.pending }} ໃບ
+              </v-chip>
+            </div>
+            <div class="d-flex align-center justify-space-between pt-2 border-top-subtle caption mt-2">
+              <span class="grey--text">ຍອດໜີ້ທີ່ລໍຖ້າຮັບ</span>
+              <span v-if="filters.status === 'pending'" class="warning--text text--darken-2 font-weight-bold d-flex align-center">
+                <v-icon x-small color="warning darken-2" class="mr-1">mdi-check-circle</v-icon>ກຳລັງສະແດງ
+              </span>
+              <span v-else class="grey--text text--lighten-1">ຄລິກເພື່ອຕົວກັ່ນຕອງ</span>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" md="3">
-        <v-card class="summary-card outstanding" elevation="1">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center">
-              <v-avatar color="warning lighten-5" rounded size="48">
-                <v-icon color="warning">mdi-clock-alert</v-icon>
-              </v-avatar>
-              <div class="ml-4">
-                <div class="grey--text font-weight-bold text-uppercase">ຄ້າງຊຳລະ (Outstanding)</div>
-                <div class="font-weight-bold warning--text uppercase">{{ formatCurrency(summaryTotals.totalOutstanding) }}</div>
+
+      <!-- 3. Settled / Paid -->
+      <v-col cols="12" sm="6" md="3">
+        <v-card
+          elevation="1"
+          class="summary-card total-paid cursor-pointer fill-height"
+          :class="{ 'card-active-success': filters.status === 'settled' }"
+          @click="setStatusFilter(filters.status === 'settled' ? '' : 'settled')"
+        >
+          <v-card-text class="pa-4 d-flex flex-column justify-space-between fill-height">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-avatar color="success lighten-5" rounded size="42" class="mr-3">
+                  <v-icon color="success">mdi-cash-check</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="caption grey--text font-weight-bold text-uppercase">ຈ່າຍແລ້ວ (Settled)</div>
+                  <div class="text-h6 font-weight-bold success--text lh-tight mt-1">
+                    {{ formatCurrency(summaryTotals.totalSettled) }}
+                    <span class="caption grey--text font-weight-regular">₭</span>
+                  </div>
+                </div>
               </div>
+              <v-chip x-small color="success lighten-5" class="success--text text--darken-2 font-weight-bold" label>
+                {{ statusCounts.settled }} ໃບ
+              </v-chip>
+            </div>
+            <div class="d-flex align-center justify-space-between pt-2 border-top-subtle caption mt-2">
+              <span class="grey--text">ຊຳລະຄົບຖ້ວນແລ້ວ</span>
+              <span v-if="filters.status === 'settled'" class="success--text font-weight-bold d-flex align-center">
+                <v-icon x-small color="success" class="mr-1">mdi-check-circle</v-icon>ກຳລັງສະແດງ
+              </span>
+              <span v-else class="grey--text text--lighten-1">ຄລິກເພື່ອຕົວກັ່ນຕອງ</span>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
-      <v-col cols="12" md="3">
-        <v-card class="summary-card overdue" elevation="1">
-          <v-card-text class="pa-4">
-            <div class="d-flex align-center">
-              <v-avatar color="error lighten-5" rounded size="48">
-                <v-icon color="error">mdi-alert-circle</v-icon>
-              </v-avatar>
-              <div class="ml-4">
-                <div class="grey--text font-weight-bold text-uppercase">ເກີນກຳນົດ (Overdue)</div>
-                <div class="font-weight-bold error--text uppercase">{{ formatCurrency(summaryTotals.totalOverdue) }}</div>
+
+      <!-- 4. Overdue -->
+      <v-col cols="12" sm="6" md="3">
+        <v-card
+          elevation="1"
+          class="summary-card overdue cursor-pointer fill-height"
+          :class="{ 'card-active-error': filters.status === 'overdue' }"
+          @click="setStatusFilter(filters.status === 'overdue' ? '' : 'overdue')"
+        >
+          <v-card-text class="pa-4 d-flex flex-column justify-space-between fill-height">
+            <div class="d-flex align-center justify-space-between mb-2">
+              <div class="d-flex align-center">
+                <v-avatar color="error lighten-5" rounded size="42" class="mr-3">
+                  <v-icon color="error">mdi-alert-circle</v-icon>
+                </v-avatar>
+                <div>
+                  <div class="caption grey--text font-weight-bold text-uppercase">ເກີນກຳນົດ (Overdue)</div>
+                  <div class="text-h6 font-weight-bold error--text lh-tight mt-1">
+                    {{ formatCurrency(summaryTotals.totalOverdue) }}
+                    <span class="caption grey--text font-weight-regular">₭</span>
+                  </div>
+                </div>
               </div>
+              <v-chip x-small color="error lighten-5" class="error--text text--darken-2 font-weight-bold" label>
+                {{ statusCounts.overdue }} ໃບ
+              </v-chip>
+            </div>
+            <div class="d-flex align-center justify-space-between pt-2 border-top-subtle caption mt-2">
+              <span class="grey--text">ກາຍກຳນົດຊຳລະ</span>
+              <span v-if="filters.status === 'overdue'" class="error--text font-weight-bold d-flex align-center">
+                <v-icon x-small color="error" class="mr-1">mdi-check-circle</v-icon>ກຳລັງສະແດງ
+              </span>
+              <span v-else class="grey--text text--lighten-1">ຄລິກເພື່ອຕົວກັ່ນຕອງ</span>
             </div>
           </v-card-text>
         </v-card>
       </v-col>
     </v-row>
 
-    <!-- Filter Section -->
-    <v-card class="mb-6 filter-card" elevation="0">
+    <!-- Clean Streamlined Filter Bar -->
+    <v-card class="mb-5 filter-card" elevation="0">
       <v-card-text class="pa-4">
-        <v-row dense align="center">
-          <v-col cols="12" md="3">
-            <v-text-field v-model="filters.search" label="ຄົ້ນຫາ" placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ..." outlined dense
-              hide-details clearable prepend-inner-icon="mdi-magnify" @input="applyFilters" />
-          </v-col>
-          <v-col cols="12" md="3">
-            <v-autocomplete v-model="filters.customerId" :items="customerFilterList" item-text="name" item-value="value" label="ລູກຄ້າ"
-              placeholder="ທັງໝົດ" outlined dense hide-details clearable prepend-inner-icon="mdi-account" @change="applyFilters" />
-          </v-col>
-          <v-col cols="12" md="2">
-            <v-text-field v-model="filters.dateFrom" label="ວັນທີເລີ່ມຕົ້ນ" type="date" outlined dense hide-details
-              prepend-inner-icon="mdi-calendar-start" @change="applyFilters" />
-          </v-col>
-          <v-col cols="12" md="2">
-            <v-text-field v-model="filters.dateTo" label="ວັນທີສິ້ນສຸດ" type="date" outlined dense hide-details
-              prepend-inner-icon="mdi-calendar-end" @change="applyFilters" />
-          </v-col>
-          <v-col cols="12" md="2" class="d-flex align-center">
-            <v-checkbox v-model="showCancelled" label="ສະແດງໃບຍົກເລີກ" hide-details dense color="error" class="mt-0 pt-0" @change="onShowCancelledChange" />
-          </v-col>
-          <v-col cols="12" md="1">
-            <v-btn color="secondary" outlined block @click="resetFilters">
-              <v-icon>mdi-refresh</v-icon>
+        <!-- Top Controls: Quick Presets, Cancelled, and Reset -->
+        <div class="d-flex align-center justify-space-between mb-3 pb-3 border-bottom-subtle flex-wrap">
+          <div class="d-flex align-center flex-wrap my-1">
+            <span class="caption grey--text text--darken-2 font-weight-bold mr-2 d-flex align-center">
+              <v-icon small color="grey darken-1" class="mr-1">mdi-calendar-clock</v-icon>
+              ຊ່ວງເວລາ:
+            </span>
+            <v-btn-toggle
+              v-model="selectedDatePreset"
+              mandatory
+              dense
+              class="date-toggle-group rounded-lg"
+            >
+              <v-btn small value="thisMonth" class="px-3 caption text-none" @click="setDatePreset('thisMonth')">
+                ເດືອນນີ້
+              </v-btn>
+              <v-btn small value="today" class="px-3 caption text-none" @click="setDatePreset('today')">
+                ມື້ນີ້
+              </v-btn>
+              <v-btn small value="thisYear" class="px-3 caption text-none" @click="setDatePreset('thisYear')">
+                ປີນີ້
+              </v-btn>
+              <v-btn small value="all" class="px-3 caption text-none" @click="setDatePreset('all')">
+                ທັງໝົດ
+              </v-btn>
+            </v-btn-toggle>
+          </div>
+
+          <div class="d-flex align-center flex-wrap my-1">
+            <v-checkbox
+              v-model="showCancelled"
+              label="ສະແດງໃບຍົກເລີກ"
+              hide-details
+              dense
+              color="error"
+              class="mt-0 pt-0 mr-4 caption"
+              @change="onShowCancelledChange"
+            />
+            <v-btn
+              color="grey darken-1"
+              text
+              small
+              class="rounded-lg font-weight-bold text-none"
+              @click="resetFilters"
+            >
+              <v-icon left small>mdi-refresh</v-icon>ຣີເຊັດ
             </v-btn>
+          </div>
+        </div>
+
+        <!-- 6 Unified Input Controls -->
+        <v-row dense align="center">
+          <!-- Search -->
+          <v-col cols="12" sm="6" md="2">
+            <v-text-field
+              v-model="filters.search"
+              label="ຄົ້ນຫາ"
+              placeholder="ເລກທີໃບແຈ້ງໜີ້, ລູກຄ້າ, Order..."
+              outlined
+              dense
+              hide-details
+              clearable
+              prepend-inner-icon="mdi-magnify"
+              class="rounded-lg"
+              @input="applyFilters"
+            />
+          </v-col>
+
+          <!-- Customer Filter -->
+          <v-col cols="12" sm="6" md="2">
+            <v-autocomplete
+              v-model="filters.customerId"
+              :items="customerFilterList"
+              item-text="name"
+              item-value="value"
+              label="ລູກຄ້າ / ຮ້ານຄ້າ"
+              placeholder="ທັງໝົດ"
+              outlined
+              dense
+              hide-details
+              clearable
+              prepend-inner-icon="mdi-store-outline"
+              class="rounded-lg"
+              @change="applyFilters"
+            />
+          </v-col>
+
+          <!-- Ministry / Agency Filter -->
+          <v-col cols="12" sm="6" md="2">
+            <v-autocomplete
+              v-model="filters.agencyId"
+              :items="ministryFilterList"
+              item-text="name"
+              item-value="id"
+              :label="clientLabel"
+              placeholder="ທັງໝົດ"
+              outlined
+              dense
+              hide-details
+              clearable
+              :loading="loadingAgencies"
+              prepend-inner-icon="mdi-domain"
+              class="rounded-lg"
+              @change="applyFilters"
+            />
+          </v-col>
+
+          <!-- Status Dropdown -->
+          <v-col cols="12" sm="6" md="2">
+            <v-select
+              v-model="filters.status"
+              :items="statusOptions"
+              label="ສະຖານະ (Status)"
+              placeholder="ທັງໝົດ"
+              outlined
+              dense
+              hide-details
+              clearable
+              prepend-inner-icon="mdi-filter-variant"
+              class="rounded-lg"
+              @change="onStatusFilterChange"
+            >
+              <template #selection="{ item }">
+                <span class="font-weight-medium text-caption" :class="item.textColor || ''">
+                  {{ item.text }}
+                </span>
+              </template>
+              <template #item="{ item }">
+                <v-list-item-content>
+                  <div class="d-flex align-center justify-space-between">
+                    <span :class="item.textColor || ''" class="font-weight-medium caption">{{ item.text }}</span>
+                    <v-chip v-if="item.badgeCount !== undefined" x-small :color="item.color || 'grey'" dark class="ml-2 font-weight-bold">
+                      {{ item.badgeCount }}
+                    </v-chip>
+                  </div>
+                </v-list-item-content>
+              </template>
+            </v-select>
+          </v-col>
+
+          <!-- Date From -->
+          <v-col cols="12" sm="3" md="2">
+            <v-text-field
+              v-model="filters.dateFrom"
+              label="ວັນທີເລີ່ມຕົ້ນ"
+              type="date"
+              outlined
+              dense
+              hide-details
+              prepend-inner-icon="mdi-calendar-start"
+              class="rounded-lg"
+              @change="applyFilters"
+            />
+          </v-col>
+
+          <!-- Date To -->
+          <v-col cols="12" sm="3" md="2">
+            <v-text-field
+              v-model="filters.dateTo"
+              label="ວັນທີສິ້ນສຸດ"
+              type="date"
+              outlined
+              dense
+              hide-details
+              prepend-inner-icon="mdi-calendar-end"
+              class="rounded-lg"
+              @change="applyFilters"
+            />
           </v-col>
         </v-row>
       </v-card-text>
@@ -116,16 +378,30 @@
 
     <!-- Table Section -->
     <v-card class="dashboard-card" elevation="0" outlined>
-      <v-card-title class="py-3 bg-light border-bottom">
-        <v-icon color="primary" class="mr-2">mdi-table</v-icon>
-        <span class="font-weight-bold ">ລາຍການໃບແຈ້ງໜີ້</span>
-        <v-spacer />
-        <v-chip color="primary" class="font-weight-medium" small>
-          {{ filteredInvoices.length }} ລາຍການ
-        </v-chip>
+      <v-card-title class="py-3 px-4 bg-light border-bottom d-flex align-center justify-space-between flex-wrap">
+        <div class="d-flex align-center flex-wrap">
+          <v-icon color="primary" class="mr-2">mdi-table</v-icon>
+          <span class="font-weight-bold text-subtitle-1">ລາຍການໃບແຈ້ງໜີ້ (Invoices List)</span>
+          <v-chip
+            v-if="filters.status"
+            small
+            :color="currentStatusColor"
+            text-color="white"
+            class="ml-2 font-weight-bold"
+            close
+            @click:close="setStatusFilter('')"
+          >
+            {{ currentStatusLabel }}
+          </v-chip>
+        </div>
+        <div class="d-flex align-center my-1">
+          <v-chip color="primary lighten-5" class="primary--text font-weight-bold" small>
+            ທັງໝົດ {{ filteredInvoices.length }} ລາຍການ
+          </v-chip>
+        </div>
       </v-card-title>
 
-      <v-data-table :headers="headers" :items="paginatedInvoices" :loading="loading" :items-per-page="10"
+      <v-data-table :headers="headers" :items="filteredInvoices" :loading="loading" :items-per-page="10"
         class="elevation-0 modernize-table notosans-lao" loading-text="ກຳລັງໂຫຼດຂໍ້ມູນ..." no-data-text="ບໍ່ມີຂໍ້ມູນ">
         <template v-slot:item.invoiceNumber="{ item }">
           <div>
@@ -134,11 +410,11 @@
               <v-chip
                 v-if="item.saleOrder || item.sourceType === 'POS_ORDER' || item.saleHeaderId"
                 x-small
-                color="indigo lighten-5"
-                class="indigo--text ml-2 font-weight-medium"
+                color="primary lighten-5"
+                class="primary--text ml-2 font-weight-medium"
                 label
               >
-                <v-icon left x-small color="indigo">mdi-cart</v-icon>
+                <v-icon left x-small color="primary">mdi-cart</v-icon>
                 Order #{{ item.saleHeaderId || item.saleOrder?.id }}
               </v-chip>
             </div>
@@ -220,9 +496,20 @@
         </template>
 
         <template v-slot:item.status="{ item }">
-          <v-chip x-small :color="getStatusColor(item.status)" text-color="white">
-            {{ formatStatus(item.status) }}
-          </v-chip>
+          <div>
+            <v-chip
+              v-if="item.settledAmount > 0 && item.outstandingAmount > 0 && item.status !== 'cancelled'"
+              x-small
+              color="teal darken-1"
+              text-color="white"
+              class="font-weight-medium"
+            >
+              ຊຳລະບາງສ່ວນ ({{ Math.round((item.settledAmount / (item.totalAmount || 1)) * 100) }}%)
+            </v-chip>
+            <v-chip v-else x-small :color="getStatusColor(item.status)" text-color="white" class="font-weight-medium">
+              {{ formatStatus(item.status) }}
+            </v-chip>
+          </div>
         </template>
 
         <template v-slot:item.maker="{ item }">
@@ -311,6 +598,8 @@ export default {
 
   data() {
     return {
+      loading: false,
+      loadingAgencies: false,
       glAccounts: [],
       showEditDialog: false,
       showViewDialog: false,
@@ -323,12 +612,12 @@ export default {
       agencies: [],
       jobBatches: [],
       currencies: [],
-      loading: false,
-
+      selectedDatePreset: 'thisMonth',
       filters: {
         search: '',
         customerId: null,
-        agencyId: '',
+        agencyId: null,
+        status: '',
         dateFrom: '',
         dateTo: '',
       },
@@ -408,6 +697,15 @@ export default {
       return this.$auth.user || ''
     },
 
+    getSPF() {
+      return this.$store.getters.findSPF || []
+    },
+
+    clientLabel() {
+      const item = this.getSPF.find((spf) => spf.code === 'LABEL_AC_CUS')
+      return item?.value || 'ກະຊວງ'
+    },
+
     paginatedInvoices() {
       const start = (this.pagination.currentPage - 1) * this.pagination.perPage
       const end = start + this.pagination.perPage
@@ -432,8 +730,144 @@ export default {
       }
     },
 
+    baseInvoices() {
+      // Invoices filtered by customer, search, date range, and cancelled (without status filter)
+      let base = [...this.invoices]
+
+      if (!this.showCancelled && this.filters.status !== 'cancelled') {
+        base = base.filter((inv) => inv.status !== 'cancelled')
+      }
+
+      if (this.filters.search) {
+        const search = this.filters.search.toLowerCase()
+        base = base.filter(
+          (inv) =>
+            inv.invoiceNumber.toLowerCase().includes(search) ||
+            inv.description?.toLowerCase().includes(search) ||
+            inv.agency?.agencyName?.toLowerCase().includes(search) ||
+            inv.agency?.agencyCode?.toLowerCase().includes(search) ||
+            inv.client?.name?.toLowerCase().includes(search) ||
+            inv.client?.company?.toLowerCase().includes(search) ||
+            String(inv.saleHeaderId || '').includes(search)
+        )
+      }
+
+      if (this.filters.customerId) {
+        const filterVal = String(this.filters.customerId)
+        if (filterVal.startsWith('client_')) {
+          const cId = parseInt(filterVal.replace('client_', ''))
+          base = base.filter((inv) => inv.clientId === cId)
+        } else if (filterVal.startsWith('agency_')) {
+          const aId = parseInt(filterVal.replace('agency_', ''))
+          base = base.filter((inv) => inv.agencyId === aId)
+        } else {
+          const numId = parseInt(filterVal)
+          base = base.filter((inv) => inv.clientId === numId)
+        }
+      }
+
+      if (this.filters.agencyId) {
+        const aId = parseInt(this.filters.agencyId)
+        base = base.filter((inv) => Number(inv.agencyId) === aId)
+      }
+
+      if (this.filters.dateFrom || this.filters.dateTo) {
+        base = base.filter((inv) => {
+          const invoiceDate = new Date(inv.invoiceDate)
+          const dateFrom = this.filters.dateFrom
+            ? new Date(this.filters.dateFrom)
+            : null
+          const dateTo = this.filters.dateTo
+            ? new Date(this.filters.dateTo)
+            : null
+
+          if (dateFrom && invoiceDate < dateFrom) return false
+          if (dateTo && invoiceDate > dateTo) return false
+          return true
+        })
+      }
+
+      return base
+    },
+
+    statusCounts() {
+      const counts = {
+        all: 0,
+        pending: 0,
+        settled: 0,
+        partially_paid: 0,
+        overdue: 0,
+        draft: 0,
+        cancelled: 0,
+      }
+
+      this.baseInvoices.forEach((inv) => {
+        counts.all++
+        if (inv.status === 'cancelled') {
+          counts.cancelled++
+          return
+        }
+        if (inv.status === 'paid' || (inv.outstandingAmount <= 0 && inv.totalAmount > 0)) {
+          counts.settled++
+        } else {
+          counts.pending++
+          if (inv.settledAmount > 0 && inv.outstandingAmount > 0) {
+            counts.partially_paid++
+          }
+          if (inv.status === 'overdue' || this.getDueDateClass(inv.dueDate, inv.status) === 'overdue-date') {
+            counts.overdue++
+          }
+          if (inv.status === 'draft') {
+            counts.draft++
+          }
+        }
+      })
+
+      return counts
+    },
+
+    statusOptions() {
+      return [
+        { text: 'ທັງໝົດ (All)', value: '', badgeCount: this.statusCounts.all, color: 'primary' },
+        { text: 'ຄ້າງຊຳລະ (Pending / Outstanding)', value: 'pending', badgeCount: this.statusCounts.pending, textColor: 'warning--text text--darken-2', color: 'warning darken-1' },
+        { text: 'ຊຳລະແລ້ວ (Settled / Paid)', value: 'settled', badgeCount: this.statusCounts.settled, textColor: 'success--text text--darken-2', color: 'success' },
+        { text: 'ຊຳລະບາງສ່ວນ (Partially Settled)', value: 'partially_paid', badgeCount: this.statusCounts.partially_paid, textColor: 'teal--text text--darken-2', color: 'teal' },
+        { text: 'ເກີນກຳນົດ (Overdue)', value: 'overdue', badgeCount: this.statusCounts.overdue, textColor: 'error--text text--darken-2', color: 'error' },
+        { text: 'ແບບຮ່າງ (Draft)', value: 'draft', badgeCount: this.statusCounts.draft, textColor: 'grey--text text--darken-2', color: 'grey' },
+        { text: 'ຍົກເລີກ (Cancelled)', value: 'cancelled', badgeCount: this.statusCounts.cancelled, textColor: 'grey--text text--darken-3', color: 'grey darken-2' },
+      ]
+    },
+
+    currentStatusLabel() {
+      if (!this.filters.status) return ''
+      const opt = this.statusOptions.find((o) => o.value === this.filters.status)
+      return opt ? opt.text : this.filters.status
+    },
+
+    currentStatusColor() {
+      switch (this.filters.status) {
+        case 'settled':
+        case 'paid':
+          return 'success'
+        case 'pending':
+        case 'outstanding':
+          return 'warning darken-1'
+        case 'partially_paid':
+        case 'partial':
+          return 'teal'
+        case 'overdue':
+          return 'error'
+        case 'draft':
+          return 'grey'
+        case 'cancelled':
+          return 'grey darken-2'
+        default:
+          return 'primary'
+      }
+    },
+
     summaryTotals() {
-      return this.filteredInvoices.reduce(
+      return this.baseInvoices.reduce(
         (acc, invoice) => {
           acc.totalInvoices += (invoice.totalAmount || 0)
           acc.totalSettled += (invoice.settledAmount || 0)
@@ -459,15 +893,21 @@ export default {
           })
         })
       }
-      if (this.agencies && this.agencies.length > 0) {
-        this.agencies.forEach((a) => {
-          list.push({
-            value: `agency_${a.id}`,
-            name: `${a.agencyName || a.name}`,
-          })
-        })
-      }
       return list
+    },
+
+    ministryFilterList() {
+      if (!this.agencies || this.agencies.length === 0) return []
+      return this.agencies
+        .filter((a) => a.agencyType !== 'Employee')
+        .map((a) => {
+          const code = a.agencyCode || a.code
+          const name = a.agencyName || a.name
+          return {
+            id: a.id,
+            name: code ? `${code} - ${name}` : name,
+          }
+        })
     },
   },
 
@@ -475,6 +915,9 @@ export default {
     this.setDefaultDates()
     if (this.$route.query.search) {
       this.filters.search = this.$route.query.search
+    }
+    if (this.$route.query.status) {
+      this.filters.status = this.$route.query.status
     }
     this.fetchInvoices()
     this.fetchCustomers()
@@ -508,6 +951,9 @@ export default {
         if (invoice.status !== 'cancelled') {
           if (settledAmount >= totalAmount && totalAmount > 0) {
             status = 'paid'
+          } else if (settledAmount > 0 && settledAmount < totalAmount) {
+            const isOverdue = invoice.dueDate && new Date() > new Date(invoice.dueDate)
+            status = isOverdue ? 'overdue' : 'partially_paid'
           } else if (invoice.status === 'paid' && settledAmount < totalAmount) {
             const isOverdue = invoice.dueDate && new Date() > new Date(invoice.dueDate)
             status = isOverdue ? 'overdue' : 'sent'
@@ -550,6 +996,30 @@ export default {
       this.filters.dateTo = this.getCurrentMonthEnd()
     },
 
+    setDatePreset(preset) {
+      this.selectedDatePreset = preset
+      const now = new Date()
+      if (preset === 'today') {
+        const yyyy = now.getFullYear()
+        const mm = String(now.getMonth() + 1).padStart(2, '0')
+        const dd = String(now.getDate()).padStart(2, '0')
+        const todayStr = `${yyyy}-${mm}-${dd}`
+        this.filters.dateFrom = todayStr
+        this.filters.dateTo = todayStr
+      } else if (preset === 'thisMonth') {
+        this.filters.dateFrom = this.getCurrentMonthStart()
+        this.filters.dateTo = this.getCurrentMonthEnd()
+      } else if (preset === 'thisYear') {
+        const yyyy = now.getFullYear()
+        this.filters.dateFrom = `${yyyy}-01-01`
+        this.filters.dateTo = `${yyyy}-12-31`
+      } else if (preset === 'all') {
+        this.filters.dateFrom = ''
+        this.filters.dateTo = ''
+      }
+      this.applyFilters()
+    },
+
     async fetchAccountCharts() {
       try {
         const { data } = await this.$axios.get('/api/accountChart/find')
@@ -563,7 +1033,7 @@ export default {
       this.loading = true
       try {
         const params = { page: 1, limit: 1000 }
-        if (this.showCancelled) {
+        if (this.showCancelled || this.filters.status === 'cancelled') {
           params.includeCancelled = true
           params.showCancelled = true
         }
@@ -711,70 +1181,70 @@ export default {
     },
 
     applyFilters() {
-      let filtered = [...this.invoices]
+      let filtered = [...this.baseInvoices]
 
-      if (!this.showCancelled) {
-        filtered = filtered.filter((inv) => inv.status !== 'cancelled')
-      }
-
-      if (this.filters.search) {
-        const search = this.filters.search.toLowerCase()
-        filtered = filtered.filter(
-          (inv) =>
-            inv.invoiceNumber.toLowerCase().includes(search) ||
-            inv.description?.toLowerCase().includes(search) ||
-            inv.agency?.agencyName?.toLowerCase().includes(search) ||
-            inv.client?.name?.toLowerCase().includes(search) ||
-            inv.client?.company?.toLowerCase().includes(search) ||
-            String(inv.saleHeaderId || '').includes(search)
-        )
-      }
-
-      if (this.filters.customerId) {
-        const filterVal = String(this.filters.customerId)
-        if (filterVal.startsWith('client_')) {
-          const cId = parseInt(filterVal.replace('client_', ''))
-          filtered = filtered.filter((inv) => inv.clientId === cId)
-        } else if (filterVal.startsWith('agency_')) {
-          const aId = parseInt(filterVal.replace('agency_', ''))
-          filtered = filtered.filter((inv) => inv.agencyId === aId)
+      if (this.filters.status) {
+        const s = this.filters.status.toLowerCase()
+        if (s === 'settled' || s === 'paid') {
+          filtered = filtered.filter(
+            (inv) => inv.status === 'paid' || (inv.outstandingAmount <= 0 && inv.totalAmount > 0)
+          )
+        } else if (s === 'pending' || s === 'outstanding') {
+          filtered = filtered.filter(
+            (inv) => inv.outstandingAmount > 0 && inv.status !== 'cancelled'
+          )
+        } else if (s === 'partially_paid' || s === 'partial') {
+          filtered = filtered.filter(
+            (inv) => inv.settledAmount > 0 && inv.outstandingAmount > 0 && inv.status !== 'cancelled'
+          )
+        } else if (s === 'overdue') {
+          filtered = filtered.filter(
+            (inv) =>
+              inv.status === 'overdue' ||
+              this.getDueDateClass(inv.dueDate, inv.status) === 'overdue-date'
+          )
+        } else if (s === 'draft') {
+          filtered = filtered.filter((inv) => inv.status === 'draft')
+        } else if (s === 'sent') {
+          filtered = filtered.filter((inv) => inv.status === 'sent')
+        } else if (s === 'cancelled') {
+          filtered = filtered.filter((inv) => inv.status === 'cancelled')
         } else {
-          const numId = parseInt(filterVal)
-          filtered = filtered.filter((inv) => inv.agencyId === numId || inv.clientId === numId)
+          filtered = filtered.filter((inv) => inv.status === s)
         }
-      } else if (this.filters.agencyId) {
-        filtered = filtered.filter(
-          (inv) => inv.agencyId === this.filters.agencyId
-        )
       }
 
-      if (this.filters.dateFrom || this.filters.dateTo) {
-        filtered = filtered.filter((inv) => {
-          const invoiceDate = new Date(inv.invoiceDate)
-          const dateFrom = this.filters.dateFrom
-            ? new Date(this.filters.dateFrom)
-            : null
-          const dateTo = this.filters.dateTo
-            ? new Date(this.filters.dateTo)
-            : null
-
-          if (dateFrom && invoiceDate < dateFrom) return false
-          if (dateTo && invoiceDate > dateTo) return false
-          return true
-        })
-      }
-
-      // Recalculate amounts on filtered data (although already done in fetch, this is safer for manipulation)
       this.filteredInvoices = this.calculateAmounts(filtered)
       this.pagination.currentPage = 1
     },
 
+    setStatusFilter(status) {
+      this.filters.status = status || ''
+      if (status === 'cancelled' && !this.showCancelled) {
+        this.showCancelled = true
+        this.fetchInvoices()
+        return
+      }
+      this.applyFilters()
+    },
+
+    onStatusFilterChange() {
+      if (this.filters.status === 'cancelled' && !this.showCancelled) {
+        this.showCancelled = true
+        this.fetchInvoices()
+        return
+      }
+      this.applyFilters()
+    },
+
     resetFilters() {
       this.showCancelled = false
+      this.selectedDatePreset = 'thisMonth'
       this.filters = {
         search: '',
         customerId: null,
-        agencyId: '',
+        agencyId: null,
+        status: '',
         dateFrom: this.getCurrentMonthStart(),
         dateTo: this.getCurrentMonthEnd(),
       }
@@ -900,6 +1370,8 @@ export default {
       const labels = {
         draft: 'ແບບຮ່າງ',
         sent: 'ສົ່ງແລ້ວ',
+        pending: 'ຄ້າງຊຳລະ',
+        partially_paid: 'ຊຳລະບາງສ່ວນ',
         paid: 'ຈ່າຍແລ້ວ',
         overdue: 'ເກີນກຳນົດ',
         cancelled: 'ຍົກເລີກ',
@@ -911,6 +1383,8 @@ export default {
       const colors = {
         draft: 'grey',
         sent: 'info',
+        pending: 'warning darken-1',
+        partially_paid: 'teal darken-1',
         paid: 'success',
         overdue: 'error',
         cancelled: 'grey darken-2',
@@ -941,20 +1415,12 @@ export default {
 /* Typography & Noto Sans Lao */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Lao:wght@300;400;500;600;700&display=swap');
 
-.filter-card {
-  border-radius: 16px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  background: rgba(255, 255, 255, 0.85) !important;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
-}
-
 .summary-card {
-  border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(226, 232, 240, 0.8);
-  background: white;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border-radius: 14px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  background: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
   position: relative;
   overflow: hidden;
 }
@@ -967,22 +1433,105 @@ export default {
   height: 100%;
   width: 4px;
   background: transparent;
-  transition: all 0.3s;
+  transition: all 0.25s ease-in-out;
 }
 
 .summary-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  border-color: #cbd5e1;
 }
 
 .summary-card:hover::before {
   width: 6px;
 }
 
-.summary-card.total-ap::before { background: var(--v-primary-base) !important; }
-.summary-card.total-paid::before { background: var(--v-success-base, #10b981) !important; }
+.summary-card.total-ap::before { background: var(--v-primary-base, #01532b) !important; }
 .summary-card.outstanding::before { background: var(--v-warning-base, #f59e0b) !important; }
+.summary-card.total-paid::before { background: var(--v-success-base, #10b981) !important; }
 .summary-card.overdue::before { background: var(--v-error-base, #ef4444) !important; }
+
+/* Active card state indicators */
+.card-active-primary {
+  border: 1.5px solid var(--v-primary-base, #01532b) !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%) !important;
+  box-shadow: 0 4px 12px rgba(1, 83, 43, 0.12) !important;
+}
+.card-active-primary::before {
+  width: 6px !important;
+}
+
+.card-active-warning {
+  border: 1.5px solid #f59e0b !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%) !important;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.12) !important;
+}
+.card-active-warning::before {
+  width: 6px !important;
+}
+
+.card-active-success {
+  border: 1.5px solid #10b981 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%) !important;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.12) !important;
+}
+.card-active-success::before {
+  width: 6px !important;
+}
+
+.card-active-error {
+  border: 1.5px solid #ef4444 !important;
+  background: linear-gradient(180deg, #ffffff 0%, #fef2f2 100%) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.12) !important;
+}
+.card-active-error::before {
+  width: 6px !important;
+}
+
+.filter-card {
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.date-toggle-group {
+  background-color: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  height: 32px !important;
+}
+
+.date-toggle-group .v-btn {
+  letter-spacing: normal !important;
+  height: 30px !important;
+  border: none !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+}
+
+.date-toggle-group .v-btn--active {
+  background-color: #ffffff !important;
+  color: var(--v-primary-base, #01532b) !important;
+  font-weight: 700 !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+}
+
+.border-top-subtle {
+  border-top: 1px solid #f1f5f9;
+}
+
+.border-bottom-subtle {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dashboard-card {
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+}
 
 .modernize-table ::v-deep th {
   background-color: #f8fafc !important;
@@ -992,17 +1541,25 @@ export default {
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
   border-bottom: 2px solid #e2e8f0 !important;
-  padding: 16px !important;
+  padding: 14px 16px !important;
 }
 
 .modernize-table ::v-deep td {
   font-size: 0.875rem !important;
-  padding: 16px !important;
+  padding: 14px 16px !important;
   border-bottom: 1px solid #f1f5f9 !important;
 }
 
 .modernize-table ::v-deep tr:hover {
   background-color: #f8fafc !important;
+}
+
+.lh-tight {
+  line-height: 1.25 !important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 .font-monospace {
@@ -1031,6 +1588,15 @@ export default {
 
 .uppercase {
   text-transform: uppercase;
+}
+
+/* Enhanced font weight for better Lao text readability */
+.font-weight-bold {
+  font-weight: 600 !important;
+}
+
+.font-weight-medium {
+  font-weight: 500 !important;
 }
 
 /* Apply professional typography globally in current container */

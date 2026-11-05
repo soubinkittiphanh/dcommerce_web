@@ -218,6 +218,7 @@
 import { mapGetters } from 'vuex'
 import NumericKeypadDialog from './dialogs/NumericKeypadDialog.vue'
 import CurrencyHelper from '@/utils/currency-helper'
+import { isPackagingProduct } from '~/common'
 
 export default {
   name: 'CartFooterComponent',
@@ -278,7 +279,8 @@ export default {
 
     packagingSoldTotalLAK() {
       return this.productCart.reduce((sum, item) => {
-        const isSold = item.packagingAction === 'SOLD' || (item.isPackagingAsset && !item.isReturn && item.packagingAction !== 'RETURNED')
+        const isPkg = isPackagingProduct(item)
+        const isSold = item.packagingAction === 'SOLD' || (isPkg && !item.isReturn && item.packagingAction !== 'RETURNED')
         if (!isSold) return sum
         const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
         const lineTotal = item.qty * (item.localPrice || 0)
@@ -288,7 +290,8 @@ export default {
 
     packagingReturnTotalLAK() {
       return this.productCart.reduce((sum, item) => {
-        const isReturn = item.isReturn === true || item.packagingAction === 'RETURNED'
+        const isPkg = isPackagingProduct(item)
+        const isReturn = (item.isReturn === true || item.packagingAction === 'RETURNED') && isPkg
         if (!isReturn) return sum
         const currency = this.findAllCurrency.find(c => c.id === item.saleCurrencyId)
         const lineTotal = item.qty * (item.localPrice || 0)

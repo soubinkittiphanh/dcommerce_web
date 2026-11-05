@@ -18,6 +18,10 @@
               <v-icon left small>mdi-printer</v-icon>
               ພິມລາຍງານ
             </v-btn>
+            <v-btn color="teal darken-1" small outlined @click="printLedgerReport" :disabled="loading || (advances.length === 0 && settlements.length === 0 && priorAdvances.length === 0 && priorSettlements.length === 0)">
+              <v-icon left small>mdi-file-table-outline</v-icon>
+              ພິມແຍກແຖວ (ຮັບ-ຈ່າຍ)
+            </v-btn>
             <v-btn color="secondary" small outlined @click="exportData" :disabled="loading || advances.length === 0">
               <v-icon left small>mdi-download</v-icon>
               Export
@@ -284,6 +288,7 @@ import VoucherPrintComponent from '~/components/MA/paymentVoucher'
 import SettlementDialog from '~/components/MA/settlementDialog'
 import { swalConfirm } from '~/common'
 import { printMoneyAdvanceListReport } from '~/common/moneyAdvanceListPrintTemplate'
+import { printMoneyAdvanceLedgerReport } from '~/common/moneyAdvanceLedgerPrintTemplate'
 import * as XLSX from 'xlsx'
 import { mapGetters } from 'vuex'
 
@@ -322,6 +327,10 @@ export default {
 
       // Data arrays
       advances: [],
+      settlements: [],
+      priorAdvances: [],
+      priorSettlements: [],
+      periodBalanceForward: null,
       users: [],
       currencies: [],
       ministries: [],
@@ -415,12 +424,14 @@ export default {
     // Filter parameters for API calls
     filterParams() {
       const params = {}
+      const fromDateStr = this.normalizeDateString(this.filters.fromDate)
+      const toDateStr = this.normalizeDateString(this.filters.toDate)
 
-      if (this.filters.fromDate) {
-        params.fromDate = this.filters.fromDate
+      if (fromDateStr) {
+        params.fromDate = fromDateStr
       }
-      if (this.filters.toDate) {
-        params.toDate = this.filters.toDate
+      if (toDateStr) {
+        params.toDate = toDateStr
       }
       if (this.filters.makerId) {
         params.makerId = this.filters.makerId
@@ -507,22 +518,21 @@ export default {
     getStartOfCurrentMonth() {
       const now = new Date()
       const year = now.getFullYear()
-      const month = now.getMonth()
-      const firstDay = new Date(year, month, 1)
-      return firstDay.toISOString().split('T')[0]
+      const month = String(now.getMonth() + 1).padStart(2, '0')
+      return `${year}-${month}-01`
     },
 
     getEndOfCurrentMonth() {
       const now = new Date()
       const year = now.getFullYear()
-      const month = now.getMonth()
-      const lastDay = new Date(year, month + 1, 0)
-      return lastDay.toISOString().split('T')[0]
+      const month = now.getMonth() + 1
+      const lastDay = new Date(year, month, 0).getDate()
+      return `${year}-${String(month).padStart(2, '0')}-${String(lastDay).padStart(2, '0')}`
     },
 
     initializeDefaultDateFilters() {
-      const fromDate = this.getStartOfCurrentMonth()
-      const toDate = this.getEndOfCurrentMonth()
+      const fromDate = this.normalizeDateString(this.getStartOfCurrentMonth())
+      const toDate = this.normalizeDateString(this.getEndOfCurrentMonth())
 
       this.filters.fromDate = fromDate
       this.filters.toDate = toDate
@@ -563,15 +573,17 @@ export default {
 
     // Date picker handlers
     setFromDate(val) {
-      this.pickerFromDate = val
-      this.filters.fromDate = val
+      const normalized = this.normalizeDateString(val)
+      this.pickerFromDate = normalized
+      this.filters.fromDate = normalized
       this.fromDateMenu = false
       this.fetchData() // Auto-fetch when date changes
     },
 
     setToDate(val) {
-      this.pickerToDate = val
-      this.filters.toDate = val
+      const normalized = this.normalizeDateString(val)
+      this.pickerToDate = normalized
+      this.filters.toDate = normalized
       this.toDateMenu = false
       this.fetchData() // Auto-fetch when date changes
     },
@@ -612,21 +624,128 @@ export default {
       }, 500)
     },
 
+    // Safely normalize any date value (Date object or string) into YYYY-MM-DD string
+    normalizeDateString(val) {
+      if (!val) return ''
+      if (typeof val === 'string') {
+        return val.includes('T') ? val.split('T')[0] : val
+      }
+      if (val instanceof Date && !isNaN(val.getTime())) {
+        return val.toISOString().split('T')[0]
+      }
+      try {
+        const d = new Date(val)
+        if (!isNaN(d.getTime())) return d.toISOString().split('T')[0]
+      } catch (e) {}
+      return String(val)
+    },
+
+    // Get YYYY-MM-DD for 1 day before a given YYYY-MM-DD string (end of previous period/month)
+    getPreviousDayDateString(dateVal) {
+      const dateStr = this.normalizeDateString(dateVal)
+      if (!dateStr || typeof dateStr !== 'string') return ''
+      try {
+        const parts = dateStr.split('-').map(Number)
+        if (parts.length !== 3 || parts.some(isNaN)) return ''
+        const prev = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2] - 1))
+        return prev.toISOString().split('T')[0]
+      } catch (e) {
+        return ''
+      }
+    },
+
     // Data fetching methods
     async fetchData() {
       if (this.loading) return
 
       this.loading = true
       try {
+        const fromDateStr = this.normalizeDateString(this.filters.fromDate)
+        const toDateStr = this.normalizeDateString(this.filters.toDate)
+
         const params = {
           page: 1,
           limit: 1000,
           ...this.filterParams
         }
+        if (fromDateStr) params.fromDate = fromDateStr
+        if (toDateStr) params.toDate = toDateStr
+
+        const settlementParams = {
+          page: 1,
+          limit: 1000,
+          isActive: true,
+        }
+        if (fromDateStr) settlementParams.fromDate = fromDateStr
+        if (toDateStr) settlementParams.toDate = toDateStr
+        if (this.filters.ministryId) settlementParams.ministryId = this.filters.ministryId
+        if (this.filters.makerId) settlementParams.userId = this.filters.makerId
+
+        // Fetch monthly captured Balance Forward from /api/pwt/period-balances/master-summary
+        const branchId = this.$store?.state?.auth?.user?.branchId || this.user?.branchId || 1
+        let periodMasterPromise = Promise.resolve(null)
+        if (fromDateStr && typeof fromDateStr === 'string') {
+          const [fYear, fMonth] = fromDateStr.split('-').map(Number)
+          if (fYear && fMonth) {
+            periodMasterPromise = this.$axios
+              .get('/api/pwt/period-balances/master-summary', {
+                params: { branchId, year: fYear, month: fMonth },
+              })
+              .catch((err) => {
+                console.warn('Could not fetch period-balances/master-summary:', err)
+                return null
+              })
+          }
+        }
+
+        // Prepare prior period params (up to 1 day before fromDate) as fallback for custom dates/maker filter
+        const prevDateStr = this.getPreviousDayDateString(fromDateStr)
+        let priorAdvancePromise = Promise.resolve({ data: { success: true, data: { advances: [] } } })
+        let priorSettlementPromise = Promise.resolve({ data: { success: true, data: { settlements: [] } } })
+
+        if (prevDateStr) {
+          const priorAdvParams = {
+            page: 1,
+            limit: 5000,
+            toDate: prevDateStr,
+          }
+          const priorSetParams = {
+            page: 1,
+            limit: 5000,
+            toDate: prevDateStr,
+            isActive: true,
+          }
+          if (this.filters.ministryId) {
+            priorAdvParams.ministryId = this.filters.ministryId
+            priorSetParams.ministryId = this.filters.ministryId
+          }
+          if (this.filters.makerId) {
+            priorAdvParams.makerId = this.filters.makerId
+            priorSetParams.userId = this.filters.makerId
+          }
+
+          priorAdvancePromise = this.$axios
+            .get('/api/money-advances', { params: priorAdvParams })
+            .catch(() => ({ data: { success: false, data: { advances: [] } } }))
+          priorSettlementPromise = this.$axios
+            .get('/api/settlements', { params: priorSetParams })
+            .catch(() => ({ data: { success: false, data: { settlements: [] } } }))
+        }
 
         console.log('Fetching data with params:', params)
 
-        const response = await this.$axios.get('/api/money-advances', { params })
+        const [response, settlementRes, periodMasterRes, priorAdvRes, priorSetRes] = await Promise.all([
+          this.$axios.get('/api/money-advances', { params }),
+          this.$axios
+            .get('/api/settlements', { params: settlementParams })
+            .catch((err) => {
+              console.error('Error fetching settlements:', err)
+              return { data: { success: false, data: { settlements: [] } } }
+            }),
+          periodMasterPromise,
+          priorAdvancePromise,
+          priorSettlementPromise,
+        ])
         const { data } = response
 
         if (data?.success) {
@@ -635,10 +754,53 @@ export default {
           this.advances = []
           this.showToast('Failed to fetch data', 'error')
         }
+
+        const sData = settlementRes?.data
+        if (sData?.success) {
+          this.settlements = sData.data?.settlements || (Array.isArray(sData.data) ? sData.data : [])
+        } else if (Array.isArray(sData?.settlements)) {
+          this.settlements = sData.settlements
+        } else {
+          this.settlements = []
+        }
+
+        const pAdvData = priorAdvRes?.data
+        this.priorAdvances = pAdvData?.success ? pAdvData.data?.advances || [] : []
+
+        const pSetData = priorSetRes?.data
+        if (pSetData?.success) {
+          this.priorSettlements =
+            pSetData.data?.settlements || (Array.isArray(pSetData.data) ? pSetData.data : [])
+        } else if (Array.isArray(pSetData?.settlements)) {
+          this.priorSettlements = pSetData.settlements
+        } else {
+          this.priorSettlements = []
+        }
+
+        // Resolve monthly captured Balance Forward (Closing Balance of previous month from master-summary)
+        const masterData = periodMasterRes?.data
+        if (masterData?.success && masterData.balanceForward && !this.filters.makerId) {
+          if (this.filters.ministryId) {
+            const minBf = (masterData.balanceForward.byMinistry || []).find(
+              (m) => Number(m.ministryId) === Number(this.filters.ministryId)
+            )
+            this.periodBalanceForward = minBf ? parseFloat(minBf.totalLakEquivalent || 0) : 0
+          } else {
+            this.periodBalanceForward = parseFloat(
+              masterData.balanceForward.totals?.totalLakEquivalent || 0
+            )
+          }
+        } else {
+          this.periodBalanceForward = null
+        }
+
         this.calculateSummaryStats()
       } catch (error) {
         console.error('Error fetching advances:', error)
         this.advances = []
+        this.settlements = []
+        this.priorAdvances = []
+        this.priorSettlements = []
         this.calculateSummaryStats()
         this.showToast('Error loading data', 'error')
       } finally {
@@ -777,6 +939,42 @@ export default {
         ministryName: ministryName,
         makerName: makerName,
         dashboard: this.dashboard,
+      })
+    },
+
+    // Print Lao Government Style A4 Ledger Report (Separate Rows for Payment & Settlement)
+    printLedgerReport() {
+      const hasAdvances = this.advances && this.advances.length > 0
+      const hasSettlements = this.settlements && this.settlements.length > 0
+      const hasPrior =
+        (this.priorAdvances && this.priorAdvances.length > 0) ||
+        (this.priorSettlements && this.priorSettlements.length > 0)
+      if (!hasAdvances && !hasSettlements && !hasPrior) {
+        this.showToast('ບໍ່ມີຂໍ້ມູນສຳລັບພິມລາຍງານ', 'warning')
+        return
+      }
+
+      const selectedMinistry = this.ministries.find((m) => m.id === this.filters.ministryId)
+      const selectedUser = this.users.find((u) => u.id === this.filters.makerId)
+
+      const ministryName = selectedMinistry
+        ? `${selectedMinistry.ministryCode ? selectedMinistry.ministryCode + ' - ' : ''}${selectedMinistry.ministryName}`
+        : ''
+      const makerName = selectedUser ? (selectedUser.cus_name || selectedUser.name) : ''
+
+      printMoneyAdvanceLedgerReport({
+        reportData: this.advances,
+        settlements: this.settlements,
+        priorAdvances: this.priorAdvances,
+        priorSettlements: this.priorSettlements,
+        openingBalance: this.periodBalanceForward,
+        filters: this.filters,
+        formattedFromDate: this.formattedFromDate,
+        formattedToDate: this.formattedToDate,
+        companyData: this.companyData,
+        user: this.user,
+        ministryName: ministryName,
+        makerName: makerName,
       })
     },
 
