@@ -84,5 +84,41 @@ test('kindsForStage returns only entries valid for that stage; DISB is BOOKED-on
   assert.ok(kindsForStage('DISBURSED').some(k => k.value === 'WRITE_OFF'), 'WRITE_OFF on DISBURSED')
 })
 
+// Body keys the backend reads, per kind: `input.<key>` inside each `async KIND(` handler in handlers.js, plus
+// the keys transactionService/fxContext read for every kind. Parsed from source, like backend() above.
+const SHARED_KEYS = ['bankAccountId', 'remarks', 'rateDeviationReason', 'valueDate']
+const handlerKeys = () => {
+  const src = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/handlers.js'), 'utf8')
+  const heads = [...src.matchAll(/^ {2}async ([A-Z_]+)\(/gm)]
+  const out = {}
+  heads.forEach((h, i) => {
+    const body = src.slice(h.index, i + 1 < heads.length ? heads[i + 1].index : src.length)
+    out[h[1]] = [...new Set([...body.matchAll(/input\.([A-Za-z]+)/g)].map(m => m[1]))]
+  })
+  out.REVERSAL = ['targetTransactionId'] // handled in transactionService (reverse), not handlers.js
+  return out
+}
+
+test('every field and fixed key the dialog sends is a key the backend handler reads (REPOSSESS appraisedValue, VEH_DISPOSE salePrice)', () => {
+  const HK = handlerKeys()
+  for (const k of KINDS) {
+    const pk = postKindOf(k)
+    assert.ok(HK[pk], `${k.value}: handler ${pk} found in handlers.js`)
+    const reads = new Set([...HK[pk], ...SHARED_KEYS])
+    for (const key of [...k.fields.map(f => f.key), ...Object.keys(k.fixed || {})]) {
+      assert.ok(reads.has(key), `${k.value}: sends '${key}' but ${pk} reads only ${[...HK[pk]].join(', ') || '(none)'}`)
+    }
+  }
+  // The money fields the backend validates with money(input.X, ...) must all be offered in the dialog
+  const src = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/handlers.js'), 'utf8')
+  for (const v of ['REPOSSESS', 'VEH_DISPOSE']) {
+    const start = src.indexOf(`async ${v}(`)
+    const body = src.slice(start, src.indexOf('\n  },', start))
+    for (const m of body.matchAll(/money\(input\.([A-Za-z]+)/g)) {
+      assert.ok(byValue[v].fields.some(f => f.key === m[1]), `${v}: dialog offers required money field '${m[1]}'`)
+    }
+  }
+})
+
 console.log(failures ? `\n${failures} failed` : '\nAll transactionKinds checks passed')
 process.exit(failures ? 1 : 0)

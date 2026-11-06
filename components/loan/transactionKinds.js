@@ -50,10 +50,10 @@ const KINDS = [
     fields: [F.remarks] },
 
   { value: 'REPOSSESS', label: 'ຍຶດຊັບ (Repossess)', checker: true, stages: ['DISBURSED'], remarksRequired: true, confirmAccountNo: true,
-    fields: [F.amount('ມູນຄ່າປະເມີນ (Appraised value)'), F.remarks] },
+    fields: [{ key: 'appraisedValue', label: 'ມູນຄ່າປະເມີນ (Appraised value)', type: 'amount', required: true }, F.remarks] },
 
   { value: 'VEH_DISPOSE', label: 'ຂາຍຊັບທີ່ຍຶດ (Dispose vehicle)', checker: true, stages: ['DISBURSED'], remarksRequired: true,
-    fields: [F.amount('ລາຄາຂາຍ (Sale price)'), F.bank, F.remarks] },
+    fields: [{ key: 'salePrice', label: 'ລາຄາຂາຍ (Sale price)', type: 'amount', required: true }, F.bank, F.remarks] },
 
   { value: 'RECOVERY', label: 'ຮັບຄືນໜີ້ສູນ (Recovery)', checker: false, stages: ['DISBURSED'],
     fields: [F.amount('ຈຳນວນ (Amount)'), F.bank] },
