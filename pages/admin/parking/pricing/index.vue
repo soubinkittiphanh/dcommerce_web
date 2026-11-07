@@ -35,8 +35,8 @@
               </v-avatar>
               <div>
                 <div class="font-weight-bold rule-name-text">{{ rule.name }}</div>
-                <div class="text-caption text-uppercase primary--text font-weight-bold">
-                  {{ rule.vehicleType }}
+                <div class="text-caption primary--text font-weight-bold">
+                  {{ vehicleTypeMeta(rule.vehicleType).label }}
                 </div>
               </div>
             </div>
@@ -156,6 +156,17 @@
             item-value="value"
             class="mb-2"
           ></v-select>
+
+          <v-alert
+            v-if="ruleForm.isDefault && hasOtherDefaultFor(ruleForm.vehicleType, ruleForm.id)"
+            dense
+            text
+            type="info"
+            class="text-caption mb-3"
+          >
+            ອັດຕານີ້ຈະເປັນລາຄາທີ່ໃຊ້ສຳລັບປະເພດລົດນີ້ ແທນອັດຕາເກົ່າ
+            (This rule becomes the active price for this vehicle type and replaces the current default.)
+          </v-alert>
 
           <!-- Day Time Settings -->
           <v-card outlined class="pa-3 mb-3 amber lighten-5">
@@ -280,7 +291,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import { createParkingApiService } from '~/services/parkingApiService';
 
 export default {
@@ -305,26 +316,26 @@ export default {
         dailyCap: 50000,
         lostTicketFee: 100000,
         isDefault: true
-      },
-      vehicleTypes: [
-        { label: 'ລົດໃຫຍ່ (Car)', value: 'car' },
-        { label: 'ລົດຈັກ (Motorbike)', value: 'motorbike' },
-        { label: 'ລົດບັນທຸກ (Truck)', value: 'truck' },
-        { label: 'ລົດ VIP', value: 'vip' }
-      ]
+      }
     };
   },
   computed: {
     ...mapState('parking', {
       pricingRules: state => state.pricingRules || [],
       loading: state => state.loading
+    }),
+    ...mapGetters('parking', {
+      vehicleTypes: 'vehicleTypeOptions',
+      vehicleTypeMeta: 'vehicleTypeMeta',
+      defaultVehicleTypeCode: 'defaultVehicleTypeCode'
     })
   },
   mounted() {
+    this.fetchVehicleTypes();
     this.loadPricingRules();
   },
   methods: {
-    ...mapActions('parking', ['fetchPricingRules']),
+    ...mapActions('parking', ['fetchPricingRules', 'fetchVehicleTypes']),
 
     async loadPricingRules() {
       await this.fetchPricingRules();
@@ -335,12 +346,12 @@ export default {
     },
 
     getVehicleIcon(type) {
-      switch (type) {
-        case 'motorbike': return 'mdi-motorbike';
-        case 'truck': return 'mdi-truck';
-        case 'vip': return 'mdi-star';
-        default: return 'mdi-car';
-      }
+      return this.vehicleTypeMeta(type).icon;
+    },
+
+    // Another rule is currently the default for this type (saving this one as default will replace it)
+    hasOtherDefaultFor(vehicleType, ruleId) {
+      return this.pricingRules.some(r => r.vehicleType === vehicleType && r.isDefault && r.id !== ruleId);
     },
 
     openAddRuleDialog() {
@@ -348,7 +359,7 @@ export default {
       this.ruleForm = {
         id: null,
         name: '',
-        vehicleType: 'car',
+        vehicleType: this.defaultVehicleTypeCode,
         dayStartTime: '06:00',
         dayEndTime: '18:00',
         dayHourlyRate: 5000,

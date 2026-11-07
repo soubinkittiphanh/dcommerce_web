@@ -6,10 +6,8 @@
                 <v-divider></v-divider>
                 <v-card-text style="height: 300px;">
                     <v-radio-group v-model="terminalSelected" column>
-                        <v-radio v-for="terminal in findAllTerminal" :key="terminal.id" :label="terminal.name+' - '+terminal.description"
+                        <v-radio v-for="terminal in safeTerminals" :key="terminal.id" :label="terminal.name+' - '+terminal.description"
                             :value="terminal.id"></v-radio>
-                        <!-- <v-radio label="Bahrain" value="bahrain"></v-radio>
-                        <v-radio label="Bangladesh" value="bangladesh"></v-radio> -->
                     </v-radio-group>
                 </v-card-text>
                 <v-divider></v-divider>
@@ -55,6 +53,7 @@
   
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { filterTerminalsByUser } from '~/common'
 export default {
     name: 'menu-card',
     components: {
@@ -86,18 +85,33 @@ export default {
     },
     computed: {
         ...mapGetters(['findAllTerminal','findSelectedTerminal']),
+        safeTerminals() {
+            const all = Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
+            const allowed = filterTerminalsByUser(this.$auth.user, all)
+            return allowed.filter(t => t && t.isActive !== false)
+        }
     },
     methods: {
         ...mapActions(['setSelectedTerminal']),
         takeMeTo() {
             if (this.path.includes('/pos') && !this.findSelectedTerminal) {
-                this.terminalDialog = true
-                console.log(`PATH ${this.path}`);
-            } else {
-                this.$router.push(this.path)
+                if (this.safeTerminals.length === 1) {
+                    this.terminalSelected = this.safeTerminals[0].id
+                    this.takeToPOS()
+                    return
+                } else if (this.safeTerminals.length > 1) {
+                    this.terminalSelected = this.safeTerminals[0].id
+                    this.terminalDialog = true
+                    return
+                }
             }
+            this.$router.push(this.path)
         },
         takeToPOS() {
+            const target = this.safeTerminals.find(t => t.id == this.terminalSelected)
+            if (!target) {
+                return
+            }
             this.setSelectedTerminal(this.terminalSelected)
             this.terminalDialog = false
             this.$router.push(this.path)

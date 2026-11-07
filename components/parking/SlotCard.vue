@@ -29,12 +29,14 @@
 
     <div class="slot-footer px-3 pb-2 d-flex justify-space-between align-center text-caption grey--text">
       <span>{{ slotData.zone?.name || slotData.zone?.code || '' }}</span>
-      <span class="text-uppercase font-weight-medium">{{ slotData.slotType }}</span>
+      <span class="font-weight-medium">{{ vehicleTypeMeta(slotData.slotType).label }}</span>
     </div>
   </v-card>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+
 export default {
   name: 'SlotCard',
   props: {
@@ -44,6 +46,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('parking', ['vehicleTypeMeta']),
     currentPlate() {
       return this.slotData.currentTicket?.plateNumber || 
              this.slotData.currentTicket?.vehicle?.plateNumber || 
@@ -81,21 +84,13 @@ export default {
         default: return status;
       }
     },
+    // Icon & colour come from the customer-maintained vehicle type master
     getTypeIcon(type) {
-      switch (type) {
-        case 'motorbike': return 'mdi-motorbike';
-        case 'vip': return 'mdi-star-circle';
-        case 'disabled': return 'mdi-wheelchair-accessibility';
-        case 'truck': return 'mdi-truck';
-        default: return 'mdi-car-side';
-      }
+      return this.vehicleTypeMeta(type).icon;
     },
     getTypeColor(type) {
-      switch (type) {
-        case 'vip': return '#f59e0b';
-        case 'disabled': return '#0284c7';
-        default: return '#64748b';
-      }
+      const color = this.vehicleTypeMeta(type).color;
+      return color && color !== 'primary' ? color : '#64748b';
     }
   }
 };

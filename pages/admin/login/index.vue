@@ -11,7 +11,7 @@
           <v-card-text style="height: 300px">
             <v-radio-group v-model="terminalSelected" column>
               <v-radio
-                v-for="terminal in findAllTerminal.filter(terminal=>terminal.isActive)"
+                v-for="terminal in availableTerminals"
                 :key="terminal.id"
                 :label="terminal.name + ' - ' + terminal.description"
                 :value="terminal.id"
@@ -132,7 +132,7 @@
 </template>
 <script>
 import Notification from '../../../components/Notification.vue'
-import { swalError2 } from '~/common'
+import { swalError2, filterTerminalsByUser } from '~/common'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -204,6 +204,12 @@ export default {
         return `ຍິນດີຕ້ອນຮັບສູ່ ${this.companyLogo.company.name}`
       }
       return 'ຍິນດີຕ້ອນຮັບ'
+    },
+
+    availableTerminals() {
+      const user = this.$auth.user
+      const terminals = filterTerminalsByUser(user, this.findAllTerminal)
+      return terminals.filter((terminal) => terminal.isActive !== false)
     }
   },
 
@@ -277,15 +283,22 @@ export default {
     },
 
     switchTerminal() {
-      this.setSelectedTerminal(this.terminalSelected)
-      const location = this.findAllLocation.find(
-        (el) =>
-          el.id ==
-          this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
-            'locationId'
-          ]
+      const allowedTerminals = filterTerminalsByUser(this.$auth.user, this.findAllTerminal)
+      const targetTerminal = allowedTerminals.find(
+        (el) => el.id == this.terminalSelected
       )
-      this.setSelectedLocation(location)
+      if (!targetTerminal) {
+        swalError2(this.$swal, 'Error', 'ທ່ານບໍ່ມີສິດເຂົ້າເຖິງ Terminal ນີ້ (Unauthorized terminal access)')
+        return
+      }
+
+      this.setSelectedTerminal(this.terminalSelected)
+      const location = (this.findAllLocation || []).find(
+        (el) => el.id == targetTerminal.locationId
+      )
+      if (location) {
+        this.setSelectedLocation(location)
+      }
 
       const userGroup = this.$auth.user?.userGroup
       const homePageSpf = (this.spfList || []).find((spf) => spf.code === 'HOME' && spf.isActive)
@@ -325,13 +338,70 @@ export default {
           this.initData()
           await this.fetchSPFItems()
 
-          const enableTerminal = this.spfList.find(
+          // Ensure terminals and locations are fetched if not yet in store
+          if (!this.findAllTerminal || this.findAllTerminal.length === 0) {
+            try {
+              const termRes = await this.$axios.get('api/terminal/find')
+              const terms = termRes.data?.data ?? termRes.data
+              if (terms) {
+                this.$store.commit('SetTerminalList', terms)
+              }
+            } catch (e) {
+              console.warn('Terminal quick fetch error:', e)
+            }
+          }
+
+          if (!this.findAllLocation || this.findAllLocation.length === 0) {
+            try {
+              const locRes = await this.$axios.get('api/location/find')
+              const locs = locRes.data?.data ?? locRes.data
+              if (locs) {
+                this.$store.commit('SetLocationList', locs)
+              }
+            } catch (e) {
+              console.warn('Location quick fetch error:', e)
+            }
+          }
+
+          const enableTerminal = (this.spfList || []).find(
             (spf) => spf.code === 'E_TERMINAL'
           )
+
+          const loggedInUser = response.data?.user || this.$auth.user
+          const userAllowedTerminals = filterTerminalsByUser(loggedInUser, this.findAllTerminal)
+          const activeTerminals = userAllowedTerminals.filter(
+            (terminal) => terminal.isActive !== false
+          )
+
           if (enableTerminal?.value === 'Y') {
-            this.terminalDialog = true
+            if (activeTerminals.length === 1) {
+              // Exactly one active authorized terminal: auto select and pass through
+              console.info(`Only one authorized terminal available (${activeTerminals[0].name}), auto-selecting...`)
+              this.terminalSelected = activeTerminals[0].id
+              this.switchTerminal()
+            } else if (activeTerminals.length > 1) {
+              this.terminalSelected = activeTerminals[0].id
+              this.terminalDialog = true
+            } else {
+              this.isLoading = false
+              return swalError2(
+                this.$swal,
+                'Error',
+                'ບັນຊີຂອງທ່ານບໍ່ມີສິດເຂົ້າເຖິງ Terminal ໃດໆ ກະລຸນາຕິດຕໍ່ຜູ້ເບິ່ງແຍງລະບົບ (No terminal access assigned to your user account)'
+              )
+            }
           } else {
-            this.switchTerminal()
+            if (activeTerminals.length > 0) {
+              this.terminalSelected = activeTerminals[0].id
+              this.switchTerminal()
+            } else {
+              this.isLoading = false
+              return swalError2(
+                this.$swal,
+                'Error',
+                'ບັນຊີຂອງທ່ານບໍ່ມີສິດເຂົ້າເຖິງ Terminal ໃດໆ ກະລຸນາຕິດຕໍ່ຜູ້ເບິ່ງແຍງລະບົບ (No terminal access assigned to your user account)'
+              )
+            }
           }
         } else {
           console.log('No token')

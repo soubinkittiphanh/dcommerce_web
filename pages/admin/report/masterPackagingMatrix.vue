@@ -14,7 +14,21 @@
             </span>
           </div>
         </div>
-        <div>
+        <div class="d-flex align-center flex-wrap mt-2 mt-sm-0">
+          <v-select
+            v-model="selectedLocationId"
+            :items="locationOptions"
+            item-text="name"
+            item-value="id"
+            label="ສາຂາ / ສາງ (Location)"
+            outlined
+            dense
+            hide-details
+            prepend-inner-icon="mdi-map-marker"
+            class="rounded-lg mr-2"
+            style="min-width: 220px;"
+            @change="loadMatrix"
+          ></v-select>
           <v-btn color="primary" depressed @click="loadMatrix" :loading="isLoading" class="rounded-lg">
             <v-icon left small>mdi-refresh</v-icon> ຄິດໄລ່ໃໝ່ (Recalculate)
           </v-btn>
@@ -97,18 +111,41 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <!-- Empty State -->
+    <v-card v-if="!isLoading && matrixData.length === 0" outlined class="pa-8 text-center rounded-xl grey lighten-5 mb-4">
+      <v-avatar color="grey lighten-3" size="64" class="mb-3">
+        <v-icon size="36" color="grey darken-1">mdi-package-variant-closed</v-icon>
+      </v-avatar>
+      <div class="text-subtitle-1 font-weight-bold grey--text text--darken-3">ບໍ່ມີຂໍ້ມູນສິນຄ້າບັນຈຸພັນ (No Packaging Assets Found)</div>
+      <div class="text-caption grey--text text--darken-1 mt-1">
+        ບໍ່ພົບສິນຄ້າບັນຈຸພັນ (ລັງ/ແກ້ວ) ທີ່ກຳນົດເປັນ Packaging Asset ຫຼື ຈັດຢູ່ໃນໝວດໝູ່ບັນຈຸພັນໃນລະບົບ
+      </div>
+    </v-card>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   name: 'MasterPackagingMatrix',
   layout: 'default',
   middleware: 'auths',
   data() {
     return {
+      selectedLocationId: 'all',
       matrixData: [],
       isLoading: false
+    }
+  },
+  computed: {
+    ...mapGetters(['findAllLocation']),
+    locationOptions() {
+      return [
+        { id: 'all', name: '🏢 ທຸກສາຂາ/ສາງ (All Locations)' },
+        ...(this.findAllLocation || []).map(l => ({ id: l.id, name: l.name }))
+      ]
     }
   },
   async created() {
@@ -122,10 +159,16 @@ export default {
     async loadMatrix() {
       this.isLoading = true
       try {
-        const res = await this.$axios.get('/api/packaging/matrix')
-        this.matrixData = res.data || []
+        const res = await this.$axios.get('/api/packaging/matrix', {
+          params: { locationId: this.selectedLocationId }
+        })
+        const raw = Array.isArray(res.data) ? res.data : (res.data?.data || res.data?.rows || [])
+        this.matrixData = raw
       } catch (err) {
         console.error('Failed to load master packaging matrix:', err)
+        if (this.$toast) {
+          this.$toast.error('ບໍ່ສາມາດໂຫຼດຕາຕະລາງດຸນດ່ຽງບັນຈຸພັນໄດ້: ' + (err.response?.data?.message || err.message))
+        }
       } finally {
         this.isLoading = false
       }

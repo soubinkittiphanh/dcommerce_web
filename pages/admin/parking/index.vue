@@ -39,7 +39,7 @@
                 {{ stats.totalSlots || 0 }}
               </div>
               <div class="text-caption grey--text">
-                ລົດໃຫຍ່: {{ stats.byType?.car?.total || 0 }} | ລົດຈັກ: {{ stats.byType?.motorbike?.total || 0 }}
+                {{ slotTypeSummary }}
               </div>
             </div>
             <v-avatar color="blue lighten-5" size="52">
@@ -150,13 +150,13 @@
         <template #item.plateNumber="{ item }">
           <div class="d-flex align-center py-1">
             <v-avatar size="32" color="grey lighten-4" class="mr-2">
-              <v-icon small :color="item.vehicleType === 'motorbike' ? 'orange' : 'primary'">
-                {{ item.vehicleType === 'motorbike' ? 'mdi-motorbike' : 'mdi-car' }}
+              <v-icon small :color="vehicleTypeMeta(item.vehicleType).color">
+                {{ vehicleTypeMeta(item.vehicleType).icon }}
               </v-icon>
             </v-avatar>
             <div>
               <div class="font-weight-black plate-tag">{{ item.plateNumber }}</div>
-              <div class="text-caption grey--text text-uppercase">{{ item.vehicleType }}</div>
+              <div class="text-caption grey--text">{{ vehicleTypeMeta(item.vehicleType).label }}</div>
             </div>
           </div>
         </template>
@@ -363,7 +363,7 @@
                   {{ checkoutData.ticket?.plateNumber }}
                 </span>
                 <v-chip x-small color="blue" dark class="text-uppercase font-weight-bold">
-                  {{ checkoutData.ticket?.slot?.slotNumber }} ({{ checkoutData.ticket?.slot?.slotType }})
+                  {{ checkoutData.ticket?.slot?.slotNumber }} ({{ vehicleTypeMeta(checkoutData.ticket?.slot?.slotType).label }})
                 </v-chip>
               </div>
 
@@ -378,6 +378,12 @@
                 </div>
                 <div v-else-if="checkoutData.feeBreakdown?.isGracePeriod" class="green--text font-weight-bold">
                   ⏱️ ຢູ່ໃນຊ່ວງ Grace Period - ບໍ່ເສຍຄ່າທຳນຽມ!
+                </div>
+                <div
+                  v-if="checkoutData.feeBreakdown?.usedFallbackRule && !checkoutData.feeBreakdown?.isMonthlyPass"
+                  class="orange--text text--darken-3 font-weight-bold mt-1"
+                >
+                  ⚠️ ບໍ່ມີລາຄາສຳລັບປະເພດລົດນີ້ — ໃຊ້ລາຄາສຳຮອງ (No pricing rule for this vehicle type – fallback rate used)
                 </div>
               </div>
             </v-card>
@@ -447,7 +453,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import ParkingReceiptDialog from '@/components/parking/ParkingReceiptDialog.vue';
 
 export default {
@@ -485,12 +491,6 @@ export default {
       selectedReceiptTicket: {},
       selectedReceiptPayment: null,
       // Selection options
-      vehicleTypes: [
-        { label: 'ລົດໃຫຍ່ (Car)', value: 'car' },
-        { label: 'ລົດຈັກ (Motorbike)', value: 'motorbike' },
-        { label: 'ລົດບັນທຸກ (Truck)', value: 'truck' },
-        { label: 'ລົດ VIP', value: 'vip' }
-      ],
       paymentMethods: [
         { text: 'ເງິນສົດ (Cash)', value: 'CASH' },
         { text: 'BCEL One / QR Code', value: 'QR' },
@@ -514,6 +514,19 @@ export default {
       zones: state => state.zones || [],
       loading: state => state.loading
     }),
+    ...mapGetters('parking', {
+      vehicleTypes: 'vehicleTypeOptions',
+      vehicleTypeMeta: 'vehicleTypeMeta',
+      defaultVehicleTypeCode: 'defaultVehicleTypeCode'
+    }),
+    // e.g. "ລົດໃຫຍ່: 25 | ລົດຈັກ: 15 | ລົດ VIP: 2" (only types that have slots)
+    slotTypeSummary() {
+      const byType = this.stats.byType || {};
+      const parts = Object.keys(byType)
+        .filter(code => (byType[code]?.total || 0) > 0)
+        .map(code => `${this.vehicleTypeMeta(code).label}: ${byType[code].total}`);
+      return parts.length ? parts.join(' | ') : '-';
+    },
     filteredParkedVehicles() {
       if (!this.searchPlate) return this.parkedVehicles;
       const q = this.searchPlate.trim().toUpperCase();
@@ -526,10 +539,12 @@ export default {
     }
   },
   mounted() {
+    this.fetchVehicleTypes();
     this.loadDashboardData();
   },
   methods: {
     ...mapActions('parking', [
+      'fetchVehicleTypes',
       'fetchDashboardStats',
       'fetchParkedVehicles',
       'fetchZones',
@@ -575,7 +590,7 @@ export default {
     openEntryDialog() {
       this.entryForm = {
         plateNumber: '',
-        vehicleType: 'car',
+        vehicleType: this.defaultVehicleTypeCode,
         zoneId: null,
         driverName: '',
         driverPhone: ''
@@ -594,6 +609,8 @@ export default {
         const res = await this.createEntry(this.entryForm);
         if (res.success) {
           this.$toast.success(res.message || 'ບັນທຶກລົດເຂົ້າສຳເລັດ!');
+          // e.g. no pricing rule for this vehicle type -> fallback rate will be charged
+          (res.warnings || []).forEach(w => this.$toast.warning(w, { duration: 8000 }));
           this.entryDialog = false;
           await this.loadDashboardData();
 

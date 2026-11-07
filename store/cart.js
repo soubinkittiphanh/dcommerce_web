@@ -8,13 +8,16 @@ export const state = () => ({
 })
 
 export const mutations = {
-    UPDATE_QTY(state, { productId, qty }) {
-        console.info(`update qty ${qty} ${productId}`)
+    UPDATE_QTY(state, { lineUUID, productId, isReturn, qty }) {
+        console.info(`update qty ${qty} ${productId} (lineUUID: ${lineUUID})`)
         try {
-            console.log('Updating qty for productId:', productId)
+            console.log('Updating qty for productId:', productId, 'lineUUID:', lineUUID)
             console.log('Current cart items:', JSON.stringify(state.cartOfproductSelected, null, 2))
 
-            const product = state.cartOfproductSelected.find(p => p.id === productId)
+            const product = lineUUID
+                ? state.cartOfproductSelected.find(p => p.lineUUID === lineUUID)
+                : state.cartOfproductSelected.find(p => p.id === productId && (isReturn === undefined || p.isReturn === isReturn))
+                  || state.cartOfproductSelected.find(p => p.id === productId)
 
             console.log('Item found:', JSON.stringify(product, null, 2))
 
@@ -24,7 +27,7 @@ export const mutations = {
             } else {
                 console.warn(
                     'Product not found OR qty invalid:',
-                    JSON.stringify({ product, qty }, null, 2)
+                    JSON.stringify({ product, qty, lineUUID, productId }, null, 2)
                 )
             }
 
@@ -268,9 +271,9 @@ export const actions = {
         }
     },
 
-    updateQty({ commit }, { productId, qty }) {
+    updateQty({ commit }, { lineUUID, productId, isReturn, qty }) {
         try {
-            commit("UPDATE_QTY", { productId, qty })
+            commit("UPDATE_QTY", { lineUUID, productId, isReturn, qty })
         } catch (error) {
             console.error('Error updating quantity:', error)
             commit('ADD_ERROR', error, { root: true })

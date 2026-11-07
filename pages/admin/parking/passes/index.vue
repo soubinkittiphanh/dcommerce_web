@@ -68,8 +68,8 @@
         <template #item.plateNumber="{ item }">
           <div class="d-flex align-center">
             <v-avatar size="28" color="grey lighten-4" class="mr-2">
-              <v-icon small color="primary">
-                {{ item.vehicleType === 'motorbike' ? 'mdi-motorbike' : 'mdi-car' }}
+              <v-icon small :color="vehicleTypeMeta(item.vehicleType).color">
+                {{ vehicleTypeMeta(item.vehicleType).icon }}
               </v-icon>
             </v-avatar>
             <span class="font-weight-black plate-tag">{{ item.plateNumber }}</span>
@@ -266,7 +266,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import { createParkingApiService } from '~/services/parkingApiService';
 
 export default {
@@ -296,11 +296,6 @@ export default {
         newEndDate: '',
         feeAmount: 300000
       },
-      vehicleTypes: [
-        { label: 'ລົດໃຫຍ່ (Car)', value: 'car' },
-        { label: 'ລົດຈັກ (Motorbike)', value: 'motorbike' },
-        { label: 'ລົດ VIP', value: 'vip' }
-      ],
       tableHeaders: [
         { text: 'ເລກທີປີ້ (Pass No)', value: 'passNumber' },
         { text: 'ທະບຽນລົດ (Plate)', value: 'plateNumber' },
@@ -316,9 +311,15 @@ export default {
     ...mapState('parking', {
       passes: state => state.monthlyPasses || [],
       loading: state => state.loading
+    }),
+    ...mapGetters('parking', {
+      vehicleTypes: 'vehicleTypeOptions',
+      vehicleTypeMeta: 'vehicleTypeMeta',
+      defaultVehicleTypeCode: 'defaultVehicleTypeCode'
     })
   },
   mounted() {
+    this.fetchVehicleTypes();
     this.loadPasses();
     // Default end date to 30 days from now
     const nextMonth = new Date();
@@ -326,7 +327,7 @@ export default {
     this.passForm.endDate = nextMonth.toISOString().slice(0, 10);
   },
   methods: {
-    ...mapActions('parking', ['fetchMonthlyPasses']),
+    ...mapActions('parking', ['fetchMonthlyPasses', 'fetchVehicleTypes']),
 
     async loadPasses() {
       await this.fetchMonthlyPasses({ search: this.searchQuery });
@@ -369,7 +370,7 @@ export default {
 
       this.passForm = {
         plateNumber: '',
-        vehicleType: 'car',
+        vehicleType: this.defaultVehicleTypeCode,
         customerName: '',
         customerPhone: '',
         startDate: today.toISOString().slice(0, 10),

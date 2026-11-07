@@ -103,6 +103,12 @@ POS Cart Checkout
    - In [src/packaging/service.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_api/src/packaging/service.js) (`processPOSSale`): Before inserting a `customerPackagingLedger` row, verify whether a `DELIVERED_OUT` entry already exists for `(saleHeaderId, packagingProductId)`. If present, skip duplicate creation.
    - In [src/sales/line/service.js](file:///Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_api/src/sales/line/service.js) (`handleLinePackagingMovement`): Query `customerPackagingLedger` to ensure no entry for `(saleHeaderId, packagingProductId, transactionType)` was already recorded.
 
+4. **Rule 4: Accurate Inflow Stock Card Cost for Bought / Returned Packaging**:
+   - When packaging products are bought / returned into stock (via POS return lines in `handleLinePackagingMovement`, `processPOSReturn`, or `recordCustomerPackagingReturn`), the generated `card` records must never have `cost = 0`.
+   - The unit cost must be determined sequentially:
+     $$\text{Card Cost} = \text{Line Price} \rightarrow \frac{\text{Line Total}}{\text{Quantity}} \rightarrow \text{Product Cost Price} \rightarrow \text{Product Sale Price}$$
+   - Both `card.cost` and `card.costLCY` must be populated, and `stock_count` on `product` table updated.
+
 ---
 
 ## 4. Packaging Ledger Mathematics & Sequential Running Balance

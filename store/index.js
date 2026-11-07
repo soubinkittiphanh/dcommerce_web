@@ -343,14 +343,17 @@ export const mutations = {
     },
 
     // Existing mutations (keeping them exactly as they are)
-    UPDATE_QTY(state, { productId, qty }) {
-        console.info(`update qty ${qty} ${productId}`)
+    UPDATE_QTY(state, { lineUUID, productId, isReturn, qty }) {
+        console.info(`update qty ${qty} ${productId} (lineUUID: ${lineUUID})`)
         try {
-            const product = state.cartOfproductSelected.find(p => p.id === productId)
+            const product = lineUUID
+                ? state.cartOfproductSelected.find(p => p.lineUUID === lineUUID)
+                : state.cartOfproductSelected.find(p => p.id === productId && (isReturn === undefined || p.isReturn === isReturn))
+                  || state.cartOfproductSelected.find(p => p.id === productId)
             if (product && qty >= 0) {
                 product.qty = qty
             } else {
-                console.warn('Product not found OR qty invalid:', { productId, qty })
+                console.warn('Product not found OR qty invalid:', { lineUUID, productId, isReturn, qty })
             }
         } catch (error) {
             console.error('Error updating quantity:', error)

@@ -102,8 +102,8 @@
         <template #item.plateNumber="{ item }">
           <div class="d-flex align-center">
             <v-avatar size="26" color="grey lighten-4" class="mr-2">
-              <v-icon small :color="item.vehicleType === 'motorbike' ? 'orange' : 'primary'">
-                {{ item.vehicleType === 'motorbike' ? 'mdi-motorbike' : 'mdi-car' }}
+              <v-icon small :color="vehicleTypeMeta(item.vehicleType).color">
+                {{ vehicleTypeMeta(item.vehicleType).icon }}
               </v-icon>
             </v-avatar>
             <span class="font-weight-black plate-tag">{{ item.plateNumber }}</span>
@@ -185,7 +185,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import ParkingReceiptDialog from '@/components/parking/ParkingReceiptDialog.vue';
 import { createParkingApiService } from '~/services/parkingApiService';
 
@@ -230,13 +230,16 @@ export default {
     ...mapState('parking', {
       tickets: state => state.tickets || [],
       loading: state => state.loading
-    })
+    }),
+    ...mapGetters('parking', ['vehicleTypeMeta'])
   },
   mounted() {
+    // include inactive types so historical tickets still show their label/icon
+    this.fetchAllVehicleTypes();
     this.loadTickets();
   },
   methods: {
-    ...mapActions('parking', ['fetchTickets']),
+    ...mapActions('parking', ['fetchTickets', 'fetchAllVehicleTypes']),
 
     async loadTickets() {
       await this.fetchTickets(this.filters);
@@ -319,7 +322,7 @@ export default {
         const data = this.tickets.map(t => ({
           'Ticket No': t.ticketNumber,
           'Plate No': t.plateNumber,
-          'Vehicle Type': t.vehicleType,
+          'Vehicle Type': this.vehicleTypeMeta(t.vehicleType).nameEn,
           'Zone': t.zone?.name || '',
           'Slot': t.slot?.slotNumber || '',
           'Entry Time': t.entryTime,

@@ -620,3 +620,29 @@ export const isPackagingProduct = (product) => {
 
   return false
 }
+
+/**
+ * Filter terminals by user authorization maintained in UserForm.vue (UserTerminals).
+ * - If user has assigned terminals (user.terminals), strictly restrict to those terminals.
+ * - If user is Admin (groupId === 1, code 'ADMIN', or roleId === 1) and has no assigned terminals, allow all terminals.
+ * - If user has no terminals assigned and is not Admin, returns empty array (unauthorized).
+ */
+export const filterTerminalsByUser = (user, terminals) => {
+  if (!Array.isArray(terminals) || terminals.length === 0) return []
+  if (!user) return terminals
+
+  const assigned = user.terminals || []
+  if (Array.isArray(assigned) && assigned.length > 0) {
+    const allowedIds = new Set(
+      assigned.map((t) => (typeof t === 'object' && t !== null ? Number(t.id) : Number(t)))
+    )
+    return terminals.filter((t) => allowedIds.has(Number(t.id)))
+  }
+
+  const isAdmin = user.groupId === 1 || user.userGroup?.code === 'ADMIN' || user.roleId === 1
+  if (isAdmin) {
+    return terminals
+  }
+
+  return []
+}

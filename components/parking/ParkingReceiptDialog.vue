@@ -40,7 +40,7 @@
             </div>
             <div class="d-flex justify-space-between">
               <span>ປະເພດລົດ (Type):</span>
-              <span class="text-uppercase">{{ ticketData.vehicleType || 'car' }}</span>
+              <span>{{ $store.getters['parking/vehicleTypeMeta'](ticketData.vehicleType).label }}</span>
             </div>
             <div class="d-flex justify-space-between">
               <span>ຊ່ອງຈອດ (Slot):</span>

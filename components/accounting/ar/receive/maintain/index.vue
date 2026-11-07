@@ -1742,7 +1742,7 @@ export default {
       try {
         const { data } = await this.$axios.get('/api/ar-invoices', {
           params: {
-            status: ['draft', 'sent'],
+            status: ['draft', 'sent','overdue','draft'],
             include: ['client', 'agency', 'currency', 'invoiceLines'],
             limit: 100,
           },

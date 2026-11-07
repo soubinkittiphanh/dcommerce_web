@@ -113,6 +113,43 @@ export class ParkingApiService {
     }
   }
 
+  // --- Vehicle Types (customer-maintained master) ---
+  async getVehicleTypes(params = {}) {
+    try {
+      const res = await this.axios.get('/api/parking/vehicle-types', { params });
+      return { success: true, data: res.data.data };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.message || err.message };
+    }
+  }
+
+  async createVehicleType(data) {
+    try {
+      const res = await this.axios.post('/api/parking/vehicle-types', data);
+      return { success: true, data: res.data.data, message: res.data.message };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.errors?.[0]?.message || err.response?.data?.message || err.message };
+    }
+  }
+
+  async updateVehicleType(id, data) {
+    try {
+      const res = await this.axios.put(`/api/parking/vehicle-types/${id}`, data);
+      return { success: true, data: res.data.data, message: res.data.message };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.errors?.[0]?.message || err.response?.data?.message || err.message };
+    }
+  }
+
+  async setVehicleTypeStatus(id, isActive) {
+    try {
+      const res = await this.axios.patch(`/api/parking/vehicle-types/${id}/status`, { isActive });
+      return { success: true, data: res.data.data };
+    } catch (err) {
+      return { success: false, error: err.response?.data?.message || err.message };
+    }
+  }
+
   // --- Pricing Rules ---
   async getPricingRules() {
     try {
@@ -164,7 +201,7 @@ export class ParkingApiService {
   async processEntry(data) {
     try {
       const res = await this.axios.post('/api/parking/entry', data);
-      return { success: true, data: res.data.data, message: res.data.message };
+      return { success: true, data: res.data.data, message: res.data.message, warnings: res.data.warnings || [] };
     } catch (err) {
       return { success: false, error: err.response?.data?.message || err.message };
     }
@@ -173,7 +210,7 @@ export class ParkingApiService {
   async calculateFee(data) {
     try {
       const res = await this.axios.post('/api/parking/exit/calculate-fee', data);
-      return { success: true, data: res.data.data };
+      return { success: true, data: res.data.data, warnings: res.data.warnings || [] };
     } catch (err) {
       return { success: false, error: err.response?.data?.message || err.message };
     }
@@ -182,7 +219,7 @@ export class ParkingApiService {
   async processExit(data) {
     try {
       const res = await this.axios.post('/api/parking/exit/pay', data);
-      return { success: true, data: res.data.data, message: res.data.message };
+      return { success: true, data: res.data.data, message: res.data.message, warnings: res.data.warnings || [] };
     } catch (err) {
       return { success: false, error: err.response?.data?.message || err.message };
     }

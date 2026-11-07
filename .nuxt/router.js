@@ -190,6 +190,7 @@ const _f6308fae = () => interopDefault(import('../pages/admin/parking/passes/ind
 const _175cfdf2 = () => interopDefault(import('../pages/admin/parking/pricing/index.vue' /* webpackChunkName: "pages/admin/parking/pricing/index" */))
 const _49a966aa = () => interopDefault(import('../pages/admin/parking/reports/index.vue' /* webpackChunkName: "pages/admin/parking/reports/index" */))
 const _62f8c05a = () => interopDefault(import('../pages/admin/parking/tickets/index.vue' /* webpackChunkName: "pages/admin/parking/tickets/index" */))
+const _20f57984 = () => interopDefault(import('../pages/admin/parking/vehicle-types/index.vue' /* webpackChunkName: "pages/admin/parking/vehicle-types/index" */))
 const _0dd4991a = () => interopDefault(import('../pages/admin/parking/zones/index.vue' /* webpackChunkName: "pages/admin/parking/zones/index" */))
 const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vue' /* webpackChunkName: "pages/admin/pos/table/index" */))
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
@@ -1022,6 +1023,10 @@ export const routerOptions = {
     path: "/admin/parking/tickets",
     component: _62f8c05a,
     name: "admin-parking-tickets"
+  }, {
+    path: "/admin/parking/vehicle-types",
+    component: _20f57984,
+    name: "admin-parking-vehicle-types"
   }, {
     path: "/admin/parking/zones",
     component: _0dd4991a,

@@ -220,7 +220,7 @@
         <v-divider class="primary darken-1"></v-divider>
         <v-card-text class="pa-6" style="max-height: 450px">
           <v-radio-group v-model="terminalSelected" class="mt-2">
-            <v-card v-for="terminal in findAllTerminal" :key="terminal.id" class="mb-4 terminal-card" :class="{
+            <v-card v-for="terminal in availableTerminals" :key="terminal.id" class="mb-4 terminal-card" :class="{
               selected: terminalSelected === terminal.id,
               'elevation-8': terminalSelected === terminal.id,
             }" @click="terminalSelected = terminal.id" outlined hover>
@@ -1040,7 +1040,7 @@ import {
   deliveryCustomerTicket,
 } from '~/common/ticket.js'
 import Vue from 'vue'
-import { getFormatNum, jsDateToMysqlDate, ticketHtml, isPackagingProduct } from '~/common'
+import { getFormatNum, jsDateToMysqlDate, ticketHtml, isPackagingProduct, filterTerminalsByUser } from '~/common'
 import SystemGuideDialog from '~/components/common/SystemGuideDialog.vue'
 import {
   swalSuccess,
@@ -1107,6 +1107,8 @@ export default {
       qtyDialog: false,
       newQty: 0,
       selectedProductId: null,
+      selectedLineUUID: null,
+      selectedCartItem: null,
       upSvg: require('~/assets/icons/dcommerce/up.svg'),
       downSvg: require('~/assets/icons/dcommerce/down.svg'),
       showCheckOut: true,
@@ -1455,9 +1457,17 @@ export default {
     currenctCustomer() {
       return this.currentSelectedCustomer
     },
+    availableTerminals() {
+      const user = this.$auth.user
+      const terminals = filterTerminalsByUser(user, this.findAllTerminal)
+      return terminals.filter((t) => t && t.isActive !== false)
+    },
     currentTerminal() {
-      return this.findAllTerminal.find(
-        (el) => el['id'] == this.findSelectedTerminal
+      return (
+        (this.availableTerminals || []).find(
+          (el) => el['id'] == this.findSelectedTerminal
+        ) ||
+        this.findAllTerminal.find((el) => el['id'] == this.findSelectedTerminal)
       )
     },
     productCart() {
@@ -1702,6 +1712,20 @@ export default {
   },
 
   watch: {
+    findAllTerminal: {
+      handler() {
+        if (!this.currentSelectedLocation && this.availableTerminals.length > 0) {
+          if (this.availableTerminals.length === 1) {
+            this.terminalSelected = this.availableTerminals[0].id
+            this.switchTerminalAction()
+          } else if (this.availableTerminals.length > 1) {
+            this.terminalSelected = this.availableTerminals[0].id
+            this.terminalDialog = true
+          }
+        }
+      },
+      immediate: true,
+    },
     isBusinessDateEnabled(newVal) {
       if (newVal && !this.businessDate) {
         this.fetchBusinessDate()
@@ -3046,15 +3070,19 @@ export default {
     },
 
     switchTerminalAction() {
+      const targetTerminal = (this.availableTerminals || []).find((el) => el.id == this.terminalSelected)
+      if (!targetTerminal) {
+        this.showError('ທ່ານບໍ່ມີສິດເຂົ້າເຖິງ Terminal ນີ້ (Unauthorized terminal access)')
+        this.terminalDialog = false
+        return
+      }
       this.setSelectedTerminal(this.terminalSelected)
-      const location = this.findAllLocation.find(
-        (el) =>
-          el.id ==
-          this.findAllTerminal.find((el) => el.id == this.terminalSelected)[
-          'locationId'
-          ]
+      const location = (this.findAllLocation || []).find(
+        (el) => el.id == targetTerminal.locationId
       )
-      this.setSelectedLocation(location)
+      if (location) {
+        this.setSelectedLocation(location)
+      }
 
       // ONLY reload when terminal actually changes (this makes sense)
       this.productComponentKey += 1
@@ -3065,19 +3093,25 @@ export default {
 
     openQtyDialog(item) {
       this.selectedProductId = item.id
+      this.selectedLineUUID = item.lineUUID || null
+      this.selectedCartItem = item
       this.newQty = item.qty
       this.qtyDialog = true
     },
 
     updateQty() {
-      if (this.selectedProductId !== null) {
+      if (this.selectedProductId !== null || this.selectedLineUUID !== null) {
         this.$store.commit('UPDATE_QTY', {
+          lineUUID: this.selectedLineUUID,
           productId: this.selectedProductId,
+          isReturn: this.selectedCartItem ? this.selectedCartItem.isReturn : undefined,
           qty: this.newQty,
         })
         this.batchUpdateCustomerScreen() // Use batched update
         this.qtyDialog = false
         this.selectedProductId = null
+        this.selectedLineUUID = null
+        this.selectedCartItem = null
         this.newQty = 0
       }
     },
@@ -3164,8 +3198,14 @@ export default {
       if (this.findAllTerminal.length == 0) {
         this.initData()
       }
-      if (!this.currentSelectedLocation) {
-        this.terminalDialog = true
+      if (!this.currentSelectedLocation && this.availableTerminals.length > 0) {
+        if (this.availableTerminals.length === 1) {
+          this.terminalSelected = this.availableTerminals[0].id
+          this.switchTerminalAction()
+        } else if (this.availableTerminals.length > 1) {
+          this.terminalSelected = this.availableTerminals[0].id
+          this.terminalDialog = true
+        }
       }
     },
 

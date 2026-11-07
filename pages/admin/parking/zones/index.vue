@@ -232,7 +232,7 @@
         <v-card-text class="pa-4">
           <div class="mb-3">
             <div><strong>ໂຊນ:</strong> {{ selectedSlot.zone?.name || '-' }}</div>
-            <div><strong>ປະເພດ:</strong> {{ selectedSlot.slotType }}</div>
+            <div><strong>ປະເພດ:</strong> {{ vehicleTypeMeta(selectedSlot.slotType).label }}</div>
             <div><strong>ສະຖານະປັດຈຸບັນ:</strong> {{ selectedSlot.status }}</div>
             <div v-if="selectedSlot.currentTicket" class="mt-2 pa-2 red lighten-5 rounded">
               <strong>ລົດທີ່ຈອດ:</strong> {{ selectedSlot.currentTicket.plateNumber }}<br />
@@ -281,7 +281,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapState, mapActions, mapGetters } from 'vuex';
 import SlotCard from '@/components/parking/SlotCard.vue';
 import { createParkingApiService } from '~/services/parkingApiService';
 
@@ -316,27 +316,26 @@ export default {
       },
       // Slot Action Dialog
       slotActionDialog: false,
-      selectedSlot: null,
-      slotTypes: [
-        { label: 'ລົດໃຫຍ່ (Car)', value: 'car' },
-        { label: 'ລົດຈັກ (Motorbike)', value: 'motorbike' },
-        { label: 'ລົດ VIP', value: 'vip' },
-        { label: 'ລົດຄົນພິການ (Disabled)', value: 'disabled' },
-        { label: 'ລົດບັນທຸກ (Truck)', value: 'truck' }
-      ]
+      selectedSlot: null
     };
   },
   computed: {
     ...mapState('parking', {
       zones: state => state.zones || [],
       loading: state => state.loading
+    }),
+    ...mapGetters('parking', {
+      slotTypes: 'vehicleTypeOptions',
+      vehicleTypeMeta: 'vehicleTypeMeta',
+      defaultVehicleTypeCode: 'defaultVehicleTypeCode'
     })
   },
   mounted() {
+    this.fetchVehicleTypes();
     this.loadZonesData();
   },
   methods: {
-    ...mapActions('parking', ['fetchZones']),
+    ...mapActions('parking', ['fetchZones', 'fetchVehicleTypes']),
 
     async loadZonesData() {
       await this.fetchZones();
@@ -400,7 +399,7 @@ export default {
       this.slotForm = {
         zoneId: this.zones[this.activeTab]?.id || (this.zones[0]?.id || null),
         slotNumber: '',
-        slotType: 'car'
+        slotType: this.defaultVehicleTypeCode
       };
       this.slotDialog = true;
     },
@@ -409,7 +408,7 @@ export default {
       this.slotForm = {
         zoneId,
         slotNumber: '',
-        slotType: 'car'
+        slotType: this.defaultVehicleTypeCode
       };
       this.slotDialog = true;
     },

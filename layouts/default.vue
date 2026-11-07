@@ -273,6 +273,7 @@
 <script>
 import { mapGetters, mapActions } from 'vuex'
 import { mainCompanyInfo } from '~/common/api'
+import { filterTerminalsByUser } from '~/common'
 import TermsAndConditionsDialog from '~/components/TermsAndConditionsDialog.vue'
 import SystemDetailsDialog from '~/components/SystemDetailsDialog.vue'
 
@@ -481,7 +482,8 @@ export default {
 
     safeTerminals() {
       const terminals = Array.isArray(this.findAllTerminal) ? this.findAllTerminal : []
-      return terminals.filter(terminal => terminal && terminal.isActive)
+      const allowed = filterTerminalsByUser(this.$auth.user, terminals)
+      return allowed.filter(terminal => terminal && terminal.isActive)
     },
 
     safeMenu() {
@@ -771,11 +773,16 @@ export default {
         return
       }
 
+      const selectedTerminal = this.safeTerminals.find(
+        (el) => el.id == this.terminalSelected
+      )
+      if (!selectedTerminal) {
+        this.$toast?.error('ທ່ານບໍ່ມີສິດເຂົ້າເຖິງ Terminal ນີ້ (Unauthorized terminal access)')
+        return
+      }
+
       try {
         this.setSelectedTerminal(this.terminalSelected)
-        const selectedTerminal = this.safeTerminals.find(
-          (el) => el.id == this.terminalSelected
-        )
 
         if (selectedTerminal?.locationId) {
           const location = this.findAllLocation.find(
