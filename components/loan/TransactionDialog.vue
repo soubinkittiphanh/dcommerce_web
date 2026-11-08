@@ -87,7 +87,7 @@
 <script>
 import { errMsg, asList } from '~/common/loan/loanApi'
 import { fmtAmount, fmtRate } from '~/common/loan/format'
-import { byValue, postKindOf, kindsForStage } from '~/components/loan/transactionKinds'
+import { byValue, postKindOf, kindsForStage, reversibleTargets } from '~/components/loan/transactionKinds'
 
 const newKey = () => (window.crypto && window.crypto.randomUUID ? window.crypto.randomUUID() : `k-${Date.now()}-${Math.random().toString(16).slice(2)}`)
 
@@ -129,11 +129,9 @@ export default {
     bankOptions () {
       return this.banks.filter(b => b.currency === this.summary.currency && b.isActive !== false).map(b => ({ value: b.id, text: `${b.accountNumber} · ${b.accountName}` }))
     },
-    // POSTED, not-yet-reversed transactions, latest first (the server enforces strict LIFO on submit)
+    // POSTED, ONLINE, not-yet-reversed transactions, latest first (the server enforces strict LIFO on submit)
     reversibleItems () {
-      return this.transactions
-        .filter(t => t.postingStatus === 'POSTED' && !t.isReversed && t.eventCode !== 'REVERSAL')
-        .slice().sort((a, b) => b.id - a.id)
+      return reversibleTargets(this.transactions)
         .map(t => ({ value: t.id, text: `${t.txNo} · ${t.eventCode} · ${fmtAmount(t.amount, this.decimals)}` }))
     },
     accountConfirmed () { return this.confirmAccountNo.trim() === String(this.summary.account.accountNo) },

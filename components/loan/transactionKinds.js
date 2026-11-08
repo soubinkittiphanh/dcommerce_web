@@ -26,10 +26,10 @@ const KINDS = [
   { value: 'DISB', label: 'ເບີກຈ່າຍ (Disbursement)', checker: true, stages: ['BOOKED'],
     fields: [{ key: 'rateDeviationReason', label: 'ເຫດຜົນອັດຕາ (Rate deviation reason)', type: 'text', required: false, hint: 'Only for a foreign-currency rate deviation' }] },
 
-  { value: 'FEE_COLLECT', label: 'ເກັບຄ່າທຳນຽມ (Collect fees)', checker: false, stages: ['BOOKED', 'DISBURSED'],
+  { value: 'FEE_COLLECT', label: 'ເກັບຄ່າທຳນຽມ (Collect fees)', checker: false, stages: ['BOOKED'],
     fields: [F.bank, { key: 'insurancePremium', label: 'ຄ່າປະກັນໄພ (Insurance premium)', type: 'amount', required: false }] },
 
-  { value: 'FEE_REFUND', label: 'ຄືນຄ່າທຳນຽມ (Refund fees)', checker: true, stages: ['BOOKED', 'DISBURSED'],
+  { value: 'FEE_REFUND', label: 'ຄືນຄ່າທຳນຽມ (Refund fees)', checker: true, stages: ['BOOKED'],
     fields: [F.bank] },
 
   { value: 'ADV_REFUND', label: 'ຄືນເງິນລ່ວງໜ້າ (Refund advance)', checker: true, stages: ['DISBURSED'],
@@ -68,4 +68,10 @@ const postKindOf = k => k.postKind || k.value
 // Entries offered for a given account stage
 const kindsForStage = stage => KINDS.filter(k => k.stages.includes(stage))
 
-export { KINDS, byValue, postKindOf, kindsForStage }
+// Transactions the REVERSAL dropdown may offer, latest first: POSTED, not yet reversed, not a REVERSAL row
+// and ONLINE only. The server refuses any other source (EOD accruals, etc.) and enforces strict LIFO.
+const reversibleTargets = (transactions = []) => transactions
+  .filter(t => t.postingStatus === 'POSTED' && !t.isReversed && t.eventCode !== 'REVERSAL' && t.source === 'ONLINE')
+  .slice().sort((a, b) => b.id - a.id)
+
+export { KINDS, byValue, postKindOf, kindsForStage, reversibleTargets }

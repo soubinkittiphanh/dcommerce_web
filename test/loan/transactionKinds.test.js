@@ -84,6 +84,18 @@ test('kindsForStage returns only entries valid for that stage; DISB is BOOKED-on
   assert.ok(kindsForStage('DISBURSED').some(k => k.value === 'WRITE_OFF'), 'WRITE_OFF on DISBURSED')
 })
 
+test('each kind is offered only in the stages its backend handler accepts (requireStage in handlers.js)', () => {
+  const src = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/handlers.js'), 'utf8')
+  const server = {}
+  for (const m of src.matchAll(/requireStage\(ctx, \[([^\]]*)\], '([A-Z_]+)'\)/g)) server[m[2]] = [...m[1].matchAll(/'([A-Z_]+)'/g)].map(x => x[1])
+  assert.deepStrictEqual(server.FEE_COLLECT, ['BOOKED'], 'parsed FEE_COLLECT stage gate')
+  for (const k of KINDS) {
+    const gate = server[postKindOf(k)]
+    if (!gate) continue
+    for (const st of k.stages) assert.ok(gate.includes(st), `${k.value} is offered on ${st} but the backend accepts only ${gate.join('/')}`)
+  }
+})
+
 // Body keys the backend reads, per kind: `input.<key>` inside each `async KIND(` handler in handlers.js, plus
 // the keys transactionService/fxContext read for every kind. Parsed from source, like backend() above.
 const SHARED_KEYS = ['bankAccountId', 'remarks', 'rateDeviationReason', 'valueDate']
@@ -118,6 +130,23 @@ test('every field and fixed key the dialog sends is a key the backend handler re
       assert.ok(byValue[v].fields.some(f => f.key === m[1]), `${v}: dialog offers required money field '${m[1]}'`)
     }
   }
+})
+
+test('REVERSAL dropdown offers only POSTED, unreversed, non-REVERSAL ONLINE rows, latest first (server refuses other sources)', () => {
+  const { reversibleTargets } = load('../../components/loan/transactionKinds.js')
+  const rows = [
+    { id: 1, postingStatus: 'POSTED', isReversed: false, eventCode: 'DISB', source: 'ONLINE' },
+    { id: 2, postingStatus: 'POSTED', isReversed: false, eventCode: 'ACCRUAL', source: 'EOD' },
+    { id: 3, postingStatus: 'POSTED', isReversed: true, eventCode: 'REPAYMENT', source: 'ONLINE' },
+    { id: 4, postingStatus: 'POSTED', isReversed: false, eventCode: 'REVERSAL', source: 'ONLINE' },
+    { id: 5, postingStatus: 'PENDING_AUTH', isReversed: false, eventCode: 'WAIVE', source: 'ONLINE' },
+    { id: 6, postingStatus: 'POSTED', isReversed: false, eventCode: 'REPAYMENT', source: 'ONLINE' }
+  ]
+  assert.deepStrictEqual(reversibleTargets(rows).map(r => r.id), [6, 1])
+  assert.deepStrictEqual(reversibleTargets(), [])
+  // the server-side refusal this mirrors
+  const svc = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/transactionService.js'), 'utf8')
+  assert.ok(svc.includes("target.source !== 'ONLINE'"), 'backend still refuses non-ONLINE reversal targets')
 })
 
 console.log(failures ? `\n${failures} failed` : '\nAll transactionKinds checks passed')
