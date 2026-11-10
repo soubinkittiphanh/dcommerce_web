@@ -196,6 +196,7 @@ const _f1108a54 = () => interopDefault(import('../pages/admin/pos/table/index.vu
 const _38fd842d = () => interopDefault(import('../pages/admin/product/productlist.vue' /* webpackChunkName: "pages/admin/product/productlist" */))
 const _578b92c0 = () => interopDefault(import('../pages/admin/product/shelfTag.vue' /* webpackChunkName: "pages/admin/product/shelfTag" */))
 const _9a7776cc = () => interopDefault(import('../pages/admin/report/customerPackaging.vue' /* webpackChunkName: "pages/admin/report/customerPackaging" */))
+const _8f697248 = () => interopDefault(import('../pages/admin/report/customerPackagingSummary.vue' /* webpackChunkName: "pages/admin/report/customerPackagingSummary" */))
 const _7ab6275b = () => interopDefault(import('../pages/admin/report/loyalty.vue' /* webpackChunkName: "pages/admin/report/loyalty" */))
 const _b0c07e92 = () => interopDefault(import('../pages/admin/report/masterPackagingMatrix.vue' /* webpackChunkName: "pages/admin/report/masterPackagingMatrix" */))
 const _578d6e2a = () => interopDefault(import('../pages/admin/report/packagingOwnerSummary.vue' /* webpackChunkName: "pages/admin/report/packagingOwnerSummary" */))
@@ -1047,6 +1048,10 @@ export const routerOptions = {
     path: "/admin/report/customerPackaging",
     component: _9a7776cc,
     name: "admin-report-customerPackaging"
+  }, {
+    path: "/admin/report/customerPackagingSummary",
+    component: _8f697248,
+    name: "admin-report-customerPackagingSummary"
   }, {
     path: "/admin/report/loyalty",
     component: _7ab6275b,

@@ -1344,6 +1344,13 @@
     "_name": "_9a7776cc"
   },
   {
+    "name": "admin-report-customerPackagingSummary",
+    "path": "/admin/report/customerPackagingSummary",
+    "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/customerPackagingSummary.vue",
+    "chunkName": "pages/admin/report/customerPackagingSummary",
+    "_name": "_8f697248"
+  },
+  {
     "name": "admin-report-loyalty",
     "path": "/admin/report/loyalty",
     "component": "/Users/soubinkittiphanh/Desktop/Pro/dcommerce/dc_web/pages/admin/report/loyalty.vue",

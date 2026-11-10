@@ -73,6 +73,8 @@ More information about the usage of this directory in [the documentation](https:
 npm run electron:build    
 npx electron-builder --win --x64     
 
+npm run generate && npx electron-builder --win --x64
+
 tar -cvf nuxt.tar .nuxt
 scp -r nuxt.tar administrator@155.117.44.133:/home/administrator
  BASE_URL="http://150.95.31.23:8052" npm run dev

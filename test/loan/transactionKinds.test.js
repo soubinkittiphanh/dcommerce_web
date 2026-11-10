@@ -149,5 +149,14 @@ test('REVERSAL dropdown offers only POSTED, unreversed, non-REVERSAL ONLINE rows
   assert.ok(svc.includes("target.source !== 'ONLINE'"), 'backend still refuses non-ONLINE reversal targets')
 })
 
+test('Phase 6: the dialog lists only the bank accounts of the account\'s branch (GET /api/loan/accounts/:id/bank-accounts, a route the API declares), never the full POS list', () => {
+  const dialog = fs.readFileSync(path.resolve(__dirname, '../../components/loan/TransactionDialog.vue'), 'utf8')
+  assert.ok(dialog.includes('/api/loan/accounts/${this.summary.account.id}/bank-accounts'), 'fetches the branch list')
+  assert.ok(!dialog.includes('/api/bank_account/find'), 'no longer fetches every POS bank account')
+  const router = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/router.js'), 'utf8')
+  assert.match(router, /router\.get\('\/accounts\/:id\/bank-accounts', can\('LN_TRANSACTION', 'VIEW'\), scoped\('account'\)/, 'the API route exists, guarded and branch-scoped')
+})
+
 console.log(failures ? `\n${failures} failed` : '\nAll transactionKinds checks passed')
+
 process.exit(failures ? 1 : 0)

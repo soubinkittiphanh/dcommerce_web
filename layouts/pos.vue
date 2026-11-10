@@ -2,12 +2,10 @@
   <v-app dark>
     <!-- MINIMART POS.VUE - OPTIMIZED VERSION -->
     <!-- Multi-Payment Dialog - ENHANCED -->
-    <v-dialog v-model="multiPaymentDialog" max-width="900" persistent>
-      <multi-payment-dialog v-model="multiPaymentDialog" :sale-total="grandTotal - discount - loyaltyDiscountAmount"
-        :payment-methods="findAllPayment" :sale-header-id="pendingSaleHeaderId" :format-number="formatNumber"
-        @confirm-payment="handleMultiPaymentConfirm" @cancel="handleMultiPaymentCancel"
-        @payment-error="handleMultiPaymentError" />
-    </v-dialog>
+    <multi-payment-dialog v-model="multiPaymentDialog" :sale-total="grandTotal - discount - loyaltyDiscountAmount"
+      :payment-methods="findAllPayment" :sale-header-id="pendingSaleHeaderId" :format-number="formatNumber"
+      @confirm-payment="handleMultiPaymentConfirm" @cancel="handleMultiPaymentCancel"
+      @payment-error="handleMultiPaymentError" />
 
     <!-- NFC Payment Dialog - NEW -->
     <v-dialog v-model="nfcPaymentDialog" max-width="650" persistent>
@@ -2818,17 +2816,27 @@ export default {
         return
       }
 
+      if (this.isBusinessDateEnabled && this.businessDateStatus === 'CLOSED') {
+        swalError2(this.$swal, 'Error', 'ວັນທີເຮັດວຽກຖືກປິດແລ້ວ. ກະລຸນາເປີດ/Sync ວັນທີເຮັດວຽກໃໝ່ກ່ອນ!')
+        return
+      }
+
       try {
         console.log(
           'Opening multi-payment dialog - Cart items:',
           this.productCart.length
         )
 
-        await this.createSaleHeader()
-        await this.multiPayment.initializePayment(
-          this.grandTotal - this.discount,
-          this.pendingSaleHeaderId
-        )
+        // Reset any pending sale header ID so nothing leaks
+        this.pendingSaleHeaderId = null
+
+        const netTotal = this.grandTotal - this.discount - this.loyaltyDiscountAmount
+        if (this.multiPayment) {
+          await this.multiPayment.initializePayment(
+            netTotal,
+            null
+          )
+        }
 
         this.multiPaymentDialog = true
       } catch (error) {
@@ -2952,7 +2960,7 @@ export default {
         }
 
         const totalPaid = paymentData.reduce(
-          (sum, payment) => sum + (payment.amount || 0),
+          (sum, payment) => sum + (Number(payment.amount) || 0),
           0
         )
         const expectedTotal = this.grandTotal - this.discount - this.loyaltyDiscountAmount
@@ -2965,30 +2973,73 @@ export default {
           )
         }
 
-        await this.$axios.post('/api/sale-payment/bulk', paymentData)
-        this.formSaleHeader('')
-        const response = await this.$axios.post(
-          '/api/sale/create-line-only',
-          this.saleHeader
-        )
+        // Prepare saleHeader payload for atomic creation
+        this.pendingSaleHeaderId = null
+        this.formSaleHeader('Multi-payment transaction')
+        this.saleHeader.id = null // Always ensure fresh sale creation
+        this.saleHeader.paymentId = paymentData[0]?.paymentId || null
 
-        const finalSaleHeaderId = this.lastTransactionSaleHeaderId || response.data?.id || response.data?.saleHeaderId
-        if (finalSaleHeaderId) {
-          this.lastTransactionSaleHeaderId = finalSaleHeaderId
-          localStorage.setItem('lastCompletedSaleHeaderId', finalSaleHeaderId)
+        const formattedPayments = paymentData.map((p) => ({
+          paymentId: p.paymentId,
+          amount: parseFloat(p.amount) || 0,
+          referenceNo: p.referenceNo || null,
+          qrRequestId: p.qrRequestId || null,
+          isActive: true
+        }))
+
+        const payload = {
+          ...this.saleHeader,
+          payments: formattedPayments
         }
+
+        // 1 Atomic API call: creates header, verifies/deducts stock, saves lines & payments together
+        const response = await this.$axios.post('/api/sale/create-v3', payload)
+
+        let saleHeaderId = ''
+        if (typeof response.data === 'string' && response.data.includes('-')) {
+          saleHeaderId = response.data.split('-')[1].trim()
+        } else if (typeof response.data === 'object') {
+          saleHeaderId = response.data.id || response.data.saleHeaderId || response.data.data?.id
+        }
+
+        if (!saleHeaderId) {
+          throw new Error('ບໍ່ສາມາດລະບຸເລກບິນຂາຍໄດ້ (Missing saleHeaderId from server)')
+        }
+
+        this.lastTransactionSaleHeaderId = saleHeaderId
+        localStorage.setItem('lastCompletedSaleHeaderId', saleHeaderId)
+        this.pendingSaleHeaderId = null
+
         const cartSnapshot = this.productCart ? [...this.productCart] : []
         const customerSnapshot = this.currenctCustomer ? { ...this.currenctCustomer } : null
 
         // Trigger returnable packaging movement
-        this.processPackagingSaleMovement(finalSaleHeaderId, cartSnapshot, customerSnapshot)
+        this.processPackagingSaleMovement(saleHeaderId, cartSnapshot, customerSnapshot)
+
+        // NFC settlement double-entry if any split was NFC/Wallet
+        const nfcSplit = formattedPayments.find((p) => {
+          const method = (this.findAllPayment || []).find((m) => m.id === p.paymentId)
+          return method && (method.payment_code === 'NFC' || method.payment_code === 'WALLET')
+        })
+        if (nfcSplit && this.nfcData) {
+          try {
+            await this.$axios.post('/api/transactions/settlement', {
+              studentAccountId: this.nfcData.studentAccountId,
+              shopAccountId: this.nfcData.shopAccountId,
+              amount: nfcSplit.amount,
+              saleHeaderId
+            })
+            console.log('NFC multi-payment settlement complete for sale', saleHeaderId)
+          } catch (nfcErr) {
+            console.error('NFC multi-payment settlement failed:', nfcErr)
+          }
+        }
 
         this.showPaymentSuccessOnCustomerScreen()
-        this.sharedState.saleHeader =
-          this.lastTransactionSaleHeaderId || Date.now()
+        this.sharedState.saleHeader = saleHeaderId || Date.now()
         swalSuccess(this.$swal, 'ສຳເລັດ', 'ການຈ່າຍເງິນສຳເລັດແລ້ວ')
 
-        const paymentCodes = paymentData
+        const paymentCodes = formattedPayments
           .map((payment) => {
             const foundPayment = this.findAllPayment.find(
               (p) => p.id === payment.paymentId
@@ -3036,9 +3087,12 @@ export default {
       }, 2000)
     },
 
-    async handleMultiPaymentCancel() {
+    handleMultiPaymentCancel() {
       this.multiPaymentDialog = false
-      await this.reversalSale()
+      this.pendingSaleHeaderId = null
+      if (this.multiPayment) {
+        this.multiPayment.clearPayments()
+      }
     },
 
     async reversalSale() {
@@ -3051,17 +3105,20 @@ export default {
         remark: 'UNDO MULTI PAYMENT TXN',
         cancel_fee: 0,
         customerId: null,
+        userId: this.user?.id
       }
 
       try {
-        const response = await this.$axios.put(
+        await this.$axios.put(
           `api/sale/reverse/${this.pendingSaleHeaderId}`,
           form
         )
       } catch (error) {
-        swalError2(this.$swal, 'Error', 'Something went wrong ' + error)
+        console.warn('Sale reversal notification:', error)
+      } finally {
+        this.pendingSaleHeaderId = null
+        this.isLoading = false
       }
-      this.isLoading = false
     },
 
     handleMultiPaymentError(error) {

@@ -81,7 +81,7 @@
             <v-col cols="4">Other income (AR ລາຍຮັບອື່ນໆ)</v-col>
             <v-col cols="6">{{ formatNumber(totalFinancialIncome) }}</v-col>
           </v-row>
-          <v-row>
+          <v-row v-if="showArReceive">
             <v-col cols="2"></v-col>
             <v-col cols="4">AR Receive (ໃບຮັບເງິນ)</v-col>
             <v-col cols="6">{{ formatNumber(totalArReceive) }}</v-col>
@@ -269,6 +269,18 @@ export default {
     getSPF() {
       return this.findSPF || this.$store.getters.findSPF || []
     },
+    showArReceive() {
+      const spf = (this.getSPF || []).find(
+        (s) => s.code === 'AC_AR_RECEIVE_PL' || s.code === 'PL_AR_RECEIVE' || s.code === 'AC_AR_RECEIVING_PL' || s.code === 'PL_AR_RECEIVING'
+      )
+      if (!spf) return false
+      if (spf.isActive === false || spf.isActive === 0) return false
+      if (spf.value !== undefined && spf.value !== null && String(spf.value).trim() !== '') {
+        const val = String(spf.value).trim().toUpperCase()
+        return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1'
+      }
+      return spf.isActive === true || spf.isActive === 1
+    },
     showApSettlement() {
       const spf = (this.getSPF || []).find(
         (s) => s.code === 'AC_AP_SETTLEMENT_PL' || s.code === 'PL_AP_SETTLEMENT' || s.code === 'AC_AP_SETTLEMENT'
@@ -436,7 +448,7 @@ export default {
       }, 0)
     },
     totalOtherIncome() {
-      return this.totalFinancialIncome + this.totalArReceive
+      return this.totalFinancialIncome + (this.showArReceive ? this.totalArReceive : 0)
     },
     totalRevenue() {
       // Real Agency Revenue = Net Commission + Other Income
@@ -599,15 +611,17 @@ export default {
           this.expenseData = []
         })
 
-      const arReceivePromise = this.$axios
-        .get(`/api/ar-receive-headers`, { params: { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 } })
-        .then((res) => {
-          this.arReceiveData = res.data?.data?.receiveHeaders || res.data?.data || res.data || []
-        })
-        .catch((err) => {
-          console.warn('Error loading AR receive in saleCostCommission:', err)
-          this.arReceiveData = []
-        })
+      const arReceivePromise = this.showArReceive
+        ? this.$axios
+            .get(`/api/ar-receive-headers`, { params: { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 } })
+            .then((res) => {
+              this.arReceiveData = res.data?.data?.receiveHeaders || res.data?.data || res.data || []
+            })
+            .catch((err) => {
+              console.warn('Error loading AR receive in saleCostCommission:', err)
+              this.arReceiveData = []
+            })
+        : Promise.resolve().then(() => { this.arReceiveData = [] })
 
       const apSettlementPromise = this.showApSettlement
         ? this.$axios

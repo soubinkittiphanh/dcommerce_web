@@ -12,7 +12,7 @@ const formatNumber = (val) => {
 }
 
 // Helper to format currency
-const formatCurrency = (val) => {
+export const formatCurrency = (val) => {
   if (val === null || val === undefined || val === '') return '0'
   const num = typeof val === 'number' ? val : parseFloat(val)
   if (isNaN(num)) return '0'
@@ -75,9 +75,13 @@ export const generateCustomerPackagingStatementHTML = ({
   endDate = '',
   companyData = {},
   user = {},
+  totalPackagingOwed = 0,
+  activePackagingItemsCount = 0,
+  debtorClientsCount = 0,
+  packagingBreakdownList = [],
+  // legacy backward compat params
   totalCratesOwed = 0,
-  totalBottlesOwed = 0,
-  debtorClientsCount = 0
+  totalBottlesOwed = 0
 }) => {
   const companyName = companyData?.name || 'ຕົວແທນຈຳໜ່າຍ ເບຍລາວ / Beerlao Agency'
   const companyAddress = companyData?.address || ''
@@ -142,14 +146,14 @@ export const generateCustomerPackagingStatementHTML = ({
     summarySectionHTML = `
       <div class="kpi-grid">
         <div class="kpi-card kpi-amber">
-          <div class="kpi-title">ຍອດໜີ້ລັງເປົ່າຄ້າງສົ່ງທັງໝົດ</div>
-          <div class="kpi-num">${formatNumber(totalCratesOwed)} <span class="unit">ລັງ</span></div>
-          <div class="kpi-sub">Total Empty Crates Owed</div>
+          <div class="kpi-title">ຍອດໜີ້ບັນຈຸພັນຄ້າງສົ່ງທັງໝົດ</div>
+          <div class="kpi-num">${formatNumber(totalPackagingOwed || (totalCratesOwed + totalBottlesOwed))} <span class="unit">ໜ່ວຍ</span></div>
+          <div class="kpi-sub">Total Packaging Debt Owed</div>
         </div>
         <div class="kpi-card kpi-teal">
-          <div class="kpi-title">ຍອດໜີ້ແກ້ວເປົ່າຄ້າງສົ່ງທັງໝົດ</div>
-          <div class="kpi-num">${formatNumber(totalBottlesOwed)} <span class="unit">ແກ້ວ</span></div>
-          <div class="kpi-sub">Total Empty Bottles Owed</div>
+          <div class="kpi-title">ລາຍການບັນຈຸພັນທີ່ຕິດໜີ້</div>
+          <div class="kpi-num">${formatNumber(activePackagingItemsCount || packagingBreakdownList.length || 0)} <span class="unit">ລາຍການ</span></div>
+          <div class="kpi-sub">Active Debt Packaging Assets</div>
         </div>
         <div class="kpi-card kpi-blue">
           <div class="kpi-title">ຈຳນວນລູກຄ້າທີ່ຕິດໜີ້</div>

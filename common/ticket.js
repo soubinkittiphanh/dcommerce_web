@@ -146,7 +146,7 @@ const getBaseStyles = (config, isThermal) => `
   .header-modern .logo-wrapper { margin-bottom: 0; margin-right: 12px; flex: 0 0 ${config.logoSize}; max-width: min(${config.logoSize}, 120px); text-align: center; }
   .header-modern .company-details { flex: 1; text-align: left; }
   .header-modern .company-name { font-weight: 700; font-size: 1.3em; line-height: 1.2; margin-bottom: 2px; }
-  .header-modern .company-info { font-size: 0.9em; font-weight: 700; color: #444; }
+  .header-modern .company-info { font-size: 0.9em; font-weight: 700; color: #000; }
 
   .dual-qr-container { display: flex; justify-content: space-around; align-items: flex-start; margin-top: 10px; padding-top: 10px; border-top: 1px dashed #eee; }
   .qr-tag { text-align: center; flex: 1; }

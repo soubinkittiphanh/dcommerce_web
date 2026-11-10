@@ -1,7 +1,76 @@
 const { app, BrowserWindow, ipcMain, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const util = require('util');
 const serve = require('electron-serve');
+
+// --- 0. CHROMIUM V8 MEMORY & STABILITY FLAGS ---
+// Increase Chromium Renderer V8 heap limit to 4096 MB (4 GB) for 8GB+ RAM PCs
+app.commandLine.appendSwitch('js-flags', '--max-old-space-size=4096');
+
+// --- 0.1 PERSISTENT FILE LOGGER (.log) ---
+const MAX_LOG_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB max per log file
+let logFilePath = null;
+
+function initFileLogger() {
+    try {
+        // Primary location: next to executable (if writable) or in AppData\Roaming\DCommerce POS\logs
+        const userDataLogDir = path.join(app.getPath('userData'), 'logs');
+        if (!fs.existsSync(userDataLogDir)) {
+            fs.mkdirSync(userDataLogDir, { recursive: true });
+        }
+        logFilePath = path.join(userDataLogDir, 'pos-debug.log');
+
+        // Rotate log file if it exceeds 5 MB
+        if (fs.existsSync(logFilePath)) {
+            const stats = fs.statSync(logFilePath);
+            if (stats.size > MAX_LOG_SIZE_BYTES) {
+                const backupPath = path.join(userDataLogDir, 'pos-debug.old.log');
+                try { fs.renameSync(logFilePath, backupPath); } catch (_) { }
+            }
+        }
+
+        writeLogLine('INFO', '========================================================');
+        writeLogLine('INFO', `App Starting | Version: ${app.getVersion()} | Platform: ${process.platform} (${process.arch})`);
+        writeLogLine('INFO', `Log File Path: ${logFilePath}`);
+        writeLogLine('INFO', '========================================================');
+    } catch (err) {
+        // Fallback if filesystem is read-only
+    }
+}
+
+function writeLogLine(level, message) {
+    if (!logFilePath) return;
+    try {
+        const timestamp = new Date().toISOString();
+        fs.appendFileSync(logFilePath, `[${timestamp}] [${level}] ${message}\n`, 'utf8');
+    } catch (_) { }
+}
+
+// Intercept Main Process console methods so all main.js logs are saved to pos-debug.log
+const origConsoleLog = console.log.bind(console);
+const origConsoleWarn = console.warn.bind(console);
+const origConsoleError = console.error.bind(console);
+
+console.log = (...args) => {
+    origConsoleLog(...args);
+    writeLogLine('MAIN:INFO', util.format(...args));
+};
+console.warn = (...args) => {
+    origConsoleWarn(...args);
+    writeLogLine('MAIN:WARN', util.format(...args));
+};
+console.error = (...args) => {
+    origConsoleError(...args);
+    writeLogLine('MAIN:ERROR', util.format(...args));
+};
+
+process.on('uncaughtException', (err) => {
+    writeLogLine('MAIN:FATAL', `Uncaught Exception: ${err && err.stack ? err.stack : err}`);
+});
+process.on('unhandledRejection', (reason) => {
+    writeLogLine('MAIN:FATAL', `Unhandled Rejection: ${reason && reason.stack ? reason.stack : reason}`);
+});
 
 const loadURL = serve({ directory: 'dist' });
 
@@ -291,6 +360,28 @@ function createWindow() {
             webSecurity: false
         }
     });
+
+    // Capture Renderer (Browser / Vue / Vuex) console logs into pos-debug.log
+    const levelMap = { 0: 'RENDERER:DEBUG', 1: 'RENDERER:INFO', 2: 'RENDERER:WARN', 3: 'RENDERER:ERROR' };
+    win.webContents.on('console-message', (event, level, message, line, sourceId) => {
+        const tag = levelMap[level] || 'RENDERER:LOG';
+        const src = sourceId ? ` (${path.basename(sourceId)}:${line})` : '';
+        writeLogLine(tag, `${message}${src}`);
+    });
+
+    // Capture Renderer crashes / Out-Of-Memory (White Screen) events
+    win.webContents.on('render-process-gone', (event, details) => {
+        writeLogLine('RENDERER:CRASH', `Renderer process gone! Reason: ${details.reason}, ExitCode: ${details.exitCode}`);
+    });
+
+    win.on('unresponsive', () => {
+        writeLogLine('RENDERER:FREEZE', 'Window became unresponsive (UI thread blocked)');
+    });
+
+    win.on('responsive', () => {
+        writeLogLine('RENDERER:INFO', 'Window recovered and is responsive again');
+    });
+
     if (process.env.NODE_ENV === 'development') {
         function loadDevServer(winTarget, url, maxRetries = 60) {
             winTarget.loadURL(url).catch(err => {
@@ -308,6 +399,7 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
+    initFileLogger();
     createWindow();
     setTimeout(setupNativeNfc, 1000); // Initialize NFC reader after UI mounts
 });

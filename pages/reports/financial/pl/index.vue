@@ -207,7 +207,7 @@
                   <span>Other Income (AR ລາຍຮັບອື່ນໆ)</span>
                   <span class="font-weight-bold">{{ formatNumber(totalFinancialIncome) }}</span>
                 </div>
-                <div class="financial-row">
+                <div v-if="showArReceive" class="financial-row">
                   <span>AR Receive (ໃບຮັບເງິນ)</span>
                   <span class="font-weight-bold">{{ formatNumber(totalArReceive) }}</span>
                 </div>
@@ -667,7 +667,22 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency']),
+    ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency', 'findSPF']),
+    getSPF() {
+      return this.findSPF || this.$store.getters.findSPF || []
+    },
+    showArReceive() {
+      const spf = (this.getSPF || []).find(
+        (s) => s.code === 'AC_AR_RECEIVE_PL' || s.code === 'PL_AR_RECEIVE' || s.code === 'AC_AR_RECEIVING_PL' || s.code === 'PL_AR_RECEIVING'
+      )
+      if (!spf) return false
+      if (spf.isActive === false || spf.isActive === 0) return false
+      if (spf.value !== undefined && spf.value !== null && String(spf.value).trim() !== '') {
+        const val = String(spf.value).trim().toUpperCase()
+        return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1'
+      }
+      return spf.isActive === true || spf.isActive === 1
+    },
 
     // Sales calculations
     grandSaleTotal() {
@@ -879,7 +894,7 @@ export default {
       }, 0)
     },
     totalOtherIncome() {
-      return this.totalFinancialIncome + this.totalArReceive;
+      return this.totalFinancialIncome + (this.showArReceive ? this.totalArReceive : 0);
     },
 
     totalFinancialExpense() {
@@ -1113,12 +1128,16 @@ export default {
         }
 
         // Fetch AR receive headers
-        try {
-          const arReceiveResponse = await this.$axios.get(`/api/ar-receive-headers`, { params: { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 } })
-          this.arReceiveData = arReceiveResponse.data?.data?.receiveHeaders || arReceiveResponse.data?.data || arReceiveResponse.data || [];
-          console.log('AR receive data loaded:', this.arReceiveData.length, 'receipts');
-        } catch (arError) {
-          console.warn('Could not load AR receive data:', arError);
+        if (this.showArReceive) {
+          try {
+            const arReceiveResponse = await this.$axios.get(`/api/ar-receive-headers`, { params: { bookingDateFrom: this.date, bookingDateTo: this.date2, limit: 1000, page: 1 } })
+            this.arReceiveData = arReceiveResponse.data?.data?.receiveHeaders || arReceiveResponse.data?.data || arReceiveResponse.data || [];
+            console.log('AR receive data loaded:', this.arReceiveData.length, 'receipts');
+          } catch (arError) {
+            console.warn('Could not load AR receive data:', arError);
+            this.arReceiveData = [];
+          }
+        } else {
           this.arReceiveData = [];
         }
 

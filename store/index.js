@@ -165,28 +165,111 @@ export const mutations = {
                 const barCodeLower = barCode.toLowerCase()
                 const productCodeLower = productCode.toLowerCase()
 
-                // Freeze nested arrays/objects so Vue 2 never creates reactive Dep/Observer instances on 7,000+ items
+                // Strip deeply nested/circular model relations (e.g. product.cards, product.saleLines,
+                // category.products, company.products, priceList.product, productUnit.product) so memory stays tiny
                 const frozenPriceLists = Array.isArray(product.priceLists)
-                    ? Object.freeze(product.priceLists.map(pl => (pl && typeof pl === 'object' ? Object.freeze({ ...pl }) : pl)))
+                    ? Object.freeze(product.priceLists.map(pl => {
+                        if (!pl || typeof pl !== 'object') return pl
+                        return Object.freeze({
+                            id: pl.id,
+                            productId: pl.productId,
+                            name: pl.name,
+                            grade: pl.grade,
+                            amount: pl.amount,
+                            type: pl.type,
+                            currencyId: pl.currencyId,
+                            isActive: pl.isActive,
+                        })
+                    }))
                     : Object.freeze([])
 
                 const frozenProductUnits = Array.isArray(product.productUnits)
                     ? Object.freeze(product.productUnits.map(pu => {
                         if (!pu || typeof pu !== 'object') return pu
+                        const u = pu.unit && typeof pu.unit === 'object' ? pu.unit : null
                         return Object.freeze({
-                            ...pu,
-                            unit: pu.unit && typeof pu.unit === 'object' ? Object.freeze({ ...pu.unit }) : pu.unit
+                            id: pu.id,
+                            productId: pu.productId,
+                            unitId: pu.unitId,
+                            barCode: pu.barCode,
+                            price: pu.price,
+                            isBaseUnit: pu.isBaseUnit,
+                            isActive: pu.isActive,
+                            unit: u ? Object.freeze({
+                                id: u.id,
+                                name: u.name,
+                                symbol: u.symbol,
+                                conversionRate: u.conversionRate,
+                            }) : pu.unit
                         })
                     }))
                     : Object.freeze([])
 
+                const rawCat = product.category && typeof product.category === 'object' ? product.category : null
+                const slimCategory = rawCat ? Object.freeze({
+                    id: rawCat.id,
+                    categ_id: rawCat.categ_id,
+                    categ_name: rawCat.categ_name,
+                    categ_desc: rawCat.categ_desc,
+                    isPackaging: rawCat.isPackaging,
+                    isActive: rawCat.isActive,
+                }) : product.category
+
+                const rawComp = product.company && typeof product.company === 'object' ? product.company : null
+                const slimCompany = rawComp ? Object.freeze({
+                    id: rawComp.id,
+                    name: rawComp.name,
+                    mnemonic: rawComp.mnemonic,
+                    isActive: rawComp.isActive,
+                }) : product.company
+
+                const rawBaseU = product.baseUnit && typeof product.baseUnit === 'object' ? product.baseUnit : null
+                const slimBaseUnit = rawBaseU ? Object.freeze({
+                    id: rawBaseU.id,
+                    name: rawBaseU.name,
+                    symbol: rawBaseU.symbol,
+                    conversionRate: rawBaseU.conversionRate,
+                }) : product.baseUnit
+
+                const rawStockU = product.stockUnit && typeof product.stockUnit === 'object' ? product.stockUnit : null
+                const slimStockUnit = rawStockU ? Object.freeze({
+                    id: rawStockU.id,
+                    name: rawStockU.name,
+                    symbol: rawStockU.symbol,
+                    conversionRate: rawStockU.conversionRate,
+                }) : product.stockUnit
+
+                const rawTax = product.tax && typeof product.tax === 'object' ? product.tax : null
+                const slimTax = rawTax ? Object.freeze({
+                    id: rawTax.id,
+                    name: rawTax.name,
+                    rate: rawTax.rate,
+                    taxType: rawTax.taxType,
+                    isActive: rawTax.isActive,
+                }) : product.tax
+
+                // Explicitly drop any heavy array/model relations that might come from Sequelize eager loading
+                const {
+                    cards,
+                    card,
+                    stockCards,
+                    saleLines,
+                    orderLines,
+                    poLines,
+                    receivingLines,
+                    transferLines,
+                    packagingItems,
+                    productPackaging,
+                    ...scalarProductFields
+                } = product
+
                 const processed = Object.freeze({
-                    ...product,
-                    category: product.category && typeof product.category === 'object' ? Object.freeze({ ...product.category }) : product.category,
-                    company: product.company && typeof product.company === 'object' ? Object.freeze({ ...product.company }) : product.company,
-                    baseUnit: product.baseUnit && typeof product.baseUnit === 'object' ? Object.freeze({ ...product.baseUnit }) : product.baseUnit,
-                    stockUnit: product.stockUnit && typeof product.stockUnit === 'object' ? Object.freeze({ ...product.stockUnit }) : product.stockUnit,
-                    tax: product.tax && typeof product.tax === 'object' ? Object.freeze({ ...product.tax }) : product.tax,
+                    ...scalarProductFields,
+                    category: slimCategory,
+                    company: slimCompany,
+                    baseUnit: slimBaseUnit,
+                    stockUnit: slimStockUnit,
+                    tax: slimTax,
 
                     // Ensure required fields
                     id: product.id || product.pro_id || index,

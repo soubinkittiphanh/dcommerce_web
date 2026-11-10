@@ -143,6 +143,14 @@
                         ສະແດງລາຍການຊຳລະໃບແຈ້ງໜີ້ (AP Settlement) ໃນລາຍງານກຳໄລ-ຂາດທຶນ ເມື່ອເປີດ Active ຫຼື ຕັ້ງເປັນ <code>Y</code>.
                       </td>
                     </tr>
+                    <tr>
+                      <td class="font-weight-medium">AC_AR_RECEIVE_PL</td>
+                      <td>
+                        <strong>AR Receive in P&L / ສະແດງໃບຮັບເງິນ AR ໃນ P&L:</strong><br>
+                        Includes AR Receipts in Profit & Loss income when Active or set to <code>Y</code> (excluded by default to prevent double counting with Sales).<br>
+                        ສະແດງ ແລະ ລວມຍອດໃບຮັບເງິນ (AR Receive) ໃນລາຍງານກຳໄລ-ຂາດທຶນ ເມື່ອເປີດ Active ຫຼື ຕັ້ງເປັນ <code>Y</code> (ຄ່າເລີ່ມຕົ້ນຖືກປິດໄວ້ ເພື່ອຫຼີກລ່ຽງການນັບລາຍຮັບຊ້ຳຊ້ອນກັບຍອດຂາຍ).
+                      </td>
+                    </tr>
                     <!-- Loyalty Settings -->
                     <tr class="green lighten-5">
                       <td colspan="2" class="font-weight-bold text-center">Loyalty Program / ການສະສົມຄະແນນ</td>

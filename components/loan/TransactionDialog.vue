@@ -17,7 +17,7 @@
         <v-row dense>
           <v-col v-for="f in spec.fields" :key="f.key" cols="12" sm="6">
             <v-select v-if="f.type === 'bank'" v-model="fields[f.key]" :items="bankOptions"
-              :label="`${f.label} (${summary.currency})`" :hint="bankOptions.length ? '' : `No active bank account in ${summary.currency}`" persistent-hint dense outlined @change="reset" />
+              :label="`${f.label} (${summary.currency})`" :hint="bankOptions.length ? '' : `No bank account of this branch in ${summary.currency} (Parameter Studio, branch-bank-account)`" persistent-hint dense outlined @change="reset" />
             <v-select v-else-if="f.type === 'select' && f.key === 'targetTransactionId'" v-model="fields[f.key]" :items="reversibleItems"
               :label="f.label" :hint="f.hint" persistent-hint dense outlined @change="reset" />
             <v-select v-else-if="f.type === 'select'" v-model="fields[f.key]" :items="f.items" :label="f.label" :hint="f.hint" persistent-hint dense outlined @change="reset" />
@@ -168,7 +168,8 @@ export default {
       this.confirmAccountNo = ''
       this.resetFields()
       try {
-        this.banks = asList(await this.$axios.$get('/api/bank_account/find'))
+        // Phase 6: only the bank/cash accounts mapped to this account's branch (the server refuses any other)
+        this.banks = asList(await this.$axios.$get(`/api/loan/accounts/${this.summary.account.id}/bank-accounts`))
         this.autoBank()
       } catch (err) { this.error = errMsg(err) }
     },

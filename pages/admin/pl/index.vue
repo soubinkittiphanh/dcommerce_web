@@ -163,7 +163,7 @@
                   <span class="grey--text pl-2">- ລາຍຮັບອື່ນໆ (AR Income)</span>
                   <span>{{ formatAmount(totalFinancialIncome) }} {{ localCurrencyCode }}</span>
                 </div>
-                <div class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                <div v-if="showArReceive" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">- ໃບຮັບເງິນ (AR Receive)</span>
                   <span>{{ formatAmount(totalArReceiveAmount) }} {{ localCurrencyCode }}</span>
                 </div>
@@ -278,6 +278,18 @@ export default {
     ...mapGetters(['currentSelectedLocation', 'findAllCurrency', 'findLocalCurrency', 'findSPF']),
     getSPF() {
       return this.findSPF || this.$store.getters.findSPF || []
+    },
+    showArReceive() {
+      const spf = (this.getSPF || []).find(
+        (s) => s.code === 'AC_AR_RECEIVE_PL' || s.code === 'PL_AR_RECEIVE' || s.code === 'AC_AR_RECEIVING_PL' || s.code === 'PL_AR_RECEIVING'
+      )
+      if (!spf) return false
+      if (spf.isActive === false || spf.isActive === 0) return false
+      if (spf.value !== undefined && spf.value !== null && String(spf.value).trim() !== '') {
+        const val = String(spf.value).trim().toUpperCase()
+        return val === 'Y' || val === 'YES' || val === 'TRUE' || val === '1'
+      }
+      return spf.isActive === true || spf.isActive === 1
     },
     showApSettlement() {
       const spf = (this.getSPF || []).find(
@@ -457,7 +469,7 @@ export default {
       }, 0)
     },
     totalOtherIncome() {
-      return this.totalFinancialIncome + this.totalArReceiveAmount
+      return this.totalFinancialIncome + (this.showArReceive ? this.totalArReceiveAmount : 0)
     },
     totalIncome() {
       return this.totalSale + this.totalOtherIncome
@@ -628,7 +640,9 @@ export default {
         const [inc, exp, arRec, apSet] = await Promise.all([
           this.$axios.get('/api/finanicial/ar/header/findByDate', { params }).catch(e => { console.warn('AR financial load error:', e); return { data: [] } }),
           this.$axios.get('/api/finanicial/ap/header/findByDate', { params }).catch(e => { console.warn('AP financial load error:', e); return { data: [] } }),
-          this.$axios.get('/api/ar-receive-headers', { params: arParams }).catch(e => { console.warn('AR receive load error:', e); return { data: { data: { receiveHeaders: [] } } } }),
+          this.showArReceive
+            ? this.$axios.get('/api/ar-receive-headers', { params: arParams }).catch(e => { console.warn('AR receive load error:', e); return { data: { data: { receiveHeaders: [] } } } })
+            : Promise.resolve({ data: { data: { receiveHeaders: [] } } }),
           this.showApSettlement
             ? this.$axios.get('/api/ap-invoices-settlement', { params: apParams }).catch(e => { console.warn('AP settlement load error:', e); return { data: { data: { settlements: [] } } } })
             : Promise.resolve({ data: { data: { settlements: [] } } }),

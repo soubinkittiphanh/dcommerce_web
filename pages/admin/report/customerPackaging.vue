@@ -39,73 +39,62 @@
 
     <!-- KPI Summary Row with Item Mini-Breakdowns -->
     <v-row dense class="mb-4">
-      <!-- KPI 1: Crates Owed -->
+      <!-- KPI 1: Total Packaging Units Owed -->
       <v-col cols="12" sm="6" md="3">
         <v-card class="pa-4 rounded-xl elevation-2 h-100 amber lighten-5 border-amber d-flex flex-column justify-space-between" outlined>
           <div>
             <div class="d-flex justify-space-between align-start">
               <div>
-                <span class="caption grey--text text--darken-2 font-weight-bold">ຍອດໜີ້ລັງເປົ່າຄ້າງສົ່ງ</span>
+                <span class="caption grey--text text--darken-2 font-weight-bold">ຍອດໜີ້ບັນຈຸພັນຄ້າງສົ່ງທັງໝົດ</span>
                 <div class="text-h5 font-weight-black amber--text text--darken-4 mt-1">
-                  {{ numberWithCommas(totalCratesOwed) }}
-                  <span class="text-caption font-weight-medium grey--text text--darken-2">ລັງ</span>
+                  {{ numberWithCommas(totalPackagingOwed) }}
+                  <span class="text-caption font-weight-medium grey--text text--darken-2">ໜ່ວຍ</span>
                 </div>
-                <span class="caption amber--text text--darken-3 font-weight-bold">Total Empty Crates Owed</span>
+                <span class="caption amber--text text--darken-3 font-weight-bold">Total Packaging Debt Owed</span>
               </div>
               <v-avatar color="amber darken-2" size="40">
-                <v-icon color="white">mdi-cube-outline</v-icon>
+                <v-icon color="white">mdi-package-variant-closed</v-icon>
               </v-avatar>
             </div>
 
-            <!-- Mini Breakdown of Crates -->
-            <div v-if="cratesBreakdown.length > 0" class="mt-2 pt-1 border-top-dashed">
+            <!-- Mini Breakdown of Top Outstanding Assets -->
+            <div v-if="topOwedPackagingList.length > 0" class="mt-2 pt-1 border-top-dashed">
               <div
-                v-for="(p, idx) in cratesBreakdown.slice(0, 2)"
-                :key="'crate-break-' + idx"
+                v-for="(p, idx) in topOwedPackagingList.slice(0, 2)"
+                :key="'owed-break-' + idx"
                 class="caption d-flex justify-space-between text-truncate amber--text text--darken-4 py-0"
               >
                 <span class="text-truncate mr-1">• {{ p.productName }}</span>
                 <span class="font-weight-bold">{{ numberWithCommas(p.totalOwed) }}</span>
               </div>
-              <div v-if="cratesBreakdown.length > 2" class="caption grey--text font-italic">
-                + ອີກ {{ cratesBreakdown.length - 2 }} ລາຍການ...
+              <div v-if="topOwedPackagingList.length > 2" class="caption grey--text font-italic">
+                + ອີກ {{ topOwedPackagingList.length - 2 }} ລາຍການ...
               </div>
             </div>
           </div>
         </v-card>
       </v-col>
 
-      <!-- KPI 2: Bottles Owed -->
+      <!-- KPI 2: Active Debt Packaging Items -->
       <v-col cols="12" sm="6" md="3">
         <v-card class="pa-4 rounded-xl elevation-2 h-100 teal lighten-5 border-teal d-flex flex-column justify-space-between" outlined>
           <div>
             <div class="d-flex justify-space-between align-start">
               <div>
-                <span class="caption grey--text text--darken-2 font-weight-bold">ຍອດໜີ້ແກ້ວເປົ່າຄ້າງສົ່ງ</span>
+                <span class="caption grey--text text--darken-2 font-weight-bold">ລາຍການບັນຈຸພັນທີ່ຕິດໜີ້</span>
                 <div class="text-h5 font-weight-black teal--text text--darken-4 mt-1">
-                  {{ numberWithCommas(totalBottlesOwed) }}
-                  <span class="text-caption font-weight-medium grey--text text--darken-2">ແກ້ວ</span>
+                  {{ numberWithCommas(activePackagingItemsCount) }}
+                  <span class="text-caption font-weight-medium grey--text text--darken-2">ລາຍການ</span>
                 </div>
-                <span class="caption teal--text text--darken-3 font-weight-bold">Total Empty Bottles Owed</span>
+                <span class="caption teal--text text--darken-3 font-weight-bold">Active Debt Packaging Assets</span>
               </div>
               <v-avatar color="teal darken-2" size="40">
-                <v-icon color="white">mdi-glass-mug-variant</v-icon>
+                <v-icon color="white">mdi-format-list-bulleted-type</v-icon>
               </v-avatar>
             </div>
 
-            <!-- Mini Breakdown of Bottles -->
-            <div v-if="bottlesBreakdown.length > 0" class="mt-2 pt-1 border-top-dashed">
-              <div
-                v-for="(p, idx) in bottlesBreakdown.slice(0, 2)"
-                :key="'bottle-break-' + idx"
-                class="caption d-flex justify-space-between text-truncate teal--text text--darken-4 py-0"
-              >
-                <span class="text-truncate mr-1">• {{ p.productName }}</span>
-                <span class="font-weight-bold">{{ numberWithCommas(p.totalOwed) }}</span>
-              </div>
-              <div v-if="bottlesBreakdown.length > 2" class="caption grey--text font-italic">
-                + ອີກ {{ bottlesBreakdown.length - 2 }} ລາຍການ...
-              </div>
+            <div class="mt-2 pt-1 border-top-dashed caption teal--text text--darken-3 font-weight-medium">
+              <span>ລວມ {{ packagingBreakdownList.length }} ລາຍການບັນຈຸພັນໃນລະບົບ</span>
             </div>
           </div>
         </v-card>
@@ -492,8 +481,8 @@
 </template>
 
 <script>
-import { printCustomerPackagingStatement } from '~/common/customerPackagingPrintTemplate'
 import ExcelJS from 'exceljs'
+import { printCustomerPackagingStatement } from '~/common/customerPackagingPrintTemplate'
 
 export default {
   name: 'CustomerPackagingReport',
@@ -530,25 +519,24 @@ export default {
     }
   },
   computed: {
-    totalCratesOwed() {
+    totalPackagingOwed() {
       const target = this.selectedClientId === 'all' ? this.allClientsBalances : this.currentBalances
       return target
-        .filter(b => {
-          if (!b.packagingName || !(b.balanceOwed > 0)) return false
-          const lower = b.packagingName.toLowerCase()
-          return lower.includes('ລັງ') || lower.includes('crate') || lower.includes('box')
-        })
-        .reduce((sum, b) => sum + (b.balanceOwed || 0), 0)
+        .filter(b => b.balanceOwed > 0)
+        .reduce((sum, b) => sum + (Number(b.balanceOwed) || 0), 0)
+    },
+    topOwedPackagingList() {
+      return this.packagingBreakdownList.filter(p => p.totalOwed > 0)
+    },
+    activePackagingItemsCount() {
+      return this.topOwedPackagingList.length
+    },
+    // Backwards compatibility helpers without string assumptions
+    totalCratesOwed() {
+      return this.totalPackagingOwed
     },
     totalBottlesOwed() {
-      const target = this.selectedClientId === 'all' ? this.allClientsBalances : this.currentBalances
-      return target
-        .filter(b => {
-          if (!b.packagingName || !(b.balanceOwed > 0)) return false
-          const lower = b.packagingName.toLowerCase()
-          return lower.includes('ແກ້ວ') || lower.includes('ຂວດ') || lower.includes('bottle')
-        })
-        .reduce((sum, b) => sum + (b.balanceOwed || 0), 0)
+      return this.activePackagingItemsCount
     },
     debtorClientsCount() {
       if (this.selectedClientId !== 'all') {
@@ -607,16 +595,10 @@ export default {
       })).sort((a, b) => b.totalOwed - a.totalOwed)
     },
     cratesBreakdown() {
-      return this.packagingBreakdownList.filter(p => {
-        const lower = (p.productName || '').toLowerCase()
-        return lower.includes('ລັງ') || lower.includes('crate') || lower.includes('box')
-      })
+      return this.topOwedPackagingList
     },
     bottlesBreakdown() {
-      return this.packagingBreakdownList.filter(p => {
-        const lower = (p.productName || '').toLowerCase()
-        return lower.includes('ແກ້ວ') || lower.includes('ຂວດ') || lower.includes('bottle')
-      })
+      return []
     },
     periodSummary() {
       let deliveredOut = 0
@@ -676,14 +658,7 @@ export default {
         default: return type
       }
     },
-    getPackagingIcon(name) {
-      if (!name) return 'mdi-package-variant-closed'
-      const lower = name.toLowerCase()
-      if (lower.includes('ລັງ') || lower.includes('crate') || lower.includes('box')) return 'mdi-cube-outline'
-      if (lower.includes('ແກ້ວ') || lower.includes('ຂວດ') || lower.includes('bottle')) return 'mdi-glass-mug-variant'
-      if (lower.includes('ຖັງ') || lower.includes('keg') || lower.includes('barrel') || lower.includes('drum')) return 'mdi-barrel'
-      if (lower.includes('ກະຕ່າ') || lower.includes('basket')) return 'mdi-basket-outline'
-      if (lower.includes('ພາເລັດ') || lower.includes('pallet')) return 'mdi-pallet'
+    getPackagingIcon() {
       return 'mdi-package-variant-closed'
     },
     async loadClients() {
@@ -820,9 +795,12 @@ export default {
         startDate: this.startDate,
         endDate: this.endDate,
         companyData: company,
-        user: user,
-        totalCratesOwed: this.totalCratesOwed,
-        totalBottlesOwed: this.totalBottlesOwed,
+        user,
+        totalPackagingOwed: this.totalPackagingOwed,
+        activePackagingItemsCount: this.activePackagingItemsCount,
+        packagingBreakdownList: this.packagingBreakdownList,
+        totalCratesOwed: this.totalPackagingOwed,
+        totalBottlesOwed: this.activePackagingItemsCount,
         debtorClientsCount: this.debtorClientsCount
       })
     },
