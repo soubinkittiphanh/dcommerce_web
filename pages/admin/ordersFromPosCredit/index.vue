@@ -754,8 +754,27 @@
           </div>
         </template>
 
-        <!-- Action Buttons -->
+        <!-- SaleHeader ID Column -->
         <template v-slot:[`item.id`]="{ item }">
+          <div class="d-flex flex-column align-center">
+            <v-chip
+              small
+              outlined
+              color="primary"
+              class="font-weight-bold"
+              style="cursor: pointer;"
+              @click="showTicketDetails(item)"
+            >
+              #{{ item.id }}
+            </v-chip>
+            <span v-if="item.referenceNo" class="text-caption grey--text mt-1" style="font-size: 10px !important;">
+              {{ item.referenceNo }}
+            </span>
+          </div>
+        </template>
+
+        <!-- Action Buttons -->
+        <template v-slot:[`item.actions`]="{ item }">
           <div class="d-flex align-center">
             <!-- Unposted: Post to AR Button -->
             <v-btn
@@ -851,20 +870,17 @@
 </template>
 
 <script>
-import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getLocalDate, ticketHtml } from '~/common'
-import { mainCompanyInfo } from '~/common/api'
-import { generateInvoiceHTML, generateReceiptSummaryReportHTML } from '~/common/printTemplates'
-import { defaultTicketReprint } from '~/common/ticket.js'
-import OrderDetailPos from '~/components/OrderDetailPos.vue'
-import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
-import OrderSumaryCardPos from '~/components/orderSumaryCardPos.vue'
-import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
 import { mapGetters } from 'vuex'
+import { swalSuccess, swalError2, dayCount, getNextDate, getFirstDayOfMonth, ticketHtml } from '~/common'
+import { mainCompanyInfo } from '~/common/api'
+import { generateInvoiceHTML } from '~/common/printTemplates'
+import { generateReceiptSummaryReportHTML } from '~/common/receiptSummaryPrintTemplate'
+import { defaultTicketReprint } from '~/common/ticket.js'
+import OrderDetailPosCRUD from '~/components/OrderDetailPosCRUD.vue'
+import TicketDetailsDialog from '~/components/pos/dialogs/TicketDetailsDialog.vue'
 
 export default {
   components: {
-    OrderDetailPos,
-    OrderSumaryCardPos,
     OrderDetailPosCRUD,
     TicketDetailsDialog  // NEW: Add the TicketDetailsDialog component
   },
@@ -930,6 +946,13 @@ export default {
       selectedTicketForDetails: null,
 
       headers: [
+        {
+          text: 'ເລກບິນ (Sale ID)',
+          align: 'center',
+          value: 'id',
+          sortable: true,
+          width: '110px',
+        },
         {
           text: 'ວັນທີ',
           align: 'center',
@@ -1012,7 +1035,7 @@ export default {
         {
           text: 'ການດຳເນີນການ',
           align: 'center',
-          value: 'id',
+          value: 'actions',
           sortable: false,
           width: '320px',
         },
@@ -1075,8 +1098,8 @@ export default {
     },
 
     customTerminalList() {
-      let originalTerminalListVanilla = JSON.stringify(this.findAllTerminal)
-      let originalTerminalList = JSON.parse(originalTerminalListVanilla)
+      const originalTerminalListVanilla = JSON.stringify(this.findAllTerminal)
+      const originalTerminalList = JSON.parse(originalTerminalListVanilla)
       const extraTerminal = {
         id: 999,
         code: 1999,
@@ -1123,18 +1146,18 @@ export default {
 
     creditOrder() {
       const terminal = this.findAllTerminal.find(
-        (el) => el['id'] == this.terminalId
+        (el) => Number(el.id) === Number(this.terminalId)
       )
       if (!terminal) {
         return this.orderHeaderList.filter(
-          (el) => el['paymentId'] == 2 && el['isActive'] == true
+          (el) => Number(el.paymentId) === 2 && (el.isActive === true || el.isActive === 1)
         )
       }
       return this.orderHeaderList.filter(
         (el) =>
-          el['paymentId'] == 2 &&
-          el['isActive'] == true &&
-          el['locationId'] == terminal['locationId']
+          Number(el.paymentId) === 2 &&
+          (el.isActive === true || el.isActive === 1) &&
+          Number(el.locationId) === Number(terminal.locationId)
       )
     },
 
@@ -1143,7 +1166,7 @@ export default {
     },
 
     paperSize() {
-      const item = this.getSPF.find((spf) => spf.code == 'PAPER_SIZE')
+      const item = this.getSPF.find((spf) => spf.code === 'PAPER_SIZE')
       return item?.value || '80mm'
     },
 
@@ -1623,14 +1646,6 @@ export default {
       } catch (e) {
         console.error('Print window error:', e)
       }
-    },
-
-    isMultiPayment(item) {
-      return (
-        item.payments &&
-        Array.isArray(item.payments) &&
-        item.payments.length > 1
-      )
     },
 
     hasPaymentDetails(item) {

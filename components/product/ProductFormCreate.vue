@@ -21,8 +21,63 @@
                     :rules="rules.companyRule" label="ຮ້ານ*" dense outlined />
                 </v-col>
                 <v-col cols="12" sm="3">
-                  <v-autocomplete v-model="formData.pro_category" :items="category" item-text="categ_name"
-                    item-value="categ_id" :rules="rules.categoryRule" label="ໝວດໝູ່*" dense outlined />
+                  <v-autocomplete
+                    v-model="formData.pro_category"
+                    :items="category"
+                    :search-input.sync="categorySearchInput"
+                    item-text="categ_name"
+                    item-value="categ_id"
+                    :rules="rules.categoryRule"
+                    label="ໝວດໝູ່*"
+                    dense
+                    outlined
+                  >
+                    <template v-slot:append-outer>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on, attrs }">
+                          <v-btn
+                            icon
+                            small
+                            color="primary"
+                            v-bind="attrs"
+                            v-on="on"
+                            class="mt-n1"
+                            @click="openQuickCategoryDialog(categorySearchInput)"
+                          >
+                            <v-icon>mdi-plus-circle</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>ສ້າງໝວດໝູ່ໃໝ່ທັນທີ (Quick Create Category)</span>
+                      </v-tooltip>
+                    </template>
+
+                    <template v-slot:no-data>
+                      <v-list-item
+                        v-if="categorySearchInput && categorySearchInput.trim().length > 0"
+                        class="py-2 cursor-pointer"
+                        @click="openQuickCategoryDialog(categorySearchInput)"
+                      >
+                        <v-list-item-avatar size="28" color="primary lighten-5" class="my-0 mr-2">
+                          <v-icon small color="primary">mdi-plus</v-icon>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                          <v-list-item-title class="primary--text font-weight-bold text-caption">
+                            ບໍ່ພົບໝວດນີ້ — ຄລິກເພື່ອສ້າງ "<b>{{ categorySearchInput }}</b>"
+                          </v-list-item-title>
+                          <v-list-item-subtitle class="caption grey--text">
+                            ສ້າງ ແລະ ເລືອກໝວດໝູ່ນີ້ເຂົ້າໃນສິນຄ້າທັນທີ
+                          </v-list-item-subtitle>
+                        </v-list-item-content>
+                      </v-list-item>
+                      <v-list-item v-else>
+                        <v-list-item-content>
+                          <v-list-item-title class="caption grey--text">
+                            ບໍ່ມີຂໍ້ມູນໝວດໝູ່
+                          </v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </template>
+                  </v-autocomplete>
                 </v-col>
                 <v-col cols="12" sm="3">
                   <v-autocomplete v-model="formData._category" :items="productType" :rules="rules.productTypeRule"
@@ -443,6 +498,99 @@
           <v-btn color="primary" :disabled="!valid" depressed @click="uploadFiles">ບັນທຶກສິນຄ້າ</v-btn>
         </div>
       </div>
+
+      <!-- Quick Category Creation Dialog -->
+      <v-dialog v-model="quickCategoryDialog" max-width="480px" persistent>
+        <v-card class="rounded-xl pa-2">
+          <v-card-title class="d-flex align-center justify-space-between pb-2">
+            <div class="d-flex align-center">
+              <v-avatar color="primary lighten-5" size="36" class="mr-2">
+                <v-icon color="primary" small>mdi-shape-plus</v-icon>
+              </v-avatar>
+              <div>
+                <div class="subtitle-1 font-weight-black primary--text mb-0">ສ້າງໝວດໝູ່ໃໝ່ທັນທີ</div>
+                <div class="caption grey--text">Quick Create & Select Category</div>
+              </div>
+            </div>
+            <v-btn icon small @click="quickCategoryDialog = false; resetQuickCategoryForm()">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+
+          <v-divider class="mb-3"></v-divider>
+
+          <v-card-text>
+            <v-form ref="quickCategoryForm" @submit.prevent="submitQuickCategory">
+              <v-text-field
+                ref="quickCategoryNameInput"
+                v-model="quickCategory.categ_name"
+                label="ຊື່ໝວດໝູ່ (Category Name)*"
+                placeholder="ຕົວຢ່າງ: ເຄື່ອງດື່ມ, ອາຫານແຫ້ງ, ບັນຈຸພັນ"
+                outlined
+                dense
+                class="rounded-lg mb-2"
+                prepend-inner-icon="mdi-tag-outline"
+                :rules="quickCategoryRules.nameRule"
+                autofocus
+                @keydown.enter.prevent="submitQuickCategory"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="quickCategory.categ_desc"
+                label="ລາຍລະອຽດ / ໝາຍເຫດ (Description)"
+                placeholder="ຄຳອະທິບາຍເພີ່ມເຕີມ (ບໍ່ບັງຄັບ)"
+                outlined
+                dense
+                class="rounded-lg mb-2"
+                prepend-inner-icon="mdi-text"
+                @keydown.enter.prevent="submitQuickCategory"
+              ></v-text-field>
+
+              <v-card outlined class="pa-2 px-3 rounded-lg grey lighten-5">
+                <v-checkbox
+                  v-model="quickCategory.isPackaging"
+                  color="teal darken-2"
+                  hide-details
+                  class="ma-0 pa-0"
+                >
+                  <template v-slot:label>
+                    <span class="caption font-weight-bold grey--text text--darken-3">
+                      ໝວດສິນຄ້າບັນຈຸພັນ (Packaging Category)
+                    </span>
+                  </template>
+                </v-checkbox>
+                <div class="caption grey--text text--darken-1 pl-7 pt-1">
+                  ເລືອກຫາກເປັນໝວດລັງເປົ່າ, ແກ້ວເປົ່າ ຫຼື ຖັງເບຍ ເພື່ອຮອງຮັບລະບົບມັດຈຳ/ຕິດໜີ້ບັນຈຸພັນ
+                </div>
+              </v-card>
+            </v-form>
+          </v-card-text>
+
+          <v-card-actions class="px-4 pb-3 justify-end">
+            <v-btn
+              text
+              rounded
+              class="px-4"
+              color="grey darken-1"
+              :disabled="isCreatingCategory"
+              @click="quickCategoryDialog = false; resetQuickCategoryForm()"
+            >
+              ຍົກເລີກ (Cancel)
+            </v-btn>
+            <v-btn
+              color="primary"
+              depressed
+              rounded
+              class="px-5 font-weight-bold"
+              :loading="isCreatingCategory"
+              @click="submitQuickCategory"
+            >
+              <v-icon left small>mdi-check</v-icon>
+              ບັນທຶກ & ເລືອກທັນທີ
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -589,6 +737,21 @@ export default {
       },
 
       category: [],
+      categorySearchInput: '',
+      quickCategoryDialog: false,
+      isCreatingCategory: false,
+      quickCategory: {
+        categ_name: '',
+        categ_desc: '',
+        isPackaging: false
+      },
+      quickCategoryRules: {
+        nameRule: [
+          (v) => !!v || 'ກະລຸນາປ້ອນຊື່ໝວດໝູ່',
+          (v) => (v && v.trim().length > 0) || 'ຊື່ໝວດໝູ່ຕ້ອງບໍ່ຫວ່າງເປົ່າ',
+          (v) => (v && v.length <= 150) || 'ຊື່ໝວດໝູ່ຕ້ອງບໍ່ເກີນ 150 ຕົວອັກສອນ'
+        ]
+      },
       companyList: [],
       files: [],
       printQty: 1,
@@ -1045,13 +1208,108 @@ export default {
               categ_desc: el.categ_desc,
             }
           })
-        if (this.category.length > 0) {
+        if (this.category.length > 0 && !this.formData.pro_category) {
           this.formData.pro_category = this.category[0].categ_id
         }
       } catch (er) {
         console.log('error: ' + er.response?.data || er.message)
       }
       this.isloading = false
+    },
+
+    openQuickCategoryDialog(prefillName = '') {
+      this.quickCategory = {
+        categ_name: typeof prefillName === 'string' ? prefillName.trim() : '',
+        categ_desc: '',
+        isPackaging: false,
+      }
+      this.quickCategoryDialog = true
+      this.$nextTick(() => {
+        if (this.$refs.quickCategoryNameInput) {
+          this.$refs.quickCategoryNameInput.focus()
+        }
+      })
+    },
+
+    resetQuickCategoryForm() {
+      this.quickCategory = {
+        categ_name: '',
+        categ_desc: '',
+        isPackaging: false,
+      }
+      if (this.$refs.quickCategoryForm) {
+        this.$refs.quickCategoryForm.resetValidation()
+      }
+    },
+
+    async submitQuickCategory() {
+      if (this.$refs.quickCategoryForm && !this.$refs.quickCategoryForm.validate()) {
+        return
+      }
+      if (!this.quickCategory.categ_name || !this.quickCategory.categ_name.trim()) {
+        return
+      }
+
+      this.isCreatingCategory = true
+      try {
+        const payload = {
+          categ_name: this.quickCategory.categ_name.trim(),
+          categ_desc: this.quickCategory.categ_desc ? this.quickCategory.categ_desc.trim() : '',
+          isActive: true,
+          isPackaging: Boolean(this.quickCategory.isPackaging),
+        }
+
+        const res = await this.$axios.post('api/category/create', payload)
+        const newCat = res.data
+
+        const catId = newCat.categ_id || newCat.id
+        const catItem = {
+          id: catId,
+          categ_id: catId,
+          categ_name: newCat.categ_name || payload.categ_name,
+          categ_desc: newCat.categ_desc || payload.categ_desc,
+          isActive: true,
+          isPackaging: payload.isPackaging,
+        }
+
+        // Add to category array if not already present
+        const idx = this.category.findIndex((c) => c.categ_id === catId || c.id === catId)
+        if (idx >= 0) {
+          this.category.splice(idx, 1, catItem)
+        } else {
+          this.category.push(catItem)
+        }
+
+        // Auto-select this newly created category in the product form
+        this.formData.pro_category = catId
+        this.categorySearchInput = ''
+
+        // Close dialog
+        this.quickCategoryDialog = false
+        this.resetQuickCategoryForm()
+
+        if (this.$swal) {
+          this.$swal.fire({
+            icon: 'success',
+            title: 'ສຳເລັດ',
+            text: `ສ້າງ ແລະ ເລືອກໝວດໝູ່ "${catItem.categ_name}" ສຳເລັດແລ້ວ`,
+            timer: 2000,
+            showConfirmButton: false,
+          })
+        } else if (this.$toast) {
+          this.$toast.success(`ສ້າງ ແລະ ເລືອກໝວດໝູ່ "${catItem.categ_name}" ສຳເລັດ`)
+        }
+      } catch (err) {
+        console.error('Quick category creation error:', err)
+        const msg = err.response?.data?.message || err.message || 'ເກີດຂໍ້ຜິດພາດໃນການສ້າງໝວດໝູ່'
+        if (this.$swal) {
+          this.$swal.fire({ icon: 'error', title: 'ຜິດພາດ', text: msg })
+        } else if (this.$toast) {
+          this.$toast.error(msg)
+        }
+      } finally {
+        this.isCreatingCategory = false
+      }
     },
 
     async fetchCompany() {

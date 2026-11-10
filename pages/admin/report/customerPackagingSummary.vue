@@ -577,6 +577,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import ExcelJS from 'exceljs'
+import { printPackagingSummaryReport } from '~/common/customerPackagingSummaryPrintTemplate'
 
 export default {
   name: 'CustomerPackagingSummaryReport',
@@ -852,7 +853,29 @@ export default {
       this.ledgerDialog = true
     },
     printReport() {
-      window.print()
+      const company = this.$store?.state?.company || {
+        name: 'ຕົວແທນຈຳໜ່າຍ ເບຍລາວ / Beerlao Agency',
+        tel: '020-XXXXXXXX',
+        address: 'ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ'
+      }
+
+      const user = this.$store?.state?.auth?.user || {
+        name: this.$auth?.user?.name || 'Admin'
+      }
+
+      const locationObj = this.locationOptions.find(l => l.id === this.selectedLocationId)
+      const locationName = locationObj ? locationObj.name : 'ທຸກສາຂາ/ສາງ'
+
+      printPackagingSummaryReport({
+        companyData: company,
+        user,
+        startDate: this.startDate,
+        endDate: this.endDate,
+        locationName,
+        packagingList: this.filteredPackagingList,
+        customerRows: this.filteredCustomerRows,
+        kpiTotals: this.kpiTotals
+      })
     },
     async exportToExcel() {
       this.isExporting = true
@@ -1026,6 +1049,28 @@ export default {
 
 <style scoped>
 * {
+  font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
+}
+
+.text-h5,
+.text-h6,
+.text-subtitle-1,
+.text-subtitle-2,
+.caption,
+.text-caption,
+::v-deep .text-h5,
+::v-deep .text-h6,
+::v-deep .text-subtitle-1,
+::v-deep .text-subtitle-2,
+::v-deep .caption,
+::v-deep .text-caption,
+::v-deep .v-btn,
+::v-deep .v-chip,
+::v-deep input,
+::v-deep select,
+::v-deep textarea,
+::v-deep th,
+::v-deep td {
   font-family: 'Noto Sans Lao', 'noto sans lao', 'NotoSansLaoUI-Regular', sans-serif !important;
 }
 

@@ -140,10 +140,6 @@
           {{ formatDateTime(item.createdAt) }}
         </template>
 
-        <template v-slot:[`item.recid`]="{ item }">
-          {{ item.id }}
-        </template>
-
         <template v-slot:[`item.id`]="{ item }">
           <v-btn color="primary" text @click="viewItem(item)">
             <v-icon small>mdi-square-edit-outline</v-icon>
@@ -155,8 +151,8 @@
 </template>
 
 <script>
-import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
 import { mapGetters } from 'vuex'
+import { swalError2, dayCount, getNextDate, getFirstDayOfMonth } from '~/common'
 
 export default {
   middleware: 'auths',
@@ -205,7 +201,7 @@ export default {
     },
 
     quotationList() {
-      return this.orderHeaderList.filter(el => el['isActive'] == false);
+      return this.orderHeaderList.filter((el) => el.isActive === false || el.isActive === 0 || !el.isActive)
     },
 
     cancelStatistics() {
@@ -250,7 +246,10 @@ export default {
     getClientCredit(item) { return this.hasValidClient(item) ? parseInt(item.client.credit) : 0; },
     getClientName(item) { return item.client ? (item.client.name || 'Unnamed') : 'Walk-in'; },
     getNoClientText(item) { return item.client ? 'No Credit Info' : 'Walk-in'; },
-    formatBookingDate(date) { return date ? date.split('T')[0] : 'Invalid'; },
+    formatBookingDate(date) {
+      if (!date) return 'Invalid'
+      return typeof date === 'string' ? date.split('T')[0] : String(date)
+    },
     formatDateTime(dateTimeStr) {
       if (!dateTimeStr) return ''
       const dateObj = new Date(dateTimeStr)
@@ -276,7 +275,8 @@ export default {
     formatNumber(val) { return new Intl.NumberFormat().format(Math.round(val || 0)); },
 
     getBookingStatusChip(item) {
-      const dayCnt = this.countDay(item.bookingDate.split('T')[0]);
+      const bDateStr = typeof item?.bookingDate === 'string' ? item.bookingDate.split('T')[0] : (item?.bookingDate || '')
+      const dayCnt = this.countDay(bDateStr)
       if (!this.hasValidClient(item)) return { color: 'grey', icon: 'mdi-account-off', text: `${dayCnt} days` };
       const credit = this.getClientCredit(item);
       if (dayCnt > credit) return { color: 'red', icon: 'mdi-alert', text: `${dayCnt} days - Overdue` };
@@ -285,8 +285,12 @@ export default {
 
     getDueDateChip(item) {
       if (!this.hasValidClient(item)) return { color: 'grey', icon: 'mdi-calendar', text: 'N/A' };
-      const dueStr = this.dueDate(item.bookingDate, this.getClientCredit(item)).toISOString().split('T')[0];
-      return { color: 'primary', icon: 'mdi-calendar-check', text: dueStr };
+      try {
+        const dueStr = this.dueDate(item.bookingDate, this.getClientCredit(item)).toISOString().split('T')[0];
+        return { color: 'primary', icon: 'mdi-calendar-check', text: dueStr };
+      } catch (e) {
+        return { color: 'grey', icon: 'mdi-calendar', text: 'N/A' };
+      }
     },
 
     async loadData() {
@@ -299,14 +303,62 @@ export default {
       this.isloading = false;
     },
     formatDate(date) {
-      if (!date) return null;
-      const [year, month, day] = date.split('-');
-      return `${month}/${day}/${year}`;
+      if (!date) return ''
+      // If it's a Date instance
+      if (date instanceof Date) {
+        if (isNaN(date.getTime())) return ''
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+        return `${month}/${day}/${year}`
+      }
+      if (typeof date !== 'string') {
+        try {
+          const d = new Date(date)
+          if (!isNaN(d.getTime())) {
+            const year = d.getFullYear()
+            const month = String(d.getMonth() + 1).padStart(2, '0')
+            const day = String(d.getDate()).padStart(2, '0')
+            return `${month}/${day}/${year}`
+          }
+        } catch (e) {
+          return String(date)
+        }
+        return ''
+      }
+
+      if (date.includes('/')) return date
+
+      const cleanDate = date.split('T')[0]
+      const parts = cleanDate.split('-')
+      if (parts.length === 3) {
+        const [year, month, day] = parts
+        return `${month.padStart(2, '0')}/${day.padStart(2, '0')}/${year}`
+      }
+      return date
     },
     parseDate(date) {
-      if (!date) return null;
-      const [month, day, year] = date.split('/');
-      return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      if (!date) return null
+      if (date instanceof Date) {
+        const year = date.getFullYear()
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const day = String(date.getDate()).padStart(2, '0')
+        return `${year}-${month}-${day}`
+      }
+      if (typeof date !== 'string') return date
+
+      if (date.includes('-')) {
+        return date.split('T')[0]
+      }
+
+      if (date.includes('/')) {
+        const parts = date.split('/')
+        if (parts.length === 3) {
+          const [month, day, year] = parts
+          return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+        }
+      }
+      return date
     },
     viewItem(item) { this.componentKey += 1; this.viewTransaction = true; this.selectedOrder = item.id; this.dialogOrderDetail = true; }
   }
