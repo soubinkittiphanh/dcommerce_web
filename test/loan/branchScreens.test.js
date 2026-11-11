@@ -75,7 +75,7 @@ test('store: fetchLookups takes branchScope from GET /api/loan/lookups (which th
   const src = read('store/loan.js')
   assert.match(src, /const \{ branchScope, \.\.\.lookups \} = res\.data[\s\S]*commit\('SET_BRANCH_SCOPE', branchScope\)/)
   const master = fs.readFileSync(path.join(API, 'src/loan/controllers/masterController.js'), 'utf8')
-  assert.match(master, /getLookups: handle\(async req => \(\{ \.\.\.\(await masterService\.getLookups\(req\.query\)\), branchScope: await describeScope\(req\.user\.id\) \}\)\)/)
+  assert.match(master, /getLookups: handle\(async req => \(\{ \.\.\.\(await masterService\.getLookups\(req\.query\)\), branchScope: await describeScope\(req\.user\.id\)/)
   const tax = fs.readFileSync(path.join(API, 'src/loan/controllers/taxProfileController.js'), 'utf8')
   assert.match(tax, /getStatus: handle\(\(\) => taxProfileService\.getStatus\(\)\),/, '/status answers only the tax-profile banner state')
   assert.ok(read('components/loan/BranchGlReport.vue').includes("'/api/loan/lookups'"))
@@ -181,6 +181,23 @@ test('transaction and payment dialogs: bank list from the account\'s branch (GET
     assert.match(src, /\/api\/loan\/accounts\/\$\{this\.summary\.account\.id\}\/bank-accounts/, file)
     assert.ok(!src.includes('/api/bank_account/find'), `${file} does not load the full POS list`)
   }
+})
+
+test('every loan bank/cash picker uses the branch route: no loan screen loads a POS bank list itself (the branch-bank-account mapping screen is the one exception); every kind with a bank field goes through TransactionDialog', () => {
+  const walk = (dir) => fs.readdirSync(path.join(WEB, dir), { withFileTypes: true }).flatMap(e => (e.isDirectory() ? walk(path.join(dir, e.name)) : [path.join(dir, e.name)]))
+  const files = ['components/loan', 'pages/admin/loan', 'common/loan'].flatMap(walk).filter(f => /\.(vue|js)$/.test(f) && !f.endsWith('.test.js'))
+  const posBankList = /\/api\/bank_account\/find|\/api\/bank_account\/findAll|\/api\/bank\/find|bankAccount\/find/
+  const offenders = files.filter(f => posBankList.test(read(f)) && f !== 'common/loan/loanApi.js')
+  assert.deepStrictEqual(offenders, [], `screens loading a POS bank list: ${offenders.join(', ')}`)
+  // loanApi's POS 'bankAccount' source is used only by the mapping screen's config
+  const users = files.filter(f => /pos: 'bankAccount'/.test(read(f)))
+  assert.deepStrictEqual(users, ['common/loan/masterConfigs.js'])
+  const { MASTER_CONFIGS } = load('common/loan/masterConfigs.js')
+  assert.deepStrictEqual(MASTER_CONFIGS.filter(c => c.fields.some(x => x.pos === 'bankAccount')).map(c => c.entity), ['branch-bank-account'])
+  const { KINDS } = load('components/loan/transactionKinds.js')
+  const withBank = KINDS.filter(k => k.fields.some(x => x.type === 'bank')).map(k => k.value)
+  assert.deepStrictEqual(withBank.sort(), ['ADV_REFUND', 'FEE_COLLECT', 'FEE_REFUND', 'INS_REMIT', 'RECOVERY', 'VEH_DISPOSE'], 'kinds with a bank picker')
+  console.log(`        bank pickers: TransactionDialog (${withBank.join(', ')}), PaymentDialog (REPAYMENT, PREPAY); both GET /api/loan/accounts/:id/bank-accounts`)
 })
 
 console.log(failures ? `\n${failures} failed` : '\nAll branch screen checks passed')
