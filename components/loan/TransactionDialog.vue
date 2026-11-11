@@ -18,6 +18,7 @@
           <v-col v-for="f in spec.fields" :key="f.key" cols="12" sm="6">
             <v-select v-if="f.type === 'bank'" v-model="fields[f.key]" :items="bankOptions"
               :label="`${f.label} (${summary.currency})`" :hint="bankOptions.length ? '' : `No bank account of this branch in ${summary.currency} (Parameter Studio, branch-bank-account)`" persistent-hint dense outlined @change="reset" />
+            <v-select v-else-if="f.type === 'branch'" v-model="fields[f.key]" :items="branchOptions" :label="f.label" :hint="branchOptions.length ? f.hint : 'No other active branch with an authorized branch profile'" persistent-hint dense outlined data-test="transfer-branch" @change="reset" />
             <v-select v-else-if="f.type === 'select' && f.key === 'targetTransactionId'" v-model="fields[f.key]" :items="reversibleItems"
               :label="f.label" :hint="f.hint" persistent-hint dense outlined @change="reset" />
             <v-select v-else-if="f.type === 'select'" v-model="fields[f.key]" :items="f.items" :label="f.label" :hint="f.hint" persistent-hint dense outlined @change="reset" />
@@ -41,10 +42,10 @@
             <span class="text-caption grey--text ml-3">ຈຳນວນ (Amount): {{ fmtAmount(preview.amount, decimals) }} {{ summary.currency }}</span>
           </div>
           <v-simple-table dense>
-            <thead><tr><th>Event</th><th>Tag</th><th>Role</th><th class="text-right">Dr</th><th class="text-right">Cr</th><th v-if="isForeign" class="text-right">Base</th></tr></thead>
+            <thead><tr><th>Event</th><th>Tag</th><th v-if="hasBranchLegs">Branch</th><th>Role</th><th class="text-right">Dr</th><th class="text-right">Cr</th><th v-if="isForeign" class="text-right">Base</th></tr></thead>
             <tbody>
               <tr v-for="(l, i) in preview.journal" :key="i">
-                <td>{{ l.event }}</td><td>{{ l.tag }}</td><td>{{ l.role }}<span v-if="l.qualifier" class="grey--text"> · {{ l.qualifier }}</span></td>
+                <td>{{ l.event }}</td><td>{{ l.tag }}</td><td v-if="hasBranchLegs">{{ branchLabel(l.branchId) }}</td><td>{{ l.role }}<span v-if="l.qualifier" class="grey--text"> · {{ l.qualifier }}</span></td>
                 <td class="text-right">{{ l.drCr === 'DR' ? fmtAmount(l.amount, decimals) : '' }}</td>
                 <td class="text-right">{{ l.drCr === 'CR' ? fmtAmount(l.amount, decimals) : '' }}</td>
                 <td v-if="isForeign" class="text-right grey--text">{{ l.baseAmount !== undefined ? fmtAmount(l.baseAmount, baseDecimals) : '' }}<span v-if="l.isBaseOnly"> (base)</span></td>
@@ -134,6 +135,12 @@ export default {
       return reversibleTargets(this.transactions)
         .map(t => ({ value: t.id, text: `${t.txNo} · ${t.eventCode} · ${fmtAmount(t.amount, this.decimals)}` }))
     },
+    // Phase 6 Stage 4: transfer destinations (from /api/loan/lookups), never the account's own branch
+    branchOptions () {
+      const list = (this.$store.state.loan.lookups && this.$store.state.loan.lookups.transferBranches) || []
+      return list.filter(b => b.id !== Number(this.summary.account.branchId)).map(b => ({ value: b.id, text: `${b.code} · ${b.name}` }))
+    },
+    hasBranchLegs () { return Boolean(this.preview && this.preview.journal.some(l => l.branchId !== undefined)) },
     accountConfirmed () { return this.confirmAccountNo.trim() === String(this.summary.account.accountNo) },
     balanced () {
       if (!this.preview) return false
@@ -155,6 +162,11 @@ export default {
     value (open) { if (open) this.open() }
   },
   methods: {
+    branchLabel (id) {
+      const list = (this.$store.state.loan.lookups && this.$store.state.loan.lookups.transferBranches) || []
+      const b = list.find(x => x.id === Number(id))
+      return b ? `${b.code} · ${b.name}` : this.$store.getters['loan/branchLabel'](id)
+    },
     fmtAmount,
     fmtRate,
     fmtTime (iso) { try { return new Date(iso).toLocaleString() } catch (e) { return iso } },

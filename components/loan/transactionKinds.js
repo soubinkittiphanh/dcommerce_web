@@ -13,8 +13,9 @@
 //   remarksRequired  condition: remarks is mandatory
 //   confirmAccountNo condition: the user must type the account number to confirm
 //   fields           [{ key, label, type, required, items?, hint? }]
-//                      type: amount | text | select | bank
+//                      type: amount | text | select | bank | branch
 //                      (bank = the currency-filtered bank-account picker; sends bankAccountId)
+//                      (branch = an active branch with an authorized profile, not the account's own; sends toBranchId)
 
 const F = {
   bank: { key: 'bankAccountId', label: 'ບັນຊີທະນາຄານ (Bank account)', type: 'bank', required: true },
@@ -60,6 +61,11 @@ const KINDS = [
 
   { value: 'REVERSAL', label: 'ຍົກເລີກລາຍການ (Reverse a transaction)', checker: true, stages: ['BOOKED', 'DISBURSED'], remarksRequired: true,
     fields: [{ key: 'targetTransactionId', label: 'ລາຍການທີ່ຈະຍົກເລີກ (Transaction to reverse)', type: 'select', required: true, hint: 'LIFO: only the latest reversible transaction' },
+      F.remarks] },
+
+  // Phase 6 Stage 4: moves the account and its open balances to another branch (memo legs only: no cash, no GL row)
+  { value: 'BRANCH_TRANSFER', label: 'ຍ້າຍສາຂາ (Branch transfer)', checker: true, stages: ['BOOKED', 'DISBURSED'], remarksRequired: true, confirmAccountNo: true,
+    fields: [{ key: 'toBranchId', label: 'ສາຂາປາຍທາງ (Destination branch)', type: 'branch', required: true, hint: 'Moves the account and its open balances; no cash and no GL row. The checker must cover both branches.' },
       F.remarks] }
 ]
 

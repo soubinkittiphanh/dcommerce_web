@@ -36,9 +36,10 @@ const test = (name, fn) => {
 const { KINDS, byValue, postKindOf, kindsForStage } = load('../../components/loan/transactionKinds.js')
 const BK = backend()
 
-test('backend KINDS parsed (13 kinds incl. the 9 checker kinds)', () => {
-  assert.strictEqual(Object.keys(BK).length, 13, `parsed ${Object.keys(BK).length}`)
-  assert.strictEqual(Object.values(BK).filter(Boolean).length, 9, 'nine checker kinds')
+test('backend KINDS parsed (14 kinds incl. the 10 checker kinds; Phase 6 Stage 4 added BRANCH_TRANSFER)', () => {
+  assert.strictEqual(Object.keys(BK).length, 14, `parsed ${Object.keys(BK).length}`)
+  assert.strictEqual(Object.values(BK).filter(Boolean).length, 10, 'ten checker kinds')
+  assert.strictEqual(BK.BRANCH_TRANSFER, true, 'BRANCH_TRANSFER needs a checker')
 })
 
 test('every declared kind is well-formed and maps to a real backend kind', () => {
@@ -52,7 +53,7 @@ test('every declared kind is well-formed and maps to a real backend kind', () =>
     assert.strictEqual(k.checker, BK[pk], `${k.value}: checker flag matches backend ${pk}`)
     for (const f of k.fields) {
       assert.ok(f.key && f.label && f.type, `${k.value}.${f.key}: key/label/type`)
-      assert.ok(['amount', 'text', 'select', 'bank'].includes(f.type), `${k.value}.${f.key}: known type ${f.type}`)
+      assert.ok(['amount', 'text', 'select', 'bank', 'branch'].includes(f.type), `${k.value}.${f.key}: known type ${f.type}`)
       if (f.type === 'select' && f.key !== 'targetTransactionId') assert.ok(Array.isArray(f.items) && f.items.length, `${k.value}.${f.key}: select items`)
     }
   }
@@ -65,14 +66,30 @@ test('all 12 kinds the user listed are present (INT_WAIVE maps to WAIVE+INTEREST
   assert.strictEqual(byValue.INT_WAIVE.fixed.component, 'INTEREST', 'INT_WAIVE fixes component INTEREST')
 })
 
-test('remarks mandatory exactly for WAIVE, INT_WAIVE, WRITE_OFF, REPOSSESS, VEH_DISPOSE, REVERSAL', () => {
+test('remarks mandatory exactly for WAIVE, INT_WAIVE, WRITE_OFF, REPOSSESS, VEH_DISPOSE, REVERSAL, BRANCH_TRANSFER (and the server requires them for the same kinds)', () => {
   const got = KINDS.filter(k => k.remarksRequired).map(k => k.value).sort()
-  assert.deepStrictEqual(got, ['INT_WAIVE', 'REPOSSESS', 'REVERSAL', 'VEH_DISPOSE', 'WAIVE', 'WRITE_OFF'])
+  assert.deepStrictEqual(got, ['BRANCH_TRANSFER', 'INT_WAIVE', 'REPOSSESS', 'REVERSAL', 'VEH_DISPOSE', 'WAIVE', 'WRITE_OFF'])
+  const src = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/transactionService.js'), 'utf8')
+  const server = [...src.match(/const REMARKS_REQUIRED = new Set\(\[([^\]]*)\]\)/)[1].matchAll(/'([A-Z_]+)'/g)].map(m => m[1]).sort()
+  assert.deepStrictEqual(server, ['BRANCH_TRANSFER', 'REPOSSESS', 'REVERSAL', 'VEH_DISPOSE', 'WAIVE', 'WRITE_OFF'], 'server REMARKS_REQUIRED (INT_WAIVE posts as WAIVE)')
 })
 
-test('account-number confirmation required exactly for WRITE_OFF and REPOSSESS', () => {
+test('account-number confirmation required exactly for WRITE_OFF, REPOSSESS and BRANCH_TRANSFER', () => {
   const got = KINDS.filter(k => k.confirmAccountNo).map(k => k.value).sort()
-  assert.deepStrictEqual(got, ['REPOSSESS', 'WRITE_OFF'])
+  assert.deepStrictEqual(got, ['BRANCH_TRANSFER', 'REPOSSESS', 'WRITE_OFF'])
+})
+
+test('Phase 6 Stage 4: BRANCH_TRANSFER entry: checker, BOOKED and DISBURSED, a destination-branch picker (toBranchId) from /api/loan/lookups that never offers the account\'s own branch, a branch column on the memo legs', () => {
+  const k = byValue.BRANCH_TRANSFER
+  assert.ok(k && k.checker && k.remarksRequired && k.confirmAccountNo)
+  assert.deepStrictEqual(k.stages, ['BOOKED', 'DISBURSED'])
+  assert.deepStrictEqual(k.fields.map(f => `${f.key}:${f.type}`), ['toBranchId:branch', 'remarks:text'])
+  const dlg = fs.readFileSync(path.resolve(__dirname, '../../components/loan/TransactionDialog.vue'), 'utf8')
+  assert.match(dlg, /v-else-if="f\.type === 'branch'" v-model="fields\[f\.key\]" :items="branchOptions"/)
+  assert.match(dlg, /lookups\.transferBranches\) \|\| \[\]\s*return list\.filter\(b => b\.id !== Number\(this\.summary\.account\.branchId\)\)/)
+  assert.match(dlg, /<th v-if="hasBranchLegs">Branch<\/th>/)
+  const ctl = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/controllers/masterController.js'), 'utf8')
+  assert.match(ctl, /transferBranches: await transferBranches\(\)/, 'the API serves the destinations on /lookups')
 })
 
 test('kindsForStage returns only entries valid for that stage; DISB is BOOKED-only', () => {
@@ -108,6 +125,11 @@ const handlerKeys = () => {
     out[h[1]] = [...new Set([...body.matchAll(/input\.([A-Za-z]+)/g)].map(m => m[1]))]
   })
   out.REVERSAL = ['targetTransactionId'] // handled in transactionService (reverse), not handlers.js
+  // BRANCH_TRANSFER is handled in transactionService (transfer), not handlers.js: parse its body there
+  const ts = fs.readFileSync(path.resolve(__dirname, '../../../dc_api/src/loan/posting/transactionService.js'), 'utf8')
+  const tStart = ts.indexOf('const transfer = async')
+  const tBody = ts.slice(tStart, ts.indexOf('const execute =', tStart))
+  out.BRANCH_TRANSFER = [...new Set([...tBody.matchAll(/input\.([A-Za-z]+)/g)].map(m => m[1]))]
   return out
 }
 
