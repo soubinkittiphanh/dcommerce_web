@@ -174,12 +174,17 @@
         </v-data-table>
       </v-card-text>
     </v-card>
+
+    <!-- Loan Phase 6 Stage 3: trial balance by branch (the company trial balance above is unchanged) -->
+    <branch-gl-report kind="tb" :as-of-date="String(asOfDate)" />
   </div>
 </template>
 <script>
 import { generateTrialBalanceHTML } from '~/common/printTemplates'
+import BranchGlReport from '~/components/loan/BranchGlReport.vue'
 
 export default {
+  components: { BranchGlReport },
   middleware: 'auths',
   data() {
     return {

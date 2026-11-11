@@ -42,6 +42,9 @@
           {{ changeFor(item).action }} pending
         </v-chip>
       </template>
+      <template v-for="k in labelColumns" #[`item.${k}`]="{ item }">
+        <span :key="k">{{ optionText(k, item[k]) }}</span>
+      </template>
       <template v-for="b in boolColumns" #[`item.${b}`]="{ item }">
         <v-icon :key="b" small :color="item[b] ? 'green' : 'grey'">{{ item[b] ? 'mdi-check' : 'mdi-minus' }}</v-icon>
       </template>
@@ -51,7 +54,7 @@
             <v-btn x-small text color="green" class="text-none" @click="decideChange(changeFor(item), 'authorize')">ອະນຸມັດການປ່ຽນ (Authorize change)</v-btn>
             <v-btn x-small text color="red" class="text-none" @click="decideChange(changeFor(item), 'reject')">ປະຕິເສດ (Reject)</v-btn>
           </template>
-          <template v-if="item.authStatus === 'PENDING' && can('AUTHORIZE')">
+          <template v-if="item.authStatus === 'PENDING' && can('AUTHORIZE') && !selfBlocked(item)">
             <v-btn x-small text color="green" class="text-none" @click="decide(item, 'authorize')">ອະນຸມັດ (Authorize)</v-btn>
             <v-btn x-small text color="red" class="text-none" @click="decide(item, 'reject')">ປະຕິເສດ (Reject)</v-btn>
           </template>
@@ -177,6 +180,11 @@ export default {
     formFields () {
       return this.config.fields.filter(x => this.fixed[x.key] === undefined)
     },
+    // config.labels: show the option text (e.g. the location name) instead of the id in select columns
+    labelColumns () {
+      if (!this.config.labels) return []
+      return this.columnKeys.filter(k => (this.config.fields.find(x => x.key === k) || {}).type === 'select')
+    },
     boolColumns () {
       return this.columnKeys.filter(k => (this.config.fields.find(x => x.key === k) || {}).type === 'bool')
     },
@@ -198,6 +206,15 @@ export default {
       if (this.readonly && ['CREATE', 'EDIT', 'DELETE'].includes(action)) return false
       return this.$store.getters['loan/can'](this.config.functionCode, action)
     },
+    // maker-checker: the maker of a PENDING row cannot decide it (the API refuses); hidden unless
+    // LOAN_ALLOW_SELF_AUTHORIZE is on, as on the pending-transactions screen
+    selfBlocked (item) {
+      return item.makerId !== null && item.makerId !== undefined && Number(item.makerId) === this.userId && !this.$store.getters['loan/allowSelfAuthorize']
+    },
+    optionText (key, value) {
+      const o = (this.options[key] || []).find(x => String(x.value) === String(value))
+      return o ? o.text : value
+    },
     async load () {
       if (!this.can('VIEW')) return
       this.loading = true
@@ -210,6 +227,7 @@ export default {
         ])
         this.items = asList(rows)
         this.changes = asList(changes)
+        if (this.labelColumns.length) this.loadOptions()
       } catch (err) {
         this.$toast.error(errMsg(err))
       } finally {
@@ -252,7 +270,8 @@ export default {
     },
     openCreate () {
       this.editing = null
-      this.form = Object.fromEntries(this.config.fields.map(x => [x.key, x.type === 'bool' ? false : null]))
+      // a field may set its own starting value (e.g. isActive: true on the branch screens)
+      this.form = Object.fromEntries(this.config.fields.map(x => [x.key, x.default !== undefined ? x.default : (x.type === 'bool' ? false : null)]))
       this.dialog = true
       this.loadOptions()
     },

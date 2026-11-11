@@ -1,7 +1,7 @@
 <template>
   <div class="loan-page pa-4">
     <loan-banner />
-    <page-title icon="mdi-phone-alert-outline" title="ລາຍການຕິດຕາມໜີ້" subtitle="Collection list · overdue accounts as of the loan business date">
+    <page-title icon="mdi-phone-alert-outline" title="ລາຍການຕິດຕາມໜີ້" subtitle="Collection list · overdue accounts as of the loan business date" branch-selector>
       <v-btn icon :loading="loading" @click="load"><v-icon>mdi-refresh</v-icon></v-btn>
     </page-title>
 
@@ -68,6 +68,10 @@ export default {
       return Object.entries(out).map(([bucket, count]) => ({ bucket, count }))
     }
   },
+  watch: {
+    // Phase 6 Stage 3: the header branch selector (all-branches users) narrows the list
+    '$store.state.loan.branchFilter' () { if (this.ready) this.load() }
+  },
   async mounted () {
     try {
       await this.$store.dispatch('loan/init')
@@ -84,7 +88,7 @@ export default {
     async load () {
       this.loading = true
       try {
-        this.data = (await this.$axios.$get('/api/loan/reports/overdue')).data
+        this.data = (await this.$axios.$get('/api/loan/reports/overdue', { params: this.$store.getters['loan/branchQuery'] })).data
       } catch (err) {
         this.$toast.error(errMsg(err))
       } finally {

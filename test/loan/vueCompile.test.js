@@ -13,7 +13,21 @@ const babel = require('@babel/core')
 const files = [
   '../../components/loan/TransactionDialog.vue',
   '../../pages/admin/loan/pending/index.vue',
-  '../../pages/admin/loan/accounts/_id.vue'
+  '../../pages/admin/loan/accounts/_id.vue',
+  // Phase 6 Stage 3: branch screens
+  '../../components/loan/PaymentDialog.vue',
+  '../../components/loan/BranchBar.vue',
+  '../../components/loan/BranchGlReport.vue',
+  '../../components/loan/PageTitle.vue',
+  '../../components/loan/MasterDataTable.vue',
+  '../../pages/admin/loan/accounts/index.vue',
+  '../../pages/admin/loan/applications/index.vue',
+  '../../pages/admin/loan/collection/index.vue',
+  '../../pages/admin/loan/eod/index.vue',
+  '../../pages/admin/loan/reports/index.vue',
+  '../../pages/admin/loan/studio/index.vue',
+  '../../pages/reports/financial/balance-sheet/index.vue',
+  '../../pages/reports/financial/trial-balance/index.vue'
 ]
 
 let failures = 0
@@ -26,10 +40,10 @@ for (const rel of files) {
     assert.strictEqual(compiled.errors.length, 0, `template errors: ${compiled.errors.join('; ')}`)
     assert.ok(sfc.script && sfc.script.content, 'has a <script>')
     babel.transform(sfc.script.content, { presets: ['@babel/preset-env'], babelrc: false, configFile: false })
-    console.log(`  PASS  ${path.basename(abs)} compiles (template + script)`)
+    console.log(`  PASS  ${path.relative(path.resolve(__dirname, '../..'), abs)} compiles (template + script)`)
   } catch (err) {
     failures++
-    console.error(`  FAIL  ${path.basename(abs)}\n        ${err.message}`)
+    console.error(`  FAIL  ${path.relative(path.resolve(__dirname, '../..'), abs)}\n        ${err.message}`)
   }
 }
 console.log(failures ? `\n${failures} failed` : '\nAll .vue files compile')

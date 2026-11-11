@@ -1,7 +1,7 @@
 <template>
   <div class="loan-page pa-4">
     <loan-banner />
-    <page-title icon="mdi-folder-account-outline" title="ບັນຊີສິນເຊື່ອ" subtitle="Loan accounts · contract currency" />
+    <page-title icon="mdi-folder-account-outline" title="ບັນຊີສິນເຊື່ອ" subtitle="Loan accounts · contract currency" branch-selector />
 
     <v-progress-linear v-if="!ready" indeterminate color="primary" />
     <v-alert v-else-if="!can('LN_ACCOUNT', 'VIEW')" type="info" text>ທ່ານບໍ່ມີສິດ (No VIEW permission for LN_ACCOUNT).</v-alert>
@@ -23,6 +23,7 @@
           <span class="text-caption ml-1">{{ item.accountStage }}</span>
         </template>
         <template #[`item.currentDpd`]="{ item }">{{ item.currentDpd || 0 }}</template>
+        <template #[`item.branchId`]="{ item }"><span class="text-caption">{{ branchLabel(item.branchId) }}</span></template>
       </v-data-table>
     </v-card>
   </div>
@@ -56,9 +57,14 @@ export default {
         { text: 'ວົງເງິນ (Sanctioned)', value: 'sanctionedAmount', align: 'end' },
         { text: 'ສະຖານະ (Status)', value: 'status' },
         { text: 'DPD', value: 'currentDpd', align: 'end' },
-        { text: 'ຄົບກຳນົດ (Maturity)', value: 'maturityDate' }
+        { text: 'ຄົບກຳນົດ (Maturity)', value: 'maturityDate' },
+        { text: 'ສາຂາ (Branch)', value: 'branchId' }
       ]
     }
+  },
+  watch: {
+    // Phase 6 Stage 3: the header branch selector (all-branches users) narrows the list
+    '$store.state.loan.branchFilter' () { if (this.ready) this.load() }
   },
   async mounted () {
     try {
@@ -73,10 +79,11 @@ export default {
   methods: {
     fmtMoney,
     can (fn, action) { return this.$store.getters['loan/can'](fn, action) },
+    branchLabel (id) { return this.$store.getters['loan/branchLabel'](id) },
     async load () {
       this.loading = true
       try {
-        const params = { search: this.search || undefined, status: this.status.length ? this.status.join(',') : undefined, stage: this.stage || undefined }
+        const params = { search: this.search || undefined, status: this.status.length ? this.status.join(',') : undefined, stage: this.stage || undefined, ...this.$store.getters['loan/branchQuery'] }
         this.items = (await this.$axios.$get('/api/loan/accounts', { params })).data
       } catch (err) {
         this.$toast.error(errMsg(err))

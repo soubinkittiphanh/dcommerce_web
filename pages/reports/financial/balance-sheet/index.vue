@@ -252,11 +252,17 @@
         <span class="font-weight-medium">ຄຳເຕືອນ: ຍອດບັນຊີບໍ່ສົມດຸນ ກະລຸນາກວດສອບລາຍການທຸລະກຳຍ້ອນຫຼັງ</span>
       </div>
     </v-alert>
+
+    <!-- Loan Phase 6 Stage 3: loan lines by branch (the statement above is unchanged) -->
+    <branch-gl-report kind="bs" :as-of-date="String(asOfDate)" />
   </div>
 </template>
 
 <script>
+import BranchGlReport from '~/components/loan/BranchGlReport.vue'
+
 export default {
+  components: { BranchGlReport },
   layout: 'default',
   middleware: 'auths',
   name: 'BalanceSheetReport',

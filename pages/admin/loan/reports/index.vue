@@ -1,7 +1,7 @@
 <template>
   <div class="loan-page pa-4">
     <loan-banner />
-    <page-title icon="mdi-chart-box-outline" title="ລາຍງານສິນເຊື່ອ" subtitle="Loan reports · contract currency, with base at the latest authorized rate (indicative)" />
+    <page-title icon="mdi-chart-box-outline" title="ລາຍງານສິນເຊື່ອ" subtitle="Loan reports · contract currency, with base at the latest authorized rate (indicative)" branch-selector />
 
     <v-progress-linear v-if="!ready" indeterminate color="primary" />
     <v-alert v-else-if="!can('VIEW')" type="info" text>ທ່ານບໍ່ມີສິດ (No VIEW permission for LN_REPORT).</v-alert>
@@ -12,12 +12,20 @@
       </v-tabs>
       <v-card outlined class="mt-2" :loading="loading">
         <v-card-text v-if="data">
-          <div class="text-caption grey--text mb-2">{{ data.date || '' }}</div>
+          <div class="d-flex align-center mb-2">
+            <div class="text-caption grey--text">{{ data.date || '' }} · {{ branchText }}</div>
+            <v-spacer />
+            <v-btn-toggle v-if="current.key === 'portfolio'" v-model="groupBy" dense mandatory color="primary" data-test="portfolio-groupby" @change="load">
+              <v-btn small value="product" class="text-none">ຕາມຜະລິດຕະພັນ (By product)</v-btn>
+              <v-btn small value="branch" class="text-none">ຕາມສາຂາ (By branch)</v-btn>
+            </v-btn-toggle>
+          </div>
 
           <template v-if="['portfolio', 'aging', 'npl'].includes(current.key)">
             <v-data-table :headers="groupHeaders" :items="data.rows" dense hide-default-footer :items-per-page="-1">
               <template #[`item.group`]="{ item }">
                 <v-chip v-if="current.key === 'aging'" x-small dark :color="agingColors[item.group]">{{ item.group }}</v-chip>
+                <span v-else-if="data.groupBy === 'branch'">{{ branchLabel(item.group) }}</span>
                 <span v-else>{{ item.group }}</span>
               </template>
               <template #[`item.outstanding`]="{ item }">
@@ -77,6 +85,7 @@ export default {
       loading: false,
       tab: 0,
       data: null,
+      groupBy: 'product',
       agingColors: AGING_COLORS,
       reports: [
         { key: 'portfolio', label: 'ພອດໂຟລິໂອ (Portfolio)' },
@@ -102,7 +111,16 @@ export default {
     }
   },
   computed: {
-    current () { return this.reports[this.tab] || this.reports[0] }
+    current () { return this.reports[this.tab] || this.reports[0] },
+    branchText () {
+      const q = this.$store.getters['loan/branchQuery']
+      if (q.branchId) return `ສາຂາ (Branch) ${this.branchLabel(q.branchId)}`
+      return this.$store.getters['loan/allBranches'] ? 'ທຸກສາຂາ (All branches)' : 'ສາຂາຂອງທ່ານ (Your branches)'
+    }
+  },
+  watch: {
+    // Phase 6 Stage 3: the header branch selector (all-branches users) narrows every report
+    '$store.state.loan.branchFilter' () { if (this.ready) this.load() }
   },
   async mounted () {
     try {
@@ -118,11 +136,13 @@ export default {
     fmtAmount,
     fmtMoney,
     can (action) { return this.$store.getters['loan/can']('LN_REPORT', action) },
+    branchLabel (id) { return this.$store.getters['loan/branchLabel'](id) },
     async load () {
       this.loading = true
       this.data = null
       try {
-        this.data = (await this.$axios.$get(`/api/loan/reports/${this.current.key}`)).data
+        const params = { ...this.$store.getters['loan/branchQuery'], ...(this.current.key === 'portfolio' && this.groupBy === 'branch' ? { groupBy: 'branch' } : {}) }
+        this.data = (await this.$axios.$get(`/api/loan/reports/${this.current.key}`, { params })).data
       } catch (err) {
         this.$toast.error(errMsg(err))
       } finally {

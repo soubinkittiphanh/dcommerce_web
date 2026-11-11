@@ -23,7 +23,8 @@ export const asList = (payload) => {
 const POS_SOURCES = {
   currency: { url: '/api/currency/findAll', value: 'id', text: c => `${c.code} - ${c.name}` },
   tax: { url: '/api/tax/active', value: 'id', text: t => `${t.code} - ${t.name} (${t.rate})` },
-  location: { url: '/api/location/find', value: 'id', text: l => l.name || l.locationName || `#${l.id}` }
+  location: { url: '/api/location/find', value: 'id', text: l => l.name || l.locationName || `#${l.id}` },
+  bankAccount: { url: '/api/bank_account/find', value: 'id', text: b => `${b.accountNumber || ''} - ${b.accountName || ''}${b.currency ? ` (${b.currency})` : ''}` }
 }
 
 export const loadPosOptions = async (axios, kind) => {

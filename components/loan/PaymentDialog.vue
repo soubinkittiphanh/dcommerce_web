@@ -14,7 +14,7 @@
           <v-col cols="12" sm="4"><v-text-field v-model="form.valueDate" type="date" label="ວັນທີມີຜົນ (Value date)" :hint="`Business date ${summary.businessDate}`" dense outlined @input="reset" /></v-col>
           <v-col cols="12" sm="6">
             <v-select v-model="form.bankAccountId" :items="bankOptions" :label="`ບັນຊີທະນາຄານ ${summary.currency} (Bank account in ${summary.currency})`" dense outlined
-              :hint="bankOptions.length ? '' : `No active bank account in ${summary.currency}`" persistent-hint />
+              :hint="bankOptions.length ? '' : `No bank account of this branch in ${summary.currency} (Parameter Studio, branch-bank-account)`" persistent-hint />
           </v-col>
           <v-col cols="12" sm="6"><v-text-field v-model="form.remarks" label="ໝາຍເຫດ (Remarks)" dense outlined /></v-col>
         </v-row>
@@ -138,7 +138,8 @@ export default {
       this.result = null
       this.idemKey = newKey()
       try {
-        this.banks = asList(await this.$axios.$get('/api/bank_account/find'))
+        // Phase 6: only the AUTHORIZED, active bank accounts mapped to the account's branch (the server refuses others)
+        this.banks = asList(await this.$axios.$get(`/api/loan/accounts/${this.summary.account.id}/bank-accounts`))
         if (this.bankOptions.length === 1) this.form.bankAccountId = this.bankOptions[0].value
       } catch (err) {
         this.error = errMsg(err)

@@ -7,6 +7,9 @@
 
     <v-progress-linear v-if="!ready" indeterminate color="primary" />
     <v-alert v-else-if="!can('VIEW')" type="info" text>ທ່ານບໍ່ມີສິດ (No VIEW permission for LN_EOD).</v-alert>
+    <v-alert v-else-if="!allBranches" type="info" text data-test="eod-all-branches-only">
+      ປິດທ້າຍວັນເຮັດທົ່ວບໍລິສັດ: ສະເພາະຜູ້ໃຊ້ທີ່ມີສິດທຸກສາຂາ (Loan EOD runs company-wide: only users with LN_ALL_BRANCHES see this screen).
+    </v-alert>
 
     <template v-else-if="status">
       <v-row dense>
@@ -134,10 +137,14 @@ export default {
       ]
     }
   },
+  computed: {
+    // Phase 6 Stage 3: the EOD run is company-wide (API: scoped('all-branches')), so only LN_ALL_BRANCHES users see it
+    allBranches () { return this.$store.getters['loan/allBranches'] }
+  },
   async mounted () {
     try {
       await this.$store.dispatch('loan/init')
-      if (this.can('VIEW')) await this.load()
+      if (this.can('VIEW') && this.allBranches) await this.load()
     } catch (err) {
       this.$toast.error(errMsg(err))
     } finally {

@@ -6,7 +6,13 @@ export const state = () => ({
   lookups: {},
   enums: {},
   lookupsLoaded: false,
-  bannerActive: true
+  bannerActive: true,
+  // Phase 6 Stage 3: the caller's branch scope from GET /api/loan/lookups ({ all, branches: [{ id, name, code }] })
+  // and the branch an LN_ALL_BRANCHES user picked in the header (null = all branches). Display only: the API
+  // checks the scope on every call.
+  branchScope: { all: false, branches: [] },
+  branchScopeLoaded: false,
+  branchFilter: null
 })
 
 export const getters = {
@@ -16,7 +22,16 @@ export const getters = {
   },
   enumOf: (state) => (key) => state.enums[key] || [],
   // Operational switch from /lookups: when false the UI hides self-authorization (the API also refuses it).
-  allowSelfAuthorize: (state) => Boolean(state.lookups.settings && state.lookups.settings.allowSelfAuthorize)
+  allowSelfAuthorize: (state) => Boolean(state.lookups.settings && state.lookups.settings.allowSelfAuthorize),
+  allBranches: (state) => state.branchScope.all === true,
+  branchById: (state) => (id) => state.branchScope.branches.find(b => b.id === Number(id)) || null,
+  branchLabel: (state, getters) => (id) => {
+    if (id === null || id === undefined) return '-'
+    const b = getters.branchById(id)
+    return b ? `${b.code ? `${b.code} · ` : ''}${b.name}` : `#${id}`
+  },
+  // Query params for the branch-filtered lists and reports: only an all-branches user narrows by choice
+  branchQuery: (state) => (state.branchScope.all && state.branchFilter ? { branchId: state.branchFilter } : {})
 }
 
 export const mutations = {
@@ -31,6 +46,15 @@ export const mutations = {
   },
   SET_BANNER (state, active) {
     state.bannerActive = active
+  },
+  SET_BRANCH_SCOPE (state, scope) {
+    state.branchScope = scope && Array.isArray(scope.branches) ? { all: scope.all === true, branches: scope.branches } : { all: false, branches: [] }
+    state.branchScopeLoaded = true
+    if (!state.branchScope.all || !state.branchScope.branches.some(b => b.id === state.branchFilter)) state.branchFilter = null
+  },
+  SET_BRANCH_FILTER (state, id) {
+    const n = id === null || id === undefined || id === '' ? null : Number(id)
+    state.branchFilter = state.branchScope.all && state.branchScope.branches.some(b => b.id === n) ? n : null
   }
 }
 
@@ -43,7 +67,10 @@ export const actions = {
   async fetchLookups ({ commit, state, getters }, force = false) {
     if ((state.lookupsLoaded && !force) || !getters.can('LN_LOOKUP', 'VIEW')) return
     const res = await this.$axios.$get('/api/loan/lookups')
-    commit('SET_LOOKUPS', res.data)
+    const { branchScope, ...lookups } = res.data
+    commit('SET_LOOKUPS', lookups)
+    // Phase 6 Stage 3: /lookups (LN_LOOKUP VIEW) carries the branch scope; the token-only /status carries no data
+    commit('SET_BRANCH_SCOPE', branchScope)
   },
   async fetchBanner ({ commit }) {
     const res = await this.$axios.$get('/api/loan/status')

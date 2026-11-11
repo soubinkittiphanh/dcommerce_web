@@ -9,18 +9,24 @@
       <div class="text-body-2 grey--text">{{ subtitle }}</div>
     </div>
     <v-spacer />
+    <branch-bar :selector="branchSelector" class="mr-2" />
     <slot />
   </div>
 </template>
 
 <script>
+import BranchBar from './BranchBar.vue'
+
 export default {
   name: 'PageTitle',
+  components: { BranchBar },
   props: {
     icon: { type: String, default: 'mdi-car-key' },
     title: { type: String, required: true },
     subtitle: { type: String, default: '' },
-    back: { type: String, default: null }
+    back: { type: String, default: null },
+    // Phase 6 Stage 3: show the branch selector (LN_ALL_BRANCHES users only) instead of the chip
+    branchSelector: { type: Boolean, default: false }
   }
 }
 </script>

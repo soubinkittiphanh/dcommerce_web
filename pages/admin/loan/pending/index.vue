@@ -1,7 +1,7 @@
 <template>
   <div class="loan-page pa-4">
     <loan-banner />
-    <page-title icon="mdi-account-check-outline" title="ລາຍການລໍຖ້າອະນຸມັດ" subtitle="Loan transactions pending authorization · the maker cannot authorize their own">
+    <page-title icon="mdi-account-check-outline" title="ລາຍການລໍຖ້າອະນຸມັດ" subtitle="Loan transactions pending authorization · the maker cannot authorize their own" branch-selector>
       <v-btn icon :loading="loading" @click="load"><v-icon>mdi-refresh</v-icon></v-btn>
     </page-title>
 
@@ -89,6 +89,10 @@ export default {
     userId () { return this.$auth && this.$auth.user ? Number(this.$auth.user.id) : null },
     allowSelfAuthorize () { return this.$store.getters['loan/allowSelfAuthorize'] }
   },
+  watch: {
+    // Phase 6 Stage 3: the header branch selector (all-branches users) narrows the list
+    '$store.state.loan.branchFilter' () { if (this.ready) this.load() }
+  },
   async mounted () {
     try {
       await this.$store.dispatch('loan/init')
@@ -105,7 +109,7 @@ export default {
     async load () {
       this.loading = true
       try {
-        this.items = (await this.$axios.$get('/api/loan/transactions/pending')).data
+        this.items = (await this.$axios.$get('/api/loan/transactions/pending', { params: this.$store.getters['loan/branchQuery'] })).data
       } catch (err) {
         this.$toast.error(errMsg(err))
       } finally {

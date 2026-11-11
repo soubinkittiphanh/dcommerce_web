@@ -28,7 +28,8 @@ export const MASTER_GROUPS = [
   { key: 'risk', title: 'ຊັ້ນໜີ້ ແລະ ສຳຮອງ (Status & provisioning)' },
   { key: 'governance', title: 'ການອະນຸມັດ (Governance)' },
   { key: 'accounting', title: 'ບັນຊີ (Accounting: entry rules; roles and GL mappings view only)' },
-  { key: 'system', title: 'ລະບົບ (System)' }
+  { key: 'system', title: 'ລະບົບ (System)' },
+  { key: 'branch', title: 'ສາຂາ (Branches: SUPER_ADMIN only)' }
 ]
 
 export const MASTER_CONFIGS = [
@@ -261,6 +262,29 @@ export const MASTER_CONFIGS = [
     entity: 'batch-job', functionCode: 'LN_BATCH_JOB', group: 'system',
     title: 'ວຽກປະມວນຜົນ EOD (Batch jobs)',
     fields: [code('jobCode'), name, f('executionOrder', 'ລຳດັບ (Order)', 'int'), f('isEnabled', 'ເປີດໃຊ້ (Enabled)', 'bool')]
+  },
+  // Phase 6: branch setup under LN_BRANCH (SUPER_ADMIN only), maker-checker: a second person authorizes.
+  // Every branch needs an AUTHORIZED, active profile before numbering with {BRANCH} works (otherwise 409).
+  {
+    entity: 'branch-profile', functionCode: 'LN_BRANCH', group: 'branch', labels: true,
+    title: 'ໂປຣໄຟລ໌ສາຂາ (Branch profiles: loan code per POS location)',
+    fields: [
+      f('locationId', 'ສະຖານທີ່ POS (POS location)', 'select', { pos: 'location', identity: true }),
+      f('branchCode', 'ລະຫັດສາຂາ (Branch code, 2–10 capital letters or digits)'),
+      f('isActive', 'ເປີດໃຊ້ (Active)', 'bool', { default: true })
+    ]
+  },
+  // A bank account posts loan cash only when mapped to the account's branch and AUTHORIZED. The seed prefills
+  // rows from the terminals as PENDING: a second person must authorize each before the first posting.
+  {
+    entity: 'branch-bank-account', functionCode: 'LN_BRANCH', group: 'branch', labels: true,
+    title: 'ບັນຊີທະນາຄານຂອງສາຂາ (Branch bank accounts)',
+    fields: [
+      f('locationId', 'ສະຖານທີ່ POS (POS location)', 'select', { pos: 'location' }),
+      f('bankAccountId', 'ບັນຊີທະນາຄານ POS (POS bank account)', 'select', { pos: 'bankAccount' }),
+      f('purpose', 'ຈຸດປະສົງ (Purpose)', 'select', { enumKey: 'branch-bank-account.purpose' }),
+      f('isActive', 'ເປີດໃຊ້ (Active)', 'bool', { default: true })
+    ]
   }
 ]
 

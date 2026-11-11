@@ -10,6 +10,7 @@
         :subtitle="`${summary.customer.name || ''} ${summary.customer.telephone ? '· ' + summary.customer.telephone : ''} · ${summary.product ? summary.product.productCode : ''} · ${summary.currency}`">
         <v-chip small dark class="mr-2" :color="summary.account.status === 'NORMAL' ? 'green' : 'orange'">{{ summary.account.status }}</v-chip>
         <v-chip small class="mr-2">{{ summary.account.accountStage }}</v-chip>
+        <v-chip small outlined color="primary" class="mr-2" data-test="account-branch" title="The account's branch (Phase 6)"><v-icon left small>mdi-store-marker-outline</v-icon>{{ $store.getters['loan/branchLabel'](summary.account.branchId) }}</v-chip>
         <v-btn v-if="can('LN_TRANSACTION', 'CREATE') && summary.account.accountStage === 'DISBURSED'" color="primary" class="text-none mr-2" @click="payment = true">
           <v-icon left>mdi-cash-plus</v-icon>ຮັບຊຳລະ (Payment)
         </v-btn>

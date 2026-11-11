@@ -10,6 +10,8 @@
         <div class="text-h5 font-weight-black primary--text">ສູນຕັ້ງຄ່າພາຣາມິເຕີສິນເຊື່ອ</div>
         <div class="text-body-2 grey--text">Loan Parameter Studio · maker-checker on every change</div>
       </div>
+      <v-spacer />
+      <branch-bar />
     </div>
 
     <v-progress-linear v-if="!ready" indeterminate color="primary" />
@@ -42,6 +44,7 @@ import ProductList from '~/components/loan/ProductList.vue'
 import MasterDataBrowser from '~/components/loan/MasterDataBrowser.vue'
 import EntryRulesPanel from '~/components/loan/EntryRulesPanel.vue'
 import PendingInbox from '~/components/loan/PendingInbox.vue'
+import BranchBar from '~/components/loan/BranchBar.vue'
 import { errMsg } from '~/common/loan/loanApi'
 
 const TABS = [
@@ -55,7 +58,7 @@ const TABS = [
 
 export default {
   name: 'LoanParameterStudio',
-  components: { LoanBanner, ChecklistPanel, TaxProfilePanel, ProductList, EntryRulesPanel, MasterDataBrowser, PendingInbox },
+  components: { LoanBanner, ChecklistPanel, TaxProfilePanel, ProductList, EntryRulesPanel, MasterDataBrowser, PendingInbox, BranchBar },
   layout: 'admin',
   middleware: 'auths',
   data () {

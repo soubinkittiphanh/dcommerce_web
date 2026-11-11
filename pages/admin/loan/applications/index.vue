@@ -1,7 +1,7 @@
 <template>
   <div class="loan-page pa-4">
     <loan-banner />
-    <page-title icon="mdi-file-document-edit-outline" title="ຄຳຮ້ອງສິນເຊື່ອ" subtitle="Loan applications · DRAFT → SUBMITTED → APPROVED → BOOKED">
+    <page-title icon="mdi-file-document-edit-outline" title="ຄຳຮ້ອງສິນເຊື່ອ" subtitle="Loan applications · DRAFT → SUBMITTED → APPROVED → BOOKED" branch-selector>
       <v-btn v-if="can('LN_APPLICATION', 'CREATE')" color="primary" class="text-none mr-2" @click="openCreate"><v-icon left>mdi-plus</v-icon>ໃໝ່ (New)</v-btn>
       <v-btn icon :loading="loading" @click="load"><v-icon>mdi-refresh</v-icon></v-btn>
     </page-title>
@@ -18,6 +18,7 @@
         <template #[`item.productId`]="{ item }">{{ productName(item.productId) }}</template>
         <template #[`item.requestedAmount`]="{ item }">{{ fmtMoney(item.requestedAmount, currencyCode(item.currencyId)) }}</template>
         <template #[`item.status`]="{ item }"><v-chip x-small dark :color="statusColors[item.status]">{{ item.status }}</v-chip></template>
+        <template #[`item.branchId`]="{ item }"><span class="text-caption">{{ branchLabel(item.branchId) }}</span></template>
         <template #[`item.actions`]="{ item }">
           <v-btn v-if="item.status === 'DRAFT' && isMine(item) && can('LN_APPLICATION', 'EDIT')" x-small outlined class="text-none mr-1" @click="act(item, 'submit')">ສົ່ງ (Submit)</v-btn>
           <template v-if="item.status === 'SUBMITTED' && can('LN_APPLICATION', 'AUTHORIZE')">
@@ -42,6 +43,15 @@
             <v-col cols="12" md="4"><v-text-field v-model="form.vehicleSaleHeaderId" label="ໃບຂາຍລົດ POS (Vehicle sale id, optional)" type="number" dense outlined /></v-col>
             <v-col cols="12" md="4" class="d-flex align-center">
               <v-btn outlined small class="text-none" :disabled="!form.vehicleSaleHeaderId || !form.currencyId" :loading="proposing" @click="propose">ສະເໜີວົງເງິນ (Propose principal)</v-btn>
+            </v-col>
+            <!-- Phase 6 R1: the branch comes from the sale (read-only); without a sale, from the maker's branch -->
+            <v-col cols="12" md="6">
+              <v-text-field v-if="form.vehicleSaleHeaderId" :value="'ຈາກສະຖານທີ່ຂອງໃບຂາຍ (from the sale\'s POS location)'" label="ສາຂາ (Branch)" readonly dense outlined
+                prepend-inner-icon="mdi-lock-outline" hint="The sale decides the branch; it cannot be changed here" persistent-hint data-test="app-branch-from-sale" />
+              <v-text-field v-else-if="branchMode === 'single'" :value="branchLabel(myBranches[0].id)" label="ສາຂາ (Branch)" readonly dense outlined
+                prepend-inner-icon="mdi-lock-outline" hint="Your branch (from your POS terminal)" persistent-hint data-test="app-branch-single" />
+              <v-select v-else-if="branchMode === 'pick'" v-model="form.branchId" :items="branchOptions" label="ສາຂາ (Branch, required without a sale)" dense outlined data-test="app-branch-pick" />
+              <v-alert v-else type="error" text dense class="mb-0" data-test="app-branch-none">ທ່ານບໍ່ໄດ້ຢູ່ສາຂາໃດ (You are not linked to any branch: no active POS terminal). An application cannot be made.</v-alert>
             </v-col>
           </v-row>
           <v-alert v-if="proposal" :type="proposal.crossCurrency && proposal.withinTolerance === false ? 'warning' : 'info'" text dense>
@@ -71,7 +81,7 @@
         <v-card-actions>
           <v-spacer />
           <v-btn text class="text-none" @click="dialog = false">ຍົກເລີກ (Cancel)</v-btn>
-          <v-btn color="primary" class="text-none" :loading="saving" @click="create">ບັນທຶກຮ່າງ (Save draft)</v-btn>
+          <v-btn color="primary" class="text-none" :loading="saving" :disabled="!form.vehicleSaleHeaderId && branchMode === 'none'" @click="create">ບັນທຶກຮ່າງ (Save draft)</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -111,12 +121,19 @@ export default {
       headers: [
         { text: 'ເລກທີ (App no.)', value: 'appNo' }, { text: 'ລູກຄ້າ (Customer)', value: 'customerId' }, { text: 'ຜະລິດຕະພັນ (Product)', value: 'productId' },
         { text: 'ວົງເງິນ (Amount)', value: 'requestedAmount', align: 'end' }, { text: 'ເດືອນ (Tenor)', value: 'tenorMonths', align: 'end' },
-        { text: 'ສະຖານະ (Status)', value: 'status' }, { text: 'ຜູ້ສ້າງ (Maker)', value: 'makerId' }, { text: '', value: 'actions', sortable: false, align: 'end' }
+        { text: 'ສະຖານະ (Status)', value: 'status' }, { text: 'ສາຂາ (Branch)', value: 'branchId' }, { text: 'ຜູ້ສ້າງ (Maker)', value: 'makerId' }, { text: '', value: 'actions', sortable: false, align: 'end' }
       ]
     }
   },
   computed: {
     userId () { return this.$auth && this.$auth.user ? Number(this.$auth.user.id) : null },
+    myBranches () { return this.$store.state.loan.branchScope.branches },
+    // none: no branch (refused); single: the maker's one branch; pick: several branches or LN_ALL_BRANCHES
+    branchMode () {
+      if (this.$store.getters['loan/allBranches']) return 'pick'
+      return this.myBranches.length === 0 ? 'none' : (this.myBranches.length === 1 ? 'single' : 'pick')
+    },
+    branchOptions () { return this.myBranches.map(b => ({ value: b.id, text: this.branchLabel(b.id) })) },
     customerOptions () { return this.clients.map(c => ({ value: c.id, text: `${c.name}${c.telephone ? ` · ${c.telephone}` : ''}` })) },
     productOptions () { return this.products.map(p => ({ value: p.id, text: `${p.productCode} v${p.version} · ${p.name}` })) },
     selectedProduct () { return this.products.find(p => p.id === this.form.productId) },
@@ -130,6 +147,9 @@ export default {
       const code = this.currencyCode(pc.currencyId)
       return pc.minAmount === null || pc.maxAmount === null ? `ບໍ່ມີວົງເງິນ (no limits in ${code})` : `${fmtMoney(pc.minAmount, code)} – ${fmtMoney(pc.maxAmount, code)}`
     }
+  },
+  watch: {
+    '$store.state.loan.branchFilter' () { if (this.ready) this.load() }
   },
   async mounted () {
     try {
@@ -154,6 +174,7 @@ export default {
     fmtMoney,
     fmtRate,
     can (fn, action) { return this.$store.getters['loan/can'](fn, action) },
+    branchLabel (id) { return this.$store.getters['loan/branchLabel'](id) },
     isMine (item) { return Number(item.makerId) === this.userId },
     currencyCode (id) { const c = this.currencies.find(x => x.id === id); return c ? c.code : '' },
     customerName (id) { const c = this.clients.find(x => x.id === id); return c ? c.name : `#${id}` },
@@ -161,7 +182,7 @@ export default {
     async load () {
       this.loading = true
       try {
-        this.items = (await this.$axios.$get('/api/loan/applications', { params: { status: this.status.length ? this.status.join(',') : undefined } })).data
+        this.items = (await this.$axios.$get('/api/loan/applications', { params: { status: this.status.length ? this.status.join(',') : undefined, ...this.$store.getters['loan/branchQuery'] } })).data
       } catch (err) {
         this.$toast.error(errMsg(err))
       } finally {
@@ -169,7 +190,7 @@ export default {
       }
     },
     openCreate () {
-      this.form = { customerId: null, productId: null, currencyId: null, vehicleSaleHeaderId: null, vehiclePrice: '', downPaymentAmount: '', requestedAmount: '', tenorMonths: 12, interestRate: '', valueDate: '', firstDueDate: '' }
+      this.form = { customerId: null, productId: null, currencyId: null, vehicleSaleHeaderId: null, branchId: null, vehiclePrice: '', downPaymentAmount: '', requestedAmount: '', tenorMonths: 12, interestRate: '', valueDate: '', firstDueDate: '' }
       this.proposal = null
       this.error = null
       this.dialog = true
@@ -193,7 +214,9 @@ export default {
       const out = {}
       for (const [k, v] of Object.entries(this.form)) {
         if (v === '' || v === null || v === undefined) continue
-        out[k] = ['customerId', 'productId', 'currencyId', 'vehicleSaleHeaderId', 'tenorMonths'].includes(k) ? Number(v) : (MONEY.includes(k) ? String(v).trim() : v)
+        // the server ignores a branchId when there is a sale (R1); send it only for a no-sale pick
+        if (k === 'branchId' && (this.form.vehicleSaleHeaderId || this.branchMode !== 'pick')) continue
+        out[k] = ['customerId', 'productId', 'currencyId', 'vehicleSaleHeaderId', 'tenorMonths', 'branchId'].includes(k) ? Number(v) : (MONEY.includes(k) ? String(v).trim() : v)
       }
       return out
     },
