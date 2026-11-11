@@ -9,3 +9,4 @@ third_party_intregration/
 *.dmg
 *.exe
 *.asar
+.DS_Store
