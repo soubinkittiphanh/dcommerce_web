@@ -14,9 +14,37 @@
         <div class="d-flex align-center">
           <v-icon color="primary" class="mr-2">mdi-chart-box-outline</v-icon>
           <span class="text-h6 font-weight-black primary--text">ລາຍງານ ກຳໄລ - ຂາດທຶນ (P&L)</span>
+          <v-chip
+            small
+            :color="includeCreditSale ? 'primary' : 'orange darken-2'"
+            text-color="white"
+            class="ml-3 font-weight-bold d-none d-sm-inline-flex"
+          >
+            <v-icon left small>{{ includeCreditSale ? 'mdi-check-circle-outline' : 'mdi-cash' }}</v-icon>
+            {{ includeCreditSale ? 'Accrual (ລວມຕິດໜີ້)' : 'Cash (ບໍ່ລວມຕິດໜີ້)' }}
+          </v-chip>
         </div>
         
         <div class="d-flex align-center flex-wrap gap-2">
+          <!-- Toggle: Include/Exclude Credit Sales -->
+          <v-btn-toggle
+            v-model="includeCreditSale"
+            mandatory
+            dense
+            rounded
+            active-class="primary white--text"
+            class="elevation-1 mr-1"
+          >
+            <v-btn :value="true" small class="text-none font-weight-bold">
+              <v-icon left small>mdi-receipt-text-check</v-icon>
+              ລວມຕິດໜີ້
+            </v-btn>
+            <v-btn :value="false" small class="text-none font-weight-bold">
+              <v-icon left small>mdi-cash-multiple</v-icon>
+              ບໍ່ລວມຕິດໜີ້
+            </v-btn>
+          </v-btn-toggle>
+
           <!-- Switch to Agency Commission P&L -->
           <v-btn
             outlined
@@ -27,7 +55,7 @@
             small
           >
             <v-icon left small>mdi-swap-horizontal</v-icon>
-            ເບິ່ງ P&L ຕົວແທນ KAOLAO (Commission Based)
+            P&L ຕົວແທນ KAOLAO
           </v-btn>
 
           <v-menu v-model="menu1" :close-on-content-click="false" transition="scale-transition" offset-y min-width="auto">
@@ -151,9 +179,14 @@
                   </div>
                   <span class="font-weight-bold">{{ formatAmount(totalSale) }} {{ localCurrencyCode }}</span>
                 </div>
-                <div v-if="packagingReturnTotal > 0" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
-                  <span class="grey--text pl-2">ຮັບຊື້/ຄືນບັນຈຸພັນ (Packaging Buyback/Returns)</span>
-                  <span class="teal--text font-weight-medium">{{ formatAmount(packagingReturnTotal) }} {{ localCurrencyCode }}</span>
+                <div v-if="creditSalesOnly.length > 0" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
+                  <span class="grey--text pl-2">
+                    <v-icon x-small :color="includeCreditSale ? 'primary' : 'orange darken-2'">mdi-credit-card-outline</v-icon>
+                    {{ includeCreditSale ? 'ຍອດຂາຍຕິດໜີ້ (Credit Sales Included)' : 'ຕັດຍອດຂາຍຕິດໜີ້ອອກ (Credit Sales Excluded)' }} ({{ creditSalesOnly.length }} ບິນ)
+                  </span>
+                  <span :class="includeCreditSale ? 'primary--text font-weight-medium' : 'orange--text text--darken-3 font-weight-medium'">
+                    {{ includeCreditSale ? '' : '-' }}{{ formatAmount(totalCreditSaleRevenue) }} {{ localCurrencyCode }}
+                  </span>
                 </div>
                 <div v-if="grandSaleCancelTotal > 0" class="analysis-item d-flex justify-space-between py-1 text-caption border-bottom">
                   <span class="grey--text pl-2">ຍົກເລີກບິນ (Cancelled Orders - Excluded)</span>
@@ -234,23 +267,37 @@
 <script>
 import * as ECharts from 'echarts'
 import { mapGetters } from 'vuex'
-import { swalError2, getFirstDayOfMonth, getFormatNum } from '~/common'
+import { swalError2, getFirstDayOfMonth, getFormatNum, isPackagingReturnLine } from '~/common'
 
-const isPackagingReturnLine = (line) => {
-  if (!line) return false
-  return line.isReturn === true || 
-         line.isReturn === 1 || 
-         line.packagingAction === 'RETURNED' || 
-         parseFloat(line.price || 0) < 0 || 
-         parseFloat(line.total || 0) < 0
+const isCreditSale = (sale) => {
+  if (!sale) return false
+  if (Number(sale.paymentId) === 2) return true
+  const code = (sale.payment?.payment_code || '').toUpperCase()
+  if (code === 'CREDIT' || code.includes('CREDIT')) return true
+  if (sale.payments && Array.isArray(sale.payments) && sale.payments.length > 0) {
+    return sale.payments.some(p => Number(p.paymentId) === 2 || (p.paymentMethod?.payment_code || '').toUpperCase() === 'CREDIT')
+  }
+  return false
 }
 
 export default {
   name: 'ProfitLossReport',
   mounted() { this.loadTxn() },
+  beforeDestroy() {
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler)
+    }
+    if (this.chartInstance) {
+      this.chartInstance.dispose()
+      this.chartInstance = null
+    }
+  },
   watch: {
     date() { this.dateFormatted = this.formatDate(this.date); this.loadTxn() },
     date2() { this.dateFormatted2 = this.formatDate(this.date2); this.loadTxn() },
+    includeCreditSale() {
+      this.$nextTick(() => { this.renderChart() })
+    },
     currentSelectedLocation: {
       handler() {
         this.loadTxn()
@@ -261,6 +308,9 @@ export default {
   data() {
     return {
       isloading: false,
+      includeCreditSale: true,
+      chartInstance: null,
+      resizeHandler: null,
       expenseList: [],
       incomeList: [],
       arReceiveList: [],
@@ -306,24 +356,48 @@ export default {
     localCurrencyCode() {
       return this.findLocalCurrency?.code || 'LAK'
     },
+    activeSales() {
+      return this.yearlySale.filter(sale => {
+        if (sale.isActive !== true) return false
+        if (!this.includeCreditSale && isCreditSale(sale)) {
+          return false
+        }
+        return true
+      })
+    },
+    creditSalesOnly() {
+      return this.yearlySale.filter(sale => sale.isActive === true && isCreditSale(sale))
+    },
+    totalCreditSaleRevenue() {
+      return this.creditSalesOnly.reduce((total, sale) => {
+        const itemTotal = parseFloat(sale.total || 0)
+        const itemDiscount = parseFloat(sale.discount || 0)
+        if (Math.abs(itemTotal) < 1e12) {
+          const gross = itemTotal + itemDiscount
+          const rate = sale.exchangeRate || 1
+          const currId = sale.currencyId
+          return total + this.convertToHomeCurrency(gross, currId, rate)
+        }
+        return total
+      }, 0)
+    },
     foreignSaleBreakdown() {
       const breakdown = {};
       const localCode = this.findLocalCurrency?.code || 'LAK';
 
-      this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
-        sale.lines?.forEach(line => {
-          if (isPackagingReturnLine(line)) return;
-          const currId = line.currencyId || sale.currencyId;
-          const curr = this.findAllCurrency?.find(c => c.id === currId);
-          const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
-          
-          if (code !== localCode) {
-            const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
-            if (lineTotal > 0 && lineTotal < 1e12) {
-              breakdown[code] = (breakdown[code] || 0) + lineTotal;
-            }
+      this.activeSales.forEach(sale => {
+        const currId = sale.currencyId;
+        const curr = this.findAllCurrency?.find(c => c.id === currId);
+        const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
+        
+        if (code !== localCode) {
+          const itemTotal = parseFloat(sale.total || 0);
+          const itemDiscount = parseFloat(sale.discount || 0);
+          const gross = itemTotal + itemDiscount;
+          if (Math.abs(gross) < 1e12 && gross !== 0) {
+            breakdown[code] = (breakdown[code] || 0) + gross;
           }
-        });
+        }
       });
       return breakdown;
     },
@@ -336,9 +410,9 @@ export default {
       const breakdown = {};
       const localCode = this.findLocalCurrency?.code || 'LAK';
 
-      this.yearlySale.filter(s => s.isActive === true).forEach(sale => {
+      this.activeSales.forEach(sale => {
         sale.lines?.forEach(line => {
-          if (isPackagingReturnLine(line)) return;
+          const isReturn = isPackagingReturnLine(line);
           const lineCurrId = line.currencyId || sale.currencyId;
 
           if (line.cards && line.cards.length > 0) {
@@ -350,7 +424,11 @@ export default {
               if (code !== localCode) {
                 const qty = parseFloat(card.stockCardQty || 1);
                 const cost = parseFloat(card.cost || 0) * qty;
-                breakdown[code] = (breakdown[code] || 0) + cost;
+                if (isReturn) {
+                  breakdown[code] = (breakdown[code] || 0) - cost;
+                } else {
+                  breakdown[code] = (breakdown[code] || 0) + cost;
+                }
               }
             });
           } else {
@@ -358,8 +436,13 @@ export default {
             const code = curr?.code || (lineCurrId === 6 ? 'THB' : (lineCurrId === 1 ? 'LAK' : `CCY_${lineCurrId}`));
             if (code !== localCode) {
               const unitCost = parseFloat(line.product?.cost_price || 0);
-              const qty = parseFloat(line.quantity || 0);
-              breakdown[code] = (breakdown[code] || 0) + (unitCost * qty);
+              const qty = Math.abs(parseFloat(line.quantity || 0));
+              const cost = unitCost * qty;
+              if (isReturn) {
+                breakdown[code] = (breakdown[code] || 0) - cost;
+              } else {
+                breakdown[code] = (breakdown[code] || 0) + cost;
+              }
             }
           }
         });
@@ -372,63 +455,27 @@ export default {
       return entries.map(([code, amt]) => `${this.formatAmount(amt)} ${code}`).join(' + ');
     },
     grandSaleTotal() {
-      return this.yearlySale.filter(el => el.isActive === true).reduce((total, sale) => {
-        let saleGross = 0;
-        if (sale.lines && sale.lines.length > 0) {
-          sale.lines.forEach(line => {
-            if (!isPackagingReturnLine(line)) {
-              const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
-              if (Math.abs(lineTotal) < 1e12 && lineTotal > 0) {
-                const lineDiscount = parseFloat(line.discount || 0);
-                const gross = lineTotal + (lineDiscount > 0 ? lineDiscount : 0);
-                const rate = line.exchangeRate || sale.exchangeRate || 1;
-                const currId = line.currencyId || sale.currencyId;
-                saleGross += this.convertToHomeCurrency(gross, currId, rate);
-              }
-            }
-          });
-        } else {
-          const itemTotal = parseFloat(sale.total || 0);
-          const itemDiscount = parseFloat(sale.discount || 0);
-          if (Math.abs(itemTotal) < 1e12 && itemTotal > 0) {
-            const gross = itemTotal + itemDiscount;
-            saleGross += this.convertToHomeCurrency(gross, sale.currencyId, sale.exchangeRate);
-          }
+      return this.activeSales.reduce((total, sale) => {
+        const itemTotal = parseFloat(sale.total || 0);
+        const itemDiscount = parseFloat(sale.discount || 0);
+        if (Math.abs(itemTotal) < 1e12) {
+          const gross = itemTotal + itemDiscount;
+          const rate = sale.exchangeRate || 1;
+          const currId = sale.currencyId;
+          return total + this.convertToHomeCurrency(gross, currId, rate);
         }
-        return total + saleGross;
-      }, 0);
-    },
-    packagingReturnTotal() {
-      return this.yearlySale.filter(el => el.isActive === true).reduce((total, sale) => {
-        let saleReturns = 0;
-        if (sale.lines && sale.lines.length > 0) {
-          sale.lines.forEach(line => {
-            if (isPackagingReturnLine(line)) {
-              const lineTotal = Math.abs(parseFloat(line.total ?? (line.quantity * line.price) ?? 0));
-              if (lineTotal < 1e12 && lineTotal > 0) {
-                const rate = line.exchangeRate || sale.exchangeRate || 1;
-                const currId = line.currencyId || sale.currencyId;
-                saleReturns += this.convertToHomeCurrency(lineTotal, currId, rate);
-              }
-            }
-          });
-        } else {
-          const itemTotal = parseFloat(sale.total || 0);
-          if (Math.abs(itemTotal) < 1e12 && itemTotal < 0) {
-            saleReturns += this.convertToHomeCurrency(Math.abs(itemTotal), sale.currencyId, sale.exchangeRate);
-          }
-        }
-        return total + saleReturns;
+        return total;
       }, 0);
     },
     grandSaleDiscountTotal() {
-      return this.yearlySale.filter(el => el.isActive === true).reduce((total, item) => {
-        const itemDiscount = parseFloat(item.discount || 0);
-        if (Math.abs(itemDiscount) > 1e12 || itemDiscount <= 0) {
-          return total;
+      return this.activeSales.reduce((total, sale) => {
+        const itemDiscount = parseFloat(sale.discount || 0);
+        if (Math.abs(itemDiscount) < 1e12 && itemDiscount > 0) {
+          const rate = sale.exchangeRate || 1;
+          const currId = sale.currencyId;
+          return total + this.convertToHomeCurrency(itemDiscount, currId, rate);
         }
-        const converted = this.convertToHomeCurrency(itemDiscount, item.currencyId, item.exchangeRate);
-        return total + converted;
+        return total;
       }, 0);
     },
     grandSaleCancelTotal() {
@@ -442,7 +489,7 @@ export default {
       }, 0);
     },
     totalSale() {
-      return Math.max(0, this.grandSaleTotal - this.grandSaleDiscountTotal);
+      return this.grandSaleTotal - this.grandSaleDiscountTotal;
     },
     totalFinancialIncome() {
       return this.incomeList.filter(i => i.isActive !== false).reduce((acc, i) => acc + this.convertToHomeCurrency(i.totalAmount, i.currencyId, i.rate), 0)
@@ -478,13 +525,12 @@ export default {
       let totalCostLAK = 0;
       const localCurrency = this.findLocalCurrency;
 
-      this.yearlySale.filter(sale => sale.isActive === true).forEach(sale => {
+      this.activeSales.forEach(sale => {
         let saleCost = 0;
         const saleRate = sale.exchangeRate || 1;
         
         sale.lines?.forEach(line => {
-          if (isPackagingReturnLine(line)) return;
-
+          const isReturn = isPackagingReturnLine(line);
           const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
           let lineRate = line.exchangeRate;
           if (!lineRate || lineRate === 1) {
@@ -494,7 +540,7 @@ export default {
               lineRate = saleRate;
             }
           }
-          const sellingPriceLAK = unitPrice * lineRate;
+          const sellingPriceLAK = Math.abs(unitPrice) * lineRate;
           let lineCost = 0;
           
           if (line.cards && line.cards.length > 0) {
@@ -539,11 +585,19 @@ export default {
             });
           } else {
             // Fallback: Use product cost_price if there are no cards
-            const unitCost = parseFloat(line.product?.cost_price || 0);
-            const qty = parseFloat(line.quantity || 0);
+            let unitCost = parseFloat(line.product?.cost_price || 0);
+            if (unitPrice > 0 && unitCost > unitPrice) {
+              unitCost = unitPrice;
+            }
+            const qty = Math.abs(parseFloat(line.quantity || 0));
             lineCost = qty * unitCost * (lineRate || saleRate);
           }
-          saleCost += lineCost;
+
+          if (isReturn) {
+            saleCost -= lineCost;
+          } else {
+            saleCost += lineCost;
+          }
         });
         totalCostLAK += saleCost;
       });
@@ -559,7 +613,7 @@ export default {
       }
     },
     totalCODFee() {
-      return this.yearlySale.filter(i => i.isActive === true).reduce((acc, i) => {
+      return this.activeSales.reduce((acc, i) => {
         const fee = this.convertToHomeCurrency(i.dynamic_customer?.cod_fee || 0, i.currencyId, i.exchangeRate)
         return acc + fee
       }, 0)
@@ -688,21 +742,29 @@ export default {
       }
     },
     async loadSaleStatistic() {
-      // Corrected: includeCards should be a top-level parameter for the API
+      const date = JSON.stringify({
+        startDate: this.date,
+        endDate: this.date2,
+      })
+      const locationId = this.currentSelectedLocation?.id
       const params = { 
-        date: { startDate: this.date, endDate: this.date2 }, 
-        locationId: this.currentSelectedLocation?.id,
+        date, 
+        locationId,
         includeCards: true 
       }
       try { 
         // Using findDetailByDate for maximum consistency with the saleCost report
         const res = await this.$axios.get('api/sale/findDetailByDate', { params })
-        this.yearlySale = res.data 
+        this.yearlySale = res.data || []
       } catch (e) { console.error('Sale stat load error', e) }
     },
     renderChart() {
       const dom = this.$refs.plchart; if (!dom) return
+      if (this.chartInstance) {
+        this.chartInstance.dispose()
+      }
       const chart = ECharts.init(dom)
+      this.chartInstance = chart
       const opt = {
         tooltip: { trigger: 'item', backgroundColor: '#fff', textStyle: { color: '#333' } },
         legend: { bottom: '0%', left: 'center', textStyle: { fontFamily: 'noto sans lao' } },
@@ -720,7 +782,15 @@ export default {
           ]
         }]
       }
-      chart.setOption(opt); window.addEventListener('resize', chart.resize)
+      chart.setOption(opt)
+      if (!this.resizeHandler) {
+        this.resizeHandler = () => {
+          if (this.chartInstance) {
+            this.chartInstance.resize()
+          }
+        }
+        window.addEventListener('resize', this.resizeHandler)
+      }
     }
   }
 }

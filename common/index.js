@@ -622,6 +622,107 @@ export const isPackagingProduct = (product) => {
 }
 
 /**
+ * Detect whether a sale line represents a return/buyback item or buy packaging product (negative cash-out).
+ * These lines should be excluded from sales revenue and merchandise cost calculations under Option 1.
+ */
+export const isPackagingReturnLine = (line) => {
+  if (!line) return false
+
+  // 1. Explicit return flag on line (TINYINT 1, boolean true, or string '1'/'true')
+  if (
+    line.isReturn === true ||
+    line.isReturn === 1 ||
+    String(line.isReturn) === '1' ||
+    String(line.isReturn).toLowerCase() === 'true'
+  ) {
+    return true
+  }
+
+  // 2. Packaging action indicating return / buyback
+  const action = String(line.packagingAction || '').toUpperCase()
+  if (
+    action === 'RETURNED' ||
+    action === 'RETURN' ||
+    action.includes('RETURN') ||
+    action === 'BUY' ||
+    action.includes('BUY')
+  ) {
+    return true
+  }
+
+  // 3. Negative price or total or quantity (pure buyback/return refund)
+  if (
+    parseFloat(line.price || 0) < 0 ||
+    parseFloat(line.total || 0) < 0 ||
+    parseFloat(line.quantity || 0) < 0
+  ) {
+    return true
+  }
+
+  // 4. Packaging product / asset check
+  const prod = line.product || {}
+  const isPkg =
+    isPackagingProduct(prod) ||
+    isPackagingProduct(line) ||
+    prod.isPackagingAsset === true ||
+    prod.isPackagingAsset === 1 ||
+    String(prod.isPackagingAsset) === '1' ||
+    line.isPackagingAsset === true ||
+    line.isPackagingAsset === 1 ||
+    String(line.isPackagingAsset) === '1'
+
+  // If it is an explicit packaging asset/category product and not a plain forward sale
+  if (isPkg) {
+    if (
+      action !== 'SOLD' ||
+      line.isReturn ||
+      parseFloat(line.price || 0) <= 0 ||
+      parseFloat(line.total || 0) <= 0
+    ) {
+      return true
+    }
+  }
+
+  // 5. Product name keywords (Lao and English)
+  const proName = String(prod.pro_name || line.pro_name || prod.name || '').toLowerCase()
+  if (
+    proName.includes('ຮັບຊື້') ||
+    proName.includes('buyback') ||
+    proName.includes('ຊື້ບັນຈຸພັນ') ||
+    proName.includes('ຊື້ລັງ') ||
+    proName.includes('ຊື້ແກ້ວ') ||
+    proName.includes('ຄືນລັງ') ||
+    proName.includes('ຄືນແກ້ວ') ||
+    proName.includes('ຄືນບັນຈຸພັນ') ||
+    proName.includes('return packaging') ||
+    proName.includes('buy packaging') ||
+    proName.includes('return crate') ||
+    proName.includes('return bottle')
+  ) {
+    return true
+  }
+
+  // Empty crates/bottles bought/returned
+  if (
+    (proName.includes('ລັງເປົ່າ') ||
+      proName.includes('ແກ້ວເປົ່າ') ||
+      proName.includes('empty crate') ||
+      proName.includes('empty bottle') ||
+      isPkg) &&
+    (line.isReturn ||
+      action === 'RETURNED' ||
+      action === 'BUY' ||
+      action === 'RETURN' ||
+      parseFloat(line.total || 0) <= 0 ||
+      parseFloat(line.price || 0) <= 0)
+  ) {
+    return true
+  }
+
+  return false
+}
+
+/**
  * Filter terminals by user authorization maintained in UserForm.vue (UserTerminals).
  * - If user has assigned terminals (user.terminals), strictly restrict to those terminals.
  * - If user is Admin (groupId === 1, code 'ADMIN', or roleId === 1) and has no assigned terminals, allow all terminals.

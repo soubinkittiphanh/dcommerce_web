@@ -1479,7 +1479,15 @@ export default {
 
     dateRangesText() {
       const ranges = this.getDateRanges()
-      return `${ranges.current.start || '-'} ຫາ ${ranges.current.end || '-'}`
+      const formatToDDMMYYYY = (d) => {
+        if (!d || d === '-') return '-'
+        const parts = String(d).split('-')
+        if (parts.length === 3) {
+          return `${parts[2]}/${parts[1]}/${parts[0]}`
+        }
+        return d
+      }
+      return `${formatToDDMMYYYY(ranges.current.start)} ຫາ ${formatToDDMMYYYY(ranges.current.end)}`
     },
 
     totalPaymentCount() {

@@ -732,24 +732,23 @@ export const generateMoneyAdvanceLedgerReportHTML = ({
           <img src="${resolvedGovLogo}" class="gov-logo" alt="Lao National Emblem" />
           <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
           <div class="gov-motto">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດຖະນະຖາວອນ</div>
-          <div class="gov-stars">*** 000 ***</div>
         </div>
 
         <!-- 2. Organization Info & Metadata -->
         <div class="org-meta-section">
           <div class="org-left">
-            <div class="org-ministry">${companyName}</div>
+            <div class="org-ministry">ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</div>
             <div class="org-division">ກົມແຜນການ ແລະ ການເງິນ</div>
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>
-            <div>ວຽງຈັນ, ວັນທີພິມ: </div>
+            <div>ນະຄອນຫຼວງວຽງຈັນ, ລົງວັນທີ: </div>
           </div>
         </div>
 
         <!-- 3. Report Title Box -->
         <div class="report-title-box">
-          <h1 class="report-title">ບົດລາຍງານ ລາຍຈ່າຍເງິນສົດ ແລະ ການຊຳລະ (Money Advance & Settlement Report)</h1>
+          <h1 class="report-title">ສະຫຼຸບເງິນສົດໃນຄັງ ປະຈຳເດືອນ</h1>
           <div class="report-subtitle">
             ໄລຍະເວລາ: <strong>${dateRangeText}</strong>
             ${ministryName ? ` | ກະຊວງ/ກົມ: <strong>${ministryName}</strong>` : ''}

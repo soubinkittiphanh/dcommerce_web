@@ -16,8 +16,8 @@ const formatCurrency = (val) => {
   }).format(num)
 }
 
-// Helper to format dates
-const formatDate = (dateString) => {
+// Helper to format dates (DD/MM/YYYY)
+export const formatDate = (dateString) => {
   if (!dateString) return '-'
   try {
     const d = new Date(dateString)
@@ -31,8 +31,16 @@ const formatDate = (dateString) => {
   }
 }
 
+// Helper to format any date range string containing YYYY-MM-DD or YYYY/MM/DD to DD/MM/YYYY
+export const formatDateRange = (rangeText) => {
+  if (!rangeText) return ''
+  return rangeText.replace(/\b(\d{4})[-/](\d{1,2})[-/](\d{1,2})\b/g, (_match, y, m, d) => {
+    return `${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}`
+  })
+}
+
 // Format date with time
-const formatDateTime = (date = new Date()) => {
+export const formatDateTime = (date = new Date()) => {
   try {
     const d = new Date(date)
     if (isNaN(d.getTime())) return ''
@@ -63,13 +71,9 @@ export const generateMasterMinistryAnalysisReportHTML = ({
   totals = {},
   selectedMonthText = '',
   dateRangeText = '',
-  companyData = {},
-  user = {},
 }) => {
-  const companyName = companyData?.name || companyData?.company_name || 'ກະຊວງໂຍທາທິການ ແລະ ຂົນສົ່ງ'
-  const printTime = formatDateTime(new Date())
-  const printedBy = user?.name || user?.cus_name || user?.username || 'Admin'
   const resolvedGovLogo = typeof govLogoImage === 'object' && govLogoImage?.default ? govLogoImage.default : govLogoImage
+  const formattedDateRange = formatDateRange(dateRangeText)
 
   let totalBF = 0
   let totalPay = 0
@@ -374,20 +378,17 @@ export const generateMasterMinistryAnalysisReportHTML = ({
           <img src="${resolvedGovLogo}" class="gov-logo" alt="Lao National Emblem" />
           <div class="gov-country">ສາທາລະນະລັດ ປະຊາທິປະໄຕ ປະຊາຊົນລາວ</div>
           <div class="gov-motto">ສັນຕິພາບ ເອກະລາດ ປະຊາທິປະໄຕ ເອກະພາບ ວັດຖະນະຖາວອນ</div>
-          <div class="gov-stars">*** 000 ***</div>
         </div>
 
         <!-- 2. Organization Info & Metadata -->
         <div class="org-meta-section">
           <div class="org-left">
-            <div class="org-ministry">${companyName}</div>
             <div class="org-dept">ກະຊວງ ໂຍທາທິການ ແລະ ຂົນສົ່ງ</div>
             <div class="org-division">ກົມແຜນການ ແລະ ການເງິນ</div>
           </div>
           <div class="org-right">
             <div>ເລກທີ: ................../ກຜງ</div>
-            <div>ນະຄອນຫລວງວຽງຈັນ, ລົງວັນທີ: ${printTime}</div>
-            <!-- <div>ຜູ້ສັງລວມ: ${printedBy}</div> -->
+            <div>ນະຄອນຫລວງວຽງຈັນ, ລົງວັນທີ: </div>
           </div>
         </div>
 
@@ -395,7 +396,7 @@ export const generateMasterMinistryAnalysisReportHTML = ({
         <div class="report-title-box">
           <h1 class="report-title">ສັງລວມໜີ້ສິນ ການຢືມຈ່າຍລ່ວງໜ້າ ແລະ ແທນຄືນ</h1>
           <div class="report-subtitle">
-            ປະຈຳງວດ: <strong>${selectedMonthText || '-'}</strong> ${dateRangeText ? `(${dateRangeText})` : ''}
+            ປະຈຳງວດ: <strong>${selectedMonthText || '-'}</strong> ${formattedDateRange ? `(${formattedDateRange})` : ''}
           </div>
         </div>
 
@@ -508,5 +509,8 @@ export const printMasterMinistryAnalysisReport = (params) => {
 
 export default {
   generateMasterMinistryAnalysisReportHTML,
-  printMasterMinistryAnalysisReport
+  printMasterMinistryAnalysisReport,
+  formatDate,
+  formatDateTime,
+  formatDateRange
 }

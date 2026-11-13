@@ -1,17 +1,45 @@
 <template>
   <div class="text-left">
     <div class="d-flex align-center justify-space-between flex-wrap gap-2 mb-2">
-      <div>
+      <div class="d-flex align-center flex-wrap gap-2">
         <v-chip class="pa-5" color="primary" label text-color="white">
           <v-icon start>mdi-label</v-icon>
           <h3>ຍອດຂາຍພ້ອມຕົນທຶນ</h3>
+        </v-chip>
+        <v-chip
+          class="pa-5 font-weight-bold"
+          :color="includeCreditSale ? 'primary' : 'orange darken-2'"
+          label
+          text-color="white"
+        >
+          <v-icon start>{{ includeCreditSale ? 'mdi-check-circle-outline' : 'mdi-cash' }}</v-icon>
+          <h3>{{ includeCreditSale ? 'Accrual (ລວມຕິດໜີ້)' : 'Cash (ບໍ່ລວມຕິດໜີ້)' }}</h3>
         </v-chip>
         <v-chip class="pa-5" color="primary" label text-color="white" @click="guidelineDialog = true">
           <v-icon start>mdi mdi-lifebuoy</v-icon>
           <h3>ຄູ່ມືການນຳໃຊ້ </h3>
         </v-chip>
       </div>
-      <div>
+      <div class="d-flex align-center flex-wrap gap-2">
+        <!-- Toggle: Include/Exclude Credit Sales -->
+        <v-btn-toggle
+          v-model="includeCreditSale"
+          mandatory
+          dense
+          rounded
+          active-class="primary white--text"
+          class="elevation-1 mr-2"
+        >
+          <v-btn :value="true" small class="text-none font-weight-bold">
+            <v-icon left small>mdi-receipt-text-check</v-icon>
+            ລວມຕິດໜີ້
+          </v-btn>
+          <v-btn :value="false" small class="text-none font-weight-bold">
+            <v-icon left small>mdi-cash-multiple</v-icon>
+            ບໍ່ລວມຕິດໜີ້
+          </v-btn>
+        </v-btn-toggle>
+
         <v-btn
           color="deep-purple darken-1"
           dark
@@ -81,6 +109,15 @@
               <div v-if="foreignSaleSummaryText" class="text-caption grey--text font-weight-medium">
                 (≈ {{ foreignSaleSummaryText }})
               </div>
+            </v-col>
+          </v-row>
+          <v-row v-if="creditSalesOnly.length > 0">
+            <v-col cols="2"></v-col>
+            <v-col cols="4" class="text-caption" :class="includeCreditSale ? 'primary--text' : 'orange--text text--darken-3'">
+              {{ includeCreditSale ? 'Credit sales (ຍອດຂາຍຕິດໜີ້)' : 'Excluded credit sales (ຕັດຍອດຕິດໜີ້ອອກ)' }} ({{ creditSalesOnly.length }} ບິນ)
+            </v-col>
+            <v-col cols="6" class="text-caption font-weight-medium" :class="includeCreditSale ? 'primary--text' : 'orange--text text--darken-3'">
+              {{ includeCreditSale ? '' : '-' }}{{ formatNumber(totalCreditSaleRevenue) }}
             </v-col>
           </v-row>
           <v-row>
@@ -265,16 +302,25 @@
   </div>
 </template>
 <script>
-import ProductForm from '~/components/product/ProductForm.vue'
-import PriceListForm from '~/components/PriceListForm.vue'
-import ProductFormCreate from '~/components/product/ProductFormCreate.vue'
-import { ticketHtml, swalError2, dayCount, getNextDate, getFirstDayOfMonth, getFormatNum } from '~/common'
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
+import { getFirstDayOfMonth, getFormatNum, isPackagingReturnLine as isBuyReturnLine } from '~/common'
+
+const isCreditSale = (sale) => {
+  if (!sale) return false
+  if (Number(sale.paymentId) === 2) return true
+  const code = (sale.payment?.payment_code || '').toUpperCase()
+  if (code === 'CREDIT' || code.includes('CREDIT')) return true
+  if (sale.payments && Array.isArray(sale.payments) && sale.payments.length > 0) {
+    return sale.payments.some(p => Number(p.paymentId) === 2 || (p.paymentMethod?.payment_code || '').toUpperCase() === 'CREDIT')
+  }
+  return false
+}
+
 export default {
-  components: { ProductForm, ProductFormCreate, PriceListForm },
   middleware: 'auths',
   data() {
     return {
+      includeCreditSale: true,
       date: getFirstDayOfMonth(),
       date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
         .toISOString()
@@ -331,21 +377,46 @@ export default {
 
   computed: {
     ...mapGetters(['currentSelectedLocation', 'findAllLocation', 'findAllCurrency', 'findLocalCurrency', 'findSPF']),
+    activeSales() {
+      return this.loaddata.filter(sale => {
+        if (sale.isActive !== true) return false
+        if (!this.includeCreditSale && isCreditSale(sale)) {
+          return false
+        }
+        return true
+      })
+    },
+    creditSalesOnly() {
+      return this.loaddata.filter(sale => sale.isActive === true && isCreditSale(sale))
+    },
+    totalCreditSaleRevenue() {
+      return this.creditSalesOnly.reduce((total, sale) => {
+        const itemTotal = parseFloat(sale.total || 0);
+        const itemDiscount = parseFloat(sale.discount || 0);
+        const rate = sale.exchangeRate || 1;
+        if (Math.abs(itemTotal) < 1e12) {
+          return total + ((itemTotal + itemDiscount) * rate);
+        }
+        return total;
+      }, 0);
+    },
     foreignSaleBreakdown() {
       const breakdown = {};
       const localCode = this.findLocalCurrency?.code || 'LAK';
 
-      this.loaddata.filter(s => s.isActive === true).forEach(sale => {
-        sale.lines?.forEach(line => {
-          const currId = line.currencyId || sale.currencyId;
-          const curr = this.findAllCurrency?.find(c => c.id === currId);
-          const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
-          
-          if (code !== localCode) {
-            const lineTotal = parseFloat(line.total ?? (line.quantity * line.price) ?? 0);
-            breakdown[code] = (breakdown[code] || 0) + lineTotal;
+      this.activeSales.forEach(sale => {
+        const currId = sale.currencyId;
+        const curr = this.findAllCurrency?.find(c => c.id === currId);
+        const code = curr?.code || (currId === 6 ? 'THB' : (currId === 1 ? 'LAK' : `CCY_${currId}`));
+        
+        if (code !== localCode) {
+          const itemTotal = parseFloat(sale.total || 0);
+          const itemDiscount = parseFloat(sale.discount || 0);
+          const gross = itemTotal + itemDiscount;
+          if (Math.abs(gross) < 1e12 && gross !== 0) {
+            breakdown[code] = (breakdown[code] || 0) + gross;
           }
-        });
+        }
       });
       return breakdown;
     },
@@ -358,8 +429,9 @@ export default {
       const breakdown = {};
       const localCode = this.findLocalCurrency?.code || 'LAK';
 
-      this.loaddata.filter(s => s.isActive === true).forEach(sale => {
+      this.activeSales.forEach(sale => {
         sale.lines?.forEach(line => {
+          const isReturn = isBuyReturnLine(line);
           const lineCurrId = line.currencyId || sale.currencyId;
 
           if (line.cards && line.cards.length > 0) {
@@ -371,7 +443,11 @@ export default {
               if (code !== localCode) {
                 const qty = parseFloat(card.stockCardQty || 1);
                 const cost = parseFloat(card.cost || 0) * qty;
-                breakdown[code] = (breakdown[code] || 0) + cost;
+                if (isReturn) {
+                  breakdown[code] = (breakdown[code] || 0) - cost;
+                } else {
+                  breakdown[code] = (breakdown[code] || 0) + cost;
+                }
               }
             });
           } else {
@@ -379,8 +455,13 @@ export default {
             const code = curr?.code || (lineCurrId === 6 ? 'THB' : (lineCurrId === 1 ? 'LAK' : `CCY_${lineCurrId}`));
             if (code !== localCode) {
               const unitCost = parseFloat(line.product?.cost_price || 0);
-              const qty = parseFloat(line.quantity || 0);
-              breakdown[code] = (breakdown[code] || 0) + (unitCost * qty);
+              const qty = Math.abs(parseFloat(line.quantity || 0));
+              const cost = unitCost * qty;
+              if (isReturn) {
+                breakdown[code] = (breakdown[code] || 0) - cost;
+              } else {
+                breakdown[code] = (breakdown[code] || 0) + cost;
+              }
             }
           }
         });
@@ -420,39 +501,33 @@ export default {
       return spf.isActive === true || spf.isActive === 1
     },
     grandSaleTotal() {
-      // ✅ Normalize to LAK: (total + discount) * exchangeRate for active, total * rate for inactive
-      return this.loaddata.reduce((total, item) => {
-        const rate = item.exchangeRate || 1
-        const itemTotal = parseFloat(item.total || 0)
-        const itemDiscount = parseFloat(item.discount || 0)
-        
-        // Guard against corrupted/astronomical values
-        if (Math.abs(itemTotal) > 1e12 || Math.abs(itemDiscount) > 1e12) {
-          return total;
+      // ✅ Active sales gross (respects credit sale filter) + cancelled sales gross
+      const activeGross = this.activeSales.reduce((total, sale) => {
+        const itemTotal = parseFloat(sale.total || 0);
+        const itemDiscount = parseFloat(sale.discount || 0);
+        const rate = sale.exchangeRate || 1;
+        if (Math.abs(itemTotal) < 1e12) {
+          return total + ((itemTotal + itemDiscount) * rate);
         }
-
-        const grossAmount = item.isActive !== false ? (itemTotal + itemDiscount) : itemTotal
-        return total + (grossAmount * rate)
-      }, 0)
+        return total;
+      }, 0);
+      return activeGross + this.grandSaleCancelTotal;
     },
     grandSaleDiscountTotal() {
       // ✅ Normalize to LAK: discount * exchangeRate
-      return this.loaddata.filter(el => el.isActive == true).reduce((total, item) => {
-        const rate = item.exchangeRate || 1
-        const itemDiscount = parseFloat(item.discount || 0)
-
-        // Guard against corrupted/astronomical values
-        if (Math.abs(itemDiscount) > 1e12) {
-          return total;
+      return this.activeSales.reduce((total, sale) => {
+        const itemDiscount = parseFloat(sale.discount || 0);
+        if (Math.abs(itemDiscount) < 1e12 && itemDiscount > 0) {
+          const rate = sale.exchangeRate || 1;
+          return total + (itemDiscount * rate);
         }
-
-        return total + (itemDiscount * rate)
-      }, 0)
+        return total;
+      }, 0);
     },
     grandSaleCancelTotal() {
-      console.log(`Sale cancel status ${this.loaddata.filter(el => el.isActive == false).length}`);
+      console.log(`Sale cancel status ${this.loaddata.filter(el => el.isActive === false).length}`);
       // ✅ Normalize to LAK: total * exchangeRate
-      return this.loaddata.filter(el => el.isActive == false).reduce((total, item) => {
+      return this.loaddata.filter(el => el.isActive === false).reduce((total, item) => {
         const rate = item.exchangeRate || 1
         const itemTotal = parseFloat(item.total || 0)
 
@@ -468,11 +543,12 @@ export default {
     grandSaleCost() {
       let totalCost = 0;
 
-      this.loaddata.filter(sale => sale.isActive === true).forEach(sale => {
+      this.activeSales.forEach(sale => {
         let saleCost = 0;
         const saleRate = sale.exchangeRate || 1;
         
         sale.lines?.forEach(line => {
+          const isReturn = isBuyReturnLine(line);
           const unitPrice = parseFloat(line.price ?? line.product?.pro_price ?? 0);
           let lineRate = line.exchangeRate;
           if (!lineRate || lineRate === 1) {
@@ -482,7 +558,7 @@ export default {
               lineRate = saleRate;
             }
           }
-          const sellingPriceLAK = unitPrice * lineRate;
+          const sellingPriceLAK = Math.abs(unitPrice) * lineRate;
           let lineCost = 0;
           
           if (line.cards && line.cards.length > 0) {
@@ -531,20 +607,27 @@ export default {
             });
           } else {
             // Fallback: Use product cost_price if there are no cards
-            const unitCost = parseFloat(line.product?.cost_price || 0);
-            const qty = parseFloat(line.quantity || 0);
+            let unitCost = parseFloat(line.product?.cost_price || 0);
+            if (unitPrice > 0 && unitCost > unitPrice) {
+              unitCost = unitPrice;
+            }
+            const qty = Math.abs(parseFloat(line.quantity || 0));
             lineCost = qty * unitCost * (lineRate || saleRate);
           }
-          saleCost += lineCost;
+
+          if (isReturn) {
+            saleCost -= lineCost;
+          } else {
+            saleCost += lineCost;
+          }
         });
-        console.log(`Sale ID: ${sale.id} | Cost: ${saleCost}`);
         totalCost += saleCost;
       });
       return totalCost;
     },
     grandCODCost() {
       let totalCOD = 0;
-      for (const sale of this.loaddata.filter(el => el.isActive == true)) {
+      for (const sale of this.activeSales) {
         if (sale.dynamic_customer) {
           const rate = sale.exchangeRate || 1;
           totalCOD += (sale.dynamic_customer.cod_fee || 0) * rate;
@@ -554,7 +637,7 @@ export default {
     },
     grandCancellationCost() {
       let totalCancellationFee = 0;
-      for (const sale of this.loaddata.filter(el => el.isActive == false)) {
+      for (const sale of this.loaddata.filter(el => el.isActive === false)) {
         if (sale.dynamic_customer) {
           const rate = sale.exchangeRate || 1;
           totalCancellationFee += (sale.dynamic_customer.cancel_fee || 0) * rate;
@@ -765,7 +848,7 @@ export default {
         : Promise.resolve().then(() => { this.apSettlementData = [] });
 
       await Promise.all([
-        this.$axios.get(`api/sale/findDetailByDate`, { params: { date, locationId } })
+        this.$axios.get(`api/sale/findDetailByDate`, { params: { date, locationId, includeCards: true } })
           .then((res) => {
             this.loaddata = res.data || [];
             console.log(`Stock entry count ${this.loaddata.length}`);
